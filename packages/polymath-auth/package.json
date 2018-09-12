@@ -1,0 +1,35 @@
+{
+  "name": "@polymathnetwork/auth",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "main": "./src/index.js",
+  "scripts": {
+    "start-lint": "esw -w --fix src",
+    "lint": "eslint --fix src",
+    "typecheck": "flow",
+    "precommit": "lint-staged && npm run typecheck",
+    "build": "webpack --config webpack.prod.js",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "react": "16.4.0",
+    "redux": "3.7.2",
+    "redux-thunk": "2.3.0",
+    "react-redux": "5.0.7",
+    "web3": "1.0.0-beta.30"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.0.0",
+    "@babel/core": "7.0.0",
+    "@babel/node": "7.0.0",
+    "@babel/plugin-proposal-export-default-from": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
+    "@babel/plugin-transform-react-jsx": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/preset-flow": "7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "flow-bin": "0.68.0",
+    "webpack": "^4.19.0",
+    "webpack-cli": "^3.1.0"
+  }
+}

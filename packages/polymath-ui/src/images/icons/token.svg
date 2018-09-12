@@ -1,0 +1,20 @@
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>icn-token</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="top-bar-menu" transform="translate(-1304.000000, -12.000000)">
+            <g id="Token">
+                <g transform="translate(1304.000000, 12.000000)">
+                    <g id="Group-2">
+                        <g id="icn-token">
+                            <path d="M12,0 C18.627,0 24,5.373 24,12 C24,18.628 18.627,24 12,24 C5.373,24 0,18.628 0,12 C0,5.373 5.373,0 12,0 Z M19.3333333,10.2 L19.3333333,8.25 L4.66666667,8.25 L4.66666667,10.2 L19.3333333,10.2 Z M10,5 C9.264,5 8.66666667,5.5824 8.66666667,6.3 L8.66666667,7.6 L10,7.6 L10,6.625 C10,6.4456 10.1493333,6.3 10.3333333,6.3 L13.6666667,6.3 C13.8506667,6.3 14,6.4456 14,6.625 L14,7.6 L15.3333333,7.6 L15.3333333,6.3 C15.3333333,5.5824 14.736,5 14,5 L10,5 Z M20,11.5 L4,11.5 L5.33333333,18 L18.6666667,18 L20,11.5 Z" id="Combined-Shape" fill="#5596E6"></path>
+                            <g id="iconmonstr-briefcase-3" transform="translate(4.000000, 5.000000)"></g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

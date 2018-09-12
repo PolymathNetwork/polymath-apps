@@ -1,0 +1,87 @@
+.compliance-form {
+  width: 60%; }
+  .compliance-form .compliance-settings {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px; }
+    .compliance-form .compliance-settings > .bx--form-item {
+      max-width: 220px; }
+      .compliance-form .compliance-settings > .bx--form-item:last-child {
+        margin-top: -22px;
+        margin-bottom: 0 !important;
+        height: 100px; }
+        .compliance-form .compliance-settings > .bx--form-item:last-child .bx--form-item {
+          float: left; }
+          .compliance-form .compliance-settings > .bx--form-item:last-child .bx--form-item input {
+            width: 84px;
+            min-width: 84px; }
+            .compliance-form .compliance-settings > .bx--form-item:last-child .bx--form-item input::-webkit-outer-spin-button, .compliance-form .compliance-settings > .bx--form-item:last-child .bx--form-item input::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0; }
+          .compliance-form .compliance-settings > .bx--form-item:last-child .bx--form-item:after {
+            content: '%';
+            position: relative;
+            top: -28px;
+            left: 55px;
+            color: #8C9BA5;
+            font-size: 14px; }
+        .compliance-form .compliance-settings > .bx--form-item:last-child button {
+          margin-top: 0;
+          background: transparent !important;
+          color: #252E6A; }
+          .compliance-form .compliance-settings > .bx--form-item:last-child button:hover:not(:disabled) {
+            color: #58468E; }
+          .compliance-form .compliance-settings > .bx--form-item:last-child button:hover {
+            background: transparent !important; }
+
+.whitelist-investor-modal .bx--modal-container {
+  width: 500px;
+  max-height: 800px; }
+  .whitelist-investor-modal .bx--modal-container .bx--modal-content__text {
+    margin-bottom: 9px; }
+
+.whitelist-import-modal .bx--modal-container {
+  max-height: 700px; }
+
+.whitelist-import-confirm-modal .bx--modal-container {
+  width: 850px;
+  min-width: 850px; }
+
+.import-whitelist-btn {
+  float: left;
+  margin-top: 6px;
+  margin-right: 26px; }
+
+.permanent-checkbox-container {
+  padding-top: 35px;
+  margin-left: -15px; }
+  .permanent-checkbox-container .bx--checkbox-label span {
+    padding-left: 6px; }
+
+.file-uploader > strong, .file-uploader .bx--label-description {
+  display: none; }
+
+.import-criticals {
+  width: 100%; }
+  .import-criticals th {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 22px !important;
+    text-align: left;
+    padding-bottom: 5px; }
+    .import-criticals th:first-child {
+      padding-left: 16px; }
+  .import-criticals tbody tr td {
+    height: 24px;
+    vertical-align: middle;
+    background-color: rgba(231, 29, 50, 0.1);
+    font-size: 12px !important;
+    color: #B60013 !important;
+    font-weight: 400 !important;
+    line-height: 18px !important;
+    border-bottom: 1px solid white; }
+    .import-criticals tbody tr td:first-child {
+      padding-left: 16px; }
+
+.freeze-transfer-modal .bx--modal-close {
+  display: none; }

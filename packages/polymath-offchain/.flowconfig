@@ -1,0 +1,14 @@
+[version]
+
+[ignore]
+.*incomplete\.js
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]
