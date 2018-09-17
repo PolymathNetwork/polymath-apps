@@ -8,6 +8,11 @@ import {
 } from 'carbon-components-react';
 import type { Node } from 'react';
 
+export type TwelveHourTime = {
+  timeString: string,
+  dayPeriod: 'AM' | 'PM',
+};
+
 type Props = {
   input: {
     name: string,
@@ -23,22 +28,21 @@ type Props = {
   className: string,
 };
 
-export type TwelveHourTime = {
-  timeString: string,
-  dayPeriod: 'AM' | 'PM',
-};
-
 export const twelveHourTimeToMinutes = (time: TwelveHourTime) => {
   const regex = /([^:]*):([^:]*)/;
   const match = regex.exec(time.timeString);
 
-  let hours = parseInt(match[1]) % 12;
+  if (match === null) {
+    throw new Error('String passed is invalid');
+  }
+
+  let hours = parseInt(match[1], 10) % 12;
 
   if (time.dayPeriod === 'PM') {
     hours += 12;
   }
 
-  return hours * 60 + parseInt(match[2]);
+  return hours * 60 + parseInt(match[2], 10);
 };
 
 export default class TimePickerInput extends React.Component<Props> {
