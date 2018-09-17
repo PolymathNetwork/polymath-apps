@@ -31,7 +31,6 @@ export default class Contract {
         }
 
         const method = target._contract.methods[field];
-        console.log('method', method);
         if (!method) {
           return method;
         }
