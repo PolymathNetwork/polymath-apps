@@ -5,7 +5,7 @@ import artifactTestnet from 'polymath-core/build/contracts/PolyTokenFaucet.json'
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
-import type { Address, Web3Event, Web3Receipt } from '../../types';
+import type { Address, Web3Event, Web3Receipt } from '../types';
 
 export const TRANSFER = 'Transfer';
 export const APPROVAL = 'Approval';

@@ -3,7 +3,7 @@
 import artifact from 'polymath-core/build/contracts/GeneralTransferManager.json';
 
 import Contract from './Contract';
-import type { Address, Investor, Web3Receipt } from '../../types';
+import type { Address, Investor, Web3Receipt } from '../types';
 
 const LOG_MODIFY_WHITELIST = 'LogModifyWhitelist';
 

@@ -12,7 +12,7 @@ import type {
   SymbolDetails,
   Web3Event,
   Web3Receipt,
-} from '../../types';
+} from '../types';
 
 const LOG_REGISTER_TICKER = 'LogRegisterTicker';
 

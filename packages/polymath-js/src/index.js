@@ -1,3 +1,5 @@
+import { default as Contract } from './contracts/Contract';
+
 export { default as PolyToken } from './contracts/PolyToken';
 export {
   default as SecurityTokenRegistry,
@@ -20,5 +22,4 @@ export {
 export {
   default as CountTransferManager,
 } from './contracts/CountTransferManager';
-
-export default from './contracts/Contract';
+export default Contract;

@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "typecheck": "flow --show-all-branches"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",

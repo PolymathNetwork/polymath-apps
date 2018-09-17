@@ -8,7 +8,7 @@ import TickerRegistry from './TickerRegistry';
 import SecurityTokenContract from './SecurityToken';
 import PolyToken from './PolyToken';
 
-import type { SecurityToken, Address, Web3Receipt } from '../../types';
+import type { SecurityToken, Address, Web3Receipt } from '../types';
 
 const LOG_REGISTER_TICKER = 'LogNewSecurityToken';
 

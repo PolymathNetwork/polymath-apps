@@ -19,6 +19,11 @@
   "bugs": {
     "url": "https://github.com/PolymathNetwork/polymath-apps/issues"
   },
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "typecheck": "flow --show-all-branches"
+  },
   "homepage": "https://github.com/PolymathNetwork/polymath-apps#readme",
   "devDependencies": {
     "@babel/cli": "7.0.0",
@@ -43,9 +48,5 @@
     "redux": "3.7.2",
     "redux-thunk": "2.2.0",
     "web3": "1.0.0-beta.30"
-  },
-  "main": "./src/index.js",
-  "scripts": {
-    "build": "webpack --config webpack.prod.js"
   }
 }

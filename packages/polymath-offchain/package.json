@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "babel-node src/index.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "typecheck": "flow --show-all-branches"
   },
   "main": "dist/index.js",
   "dependencies": {

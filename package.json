@@ -6,6 +6,12 @@
   ],
   "scripts": {
     "commit": "commit",
+    "install-types": "flow-mono install-types --overwrite --ignoreDeps=peer",
+    "typecheck": "lerna run --parallel typecheck ",
+    "flow-mono:create-symlinks": "flow-mono create-symlinks ./config/.flowconfig",
+    "flow-mono:create-stubs": "flow-mono create-stubs --use-root",
+    "flow-mono:install-types": "flow-mono install-types --overwrite --ignoreDeps=peer",
+    "flow-mono:align-versions": "flow-mono align-versions",
     "format": "prettier-eslint \"packages/*/src/**/*.js\" --write"
   },
   "devDependencies": {
@@ -23,6 +29,7 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.1.0",
     "flow-bin": "^0.81.0",
+    "flow-mono-cli": "^1.4.0",
     "husky": "^1.0.0-rc.14",
     "lerna": "^3.3.1",
     "prettier": "^1.14.2",

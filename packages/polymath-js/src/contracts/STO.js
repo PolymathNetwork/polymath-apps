@@ -10,7 +10,7 @@ import type {
   STODetails,
   STOPurchase,
   Web3Receipt,
-} from '../../types';
+} from '../types';
 
 const LOG_TOKEN_PURCHASE = 'TokenPurchase';
 

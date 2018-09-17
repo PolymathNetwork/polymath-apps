@@ -14,7 +14,7 @@ Bridge between the [Polymath Smart Contracts](https://github.com/PolymathNetwork
 
 ```javascript
 import Contract, { TickerRegistry } from '@polymathnetwork/js'
-import type { NetworkParams } from '@polymathnetwork/js/types'
+import type { NetworkParams } from '@polymathnetwo../types'
 
 const params: NetworkParams = {
   id: 1, // network id

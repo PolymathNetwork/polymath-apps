@@ -1,3 +1,7 @@
+// @flow
+
+import { default as PolymathAuth } from './PolymathAuth';
+
 export { default as reducer } from './reducer';
 export {
   CONNECTED,
@@ -15,5 +19,4 @@ export {
 
 export type { NetworkState } from './reducer';
 export type { NetworkParams } from './actions';
-
-export default from './PolymathAuth';
+export default PolymathAuth;

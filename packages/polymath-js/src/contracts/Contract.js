@@ -9,7 +9,7 @@ import type {
   Web3Event,
   Address,
   Web3Receipt,
-} from '../../types';
+} from '../types';
 
 export default class Contract {
   static _params: NetworkParams;

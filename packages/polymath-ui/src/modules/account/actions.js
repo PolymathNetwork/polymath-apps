@@ -17,35 +17,33 @@ import { thousandsDelimiter } from '../../helpers';
 import type { ExtractReturn } from '../../redux/helpers';
 import type { GetState } from '../../redux/reducer';
 
-export const SIGN_IN_START = '@polymathnetwork/uiaccount/SIGN_IN_START';
+export const SIGN_IN_START = 'polymath/account/SIGN_IN_START';
 export const signInStart = () => ({ type: SIGN_IN_START });
 
-export const SIGN_IN_CANCEL = '@polymathnetwork/uiaccount/SIGN_IN_CANCEL';
+export const SIGN_IN_CANCEL = 'polymath/account/SIGN_IN_CANCEL';
 export const signInCancel = () => ({ type: SIGN_IN_CANCEL });
 
-export const SIGNED_IN = '@polymathnetwork/uiaccount/SIGNED_IN';
+export const SIGNED_IN = 'polymath/account/SIGNED_IN';
 export const signedIn = () => ({ type: SIGNED_IN });
 
-export const SIGNED_UP = '@polymathnetwork/uiaccount/SIGNED_UP';
+export const SIGNED_UP = 'polymath/account/SIGNED_UP';
 export const signedUp = (
   name: string,
   email: string,
   isEmailConfirmed: boolean = true
 ) => ({ type: SIGNED_UP, name, email, isEmailConfirmed });
 
-export const REQUEST_CONFIRM_EMAIL =
-  '@polymathnetwork/uiaccount/REQUEST_CONFIRM_EMAIL';
-export const ENTER_PIN_DEFAULT = '@polymathnetwork/uiaccount/ENTER_PIN_DEFAULT';
-export const ENTER_PIN_SUCCESS = '@polymathnetwork/uiaccount/ENTER_PIN_SUCCESS';
-export const ENTER_PIN_ERROR = '@polymathnetwork/uiaccount/ENTER_PIN_ERROR';
-export const CANCEL_CONFIRM_EMAIL =
-  '@polymathnetwork/uiaccount/CANCEL_CONFIRM_EMAIL';
+export const REQUEST_CONFIRM_EMAIL = 'polymath/account/REQUEST_CONFIRM_EMAIL';
+export const ENTER_PIN_DEFAULT = 'polymath/account/ENTER_PIN_DEFAULT';
+export const ENTER_PIN_SUCCESS = 'polymath/account/ENTER_PIN_SUCCESS';
+export const ENTER_PIN_ERROR = 'polymath/account/ENTER_PIN_ERROR';
+export const CANCEL_CONFIRM_EMAIL = 'polymath/account/CANCEL_CONFIRM_EMAIL';
 export const cancelConfirmEmail = () => ({ type: CANCEL_CONFIRM_EMAIL });
 
-export const EMAIL_CONFIRMED = '@polymathnetwork/uiaccount/EMAIL_CONFIRMED';
+export const EMAIL_CONFIRMED = 'polymath/account/EMAIL_CONFIRMED';
 export const emailConfirmed = () => ({ type: EMAIL_CONFIRMED });
 
-export const BALANCE = '@polymathnetwork/uiaccount/BALANCE';
+export const BALANCE = 'polymath/account/BALANCE';
 export const setBalance = (balance: BigNumber) => ({ type: BALANCE, balance });
 
 export type Action =

@@ -15,7 +15,7 @@ import {
   CountTransferManagerFactory,
 } from '../';
 import STO, { FUNDRAISE_ETH, FUNDRAISE_POLY } from './STO';
-import type { Address, Web3Receipt, Investor } from '../../types';
+import type { Address, Web3Receipt, Investor } from '../types';
 
 const MODULE_PERMISSION_MANAGER = 1;
 const MODULE_TRANSFER_MANAGER = 2;
