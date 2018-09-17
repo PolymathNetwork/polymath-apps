@@ -16,6 +16,7 @@
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-15": "^1.1.0",
     "eslint": "4.11.0",
+    "flow-bin": "^0.81.0",
     "husky": "0.14.3",
     "jest": "^23.5.0",
     "jest-enzyme": "^6.0.4",
