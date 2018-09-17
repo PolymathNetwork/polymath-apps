@@ -27,11 +27,9 @@
     "prettier": "^1.14.2",
     "prettier-eslint-cli": "^4.7.1"
   },
-  "config": {
-    "husky": {
-      "hooks": {
-        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-      }  
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
