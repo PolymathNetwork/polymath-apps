@@ -28,7 +28,6 @@
     "@babel/preset-env": "7.0.0",
     "@babel/preset-flow": "7.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "flow-bin": "0.68.0",
     "webpack": "^4.19.0",
     "webpack-cli": "^3.1.0"
   }
