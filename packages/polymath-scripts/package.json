@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-test-network": "ganache-cli -i 15 --gasLimit 90000000",
-    "migrate-contracts": "truffle migrate --network=development --reset --all"
+    "local-blockchain:start": "ganache-cli -i 15 --gasLimit 90000000",
+    "local-blockchain:migrate": "truffle migrate --network=development --reset --all"
   },
   "devDependencies": {
     "ganache-cli": "^6.1.8",

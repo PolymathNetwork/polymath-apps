@@ -6,9 +6,9 @@
   ],
   "scripts": {
     "commit": "commit",
-    "install-types": "flow-mono install-types --overwrite --ignoreDeps=peer",
     "typecheck": "lerna run --parallel typecheck ",
-    "start-test-network": "lerna run --stream --scope=@polymathnetwork/scripts start-test-network",
+    "local-blockchain:start": "lerna run --stream --scope=@polymathnetwork/scripts local-blockchain:start",
+    "local-blockchain:migrate": "lerna run --stream --scope=@polymathnetwork/scripts local-blockchain:migrate",
     "flow-mono:create-symlinks": "flow-mono create-symlinks ./config/.flowconfig",
     "flow-mono:create-stubs": "flow-mono create-stubs --use-root",
     "flow-mono:install-types": "flow-mono install-types --overwrite --ignoreDeps=peer",
