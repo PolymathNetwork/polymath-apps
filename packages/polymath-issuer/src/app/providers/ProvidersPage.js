@@ -6,9 +6,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { Tabs, Tab, Icon, Checkbox, Button } from 'carbon-components-react';
-import { Countdown, Remark, confirm } from '@polymathnetwork/ui';
+import { Countdown, Remark, confirm } from 'polymath-ui';
 import type { Node } from 'react';
-import type { SecurityToken } from '@polymathnetwork/js/types';
+import type { SecurityToken } from 'polymathjs/types';
 import type { RouterHistory } from 'react-router-dom';
 
 import {
@@ -63,6 +63,7 @@ type State = {|
   isModalOpen: boolean,
   catName: string,
   providerInfo: {
+    id: string,
     title: string,
     desc: string,
     background: string,
@@ -83,7 +84,7 @@ class ProvidersPage extends Component<Props, State> {
     isApply: false,
     isModalOpen: false,
     catName: '',
-    providerInfo: { title: '', desc: '', background: '', logo: '' },
+    providerInfo: { id: '', title: '', desc: '', background: '', logo: '' },
   };
 
   componentWillMount = () => {
@@ -112,6 +113,7 @@ class ProvidersPage extends Component<Props, State> {
     const index = selected.indexOf(provider.id);
     if (index > -1) {
       selected.splice(index, 1);
+      this.setState({ selectAll: false });
     } else {
       selected.push(provider.id);
     }
@@ -224,9 +226,14 @@ class ProvidersPage extends Component<Props, State> {
 
   render() {
     const { token, providers } = this.props;
+    const isProviderModalSelected = this.state.selected.includes(
+      this.state.providerInfo.id
+    );
+
     if (!token || !providers) {
       return <NotFoundPage />;
     }
+
     return (
       <DocumentTitle title={`${token.ticker} Providers – Polymath`}>
         <div>
@@ -324,7 +331,8 @@ class ProvidersPage extends Component<Props, State> {
                   </div>
                   <div className="pui-clearfix" />
                   <div className="providers pui-no-select">
-                    {providers.map(
+                    {// eslint-disable-next-line complexity
+                    providers.map(
                       (p: ServiceProvider) =>
                         p.cat !== cat.id ? (
                           ''
@@ -366,19 +374,22 @@ class ProvidersPage extends Component<Props, State> {
                             <p className="provider-description">
                               {p.isToBeAnnounced
                                 ? 'To Be Announced'
-                                : p.desc.substring(0, 250) + '.... '}
-                              <span
-                                role="button"
-                                onClick={e => this.handleOpenModal(e, p)}
-                              >
-                                {' '}
-                                Read More
-                                <Icon
-                                  name="icon--arrow--right"
-                                  height="8"
-                                  fill="#3D70B2"
-                                />
-                              </span>
+                                : p.desc.substring(0, 300)}
+                              {p.desc.length > 300 ? (
+                                <span
+                                  role="button"
+                                  onClick={e => this.handleOpenModal(e, p)}
+                                >
+                                  ... Read More
+                                  <Icon
+                                    name="icon--arrow--right"
+                                    height="8"
+                                    fill="#3D70B2"
+                                  />
+                                </span>
+                              ) : (
+                                ''
+                              )}
                             </p>
                             {p.disclosure ? (
                               <Remark title="Disclosure" small>
@@ -402,6 +413,7 @@ class ProvidersPage extends Component<Props, State> {
             onSubmit={this.handleApply}
           />
           <ProviderModal
+            selected={isProviderModalSelected}
             providerInfo={this.state.providerInfo}
             isOpen={this.state.isModalOpen}
             onClose={this.handleCloseModal}
