@@ -5,12 +5,7 @@ import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
 import { PolyToken, SecurityToken } from '../index';
-import type {
-  Address,
-  STODetails,
-  STOPurchase,
-  Web3Receipt,
-} from '../types';
+import type { Address, STODetails, STOPurchase, Web3Receipt } from '../types';
 
 const LOG_TOKEN_PURCHASE = 'TokenPurchase';
 

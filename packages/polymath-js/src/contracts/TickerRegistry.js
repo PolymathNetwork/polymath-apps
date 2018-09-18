@@ -7,12 +7,7 @@ import Contract from './Contract';
 import PolyToken from './PolyToken';
 import IPFS from '../IPFS';
 
-import type {
-  Address,
-  SymbolDetails,
-  Web3Event,
-  Web3Receipt,
-} from '../types';
+import type { Address, SymbolDetails, Web3Event, Web3Receipt } from '../types';
 
 const LOG_REGISTER_TICKER = 'LogRegisterTicker';
 
