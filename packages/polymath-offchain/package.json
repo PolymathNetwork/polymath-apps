@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "babel-node src/index.js",
-    "build": "webpack --config webpack.prod.js",
+    "start:dist": "node ./build/index.js",
+    "build": "babel src --out-dir build",
     "typecheck": "flow --show-all-branches"
   },
   "main": "dist/index.js",
@@ -24,7 +25,8 @@
     "mongoose": "^5.0.14",
     "react": "16.4.0",
     "react-dom": "16.4.0",
-    "web3": "1.0.0-beta.30"
+    "web3": "1.0.0-beta.30",
+    "dotenv": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -41,9 +43,6 @@
     "babel-eslint": "9.0.0",
     "babel-jest": "22.4.3",
     "babel-loader": "^8.0.2",
-    "dotenv": "^6.0.0",
-    "flow-bin": "^0.81.0",
-    "webpack": "^4.19.0",
-    "webpack-cli": "^3.1.0"
+    "flow-bin": "^0.81.0"
   }
 }
