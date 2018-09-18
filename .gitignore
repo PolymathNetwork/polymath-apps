@@ -5,3 +5,4 @@ dist
 .DS_STORE
 .env
 package-lock.json
+yarn-error.log
