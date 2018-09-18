@@ -13,7 +13,7 @@ import type { RootState } from '../redux/reducer';
 
 export const formName = 'confirmEmail';
 
-// TODO @bshevchenko: prob we should extract this file into the @polymathnetwork/ui with its styles and confirmEmail action
+// TODO @bshevchenko: prob we should extract this file into the polymath-ui with its styles and confirmEmail action
 
 // TODO @bshevchenko: extract into the separate file
 class ConfirmEmailFormUnwrapped extends Component<any> {
