@@ -1,7 +1,9 @@
+// @flow
+
 import type { Node } from 'react';
 import type { ExtractReturn } from '../../redux/helpers';
 
-export const CONFIRM = '@polymathnetwork/uimodal/CONFIRM';
+export const CONFIRM = 'polymath/ui/modal/CONFIRM';
 export const confirm = (
   content: Node,
   onConfirm: () => void,
@@ -21,7 +23,7 @@ export const confirm = (
   isAlert,
 });
 
-export const CLOSE = '@polymathnetwork/uimodal/CLOSE';
+export const CLOSE = 'polymath/ui/modal/CLOSE';
 export const closeModal = () => ({ type: CLOSE });
 
 export type Action =

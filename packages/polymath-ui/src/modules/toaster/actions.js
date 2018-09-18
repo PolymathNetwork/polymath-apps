@@ -12,7 +12,7 @@ export type Notify = {|
   isPinned?: ?boolean,
 |};
 
-export const NOTIFY = '@polymathnetwork/uitoaster/NOTIFY';
+export const NOTIFY = 'polymath/ui/toaster/NOTIFY';
 export const notifyAction = (notify: Notify) => ({ type: NOTIFY, notify });
 export const notify = (
   title: string,

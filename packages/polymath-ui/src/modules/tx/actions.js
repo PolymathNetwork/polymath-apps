@@ -3,8 +3,8 @@
 import type { ExtractReturn } from '../../redux/helpers';
 import type { GetState } from '../../redux/reducer';
 
-export const START = '@polymathnetwork/uitx/START';
-export const FAILED = '@polymathnetwork/uitx/FAILED';
+export const START = 'polymath/ui/tx/START';
+export const FAILED = 'polymath/ui/tx/FAILED';
 export const tx = (
   titles: string | Array<string>,
   code: () => any,
@@ -36,13 +36,13 @@ export const tx = (
   }
 };
 
-export const HASH = '@polymathnetwork/uitx/HASH';
+export const HASH = 'polymath/ui/tx/HASH';
 export const txHash = (hash: string) => ({ type: HASH, hash });
 
-export const END = '@polymathnetwork/uitx/END';
+export const END = 'polymath/ui/tx/END';
 export const txEnd = (receipt: Object) => ({ type: END, receipt });
 
-export const CONTINUE = '@polymathnetwork/uitx/CONTINUE';
+export const CONTINUE = 'polymath/ui/tx/CONTINUE';
 export const txContinue = () => async (
   dispatch: Function,
   getState: GetState

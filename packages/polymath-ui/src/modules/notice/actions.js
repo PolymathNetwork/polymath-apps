@@ -1,7 +1,9 @@
+// @flow
+
 import { notice as fetchNotice } from '../../offchain';
 import type { ExtractReturn } from '../../redux/helpers';
 
-export const NOTICE = '@polymathnetwork/uinotice/NOTICE';
+export const NOTICE = 'polymath/ui/notice/NOTICE';
 export const getNotice = (scope: string) => async (dispatch: Function) => {
   const notice = await fetchNotice(scope);
   if (!notice) {
@@ -18,7 +20,7 @@ export const getNotice = (scope: string) => async (dispatch: Function) => {
   dispatch({ type: NOTICE, notice });
 };
 
-export const CLOSE = '@polymathnetwork/uinotice/CLOSE';
+export const CLOSE = 'polymath/ui/notice/CLOSE';
 export const closeNotice = () => ({ type: CLOSE });
 
 export type Action = ExtractReturn<typeof closeNotice>;
