@@ -1,3 +1,5 @@
+// @flow
+
 import { default as Contract } from './contracts/Contract';
 
 export { default as PolyToken } from './contracts/PolyToken';

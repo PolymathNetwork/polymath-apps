@@ -2,7 +2,7 @@
   "name": "@polymathnetwork/auth",
   "version": "0.0.0",
   "license": "UNLICENSED",
-  "main": "./src/index.js",
+  "main": "./build/main.js",
   "scripts": {
     "commit": "commit",
     "build": "webpack --config webpack.prod.js",

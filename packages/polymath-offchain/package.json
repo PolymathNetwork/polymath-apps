@@ -11,7 +11,7 @@
     "build": "babel src --out-dir build",
     "typecheck": "flow --show-all-branches"
   },
-  "main": "dist/index.js",
+  "main": "build/main.js",
   "dependencies": {
     "@koa/cors": "^2.2.1",
     "@sendgrid/mail": "^6.2.1",
