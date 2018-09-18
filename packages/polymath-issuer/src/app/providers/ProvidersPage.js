@@ -2,13 +2,13 @@
 /* eslint-disable react/jsx-no-bind, jsx-a11y/interactive-supports-focus, jsx-a11y/click-events-have-key-events, react/jsx-handler-names */
 // @flow
 
+import type { SecurityToken } from '@polymathnetwork/js/types';
+import { Countdown, Remark, confirm } from '@polymathnetwork/ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { Tabs, Tab, Icon, Checkbox, Button } from 'carbon-components-react';
-import { Countdown, Remark, confirm } from 'polymath-ui';
 import type { Node } from 'react';
-import type { SecurityToken } from 'polymathjs/types';
 import type { RouterHistory } from 'react-router-dom';
 
 import {

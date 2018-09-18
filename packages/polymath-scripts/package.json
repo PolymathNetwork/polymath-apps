@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "local-blockchain:start": "ganache-cli -i 15 --gasLimit 90000000",
-    "local-blockchain:migrate": "truffle migrate --network=development --reset --all"
+    "local-blockchain:migrate": "truffle migrate --network=development --reset --all",
+    "local-blockchain:compile": "truffle compile --optimize-runs 200"
   },
   "devDependencies": {
     "ganache-cli": "^6.1.8",
