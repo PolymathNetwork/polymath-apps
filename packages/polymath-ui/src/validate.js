@@ -158,7 +158,7 @@ export const twelveHourTime = (value: ?TwelveHourTime) => {
 };
 
 export const numeric = (value: ?string) => {
-  value && !/^\d{1,3}(,?\d{3})*?(.\d{2})?$/g.test(value)
+  return value && !/^\d{1,3}(,?\d{3})*?(.\d{2})?$/g.test(value)
     ? 'Must be a whole number.'
     : null;
 };
