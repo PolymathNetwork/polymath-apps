@@ -9,7 +9,7 @@
     "typecheck": "lerna run --parallel typecheck ",
     "local-blockchain:start": "lerna run --stream --scope=@polymathnetwork/scripts local-blockchain:start",
     "local-blockchain:migrate": "lerna run --stream --scope=@polymathnetwork/scripts local-blockchain:migrate",
-    "flow:create-symlinks": "flow-mono create-symlinks ./config/.flowconfig",
+    "flow:create-symlinks": "flow-mono create-symlinks ./.flowconfig",
     "flow:create-stubs": "flow-mono create-stubs --use-root",
     "flow:install-types": "flow-mono install-types --overwrite --ignoreDeps=peer",
     "flow:align-versions": "flow-mono align-versions",
