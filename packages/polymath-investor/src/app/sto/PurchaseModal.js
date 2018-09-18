@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { change } from 'redux-form';
 import { Modal } from 'carbon-components-react';
-import type { SecurityToken, STODetails } from 'polymathjs';
+import type { SecurityToken, STODetails } from '@polymathnetwork/js';
 
 import PurchaseForm, { formName } from './PurchaseForm';
 import { purchase, purchaseModalClose } from './actions';

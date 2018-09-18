@@ -1,8 +1,8 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import * as ui from 'polymath-ui';
+import * as ui from '@polymathnetwork/ui';
 import { reset } from 'redux-form';
-import { PolyToken, SecurityTokenRegistry } from 'polymathjs';
+import { PolyToken, SecurityTokenRegistry } from '@polymathnetwork/js';
 
 import config from '../../config.json';
 import { formName } from './PurchaseForm';

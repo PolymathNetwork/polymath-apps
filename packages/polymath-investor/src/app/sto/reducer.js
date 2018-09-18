@@ -1,7 +1,7 @@
 // @flow
 
-import { STO } from 'polymathjs';
-import type { SecurityToken, STODetails } from 'polymathjs';
+import { STO } from '@polymathnetwork/js';
+import type { SecurityToken, STODetails } from '@polymathnetwork/js';
 
 import * as a from './actions';
 import type { Action } from './actions';

@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Button } from 'carbon-components-react';
-import { STO } from 'polymathjs';
-import { STOStatus } from 'polymath-ui';
-import type { SecurityToken, STODetails } from 'polymathjs';
+import { STO } from '@polymathnetwork/js';
+import { STOStatus } from '@polymathnetwork/ui';
+import type { SecurityToken, STODetails } from '@polymathnetwork/js';
 
 import config from '../../config.json';
 import PurchaseModal from './PurchaseModal';

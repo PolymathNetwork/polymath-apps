@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js';
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Button } from 'carbon-components-react';
-import { TextInput } from 'polymath-ui';
-import { required, integer, float } from 'polymath-ui/dist/validate';
-import type { STODetails } from 'polymathjs';
+import { TextInput } from '@polymathnetwork/ui';
+import { required, integer, float } from '@polymathnetwork/ui/validate';
+import type { STODetails } from '@polymathnetwork/js';
 
 export const formName = 'purchase';
 

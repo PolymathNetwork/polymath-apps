@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import Contract from 'polymathjs';
+import Contract from '@polymathnetwork/js';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 import {
@@ -9,7 +9,7 @@ import {
   txEnd,
   getNotice,
   fetchBalance,
-} from 'polymath-ui';
+} from '@polymathnetwork/ui';
 import type { RouterHistory } from 'react-router-dom';
 
 import Root from './Root';
