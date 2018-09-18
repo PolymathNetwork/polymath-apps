@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-test-network": "ganache-cli -i 15 --gasLimit 90000000"
+    "start-test-network": "ganache-cli -i 15 --gasLimit 90000000",
+    "migrate-contracts": "truffle migrate --network=development --reset --all"
   },
   "devDependencies": {
-    "polymath-core": "^1.4.0"
+    "polymath-core": "^1.4.0",
+    "truffle": "^4.1.14"
   }
 }
