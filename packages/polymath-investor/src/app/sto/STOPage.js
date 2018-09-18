@@ -1,79 +1,79 @@
 // @flow
 
-import React, { Component } from 'react'
-import DocumentTitle from 'react-document-title'
-import { connect } from 'react-redux'
-import { Button } from 'carbon-components-react'
-import { STO } from 'polymathjs'
-import { STOStatus } from 'polymath-ui'
-import type { SecurityToken, STODetails } from 'polymathjs'
+import React, { Component } from 'react';
+import DocumentTitle from 'react-document-title';
+import { connect } from 'react-redux';
+import { Button } from 'carbon-components-react';
+import { STO } from 'polymathjs';
+import { STOStatus } from 'polymath-ui';
+import type { SecurityToken, STODetails } from 'polymathjs';
 
-import config from '../../config.json'
-import PurchaseModal from './PurchaseModal'
-import { fetch, purchasePrep } from './actions'
-import type { RootState } from '../../redux/reducer'
+import config from '../../config.json';
+import PurchaseModal from './PurchaseModal';
+import { fetch, purchasePrep } from './actions';
+import type { RootState } from '../../redux/reducer';
 
-import './style.css'
+import './style.css';
 
 type StateProps = {|
   token: ?SecurityToken,
   sto: ?STO,
   details: ?STODetails,
   isPaused: ?boolean,
-|}
+|};
 
 type DispatchProps = {|
   fetch: (ticker: string) => any,
   purchasePrep: () => any,
-|}
+|};
 
 const mapStateToProps = (state: RootState): StateProps => ({
   token: state.sto.token,
   sto: state.sto.sto,
   details: state.sto.details,
   isPaused: state.sto.isPaused,
-})
+});
 
 const mapDispatchToProps: DispatchProps = {
   fetch,
   purchasePrep,
-}
+};
 
 type Props = {
   match: {
     params: {
-      ticker: string
-    }
-  }
-} & StateProps & DispatchProps
+      ticker: string,
+    },
+  },
+} & StateProps &
+  DispatchProps;
 
 class STOPage extends Component<Props> {
-
-  componentWillMount () {
-    this.props.fetch(this.props.match.params.ticker)
+  componentWillMount() {
+    this.props.fetch(this.props.match.params.ticker);
   }
 
   handlePurchase = () => {
-    this.props.purchasePrep()
-  }
+    this.props.purchasePrep();
+  };
 
-  render () {
-    const { token, sto, details, isPaused } = this.props
-    const now = new Date()
+  render() {
+    const { token, sto, details, isPaused } = this.props;
+    const now = new Date();
     if (!token || !sto || !details) {
       return (
-        <div className='pui-single-box'>
-          <h3 align='center' className='pui-h3'>
+        <div className="pui-single-box">
+          <h3 align="center" className="pui-h3">
             Token or STO not found. Please check your configuration.
           </h3>
         </div>
-      )
+      );
     } // $FlowFixMe TODO @bshevchenko: props [1] is incompatible with empty [2]
-    const purchaseModal = <PurchaseModal />
+    const purchaseModal = <PurchaseModal />;
     return (
       <DocumentTitle title={`${token.ticker} STO – ` + config.title}>
         <div style={{ marginTop: '100px' }}>
-          <h1 className='pui-h1'>{token.ticker} Token STO</h1>
+          <h1 className="pui-h1">{token.ticker} Token STO</h1>
           <br />
           <STOStatus
             details={details}
@@ -92,12 +92,17 @@ class STOPage extends Component<Props> {
             >
               Purchase Tokens
             </Button>
-          ) : ''}
+          ) : (
+            ''
+          )}
           {purchaseModal}
         </div>
       </DocumentTitle>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(STOPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(STOPage);

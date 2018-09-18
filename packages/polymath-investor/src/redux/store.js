@@ -1,16 +1,17 @@
 // @flow
 
-import { compose, applyMiddleware, createStore } from 'redux'
-import thunk from 'redux-thunk'
+import { compose, applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 
-import type { RootState } from './reducer'
-import reducer from './reducer'
+import type { RootState } from './reducer';
+import reducer from './reducer';
 
 const composedStore = compose(
   applyMiddleware(thunk),
-  window.devToolsExtension ? window.devToolsExtension() : (f) => f,
-)(createStore)
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+)(createStore);
 
-const configureStore = (initialState?: RootState) => composedStore(reducer, initialState)
+const configureStore = (initialState?: RootState) =>
+  composedStore(reducer, initialState);
 
-export default configureStore
+export default configureStore;

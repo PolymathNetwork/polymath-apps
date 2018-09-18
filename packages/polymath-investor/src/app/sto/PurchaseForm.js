@@ -1,82 +1,84 @@
 // @flow
 
-import BigNumber from 'bignumber.js'
-import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { Form, Button } from 'carbon-components-react'
-import { TextInput } from 'polymath-ui'
-import { required, integer, float } from 'polymath-ui/dist/validate'
-import type { STODetails } from 'polymathjs'
+import BigNumber from 'bignumber.js';
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { Form, Button } from 'carbon-components-react';
+import { TextInput } from 'polymath-ui';
+import { required, integer, float } from 'polymath-ui/dist/validate';
+import type { STODetails } from 'polymathjs';
 
-export const formName = 'purchase'
+export const formName = 'purchase';
 
 type Props = {|
   handleSubmit: () => void,
   onClose: () => void,
   change: (field: string, value: string) => void,
   details: STODetails,
-|}
+|};
 
 type State = {|
   tokens: ?number,
   cost: ?number,
-|}
+|};
 
 class PurchaseForm extends Component<Props, State> {
-
   state = {
     tokens: undefined,
     cost: undefined,
-  }
+  };
 
-  handleTokensChange = (value) => {
-    let cost = ''
+  handleTokensChange = value => {
+    let cost = '';
     if (/^[+-]?\d+(\.\d+)?$/.test(value)) {
-      cost = (new BigNumber(value)).div(this.props.details.rate).toString(10)
+      cost = new BigNumber(value).div(this.props.details.rate).toString(10);
     }
-    this.props.change('cost', cost)
-  }
+    this.props.change('cost', cost);
+  };
 
-  handleCostChange = (value) => {
-    let tokens = ''
+  handleCostChange = value => {
+    let tokens = '';
     if (/^[+-]?\d+(\.\d+)?$/.test(value)) {
-      tokens = (new BigNumber(value)).times(this.props.details.rate).toString(10)
+      tokens = new BigNumber(value).times(this.props.details.rate).toString(10);
     }
-    this.props.change('tokens', tokens)
-  }
+    this.props.change('tokens', tokens);
+  };
 
-  render () {
+  render() {
     return (
       <Form onSubmit={this.props.handleSubmit}>
         <Field
-          name='tokens'
+          name="tokens"
           component={TextInput}
-          label='Number of Tokens to Purchase'
-          placeholder='Enter the number of tokens'
+          label="Number of Tokens to Purchase"
+          placeholder="Enter the number of tokens"
           onChangeCode={this.handleTokensChange}
           value={this.state.tokens}
         />
         <Field
-          name='cost'
+          name="cost"
           component={TextInput}
-          label={'Investment in ' + (this.props.details.isPolyFundraise ? 'POLY' : 'ETH')}
-          placeholder='Enter the amount'
+          label={
+            'Investment in ' +
+            (this.props.details.isPolyFundraise ? 'POLY' : 'ETH')
+          }
+          placeholder="Enter the amount"
           onChangeCode={this.handleCostChange}
           validate={[required, float]}
           value={this.state.cost}
         />
         <br />
-        <p align='right'>
-          <Button kind='secondary' onClick={this.props.onClose}>
+        <p align="right">
+          <Button kind="secondary" onClick={this.props.onClose}>
             Cancel
           </Button>
-          <Button type='submit' style={{ width: '154px' }}>
+          <Button type="submit" style={{ width: '154px' }}>
             Purchase
           </Button>
         </p>
         <br />
       </Form>
-    )
+    );
   }
 }
 
@@ -84,13 +86,13 @@ export default reduxForm({
   form: formName,
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
-  asyncValidate: async (values) => {
+  asyncValidate: async values => {
     // async validation doesn't work properly with field-level validation, so we need to specify sync rules here
-    const v = values.tokens
-    const syncError = required(v) || integer(v)
+    const v = values.tokens;
+    const syncError = required(v) || integer(v);
     if (syncError) {
       // eslint-disable-next-line
-      throw { tokens: syncError }
+      throw { tokens: syncError };
     }
     // TODO @bshevchenko: validation
     // let details = null
@@ -107,4 +109,4 @@ export default reduxForm({
     // }
   },
   asyncBlurFields: ['tokens'],
-})(PurchaseForm)
+})(PurchaseForm);

@@ -1,10 +1,10 @@
 // @flow
 
-import { STO } from 'polymathjs'
-import type { SecurityToken, STODetails } from 'polymathjs'
+import { STO } from 'polymathjs';
+import type { SecurityToken, STODetails } from 'polymathjs';
 
-import * as a from './actions'
-import type { Action } from './actions'
+import * as a from './actions';
+import type { Action } from './actions';
 
 export type STOState = {
   isFetched: boolean,
@@ -13,7 +13,7 @@ export type STOState = {
   details: ?STODetails,
   isPaused: ?boolean,
   isPurchaseModalOpen: boolean,
-}
+};
 
 const defaultState: STOState = {
   isFetched: false,
@@ -22,7 +22,7 @@ const defaultState: STOState = {
   details: null,
   isPaused: null,
   isPurchaseModalOpen: false,
-}
+};
 
 export default (state: STOState = defaultState, action: Action) => {
   switch (action.type) {
@@ -33,23 +33,23 @@ export default (state: STOState = defaultState, action: Action) => {
         token: action.token,
         sto: action.sto,
         details: action.details,
-      }
+      };
     case a.PAUSE_STATUS:
       return {
         ...state,
         isPaused: action.status,
-      }
+      };
     case a.PURCHASE_MODAL_OPEN:
       return {
         ...state,
         isPurchaseModalOpen: true,
-      }
+      };
     case a.PURCHASE_MODAL_CLOSE:
       return {
         ...state,
         isPurchaseModalOpen: false,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
