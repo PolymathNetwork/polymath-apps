@@ -1,4 +1,10 @@
 {
   "editor.formatOnSave": true,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/flow-typed": true,
+    "**/build": true
+  }
 }
