@@ -1,5 +1,6 @@
 // @flow
 
+import './startup';
 import Koa from 'koa';
 import koaBody from 'koa-body';
 import koaStatic from 'koa-static';
@@ -42,7 +43,7 @@ if (!module.parent) {
     console.log('Successfully connected to the database');
   });
 
-  mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost');
+  mongoose.connect(process.env.MONGODB_URL);
 
   const port = process.env.PORT || 3001;
 
