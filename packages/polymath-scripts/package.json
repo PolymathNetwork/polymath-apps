@@ -7,6 +7,7 @@
     "migrate-contracts": "truffle migrate --network=development --reset --all"
   },
   "devDependencies": {
+    "ganache-cli": "^6.1.8",
     "polymath-core": "^1.4.0",
     "truffle": "^4.1.14"
   }
