@@ -15,11 +15,7 @@ In the root of the repository run:
 
 ## Running an app
 
-You can start any app by running:
-`yarn start:<app-name>`
-
-For example:
-`yarn start:issuer` will boot the issuer app
+### Polymath Issuer
 
 # How to contribute
 
