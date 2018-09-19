@@ -29,6 +29,11 @@ This repo requires the use of [Conventional Commits](https://www.conventionalcom
 
 **Commit convention: The following rules are subject to change based on wether they work for us or not.**
 
+- Add a `body` to the commit if the commit's subject is not descriptive enough
+- Add a `BREAKING CHANGE: <explanation>` in the footer of a commit that makes
+  a breaking change of the API of a package
+- Add a `CLOSES ISSUE: #<number>` in the footer of a commit to close an issue
+  this commit solves
 - Commit messages must be written in imperative tense
 - The `scope` defines what package is affected by a commit (enforced by [config-lerna-scopes](https://www.npmjs.com/package/@commitlint/config-lerna-scopes))
 - For changes not associated to a package, scope can be omitted
@@ -46,8 +51,11 @@ This repo requires the use of [Conventional Commits](https://www.conventionalcom
   - `style`: Improves formatting, white-space.
   - `test`: Adds or modifies tests.
 
-_Note: If you don't want to worry about formatting, you can run `yarn commit` to
-run a cli tool that will guide you through the committing process._
+**Tools:**
+
+- If you don't want to worry about formatting, you can run `yarn commit` to
+  run a cli tool that will guide you through the committing process.\_
+- [VSCode Committizen Extension](https://marketplace.visualstudio.com/items?itemName=KnisterPeter.vscode-commitizen)
 
 ## Branches
 
