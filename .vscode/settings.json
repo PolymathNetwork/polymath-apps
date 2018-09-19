@@ -6,5 +6,6 @@
     "**/bower_components": true,
     "**/flow-typed": true,
     "**/build": true
-  }
+  },
+  "flow.pathToFlow": "./node_modules/.bin/flow"
 }
