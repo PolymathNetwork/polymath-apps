@@ -59,4 +59,10 @@ This repo requires the use of [Conventional Commits](https://www.conventionalcom
 
 ## Branches
 
-For now, simply make sure you always push into a feature branch and not directly to `master` / `development`
+All your contributed code must live in a feature branch before getting merged to the main `develop` branch.
+
+- First, checkout `develop` (feature branches need to branch off of `develop`).
+- Then create your feature branch following this naming convention: `feature/your-branch-name`.
+- Once you're happy with your code, you can now submit a pull request.
+
+Make sure you always push into a feature branch and not directly to `master` / `develop`.
