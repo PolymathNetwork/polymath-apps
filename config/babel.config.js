@@ -4,7 +4,7 @@ module.exports = {
     {
       root: ['./src'],
       alias: {
-        /* Requirements */
+        /* Avoid resolving to "src" when importing "build" directory */
         '^@polymathnetwork/([^/]+)/build/(.+)':
           '@polymathnetwork/\\1/build/\\2',
         /* Resolve local dependencies to their src directory */
