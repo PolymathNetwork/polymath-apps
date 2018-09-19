@@ -1,6 +1,6 @@
 // @flow
 
-import artifact from 'polymath-core/build/contracts/CountTransferManagerFactory.json';
+import artifact from '@polymathnetwork/shared/build/contracts/CountTransferManagerFactory.json';
 
 import IModuleFactory from './IModuleFactory';
 

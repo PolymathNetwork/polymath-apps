@@ -1,7 +1,7 @@
 // @flow
 
 import BigNumber from 'bignumber.js';
-import artifact from 'polymath-core/build/contracts/PercentageTransferManager.json';
+import artifact from '@polymathnetwork/shared/build/contracts/PercentageTransferManager.json';
 
 import Contract from './Contract';
 import type { Address, Investor, Web3Receipt } from '../types';
