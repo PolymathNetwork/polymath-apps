@@ -4,9 +4,46 @@
 
 # Polymath Apps
 
-Readme pending
+This is a monorepo containing the webapps and libraries in Polymath. In each package you will find a _Readme_ that describes it.
 
-# How to commit
+# General information
+
+## Setup
+
+In the root of the repository run:
+`yarn install`
+
+## Running an app
+
+You can start any app by running:
+`yarn start:<app-name>`
+
+For example:
+`yarn start:issuer` will boot the issuer app
+
+# How to contribute
+
+## Commits
 
 This repo requires the use of [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/).
-Instructions to commit are pending.
+
+**Rules: The following rules are subject to change based on wether they work for us or not.**
+
+- The `scope` defines what package is affected by a commit (enforced by [config-lerna-scopes](https://www.npmjs.com/package/@commitlint/config-lerna-scopes))
+- For changes not associated to a package, scope can be omitted
+- Relevant types that define changes in [semver]() versioning are:
+  - `fix`: Bumps patch version. Use when the commit represents a bugfix
+  - `feat`: Bumps minor version. Use when the commit adds a new feature
+- Other types which do not affect versioning are:
+  - `build`: Affects the build system or external dependencies.
+  - `chore`: Other changes that don't modify src or test files
+  - `ci`: Changes CI configuration files and scripts.
+  - `docs`: Adds or alters documentation.
+  - `perf`: Improves performance.
+  - `refactor`: Rewrites code without feature, performance or bug changes.
+  - `revert`: Reverts a previous commit.
+  - `style`: Improves formatting, white-space.
+  - `test`: Adds or modifies tests.
+
+If you don't want to worry about formatting, you can run `yarn commit` to
+run a cli tool that will guide you through the committing process.
