@@ -4,12 +4,13 @@
   "description": "Utilities and other shared code between the workspace",
   "private": true,
   "devDependencies": {
-    "flow-bin": "^0.81.0",
     "@babel/core": "7.0.0",
     "@babel/node": "7.0.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/plugin-transform-runtime": "7.0.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-flow": "7.0.0",
-    "@babel/plugin-transform-runtime": "7.0.0"
+    "flow-bin": "^0.81.0",
+    "polymath-core": "^1.4.0"
   }
 }
