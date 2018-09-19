@@ -33,7 +33,7 @@ import CompleteTokenForm from './components/CompleteTokenForm';
 import MintTokens from './components/MintTokens';
 import type { RootState } from '../../redux/reducer';
 
-import './style.css';
+import './style.scss';
 
 type StateProps = {|
   account: ?string,

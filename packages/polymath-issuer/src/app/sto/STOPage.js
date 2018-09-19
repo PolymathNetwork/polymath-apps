@@ -13,7 +13,7 @@ import OverviewSTO from './components/OverviewSTO';
 import ConfigureSTO from './components/ConfigureSTO';
 import type { RootState } from '../../redux/reducer';
 
-import './style.css';
+import './style.scss';
 
 type StateProps = {|
   token: ?SecurityToken,

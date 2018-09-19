@@ -24,7 +24,7 @@ import { categories } from './data';
 import type { RootState } from '../../redux/reducer';
 import type { SPStatus, SPCategory, ServiceProvider } from './data';
 
-import './style.css';
+import './style.scss';
 
 type StateProps = {|
   token: ?SecurityToken,

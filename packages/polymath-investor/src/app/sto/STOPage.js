@@ -13,7 +13,7 @@ import PurchaseModal from './PurchaseModal';
 import { fetch, purchasePrep } from './actions';
 import type { RootState } from '../../redux/reducer';
 
-import './style.css';
+import './style.scss';
 
 type StateProps = {|
   token: ?SecurityToken,

@@ -56,7 +56,7 @@ import ImportWhitelistModal from './components/ImportWhitelistModal';
 import type { RootState } from '../../redux/reducer';
 import type { InvestorCSVRow } from './actions';
 
-import './style.css';
+import './style.scss';
 
 const {
   Table,
