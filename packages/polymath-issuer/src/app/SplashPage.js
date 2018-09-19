@@ -27,7 +27,7 @@ export default class SplashPage extends Component {
             <br />
             <p>
               <Link to="/ticker">
-                <Button icon="arrow--right">CREATE YOUR SECURITY TOKEN</Button>
+                <Button id="create-token-btn" icon="arrow--right">CREATE YOUR SECURITY TOKEN</Button>
               </Link>
             </p>
           </div>
