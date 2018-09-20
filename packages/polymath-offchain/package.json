@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "babel-node src/index.js",
-    "test": "jest",
+    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
     "start:dist": "node ./build/index.js",
     "build": "babel src --out-dir build",
     "typecheck": "flow --show-all-branches"

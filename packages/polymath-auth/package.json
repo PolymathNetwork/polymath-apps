@@ -5,7 +5,7 @@
   "main": "./build/main.js",
   "scripts": {
     "commit": "commit",
-    "test": "jest",
+    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
     "build": "webpack --config webpack.prod.js",
     "typecheck": "flow --show-all-branches"
   },
