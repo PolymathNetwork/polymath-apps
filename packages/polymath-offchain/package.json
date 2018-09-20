@@ -16,6 +16,7 @@
   "dependencies": {
     "@koa/cors": "^2.2.1",
     "@sendgrid/mail": "^6.2.1",
+    "bluebird": "^3.5.2",
     "ddos": "^0.1.30",
     "dotenv": "^6.0.0",
     "eth-sig-util": "^1.4.2",
@@ -27,7 +28,9 @@
     "mongoose": "^5.0.14",
     "react": "16.4.0",
     "react-dom": "16.4.0",
-    "web3": "1.0.0-beta.30"
+    "web3": "1.0.0-beta.30",
+    "winston": "^3.1.0"
+
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -45,6 +48,7 @@
     "babel-jest": "22.4.3",
     "babel-loader": "^8.0.2",
     "flow-bin": "^0.81.0",
-    "jest": "22.4.3"
+    "jest": "22.4.3",
+    "eslint-config-react-app": "2.1.0"
   }
 }
