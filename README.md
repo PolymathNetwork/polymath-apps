@@ -6,14 +6,12 @@
 
 This is a monorepo containing the webapps and libraries in Polymath. In each package you will find a _Readme_ that describes it.
 
-# General information
-
-## Setup
+# Setup
 
 In the root of the repository run:
 `yarn install`
 
-## Running an app
+# Running an app
 
 Start the local blockchain emulator
 `yarn local-blockchain:start`
@@ -23,6 +21,20 @@ Next, migrate the contracts in the blockchain
 
 Once the process finishes, run:
 `yarn start:<app>` (for example `yarn start:issuer`)
+
+# Testing
+
+## Unit tests
+
+To run unit tests for all apps in parallel (for CI for example) run in root:
+`yarn test`
+
+To run unit tests for a specific app run:
+`yarn test:<app>` (for example `yarn test:ui`)
+
+## E2E Tests
+
+_Instructions pending_
 
 # How to contribute
 

@@ -5,6 +5,7 @@
   "main": "./build/main.js",
   "scripts": {
     "commit": "commit",
+    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
     "build": "webpack --config webpack.prod.js",
     "typecheck": "flow --show-all-branches"
   },
@@ -26,6 +27,7 @@
     "@babel/preset-flow": "7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "flow-bin": "^0.81.0",
+    "jest": "22.4.3",
     "webpack": "^4.19.0",
     "webpack-cli": "^3.1.0"
   }

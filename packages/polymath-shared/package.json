@@ -6,7 +6,8 @@
   "scripts": {
     "local-blockchain:start": "ganache-cli -i 15 --gasLimit 90000000",
     "local-blockchain:migrate": "truffle migrate --reset --all --network development",
-    "local-blockchain:console": "truffle console"
+    "local-blockchain:console": "truffle console",
+    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\""
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -17,7 +18,8 @@
     "@babel/preset-flow": "7.0.0",
     "flow-bin": "^0.81.0",
     "ganache-cli": "^6.1.8",
-    "polymath-core": "^1.4.0",
-    "truffle": "^4.1.14"
+    "polymath-core": "1.4.0",
+    "truffle": "^4.1.14",
+    "jest": "22.4.3"
   }
 }

@@ -9,14 +9,14 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "test": "echo \"No tests yet. Change the 'test' command to 'node scripts/test.js' if you want to enable tests in this repository\"",
     "typecheck": "flow --show-all-branches"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@polymathnetwork/shared": "0.0.0",
     "@polymathnetwork/auth": "0.0.0",
     "@polymathnetwork/js": "0.0.0",
+    "@polymathnetwork/shared": "0.0.0",
     "@polymathnetwork/ui": "0.0.0",
     "bfj": "5.2.0",
     "bignumber.js": "5.0.0",
@@ -30,7 +30,6 @@
     "graphql": "0.13.2",
     "graphql-tag": "2.9.2",
     "identity-obj-proxy": "3.0.0",
-    "jest": "22.4.3",
     "moment": "^2.22.2",
     "normalize.css": "^8.0.0",
     "object-assign": "4.1.1",
@@ -86,6 +85,7 @@
     "flow-bin": "^0.81.0",
     "html-webpack-plugin": "3.2.0",
     "image-webpack-loader": "^4.3.1",
+    "jest": "22.4.3",
     "loader-utils": "^1.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.3",
@@ -128,11 +128,7 @@
       "**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
     "roots": [
-      "<rootDir>/src",
-      "<rootDir>/../@polymathnetwork/auth",
-      "<rootDir>/../@polymathnetwork/js",
-      "<rootDir>/../@polymathnetwork/offchain",
-      "<rootDir>/../@polymathnetwork/ui"
+      "<rootDir>/src"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",
