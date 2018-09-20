@@ -43,11 +43,11 @@ export default ({
           // $FlowFixMe
           onChangeCode(value);
         }
-        if(type ==='email'){
+        if (type === 'email') {
           return input.onChange(value.trim() || '');
-        }else{
+        } else {
           return input.onChange(value || '');
-        } 
+        }
       }}
       {...rest}
     />
