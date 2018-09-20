@@ -106,11 +106,7 @@
       "**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
     "roots": [
-      "<rootDir>/src",
-      "<rootDir>/../@polymathnetwork/auth",
-      "<rootDir>/../@polymathnetwork/js",
-      "<rootDir>/../@polymathnetwork/offchain",
-      "<rootDir>/../@polymathnetwork/ui"
+      "<rootDir>/src"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",
@@ -126,11 +122,7 @@
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-      "^@polymathnetwork/([^/]+)/build/(.+)": "@polymathnetwork/$1/build/$2",
-      "^@polymathnetwork/([^/]+)/(.+)": "@polymathnetwork/$1/src/$2",
-      "^@polymathnetwork/([^/]+)/package.json": "@polymathnetwork/$1/package.json",
-      "^@polymathnetwork/(.+)": "@polymathnetwork/$1"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
       "web.js",

@@ -128,11 +128,7 @@
       "**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
     "roots": [
-      "<rootDir>/src",
-      "<rootDir>/../@polymathnetwork/auth",
-      "<rootDir>/../@polymathnetwork/js",
-      "<rootDir>/../@polymathnetwork/offchain",
-      "<rootDir>/../@polymathnetwork/ui"
+      "<rootDir>/src"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",
