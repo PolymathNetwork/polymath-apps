@@ -10,7 +10,7 @@
     "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
-    "test": "export CI=true && lerna exec --parallel --stream -- yarn test",
+    "test": "lerna exec --parallel --stream -- yarn test",
     "local-blockchain:start": "lerna run --stream --scope=@polymathnetwork/shared local-blockchain:start",
     "local-blockchain:migrate": "lerna run --stream --scope=@polymathnetwork/shared local-blockchain:migrate",
     "build": "lerna run --parallel --stream build",
