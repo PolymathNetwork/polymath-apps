@@ -58,9 +58,14 @@
     }
   },
   "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier-eslint --write",
-      "git add"
+    "linters": {
+      "*.{js,json,css,md}": [
+        "prettier-eslint --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "packages/polymath-shared/fixtures/*"
     ]
   }
 }
