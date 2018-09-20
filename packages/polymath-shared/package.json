@@ -17,7 +17,8 @@
     "@babel/preset-flow": "7.0.0",
     "flow-bin": "^0.81.0",
     "ganache-cli": "^6.1.8",
-    "polymath-core": "^1.4.0",
-    "truffle": "^4.1.14"
+    "polymath-core": "1.4.0",
+    "truffle": "^4.1.14",
+    "jest": "^23.6.0"
   }
 }
