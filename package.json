@@ -65,7 +65,7 @@
       ]
     },
     "ignore": [
-      "packages/polymath-shared/fixtures/*"
+      "packages/polymath-shared/fixtures/**/*.json"
     ]
   }
 }

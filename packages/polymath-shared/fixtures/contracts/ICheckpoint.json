@@ -1,0 +1,289 @@
+{
+  "contractName": "ICheckpoint",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInitFunction",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "takeFee",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "polyToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "securityToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPermissions",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "factory",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "FEE_ADMIN",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"../../interfaces/IModule.sol\";\nimport \"openzeppelin-solidity/contracts/token/ERC20/ERC20.sol\";\n\n/**\n * @title Interface to be implemented by all checkpoint modules\n */\ncontract ICheckpoint is IModule {\n\n}\n",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/contracts/modules/Checkpoint/ICheckpoint.sol",
+  "ast": {
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/contracts/modules/Checkpoint/ICheckpoint.sol",
+    "exportedSymbols": {
+      "ICheckpoint": [
+        12874
+      ]
+    },
+    "id": 12875,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 12869,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:33"
+      },
+      {
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/contracts/interfaces/IModule.sol",
+        "file": "../../interfaces/IModule.sol",
+        "id": 12870,
+        "nodeType": "ImportDirective",
+        "scope": 12875,
+        "sourceUnit": 9658,
+        "src": "26:38:33",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
+        "file": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
+        "id": 12871,
+        "nodeType": "ImportDirective",
+        "scope": 12875,
+        "sourceUnit": 22809,
+        "src": "65:63:33",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 12872,
+              "name": "IModule",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 9657,
+              "src": "226:7:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IModule_$9657",
+                "typeString": "contract IModule"
+              }
+            },
+            "id": 12873,
+            "nodeType": "InheritanceSpecifier",
+            "src": "226:7:33"
+          }
+        ],
+        "contractDependencies": [
+          9657
+        ],
+        "contractKind": "contract",
+        "documentation": "@title Interface to be implemented by all checkpoint modules",
+        "fullyImplemented": false,
+        "id": 12874,
+        "linearizedBaseContracts": [
+          12874,
+          9657
+        ],
+        "name": "ICheckpoint",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 12875,
+        "src": "202:36:33"
+      }
+    ],
+    "src": "0:239:33"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/contracts/modules/Checkpoint/ICheckpoint.sol",
+    "exportedSymbols": {
+      "ICheckpoint": [
+        12874
+      ]
+    },
+    "id": 12875,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 12869,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:33"
+      },
+      {
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/contracts/interfaces/IModule.sol",
+        "file": "../../interfaces/IModule.sol",
+        "id": 12870,
+        "nodeType": "ImportDirective",
+        "scope": 12875,
+        "sourceUnit": 9658,
+        "src": "26:38:33",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
+        "file": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
+        "id": 12871,
+        "nodeType": "ImportDirective",
+        "scope": 12875,
+        "sourceUnit": 22809,
+        "src": "65:63:33",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 12872,
+              "name": "IModule",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 9657,
+              "src": "226:7:33",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IModule_$9657",
+                "typeString": "contract IModule"
+              }
+            },
+            "id": 12873,
+            "nodeType": "InheritanceSpecifier",
+            "src": "226:7:33"
+          }
+        ],
+        "contractDependencies": [
+          9657
+        ],
+        "contractKind": "contract",
+        "documentation": "@title Interface to be implemented by all checkpoint modules",
+        "fullyImplemented": false,
+        "id": 12874,
+        "linearizedBaseContracts": [
+          12874,
+          9657
+        ],
+        "name": "ICheckpoint",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 12875,
+        "src": "202:36:33"
+      }
+    ],
+    "src": "0:239:33"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-09-20T22:48:17.138Z"
+}
