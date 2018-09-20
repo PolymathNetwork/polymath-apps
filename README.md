@@ -16,9 +16,6 @@ In the root of the repository run:
 Start the local blockchain emulator
 `yarn local-blockchain:start`
 
-Next, migrate the contracts in the blockchain
-`yarn local-blockchain:migrate`
-
 Once the process finishes, run:
 `yarn start:<app>` (for example `yarn start:issuer`)
 
