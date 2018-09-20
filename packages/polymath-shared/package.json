@@ -4,7 +4,8 @@
   "description": "Utilities and other shared code between the workspace",
   "private": true,
   "scripts": {
-    "local-blockchain:start": "ganache-cli --db=\"./fixtures/blockchain-state/\" --gasLimit 90000000 -i=15 -d --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\"",
+    "local-blockchain:start": "yarn local-blockchain:prepare && ganache-cli --db=\"./build/fixtures/blockchain-state/\" --gasLimit 90000000 -i=15 -d --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\"",
+    "local-blockchain:prepare": "rm -rf ./build && mkdir build && cp -r ./src/fixtures ./build/fixtures",
     "local-blockchain:migrate": "truffle migrate --reset --all --network development",
     "local-blockchain:console": "truffle console",
     "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\""

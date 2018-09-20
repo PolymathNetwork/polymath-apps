@@ -1,6 +1,6 @@
 // @flow
 
-import artifact from '@polymathnetwork/shared/build/contracts/SecurityToken.json';
+import artifact from '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
