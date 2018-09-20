@@ -7,6 +7,7 @@
   },
   "scripts": {
     "start": "babel-node src/index.js",
+    "test": "jest",
     "start:dist": "node ./build/index.js",
     "build": "babel src --out-dir build",
     "typecheck": "flow --show-all-branches"
