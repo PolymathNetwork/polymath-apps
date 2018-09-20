@@ -1,6 +1,6 @@
 // @flow
 
-import artifact from 'polymath-core/build/contracts/GeneralPermissionManager.json';
+import artifact from '@polymathnetwork/shared/build/contracts/GeneralPermissionManager.json';
 
 import Contract from './Contract';
 import type { Address } from '../types';

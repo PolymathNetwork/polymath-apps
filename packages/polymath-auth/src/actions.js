@@ -39,8 +39,10 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
       web3.setProvider(window.web3.currentProvider);
       id = await web3.eth.net.getId();
     }
+    // TODO @RafaelVidaurre: Make this code work with polymath in localhost
     const isLocalhost = Number(id) > 10000000 || id === undefined;
     const network = getNetwork(!isLocalhost ? id : undefined);
+
     if (
       network === undefined ||
       (!isLocalhost && !networks.includes(String(id)))

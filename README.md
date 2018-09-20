@@ -15,11 +15,14 @@ In the root of the repository run:
 
 ## Running an app
 
-You can start any app by running:
-`yarn start:<app-name>`
+Start the local blockchain emulator
+`yarn local-blockchain:start`
 
-For example:
-`yarn start:issuer` will boot the issuer app
+Next, migrate the contracts in the blockchain
+`yarn local-blockchain:migrate`
+
+Once the process finishes, run:
+`yarn start:<app>` (for example `yarn start:issuer`)
 
 # How to contribute
 

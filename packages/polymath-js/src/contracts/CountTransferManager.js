@@ -1,6 +1,6 @@
 // @flow
 
-import artifact from 'polymath-core/build/contracts/CountTransferManager.json';
+import artifact from '@polymathnetwork/shared/build/contracts/CountTransferManager.json';
 
 import Contract from './Contract';
 import type { Address, Web3Receipt } from '../types';
