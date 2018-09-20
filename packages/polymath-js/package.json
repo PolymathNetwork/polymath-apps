@@ -21,6 +21,7 @@
   },
   "main": "./src/index.js",
   "scripts": {
+    "test": "jest",
     "build": "webpack --config webpack.prod.js",
     "typecheck": "flow --show-all-branches"
   },
