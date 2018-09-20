@@ -14,7 +14,7 @@ import {
 } from '@polymathnetwork/ui';
 import {
   required,
-  integer,
+  numeric,
   twelveHourTime,
   dateRange,
   dateRangeTodayOrLater,
@@ -52,13 +52,13 @@ class ConfigureSTOForm extends Component<Props, State> {
   };
 
   handleCapChange = (event: Object, newValue: string) => {
-    this.setState({ cap: Number(newValue) });
-    this.updateAmountOfFunds(Number(newValue) / this.state.rate);
+    this.setState({ cap: Number(newValue.replace(/,/g, '')) })
+    this.updateAmountOfFunds(Number(newValue.replace(/,/g, '')) / this.state.rate)
   };
 
   handleRateChange = (event: Object, newValue: string) => {
-    this.setState({ rate: Number(newValue) });
-    this.updateAmountOfFunds(this.state.cap / Number(newValue));
+    this.setState({ rate: Number(newValue.replace(/,/g, '')) })
+    this.updateAmountOfFunds(this.state.cap / Number(newValue.replace(/,/g, '')))
   };
 
   pastCheck = (value, allValues) => {
@@ -137,6 +137,7 @@ class ConfigureSTOForm extends Component<Props, State> {
         <Field
           name="cap"
           component={TextInput}
+          normalize={thousandsDelimiter}
           label={
             <Tooltip triggerText="Hard Cap (in Tokens)">
               <p className="bx--tooltip__label">Hard Cap (in Tokens)</p>
@@ -149,11 +150,12 @@ class ConfigureSTOForm extends Component<Props, State> {
           }
           placeholder="Enter amount"
           onChange={this.handleCapChange}
-          validate={[required, integer, gt0]}
+          validate={[required, numeric, gt0]}
         />
         <Field
           name="rate"
           component={TextInput}
+          normalize={thousandsDelimiter}
           label={
             <Tooltip triggerText="Rate">
               <p className="bx--tooltip__label">Rate</p>
@@ -166,7 +168,7 @@ class ConfigureSTOForm extends Component<Props, State> {
           }
           placeholder="Enter amount"
           onChange={this.handleRateChange}
-          validate={[required, integer, gt0]}
+          validate={[required, numeric, gt0]}
         />
         <Field
           name="fundsReceiver"
