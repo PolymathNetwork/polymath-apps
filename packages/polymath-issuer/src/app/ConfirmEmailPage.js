@@ -1,7 +1,7 @@
 // @flow
 
 import { Button, Form } from 'carbon-components-react';
-import { bull, TextInput, trim } from '@polymathnetwork/ui';
+import { bull, TextInput } from '@polymathnetwork/ui';
 import { required, email } from '@polymathnetwork/ui/validate';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -22,10 +22,10 @@ class ConfirmEmailFormUnwrapped extends Component<any> {
       <Form onSubmit={this.props.handleSubmit} className="confirm-email-form">
         <Field
           name="email"
+          type="email"
           component={TextInput}
           placeholder="you@example.com"
           validate={[required, email]}
-          normalize={trim}
         />
         <Button type="submit">Send Confirmation Email</Button>
       </Form>
