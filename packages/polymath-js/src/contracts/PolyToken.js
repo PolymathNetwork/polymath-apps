@@ -1,7 +1,7 @@
 // @flow
 
-import artifact from '@polymathnetwork/shared/build/contracts/PolyToken.json';
-import artifactTestnet from '@polymathnetwork/shared/build/contracts/PolyTokenFaucet.json';
+import artifact from '@polymathnetwork/shared/fixtures/contracts/PolyToken.json';
+import artifactTestnet from '@polymathnetwork/shared/fixtures/contracts/PolyTokenFaucet.json';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
