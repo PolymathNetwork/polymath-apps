@@ -9,7 +9,7 @@ import PolymathAuth, {
   NETWORK_KOVAN,
 } from '@polymathnetwork/auth';
 import { MetamaskPage, DummyPage } from '@polymathnetwork/ui';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
 
 import Root from './app/Root';
 import SplashPage from './app/SplashPage';
@@ -24,7 +24,7 @@ type Props = {
 
 class RouteLoader extends Component<Props> {
   render() {
-    if (isMobile) {
+    if (isMobile || (!isChrome && !isFirefox && !isOpera)) {
       return (
         <Root>
           <DummyPage />
