@@ -289,6 +289,7 @@ class MintTokens extends Component<Props> {
             disabled={!isReady}
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
+            className="mint-token-btn"
           >
             Mint Tokens
           </Button>
@@ -298,6 +299,7 @@ class MintTokens extends Component<Props> {
             kind="secondary"
             onClick={this.handleSkip}
             style={{ marginTop: '10px', marginLeft: '15px' }}
+            className="skip-minting-btn"
           >
             SKIP MINTING
           </Button>

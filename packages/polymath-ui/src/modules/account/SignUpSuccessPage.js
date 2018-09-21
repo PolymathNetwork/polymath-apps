@@ -34,7 +34,7 @@ class SignUpSuccessPage extends Component<Props> {
   render() {
     return (
       <DocumentTitle title="Sign Up – Polymath">
-        <div className="pui-single-box">
+        <div id="sign-up-success" className="pui-single-box">
           <p align="center" style={{ marginBottom: '15px', marginTop: '10px' }}>
             <Icon
               name="checkmark--outline"

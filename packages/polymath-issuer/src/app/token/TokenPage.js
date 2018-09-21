@@ -320,6 +320,7 @@ class TokenPage extends Component<Props, State> {
                         icon="download"
                         kind="secondary"
                         onClick={this.handleExport}
+                        className="export-tokens-list-btn"
                       >
                         Export Minted Tokens List
                       </Button>
