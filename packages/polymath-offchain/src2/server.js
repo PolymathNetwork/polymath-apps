@@ -2,17 +2,19 @@
 
 import './startup';
 
+import logger from 'winston';
+
 import Koa from 'koa';
 import koaBody from 'koa-body';
 import koaStatic from 'koa-static';
 import cors from '@koa/cors';
 import Ddos from 'ddos';
+import { PORT } from './constants';
 
 import router from './routes/router';
 
 const ddos = new Ddos();
 
-// noinspection JSUnusedGlobalSymbols
 const app = new Koa();
 app
   .use(cors())
@@ -21,3 +23,7 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
   .use(ddos.koa().bind(ddos));
+
+app.listen(PORT, undefined, undefined, function() {
+  logger.info(`Server is listening on port ${PORT}.`);
+});

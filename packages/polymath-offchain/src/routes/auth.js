@@ -6,7 +6,7 @@ import crypto from 'crypto';
 import AuthCode from '../models/AuthCode';
 import EmailPIN from '../models/EmailPIN';
 import User from '../models/User';
-import isValidSig, { typedName } from '../sig';
+import { isValidSig, typedName } from '../sig';
 
 const router = new Router();
 

@@ -9,7 +9,7 @@ import {
 import sigUtil from 'eth-sig-util';
 
 /**
-  TODO: annotate and document this file. Right now use as-is
+  TODO @monitz87: annotate and document this file. Right now use as-is
   since I'm not terribly familiar with the ETH standard
  */
 
@@ -22,7 +22,7 @@ const recoverNormal = (message, sig) => {
   return '0x' + publicToAddress(publicKey).toString('hex');
 };
 
-export default (value, sig, address) => {
+export const isValidSig = (value: string, sig: string, address: string) => {
   const typed = [{ type: 'string', name: typedName, value }];
   if (
     sigUtil.recoverTypedSignature({ data: typed, sig }).toLowerCase() ===
@@ -31,7 +31,5 @@ export default (value, sig, address) => {
     return true;
   }
 
-  return (
-    recoverNormal(value, sig, address).toLowerCase() === address.toLowerCase()
-  );
+  return recoverNormal(value, sig).toLowerCase() === address.toLowerCase();
 };

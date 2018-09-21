@@ -3,14 +3,14 @@
 import mongoose from 'mongoose';
 import logger from 'winston';
 import P from 'bluebird';
+import { MONGODB_URL } from '../constants';
 
 mongoose.Promise = P;
 
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => {
-    logger.info('Database connected.');
-  })
-  .catch(err => {
-    logger.error(err);
-  });
+mongoose.connection.once('open', () => logger.info('Database connected.'));
+mongoose.connection.on('error', err => logger.error(err));
+
+mongoose.connect(
+  MONGODB_URL,
+  { useNewUrlParser: true }
+);

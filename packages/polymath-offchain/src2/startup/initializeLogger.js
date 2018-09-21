@@ -2,8 +2,18 @@
 
 import logger from 'winston';
 
-logger.remove(logger.transports.Console);
-logger.add(logger.transports.Console, {
-  colorize: true,
-});
-logger.level = 'debug';
+const { format, transports } = logger;
+
+logger.add(
+  new transports.Console({
+    format: format.combine(
+      format.colorize(),
+      format.timestamp(),
+      format.prettyPrint(),
+      format.printf(
+        info => `[${info.timestamp}] ${info.level}: ${info.message}`
+      )
+    ),
+    level: 'debug',
+  })
+);

@@ -6,7 +6,7 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "babel-node src2/server.js",
     "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
     "start:dist": "node ./build/index.js",
     "build": "babel src --out-dir build",
@@ -30,7 +30,6 @@
     "react-dom": "16.4.0",
     "web3": "1.0.0-beta.30",
     "winston": "^3.1.0"
-
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -47,8 +46,8 @@
     "babel-eslint": "9.0.0",
     "babel-jest": "22.4.3",
     "babel-loader": "^8.0.2",
+    "eslint-config-react-app": "2.1.0",
     "flow-bin": "^0.81.0",
-    "jest": "22.4.3",
-    "eslint-config-react-app": "2.1.0"
+    "jest": "22.4.3"
   }
 }
