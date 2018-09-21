@@ -24,7 +24,8 @@ type Props = {
 
 class RouteLoader extends Component<Props> {
   render() {
-    if (isMobile || (!isChrome && !isFirefox && !isOpera)) {
+    const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera
+    if (isMobile || isUnsupportedBrowser) {
       return (
         <Root>
           <DummyPage />
