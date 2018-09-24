@@ -1,5 +1,7 @@
 // @flow
 
+import logger from 'winston';
+
 import sgMail from '@sendgrid/mail';
 import { SENDGRID_API_KEY } from '../constants';
 
@@ -23,6 +25,7 @@ export const sendEmail = async (
   if (SENDGRID_API_KEY) {
     await sgMail.send(msg);
   } else {
-    console.log('Not sending email since SENDGRID_API_KEY is not set.', msg);
+    logger.warn('Not sending email since SENDGRID_API_KEY is not set.');
+    logger.warn(JSON.stringify(msg));
   }
 };

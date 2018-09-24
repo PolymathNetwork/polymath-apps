@@ -1,4 +1,4 @@
 // @flow
 
-export { typedName, isValidSig } from './sig';
+export { verifySignature } from './sig';
 export { sendEmail } from './sendEmail';
