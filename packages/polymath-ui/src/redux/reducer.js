@@ -4,23 +4,20 @@ import { combineReducers } from 'redux';
 import type { NetworkState } from '@polymathnetwork/auth';
 
 import common from './common/reducer';
-import toaster from '../modules/toaster/reducer';
-import tx from '../modules/tx/reducer';
-import account from '../modules/account/reducer';
-import modal from '../modules/modal/reducer';
-import notice from '../modules/notice/reducer';
-import type { TxState } from '../modules/tx/reducer';
-import type { ToasterState } from '../modules/toaster/reducer';
+import toaster from '../components/Toaster/reducer';
+import tx from '../components/TxModal/reducer';
+import modal from '../components/ConfirmModal/reducer';
+import notice from '../components/NoticeBar/reducer';
+import type { TxState } from '../components/TxModal/reducer';
+import type { ToasterState } from '../components/toaster/reducer';
 import type { CommonState } from './common/reducer';
-import type { AccountState } from '../modules/account/reducer';
-import type { ModalState } from '../modules/modal/reducer';
-import type { NoticeState } from '../modules/notice/reducer';
+import type { ModalState } from '../components/ConfirmModal/reducer';
+import type { NoticeState } from '../components/NoticeBar/reducer';
 
 export default combineReducers({
   common,
   toaster,
   tx,
-  account,
   modal,
   notice,
 });
@@ -29,7 +26,6 @@ export type PUIState = {
   common: CommonState,
   tx: TxState,
   toaster: ToasterState,
-  account: AccountState,
   modal: ModalState,
   notice: NoticeState,
 };

@@ -18,26 +18,10 @@ export {
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';
 export { default as Remark } from './components/Remark';
-export { default as Toaster } from './modules/toaster/Toaster';
-export { default as TxModal } from './modules/tx/TxModal';
+export { default as Toaster } from './components/Toaster';
+export { default as TxModal } from './components/TxModal';
 export { default as Sidebar } from './components/Sidebar';
-export { default as SignInPage } from './modules/account/SignInPage';
-export { default as SignUpPage } from './modules/account/SignUpPage';
-export {
-  default as SignUpSuccessPage,
-} from './modules/account/SignUpSuccessPage';
-export { default as MetamaskPage } from './components/MetamaskPage';
-export { default as DummyPage } from './components/DummyPage';
-export { notify } from './modules/toaster/actions';
-export {
-  fetchBalance,
-  signIn,
-  signUp,
-  requestConfirmEmail,
-  email,
-  faucet,
-  providersApply,
-} from './modules/account/actions';
+export { notify } from './components/TxModal/actions';
 export { tx, txEnd, txHash } from './modules/tx/actions';
 export { confirm } from './modules/modal/actions';
 export { getNotice } from './modules/notice/actions';

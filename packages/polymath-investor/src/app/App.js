@@ -3,17 +3,13 @@ import React, { Component } from 'react';
 import Contract from '@polymathnetwork/js';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
-import {
-  PolymathUI,
-  txHash,
-  txEnd,
-  getNotice,
-  fetchBalance,
-} from '@polymathnetwork/ui';
 import type { RouterHistory } from 'react-router-dom';
+import { txHash, txEnd, getNotice } from '@polymathnetwork/ui';
 
 import Root from './Root';
+import PolymathUI, { fetchBalance } from './PolymathUI';
 import config from '../config.json';
+
 import type { RootState } from '../redux/reducer';
 
 type StateProps = {|
