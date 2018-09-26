@@ -14,8 +14,7 @@ export default (id: string = 'local'): Network =>
   ({
     [NETWORK_MAIN]: {
       name: 'Mainnet',
-      url:
-        'wss://easily-complete-starfish.quiknode.io/99f426a7-0f3d-427b-aae2-df6ad61fcf1e/lh7cRkafeab5UaYu4OpQpA==/',
+      url: process.env.REACT_APP_NETWORK_MAIN_WS,
     },
     [NETWORK_ROPSTEN]: {
       name: 'Ropsten Testnet',
@@ -27,11 +26,10 @@ export default (id: string = 'local'): Network =>
     },
     [NETWORK_KOVAN]: {
       name: 'Kovan Testnet',
-      url:
-        'wss://heartily-internal-escargot.quiknode.io/46df7525-5518-428e-b30b-9dea09480213/4oM662IRx_2tZJq3ht4wdQ==/',
+      url: process.env.REACT_APP_NETWORK_KOVAN_WS,
     },
     local: {
       name: 'Localhost',
-      url: 'ws://localhost:8545',
+      url: process.env.REACT_APP_NETWORK_LOCAL_WS,
     },
   }[id]);
