@@ -1,12 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Icon, Button } from 'carbon-components-react';
-import { confirm } from '@polymathnetwork/ui';
-
-import { toggleFreeze } from '../actions';
-import type { RootState } from '../../../redux/reducer';
+import { PausedBar } from '@polymathnetwork/ui';
 
 type StateProps = {|
   isTokenFrozen: boolean,
@@ -16,16 +12,6 @@ type DispatchProps = {|
   confirm: () => any,
   toggleFreeze: () => any,
 |};
-
-const mapStateToProps = (state: RootState): StateProps => ({
-  // $FlowFixMe
-  isTokenFrozen: state.whitelist.freezeStatus,
-});
-
-const mapDispatchToProps = {
-  confirm,
-  toggleFreeze,
-};
 
 type Props = StateProps & DispatchProps;
 
@@ -81,7 +67,4 @@ class PausedBar extends Component<Props> {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PausedBar);
+export default PausedBar;
