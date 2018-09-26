@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Loading } from 'carbon-components-react';
 import { isMobile } from 'react-device-detect';
+import { hot } from 'react-hot-loader';
 import PolymathAuth, {
   NETWORK_MAIN,
   NETWORK_KOVAN,
@@ -51,4 +52,4 @@ class RouteLoader extends Component<Props> {
   }
 }
 
-export default withRouter(RouteLoader);
+export default hot(module)(withRouter(RouteLoader));
