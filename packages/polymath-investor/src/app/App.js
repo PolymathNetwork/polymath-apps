@@ -4,10 +4,11 @@ import Contract from '@polymathnetwork/js';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 import type { RouterHistory } from 'react-router-dom';
-import { txHash, txEnd, getNotice } from '@polymathnetwork/ui';
+import { txHash, txEnd, fetchBalance } from '@polymathnetwork/ui';
+import { getNotice } from '@polymathnetwork/ui/components/TxModal';
 
 import Root from './Root';
-import PolymathUI, { fetchBalance } from './PolymathUI';
+import PolymathUI from './PolymathUI';
 import config from '../config.json';
 
 import type { RootState } from '../redux/reducer';
