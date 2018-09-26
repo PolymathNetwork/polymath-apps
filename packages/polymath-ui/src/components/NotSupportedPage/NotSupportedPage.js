@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { Button } from 'carbon-components-react';
-// import { logo } from '@polymathnetwork/ui'
-import logo from '../images/logo.svg';
-import illustration from '../images/illustration.png';
 
-// import illustration from './illustration.png'
+import logo from '../../images/logo.svg';
+import illustration from '../../images/illustration.png';
 
 export default class NotSupportedPage extends Component {
   render() {

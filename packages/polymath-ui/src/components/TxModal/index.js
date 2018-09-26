@@ -1,1 +1,3 @@
-export { default as TxModal } from './TxModal';
+import TxModal from './TxModal';
+
+export default TxModal;

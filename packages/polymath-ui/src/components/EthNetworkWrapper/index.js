@@ -1,6 +1,6 @@
 // @flow
 
-import { default as EthNetworkWrapper } from './EthNetworkWrapper';
+import EthNetworkWrapper from './EthNetworkWrapper';
 
 export { default as reducer } from './reducer';
 export {

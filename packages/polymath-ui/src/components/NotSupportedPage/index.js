@@ -1,1 +1,3 @@
-export { default as NotSupportedPage } from './NotSupportedPage';
+import NotSupportedPage from './NotSupportedPage';
+
+export default NotSupportedPage;

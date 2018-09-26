@@ -1,1 +1,3 @@
-export { default as NoticeBar } from './NoticeBar';
+import NoticeBar from './NoticeBar';
+
+export default NoticeBar;

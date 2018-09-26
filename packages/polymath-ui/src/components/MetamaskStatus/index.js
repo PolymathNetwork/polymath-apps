@@ -1,1 +1,3 @@
-export { default as MetamaskStatus } from './MetamaskStatus';
+import MetamaskStatus from './MetamaskStatus';
+
+export default MetamaskStatus;

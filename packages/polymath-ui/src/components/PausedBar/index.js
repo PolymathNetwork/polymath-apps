@@ -1,1 +1,3 @@
-export { default as PauseBar } from './PauseBar';
+import PausedBar from './PausedBar';
+
+export default PausedBar;

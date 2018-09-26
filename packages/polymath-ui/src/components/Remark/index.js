@@ -1,1 +1,3 @@
-export { default as Remark } from './Remark';
+import Remark from './Remark';
+
+export default Remark;

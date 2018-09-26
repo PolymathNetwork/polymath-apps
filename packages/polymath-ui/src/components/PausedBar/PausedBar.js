@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { Icon, Button } from 'carbon-components-react';
-import { PausedBar } from '@polymathnetwork/ui';
 
 type StateProps = {|
   isTokenFrozen: boolean,

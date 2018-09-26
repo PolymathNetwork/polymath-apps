@@ -1,1 +1,3 @@
-export { default as STOStatus } from './STOStatus';
+import STOStatus from './STOStatus';
+
+export default STOStatus;
