@@ -7,9 +7,9 @@ import { ethereumAddress } from '@polymathnetwork/ui/validate';
 import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
 import type { Investor, Address } from '@polymathnetwork/js/types';
 
-import { formName as addInvestorFormName } from './components/AddInvestorForm';
-import { formName as editInvestorsFormName } from './components/EditInvestorsForm';
-import type { GetState } from '../../redux/reducer';
+import { formName as addInvestorFormName } from '../pages/compliance/components/AddInvestorForm';
+import { formName as editInvestorsFormName } from '../pages/compliance/components/EditInvestorsForm';
+import type { GetState } from '../redux/reducer';
 
 export const PERMANENT_LOCKUP_TS = 67184812800000; // milliseconds
 

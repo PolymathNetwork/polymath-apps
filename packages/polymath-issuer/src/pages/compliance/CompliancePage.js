@@ -9,6 +9,7 @@ import {
   etherscanAddress,
   addressShortifier,
   confirm,
+  NotFoundPage
 } from '@polymathnetwork/ui';
 import {
   Button,
@@ -30,7 +31,6 @@ import type {
   SecurityToken,
 } from '@polymathnetwork/js/types';
 
-import NotFoundPage from '../NotFoundPage';
 import Progress from '../token/components/Progress';
 import {
   importWhitelist,
@@ -46,7 +46,7 @@ import {
   updateOwnershipPercentage,
   PERMANENT_LOCKUP_TS,
   toggleFreeze,
-} from './actions';
+} from '../../actions/compliance';
 import AddInvestorForm, {
   formName as addInvestorFormName,
 } from './components/AddInvestorForm';
@@ -54,7 +54,7 @@ import { formName as editInvestorsFormName } from './components/EditInvestorsFor
 import ImportWhitelistModal from './components/ImportWhitelistModal';
 
 import type { RootState } from '../../redux/reducer';
-import type { InvestorCSVRow } from './actions';
+import type { InvestorCSVRow } from '../../actions/compliance';
 
 import './style.scss';
 

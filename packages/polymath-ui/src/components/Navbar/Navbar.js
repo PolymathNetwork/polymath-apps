@@ -4,14 +4,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import NoticeBar from '../modules/notice/NoticeBar';
-import { thousandsDelimiter, addressShortifier } from '../helpers';
-import polyLogo from '../images/logo.svg';
-import networkIcon from '../images/icons/network.svg';
-import polyIcon from '../images/icons/poly.svg';
-import accountIcon from '../images/icons/account.svg';
-import tokenIcon from '../images/icons/token.svg';
-import type { RootState } from '../redux/reducer';
+import NoticeBar from '../NoticeBar';
+
+import { thousandsDelimiter, addressShortifier } from '../../helpers';
+
+import polyLogo from '../../images/logo.svg';
+import networkIcon from '../../images/icons/network.svg';
+import polyIcon from '../../images/icons/poly.svg';
+import accountIcon from '../../images/icons/account.svg';
+import tokenIcon from '../../images/icons/token.svg';
+
+import type { RootState } from '../../redux/reducer';
 
 type StateProps = {|
   network: string,
