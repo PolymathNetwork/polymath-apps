@@ -6,7 +6,7 @@ import DocumentTitle from 'react-document-title';
 import { Button, Icon } from 'carbon-components-react';
 import type { Node } from 'react';
 
-import { emailConfirmed } from './actions';
+import { emailConfirmed } from '../redux/account/actions';
 
 type DispatchProps = {|
   emailConfirmed: () => any,

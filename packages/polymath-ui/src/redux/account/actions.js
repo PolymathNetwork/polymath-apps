@@ -4,18 +4,29 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import sigUtil from 'eth-sig-util';
 import { PolyToken } from '@polymathnetwork/js';
+// TODO: It's Redux actions here, why do we import UI elements?
+import {
+  Remark,
+  fetching,
+  fetchingFailed,
+  fetched,
+  notify,
+  tx,
+  confirm,
+} from '@polymathnetwork/ui';
+// TODO: offchain.js shouldn't be in polymath-ui as it's doing API calls.
+// It's just a singleton providing API methods.
+import * as offchain from '@polymathnetwork/ui/offchain';
+import { thousandsDelimiter } from '@polymathnetwork/ui/helpers';
+// TODO: We shouldn't dig into view components to retrieve that
+// that should be passed as arguments to the action instead
+import { formName as signUpFormName } from '../../components/SignUpForm';
+
 import type { Address } from '@polymathnetwork/js/types';
 import type { Node } from 'react';
 
-import Remark from '../../components/Remark';
-import { fetching, fetchingFailed, fetched, notify } from '../..';
-import { formName as signUpFormName } from './SignUpForm';
-import * as offchain from '../../offchain';
-import { tx } from '../tx/actions';
-import { confirm } from '../modal/actions';
-import { thousandsDelimiter } from '../../helpers';
-import type { ExtractReturn } from '../../redux/helpers';
-import type { GetState } from '../../redux/reducer';
+import type { ExtractReturn } from '@polymathnetwork/ui/redux/helpers';
+import type { GetState } from '@polymathnetwork/ui/redux/reducer';
 
 export const SIGN_IN_START = 'polymath/account/SIGN_IN_START';
 export const signInStart = () => ({ type: SIGN_IN_START });

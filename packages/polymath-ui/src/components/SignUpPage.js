@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { formValueSelector } from 'redux-form';
+import { bull } from '@polymathnetwork/ui';
 
 import SignUpForm, { formName } from './SignUpForm';
-import { signUp } from './actions';
-import { bull } from '../../';
+import { signUp } from '../redux/account/actions';
 
 const formValue = formValueSelector(formName);
 

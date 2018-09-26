@@ -2,8 +2,8 @@
 
 import BigNumber from 'bignumber.js';
 
-import * as a from '../actions/account';
-import type { Action } from '../actions/account';
+import * as a from './actions';
+import type { Action } from './actions';
 
 export type AccountState = {
   isSignedUp: ?boolean,
