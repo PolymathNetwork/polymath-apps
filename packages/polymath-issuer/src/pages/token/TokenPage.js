@@ -15,6 +15,7 @@ import {
   etherscanAddress,
   Countdown,
   Remark,
+  NotFoundPage,
   confirm,
 } from '@polymathnetwork/ui';
 import moment from 'moment';
@@ -26,11 +27,11 @@ import {
   limitNumberOfInvestors,
   updateMaxHoldersCount,
   exportMintedTokensList,
-} from './actions';
-import NotFoundPage from '../NotFoundPage';
+} from '../../actions/token';
 import Progress from './components/Progress';
 import CompleteTokenForm from './components/CompleteTokenForm';
 import MintTokens from './components/MintTokens';
+
 import type { RootState } from '../../redux/reducer';
 
 import './style.scss';

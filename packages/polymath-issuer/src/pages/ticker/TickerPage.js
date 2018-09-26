@@ -9,8 +9,8 @@ import { TickerRegistry } from '@polymathnetwork/js';
 import type { RouterHistory } from 'react-router';
 
 import TickerForm, { formName } from './components/TickerForm';
-import { reserve, expiryLimit } from './actions';
-import { data as tokenData } from '../token/actions';
+import { reserve, expiryLimit } from '../../actions/ticker';
+import { data as tokenData } from '../../actions/token';
 
 type StateProps = {|
   account: ?string,

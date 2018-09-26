@@ -8,7 +8,7 @@ import type { Node } from 'react';
 // TODO @bshevchenko: why Flow cannot resolve @polymathnetwork/ui/style.css?
 // $FlowFixMe
 import '@polymathnetwork/ui/style.scss';
-import './style.scss';
+import '../style.scss';
 
 type StateProps = {|
   isNotice: boolean,

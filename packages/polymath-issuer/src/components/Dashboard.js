@@ -19,7 +19,8 @@ import { isProvidersPassed } from '../pages/providers/data';
 import { fetch as fetchToken } from '../actions/token';
 import { fetchProviders } from '../actions/providers';
 
-import PausedBar from '../pages/compliance/components/PausedBar';
+import PausedBar from './PausedBar';
+
 import type { RootState } from '../redux/reducer';
 import type { ServiceProvider } from '../pages/providers/data';
 

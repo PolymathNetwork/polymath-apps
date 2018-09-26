@@ -10,10 +10,11 @@ import type {
   STOPurchase,
 } from '@polymathnetwork/js/types';
 
-import { formName as configureFormName } from './components/ConfigureSTOForm';
-import ConfiguredEmail from './components/ConfiguredEmail';
-import type { ExtractReturn } from '../../redux/helpers';
-import type { GetState } from '../../redux/reducer';
+import { formName as configureFormName } from '../pages/sto/components/ConfigureSTOForm';
+import ConfiguredEmail from '../pages/sto/components/ConfiguredEmail';
+
+import type { ExtractReturn } from '../redux/helpers';
+import type { GetState } from '../redux/reducer';
 
 export const DATA = 'sto/DATA';
 export const data = (contract: STO, details: ?STODetails) => ({

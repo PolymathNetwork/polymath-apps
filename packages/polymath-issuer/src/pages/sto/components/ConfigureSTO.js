@@ -5,12 +5,13 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Button } from 'carbon-components-react';
+import { NotFoundPage } from '@polymathnetwork/ui';
+
 import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
 
-import NotFoundPage from '../../NotFoundPage';
 import STODetails from './STODetails';
 import ConfigureSTOForm from './ConfigureSTOForm';
-import { configure, goBack } from '../actions';
+import { configure, goBack } from '../../../actions/sto';
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|

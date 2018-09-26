@@ -3,9 +3,11 @@ import { TickerRegistry } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 
-import { formName } from './components/TickerForm';
-import { formName as confirmEmailFormName } from '../ConfirmEmailPage';
-import ReservedEmail from '../token/components/ReservedEmail';
+// TODO: Form values shouldn't be retrieved this way...fault of Redux-form
+// for encouraging bad pattern. This should be passed as props instead.
+import { formName } from '../pages/ticker/components/TickerForm';
+import { formName as confirmEmailFormName } from '../components/ConfirmEmailPage';
+import ReservedEmail from '../pages/token/components/ReservedEmail';
 import type { GetState } from '../../redux/reducer';
 
 export const EXPIRY_LIMIT = 'ticker/EXPIRY_LIMIT';

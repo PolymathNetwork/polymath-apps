@@ -8,7 +8,7 @@ import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
 
 import Progress from '../../token/components/Progress';
 import STODetails from './STODetails';
-import { fetchFactories, useFactory } from '../actions';
+import { fetchFactories, useFactory } from '../../../actions/sto';
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|

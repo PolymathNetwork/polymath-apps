@@ -1,13 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 import Contract from '@polymathnetwork/js';
+import { SignUpPage, SignUpSuccessPage } from '@polymathnetwork/ui';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
-import { signIn, txHash, txEnd, getNotice } from '@polymathnetwork/ui';
+import {
+  signIn,
+  SignInPage,
+  txHash,
+  txEnd,
+  getNotice,
+} from '@polymathnetwork/ui';
 import type { RouterHistory } from 'react-router-dom';
-
-import SignUpPage from '../pages/account/SignUpPage';
-import SignUpSuccessPage from '../pages/account/SignUpSuccessPage';
 
 import Root from './Root';
 import PolymathUI from './PolymathUI';

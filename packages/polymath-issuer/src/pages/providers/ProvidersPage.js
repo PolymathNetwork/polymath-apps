@@ -3,7 +3,7 @@
 // @flow
 
 import type { SecurityToken } from '@polymathnetwork/js/types';
-import { Countdown, Remark, confirm } from '@polymathnetwork/ui';
+import { Countdown, Remark, NotFoundPage, confirm } from '@polymathnetwork/ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
@@ -15,12 +15,12 @@ import {
   applyProviders,
   iHaveMyOwnProviders,
   setProviderStatus,
-} from './actions';
+} from '../../actions/providers';
 import ApplyModal from './ApplyModal';
 import ProviderModal from './ProviderModal';
-import NotFoundPage from '../NotFoundPage';
 import Progress from '../token/components/Progress';
 import { categories } from './data';
+
 import type { RootState } from '../../redux/reducer';
 import type { SPStatus, SPCategory, ServiceProvider } from './data';
 

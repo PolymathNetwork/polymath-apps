@@ -11,7 +11,7 @@ import {
 } from 'carbon-components-react';
 import { Remark } from '@polymathnetwork/ui';
 
-import { uploadCSV } from '../actions';
+import { uploadCSV } from '../../../actions/compliance';
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|

@@ -10,9 +10,14 @@ import {
   Button,
 } from 'carbon-components-react';
 
-import { uploadCSV, mintTokens, mintResetUploaded } from '../actions';
+import {
+  uploadCSV,
+  mintTokens,
+  mintResetUploaded,
+} from '../../../actions/token';
+
 import type { RootState } from '../../../redux/reducer';
-import type { InvestorCSVRow } from '../actions';
+import type { InvestorCSVRow } from '../../../actions/token';
 
 type StateProps = {|
   isTooMany: boolean,

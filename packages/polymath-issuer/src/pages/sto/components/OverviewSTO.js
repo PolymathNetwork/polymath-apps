@@ -10,9 +10,9 @@ import type {
   STOPurchase,
   STODetails,
 } from '@polymathnetwork/js';
+import { NotFoundPage } from '@polymathnetwork/ui';
 
-import NotFoundPage from '../../NotFoundPage';
-import { togglePauseSto, exportInvestorsList } from '../actions';
+import { togglePauseSto, exportInvestorsList } from '../../../actions/sto';
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|

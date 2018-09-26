@@ -4,10 +4,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Loading } from 'carbon-components-react';
 import type { SecurityToken } from '@polymathnetwork/js/types';
+import { NotFoundPage } from '@polymathnetwork/ui';
 
-import NotFoundPage from '../NotFoundPage';
-import { fetch } from './actions';
-import { STAGE_SELECT, STAGE_CONFIGURE, STAGE_OVERVIEW } from './reducer';
+import { fetch } from '../../actions/sto';
+import {
+  STAGE_SELECT,
+  STAGE_CONFIGURE,
+  STAGE_OVERVIEW,
+} from '../../reducers/sto';
 import SelectSTOTemplate from './components/SelectSTOTemplate';
 import OverviewSTO from './components/OverviewSTO';
 import ConfigureSTO from './components/ConfigureSTO';

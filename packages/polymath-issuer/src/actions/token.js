@@ -14,12 +14,14 @@ import type {
   Address,
 } from '@polymathnetwork/js/types';
 
-import { formName as completeFormName } from './components/CompleteTokenForm';
-import { fetch as fetchSTO } from '../sto/actions';
-import { PERMANENT_LOCKUP_TS } from '../compliance/actions';
-import CreatedEmail from './components/CreatedEmail';
-import type { GetState } from '../../redux/reducer';
-import type { ExtractReturn } from '../../redux/helpers';
+// TODO: Here we are creating components inside a Redux action file...
+import { formName as completeFormName } from '../pages/token/components/CompleteTokenForm';
+import CreatedEmail from '../pages/token/components/CreatedEmail';
+import { fetch as fetchSTO } from './sto';
+import { PERMANENT_LOCKUP_TS } from './compliance';
+
+import type { GetState } from '../redux/reducer';
+import type { ExtractReturn } from '../redux/helpers';
 
 export const MINT_UPLOADED = 'token/mint/UPLOADED';
 export const MINT_RESET_UPLOADED = 'token/mint/RESET_UPLOADED';

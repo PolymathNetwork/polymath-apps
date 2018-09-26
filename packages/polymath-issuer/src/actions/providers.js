@@ -1,9 +1,14 @@
 import * as ui from '@polymathnetwork/ui';
 
-import { formName } from './ApplyForm';
-import { getProgress, getProviders, saveProgress } from './data';
+import { formName } from '../pages/providers/ApplyForm';
+import {
+  getProgress,
+  getProviders,
+  saveProgress,
+} from '../pages/providers/data';
+
 import type { GetState } from '../../redux/reducer';
-import type { SPStatus } from './data';
+import type { SPStatus } from '../pages/providers/data';
 
 export const DATA = 'providers/DATA';
 
