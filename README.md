@@ -6,6 +6,11 @@
 
 This is a monorepo containing the webapps and libraries in Polymath. In each package you will find a _Readme_ that describes it.
 
+# Apps and packages
+
+- [Polymath Issuer](https://github.com/PolymathNetwork/polymath-apps/blob/develop/packages/polymath-issuer/README.md)
+- [Polymath Investor](https://github.com/PolymathNetwork/polymath-apps/blob/develop/packages/polymath-investor/README.md)
+
 # Setup
 
 In the root of the repository run:
