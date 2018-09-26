@@ -4,12 +4,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Loading } from 'carbon-components-react';
+import { isMobile } from 'react-device-detect';
 import PolymathAuth, {
   NETWORK_MAIN,
   NETWORK_KOVAN,
-} from '@polymathnetwork/auth';
-import { MetamaskPage, DummyPage } from '@polymathnetwork/ui';
-import { isMobile } from 'react-device-detect';
+} from '@polymathnetwork/ui/components/EthNetworkWrapper';
 
 import Root from './app/Root';
 import SplashPage from './app/SplashPage';

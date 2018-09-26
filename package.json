@@ -11,7 +11,6 @@
     "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
     "test": "lerna exec --parallel --stream -- yarn test",
-    "test:auth": "lerna exec --stream --scope=@polymathnetwork/auth -- yarn test",
     "test:investor": "lerna exec --stream --scope=@polymathnetwork/investor -- yarn test",
     "test:issuer": "lerna exec --stream --scope=@polymathnetwork/issuer -- yarn test",
     "test:js": "lerna exec --stream --scope=@polymathnetwork/js -- yarn test",

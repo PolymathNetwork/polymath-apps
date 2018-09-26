@@ -1,6 +1,6 @@
 // @flow
 
-import { default as PolymathAuth } from './PolymathAuth';
+import { default as EthNetworkWrapper } from './EthNetworkWrapper';
 
 export { default as reducer } from './reducer';
 export {
@@ -19,4 +19,5 @@ export {
 
 export type { NetworkState } from './reducer';
 export type { NetworkParams } from './actions';
-export default PolymathAuth;
+
+export default EthNetworkWrapper;

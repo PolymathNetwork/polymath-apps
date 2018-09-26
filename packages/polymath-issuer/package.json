@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "@polymathnetwork/auth": "0.0.0",
     "@polymathnetwork/js": "0.0.0",
     "@polymathnetwork/shared": "0.0.0",
     "@polymathnetwork/ui": "0.0.0",

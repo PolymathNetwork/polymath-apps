@@ -26,6 +26,7 @@ export { tx, txEnd, txHash } from './modules/tx/actions';
 export { confirm } from './modules/modal/actions';
 export { getNotice } from './modules/notice/actions';
 export { fetching, fetched, fetchingFailed } from './redux/common/actions';
+export { default as EthNetworkWrapper } from './components/EthNetworkWrapper';
 export {
   setHelpersNetwork,
   etherscanAddress,
@@ -37,8 +38,8 @@ export {
   timeZoneName,
   trim,
 } from './helpers';
-export { default as reducer } from './redux/reducer';
-export { default as PolymathUI } from './PolymathUI';
+
+export { uiReducer, networkReducer } from './redux/reducer';
 
 export { default as logo } from './images/logo.svg';
 export { default as bull } from './images/bull.png';
@@ -53,4 +54,5 @@ export { default as icoWhitelist } from './svg/whitelist';
 export type { PUIState } from './redux/reducer';
 export type { ToastArgs } from './modules/toaster/Toaster';
 export type { Notify } from './modules/toaster/actions';
+export type { NetworkState } from './redux/reducer';
 export type { TwelveHourTime } from './components/inputs/TimePickerInput';

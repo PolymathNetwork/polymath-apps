@@ -13,14 +13,17 @@ import type { ToasterState } from '../components/toaster/reducer';
 import type { CommonState } from './common/reducer';
 import type { ModalState } from '../components/ConfirmModal/reducer';
 import type { NoticeState } from '../components/NoticeBar/reducer';
+import type { NetworkState } from '../components/EthNetworkWrapper/reducer';
 
-export default combineReducers({
+export const uiReducer = combineReducers({
   common,
   toaster,
   tx,
   modal,
   notice,
 });
+
+export { default as networkReducer } from '../components/EthNetworkWrapper/reducer';
 
 export type PUIState = {
   common: CommonState,

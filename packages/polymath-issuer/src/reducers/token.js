@@ -1,6 +1,6 @@
 // @flow
 
-import { CONNECTED } from '@polymathnetwork/auth';
+import { CONNECTED } from '@polymathnetwork/ui/components/EthNetworkWrapper';
 import { setHelpersNetwork } from '@polymathnetwork/ui';
 import { CountTransferManager } from '@polymathnetwork/js';
 import type { SecurityToken, Investor } from '@polymathnetwork/js/types';

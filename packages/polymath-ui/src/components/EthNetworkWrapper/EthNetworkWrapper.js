@@ -35,7 +35,7 @@ type Props = {|
 |} & StateProps &
   DispatchProps;
 
-class PolymathAuth extends Component<Props> {
+class EthNetworkWrapper extends Component<Props> {
   init = () => {
     this.props.init(this.props.networks);
   };
@@ -66,4 +66,4 @@ class PolymathAuth extends Component<Props> {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PolymathAuth);
+)(EthNetworkWrapper);

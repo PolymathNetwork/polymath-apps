@@ -8,7 +8,7 @@ import {
   ERROR_LOCKED,
   ERROR_NETWORK,
   ERROR_DISCONNECTED,
-} from '@polymathnetwork/auth';
+} from '@polymathnetwork/ui/components/EthNetworkWrapper';
 
 import logo from '../../images/logo.svg';
 import metamask from '../../images/metamask.png';
