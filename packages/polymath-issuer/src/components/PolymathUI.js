@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import { Loading } from 'carbon-components-react';
 import type { RouterHistory } from 'react-router-dom';
 
-import Toaster from './modules/toaster/Toaster';
-import TxModal from './modules/tx/TxModal';
-import EnterPINModal from './modules/account/EnterPINModal';
-import ConfirmModal from './modules/modal/ConfirmModal';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import { setupHistory } from './redux/common/actions';
+import {
+  Toaster,
+  TxModal,
+  ConfirmModal,
+  Navbar,
+  Footer,
+  EnterPINModal,
+  setupHistory,
+} from '@polymathnetwork/ui';
 
 type StateProps = {
   isFetching: boolean,

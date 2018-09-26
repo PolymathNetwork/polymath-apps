@@ -9,18 +9,19 @@ import {
   icoBriefcase,
   icoInbox,
   icoHandshake,
-  icoHelp,
   icoWhitelist,
+  NotFoundPage,
 } from '@polymathnetwork/ui';
 import type { SecurityToken, Address } from '@polymathnetwork/js/types';
 
-import { isProvidersPassed } from './providers/data';
-import NotFoundPage from './NotFoundPage';
-import { fetch as fetchToken } from './token/actions';
-import { fetchProviders } from './providers/actions';
-import PausedBar from './compliance/components/PausedBar';
+import { isProvidersPassed } from '../pages/providers/data';
+
+import { fetch as fetchToken } from '../actions/token';
+import { fetchProviders } from '../actions/providers';
+
+import PausedBar from '../pages/compliance/components/PausedBar';
 import type { RootState } from '../redux/reducer';
-import type { ServiceProvider } from './providers/data';
+import type { ServiceProvider } from '../pages/providers/data';
 
 type StateProps = {|
   token: ?SecurityToken,

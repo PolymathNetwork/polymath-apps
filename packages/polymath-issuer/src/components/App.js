@@ -3,22 +3,17 @@ import React, { Component } from 'react';
 import Contract from '@polymathnetwork/js';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
-import {
-  PolymathUI,
-  signIn,
-  txHash,
-  txEnd,
-  getNotice,
-} from '@polymathnetwork/ui';
+import { signIn, txHash, txEnd, getNotice } from '@polymathnetwork/ui';
 import type { RouterHistory } from 'react-router-dom';
 
-import SignUpPage from '../../pages/account/SignUpPage';
-import SignUpSuccessPage from '../../pages/account/SignUpSuccessPage';
+import SignUpPage from '../pages/account/SignUpPage';
+import SignUpSuccessPage from '../pages/account/SignUpSuccessPage';
 
 import Root from './Root';
-import ConfirmEmailPage from '../ConfirmEmailPage';
-import { getMyTokens, tickerReservationEmail } from '../../actions/ticker';
-import type { RootState } from '../../redux/reducer';
+import PolymathUI from './PolymathUI';
+import ConfirmEmailPage from './ConfirmEmailPage';
+import { getMyTokens, tickerReservationEmail } from '../actions/ticker';
+import type { RootState } from '../redux/reducer';
 
 type StateProps = {|
   network: any,
