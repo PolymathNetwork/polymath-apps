@@ -7,7 +7,7 @@ import illustration from '../images/illustration.png';
 
 // import illustration from './illustration.png'
 
-export default class DummyPage extends Component {
+export default class NotSupportedPage extends Component {
   render() {
     return (
       <DocumentTitle title="Polymath">

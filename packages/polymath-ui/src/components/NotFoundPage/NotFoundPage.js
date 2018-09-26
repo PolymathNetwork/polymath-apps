@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-// TODO @bshevchenko: move this component into the @polymathnetwork/ui repo
+// TODO @bshevchenko: move this component into the polymath-ui repo
 export default class NotFoundPage extends Component<{}> {
   render() {
     return (
