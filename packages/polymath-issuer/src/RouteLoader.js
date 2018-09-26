@@ -10,6 +10,7 @@ import PolymathAuth, {
 } from '@polymathnetwork/auth';
 import { MetamaskPage, DummyPage } from '@polymathnetwork/ui';
 import { isMobile } from 'react-device-detect';
+import { hot } from 'react-hot-loader';
 
 import Root from './app/Root';
 import SplashPage from './app/SplashPage';
@@ -51,4 +52,4 @@ class RouteLoader extends Component<Props> {
   }
 }
 
-export default withRouter(RouteLoader);
+export default hot(module)(withRouter(RouteLoader));
