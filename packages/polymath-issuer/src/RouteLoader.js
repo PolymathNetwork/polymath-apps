@@ -9,9 +9,10 @@ import PolymathAuth, {
   NETWORK_MAIN,
   NETWORK_KOVAN,
 } from '@polymathnetwork/ui/components/EthNetworkWrapper';
+import { MetamaskStatus, NotSupportedPage } from '@polymathnetwork/ui';
 
-import Root from './app/Root';
-import SplashPage from './app/SplashPage';
+import Root from './components/Root';
+import SplashPage from './components/SplashPage';
 import routes from './routes';
 
 type Props = {
@@ -41,7 +42,7 @@ class RouteLoader extends Component<Props> {
     return (
       <PolymathAuth
         loading={<Loading />}
-        guide={<MetamaskPage networks="Mainnet or Kovan" />}
+        guide={<MetamaskStatus networks="Mainnet or Kovan" />}
         networks={networks}
       >
         {renderRoutes(routes)}

@@ -25,7 +25,7 @@ type Props = {|
   networks: string,
 |} & StateProps;
 
-class MetamaskPage extends Component<Props> {
+class MetamaskStatus extends Component<Props> {
   render() {
     let h1;
     let h3;
@@ -109,4 +109,4 @@ class MetamaskPage extends Component<Props> {
   }
 }
 
-export default connect(mapStateToProps)(MetamaskPage);
+export default connect(mapStateToProps)(MetamaskStatus);
