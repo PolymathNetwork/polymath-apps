@@ -14,7 +14,7 @@ import type {
   Address,
 } from '@polymathnetwork/js/types';
 
-// TODO: Here we are creating components inside a Redux action file...
+// TODO @grsmto: This file shouldn't contain any React components as this is just triggering Redux actions. Consider moving them as separated component files.
 import { formName as completeFormName } from '../pages/token/components/CompleteTokenForm';
 import CreatedEmail from '../pages/token/components/CreatedEmail';
 import { fetch as fetchSTO } from './sto';

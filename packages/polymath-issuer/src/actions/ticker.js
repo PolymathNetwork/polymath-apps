@@ -3,7 +3,7 @@ import { TickerRegistry } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 
-// TODO: Form values shouldn't be retrieved this way...fault of Redux-form
+// TODO @grsmto: Form values shouldn't be retrieved this way...fault of Redux-form
 // for encouraging bad pattern. This should be passed as props instead.
 import { formName } from '../pages/ticker/components/TickerForm';
 import { formName as confirmEmailFormName } from '../components/ConfirmEmailPage';

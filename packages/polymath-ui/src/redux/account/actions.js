@@ -4,7 +4,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import sigUtil from 'eth-sig-util';
 import { PolyToken } from '@polymathnetwork/js';
-// TODO: It's Redux actions here, why do we import UI elements?
+// TODO @grsmto: This file shouldn't contain any React components as this is just triggering Redux actions. Consider moving them as separated component files.
 import {
   Remark,
   fetching,
@@ -14,11 +14,9 @@ import {
   tx,
   confirm,
 } from '@polymathnetwork/ui';
-// TODO: offchain.js shouldn't be in polymath-ui as it's doing API calls.
-// It's just a singleton providing API methods.
 import * as offchain from '@polymathnetwork/ui/offchain';
 import { thousandsDelimiter } from '@polymathnetwork/ui/helpers';
-// TODO: We shouldn't dig into view components to retrieve that
+// TODO @grsmto: We shouldn't dig into view components to retrieve that
 // that should be passed as arguments to the action instead
 import { formName as signUpFormName } from '../../components/SignUpForm';
 
