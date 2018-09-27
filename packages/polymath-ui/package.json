@@ -3,11 +3,17 @@
   "version": "0.0.0",
   "license": "MIT",
   "main": "./build/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PolymathNetwork/polymath-apps/tree/develop/packages/polymath-ui"
+  },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "test": "jest",
     "build:dev": "webpack --config webpack.dev.js",
-    "typecheck": "flow --show-all-branches"
+    "typecheck": "flow --show-all-branches",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
@@ -40,11 +46,10 @@
     "babel-jest": "^23.6.0",
     "css-loader": "^0.28.10",
     "docz": "^0.11.2",
+    "docz-plugin-css": "^0.11.0",
+    "docz-theme-default": "^0.11.2",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "eslint": "4.11.0",
-    "flow-bin": "^0.81.0",
-    "husky": "0.14.3",
     "jest": "22.4.3",
     "jest-enzyme": "^6.0.4",
     "node-sass": "^4.0.0",
