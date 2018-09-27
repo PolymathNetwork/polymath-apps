@@ -28,7 +28,7 @@ class RouteLoader extends Component<Props> {
     if (isMobile) {
       return (
         <Root>
-          <DummyPage />
+          <NotSupportedPage />
         </Root>
       );
     } else if (this.props.location.pathname === '/') {
