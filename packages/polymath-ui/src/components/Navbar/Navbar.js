@@ -24,8 +24,6 @@ type StateProps = {|
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
-  // TODO: refactor this! We have a cross dependency here, this depends
-  // on 'network' state from somewhere??? This should just be passed as prop!
   network: state.network.name,
   account: state.network.account,
   balance: state.pui.account.balance,
