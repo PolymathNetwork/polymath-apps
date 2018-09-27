@@ -55,7 +55,6 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "@polymathnetwork/auth": "0.0.0",
     "@polymathnetwork/js": "0.0.0",
     "@polymathnetwork/ui": "0.0.0",
     "bignumber.js": "^6.0.0",

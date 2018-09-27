@@ -2,21 +2,20 @@
 
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import { reducer as network } from '@polymathnetwork/auth';
-import { reducer as pui } from '@polymathnetwork/ui';
-import type { PUIState } from '@polymathnetwork/ui';
-import type { NetworkState } from '@polymathnetwork/auth';
+import { uiReducer as pui, networkReducer as network } from '@polymathnetwork/ui';
+import type { PUIState, NetworkState } from '@polymathnetwork/ui';
 
-import providers from '../app/providers/reducer';
-import token from '../app/token/reducer';
-import sto from '../app/sto/reducer';
-import ticker from '../app/ticker/reducer';
-import whitelist from '../app/compliance/reducer';
-import type { ProvidersState } from '../app/providers/reducer';
-import type { TokenState } from '../app/token/reducer';
-import type { STOState } from '../app/sto/reducer';
-import type { TickerState } from '../app/ticker/reducer';
-import type { WhitelistState } from '../app/compliance/reducer';
+import providers from '../reducers/providers';
+import token from '../reducers/token';
+import sto from '../reducers/sto';
+import ticker from '../reducers/ticker';
+import whitelist from '../reducers/compliance';
+
+import type { ProvidersState } from '../reducers/providers';
+import type { TokenState } from '../reducers/token';
+import type { STOState } from '../reducers/sto';
+import type { TickerState } from '../reducers/ticker';
+import type { WhitelistState } from '../reducers/compliance';
 
 export default combineReducers({
   network,
@@ -26,7 +25,7 @@ export default combineReducers({
   token,
   sto,
   pui,
-  whitelist,
+  whitelist
 });
 
 export type RootState = {
@@ -37,7 +36,7 @@ export type RootState = {
   sto: STOState,
   whitelist: WhitelistState,
   pui: PUIState,
-  form: any,
+  form: any
 };
 
 export type GetState = () => RootState;

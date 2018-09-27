@@ -18,17 +18,33 @@ export {
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';
 export { default as Remark } from './components/Remark';
-export { default as Toaster } from './modules/toaster/Toaster';
-export { default as TxModal } from './modules/tx/TxModal';
+export { default as Toaster } from './components/Toaster';
 export { default as Sidebar } from './components/Sidebar';
-export { default as SignInPage } from './modules/account/SignInPage';
-export { default as SignUpPage } from './modules/account/SignUpPage';
+export { default as PausedBar } from './components/PausedBar';
+export { default as EthNetworkWrapper } from './components/EthNetworkWrapper';
+export { default as Navbar } from './components/Navbar';
+export { default as Footer } from './components/Footer';
+export { default as TxModal } from './components/TxModal';
+export { default as ConfirmModal } from './components/ConfirmModal';
+export { default as EnterPINModal } from './components/EnterPINModal';
+export { default as MetamaskStatus } from './components/MetamaskStatus';
+export { default as NotFoundPage } from './components/NotFoundPage';
+export { default as NotSupportedPage } from './components/NotSupportedPage';
+export { default as SignUpPage } from './components/SignUpPage';
+export { default as SignUpSuccessPage } from './components/SignUpSuccessPage';
+export { default as SignInPage } from './components/SignInPage';
+
+export { getNotice } from './components/NoticeBar/actions';
+export { notify } from './components/Toaster/actions';
+export { tx, txEnd, txHash } from './components/TxModal/actions';
+export { confirm } from './components/ConfirmModal/actions';
+
 export {
-  default as SignUpSuccessPage,
-} from './modules/account/SignUpSuccessPage';
-export { default as MetamaskPage } from './components/MetamaskPage';
-export { default as DummyPage } from './components/DummyPage';
-export { notify } from './modules/toaster/actions';
+  fetching,
+  fetched,
+  fetchingFailed,
+  setupHistory,
+} from './redux/common/actions';
 export {
   fetchBalance,
   signIn,
@@ -37,11 +53,7 @@ export {
   email,
   faucet,
   providersApply,
-} from './modules/account/actions';
-export { tx, txEnd, txHash } from './modules/tx/actions';
-export { confirm } from './modules/modal/actions';
-export { getNotice } from './modules/notice/actions';
-export { fetching, fetched, fetchingFailed } from './redux/common/actions';
+} from './redux/account/actions';
 export {
   setHelpersNetwork,
   etherscanAddress,
@@ -53,20 +65,21 @@ export {
   timeZoneName,
   trim,
 } from './helpers';
-export { default as reducer } from './redux/reducer';
-export { default as PolymathUI } from './PolymathUI';
+
+export { uiReducer, networkReducer } from './redux/reducer';
 
 export { default as logo } from './images/logo.svg';
 export { default as bull } from './images/bull.png';
 export { default as metamask } from './images/metamask.png';
-export { default as icoBriefcase } from './svg/briefcase';
-export { default as icoInbox } from './svg/inbox';
-export { default as icoPaperPlane } from './svg/paper-plane';
-export { default as icoHandshake } from './svg/handshake';
-export { default as icoHelp } from './svg/help';
-export { default as icoWhitelist } from './svg/whitelist';
+export { default as icoBriefcase } from './images/svg/briefcase';
+export { default as icoInbox } from './images/svg/inbox';
+export { default as icoPaperPlane } from './images/svg/paper-plane';
+export { default as icoHandshake } from './images/svg/handshake';
+export { default as icoHelp } from './images/svg/help';
+export { default as icoWhitelist } from './images/svg/whitelist';
 
 export type { PUIState } from './redux/reducer';
-export type { ToastArgs } from './modules/toaster/Toaster';
-export type { Notify } from './modules/toaster/actions';
+export type { NetworkState } from './redux/reducer';
+export type { ToastArgs } from './components/Toaster/Toaster';
+export type { Notify } from './components/Toaster/actions';
 export type { TwelveHourTime } from './components/inputs/TimePickerInput';

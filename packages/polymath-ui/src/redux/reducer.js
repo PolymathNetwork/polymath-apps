@@ -1,22 +1,24 @@
 // @flow
 
 import { combineReducers } from 'redux';
-import type { NetworkState } from '@polymathnetwork/auth';
 
 import common from './common/reducer';
-import toaster from '../modules/toaster/reducer';
-import tx from '../modules/tx/reducer';
-import account from '../modules/account/reducer';
-import modal from '../modules/modal/reducer';
-import notice from '../modules/notice/reducer';
-import type { TxState } from '../modules/tx/reducer';
-import type { ToasterState } from '../modules/toaster/reducer';
-import type { CommonState } from './common/reducer';
-import type { AccountState } from '../modules/account/reducer';
-import type { ModalState } from '../modules/modal/reducer';
-import type { NoticeState } from '../modules/notice/reducer';
+import account from './account/reducer';
 
-export default combineReducers({
+import toaster from '../components/Toaster/reducer';
+import tx from '../components/TxModal/reducer';
+import modal from '../components/ConfirmModal/reducer';
+import notice from '../components/NoticeBar/reducer';
+
+import type { TxState } from '../components/TxModal/reducer';
+import type { ToasterState } from '../components/Toaster/reducer';
+import type { ModalState } from '../components/ConfirmModal/reducer';
+import type { NoticeState } from '../components/NoticeBar/reducer';
+import type { NetworkState } from '../components/EthNetworkWrapper/reducer';
+import type { CommonState } from './common/reducer';
+import type { AccountState } from './account/reducer';
+
+export const uiReducer = combineReducers({
   common,
   toaster,
   tx,
@@ -24,6 +26,10 @@ export default combineReducers({
   modal,
   notice,
 });
+
+export {
+  default as networkReducer,
+} from '../components/EthNetworkWrapper/reducer';
 
 export type PUIState = {
   common: CommonState,
