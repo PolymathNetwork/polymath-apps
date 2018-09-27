@@ -4,8 +4,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Loading } from 'carbon-components-react';
-import { MetamaskPage } from '@polymathnetwork/ui';
-import EthNetworkWrapper, { NETWORK_MAIN, NETWORK_KOVAN } from '@polymathnetwork/ui/components/EthNetworkWrapper';
+import { MetamaskStatus } from '@polymathnetwork/ui';
+import EthNetworkWrapper, {
+  NETWORK_MAIN,
+  NETWORK_KOVAN,
+} from '@polymathnetwork/ui/components/EthNetworkWrapper';
 
 import routes from './routes';
 
@@ -22,7 +25,7 @@ class RouteLoader extends Component<Props> {
     return (
       <EthNetworkWrapper
         loading={<Loading />}
-        guide={<MetamaskPage networks="Mainnet or Kovan" />}
+        guide={<MetamaskStatus networks="Mainnet or Kovan" />}
         networks={networks}
       >
         {renderRoutes(routes)}
