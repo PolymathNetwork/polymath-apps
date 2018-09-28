@@ -52,7 +52,8 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "3.1.5",
     "webpack-manifest-plugin": "2.0.3",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "react-test-renderer": "^15.5.0-rc.2"
   },
   "dependencies": {
     "@polymathnetwork/js": "0.0.0",
@@ -73,7 +74,6 @@
     "react-router-config": "1.0.0-beta.4",
     "react-router-dom": "^4.3.1",
     "react-select": "1.0.0-rc.10",
-    "react-test-renderer": "^15.5.0-rc.2",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "redux-mock-store": "^1.2.3",
