@@ -18,7 +18,7 @@ import * as offchain from '@polymathnetwork/ui/offchain';
 import { thousandsDelimiter } from '@polymathnetwork/ui/helpers';
 // TODO @grsmto: We shouldn't dig into view components to retrieve that
 // that should be passed as arguments to the action instead
-import { formName as signUpFormName } from '../../components/SignUpForm';
+import { formName as signUpFormName } from '../../components/SignUpPage/SignUpForm';
 
 import type { Address } from '@polymathnetwork/js/types';
 import type { Node } from 'react';
