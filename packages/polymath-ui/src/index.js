@@ -1,38 +1,6 @@
 // @flow
 
-export { default as TextInput } from './components/inputs/TextInput';
-export { default as TextAreaInput } from './components/inputs/TextAreaInput';
-export { default as SelectInput } from './components/inputs/SelectInput';
-export { default as RadioInput } from './components/inputs/RadioInput';
-export { default as CheckboxInput } from './components/inputs/CheckboxInput';
-export {
-  default as DatePickerInput,
-} from './components/inputs/DatePickerInput';
-export {
-  default as DatePickerRangeInput,
-} from './components/inputs/DatePickerRangeInput';
-export {
-  default as TimePickerInput,
-  twelveHourTimeToMinutes,
-} from './components/inputs/TimePickerInput';
-export { default as STOStatus } from './components/STOStatus';
-export { default as Countdown } from './components/Countdown';
-export { default as Remark } from './components/Remark';
-export { default as Toaster } from './components/Toaster';
-export { default as Sidebar } from './components/Sidebar';
-export { default as PausedBar } from './components/PausedBar';
-export { default as EthNetworkWrapper } from './components/EthNetworkWrapper';
-export { default as Navbar } from './components/Navbar';
-export { default as Footer } from './components/Footer';
-export { default as TxModal } from './components/TxModal';
-export { default as ConfirmModal } from './components/ConfirmModal';
-export { default as EnterPINModal } from './components/EnterPINModal';
-export { default as MetamaskStatus } from './components/MetamaskStatus';
-export { default as NotFoundPage } from './components/NotFoundPage';
-export { default as NotSupportedPage } from './components/NotSupportedPage';
-export { default as SignUpPage } from './components/SignUpPage';
-export { default as SignUpSuccessPage } from './components/SignUpSuccessPage';
-export { default as SignInPage } from './components/SignInPage';
+export * from './components';
 
 export { getNotice } from './components/NoticeBar/actions';
 export { notify } from './components/Toaster/actions';
