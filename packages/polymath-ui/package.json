@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "jest",
+    "test": "node scripts/test.js",
     "typecheck": "flow --show-all-branches",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
@@ -63,8 +63,42 @@
     "webpack-cli": "^3.1.0"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./src/specsInit.js",
-    "testURL": "http://localhost"
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.{js,jsx,mjs}",
+      "**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "./config/jest/testsConfig.js",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/config/jest/babelTransform.js",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^.+\\.(graphql)$": "<rootDir>/config/jest/graphqlTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json|graphql)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ]
   },
   "browserslist": {
     "development": [
