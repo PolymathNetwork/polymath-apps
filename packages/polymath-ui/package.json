@@ -8,12 +8,12 @@
     "url": "https://github.com/PolymathNetwork/polymath-apps/tree/develop/packages/polymath-ui"
   },
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "node scripts/build.js",
     "test": "jest",
-    "build:dev": "webpack --config webpack.dev.js",
     "typecheck": "flow --show-all-branches",
     "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "docz:build": "docz build",
+    "analyze": "source-map-explorer build/main.*"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
@@ -61,5 +61,21 @@
     "style-loader": "^0.20.3",
     "webpack": "^4.19.0",
     "webpack-cli": "^3.1.0"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./src/specsInit.js",
+    "testURL": "http://localhost"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">0.25%",
+      "not op_mini all",
+      "ie 11"
+    ]
   }
 }
