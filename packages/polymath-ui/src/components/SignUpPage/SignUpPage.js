@@ -7,7 +7,7 @@ import { formValueSelector } from 'redux-form';
 import { bull } from '@polymathnetwork/ui';
 
 import SignUpForm, { formName } from './SignUpForm';
-import { signUp } from '../redux/account/actions';
+import { signUp } from '../../redux/account/actions';
 
 const formValue = formValueSelector(formName);
 

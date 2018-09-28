@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import { Modal } from 'carbon-components-react';
 
-import { cancelConfirmEmail, confirmEmail } from '../redux/account/actions';
+import { cancelConfirmEmail, confirmEmail } from '../../redux/account/actions';
 import EnterPINForm, { formName } from './EnterPINForm';
-import type { RootState } from '../redux/reducer';
+
+import type { RootState } from '../../redux/reducer';
 
 type StateProps = {|
   email: ?string,
