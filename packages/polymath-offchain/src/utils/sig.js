@@ -39,7 +39,7 @@ const isValidSig = (value: string, sig: string, address: string) => {
 
   @param {string} code polymath verification code
   @param {string} sig signature
-  @param {string} address client ethereum address
+  @param {string} address issuer ethereum address
 
   @returns {Promise} promise that resolves to null if the signature is valid, or an object describing the error if it is not
  */

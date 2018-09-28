@@ -6,7 +6,7 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "babel-node src2/server.js",
     "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
     "start:dist": "node ./build/index.js",
     "build": "babel src --out-dir build",

@@ -1,29 +1,133 @@
+// @flow
+
 import Router from 'koa-router';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import Web3 from 'web3';
+import { NODE_ENV } from '../constants';
+import logger from 'winston';
 
-import User from '../models/User';
-import Provider from '../models/Provider';
-import sendEmail from '../email';
-import { auth } from './auth';
-import networks from '../networks';
-import ProviderEmail from '../emails/ProviderEmail';
+import { User, Provider } from '../models';
+import {
+  sendProviderApplicationEmail,
+  verifySignature,
+  web3Client,
+  getNetworkId,
+} from '../utils';
+import artifact from '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json';
 
-const router = new Router();
+import type { Context } from 'koa';
 
-router.post('/providers/apply', async ctx => {
+const providersRouter = new Router();
+
+type ApplyRequestBody = {
+  code: string,
+  sig: string,
+  address: string,
+  companyName: string,
+  ids: Array<string>,
+  companyDesc: string,
+  operatedIn: string,
+  incorporatedIn: string,
+  projectURL: string,
+  profilesURL: string,
+  structureURL: string,
+  otherDetails?: string,
+};
+
+/**
+  Validates that the request parameters are typed correctly
+
+  TODO @monitz87: add value validations as well
+ */
+const isApplyRequestValid = (body: ApplyRequestBody | any) => {
+  if (typeof body !== 'object') {
+    return false;
+  }
+
+  return Object.keys(body).every(key => {
+    const value = body[key];
+    if (key === 'ids') {
+      return Array.isArray(value) && value.every(id => typeof id === 'string');
+    } else if (key === 'otherDetails') {
+      return !value || typeof value === 'string';
+    }
+
+    return typeof value === 'string';
+  });
+};
+
+/**
+  Throws an error if a ticker hasn't been reserved for the given address
+
+  @param {string} address client's ethereum address
+ */
+const checkForReservedTicker = async address => {
+  const networkId = await getNetworkId();
+  const tickerRegistry = new web3Client.eth.Contract(
+    artifact.abi,
+    artifact.networks[networkId].address
+  );
+
+  // TODO @monitz87: check if only one ticker can be reserved per address, and how to enforce this if not
+  const events = await tickerRegistry.getPastEvents('LogRegisterTicker', {
+    filter: { _owner: address },
+    fromBlock: 0,
+    toBlock: 'latest',
+  });
+
+  if (!events.length) {
+    throw new Error('No ticker was reserved');
+  }
+};
+
+/**
+  POST /providers/apply
+
+  Provider application route handler. Receives form data
+  and an array of the ids of the providers to send email applications to,
+  checks if the client has a reserved ticker and sends the corresponding 
+  emails.
+
+  @param {string} code polymath verification code
+  @param {string} sig signature
+  @param {string} address issuer ethereum address
+  @param {string} companyName client company name
+  @param {Array} ids array of the ids of the providers whose services the client is applying to
+  @param {string} companyDesc description of the company
+  @param {string} operatedIn juristidction of operation
+  @param {string} incorporatedIn jurisdiction of incorporation
+  @param {string} projectURL project presentation URL
+  @param {string} profilesURL board member profiles URL
+  @param {string} structureURL corporate structure URL
+  @param {string} otherDetails more details about the company
+ */
+const applyHandler = async (ctx: Context) => {
+  let body = ctx.request.body;
+
+  if (!isApplyRequestValid(body)) {
+    ctx.body = {
+      status: 'error',
+      data: 'Invalid request body',
+    };
+    return;
+  }
+
+  body = ((body: any): ApplyRequestBody);
+
   const {
     code,
     sig,
     address,
-    network,
-    coreVer,
     companyName,
     ids,
-  } = ctx.request.body;
+    companyDesc,
+    operatedIn,
+    incorporatedIn,
+    projectURL,
+    profilesURL,
+    structureURL,
+    otherDetails,
+  } = body;
 
-  const error = await auth(code, sig, address);
+  const error = await verifySignature(code, sig, address);
   if (error) {
     ctx.body = error;
     return;
@@ -31,67 +135,66 @@ router.post('/providers/apply', async ctx => {
 
   const user = await User.findOne({ address });
 
-  try {
-    const web3 = new Web3(networks[network]); // eslint-disable-next-line global-require, import/no-dynamic-require
-    const artifact = require(`../../node_modules/polymath-core-v${coreVer}/build/contracts/TickerRegistry.json`);
-    const tickerRegistry = new web3.eth.Contract(
-      artifact.abi,
-      artifact.networks[network].address
-    );
-    const events = await tickerRegistry.getPastEvents('LogRegisterTicker', {
-      filter: { _owner: address },
-      fromBlock: 0,
-      toBlock: 'latest',
-    });
-    if (!events.length) {
-      // noinspection ExceptionCaughtLocallyJS
-      throw new Error();
-    }
-  } catch (e) {
+  if (!user) {
     ctx.body = {
       status: 'error',
-      data: 'No ticker was reserved',
+      data: 'Invalid user',
     };
     return;
   }
 
-  if (Number(network) === 1) {
-    for (let i = 0; i < ids.length; i++) {
-      ids[i] = Number(ids[i]);
-    }
-    const providers = await Provider.find({ id: { $in: ids } });
+  /**
+    Return an error if issuer hasn't reserved any tickers
+   */
+  try {
+    await checkForReservedTicker();
+  } catch (err) {
+    logger.error(err.message);
+    ctx.body = {
+      status: 'error',
+      data: err.message,
+    };
+    return;
+  }
+
+  const application = {
+    companyName,
+    companyDesc,
+    operatedIn,
+    incorporatedIn,
+    projectURL,
+    profilesURL,
+    structureURL,
+    otherDetails,
+  };
+
+  const { name: userName, email: userEmail } = user;
+
+  if (NODE_ENV === 'PRODUCTION') {
+    /* Send emails to all selected providers */
+    const providerIds = ids.map(Number);
+
+    const providers = await Provider.find({ id: { $in: providerIds } });
     for (let provider of providers) {
-      await sendEmail(
-        provider.email,
-        provider.name,
-        `${companyName} is interested in your services`,
-        ReactDOMServer.renderToStaticMarkup(
-          <ProviderEmail
-            issuerName={user.name}
-            issuerEmail={user.email}
-            providerName={provider.name}
-            application={ctx.request.body}
-          />
-        ),
-        {
-          name: user.name,
-          email: user.email,
-        }
+      const { name: providerName, email: providerEmail } = provider;
+      await sendProviderApplicationEmail(
+        providerEmail,
+        providerName,
+        companyName,
+        userName,
+        userEmail,
+        application
       );
     }
   } else {
-    await sendEmail(
-      user.email,
-      user.name,
+    /* Send dummy email */
+    await sendProviderApplicationEmail(
+      userEmail,
+      userName,
       `DEMO: ${companyName} is interested in your services`,
-      ReactDOMServer.renderToStaticMarkup(
-        <ProviderEmail
-          issuerName={user.name}
-          providerName={user.name}
-          issuerEmail={user.email}
-          application={ctx.request.body}
-        />
-      )
+      userName,
+      userEmail,
+      application
     );
   }
 
@@ -99,6 +202,11 @@ router.post('/providers/apply', async ctx => {
     status: 'ok',
     data: 'Application has been sent',
   };
-});
+};
 
-export default router;
+/**
+  Provider application route
+ */
+providersRouter.post('/providers/apply', applyHandler);
+
+export { providersRouter };

@@ -2,14 +2,25 @@
 
 import mongoose from 'mongoose';
 
-export default mongoose.model(
-  'User',
-  new mongoose.Schema(
-    {
-      address: { type: String, unique: true },
-      email: { type: String, index: true },
-      name: String,
-    },
-    { timestamps: true }
-  )
+export class UserDocument /* :: extends Mongoose$Document */ {
+  address: string;
+  email: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const schema = new mongoose.Schema(
+  {
+    address: String,
+    email: String,
+    name: String,
+  },
+  { timestamps: true }
 );
+
+schema.index({ address: 1 }, { unique: true });
+schema.index({ email: 1 });
+schema.loadClass(UserDocument);
+
+export const User = mongoose.model('User', schema);

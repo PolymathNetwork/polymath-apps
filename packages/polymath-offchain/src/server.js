@@ -11,7 +11,7 @@ import cors from '@koa/cors';
 import Ddos from 'ddos';
 import { PORT } from './constants';
 
-import router from './routes/router';
+import { router } from './routes';
 
 const ddos = new Ddos();
 

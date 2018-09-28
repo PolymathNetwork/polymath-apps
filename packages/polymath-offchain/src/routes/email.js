@@ -1,50 +1,131 @@
+// @flow
+
 import Router from 'koa-router';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import Web3 from 'web3';
-import fs from 'fs';
 
 import crypto from 'crypto';
-import User from '../models/User';
-import EmailPIN from '../models/EmailPIN';
-import Email from '../models/Email';
-import sendEmail from '../email';
-import { auth } from './auth';
-import networks from '../networks';
-import ConfirmEmail from '../emails/ConfirmEmail';
-import styles from '../emails/styles';
+import { User, EmailPIN } from '../models';
+import { verifySignature, sendAccountConfirmationEmail } from '../utils';
 
-const router = new Router();
+import type { Context } from 'koa';
 
-router.post('/email/new', async ctx => {
-  const { email, name, code, sig, address } = ctx.request.body;
+const emailRouter = new Router();
 
-  const error = await auth(code, sig, address);
+type NewEmailRequestBody = {|
+  email: string,
+  name: string,
+  code: string,
+  sig: string,
+  address: string,
+|};
+
+/**
+  Validates that the request parameters are typed correctly
+
+  TODO @monitz87: add value validations as well
+ */
+const isNewEmailRequestValid = (body: NewEmailRequestBody | any) => {
+  if (typeof body !== 'object') {
+    return false;
+  }
+
+  return Object.keys(body).every(key => typeof body[key] === 'string');
+};
+
+/**
+  POST /email/new
+
+  Email confirmation setup route handler. Receives an email address and sends a 
+  random confirmation PIN string to that address which is then requested by 
+  the client. Also stores (or updates) the user in the database
+
+  @param {string} email issuer email address
+  @param {string} name issuer name
+  @param {string} code polymath verification code
+  @param {string} address issuer ethereum address
+ */
+const newEmailHandler = async (ctx: Context) => {
+  let body = ctx.request.body;
+
+  if (!isNewEmailRequestValid(body)) {
+    ctx.body = {
+      status: 'error',
+      data: 'Invalid request body',
+    };
+    return;
+  }
+
+  body = ((body: any): NewEmailRequestBody);
+
+  const { email, name, code, sig, address } = body;
+
+  const error = await verifySignature(code, sig, address);
   if (error) {
     ctx.body = error;
     return;
   }
 
+  /**
+    Assign a random PIN string to the user and send it via email
+   */
   const pin = (await crypto.randomBytes(8)).toString('hex');
   await EmailPIN.create({ address, pin, email, isConfirmed: false });
   await User.update({ address }, { name }, { upsert: true });
 
-  await sendEmail(
-    email,
-    name,
-    'Confirm your account on Polymath',
-    ReactDOMServer.renderToStaticMarkup(<ConfirmEmail pin={pin} />)
-  );
+  await sendAccountConfirmationEmail(email, name, pin);
 
   ctx.body = {
     status: 'ok',
     data: 'Confirmation email has been sent',
   };
-});
+};
 
-router.post('/email/confirm', async ctx => {
-  const { pin } = ctx.request.body;
+type ConfirmationEmailRequestBody = {|
+  pin: string,
+|};
 
+/**
+  Validates that the request parameters are typed correctly
+
+  TODO @monitz87: add value validations as well
+ */
+const isConfirmationEmailRequestValid = (
+  body: ConfirmationEmailRequestBody | any
+) => {
+  const { pin } = body;
+
+  return pin && typeof pin === 'string';
+};
+
+/**
+  POST /email/confirm
+
+  Email confirmation route handler. Receives a PIN string from the client 
+  and validates if that PIN was created in the last 24 hours. If the PIN matches 
+  a user, his email is confirmed and the response signals the dApps. If not, an error
+  is returned
+
+  @param {string} pin confirmation PIN string received via email
+ */
+const confirmEmailHandler = async ctx => {
+  let body = ctx.request.body;
+
+  if (!isConfirmationEmailRequestValid(body)) {
+    ctx.body = {
+      status: 'error',
+      data: 'Invalid request body',
+    };
+    return;
+  }
+
+  body = ((body: any): ConfirmationEmailRequestBody);
+
+  const { pin } = body;
+
+  /**
+    Find if there is a matching pin number created in the last 24 hours
+
+    TODO @monitz87: make Email PINs expirable and use moment instead of Date
+   */
   const minCreatedAt = new Date();
   minCreatedAt.setHours(minCreatedAt.getHours() - 24);
 
@@ -73,165 +154,16 @@ router.post('/email/confirm', async ctx => {
     status: 'ok',
     data: 'Email has been confirmed',
   };
-});
-
-const readdirAsync = path => {
-  return new Promise((resolve, reject) => {
-    fs.readdir(path, (error, result) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-      }
-    });
-  });
 };
 
-// eslint-disable-next-line complexity
-router.post('/email', async ctx => {
-  const {
-    txHash,
-    subject,
-    body,
-    coreVer,
-    network,
-    code,
-    sig,
-    address,
-  } = ctx.request.body;
+/**
+  Confirmation email route
+ */
+emailRouter.post('/email/new', newEmailHandler);
 
-  const error = await auth(code, sig, address);
-  if (error) {
-    ctx.body = error;
-    return;
-  }
+/**
+  Pin validation route
+ */
+emailRouter.post('/email/confirm', confirmEmailHandler);
 
-  const email = await Email.findOne({ txHash });
-  if (email) {
-    ctx.body = {
-      status: 'error',
-      data: 'Email for the provided txHash has been already sent before',
-    };
-    return;
-  }
-
-  const web3 = new Web3(networks[network]);
-  const tx = await web3.eth.getTransaction(txHash);
-
-  if (tx.from.toLowerCase() !== address.toLowerCase()) {
-    ctx.body = {
-      status: 'error',
-      data: 'Invalid transaction from address',
-    };
-    return;
-  }
-
-  if (tx.blockNumber === null) {
-    ctx.body = {
-      status: 'error',
-      data: 'Transaction is pending',
-    };
-    return;
-  }
-
-  let isToOk = false;
-  let isCoreVerError = false;
-  const dir = `./node_modules/polymath-core-v${coreVer}/build/contracts/`;
-  const artifactFile = (name, ext = true) =>
-    '../.' + dir + name + (ext ? '.json' : '');
-  try {
-    const files = await readdirAsync(dir);
-    files.forEach(file => {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      const artifact = require(artifactFile(file, false));
-
-      let contractAddress;
-      try {
-        contractAddress = artifact.networks[network].address;
-      } catch (e) {
-        // empty
-      }
-
-      if (tx.to.toLowerCase() === String(contractAddress).toLowerCase()) {
-        isToOk = true;
-        // TODO @bshevchenko: break cycle
-      }
-    });
-  } catch (e) {
-    isCoreVerError = true;
-  }
-
-  if (isCoreVerError) {
-    ctx.body = {
-      status: 'error',
-      data: 'Invalid or unsupported core version',
-    };
-    return;
-  }
-
-  const initContract = (name, address) => {
-    // eslint-disable-next-line global-require, import/no-dynamic-require
-    const artifact = require(artifactFile(name));
-    return new web3.eth.Contract(
-      artifact.abi,
-      address || artifact.networks[network].address
-    );
-  };
-
-  if (!isToOk) {
-    const stRegistry = initContract('SecurityTokenRegistry');
-    let events = await stRegistry.getPastEvents('LogNewSecurityToken', {
-      filter: { _securityTokenAddress: tx.to },
-      fromBlock: 0,
-      toBlock: 'latest',
-    });
-
-    if (!events.length) {
-      try {
-        const module = initContract('IModule', tx.to);
-        const stAddress = await module.methods.securityToken().call();
-        events = await stRegistry.getPastEvents('LogNewSecurityToken', {
-          filter: { _securityTokenAddress: stAddress },
-          fromBlock: 0,
-          toBlock: 'latest',
-        });
-      } catch (e) {
-        // empty
-      }
-    }
-
-    if (!events.length) {
-      const moduleRegistry = initContract('ModuleRegistry');
-      events = await moduleRegistry.getPastEvents('LogModuleRegistered', {
-        filter: { _moduleFactory: tx.to },
-        fromBlock: 0,
-        toBlock: 'latest',
-      });
-    }
-
-    if (!events.length) {
-      ctx.body = {
-        status: 'error',
-        data: 'Transaction does not belong to the Polymath Network',
-      };
-      return;
-    }
-  }
-
-  const user = await User.findOne({ address });
-  await sendEmail(
-    user.email,
-    user.name,
-    subject,
-    `<html><head><style>${styles}</style></head><body>${body}</body></html>`
-  );
-
-  await Email.create({ txHash });
-
-  ctx.body = {
-    status: 'ok',
-    data: 'Email has been sent',
-  };
-});
-
-export default router;
+export { emailRouter };

@@ -7,7 +7,9 @@ import { MONGODB_URL } from '../constants';
 
 mongoose.Promise = P;
 
-mongoose.connection.once('open', () => logger.info('Database connected.'));
+mongoose.connection.once('open', () =>
+  logger.info('[SETUP] Database connected.')
+);
 mongoose.connection.on('error', err => logger.error(err));
 
 mongoose.connect(
