@@ -36,6 +36,9 @@ To run unit tests for a specific app run:
 
 ## E2E Tests
 
+To also enable test coverage reports for **E2E tests** set `COVERAGE=true` in
+your environment
+
 _Instructions pending_
 
 # How to contribute
