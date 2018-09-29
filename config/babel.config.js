@@ -42,6 +42,6 @@ module.exports = {
     '@babel/proposal-export-default-from',
     '@babel/proposal-class-properties',
     moduleResolverPlugin,
-    ...(instrumentForCodeCoverage ? istanbulPlugin : []),
+    ...(instrumentForCodeCoverage ? [istanbulPlugin] : []),
   ],
 };
