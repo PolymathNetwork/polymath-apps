@@ -52,7 +52,7 @@ This repo requires the use of [Conventional Commits](https://www.conventionalcom
 - Add a `body` to the commit if the commit's subject is not descriptive enough
 - Add a `BREAKING CHANGE: <explanation>` in the footer of a commit that makes
   a breaking change of the API of a package
-- Add a `CLOSES ISSUE: #<number>` in the footer of a commit to close an issue
+- Add a `CLOSES: #<number>` in the footer of a commit to close an issue
   this commit solves
 - Commit messages must be written in imperative tense
 - The `scope` defines what package is affected by a commit (enforced by [config-lerna-scopes](https://www.npmjs.com/package/@commitlint/config-lerna-scopes))
