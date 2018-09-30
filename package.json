@@ -34,6 +34,7 @@
     "@commitlint/config-lerna-scopes": "^7.1.2",
     "@commitlint/prompt-cli": "^7.1.2",
     "babel-eslint": "8.1.2",
+    "common-tags": "^1.8.0",
     "eslint": "4.19.1",
     "eslint-config-prettier": "^3.0.1",
     "eslint-config-react-app": "^2.1.0",
