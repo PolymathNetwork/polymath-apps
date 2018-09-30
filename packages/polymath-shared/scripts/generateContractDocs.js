@@ -34,4 +34,4 @@ const results = _.map(contracts, contract =>
   contractAbiToMarkdown(contract.artifact, contract.config)
 ).join('\n\n');
 
-fs.writeFileSync('./Contracts.md', results);
+fs.writeFileSync('../../CONTRACTS.md', results);
