@@ -1,0 +1,17 @@
+---
+name: TxModal
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import TxModal from './';
+
+# TxModal
+
+<PropsTable of={TxModal} />
+
+## Basic usage
+
+<Playground>
+  <TxModal />
+</Playground>

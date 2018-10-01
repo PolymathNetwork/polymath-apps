@@ -28,7 +28,7 @@ const mapDispatchToProps: DispatchProps = {
 
 type Props = StateProps & DispatchProps;
 
-class SignInPage extends Component<Props> {
+export class SignInPage extends Component<Props> {
   handleSign = () => {
     this.props.signIn();
   };

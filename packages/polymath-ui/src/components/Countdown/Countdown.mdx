@@ -5,12 +5,17 @@ name: Countdown
 import { Playground, PropsTable } from 'docz';
 import Countdown from './';
 
-# Footer
+# Countdown
 
-<PropsTable of={Footer} />
+<PropsTable of={Countdown} />
 
 ## Basic usage
 
 <Playground>
-  <Countdown />
+  <Countdown
+    title="Time Left to Create Your Token"
+    deadline={new Date()}
+    buttonTitle="Create Your Token Now"
+    handleButtonClick={() => {}}
+  />
 </Playground>
