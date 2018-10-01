@@ -109,7 +109,7 @@ export default reduxForm({
 
     if (details !== null) {
       // eslint-disable-next-line
-      throw { ticker: 'Specified ticker is already exists.' };
+      throw { ticker: 'Specified ticker already exists.' };
     }
   },
   asyncBlurFields: ['ticker'],

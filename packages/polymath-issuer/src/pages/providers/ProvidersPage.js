@@ -300,6 +300,7 @@ class ProvidersPage extends Component<Props, State> {
                 }
                 onClick={() => this.handleTabClick(cat.id, cat.title)}
                 href={'#' + cat.id}
+                className="providers-tab"
               >
                 <div>
                   <h2 className="pui-h2">{cat.title}</h2>

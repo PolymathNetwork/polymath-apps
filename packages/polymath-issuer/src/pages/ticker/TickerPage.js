@@ -69,32 +69,30 @@ class TickerPage extends Component<Props, State> {
   render() {
     return (
       <DocumentTitle title="Token Symbol Reservation – Polymath">
-        <Fragment>
-          <div className="pui-single-box">
-            <div className="pui-single-box-header">
-              <div className="pui-single-box-bull">
-                <img src={bull} alt="Bull" />
-              </div>
-              <h1 className="pui-h1">Reserve Your Token Symbol</h1>
-              <h4 className="pui-h4">
-                Your token symbol will be reserved for {this.props.expiryLimit}{' '}
-                days, and is permanently yours once you create your Token. This
-                reservation ensures that no other organization can create a
-                token symbol identical token to yours using the Polymath
-                platform. This operation carries a cost of:{' '}
-                {this.state.tickerRegistrationFee} POLY.
-              </h4>
-              <div className="pui-clearfix" />
-              <Remark title="Note">
-                If your organization has a CUSIP number, please enter the
-                5-letter symbol assigned to you by FINRA. Otherwise, please
-                enter your desired token symbol provided that it does not
-                infringe on registered trademarks.
-              </Remark>
+        <div id="ticker-reservation" className="pui-single-box">
+          <div className="pui-single-box-header">
+            <div className="pui-single-box-bull">
+              <img src={bull} alt="Bull" />
             </div>
-            <TickerForm onSubmit={this.handleSubmit} />
+            <h1 className="pui-h1">Reserve Your Token Symbol</h1>
+            <h4 className="pui-h4">
+              Your token symbol will be reserved for {this.props.expiryLimit}{' '}
+              days, and is permanently yours once you create your Token. This
+              reservation ensures that no other organization can create a token
+              symbol identical token to yours using the Polymath platform. This
+              operation carries a cost of: {this.state.tickerRegistrationFee}{' '}
+              POLY.
+            </h4>
+            <div className="pui-clearfix" />
+            <Remark title="Note">
+              If your organization has a CUSIP number, please enter the 5-letter
+              symbol assigned to you by FINRA. Otherwise, please enter your
+              desired token symbol provided that it does not infringe on
+              registered trademarks.
+            </Remark>
           </div>
-        </Fragment>
+          <TickerForm onSubmit={this.handleSubmit} />
+        </div>
       </DocumentTitle>
     );
   }

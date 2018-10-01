@@ -2,7 +2,10 @@
 
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import { uiReducer as pui, networkReducer as network } from '@polymathnetwork/ui';
+import {
+  uiReducer as pui,
+  networkReducer as network,
+} from '@polymathnetwork/ui';
 import type { PUIState, NetworkState } from '@polymathnetwork/ui';
 
 import providers from '../reducers/providers';
@@ -25,7 +28,7 @@ export default combineReducers({
   token,
   sto,
   pui,
-  whitelist
+  whitelist,
 });
 
 export type RootState = {
@@ -36,7 +39,7 @@ export type RootState = {
   sto: STOState,
   whitelist: WhitelistState,
   pui: PUIState,
-  form: any
+  form: any,
 };
 
 export type GetState = () => RootState;

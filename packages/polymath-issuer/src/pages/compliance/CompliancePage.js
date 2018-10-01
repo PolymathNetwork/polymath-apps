@@ -9,7 +9,7 @@ import {
   etherscanAddress,
   addressShortifier,
   confirm,
-  NotFoundPage
+  NotFoundPage,
 } from '@polymathnetwork/ui';
 import {
   Button,
@@ -592,7 +592,7 @@ class CompliancePage extends Component<Props, State> {
     // const paginatedRows = this.paginationRendering()
     return (
       <DocumentTitle title="Compliance – Polymath">
-        <div>
+        <div id="compliance">
           <Progress />
           <h1 className="pui-h1">Token Whitelist</h1>
           <h3 className="pui-h3">
@@ -678,6 +678,7 @@ class CompliancePage extends Component<Props, State> {
                   onChange={this.handlePercentageChange}
                 />
                 <Button
+                  className="apply-percentage-btn"
                   onClick={this.handleApplyPercentage}
                   disabled={
                     this.state.percentage === this.props.percentage ||

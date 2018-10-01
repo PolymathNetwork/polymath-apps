@@ -27,6 +27,7 @@ type Props = {|
 
 class MetamaskStatus extends Component<Props> {
   render() {
+    let pageId;
     let h1;
     let h3;
     const link = (
@@ -36,11 +37,13 @@ class MetamaskStatus extends Component<Props> {
     );
     switch (Number(this.props.error)) {
       case ERROR_LOCKED:
+        pageId = 'metamask-locked';
         h1 = 'Your MetaMask Is Locked';
         h3 = 'Simply open MetaMask and follow the instructions to unlock it.';
         break;
 
       case ERROR_NETWORK:
+        pageId = 'wrong-network';
         h1 = 'Wrong Network';
         h3 = (
           <span>
@@ -52,6 +55,7 @@ class MetamaskStatus extends Component<Props> {
         break;
 
       case ERROR_DISCONNECTED:
+        pageId = 'disconnected';
         h1 = 'Aw, Snap!';
         h3 = (
           <span>
@@ -62,6 +66,7 @@ class MetamaskStatus extends Component<Props> {
         break;
 
       default:
+        pageId = 'no-metamask';
         h1 = 'You Need MetaMask';
         h3 = (
           <span>
@@ -73,7 +78,7 @@ class MetamaskStatus extends Component<Props> {
     }
     return (
       <DocumentTitle title="Polymath">
-        <div>
+        <div id={pageId}>
           <img src={logo} alt="Logo" className="pui-metamask-logo" />
           <div className="pui-single-box">
             <div className="pui-single-box-header">
