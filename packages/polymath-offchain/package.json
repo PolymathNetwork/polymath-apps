@@ -6,7 +6,7 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "start": "babel-node src2/server.js",
+    "start": "babel-node src/server.js",
     "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
     "start:dist": "node ./build/index.js",
     "build": "babel src --out-dir build",
@@ -28,7 +28,7 @@
     "mongoose": "^5.0.14",
     "react": "16.4.0",
     "react-dom": "16.4.0",
-    "web3": "1.0.0-beta.30",
+    "web3": "1.0.0-beta.35",
     "winston": "^3.1.0",
     "@polymathnetwork/shared": "0.0.0"
   },
