@@ -5,7 +5,7 @@ import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 import type { RouterHistory } from 'react-router-dom';
 import { txHash, txEnd, fetchBalance } from '@polymathnetwork/ui';
-import { getNotice } from '@polymathnetwork/ui/components/TxModal';
+import { getNotice } from '@polymathnetwork/ui';
 
 import Root from './Root';
 import PolymathUI from './PolymathUI';

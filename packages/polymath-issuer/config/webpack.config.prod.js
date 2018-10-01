@@ -8,7 +8,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
@@ -26,11 +25,8 @@ const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
-// Assert this just to be safe.
-// Development builds of React are slow and not intended for production.
-if (env.stringified['process.env'].NODE_ENV !== '"production"') {
-  throw new Error('Production builds must have NODE_ENV=production.');
-}
+env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'development';
 
 // style files regexes
 const cssRegex = /\.css$/;
@@ -191,29 +187,6 @@ module.exports = {
     rules: [
       // Disable require.ensure as it's not a standard language feature.
       { parser: { requireEnsure: false } },
-
-      // First, run the linter.
-      // It's important to do this before Babel processes the JS.
-      {
-        test: /\.(js|jsx|mjs)$/,
-        enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint'),
-              // TODO: consider separate config for production,
-              // e.g. to enable no-console and no-debugger only in production.
-              baseConfig: {
-                extends: [require.resolve('eslint-config-react-app')],
-              },
-            },
-            loader: require.resolve('eslint-loader'),
-          },
-        ],
-        include: paths.srcPaths,
-        exclude: [/[/\\\\]node_modules[/\\\\]/],
-      },
       {
         // "oneOf" will traverse all following loaders until one will
         // match the requirements. When no loader matches it will fall
@@ -241,23 +214,6 @@ module.exports = {
               require.resolve('thread-loader'),
               {
                 loader: require.resolve('babel-loader'),
-                options: {
-                  presets: [require.resolve('babel-preset-react-app')],
-                  plugins: [
-                    [
-                      require.resolve('babel-plugin-named-asset-import'),
-                      {
-                        loaderMap: {
-                          svg: {
-                            ReactComponent: 'svgr/webpack![path]',
-                          },
-                        },
-                      },
-                    ],
-                  ],
-                  compact: true,
-                  highlightCode: true,
-                },
               },
             ],
           },
