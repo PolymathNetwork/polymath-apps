@@ -34,7 +34,7 @@ const CountTransferManagerMethods = {
 const PercentageTransferManagerMethods = {
   maxHolderPercentage: 'Gets the max percentage of tokens any address can hold',
   paused: 'Wether the module is paused or not',
-  pause: 'Pauses the moduel',
+  pause: 'Pauses the module',
   changeHolderPercentage:
     'Sets the maximum percent of the total tokens that one person can hold',
   modifyWhitelistMulti: 'Adds or removes the addresses in the whitelist',
