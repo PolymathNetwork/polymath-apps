@@ -1,14 +1,13 @@
 // @flow
 
-import { STO_MODULE_TYPE } from '../constants';
+import { STO_MODULE_TYPE, WEB3_NETWORK_WS } from '../constants';
 import {
-  web3Client,
-  getNetworkId,
   sendSTOScheduledEmail,
   sendTickerReservedEmail,
   sendTokenCreatedEmail,
 } from '../utils';
 import logger from 'winston';
+import Web3 from 'web3';
 import { User } from '../models';
 import TickerRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json';
 import SecurityTokenRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
@@ -16,31 +15,118 @@ import SecurityTokenArtifact from '@polymathnetwork/shared/fixtures/contracts/Se
 import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json';
 
 // TODO @monitz87: remake this when we rework polymath-js
-// TODO @monitz87: add logs when listeners are ready
+
+let web3Client = new Web3();
 
 /**
-  Creates a security token web3 contract object from an address
+  Get the current network id
 
-  @param {string} address contract address
+  @returns {number} network id
  */
-const getTokenContract = address => {
+const getNetworkId = async () => {
+  return await web3Client.eth.net.getId();
+};
+
+/**
+  Get the corresponding Security Token contract
+
+  @param {string} address
+
+  @returns a web3 Security Token contract
+ */
+const getSTContract = (address: string) => {
   return new web3Client.eth.Contract(SecurityTokenArtifact.abi, address);
 };
 
 /**
-  Get details of a Capped STO
+  Get the corresponding Capped STO contract
+
+  @param {string} address
+
+  @returns a web3 Capped STO contract
+ */
+const getCSTOContract = (address: string) => {
+  return new web3Client.eth.Contract(CappedSTOArtifact.abi, address);
+};
+
+/**
+  Get the Ticker Registry contract
+
+  @returns a web3 Ticker Registry contract
+ */
+const getTRContract = async () => {
+  const networkId = await getNetworkId();
+
+  return new web3Client.eth.Contract(
+    TickerRegistryArtifact.abi,
+    TickerRegistryArtifact.networks[networkId].address
+  );
+};
+
+/**
+  Get the Security Token Registry contract
+
+  @returns a web3 Ticker Registry contract
+ */
+const getSTRContract = async () => {
+  const networkId = await getNetworkId();
+
+  return new web3Client.eth.Contract(
+    SecurityTokenRegistryArtifact.abi,
+    SecurityTokenRegistryArtifact.networks[networkId].address
+  );
+};
+
+/**
+  Initializes and configures the WebsocketProvider
+  for the web3, setting listeners to reconnect on error.
+
+  This is a hack to fix a current implementation limitation of web3,
+  which doesn't reconnect sockets nor re-subscribes to events when the
+  socket connection is closed
+ */
+const newProvider = () => {
+  const provider = new web3Client.providers.WebsocketProvider(WEB3_NETWORK_WS);
+
+  /**
+    Reconnect when socket connection errors or ends
+   */
+  provider.on('error', error => {
+    logger.error(error.message, error);
+    logger.info(`[SETUP] Reconnecting socket after error...`);
+    connectWeb3(true);
+  });
+  provider.on('close', () => {
+    logger.info(`[SETUP] Reconnecting socket after close...`);
+    connectWeb3(true);
+  });
+  provider.on('end', () => {
+    logger.info(`[SETUP] Reconnecting socket after end...`);
+    connectWeb3(true);
+  });
+
+  return provider;
+};
+
+/**
+  Get details of a Capped STO from the blockchain
+
+  @param {string} address
+
+  @returns an object with the STO details:
+
+    start (start date),
+    cap (maximum amount of tokens to sell),
+    rate (how many tokens for 1 ETH/POLY),
+    isPolyFundraise (is the currency POLY or ETH),
+    fundsReceiver (wallet to which the funds will be transfered)
  */
 const getCappedSTODetails = async (address: string) => {
-  const CappedSTOContract = new web3Client.eth.Contract(
-    CappedSTOArtifact.abi,
-    address
-  );
+  const contract = getCSTOContract(address);
 
   try {
-    const details = await CappedSTOContract.methods.getSTODetails().call();
-    const fundsReceiver: string = await CappedSTOContract.methods
-      .wallet()
-      .call();
+    const details = await contract.methods.getSTODetails().call();
+    const fundsReceiver: string = await contract.methods.wallet().call();
 
     /**
       STO details are returned as an object with numerical keys ranging from 0 to 7,
@@ -66,27 +152,31 @@ const getCappedSTODetails = async (address: string) => {
       fundsReceiver,
     };
   } catch (error) {
-    logger.error(error.message);
+    logger.error(error.message, error);
     return null;
   }
 };
 
 /**
-  Add a one-time listener to a security token that triggers
+  Add a listener to a security token that triggers
   when it has been scheduled for STO
 
   @param contract security token web3 contract 
   @param ticker security token ticker
  */
 const addSTOListener = (contract, ticker: string) => {
-  contract.once(
-    'LogModuleAdded',
+  contract.events.LogModuleAdded(
     {
       filter: {
         _type: STO_MODULE_TYPE,
       },
     },
     async (error, result) => {
+      if (error) {
+        logger.error(error.message, error);
+        return;
+      }
+
       const {
         returnValues: { _name, _module: moduleAddress },
         transactionHash,
@@ -141,6 +231,7 @@ const addSTOListener = (contract, ticker: string) => {
       );
     }
   );
+
   logger.info(`[SETUP] Listening for STO for ${ticker}`);
 };
 
@@ -148,16 +239,11 @@ const addSTOListener = (contract, ticker: string) => {
   Listen for registered tickers
 */
 const addTickerRegisterListener = async () => {
-  const networkId = await getNetworkId();
+  const contract = await getTRContract();
 
-  const TickerRegistryContract = new web3Client.eth.Contract(
-    TickerRegistryArtifact.abi,
-    TickerRegistryArtifact.networks[networkId].address
-  );
-
-  TickerRegistryContract.events.LogRegisterTicker({}, async (error, result) => {
+  contract.events.LogRegisterTicker({}, async (error, result) => {
     if (error) {
-      logger.error(error.message);
+      logger.error(error.message, error);
       return;
     }
 
@@ -171,7 +257,7 @@ const addTickerRegisterListener = async () => {
     /**
       Get expiry limit in seconds from Ticker Registry
      */
-    const expiryLimitSeconds: number = await TickerRegistryContract.methods
+    const expiryLimitSeconds: number = await contract.methods
       .expiryLimit()
       .call();
     const expiryLimit = expiryLimitSeconds / 60 / 60 / 24;
@@ -190,6 +276,7 @@ const addTickerRegisterListener = async () => {
 
     sendTickerReservedEmail(email, name, transactionHash, ticker, expiryLimit);
   });
+
   logger.info(`[SETUP] Listening for registered tickers`);
 };
 
@@ -199,10 +286,12 @@ const addTickerRegisterListener = async () => {
 
   @param contract Security Token Registry contract
 */
-const addTokenCreateListener = async contract => {
+const addTokenCreateListener = async () => {
+  const contract = await getSTRContract();
+
   contract.events.LogNewSecurityToken({}, async (error, result) => {
     if (error) {
-      logger.error(error.message);
+      logger.error(error.message, error);
       return;
     }
 
@@ -211,7 +300,7 @@ const addTokenCreateListener = async contract => {
       transactionHash,
     } = result;
 
-    logger.info(`[EVENT] token "${_ticker}" deployed`);
+    logger.info(`[EVENT] Token "${_ticker}" deployed`);
 
     /**
         Get the token issuer
@@ -227,10 +316,11 @@ const addTokenCreateListener = async contract => {
 
     sendTokenCreatedEmail(email, name, transactionHash, _ticker);
 
-    const TokenContract = getTokenContract(_securityTokenAddress);
+    const tokenContract = getSTContract(_securityTokenAddress);
 
-    addSTOListener(TokenContract, _ticker);
+    addSTOListener(tokenContract, _ticker);
   });
+
   logger.info(`[SETUP] Listening for Security Token deployments`);
 };
 
@@ -239,7 +329,8 @@ const addTokenCreateListener = async contract => {
 
   @param contract Security Token Registry contract
 */
-const addSTOListeners = async contract => {
+const addSTOListeners = async () => {
+  const contract = await getSTRContract();
   try {
     const previousTokenEvents = await contract.getPastEvents(
       'LogNewSecurityToken',
@@ -254,12 +345,12 @@ const addSTOListeners = async contract => {
         returnValues: { _securityTokenAddress, _ticker },
       } = event;
 
-      const TokenContract = getTokenContract(_securityTokenAddress);
+      const TokenContract = getSTContract(_securityTokenAddress);
 
       addSTOListener(TokenContract, _ticker);
     }
   } catch (error) {
-    logger.error(error.message);
+    logger.error(error.message, error);
   }
 };
 
@@ -272,18 +363,43 @@ const addSTOListeners = async contract => {
   - STO scheduled
  */
 const setupListeners = async () => {
-  const networkId = await getNetworkId();
-
   await addTickerRegisterListener();
 
-  const SecurityTokenRegistryContract = new web3Client.eth.Contract(
-    SecurityTokenRegistryArtifact.abi,
-    SecurityTokenRegistryArtifact.networks[networkId].address
-  );
+  await addTokenCreateListener();
 
-  await addTokenCreateListener(SecurityTokenRegistryContract);
-
-  await addSTOListeners(SecurityTokenRegistryContract);
+  await addSTOListeners();
 };
 
-export default setupListeners;
+/**
+  Ping socket every 5 seconds to keep it alive
+  */
+const simulateHeartbeat = () => {
+  const intervalId = setInterval(async () => {
+    try {
+      const isListening = await web3Client.eth.net.isListening();
+
+      if (!isListening) {
+        throw new Error('Socket not listening to peers');
+      }
+    } catch (error) {
+      logger.error(error.message, error);
+      clearInterval(intervalId);
+      connectWeb3(true);
+    }
+  }, 1000);
+};
+
+/**
+  Connects the web3 client to a new provider and starts all the event listeners
+
+  @param {boolean} reconnect indicates whether or not to reset all subscriptions
+ */
+const connectWeb3 = async (reconnect: boolean) => {
+  web3Client = new Web3(newProvider());
+
+  simulateHeartbeat();
+
+  await setupListeners();
+};
+
+export default connectWeb3;

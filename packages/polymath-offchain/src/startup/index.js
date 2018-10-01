@@ -7,6 +7,6 @@ import logger from 'winston';
 
 import './setupDb';
 import './setupMailing';
-import setupListeners from './setupListeners';
+import connectWeb3 from './setupWeb3';
 
-setupListeners().catch(err => logger.error(err.message));
+connectWeb3(false).catch(err => logger.error(err.message, err));
