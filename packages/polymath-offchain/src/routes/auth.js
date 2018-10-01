@@ -83,7 +83,7 @@ const isAuthRequestValid = (body: AuthRequestBody | any) => {
     }
   }
  */
-const getCodeHandler = async (ctx: Context) => {
+export const getCodeHandler = async (ctx: Context) => {
   const code = crypto.randomBytes(8).toString('hex');
   let params = ctx.params;
 
@@ -111,7 +111,7 @@ const getCodeHandler = async (ctx: Context) => {
 /**
   Auth setup route
  */
-authRouter.get('/auth/:address', getCodeHandler);
+authRouter.get('/verification-code/:address', getCodeHandler);
 
 /**
   POST /auth
@@ -164,7 +164,7 @@ authRouter.get('/auth/:address', getCodeHandler);
   @param {string} sig signature
   @param {string} address issuer ethereum address
  */
-const authHandler = async (ctx: Context) => {
+export const authHandler = async (ctx: Context) => {
   let body = ctx.request.body;
 
   if (!isAuthRequestValid(body)) {

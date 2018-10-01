@@ -34,7 +34,7 @@ export const post = async (url: string, params: Object) => {
 };
 
 export const getAuthCode = async (address: string) => {
-  return get('/auth/' + address);
+  return get('/verification-code/' + address);
 };
 
 export const auth = async (_code: string, _sig: string, _address: string) => {
