@@ -97,11 +97,10 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
     });
   }
 
-  let authCode, authName;
+  let code, typedName;
   try {
-    [authCode, authName] = await Promise.all([
+    [{ code, typedName }] = await Promise.all([
       offchain.getAuthCode(account),
-      offchain.getAuthName(),
       dispatch(fetchBalance()),
     ]);
   } catch (e) {
@@ -115,8 +114,8 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
   try {
     sig = await signData(
       web3,
-      authCode,
-      [{ type: 'string', name: authName, value: authCode }],
+      code,
+      [{ type: 'string', name: typedName, value: code }],
       account
     );
   } catch (e) {
@@ -126,7 +125,7 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
 
   dispatch(fetching());
   try {
-    const user = await offchain.auth(authCode, sig, account);
+    const user = await offchain.auth(code, sig, account);
 
     if (global.FS) {
       global.FS.identify(account, {
@@ -239,28 +238,12 @@ export const confirmEmail = (pin: string) => async (
 };
 
 // eslint-disable-next-line global-require, import/no-unresolved, $FlowFixMe
-// TODO @RafaelVidaurre: Hardcoding for now, this is a BIG nono
-const coreVersion = '1.4.0';
-
-// eslint-disable-next-line max-len
-export const email = (txHash: string, subject: string, body: Node) => async (
-  dispatch: Function,
-  getState: GetState
-) => {
-  await offchain.email(
-    txHash,
-    subject,
-    body,
-    coreVersion,
-    getState().network.id
-  );
-};
 
 export const providersApply = (data: Object) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  await offchain.providersApply(data, coreVersion, getState().network.id);
+  await offchain.providersApply(data);
 };
 
 export const faucet = (message: string) => async (

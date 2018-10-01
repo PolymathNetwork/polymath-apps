@@ -1,9 +1,6 @@
 // TODO @grsmto: This has nothing to do in this package as it's not UI related.
 // This could probably go in the new `polymath-shared` package.
 import axios from 'axios';
-import ReactDOMServer from 'react-dom/server';
-
-import type { Node } from 'react';
 
 let code;
 let sig;
@@ -36,10 +33,6 @@ export const post = async (url: string, params: Object) => {
   return res(await instance.post(url, params));
 };
 
-export const getAuthName = async () => {
-  return get('/auth/name');
-};
-
 export const getAuthCode = async (address: string) => {
   return get('/auth/' + address);
 };
@@ -59,37 +52,12 @@ export const confirmEmail = async (pin: string) => {
   return post('/email/confirm', { pin });
 };
 
-export const email = async (
-  txHash: string,
-  subject: string,
-  body: Node,
-  coreVer: string,
-  network: string
-) => {
-  return post('/email', {
-    code,
-    sig,
-    address,
-    txHash,
-    subject,
-    body: ReactDOMServer.renderToStaticMarkup(body),
-    coreVer,
-    network,
-  });
-};
-
-export const providersApply = async (
-  data: Object,
-  coreVer: string,
-  network: string
-) => {
+export const providersApply = async (data: Object) => {
   return post('/providers/apply', {
     ...data,
     code,
     sig,
     address,
-    coreVer,
-    network,
   });
 };
 
