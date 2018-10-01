@@ -3,14 +3,16 @@ name: Remark
 ---
 
 import { Playground, PropsTable } from 'docz';
-import Remark from './Remark';
+import Remark from './';
 
 # Remark
-
-<PropsTable of={Remark} />
 
 ## Basic usage
 
 <Playground>
-  <Remark />
+  <Remark 
+    title="Title example" 
+  >
+    Example content.
+  </Remark>
 </Playground>
