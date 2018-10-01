@@ -36,11 +36,42 @@ const isNewEmailRequestValid = (body: NewEmailRequestBody | any) => {
 
   Email confirmation setup route handler. Receives an email address and sends a 
   random confirmation PIN string to that address which is then requested by 
-  the client. Also stores (or updates) the user in the database
+  the dApp. Also stores (or updates) the user in the database
+
+  If the request body is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Invalid request body
+  }
+
+  If the client didn't sign the verification code or the signature is not valid, the response will contain an error.
+
+  If the code doesn't match the address in our database, the response is
+
+  {
+    status: 'error',
+    data: 'Code is not valid'    
+  }
+
+  If the signature is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Sig is not valid'
+  }
+
+  Otherwise, the response is
+
+  {
+    status: 'ok',
+    data: 'Confirmation email has been sent'
+  }
 
   @param {string} email issuer email address
   @param {string} name issuer name
   @param {string} code polymath verification code
+  @param {string} sig signature
   @param {string} address issuer ethereum address
  */
 const newEmailHandler = async (ctx: Context) => {
@@ -99,10 +130,28 @@ const isConfirmationEmailRequestValid = (
 /**
   POST /email/confirm
 
-  Email confirmation route handler. Receives a PIN string from the client 
-  and validates if that PIN was created in the last 24 hours. If the PIN matches 
-  a user, his email is confirmed and the response signals the dApps. If not, an error
-  is returned
+  Email confirmation route handler. Receives a PIN string from the client and validates if that PIN was created in the last 24 hours.
+
+  If the request body is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Invalid request body
+  }
+
+  If the PIN doesn't match a user in the database, the response is
+
+  {
+    status: 'error',
+    data: 'Pin is not valid',
+  }
+
+  Otherwise, the user's email is confirmed and the response is
+
+  {
+    status: 'ok',
+    data: 'Email has been confirmed',
+  }
 
   @param {string} pin confirmation PIN string received via email
  */

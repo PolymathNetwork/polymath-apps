@@ -62,11 +62,26 @@ const isAuthRequestValid = (body: AuthRequestBody | any) => {
   GET /auth/:address
 
   Auth setup route handler. The client provides his
-  ethereum address. A random code is assigned to the address 
+  ethereum address as a route parameter. A random code is assigned to the address 
   for signing and is returned to the client in a JSON along 
   with the typed message he has to sign.
 
-  @param {string} address client's ethereum address
+  If the address is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Invalid request parameters'
+  }
+
+  Otherwise it is
+
+  {
+    status: 'ok',
+    data: {
+      typedName: <typed message>,
+      code: <random verification code>
+    }
+  }
  */
 const getCodeHandler = async (ctx: Context) => {
   const code = crypto.randomBytes(8).toString('hex');
@@ -101,14 +116,49 @@ authRouter.get('/auth/:address', getCodeHandler);
 /**
   POST /auth
 
-  Auth route handler. If the client didn't sign the verification 
-  code or the signature is not valid, the response will contain an error.
-  
-  Otherwise, if the client previously confirmed his email via PIN, the response
+  Auth route handler.
+
+  If the request body is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Invalid request body
+  }
+
+  If the client didn't sign the verification code or the signature is not valid, the response will contain an error.
+
+  If the code doesn't match the address in our database, the response is
+
+  {
+    status: 'error',
+    data: 'Code is not valid'    
+  }
+
+  If the signature is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Sig is not valid'
+  }
+
+  If the client previously confirmed his email via PIN, the response
   will contain the client's email and name, signaling the dApps to allow access.
 
-  If the client hasn't confirmed his email, the response will be null, signaling that the 
+  {
+    status: 'ok',
+    data: {
+      name: <name of the user>
+      email: <email address of the user>
+    }
+  }
+
+  Otherwise, the response data will be null, signaling that the 
   email confirmation process has to begin before the client can be granted access.
+
+  {
+    status: 'ok',
+    data: null
+  }
 
   @param {string} code polymath verification code
   @param {string} sig signature
@@ -120,7 +170,7 @@ const authHandler = async (ctx: Context) => {
   if (!isAuthRequestValid(body)) {
     ctx.body = {
       status: 'error',
-      data: 'Invalid request parameters',
+      data: 'Invalid request body',
     };
     return;
   }
