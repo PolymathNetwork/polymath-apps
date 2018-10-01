@@ -1,14 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router';
+import { Provider } from 'react-redux';
 
-import Footer from './';
+import EthNetworkWrapper from './';
 
 test('renders without crashing', () => {
   const component = renderer.create(
-    <MemoryRouter>
-      <Footer />
-    </MemoryRouter>
+    <Provider store={global.store}>
+      <EthNetworkWrapper loading={null} />
+    </Provider>
   );
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
