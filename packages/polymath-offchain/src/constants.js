@@ -18,27 +18,25 @@ const cleanEnvironment = <T: { [string]: string }>(
 };
 
 type Environment = {|
-  NODE_ENV: string,
-  WEB3_NETWORK_HTTP: string,
   WEB3_NETWORK_WS: string,
   WEB3_NETWORK_NAME: string,
-  MONGODB_URL: string,
   PORT: string,
-  POLYMATH_ISSUER_URL: string,
   POLYMATH_OFFCHAIN_URL: string,
+  POLYMATH_ISSUER_URL: string,
+  NODE_ENV: string,
+  MONGODB_URL: string,
   SENDGRID_API_KEY?: string,
 |};
 
 const env = cleanEnvironment<Environment>(process.env, [
-  'NODE_ENV',
-  'WEB3_NETWORK_HTTP',
   'WEB3_NETWORK_WS',
   'WEB3_NETWORK_NAME',
-  'MONGODB_URL',
   'PORT',
-  'POLYMATH_ISSUER_URL',
   'POLYMATH_OFFCHAIN_URL',
-  // 'SENDGRID_API_KEY',
+  'POLYMATH_ISSUER_URL',
+  'NODE_ENV',
+  'MONGODB_URL',
+  'SENDGRID_API_KEY',
 ]);
 
 const validNetworkNames = ['LOCAL', 'KOVAN', 'MAINNET'];
@@ -55,7 +53,6 @@ if (!validNetworkNames.find(name => name === networkName)) {
 
 export const MONGODB_URL = env.MONGODB_URL;
 export const NODE_ENV = env.NODE_ENV;
-export const WEB3_NETWORK_HTTP = env.WEB3_NETWORK_HTTP;
 export const WEB3_NETWORK_WS = env.WEB3_NETWORK_WS;
 export const WEB3_NETWORK_NAME = networkName.toLowerCase();
 export const PORT = parseInt(env.PORT, 10);
