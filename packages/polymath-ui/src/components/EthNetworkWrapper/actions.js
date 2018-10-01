@@ -13,6 +13,10 @@ export type NetworkParams = {|
   web3WS: Web3,
 |};
 
+// FIXME @RafaelVidaurre: This shouldn't be the right way to do it, but
+// this has to be here for now
+const HARDCODED_NETWORK_ID = 15;
+
 export const CONNECTED = 'polymath-auth/CONNECTED';
 const connected = (params: NetworkParams) => ({ type: CONNECTED, params });
 
@@ -40,7 +44,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
       id = await web3.eth.net.getId();
     }
     // TODO @RafaelVidaurre: Make this code work with polymath in localhost
-    const isLocalhost = Number(id) > 10000000 || id === undefined;
+    const isLocalhost = Number(id) === HARDCODED_NETWORK_ID || id === undefined;
     const network = getNetwork(!isLocalhost ? id : undefined);
 
     if (
