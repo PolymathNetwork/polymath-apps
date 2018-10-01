@@ -1,16 +1,11 @@
 // @flow
 
 import Router from 'koa-router';
-import { NODE_ENV } from '../constants';
+import { NODE_ENV, WEB3_NETWORK_WS } from '../constants';
 import logger from 'winston';
-
+import Web3 from 'web3';
 import { User, Provider } from '../models';
-import {
-  sendProviderApplicationEmail,
-  verifySignature,
-  web3Client,
-  getNetworkId,
-} from '../utils';
+import { sendProviderApplicationEmail, verifySignature } from '../utils';
 import artifact from '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json';
 
 import type { Context } from 'koa';
@@ -22,7 +17,7 @@ type ApplyRequestBody = {
   sig: string,
   address: string,
   companyName: string,
-  ids: Array<string>,
+  ids: Array<number>,
   companyDesc: string,
   operatedIn: string,
   incorporatedIn: string,
@@ -45,7 +40,7 @@ const isApplyRequestValid = (body: ApplyRequestBody | any) => {
   return Object.keys(body).every(key => {
     const value = body[key];
     if (key === 'ids') {
-      return Array.isArray(value) && value.every(id => typeof id === 'string');
+      return Array.isArray(value) && value.every(id => typeof id === 'number');
     } else if (key === 'otherDetails') {
       return !value || typeof value === 'string';
     }
@@ -60,7 +55,8 @@ const isApplyRequestValid = (body: ApplyRequestBody | any) => {
   @param {string} address client's ethereum address
  */
 const checkForReservedTicker = async address => {
-  const networkId = await getNetworkId();
+  const web3Client = new Web3(WEB3_NETWORK_WS);
+  const networkId = await web3Client.eth.net.networkId;
   const tickerRegistry = new web3Client.eth.Contract(
     artifact.abi,
     artifact.networks[networkId].address
@@ -81,10 +77,52 @@ const checkForReservedTicker = async address => {
 /**
   POST /providers/apply
 
-  Provider application route handler. Receives form data
-  and an array of the ids of the providers to send email applications to,
-  checks if the client has a reserved ticker and sends the corresponding 
-  emails.
+  Provider application route handler. Receives form data and an array of the ids of the providers to send email applications to.
+  It checks if the client has a reserved ticker and sends the corresponding emails.
+
+  If the request body is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Invalid request body
+  }
+
+  If the client didn't sign the verification code or the signature is not valid, the response will contain an error.
+
+  If the code doesn't match the address in our database, the response is
+
+  {
+    status: 'error',
+    data: 'Code is not valid'    
+  }
+
+  If the signature is invalid, the response is
+
+  {
+    status: 'error',
+    data: 'Sig is not valid'
+  }
+
+  If there is no user with that Ethereum address in our database, the response is
+
+  {
+    status: 'error',
+    data: 'Invalid user'
+  }
+
+  If the issuer has no reserved tickers, the response is
+
+  {
+    status 'error',
+    data: 'No ticker was reserved'
+  }
+
+  Otherwise, the response is
+
+  {
+    status: 'ok',
+    data: 'Application has been sent',
+  }
 
   @param {string} code polymath verification code
   @param {string} sig signature
@@ -148,11 +186,11 @@ const applyHandler = async (ctx: Context) => {
    */
   try {
     await checkForReservedTicker();
-  } catch (err) {
-    logger.error(err.message);
+  } catch (error) {
+    logger.error(error.message);
     ctx.body = {
       status: 'error',
-      data: err.message,
+      data: error.message,
     };
     return;
   }
@@ -172,15 +210,13 @@ const applyHandler = async (ctx: Context) => {
 
   if (NODE_ENV === 'PRODUCTION') {
     /* Send emails to all selected providers */
-    const providerIds = ids.map(Number);
 
-    const providers = await Provider.find({ id: { $in: providerIds } });
+    const providers = await Provider.find({ id: { $in: ids } });
     for (let provider of providers) {
       const { name: providerName, email: providerEmail } = provider;
       await sendProviderApplicationEmail(
         providerEmail,
         providerName,
-        companyName,
         userName,
         userEmail,
         application
@@ -191,7 +227,6 @@ const applyHandler = async (ctx: Context) => {
     await sendProviderApplicationEmail(
       userEmail,
       userName,
-      `DEMO: ${companyName} is interested in your services`,
       userName,
       userEmail,
       application
