@@ -8,4 +8,3 @@ export {
   sendSTOScheduledEmail,
   sendAccountConfirmationEmail,
 } from './emails';
-export { web3Client, getNetworkId } from './web3';
