@@ -1,4 +1,4 @@
-// flow-typed signature: 2e1a45518f05b2f51f1433a2b79ecfbc
+// flow-typed signature: e3656fbfd637912a546caf6585dfdfbd
 // flow-typed version: <<STUB>>/@polymathnetwork/ui_v0.0.0/flow_v0.81.0
 
 /**
@@ -30,15 +30,67 @@ declare module '@polymathnetwork/ui/jest.config' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/Countdown' {
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/actions' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/DummyPage' {
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/ConfirmModal' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/Footer' {
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/reducer' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Countdown/Countdown' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Countdown/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EnterPINForm' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EnterPINModal' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/actions' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/EthNetworkWrapper' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/helpers' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/networks' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/reducer' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Footer/Footer' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Footer/index' {
   declare module.exports: any;
 }
 
@@ -74,27 +126,143 @@ declare module '@polymathnetwork/ui/src/components/inputs/TimePickerInput' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/MetamaskPage' {
+declare module '@polymathnetwork/ui/src/components/MetamaskStatus/index' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/Navbar' {
+declare module '@polymathnetwork/ui/src/components/MetamaskStatus/MetamaskStatus' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/ProgressBar' {
+declare module '@polymathnetwork/ui/src/components/Navbar/index' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/Remark' {
+declare module '@polymathnetwork/ui/src/components/Navbar/Navbar' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/Sidebar' {
+declare module '@polymathnetwork/ui/src/components/NotFoundPage/index' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/components/STOStatus' {
+declare module '@polymathnetwork/ui/src/components/NotFoundPage/NotFoundPage' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/NoticeBar/actions' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/NoticeBar/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/NoticeBar/NoticeBar' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/NoticeBar/reducer' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/NotSupportedPage/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/NotSupportedPage/NotSupportedPage' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/PausedBar/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/PausedBar/PausedBar' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/ProgressBar/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/ProgressBar/ProgressBar' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Remark/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Remark/Remark' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Sidebar/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Sidebar/Sidebar' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/SignInPage' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/SignUpForm' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/SignUpPage' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/SignUpSuccessPage' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/STOStatus/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/STOStatus/STOStatus' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Toaster/actions' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Toaster/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Toaster/reducer' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/Toaster/Toaster' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/TxModal/__tests__/actions.test' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/TxModal/actions' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/TxModal/index' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/TxModal/reducer' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/components/TxModal/TxModal' {
   declare module.exports: any;
 }
 
@@ -102,91 +270,31 @@ declare module '@polymathnetwork/ui/src/helpers' {
   declare module.exports: any;
 }
 
+declare module '@polymathnetwork/ui/src/images/svg/briefcase' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/images/svg/handshake' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/images/svg/help' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/images/svg/inbox' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/images/svg/paper-plane' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/images/svg/whitelist' {
+  declare module.exports: any;
+}
+
 declare module '@polymathnetwork/ui/src/index' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/actions' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/EnterPINForm' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/EnterPINModal' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/reducer' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/SignInPage' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/SignUpForm' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/SignUpPage' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/account/SignUpSuccessPage' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/modal/actions' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/modal/ConfirmModal' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/modal/reducer' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/notice/actions' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/notice/NoticeBar' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/notice/reducer' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/toaster/actions' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/toaster/reducer' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/toaster/Toaster' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/tx/__tests__/actions.test' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/tx/actions' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/tx/reducer' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/modules/tx/TxModal' {
   declare module.exports: any;
 }
 
@@ -194,7 +302,11 @@ declare module '@polymathnetwork/ui/src/offchain' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/PolymathUI' {
+declare module '@polymathnetwork/ui/src/redux/account/actions' {
+  declare module.exports: any;
+}
+
+declare module '@polymathnetwork/ui/src/redux/account/reducer' {
   declare module.exports: any;
 }
 
@@ -218,30 +330,6 @@ declare module '@polymathnetwork/ui/src/specsInit' {
   declare module.exports: any;
 }
 
-declare module '@polymathnetwork/ui/src/svg/briefcase' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/svg/handshake' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/svg/help' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/svg/inbox' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/svg/paper-plane' {
-  declare module.exports: any;
-}
-
-declare module '@polymathnetwork/ui/src/svg/whitelist' {
-  declare module.exports: any;
-}
-
 declare module '@polymathnetwork/ui/src/validate' {
   declare module.exports: any;
 }
@@ -261,18 +349,85 @@ declare module '@polymathnetwork/ui/babel.config.js' {
 declare module '@polymathnetwork/ui/jest.config.js' {
   declare module.exports: $Exports<'@polymathnetwork/ui/jest.config'>;
 }
-declare module '@polymathnetwork/ui/src/components/Countdown.js' {
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/actions.js' {
   declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/components/Countdown'
+    '@polymathnetwork/ui/src/components/ConfirmModal/actions'
   >;
 }
-declare module '@polymathnetwork/ui/src/components/DummyPage.js' {
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/ConfirmModal.js' {
   declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/components/DummyPage'
+    '@polymathnetwork/ui/src/components/ConfirmModal/ConfirmModal'
   >;
 }
-declare module '@polymathnetwork/ui/src/components/Footer.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/components/Footer'>;
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/ConfirmModal/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/ConfirmModal/reducer.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/ConfirmModal/reducer'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Countdown/Countdown.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Countdown/Countdown'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Countdown/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Countdown/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EnterPINForm.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EnterPINForm'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EnterPINModal.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EnterPINModal'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/actions.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EthNetworkWrapper/actions'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/EthNetworkWrapper.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EthNetworkWrapper/EthNetworkWrapper'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/helpers.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EthNetworkWrapper/helpers'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EthNetworkWrapper/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/networks.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EthNetworkWrapper/networks'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/EthNetworkWrapper/reducer.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/EthNetworkWrapper/reducer'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Footer/Footer.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Footer/Footer'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Footer/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Footer/index'
+  >;
 }
 declare module '@polymathnetwork/ui/src/components/inputs/CheckboxInput.js' {
   declare module.exports: $Exports<
@@ -314,148 +469,225 @@ declare module '@polymathnetwork/ui/src/components/inputs/TimePickerInput.js' {
     '@polymathnetwork/ui/src/components/inputs/TimePickerInput'
   >;
 }
-declare module '@polymathnetwork/ui/src/components/MetamaskPage.js' {
+declare module '@polymathnetwork/ui/src/components/MetamaskStatus/index.js' {
   declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/components/MetamaskPage'
+    '@polymathnetwork/ui/src/components/MetamaskStatus/index'
   >;
 }
-declare module '@polymathnetwork/ui/src/components/Navbar.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/components/Navbar'>;
-}
-declare module '@polymathnetwork/ui/src/components/ProgressBar.js' {
+declare module '@polymathnetwork/ui/src/components/MetamaskStatus/MetamaskStatus.js' {
   declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/components/ProgressBar'
+    '@polymathnetwork/ui/src/components/MetamaskStatus/MetamaskStatus'
   >;
 }
-declare module '@polymathnetwork/ui/src/components/Remark.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/components/Remark'>;
-}
-declare module '@polymathnetwork/ui/src/components/Sidebar.js' {
+declare module '@polymathnetwork/ui/src/components/Navbar/index.js' {
   declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/components/Sidebar'
+    '@polymathnetwork/ui/src/components/Navbar/index'
   >;
 }
-declare module '@polymathnetwork/ui/src/components/STOStatus.js' {
+declare module '@polymathnetwork/ui/src/components/Navbar/Navbar.js' {
   declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/components/STOStatus'
+    '@polymathnetwork/ui/src/components/Navbar/Navbar'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NotFoundPage/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NotFoundPage/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NotFoundPage/NotFoundPage.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NotFoundPage/NotFoundPage'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NoticeBar/actions.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NoticeBar/actions'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NoticeBar/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NoticeBar/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NoticeBar/NoticeBar.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NoticeBar/NoticeBar'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NoticeBar/reducer.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NoticeBar/reducer'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NotSupportedPage/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NotSupportedPage/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/NotSupportedPage/NotSupportedPage.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/NotSupportedPage/NotSupportedPage'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/PausedBar/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/PausedBar/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/PausedBar/PausedBar.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/PausedBar/PausedBar'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/ProgressBar/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/ProgressBar/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/ProgressBar/ProgressBar.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/ProgressBar/ProgressBar'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Remark/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Remark/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Remark/Remark.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Remark/Remark'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Sidebar/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Sidebar/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Sidebar/Sidebar.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Sidebar/Sidebar'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/SignInPage.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/SignInPage'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/SignUpForm.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/SignUpForm'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/SignUpPage.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/SignUpPage'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/SignUpSuccessPage.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/SignUpSuccessPage'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/STOStatus/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/STOStatus/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/STOStatus/STOStatus.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/STOStatus/STOStatus'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Toaster/actions.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Toaster/actions'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Toaster/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Toaster/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Toaster/reducer.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Toaster/reducer'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/Toaster/Toaster.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/Toaster/Toaster'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/TxModal/__tests__/actions.test.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/TxModal/__tests__/actions.test'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/TxModal/actions.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/TxModal/actions'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/TxModal/index.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/TxModal/index'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/TxModal/reducer.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/TxModal/reducer'
+  >;
+}
+declare module '@polymathnetwork/ui/src/components/TxModal/TxModal.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/components/TxModal/TxModal'
   >;
 }
 declare module '@polymathnetwork/ui/src/helpers.js' {
   declare module.exports: $Exports<'@polymathnetwork/ui/src/helpers'>;
 }
+declare module '@polymathnetwork/ui/src/images/svg/briefcase.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/images/svg/briefcase'
+  >;
+}
+declare module '@polymathnetwork/ui/src/images/svg/handshake.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/images/svg/handshake'
+  >;
+}
+declare module '@polymathnetwork/ui/src/images/svg/help.js' {
+  declare module.exports: $Exports<'@polymathnetwork/ui/src/images/svg/help'>;
+}
+declare module '@polymathnetwork/ui/src/images/svg/inbox.js' {
+  declare module.exports: $Exports<'@polymathnetwork/ui/src/images/svg/inbox'>;
+}
+declare module '@polymathnetwork/ui/src/images/svg/paper-plane.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/images/svg/paper-plane'
+  >;
+}
+declare module '@polymathnetwork/ui/src/images/svg/whitelist.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/images/svg/whitelist'
+  >;
+}
 declare module '@polymathnetwork/ui/src/index.js' {
   declare module.exports: $Exports<'@polymathnetwork/ui/src/index'>;
-}
-declare module '@polymathnetwork/ui/src/modules/account/actions.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/actions'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/account/EnterPINForm.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/EnterPINForm'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/account/EnterPINModal.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/EnterPINModal'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/account/reducer.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/reducer'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/account/SignInPage.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/SignInPage'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/account/SignUpForm.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/SignUpForm'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/account/SignUpPage.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/SignUpPage'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/account/SignUpSuccessPage.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/account/SignUpSuccessPage'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/modal/actions.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/modal/actions'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/modal/ConfirmModal.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/modal/ConfirmModal'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/modal/reducer.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/modal/reducer'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/notice/actions.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/notice/actions'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/notice/NoticeBar.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/notice/NoticeBar'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/notice/reducer.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/notice/reducer'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/toaster/actions.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/toaster/actions'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/toaster/reducer.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/toaster/reducer'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/toaster/Toaster.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/toaster/Toaster'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/tx/__tests__/actions.test.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/tx/__tests__/actions.test'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/tx/actions.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/tx/actions'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/tx/reducer.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/tx/reducer'
-  >;
-}
-declare module '@polymathnetwork/ui/src/modules/tx/TxModal.js' {
-  declare module.exports: $Exports<
-    '@polymathnetwork/ui/src/modules/tx/TxModal'
-  >;
 }
 declare module '@polymathnetwork/ui/src/offchain.js' {
   declare module.exports: $Exports<'@polymathnetwork/ui/src/offchain'>;
 }
-declare module '@polymathnetwork/ui/src/PolymathUI.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/PolymathUI'>;
+declare module '@polymathnetwork/ui/src/redux/account/actions.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/redux/account/actions'
+  >;
+}
+declare module '@polymathnetwork/ui/src/redux/account/reducer.js' {
+  declare module.exports: $Exports<
+    '@polymathnetwork/ui/src/redux/account/reducer'
+  >;
 }
 declare module '@polymathnetwork/ui/src/redux/common/actions.js' {
   declare module.exports: $Exports<
@@ -475,24 +707,6 @@ declare module '@polymathnetwork/ui/src/redux/reducer.js' {
 }
 declare module '@polymathnetwork/ui/src/specsInit.js' {
   declare module.exports: $Exports<'@polymathnetwork/ui/src/specsInit'>;
-}
-declare module '@polymathnetwork/ui/src/svg/briefcase.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/svg/briefcase'>;
-}
-declare module '@polymathnetwork/ui/src/svg/handshake.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/svg/handshake'>;
-}
-declare module '@polymathnetwork/ui/src/svg/help.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/svg/help'>;
-}
-declare module '@polymathnetwork/ui/src/svg/inbox.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/svg/inbox'>;
-}
-declare module '@polymathnetwork/ui/src/svg/paper-plane.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/svg/paper-plane'>;
-}
-declare module '@polymathnetwork/ui/src/svg/whitelist.js' {
-  declare module.exports: $Exports<'@polymathnetwork/ui/src/svg/whitelist'>;
 }
 declare module '@polymathnetwork/ui/src/validate.js' {
   declare module.exports: $Exports<'@polymathnetwork/ui/src/validate'>;
