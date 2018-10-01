@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "babel-node src/server.js",
-    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
+    "test": "jest",
     "start:dist": "node ./build/index.js",
     "build": "babel src --out-dir build",
     "typecheck": "flow --show-all-branches"
@@ -50,5 +50,8 @@
     "eslint-config-react-app": "2.1.0",
     "flow-bin": "^0.81.0",
     "jest": "22.4.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
