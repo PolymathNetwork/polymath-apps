@@ -1,14 +1,4 @@
-export { default as TextInput } from './inputs/TextInput';
-export { default as TextAreaInput } from './inputs/TextAreaInput';
-export { default as SelectInput } from './inputs/SelectInput';
-export { default as RadioInput } from './inputs/RadioInput';
-export { default as CheckboxInput } from './inputs/CheckboxInput';
-export { default as DatePickerInput } from './inputs/DatePickerInput';
-export { default as DatePickerRangeInput } from './inputs/DatePickerRangeInput';
-export {
-  default as TimePickerInput,
-  twelveHourTimeToMinutes,
-} from './inputs/TimePickerInput';
+export * from './inputs';
 export { default as STOStatus } from './STOStatus';
 export { default as Countdown } from './Countdown';
 export { default as Remark } from './Remark';
