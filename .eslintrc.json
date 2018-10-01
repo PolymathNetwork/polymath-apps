@@ -1,7 +1,9 @@
 {
   "parser": "babel-eslint",
-  "env": { "es6": true },
-  "extends": ["react-app", "plugin:prettier/recommended"],
+  "env": {
+    "es6": true
+  },
+  "extends": "react-app",
   "settings": {
     "react": {
       "version": "16.4"

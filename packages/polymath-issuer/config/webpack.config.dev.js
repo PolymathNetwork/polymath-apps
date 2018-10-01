@@ -214,6 +214,7 @@ module.exports = {
                   // directory for faster rebuilds.
                   cacheDirectory: true,
                   highlightCode: true,
+                  plugins: ['react-hot-loader/babel'],
                 },
               },
             ],

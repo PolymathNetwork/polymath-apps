@@ -7,12 +7,18 @@
   "scripts": {
     "commit": "commit",
     "typecheck": "lerna run --parallel typecheck ",
-    "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",
+    "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
-    "test": "lerna exec -- yarn test",
-    "local-blockchain:start": "lerna run --stream --scope=@polymathnetwork/scripts local-blockchain:start",
-    "local-blockchain:migrate": "lerna run --stream --scope=@polymathnetwork/scripts local-blockchain:migrate",
+    "test": "lerna exec --parallel --stream -- yarn test",
+    "test:investor": "lerna exec --stream --scope=@polymathnetwork/investor -- yarn test",
+    "test:issuer": "lerna exec --stream --scope=@polymathnetwork/issuer -- yarn test",
+    "test:js": "lerna exec --stream --scope=@polymathnetwork/js -- yarn test",
+    "test:offchain": "lerna exec --stream --scope=@polymathnetwork/offchain -- yarn test",
+    "test:shared": "lerna exec --stream --scope=@polymathnetwork/shared -- yarn test",
+    "test:ui": "lerna exec --stream --scope=@polymathnetwork/ui -- yarn test",
+    "local-blockchain:start": "lerna run --stream --scope=@polymathnetwork/shared local-blockchain:start",
+    "local-blockchain:migrate": "lerna run --stream --scope=@polymathnetwork/shared local-blockchain:migrate",
     "build": "lerna run --parallel --stream build",
     "build:apps": "lerna run --parallel --stream --scope=@polymathnetwork/{issuer,investor,offchain} build",
     "build:libs": "lerna run --parallel --stream --scope=@polymathnetwork/{auth,ui,js} build",
@@ -34,26 +40,30 @@
     "eslint-plugin-flowtype": "^2.34.1",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.1.0",
     "flow-bin": "^0.81.0",
     "flow-mono-cli": "^1.4.0",
     "husky": "^1.0.0-rc.14",
     "lerna": "^3.3.1",
     "lint-staged": "^7.2.2",
-    "polymath-core": "^1.4.0",
     "prettier": "^1.14.2",
     "prettier-eslint-cli": "^4.7.1"
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
+    "linters": {
+      "*.{js,json,css,md}": [
+        "prettier-eslint --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "packages/**/fixtures/**/*.json"
     ]
   }
 }
