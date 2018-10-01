@@ -74,7 +74,7 @@ This repo requires the use of [Conventional Commits](https://www.conventionalcom
 **Tools:**
 
 - If you don't want to worry about formatting, you can run `yarn commit` to
-  run a cli tool that will guide you through the committing process.\_
+  run a cli tool that will guide you through the committing process.
 - [VSCode Committizen Extension](https://marketplace.visualstudio.com/items?itemName=KnisterPeter.vscode-commitizen)
 
 ## Branches
