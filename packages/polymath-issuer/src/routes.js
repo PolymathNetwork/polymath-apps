@@ -1,13 +1,14 @@
 // @flow
+import { NotFoundPage } from '@polymathnetwork/ui';
 
-import App from './app/App';
-import NotFoundPage from './app/NotFoundPage';
-import WhitelistPage from './app/compliance/CompliancePage';
-import TickerPage from './app/ticker/TickerPage';
-import Dashboard from './app/Dashboard';
-import ProvidersPage from './app/providers/ProvidersPage';
-import TokenPage from './app/token/TokenPage';
-import STOPage from './app/sto/STOPage';
+import App from './components/App';
+import Dashboard from './components/Dashboard';
+
+import WhitelistPage from './pages/compliance/CompliancePage';
+import TickerPage from './pages/ticker/TickerPage';
+import ProvidersPage from './pages/providers/ProvidersPage';
+import TokenPage from './pages/token/TokenPage';
+import STOPage from './pages/sto/STOPage';
 
 export default [
   {

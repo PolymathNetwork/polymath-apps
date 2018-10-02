@@ -1,3 +1,0 @@
-# Polymath Auth Module
-
-TODO

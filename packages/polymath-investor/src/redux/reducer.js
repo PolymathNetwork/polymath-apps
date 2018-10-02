@@ -2,10 +2,11 @@
 
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import { reducer as network } from '@polymathnetwork/auth';
-import { reducer as pui } from '@polymathnetwork/ui';
-import type { PUIState } from '@polymathnetwork/ui';
-import type { NetworkState } from '@polymathnetwork/auth';
+import {
+  uiReducer as pui,
+  networkReducer as network,
+} from '@polymathnetwork/ui';
+import type { PUIState, NetworkState } from '@polymathnetwork/ui';
 
 import sto from '../app/sto/reducer';
 import type { STOState } from '../app/sto/reducer';
