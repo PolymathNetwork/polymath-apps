@@ -2,3 +2,6 @@
   base    = "packages/polymath-ui"
   publish = "packages/polymath-ui/.docz/dist"
   command = "yarn docz:build"
+  [build.environment]
+    YARN_VERSION = "1.9.4"
+    
