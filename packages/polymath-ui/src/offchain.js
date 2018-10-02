@@ -1,3 +1,5 @@
+// TODO @grsmto: This has nothing to do in this package as it's not UI related.
+// This could probably go in the new `polymath-shared` package.
 import axios from 'axios';
 import ReactDOMServer from 'react-dom/server';
 

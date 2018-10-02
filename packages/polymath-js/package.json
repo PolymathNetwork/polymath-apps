@@ -21,6 +21,7 @@
   },
   "main": "./src/index.js",
   "scripts": {
+    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
     "build": "webpack --config webpack.prod.js",
     "typecheck": "flow --show-all-branches"
   },
@@ -37,14 +38,14 @@
     "babel-core": "^7.0.0-bridge.0",
     "flow-bin": "^0.81.0",
     "husky": "0.14.3",
+    "jest": "22.4.3",
     "webpack": "^4.19.0",
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "7.0.0",
+    "@polymathnetwork/shared": "0.0.0",
     "bignumber.js": "5.0.0",
     "bs58": "^4.0.1",
-    "polymath-core": "1.4.0",
     "redux": "3.7.2",
     "redux-thunk": "2.2.0",
     "web3": "1.0.0-beta.30"
