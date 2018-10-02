@@ -164,11 +164,11 @@ Steps:
 Rules:
 
 - Rewriting history and therefore force-pushing is **only allowed in personal branches**.
-- No commit reaches `develop` if it hasn't been reviewed by at least `1` other
-  developer.
+- No commit reaches `develop` unless it comes from a PR and has been reviewed by at least `1` other developer.
 - No commit reaches `master` except through a PR from `develop` to `master`. _(Note: We might want to ask for more than one approval for this PR since they deploy to production)_
-- You can only branch out from `develop` or an epic branch (e.g: `migration-to-2.0`)
+- You can base your branch from `develop` or an epic branch (e.g: `migration-to-2.0`)
 - PRs that break unit tests will be rejected
+- E2E tests test code in `develop`, `Pull Requests pointing to master` and on `master`
 
 Good practices:
 
