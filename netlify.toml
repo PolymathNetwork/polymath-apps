@@ -1,0 +1,4 @@
+[build]
+  base    = "packages/polymath-ui"
+  publish = "packages/polymath-ui/.docz/dist"
+  command = "yarn docz:build"
