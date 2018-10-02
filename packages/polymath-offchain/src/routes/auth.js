@@ -84,7 +84,6 @@ const isAuthRequestValid = (body: AuthRequestBody | any) => {
   }
  */
 export const getCodeHandler = async (ctx: Context) => {
-  const code = crypto.randomBytes(8).toString('hex');
   let params = ctx.params;
 
   if (!isAuthSetupRequestValid(params)) {
@@ -96,6 +95,9 @@ export const getCodeHandler = async (ctx: Context) => {
   }
 
   params = (params: AuthSetupRequestParams);
+
+  const code = crypto.randomBytes(8).toString('hex');
+
   await AuthCode.create({ address: params.address.toLowerCase(), code });
   const data = {
     typedName: TYPED_NAME,
