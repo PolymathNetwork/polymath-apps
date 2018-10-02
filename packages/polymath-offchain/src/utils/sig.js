@@ -11,8 +11,11 @@ import { AuthCode } from '../models';
 import { TYPED_NAME } from '../constants';
 
 /**
-  TODO @monitz87: annotate and document this file. Right now use as-is
-  since I'm not terribly familiar with the ETH standard
+  TODO @monitz87:
+    - annotate and document this file. Right now use as-is
+      since I'm not terribly familiar with the ETH standard.
+    - ask Pablo if the recoverNormal part is really needed (since we're only signing structured data apparently)
+    - return sigUtil error messages when we start using HTTP codes in the responses
  */
 
 const recoverNormal = (message, sig) => {
@@ -21,13 +24,17 @@ const recoverNormal = (message, sig) => {
   const publicKey = ecrecover(msgHash, sigObj.v, sigObj.r, sigObj.s);
   return '0x' + publicToAddress(publicKey).toString('hex');
 };
-
 const isValidSig = (value: string, sig: string, address: string) => {
   const typed = [{ type: 'string', name: TYPED_NAME, value }];
-  if (
-    sigUtil.recoverTypedSignature({ data: typed, sig }).toLowerCase() ===
-    address.toLowerCase()
-  ) {
+  let recoveredAddress;
+  try {
+    recoveredAddress = sigUtil
+      .recoverTypedSignature({ data: typed, sig })
+      .toLowerCase();
+  } catch (error) {
+    return false;
+  }
+  if (recoveredAddress === address.toLowerCase()) {
     return true;
   }
 
