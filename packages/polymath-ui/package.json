@@ -47,6 +47,7 @@
     "css-loader": "^0.28.10",
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
+    "docz-plugin-netlify": "^1.1.4",
     "docz-theme-default": "^0.11.2",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
