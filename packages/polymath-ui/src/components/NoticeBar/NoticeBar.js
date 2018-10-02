@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { closeNotice } from './actions';
 import type { RootState } from '../../redux/reducer';
 
+import './style.scss';
+
 type StateProps = {|
   isOpen: boolean,
   notice: Object,

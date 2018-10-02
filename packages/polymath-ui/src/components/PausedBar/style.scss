@@ -1,0 +1,53 @@
+@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+
+.pui-pausebar {
+  position: fixed;
+  margin-top: $navbar-height + 1;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: $navbar-height;
+  background-color: #FCE8EA;
+  box-shadow: 0 1px 0 0 $poly-red;
+
+  > a {
+    float: left;
+  }
+
+  .pui-pausebar-warning {
+    margin-left: 120px;
+    margin-top: 11px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    color: $poly-blue;
+
+    p {
+      color: $poly-gray-dark;
+    }
+  }
+
+  .pui-pausebar-menu {
+    float: right;
+    margin-right: 56px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      color: $poly-blue;
+      line-height: 22px;
+      margin-left: 30px;
+
+      .bx--btn {
+        margin-top: 0;
+      }
+    }
+  }
+}

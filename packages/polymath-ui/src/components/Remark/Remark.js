@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import type { Node } from 'react';
 
+import './style.scss';
+
 type Props = {|
   title: string,
   children: string | Node,
