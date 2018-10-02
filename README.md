@@ -43,39 +43,7 @@ _Instructions pending_
 
 # How to contribute
 
-## Commits
-
-This repo requires the use of [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/).
-
-**Commit convention: The following rules are subject to change based on wether they work for us or not.**
-
-- Add a `body` to the commit if the commit's subject is not descriptive enough
-- Add a `BREAKING CHANGE: <explanation>` in the footer of a commit that makes
-  a breaking change of the API of a package
-- Add a `CLOSES: #<number>` in the footer of a commit to close an issue
-  this commit solves
-- Commit messages must be written in imperative tense
-- The `scope` defines what package is affected by a commit (enforced by [config-lerna-scopes](https://www.npmjs.com/package/@commitlint/config-lerna-scopes))
-- For changes not associated to a package, scope can be omitted
-- Relevant types that define changes in [semver]() versioning are:
-  - `fix`: Bumps patch version. Use when the commit represents a bugfix
-  - `feat`: Bumps minor version. Use when the commit adds a new feature
-- Other types which do not affect versioning are:
-  - `build`: Affects the build system or external dependencies.
-  - `chore`: Other changes that don't modify src or test files
-  - `ci`: Changes CI configuration files and scripts.
-  - `docs`: Adds or alters documentation.
-  - `perf`: Improves performance.
-  - `refactor`: Rewrites code without feature, performance or bug changes.
-  - `revert`: Reverts a previous commit.
-  - `style`: Improves formatting, white-space.
-  - `test`: Adds or modifies tests.
-
-**Tools:**
-
-- If you don't want to worry about formatting, you can run `yarn commit` to
-  run a cli tool that will guide you through the committing process.
-- [VSCode Committizen Extension](https://marketplace.visualstudio.com/items?itemName=KnisterPeter.vscode-commitizen)
+Please read our [contribution guidelines](https://github.com/PolymathNetwork/polymath-apps/blob/develop/.github/CONTRIBUTING.md)
 
 ## Branches
 
