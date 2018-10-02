@@ -168,6 +168,7 @@ Rules:
   developer.
 - No commit reaches `master` except through a PR from `develop` to `master`. _(Note: We might want to ask for more than one approval for this PR since they deploy to production)_
 - You can only branch out from `develop` or an epic branch (e.g: `migration-to-2.0`)
+- PRs that break unit tests will be rejected
 
 Good practices:
 

@@ -45,12 +45,7 @@ _Instructions pending_
 
 Please read our [contribution guidelines](https://github.com/PolymathNetwork/polymath-apps/blob/develop/.github/CONTRIBUTING.md)
 
-## Branches
+# Deployments
 
-All your contributed code must live in a feature branch before getting merged to the main `develop` branch.
-
-- First, checkout `develop` (feature branches need to branch off of `develop`).
-- Then create your feature branch following this naming convention: `feature/your-branch-name`.
-- Once you're happy with your code, you can now submit a pull request.
-
-Make sure you always push into a feature branch and not directly to `master` / `develop`.
+- Any merge to `master` automatically deploys to our **Production Environment**
+- Any merge to `develop` automatically deploys to our **Staging Environment**
