@@ -4,15 +4,16 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Loading } from 'carbon-components-react';
+import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
+import { hot } from 'react-hot-loader';
 import PolymathAuth, {
   NETWORK_MAIN,
   NETWORK_KOVAN,
-} from '@polymathnetwork/auth';
-import { MetamaskPage, DummyPage } from '@polymathnetwork/ui';
-import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
+} from '@polymathnetwork/ui/components/EthNetworkWrapper';
+import { MetamaskStatus, NotSupportedPage } from '@polymathnetwork/ui';
 
-import Root from './app/Root';
-import SplashPage from './app/SplashPage';
+import Root from './components/Root';
+import SplashPage from './components/SplashPage';
 import routes from './routes';
 
 type Props = {
@@ -28,7 +29,7 @@ class RouteLoader extends Component<Props> {
     if (isMobile || isUnsupportedBrowser) {
       return (
         <Root>
-          <DummyPage />
+          <NotSupportedPage />
         </Root>
       );
     } else if (this.props.location.pathname === '/') {
@@ -43,7 +44,7 @@ class RouteLoader extends Component<Props> {
     return (
       <PolymathAuth
         loading={<Loading />}
-        guide={<MetamaskPage networks="Mainnet or Kovan" />}
+        guide={<MetamaskStatus networks="Mainnet or Kovan" />}
         networks={networks}
       >
         {renderRoutes(routes)}
@@ -52,4 +53,4 @@ class RouteLoader extends Component<Props> {
   }
 }
 
-export default withRouter(RouteLoader);
+export default hot(module)(withRouter(RouteLoader));

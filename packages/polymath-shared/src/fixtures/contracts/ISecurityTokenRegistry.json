@@ -1,0 +1,1784 @@
+{
+  "contractName": "ISecurityTokenRegistry",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "protocolVersion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "protocolVersionST",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "_symbol",
+          "type": "string"
+        },
+        {
+          "name": "_tokenDetails",
+          "type": "string"
+        },
+        {
+          "name": "_divisible",
+          "type": "bool"
+        }
+      ],
+      "name": "generateSecurityToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_stVersionProxyAddress",
+          "type": "address"
+        },
+        {
+          "name": "_version",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setProtocolVersion",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_symbol",
+          "type": "string"
+        }
+      ],
+      "name": "getSecurityTokenAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_securityToken",
+          "type": "address"
+        }
+      ],
+      "name": "getSecurityTokenData",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_securityToken",
+          "type": "address"
+        }
+      ],
+      "name": "isSecurityToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"./ISecurityToken.sol\";\n\n/**\n * @title Interface for the polymath security token registry contract\n */\ncontract ISecurityTokenRegistry {\n\n    bytes32 public protocolVersion = \"0.0.1\";\n    mapping (bytes32 => address) public protocolVersionST;\n\n    struct SecurityTokenData {\n        string symbol;\n        string tokenDetails;\n    }\n\n    mapping(address => SecurityTokenData) securityTokens;\n    mapping(string => address) symbols;\n\n    /**\n     * @notice Creates a new Security Token and saves it to the registry\n     * @param _name Name of the token\n     * @param _symbol Ticker symbol of the security token\n     * @param _tokenDetails off-chain details of the token\n     */\n    function generateSecurityToken(string _name, string _symbol, string _tokenDetails, bool _divisible) public;\n\n    function setProtocolVersion(address _stVersionProxyAddress, bytes32 _version) public;\n\n    /**\n     * @notice Get security token address by ticker name\n     * @param _symbol Symbol of the Scurity token\n     * @return address _symbol\n     */\n    function getSecurityTokenAddress(string _symbol) public view returns (address);\n\n     /**\n     * @notice Get security token data by its address\n     * @param _securityToken Address of the Scurity token\n     * @return string, address, bytes32\n     */\n    function getSecurityTokenData(address _securityToken) public view returns (string, address, string);\n\n    /**\n    * @notice Check that Security Token is registered\n    * @param _securityToken Address of the Scurity token\n    * @return bool\n    */\n    function isSecurityToken(address _securityToken) public view returns (bool);\n\n}\n",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityTokenRegistry.sol",
+  "ast": {
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityTokenRegistry.sol",
+    "exportedSymbols": {
+      "ISecurityTokenRegistry": [
+        10166
+      ]
+    },
+    "id": 10167,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10101,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:20"
+      },
+      {
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+        "file": "./ISecurityToken.sol",
+        "id": 10102,
+        "nodeType": "ImportDirective",
+        "scope": 10167,
+        "sourceUnit": 10100,
+        "src": "26:30:20",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Interface for the polymath security token registry contract",
+        "fullyImplemented": false,
+        "id": 10166,
+        "linearizedBaseContracts": [
+          10166
+        ],
+        "name": "ISecurityTokenRegistry",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 10105,
+            "name": "protocolVersion",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "175:40:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes32",
+              "typeString": "bytes32"
+            },
+            "typeName": {
+              "id": 10103,
+              "name": "bytes32",
+              "nodeType": "ElementaryTypeName",
+              "src": "175:7:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "302e302e31",
+              "id": 10104,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "208:7:20",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_ae209a0b48f21c054280f2455d32cf309387644879d9acbd8ffc199163811885",
+                "typeString": "literal_string \"0.0.1\""
+              },
+              "value": "0.0.1"
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 10109,
+            "name": "protocolVersionST",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "221:53:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+              "typeString": "mapping(bytes32 => address)"
+            },
+            "typeName": {
+              "id": 10108,
+              "keyType": {
+                "id": 10106,
+                "name": "bytes32",
+                "nodeType": "ElementaryTypeName",
+                "src": "230:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "221:28:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                "typeString": "mapping(bytes32 => address)"
+              },
+              "valueType": {
+                "id": 10107,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "241:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ISecurityTokenRegistry.SecurityTokenData",
+            "id": 10114,
+            "members": [
+              {
+                "constant": false,
+                "id": 10111,
+                "name": "symbol",
+                "nodeType": "VariableDeclaration",
+                "scope": 10114,
+                "src": "316:13:20",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 10110,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "316:6:20",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10113,
+                "name": "tokenDetails",
+                "nodeType": "VariableDeclaration",
+                "scope": 10114,
+                "src": "339:19:20",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 10112,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "339:6:20",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "SecurityTokenData",
+            "nodeType": "StructDefinition",
+            "scope": 10166,
+            "src": "281:84:20",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 10118,
+            "name": "securityTokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "371:52:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_SecurityTokenData_$10114_storage_$",
+              "typeString": "mapping(address => struct ISecurityTokenRegistry.SecurityTokenData)"
+            },
+            "typeName": {
+              "id": 10117,
+              "keyType": {
+                "id": 10115,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "379:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "371:37:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_SecurityTokenData_$10114_storage_$",
+                "typeString": "mapping(address => struct ISecurityTokenRegistry.SecurityTokenData)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 10116,
+                "name": "SecurityTokenData",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 10114,
+                "src": "390:17:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_SecurityTokenData_$10114_storage_ptr",
+                  "typeString": "struct ISecurityTokenRegistry.SecurityTokenData"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 10122,
+            "name": "symbols",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "429:34:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_address_$",
+              "typeString": "mapping(string => address)"
+            },
+            "typeName": {
+              "id": 10121,
+              "keyType": {
+                "id": 10119,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "437:6:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "429:26:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_address_$",
+                "typeString": "mapping(string => address)"
+              },
+              "valueType": {
+                "id": 10120,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "447:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Creates a new Security Token and saves it to the registry\n@param _name Name of the token\n@param _symbol Ticker symbol of the security token\n@param _tokenDetails off-chain details of the token",
+            "id": 10133,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "generateSecurityToken",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10131,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10124,
+                  "name": "_name",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "745:12:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10123,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "745:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10126,
+                  "name": "_symbol",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "759:14:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10125,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "759:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10128,
+                  "name": "_tokenDetails",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "775:20:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10127,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "775:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10130,
+                  "name": "_divisible",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "797:15:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10129,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "797:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "744:69:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10132,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "820:0:20"
+            },
+            "scope": 10166,
+            "src": "714:107:20",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 10140,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "setProtocolVersion",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10138,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10135,
+                  "name": "_stVersionProxyAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10140,
+                  "src": "855:30:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10134,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "855:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10137,
+                  "name": "_version",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10140,
+                  "src": "887:16:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 10136,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "887:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "854:50:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10139,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "911:0:20"
+            },
+            "scope": 10166,
+            "src": "827:85:20",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Get security token address by ticker name\n@param _symbol Symbol of the Scurity token\n@return address _symbol",
+            "id": 10147,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getSecurityTokenAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10143,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10142,
+                  "name": "_symbol",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10147,
+                  "src": "1105:14:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10141,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1105:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1104:16:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10146,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10145,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10147,
+                  "src": "1142:7:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10144,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1142:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1141:9:20"
+            },
+            "scope": 10166,
+            "src": "1072:79:20",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Get security token data by its address\n@param _securityToken Address of the Scurity token\n@return string, address, bytes32",
+            "id": 10158,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getSecurityTokenData",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10150,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10149,
+                  "name": "_securityToken",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1356:22:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10148,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1356:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1355:24:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10157,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10152,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1401:6:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10151,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1401:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10154,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1409:7:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10153,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1409:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10156,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1418:6:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10155,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1418:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1400:25:20"
+            },
+            "scope": 10166,
+            "src": "1326:100:20",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Check that Security Token is registered\n@param _securityToken Address of the Scurity token\n@return bool",
+            "id": 10165,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isSecurityToken",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10161,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10160,
+                  "name": "_securityToken",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10165,
+                  "src": "1602:22:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10159,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1602:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1601:24:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10164,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10163,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10165,
+                  "src": "1647:4:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10162,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1647:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1646:6:20"
+            },
+            "scope": 10166,
+            "src": "1577:76:20",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 10167,
+        "src": "136:1520:20"
+      }
+    ],
+    "src": "0:1657:20"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityTokenRegistry.sol",
+    "exportedSymbols": {
+      "ISecurityTokenRegistry": [
+        10166
+      ]
+    },
+    "id": 10167,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10101,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:20"
+      },
+      {
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+        "file": "./ISecurityToken.sol",
+        "id": 10102,
+        "nodeType": "ImportDirective",
+        "scope": 10167,
+        "sourceUnit": 10100,
+        "src": "26:30:20",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Interface for the polymath security token registry contract",
+        "fullyImplemented": false,
+        "id": 10166,
+        "linearizedBaseContracts": [
+          10166
+        ],
+        "name": "ISecurityTokenRegistry",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 10105,
+            "name": "protocolVersion",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "175:40:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes32",
+              "typeString": "bytes32"
+            },
+            "typeName": {
+              "id": 10103,
+              "name": "bytes32",
+              "nodeType": "ElementaryTypeName",
+              "src": "175:7:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "302e302e31",
+              "id": 10104,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "208:7:20",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_ae209a0b48f21c054280f2455d32cf309387644879d9acbd8ffc199163811885",
+                "typeString": "literal_string \"0.0.1\""
+              },
+              "value": "0.0.1"
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 10109,
+            "name": "protocolVersionST",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "221:53:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+              "typeString": "mapping(bytes32 => address)"
+            },
+            "typeName": {
+              "id": 10108,
+              "keyType": {
+                "id": 10106,
+                "name": "bytes32",
+                "nodeType": "ElementaryTypeName",
+                "src": "230:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "221:28:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                "typeString": "mapping(bytes32 => address)"
+              },
+              "valueType": {
+                "id": 10107,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "241:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ISecurityTokenRegistry.SecurityTokenData",
+            "id": 10114,
+            "members": [
+              {
+                "constant": false,
+                "id": 10111,
+                "name": "symbol",
+                "nodeType": "VariableDeclaration",
+                "scope": 10114,
+                "src": "316:13:20",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 10110,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "316:6:20",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10113,
+                "name": "tokenDetails",
+                "nodeType": "VariableDeclaration",
+                "scope": 10114,
+                "src": "339:19:20",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 10112,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "339:6:20",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "SecurityTokenData",
+            "nodeType": "StructDefinition",
+            "scope": 10166,
+            "src": "281:84:20",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 10118,
+            "name": "securityTokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "371:52:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_SecurityTokenData_$10114_storage_$",
+              "typeString": "mapping(address => struct ISecurityTokenRegistry.SecurityTokenData)"
+            },
+            "typeName": {
+              "id": 10117,
+              "keyType": {
+                "id": 10115,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "379:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "371:37:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_SecurityTokenData_$10114_storage_$",
+                "typeString": "mapping(address => struct ISecurityTokenRegistry.SecurityTokenData)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 10116,
+                "name": "SecurityTokenData",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 10114,
+                "src": "390:17:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_SecurityTokenData_$10114_storage_ptr",
+                  "typeString": "struct ISecurityTokenRegistry.SecurityTokenData"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 10122,
+            "name": "symbols",
+            "nodeType": "VariableDeclaration",
+            "scope": 10166,
+            "src": "429:34:20",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_address_$",
+              "typeString": "mapping(string => address)"
+            },
+            "typeName": {
+              "id": 10121,
+              "keyType": {
+                "id": 10119,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "437:6:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "429:26:20",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_address_$",
+                "typeString": "mapping(string => address)"
+              },
+              "valueType": {
+                "id": 10120,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "447:7:20",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Creates a new Security Token and saves it to the registry\n@param _name Name of the token\n@param _symbol Ticker symbol of the security token\n@param _tokenDetails off-chain details of the token",
+            "id": 10133,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "generateSecurityToken",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10131,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10124,
+                  "name": "_name",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "745:12:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10123,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "745:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10126,
+                  "name": "_symbol",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "759:14:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10125,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "759:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10128,
+                  "name": "_tokenDetails",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "775:20:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10127,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "775:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10130,
+                  "name": "_divisible",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10133,
+                  "src": "797:15:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10129,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "797:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "744:69:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10132,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "820:0:20"
+            },
+            "scope": 10166,
+            "src": "714:107:20",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 10140,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "setProtocolVersion",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10138,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10135,
+                  "name": "_stVersionProxyAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10140,
+                  "src": "855:30:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10134,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "855:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10137,
+                  "name": "_version",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10140,
+                  "src": "887:16:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 10136,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "887:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "854:50:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10139,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "911:0:20"
+            },
+            "scope": 10166,
+            "src": "827:85:20",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Get security token address by ticker name\n@param _symbol Symbol of the Scurity token\n@return address _symbol",
+            "id": 10147,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getSecurityTokenAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10143,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10142,
+                  "name": "_symbol",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10147,
+                  "src": "1105:14:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10141,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1105:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1104:16:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10146,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10145,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10147,
+                  "src": "1142:7:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10144,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1142:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1141:9:20"
+            },
+            "scope": 10166,
+            "src": "1072:79:20",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Get security token data by its address\n@param _securityToken Address of the Scurity token\n@return string, address, bytes32",
+            "id": 10158,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getSecurityTokenData",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10150,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10149,
+                  "name": "_securityToken",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1356:22:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10148,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1356:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1355:24:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10157,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10152,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1401:6:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10151,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1401:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10154,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1409:7:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10153,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1409:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10156,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10158,
+                  "src": "1418:6:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10155,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1418:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1400:25:20"
+            },
+            "scope": 10166,
+            "src": "1326:100:20",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": "@notice Check that Security Token is registered\n@param _securityToken Address of the Scurity token\n@return bool",
+            "id": 10165,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isSecurityToken",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10161,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10160,
+                  "name": "_securityToken",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10165,
+                  "src": "1602:22:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10159,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1602:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1601:24:20"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10164,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10163,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10165,
+                  "src": "1647:4:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10162,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1647:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1646:6:20"
+            },
+            "scope": 10166,
+            "src": "1577:76:20",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 10167,
+        "src": "136:1520:20"
+      }
+    ],
+    "src": "0:1657:20"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-09-24T19:05:59.910Z"
+}
