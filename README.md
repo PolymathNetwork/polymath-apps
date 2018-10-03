@@ -21,6 +21,8 @@ In the root of the repository run:
 Start the local blockchain emulator
 `yarn local-blockchain:start`
 
+You may want to retrieve a MetaMask account with ETH prepopulated. Look for the `Private Keys` section in the local blockchain logs from the previous command. You can then pick up any private key and import a new MetaMask account with it.
+
 Once the process finishes, run:
 `yarn start:<app>` (for example `yarn start:issuer`)
 
