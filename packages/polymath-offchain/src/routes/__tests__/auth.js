@@ -3,13 +3,13 @@ import '../../startup/setupEnvironment';
 import { getCodeHandler, authHandler } from '../auth.js';
 import { AuthCode, EmailPIN, User } from '../../models';
 import { TYPED_NAME } from '../../constants';
+import { verifySignature } from '../../utils';
 import crypto from 'crypto';
 
 jest.mock('../../models/AuthCode', () => {
   return {
     AuthCode: {
       create: jest.fn(),
-      findOne: jest.fn(),
     },
   };
 });
@@ -30,9 +30,19 @@ jest.mock('../../models/User', () => {
   };
 });
 
+jest.mock('../../utils/sig', () => {
+  return {
+    verifySignature: jest.fn(),
+  };
+});
+
 jest.mock('crypto');
 
 describe('Route: GET /verification-code/:address', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   test('responds with an error if request params is not an object', async () => {
     const ctx = {
       params: 1,
@@ -61,41 +71,38 @@ describe('Route: GET /verification-code/:address', () => {
     });
   });
 
+  const validAddress = '0x0678d1Ed145DDF85eBA179AD235dA695536352b6'.toLowerCase();
+  const validCode = '40c457784dc614d0';
+
+  const returnCodeBuffer = () => {
+    return Buffer.from(validCode, 'hex');
+  };
+
   test('creates AuthCode document', async () => {
-    const expectedAddress = '0x0678d1Ed145DDF85eBA179AD235dA695536352b6'.toLowerCase();
     const ctx = {
       params: {
-        address: expectedAddress,
+        address: validAddress,
       },
     };
 
-    const expectedCode = '40c457784dc614d0';
-
-    crypto.randomBytes.mockImplementationOnce(() => {
-      return Buffer.from(expectedCode, 'hex');
-    });
+    crypto.randomBytes.mockImplementation(returnCodeBuffer);
 
     await getCodeHandler(ctx);
 
     expect(AuthCode.create).toHaveBeenCalledWith({
-      address: expectedAddress,
-      code: expectedCode,
+      address: validAddress,
+      code: validCode,
     });
   });
 
   test('responds with signing data', async () => {
-    const expectedAddress = '0x0678d1Ed145DDF85eBA179AD235dA695536352b6'.toLowerCase();
     const ctx = {
       params: {
-        address: expectedAddress,
+        address: validAddress,
       },
     };
 
-    const expectedCode = '40c457784dc614d0';
-
-    crypto.randomBytes.mockImplementationOnce(() => {
-      return Buffer.from(expectedCode, 'hex');
-    });
+    crypto.randomBytes.mockImplementation(returnCodeBuffer);
 
     await getCodeHandler(ctx);
 
@@ -103,7 +110,7 @@ describe('Route: GET /verification-code/:address', () => {
       status: 'ok',
       data: {
         typedName: TYPED_NAME,
-        code: expectedCode,
+        code: validCode,
       },
     });
   });
@@ -127,19 +134,19 @@ describe('Route: POST /auth', () => {
     };
   };
 
+  const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
+  const validCode = 'c2dccbea5e17e2b4';
+  const validSig =
+    '0xc69e7dbed9982c5b68663824e346ab5d52f60265474bc21d4c82b77f01884cca225adc4299e18446509ede2c29c939da32e29230e239e92fbf88de7caff849231c';
   const validBody = {
-    address: '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0',
-    code: 'c2dccbea5e17e2b4',
-    sig:
-      '0xc69e7dbed9982c5b68663824e346ab5d52f60265474bc21d4c82b77f01884cca225adc4299e18446509ede2c29c939da32e29230e239e92fbf88de7caff849231c',
+    address: validAddress,
+    code: validCode,
+    sig: validSig,
   };
 
-  const returnValidAuthCode = () => {
-    return {
-      code: validBody.code,
-      address: validBody.address.toLowerCase(),
-    };
-  };
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   test(
     'responds with an error if request body is not an object',
@@ -150,32 +157,36 @@ describe('Route: POST /auth', () => {
     'responds with an error if address is not a string',
     generateInvalidRequestBodyTest({
       address: 1,
-      code: validBody.code,
-      sig: validBody.sig,
+      code: validCode,
+      sig: validSig,
     })
   );
 
   test(
     'responds with an error if code is not a string',
     generateInvalidRequestBodyTest({
-      address: validBody.address,
+      address: validAddress,
       code: 1,
-      sig: validBody.sig,
+      sig: validSig,
     })
   );
 
   test(
     'responds with an error if signature is not a string',
     generateInvalidRequestBodyTest({
-      address: validBody.address,
-      code: validBody.code,
+      address: validAddress,
+      code: validCode,
       sig: 1,
     })
   );
 
-  test("responds with an error if code and address don't match", async () => {
-    // no AuthCode matching that code and address in the database
-    AuthCode.findOne.mockImplementationOnce(() => undefined);
+  test("responds with an error if signature can't be verified", async () => {
+    const expectedError = {
+      status: 'error',
+      data: 'Some signing error',
+    };
+
+    verifySignature.mockImplementation(() => expectedError);
 
     const ctx = {
       request: {
@@ -185,31 +196,7 @@ describe('Route: POST /auth', () => {
 
     await authHandler(ctx);
 
-    expect(ctx.body).toEqual({
-      status: 'error',
-      data: 'Code is not valid',
-    });
-  });
-
-  test('responds with an error if signature is invalid', async () => {
-    AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);
-
-    const ctx = {
-      request: {
-        body: {
-          code: validBody.code,
-          address: validBody.address,
-          sig: validBody.sig.replace('6', '5'),
-        },
-      },
-    };
-
-    await authHandler(ctx);
-
-    expect(ctx.body).toEqual({
-      status: 'error',
-      data: 'Sig is not valid',
-    });
+    expect(ctx.body).toEqual(expectedError);
   });
 
   const validName = 'Jeremías Díaz';
@@ -219,16 +206,22 @@ describe('Route: POST /auth', () => {
     email: validEmail,
   };
 
+  const nullData = {
+    status: 'ok',
+    data: null,
+  };
+
   const returnValidUser = () => validUser;
+  const returnNull = () => null;
 
   test('responds with user data if the user has verified their email', async () => {
-    AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);
+    verifySignature.mockImplementation(returnNull);
 
-    User.findOne.mockImplementationOnce(returnValidUser);
+    User.findOne.mockImplementation(returnValidUser);
 
-    EmailPIN.findOne.mockImplementationOnce(() => {
+    EmailPIN.findOne.mockImplementation(() => {
       return {
-        address: validBody.address,
+        address: validAddress,
         email: validEmail,
         isConfirmed: true,
       };
@@ -249,11 +242,11 @@ describe('Route: POST /auth', () => {
   });
 
   test("responds with null if the user hasn't verified their email", async () => {
-    AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);
+    verifySignature.mockImplementation(returnNull);
 
-    User.findOne.mockImplementationOnce(returnValidUser);
+    User.findOne.mockImplementation(returnValidUser);
 
-    EmailPIN.findOne.mockImplementationOnce(() => undefined);
+    EmailPIN.findOne.mockImplementation(() => undefined);
 
     const ctx = {
       request: {
@@ -263,9 +256,22 @@ describe('Route: POST /auth', () => {
 
     await authHandler(ctx);
 
-    expect(ctx.body).toEqual({
-      status: 'ok',
-      data: null,
-    });
+    expect(ctx.body).toEqual(nullData);
+  });
+
+  test("responds with null if the user doesn't exist in the database", async () => {
+    verifySignature.mockImplementation(returnNull);
+
+    User.findOne.mockImplementation(() => undefined);
+
+    const ctx = {
+      request: {
+        body: validBody,
+      },
+    };
+
+    await authHandler(ctx);
+
+    expect(ctx.body).toEqual(nullData);
   });
 });

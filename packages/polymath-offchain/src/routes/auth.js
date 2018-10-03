@@ -182,12 +182,14 @@ export const authHandler = async (ctx: Context) => {
   const { code, sig, address } = body;
 
   const error = await verifySignature(code, sig, address);
+
   if (error) {
     ctx.body = error;
     return;
   }
 
   const user = await User.findOne({ address });
+
   let data = null;
   if (user) {
     const isConfirmed = await EmailPIN.findOne({
