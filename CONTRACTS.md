@@ -273,7 +273,7 @@ function paused() => Boolean
 function modifyWhitelist(_investor: Address, _valid: Boolean) => void
 // Adds or removes the addresses in the whitelist
 function modifyWhitelistMulti(_investors: Address[], _valids: Boolean[]) => void
-// Pauses the moduel
+// Pauses the module
 function pause() => void
 // Sets the maximum percent of the total tokens that one person can hold
 function changeHolderPercentage(_maxHolderPercentage: UInt256) => void
