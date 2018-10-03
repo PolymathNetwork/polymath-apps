@@ -25,7 +25,7 @@ import type { EmailData } from '@sendgrid/mail';
   @param {string} body email body
   @param {string | Object} replyTo reply address or object with a reply address and a name
  */
-const sendEmail = async (
+export const sendEmail = async (
   email: string,
   name: string,
   subject: string,
