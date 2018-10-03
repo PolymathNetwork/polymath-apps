@@ -1,0 +1,157 @@
+@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+
+.pui-countdown-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pui-countdown {
+  flex-basis: 350px;
+  flex-shrink: 1;
+  width: 352px;
+  overflow: hidden;
+  text-align: center;
+
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+
+  .pui-countdown-top-bar {
+    padding: 5px 16px;
+    line-height: 35px; // TODO Why not just increase vertical padding?
+    text-align: left;
+    font-weight: 300;
+
+    font-size: 18px;
+    color: white;
+    background-color: $poly-blue;
+  }
+
+  .pui-countdown-content {
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+
+    > * {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .pui-countdown-number-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    > * {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      padding: 5px 0;
+    }
+  }
+
+  .pui-countdown-days {
+    .pui-countdown-number {
+      font-size: 77px;
+    }
+
+    .pui-countdown-number-text {
+      font-size: 20px !important;
+    }
+  }
+
+  .pui-countdown-number {
+    display: flex;
+    padding-right: 10px;
+    font-size: 28px;
+
+    > * {
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .pui-countdown-hours {
+      font-weight: 600;
+    }
+
+    .pui-countdown-minutes {
+      font-weight: 400;
+    }
+
+    .pui-countdown-seconds {
+      font-weight: 300;
+    }
+  }
+
+  .pui-countdown-number-text {
+    display: flex;
+    padding-left: 7px;
+
+    font-size: 16px;
+    font-weight: 600;
+    color: $poly-gray;
+
+    > * {
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
+
+  &.pui-countdown-small {
+    width: 150px;
+    height: 150px;
+    margin-left: 40px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+
+    .pui-countdown-content {
+      padding-top: 10px;
+      padding-right: 21px;
+    }
+
+    .pui-countdown-number-column {
+      padding-right: 0;
+
+      > * {
+        padding: 0;
+        width: 39px;
+      }
+    }
+
+    .pui-countdown-number-text {
+      padding-left: 0;
+      margin-left: -10px;
+
+      > * {
+        font-size: 14px;
+      }
+    }
+  }
+
+  button {
+    margin-bottom: 25px;
+    margin-top: -2px;
+  }
+}
+
+.pui-countdown-raised {
+  padding: 15px;
+  font-size: 36px;
+  border-radius: 4px;
+  color: $poly-blue;
+  background-color: $poly-gray-light;
+
+  > div {
+    font-size: 14px;
+
+    &:last-child {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 25px;
+      color: $poly-gray-dark;
+      margin-bottom: 0;
+    }
+  }
+}

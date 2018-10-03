@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import type { Node } from 'react';
 
+import './style.scss';
+
 type MenuItem = {|
   id?: string,
   title: string,

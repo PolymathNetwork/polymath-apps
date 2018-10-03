@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { Icon, Button } from 'carbon-components-react';
 
+import './style.scss';
+
 type StateProps = {|
   isTokenFrozen: boolean,
 |};

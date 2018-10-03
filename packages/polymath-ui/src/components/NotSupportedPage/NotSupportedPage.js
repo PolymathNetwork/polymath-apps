@@ -5,6 +5,8 @@ import { Button } from 'carbon-components-react';
 import logo from '../../images/logo.svg';
 import illustration from '../../images/illustration.png';
 
+import './style.scss';
+
 export default class NotSupportedPage extends Component {
   render() {
     return (
