@@ -15,7 +15,6 @@ import SecurityTokenArtifact from '@polymathnetwork/shared/fixtures/contracts/Se
 import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json';
 
 // TODO @monitz87: remake this when we rework polymath-js
-
 let web3Client = new Web3();
 
 /**
@@ -81,6 +80,7 @@ const getSTRContract = async () => {
   Initializes and configures the WebsocketProvider
   for the web3, setting listeners to reconnect on error.
 
+  NOTE @monitz87:
   This is a hack to fix a current implementation limitation of web3,
   which doesn't reconnect sockets nor re-subscribes to events when the
   socket connection is closed
@@ -94,15 +94,15 @@ const newProvider = () => {
   provider.on('error', error => {
     logger.error(error.message, error);
     logger.info(`[SETUP] Reconnecting socket after error...`);
-    connectWeb3(true);
+    connectWeb3();
   });
   provider.on('close', () => {
     logger.info(`[SETUP] Reconnecting socket after close...`);
-    connectWeb3(true);
+    connectWeb3();
   });
   provider.on('end', () => {
     logger.info(`[SETUP] Reconnecting socket after end...`);
-    connectWeb3(true);
+    connectWeb3();
   });
 
   return provider;
@@ -370,36 +370,46 @@ const setupListeners = async () => {
   await addSTOListeners();
 };
 
+let heartbeatIntervalId;
+
+/**
+  Ping the socket. If there is something wrong with the conection,
+  we kill the heartbeat and reset the web3 client and all the listeners
+ */
+const keepAlive = async () => {
+  try {
+    const isListening = await web3Client.eth.net.isListening();
+    if (!isListening) {
+      throw new Error('Socket not listening to peers');
+    }
+  } catch (error) {
+    logger.error(error.message, error);
+    clearInterval(heartbeatIntervalId);
+    // TODO @monitz87: kill the socket instead of calling connectWeb3
+    connectWeb3();
+  }
+};
+
 /**
   Ping socket every 5 seconds to keep it alive
   */
 const simulateHeartbeat = () => {
-  const intervalId = setInterval(async () => {
-    try {
-      const isListening = await web3Client.eth.net.isListening();
-
-      if (!isListening) {
-        throw new Error('Socket not listening to peers');
-      }
-    } catch (error) {
-      logger.error(error.message, error);
-      clearInterval(intervalId);
-      connectWeb3(true);
-    }
-  }, 1000);
+  const heartbeatIntervalId = setInterval(keepAlive, 1000);
 };
 
 /**
   Connects the web3 client to a new provider and starts all the event listeners
-
-  @param {boolean} reconnect indicates whether or not to reset all subscriptions
  */
-const connectWeb3 = async (reconnect: boolean) => {
+const connectWeb3 = async () => {
   web3Client = new Web3(newProvider());
 
   simulateHeartbeat();
 
-  await setupListeners();
+  try {
+    await setupListeners();
+  } catch (error) {
+    logger.error(error.message, error);
+  }
 };
 
 export default connectWeb3;
