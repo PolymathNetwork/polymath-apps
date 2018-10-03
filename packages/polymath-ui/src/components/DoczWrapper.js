@@ -6,7 +6,7 @@ import React from 'react';
 
 // import { uiReducer, networkReducer } from '../redux/reducer';
 
-import '../style.scss';
+import '../styles/globals.scss';
 
 // const reducers = combineReducers({ ui: uiReducer, network: networkReducer });
 // const store = createStore(reducers);
