@@ -74,7 +74,7 @@ const isNewEmailRequestValid = (body: NewEmailRequestBody | any) => {
   @param {string} sig signature
   @param {string} address issuer ethereum address
  */
-const newEmailHandler = async (ctx: Context) => {
+export const newEmailHandler = async (ctx: Context) => {
   let body = ctx.request.body;
 
   if (!isNewEmailRequestValid(body)) {
@@ -98,7 +98,7 @@ const newEmailHandler = async (ctx: Context) => {
   /**
     Assign a random PIN string to the user and send it via email
    */
-  const pin = (await crypto.randomBytes(8)).toString('hex');
+  const pin = crypto.randomBytes(8).toString('hex');
   await EmailPIN.create({ address, pin, email, isConfirmed: false });
   await User.update({ address }, { name }, { upsert: true });
 
@@ -155,7 +155,7 @@ const isConfirmationEmailRequestValid = (
 
   @param {string} pin confirmation PIN string received via email
  */
-const confirmEmailHandler = async ctx => {
+export const confirmEmailHandler = async (ctx: Context) => {
   let body = ctx.request.body;
 
   if (!isConfirmationEmailRequestValid(body)) {
@@ -194,10 +194,7 @@ const confirmEmailHandler = async ctx => {
     return;
   }
 
-  await User.findOneAndUpdate(
-    { address: emailPin.address },
-    { email: emailPin.email }
-  );
+  await User.update({ address: emailPin.address }, { email: emailPin.email });
 
   ctx.body = {
     status: 'ok',
