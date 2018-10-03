@@ -21,24 +21,27 @@ import { TYPED_NAME } from '../constants';
 const recoverNormal = (message, sig) => {
   const msgHash = hashPersonalMessage(new Buffer(message, 'utf8'));
   const sigObj = fromRpcSig(sig);
-  const publicKey = ecrecover(msgHash, sigObj.v, sigObj.r, sigObj.s);
-  return '0x' + publicToAddress(publicKey).toString('hex');
+  try {
+    const publicKey = ecrecover(msgHash, sigObj.v, sigObj.r, sigObj.s);
+    return '0x' + publicToAddress(publicKey).toString('hex');
+  } catch (error) {
+    return '';
+  }
 };
 const isValidSig = (value: string, sig: string, address: string) => {
   const typed = [{ type: 'string', name: TYPED_NAME, value }];
   let recoveredAddress;
+  const fallbackRecovery =
+    recoverNormal(value, sig).toLowerCase() === address.toLowerCase();
   try {
     recoveredAddress = sigUtil
       .recoverTypedSignature({ data: typed, sig })
       .toLowerCase();
   } catch (error) {
-    return false;
-  }
-  if (recoveredAddress === address.toLowerCase()) {
-    return true;
+    return fallbackRecovery;
   }
 
-  return recoverNormal(value, sig).toLowerCase() === address.toLowerCase();
+  return recoveredAddress === address.toLowerCase() || fallbackRecovery;
 };
 
 /**
