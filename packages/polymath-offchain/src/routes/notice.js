@@ -1,3 +1,5 @@
+// @flow
+
 import Router from 'koa-router';
 
 import { Notice } from '../models';
@@ -15,14 +17,16 @@ type GetNoticesRequestParams = {|
 
   TODO @monitz87: add value validations as well
  */
-const isGetNoticesRequestValid = (params: GetNoticesRequestParams | any) => {
+const isGetNoticesRequestValid = (
+  params: GetNoticesRequestParams | any
+): boolean => {
   if (typeof params !== 'object') {
     return false;
   }
 
   const { scope } = params;
 
-  return scope && typeof scope === 'string';
+  return !!scope && typeof scope === 'string';
 };
 
 /**
@@ -61,7 +65,7 @@ const isGetNoticesRequestValid = (params: GetNoticesRequestParams | any) => {
     }
   }
  */
-const getNoticesHandler = async (ctx: Context) => {
+export const getNoticesHandler = async (ctx: Context) => {
   let { params } = ctx;
 
   if (!isGetNoticesRequestValid(params)) {
