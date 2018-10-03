@@ -2,7 +2,6 @@
 
 import Router from 'koa-router';
 import { NODE_ENV, WEB3_NETWORK_WS } from '../constants';
-import logger from 'winston';
 import Web3 from 'web3';
 import { User, Provider } from '../models';
 import { sendProviderApplicationEmail, verifySignature } from '../utils';
@@ -56,7 +55,7 @@ const isApplyRequestValid = (body: ApplyRequestBody | any) => {
  */
 const checkForReservedTicker = async address => {
   const web3Client = new Web3(WEB3_NETWORK_WS);
-  const networkId = await web3Client.eth.net.networkId;
+  const networkId = await web3Client.eth.net.getId();
   const tickerRegistry = new web3Client.eth.Contract(
     artifact.abi,
     artifact.networks[networkId].address
@@ -137,7 +136,7 @@ const checkForReservedTicker = async address => {
   @param {string} structureURL corporate structure URL
   @param {string} otherDetails more details about the company
  */
-const applyHandler = async (ctx: Context) => {
+export const applyHandler = async (ctx: Context) => {
   let body = ctx.request.body;
 
   if (!isApplyRequestValid(body)) {
@@ -185,9 +184,8 @@ const applyHandler = async (ctx: Context) => {
     Return an error if issuer hasn't reserved any tickers
    */
   try {
-    await checkForReservedTicker();
+    await checkForReservedTicker(address);
   } catch (error) {
-    logger.error(error.message);
     ctx.body = {
       status: 'error',
       data: error.message,
@@ -207,7 +205,6 @@ const applyHandler = async (ctx: Context) => {
   };
 
   const { name: userName, email: userEmail } = user;
-
   if (NODE_ENV === 'PRODUCTION') {
     /* Send emails to all selected providers */
 
