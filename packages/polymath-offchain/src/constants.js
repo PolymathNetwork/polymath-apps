@@ -1,12 +1,9 @@
 // @flow
 
-const cleanEnvironment = <T: { [string]: string }>(
-  env = process.env,
+export const cleanEnvironment = <T: { [string]: string }>(
+  env: any = process.env,
   expectedVars: Array<string>
 ): T => {
-  if (!env) {
-    throw new Error(`No environment provided`);
-  }
   expectedVars.forEach(name => {
     if (!env[name]) {
       throw new Error(`Missing env variable ${name}`);
@@ -36,7 +33,6 @@ const env = cleanEnvironment<Environment>(process.env, [
   'POLYMATH_ISSUER_URL',
   'NODE_ENV',
   'MONGODB_URL',
-  'SENDGRID_API_KEY',
 ]);
 
 const validNetworkNames = ['LOCAL', 'KOVAN', 'MAINNET'];
