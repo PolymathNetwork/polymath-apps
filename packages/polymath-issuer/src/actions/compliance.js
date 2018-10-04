@@ -239,7 +239,7 @@ export const exportWhitelist = () => async (
         ].join(',');
     });
 
-    window.open(encodeURI(csvContent));
+    window.location.assign(encodeURI(csvContent));
 
     dispatch(ui.fetched());
   } catch (e) {
