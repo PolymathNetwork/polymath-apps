@@ -21,6 +21,7 @@ type Environment = {|
   POLYMATH_OFFCHAIN_URL: string,
   POLYMATH_ISSUER_URL: string,
   NODE_ENV: string,
+  DEPLOYMENT_STAGE: string,
   MONGODB_URL: string,
   SENDGRID_API_KEY?: string,
 |};
@@ -32,6 +33,7 @@ const env = cleanEnvironment<Environment>(process.env, [
   'POLYMATH_OFFCHAIN_URL',
   'POLYMATH_ISSUER_URL',
   'NODE_ENV',
+  'DEPLOYMENT_STAGE',
   'MONGODB_URL',
 ]);
 
@@ -49,6 +51,7 @@ if (!validNetworkNames.find(name => name === networkName)) {
 
 export const MONGODB_URL = env.MONGODB_URL;
 export const NODE_ENV = env.NODE_ENV;
+export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
 export const WEB3_NETWORK_WS = env.WEB3_NETWORK_WS;
 export const WEB3_NETWORK_NAME = networkName.toLowerCase();
 export const PORT = parseInt(env.PORT, 10);
