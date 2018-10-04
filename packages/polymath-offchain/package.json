@@ -60,7 +60,8 @@
       "!**/vendor/**",
       "!**/startup/!(setupWeb3)",
       "!**/index.js",
-      "!src/server.js"
+      "!src/server.js",
+      "!src/specsInit.js"
     ],
     "setupFiles": [
       "./src/specsInit.js"
