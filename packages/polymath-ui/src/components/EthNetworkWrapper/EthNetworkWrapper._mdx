@@ -1,0 +1,16 @@
+---
+name: EthNetworkWrapper
+---
+
+import { Playground, PropsTable } from 'docz';
+import EthNetworkWrapper from './';
+
+# Footer
+
+<PropsTable of={EthNetworkWrapper} />
+
+## Basic usage
+
+<Playground>
+  <EthNetworkWrapper />
+</Playground>

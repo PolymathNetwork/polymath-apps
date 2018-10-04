@@ -7,8 +7,8 @@ import { Button } from 'carbon-components-react';
 import { Remark } from '@polymathnetwork/ui';
 import key from '@polymathnetwork/ui/images/key.png';
 
-import { signIn } from '../redux/account/actions';
-import type { RootState } from '../redux/reducer';
+import { signIn } from '../../redux/account/actions';
+import type { RootState } from '../../redux/reducer';
 
 type StateProps = {|
   isSignInCancelled: boolean,
@@ -28,7 +28,7 @@ const mapDispatchToProps: DispatchProps = {
 
 type Props = StateProps & DispatchProps;
 
-class SignInPage extends Component<Props> {
+export class SignInPage extends Component<Props> {
   handleSign = () => {
     this.props.signIn();
   };

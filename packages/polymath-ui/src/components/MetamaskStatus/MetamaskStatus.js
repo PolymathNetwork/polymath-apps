@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { Accordion, AccordionItem } from 'carbon-components-react';
+
 import {
   ERROR_LOCKED,
   ERROR_NETWORK,
   ERROR_DISCONNECTED,
-} from '@polymathnetwork/ui/components/EthNetworkWrapper';
+} from '../EthNetworkWrapper';
 
 import logo from '../../images/logo.svg';
 import metamask from '../../images/metamask.png';

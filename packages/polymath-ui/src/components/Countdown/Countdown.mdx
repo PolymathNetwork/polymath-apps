@@ -1,0 +1,21 @@
+---
+name: Countdown
+---
+
+import { Playground, PropsTable } from 'docz';
+import Countdown from './';
+
+# Countdown
+
+<PropsTable of={Countdown} />
+
+## Basic usage
+
+<Playground>
+  <Countdown
+    title="Time Left to Create Your Token"
+    deadline={new Date()}
+    buttonTitle="Create Your Token Now"
+    handleButtonClick={() => {}}
+  />
+</Playground>
