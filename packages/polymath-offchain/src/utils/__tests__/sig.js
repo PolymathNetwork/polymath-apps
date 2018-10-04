@@ -42,7 +42,7 @@ describe('Function: verifySignature', () => {
   });
 
   test("returns an error object if code and address don't match", async () => {
-    AuthCode.findOne.mockImplementation(() => undefined);
+    AuthCode.findOne.mockImplementationOnce(() => undefined);
 
     expect(await verifySignature(validCode, validSig, validAddress)).toEqual({
       status: 'error',
@@ -59,12 +59,29 @@ describe('Function: verifySignature', () => {
   };
 
   test('returns an error object if signature is invalid', async () => {
-    AuthCode.findOne.mockImplementation(returnValidAuthCode);
-    const invalidSig = validSig.replace('6', '5');
+    AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);
 
-    fromRpcSig.mockImplementation(returnDummySigObj);
+    sigUtil.recoverTypedSignature.mockImplementationOnce(() => {
+      throw new Error('Something is amiss');
+    });
 
-    expect(await verifySignature(validCode, invalidSig, validAddress)).toEqual({
+    fromRpcSig.mockImplementationOnce(returnDummySigObj);
+
+    expect(await verifySignature(validCode, validSig, validAddress)).toEqual({
+      status: 'error',
+      data: 'Sig is not valid',
+    });
+
+    AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);
+
+    // incompatible address
+    sigUtil.recoverTypedSignature.mockImplementationOnce(() => {
+      return '1';
+    });
+
+    fromRpcSig.mockImplementationOnce(returnDummySigObj);
+
+    expect(await verifySignature(validCode, validSig, validAddress)).toEqual({
       status: 'error',
       data: 'Sig is not valid',
     });
@@ -74,19 +91,23 @@ describe('Function: verifySignature', () => {
     Check if valid using EIP712, then if not, check if valid using legacy signing
    */
   test('returns null if signature is valid', async () => {
-    AuthCode.findOne.mockImplementation(returnValidAuthCode);
-    sigUtil.recoverTypedSignature.mockImplementation(() => validAddress);
+    AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);
+
+    // valid address
+    sigUtil.recoverTypedSignature.mockImplementationOnce(() => validAddress);
 
     expect(await verifySignature(validCode, validSig, validAddress)).toBe(null);
 
-    AuthCode.findOne.mockImplementation(returnValidAuthCode);
+    AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);
 
     // invalid address
-    sigUtil.recoverTypedSignature.mockImplementation(() => 1);
+    sigUtil.recoverTypedSignature.mockImplementationOnce(() => 1);
 
-    fromRpcSig.mockImplementation(returnDummySigObj);
+    fromRpcSig.mockImplementationOnce(returnDummySigObj);
 
-    publicToAddress.mockImplementation(() => validAddress.replace(/^0x/, ''));
+    publicToAddress.mockImplementationOnce(() =>
+      validAddress.replace(/^0x/, '')
+    );
 
     expect(await verifySignature(validCode, validSig, validAddress)).toBe(null);
   });
