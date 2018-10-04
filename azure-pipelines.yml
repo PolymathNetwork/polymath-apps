@@ -1,0 +1,39 @@
+jobs:
+
+- job: build polymath-ui
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '8.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+    yarn install
+    cd packages/polymath-ui
+    yarn build:docz
+  displayName: 'yarn install and build'
+
+  # the following will publish an artifact called drop
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/packages/polymath-ui/.docz/dist'
+      artifactName: 'polymath-ui'
+
+- job: deploy polymath-ui
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  dependsOn: buildandtest
+  condition: succeeded()
+  steps:
+  
+  # step to download the artifacts from the previous job
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      artifactName: 'polymath-ui'
+  - script: |
+    set NETLIFY_SITE_ID=polymath-ui
+    set NETLIFY_AUTH_TOKEN=$(netlifyAuthToken)
+    yarn global add netlify-cli@next
+    netlify deploy
