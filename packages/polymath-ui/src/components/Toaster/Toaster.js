@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 
 import type { Notify } from './actions';
 
-// this line would be 'style.scss' if we were to bundle with Webpack.
 // noinspection JSFileReferences $FlowFixMe
-import styles from '../../style.scss';
 import type { RootState } from '../../redux/reducer';
+
+import styles from './style.scss';
 
 type Toast = {|
   key: number,

@@ -38,7 +38,7 @@ class SignUpPage extends Component<Props> {
   render() {
     return (
       <DocumentTitle title="Sign Up – Polymath">
-        <div className="pui-single-box">
+        <div id="sign-up" className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
               <img src={bull} alt="Bull" />

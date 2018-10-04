@@ -1,0 +1,26 @@
+@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+
+.dummy-page {
+  justify-content: center;
+  text-align: center;
+
+  h3 {
+    color: $poly-blue-dark;
+    font-weight: 600;
+    font-size: 20px;
+
+    span {
+      color: #f79221;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  .logo-dark {
+    height: 29px;
+    width: 188px;
+  }
+}

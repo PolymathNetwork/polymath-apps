@@ -1,9 +1,7 @@
-'use strict';
-
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
-const findMonorepo = require('react-dev-utils/workspaceUtils').findMonorepo;
+const findMonorepo = require('./workspaceUtils').findMonorepo;
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
@@ -56,8 +54,6 @@ module.exports = {
 };
 
 let checkForMonorepo = true;
-
-
 
 module.exports.srcPaths = [module.exports.appSrc];
 

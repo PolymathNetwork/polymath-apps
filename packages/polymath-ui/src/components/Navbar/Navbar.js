@@ -16,6 +16,8 @@ import tokenIcon from '../../images/icons/token.svg';
 
 import type { RootState } from '../../redux/reducer';
 
+import './style.scss';
+
 type StateProps = {|
   network: string,
   account: string,

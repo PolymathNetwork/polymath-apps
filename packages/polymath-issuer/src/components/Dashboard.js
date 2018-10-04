@@ -83,6 +83,7 @@ class Dashboard extends Component<Props> {
     const topSidebarItems = [
       {
         title: 'Providers',
+        id: 'providers-nav-link',
         icon: icoHandshake,
         to: `${tokenUrl}/providers`,
         isActive: location.slice(-10) === '/providers',
@@ -90,6 +91,7 @@ class Dashboard extends Component<Props> {
       },
       {
         title: 'Token',
+        id: 'token-nav-link',
         icon: icoBriefcase,
         to: tokenUrl,
         isActive: location.slice(ticker.length * -1) === ticker,
@@ -97,6 +99,7 @@ class Dashboard extends Component<Props> {
       },
       {
         title: 'STO',
+        id: 'sto-nav-link',
         icon: icoInbox,
         to: `${tokenUrl}/sto`,
         isActive: location.slice(-4) === '/sto',
@@ -104,6 +107,7 @@ class Dashboard extends Component<Props> {
       },
       {
         title: 'Compliance',
+        id: 'compliance-nav-link',
         icon: icoWhitelist,
         to: `${tokenUrl}/compliance`,
         isActive: location.slice(-11) === '/compliance',
@@ -121,7 +125,11 @@ class Dashboard extends Component<Props> {
     return (
       <div className="dashboard">
         <PausedBar />
-        <Sidebar topItems={topSidebarItems} bottomItems={bottomSidebarItems} />
+        <Sidebar
+          id="primary-nav"
+          topItems={topSidebarItems}
+          bottomItems={bottomSidebarItems}
+        />
         {renderRoutes(route.routes)}
       </div>
     );

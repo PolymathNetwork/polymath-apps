@@ -6,6 +6,11 @@
 
 This is a monorepo containing the webapps and libraries in Polymath. In each package you will find a _Readme_ that describes it.
 
+# Apps and packages
+
+- [Polymath Issuer](https://github.com/PolymathNetwork/polymath-apps/blob/develop/packages/polymath-issuer/README.md)
+- [Polymath Investor](https://github.com/PolymathNetwork/polymath-apps/blob/develop/packages/polymath-investor/README.md)
+
 # Setup
 
 In the root of the repository run:
@@ -15,6 +20,8 @@ In the root of the repository run:
 
 Start the local blockchain emulator
 `yarn local-blockchain:start`
+
+You may want to retrieve a MetaMask account with ETH prepopulated. Look for the `Private Keys` section in the local blockchain logs from the previous command. You can then pick up any private key and import a new MetaMask account with it.
 
 Once the process finishes, run:
 `yarn start:<app>` (for example `yarn start:issuer`)
@@ -31,6 +38,9 @@ To run unit tests for a specific app run:
 
 ## E2E Tests
 
+To also enable test coverage reports for **E2E tests** set `COVERAGE=true` in
+your environment
+
 _Instructions pending_
 
 # How to contribute
@@ -44,7 +54,7 @@ This repo requires the use of [Conventional Commits](https://www.conventionalcom
 - Add a `body` to the commit if the commit's subject is not descriptive enough
 - Add a `BREAKING CHANGE: <explanation>` in the footer of a commit that makes
   a breaking change of the API of a package
-- Add a `CLOSES ISSUE: #<number>` in the footer of a commit to close an issue
+- Add a `CLOSES: #<number>` in the footer of a commit to close an issue
   this commit solves
 - Commit messages must be written in imperative tense
 - The `scope` defines what package is affected by a commit (enforced by [config-lerna-scopes](https://www.npmjs.com/package/@commitlint/config-lerna-scopes))
@@ -66,7 +76,7 @@ This repo requires the use of [Conventional Commits](https://www.conventionalcom
 **Tools:**
 
 - If you don't want to worry about formatting, you can run `yarn commit` to
-  run a cli tool that will guide you through the committing process.\_
+  run a cli tool that will guide you through the committing process.
 - [VSCode Committizen Extension](https://marketplace.visualstudio.com/items?itemName=KnisterPeter.vscode-commitizen)
 
 ## Branches

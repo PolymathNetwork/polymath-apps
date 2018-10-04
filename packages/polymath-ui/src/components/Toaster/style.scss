@@ -1,0 +1,66 @@
+@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+
+$toast-animation-duration: 400;
+$toast-animation-duration-ms: $toast-animation-duration + 0ms;
+$toast-half-animation-duration: ($toast-animation-duration / 2) + 0ms;
+$toast-approx-height: 90px;
+
+// noinspection CssInvalidPseudoSelector
+:export {
+  // noinspection CssUnknownProperty
+  toastAnimationDuration: $toast-animation-duration;
+}
+
+
+.pui-toaster-container {
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 50px;
+  z-index: 9999;
+  pointer-events: none;
+
+  .pui-toaster {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: all;
+
+    .bx--toast-notification {
+      font-family: $font;
+    }
+
+    .bx--toast-notification--success {
+      border-left: 5px $poly-green solid !important;
+    }
+
+    .pui-toast {
+      box-sizing: border-box;
+      overflow: hidden;
+
+      transition: transform $toast-animation-duration-ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .pui-toast-entering, .pui-toast-entering ~ .pui-toast {
+      transform: translateY(-$toast-approx-height);
+      transition: none;
+    }
+
+    .pui-toast-entered {
+      transform: translateY(0);
+      transition: transform $toast-animation-duration-ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .pui-toast-exiting, .pui-toast-exiting ~ .pui-toast {
+      transform: translateY(0);
+      opacity: 1;
+      transition: none;
+    }
+
+    .pui-toast-exited {
+      transform: translateY(-$toast-approx-height);
+      opacity: 0;
+      transition: opacity $toast-half-animation-duration 0ms, transform $toast-half-animation-duration $toast-half-animation-duration;
+    }
+  }
+}

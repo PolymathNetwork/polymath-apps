@@ -10,6 +10,8 @@ import ProgressBar from '../ProgressBar';
 
 import type { CountdownProps } from '../Countdown';
 
+import './style.scss';
+
 type Props = {|
   token: SecurityToken,
   details: STODetails,

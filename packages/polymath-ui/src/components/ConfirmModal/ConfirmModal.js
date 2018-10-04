@@ -15,6 +15,8 @@ import { closeModal } from './actions';
 import type { RootState } from '../../redux/reducer';
 import type { ModalState } from './reducer';
 
+import './style.scss';
+
 type DispatchProps = {|
   closeModal: () => any,
 |};
@@ -63,7 +65,11 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
 
         <ModalFooter>
           {!this.props.isAlert ? (
-            <Button kind="secondary" onClick={this.handleClose}>
+            <Button
+              className="cancel-btn"
+              kind="secondary"
+              onClick={this.handleClose}
+            >
               Cancel
             </Button>
           ) : (
