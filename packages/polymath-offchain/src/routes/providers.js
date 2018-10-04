@@ -1,7 +1,7 @@
 // @flow
 
 import Router from 'koa-router';
-import { NODE_ENV, WEB3_NETWORK_WS } from '../constants';
+import { DEPLOYMENT_STAGE, WEB3_NETWORK_WS } from '../constants';
 import Web3 from 'web3';
 import { User, Provider } from '../models';
 import { sendProviderApplicationEmail, verifySignature } from '../utils';
@@ -205,7 +205,7 @@ export const applyHandler = async (ctx: Context) => {
   };
 
   const { name: userName, email: userEmail } = user;
-  if (NODE_ENV === 'PRODUCTION') {
+  if (DEPLOYMENT_STAGE === 'production') {
     /* Send emails to all selected providers */
 
     const providers = await Provider.find({ id: { $in: ids } });
