@@ -1,5 +1,5 @@
-// flow-typed signature: 2cc0769b661064b1ba797c33f9c3233b
-// flow-typed version: 6f5d5940e2/mongoose_v5.x.x/flow_>=v0.50.x
+// flow-typed signature: ef9d0868c946f297eb07d33a0cce25d7
+// flow-typed version: 511b983940/mongoose_v5.x.x/flow_>=v0.50.x
 
 /*** FIX broken globals import 'bson' (((( ***/
 // import 'bson';
@@ -36,11 +36,11 @@ type Mongoose$Types = {|
   Subdocument: Object,
   Array: Object,
   Buffer: Object,
-  Decimal128: Class<bson$Decimal128>
+  Decimal128: Class<bson$Decimal128>,
 |};
 
 type SchemaFields = {
-  [fieldName: string]: any
+  [fieldName: string]: any,
 };
 
 type ToObjectOpts<Doc> = {
@@ -50,7 +50,7 @@ type ToObjectOpts<Doc> = {
   transform?: (doc: Doc, ret: Object, options: Object) => any,
   depopulate?: boolean,
   versionKey?: boolean,
-  retainKeyOrder?: boolean
+  retainKeyOrder?: boolean,
 };
 
 type SchemaOpts<Doc> = {
@@ -76,13 +76,13 @@ type SchemaOpts<Doc> = {
     | boolean
     | {
         createdAt?: string,
-        updatedAt?: string
+        updatedAt?: string,
       },
-  discriminatorKey?: string
+  discriminatorKey?: string,
 };
 
 type IndexFields = {
-  [fieldName: string]: 1 | -1 | true | false | string
+  [fieldName: string]: 1 | -1 | true | false | string,
 };
 
 type IndexOpts = {|
@@ -92,30 +92,30 @@ type IndexOpts = {|
   partialFilterExpression?: Object,
   name?: string,
   default_language?: string,
-  weights?: Object
+  weights?: Object,
 |};
 
 type Mongoose$SchemaMethods = {
-  [name: string]: Function
+  [name: string]: Function,
 };
 
 type Mongoose$SchemaStatics = {
-  [name: string]: Function
+  [name: string]: Function,
 };
 
 type VirtualType = Object;
 
 type Mongoose$SchemaHookTypes =
-  | "save"
-  | "validate"
-  | "find"
-  | "findOne"
-  | "count"
-  | "update"
-  | "remove"
-  | "findOneAndRemove"
-  | "findOneAndUpdate"
-  | "init";
+  | 'save'
+  | 'validate'
+  | 'find'
+  | 'findOne'
+  | 'count'
+  | 'update'
+  | 'remove'
+  | 'findOneAndRemove'
+  | 'findOneAndUpdate'
+  | 'init';
 
 type Mongoose$SchemaPlugin<Opts> = (
   schema: Mongoose$Schema<any>,
@@ -163,7 +163,7 @@ declare class Mongoose$Schema<Doc> {
   add(fields: SchemaFields, prefix?: string): void;
   loadClass(cls: Class<Doc>): void;
   paths: {
-    [name: string]: Mongoose$SchemaField<this>
+    [name: string]: Mongoose$SchemaField<this>,
   };
   clone(): Mongoose$Schema<Doc>;
   eachPath(fn: (path: string, fieldOpts: Object) => void): this;
@@ -194,11 +194,11 @@ type Mongoose$SchemaField<Schema> = {
   instance: string,
   caster?: ?Mongoose$SchemaField<Schema>,
   options?: ?{
-    description: ?string
+    description: ?string,
   },
   enumValues?: ?(string[]),
   schema?: Schema,
-  _index?: ?{ [optionName: string]: mixed }
+  _index?: ?{ [optionName: string]: mixed },
 };
 
 declare class Mongoose$SchemaVirtualField {
@@ -212,7 +212,7 @@ type UpdateResult = {
   nMatched: number,
   nUpserted: number,
   nModified: number,
-  ok?: boolean
+  ok?: boolean,
 };
 
 // A list of Model static methods: http://mongoosejs.com/docs/api.html#Model
@@ -274,7 +274,7 @@ declare class Mongoose$Document {
       near: [number, number],
       maxDistance: number,
       limit?: number,
-      lean?: boolean
+      lean?: boolean,
     }
   ): Promise<Array<this>>;
   static hydrate(data: Object): Mongoose$Document;
@@ -389,7 +389,7 @@ declare class Mongoose$Query<Result, Doc> extends Promise<Result> {
       runValidators?: boolean,
       setDefaultsOnInsert?: boolean,
       strict?: boolean,
-      overwrite?: boolean
+      overwrite?: boolean,
     }
   ): Mongoose$Query<any, Doc>;
   updateMany(
@@ -430,7 +430,7 @@ declare class Mongoose$Query<Result, Doc> extends Promise<Result> {
       runValidators?: boolean,
       setDefaultsOnInsert?: boolean,
       passRawResult?: boolean,
-      runSettersOnQuery?: boolean
+      runSettersOnQuery?: boolean,
     }
   ): Mongoose$Query<?Doc, Doc>;
   getQuery(): Object;
@@ -443,15 +443,15 @@ declare class Mongoose$Query<Result, Doc> extends Promise<Result> {
     path: string,
     select?: string,
     match?: Object,
-    options?: Object
+    options?: Object,
   }): Mongoose$Query<Result, Doc>;
   read(
     pref:
-      | "primary"
-      | "secondary"
-      | "primaryPreferred"
-      | "secondaryPreferred"
-      | "nearest",
+      | 'primary'
+      | 'secondary'
+      | 'primaryPreferred'
+      | 'secondaryPreferred'
+      | 'nearest',
     tags?: Object[]
   ): Mongoose$Query<Result, Doc>;
   selected(): boolean;
@@ -501,7 +501,7 @@ declare class Aggregate$Query extends Promise<any> {
 }
 
 declare class Mongoose$QueryCursor<Doc> {
-  on(type: "data" | "end" | string, cb: Function): void;
+  on(type: 'data' | 'end' | string, cb: Function): void;
   next(cb?: (err: Error, doc: Doc) => void): Promise<?Doc>;
 }
 
@@ -512,7 +512,7 @@ declare class Mongoose$QueryStream {
   resume(): void;
   paused: boolean;
   readable: boolean;
-  on(event: "data" | "error" | "close", cb: Function): void;
+  on(event: 'data' | 'error' | 'close', cb: Function): void;
 }
 
 declare class Mongoose$Collection {
@@ -538,15 +538,19 @@ type ConnectionConnectOpts = {
   reconnectInterval?: number,
   useMongoClient?: boolean,
   config?: {
-    autoIndex?: boolean
-  }
+    autoIndex?: boolean,
+  },
 };
-type ConnectionEventTypes = "error" | "open" | "disconnected" | string;
+type ConnectionEventTypes = 'error' | 'open' | 'disconnected' | string;
 
 declare class Mongoose$Connection {
   constructor(): this;
   close(): Promise<any>;
-  connect(uri: string, opts?: ConnectionConnectOpts): void;
+  connect(
+    uri: string,
+    opts?: ConnectionConnectOpts,
+    fn?: (error: any) => void
+  ): Promise<Mongoose$Connection>;
   openUri(uri: string, opts?: ConnectionConnectOpts): void;
   model<Doc>(
     name: string | Doc,
@@ -577,7 +581,7 @@ declare class Mongoose$Connection {
   getMaxListeners(): number;
 }
 
-declare module "mongoose" {
+declare module 'mongoose' {
   declare export type MongooseConnection = Mongoose$Connection;
   declare export type MongoId = MongoId;
   declare export type BSONObjectId = bson$ObjectId;
@@ -594,14 +598,18 @@ declare module "mongoose" {
     Schema: typeof Mongoose$Schema,
     Types: Mongoose$Types,
     Promise: any,
-    model: $PropertyType<Mongoose$Connection, "model">,
+    model: $PropertyType<Mongoose$Connection, 'model'>,
     createConnection(uri?: string, options?: Object): Mongoose$Connection,
     set: (key: string, value: string | Function | boolean) => void,
-    connect: (uri: string, options?: Object) => void,
+    connect: (
+      uri: string,
+      options?: ConnectionConnectOpts,
+      fn?: (error: any) => void
+    ) => Promise<Mongoose$Connection>,
     connection: Mongoose$Connection,
     connections: Mongoose$Connection[],
     Query: typeof Mongoose$Query,
     disconnect: (fn?: (error: any) => void) => Promise<void>,
-    Model: typeof Mongoose$Document
+    Model: typeof Mongoose$Document,
   };
 }
