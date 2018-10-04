@@ -9,4 +9,4 @@ import './setupDb';
 import './setupMailing';
 import connectWeb3 from './setupWeb3';
 
-connectWeb3(false).catch(err => logger.error(err.message, err));
+connectWeb3().catch(err => logger.error(err.message, err));
