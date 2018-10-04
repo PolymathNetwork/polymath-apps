@@ -47,5 +47,18 @@ Please read our [contribution guidelines](https://github.com/PolymathNetwork/pol
 
 # Deployments
 
-- Any merge to `master` automatically deploys to our **Production Environment**
-- Any merge to `develop` automatically deploys to our **Staging Environment**
+- Any merge to `master` automatically deploys to our [Production](#production)
+- Any merge to `develop` automatically deploys to a [Staging](#environment)
+
+## Environments
+
+### Production
+
+What the final user sees, this is [tokenstudio.polymath.network](https://tokenstudio.polymath.network)
+
+### Staging
+
+Production-like environment, this runs code that has not yet made its way into
+the master branch.
+
+There can be multiple Staging environments if so required.

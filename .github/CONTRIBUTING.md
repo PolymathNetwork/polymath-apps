@@ -85,8 +85,7 @@ We enforce the use of [Conventional Commits](https://www.conventionalcommits.org
 - Commit often, try to keep commits meaningful (or squash before submitting a PR)
 - Avoid committing with `commit -m`, this encourages quick, non-descriptive commit messages and is incompatible with _Conventional Commits_ if your commit requires a `body`
 - Add a `body` to the commit **if the commit's subject is not descriptive enough**
-- Add a `BREAKING CHANGE: <what's the change>` in the footer of a commit that makes
-  a breaking change of the API of a package
+- Add a `BREAKING CHANGE: <what's the change>` at the beginning of the commit's body, when the commit introduces a a non backwards-compatible change to a package
 - Add a `CLOSES: #<number>` in the footer of a commit to close an issue
   this commit solves.
 - Commit messages must be written in imperative tense
@@ -159,7 +158,8 @@ Steps:
 - In most cases, you will checkout from `develop` and create a branch
 - Once you're happy with your code, submit a pull request from your branch
   to `develop`
-- If your PR is out of date, rebase it and update your branch
+- Builds and tests status will show on the `checks` section of your PR on Github
+- If tests or builds fail, your PR is not qualified for merging
 
 Rules:
 
@@ -167,8 +167,8 @@ Rules:
 - No commit reaches `develop` unless it comes from a PR and has been reviewed by at least `1` other developer.
 - No commit reaches `master` except through a PR from `develop` to `master`. _(Note: We might want to ask for more than one approval for this PR since they deploy to production)_
 - You can base your branch from `develop` or an epic branch (e.g: `migration-to-2.0`)
-- PRs that break unit tests will be rejected
-- E2E tests test code in `develop`, `Pull Requests pointing to master` and on `master`
+- PRs that break unit tests must not be merged
+- E2E tests run on code in `develop`, `Pull Requests pointing to master` and on `master`
 
 Good practices:
 
