@@ -74,7 +74,7 @@ const providers: Array<ServiceProvider> = [
     cat: 0,
     title: 'GenesisBlock',
     logo: '/providers/advisory/genesisblock.png',
-    background: '/providers/adviso../images-genesisblock.png',
+    background: '/providers/advisory/bg/img-genesisblock.png',
     desc:
       'Genesis Block provides strategic business and regulatory advisory, financial services,' +
       'and technology solutions to companies seeking to leverage blockchain technology in their core ' +
@@ -86,7 +86,7 @@ const providers: Array<ServiceProvider> = [
     cat: 0,
     title: 'Matador',
     logo: '/providers/advisory/matador.png',
-    background: '/providers/adviso../images-matador.png',
+    background: '/providers/advisory/bg/img-matador.png',
     desc:
       'We started as investment bankers and private equity partners. Historically, private markets provide' +
       ' minimal liquidity and going public carries high costs. Working at Polymath, we saw that the blockchain could' +
@@ -98,7 +98,7 @@ const providers: Array<ServiceProvider> = [
     cat: 0,
     title: 'Pegasus',
     logo: '/providers/advisory/pegasus.png',
-    background: '/providers/adviso../images-pegasus.png',
+    background: '/providers/advisory/bg/img-pegasus.png',
     desc:
       'The Pegasus Accelerator Program provides Blockchain and Token consulting and support services. ' +
       'Token offerings are compliant with jurisdictional regulations through the PIBCO process.',
@@ -108,7 +108,7 @@ const providers: Array<ServiceProvider> = [
     cat: 0,
     title: 'Tokenizo',
     logo: '/providers/advisory/tokenizo.png',
-    background: '/providers/adviso../images-tokenizo.png',
+    background: '/providers/advisory/bg/img-tokenizo.png',
     desc:
       'We are an end-to-end service for the tokenization of assets using blockchain, focused on the ' +
       'Latin American and Southern Europe markets.\nTokenizo is an Investment Bank 2.0. We combine ' +
@@ -126,7 +126,7 @@ const providers: Array<ServiceProvider> = [
     cat: 1,
     title: 'Homeier Law PC',
     logo: '/providers/legal/homierlaw.png',
-    background: '/providers/leg../images-homier.png',
+    background: '/providers/legal/bg/img-homier.png',
     desc:
       'Homeier Law PC is a securities and corporate law firm with deep experience in exempt as well as ' +
       'SEC-registered alternative finance offerings, having advised on hundreds of private offerings that have ' +
@@ -140,7 +140,7 @@ const providers: Array<ServiceProvider> = [
     cat: 1,
     title: 'Security Token Lawyers',
     logo: '/providers/legal/STL.png',
-    background: '/providers/leg../images-stlawyers.png',
+    background: '/providers/legal/bg/img-stlawyers.png',
     desc:
       'Security Token Lawyers is a partnership between US and Israeli legal experts.  We advise security ' +
       'token issuers, exchanges and investors, bringing extensive securities and funds experience in the US and ' +
@@ -157,7 +157,7 @@ const providers: Array<ServiceProvider> = [
     cat: 1,
     title: 'Aird & Berlis',
     logo: '/providers/legal/aird-berlis.png',
-    background: '/providers/leg../images-airdberlis.png',
+    background: '/providers/legal/bg/img-airdberlis.png',
     desc:
       'Aird & Berlis provides strategic legal and business advice in all principal areas of corporate and ' +
       'commercial law, including Canadian capital markets activities. Members of the Aird & Berlis Capital Markets ' +
@@ -170,7 +170,7 @@ const providers: Array<ServiceProvider> = [
     cat: 1,
     title: 'Cassels Brock Lawyers',
     logo: '/providers/legal/cassels-2.png',
-    background: '/providers/leg../images-blackwell.png',
+    background: '/providers/legal/bg/img-blackwell.png',
     desc:
       'Cassels Brock & Blackwell LLP is a Canadian law firm focused on serving the transaction, advocacy and ' +
       'advisory needs of the country’s most dynamic business sectors. Our Emerging Companies Group draws on the ' +
@@ -182,6 +182,16 @@ const providers: Array<ServiceProvider> = [
       'your company is public or private, a start-up or a mature company, big or small, looking for venture capital, ' +
       'equity financing, debt financing or something more esoteric, our lawyers can help.',
   },
+  {
+    id: 21,
+    cat: 1,
+    title: 'Messner Reeves LLP',
+    logo: '/providers/legal/messner.png',
+    background: '/providers/legal/bg/img-messner.png',
+    desc:
+      'Messner Reeves is a national full-service business law with expertise in securities matters in the following ' +
+      'jurisdictions: Colorado, Nebraska, Pennsylvania.',
+  },
 
   // KYC/AML
   {
@@ -189,7 +199,7 @@ const providers: Array<ServiceProvider> = [
     cat: 2,
     title: 'Katipult',
     logo: '/providers/kyc/katipult.png',
-    background: '/providers/k../images-katipult.png',
+    background: '/providers/kyc/bg/img-katipult.png',
     desc:
       'At Katipult, we come to work each day because we want to solve some of the biggest pain points for our ' +
       "clients working in the private capital markets. Most firms aren't capitalizing on opportunities in today's " +
@@ -202,7 +212,7 @@ const providers: Array<ServiceProvider> = [
     cat: 3,
     title: 'Wachsman PR',
     logo: '/providers/marketing/wachsmanpr.png',
-    background: '/providers/marketi../images-wachsman.png',
+    background: '/providers/marketing/bg/img-wachsman.png',
     desc:
       'Wachsman provides media relations, strategic communications, brand development, and corporate advisory ' +
       'services to many of the most indispensable companies in the financial technology, digital currency, and ' +
@@ -215,7 +225,7 @@ const providers: Array<ServiceProvider> = [
     cat: 4,
     title: 'BitGo',
     logo: '/providers/custody/bitgo.png',
-    background: '/providers/custo../images-bitgo.png',
+    background: '/providers/custody/bg/img-bitgo.png',
     desc:
       'BitGo is a blockchain software company that secures digital currency for institutional investors. Its ' +
       'technology solves the most difficult security, compliance and custodial problems ' +
@@ -229,7 +239,7 @@ const providers: Array<ServiceProvider> = [
     cat: 4,
     title: 'Prime Trust',
     logo: '/providers/custody/primetrust.png',
-    background: '/providers/custo../images-primetrust.png',
+    background: '/providers/custody/bg/img-primetrust.png',
     desc:
       'Prime Trust is chartered, insured financial institution that as a "Qualified Custodian" provides ' +
       'token and FIAT custody, funds processing, AML/KYC compliance, and transaction technology for the new ' +
