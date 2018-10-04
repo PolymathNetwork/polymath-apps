@@ -3,14 +3,30 @@ name: Sidebar
 ---
 
 import { Playground, PropsTable } from 'docz';
+import icoInbox from '../../images/svg/inbox';
 import Sidebar from './Sidebar';
 
 # Sidebar
 
-<PropsTable of={Sidebar} />
-
 ## Basic usage
 
+<style>{`.pui-sidebar { position: static; }`}</style>
+
 <Playground>
-  <Sidebar />
+  <Sidebar topItems={[
+    {
+    title: 'Providers',
+    icon: icoInbox,
+    to: `/providers`,
+    isActive: true,
+    isDisabled: false
+  },
+  {
+    title: 'Token',
+    icon: icoInbox,
+    to: '/',
+    isActive: false,
+    isDisabled: true
+  }
+  ]} bottomItems={[]} />
 </Playground>

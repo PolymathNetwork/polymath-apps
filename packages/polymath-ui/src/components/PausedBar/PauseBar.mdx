@@ -3,7 +3,8 @@ name: PauseBar
 ---
 
 import { Playground, PropsTable } from 'docz';
-import PauseBar from './PauseBar';
+
+import PauseBar from './';
 
 # PauseBar
 
@@ -11,6 +12,8 @@ import PauseBar from './PauseBar';
 
 ## Basic usage
 
+<style>{`.pui-pausebar { position: static; }`}</style>
+
 <Playground>
-  <PauseBar />
+  <PauseBar isTokenFrozen />
 </Playground>

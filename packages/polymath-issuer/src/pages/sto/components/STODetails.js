@@ -91,7 +91,9 @@ export default class STODetails extends Component<Props> {
         <div style={isSelect ? { textAlign: 'right' } : {}}>
           {etherscanAddress(
             item.address,
-            <Button kind="secondary">See on Etherscan</Button>
+            <Button kind="secondary" className="see-on-etherscan-link">
+              See on Etherscan
+            </Button>
           )}
           {isSelect ? (
             <span>

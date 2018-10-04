@@ -1,0 +1,16 @@
+@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+
+.pui-confirm-modal {
+  .bx--modal-container {
+    width: 500px;
+  }
+
+  .bx--modal-header__heading {
+    margin-bottom: 10px;
+    line-height: 35px;
+  }
+
+  .bx--modal-header__label {
+    color: $poly-red;
+  }
+}

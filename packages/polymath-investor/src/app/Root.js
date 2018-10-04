@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import '@polymathnetwork/ui/style.scss';
+import '@polymathnetwork/ui/styles/globals.scss';
 import type { Node } from 'react';
 
 import './style.scss';

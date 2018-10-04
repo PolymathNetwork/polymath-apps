@@ -1,0 +1,45 @@
+@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+
+.pui-footer {
+  z-index: 10;
+  width: 100%;
+  height: $navbar-height;
+  background-color: white;
+  border-top: 1px solid #E1E5E8;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  .pui-footer-links {
+    float: right;
+    margin-right: 56px;
+    margin-left: 219px;
+    display: inline-flex;
+    margin-top: 11px;
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      color: $poly-gray-dark;
+      font-size: 14px;
+      line-height: 22px;
+      margin-left: 30px;
+      font-weight: 300;
+
+      a {
+        text-decoration: none;
+        color: $poly-gray-dark;
+      }
+    }
+  }
+
+  .pui-footer-text {
+    display: inline-flex;
+    color: $poly-gray-dark;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 300;
+    margin-left: 120px;
+    margin-top: 11px;
+  }
+}

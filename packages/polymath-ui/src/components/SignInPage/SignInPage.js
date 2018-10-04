@@ -28,7 +28,7 @@ const mapDispatchToProps: DispatchProps = {
 
 type Props = StateProps & DispatchProps;
 
-class SignInPage extends Component<Props> {
+export class SignInPage extends Component<Props> {
   handleSign = () => {
     this.props.signIn();
   };
@@ -51,7 +51,7 @@ class SignInPage extends Component<Props> {
     if (this.props.isSignInCancelled) {
       return (
         <DocumentTitle title="Sign In – Polymath">
-          <div className="pui-single-box">
+          <div id="sign-in-failed" className="pui-single-box">
             {ico}
             <h2
               className="pui-h2"
@@ -80,7 +80,7 @@ class SignInPage extends Component<Props> {
 
     return (
       <DocumentTitle title="Sign In – Polymath">
-        <div className="pui-single-box">
+        <div id="sign-in" className="pui-single-box">
           {ico}
           <h2 className="pui-h2" align="center">
             Sign In with Your Wallet
