@@ -158,178 +158,221 @@ const getCappedSTODetails = async (address: string) => {
 };
 
 /**
+  Gets STO details and sends email to issuer with transaction information
+
+  @param {Object} contract Security Token contract
+  @param {string} ticker Security Token ticker
+  @param {Object} error listener error
+  @param {Object} result event information
+ */
+export const moduleAddedHandler = async (
+  contract: Object,
+  ticker: string,
+  error: Object,
+  result: Object
+) => {
+  if (error) {
+    logger.error(error.message, error);
+    return;
+  }
+
+  const {
+    returnValues: { _name, _module: moduleAddress },
+    transactionHash,
+  } = result;
+
+  logger.info(`[EVENT] STO scheduled for "${ticker}"`);
+
+  const moduleName: string = web3Client.utils.hexToUtf8(_name);
+
+  /**
+    Don't send an email for non CappedSTO modules
+  */
+  if (moduleName !== 'CappedSTO') {
+    return;
+  }
+  /**
+    Get the details of the STO
+  */
+  const details = await getCappedSTODetails(moduleAddress);
+
+  if (!details) {
+    return;
+  }
+
+  const { start, cap, rate, fundsReceiver, isPolyFundraise } = details;
+
+  /**
+    Get the token issuer
+
+    TODO @monitz87: find out if the funds receiver always has the same address as the issuer
+  */
+  const userAddress: string = await contract.methods.owner().call();
+  const user = await User.findOne({ address: userAddress });
+
+  if (!user) {
+    logger.error(`Owner not found for ${ticker}`);
+    return;
+  }
+
+  const { email, name } = user;
+
+  await sendSTOScheduledEmail(
+    email,
+    name,
+    transactionHash,
+    ticker,
+    cap,
+    fundsReceiver,
+    isPolyFundraise,
+    rate,
+    start
+  );
+};
+
+/**
   Add a listener to a security token that triggers
   when it has been scheduled for STO
 
   @param contract security token web3 contract 
   @param ticker security token ticker
  */
-const addSTOListener = (contract, ticker: string) => {
+export const addSTOListener = (contract: Object, ticker: string) => {
   contract.events.LogModuleAdded(
     {
       filter: {
         _type: STO_MODULE_TYPE,
       },
     },
-    async (error, result) => {
-      if (error) {
-        logger.error(error.message, error);
-        return;
-      }
-
-      const {
-        returnValues: { _name, _module: moduleAddress },
-        transactionHash,
-      } = result;
-
-      logger.info(`[EVENT] STO scheduled for "${ticker}"`);
-
-      const moduleName: string = web3Client.utils.hexToUtf8(_name);
-
-      /**
-        Don't send an email for non CappedSTO modules
-      */
-      if (moduleName !== 'CappedSTO') {
-        return;
-      }
-      /**
-        Get the details of the STO
-      */
-      const details = await getCappedSTODetails(moduleAddress);
-
-      if (!details) {
-        return;
-      }
-
-      const { start, cap, rate, fundsReceiver, isPolyFundraise } = details;
-
-      /**
-        Get the token issuer
-
-        TODO @monitz87: find out if the funds receiver always has the same address as the issuer
-      */
-      const userAddress: string = await contract.methods.owner().call();
-      const user = await User.findOne({ address: userAddress });
-
-      if (!user) {
-        logger.error(`Owner not found for ${ticker}`);
-        return;
-      }
-
-      const { email, name } = user;
-
-      sendSTOScheduledEmail(
-        email,
-        name,
-        transactionHash,
-        ticker,
-        cap,
-        fundsReceiver,
-        isPolyFundraise,
-        rate,
-        start
-      );
-    }
+    (error, result) => moduleAddedHandler(contract, ticker, error, result)
   );
 
   logger.info(`[SETUP] Listening for STO for ${ticker}`);
 };
 
 /**
+  Gets ticker details and sends an email to the issuer with reservation information
+
+  @param {Object} contract Ticker Registry contract 
+  @param {Object} error listener error
+  @param {Object} result event information
+ */
+export const registerTickerHandler = async (
+  contract: Object,
+  error: Object,
+  result: Object
+) => {
+  if (error) {
+    logger.error(error.message, error);
+    return;
+  }
+
+  const {
+    returnValues: { _symbol: ticker, _owner: userAddress },
+    transactionHash,
+  } = result;
+
+  logger.info(`[EVENT] Ticker "${ticker}" registered`);
+
+  /**
+    Get expiry limit in seconds from Ticker Registry
+    */
+  const expiryLimitSeconds: number = await contract.methods
+    .expiryLimit()
+    .call();
+  const expiryLimit = expiryLimitSeconds / 60 / 60 / 24;
+
+  /**
+    Get the token issuer
+    */
+  const user = await User.findOne({ address: userAddress });
+
+  if (!user) {
+    logger.error(`Owner not found for "${ticker}"`);
+    return;
+  }
+
+  const { email, name } = user;
+
+  sendTickerReservedEmail(email, name, transactionHash, ticker, expiryLimit);
+};
+
+/**
   Listen for registered tickers
 */
-const addTickerRegisterListener = async () => {
+export const addTickerRegisterListener = async () => {
   const contract = await getTRContract();
 
-  contract.events.LogRegisterTicker({}, async (error, result) => {
-    if (error) {
-      logger.error(error.message, error);
-      return;
-    }
-
-    const {
-      returnValues: { _symbol: ticker, _owner: userAddress },
-      transactionHash,
-    } = result;
-
-    logger.info(`[EVENT] Ticker "${ticker}" registered`);
-
-    /**
-      Get expiry limit in seconds from Ticker Registry
-     */
-    const expiryLimitSeconds: number = await contract.methods
-      .expiryLimit()
-      .call();
-    const expiryLimit = expiryLimitSeconds / 60 / 60 / 24;
-
-    /**
-      Get the token issuer
-     */
-    const user = await User.findOne({ address: userAddress });
-
-    if (!user) {
-      logger.error(`Owner not found for "${ticker}"`);
-      return;
-    }
-
-    const { email, name } = user;
-
-    sendTickerReservedEmail(email, name, transactionHash, ticker, expiryLimit);
-  });
+  contract.events.LogRegisterTicker({}, (error, result) =>
+    registerTickerHandler(contract, error, result)
+  );
 
   logger.info(`[SETUP] Listening for registered tickers`);
 };
 
 /**
-  Listen for newly deployed security tokens. Every time a new token gets deployed,
-  we also add an STO schedule listener to it
+  New security token event handler. Sends an email to the issuer with token information.
+  Every time a new token gets deployed, also adds an STO schedule listener to it
+
+  @param {Object} contract Security Token Registry contract 
+  @param {Object} error listener error
+  @param {Object} result event information
+ */
+export const newSecurityTokenHandler = async (
+  contract: Object,
+  error: Object,
+  result: Object
+) => {
+  if (error) {
+    logger.error(error.message, error);
+    return;
+  }
+
+  const {
+    returnValues: { _securityTokenAddress, _ticker, _owner: userAddress },
+    transactionHash,
+  } = result;
+
+  logger.info(`[EVENT] Token "${_ticker}" deployed`);
+
+  /**
+        Get the token issuer
+      */
+  const user = await User.findOne({ address: userAddress });
+
+  if (!user) {
+    logger.error(`Owner not found for ${_ticker}`);
+    return;
+  }
+
+  const { email, name } = user;
+
+  sendTokenCreatedEmail(email, name, transactionHash, _ticker);
+
+  const tokenContract = getSTContract(_securityTokenAddress);
+
+  addSTOListener(tokenContract, _ticker);
+};
+
+/**
+  Listen for newly deployed security tokens
 
   @param contract Security Token Registry contract
 */
-const addTokenCreateListener = async () => {
+export const addTokenCreateListener = async () => {
   const contract = await getSTRContract();
 
-  contract.events.LogNewSecurityToken({}, async (error, result) => {
-    if (error) {
-      logger.error(error.message, error);
-      return;
-    }
-
-    const {
-      returnValues: { _securityTokenAddress, _ticker, _owner: userAddress },
-      transactionHash,
-    } = result;
-
-    logger.info(`[EVENT] Token "${_ticker}" deployed`);
-
-    /**
-        Get the token issuer
-      */
-    const user = await User.findOne({ address: userAddress });
-
-    if (!user) {
-      logger.error(`Owner not found for ${_ticker}`);
-      return;
-    }
-
-    const { email, name } = user;
-
-    sendTokenCreatedEmail(email, name, transactionHash, _ticker);
-
-    const tokenContract = getSTContract(_securityTokenAddress);
-
-    addSTOListener(tokenContract, _ticker);
-  });
+  contract.events.LogNewSecurityToken({}, (error, result) =>
+    newSecurityTokenHandler(contract, error, result)
+  );
 
   logger.info(`[SETUP] Listening for Security Token deployments`);
 };
 
 /**
   Get previously deployed security tokens and add listeners for STO scheduling
-
-  @param contract Security Token Registry contract
 */
-const addSTOListeners = async () => {
+export const addSTOListeners = async () => {
   const contract = await getSTRContract();
   try {
     const previousTokenEvents = await contract.getPastEvents(
@@ -375,18 +418,34 @@ let heartbeatIntervalId;
 /**
   Ping the socket. If there is something wrong with the conection,
   we kill the heartbeat and reset the web3 client and all the listeners
+
+  @param {Object} client the web3 client instance to keep alive
  */
-const keepAlive = async () => {
+export const keepAlive = async (client: any) => {
+  const connection = client.currentProvider.connection;
+
   try {
     const isListening = await web3Client.eth.net.isListening();
     if (!isListening) {
-      throw new Error('Socket not listening to peers');
+      // close the socket connection to trigger a reconnect
+      logger.info(
+        '[SETUP] Socket is not listening to peers, closing connection...'
+      );
+      clearInterval(heartbeatIntervalId);
+      connection.close();
+      return;
     }
   } catch (error) {
     logger.error(error.message, error);
     clearInterval(heartbeatIntervalId);
-    // TODO @monitz87: kill the socket instead of calling connectWeb3
-    connectWeb3();
+    if (
+      [connection.CLOSING, connection.CLOSED].find(
+        element => element === connection.readyState
+      )
+    ) {
+      logger.info(`[SETUP] Reconnecting socket after close...`);
+      await connectWeb3();
+    }
   }
 };
 
@@ -394,7 +453,7 @@ const keepAlive = async () => {
   Ping socket every 5 seconds to keep it alive
   */
 const simulateHeartbeat = () => {
-  const heartbeatIntervalId = setInterval(keepAlive, 1000);
+  heartbeatIntervalId = setInterval(() => keepAlive(web3Client), 5000);
 };
 
 /**
