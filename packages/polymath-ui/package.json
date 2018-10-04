@@ -8,11 +8,11 @@
     "url": "https://github.com/PolymathNetwork/polymath-apps/tree/develop/packages/polymath-ui"
   },
   "scripts": {
+    "dev": "docz dev",
     "build": "node scripts/build.js",
     "test": "jest",
     "typecheck": "flow --show-all-branches",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build",
+    "build:docz": "docz build",
     "analyze": "source-map-explorer build/main.*"
   },
   "dependencies": {
