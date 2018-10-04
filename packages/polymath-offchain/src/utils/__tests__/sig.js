@@ -1,5 +1,3 @@
-import '../../startup/setupEnvironment';
-
 import { verifySignature } from '../sig.js';
 import sigUtil from 'eth-sig-util';
 import { AuthCode } from '../../models';

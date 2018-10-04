@@ -1,5 +1,3 @@
-import '../../startup/setupEnvironment';
-
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { EmailWrapper, EtherscanURL } from '../EmailWrapper';

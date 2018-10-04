@@ -270,7 +270,7 @@ exports[`Component: TokenCreated renders with all props 1`] = `
             Transaction details on Etherscan:
              
             <a
-              href="https://kovan.etherscan.io/tx/0xffffffffffffffff"
+              href="https://local.etherscan.io/tx/0xffffffffffffffff"
               rel="noopener noreferrer"
               target="_blank"
             >

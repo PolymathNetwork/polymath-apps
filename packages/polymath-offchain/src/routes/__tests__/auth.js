@@ -1,5 +1,3 @@
-import '../../startup/setupEnvironment';
-
 import { getCodeHandler, authHandler } from '../auth.js';
 import { AuthCode, EmailPIN, User } from '../../models';
 import { TYPED_NAME } from '../../constants';

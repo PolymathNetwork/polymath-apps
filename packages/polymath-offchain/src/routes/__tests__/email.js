@@ -1,5 +1,3 @@
-import '../../startup/setupEnvironment';
-
 import { newEmailHandler, confirmEmailHandler } from '../email.js';
 import { verifySignature } from '../../utils';
 import { EmailPIN, User } from '../../models';

@@ -269,7 +269,7 @@ exports[`Component: STOScheduled renders currency as ETH if isPolyFundraise is f
             Transaction details on Etherscan:
              
             <a
-              href="https://kovan.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
+              href="https://local.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -301,7 +301,7 @@ exports[`Component: STOScheduled renders currency as ETH if isPolyFundraise is f
             </strong>
             <p>
               <a
-                href="https://kovan.etherscan.io/address/0xffffffffffffffff"
+                href="https://local.etherscan.io/address/0xffffffffffffffff"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -688,7 +688,7 @@ exports[`Component: STOScheduled renders with all valid props 1`] = `
             Transaction details on Etherscan:
              
             <a
-              href="https://kovan.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
+              href="https://local.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -720,7 +720,7 @@ exports[`Component: STOScheduled renders with all valid props 1`] = `
             </strong>
             <p>
               <a
-                href="https://kovan.etherscan.io/address/0xffffffffffffffff"
+                href="https://local.etherscan.io/address/0xffffffffffffffff"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -1107,7 +1107,7 @@ exports[`Component: STOScheduled renders with all valid props 2`] = `
             Transaction details on Etherscan:
              
             <a
-              href="https://kovan.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
+              href="https://local.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1139,7 +1139,7 @@ exports[`Component: STOScheduled renders with all valid props 2`] = `
             </strong>
             <p>
               <a
-                href="https://kovan.etherscan.io/address/0xffffffffffffffff"
+                href="https://local.etherscan.io/address/0xffffffffffffffff"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -1526,7 +1526,7 @@ exports[`Component: STOScheduled renders with invalid capRate 1`] = `
             Transaction details on Etherscan:
              
             <a
-              href="https://kovan.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
+              href="https://local.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1558,7 +1558,7 @@ exports[`Component: STOScheduled renders with invalid capRate 1`] = `
             </strong>
             <p>
               <a
-                href="https://kovan.etherscan.io/address/0xffffffffffffffff"
+                href="https://local.etherscan.io/address/0xffffffffffffffff"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -1945,7 +1945,7 @@ exports[`Component: STOScheduled renders with invalid capRate 2`] = `
             Transaction details on Etherscan:
              
             <a
-              href="https://kovan.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
+              href="https://local.etherscan.io/tx/0xeeeeeeeeeeeeeeee"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1977,7 +1977,7 @@ exports[`Component: STOScheduled renders with invalid capRate 2`] = `
             </strong>
             <p>
               <a
-                href="https://kovan.etherscan.io/address/0xffffffffffffffff"
+                href="https://local.etherscan.io/address/0xffffffffffffffff"
                 rel="noopener noreferrer"
                 target="_blank"
               >

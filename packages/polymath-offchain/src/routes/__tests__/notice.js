@@ -1,5 +1,3 @@
-import '../../startup/setupEnvironment';
-
 import { getNoticesHandler } from '../notice';
 import { Notice } from '../../models';
 

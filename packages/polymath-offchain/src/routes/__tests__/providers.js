@@ -1,5 +1,3 @@
-import '../../startup/setupEnvironment';
-
 import Web3 from 'web3';
 import { User } from '../../models';
 import { verifySignature } from '../../utils';
@@ -403,7 +401,7 @@ describe('Route: POST /providers/apply', () => {
   test('sends dummy email and responds with ok status in local', async () => {
     /**
       FIXME @monitz87:
-      In order to test the handler with NODE_ENV mocked as both 'PRODUCTION' and 'LOCAL',
+      In order to test the handler with DEPLOYMENT_STAGE mocked as both 'production' and 'local',
       we must reset the module cache and require the handler again. Since the reset appears to 
       also reset the mock implementations, we must require all the modules again. This is a horrible hack 
       and I sincerely hope there is a better way of doing it, but right now 100% coverage is king. 
@@ -482,7 +480,7 @@ describe('Route: POST /providers/apply', () => {
     // Prevent hoisting
     jest.mock('../../constants', () => {
       return {
-        NODE_ENV: 'PRODUCTION',
+        DEPLOYMENT_STAGE: 'production',
       };
     });
 
@@ -523,7 +521,7 @@ describe('Route: POST /providers/apply', () => {
     // Prevent hoisting
     jest.doMock('../../constants', () => {
       return {
-        NODE_ENV: 'LOCAL',
+        DEPLOYMENT_STAGE: 'local',
       };
     });
 

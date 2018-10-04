@@ -1,11 +1,9 @@
-import '../../startup/setupEnvironment';
 import {
   sendProviderApplicationEmail,
   sendAccountConfirmationEmail,
   sendSTOScheduledEmail,
   sendTickerReservedEmail,
   sendTokenCreatedEmail,
-  sendEmail,
 } from '../emails';
 import ReactDOMServer from 'react-dom/server';
 import sgMail from '@sendgrid/mail';

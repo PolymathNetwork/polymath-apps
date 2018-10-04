@@ -1,5 +1,3 @@
-import '../startup/setupEnvironment';
-
 import { cleanEnvironment } from '../constants.js';
 
 const ORIGINAL_ENV = process.env;
