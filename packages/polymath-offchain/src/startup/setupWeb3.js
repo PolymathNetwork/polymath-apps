@@ -92,7 +92,10 @@ const newProvider = () => {
     Reconnect when socket connection errors or ends
    */
   provider.on('error', error => {
-    logger.error(error.message, error);
+    if (error && error.message) {
+      logger.error(error.message, error);
+    }
+
     logger.info(`[SETUP] Reconnecting socket after error...`);
     connectWeb3();
   });
