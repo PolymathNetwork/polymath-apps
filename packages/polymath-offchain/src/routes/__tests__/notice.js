@@ -76,8 +76,8 @@ describe('Route: GET /notice/:scope', () => {
       content: 'Some content',
       isOneTime: false,
       isValid: true,
-      createdAt: new Date(0),
-      updatedAt: new Date(0),
+      createdAt: new Date('10/14/1987'),
+      updatedAt: new Date('10/14/1987'),
     };
 
     Notice.findOne.mockImplementationOnce(() => {

@@ -265,7 +265,7 @@ describe('Function: sendSTOScheduledEmail', () => {
   const validFundsReceiver = '0xffffffffffffffffffffffffffffffffffffffff';
   const validIsPolyFundraise = true;
   const validRate = 1000;
-  const validStart = new Date(0);
+  const validStart = new Date('10/14/1987');
 
   test('calls sgMail.send with correct parameters', async () => {
     const expectedMsg = {

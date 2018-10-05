@@ -4,7 +4,7 @@ import { STOScheduled } from '../STOScheduled';
 
 describe('Component: STOScheduled', () => {
   const ticker = 'SOMETICK';
-  const start = new Date(0);
+  const start = new Date('10/14/1987');
   const cap = 1000000;
   const rate = 1000;
   const isPolyFundraise = true;

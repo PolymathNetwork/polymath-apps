@@ -259,7 +259,7 @@ describe('Route: POST /email/confirm', () => {
     const validEmailPIN = {
       pin: validPIN,
       isConfirmed: true,
-      createdAt: new Date(0),
+      createdAt: new Date('10/14/1987'),
       address: validAddress,
       email: validEmail,
     };

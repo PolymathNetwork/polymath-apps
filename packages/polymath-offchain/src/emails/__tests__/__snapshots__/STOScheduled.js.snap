@@ -290,7 +290,7 @@ exports[`Component: STOScheduled renders currency as ETH if isPolyFundraise is f
               Scheduled start
             </strong>
             <p>
-              12/31/1969
+              10/14/1987
             </p>
           </div>
           <div
@@ -709,7 +709,7 @@ exports[`Component: STOScheduled renders with all valid props 1`] = `
               Scheduled start
             </strong>
             <p>
-              12/31/1969
+              10/14/1987
             </p>
           </div>
           <div
@@ -1128,7 +1128,7 @@ exports[`Component: STOScheduled renders with all valid props 2`] = `
               Scheduled start
             </strong>
             <p>
-              12/31/1969
+              10/14/1987
             </p>
           </div>
           <div
@@ -1547,7 +1547,7 @@ exports[`Component: STOScheduled renders with invalid capRate 1`] = `
               Scheduled start
             </strong>
             <p>
-              12/31/1969
+              10/14/1987
             </p>
           </div>
           <div
@@ -1966,7 +1966,7 @@ exports[`Component: STOScheduled renders with invalid capRate 2`] = `
               Scheduled start
             </strong>
             <p>
-              12/31/1969
+              10/14/1987
             </p>
           </div>
           <div
