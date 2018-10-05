@@ -18,7 +18,6 @@ export {
   signIn,
   signUp,
   requestConfirmEmail,
-  email,
   faucet,
   providersApply,
 } from './redux/account/actions';

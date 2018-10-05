@@ -1,4 +1,4 @@
-// FIXME @RafaelVidaurre: Fix this
+// FIXME @RafaelVidaurre: Use emotion to manage styles
 export default `
   body {
     font: small/1.5 -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
