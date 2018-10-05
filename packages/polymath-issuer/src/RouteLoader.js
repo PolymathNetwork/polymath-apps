@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Loading } from 'carbon-components-react';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
 import { hot } from 'react-hot-loader';
 import PolymathAuth, {
   NETWORK_MAIN,
@@ -25,7 +25,8 @@ type Props = {
 
 class RouteLoader extends Component<Props> {
   render() {
-    if (isMobile) {
+    const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera
+    if (isMobile || isUnsupportedBrowser) {
       return (
         <Root>
           <NotSupportedPage />
