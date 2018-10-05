@@ -6,8 +6,8 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "start": "babel-node src/index.js",
-    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
+    "start": "babel-node src/server.js",
+    "test": "jest",
     "start:dist": "node ./build/index.js",
     "build": "babel src --out-dir build",
     "typecheck": "flow --show-all-branches"
@@ -15,7 +15,9 @@
   "main": "build/main.js",
   "dependencies": {
     "@koa/cors": "^2.2.1",
+    "@polymathnetwork/shared": "0.0.0",
     "@sendgrid/mail": "^6.2.1",
+    "bluebird": "^3.5.2",
     "ddos": "^0.1.30",
     "dotenv": "^6.0.0",
     "eth-sig-util": "^1.4.2",
@@ -27,7 +29,8 @@
     "mongoose": "^5.0.14",
     "react": "16.4.0",
     "react-dom": "16.4.0",
-    "web3": "1.0.0-beta.30"
+    "web3": "1.0.0-beta.35",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -44,7 +47,24 @@
     "babel-eslint": "9.0.0",
     "babel-jest": "22.4.3",
     "babel-loader": "^8.0.2",
+    "eslint-config-react-app": "2.1.0",
     "flow-bin": "^0.81.0",
-    "jest": "22.4.3"
+    "jest": "22.4.3",
+    "react-test-renderer": "^16.5.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/startup/!(setupWeb3)",
+      "!**/index.js",
+      "!src/server.js",
+      "!src/specsInit.js"
+    ],
+    "setupFiles": [
+      "./src/specsInit.js"
+    ]
   }
 }
