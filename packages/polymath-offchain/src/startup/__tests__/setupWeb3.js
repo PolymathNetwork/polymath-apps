@@ -5,7 +5,7 @@ import {
 } from '../../utils';
 import logger from 'winston';
 import { User } from '../../models';
-import { NETWORKS } from '../../constants';
+import { NETWORKS, POLYMATH_REGISTRY_ADDRESS } from '../../constants';
 
 jest.mock('../../utils', () => {
   return {
@@ -15,36 +15,40 @@ jest.mock('../../utils', () => {
   };
 });
 
-const mockArtifact = {
-  abi: {},
-  networks: {
-    '15': {
-      address: '0xffffffffffffffffffffffffffffffffffffffff',
-    },
-  },
-};
-
 jest.useFakeTimers();
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json',
-  () => mockArtifact
+  '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json',
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
 jest.mock(
   '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json',
-  () => mockArtifact
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
 jest.mock(
   '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json',
-  () => mockArtifact
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
-jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json',
-  () => mockArtifact
-);
+jest.mock('@polymathnetwork/shared/fixtures/contracts/CappedSTO.json', () => {
+  return {
+    abi: {},
+  };
+});
 
 jest.mock('winston', () => {
   return {
@@ -83,12 +87,20 @@ const ownerMock = jest.fn().mockImplementation(() => {
     call: ownerCallMock,
   };
 });
+const getAddressCallMock = jest
+  .fn()
+  .mockImplementation(() => '0xffffffffffffffffffffffffffffffffffffffff');
+const getAddressMock = jest.fn().mockImplementation(() => {
+  return {
+    call: getAddressCallMock,
+  };
+});
 const contractMock = jest.fn().mockImplementation(() => {
   return {
     events: {
-      LogRegisterTicker: registerTickerListenerMock,
-      LogModuleAdded: moduleAddedListenerMock,
-      LogNewSecurityToken: newSecurityTokenListenerMock,
+      RegisterTicker: registerTickerListenerMock,
+      ModuleAdded: moduleAddedListenerMock,
+      NewSecurityToken: newSecurityTokenListenerMock,
     },
     getPastEvents: getPastEventsMock,
     methods: {
@@ -96,11 +108,11 @@ const contractMock = jest.fn().mockImplementation(() => {
       getSTODetails: detailsMock,
       wallet: walletMock,
       owner: ownerMock,
+      getAddress: getAddressMock,
     },
   };
 });
 const connectionCloseMock = jest.fn();
-const getIdMock = jest.fn().mockImplementation(() => 15);
 const webSocketProviderMock = jest.fn().mockImplementation(() => {
   return {
     on: socketEventListenerMock,
@@ -113,7 +125,6 @@ const constructorMock = jest.fn().mockImplementation(() => {
     eth: {
       net: {
         isListening: isListeningMock,
-        getId: getIdMock,
       },
       Contract: contractMock,
     },
@@ -556,14 +567,13 @@ describe('Function: addSTOListeners', () => {
 
     await addSTOListeners(validNetworkId);
 
-    expect(contractMock).toHaveBeenCalledTimes(5);
-    expect(contractMock.mock.calls[0][1]).toEqual(
-      mockArtifact.networks[getIdMock()].address
-    );
-    expect(contractMock.mock.calls[1][1]).toEqual(validTokenAddress1);
-    expect(contractMock.mock.calls[2][1]).toEqual(validTokenAddress2);
-    expect(contractMock.mock.calls[3][1]).toEqual(validTokenAddress3);
-    expect(contractMock.mock.calls[4][1]).toEqual(validTokenAddress4);
+    expect(contractMock).toHaveBeenCalledTimes(6);
+    expect(contractMock.mock.calls[0][1]).toEqual(POLYMATH_REGISTRY_ADDRESS);
+    expect(contractMock.mock.calls[1][1]).toEqual(getAddressMock().call());
+    expect(contractMock.mock.calls[2][1]).toEqual(validTokenAddress1);
+    expect(contractMock.mock.calls[3][1]).toEqual(validTokenAddress2);
+    expect(contractMock.mock.calls[4][1]).toEqual(validTokenAddress3);
+    expect(contractMock.mock.calls[5][1]).toEqual(validTokenAddress4);
     expect(moduleAddedListenerMock).toHaveBeenCalledTimes(4);
   });
 });

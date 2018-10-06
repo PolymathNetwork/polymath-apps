@@ -1,6 +1,10 @@
 // @flow
 
-import { STO_MODULE_TYPE, NETWORKS } from '../constants';
+import {
+  STO_MODULE_TYPE,
+  NETWORKS,
+  POLYMATH_REGISTRY_ADDRESS,
+} from '../constants';
 import {
   sendSTOScheduledEmail,
   sendTickerReservedEmail,
@@ -9,13 +13,31 @@ import {
 import logger from 'winston';
 import Web3 from 'web3';
 import { User } from '../models';
-import TickerRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json';
+import PolymathRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json';
 import SecurityTokenRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
 import SecurityTokenArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json';
 import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json';
 
 // TODO @monitz87: remake this when we rework polymath-js
 const web3Clients = {};
+
+/**
+  Get the address for a specified contract
+
+  @param {string} name name of the contract
+  @param {string} networkId id of the network where the contract is deployed
+
+  @returns the contract address
+ */
+const getAddress = async (name: string, networkId: string) => {
+  const client = web3Clients[networkId];
+  const polymathRegistry = new client.eth.Contract(
+    PolymathRegistryArtifact.abi,
+    POLYMATH_REGISTRY_ADDRESS
+  );
+
+  return await polymathRegistry.methods.getAddress(name).call();
+};
 
 /**
   Get the corresponding Security Token contract
@@ -44,21 +66,6 @@ const getCSTOContract = (address: string, networkId: string) => {
 };
 
 /**
-  Get the Ticker Registry contract
-
-  @param {string} networkId id of the network to which the contract is deployed
-
-  @returns a web3 Ticker Registry contract
- */
-const getTRContract = async (networkId: string) => {
-  const client = web3Clients[networkId];
-  return new client.eth.Contract(
-    TickerRegistryArtifact.abi,
-    TickerRegistryArtifact.networks[networkId].address
-  );
-};
-
-/**
   Get the Security Token Registry contract
 
   @param {string} networkId id of the network to which the contract is deployed
@@ -67,10 +74,9 @@ const getTRContract = async (networkId: string) => {
  */
 const getSTRContract = async (networkId: string) => {
   const client = web3Clients[networkId];
-  return new client.eth.Contract(
-    SecurityTokenRegistryArtifact.abi,
-    SecurityTokenRegistryArtifact.networks[networkId].address
-  );
+  const address = await getAddress('SecurityTokenRegistry', networkId);
+
+  return new client.eth.Contract(SecurityTokenRegistryArtifact.abi, address);
 };
 
 /**
@@ -254,7 +260,7 @@ export const addSTOListener = (
   ticker: string,
   networkId: string
 ) => {
-  contract.events.LogModuleAdded(
+  contract.events.ModuleAdded(
     {
       filter: {
         _type: STO_MODULE_TYPE,
@@ -335,9 +341,9 @@ export const registerTickerHandler = async (
   @param {string} networkId id of the network to which this listener will be set
  */
 export const addTickerRegisterListener = async (networkId: string) => {
-  const contract = await getTRContract(networkId);
+  const contract = await getSTRContract(networkId);
 
-  contract.events.LogRegisterTicker({}, (error, result) =>
+  contract.events.RegisterTicker({}, (error, result) =>
     registerTickerHandler(contract, networkId, error, result)
   );
 
@@ -405,7 +411,7 @@ export const newSecurityTokenHandler = async (
 export const addTokenCreateListener = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
 
-  contract.events.LogNewSecurityToken({}, (error, result) =>
+  contract.events.NewSecurityToken({}, (error, result) =>
     newSecurityTokenHandler(contract, networkId, error, result)
   );
 
@@ -424,7 +430,7 @@ export const addSTOListeners = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
   try {
     const previousTokenEvents = await contract.getPastEvents(
-      'LogNewSecurityToken',
+      'NewSecurityToken',
       {
         fromBlock: 0,
         toBlock: 'latest',
