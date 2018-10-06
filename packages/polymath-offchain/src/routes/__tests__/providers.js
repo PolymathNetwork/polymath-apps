@@ -29,15 +29,19 @@ jest.mock('../../utils', () => {
 });
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json',
+  '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json',
   () => {
     return {
       abi: {},
-      networks: {
-        '15': {
-          address: '0xffffffffffffffffffffffffffffffffffffffff',
-        },
-      },
+    };
+  }
+);
+
+jest.mock(
+  '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json',
+  () => {
+    return {
+      abi: {},
     };
   }
 );
@@ -380,7 +384,7 @@ describe('Route: POST /providers/apply', () => {
       data: 'Some signing error',
     };
 
-    verifySignature.mockImplementation(() => expectedError);
+    verifySignature.mockImplementationOnce(() => expectedError);
 
     const ctx = {
       request: {
@@ -394,9 +398,9 @@ describe('Route: POST /providers/apply', () => {
   });
 
   test('responds with an error if the user does not exist in the database', async () => {
-    User.findOne.mockImplementation(() => undefined);
+    User.findOne.mockImplementationOnce(() => undefined);
 
-    verifySignature.mockImplementation(returnNull);
+    verifySignature.mockImplementationOnce(returnNull);
 
     const ctx = {
       request: {
@@ -420,12 +424,16 @@ describe('Route: POST /providers/apply', () => {
     Web3.mockImplementation(() => {
       return {
         eth: {
-          net: {
-            getId: () => '15',
-          },
           Contract: () => {
             return {
               getPastEvents: () => [],
+              methods: {
+                getAddress: () => {
+                  return {
+                    call: () => '0xffffffffffffffffffffffffffffffffffffffff',
+                  };
+                },
+              },
             };
           },
         },
@@ -470,12 +478,16 @@ describe('Route: POST /providers/apply', () => {
     const returnMockWeb3Client = () => {
       return {
         eth: {
-          net: {
-            getId: () => '15',
-          },
           Contract: () => {
             return {
               getPastEvents: () => ['Some random event'],
+              methods: {
+                getAddress: () => {
+                  return {
+                    call: () => '0xffffffffffffffffffffffffffffffffffffffff',
+                  };
+                },
+              },
             };
           },
         },
@@ -540,13 +552,13 @@ describe('Route: POST /providers/apply', () => {
 
     let modules = requireModules();
 
-    modules.User.findOne.mockImplementation(returnValidUser);
+    modules.User.findOne.mockImplementationOnce(returnValidUser);
 
-    modules.Provider.find.mockImplementation(() => expectedProviders);
+    modules.Provider.find.mockImplementationOnce(() => expectedProviders);
 
-    modules.verifySignature.mockImplementation(returnNull);
+    modules.verifySignature.mockImplementationOnce(returnNull);
 
-    modules.Web3.mockImplementation(returnMockWeb3Client);
+    modules.Web3.mockImplementationOnce(returnMockWeb3Client);
 
     const newBody = { ...validBody };
     newBody.networkId = '1';
@@ -590,13 +602,13 @@ describe('Route: POST /providers/apply', () => {
 
     modules = requireModules();
 
-    modules.User.findOne.mockImplementation(returnValidUser);
+    modules.User.findOne.mockImplementationOnce(returnValidUser);
 
-    modules.Provider.find.mockImplementation(() => expectedProviders);
+    modules.Provider.find.mockImplementationOnce(() => expectedProviders);
 
-    modules.verifySignature.mockImplementation(returnNull);
+    modules.verifySignature.mockImplementationOnce(returnNull);
 
-    modules.Web3.mockImplementation(returnMockWeb3Client);
+    modules.Web3.mockImplementationOnce(returnMockWeb3Client);
 
     await modules.applyHandler(ctx);
 

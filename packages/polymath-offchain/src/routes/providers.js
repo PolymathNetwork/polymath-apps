@@ -1,11 +1,16 @@
 // @flow
 
 import Router from 'koa-router';
-import { DEPLOYMENT_STAGE, NETWORKS } from '../constants';
+import {
+  DEPLOYMENT_STAGE,
+  NETWORKS,
+  POLYMATH_REGISTRY_ADDRESS,
+} from '../constants';
 import Web3 from 'web3';
 import { User, Provider } from '../models';
 import { sendProviderApplicationEmail, verifySignature } from '../utils';
-import artifact from '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json';
+import PolymathRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json';
+import SecurityTokenRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
 
 import type { Context } from 'koa';
 
@@ -52,6 +57,8 @@ const isApplyRequestValid = (body: ApplyRequestBody | any) => {
 /**
   Throws an error if a ticker hasn't been reserved for the given address
 
+  TODO @monitz87: remake this when we rework polymath-js
+
   @param {string} address client's ethereum address
   @param {string} networkId id of the network where the ticker will be checked
  */
@@ -66,13 +73,22 @@ export const checkForReservedTicker = async (
   }
 
   const web3Client = new Web3(networkData.url);
-  const tickerRegistry = new web3Client.eth.Contract(
-    artifact.abi,
-    artifact.networks[networkId].address
+  const polymathRegistry = new web3Client.eth.Contract(
+    PolymathRegistryArtifact.abi,
+    POLYMATH_REGISTRY_ADDRESS
+  );
+
+  const strAddress = await polymathRegistry.methods
+    .getAddress('SecurityTokenRegistry')
+    .call();
+
+  const securityTokenRegistry = new web3Client.eth.Contract(
+    SecurityTokenRegistryArtifact.abi,
+    strAddress
   );
 
   // TODO @monitz87: check if only one ticker can be reserved per address, and how to enforce this if not
-  const events = await tickerRegistry.getPastEvents('LogRegisterTicker', {
+  const events = await securityTokenRegistry.getPastEvents('RegisterTicker', {
     filter: { _owner: address },
     fromBlock: 0,
     toBlock: 'latest',
