@@ -26,8 +26,8 @@
     "ganache-cli": "^6.1.8",
     "jest": "22.4.3",
     "lodash": "^4.17.11",
-    "polymath-core": "git://github.com/PolymathNetwork/polymath-core#dec62a59cc6258bed03c4ac4a635b36167c2043c",
-    "truffle": "4.1.13",
-    "web3": "1.0.0-beta.33"
+    "polymath-core": "git://github.com/PolymathNetwork/polymath-core#6fcc8efd16491f712ced4c4fffacf419ab8cc5f5",
+    "truffle": "^4.1.14",
+    "web3": "^1.0.0-beta.33"
   }
 }
