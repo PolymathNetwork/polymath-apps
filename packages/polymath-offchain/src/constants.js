@@ -18,6 +18,7 @@ type Environment = {|
   WEB3_NETWORK_LOCAL_WS?: string,
   WEB3_NETWORK_KOVAN_WS?: string,
   WEB3_NETWORK_MAINNET_WS?: string,
+  POLYMATH_REGISTRY_ADDRESS: string,
   PORT: string,
   POLYMATH_OFFCHAIN_URL: string,
   POLYMATH_ISSUER_URL: string,
@@ -28,6 +29,7 @@ type Environment = {|
 |};
 
 const env = cleanEnvironment<Environment>(process.env, [
+  'POLYMATH_REGISTRY_ADDRESS',
   'PORT',
   'POLYMATH_OFFCHAIN_URL',
   'POLYMATH_ISSUER_URL',
@@ -77,6 +79,7 @@ if (DEPLOYMENT_STAGE !== 'local') {
 }
 
 export { NETWORKS };
+export const POLYMATH_REGISTRY_ADDRESS = env.POLYMATH_REGISTRY_ADDRESS;
 export const PORT = parseInt(env.PORT, 10);
 export const POLYMATH_ISSUER_URL = env.POLYMATH_ISSUER_URL;
 export const POLYMATH_OFFCHAIN_URL = env.POLYMATH_OFFCHAIN_URL;
