@@ -2,12 +2,22 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { renderRoutes } from 'react-router-config';
+import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
+import { Loading } from 'carbon-components-react';
+import { hot } from 'react-hot-loader';
+import {
+  MetamaskStatus,
+  NotSupportedPage,
+  ErrorBoundary,
+  EthNetworkWrapper,
+  NETWORK_MAIN,
+  NETWORK_KOVAN,
+} from '@polymathnetwork/ui';
+
 import type { Node } from 'react';
 
-// TODO @bshevchenko: why Flow cannot resolve @polymathnetwork/ui/style.css?
-// $FlowFixMe
-import '@polymathnetwork/ui/styles/globals.scss';
+import App from './App';
+
 // $FlowFixMe
 import '../style.scss';
 
@@ -20,17 +30,32 @@ const mapStateToProps = (state): StateProps => ({
 });
 
 type Props = {|
-  route?: Object,
+  routes?: Object,
   children: ?Node,
 |} & StateProps;
 
 class Root extends Component<Props> {
   render() {
-    const { children, route, isNotice } = this.props;
+    const { isNotice, routes } = this.props;
+    const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
+    const networks = [NETWORK_MAIN, NETWORK_KOVAN];
+
     return (
-      <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
-        {children || (route ? renderRoutes(route.routes) : null)}
-      </div>
+      <ErrorBoundary>
+        <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
+          {isMobile || isUnsupportedBrowser ? (
+            <NotSupportedPage />
+          ) : (
+            <EthNetworkWrapper
+              loading={<Loading />}
+              guide={<MetamaskStatus networks="Mainnet or Kovan" />}
+              networks={networks}
+            >
+              <App routes={routes} />
+            </EthNetworkWrapper>
+          )}
+        </div>
+      </ErrorBoundary>
     );
   }
 }

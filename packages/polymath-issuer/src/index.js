@@ -7,16 +7,18 @@ import { ConnectedRouter } from 'connected-react-router';
 
 import 'normalize.css/normalize.css';
 
-import RouteLoader from './RouteLoader';
+import Root from './components/Root';
 import store, { history } from './redux/store';
 import { unregister } from './registerServiceWorker';
+
+import routes from './routes';
 
 unregister();
 
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <RouteLoader />
+      <Root routes={routes} />
     </ConnectedRouter>
   </Provider>,
   ((document.getElementById('root'): any): HTMLElement)
