@@ -23,7 +23,13 @@ yarn install
 
 You will need to run MongoDB in your machine to run the dApps locally
 
-Installing mongodb through with [Homebrew](https://brew.sh/)
+### Windows
+
+Follow [this guide](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) to install mongodb on windows
+
+### MacOS
+
+You can install mongodb with [Homebrew](https://brew.sh/)
 
 ```
 brew update
