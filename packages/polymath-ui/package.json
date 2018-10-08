@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --verbose false",
+    "test": "jest",
     "typecheck": "flow --show-all-branches",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
