@@ -33,6 +33,7 @@ export { default as NotSupportedPage } from './components/NotSupportedPage';
 export { default as SignUpPage } from './components/SignUpPage';
 export { default as SignUpSuccessPage } from './components/SignUpSuccessPage';
 export { default as SignInPage } from './components/SignInPage';
+export { default as ErrorBoundary } from './components/ErrorBoundary';
 
 export { getNotice } from './components/NoticeBar/actions';
 export { notify } from './components/Toaster/actions';
