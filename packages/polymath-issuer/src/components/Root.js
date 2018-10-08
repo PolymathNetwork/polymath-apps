@@ -16,17 +16,17 @@ import {
 
 import type { Node } from 'react';
 
+import SplashPage from './SplashPage';
 import App from './App';
-
-// $FlowFixMe
-import '../style.scss';
 
 type StateProps = {|
   isNotice: boolean,
+  location: Object,
 |};
 
 const mapStateToProps = (state): StateProps => ({
   isNotice: state.pui.notice.isOpen,
+  location: state.router.location,
 });
 
 type Props = {|
@@ -36,7 +36,7 @@ type Props = {|
 
 class Root extends Component<Props> {
   render() {
-    const { isNotice, routes } = this.props;
+    const { isNotice, routes, location } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [NETWORK_MAIN, NETWORK_KOVAN];
 
@@ -45,6 +45,8 @@ class Root extends Component<Props> {
         <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
           {isMobile || isUnsupportedBrowser ? (
             <NotSupportedPage />
+          ) : location.pathname === '/' ? (
+            <SplashPage />
           ) : (
             <EthNetworkWrapper
               loading={<Loading />}

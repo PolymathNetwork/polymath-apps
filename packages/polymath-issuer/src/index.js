@@ -5,13 +5,14 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
-import 'normalize.css/normalize.css';
-
 import Root from './components/Root';
 import store, { history } from './redux/store';
 import { unregister } from './registerServiceWorker';
 
 import routes from './routes';
+
+// $FlowFixMe
+import './style.scss';
 
 unregister();
 
