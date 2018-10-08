@@ -14,7 +14,36 @@ This is a monorepo containing the webapps and libraries in Polymath. In each pac
 # Setup
 
 In the root of the repository run:
-`yarn install`
+
+```
+yarn install
+```
+
+## Installing MongoDB
+
+You will need to run MongoDB in your machine to run the dApps locally
+
+Installing mongodb through with [Homebrew](https://brew.sh/)
+
+```
+brew update
+brew install mongodb
+```
+
+Mongodb uses `/data/db` as its data folder. If you don't have it you must create
+it
+
+```
+mkdir -p /data/db
+```
+
+Make sure the current user has read/write access to the `/data/db` directory
+
+Finally, to start mongodb run:
+
+```
+brew services restart mongodb
+```
 
 # Running an app
 
