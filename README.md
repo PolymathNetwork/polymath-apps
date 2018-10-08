@@ -64,3 +64,12 @@ Production-like environment, this runs code that has not yet made its way into
 the master branch.
 
 There can be multiple Staging environments if so required.
+
+# Upgrading Smart Contracts
+
+To upgrade the repository to a newer version of the smart contracts
+you must do the following:
+
+- Upgrade the `polymath-core` version in [@polymathnetwork/shared](https://github.com/PolymathNetwork/polymath-apps/blob/develop/packages/polymath-shared/README.md)
+- Run `local-blockchain:generate-fixtures` inside `packages/polymath-shared`
+- Commit new fixtures
