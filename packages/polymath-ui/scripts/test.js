@@ -13,13 +13,14 @@ process.on('unhandledRejection', err => {
 const jest = require('jest');
 let argv = process.argv.slice(2);
 
+// TODO @grsmto: figure out why process.env.CI is false even when set explicitly on Azure
 // Watch unless on CI, in coverage mode, or explicitly running all tests
-if (
-  !process.env.CI &&
-  argv.indexOf('--coverage') === -1 &&
-  argv.indexOf('--watchAll') === -1
-) {
-  argv.push('--watch');
-}
+// if (
+//   !process.env.CI &&
+//   argv.indexOf('--coverage') === -1 &&
+//   argv.indexOf('--watchAll') === -1
+// ) {
+//   argv.push('--watch');
+// }
 
 jest.run(argv);
