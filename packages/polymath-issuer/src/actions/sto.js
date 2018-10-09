@@ -177,29 +177,13 @@ export const configure = () => async (
               );
               const isEthFundraise = values.currency === 'ETH';
 
-              const receipt = await contract.setCappedSTO(
+              await contract.setCappedSTO(
                 startDateWithTime,
                 endDateWithTime,
                 values.cap,
                 values.rate,
                 isEthFundraise,
                 values.fundsReceiver
-              );
-
-              dispatch(
-                ui.email(
-                  receipt.transactionHash,
-                  token.ticker + ' STO Created on Polymath',
-                  <ConfiguredEmail
-                    ticker={token.ticker}
-                    start={startDateWithTime}
-                    cap={values.cap}
-                    rate={values.rate}
-                    isPolyFundraise={!isEthFundraise}
-                    fundsReceiver={values.fundsReceiver}
-                    txHash={receipt.transactionHash}
-                  />
-                )
               );
             },
             'STO Configured Successfully',

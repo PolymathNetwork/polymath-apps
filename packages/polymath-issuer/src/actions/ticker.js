@@ -112,17 +112,6 @@ export const tickerReservationEmail = () => async (
   try {
     const tokens = await TickerRegistry.getMyTokens();
     const token: SymbolDetails = tokens.pop();
-
-    dispatch(
-      ui.email(
-        token.txHash,
-        token.ticker + ' Symbol Reserved on Polymath',
-        <ReservedEmail
-          token={token}
-          expiryLimit={getState().ticker.expiryLimit}
-        />
-      )
-    );
   } catch (e) {
     // eslint-disable-next-line
     console.error('tickerReservationEmail', e);
