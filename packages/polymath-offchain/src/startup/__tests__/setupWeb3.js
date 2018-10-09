@@ -225,11 +225,11 @@ describe('Function: connectWeb3', () => {
       .mockImplementationOnce(eventListener)
       .mockImplementationOnce(eventListener);
 
-    await connectWeb3();
+    await connectWeb3(validNetworkId);
 
     expect(logger.error).not.toHaveBeenCalled();
     expect(logger.info).toHaveBeenCalledWith(
-      `[SETUP] Reconnecting socket after error...`
+      `[SETUP] Reconnecting LOCAL socket after error...`
     );
   });
 

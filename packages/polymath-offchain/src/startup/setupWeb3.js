@@ -97,7 +97,7 @@ const newProvider = (networkId: string) => {
     if (error && error.message) {
       logger.error(error.message, error);
     }
-    
+
     logger.info(`[SETUP] Reconnecting ${networkName} socket after error...`);
     connectWeb3(networkId);
   });
