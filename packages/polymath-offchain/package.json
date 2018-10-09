@@ -8,11 +8,10 @@
   "scripts": {
     "start": "babel-node src/server.js",
     "test": "jest",
-    "start:dist": "node ./build/index.js",
+    "start:dist": "node ./build/server.js",
     "build": "babel src --out-dir build",
     "typecheck": "flow --show-all-branches"
   },
-  "main": "build/main.js",
   "dependencies": {
     "@koa/cors": "^2.2.1",
     "@polymathnetwork/shared": "0.0.0",
