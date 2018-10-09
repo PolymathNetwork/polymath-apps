@@ -10,7 +10,7 @@
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",
     "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
-    "test": "lerna run --stream test",
+    "test": "lerna run --scope=@polymathnetwork/{issuer,offchain,js,shared} --stream test",
     "test:investor": "lerna exec --stream --scope=@polymathnetwork/investor -- yarn test",
     "test:issuer": "lerna exec --stream --scope=@polymathnetwork/issuer -- yarn test",
     "test:js": "lerna exec --stream --scope=@polymathnetwork/js -- yarn test",
