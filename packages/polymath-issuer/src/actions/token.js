@@ -65,7 +65,7 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
         );
       }
       // $FlowFixMe
-      token.contract.subscribe('LogFreezeTransfers', {}, event => {
+      token.contract.subscribe('FreezeTransfers', {}, event => {
         // eslint-disable-next-line
         dispatch({
           type: FREEZE_STATUS,
