@@ -46,6 +46,8 @@ jest.mock(
   }
 );
 
+const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
+
 const validEmail = 'jeremias@polymath.network';
 const validName = 'Jeremías Díaz';
 const validUser = {
@@ -54,14 +56,10 @@ const validUser = {
   name: validName,
 };
 
-const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
-
 const returnValidUser = () => validUser;
 const returnNull = () => null;
 
 describe('Function: checkForReservedTicker', () => {
-  const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
-
   afterEach(() => {
     jest.resetAllMocks();
   });
