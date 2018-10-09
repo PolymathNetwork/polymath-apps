@@ -66,9 +66,12 @@ async function migrateContracts() {
   console.log('===> Migrating contracts');
 
   return new Promise((resolve, reject) => {
-    const migration = exec('truffle migrate --reset --all', {
-      cwd: __dirname,
-    });
+    const migration = exec(
+      'truffle migrate --network=development --reset --all',
+      {
+        cwd: __dirname,
+      }
+    );
     migration.stdout.setEncoding('utf8');
     migration.stderr.setEncoding('utf8');
 
