@@ -1,6 +1,6 @@
 // @flow
 
-import { STO_MODULE_TYPE, WEB3_NETWORK_WS } from '../constants';
+import { STO_MODULE_TYPE, NETWORKS } from '../constants';
 import {
   sendSTOScheduledEmail,
   sendTickerReservedEmail,
@@ -15,48 +15,44 @@ import SecurityTokenArtifact from '@polymathnetwork/shared/fixtures/contracts/Se
 import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json';
 
 // TODO @monitz87: remake this when we rework polymath-js
-let web3Client = new Web3();
-
-/**
-  Get the current network id
-
-  @returns {number} network id
- */
-const getNetworkId = async () => {
-  return await web3Client.eth.net.getId();
-};
+const web3Clients = {};
 
 /**
   Get the corresponding Security Token contract
 
   @param {string} address
+  @param {string} networkId id of the network to which the contract is deployed
 
   @returns a web3 Security Token contract
  */
-const getSTContract = (address: string) => {
-  return new web3Client.eth.Contract(SecurityTokenArtifact.abi, address);
+const getSTContract = (address: string, networkId: string) => {
+  const client = web3Clients[networkId];
+  return new client.eth.Contract(SecurityTokenArtifact.abi, address);
 };
 
 /**
   Get the corresponding Capped STO contract
 
   @param {string} address
+  @param {string} networkId id of the network to which the contract is deployed
 
   @returns a web3 Capped STO contract
  */
-const getCSTOContract = (address: string) => {
-  return new web3Client.eth.Contract(CappedSTOArtifact.abi, address);
+const getCSTOContract = (address: string, networkId: string) => {
+  const client = web3Clients[networkId];
+  return new client.eth.Contract(CappedSTOArtifact.abi, address);
 };
 
 /**
   Get the Ticker Registry contract
 
+  @param {string} networkId id of the network to which the contract is deployed
+
   @returns a web3 Ticker Registry contract
  */
-const getTRContract = async () => {
-  const networkId = await getNetworkId();
-
-  return new web3Client.eth.Contract(
+const getTRContract = async (networkId: string) => {
+  const client = web3Clients[networkId];
+  return new client.eth.Contract(
     TickerRegistryArtifact.abi,
     TickerRegistryArtifact.networks[networkId].address
   );
@@ -65,12 +61,13 @@ const getTRContract = async () => {
 /**
   Get the Security Token Registry contract
 
+  @param {string} networkId id of the network to which the contract is deployed
+
   @returns a web3 Ticker Registry contract
  */
-const getSTRContract = async () => {
-  const networkId = await getNetworkId();
-
-  return new web3Client.eth.Contract(
+const getSTRContract = async (networkId: string) => {
+  const client = web3Clients[networkId];
+  return new client.eth.Contract(
     SecurityTokenRegistryArtifact.abi,
     SecurityTokenRegistryArtifact.networks[networkId].address
   );
@@ -80,13 +77,18 @@ const getSTRContract = async () => {
   Initializes and configures the WebsocketProvider
   for the web3, setting listeners to reconnect on error.
 
+  @param {string} networkId id of the network for which we want the provider
+
   NOTE @monitz87:
   This is a hack to fix a current implementation limitation of web3,
   which doesn't reconnect sockets nor re-subscribes to events when the
   socket connection is closed
  */
-const newProvider = () => {
-  const provider = new web3Client.providers.WebsocketProvider(WEB3_NETWORK_WS);
+const newProvider = (networkId: string) => {
+  const { name, url } = NETWORKS[networkId];
+  const networkName = name.toUpperCase();
+
+  const provider = new Web3.providers.WebsocketProvider(url);
 
   /**
     Reconnect when socket connection errors or ends
@@ -95,17 +97,17 @@ const newProvider = () => {
     if (error && error.message) {
       logger.error(error.message, error);
     }
-
-    logger.info(`[SETUP] Reconnecting socket after error...`);
-    connectWeb3();
+    
+    logger.info(`[SETUP] Reconnecting ${networkName} socket after error...`);
+    connectWeb3(networkId);
   });
   provider.on('close', () => {
-    logger.info(`[SETUP] Reconnecting socket after close...`);
-    connectWeb3();
+    logger.info(`[SETUP] Reconnecting ${networkName} socket after close...`);
+    connectWeb3(networkId);
   });
   provider.on('end', () => {
-    logger.info(`[SETUP] Reconnecting socket after end...`);
-    connectWeb3();
+    logger.info(`[SETUP] Reconnecting ${networkName} socket after end...`);
+    connectWeb3(networkId);
   });
 
   return provider;
@@ -115,6 +117,7 @@ const newProvider = () => {
   Get details of a Capped STO from the blockchain
 
   @param {string} address
+  @param {string} networkId id of the network to which the STO belongs
 
   @returns an object with the STO details:
 
@@ -124,8 +127,8 @@ const newProvider = () => {
     isPolyFundraise (is the currency POLY or ETH),
     fundsReceiver (wallet to which the funds will be transfered)
  */
-const getCappedSTODetails = async (address: string) => {
-  const contract = getCSTOContract(address);
+const getCappedSTODetails = async (address: string, networkId: string) => {
+  const contract = getCSTOContract(address, networkId);
 
   try {
     const details = await contract.methods.getSTODetails().call();
@@ -143,7 +146,7 @@ const getCappedSTODetails = async (address: string) => {
       Start time is a timestamp in seconds
      */
     const start = new Date(details[0] * 1000);
-    const cap: number = details[2];
+    const cap: number = Web3.utils.fromWei(details[2]);
     const rate: number = details[3];
     const isPolyFundraise: boolean = details[7];
 
@@ -165,12 +168,14 @@ const getCappedSTODetails = async (address: string) => {
 
   @param {Object} contract Security Token contract
   @param {string} ticker Security Token ticker
+  @param {string} networkId id of the network to which this listener is set
   @param {Object} error listener error
   @param {Object} result event information
  */
 export const moduleAddedHandler = async (
   contract: Object,
   ticker: string,
+  networkId: string,
   error: Object,
   result: Object
 ) => {
@@ -184,20 +189,22 @@ export const moduleAddedHandler = async (
     transactionHash,
   } = result;
 
-  logger.info(`[EVENT] STO scheduled for "${ticker}"`);
+  const networkName = NETWORKS[networkId].name.toUpperCase();
 
-  const moduleName: string = web3Client.utils.hexToUtf8(_name);
+  logger.info(`[EVENT] STO scheduled for "${ticker}" in ${networkName}`);
+
+  const moduleName: string = Web3.utils.hexToUtf8(_name);
 
   /**
     Don't send an email for non CappedSTO modules
-  */
+   */
   if (moduleName !== 'CappedSTO') {
     return;
   }
   /**
     Get the details of the STO
-  */
-  const details = await getCappedSTODetails(moduleAddress);
+   */
+  const details = await getCappedSTODetails(moduleAddress, networkId);
 
   if (!details) {
     return;
@@ -209,12 +216,12 @@ export const moduleAddedHandler = async (
     Get the token issuer
 
     TODO @monitz87: find out if the funds receiver always has the same address as the issuer
-  */
+   */
   const userAddress: string = await contract.methods.owner().call();
   const user = await User.findOne({ address: userAddress });
 
   if (!user) {
-    logger.error(`Owner not found for ${ticker}`);
+    logger.error(`Owner not found for ${ticker} in ${networkName}`);
     return;
   }
 
@@ -229,7 +236,8 @@ export const moduleAddedHandler = async (
     fundsReceiver,
     isPolyFundraise,
     rate,
-    start
+    start,
+    networkId
   );
 };
 
@@ -239,29 +247,41 @@ export const moduleAddedHandler = async (
 
   @param contract security token web3 contract 
   @param ticker security token ticker
+  @param {string} networkId id of the network to which this listener will be set
  */
-export const addSTOListener = (contract: Object, ticker: string) => {
+export const addSTOListener = (
+  contract: Object,
+  ticker: string,
+  networkId: string
+) => {
   contract.events.LogModuleAdded(
     {
       filter: {
         _type: STO_MODULE_TYPE,
       },
     },
-    (error, result) => moduleAddedHandler(contract, ticker, error, result)
+    (error, result) =>
+      moduleAddedHandler(contract, ticker, networkId, error, result)
   );
 
-  logger.info(`[SETUP] Listening for STO for ${ticker}`);
+  logger.info(
+    `[SETUP] Listening for STO for ${ticker} in ${NETWORKS[
+      networkId
+    ].name.toUpperCase()}`
+  );
 };
 
 /**
   Gets ticker details and sends an email to the issuer with reservation information
 
   @param {Object} contract Ticker Registry contract 
+  @param {string} networkId id of the network to which this listener is set
   @param {Object} error listener error
   @param {Object} result event information
  */
 export const registerTickerHandler = async (
   contract: Object,
+  networkId: string,
   error: Object,
   result: Object
 ) => {
@@ -275,11 +295,13 @@ export const registerTickerHandler = async (
     transactionHash,
   } = result;
 
-  logger.info(`[EVENT] Ticker "${ticker}" registered`);
+  const networkName = NETWORKS[networkId].name.toUpperCase();
+
+  logger.info(`[EVENT] Ticker "${ticker}" registered in ${networkName}`);
 
   /**
     Get expiry limit in seconds from Ticker Registry
-    */
+   */
   const expiryLimitSeconds: number = await contract.methods
     .expiryLimit()
     .call();
@@ -287,30 +309,43 @@ export const registerTickerHandler = async (
 
   /**
     Get the token issuer
-    */
+   */
   const user = await User.findOne({ address: userAddress });
 
   if (!user) {
-    logger.error(`Owner not found for "${ticker}"`);
+    logger.error(`Owner not found for "${ticker}" in ${networkName}`);
     return;
   }
 
   const { email, name } = user;
 
-  sendTickerReservedEmail(email, name, transactionHash, ticker, expiryLimit);
+  sendTickerReservedEmail(
+    email,
+    name,
+    transactionHash,
+    ticker,
+    expiryLimit,
+    networkId
+  );
 };
 
 /**
   Listen for registered tickers
-*/
-export const addTickerRegisterListener = async () => {
-  const contract = await getTRContract();
+
+  @param {string} networkId id of the network to which this listener will be set
+ */
+export const addTickerRegisterListener = async (networkId: string) => {
+  const contract = await getTRContract(networkId);
 
   contract.events.LogRegisterTicker({}, (error, result) =>
-    registerTickerHandler(contract, error, result)
+    registerTickerHandler(contract, networkId, error, result)
   );
 
-  logger.info(`[SETUP] Listening for registered tickers`);
+  logger.info(
+    `[SETUP] Listening for registered tickers in ${NETWORKS[
+      networkId
+    ].name.toUpperCase()}`
+  );
 };
 
 /**
@@ -318,11 +353,13 @@ export const addTickerRegisterListener = async () => {
   Every time a new token gets deployed, also adds an STO schedule listener to it
 
   @param {Object} contract Security Token Registry contract 
+  @param {string} networkId id of the network to which this listener is set
   @param {Object} error listener error
   @param {Object} result event information
  */
 export const newSecurityTokenHandler = async (
   contract: Object,
+  networkId: string,
   error: Object,
   result: Object
 ) => {
@@ -336,47 +373,55 @@ export const newSecurityTokenHandler = async (
     transactionHash,
   } = result;
 
-  logger.info(`[EVENT] Token "${_ticker}" deployed`);
+  const networkName = NETWORKS[networkId].name.toUpperCase();
+
+  logger.info(`[EVENT] Token "${_ticker}" deployed in ${networkName}`);
 
   /**
-        Get the token issuer
-      */
+    Get the token issuer
+   */
   const user = await User.findOne({ address: userAddress });
 
   if (!user) {
-    logger.error(`Owner not found for ${_ticker}`);
+    logger.error(`Owner not found for ${_ticker} in ${networkName}`);
     return;
   }
 
   const { email, name } = user;
 
-  sendTokenCreatedEmail(email, name, transactionHash, _ticker);
+  sendTokenCreatedEmail(email, name, transactionHash, _ticker, networkId);
 
-  const tokenContract = getSTContract(_securityTokenAddress);
+  const tokenContract = getSTContract(_securityTokenAddress, networkId);
 
-  addSTOListener(tokenContract, _ticker);
+  addSTOListener(tokenContract, _ticker, networkId);
 };
 
 /**
   Listen for newly deployed security tokens
 
   @param contract Security Token Registry contract
+  @param {string} networkId id of the network to which this listener will be set
 */
-export const addTokenCreateListener = async () => {
-  const contract = await getSTRContract();
+export const addTokenCreateListener = async (networkId: string) => {
+  const contract = await getSTRContract(networkId);
 
   contract.events.LogNewSecurityToken({}, (error, result) =>
-    newSecurityTokenHandler(contract, error, result)
+    newSecurityTokenHandler(contract, networkId, error, result)
   );
 
-  logger.info(`[SETUP] Listening for Security Token deployments`);
+  logger.info(
+    `[SETUP] Listening for Security Token deployments in ${NETWORKS[
+      networkId
+    ].name.toUpperCase()}`
+  );
 };
 
 /**
   Get previously deployed security tokens and add listeners for STO scheduling
+  @param {string} networkId id of the network to which we will set the listeners
 */
-export const addSTOListeners = async () => {
-  const contract = await getSTRContract();
+export const addSTOListeners = async (networkId: string) => {
+  const contract = await getSTRContract(networkId);
   try {
     const previousTokenEvents = await contract.getPastEvents(
       'LogNewSecurityToken',
@@ -391,9 +436,9 @@ export const addSTOListeners = async () => {
         returnValues: { _securityTokenAddress, _ticker },
       } = event;
 
-      const TokenContract = getSTContract(_securityTokenAddress);
+      const TokenContract = getSTContract(_securityTokenAddress, networkId);
 
-      addSTOListener(TokenContract, _ticker);
+      addSTOListener(TokenContract, _ticker, networkId);
     }
   } catch (error) {
     logger.error(error.message, error);
@@ -407,68 +452,83 @@ export const addSTOListeners = async () => {
   - Ticker registered
   - Security token created
   - STO scheduled
+
+  @param {string} networkId id of the network to which we will set the listeners
  */
-const setupListeners = async () => {
-  await addTickerRegisterListener();
+const setupListeners = async (networkId: string) => {
+  await addTickerRegisterListener(networkId);
 
-  await addTokenCreateListener();
+  await addTokenCreateListener(networkId);
 
-  await addSTOListeners();
+  await addSTOListeners(networkId);
 };
 
-let heartbeatIntervalId;
+const heartbeatIntervalIds = {};
 
 /**
   Ping the socket. If there is something wrong with the conection,
   we kill the heartbeat and reset the web3 client and all the listeners
 
-  @param {Object} client the web3 client instance to keep alive
+  @param {Object} client web3 client we want to keep alive
+  @param {string} networkId id of the network the client is connected to
  */
-export const keepAlive = async (client: any) => {
+export const keepAlive = async (client: Object, networkId: string) => {
   const connection = client.currentProvider.connection;
 
+  const networkName = NETWORKS[networkId].name.toUpperCase();
+
+  const intervalId = heartbeatIntervalIds[networkId];
+
   try {
-    const isListening = await web3Client.eth.net.isListening();
+    const isListening = await client.eth.net.isListening();
     if (!isListening) {
       // close the socket connection to trigger a reconnect
       logger.info(
-        '[SETUP] Socket is not listening to peers, closing connection...'
+        `[SETUP] ${networkName} socket is not listening to peers, closing connection...`
       );
-      clearInterval(heartbeatIntervalId);
+      clearInterval(intervalId);
       connection.close();
       return;
     }
   } catch (error) {
     logger.error(error.message, error);
-    clearInterval(heartbeatIntervalId);
+    clearInterval(intervalId);
     if (
       [connection.CLOSING, connection.CLOSED].find(
         element => element === connection.readyState
       )
     ) {
-      logger.info(`[SETUP] Reconnecting socket after close...`);
-      await connectWeb3();
+      logger.info(`[SETUP] Reconnecting ${networkName} socket after close...`);
+      await connectWeb3(networkId);
     }
   }
 };
 
 /**
   Ping socket every 5 seconds to keep it alive
+
+  @param {string} networkId id of the network for which we want to simulate heartbeat
   */
-const simulateHeartbeat = () => {
-  heartbeatIntervalId = setInterval(() => keepAlive(web3Client), 5000);
+const simulateHeartbeat = (networkId: string) => {
+  const client = web3Clients[networkId];
+  heartbeatIntervalIds[networkId] = setInterval(
+    () => keepAlive(client, networkId),
+    5000
+  );
 };
 
 /**
-  Connects the web3 client to a new provider and starts all the event listeners
- */
-const connectWeb3 = async () => {
-  web3Client = new Web3(newProvider());
+  Connects a web3 client to a new provider in the chosen network and starts all the event listeners
 
-  simulateHeartbeat();
+  @param {string} networkId id of the network to which we want to connect a client
+ */
+const connectWeb3 = async (networkId: string) => {
+  web3Clients[networkId] = new Web3(newProvider(networkId));
+
+  simulateHeartbeat(networkId);
 
   try {
-    await setupListeners();
+    await setupListeners(networkId);
   } catch (error) {
     logger.error(error.message, error);
   }

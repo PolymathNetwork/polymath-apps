@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { WEB3_NETWORK_NAME, POLYMATH_OFFCHAIN_URL } from '../constants';
+import { POLYMATH_OFFCHAIN_URL, NETWORKS } from '../constants';
 import styles from './styles';
 
 import type { Node } from 'react';
@@ -64,9 +64,11 @@ export const EmailWrapper = ({ children }: Props) => (
 export const EtherscanURL = ({
   hash,
   type,
+  networkId,
 }: {
   hash: string,
   type: string,
+  networkId: string,
 }) => {
   let label;
   if (type === 'tx') {
@@ -74,9 +76,12 @@ export const EtherscanURL = ({
   } else {
     label = hash;
   }
+
+  const networkName = NETWORKS[networkId].name;
+
   return (
     <a
-      href={`https://${WEB3_NETWORK_NAME + '.'}etherscan.io/${type}/${hash}`}
+      href={`https://${networkName + '.'}etherscan.io/${type}/${hash}`}
       target="_blank"
       rel="noopener noreferrer"
     >

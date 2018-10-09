@@ -5,7 +5,7 @@ import {
 } from '../../utils';
 import logger from 'winston';
 import { User } from '../../models';
-import { WEB3_NETWORK_WS } from '../../constants';
+import { NETWORKS } from '../../constants';
 
 jest.mock('../../utils', () => {
   return {
@@ -107,12 +107,8 @@ const webSocketProviderMock = jest.fn().mockImplementation(() => {
   };
 });
 const hexToUtf8Mock = jest.fn();
-
-jest.doMock('web3');
-
-const Web3 = require('web3');
-
-Web3.mockImplementation(() => {
+const fromWeiMock = jest.fn().mockImplementation(number => number);
+const constructorMock = jest.fn().mockImplementation(() => {
   return {
     eth: {
       net: {
@@ -132,11 +128,21 @@ Web3.mockImplementation(() => {
         readyState: 3,
       },
     },
-    utils: {
-      hexToUtf8: hexToUtf8Mock,
-    },
   };
 });
+
+constructorMock.providers = {
+  WebsocketProvider: webSocketProviderMock,
+};
+
+constructorMock.utils = {
+  hexToUtf8: hexToUtf8Mock,
+  fromWei: fromWeiMock,
+};
+
+jest.doMock('web3', () => constructorMock);
+
+const Web3 = require('web3');
 
 jest.mock('../../models', () => {
   return {
@@ -152,12 +158,16 @@ describe('Function: connectWeb3', () => {
     jest.clearAllTimers();
   });
 
+  const validNetworkId = '15';
+
   test('connects to the provider and adds socket listeners', async () => {
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3();
+    await connectWeb3(validNetworkId);
 
-    expect(webSocketProviderMock).toHaveBeenCalledWith(WEB3_NETWORK_WS);
+    expect(webSocketProviderMock).toHaveBeenCalledWith(
+      NETWORKS[validNetworkId].url
+    );
     expect(socketEventListenerMock).toHaveBeenCalledTimes(3);
     expect(socketEventListenerMock.mock.calls[0][0]).toBe('error');
     expect(socketEventListenerMock.mock.calls[1][0]).toBe('close');
@@ -169,7 +179,7 @@ describe('Function: connectWeb3', () => {
 
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3();
+    await connectWeb3(validNetworkId);
 
     jest.advanceTimersByTime(20000);
 
@@ -192,11 +202,11 @@ describe('Function: connectWeb3', () => {
 
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3();
+    await connectWeb3(validNetworkId);
 
     expect(logger.error).toHaveBeenCalledTimes(1);
     expect(logger.info).toHaveBeenCalledWith(
-      `[SETUP] Reconnecting socket after error...`
+      `[SETUP] Reconnecting LOCAL socket after error...`
     );
 
     jest.clearAllMocks();
@@ -238,10 +248,10 @@ describe('Function: connectWeb3', () => {
 
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3();
+    await connectWeb3(validNetworkId);
 
     expect(logger.info).toHaveBeenCalledWith(
-      `[SETUP] Reconnecting socket after close...`
+      `[SETUP] Reconnecting LOCAL socket after close...`
     );
   });
 
@@ -260,10 +270,10 @@ describe('Function: connectWeb3', () => {
 
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3();
+    await connectWeb3(validNetworkId);
 
     expect(logger.info).toHaveBeenCalledWith(
-      `[SETUP] Reconnecting socket after end...`
+      `[SETUP] Reconnecting LOCAL socket after end...`
     );
   });
 
@@ -280,6 +290,8 @@ describe('Function: keepAlive', () => {
     jest.clearAllTimers();
   });
 
+  const validNetworkId = '15';
+
   test('closes connection if web3 stops listening for peers', async () => {
     isListeningMock.mockImplementationOnce(() => false);
 
@@ -287,7 +299,7 @@ describe('Function: keepAlive', () => {
 
     const client = new Web3();
 
-    await keepAlive(client);
+    await keepAlive(client, validNetworkId);
 
     expect(clearInterval).toHaveBeenCalledTimes(1);
     expect(connectionCloseMock).toHaveBeenCalledTimes(1);
@@ -302,15 +314,15 @@ describe('Function: keepAlive', () => {
 
     const client = new Web3();
 
-    await keepAlive(client);
+    await keepAlive(client, validNetworkId);
 
     expect(clearInterval).toHaveBeenCalledTimes(1);
     expect(logger.info).toHaveBeenCalledWith(
-      '[SETUP] Reconnecting socket after close...'
+      '[SETUP] Reconnecting LOCAL socket after close...'
     );
   });
 
-  test("doesnt't reconnect on timeout if socket is open", async () => {
+  test("doesn't reconnect on timeout if socket is open", async () => {
     isListeningMock.mockImplementationOnce(() => {
       throw new Error('TIMEOUT');
     });
@@ -336,11 +348,11 @@ describe('Function: keepAlive', () => {
 
     const client = new Web3();
 
-    await keepAlive(client);
+    await keepAlive(client, validNetworkId);
 
     expect(clearInterval).toHaveBeenCalledTimes(1);
     expect(logger.info).not.toHaveBeenCalledWith(
-      '[SETUP] Reconnecting socket after close...'
+      '[SETUP] Reconnecting LOCAL socket after close...'
     );
   });
 
@@ -351,13 +363,13 @@ describe('Function: keepAlive', () => {
 
     const client = new Web3();
 
-    await keepAlive(client);
+    await keepAlive(client, validNetworkId);
 
     expect(clearInterval).not.toHaveBeenCalled();
     expect(connectionCloseMock).not.toHaveBeenCalled();
     expect(logger.error).not.toHaveBeenCalled();
     expect(logger.info).not.toHaveBeenCalledWith(
-      '[SETUP] Reconnecting socket after close...'
+      '[SETUP] Reconnecting LOCAL socket after close...'
     );
   });
 });
@@ -367,6 +379,8 @@ describe('Function: registerTickerHandler', () => {
     jest.clearAllMocks();
     jest.clearAllTimers();
   });
+
+  const validNetworkId = '15';
 
   const validTicker = 'SOMETICKER';
   const validAddress = '0xffffffffffffffffffffffffffffffffffffffff';
@@ -388,7 +402,7 @@ describe('Function: registerTickerHandler', () => {
 
     const registerTickerHandler = require('../setupWeb3').registerTickerHandler;
 
-    await registerTickerHandler({}, expectedError, undefined);
+    await registerTickerHandler(null, validNetworkId, expectedError, undefined);
 
     expect(logger.error).toHaveBeenCalledWith(
       expectedError.message,
@@ -406,10 +420,10 @@ describe('Function: registerTickerHandler', () => {
 
     const contract = contractMock();
 
-    await registerTickerHandler(contract, undefined, validResult);
+    await registerTickerHandler(contract, validNetworkId, null, validResult);
 
     expect(logger.error).toHaveBeenCalledWith(
-      `Owner not found for "${validTicker}"`
+      `Owner not found for "${validTicker}" in LOCAL`
     );
     expect(logger.error).toHaveBeenCalledTimes(1);
   });
@@ -430,7 +444,7 @@ describe('Function: registerTickerHandler', () => {
 
     const contract = contractMock();
 
-    await registerTickerHandler(contract, undefined, validResult);
+    await registerTickerHandler(contract, validNetworkId, null, validResult);
 
     expect(sendTickerReservedEmail).toHaveBeenCalledTimes(1);
     expect(sendTickerReservedEmail).toHaveBeenCalledWith(
@@ -438,7 +452,8 @@ describe('Function: registerTickerHandler', () => {
       validName,
       validTxHash,
       validTicker,
-      validExpiryLimit
+      validExpiryLimit,
+      validNetworkId
     );
   });
 });
@@ -449,6 +464,8 @@ describe('Function: addTickerRegisterListener', () => {
     jest.clearAllTimers();
   });
 
+  const validNetworkId = '15';
+
   test('calls handler on event trigger', async () => {
     const expectedError = new Error('Nothing to see here');
     registerTickerListenerMock.mockImplementationOnce((options, callback) => {
@@ -458,7 +475,7 @@ describe('Function: addTickerRegisterListener', () => {
     const addTickerRegisterListener = require('../setupWeb3')
       .addTickerRegisterListener;
 
-    await addTickerRegisterListener();
+    await addTickerRegisterListener(validNetworkId);
 
     expect(logger.error).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
@@ -474,6 +491,8 @@ describe('Function: addSTOListeners', () => {
     jest.clearAllTimers();
   });
 
+  const validNetworkId = '15';
+
   test('logs an error if getPastEvents fails', async () => {
     const expectedError = new Error('Something went wrong');
 
@@ -483,7 +502,7 @@ describe('Function: addSTOListeners', () => {
 
     const addSTOListeners = require('../setupWeb3').addSTOListeners;
 
-    await addSTOListeners();
+    await addSTOListeners(validNetworkId);
 
     expect(logger.error).toHaveBeenCalledWith(
       expectedError.message,
@@ -535,7 +554,7 @@ describe('Function: addSTOListeners', () => {
 
     const addSTOListeners = require('../setupWeb3').addSTOListeners;
 
-    await addSTOListeners();
+    await addSTOListeners(validNetworkId);
 
     expect(contractMock).toHaveBeenCalledTimes(5);
     expect(contractMock.mock.calls[0][1]).toEqual(
@@ -554,6 +573,8 @@ describe('Function: moduleAddedHandler', () => {
     jest.clearAllMocks();
     jest.clearAllTimers();
   });
+
+  const validNetworkId = '15';
 
   const validTicker = 'SOMETICKER';
 
@@ -588,7 +609,7 @@ describe('Function: moduleAddedHandler', () => {
     const expectedError = new Error('Something went wrong');
     const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
 
-    await moduleAddedHandler(null, null, expectedError, null);
+    await moduleAddedHandler(null, null, validNetworkId, expectedError, null);
 
     expect(logger.error).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
@@ -602,7 +623,7 @@ describe('Function: moduleAddedHandler', () => {
 
     const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
 
-    await moduleAddedHandler(null, null, null, validResult);
+    await moduleAddedHandler(null, null, validNetworkId, null, validResult);
 
     expect(hexToUtf8Mock).toHaveBeenCalledTimes(1);
     expect(detailsCallMock).not.toHaveBeenCalled();
@@ -621,7 +642,13 @@ describe('Function: moduleAddedHandler', () => {
 
     const contract = contractMock();
 
-    await moduleAddedHandler(contract, validTicker, null, validResult);
+    await moduleAddedHandler(
+      contract,
+      validTicker,
+      validNetworkId,
+      null,
+      validResult
+    );
 
     expect(hexToUtf8Mock).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledTimes(1);
@@ -645,14 +672,20 @@ describe('Function: moduleAddedHandler', () => {
 
     const contract = contractMock();
 
-    await moduleAddedHandler(contract, validTicker, null, validResult);
+    await moduleAddedHandler(
+      contract,
+      validTicker,
+      validNetworkId,
+      null,
+      validResult
+    );
 
     expect(detailsCallMock).toHaveBeenCalledTimes(1);
     expect(walletCallMock).toHaveBeenCalledTimes(1);
     expect(ownerCallMock).toHaveBeenCalledTimes(1);
     expect(User.findOne).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
-      `Owner not found for ${validTicker}`
+      `Owner not found for ${validTicker} in LOCAL`
     );
   });
 
@@ -677,7 +710,13 @@ describe('Function: moduleAddedHandler', () => {
 
     const contract = contractMock();
 
-    await moduleAddedHandler(contract, validTicker, null, validResult);
+    await moduleAddedHandler(
+      contract,
+      validTicker,
+      validNetworkId,
+      null,
+      validResult
+    );
 
     expect(sendSTOScheduledEmail).toHaveBeenCalledTimes(1);
     expect(sendSTOScheduledEmail).toHaveBeenCalledWith(
@@ -689,7 +728,8 @@ describe('Function: moduleAddedHandler', () => {
       validWalletAddress,
       validIsPolyFundraise,
       validRate,
-      new Date(validStart * 1000)
+      new Date(validStart * 1000),
+      validNetworkId
     );
   });
 });
@@ -700,6 +740,7 @@ describe('Function: addSTOListener', () => {
     jest.clearAllTimers();
   });
 
+  const validNetworkId = '15';
   const validTicker = 'SOMETICKER';
 
   test('calls handler with contract and ticker on event trigger', () => {
@@ -712,7 +753,7 @@ describe('Function: addSTOListener', () => {
 
     const contract = contractMock();
 
-    addSTOListener(contract, validTicker);
+    addSTOListener(contract, validTicker, validNetworkId);
 
     expect(logger.error).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
@@ -727,6 +768,8 @@ describe('Function: newSecurityTokenHandler', () => {
     jest.clearAllMocks();
     jest.clearAllTimers();
   });
+
+  const validNetworkId = '15';
 
   const validTicker = 'SOMETICKER';
   const validAddress = '0xffffffffffffffffffffffffffffffffffffffff';
@@ -747,7 +790,7 @@ describe('Function: newSecurityTokenHandler', () => {
     const newSecurityTokenHandler = require('../setupWeb3')
       .newSecurityTokenHandler;
 
-    await newSecurityTokenHandler(null, expectedError, null);
+    await newSecurityTokenHandler(null, validNetworkId, expectedError, null);
 
     expect(logger.error).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
@@ -764,11 +807,11 @@ describe('Function: newSecurityTokenHandler', () => {
 
     const contract = contractMock();
 
-    await newSecurityTokenHandler(contract, null, validResult);
+    await newSecurityTokenHandler(contract, validNetworkId, null, validResult);
 
     expect(User.findOne).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
-      `Owner not found for ${validTicker}`
+      `Owner not found for ${validTicker} in LOCAL`
     );
   });
 
@@ -787,14 +830,15 @@ describe('Function: newSecurityTokenHandler', () => {
 
     const contract = contractMock();
 
-    await newSecurityTokenHandler(contract, null, validResult);
+    await newSecurityTokenHandler(contract, validNetworkId, null, validResult);
 
     expect(sendTokenCreatedEmail).toHaveBeenCalledTimes(1);
     expect(sendTokenCreatedEmail).toHaveBeenCalledWith(
       validEmail,
       validName,
       validTxHash,
-      validTicker
+      validTicker,
+      validNetworkId
     );
     expect(moduleAddedListenerMock).toHaveBeenCalledTimes(1);
   });
@@ -806,6 +850,8 @@ describe('Function: addTokenCreateListener', () => {
     jest.clearAllTimers();
   });
 
+  const validNetworkId = '15';
+
   test('calls handler on event trigger', async () => {
     const expectedError = new Error('Nothing to see here');
     newSecurityTokenListenerMock.mockImplementationOnce((options, callback) => {
@@ -815,7 +861,7 @@ describe('Function: addTokenCreateListener', () => {
     const addTokenCreateListener = require('../setupWeb3')
       .addTokenCreateListener;
 
-    await addTokenCreateListener();
+    await addTokenCreateListener(validNetworkId);
 
     expect(logger.error).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(

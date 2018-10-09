@@ -8,11 +8,12 @@ import { POLYMATH_ISSUER_URL, POLYMATH_OFFCHAIN_URL } from '../constants';
 type Props = {|
   ticker: string,
   txHash: string,
+  networkId: string,
 |};
 
 // TODO @monitz87: check and refactor if needed
 
-export const TokenCreated = ({ txHash, ticker }: Props) => {
+export const TokenCreated = ({ txHash, ticker, networkId }: Props) => {
   return (
     <EmailWrapper>
       <h4>Congratulations!</h4>
@@ -24,7 +25,7 @@ export const TokenCreated = ({ txHash, ticker }: Props) => {
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
           Transaction details on Etherscan:{' '}
-          <EtherscanURL hash={txHash} type={'tx'} />
+          <EtherscanURL hash={txHash} type={'tx'} networkId={networkId} />
         </div>
       </div>
       <div className="text">
