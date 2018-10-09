@@ -10,7 +10,7 @@ type Props = {|
   children: Node,
 |};
 
-// TODO @monitz87: check and refactor if needed (especially the styles part)
+// TODO @monitz87: check component and refactor if needed (especially the styles part)
 
 export const EmailWrapper = ({ children }: Props) => (
   <html lang="en">

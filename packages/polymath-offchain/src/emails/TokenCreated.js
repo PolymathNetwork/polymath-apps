@@ -11,7 +11,7 @@ type Props = {|
   networkId: string,
 |};
 
-// TODO @monitz87: check and refactor if needed
+// TODO @monitz87: check component and refactor if needed
 
 export const TokenCreated = ({ txHash, ticker, networkId }: Props) => {
   return (
