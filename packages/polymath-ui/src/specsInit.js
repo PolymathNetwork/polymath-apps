@@ -3,7 +3,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { uiReducer, networkReducer } from '../../src/redux/reducer';
+import { uiReducer, networkReducer } from './redux/reducer';
 
 const mockStore = configureMockStore([thunk]);
 

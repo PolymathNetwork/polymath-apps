@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
 
-import EthNetworkWrapper from './';
+import EthNetworkWrapper from '../EthNetworkWrapper';
 
 test('renders without crashing', () => {
   const component = renderer.create(

@@ -8,7 +8,7 @@
     "url": "https://github.com/PolymathNetwork/polymath-apps/tree/develop/packages/polymath-ui"
   },
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "jest",
     "typecheck": "flow --show-all-branches",
     "docz:dev": "docz dev",
@@ -37,6 +37,11 @@
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "8.0.4",
@@ -62,41 +67,22 @@
     "webpack": "^4.19.0"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
     "testMatch": [
-      "**/__tests__/**/*.{js,jsx,mjs}",
-      "**/?(*.)(spec|test).{js,jsx,mjs}"
+      "**/__tests__/**/*.{js,jsx,mjs}"
     ],
     "roots": [
       "<rootDir>/src"
     ],
     "testEnvironment": "node",
-    "setupTestFrameworkScriptFile": "./config/jest/testsConfig.js",
+    "setupTestFrameworkScriptFile": "./src/specsInit.js",
     "testURL": "http://localhost",
     "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/config/jest/babelTransform.js",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^.+\\.(graphql)$": "<rootDir>/config/jest/graphqlTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json|graphql)$)": "<rootDir>/config/jest/fileTransform.js"
+      "\\.(css|scss)$": "<rootDir>/config/jest/cssTransform.js",
+      "\\.js$": "babel-jest",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node",
-      "mjs"
+    "collectCoverageFrom": [
+      "src/**/*.js"
     ]
   },
   "browserslist": {
