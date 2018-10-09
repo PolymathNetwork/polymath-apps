@@ -10,7 +10,7 @@ import PolyToken from './PolyToken';
 
 import type { SecurityToken, Address, Web3Receipt } from '../types';
 
-const LOG_REGISTER_TICKER = 'LogNewSecurityToken';
+const NEW_SECURITY_TOKEN_EVENT = 'NewSecurityToken';
 
 class SecurityTokenRegistry extends Contract {
   getSecurityTokenAddress: (ticker: string) => Promise<Address>;
@@ -42,11 +42,14 @@ class SecurityTokenRegistry extends Contract {
       token.owner = await contract.owner();
 
       // get token issuing tx hash
-      const events = await this._contractWS.getPastEvents(LOG_REGISTER_TICKER, {
-        filter: { _securityTokenAddress: token.address },
-        fromBlock: 0,
-        toBlock: 'latest',
-      });
+      const events = await this._contractWS.getPastEvents(
+        NEW_SECURITY_TOKEN_EVENT,
+        {
+          filter: { _securityTokenAddress: token.address },
+          fromBlock: 0,
+          toBlock: 'latest',
+        }
+      );
       token.txHash = events[0].transactionHash;
       token.timestamp = await this._getBlockDate(events[0].blockNumber);
     }

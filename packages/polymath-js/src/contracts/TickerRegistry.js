@@ -9,7 +9,7 @@ import IPFS from '../IPFS';
 
 import type { Address, SymbolDetails, Web3Event, Web3Receipt } from '../types';
 
-const LOG_REGISTER_TICKER = 'LogRegisterTicker';
+const REGISTER_TICKER_EVENT = 'RegisterTicker';
 
 type TickerIPFS = {};
 
@@ -30,7 +30,7 @@ class TickerRegistry extends Contract {
     _owner?: Address,
     _timestamp?: number
   ): Promise<Array<Web3Event>> {
-    return await this._contractWS.getPastEvents(LOG_REGISTER_TICKER, {
+    return await this._contractWS.getPastEvents(REGISTER_TICKER_EVENT, {
       filter: {
         ...(_owner ? { _owner } : {}),
         ...(_timestamp ? { _timestamp } : {}),

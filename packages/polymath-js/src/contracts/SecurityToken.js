@@ -21,7 +21,7 @@ const MODULE_PERMISSION_MANAGER = 1;
 const MODULE_TRANSFER_MANAGER = 2;
 const MODULE_STO = 3;
 
-const LOG_MINTED = 'Minted';
+const MINTED_EVENT = 'Minted';
 
 export default class SecurityToken extends Contract {
   decimals: number = 18;
@@ -181,7 +181,7 @@ export default class SecurityToken extends Contract {
     const tm = await this.getTransferManager();
     const investors = await tm.getWhitelist(true);
 
-    const events = await this._contractWS.getPastEvents(LOG_MINTED, {
+    const events = await this._contractWS.getPastEvents(MINTED_EVENT, {
       fromBlock: 0,
       toBlock: 'latest',
     });

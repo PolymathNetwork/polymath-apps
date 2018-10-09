@@ -7,7 +7,7 @@ import Contract from './Contract';
 import { PolyToken, SecurityToken } from '../index';
 import type { Address, STODetails, STOPurchase, Web3Receipt } from '../types';
 
-const LOG_TOKEN_PURCHASE = 'TokenPurchase';
+const TOKEN_PURCHASE_EVENT = 'TokenPurchase';
 
 export const FUNDRAISE_ETH = 0;
 export const FUNDRAISE_POLY = 1;
@@ -75,7 +75,7 @@ export default class STO extends Contract {
 
   async getPurchases(): Promise<Array<STOPurchase>> {
     const result = [];
-    const events = await this._contractWS.getPastEvents(LOG_TOKEN_PURCHASE, {
+    const events = await this._contractWS.getPastEvents(TOKEN_PURCHASE_EVENT, {
       fromBlock: 0,
       toBlock: 'latest',
     });
