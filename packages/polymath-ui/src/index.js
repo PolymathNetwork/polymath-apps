@@ -21,6 +21,7 @@ export { default as Remark } from './components/Remark';
 export { default as Toaster } from './components/Toaster';
 export { default as Sidebar } from './components/Sidebar';
 export { default as PausedBar } from './components/PausedBar';
+export * from './components/EthNetworkWrapper';
 export { default as EthNetworkWrapper } from './components/EthNetworkWrapper';
 export { default as Navbar } from './components/Navbar';
 export { default as Footer } from './components/Footer';
