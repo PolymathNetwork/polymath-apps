@@ -178,12 +178,13 @@ describe('Function: connectWeb3', () => {
 
   test('reconnects on socket error', async () => {
     let alreadyCalled = false;
-    const eventListener = (event, callback) => {
+    let eventListener = (event, callback) => {
       if (event === 'error' && !alreadyCalled) {
         alreadyCalled = true;
-        callback('SOME ERROR');
+        callback(new Error('Something went wrong'));
       }
     };
+
     socketEventListenerMock
       .mockImplementationOnce(eventListener)
       .mockImplementationOnce(eventListener)
@@ -194,6 +195,29 @@ describe('Function: connectWeb3', () => {
     await connectWeb3();
 
     expect(logger.error).toHaveBeenCalledTimes(1);
+    expect(logger.info).toHaveBeenCalledWith(
+      `[SETUP] Reconnecting socket after error...`
+    );
+
+    jest.clearAllMocks();
+    alreadyCalled = false;
+
+    // web3 sometimes calls the listener callback with no error
+    eventListener = (event, callback) => {
+      if (event === 'error' && !alreadyCalled) {
+        alreadyCalled = true;
+        callback();
+      }
+    };
+
+    socketEventListenerMock
+      .mockImplementationOnce(eventListener)
+      .mockImplementationOnce(eventListener)
+      .mockImplementationOnce(eventListener);
+
+    await connectWeb3();
+
+    expect(logger.error).not.toHaveBeenCalled();
     expect(logger.info).toHaveBeenCalledWith(
       `[SETUP] Reconnecting socket after error...`
     );
