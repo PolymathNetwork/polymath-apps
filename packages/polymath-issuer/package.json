@@ -154,6 +154,7 @@
       "mjs"
     ],
     "coverageReporters": [
+      "lcov",
       "cobertura"
     ]
   }

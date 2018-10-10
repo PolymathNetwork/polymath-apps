@@ -67,6 +67,7 @@
       "./src/specsInit.js"
     ],
     "coverageReporters": [
+      "lcov",
       "cobertura"
     ]
   }
