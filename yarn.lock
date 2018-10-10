@@ -18010,7 +18010,7 @@ truffle-hdwallet-provider-privkey@^0.1.0:
     web3 "^0.20.5"
     web3-provider-engine "^13.6.4"
 
-truffle@^4.1.14:
+truffle@^4.1.11:
   version "4.1.14"
   resolved "https://registry.yarnpkg.com/truffle/-/truffle-4.1.14.tgz#8d2c298e29abf9b1e486e44ff9faca6d34bb9030"
   dependencies:
@@ -19415,7 +19415,7 @@ web3@^0.20.5:
     xhr2-cookies "^1.1.0"
     xmlhttprequest "*"
 
-web3@^1.0.0-beta.33, web3@^1.0.0-beta.36:
+web3@^1.0.0-beta.33:
   version "1.0.0-beta.36"
   resolved "https://registry.yarnpkg.com/web3/-/web3-1.0.0-beta.36.tgz#2954da9e431124c88396025510d840ba731c8373"
   dependencies:

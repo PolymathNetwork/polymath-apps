@@ -59,9 +59,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for the polymath module registry contract\n */\ncontract IModuleRegistry {\n\n    /**\n     * @notice Called by a security token to notify the registry it is using a module\n     * @param _moduleFactory is the address of the relevant module factory\n     */\n    function useModule(address _moduleFactory) external;\n\n    /**\n     * @notice Called by moduleFactory owner to register new modules for SecurityToken to use\n     * @param _moduleFactory is the address of the module factory to be registered\n     */\n    function registerModule(address _moduleFactory) external returns(bool);\n\n    /**\n     * @notice Use to get all the tags releated to the functionality of the Module Factory.\n     * @param _moduleType Type of module\n     */\n    function getTagByModuleType(uint8 _moduleType) public view returns(bytes32[]);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModuleRegistry.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModuleRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
         9917
@@ -334,7 +334,7 @@
     "src": "0:864:15"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModuleRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
         9917
@@ -612,5 +612,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.906Z"
+  "updatedAt": "2018-10-10T15:54:24.283Z"
 }
