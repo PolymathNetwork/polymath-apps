@@ -4,20 +4,6 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "tickerRegistry",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
       "name": "polyToken",
       "outputs": [
         {
@@ -70,6 +56,20 @@
       "constant": true,
       "inputs": [],
       "name": "moduleRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "featureRegistry",
       "outputs": [
         {
           "name": "",
@@ -158,24 +158,24 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b506040516020806106d7833981016040525160008054600160a060020a03191633179055600160a060020a038116151561004957600080fd5b60018054600160a060020a031916600160a060020a039290921691909117905561065f806100786000396000f3006080604052600436106100985763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416632a858126811461009d5780636faa22a5146100ce578063715018a6146100e357806377282b70146100fa5780638da5cb5b1461010f578063b95459e414610124578063ce4dbdff14610139578063f2fde38b1461014e578063f433262f1461016f575b600080fd5b3480156100a957600080fd5b506100b2610184565b60408051600160a060020a039092168252519081900360200190f35b3480156100da57600080fd5b506100b2610193565b3480156100ef57600080fd5b506100f86101a2565b005b34801561010657600080fd5b506100b261020e565b34801561011b57600080fd5b506100b261021d565b34801561013057600080fd5b506100b261022c565b34801561014557600080fd5b506100b261023b565b34801561015a57600080fd5b506100f8600160a060020a036004351661024a565b34801561017b57600080fd5b506100f861026d565b600454600160a060020a031681565b600554600160a060020a031681565b600054600160a060020a031633146101b957600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600154600160a060020a031681565b600054600160a060020a031681565b600254600160a060020a031681565b600354600160a060020a031681565b600054600160a060020a0316331461026157600080fd5b61026a816105b6565b50565b600054600160a060020a0316331461028457600080fd5b6001546040805160e060020a63bf40fac1028152602060048201819052600e60248301527f4d6f64756c65526567697374727900000000000000000000000000000000000060448301529151600160a060020a039093169263bf40fac1926064808401939192918290030181600087803b15801561030157600080fd5b505af1158015610315573d6000803e3d6000fd5b505050506040513d602081101561032b57600080fd5b50516002805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052601560248301527f5365637572697479546f6b656e5265676973747279000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b1580156103ca57600080fd5b505af11580156103de573d6000803e3d6000fd5b505050506040513d60208110156103f457600080fd5b50516003805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052600e60248301527f5469636b6572526567697374727900000000000000000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b15801561049357600080fd5b505af11580156104a7573d6000803e3d6000fd5b505050506040513d60208110156104bd57600080fd5b50516004805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161781556001546040805160e060020a63bf40fac10281526020938101849052600960248201527f506f6c79546f6b656e000000000000000000000000000000000000000000000060448201529051919093169263bf40fac19260648083019391928290030181600087803b15801561055c57600080fd5b505af1158015610570573d6000803e3d6000fd5b505050506040513d602081101561058657600080fd5b50516005805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03909216919091179055565b600160a060020a03811615156105cb57600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820c8d6e31f65542d497e5263ec85575bf3f95345f26fd8767f8dfdf56e8ba123900029",
-  "deployedBytecode": "0x6080604052600436106100985763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416632a858126811461009d5780636faa22a5146100ce578063715018a6146100e357806377282b70146100fa5780638da5cb5b1461010f578063b95459e414610124578063ce4dbdff14610139578063f2fde38b1461014e578063f433262f1461016f575b600080fd5b3480156100a957600080fd5b506100b2610184565b60408051600160a060020a039092168252519081900360200190f35b3480156100da57600080fd5b506100b2610193565b3480156100ef57600080fd5b506100f86101a2565b005b34801561010657600080fd5b506100b261020e565b34801561011b57600080fd5b506100b261021d565b34801561013057600080fd5b506100b261022c565b34801561014557600080fd5b506100b261023b565b34801561015a57600080fd5b506100f8600160a060020a036004351661024a565b34801561017b57600080fd5b506100f861026d565b600454600160a060020a031681565b600554600160a060020a031681565b600054600160a060020a031633146101b957600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600154600160a060020a031681565b600054600160a060020a031681565b600254600160a060020a031681565b600354600160a060020a031681565b600054600160a060020a0316331461026157600080fd5b61026a816105b6565b50565b600054600160a060020a0316331461028457600080fd5b6001546040805160e060020a63bf40fac1028152602060048201819052600e60248301527f4d6f64756c65526567697374727900000000000000000000000000000000000060448301529151600160a060020a039093169263bf40fac1926064808401939192918290030181600087803b15801561030157600080fd5b505af1158015610315573d6000803e3d6000fd5b505050506040513d602081101561032b57600080fd5b50516002805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052601560248301527f5365637572697479546f6b656e5265676973747279000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b1580156103ca57600080fd5b505af11580156103de573d6000803e3d6000fd5b505050506040513d60208110156103f457600080fd5b50516003805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052600e60248301527f5469636b6572526567697374727900000000000000000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b15801561049357600080fd5b505af11580156104a7573d6000803e3d6000fd5b505050506040513d60208110156104bd57600080fd5b50516004805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161781556001546040805160e060020a63bf40fac10281526020938101849052600960248201527f506f6c79546f6b656e000000000000000000000000000000000000000000000060448201529051919093169263bf40fac19260648083019391928290030181600087803b15801561055c57600080fd5b505af1158015610570573d6000803e3d6000fd5b505050506040513d602081101561058657600080fd5b50516005805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03909216919091179055565b600160a060020a03811615156105cb57600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820c8d6e31f65542d497e5263ec85575bf3f95345f26fd8767f8dfdf56e8ba123900029",
-  "sourceMap": "124:800:5:-;;;347:150;8:9:-1;5:2;;;30:1;27;20:12;5:2;347:150:5;;;;;;;;;;;;;567:5:64;:18;;-1:-1:-1;;;;;;567:18:64;575:10;567:18;;;-1:-1:-1;;;;;412:31:5;;;;404:40;;;;;;454:16;:36;;-1:-1:-1;;;;;;454:36:5;-1:-1:-1;;;;;454:36:5;;;;;;;;;;124:800;;;-1:-1:-1;124:800:5;;",
-  "deployedSourceMap": "124:800:5:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;281:29;;8:9:-1;5:2;;;30:1;27;20:12;5:2;281:29:5;;;;;;;;-1:-1:-1;;;;;281:29:5;;;;;;;;;;;;;;316:24;;8:9:-1;5:2;;;30:1;27;20:12;5:2;316:24:5;;;;827:111:64;;8:9:-1;5:2;;;30:1;27;20:12;5:2;827:111:64;;;;;;167:31:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;167:31:5;;;;238:20:64;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:64;;;;204:29:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;204:29:5;;;;239:36;;8:9:-1;5:2;;;30:1;27;20:12;5:2;239:36:5;;;;1100:103:64;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1100:103:64;-1:-1:-1;;;;;1100:103:64;;;;;503:418:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;503:418:5;;;;281:29;;;-1:-1:-1;;;;;281:29:5;;:::o;316:24::-;;;-1:-1:-1;;;;;316:24:5;;:::o;827:111:64:-;719:5;;-1:-1:-1;;;;;719:5:64;705:10;:19;697:28;;;;;;903:5;;;884:25;;-1:-1:-1;;;;;903:5:64;;;;884:25;;;931:1;915:18;;-1:-1:-1;;915:18:64;;;827:111::o;167:31:5:-;;;-1:-1:-1;;;;;167:31:5;;:::o;238:20:64:-;;;-1:-1:-1;;;;;238:20:64;;:::o;204:29:5:-;;;-1:-1:-1;;;;;204:29:5;;:::o;239:36::-;;;-1:-1:-1;;;;;239:36:5;;:::o;1100:103:64:-;719:5;;-1:-1:-1;;;;;719:5:64;705:10;:19;697:28;;;;;;1169:29;1188:9;1169:18;:29::i;:::-;1100:103;:::o;503:418:5:-;719:5:64;;-1:-1:-1;;;;;719:5:64;705:10;:19;697:28;;;;;;594:16:5;;577:63;;;-1:-1:-1;;;;;577:63:5;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;594:16:5;;;;577:45;;:63;;;;;;;;;;;;;594:16;;577:63;;;5:2:-1;;;;30:1;27;20:12;5:2;577:63:5;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;577:63:5;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;577:63:5;560:14;:80;;-1:-1:-1;;560:80:5;-1:-1:-1;;;;;560:80:5;;;;;;-1:-1:-1;691:16:5;674:70;;;-1:-1:-1;;;;;674:70:5;;577:63;674:70;;;;;;;;;;;;;;;;;;691:16;;;;;674:45;;:70;;;;;577:63;674:70;;;;;-1:-1:-1;691:16:5;674:70;;;5:2:-1;;;;30:1;27;20:12;5:2;674:70:5;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;674:70:5;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;674:70:5;650:21;:94;;-1:-1:-1;;650:94:5;-1:-1:-1;;;;;650:94:5;;;;;;-1:-1:-1;788:16:5;771:63;;;-1:-1:-1;;;;;771:63:5;;674:70;771:63;;;;;;;;;;;;;;;;;;788:16;;;;;771:45;;:63;;;;;674:70;771:63;;;;;-1:-1:-1;788:16:5;771:63;;;5:2:-1;;;;30:1;27;20:12;5:2;771:63:5;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;771:63:5;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;771:63:5;754:14;:80;;-1:-1:-1;;754:80:5;-1:-1:-1;;;;;754:80:5;;;;;;-1:-1:-1;873:16:5;856:58;;;-1:-1:-1;;;;;856:58:5;;771:63;856:58;;;;;;;;;;;;;;;;;;873:16;;;;;856:45;;:58;;;;;771:63;;856:58;;;;;-1:-1:-1;873:16:5;856:58;;;5:2:-1;;;;30:1;27;20:12;5:2;856:58:5;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;856:58:5;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;856:58:5;844:9;:70;;-1:-1:-1;;844:70:5;-1:-1:-1;;;;;844:70:5;;;;;;;;;503:418::o;1338:171:64:-;-1:-1:-1;;;;;1408:23:64;;;;1400:32;;;;;;1464:5;;;1443:38;;-1:-1:-1;;;;;1443:38:64;;;;1464:5;;;1443:38;;;1487:5;:17;;-1:-1:-1;;1487:17:64;-1:-1:-1;;;;;1487:17:64;;;;;;;;;;1338:171::o",
-  "source": "pragma solidity ^0.4.24;\n\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\nimport \"./PolymathRegistry.sol\";\n\ncontract RegistryUpdater is Ownable {\n\n    address public polymathRegistry;\n    address public moduleRegistry;\n    address public securityTokenRegistry;\n    address public tickerRegistry;\n    address public polyToken;\n\n    constructor (address _polymathRegistry) public {\n        require(_polymathRegistry != address(0));\n        polymathRegistry = _polymathRegistry;\n    }\n\n    function updateFromRegistry() onlyOwner public {\n        moduleRegistry = PolymathRegistry(polymathRegistry).getAddress(\"ModuleRegistry\");\n        securityTokenRegistry = PolymathRegistry(polymathRegistry).getAddress(\"SecurityTokenRegistry\");\n        tickerRegistry = PolymathRegistry(polymathRegistry).getAddress(\"TickerRegistry\");\n        polyToken = PolymathRegistry(polymathRegistry).getAddress(\"PolyToken\");\n    }\n\n}\n",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516020806106d7833981016040525160008054600160a060020a03191633179055600160a060020a038116151561004957600080fd5b60018054600160a060020a031916600160a060020a039290921691909117905561065f806100786000396000f3006080604052600436106100985763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416636faa22a5811461009d578063715018a6146100ce57806377282b70146100e55780638da5cb5b146100fa578063b95459e41461010f578063caf90dab14610124578063ce4dbdff14610139578063f2fde38b1461014e578063f433262f1461016f575b600080fd5b3480156100a957600080fd5b506100b2610184565b60408051600160a060020a039092168252519081900360200190f35b3480156100da57600080fd5b506100e3610193565b005b3480156100f157600080fd5b506100b26101ff565b34801561010657600080fd5b506100b261020e565b34801561011b57600080fd5b506100b261021d565b34801561013057600080fd5b506100b261022c565b34801561014557600080fd5b506100b261023b565b34801561015a57600080fd5b506100e3600160a060020a036004351661024a565b34801561017b57600080fd5b506100e361026d565b600554600160a060020a031681565b600054600160a060020a031633146101aa57600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600154600160a060020a031681565b600054600160a060020a031681565b600254600160a060020a031681565b600454600160a060020a031681565b600354600160a060020a031681565b600054600160a060020a0316331461026157600080fd5b61026a816105b6565b50565b600054600160a060020a0316331461028457600080fd5b6001546040805160e060020a63bf40fac1028152602060048201819052600e60248301527f4d6f64756c65526567697374727900000000000000000000000000000000000060448301529151600160a060020a039093169263bf40fac1926064808401939192918290030181600087803b15801561030157600080fd5b505af1158015610315573d6000803e3d6000fd5b505050506040513d602081101561032b57600080fd5b50516002805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052601560248301527f5365637572697479546f6b656e5265676973747279000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b1580156103ca57600080fd5b505af11580156103de573d6000803e3d6000fd5b505050506040513d60208110156103f457600080fd5b50516003805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052600f60248301527f466561747572655265676973747279000000000000000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b15801561049357600080fd5b505af11580156104a7573d6000803e3d6000fd5b505050506040513d60208110156104bd57600080fd5b50516004805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161781556001546040805160e060020a63bf40fac10281526020938101849052600960248201527f506f6c79546f6b656e000000000000000000000000000000000000000000000060448201529051919093169263bf40fac19260648083019391928290030181600087803b15801561055c57600080fd5b505af1158015610570573d6000803e3d6000fd5b505050506040513d602081101561058657600080fd5b50516005805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03909216919091179055565b600160a060020a03811615156105cb57600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820bb27c933d896e76de999d8429df04d7f7ee789f1a3905360547b572396abbf160029",
+  "deployedBytecode": "0x6080604052600436106100985763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416636faa22a5811461009d578063715018a6146100ce57806377282b70146100e55780638da5cb5b146100fa578063b95459e41461010f578063caf90dab14610124578063ce4dbdff14610139578063f2fde38b1461014e578063f433262f1461016f575b600080fd5b3480156100a957600080fd5b506100b2610184565b60408051600160a060020a039092168252519081900360200190f35b3480156100da57600080fd5b506100e3610193565b005b3480156100f157600080fd5b506100b26101ff565b34801561010657600080fd5b506100b261020e565b34801561011b57600080fd5b506100b261021d565b34801561013057600080fd5b506100b261022c565b34801561014557600080fd5b506100b261023b565b34801561015a57600080fd5b506100e3600160a060020a036004351661024a565b34801561017b57600080fd5b506100e361026d565b600554600160a060020a031681565b600054600160a060020a031633146101aa57600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600154600160a060020a031681565b600054600160a060020a031681565b600254600160a060020a031681565b600454600160a060020a031681565b600354600160a060020a031681565b600054600160a060020a0316331461026157600080fd5b61026a816105b6565b50565b600054600160a060020a0316331461028457600080fd5b6001546040805160e060020a63bf40fac1028152602060048201819052600e60248301527f4d6f64756c65526567697374727900000000000000000000000000000000000060448301529151600160a060020a039093169263bf40fac1926064808401939192918290030181600087803b15801561030157600080fd5b505af1158015610315573d6000803e3d6000fd5b505050506040513d602081101561032b57600080fd5b50516002805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052601560248301527f5365637572697479546f6b656e5265676973747279000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b1580156103ca57600080fd5b505af11580156103de573d6000803e3d6000fd5b505050506040513d60208110156103f457600080fd5b50516003805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161790556001546040805160e060020a63bf40fac1028152602060048201819052600f60248301527f466561747572655265676973747279000000000000000000000000000000000060448301529151929093169263bf40fac192606480830193928290030181600087803b15801561049357600080fd5b505af11580156104a7573d6000803e3d6000fd5b505050506040513d60208110156104bd57600080fd5b50516004805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039283161781556001546040805160e060020a63bf40fac10281526020938101849052600960248201527f506f6c79546f6b656e000000000000000000000000000000000000000000000060448201529051919093169263bf40fac19260648083019391928290030181600087803b15801561055c57600080fd5b505af1158015610570573d6000803e3d6000fd5b505050506040513d602081101561058657600080fd5b50516005805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03909216919091179055565b600160a060020a03811615156105cb57600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820bb27c933d896e76de999d8429df04d7f7ee789f1a3905360547b572396abbf160029",
+  "sourceMap": "124:803:6:-;;;348:150;8:9:-1;5:2;;;30:1;27;20:12;5:2;348:150:6;;;;;;;;;;;;;567:5:87;:18;;-1:-1:-1;;;;;;567:18:87;575:10;567:18;;;-1:-1:-1;;;;;413:31:6;;;;405:40;;;;;;455:16;:36;;-1:-1:-1;;;;;;455:36:6;-1:-1:-1;;;;;455:36:6;;;;;;;;;;124:803;;;-1:-1:-1;124:803:6;;",
+  "deployedSourceMap": "124:803:6:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;317:24;;8:9:-1;5:2;;;30:1;27;20:12;5:2;317:24:6;;;;;;;;-1:-1:-1;;;;;317:24:6;;;;;;;;;;;;;;827:111:87;;8:9:-1;5:2;;;30:1;27;20:12;5:2;827:111:87;;;;;;167:31:6;;8:9:-1;5:2;;;30:1;27;20:12;5:2;167:31:6;;;;238:20:87;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:87;;;;204:29:6;;8:9:-1;5:2;;;30:1;27;20:12;5:2;204:29:6;;;;281:30;;8:9:-1;5:2;;;30:1;27;20:12;5:2;281:30:6;;;;239:36;;8:9:-1;5:2;;;30:1;27;20:12;5:2;239:36:6;;;;1100:103:87;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1100:103:87;-1:-1:-1;;;;;1100:103:87;;;;;504:420:6;;8:9:-1;5:2;;;30:1;27;20:12;5:2;504:420:6;;;;317:24;;;-1:-1:-1;;;;;317:24:6;;:::o;827:111:87:-;719:5;;-1:-1:-1;;;;;719:5:87;705:10;:19;697:28;;;;;;903:5;;;884:25;;-1:-1:-1;;;;;903:5:87;;;;884:25;;;931:1;915:18;;-1:-1:-1;;915:18:87;;;827:111::o;167:31:6:-;;;-1:-1:-1;;;;;167:31:6;;:::o;238:20:87:-;;;-1:-1:-1;;;;;238:20:87;;:::o;204:29:6:-;;;-1:-1:-1;;;;;204:29:6;;:::o;281:30::-;;;-1:-1:-1;;;;;281:30:6;;:::o;239:36::-;;;-1:-1:-1;;;;;239:36:6;;:::o;1100:103:87:-;719:5;;-1:-1:-1;;;;;719:5:87;705:10;:19;697:28;;;;;;1169:29;1188:9;1169:18;:29::i;:::-;1100:103;:::o;504:420:6:-;719:5:87;;-1:-1:-1;;;;;719:5:87;705:10;:19;697:28;;;;;;595:16:6;;578:63;;;-1:-1:-1;;;;;578:63:6;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;595:16:6;;;;578:45;;:63;;;;;;;;;;;;;595:16;;578:63;;;5:2:-1;;;;30:1;27;20:12;5:2;578:63:6;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;578:63:6;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;578:63:6;561:14;:80;;-1:-1:-1;;561:80:6;-1:-1:-1;;;;;561:80:6;;;;;;-1:-1:-1;692:16:6;675:70;;;-1:-1:-1;;;;;675:70:6;;578:63;675:70;;;;;;;;;;;;;;;;;;692:16;;;;;675:45;;:70;;;;;578:63;675:70;;;;;-1:-1:-1;692:16:6;675:70;;;5:2:-1;;;;30:1;27;20:12;5:2;675:70:6;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;675:70:6;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;675:70:6;651:21;:94;;-1:-1:-1;;651:94:6;-1:-1:-1;;;;;651:94:6;;;;;;-1:-1:-1;790:16:6;773:64;;;-1:-1:-1;;;;;773:64:6;;675:70;773:64;;;;;;;;;;;;;;;;;;790:16;;;;;773:45;;:64;;;;;675:70;773:64;;;;;-1:-1:-1;790:16:6;773:64;;;5:2:-1;;;;30:1;27;20:12;5:2;773:64:6;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;773:64:6;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;773:64:6;755:15;:82;;-1:-1:-1;;755:82:6;-1:-1:-1;;;;;755:82:6;;;;;;-1:-1:-1;876:16:6;859:58;;;-1:-1:-1;;;;;859:58:6;;773:64;859:58;;;;;;;;;;;;;;;;;;876:16;;;;;859:45;;:58;;;;;773:64;;859:58;;;;;-1:-1:-1;876:16:6;859:58;;;5:2:-1;;;;30:1;27;20:12;5:2;859:58:6;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;859:58:6;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;859:58:6;847:9;:70;;-1:-1:-1;;847:70:6;-1:-1:-1;;;;;847:70:6;;;;;;;;;504:420::o;1338:171:87:-;-1:-1:-1;;;;;1408:23:87;;;;1400:32;;;;;;1464:5;;;1443:38;;-1:-1:-1;;;;;1443:38:87;;;;1464:5;;;1443:38;;;1487:5;:17;;-1:-1:-1;;1487:17:87;-1:-1:-1;;;;;1487:17:87;;;;;;;;;;1338:171::o",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\nimport \"./PolymathRegistry.sol\";\n\ncontract RegistryUpdater is Ownable {\n\n    address public polymathRegistry;\n    address public moduleRegistry;\n    address public securityTokenRegistry;\n    address public featureRegistry;\n    address public polyToken;\n\n    constructor (address _polymathRegistry) public {\n        require(_polymathRegistry != address(0));\n        polymathRegistry = _polymathRegistry;\n    }\n\n    function updateFromRegistry() onlyOwner public {\n        moduleRegistry = PolymathRegistry(polymathRegistry).getAddress(\"ModuleRegistry\");\n        securityTokenRegistry = PolymathRegistry(polymathRegistry).getAddress(\"SecurityTokenRegistry\");\n        featureRegistry = PolymathRegistry(polymathRegistry).getAddress(\"FeatureRegistry\");\n        polyToken = PolymathRegistry(polymathRegistry).getAddress(\"PolyToken\");\n    }\n\n}\n",
   "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/RegistryUpdater.sol",
   "ast": {
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/RegistryUpdater.sol",
     "exportedSymbols": {
       "RegistryUpdater": [
-        676
+        1747
       ]
     },
-    "id": 677,
+    "id": 1748,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 601,
+        "id": 1672,
         "literals": [
           "solidity",
           "^",
@@ -183,27 +183,27 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:5"
+        "src": "0:24:6"
       },
       {
         "absolutePath": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
-        "id": 602,
+        "id": 1673,
         "nodeType": "ImportDirective",
-        "scope": 677,
-        "sourceUnit": 22636,
-        "src": "26:63:5",
+        "scope": 1748,
+        "sourceUnit": 32280,
+        "src": "26:63:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/PolymathRegistry.sol",
         "file": "./PolymathRegistry.sol",
-        "id": 603,
+        "id": 1674,
         "nodeType": "ImportDirective",
-        "scope": 677,
-        "sourceUnit": 554,
-        "src": "90:32:5",
+        "scope": 1748,
+        "sourceUnit": 1625,
+        "src": "90:32:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -213,42 +213,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 604,
+              "id": 1675,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 22635,
-              "src": "152:7:5",
+              "referencedDeclaration": 32279,
+              "src": "152:7:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$22635",
+                "typeIdentifier": "t_contract$_Ownable_$32279",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 605,
+            "id": 1676,
             "nodeType": "InheritanceSpecifier",
-            "src": "152:7:5"
+            "src": "152:7:6"
           }
         ],
         "contractDependencies": [
-          22635
+          32279
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 676,
+        "id": 1747,
         "linearizedBaseContracts": [
-          676,
-          22635
+          1747,
+          32279
         ],
         "name": "RegistryUpdater",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 607,
+            "id": 1678,
             "name": "polymathRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "167:31:5",
+            "scope": 1747,
+            "src": "167:31:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -256,10 +256,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 606,
+              "id": 1677,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "167:7:5",
+              "src": "167:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -270,11 +270,11 @@
           },
           {
             "constant": false,
-            "id": 609,
+            "id": 1680,
             "name": "moduleRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "204:29:5",
+            "scope": 1747,
+            "src": "204:29:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -282,10 +282,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 608,
+              "id": 1679,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "204:7:5",
+              "src": "204:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -296,11 +296,11 @@
           },
           {
             "constant": false,
-            "id": 611,
+            "id": 1682,
             "name": "securityTokenRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "239:36:5",
+            "scope": 1747,
+            "src": "239:36:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -308,10 +308,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 610,
+              "id": 1681,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "239:7:5",
+              "src": "239:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -322,11 +322,11 @@
           },
           {
             "constant": false,
-            "id": 613,
-            "name": "tickerRegistry",
+            "id": 1684,
+            "name": "featureRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "281:29:5",
+            "scope": 1747,
+            "src": "281:30:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -334,10 +334,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 612,
+              "id": 1683,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "281:7:5",
+              "src": "281:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -348,11 +348,11 @@
           },
           {
             "constant": false,
-            "id": 615,
+            "id": 1686,
             "name": "polyToken",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "316:24:5",
+            "scope": 1747,
+            "src": "317:24:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -360,10 +360,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 614,
+              "id": 1685,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "316:7:5",
+              "src": "317:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -374,9 +374,9 @@
           },
           {
             "body": {
-              "id": 632,
+              "id": 1703,
               "nodeType": "Block",
-              "src": "394:103:5",
+              "src": "395:103:6",
               "statements": [
                 {
                   "expression": {
@@ -388,19 +388,19 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 625,
+                        "id": 1696,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 621,
+                          "id": 1692,
                           "name": "_polymathRegistry",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 617,
-                          "src": "412:17:5",
+                          "referencedDeclaration": 1688,
+                          "src": "413:17:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -414,14 +414,14 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 623,
+                              "id": 1694,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
                               "kind": "number",
                               "lValueRequested": false,
                               "nodeType": "Literal",
-                              "src": "441:1:5",
+                              "src": "442:1:6",
                               "subdenomination": null,
                               "typeDescriptions": {
                                 "typeIdentifier": "t_rational_0_by_1",
@@ -437,20 +437,20 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 622,
+                            "id": 1693,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
                             "lValueRequested": false,
                             "nodeType": "ElementaryTypeNameExpression",
-                            "src": "433:7:5",
+                            "src": "434:7:6",
                             "typeDescriptions": {
                               "typeIdentifier": "t_type$_t_address_$",
                               "typeString": "type(address)"
                             },
                             "typeName": "address"
                           },
-                          "id": 624,
+                          "id": 1695,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -458,13 +458,13 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "433:10:5",
+                          "src": "434:10:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           }
                         },
-                        "src": "412:31:5",
+                        "src": "413:31:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -478,21 +478,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 620,
+                      "id": 1691,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        23105,
-                        23106
+                        32749,
+                        32750
                       ],
-                      "referencedDeclaration": 23105,
-                      "src": "404:7:5",
+                      "referencedDeclaration": 32749,
+                      "src": "405:7:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 626,
+                    "id": 1697,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -500,32 +500,32 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "404:40:5",
+                    "src": "405:40:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 627,
+                  "id": 1698,
                   "nodeType": "ExpressionStatement",
-                  "src": "404:40:5"
+                  "src": "405:40:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 630,
+                    "id": 1701,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 628,
+                      "id": 1699,
                       "name": "polymathRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 607,
-                      "src": "454:16:5",
+                      "referencedDeclaration": 1678,
+                      "src": "455:16:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -535,31 +535,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 629,
+                      "id": 1700,
                       "name": "_polymathRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 617,
-                      "src": "473:17:5",
+                      "referencedDeclaration": 1688,
+                      "src": "474:17:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "454:36:5",
+                    "src": "455:36:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 631,
+                  "id": 1702,
                   "nodeType": "ExpressionStatement",
-                  "src": "454:36:5"
+                  "src": "455:36:6"
                 }
               ]
             },
             "documentation": null,
-            "id": 633,
+            "id": 1704,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -567,16 +567,16 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 618,
+              "id": 1689,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 617,
+                  "id": 1688,
                   "name": "_polymathRegistry",
                   "nodeType": "VariableDeclaration",
-                  "scope": 633,
-                  "src": "360:25:5",
+                  "scope": 1704,
+                  "src": "361:25:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -584,10 +584,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 616,
+                    "id": 1687,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "360:7:5",
+                    "src": "361:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -597,43 +597,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "359:27:5"
+              "src": "360:27:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 619,
+              "id": 1690,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "394:0:5"
+              "src": "395:0:6"
             },
-            "scope": 676,
-            "src": "347:150:5",
+            "scope": 1747,
+            "src": "348:150:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 674,
+              "id": 1745,
               "nodeType": "Block",
-              "src": "550:371:5",
+              "src": "551:373:6",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 645,
+                    "id": 1716,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 638,
+                      "id": 1709,
                       "name": "moduleRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 609,
-                      "src": "560:14:5",
+                      "referencedDeclaration": 1680,
+                      "src": "561:14:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -647,14 +647,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "4d6f64756c655265676973747279",
-                          "id": 643,
+                          "id": 1714,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "623:16:5",
+                          "src": "624:16:6",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_stringliteral_83c93739ca6311cebadde2b77580c78794cfdd1e52078a1297520446b6869448",
@@ -675,12 +675,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 640,
+                              "id": 1711,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "594:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "595:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -694,18 +694,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 639,
+                            "id": 1710,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "577:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "578:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 641,
+                          "id": 1712,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -713,27 +713,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "577:34:5",
+                          "src": "578:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 642,
+                        "id": 1713,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "577:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "578:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 644,
+                      "id": 1715,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -741,38 +741,38 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "577:63:5",
+                      "src": "578:63:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "560:80:5",
+                    "src": "561:80:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 646,
+                  "id": 1717,
                   "nodeType": "ExpressionStatement",
-                  "src": "560:80:5"
+                  "src": "561:80:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 654,
+                    "id": 1725,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 647,
+                      "id": 1718,
                       "name": "securityTokenRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 611,
-                      "src": "650:21:5",
+                      "referencedDeclaration": 1682,
+                      "src": "651:21:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -786,14 +786,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "5365637572697479546f6b656e5265676973747279",
-                          "id": 652,
+                          "id": 1723,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "720:23:5",
+                          "src": "721:23:6",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_stringliteral_97c0f4eaab7342559457b5349966b16ca04477c4f2cbdd8af9bd524706c6413b",
@@ -814,12 +814,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 649,
+                              "id": 1720,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "691:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "692:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -833,18 +833,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 648,
+                            "id": 1719,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "674:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "675:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 650,
+                          "id": 1721,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -852,27 +852,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "674:34:5",
+                          "src": "675:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 651,
+                        "id": 1722,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "674:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "675:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 653,
+                      "id": 1724,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -880,38 +880,38 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "674:70:5",
+                      "src": "675:70:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "650:94:5",
+                    "src": "651:94:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 655,
+                  "id": 1726,
                   "nodeType": "ExpressionStatement",
-                  "src": "650:94:5"
+                  "src": "651:94:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 663,
+                    "id": 1734,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 656,
-                      "name": "tickerRegistry",
+                      "id": 1727,
+                      "name": "featureRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 613,
-                      "src": "754:14:5",
+                      "referencedDeclaration": 1684,
+                      "src": "755:15:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -924,28 +924,28 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "hexValue": "5469636b65725265676973747279",
-                          "id": 661,
+                          "hexValue": "466561747572655265676973747279",
+                          "id": 1732,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "817:16:5",
+                          "src": "819:17:6",
                           "subdenomination": null,
                           "typeDescriptions": {
-                            "typeIdentifier": "t_stringliteral_ab963b24b89baec07a2d4596b4c04db2be2386fc0b51d095fcd83244a793614f",
-                            "typeString": "literal_string \"TickerRegistry\""
+                            "typeIdentifier": "t_stringliteral_4c0ed9de4acaed0c2b50c94d3e620c5782111fefb4fa20da4328b7d862f37c32",
+                            "typeString": "literal_string \"FeatureRegistry\""
                           },
-                          "value": "TickerRegistry"
+                          "value": "FeatureRegistry"
                         }
                       ],
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_stringliteral_ab963b24b89baec07a2d4596b4c04db2be2386fc0b51d095fcd83244a793614f",
-                            "typeString": "literal_string \"TickerRegistry\""
+                            "typeIdentifier": "t_stringliteral_4c0ed9de4acaed0c2b50c94d3e620c5782111fefb4fa20da4328b7d862f37c32",
+                            "typeString": "literal_string \"FeatureRegistry\""
                           }
                         ],
                         "expression": {
@@ -953,12 +953,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 658,
+                              "id": 1729,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "788:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "790:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -972,18 +972,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 657,
+                            "id": 1728,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "771:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "773:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 659,
+                          "id": 1730,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -991,27 +991,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "771:34:5",
+                          "src": "773:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 660,
+                        "id": 1731,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "771:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "773:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 662,
+                      "id": 1733,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1019,38 +1019,38 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "771:63:5",
+                      "src": "773:64:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "754:80:5",
+                    "src": "755:82:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 664,
+                  "id": 1735,
                   "nodeType": "ExpressionStatement",
-                  "src": "754:80:5"
+                  "src": "755:82:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 672,
+                    "id": 1743,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 665,
+                      "id": 1736,
                       "name": "polyToken",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 615,
-                      "src": "844:9:5",
+                      "referencedDeclaration": 1686,
+                      "src": "847:9:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1064,14 +1064,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "506f6c79546f6b656e",
-                          "id": 670,
+                          "id": 1741,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "902:11:5",
+                          "src": "905:11:6",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_stringliteral_1cb285bb920a457e70c0f9ab42103e124a9b44100ffd57ff8d1e26b76a17088d",
@@ -1092,12 +1092,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 667,
+                              "id": 1738,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "873:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "876:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -1111,18 +1111,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 666,
+                            "id": 1737,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "856:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "859:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 668,
+                          "id": 1739,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1130,27 +1130,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "856:34:5",
+                          "src": "859:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 669,
+                        "id": 1740,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "856:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "859:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 671,
+                      "id": 1742,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1158,90 +1158,90 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "856:58:5",
+                      "src": "859:58:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "844:70:5",
+                    "src": "847:70:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 673,
+                  "id": 1744,
                   "nodeType": "ExpressionStatement",
-                  "src": "844:70:5"
+                  "src": "847:70:6"
                 }
               ]
             },
             "documentation": null,
-            "id": 675,
+            "id": 1746,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 636,
+                "id": 1707,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 635,
+                  "id": 1706,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 22583,
-                  "src": "533:9:5",
+                  "referencedDeclaration": 32227,
+                  "src": "534:9:6",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "533:9:5"
+                "src": "534:9:6"
               }
             ],
             "name": "updateFromRegistry",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 634,
+              "id": 1705,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "530:2:5"
+              "src": "531:2:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 637,
+              "id": 1708,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "550:0:5"
+              "src": "551:0:6"
             },
-            "scope": 676,
-            "src": "503:418:5",
+            "scope": 1747,
+            "src": "504:420:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 677,
-        "src": "124:800:5"
+        "scope": 1748,
+        "src": "124:803:6"
       }
     ],
-    "src": "0:925:5"
+    "src": "0:928:6"
   },
   "legacyAST": {
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/RegistryUpdater.sol",
     "exportedSymbols": {
       "RegistryUpdater": [
-        676
+        1747
       ]
     },
-    "id": 677,
+    "id": 1748,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 601,
+        "id": 1672,
         "literals": [
           "solidity",
           "^",
@@ -1249,27 +1249,27 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:5"
+        "src": "0:24:6"
       },
       {
         "absolutePath": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "openzeppelin-solidity/contracts/ownership/Ownable.sol",
-        "id": 602,
+        "id": 1673,
         "nodeType": "ImportDirective",
-        "scope": 677,
-        "sourceUnit": 22636,
-        "src": "26:63:5",
+        "scope": 1748,
+        "sourceUnit": 32280,
+        "src": "26:63:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/PolymathRegistry.sol",
         "file": "./PolymathRegistry.sol",
-        "id": 603,
+        "id": 1674,
         "nodeType": "ImportDirective",
-        "scope": 677,
-        "sourceUnit": 554,
-        "src": "90:32:5",
+        "scope": 1748,
+        "sourceUnit": 1625,
+        "src": "90:32:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -1279,42 +1279,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 604,
+              "id": 1675,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 22635,
-              "src": "152:7:5",
+              "referencedDeclaration": 32279,
+              "src": "152:7:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$22635",
+                "typeIdentifier": "t_contract$_Ownable_$32279",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 605,
+            "id": 1676,
             "nodeType": "InheritanceSpecifier",
-            "src": "152:7:5"
+            "src": "152:7:6"
           }
         ],
         "contractDependencies": [
-          22635
+          32279
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 676,
+        "id": 1747,
         "linearizedBaseContracts": [
-          676,
-          22635
+          1747,
+          32279
         ],
         "name": "RegistryUpdater",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 607,
+            "id": 1678,
             "name": "polymathRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "167:31:5",
+            "scope": 1747,
+            "src": "167:31:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1322,10 +1322,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 606,
+              "id": 1677,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "167:7:5",
+              "src": "167:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -1336,11 +1336,11 @@
           },
           {
             "constant": false,
-            "id": 609,
+            "id": 1680,
             "name": "moduleRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "204:29:5",
+            "scope": 1747,
+            "src": "204:29:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1348,10 +1348,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 608,
+              "id": 1679,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "204:7:5",
+              "src": "204:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -1362,11 +1362,11 @@
           },
           {
             "constant": false,
-            "id": 611,
+            "id": 1682,
             "name": "securityTokenRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "239:36:5",
+            "scope": 1747,
+            "src": "239:36:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1374,10 +1374,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 610,
+              "id": 1681,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "239:7:5",
+              "src": "239:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -1388,11 +1388,11 @@
           },
           {
             "constant": false,
-            "id": 613,
-            "name": "tickerRegistry",
+            "id": 1684,
+            "name": "featureRegistry",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "281:29:5",
+            "scope": 1747,
+            "src": "281:30:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1400,10 +1400,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 612,
+              "id": 1683,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "281:7:5",
+              "src": "281:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -1414,11 +1414,11 @@
           },
           {
             "constant": false,
-            "id": 615,
+            "id": 1686,
             "name": "polyToken",
             "nodeType": "VariableDeclaration",
-            "scope": 676,
-            "src": "316:24:5",
+            "scope": 1747,
+            "src": "317:24:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1426,10 +1426,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 614,
+              "id": 1685,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "316:7:5",
+              "src": "317:7:6",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -1440,9 +1440,9 @@
           },
           {
             "body": {
-              "id": 632,
+              "id": 1703,
               "nodeType": "Block",
-              "src": "394:103:5",
+              "src": "395:103:6",
               "statements": [
                 {
                   "expression": {
@@ -1454,19 +1454,19 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 625,
+                        "id": 1696,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 621,
+                          "id": 1692,
                           "name": "_polymathRegistry",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 617,
-                          "src": "412:17:5",
+                          "referencedDeclaration": 1688,
+                          "src": "413:17:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -1480,14 +1480,14 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 623,
+                              "id": 1694,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
                               "kind": "number",
                               "lValueRequested": false,
                               "nodeType": "Literal",
-                              "src": "441:1:5",
+                              "src": "442:1:6",
                               "subdenomination": null,
                               "typeDescriptions": {
                                 "typeIdentifier": "t_rational_0_by_1",
@@ -1503,20 +1503,20 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 622,
+                            "id": 1693,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
                             "lValueRequested": false,
                             "nodeType": "ElementaryTypeNameExpression",
-                            "src": "433:7:5",
+                            "src": "434:7:6",
                             "typeDescriptions": {
                               "typeIdentifier": "t_type$_t_address_$",
                               "typeString": "type(address)"
                             },
                             "typeName": "address"
                           },
-                          "id": 624,
+                          "id": 1695,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1524,13 +1524,13 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "433:10:5",
+                          "src": "434:10:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           }
                         },
-                        "src": "412:31:5",
+                        "src": "413:31:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1544,21 +1544,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 620,
+                      "id": 1691,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        23105,
-                        23106
+                        32749,
+                        32750
                       ],
-                      "referencedDeclaration": 23105,
-                      "src": "404:7:5",
+                      "referencedDeclaration": 32749,
+                      "src": "405:7:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 626,
+                    "id": 1697,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1566,32 +1566,32 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "404:40:5",
+                    "src": "405:40:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 627,
+                  "id": 1698,
                   "nodeType": "ExpressionStatement",
-                  "src": "404:40:5"
+                  "src": "405:40:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 630,
+                    "id": 1701,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 628,
+                      "id": 1699,
                       "name": "polymathRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 607,
-                      "src": "454:16:5",
+                      "referencedDeclaration": 1678,
+                      "src": "455:16:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1601,31 +1601,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 629,
+                      "id": 1700,
                       "name": "_polymathRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 617,
-                      "src": "473:17:5",
+                      "referencedDeclaration": 1688,
+                      "src": "474:17:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "454:36:5",
+                    "src": "455:36:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 631,
+                  "id": 1702,
                   "nodeType": "ExpressionStatement",
-                  "src": "454:36:5"
+                  "src": "455:36:6"
                 }
               ]
             },
             "documentation": null,
-            "id": 633,
+            "id": 1704,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -1633,16 +1633,16 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 618,
+              "id": 1689,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 617,
+                  "id": 1688,
                   "name": "_polymathRegistry",
                   "nodeType": "VariableDeclaration",
-                  "scope": 633,
-                  "src": "360:25:5",
+                  "scope": 1704,
+                  "src": "361:25:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1650,10 +1650,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 616,
+                    "id": 1687,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "360:7:5",
+                    "src": "361:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1663,43 +1663,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "359:27:5"
+              "src": "360:27:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 619,
+              "id": 1690,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "394:0:5"
+              "src": "395:0:6"
             },
-            "scope": 676,
-            "src": "347:150:5",
+            "scope": 1747,
+            "src": "348:150:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 674,
+              "id": 1745,
               "nodeType": "Block",
-              "src": "550:371:5",
+              "src": "551:373:6",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 645,
+                    "id": 1716,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 638,
+                      "id": 1709,
                       "name": "moduleRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 609,
-                      "src": "560:14:5",
+                      "referencedDeclaration": 1680,
+                      "src": "561:14:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1713,14 +1713,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "4d6f64756c655265676973747279",
-                          "id": 643,
+                          "id": 1714,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "623:16:5",
+                          "src": "624:16:6",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_stringliteral_83c93739ca6311cebadde2b77580c78794cfdd1e52078a1297520446b6869448",
@@ -1741,12 +1741,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 640,
+                              "id": 1711,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "594:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "595:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -1760,18 +1760,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 639,
+                            "id": 1710,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "577:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "578:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 641,
+                          "id": 1712,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1779,27 +1779,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "577:34:5",
+                          "src": "578:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 642,
+                        "id": 1713,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "577:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "578:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 644,
+                      "id": 1715,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1807,38 +1807,38 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "577:63:5",
+                      "src": "578:63:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "560:80:5",
+                    "src": "561:80:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 646,
+                  "id": 1717,
                   "nodeType": "ExpressionStatement",
-                  "src": "560:80:5"
+                  "src": "561:80:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 654,
+                    "id": 1725,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 647,
+                      "id": 1718,
                       "name": "securityTokenRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 611,
-                      "src": "650:21:5",
+                      "referencedDeclaration": 1682,
+                      "src": "651:21:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1852,14 +1852,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "5365637572697479546f6b656e5265676973747279",
-                          "id": 652,
+                          "id": 1723,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "720:23:5",
+                          "src": "721:23:6",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_stringliteral_97c0f4eaab7342559457b5349966b16ca04477c4f2cbdd8af9bd524706c6413b",
@@ -1880,12 +1880,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 649,
+                              "id": 1720,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "691:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "692:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -1899,18 +1899,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 648,
+                            "id": 1719,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "674:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "675:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 650,
+                          "id": 1721,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1918,27 +1918,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "674:34:5",
+                          "src": "675:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 651,
+                        "id": 1722,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "674:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "675:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 653,
+                      "id": 1724,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1946,38 +1946,38 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "674:70:5",
+                      "src": "675:70:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "650:94:5",
+                    "src": "651:94:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 655,
+                  "id": 1726,
                   "nodeType": "ExpressionStatement",
-                  "src": "650:94:5"
+                  "src": "651:94:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 663,
+                    "id": 1734,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 656,
-                      "name": "tickerRegistry",
+                      "id": 1727,
+                      "name": "featureRegistry",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 613,
-                      "src": "754:14:5",
+                      "referencedDeclaration": 1684,
+                      "src": "755:15:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1990,28 +1990,28 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "hexValue": "5469636b65725265676973747279",
-                          "id": 661,
+                          "hexValue": "466561747572655265676973747279",
+                          "id": 1732,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "817:16:5",
+                          "src": "819:17:6",
                           "subdenomination": null,
                           "typeDescriptions": {
-                            "typeIdentifier": "t_stringliteral_ab963b24b89baec07a2d4596b4c04db2be2386fc0b51d095fcd83244a793614f",
-                            "typeString": "literal_string \"TickerRegistry\""
+                            "typeIdentifier": "t_stringliteral_4c0ed9de4acaed0c2b50c94d3e620c5782111fefb4fa20da4328b7d862f37c32",
+                            "typeString": "literal_string \"FeatureRegistry\""
                           },
-                          "value": "TickerRegistry"
+                          "value": "FeatureRegistry"
                         }
                       ],
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_stringliteral_ab963b24b89baec07a2d4596b4c04db2be2386fc0b51d095fcd83244a793614f",
-                            "typeString": "literal_string \"TickerRegistry\""
+                            "typeIdentifier": "t_stringliteral_4c0ed9de4acaed0c2b50c94d3e620c5782111fefb4fa20da4328b7d862f37c32",
+                            "typeString": "literal_string \"FeatureRegistry\""
                           }
                         ],
                         "expression": {
@@ -2019,12 +2019,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 658,
+                              "id": 1729,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "788:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "790:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -2038,18 +2038,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 657,
+                            "id": 1728,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "771:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "773:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 659,
+                          "id": 1730,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2057,27 +2057,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "771:34:5",
+                          "src": "773:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 660,
+                        "id": 1731,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "771:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "773:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 662,
+                      "id": 1733,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2085,38 +2085,38 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "771:63:5",
+                      "src": "773:64:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "754:80:5",
+                    "src": "755:82:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 664,
+                  "id": 1735,
                   "nodeType": "ExpressionStatement",
-                  "src": "754:80:5"
+                  "src": "755:82:6"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 672,
+                    "id": 1743,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 665,
+                      "id": 1736,
                       "name": "polyToken",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 615,
-                      "src": "844:9:5",
+                      "referencedDeclaration": 1686,
+                      "src": "847:9:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -2130,14 +2130,14 @@
                         {
                           "argumentTypes": null,
                           "hexValue": "506f6c79546f6b656e",
-                          "id": 670,
+                          "id": 1741,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "string",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "902:11:5",
+                          "src": "905:11:6",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_stringliteral_1cb285bb920a457e70c0f9ab42103e124a9b44100ffd57ff8d1e26b76a17088d",
@@ -2158,12 +2158,12 @@
                           "arguments": [
                             {
                               "argumentTypes": null,
-                              "id": 667,
+                              "id": 1738,
                               "name": "polymathRegistry",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 607,
-                              "src": "873:16:5",
+                              "referencedDeclaration": 1678,
+                              "src": "876:16:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -2177,18 +2177,18 @@
                                 "typeString": "address"
                               }
                             ],
-                            "id": 666,
+                            "id": 1737,
                             "name": "PolymathRegistry",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 553,
-                            "src": "856:16:5",
+                            "referencedDeclaration": 1624,
+                            "src": "859:16:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$553_$",
+                              "typeIdentifier": "t_type$_t_contract$_PolymathRegistry_$1624_$",
                               "typeString": "type(contract PolymathRegistry)"
                             }
                           },
-                          "id": 668,
+                          "id": 1739,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2196,27 +2196,27 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "856:34:5",
+                          "src": "859:34:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PolymathRegistry_$553",
+                            "typeIdentifier": "t_contract$_PolymathRegistry_$1624",
                             "typeString": "contract PolymathRegistry"
                           }
                         },
-                        "id": 669,
+                        "id": 1740,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "getAddress",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 520,
-                        "src": "856:45:5",
+                        "referencedDeclaration": 1591,
+                        "src": "859:45:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_string_memory_ptr_$returns$_t_address_$",
                           "typeString": "function (string memory) view external returns (address)"
                         }
                       },
-                      "id": 671,
+                      "id": 1742,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2224,77 +2224,77 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "856:58:5",
+                      "src": "859:58:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "844:70:5",
+                    "src": "847:70:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 673,
+                  "id": 1744,
                   "nodeType": "ExpressionStatement",
-                  "src": "844:70:5"
+                  "src": "847:70:6"
                 }
               ]
             },
             "documentation": null,
-            "id": 675,
+            "id": 1746,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 636,
+                "id": 1707,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 635,
+                  "id": 1706,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 22583,
-                  "src": "533:9:5",
+                  "referencedDeclaration": 32227,
+                  "src": "534:9:6",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "533:9:5"
+                "src": "534:9:6"
               }
             ],
             "name": "updateFromRegistry",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 634,
+              "id": 1705,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "530:2:5"
+              "src": "531:2:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 637,
+              "id": 1708,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "550:0:5"
+              "src": "551:0:6"
             },
-            "scope": 676,
-            "src": "503:418:5",
+            "scope": 1747,
+            "src": "504:420:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 677,
-        "src": "124:800:5"
+        "scope": 1748,
+        "src": "124:803:6"
       }
     ],
-    "src": "0:925:5"
+    "src": "0:928:6"
   },
   "compiler": {
     "name": "solc",
@@ -2302,5 +2302,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T15:54:24.019Z"
+  "updatedAt": "2018-10-10T21:31:05.913Z"
 }

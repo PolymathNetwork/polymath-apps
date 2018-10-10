@@ -68,14 +68,14 @@
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
     "exportedSymbols": {
       "IOracle": [
-        9940
+        11062
       ]
     },
-    "id": 9941,
+    "id": 11063,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 9919,
+        "id": 11041,
         "literals": [
           "solidity",
           "^",
@@ -91,9 +91,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 9940,
+        "id": 11062,
         "linearizedBaseContracts": [
-          9940
+          11062
         ],
         "name": "IOracle",
         "nodeType": "ContractDefinition",
@@ -101,7 +101,7 @@
           {
             "body": null,
             "documentation": "@notice Returns address of oracle currency (0x0 for ETH)",
-            "id": 9924,
+            "id": 11046,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -109,22 +109,22 @@
             "name": "getCurrencyAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9920,
+              "id": 11042,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9923,
+              "id": 11045,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9922,
+                  "id": 11044,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9924,
+                  "scope": 11046,
                   "src": "181:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -133,7 +133,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 9921,
+                    "id": 11043,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "181:7:16",
@@ -148,7 +148,7 @@
               ],
               "src": "180:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "129:61:16",
             "stateMutability": "view",
             "superFunction": null,
@@ -157,7 +157,7 @@
           {
             "body": null,
             "documentation": "@notice Returns symbol of oracle currency (0x0 for ETH)",
-            "id": 9929,
+            "id": 11051,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -165,22 +165,22 @@
             "name": "getCurrencySymbol",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9925,
+              "id": 11047,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "299:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9928,
+              "id": 11050,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9927,
+                  "id": 11049,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9929,
+                  "scope": 11051,
                   "src": "324:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -189,7 +189,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 9926,
+                    "id": 11048,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "324:7:16",
@@ -204,7 +204,7 @@
               ],
               "src": "323:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "273:60:16",
             "stateMutability": "view",
             "superFunction": null,
@@ -213,7 +213,7 @@
           {
             "body": null,
             "documentation": "@notice Returns denomination of price",
-            "id": 9934,
+            "id": 11056,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -221,22 +221,22 @@
             "name": "getCurrencyDenominated",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9930,
+              "id": 11052,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "429:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9933,
+              "id": 11055,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9932,
+                  "id": 11054,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9934,
+                  "scope": 11056,
                   "src": "454:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -245,7 +245,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 9931,
+                    "id": 11053,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "454:7:16",
@@ -260,7 +260,7 @@
               ],
               "src": "453:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "398:65:16",
             "stateMutability": "view",
             "superFunction": null,
@@ -269,7 +269,7 @@
           {
             "body": null,
             "documentation": "@notice Returns price - should throw if not valid",
-            "id": 9939,
+            "id": 11061,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -277,22 +277,22 @@
             "name": "getPrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9935,
+              "id": 11057,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "557:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9938,
+              "id": 11060,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9937,
+                  "id": 11059,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9939,
+                  "scope": 11061,
                   "src": "582:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -301,7 +301,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9936,
+                    "id": 11058,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "582:7:16",
@@ -316,14 +316,14 @@
               ],
               "src": "581:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "540:51:16",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 9941,
+        "scope": 11063,
         "src": "26:568:16"
       }
     ],
@@ -333,14 +333,14 @@
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
     "exportedSymbols": {
       "IOracle": [
-        9940
+        11062
       ]
     },
-    "id": 9941,
+    "id": 11063,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 9919,
+        "id": 11041,
         "literals": [
           "solidity",
           "^",
@@ -356,9 +356,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 9940,
+        "id": 11062,
         "linearizedBaseContracts": [
-          9940
+          11062
         ],
         "name": "IOracle",
         "nodeType": "ContractDefinition",
@@ -366,7 +366,7 @@
           {
             "body": null,
             "documentation": "@notice Returns address of oracle currency (0x0 for ETH)",
-            "id": 9924,
+            "id": 11046,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -374,22 +374,22 @@
             "name": "getCurrencyAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9920,
+              "id": 11042,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9923,
+              "id": 11045,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9922,
+                  "id": 11044,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9924,
+                  "scope": 11046,
                   "src": "181:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -398,7 +398,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 9921,
+                    "id": 11043,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "181:7:16",
@@ -413,7 +413,7 @@
               ],
               "src": "180:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "129:61:16",
             "stateMutability": "view",
             "superFunction": null,
@@ -422,7 +422,7 @@
           {
             "body": null,
             "documentation": "@notice Returns symbol of oracle currency (0x0 for ETH)",
-            "id": 9929,
+            "id": 11051,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -430,22 +430,22 @@
             "name": "getCurrencySymbol",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9925,
+              "id": 11047,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "299:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9928,
+              "id": 11050,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9927,
+                  "id": 11049,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9929,
+                  "scope": 11051,
                   "src": "324:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -454,7 +454,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 9926,
+                    "id": 11048,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "324:7:16",
@@ -469,7 +469,7 @@
               ],
               "src": "323:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "273:60:16",
             "stateMutability": "view",
             "superFunction": null,
@@ -478,7 +478,7 @@
           {
             "body": null,
             "documentation": "@notice Returns denomination of price",
-            "id": 9934,
+            "id": 11056,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -486,22 +486,22 @@
             "name": "getCurrencyDenominated",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9930,
+              "id": 11052,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "429:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9933,
+              "id": 11055,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9932,
+                  "id": 11054,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9934,
+                  "scope": 11056,
                   "src": "454:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -510,7 +510,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 9931,
+                    "id": 11053,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "454:7:16",
@@ -525,7 +525,7 @@
               ],
               "src": "453:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "398:65:16",
             "stateMutability": "view",
             "superFunction": null,
@@ -534,7 +534,7 @@
           {
             "body": null,
             "documentation": "@notice Returns price - should throw if not valid",
-            "id": 9939,
+            "id": 11061,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -542,22 +542,22 @@
             "name": "getPrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9935,
+              "id": 11057,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "557:2:16"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9938,
+              "id": 11060,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9937,
+                  "id": 11059,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9939,
+                  "scope": 11061,
                   "src": "582:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -566,7 +566,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9936,
+                    "id": 11058,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "582:7:16",
@@ -581,14 +581,14 @@
               ],
               "src": "581:9:16"
             },
-            "scope": 9940,
+            "scope": 11062,
             "src": "540:51:16",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 9941,
+        "scope": 11063,
         "src": "26:568:16"
       }
     ],
@@ -600,5 +600,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T15:54:24.284Z"
+  "updatedAt": "2018-10-10T21:31:06.100Z"
 }
