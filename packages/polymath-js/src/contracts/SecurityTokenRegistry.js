@@ -2,15 +2,22 @@
 
 import BigNumber from 'bignumber.js';
 import artifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
+import proxyArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistryProxy.json';
 
 import Contract from './Contract';
-import TickerRegistry from './TickerRegistry';
 import SecurityTokenContract from './SecurityToken';
 import PolyToken from './PolyToken';
 
-import type { SecurityToken, Address, Web3Receipt } from '../types';
+import type {
+  SecurityToken,
+  Address,
+  Web3Receipt,
+  Web3Event,
+  SymbolDetails,
+} from '../types';
 
 const NEW_SECURITY_TOKEN_EVENT = 'NewSecurityToken';
+const REGISTER_TICKER_EVENT = 'RegisterTicker';
 
 class SecurityTokenRegistry extends Contract {
   getSecurityTokenAddress: (ticker: string) => Promise<Address>;
@@ -18,15 +25,75 @@ class SecurityTokenRegistry extends Contract {
   getSecurityTokenData: (
     address: Address
   ) => Promise<[string, Address, string]>;
+  getExpiryLimit: () => Promise<number>;
+
+  async expiryLimitInDays(): Promise<number> {
+    return Math.round((await this.getExpiryLimit()) / 24 / 60 / 60);
+  }
 
   async registrationFee(): Promise<BigNumber> {
+    const fee = await this._methods.getTickerRegistrationFee().call();
+    console.log('FEE!', fee);
+    return PolyToken.removeDecimals(fee);
+  }
+
+  async launchFee(): Promise<BigNumber> {
     return PolyToken.removeDecimals(
-      await this._methods.registrationFee().call()
+      await this._methods.getSecurityTokenLaunchFee().call()
     );
   }
 
+  async _getRegisterTickerEvents(
+    _owner?: Address,
+    _registrationDate?: number
+  ): Promise<Array<Web3Event>> {
+    return await this._contractWS.getPastEvents(REGISTER_TICKER_EVENT, {
+      filter: {
+        ...(_owner ? { _owner } : {}),
+        ...(_registrationDate ? { _registrationDate } : {}),
+      },
+      fromBlock: 0,
+      toBlock: 'latest',
+    });
+  }
+
+  async getTickerDetails(
+    symbol: string,
+    txHash?: string
+  ): Promise<?SymbolDetails> {
+    let [owner, timestamp, expiryDate, name, status] = this._toArray(
+      await this._methods.getTickerDetails(symbol).call()
+    );
+    console.log('TICKER DETAILS');
+    console.log(owner, timestamp, expiryDate, name, status);
+    if (this._isEmptyAddress(owner)) {
+      return null;
+    }
+
+    if (!txHash) {
+      txHash = (await this._getRegisterTickerEvents(owner, timestamp))[0]
+        .transactionHash;
+    }
+
+    timestamp = this._toDate(timestamp);
+    let expires;
+    if (!status) {
+      expires = new Date(expiryDate);
+    }
+    return {
+      ticker: symbol,
+      owner,
+      name,
+      status,
+      expires,
+      timestamp,
+      txHash,
+    };
+  }
+
   async getTokenByTicker(ticker: string): Promise<?SecurityToken> {
-    const details = await TickerRegistry.getDetails(ticker);
+    const details = await this.getTickerDetails(ticker);
+    console.log('DETAILS!!!!', details);
     if (!details) {
       return null;
     }
@@ -70,6 +137,55 @@ class SecurityTokenRegistry extends Contract {
       1.05
     );
   }
+
+  /**
+   * TODO @bshevchenko: DEPRECATED since owner can be changed
+   * @deprecated
+   */
+  async getMyTokens(): Promise<Array<SymbolDetails>> {
+    const events = await this._getRegisterTickerEvents(this.account);
+    const tokens = [];
+    for (let event of events) {
+      const v = event.returnValues;
+      const expires = new Date(v._expiryDate);
+      const now = new Date();
+      if (now >= expires) {
+        continue;
+      }
+      tokens.push({
+        ticker: v._ticker,
+        owner: v._owner,
+        name: v._name,
+        expires,
+        timestamp: v._registrationDate,
+        txHash: event.transactionHash,
+      });
+      const details = await this.getTickerDetails(
+        v._ticker,
+        event.transactionHash
+      );
+      if (details) {
+        tokens.push(details);
+      }
+    }
+    return tokens;
+  }
+
+  async registerTicker(details: SymbolDetails): Promise<Web3Receipt> {
+    const fee = await this.registrationFee();
+    console.log('APPROVAL');
+    console.log(await PolyToken.approve(this.address, fee));
+    console.log('CALLING REGISTERTICKER WITH');
+    console.log(this.account, details.ticker, details.name);
+    return await this._tx(
+      this._methods.registerTicker(this.account, details.ticker, details.name),
+      0,
+      1.5
+    );
+  }
 }
 
-export default new SecurityTokenRegistry(artifact);
+export default new SecurityTokenRegistry(
+  artifact,
+  proxyArtifact.networks[15].address
+);

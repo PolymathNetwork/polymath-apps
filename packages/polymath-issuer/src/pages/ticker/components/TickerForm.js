@@ -12,7 +12,7 @@ import {
   regex,
   ethereumAddress,
 } from '@polymathnetwork/ui/validate';
-import { TickerRegistry } from '@polymathnetwork/js';
+import { SecurityTokenRegistry } from '@polymathnetwork/js';
 
 export const formName = 'ticker';
 
@@ -101,7 +101,7 @@ export default reduxForm({
     }
     let details = null;
     try {
-      details = await TickerRegistry.getDetails(v);
+      details = await SecurityTokenRegistry.getTickerDetails(v);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('Error fetching details', err);

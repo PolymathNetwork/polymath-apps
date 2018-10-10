@@ -10,12 +10,6 @@ const PolyTokenMethods = {
   transfer: 'Transfers tokens to an address',
 };
 
-const TickerRegistryMethods = {
-  expiryLimit: 'Amount of time in seconds a ticker can be reserved',
-  getDetails: 'Gets the details of a ticker',
-  registrationFee: 'Free in POLY required to register a ticker',
-};
-
 const CappedSTOFactoryMethods = {
   setupCost: 'The amount of POLY required to setup a token with this module',
 };
@@ -49,7 +43,8 @@ const SecurityTokenMethods = {
   allowance: 'Amount of allowance approved by an `owner` to a `spender`',
   balanceOf: 'Gets the total amount of tokens for an address',
   name: 'Name of the token',
-  symbol: "Token's symbol (this is what was registered in the TickerRegistry)",
+  symbol:
+    "Token's symbol (this is what was registered in the SecurityTokenRegistry)",
   totalSupply: 'Total amount of tokens that exist in the network',
   approve: 'Sets allowance for a `spender`',
   transfer: 'Transfers tokens to an address',
@@ -62,6 +57,8 @@ const SecurityTokenMethods = {
 const SecurityTokenRegistryMethods = {
   registrationFee: 'The amount of POLY required to generate a Security Token',
   generateSecurityToken: 'Generates a security token',
+  getTickerDetails: 'Gets the details of a ticker',
+  expiryLimit: 'Amount of time in seconds a ticker can be reserved',
 };
 
 const GeneralTransferManagerMethods = {
@@ -78,12 +75,6 @@ const config = {
         The POLY token's smart contract. Implements the ERC20 interface
       `,
       methods: PolyTokenMethods,
-    },
-    TickerRegistry: {
-      description: stripIndent`
-        Keeps record of the tickers reserved by users
-      `,
-      methods: TickerRegistryMethods,
     },
     CappedSTOFactory: {
       description: stripIndent`
@@ -138,9 +129,10 @@ const config = {
     SecurityTokenRegistry: {
       description: stripIndent`
         Keeps track of all the Security Tokens that exist in the network.
+        Keeps record of the tickers reserved by users.
 
-        Through this contract Security Tokens can be created. It requires an
-        allowance (of at least the registration fee) to be set to be able
+        Through this contract Security Tokens can be created and Tickers can be registered.
+        It requires an allowance (of at least the registration fee) to be set to be able
         to create a Security Token
       `,
       methods: SecurityTokenRegistryMethods,

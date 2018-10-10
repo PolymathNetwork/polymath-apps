@@ -159,6 +159,9 @@ export default class Contract {
         ? this._toWei(new BigNumber(value).round(18).toString(10))
         : undefined,
     };
+    console.log(JSON.stringify(preParams));
+    console.log(method);
+    console.log(await method.estimateGas(preParams));
     let gas;
     if (gasLimit && gasLimit > 10) {
       gas = gasLimit;

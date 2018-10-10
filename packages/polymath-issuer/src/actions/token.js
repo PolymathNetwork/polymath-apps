@@ -91,7 +91,7 @@ export const issue = (isLimitNI: boolean) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const fee = await SecurityTokenRegistry.registrationFee();
+  const fee = await SecurityTokenRegistry.launchFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
   let { token } = getState().token; // $FlowFixMe
   const ticker = token.ticker;
