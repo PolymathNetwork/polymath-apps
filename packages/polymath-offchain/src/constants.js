@@ -23,7 +23,7 @@ type Environment = {|
   POLYMATH_ISSUER_URL: string,
   NODE_ENV: string,
   DEPLOYMENT_STAGE: string,
-  MONGODB_URL: string,
+  MONGODB_URI: string,
   SENDGRID_API_KEY?: string,
 |};
 
@@ -33,7 +33,7 @@ const env = cleanEnvironment<Environment>(process.env, [
   'POLYMATH_ISSUER_URL',
   'NODE_ENV',
   'DEPLOYMENT_STAGE',
-  'MONGODB_URL',
+  'MONGODB_URI',
 ]);
 
 const {
@@ -42,7 +42,7 @@ const {
   WEB3_NETWORK_MAINNET_WS,
 } = env;
 
-export const MONGODB_URL = env.MONGODB_URL;
+export const MONGODB_URI = env.MONGODB_URI;
 export const NODE_ENV = env.NODE_ENV;
 export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
 
