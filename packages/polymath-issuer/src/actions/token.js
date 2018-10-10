@@ -159,17 +159,6 @@ export const issue = (isLimitNI: boolean) => async (
                 token = await SecurityTokenRegistry.getTokenByTicker(ticker);
                 await token.contract.setCountTM(values.investorsNumber);
               }
-
-              dispatch(
-                ui.email(
-                  receipt.transactionHash,
-                  token.ticker + ' Token Created on Polymath',
-                  <CreatedEmail
-                    ticker={token.ticker}
-                    txHash={receipt.transactionHash}
-                  />
-                )
-              );
             },
             'Token Was Issued Successfully',
             () => {
