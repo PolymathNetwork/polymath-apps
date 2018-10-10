@@ -8,6 +8,7 @@
     "local-blockchain:prepare": "rm -rf ./build && mkdir build && cp -r ./src/fixtures ./build/fixtures",
     "local-blockchain:migrate": "echo \"DEPRECATED: No need to run migrate locally anymore. The local blockchain now starts ready to go.\"",
     "local-blockchain:console": "truffle console",
+    "local-blockchain:generate-fixtures": "node ./scripts/generateLocalBlockchain",
     "build:contract-docs": "node ./scripts/generateContractDocs",
     "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\""
   },
@@ -18,13 +19,15 @@
     "@babel/plugin-transform-runtime": "7.0.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-flow": "7.0.0",
+    "bignumber.js": "^5.0.0",
     "eslint-config-react-app": "^2.1.0",
     "flow-bin": "^0.81.0",
+    "fs-extra": "^7.0.0",
     "ganache-cli": "^6.1.8",
     "jest": "22.4.3",
     "lodash": "^4.17.11",
     "polymath-core": "1.4.0",
-    "truffle": "^4.1.14",
-    "web3": "^1.0.0-beta.36"
+    "truffle": "^4.1.11",
+    "web3": "^1.0.0-beta.33"
   }
 }

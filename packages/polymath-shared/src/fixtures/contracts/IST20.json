@@ -380,9 +380,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"openzeppelin-solidity/contracts/token/ERC20/StandardToken.sol\";\nimport \"openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol\";\n\n/**\n * @title Interface for the ST20 token standard\n */\ncontract IST20 is StandardToken, DetailedERC20 {\n\n    // off-chain hash\n    string public tokenDetails;\n\n    //transfer, transferFrom must respect use respect the result of verifyTransfer\n    function verifyTransfer(address _from, address _to, uint256 _amount) public returns (bool success);\n\n    /**\n     * @notice mints new tokens and assigns them to the target _investor.\n     * Can only be called by the STO attached to the token (Or by the ST owner if there's no STO attached yet)\n     */\n    function mint(address _investor, uint256 _amount) public returns (bool success);\n\n    /**\n     * @notice Burn function used to burn the securityToken\n     * @param _value No. of token that get burned\n     */\n    function burn(uint256 _value) public;\n\n    event Minted(address indexed to, uint256 amount);\n    event Burnt(address indexed _burner, uint256 _value);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IST20.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IST20.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IST20.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IST20.sol",
     "exportedSymbols": {
       "IST20": [
         9988
@@ -957,7 +957,7 @@
     "src": "0:1091:17"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IST20.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IST20.sol",
     "exportedSymbols": {
       "IST20": [
         9988
@@ -1537,5 +1537,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.908Z"
+  "updatedAt": "2018-10-10T15:54:24.284Z"
 }
