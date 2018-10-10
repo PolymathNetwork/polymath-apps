@@ -12,15 +12,15 @@ import connectWeb3 from './setupWeb3';
 
 (async () => {
   const { '15': local, '42': kovan, '1': mainnet } = NETWORKS;
-  if (local.url) {
+  if (local) {
     await connectWeb3('15');
   }
 
-  if (kovan.url) {
+  if (kovan) {
     await connectWeb3('42');
   }
 
-  if (mainnet.url) {
+  if (mainnet) {
     await connectWeb3('1');
   }
 })().catch(err => logger.error(err.message, err));
