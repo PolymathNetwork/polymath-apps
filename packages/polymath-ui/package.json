@@ -25,6 +25,7 @@
     "carbon-components-react": "5.31.0",
     "carbon-icons": "6.3.2",
     "eth-sig-util": "^1.4.2",
+    "jest": "^23.6.0",
     "react": "^16.5.2",
     "react-document-title": "2.0.3",
     "react-dom": "^16.5.2",
