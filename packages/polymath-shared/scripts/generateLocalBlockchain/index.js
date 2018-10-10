@@ -21,6 +21,10 @@ fs.mkdirSync(TEMP_DIR);
 (async () => {
   await steps.copyArtifactsFromCore();
   await steps.startGanacheCLI();
+  await steps.compileContracts();
   await steps.migrateContracts();
   await steps.moveFilesAndCleaup();
+
+  // We kill the process since asyncronous tasks could be running
+  process.exit(0);
 })().catch(console.error);

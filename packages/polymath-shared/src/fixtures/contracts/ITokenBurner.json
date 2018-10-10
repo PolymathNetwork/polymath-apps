@@ -30,9 +30,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for the token burner contract\n */\ninterface ITokenBurner {\n\n    function burn(address _burner, uint256  _value ) external returns(bool);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ITokenBurner.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ITokenBurner.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ITokenBurner.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ITokenBurner.sol",
     "exportedSymbols": {
       "ITokenBurner": [
         10220
@@ -182,7 +182,7 @@
     "src": "0:190:22"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ITokenBurner.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ITokenBurner.sol",
     "exportedSymbols": {
       "ITokenBurner": [
         10220
@@ -337,5 +337,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.911Z"
+  "updatedAt": "2018-10-10T15:54:24.287Z"
 }

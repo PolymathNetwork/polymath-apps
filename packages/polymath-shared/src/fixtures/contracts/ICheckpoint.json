@@ -110,9 +110,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"../../interfaces/IModule.sol\";\nimport \"openzeppelin-solidity/contracts/token/ERC20/ERC20.sol\";\n\n/**\n * @title Interface to be implemented by all checkpoint modules\n */\ncontract ICheckpoint is IModule {\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/modules/Checkpoint/ICheckpoint.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/modules/Checkpoint/ICheckpoint.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
     "exportedSymbols": {
       "ICheckpoint": [
         12874
@@ -133,7 +133,7 @@
         "src": "0:24:33"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModule.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
         "file": "../../interfaces/IModule.sol",
         "id": 12870,
         "nodeType": "ImportDirective",
@@ -196,7 +196,7 @@
     "src": "0:239:33"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/modules/Checkpoint/ICheckpoint.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
     "exportedSymbols": {
       "ICheckpoint": [
         12874
@@ -217,7 +217,7 @@
         "src": "0:24:33"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModule.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
         "file": "../../interfaces/IModule.sol",
         "id": 12870,
         "nodeType": "ImportDirective",
@@ -285,5 +285,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.937Z"
+  "updatedAt": "2018-10-10T15:54:24.383Z"
 }

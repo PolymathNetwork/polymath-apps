@@ -8,6 +8,7 @@ const {
   BLOCKCHAIN_NETWORK_ID,
   PACKAGE_ROOT_DIR,
 } = require('./constants');
+const { runCommand } = require('../utils');
 
 async function copyArtifactsFromCore() {
   const coreArtifactsDir = path.resolve(
@@ -23,6 +24,7 @@ async function copyArtifactsFromCore() {
  */
 async function startGanacheCLI() {
   console.log('==> Starting Ganache CLI');
+
   const ganacheArgs = [
     // Set a directory to which ganache will write the state to
     `--db="${TEMP_BLOCKCHAIN_STATE_DIR}"`,
@@ -31,60 +33,43 @@ async function startGanacheCLI() {
     // Set a network id for ganache
     `-i=${BLOCKCHAIN_NETWORK_ID}`,
     `--mnemonic="${BLOCKCHAIN_MNEMONIC}"`,
+    // Sets deterministic mode to ensure same accounts everytime
     '-d',
   ].join(' ');
 
-  return new Promise((resolve, reject) => {
-    fs.ensureDirSync(TEMP_BLOCKCHAIN_STATE_DIR);
+  fs.ensureDirSync(TEMP_BLOCKCHAIN_STATE_DIR);
 
-    const ganacheCLI = exec(`yarn ganache-cli ${ganacheArgs}`, {
-      cwd: PACKAGE_ROOT_DIR,
-    });
-
-    ganacheCLI.stdout.setEncoding('utf8');
-    ganacheCLI.stderr.setEncoding('utf8');
-
-    ganacheCLI.stdout.on('data', data => {
-      console.log(data);
-      if (data.includes('Listening on')) {
-        resolve();
-      }
-    });
-    ganacheCLI.stderr.on('data', err => {
-      reject(err);
-    });
-    ganacheCLI.on('close', code => {
-      console.log(`child process exited with code ${code}`);
-    });
-    process.on('exit', () => {
-      ganacheCLI.kill('SIGINT');
-    });
+  await runCommand(`yarn ganache-cli ${ganacheArgs}`, {
+    cwd: PACKAGE_ROOT_DIR,
+    isReady: data => data.includes('Listening on'),
   });
 }
 
+/**
+ * Compiles JSON artifacts from contracts
+ */
+async function compileContracts() {
+  console.log('===> Compiling contracts');
+
+  await runCommand('truffle compile --optimize-runs 200', {
+    cwd: __dirname,
+  });
+}
+
+/**
+ * Deploys contracts to the local blockchain
+ */
 async function migrateContracts() {
   console.log('===> Migrating contracts');
 
-  return new Promise((resolve, reject) => {
-    const migration = exec(
-      'truffle migrate --network=development --reset --all',
-      {
-        cwd: __dirname,
-      }
-    );
-    migration.stdout.setEncoding('utf8');
-    migration.stderr.setEncoding('utf8');
-
-    migration.stdout.on('data', data => {
-      console.log(data);
-    });
-    migration.stderr.on('data', err => {
-      reject(err);
-    });
-    migration.on('close', resolve);
+  await runCommand('truffle migrate --network=development --reset --all', {
+    cwd: __dirname,
   });
 }
 
+/**
+ * Copies the relevant files into the repo and removes temp files
+ */
 async function moveFilesAndCleaup() {
   const contractsTargetDir = path.resolve(
     PACKAGE_ROOT_DIR,
@@ -108,11 +93,11 @@ async function moveFilesAndCleaup() {
   console.log(
     '===> New blockchain state generated successfully.\nRemember to commit the changes!'
   );
-  process.exit(0);
 }
 
 module.exports = {
   startGanacheCLI,
+  compileContracts,
   migrateContracts,
   moveFilesAndCleaup,
   copyArtifactsFromCore,

@@ -149,9 +149,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"./ISecurityToken.sol\";\n\n/**\n * @title Interface for the polymath security token registry contract\n */\ncontract ISecurityTokenRegistry {\n\n    bytes32 public protocolVersion = \"0.0.1\";\n    mapping (bytes32 => address) public protocolVersionST;\n\n    struct SecurityTokenData {\n        string symbol;\n        string tokenDetails;\n    }\n\n    mapping(address => SecurityTokenData) securityTokens;\n    mapping(string => address) symbols;\n\n    /**\n     * @notice Creates a new Security Token and saves it to the registry\n     * @param _name Name of the token\n     * @param _symbol Ticker symbol of the security token\n     * @param _tokenDetails off-chain details of the token\n     */\n    function generateSecurityToken(string _name, string _symbol, string _tokenDetails, bool _divisible) public;\n\n    function setProtocolVersion(address _stVersionProxyAddress, bytes32 _version) public;\n\n    /**\n     * @notice Get security token address by ticker name\n     * @param _symbol Symbol of the Scurity token\n     * @return address _symbol\n     */\n    function getSecurityTokenAddress(string _symbol) public view returns (address);\n\n     /**\n     * @notice Get security token data by its address\n     * @param _securityToken Address of the Scurity token\n     * @return string, address, bytes32\n     */\n    function getSecurityTokenData(address _securityToken) public view returns (string, address, string);\n\n    /**\n    * @notice Check that Security Token is registered\n    * @param _securityToken Address of the Scurity token\n    * @return bool\n    */\n    function isSecurityToken(address _securityToken) public view returns (bool);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityTokenRegistry.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityTokenRegistry.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityTokenRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityTokenRegistry.sol",
     "exportedSymbols": {
       "ISecurityTokenRegistry": [
         10166
@@ -172,7 +172,7 @@
         "src": "0:24:20"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "./ISecurityToken.sol",
         "id": 10102,
         "nodeType": "ImportDirective",
@@ -963,7 +963,7 @@
     "src": "0:1657:20"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityTokenRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityTokenRegistry.sol",
     "exportedSymbols": {
       "ISecurityTokenRegistry": [
         10166
@@ -984,7 +984,7 @@
         "src": "0:24:20"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "./ISecurityToken.sol",
         "id": 10102,
         "nodeType": "ImportDirective",
@@ -1780,5 +1780,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.910Z"
+  "updatedAt": "2018-10-10T15:54:24.286Z"
 }
