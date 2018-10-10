@@ -6,7 +6,6 @@ Array [
     className="bx--form-item bx--checkbox-wrapper"
   >
     <input
-      checked={undefined}
       className="bx--checkbox"
       id="1"
       meta={Object {}}
@@ -30,7 +29,6 @@ Array [
   >
     <div
       className="bx--radio-button-group"
-      disabled={undefined}
     >
       <div
         className="radioButtonWrapper"
@@ -123,7 +121,6 @@ Array [
       name="7"
       onChange={[Function]}
       onClick={[Function]}
-      placeholder={undefined}
       type="text"
     />
   </div>,
@@ -138,7 +135,6 @@ Array [
       >
         <input
           className="bx--time-picker__input-field"
-          data-invalid={undefined}
           disabled={false}
           id="8"
           maxLength={5}
@@ -189,12 +185,10 @@ Array [
           alt="open list of options"
           aria-label="open list of options"
           className="bx--select__arrow"
-          fill={undefined}
           fillRule="evenodd"
           height="5"
           name="caret--down"
           role="img"
-          style={undefined}
           viewBox="0 0 10 5"
           width="10"
         >
