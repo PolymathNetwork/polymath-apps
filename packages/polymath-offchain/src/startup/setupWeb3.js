@@ -306,7 +306,7 @@ export const registerTickerHandler = async (
   logger.info(`[EVENT] Ticker "${ticker}" registered in ${networkName}`);
 
   /**
-    Get expiry limit in seconds from Ticker Registry
+    Get expiry limit in seconds from Security Token Registry
    */
   const expiryLimitSeconds: number = await contract.methods
     .expiryLimit()
@@ -536,7 +536,7 @@ const connectWeb3 = async (networkId: string) => {
   try {
     await setupListeners(networkId);
   } catch (error) {
-    logger.error(error.message, error);
+    logger.error(error.message);
   }
 };
 
