@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "test": "jest --detectOpenHandles --verbose --forceExit",
+    "test": "jest",
     "typecheck": "flow --show-all-branches",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
