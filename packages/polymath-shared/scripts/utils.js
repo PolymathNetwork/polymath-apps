@@ -12,6 +12,7 @@ async function runCommand(
     cmd.stderr.setEncoding('utf8');
 
     cmd.stdout.on('data', data => {
+      console.log(data);
       onData(data);
 
       if (isAsyncCommand && isReady(data)) {
