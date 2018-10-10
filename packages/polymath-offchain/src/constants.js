@@ -15,8 +15,9 @@ export const cleanEnvironment = <T: { [string]: string }>(
 };
 
 type Environment = {|
-  WEB3_NETWORK_WS: string,
-  WEB3_NETWORK_NAME: string,
+  WEB3_NETWORK_LOCAL_WS?: string,
+  WEB3_NETWORK_KOVAN_WS?: string,
+  WEB3_NETWORK_MAINNET_WS?: string,
   PORT: string,
   POLYMATH_OFFCHAIN_URL: string,
   POLYMATH_ISSUER_URL: string,
@@ -27,8 +28,6 @@ type Environment = {|
 |};
 
 const env = cleanEnvironment<Environment>(process.env, [
-  'WEB3_NETWORK_WS',
-  'WEB3_NETWORK_NAME',
   'PORT',
   'POLYMATH_OFFCHAIN_URL',
   'POLYMATH_ISSUER_URL',
@@ -37,23 +36,42 @@ const env = cleanEnvironment<Environment>(process.env, [
   'MONGODB_URL',
 ]);
 
-const validNetworkNames = ['LOCAL', 'KOVAN', 'MAINNET'];
+const {
+  WEB3_NETWORK_LOCAL_WS,
+  WEB3_NETWORK_KOVAN_WS,
+  WEB3_NETWORK_MAINNET_WS,
+} = env;
 
-const networkName = env.WEB3_NETWORK_NAME;
+const networkUrls = [
+  WEB3_NETWORK_LOCAL_WS,
+  WEB3_NETWORK_KOVAN_WS,
+  WEB3_NETWORK_MAINNET_WS,
+];
 
-if (!validNetworkNames.find(name => name === networkName)) {
+// At least one of the network URLs must be defined
+if (!networkUrls.some(url => !!url)) {
   throw new Error(
-    `Invalid env variable WEB3_NETWORK_NAME, must be one of: ${validNetworkNames.join(
-      ', '
-    )}`
+    `Missing network URL env variables. At least one network URL must be set`
   );
 }
 
 export const MONGODB_URL = env.MONGODB_URL;
 export const NODE_ENV = env.NODE_ENV;
 export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
-export const WEB3_NETWORK_WS = env.WEB3_NETWORK_WS;
-export const WEB3_NETWORK_NAME = networkName.toLowerCase();
+export const NETWORKS = {
+  '15': {
+    name: 'local',
+    url: WEB3_NETWORK_LOCAL_WS,
+  },
+  '42': {
+    name: 'kovan',
+    url: WEB3_NETWORK_KOVAN_WS,
+  },
+  '1': {
+    name: 'mainnet',
+    url: WEB3_NETWORK_MAINNET_WS,
+  },
+};
 export const PORT = parseInt(env.PORT, 10);
 export const POLYMATH_ISSUER_URL = env.POLYMATH_ISSUER_URL;
 export const POLYMATH_OFFCHAIN_URL = env.POLYMATH_OFFCHAIN_URL;

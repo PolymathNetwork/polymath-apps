@@ -10,6 +10,7 @@ describe('Component: STOScheduled', () => {
   const isPolyFundraise = true;
   const fundsReceiver = '0xffffffffffffffff';
   const txHash = '0xeeeeeeeeeeeeeeee';
+  const networkId = '15';
 
   test('renders with all valid props', () => {
     // capRate with no decimals
@@ -22,6 +23,7 @@ describe('Component: STOScheduled', () => {
         isPolyFundraise={isPolyFundraise}
         fundsReceiver={fundsReceiver}
         txHash={txHash}
+        networkId={networkId}
       />
     );
     let tree = component.toJSON();
@@ -38,6 +40,7 @@ describe('Component: STOScheduled', () => {
         isPolyFundraise={isPolyFundraise}
         fundsReceiver={fundsReceiver}
         txHash={txHash}
+        networkId={networkId}
       />
     );
 
@@ -57,6 +60,7 @@ describe('Component: STOScheduled', () => {
         isPolyFundraise={isPolyFundraise}
         fundsReceiver={fundsReceiver}
         txHash={txHash}
+        networkId={networkId}
       />
     );
     let tree = component.toJSON();
@@ -73,6 +77,7 @@ describe('Component: STOScheduled', () => {
         isPolyFundraise={isPolyFundraise}
         fundsReceiver={fundsReceiver}
         txHash={txHash}
+        networkId={networkId}
       />
     );
 
@@ -91,6 +96,7 @@ describe('Component: STOScheduled', () => {
         isPolyFundraise={false}
         fundsReceiver={fundsReceiver}
         txHash={txHash}
+        networkId={networkId}
       />
     );
     let tree = component.toJSON();

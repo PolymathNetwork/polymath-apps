@@ -1,6 +1,6 @@
 // @flow
 
-// TODO @monitz87: check and refactor if needed
+// TODO @monitz87: check component and refactor if needed
 
 import React from 'react';
 

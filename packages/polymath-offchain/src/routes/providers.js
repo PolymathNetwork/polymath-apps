@@ -1,7 +1,7 @@
 // @flow
 
 import Router from 'koa-router';
-import { DEPLOYMENT_STAGE, WEB3_NETWORK_WS } from '../constants';
+import { DEPLOYMENT_STAGE, NETWORKS } from '../constants';
 import Web3 from 'web3';
 import { User, Provider } from '../models';
 import { sendProviderApplicationEmail, verifySignature } from '../utils';
@@ -24,6 +24,7 @@ type ApplyRequestBody = {
   profilesURL: string,
   structureURL: string,
   otherDetails?: string,
+  networkId: string,
 };
 
 /**
@@ -52,10 +53,19 @@ const isApplyRequestValid = (body: ApplyRequestBody | any) => {
   Throws an error if a ticker hasn't been reserved for the given address
 
   @param {string} address client's ethereum address
+  @param {string} networkId id of the network where the ticker will be checked
  */
-const checkForReservedTicker = async address => {
-  const web3Client = new Web3(WEB3_NETWORK_WS);
-  const networkId = await web3Client.eth.net.getId();
+export const checkForReservedTicker = async (
+  address: string,
+  networkId: string
+) => {
+  const networkData = NETWORKS[networkId];
+
+  if (!networkData || !networkData.url) {
+    throw new Error('Invalid network id');
+  }
+
+  const web3Client = new Web3(networkData.url);
   const tickerRegistry = new web3Client.eth.Contract(
     artifact.abi,
     artifact.networks[networkId].address
@@ -135,6 +145,7 @@ const checkForReservedTicker = async address => {
   @param {string} profilesURL board member profiles URL
   @param {string} structureURL corporate structure URL
   @param {string} otherDetails more details about the company
+  @param {string} networkId id of the network the client is connected to
  */
 export const applyHandler = async (ctx: Context) => {
   let body = ctx.request.body;
@@ -162,6 +173,7 @@ export const applyHandler = async (ctx: Context) => {
     profilesURL,
     structureURL,
     otherDetails,
+    networkId,
   } = body;
 
   const error = await verifySignature(code, sig, address);
@@ -184,7 +196,7 @@ export const applyHandler = async (ctx: Context) => {
     Return an error if issuer hasn't reserved any tickers
    */
   try {
-    await checkForReservedTicker(address);
+    await checkForReservedTicker(address, networkId);
   } catch (error) {
     ctx.body = {
       status: 'error',
@@ -205,7 +217,10 @@ export const applyHandler = async (ctx: Context) => {
   };
 
   const { name: userName, email: userEmail } = user;
-  if (DEPLOYMENT_STAGE === 'production') {
+  if (
+    DEPLOYMENT_STAGE === 'production' &&
+    NETWORKS[networkId].name === 'mainnet'
+  ) {
     /* Send emails to all selected providers */
 
     const providers = await Provider.find({ id: { $in: ids } });
@@ -216,7 +231,8 @@ export const applyHandler = async (ctx: Context) => {
         providerName,
         userName,
         userEmail,
-        application
+        application,
+        false
       );
     }
   } else {
@@ -226,7 +242,8 @@ export const applyHandler = async (ctx: Context) => {
       userName,
       userName,
       userEmail,
-      application
+      application,
+      true
     );
   }
 

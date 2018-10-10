@@ -14,6 +14,7 @@ type Props = {|
   isPolyFundraise: boolean,
   fundsReceiver: string,
   txHash: string,
+  networkId: string,
 |};
 
 const thousandsDelimiter = (v: number) => {
@@ -32,10 +33,12 @@ export const STOScheduled = ({
   isPolyFundraise,
   fundsReceiver,
   txHash,
+  networkId,
 }: Props) => {
   const capRate = cap / rate;
   const amountOfFunds =
     isNaN(capRate) || capRate === Infinity ? '0' : thousandsDelimiter(capRate);
+
   return (
     <EmailWrapper>
       <h4>Congratulations!</h4>
@@ -50,7 +53,7 @@ export const STOScheduled = ({
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
           Transaction details on Etherscan:{' '}
-          <EtherscanURL type={'tx'} hash={txHash} />
+          <EtherscanURL type={'tx'} hash={txHash} networkId={networkId} />
         </div>
       </div>
       <div className="text">
@@ -64,7 +67,11 @@ export const STOScheduled = ({
             ETH Address to receive the funds raised during the STO
           </strong>
           <p>
-            <EtherscanURL type={'address'} hash={fundsReceiver} />
+            <EtherscanURL
+              type={'address'}
+              hash={fundsReceiver}
+              networkId={networkId}
+            />
           </p>
         </div>
         <div className="value">
