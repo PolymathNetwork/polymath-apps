@@ -15,10 +15,7 @@ import {
   NETWORK_KOVAN,
 } from '@polymathnetwork/ui';
 
-import type { Node } from 'react';
-
 import SplashPage from './SplashPage';
-import App from './App';
 
 type StateProps = {|
   isNotice: boolean,
@@ -31,8 +28,7 @@ const mapStateToProps = (state): StateProps => ({
 });
 
 type Props = {|
-  routes?: Object,
-  children: ?Node,
+  routes?: Object
 |} & StateProps;
 
 class Root extends Component<Props> {
