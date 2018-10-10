@@ -40,10 +40,8 @@ Mongodb uses `/data/db` as its data folder. If you don't have it you must create
 it
 
 ```
-mkdir -p /data/db
+sudo mkdir -p /data/db
 ```
-
-Make sure the current user has read/write access to the `/data/db` directory
 
 Finally, to start mongodb run:
 
