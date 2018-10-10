@@ -61,7 +61,7 @@ const mapDispatchToProps: DispatchProps = {
 };
 
 type Props = {|
-  routes: Object,
+  route: Object,
 |} & StateProps &
   DispatchProps;
 
@@ -81,7 +81,7 @@ class App extends Component<Props> {
   }
 
   render() {
-    const { ticker, isFetching, routes } = this.props;
+    const { ticker, isFetching, route } = this.props;
 
     return (
       <Fragment>
@@ -91,7 +91,7 @@ class App extends Component<Props> {
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
-        <AuthWrapper>{renderRoutes(routes)}</AuthWrapper>
+        <AuthWrapper>{renderRoutes(route.routes)}</AuthWrapper>
         <Footer />
       </Fragment>
     );

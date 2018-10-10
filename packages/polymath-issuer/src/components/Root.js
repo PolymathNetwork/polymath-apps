@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
 import { Loading } from 'carbon-components-react';
+import { renderRoutes } from 'react-router-config';
 import { hot } from 'react-hot-loader';
 import {
   MetamaskStatus,
@@ -53,7 +54,7 @@ class Root extends Component<Props> {
               guide={<MetamaskStatus networks="Mainnet or Kovan" />}
               networks={networks}
             >
-              <App routes={routes} />
+              {renderRoutes(routes)}
             </EthNetworkWrapper>
           )}
         </div>
