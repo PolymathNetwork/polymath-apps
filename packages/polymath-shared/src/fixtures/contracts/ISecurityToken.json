@@ -714,9 +714,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"./IST20.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\n\n/**\n * @title Interface for all security tokens\n */\ncontract ISecurityToken is IST20, Ownable {\n\n    uint8 public constant PERMISSIONMANAGER_KEY = 1;\n    uint8 public constant TRANSFERMANAGER_KEY = 2;\n    uint8 public constant STO_KEY = 3;\n    uint8 public constant CHECKPOINT_KEY = 4;\n    uint256 public granularity;\n\n    // Value of current checkpoint\n    uint256 public currentCheckpointId;\n\n    // Total number of non-zero token holders\n    uint256 public investorCount;\n\n    // List of token holders\n    address[] public investors;\n\n    // Permissions this to a Permission module, which has a key of 1\n    // If no Permission return false - note that IModule withPerm will allow ST owner all permissions anyway\n    // this allows individual modules to override this logic if needed (to not allow ST owner all permissions)\n    function checkPermission(address _delegate, address _module, bytes32 _perm) public view returns(bool);\n\n    /**\n     * @notice returns module list for a module type\n     * @param _moduleType is which type of module we are trying to remove\n     * @param _moduleIndex is the index of the module within the chosen type\n     */\n    function getModule(uint8 _moduleType, uint _moduleIndex) public view returns (bytes32, address);\n\n    /**\n     * @notice returns module list for a module name - will return first match\n     * @param _moduleType is which type of module we are trying to remove\n     * @param _name is the name of the module within the chosen type\n     */\n    function getModuleByName(uint8 _moduleType, bytes32 _name) public view returns (bytes32, address);\n\n    /**\n     * @notice Queries totalSupply as of a defined checkpoint\n     * @param _checkpointId Checkpoint ID to query as of\n     */\n    function totalSupplyAt(uint256 _checkpointId) public view returns(uint256);\n\n    /**\n     * @notice Queries balances as of a defined checkpoint\n     * @param _investor Investor to query balance for\n     * @param _checkpointId Checkpoint ID to query as of\n     */\n    function balanceOfAt(address _investor, uint256 _checkpointId) public view returns(uint256);\n\n    /**\n     * @notice Creates a checkpoint that can be used to query historical balances / totalSuppy\n     */\n    function createCheckpoint() public returns(uint256);\n\n    /**\n     * @notice gets length of investors array\n     * NB - this length may differ from investorCount if list has not been pruned of zero balance investors\n     * @return length\n     */\n    function getInvestorsLength() public view returns(uint256);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
     "exportedSymbols": {
       "ISecurityToken": [
         10099
@@ -737,7 +737,7 @@
         "src": "0:24:19"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IST20.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IST20.sol",
         "file": "./IST20.sol",
         "id": 10013,
         "nodeType": "ImportDirective",
@@ -1826,7 +1826,7 @@
     "src": "0:2640:19"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
     "exportedSymbols": {
       "ISecurityToken": [
         10099
@@ -1847,7 +1847,7 @@
         "src": "0:24:19"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IST20.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IST20.sol",
         "file": "./IST20.sol",
         "id": 10013,
         "nodeType": "ImportDirective",
@@ -2941,5 +2941,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.909Z"
+  "updatedAt": "2018-10-10T15:54:24.285Z"
 }
