@@ -3,6 +3,8 @@
 // eslint-disable-next-line
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import canUseDOM from 'can-use-dom';
+
 import type { Node } from 'react';
 
 import { init } from './actions';
@@ -35,19 +37,21 @@ type Props = {|
 |} & StateProps &
   DispatchProps;
 
-class EthNetworkWrapper extends Component<Props> {
+export class EthNetworkWrapper extends Component<Props> {
   init = () => {
     this.props.init(this.props.networks);
   };
 
   componentWillMount() {
     if (!this.props.isConnected && !this.props.isFailed) {
-      if (document.readyState === 'complete') {
-        this.init();
-      } else {
-        window.addEventListener('load', () => {
+      if (canUseDOM) {
+        if (document.readyState === 'complete') {
           this.init();
-        });
+        } else {
+          window.addEventListener('load', () => {
+            this.init();
+          });
+        }
       }
     }
   }

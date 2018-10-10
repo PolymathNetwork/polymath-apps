@@ -36,6 +36,10 @@ To run unit tests for all apps in parallel (for CI for example) run in root:
 To run unit tests for a specific app run:
 `yarn test:<app>` (for example `yarn test:ui`)
 
+To generate coverage files add run `yarn test --coverage`
+
+You can set the `junit` report directory with the env variable `JEST_JUNIT_OUTPUT_DIR`
+
 ## E2E Tests
 
 To also enable test coverage reports for **E2E tests** set `COVERAGE=true` in

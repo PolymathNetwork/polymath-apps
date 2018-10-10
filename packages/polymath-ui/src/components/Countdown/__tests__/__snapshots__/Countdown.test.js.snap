@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Countdown renders without crashing 1`] = `
+<div
+  className="pui-countdown"
+>
+  <div
+    className="pui-countdown-top-bar"
+  >
+    Time Left to Create Your Token
+  </div>
+  <div
+    className="pui-countdown-content"
+  >
+    <div
+      className="pui-countdown-days"
+    >
+      <div
+        className="pui-countdown-number-column pui-countdown-number"
+      >
+        <div>
+          <div>
+            00
+          </div>
+        </div>
+      </div>
+      <div
+        className="pui-countdown-number-column pui-countdown-number-text"
+      >
+        <div>
+          <div>
+            DAYS
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="pui-countdown-time"
+    >
+      <div
+        className="pui-countdown-number-column pui-countdown-number"
+      >
+        <div>
+          <div
+            className="pui-countdown-hours"
+          >
+            00
+          </div>
+        </div>
+        <div>
+          <div
+            className="pui-countdown-minutes"
+          >
+            00
+          </div>
+        </div>
+        <div>
+          <div
+            className="pui-countdown-seconds"
+          >
+            00
+          </div>
+        </div>
+      </div>
+      <div
+        className="pui-countdown-number-column pui-countdown-number-text"
+      >
+        
+        <div>
+          <div>
+            HOURS
+          </div>
+        </div>
+        <div>
+          <div>
+            MINUTES
+          </div>
+        </div>
+        <div>
+          <div>
+            SECONDS
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="bx--btn bx--btn--secondary"
+    disabled={false}
+    onClick={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+        }
+      }
+    >
+      Create Your Token Now
+       
+      
+    </div>
+  </button>
+</div>
+`;

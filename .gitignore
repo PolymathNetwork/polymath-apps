@@ -6,4 +6,6 @@ dist
 .env
 package-lock.json
 yarn-error.log
+coverage
+reports
 temp
