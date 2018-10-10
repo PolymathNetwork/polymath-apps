@@ -3,6 +3,8 @@
 // eslint-disable-next-line
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import canUseDOM from 'can-use-dom';
+
 import type { Node } from 'react';
 
 import { init } from './actions';
@@ -42,12 +44,14 @@ class EthNetworkWrapper extends Component<Props> {
 
   componentWillMount() {
     if (!this.props.isConnected && !this.props.isFailed) {
-      if (document.readyState === 'complete') {
-        this.init();
-      } else {
-        window.addEventListener('load', () => {
+      if (canUseDOM) {
+        if (document.readyState === 'complete') {
           this.init();
-        });
+        } else {
+          window.addEventListener('load', () => {
+            this.init();
+          });
+        }
       }
     }
   }

@@ -14,7 +14,6 @@ const webpack = require('webpack');
 const config = require('../config/webpack.config.prod');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
-const { printBrowsers } = require('react-dev-utils/browsersHelper');
 
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
@@ -44,8 +43,6 @@ checkBrowsers('.')
       }
 
       console.log();
-
-      printBrowsers('.');
     },
     err => {
       console.log(chalk.red('Failed to compile.\n'));

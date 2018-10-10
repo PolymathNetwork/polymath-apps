@@ -20,6 +20,7 @@
     "@polymathnetwork/js": "0.0.0",
     "axios": "^0.18.0",
     "bignumber.js": "6.0.0",
+    "can-use-dom": "^0.1.0",
     "carbon-components": "8.16.8",
     "carbon-components-react": "5.31.0",
     "carbon-icons": "6.3.2",
@@ -36,36 +37,67 @@
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
-    "@babel/plugin-proposal-export-default-from": "7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/plugin-transform-react-jsx": "7.0.0",
-    "@babel/preset-env": "7.0.0",
-    "@babel/preset-flow": "7.0.0",
-    "@babel/preset-react": "7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "css-loader": "^0.28.10",
+    "babel-loader": "8.0.4",
+    "babel-preset-react-app": "^5.0.0",
+    "css-loader": "^1.0.0",
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
     "docz-plugin-netlify": "^1.1.4",
     "docz-theme-default": "^0.11.2",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
+    "file-loader": "2.0.0",
     "jest": "22.4.3",
     "jest-enzyme": "^6.0.4",
     "node-sass": "^4.0.0",
+    "react-dev-utils": "^6.0.4",
     "react-test-renderer": "^16.5.2",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.12.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
-    "webpack": "^4.19.0",
-    "webpack-cli": "^3.1.0"
+    "webpack": "^4.19.0"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./src/specsInit.js",
-    "testURL": "http://localhost"
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.{js,jsx,mjs}",
+      "**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "./config/jest/testsConfig.js",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/config/jest/babelTransform.js",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^.+\\.(graphql)$": "<rootDir>/config/jest/graphqlTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json|graphql)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ]
   },
   "browserslist": {
     "development": [
