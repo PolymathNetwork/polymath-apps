@@ -10,14 +10,6 @@ const {
 } = require('./constants');
 const { runCommand } = require('../utils');
 
-async function copyArtifactsFromCore() {
-  const coreArtifactsDir = path.resolve(
-    PACKAGE_ROOT_DIR,
-    '../../node_modules/polymath-core/build'
-  );
-  await fs.copy(coreArtifactsDir, path.resolve(__dirname, './build'));
-}
-
 /**
  * Starts local blockchain through ganache-cli
  * Resolves once the local blockchain finishes booting
@@ -100,5 +92,4 @@ module.exports = {
   compileContracts,
   migrateContracts,
   moveFilesAndCleaup,
-  copyArtifactsFromCore,
 };
