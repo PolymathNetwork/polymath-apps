@@ -7,6 +7,7 @@ import { uiReducer, networkReducer } from './redux/reducer';
 
 const mockStore = configureMockStore([thunk]);
 
+// NOTE @RafaelVidaurre: Not sure when we'd ever need this
 global.store = mockStore({
   ui: uiReducer(undefined, {}),
   network: networkReducer(undefined, {}),
