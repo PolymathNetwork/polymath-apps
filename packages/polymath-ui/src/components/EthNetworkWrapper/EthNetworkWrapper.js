@@ -37,7 +37,7 @@ type Props = {|
 |} & StateProps &
   DispatchProps;
 
-class EthNetworkWrapper extends Component<Props> {
+export class EthNetworkWrapper extends Component<Props> {
   init = () => {
     this.props.init(this.props.networks);
   };
