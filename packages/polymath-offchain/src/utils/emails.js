@@ -80,18 +80,22 @@ export type Application = {|
   @param {string} issuerName name of the issuer
   @param {string} issuerEmail email address of the issuer
   @param {Object} application application form fields
+  @param {boolean} dummy true if email is for testing purposes
  */
 export const sendProviderApplicationEmail = async (
   providerEmail: string,
   providerName: string,
   issuerName: string,
   issuerEmail: string,
-  application: Application
+  application: Application,
+  dummy: boolean
 ) => {
   await sendEmail(
     providerEmail,
     providerName,
-    `${application.companyName} is interested in your services`,
+    `${dummy ? 'DEMO: ' : ''}${
+      application.companyName
+    } is interested in your services`,
     ReactDOMServer.renderToStaticMarkup(
       <ProviderApplication
         issuerName={issuerName}
@@ -113,13 +117,15 @@ export const sendProviderApplicationEmail = async (
   @param {string} issuerName name of the issuer
   @param {string} txHash transaction hash
   @param {string} expiryLimit number of days before the ticker reservation expires
+  @param {string} networkId id of the network in which the ticker was reserved
  */
 export const sendTickerReservedEmail = async (
   issuerEmail: string,
   issuerName: string,
   txHash: string,
   ticker: string,
-  expiryLimit: number
+  expiryLimit: number,
+  networkId: string
 ) => {
   await sendEmail(
     issuerEmail,
@@ -130,6 +136,7 @@ export const sendTickerReservedEmail = async (
         txHash={txHash}
         ticker={ticker}
         expiryLimit={expiryLimit}
+        networkId={networkId}
       />
     )
   );
@@ -142,19 +149,21 @@ export const sendTickerReservedEmail = async (
   @param {string} issuerName name of the issuer
   @param {string} txHash transaction hash
   @param {string} ticker name of the token
+  @param {string} networkId id of the network to which the token was deployed
  */
 export const sendTokenCreatedEmail = async (
   issuerEmail: string,
   issuerName: string,
   txHash: string,
-  ticker: string
+  ticker: string,
+  networkId: string
 ) => {
   await sendEmail(
     issuerEmail,
     issuerName,
     `${ticker} Token Created on Polymath`,
     ReactDOMServer.renderToStaticMarkup(
-      <TokenCreated txHash={txHash} ticker={ticker} />
+      <TokenCreated txHash={txHash} ticker={ticker} networkId={networkId} />
     )
   );
 };
@@ -171,6 +180,7 @@ export const sendTokenCreatedEmail = async (
   @param {boolean} isPolyFundraise true if the funds are raised in POLY, false if they are raised in ETH
   @param {number} rate conversion rate between currency of choice and the issuer's security token
   @param {Date} start start date of the STO
+  @param {string} networkId id of the network in which the STO was scheduled
  */
 export const sendSTOScheduledEmail = async (
   issuerEmail: string,
@@ -181,7 +191,8 @@ export const sendSTOScheduledEmail = async (
   fundsReceiver: string,
   isPolyFundraise: boolean,
   rate: number,
-  start: Date
+  start: Date,
+  networkId: string
 ) => {
   await sendEmail(
     issuerEmail,
@@ -196,6 +207,7 @@ export const sendSTOScheduledEmail = async (
         isPolyFundraise={isPolyFundraise}
         rate={rate}
         start={start}
+        networkId={networkId}
       />
     )
   );

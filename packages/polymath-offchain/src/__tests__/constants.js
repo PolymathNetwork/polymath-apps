@@ -31,8 +31,10 @@ describe('Constants', () => {
     process.env = { ...ORIGINAL_ENV };
   });
 
-  test('throws error when WEB3_NETWORK_NAME is not valid', () => {
-    process.env.WEB3_NETWORK_NAME = 'SOME INVALID NETWORK NAME';
+  test('throws error when no network URL has been set', () => {
+    process.env.WEB3_NETWORK_LOCAL_WS = undefined;
+    process.env.WEB3_NETWORK_KOVAN_WS = undefined;
+    process.env.WEB3_NETWORK_MAINNET_WS = undefined;
     expect(() => require('../constants.js')).toThrowError();
   });
 });

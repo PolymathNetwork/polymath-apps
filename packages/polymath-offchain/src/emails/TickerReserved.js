@@ -9,9 +9,15 @@ type Props = {|
   txHash: string,
   ticker: string,
   expiryLimit: number,
+  networkId: string,
 |};
 
-export const TickerReserved = ({ txHash, ticker, expiryLimit }: Props) => {
+export const TickerReserved = ({
+  txHash,
+  ticker,
+  expiryLimit,
+  networkId,
+}: Props) => {
   return (
     <EmailWrapper>
       <h4>Congratulations!</h4>
@@ -25,7 +31,7 @@ export const TickerReserved = ({ txHash, ticker, expiryLimit }: Props) => {
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
           Transaction details on Etherscan:{' '}
-          <EtherscanURL type={'tx'} hash={txHash} />
+          <EtherscanURL type={'tx'} hash={txHash} networkId={networkId} />
         </div>
       </div>
       <div className="icon-text" style={{ height: '78px' }}>

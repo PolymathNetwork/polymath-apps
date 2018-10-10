@@ -26,7 +26,9 @@ describe('Component: EtherscanURL', () => {
   const hash = '0xffffffffffff';
 
   test('renders transaction url', () => {
-    const component = renderer.create(<EtherscanURL type={'tx'} hash={hash} />);
+    const component = renderer.create(
+      <EtherscanURL type={'tx'} hash={hash} networkId={'15'} />
+    );
 
     const tree = component.toJSON();
 
@@ -34,7 +36,9 @@ describe('Component: EtherscanURL', () => {
   });
 
   test('renders non-transaction url', () => {
-    const component = renderer.create(<EtherscanURL type={''} hash={hash} />);
+    const component = renderer.create(
+      <EtherscanURL type={''} hash={hash} networkId={'15'} />
+    );
 
     const tree = component.toJSON();
 

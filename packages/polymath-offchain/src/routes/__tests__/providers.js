@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 import { User } from '../../models';
 import { verifySignature } from '../../utils';
-import { applyHandler } from '../providers';
+import { applyHandler, checkForReservedTicker } from '../providers';
 
 jest.mock('web3');
 
@@ -42,6 +42,33 @@ jest.mock(
   }
 );
 
+const validEmail = 'jeremias@polymath.network';
+const validName = 'Jeremías Díaz';
+const validUser = {
+  address: validAddress,
+  email: validEmail,
+  name: validName,
+};
+
+const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
+
+const returnValidUser = () => validUser;
+const returnNull = () => null;
+
+describe('Function: checkForReservedTicker', () => {
+  const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  test('throws an error if the network id is invalid', async () => {
+    expect(checkForReservedTicker(validAddress, '0')).rejects.toEqual(
+      new Error('Invalid network id')
+    );
+  });
+});
+
 describe('Route: POST /providers/apply', () => {
   const generateInvalidRequestBodyTest = body => {
     return async () => {
@@ -60,7 +87,6 @@ describe('Route: POST /providers/apply', () => {
     };
   };
 
-  const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
   const validCode = 'c2dccbea5e17e2b4';
   const validSig =
     '0xc69e7dbed9982c5b68663824e346ab5d52f60265474bc21d4c82b77f01884cca225adc4299e18446509ede2c29c939da32e29230e239e92fbf88de7caff849231c';
@@ -73,6 +99,8 @@ describe('Route: POST /providers/apply', () => {
   const validProfilesURL = 'http://www.some.profiles.url';
   const validStructureURL = 'http://www.some.structure.url';
   const validOtherDetails = 'Some details';
+
+  const validNetworkId = '15';
 
   const validBody = {
     code: validCode,
@@ -87,6 +115,7 @@ describe('Route: POST /providers/apply', () => {
     profilesURL: validProfilesURL,
     structureURL: validStructureURL,
     otherDetails: validOtherDetails,
+    networkId: validNetworkId,
   };
 
   afterEach(() => {
@@ -113,6 +142,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -131,6 +161,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -149,6 +180,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -167,6 +199,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -185,6 +218,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -203,6 +237,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -221,6 +256,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -239,6 +275,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -257,6 +294,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -275,6 +313,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: 1,
       structureURL: validStructureURL,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -293,6 +332,7 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: 1,
       otherDetails: validOtherDetails,
+      networkId: validNetworkId,
     })
   );
 
@@ -311,6 +351,26 @@ describe('Route: POST /providers/apply', () => {
       profilesURL: validProfilesURL,
       structureURL: validStructureURL,
       otherDetails: 1,
+      networkId: validNetworkId,
+    })
+  );
+
+  test(
+    'responds with an error if networkId is not a string',
+    generateInvalidRequestBodyTest({
+      code: validCode,
+      sig: validSig,
+      address: validAddress,
+      companyName: validCompanyName,
+      ids: validIds,
+      companyDesc: validCompanyDesc,
+      operatedIn: validOperatedIn,
+      incorporatedIn: validIncorporatedIn,
+      projectURL: validProjectURL,
+      profilesURL: validProfilesURL,
+      structureURL: validStructureURL,
+      otherDetails: validOtherDetails,
+      networkId: 1,
     })
   );
 
@@ -333,8 +393,6 @@ describe('Route: POST /providers/apply', () => {
     expect(ctx.body).toEqual(expectedError);
   });
 
-  const returnNull = () => null;
-
   test('responds with an error if the user does not exist in the database', async () => {
     User.findOne.mockImplementation(() => undefined);
 
@@ -353,16 +411,6 @@ describe('Route: POST /providers/apply', () => {
       data: 'Invalid user',
     });
   });
-
-  const validEmail = 'jeremias@polymath.network';
-  const validName = 'Jeremías Díaz';
-  const validUser = {
-    address: validAddress,
-    email: validEmail,
-    name: validName,
-  };
-
-  const returnValidUser = () => validUser;
 
   test('responds with an error if the user has no reserved tickers', async () => {
     User.findOne.mockImplementation(returnValidUser);
@@ -481,6 +529,12 @@ describe('Route: POST /providers/apply', () => {
     jest.mock('../../constants', () => {
       return {
         DEPLOYMENT_STAGE: 'production',
+        NETWORKS: {
+          '15': {
+            name: 'mainnet',
+            url: 'ws://some.url',
+          },
+        },
       };
     });
 
@@ -494,6 +548,8 @@ describe('Route: POST /providers/apply', () => {
 
     modules.Web3.mockImplementation(returnMockWeb3Client);
 
+    const newBody = { ...validBody };
+    newBody.networkId = '1';
     let ctx = {
       request: {
         body: validBody,
@@ -508,7 +564,8 @@ describe('Route: POST /providers/apply', () => {
       expectedProvider4.name,
       validName,
       validEmail,
-      validApplication
+      validApplication,
+      false
     );
     expect(ctx.body).toEqual(expectedResponse);
 
@@ -522,6 +579,12 @@ describe('Route: POST /providers/apply', () => {
     jest.doMock('../../constants', () => {
       return {
         DEPLOYMENT_STAGE: 'local',
+        NETWORKS: {
+          '15': {
+            name: 'local',
+            url: 'ws://some.url',
+          },
+        },
       };
     });
 
@@ -542,7 +605,8 @@ describe('Route: POST /providers/apply', () => {
       validName,
       validName,
       validEmail,
-      validApplication
+      validApplication,
+      true
     );
 
     expect(ctx.body).toEqual(expectedResponse);

@@ -243,7 +243,7 @@ export const providersApply = (data: Object) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  await offchain.providersApply(data);
+  await offchain.providersApply(data, getState().network.id.toString());
 };
 
 export const faucet = (message: string) => async (
