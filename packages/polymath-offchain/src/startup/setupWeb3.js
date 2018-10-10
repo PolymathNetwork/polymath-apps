@@ -297,7 +297,7 @@ export const registerTickerHandler = async (
   }
 
   const {
-    returnValues: { _symbol: ticker, _owner: userAddress },
+    returnValues: { _ticker: ticker, _owner: userAddress },
     transactionHash,
   } = result;
 
@@ -309,7 +309,7 @@ export const registerTickerHandler = async (
     Get expiry limit in seconds from Security Token Registry
    */
   const expiryLimitSeconds: number = await contract.methods
-    .expiryLimit()
+    .getExpiryLimit()
     .call();
   const expiryLimit = expiryLimitSeconds / 60 / 60 / 24;
 
