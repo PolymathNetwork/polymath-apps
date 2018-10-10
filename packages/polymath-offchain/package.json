@@ -50,6 +50,7 @@
     "eslint-config-react-app": "2.1.0",
     "flow-bin": "^0.81.0",
     "jest": "22.4.3",
+    "jest-junit": "^5.2.0",
     "react-test-renderer": "^16.5.2"
   },
   "jest": {
@@ -69,6 +70,10 @@
     "coverageReporters": [
       "lcov",
       "cobertura"
+    ],
+    "coverageDirectory": "<rootDir>/reports",
+    "reporters": [
+      "jest-junit"
     ]
   }
 }
