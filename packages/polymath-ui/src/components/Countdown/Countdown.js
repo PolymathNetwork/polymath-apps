@@ -75,7 +75,8 @@ export default class Countdown extends Component<CountdownProps, State> {
   }
 
   updateTimeUntil = (deadline: Date) => {
-    const time = deadline - new Date();
+    const now = Date.now();
+    const time = deadline - now;
 
     if (time < 0) {
       this.setState({ days: 0, hours: 0, minutes: 0, seconds: 0 });

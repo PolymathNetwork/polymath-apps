@@ -73,6 +73,9 @@
     "roots": [
       "<rootDir>/src"
     ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/build/"
+    ],
     "testEnvironment": "node",
     "setupTestFrameworkScriptFile": "./src/specsInit.js",
     "testURL": "http://localhost",

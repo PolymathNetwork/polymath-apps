@@ -1,18 +1,16 @@
 import React, { Fragment } from 'react';
 import renderer from 'react-test-renderer';
-import { Provider } from 'react-redux';
 
 import {
   CheckboxInput,
-  DatePickerInput,
-  DatePickerRangeInput,
   RadioInput,
   selectInput,
   TextAreaInput,
   TextInput,
   TimePickerInput,
-} from './';
+} from '../index';
 
+// TODO @RafaelVidaurre: move each test to its own file
 test('renders without crashing', () => {
   // TODO @grsmto: investigate why the DatePickers are not rendering here
   const component = renderer.create(
