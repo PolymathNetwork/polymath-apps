@@ -23,5 +23,5 @@ Not all 3 network URLs must be set, but **at least one is required**
 `NODE_ENV`: Application environment (can be `test`, `development` or `production`)
 `DEPLOYMENT_STAGE`: Application deployment stage (can be `local`, `staging` or `production`)
 
-`MONGODB_URL`: The database connection URL
+`MONGODB_URI`: The database connection URL
 `SENDGRID_API_KEY`: API key of the sendgrid mailing service
