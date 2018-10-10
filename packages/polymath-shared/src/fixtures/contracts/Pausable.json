@@ -40,14 +40,14 @@
       "type": "event"
     }
   ],
-  "bytecode": "0x60806040526000805460ff19169055348015601957600080fd5b50609e806100286000396000f300608060405260043610603e5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416635c975abb81146043575b600080fd5b348015604e57600080fd5b5060556069565b604080519115158252519081900360200190f35b60005460ff16815600a165627a7a72305820e92d5ff03906f6c6d8ffdec9d25bcd710c2231d2ec79703f77124660faed4ad10029",
-  "deployedBytecode": "0x608060405260043610603e5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416635c975abb81146043575b600080fd5b348015604e57600080fd5b5060556069565b604080519115158252519081900360200190f35b60005460ff16815600a165627a7a72305820e92d5ff03906f6c6d8ffdec9d25bcd710c2231d2ec79703f77124660faed4ad10029",
+  "bytecode": "0x60806040526000805460ff19169055348015601957600080fd5b50609e806100286000396000f300608060405260043610603e5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416635c975abb81146043575b600080fd5b348015604e57600080fd5b5060556069565b604080519115158252519081900360200190f35b60005460ff16815600a165627a7a723058202e783a6d1cda0c3dcca27ebf7979e7450e318ab840356b0f8833cc421c7e6cdb0029",
+  "deployedBytecode": "0x608060405260043610603e5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416635c975abb81146043575b600080fd5b348015604e57600080fd5b5060556069565b604080519115158252519081900360200190f35b60005460ff16815600a165627a7a723058202e783a6d1cda0c3dcca27ebf7979e7450e318ab840356b0f8833cc421c7e6cdb0029",
   "sourceMap": "113:903:2:-;;;237:5;216:26;;-1:-1:-1;;216:26:2;;;113:903;5:2:-1;;;;30:1;27;20:12;5:2;113:903:2;;;;;;;",
   "deployedSourceMap": "113:903:2:-;;;;;;;;;;;;;;;;;;;;;;;216:26;;8:9:-1;5:2;;;30:1;27;20:12;5:2;216:26:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Utility contract to allow pausing and unpausing of certain functions\n */\ncontract Pausable {\n\n    event Pause(uint256 _timestammp);\n    event Unpause(uint256 _timestamp);\n\n    bool public paused = false;\n\n    /**\n    * @notice Modifier to make a function callable only when the contract is not paused.\n    */\n    modifier whenNotPaused() {\n        require(!paused, \"Contract is paused\");\n        _;\n    }\n\n    /**\n    * @notice Modifier to make a function callable only when the contract is paused.\n    */\n    modifier whenPaused() {\n        require(paused, \"Contract is not paused\");\n        _;\n    }\n\n   /**\n    * @notice called by the owner to pause, triggers stopped state\n    */\n    function _pause() whenNotPaused internal {\n        paused = true;\n        emit Pause(now);\n    }\n\n    /**\n    * @notice called by the owner to unpause, returns to normal state\n    */\n    function _unpause() whenPaused internal {\n        paused = false;\n        emit Unpause(now);\n    }\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/Pausable.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/Pausable.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
     "exportedSymbols": {
       "Pausable": [
         471
@@ -761,7 +761,7 @@
     "src": "0:1017:2"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/Pausable.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
     "exportedSymbols": {
       "Pausable": [
         471
@@ -1480,5 +1480,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.511Z"
+  "updatedAt": "2018-10-10T15:54:24.015Z"
 }

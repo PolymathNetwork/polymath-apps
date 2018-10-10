@@ -1,1 +1,1 @@
-web: yarn start:dist
+web: cd packages/polymath-offchain && yarn start:dist

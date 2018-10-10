@@ -79,6 +79,7 @@
     "html-webpack-plugin": "3.2.0",
     "image-webpack-loader": "^4.3.1",
     "jest": "22.4.3",
+    "jest-junit": "^5.2.0",
     "loader-utils": "^1.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.3",
@@ -152,6 +153,14 @@
       "jsx",
       "node",
       "mjs"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "cobertura"
+    ],
+    "coverageDirectory": "<rootDir>/reports",
+    "reporters": [
+      "jest-junit"
     ]
   }
 }
