@@ -110,6 +110,7 @@ export const todayOrLater = (date: ?Date): ?string => {
   const dayBegin = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   if (dayBegin.getTime() > date.getTime()) {
+    console.log('Date is in the past.');
     return 'Date is in the past.';
   }
 

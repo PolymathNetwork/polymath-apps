@@ -72,7 +72,7 @@ class ConfigureSTO extends Component<Props> {
               <h1 className="pui-h1">Security Token Offering Configuration</h1>
               <br />
               <div className="bx--row">
-                <div className="bx--col-xs-5">
+                <div className="bx--col-xs-8">
                   <div className="pui-page-box">
                     <h2 className="pui-h2">Simple Capped Offering</h2>
                     <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
@@ -82,7 +82,7 @@ class ConfigureSTO extends Component<Props> {
                     <ConfigureSTOForm onSubmit={this.handleSubmit} />
                   </div>
                 </div>
-                <div className="bx--col-xs-7">
+                <div className="bx--col-xs-4">
                   <STODetails item={factory} />
                 </div>
               </div>

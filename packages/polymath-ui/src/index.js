@@ -15,6 +15,9 @@ export {
   default as TimePickerInput,
   twelveHourTimeToMinutes,
 } from './components/inputs/TimePickerInput';
+export {
+  default as TimePickerSelect,
+} from './components/inputs/TimePickerSelect';
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';
 export { default as Remark } from './components/Remark';

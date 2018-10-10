@@ -1,14 +1,18 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, getFormMeta, getFormSyncErrors } from 'redux-form';
+import moment from 'moment';
 
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
 import {
   TextInput,
   SelectInput,
+  DatePickerInput,
   DatePickerRangeInput,
   TimePickerInput,
+  TimePickerSelect,
   timeZoneName,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
@@ -16,11 +20,13 @@ import {
   required,
   numeric,
   twelveHourTime,
+  todayOrLater,
   dateRange,
   dateRangeTodayOrLater,
   ethereumAddress,
   gt,
 } from '@polymathnetwork/ui/validate';
+import { isMoment } from 'moment';
 
 export const formName = 'configure_sto';
 
@@ -65,9 +71,36 @@ class ConfigureSTOForm extends Component<Props, State> {
     );
   };
 
+  checkStartAfterEnd = (value, allValues) => {
+    // console.log(value, allValues.endDate[0])
+    // console.log(moment(allValues.startDate[0]).isAfter(allValues.endDate[0]))
+    if (moment(allValues.startDate[0]).isAfter(allValues.endDate[0])) {
+      return 'End date must be after start date';
+    }
+  };
+
+  checkStartTime = (value, allValues) => {
+    console.log(value, allValues);
+    console.log(moment(allValues.startDate[0] + ' ' + allValues.startTime));
+
+    const startTime = allValues.startTime;
+    const startDate = allValues.startDate;
+    console.log(startTime, endTime);
+    if (!startTime || !startDate) {
+      return null;
+    } else {
+      let [hours, minutes] = startTime.timeString.split(':');
+      const startDateTime = moment.add({ hours: hours, minutes: minutes });
+      if (new Date().getTime() > startDateTime.getTime()) {
+        return 'Time is in the past';
+      }
+    }
+  };
+
   pastCheck = (value, allValues) => {
     const startTime = allValues.startTime;
-    const dateRange = allValues['start-end'];
+    const dateRange = allValues['startDate'];
+    console.log(value, allValues);
     if (!startTime || !dateRange) {
       return null;
     } else {
@@ -82,6 +115,7 @@ class ConfigureSTOForm extends Component<Props, State> {
         hours,
         parseInt(minutes, 10)
       );
+      console.log(startDateTime);
       if (new Date().getTime() > startDateTime.getTime()) {
         return 'Time is in the past.';
       } else if (new Date().getTime() + 600000 > startDateTime.getTime()) {
@@ -100,14 +134,42 @@ class ConfigureSTOForm extends Component<Props, State> {
   render() {
     return (
       <Form onSubmit={this.props.handleSubmit}>
-        <Field
-          name="start-end"
-          component={DatePickerRangeInput}
-          label="Start Date;End Date"
-          placeholder="mm / dd / yyyy"
-          validate={[required, dateRange, dateRangeTodayOrLater]}
-        />
         <div className="time-pickers-container">
+          <Field
+            name="startDate"
+            component={DatePickerInput}
+            label="Start Date"
+            placeholder="mm / dd / yyyy"
+            validate={[required, todayOrLater]}
+          />
+          <Field
+            name="startTime"
+            step={30}
+            component={TimePickerSelect}
+            className="bx--time-picker__select"
+            placeholder="hh:mm"
+            label="Time"
+            validate={[twelveHourTime, this.checkStartTime]}
+          />
+
+          <Field
+            name="endDate"
+            component={DatePickerInput}
+            label="End Date"
+            placeholder="mm / dd / yyyy"
+            validate={[required, todayOrLater, this.checkStartAfterEnd]}
+          />
+          <Field
+            name="endTime"
+            step={30}
+            component={TimePickerSelect}
+            className="bx--time-picker__select"
+            placeholder="hh:mm"
+            label="Time"
+          />
+        </div>
+
+        {/* <div className="time-pickers-container">
           <Field
             name="startTime"
             component={TimePickerInput}
@@ -125,7 +187,7 @@ class ConfigureSTOForm extends Component<Props, State> {
             }
             validate={[twelveHourTime]}
           />
-        </div>
+        </div> */}
         <Field
           name="currency"
           component={SelectInput}
@@ -208,14 +270,4 @@ class ConfigureSTOForm extends Component<Props, State> {
 
 export default reduxForm({
   form: formName,
-  initialValues: {
-    startTime: {
-      timeString: '',
-      dayPeriod: 'AM',
-    },
-    endTime: {
-      timeString: '',
-      dayPeriod: 'AM',
-    },
-  },
 })(ConfigureSTOForm);
