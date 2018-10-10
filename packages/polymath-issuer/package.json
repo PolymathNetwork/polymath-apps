@@ -152,6 +152,9 @@
       "jsx",
       "node",
       "mjs"
+    ],
+    "coverageReporters": [
+      "cobertura"
     ]
   }
 }

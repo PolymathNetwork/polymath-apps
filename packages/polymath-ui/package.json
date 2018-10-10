@@ -86,6 +86,9 @@
     },
     "collectCoverageFrom": [
       "src/**/*.js"
+    ],
+    "coverageReporters": [
+      "cobertura"
     ]
   },
   "browserslist": {

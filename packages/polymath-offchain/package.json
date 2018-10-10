@@ -65,6 +65,9 @@
     ],
     "setupFiles": [
       "./src/specsInit.js"
+    ],
+    "coverageReporters": [
+      "cobertura"
     ]
   }
 }
