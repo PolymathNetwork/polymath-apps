@@ -28,7 +28,7 @@ const mapStateToProps = (state): StateProps => ({
 });
 
 type Props = {|
-  routes?: Object
+  routes?: Object,
 |} & StateProps;
 
 class Root extends Component<Props> {
@@ -59,4 +59,4 @@ class Root extends Component<Props> {
   }
 }
 
-export default connect(mapStateToProps)(Root);
+export default hot(module)(connect(mapStateToProps)(Root));
