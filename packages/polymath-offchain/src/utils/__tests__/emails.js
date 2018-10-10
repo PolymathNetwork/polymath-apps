@@ -197,7 +197,38 @@ describe('Function: sendProviderApplicationEmail', () => {
       validProviderName,
       validName,
       validEmail,
-      validApplication
+      validApplication,
+      false
+    );
+
+    expect(sgMail.send).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  test('adds a DEMO tag to the subject if dummy is true', async () => {
+    const expectedMsg = {
+      from: { email: polymathEmail, name: polymathName },
+      replyTo: {
+        name: validName,
+        email: validEmail,
+      },
+      to: { name: validName, email: validEmail },
+      subject: `DEMO: ${
+        validApplication.companyName
+      } is interested in your services`,
+      html: validMarkup,
+    };
+
+    ReactDOMServer.renderToStaticMarkup.mockImplementationOnce(
+      returnValidMarkup
+    );
+
+    await sendProviderApplicationEmail(
+      validEmail,
+      validName,
+      validName,
+      validEmail,
+      validApplication,
+      true
     );
 
     expect(sgMail.send).toHaveBeenCalledWith(expectedMsg);

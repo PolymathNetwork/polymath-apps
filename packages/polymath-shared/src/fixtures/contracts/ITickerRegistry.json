@@ -100,9 +100,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for the polymath ticker registry contract\n */\ncontract ITickerRegistry {\n    /**\n    * @notice Check the validity of the symbol\n    * @param _symbol token symbol\n    * @param _owner address of the owner\n    * @param _tokenName Name of the token\n    * @return bool\n    */\n    function checkValidity(string _symbol, address _owner, string _tokenName) public returns(bool);\n\n    /**\n    * @notice Returns the owner and timestamp for a given symbol\n    * @param _symbol symbol\n    */\n    function getDetails(string _symbol) public view returns (address, uint256, string, bytes32, bool);\n\n    /**\n     * @notice Check the symbol is reserved or not\n     * @param _symbol Symbol of the token\n     * @return bool\n     */\n     function isReserved(string _symbol, address _owner, string _tokenName, bytes32 _swarmHash) public returns(bool);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ITickerRegistry.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ITickerRegistry.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ITickerRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ITickerRegistry.sol",
     "exportedSymbols": {
       "ITickerRegistry": [
         10208
@@ -626,7 +626,7 @@
     "src": "0:884:21"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ITickerRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ITickerRegistry.sol",
     "exportedSymbols": {
       "ITickerRegistry": [
         10208
@@ -1155,5 +1155,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.910Z"
+  "updatedAt": "2018-10-10T15:54:24.287Z"
 }

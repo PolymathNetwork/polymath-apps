@@ -180,8 +180,8 @@ export const configure = () => async (
               await contract.setCappedSTO(
                 startDateWithTime,
                 endDateWithTime,
-                values.cap,
-                values.rate,
+                values.cap.replace(/,/g, ''),
+                values.rate.replace(/,/g, ''),
                 isEthFundraise,
                 values.fundsReceiver
               );

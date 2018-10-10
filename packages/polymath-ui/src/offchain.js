@@ -52,12 +52,13 @@ export const confirmEmail = async (pin: string) => {
   return post('/email/confirm', { pin });
 };
 
-export const providersApply = async (data: Object) => {
+export const providersApply = async (data: Object, networkId: string) => {
   return post('/providers/apply', {
     ...data,
     code,
     sig,
     address,
+    networkId,
   });
 };
 

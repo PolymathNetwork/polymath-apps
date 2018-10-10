@@ -25,7 +25,7 @@ type Props = {
 
 class RouteLoader extends Component<Props> {
   render() {
-    const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera
+    const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     if (isMobile || isUnsupportedBrowser) {
       return (
         <Root>

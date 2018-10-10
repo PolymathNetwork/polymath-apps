@@ -125,9 +125,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"./ISecurityToken.sol\";\nimport \"./IModuleFactory.sol\";\nimport \"openzeppelin-solidity/contracts/token/ERC20/ERC20.sol\";\n\n/**\n * @title Interface that any module contract should implement\n */\ncontract IModule {\n\n    address public factory;\n\n    address public securityToken;\n\n    bytes32 public constant FEE_ADMIN = \"FEE_ADMIN\";\n\n    ERC20 public polyToken;\n\n    /**\n     * @notice Constructor\n     * @param _securityToken Address of the security token\n     * @param _polyAddress Address of the polytoken\n     */\n    constructor (address _securityToken, address _polyAddress) public {\n        securityToken = _securityToken;\n        factory = msg.sender;\n        polyToken = ERC20(_polyAddress);\n    }\n\n    /**\n     * @notice This function returns the signature of configure function\n     */\n    function getInitFunction() public pure returns (bytes4);\n\n    //Allows owner, factory or permissioned delegate\n    modifier withPerm(bytes32 _perm) {\n        bool isOwner = msg.sender == ISecurityToken(securityToken).owner();\n        bool isFactory = msg.sender == factory;\n        require(isOwner||isFactory||ISecurityToken(securityToken).checkPermission(msg.sender, address(this), _perm), \"Permission check failed\");\n        _;\n    }\n\n    modifier onlyOwner {\n        require(msg.sender == ISecurityToken(securityToken).owner(), \"Sender is not owner\");\n        _;\n    }\n\n    modifier onlyFactory {\n        require(msg.sender == factory, \"Sender is not factory\");\n        _;\n    }\n\n    modifier onlyFactoryOwner {\n        require(msg.sender == IModuleFactory(factory).owner(), \"Sender is not factory owner\");\n        _;\n    }\n\n    /**\n     * @notice Return the permissions flag that are associated with Module\n     */\n    function getPermissions() public view returns(bytes32[]);\n\n    /**\n     * @notice used to withdraw the fee by the factory owner\n     */\n    function takeFee(uint256 _amount) public withPerm(FEE_ADMIN) returns(bool) {\n        require(polyToken.transferFrom(address(this), IModuleFactory(factory).owner(), _amount), \"Unable to take fee\");\n        return true;\n    }\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModule.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModule.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
     "exportedSymbols": {
       "IModule": [
         9657
@@ -148,7 +148,7 @@
         "src": "0:24:13"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "./ISecurityToken.sol",
         "id": 9495,
         "nodeType": "ImportDirective",
@@ -159,7 +159,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModuleFactory.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
         "file": "./IModuleFactory.sol",
         "id": 9496,
         "nodeType": "ImportDirective",
@@ -2375,7 +2375,7 @@
     "src": "0:2116:13"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModule.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
     "exportedSymbols": {
       "IModule": [
         9657
@@ -2396,7 +2396,7 @@
         "src": "0:24:13"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "./ISecurityToken.sol",
         "id": 9495,
         "nodeType": "ImportDirective",
@@ -2407,7 +2407,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/interfaces/IModuleFactory.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
         "file": "./IModuleFactory.sol",
         "id": 9496,
         "nodeType": "ImportDirective",
@@ -4628,5 +4628,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.907Z"
+  "updatedAt": "2018-10-10T15:54:24.280Z"
 }
