@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "docz dev",
     "build": "webpack --config webpack.prod.js",
-    "build:docz": "docz build",
+    "build:website": "docz build",
     "test": "jest",
     "typecheck": "flow --show-all-branches",
     "analyze": "source-map-explorer build/main.*"

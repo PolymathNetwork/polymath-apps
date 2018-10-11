@@ -23,7 +23,7 @@
     "build:apps": "lerna run --parallel --stream --scope=@polymathnetwork/{issuer,investor,offchain} build",
     "build:libs": "lerna run --parallel --stream --scope=@polymathnetwork/{auth,ui,js} build",
     "build:heroku-apps": "lerna run --parallel --stream --scope=@polymathnetwork/offchain build",
-    "build:docz": "lerna run --parallel --stream --scope=@polymathnetwork/ui build:docz",
+    "build:ui-website": "lerna run --parallel --stream --scope=@polymathnetwork/ui build:website",
     "build:contract-docs": "lerna run --scope=@polymathnetwork/shared build:contract-docs",
     "format": "prettier-eslint \"packages/*/src/**/*.js\" --write",
     "flow:create-symlinks": "flow-mono create-symlinks ./.flowconfig",
