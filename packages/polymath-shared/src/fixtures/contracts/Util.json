@@ -1,14 +1,14 @@
 {
   "contractName": "Util",
   "abi": [],
-  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058203336d48c921fda871cfdcab1b29997f735aa5d09e54cce8c50498c265cacb8070029",
-  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058203336d48c921fda871cfdcab1b29997f735aa5d09e54cce8c50498c265cacb8070029",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058203fa5e6e42a45f4817963065b969dc2f656e16817efbc569c6506185fe88bfb4f0029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058203fa5e6e42a45f4817963065b969dc2f656e16817efbc569c6506185fe88bfb4f0029",
   "sourceMap": "79:506:11:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;79:506:11;;;;;;;",
   "deployedSourceMap": "79:506:11:-;;;;;",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Utility contract for reusable code\n */\ncontract Util {\n\n   /**\n    * @notice changes a string to upper case\n    * @param _base string to change\n    */\n    function upper(string _base) internal pure returns (string) {\n        bytes memory _baseBytes = bytes(_base);\n        for (uint i = 0; i < _baseBytes.length; i++) {\n            bytes1 b1 = _baseBytes[i];\n            if (b1 >= 0x61 && b1 <= 0x7A) {\n                b1 = bytes1(uint8(b1)-32);\n            }\n            _baseBytes[i] = b1;\n        }\n        return string(_baseBytes);\n    }\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/helpers/Util.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/helpers/Util.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/helpers/Util.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/helpers/Util.sol",
     "exportedSymbols": {
       "Util": [
         9468
@@ -883,7 +883,7 @@
     "src": "0:586:11"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/node_modules/polymath-core/contracts/helpers/Util.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/helpers/Util.sol",
     "exportedSymbols": {
       "Util": [
         9468
@@ -1763,5 +1763,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-24T19:05:59.904Z"
+  "updatedAt": "2018-10-10T15:54:24.279Z"
 }

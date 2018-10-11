@@ -10,8 +10,11 @@ Node service that handles user authentication, emailing, providers and notices t
 
 You can set the following env vars inside a `.env` file on the package's root
 
-`WEB3_NETWORK_WS`: URL for the web3 WebsocketProvider
-`WEB3_NETWORK_NAME`: Name of the network for etherscan (can be `LOCAL`, `KOVAN` or `MAINNET`)
+`WEB3_NETWORK_LOCAL_WS`: LOCAL URL for the web3 WebsocketProvider
+`WEB3_NETWORK_KOVAN_WS`: KOVAN URL for the web3 WebsocketProvider
+`WEB3_NETWORK_MAINNET_WS`: MAINNET URL for the web3 WebsocketProvider
+
+Not all 3 network URLs must be set, but **at least one is required**
 
 `PORT`: Web server's port
 
@@ -20,5 +23,5 @@ You can set the following env vars inside a `.env` file on the package's root
 `NODE_ENV`: Application environment (can be `test`, `development` or `production`)
 `DEPLOYMENT_STAGE`: Application deployment stage (can be `local`, `staging` or `production`)
 
-`MONGODB_URL`: The database connection URL
+`MONGODB_URI`: The database connection URL
 `SENDGRID_API_KEY`: API key of the sendgrid mailing service

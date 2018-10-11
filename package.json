@@ -10,7 +10,7 @@
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",
     "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
-    "test": "lerna exec --parallel --stream -- yarn test",
+    "test": "lerna exec --stream -- yarn test --forceExit",
     "test:investor": "lerna exec --stream --scope=@polymathnetwork/investor -- yarn test",
     "test:issuer": "lerna exec --stream --scope=@polymathnetwork/issuer -- yarn test",
     "test:js": "lerna exec --stream --scope=@polymathnetwork/js -- yarn test",
@@ -22,13 +22,15 @@
     "build": "lerna run --parallel --stream build",
     "build:apps": "lerna run --parallel --stream --scope=@polymathnetwork/{issuer,investor,offchain} build",
     "build:libs": "lerna run --parallel --stream --scope=@polymathnetwork/{auth,ui,js} build",
+    "build:heroku-apps": "lerna run --parallel --stream --scope=@polymathnetwork/offchain build",
     "build:docz": "lerna run --parallel --stream --scope=@polymathnetwork/ui build:docz",
     "build:contract-docs": "lerna run --scope=@polymathnetwork/shared build:contract-docs",
     "format": "prettier-eslint \"packages/*/src/**/*.js\" --write",
     "flow:create-symlinks": "flow-mono create-symlinks ./.flowconfig",
     "flow:create-stubs": "flow-mono create-stubs --use-root",
     "flow:install-types": "flow-mono install-types --overwrite --ignoreDeps=peer",
-    "flow:align-versions": "flow-mono align-versions"
+    "flow:align-versions": "flow-mono align-versions",
+    "heroku-postbuild": "yarn build:heroku-apps"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",

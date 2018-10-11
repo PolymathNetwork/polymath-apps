@@ -2,6 +2,9 @@
   "name": "@polymathnetwork/ui",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": ">=8.9"
+  },
   "main": "./build/main.js",
   "repository": {
     "type": "git",
@@ -9,7 +12,7 @@
   },
   "scripts": {
     "dev": "docz dev",
-    "build": "node scripts/build.js",
+    "build": "webpack --config webpack.prod.js",
     "build:docz": "docz build",
     "test": "jest",
     "typecheck": "flow --show-all-branches",
@@ -20,6 +23,7 @@
     "@polymathnetwork/js": "0.0.0",
     "axios": "^0.18.0",
     "bignumber.js": "6.0.0",
+    "can-use-dom": "^0.1.0",
     "carbon-components": "8.16.8",
     "carbon-components-react": "5.31.0",
     "carbon-icons": "6.3.2",
@@ -36,36 +40,65 @@
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
-    "@babel/plugin-proposal-export-default-from": "7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/plugin-transform-react-jsx": "7.0.0",
-    "@babel/preset-env": "7.0.0",
-    "@babel/preset-flow": "7.0.0",
-    "@babel/preset-react": "7.0.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "css-loader": "^0.28.10",
+    "babel-loader": "8.0.4",
+    "babel-preset-react-app": "^5.0.0",
+    "css-loader": "^1.0.0",
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
     "docz-plugin-netlify": "^1.1.4",
     "docz-theme-default": "^0.11.2",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "jest": "22.4.3",
+    "file-loader": "2.0.0",
+    "jest": "^23.6.0",
     "jest-enzyme": "^6.0.4",
+    "jest-junit": "^5.2.0",
     "node-sass": "^4.0.0",
+    "react-dev-utils": "^6.0.4",
     "react-test-renderer": "^16.5.2",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.12.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
-    "webpack": "^4.19.0",
-    "webpack-cli": "^3.1.0"
+    "webpack": "^4.19.0"
   },
   "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.{js,jsx,mjs}"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/build/"
+    ],
+    "testEnvironment": "node",
     "setupTestFrameworkScriptFile": "./src/specsInit.js",
-    "testURL": "http://localhost"
+    "testURL": "http://localhost",
+    "transform": {
+      "\\.(css|scss)$": "<rootDir>/config/jest/cssTransform.js",
+      "\\.js$": "babel-jest",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "cobertura"
+    ],
+    "reporters": [
+      "jest-junit"
+    ],
+    "coverageDirectory": "<rootDir>/reports"
   },
   "browserslist": {
     "development": [
