@@ -2,9 +2,8 @@ import { css } from 'docz-plugin-css';
 
 export default {
   title: 'PolymathUI',
-  description: 'This is my awesome documentation',
+  description: 'Polymath design system and React components library',
   files: '**/*.{md,mdx}',
-  dest: 'build',
   wrapper: 'src/components/DoczWrapper',
   plugins: [
     css({

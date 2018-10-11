@@ -4,6 +4,6 @@ const base = require('../../config/webpack.prod');
 
 module.exports = merge(base, {
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'build'),
   },
 });
