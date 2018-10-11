@@ -1,5 +1,4 @@
 import { css } from 'docz-plugin-css';
-import doczPluginNetlify from 'docz-plugin-netlify';
 
 export default {
   title: 'PolymathUI',
@@ -11,6 +10,5 @@ export default {
     css({
       preprocessor: 'sass',
     }),
-    doczPluginNetlify(),
   ],
 };
