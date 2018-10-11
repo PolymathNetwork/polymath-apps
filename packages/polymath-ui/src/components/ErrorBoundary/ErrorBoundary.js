@@ -1,18 +1,24 @@
 // @flow
 
 import React from 'react';
-// import Raven from 'raven-js';
 
-export default class ErrorBoundary extends React.Component {
-  constructor(props) {
+type Props = {
+  children: Node,
+};
+
+type State = {
+  hasError: boolean,
+};
+
+export default class ErrorBoundary extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: string) {
     // Display fallback UI
     this.setState({ hasError: true });
-    // Raven.captureException(error, { extra: errorInfo });
   }
 
   render() {
