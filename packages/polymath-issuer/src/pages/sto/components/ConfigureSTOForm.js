@@ -67,7 +67,7 @@ class ConfigureSTOForm extends Component<Props, State> {
     if (!allValues.startDate) {
       return null;
     } else if (moment(allValues.startDate[0]).isAfter(allValues.endDate[0])) {
-      return 'End date must be after start date';
+      return 'Selected end date/time is before the start date/time - Please update the dates accordingly';
     } else {
       return null;
     }
@@ -91,7 +91,7 @@ class ConfigureSTOForm extends Component<Props, State> {
       if (new Date().getTime() > startDateTime.getTime()) {
         return 'Time is in the past.';
       } else if (new Date().getTime() + 600000 > startDateTime.getTime()) {
-        return 'Please allow for transaction processing time.';
+        return 'Selected time is too close to current time.';
       }
     }
   };
@@ -123,7 +123,7 @@ class ConfigureSTOForm extends Component<Props, State> {
         parseInt(endminutes, 10)
       );
       if (startDateTime.getTime() > endDateTime.getTime()) {
-        return 'End time is before start time';
+        return 'Selected end date/time is before the start date/time - Please update the dates accordingly';
       }
     }
   };
@@ -150,9 +150,10 @@ class ConfigureSTOForm extends Component<Props, State> {
             name="startTime"
             step={30}
             component={TimePickerSelect}
+            hideLabel={false}
             className="bx--time-picker__select"
             placeholder="hh:mm"
-            label="Time"
+            label="Start Time"
             validate={[required, this.checkStartTime]}
           />
 
@@ -169,7 +170,7 @@ class ConfigureSTOForm extends Component<Props, State> {
             component={TimePickerSelect}
             className="bx--time-picker__select"
             placeholder="hh:mm"
-            label="Time"
+            label="End Time"
             validate={[required, this.checkEndTime]}
           />
         </div>

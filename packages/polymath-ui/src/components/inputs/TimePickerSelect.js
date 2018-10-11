@@ -59,16 +59,13 @@ export default ({
     options.push({ value: timeValue, label: timeValue });
   }
 
-  console.log(touched, error);
-  console.log(touched && !!error);
-  console.log(touched && error);
   return (
     <Select
       id={input.name}
       name={input.name}
       className={className}
       defaultValue="placeholder-item"
-      invalid={true}
+      invalid={touched}
       invalidText={error}
       labelText={label}
       // eslint-disable-next-line
