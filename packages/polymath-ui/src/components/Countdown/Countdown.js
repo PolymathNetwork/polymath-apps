@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'carbon-components-react';
 
+import './style.scss';
+
 export type CountdownProps = {|
   title: string,
   deadline: Date,
