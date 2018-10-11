@@ -1,8 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Field, reduxForm, getFormMeta, getFormSyncErrors } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
@@ -10,23 +9,16 @@ import {
   TextInput,
   SelectInput,
   DatePickerInput,
-  DatePickerRangeInput,
-  TimePickerInput,
   TimePickerSelect,
-  timeZoneName,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
 import {
   required,
   numeric,
-  twelveHourTime,
   todayOrLater,
-  dateRange,
-  dateRangeTodayOrLater,
   ethereumAddress,
   gt,
 } from '@polymathnetwork/ui/validate';
-import { isMoment } from 'moment';
 
 export const formName = 'configure_sto';
 
