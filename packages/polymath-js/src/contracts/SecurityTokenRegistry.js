@@ -2,7 +2,6 @@
 
 import BigNumber from 'bignumber.js';
 import artifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
-import proxyArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistryProxy.json';
 
 import Contract from './Contract';
 import SecurityTokenContract from './SecurityToken';
@@ -33,7 +32,6 @@ class SecurityTokenRegistry extends Contract {
 
   async registrationFee(): Promise<BigNumber> {
     const fee = await this._methods.getTickerRegistrationFee().call();
-    console.log('FEE!', fee);
     return PolyToken.removeDecimals(fee);
   }
 
@@ -64,8 +62,6 @@ class SecurityTokenRegistry extends Contract {
     let [owner, timestamp, expiryDate, name, status] = this._toArray(
       await this._methods.getTickerDetails(symbol).call()
     );
-    console.log('TICKER DETAILS');
-    console.log(owner, timestamp, expiryDate, name, status);
     if (this._isEmptyAddress(owner)) {
       return null;
     }
@@ -93,7 +89,6 @@ class SecurityTokenRegistry extends Contract {
 
   async getTokenByTicker(ticker: string): Promise<?SecurityToken> {
     const details = await this.getTickerDetails(ticker);
-    console.log('DETAILS!!!!', details);
     if (!details) {
       return null;
     }
@@ -173,19 +168,13 @@ class SecurityTokenRegistry extends Contract {
 
   async registerTicker(details: SymbolDetails): Promise<Web3Receipt> {
     const fee = await this.registrationFee();
-    console.log('APPROVAL');
-    console.log(await PolyToken.approve(this.address, fee));
-    console.log('CALLING REGISTERTICKER WITH');
-    console.log(this.account, details.ticker, details.name);
+    await PolyToken.approve(this.address, fee);
     return await this._tx(
       this._methods.registerTicker(this.account, details.ticker, details.name),
-      0,
-      1.5
+      null,
+      1.15
     );
   }
 }
 
-export default new SecurityTokenRegistry(
-  artifact,
-  proxyArtifact.networks[15].address
-);
+export default new SecurityTokenRegistry(artifact);

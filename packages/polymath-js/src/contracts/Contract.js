@@ -17,6 +17,7 @@ const HARDCODED_NETWORK_ID = 15;
 
 export default class Contract {
   static _params: NetworkParams;
+  static _registryAddressesSet: boolean;
   _artifact: Artifact;
   _artifactTestnet: ?Artifact;
   _contract: Web3Contract;
@@ -27,9 +28,33 @@ export default class Contract {
   constructor(artifact: Artifact, at?: Address, artifactTestnet?: Artifact) {
     this._artifact = artifact;
     this._artifactTestnet = artifactTestnet;
+
+    if (at) {
+      this.setAddress(at);
+    } else if (Contract._registryAddressesSet) {
+      throw new Error(
+        'Contracts instantiated after setup must specify an address'
+      );
+    }
+
     return new Proxy(this, {
       get: (target: Object, field: string): Promise<Web3Receipt> | any => {
-        target._init(at);
+        if (!Contract._registryAddressesSet && field !== 'setAddress') {
+          throw new Error(
+            'Registry addresses not set. Did you forget to call "setupContracts"?'
+          );
+        }
+
+        if (Contract._registryAddressesSet && field === 'setAddress') {
+          throw new Error('Cannot change contract address on runtime.');
+        }
+
+        if (!Contract._params) {
+          throw new Error(
+            'Network params not set. Did you forget to call "Contract.setParams"?'
+          );
+        }
+
         if (target && target[field]) {
           return target[field];
         }
@@ -70,30 +95,21 @@ export default class Contract {
     ).eth.Contract(this._artifact.abi, this.address);
   }
 
-  /** @private */
-  _init(at?: Address) {
+  /**
+    Sets address and instantiates web3 contract
+
+    @param {Address} address address of the contract
+   */
+  setAddress(at: Address) {
     if (!Contract.isMainnet() && this._artifactTestnet) {
       this._artifact = this._artifactTestnet;
     }
-    let address;
-    try {
-      // $FlowFixMe
-      address = JSON.parse(localStorage.getItem('polymath.js'))[
-        this._artifact.contractName
-      ][Contract._params.id];
-    } catch (e) {
-      try {
-        address = at || this._artifact.networks[Contract._params.id].address;
-      } catch (e) {
-        throw new Error(
-          'Contract is not deployed to the network ' + Contract._params.id
-        );
-      }
-    }
-    if (this._contract && this.address === address) {
+
+    if (this._contract) {
       return;
     }
-    this.address = address;
+
+    this.address = at;
     this._contract = this._newContract();
     this._contractWS =
       Contract._params.web3WS === Contract._params.web3
@@ -159,9 +175,8 @@ export default class Contract {
         ? this._toWei(new BigNumber(value).round(18).toString(10))
         : undefined,
     };
-    console.log(JSON.stringify(preParams));
-    console.log(method);
-    console.log(await method.estimateGas(preParams));
+
+    await method.estimateGas(preParams);
     let gas;
     if (gasLimit && gasLimit > 10) {
       gas = gasLimit;
