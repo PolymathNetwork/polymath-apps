@@ -4,17 +4,11 @@ import React from 'react';
 import { Select, SelectItem } from 'carbon-components-react';
 import moment from 'moment';
 
-export type TwelveHourTime = {
-  timeString: string,
-  dayPeriod: 'AM' | 'PM',
-};
-
 type Props = {
   input: {
     name: string,
     value: TwelveHourTime,
-    onChange: (value: TwelveHourTime) => void,
-    // onBlur: (value: TwelveHourTime) => void,
+    onChange: value => void,
   },
   label: string,
   meta: {
@@ -44,15 +38,9 @@ export default ({
   var timeValue = beginLimit || '12:00AM';
   var lastValue;
   endLimit = '11:59PM';
-  // var endLimit = this.props.endLimit || "11:59PM";
   step = 30;
 
-  // var step = this.props.step || 15;
-
   var options = [];
-  // options.push(<option key={timeValue} value={timeValue}>{timeValue}</option>);
-  // options.push({ value: timeValue, label: '1:00AM' });
-
   var isEarlierThanEndLimit = function(timeValue, endLimit, lastValue) {
     var timeValueIsEarlier =
       moment(timeValue, 'h:mmA').diff(moment(endLimit, 'h:mmA')) < 0;
@@ -65,28 +53,27 @@ export default ({
 
   while (isEarlierThanEndLimit(timeValue, endLimit, lastValue)) {
     lastValue = timeValue;
-    // console.log(timeValue, moment(timeValue, 'h:mmA').diff(moment(endLimit, 'h:mmA'), 'minutes'));
     timeValue = moment(timeValue, 'h:mmA')
       .add(step, 'minutes')
       .format('h:mmA');
     options.push({ value: timeValue, label: timeValue });
-    // options.push(<option key={timeValue} value={timeValue}>{timeValue}</option>)
   }
-  // console.log(options)
 
+  console.log(touched, error);
+  console.log(touched && !!error);
+  console.log(touched && error);
   return (
     <Select
       id={input.name}
       name={input.name}
       className={className}
       defaultValue="placeholder-item"
-      invalid={touched && !!error}
+      invalid={true}
       invalidText={error}
       labelText={label}
       // eslint-disable-next-line
       onChange={event => {
         const value = event.target.value;
-        console.log(value);
         input.onChange(value || '');
         // redux-form updates `touched` on blur.
         input.onBlur();

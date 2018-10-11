@@ -72,54 +72,66 @@ class ConfigureSTOForm extends Component<Props, State> {
   };
 
   checkStartAfterEnd = (value, allValues) => {
-    // console.log(value, allValues.endDate[0])
-    // console.log(moment(allValues.startDate[0]).isAfter(allValues.endDate[0]))
-    if (moment(allValues.startDate[0]).isAfter(allValues.endDate[0])) {
+    if (!allValues.startDate) {
+      return null;
+    } else if (moment(allValues.startDate[0]).isAfter(allValues.endDate[0])) {
       return 'End date must be after start date';
+    } else {
+      return null;
     }
   };
 
   checkStartTime = (value, allValues) => {
-    console.log(value, allValues);
-    console.log(moment(allValues.startDate[0] + ' ' + allValues.startTime));
-
     const startTime = allValues.startTime;
-    const startDate = allValues.startDate;
-    console.log(startTime, endTime);
+    const startDate = new Date(allValues.startDate);
+
     if (!startTime || !startDate) {
       return null;
     } else {
-      let [hours, minutes] = startTime.timeString.split(':');
-      const startDateTime = moment.add({ hours: hours, minutes: minutes });
-      if (new Date().getTime() > startDateTime.getTime()) {
-        return 'Time is in the past';
-      }
-    }
-  };
-
-  pastCheck = (value, allValues) => {
-    const startTime = allValues.startTime;
-    const dateRange = allValues['startDate'];
-    console.log(value, allValues);
-    if (!startTime || !dateRange) {
-      return null;
-    } else {
-      let [hours, minutes] = startTime.timeString.split(':');
-      if (startTime.dayPeriod === 'PM') {
-        hours = parseInt(hours, 10) + 12;
-      }
+      let [hours, minutes] = startTime.split(':');
       const startDateTime = new Date(
-        dateRange[0].getFullYear(),
-        dateRange[0].getMonth(),
-        dateRange[0].getDate(),
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
         hours,
         parseInt(minutes, 10)
       );
-      console.log(startDateTime);
       if (new Date().getTime() > startDateTime.getTime()) {
         return 'Time is in the past.';
       } else if (new Date().getTime() + 600000 > startDateTime.getTime()) {
         return 'Please allow for transaction processing time.';
+      }
+    }
+  };
+
+  checkEndTime = (value, allValues) => {
+    const startTime = allValues.startTime;
+    const startDate = new Date(allValues.startDate);
+    const endTime = allValues.endTime;
+    const endDate = new Date(allValues.endDate);
+
+    if (!startTime || !startDate || !endTime || !endDate) {
+      return null;
+    } else {
+      let [starthours, startminutes] = startTime.split(':');
+      const startDateTime = new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        starthours,
+        parseInt(startminutes, 10)
+      );
+
+      let [endhours, endminutes] = endTime.split(':');
+      const endDateTime = new Date(
+        endDate.getFullYear(),
+        endDate.getMonth(),
+        endDate.getDate(),
+        endhours,
+        parseInt(endminutes, 10)
+      );
+      if (startDateTime.getTime() > endDateTime.getTime()) {
+        return 'End time is before start time';
       }
     }
   };
@@ -149,7 +161,7 @@ class ConfigureSTOForm extends Component<Props, State> {
             className="bx--time-picker__select"
             placeholder="hh:mm"
             label="Time"
-            validate={[twelveHourTime, this.checkStartTime]}
+            validate={[required, this.checkStartTime]}
           />
 
           <Field
@@ -166,28 +178,10 @@ class ConfigureSTOForm extends Component<Props, State> {
             className="bx--time-picker__select"
             placeholder="hh:mm"
             label="Time"
+            validate={[required, this.checkEndTime]}
           />
         </div>
 
-        {/* <div className="time-pickers-container">
-          <Field
-            name="startTime"
-            component={TimePickerInput}
-            label="Start Time"
-            validate={[twelveHourTime, this.pastCheck]}
-          />
-          <Field
-            name="endTime"
-            component={TimePickerInput}
-            label={
-              <Tooltip triggerText="End Time">
-                <p className="bx--tooltip__label">Start and End Times</p>
-                <p>Uses your local time zone, {timeZoneName()}.</p>
-              </Tooltip>
-            }
-            validate={[twelveHourTime]}
-          />
-        </div> */}
         <Field
           name="currency"
           component={SelectInput}
