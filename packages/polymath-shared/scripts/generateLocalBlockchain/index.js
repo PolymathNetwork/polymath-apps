@@ -19,7 +19,6 @@ if (fs.existsSync(TEMP_DIR)) {
 fs.mkdirSync(TEMP_DIR);
 
 (async () => {
-  await steps.copyArtifactsFromCore();
   await steps.startGanacheCLI();
   await steps.compileContracts();
   await steps.migrateContracts();

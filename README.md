@@ -14,7 +14,40 @@ This is a monorepo containing the webapps and libraries in Polymath. In each pac
 # Setup
 
 In the root of the repository run:
-`yarn install`
+
+```
+yarn install
+```
+
+## Installing MongoDB
+
+You will need to run MongoDB in your machine to run the dApps locally
+
+### Windows
+
+Follow [this guide](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) to install mongodb on windows
+
+### MacOS
+
+You can install mongodb with [Homebrew](https://brew.sh/)
+
+```
+brew update
+brew install mongodb
+```
+
+Mongodb uses `/data/db` as its data folder. If you don't have it you must create
+it
+
+```
+sudo mkdir -p /data/db
+```
+
+Finally, to start mongodb run:
+
+```
+brew services restart mongodb
+```
 
 # Running an app
 
@@ -35,6 +68,10 @@ To run unit tests for all apps in parallel (for CI for example) run in root:
 
 To run unit tests for a specific app run:
 `yarn test:<app>` (for example `yarn test:ui`)
+
+To generate coverage files add run `yarn test --coverage`
+
+You can set the `junit` report directory with the env variable `JEST_JUNIT_OUTPUT_DIR`
 
 ## E2E Tests
 
