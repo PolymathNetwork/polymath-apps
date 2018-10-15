@@ -98,6 +98,24 @@ export const fetchFactories = () => async (dispatch: Function) => {
           address: CappedSTOFactory.address,
           owner: await CappedSTOFactory.owner(),
         },
+        {
+          title: 'Peg to Fiat STO',
+          name: 'Polymath Inc.',
+          desc:
+            'This smart contract creates a maximum number of tokens (i.e hard cap) which the total ' +
+            'aggregate of tokens acquired by all investors cannot exceed. Security tokens are sent to the investor upon' +
+            ' reception of the funds (ETH or POLY), and any security tokens left upon termination of the offering ' +
+            'will not be minted.',
+          isVerified: true,
+          securityAuditLink: {
+            title: 'Solidified',
+            url:
+              'https://github.com/PolymathNetwork/polymath-core/blob/master/audit%20reports/' +
+              'Polymath%20Audit%20Report%20Final.pdf',
+          },
+          address: CappedSTOFactory.address,
+          owner: await CappedSTOFactory.owner(),
+        },
       ])
     );
     dispatch(ui.fetched());
