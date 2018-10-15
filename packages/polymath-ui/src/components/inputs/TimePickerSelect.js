@@ -35,27 +35,27 @@ export default ({
   step,
   ...rest
 }: Props) => {
-  var timeValue = beginLimit || '12:00AM';
+  var timeValue = beginLimit || '12:00 AM';
   var lastValue;
-  endLimit = '11:59PM';
+  endLimit = '11:59 PM';
   step = 30;
 
   var options = [];
   var isEarlierThanEndLimit = function(timeValue, endLimit, lastValue) {
     var timeValueIsEarlier =
-      moment(timeValue, 'h:mmA').diff(moment(endLimit, 'h:mmA')) < 0;
+      moment(timeValue, 'h:mm A').diff(moment(endLimit, 'h:mm A')) < 0;
     var timeValueIsLaterThanLastValue =
       lastValue === undefined
         ? true
-        : moment(lastValue, 'h:mmA').diff(moment(timeValue, 'h:mmA')) < 0;
+        : moment(lastValue, 'h:mm A').diff(moment(timeValue, 'h:mm A')) < 0;
     return timeValueIsEarlier && timeValueIsLaterThanLastValue;
   };
 
   while (isEarlierThanEndLimit(timeValue, endLimit, lastValue)) {
     lastValue = timeValue;
-    timeValue = moment(timeValue, 'h:mmA')
+    timeValue = moment(timeValue, 'h:mm A')
       .add(step, 'minutes')
-      .format('h:mmA');
+      .format('h:mm A');
     options.push({ value: timeValue, label: timeValue });
   }
 
@@ -65,7 +65,7 @@ export default ({
       name={input.name}
       className={className}
       defaultValue="placeholder-item"
-      invalid={touched}
+      invalid={touched && error}
       invalidText={error}
       labelText={label}
       // eslint-disable-next-line

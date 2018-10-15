@@ -73,6 +73,22 @@ class ConfigureSTOForm extends Component<Props, State> {
     }
   };
 
+  convertAMPMTime = (time, date) => {
+    var hours = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM = time.match(/\s(.*)$/)[1];
+    if (AMPM === 'PM' && hours < 12) hours = hours + 12;
+    if (AMPM === 'AM' && hours === 12) hours = hours - 12;
+
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      hours,
+      parseInt(minutes, 10)
+    );
+  };
+
   checkStartTime = (value, allValues) => {
     const startTime = allValues.startTime;
     const startDate = new Date(allValues.startDate);
@@ -80,14 +96,8 @@ class ConfigureSTOForm extends Component<Props, State> {
     if (!startTime || !startDate) {
       return null;
     } else {
-      let [hours, minutes] = startTime.split(':');
-      const startDateTime = new Date(
-        startDate.getFullYear(),
-        startDate.getMonth(),
-        startDate.getDate(),
-        hours,
-        parseInt(minutes, 10)
-      );
+      const startDateTime = this.convertAMPMTime(startTime, startDate);
+
       if (new Date().getTime() > startDateTime.getTime()) {
         return 'Time is in the past.';
       } else if (new Date().getTime() + 600000 > startDateTime.getTime()) {
@@ -105,25 +115,14 @@ class ConfigureSTOForm extends Component<Props, State> {
     if (!startTime || !startDate || !endTime || !endDate) {
       return null;
     } else {
-      let [starthours, startminutes] = startTime.split(':');
-      const startDateTime = new Date(
-        startDate.getFullYear(),
-        startDate.getMonth(),
-        startDate.getDate(),
-        starthours,
-        parseInt(startminutes, 10)
-      );
+      const startDateTime = this.convertAMPMTime(startTime, startDate);
+      const endDateTime = this.convertAMPMTime(endTime, endDate);
 
-      let [endhours, endminutes] = endTime.split(':');
-      const endDateTime = new Date(
-        endDate.getFullYear(),
-        endDate.getMonth(),
-        endDate.getDate(),
-        endhours,
-        parseInt(endminutes, 10)
-      );
+      console.log(startDateTime, endDateTime);
       if (startDateTime.getTime() > endDateTime.getTime()) {
         return 'Selected end date/time is before the start date/time - Please update the dates accordingly';
+      } else if (startDateTime.getTime() + 600000 > endDateTime.getTime()) {
+        return 'Start time is too close to the end time.';
       }
     }
   };
