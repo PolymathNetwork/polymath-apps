@@ -11,7 +11,7 @@ export const history = createBrowserHistory();
 
 const store = createStore(
   connectRouter(history)(reducer),
-  undefined,
+  {}, // initial state
   compose(
     applyMiddleware(thunk, routerMiddleware(history)),
     window.devToolsExtension ? window.devToolsExtension() : f => f
