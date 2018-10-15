@@ -6,8 +6,6 @@ import type { SymbolDetails } from '@polymathnetwork/js/types';
 // TODO @grsmto: Form values shouldn't be retrieved this way...fault of Redux-form
 // for encouraging bad pattern. This should be passed as props instead.
 import { formName } from '../pages/ticker/components/TickerForm';
-import { formName as confirmEmailFormName } from '../components/ConfirmEmailPage';
-import ReservedEmail from '../pages/token/components/ReservedEmail';
 import type { GetState } from '../../redux/reducer';
 
 export const EXPIRY_LIMIT = 'ticker/EXPIRY_LIMIT';
@@ -97,11 +95,11 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
   );
 };
 
-export const confirmEmail = () => async (
+export const confirmEmail = (data: Object) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const { email } = getState().form[confirmEmailFormName].values;
+  const { email } = data;
   dispatch(ui.requestConfirmEmail(email));
 };
 

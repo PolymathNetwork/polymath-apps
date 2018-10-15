@@ -1,28 +1,32 @@
 // @flow
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Contract from '@polymathnetwork/js';
-import { SignUpPage, SignUpSuccessPage } from '@polymathnetwork/ui';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
+import { Loading } from 'carbon-components-react';
 import {
   signIn,
-  SignInPage,
   txHash,
   txEnd,
   getNotice,
+  Toaster,
+  TxModal,
+  ConfirmModal,
+  Navbar,
+  Footer,
+  EnterPINModal,
 } from '@polymathnetwork/ui';
-import type { RouterHistory } from 'react-router-dom';
 
-import Root from './Root';
-import PolymathUI from './PolymathUI';
-import ConfirmEmailPage from './ConfirmEmailPage';
-import { getMyTokens, tickerReservationEmail } from '../actions/ticker';
+import { getMyTokens } from '../actions/ticker';
+import AuthWrapper from './AuthWrapper';
+
 import type { RootState } from '../redux/reducer';
 
 type StateProps = {|
   network: any,
   isSignedIn: ?boolean,
   isSignedUp: ?boolean,
+  isFetching: boolean,
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
@@ -35,13 +39,13 @@ type DispatchProps = {|
   signIn: () => any,
   getMyTokens: () => any,
   getNotice: (scope: string) => any,
-  tickerReservationEmail: () => any,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
   network: state.network,
   isSignedIn: state.pui.account.isSignedIn,
   isSignedUp: state.pui.account.isSignedUp,
+  isFetching: state.pui.common.isFetching,
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
@@ -54,12 +58,10 @@ const mapDispatchToProps: DispatchProps = {
   signIn,
   getMyTokens,
   getNotice,
-  tickerReservationEmail,
 };
 
 type Props = {|
   route: Object,
-  history: RouterHistory,
 |} & StateProps &
   DispatchProps;
 
@@ -78,48 +80,20 @@ class App extends Component<Props> {
     this.props.signIn();
   }
 
-  handleSignUpSuccess = () => {
-    this.props.tickerReservationEmail();
-  };
-
   render() {
-    const {
-      history,
-      ticker,
-      isSignedIn,
-      isSignedUp,
-      isTickerReserved,
-      isEmailConfirmed,
-      isSignUpSuccess,
-    } = this.props;
+    const { ticker, isFetching, route } = this.props;
+
     return (
-      <Root>
-        <PolymathUI history={history} ticker={ticker} />
-        {!isSignedIn ? (
-          <SignInPage />
-        ) : !isSignedUp ? (
-          <SignUpPage />
-        ) : isTickerReserved && !isEmailConfirmed ? (
-          isSignUpSuccess ? (
-            <SignUpSuccessPage
-              text={
-                <span>
-                  You are now ready to continue with your Security Token.
-                  <br />
-                  We just sent you an email with the token symbol reservation
-                  transaction details for your records. Check your inbox.
-                </span>
-              }
-              continueLabel="CONTINUE WITH TOKEN CREATION"
-              onWillMount={this.handleSignUpSuccess}
-            />
-          ) : (
-            <ConfirmEmailPage />
-          )
-        ) : (
-          renderRoutes(this.props.route.routes)
-        )}
-      </Root>
+      <Fragment>
+        <Navbar ticker={ticker} />
+        {isFetching ? <Loading /> : ''}
+        <Toaster />
+        <TxModal />
+        <EnterPINModal />
+        <ConfirmModal />
+        <AuthWrapper>{renderRoutes(route.routes)}</AuthWrapper>
+        <Footer />
+      </Fragment>
     );
   }
 }
