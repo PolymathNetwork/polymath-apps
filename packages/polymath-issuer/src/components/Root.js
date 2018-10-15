@@ -75,4 +75,9 @@ class Root extends Component<Props> {
   }
 }
 
-export default hot(module)(connect(mapStateToProps)(Root));
+export default hot(module)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Root)
+);
