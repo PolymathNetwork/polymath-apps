@@ -4,10 +4,6 @@ import artifact from '@polymathnetwork/shared/fixtures/contracts/PolymathRegistr
 
 import Contract from './Contract';
 
-class PolymathRegistry extends Contract {
-  test() {
-    return 'hola';
-  }
-}
+class PolymathRegistry extends Contract {}
 
 export default new PolymathRegistry(artifact);

@@ -15,6 +15,14 @@ import type {
 // this has to be here for now
 const HARDCODED_NETWORK_ID = 15;
 
+const noRegistryAddressError = new Error(
+  'Registry addresses not set. Did you forget to call "setupContracts"?'
+);
+
+const noNetworkParamsError = new Error(
+  'Network params not set. Did you forget to call "Contract.setParams"?'
+);
+
 export default class Contract {
   static _params: NetworkParams;
   static _registryAddressesSet: boolean;
@@ -39,19 +47,21 @@ export default class Contract {
 
     return new Proxy(this, {
       get: (target: Object, field: string): Promise<Web3Receipt> | any => {
-        if (!Contract._registryAddressesSet && field !== 'setAddress') {
-          throw new Error(
-            'Registry addresses not set. Did you forget to call "setupContracts"?'
-          );
+        if (!Contract._registryAddressesSet && field === '_tx') {
+          throw noRegistryAddressError;
         }
 
         if (Contract._registryAddressesSet && field === 'setAddress') {
           throw new Error('Cannot change contract address on runtime.');
         }
 
-        if (!Contract._params) {
+        if (!Contract._params && field !== 'setParams') {
+          throw noNetworkParamsError;
+        }
+
+        if (Contract._params && field === 'setParams') {
           throw new Error(
-            'Network params not set. Did you forget to call "Contract.setParams"?'
+            'Cannot change network params after they have been set'
           );
         }
 
@@ -59,7 +69,13 @@ export default class Contract {
           return target[field];
         }
 
-        const method = target._contract.methods[field];
+        const contract = target._contract;
+
+        if (!contract) {
+          return undefined;
+        }
+
+        const method = contract.methods[field];
         if (!method) {
           return method;
         }
