@@ -1,23 +1,6 @@
 // @flow
 
-export { default as TextInput } from './components/inputs/TextInput';
-export { default as TextAreaInput } from './components/inputs/TextAreaInput';
-export { default as SelectInput } from './components/inputs/SelectInput';
-export { default as RadioInput } from './components/inputs/RadioInput';
-export { default as CheckboxInput } from './components/inputs/CheckboxInput';
-export {
-  default as DatePickerInput,
-} from './components/inputs/DatePickerInput';
-export {
-  default as DatePickerRangeInput,
-} from './components/inputs/DatePickerRangeInput';
-export {
-  default as TimePickerInput,
-  twelveHourTimeToMinutes,
-} from './components/inputs/TimePickerInput';
-export {
-  default as TimePickerSelect,
-} from './components/inputs/TimePickerSelect';
+export * from './components/inputs';
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';
 export { default as Remark } from './components/Remark';
