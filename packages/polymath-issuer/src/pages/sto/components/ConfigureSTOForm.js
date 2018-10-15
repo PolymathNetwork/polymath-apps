@@ -2,22 +2,20 @@
 
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import moment from 'moment';
 
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
 import {
   TextInput,
   SelectInput,
-  DatePickerRangeInput,
-  TimePickerInput,
-  timeZoneName,
+  DatePickerInput,
+  TimePickerSelect,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
 import {
   required,
   numeric,
-  twelveHourTime,
-  dateRange,
-  dateRangeTodayOrLater,
+  todayOrLater,
   ethereumAddress,
   gt,
 } from '@polymathnetwork/ui/validate';
@@ -65,20 +63,28 @@ class ConfigureSTOForm extends Component<Props, State> {
     );
   };
 
-  pastCheck = (value, allValues) => {
+  checkStartAfterEnd = (value, allValues) => {
+    if (!allValues.startDate) {
+      return null;
+    } else if (moment(allValues.startDate[0]).isAfter(allValues.endDate[0])) {
+      return 'End date must be after start date';
+    } else {
+      return null;
+    }
+  };
+
+  checkStartTime = (value, allValues) => {
     const startTime = allValues.startTime;
-    const dateRange = allValues['start-end'];
-    if (!startTime || !dateRange) {
+    const startDate = new Date(allValues.startDate);
+
+    if (!startTime || !startDate) {
       return null;
     } else {
-      let [hours, minutes] = startTime.timeString.split(':');
-      if (startTime.dayPeriod === 'PM') {
-        hours = parseInt(hours, 10) + 12;
-      }
+      let [hours, minutes] = startTime.split(':');
       const startDateTime = new Date(
-        dateRange[0].getFullYear(),
-        dateRange[0].getMonth(),
-        dateRange[0].getDate(),
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
         hours,
         parseInt(minutes, 10)
       );
@@ -86,6 +92,38 @@ class ConfigureSTOForm extends Component<Props, State> {
         return 'Time is in the past.';
       } else if (new Date().getTime() + 600000 > startDateTime.getTime()) {
         return 'Please allow for transaction processing time.';
+      }
+    }
+  };
+
+  checkEndTime = (value, allValues) => {
+    const startTime = allValues.startTime;
+    const startDate = new Date(allValues.startDate);
+    const endTime = allValues.endTime;
+    const endDate = new Date(allValues.endDate);
+
+    if (!startTime || !startDate || !endTime || !endDate) {
+      return null;
+    } else {
+      let [starthours, startminutes] = startTime.split(':');
+      const startDateTime = new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        starthours,
+        parseInt(startminutes, 10)
+      );
+
+      let [endhours, endminutes] = endTime.split(':');
+      const endDateTime = new Date(
+        endDate.getFullYear(),
+        endDate.getMonth(),
+        endDate.getDate(),
+        endhours,
+        parseInt(endminutes, 10)
+      );
+      if (startDateTime.getTime() > endDateTime.getTime()) {
+        return 'End time is before start time';
       }
     }
   };
@@ -100,32 +138,42 @@ class ConfigureSTOForm extends Component<Props, State> {
   render() {
     return (
       <Form onSubmit={this.props.handleSubmit}>
-        <Field
-          name="start-end"
-          component={DatePickerRangeInput}
-          label="Start Date;End Date"
-          placeholder="mm / dd / yyyy"
-          validate={[required, dateRange, dateRangeTodayOrLater]}
-        />
         <div className="time-pickers-container">
           <Field
+            name="startDate"
+            component={DatePickerInput}
+            label="Start Date"
+            placeholder="mm / dd / yyyy"
+            validate={[required, todayOrLater]}
+          />
+          <Field
             name="startTime"
-            component={TimePickerInput}
-            label="Start Time"
-            validate={[twelveHourTime, this.pastCheck]}
+            step={30}
+            component={TimePickerSelect}
+            className="bx--time-picker__select"
+            placeholder="hh:mm"
+            label="Time"
+            validate={[required, this.checkStartTime]}
+          />
+
+          <Field
+            name="endDate"
+            component={DatePickerInput}
+            label="End Date"
+            placeholder="mm / dd / yyyy"
+            validate={[required, todayOrLater, this.checkStartAfterEnd]}
           />
           <Field
             name="endTime"
-            component={TimePickerInput}
-            label={
-              <Tooltip triggerText="End Time">
-                <p className="bx--tooltip__label">Start and End Times</p>
-                <p>Uses your local time zone, {timeZoneName()}.</p>
-              </Tooltip>
-            }
-            validate={[twelveHourTime]}
+            step={30}
+            component={TimePickerSelect}
+            className="bx--time-picker__select"
+            placeholder="hh:mm"
+            label="Time"
+            validate={[required, this.checkEndTime]}
           />
         </div>
+
         <Field
           name="currency"
           component={SelectInput}
@@ -208,14 +256,4 @@ class ConfigureSTOForm extends Component<Props, State> {
 
 export default reduxForm({
   form: formName,
-  initialValues: {
-    startTime: {
-      timeString: '',
-      dayPeriod: 'AM',
-    },
-    endTime: {
-      timeString: '',
-      dayPeriod: 'AM',
-    },
-  },
 })(ConfigureSTOForm);

@@ -19,7 +19,7 @@ unregister();
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Root routes={routes} />
+      <Root routes={routes} history={history} />
     </ConnectedRouter>
   </Provider>,
   ((document.getElementById('root'): any): HTMLElement)

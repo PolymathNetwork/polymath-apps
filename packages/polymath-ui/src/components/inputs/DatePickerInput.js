@@ -8,6 +8,7 @@ type Props = {
   input: {
     name: string,
     onChange: any => void,
+    onBlur: () => void,
   },
   label: string,
   meta: {
@@ -19,34 +20,37 @@ type Props = {
 };
 
 export default ({
-  input,
+  input: { name, onChange, onBlur },
   label,
   meta: { touched, error },
   className,
+  placeholder,
   ...rest
 }: Props) => {
   const invalid = touched && !!error;
   return (
     <DatePicker
-      id={input.name}
+      id={name}
       className={className}
       datePickerType="single"
       // eslint-disable-next-line
       onChange={(date: Date) => {
-        input.onChange(date || null);
+        onChange(date || null);
+        // redux-form updates `touched` on blur.
+        onBlur();
       }}
       dateFormat="m / d / Y"
+      {...rest}
     >
       <DatePickerInput
         labelText={label}
         placeholder="mm / dd / yyyy"
-        id={input.name}
+        id={name}
         invalid={invalid}
         invalidText={error}
         onClick={() => {}}
         onChange={() => {}}
         pattern={null}
-        {...rest}
       />
     </DatePicker>
   );

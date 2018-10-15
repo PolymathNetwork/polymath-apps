@@ -44,7 +44,8 @@ export default ({
           return;
         }
         onChange(dates || null);
-        // redux-form updates `touched` on blur.
+        // FIXME @RafaelVidaurre: Make sure we avoid having to use this
+        // onBlur() shouldn't have to be triggered manual in onChange()
         onBlur();
       }}
       {...rest}

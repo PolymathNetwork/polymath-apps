@@ -6,3 +6,4 @@ package-lock.json
 yarn-error.log
 .env
 /coverage
+junit.xml

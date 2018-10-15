@@ -53,6 +53,7 @@ export const txContinue = () => async (
     if (continueCode) {
       await continueCode();
     }
+    //TODO @grsmto: UI components should not call any history change directly. That should be handled with a callback not by this component directly.
     if (continueRoute) {
       // $FlowFixMe
       getState().pui.common.history.push(continueRoute);

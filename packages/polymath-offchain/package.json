@@ -55,7 +55,7 @@
   "jest": {
     "testEnvironment": "node",
     "testMatch": [
-      "**/__tests__/**/*.{js}"
+      "<rootDir>/src/**/__tests__/**/*.{js}"
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
@@ -71,11 +71,13 @@
     ],
     "coverageReporters": [
       "lcov",
-      "cobertura"
+      "cobertura",
+      "text"
     ],
     "coverageDirectory": "<rootDir>/reports",
     "reporters": [
-      "jest-junit"
+      "jest-junit",
+      "default"
     ]
   }
 }
