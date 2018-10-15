@@ -176,8 +176,6 @@ export const configure = () => async (
                 endDate,
                 values.endTime
               );
-              console.log(startDateWithTime);
-              console.log(endDateWithTime);
               const isEthFundraise = values.currency === 'ETH';
 
               await contract.setCappedSTO(
