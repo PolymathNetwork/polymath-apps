@@ -1,0 +1,19 @@
+---
+name: ErrorBoundary
+---
+
+import { Playground, PropsTable } from 'docz';
+import ErrorBoundary from './';
+import BuggyButton from './BuggyButton';
+
+# ErrorBoundary
+
+<PropsTable of={ErrorBoundary} />
+
+## Basic usage
+
+<Playground>
+  <ErrorBoundary>
+    <BuggyButton />
+  </ErrorBoundary>
+</Playground>

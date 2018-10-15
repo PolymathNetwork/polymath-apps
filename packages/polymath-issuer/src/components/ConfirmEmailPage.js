@@ -42,7 +42,7 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  confirmEmail: () => any,
+  confirmEmail: (data: Object) => any,
 |};
 
 type Props = StateProps & DispatchProps;
@@ -56,8 +56,8 @@ const mapDispatchToProps = {
 };
 
 class ConfirmEmailPage extends Component<Props> {
-  handleSubmit = () => {
-    this.props.confirmEmail();
+  handleSubmit = data => {
+    this.props.confirmEmail(data);
   };
 
   render() {

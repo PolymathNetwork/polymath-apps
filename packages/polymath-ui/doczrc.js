@@ -1,15 +1,13 @@
 import { css } from 'docz-plugin-css';
-import doczPluginNetlify from 'docz-plugin-netlify';
 
 export default {
   title: 'PolymathUI',
-  description: 'This is my awesome documentation',
+  description: 'Polymath design system and React components library',
   files: '**/*.{md,mdx}',
   wrapper: 'src/components/DoczWrapper',
   plugins: [
     css({
       preprocessor: 'sass',
     }),
-    doczPluginNetlify(),
   ],
 };
