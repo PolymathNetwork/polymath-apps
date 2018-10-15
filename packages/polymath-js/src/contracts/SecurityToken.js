@@ -1,6 +1,7 @@
 // @flow
 
 import artifact from '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json';
+import moduleFactoryArtifact from '@polymathnetwork/shared/fixtures/contracts/ModuleFactory.json';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
@@ -8,18 +9,18 @@ import PermissionManager from './PermissionManager';
 import TransferManager from './TransferManager';
 import PercentageTransferManager from './PercentageTransferManager';
 import CountTransferManager from './CountTransferManager';
-import {
-  PolyToken,
-  CappedSTOFactory,
-  PercentageTransferManagerFactory,
-  CountTransferManagerFactory,
-} from '../';
+import ModuleRegistry from './ModuleRegistry';
+import IModuleFactory from './IModuleFactory';
+import PolyToken from './PolyToken';
 import STO, { FUNDRAISE_ETH, FUNDRAISE_POLY } from './STO';
 import type { Address, Web3Receipt, Investor } from '../types';
 
-const MODULE_PERMISSION_MANAGER = 1;
-const MODULE_TRANSFER_MANAGER = 2;
-const MODULE_STO = 3;
+const MODULE_TYPES = {
+  PERMISSION: 1,
+  TRANSFER: 2,
+  STO: 3,
+  DIVIDENDS: 4,
+};
 
 const MINTED_EVENT = 'Minted';
 
@@ -75,24 +76,20 @@ export default class SecurityToken extends Contract {
     return this._tx(this._methods.burn(this.addDecimals(amount)));
   }
 
-  async getModuleByName(type: number, name: string): Promise<Address> {
-    const address = this._toArray(
-      await this._methods.getModuleByName(type, this._toBytes(name)).call()
-    )[1];
+  async getModuleByName(name: string): Promise<Address> {
+    const address = await this._methods
+      .getModulesByName(this._toBytes(name))
+      .call()[0];
     if (this._isEmptyAddress(address)) {
-      throw new Error('module not found');
+      throw new Error(`Module ${name} not found`);
     }
     return address;
   }
 
   async getPermissionManager(): Promise<?PermissionManager> {
     try {
-      return new PermissionManager(
-        await this.getModuleByName(
-          MODULE_PERMISSION_MANAGER,
-          'GeneralPermissionManager'
-        )
-      );
+      const address = await this.getModuleByName('GeneralPermissionManager');
+      return new PermissionManager(address);
     } catch (e) {
       return null;
     }
@@ -100,12 +97,8 @@ export default class SecurityToken extends Contract {
 
   async getTransferManager(): Promise<?TransferManager> {
     try {
-      return new TransferManager(
-        await this.getModuleByName(
-          MODULE_TRANSFER_MANAGER,
-          'GeneralTransferManager'
-        )
-      );
+      const address = await this.getModuleByName('GeneralTransferManager');
+      return new TransferManager(address);
     } catch (e) {
       return null;
     }
@@ -113,13 +106,8 @@ export default class SecurityToken extends Contract {
 
   async getPercentageTM(): Promise<?PercentageTransferManager> {
     try {
-      // $FlowFixMe
-      return new PercentageTransferManager(
-        await this.getModuleByName(
-          MODULE_TRANSFER_MANAGER,
-          'PercentageTransferManager'
-        )
-      );
+      const address = await this.getModuleByName('PercentageTransferManager');
+      return new PercentageTransferManager(address);
     } catch (e) {
       return null;
     }
@@ -127,13 +115,8 @@ export default class SecurityToken extends Contract {
 
   async getCountTM(): Promise<?CountTransferManager> {
     try {
-      // $FlowFixMe
-      return new CountTransferManager(
-        await this.getModuleByName(
-          MODULE_TRANSFER_MANAGER,
-          'CountTransferManager'
-        )
-      );
+      const address = await this.getModuleByName('CountTransferManager');
+      return new CountTransferManager(address);
     } catch (e) {
       return null;
     }
@@ -141,7 +124,8 @@ export default class SecurityToken extends Contract {
 
   async getSTO(): Promise<?STO> {
     try {
-      return new STO(await this.getModuleByName(MODULE_STO, 'CappedSTO'), this);
+      const address = await this.getModuleByName('CappedSTO');
+      return new STO(address, this);
     } catch (e) {
       return null;
     }
@@ -210,6 +194,36 @@ export default class SecurityToken extends Contract {
     return result;
   }
 
+  async getModuleFactory(name: string, type: number) {
+    let availableModules = await ModuleRegistry._methods
+      .getModulesByTypeAndToken(type, this.address)
+      .call();
+
+    let result = null;
+
+    if (!availableModules || !availableModules.length) {
+      return result;
+    }
+
+    let counter = 0;
+
+    while (result === null && counter < availableModules.length) {
+      const moduleFactory = new IModuleFactory(
+        moduleFactoryArtifact.abi,
+        availableModules[counter]
+      );
+      const hexName = await moduleFactory.methods.name().call();
+      const currentName = Contract._params.web3.utils.hexToAscii(hexName);
+      if (currentName.localeCompare(name) === 0) {
+        result = moduleFactory;
+        break;
+      }
+      counter++;
+    }
+
+    return result;
+  }
+
   async setCappedSTO(
     start: Date,
     end: Date,
@@ -218,7 +232,11 @@ export default class SecurityToken extends Contract {
     isEth: boolean, // fundraise type, use true for ETH or false for POLY
     fundsReceiver: Address
   ): Promise<Web3Receipt> {
-    const setupCost = await CappedSTOFactory.setupCost();
+    const cappedSTOFactory = await this.getModuleFactory(
+      'CappedSTOFactory',
+      MODULE_TYPES.STO
+    );
+    const setupCost = await cappedSTOFactory.setupCost();
     await PolyToken.transfer(this.address, setupCost);
     const data = Contract._params.web3.eth.abi.encodeFunctionCall(
       {
@@ -262,7 +280,7 @@ export default class SecurityToken extends Contract {
     );
     return this._tx(
       this._methods.addModule(
-        CappedSTOFactory.address,
+        cappedSTOFactory.address,
         data,
         PolyToken.addDecimals(setupCost),
         0
@@ -273,7 +291,11 @@ export default class SecurityToken extends Contract {
   }
 
   async setPercentageTM(percentage: number): Promise<Web3Receipt> {
-    const setupCost = await PercentageTransferManagerFactory.setupCost();
+    const percentageTransferManagerFactory = await this.getModuleFactory(
+      'PercentageTransferManagerFactory',
+      MODULE_TYPES.TRANSFER
+    );
+    const setupCost = await percentageTransferManagerFactory.setupCost();
     const data = Contract._params.web3.eth.abi.encodeFunctionCall(
       {
         name: 'configure',
@@ -289,7 +311,7 @@ export default class SecurityToken extends Contract {
     );
     return this._tx(
       this._methods.addModule(
-        PercentageTransferManagerFactory.address,
+        percentageTransferManagerFactory.address,
         data,
         PolyToken.addDecimals(setupCost),
         0
@@ -298,7 +320,11 @@ export default class SecurityToken extends Contract {
   }
 
   async setCountTM(count: number): Promise<Web3Receipt> {
-    const setupCost = await CountTransferManagerFactory.setupCost();
+    const countTransferManagerFactory = await this.getModuleFactory(
+      'CountTransferManagerFactory',
+      MODULE_TYPES.TRANSFER
+    );
+    const setupCost = await countTransferManagerFactory.setupCost();
     const data = Contract._params.web3.eth.abi.encodeFunctionCall(
       {
         name: 'configure',
@@ -314,7 +340,7 @@ export default class SecurityToken extends Contract {
     );
     return this._tx(
       this._methods.addModule(
-        CountTransferManagerFactory.address,
+        countTransferManagerFactory.address,
         data,
         PolyToken.addDecimals(setupCost),
         0
