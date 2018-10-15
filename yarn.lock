@@ -3011,7 +3011,7 @@ async-eventemitter@^0.2.2:
   dependencies:
     async "^2.4.0"
 
-"async-eventemitter@github:ahultgren/async-eventemitter#fa06e39e56786ba541c180061dbf2c0a5bbf951c":
+async-eventemitter@ahultgren/async-eventemitter#fa06e39e56786ba541c180061dbf2c0a5bbf951c:
   version "0.2.3"
   resolved "https://codeload.github.com/ahultgren/async-eventemitter/tar.gz/fa06e39e56786ba541c180061dbf2c0a5bbf951c"
   dependencies:
@@ -4673,6 +4673,20 @@ capture-stack-trace@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.1.tgz#a6c0bbe1f38f3aa0b92238ecb6ff42c344d4135d"
 
+carbon-components-react@6.29.2:
+  version "6.29.2"
+  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.29.2.tgz#caf79286f288c48920125bfbe84b1292b5d1c57b"
+  dependencies:
+    classnames "2.2.6"
+    downshift "^1.31.14"
+    flatpickr "4.5.1"
+    invariant "^2.2.3"
+    lodash.debounce "^4.0.8"
+    lodash.isequal "^4.5.0"
+    lodash.omit "^4.5.0"
+    warning "^3.0.0"
+    window-or-global "^1.0.1"
+
 carbon-components-react@^6.29.2:
   version "6.40.1"
   resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.40.1.tgz#26138c9b58629b07fa4dc1329373888cd0e6adef"
@@ -4686,6 +4700,16 @@ carbon-components-react@^6.29.2:
     lodash.omit "^4.5.0"
     warning "^3.0.0"
     window-or-global "^1.0.1"
+
+carbon-components@9.13.0:
+  version "9.13.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-9.13.0.tgz#af9411e3cc9f12cd291fe3799628b5b6460d535c"
+  dependencies:
+    "@carbon/colors" "^0.0.1-alpha.0"
+    carbon-icons "^7.0.7"
+    flatpickr "2.6.3"
+    lodash.debounce "^4.0.8"
+    warning "^3.0.0"
 
 carbon-components@9.8.0:
   version "9.8.0"
