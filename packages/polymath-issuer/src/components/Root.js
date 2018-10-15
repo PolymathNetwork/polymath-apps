@@ -6,11 +6,13 @@ import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
 import { Loading } from 'carbon-components-react';
 import { renderRoutes } from 'react-router-config';
 import { hot } from 'react-hot-loader';
+import type { RouterHistory } from 'react-router-dom';
 import {
   MetamaskStatus,
   NotSupportedPage,
   ErrorBoundary,
   EthNetworkWrapper,
+  setupHistory,
   NETWORK_MAIN,
   NETWORK_KOVAN,
 } from '@polymathnetwork/ui';
@@ -22,16 +24,30 @@ type StateProps = {|
   location: Object,
 |};
 
+type DispatchProps = {|
+  setupHistory: (history: RouterHistory) => any,
+|};
+
 const mapStateToProps = (state): StateProps => ({
   isNotice: state.pui.notice.isOpen,
   location: state.router.location,
 });
 
+const mapDispatchToProps: DispatchProps = {
+  setupHistory,
+};
+
 type Props = {|
-  routes?: Object,
-|} & StateProps;
+  routes: Object,
+  history: Object,
+|} & StateProps &
+  DispatchProps;
 
 class Root extends Component<Props> {
+  componentDidMount() {
+    this.props.setupHistory(this.props.history);
+  }
+
   render() {
     const { isNotice, routes, location } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
