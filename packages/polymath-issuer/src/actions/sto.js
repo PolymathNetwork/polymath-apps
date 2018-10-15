@@ -166,7 +166,8 @@ export const configure = () => async (
             async () => {
               const contract: SecurityToken = token.contract;
               const { values } = getState().form[configureFormName];
-              const [startDate, endDate] = values['start-end'];
+              const [startDate] = values.startDate;
+              const [endDate] = values.endDate;
               const startDateWithTime = dateTimeFromDateAndTime(
                 startDate,
                 values.startTime
