@@ -31,13 +31,8 @@ export default class STO extends Contract {
   }
 
   async checkFundraise(type: number): Promise<boolean> {
-    try {
-      // $FlowFixMe
-      return await this.fundRaiseType(type);
-    } catch (e) {
-      // $FlowFixMe
-      return Number(await this.fundraiseType()) === type;
-    }
+    // $FlowFixMe
+    return await this.fundRaiseTypes(type);
   }
 
   async isPolyFundraise(): Promise<boolean> {
@@ -107,7 +102,11 @@ export default class STO extends Contract {
     return this._tx(this._methods.buyTokens(this.account), value);
   }
 
-  async unpause(newEndDate: Date): Promise<Web3Receipt> {
-    return this._tx(this._methods.unpause(this._toUnixTS(newEndDate)));
+  async unpause(): Promise<Web3Receipt> {
+    return await this._tx(this._methods.unpause());
+  }
+
+  async pause(): Promise<Web3Receipt> {
+    return await this._tx(this._methods.pause());
   }
 }
