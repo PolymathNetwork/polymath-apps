@@ -12,12 +12,20 @@ import {
 
 // TODO @RafaelVidaurre: move each test to its own file
 test('renders without crashing', () => {
-  // TODO @grsmto: investigate why the DatePickers are not rendering here
   const component = renderer.create(
+    // TODO @grsmto: investigate why the DatePickers are not rendering here
     <Fragment>
       <CheckboxInput input={{ name: '1' }} label="1" meta={{}} />
-      {/* <DatePickerInput input={{ name: '2' }} meta={{}} label="Sale Lockup End Date" />
-      <DatePickerRangeInput input={{ name: 'start-end' }} label="Start Date;End Date" meta={{}} /> */}
+      {/* <DatePickerInput
+        input={{ name: '2' }}
+        meta={{}}
+        label="Sale Lockup End Date"
+      />
+      <DatePickerRangeInput
+        input={{ name: 'start-end' }}
+        label="Start Date;End Date"
+        meta={{}}
+      /> */}
       <RadioInput
         input={{ name: '4' }}
         meta={{}}

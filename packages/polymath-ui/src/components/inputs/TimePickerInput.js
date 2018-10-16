@@ -28,9 +28,9 @@ type Props = {
   className: string,
 };
 
-export const twelveHourTimeToMinutes = (time: TwelveHourTime) => {
-  const regex = /([^:]*):([^:]*)/;
-  const match = regex.exec(time.timeString);
+export const twelveHourTimeToMinutes = (time: string) => {
+  const regex = /([^:]*):([^:]*)(AM|PM)/;
+  const match = regex.exec(time);
 
   if (match === null) {
     throw new Error('String passed is invalid');
@@ -38,7 +38,7 @@ export const twelveHourTimeToMinutes = (time: TwelveHourTime) => {
 
   let hours = parseInt(match[1], 10) % 12;
 
-  if (time.dayPeriod === 'PM') {
+  if (match[3] === 'PM') {
     hours += 12;
   }
 

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Checkbox as CarbonCheckbox } from 'carbon-components-react';
 import type { Node } from 'react';
 
@@ -30,7 +30,7 @@ export default class CheckboxInput extends Component<Props> {
 
     return (
       // $FlowFixMe
-      <React.Fragment>
+      <Fragment>
         <CarbonCheckbox
           {...input}
           id={input.name}
@@ -40,7 +40,7 @@ export default class CheckboxInput extends Component<Props> {
           className={className}
           {...rest}
         />
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
