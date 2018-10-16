@@ -8,10 +8,7 @@ export {
   STO,
   TransferManager,
   PermissionManager,
-  CappedSTOFactory,
-  PercentageTransferManagerFactory,
   PercentageTransferManager,
-  CountTransferManagerFactory,
   CountTransferManager,
   PolymathRegistry,
 } from './contracts';
