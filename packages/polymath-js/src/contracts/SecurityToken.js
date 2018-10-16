@@ -30,7 +30,7 @@ export default class SecurityToken extends Contract {
   owner: () => Promise<Address>;
   name: () => Promise<string>;
   tokenDetails: () => Promise<string>;
-  freeze: () => Promise<boolean>;
+  transfersFrozen: () => Promise<boolean>;
   granularity: () => Promise<number | BigNumber>;
 
   setTokenBurner: (address: Address) => Promise<Web3Receipt>;
@@ -77,9 +77,9 @@ export default class SecurityToken extends Contract {
   }
 
   async getModuleByName(name: string): Promise<Address> {
-    const address = await this._methods
+    const address = (await this._methods
       .getModulesByName(this._toBytes(name))
-      .call()[0];
+      .call())[0];
     if (this._isEmptyAddress(address)) {
       throw new Error(`Module ${name} not found`);
     }
@@ -171,9 +171,9 @@ export default class SecurityToken extends Contract {
     });
 
     for (let event of events) {
-      const amount = this.removeDecimals(event.returnValues.amount);
+      const amount = this.removeDecimals(event.returnValues._value);
       for (let i = 0; i < investors.length; i++) {
-        if (event.returnValues.to === investors[i].address) {
+        if (event.returnValues._to === investors[i].address) {
           if (investors[i].minted) {
             investors[i].minted = investors[i].minted.plus(amount);
           } else {
@@ -209,10 +209,10 @@ export default class SecurityToken extends Contract {
 
     while (result === null && counter < availableModules.length) {
       const moduleFactory = new IModuleFactory(
-        moduleFactoryArtifact.abi,
+        moduleFactoryArtifact,
         availableModules[counter]
       );
-      const hexName = await moduleFactory.methods.name().call();
+      const hexName = await moduleFactory._methods.name().call();
       const currentName = Contract._params.web3.utils.hexToAscii(hexName);
       if (currentName.localeCompare(name) === 0) {
         result = moduleFactory;
@@ -233,14 +233,14 @@ export default class SecurityToken extends Contract {
     fundsReceiver: Address
   ): Promise<Web3Receipt> {
     const cappedSTOFactory = await this.getModuleFactory(
-      'CappedSTOFactory',
+      'CappedSTO',
       MODULE_TYPES.STO
     );
     const setupCost = await cappedSTOFactory.setupCost();
     await PolyToken.transfer(this.address, setupCost);
     const data = Contract._params.web3.eth.abi.encodeFunctionCall(
       {
-        name: 'configure', // TODO @bshevchenko: can we grab this ABI from the artifact?
+        name: 'configure',
         type: 'function',
         inputs: [
           {
@@ -260,8 +260,8 @@ export default class SecurityToken extends Contract {
             name: '_rate',
           },
           {
-            type: 'uint8',
-            name: '_fundRaiseType',
+            type: 'uint8[]',
+            name: '_fundRaiseTypes',
           },
           {
             type: 'address',
@@ -274,7 +274,7 @@ export default class SecurityToken extends Contract {
         this._toUnixTS(end),
         this._toWei(cap),
         rate,
-        isEth ? FUNDRAISE_ETH : FUNDRAISE_POLY,
+        isEth ? [FUNDRAISE_ETH] : [FUNDRAISE_POLY],
         fundsReceiver,
       ]
     );
@@ -292,7 +292,7 @@ export default class SecurityToken extends Contract {
 
   async setPercentageTM(percentage: number): Promise<Web3Receipt> {
     const percentageTransferManagerFactory = await this.getModuleFactory(
-      'PercentageTransferManagerFactory',
+      'PercentageTransferManager',
       MODULE_TYPES.TRANSFER
     );
     const setupCost = await percentageTransferManagerFactory.setupCost();
@@ -305,9 +305,13 @@ export default class SecurityToken extends Contract {
             type: 'uint256',
             name: '_maxHolderPercentage',
           },
+          {
+            type: 'bool',
+            name: '_allowPrimaryIssuance',
+          },
         ],
       },
-      [PercentageTransferManager.addDecimals(percentage)]
+      [PercentageTransferManager.addDecimals(percentage), false]
     );
     return this._tx(
       this._methods.addModule(
@@ -321,7 +325,7 @@ export default class SecurityToken extends Contract {
 
   async setCountTM(count: number): Promise<Web3Receipt> {
     const countTransferManagerFactory = await this.getModuleFactory(
-      'CountTransferManagerFactory',
+      'CountTransferManager',
       MODULE_TYPES.TRANSFER
     );
     const setupCost = await countTransferManagerFactory.setupCost();
