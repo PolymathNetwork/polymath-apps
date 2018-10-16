@@ -1,7 +1,14 @@
 const KOVAN_NETWORK_ID = 42;
 const MAINNET_NETWORK_ID = 1;
 
-const networkAddresses = {
+type NetworkId = KOVAN_NETWORK_ID | MAINNET_NETWORK_ID;
+type Networks = {
+  [networkId: NetworkId]: {
+    [contractName: string]: string,
+  },
+};
+
+export const NETWORKS: Networks = {
   [KOVAN_NETWORK_ID]: {
     PolymathRegistry: '0x05a6519e49e34239f78167abf293d94dae61b299',
     TickerRegistry: '0xc9af1d88fe48c8a6aa8677a29a89b0a6ae78f5a8',
@@ -29,34 +36,3 @@ const networkAddresses = {
       '0x3870ee581a0528d24a6216311fcfa78f95a00593',
   },
 };
-
-/**
- * Gets an obkject containing addresses for the relevant smart contracts in
- * a given network
- *
- * @param networkId - id of the network to get Smart Contract addresses
- * from. Usually set through Metamask on the client
- */
-export function getAddressesByNetwork(contractName: string, networkId: string) {
-  const addresses = networkAddresses[networkId];
-  let contractAddress = addresses && addresses[contractName];
-
-  if (contractAddress) {
-    return contractAddress;
-  }
-
-  // Attempt to get address from artifact
-  const jsonArtifact = require(`./fixtures/contracts/${contractName}.json`);
-  contractAddress =
-    jsonArtifact &&
-    jsonArtifact.networks &&
-    jsonArtifact.networks[networkId] &&
-    jsonArtifact.networks[networkId].address;
-
-  if (!contractAddress) {
-    throw new Error(
-      `No contract address found for contract "${contractName}" on network "${networkId}". Are the contracts correctly deployed?`
-    );
-  }
-  return contractAddress;
-}
