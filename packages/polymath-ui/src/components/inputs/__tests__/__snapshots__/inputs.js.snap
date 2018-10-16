@@ -16,6 +16,7 @@ Array [
     <label
       className="bx--checkbox-label"
       htmlFor="1"
+      title={null}
     >
       <span
         className=""
@@ -187,7 +188,6 @@ Array [
           className="bx--select__arrow"
           fillRule="evenodd"
           height="5"
-          name="caret--down"
           role="img"
           viewBox="0 0 10 5"
           width="10"
@@ -196,7 +196,7 @@ Array [
             open list of options
           </title>
           <path
-            d="M10 0L5 5 0 0z"
+            d="M0 0l5 4.998L10 0z"
           />
         </svg>
       </div>

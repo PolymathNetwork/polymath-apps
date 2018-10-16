@@ -160,7 +160,8 @@
     ],
     "coverageDirectory": "<rootDir>/reports",
     "reporters": [
-      "jest-junit"
+      "jest-junit",
+      "default"
     ]
   }
 }
