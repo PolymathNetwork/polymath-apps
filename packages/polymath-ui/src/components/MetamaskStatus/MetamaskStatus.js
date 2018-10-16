@@ -1,118 +1,113 @@
 // @flow
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Accordion, AccordionItem } from 'carbon-components-react';
 
 import {
   ERROR_LOCKED,
   ERROR_NETWORK,
   ERROR_DISCONNECTED,
+  ERROR_ACCESS_REQUESTED,
 } from '../EthNetworkWrapper';
+import AccessRequestedStatus from './status/AccessRequestedStatus';
+import GenericStatus from './status/GenericStatus';
 
 import logo from '../../images/logo.svg';
-import metamask from '../../images/metamask.png';
-
-type StateProps = {|
-  error: number,
-|};
-
-const mapStateToProps = (state): StateProps => ({
-  error: state.network.error,
-});
 
 type Props = {|
   networks: string,
-|} & StateProps;
+  status: number,
+|};
 
-class MetamaskStatus extends Component<Props> {
-  render() {
-    let pageId;
-    let h1;
-    let h3;
-    const link = (
-      <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-        https://metamask.io/
-      </a>
-    );
-    switch (Number(this.props.error)) {
-      case ERROR_LOCKED:
-        pageId = 'metamask-locked';
-        h1 = 'Your MetaMask Is Locked';
-        h3 = 'Simply open MetaMask and follow the instructions to unlock it.';
-        break;
+const MetamaskStatus = ({ networks, status }: Props) => {
+  let StatusComponent = GenericStatus;
+  let statusProps = {};
 
-      case ERROR_NETWORK:
-        pageId = 'wrong-network';
-        h1 = 'Wrong Network';
-        h3 = (
+  switch (status) {
+    case ERROR_LOCKED:
+      statusProps = {
+        id: 'metamask-locked',
+        title: 'Your MetaMask Is Locked',
+        description:
+          'Simply open MetaMask and follow the instructions to unlock it.',
+      };
+      break;
+    case ERROR_ACCESS_REQUESTED:
+      StatusComponent = AccessRequestedStatus;
+      break;
+    case ERROR_NETWORK:
+      statusProps = {
+        id: 'wrong-network',
+        title: 'Wrong Network',
+        description: (
           <span>
             Network that you chose is not supported.
             <br />
-            Open MetaMask and choose {this.props.networks}.
+            Open MetaMask and choose {networks}.
           </span>
-        );
-        break;
-
-      case ERROR_DISCONNECTED:
-        pageId = 'disconnected';
-        h1 = 'Aw, Snap!';
-        h3 = (
+        ),
+      };
+      break;
+    case ERROR_DISCONNECTED:
+      statusProps = {
+        id: 'disconnected',
+        title: 'Aw, Snap!',
+        description: (
           <span>
             You were disconnected from the node for some reason. Please refresh
             the page.
           </span>
-        );
-        break;
-
-      default:
-        pageId = 'no-metamask';
-        h1 = 'You Need MetaMask';
-        h3 = (
+        ),
+      };
+      break;
+    default:
+      statusProps = {
+        id: 'no-metamask',
+        title: 'You Need MetaMask',
+        description: (
           <span>
             MetaMask is a browser extension that links the operations performed
-            on this dashboard with the blockchain. Please visit {link} and
-            install the MetaMask extension to your browser of choice.
+            on this dashboard with the blockchain. Please visit{' '}
+            <a
+              href="https://metamask.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://metamask.io/
+            </a>{' '}
+            and install the MetaMask extension to your browser of choice.
           </span>
-        );
-    }
-    return (
-      <DocumentTitle title="Polymath">
-        <div id={pageId}>
-          <img src={logo} alt="Logo" className="pui-metamask-logo" />
-          <div className="pui-single-box">
-            <div className="pui-single-box-header">
-              <div className="pui-single-box-metamask">
-                <img src={metamask} alt="Metamask" />
-              </div>
-              <h1 className="pui-h1">{h1}</h1>
-              <h3 className="pui-h3">{h3}</h3>
-            </div>
-            <Accordion className="pui-metamask-accordion">
-              <AccordionItem title="What software do you need to issue your Security Token?">
-                <p>
-                  To issue your Security Token, you need to have MetaMask
-                  installed in your browser.
-                  <br />
-                  Additionally, in a wallet in your MetaMask account you need to
-                  have ETH and POLY.
-                </p>
-              </AccordionItem>
-              <AccordionItem title="Why is MetaMask locked?">
-                <p>
-                  MetaMask periodically locks itself for security reasons.
-                  <br />
-                  Please open the MetaMask extension in your browser and enter
-                  your password to unlock MetaMask.
-                </p>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
-      </DocumentTitle>
-    );
+        ),
+      };
   }
-}
 
-export default connect(mapStateToProps)(MetamaskStatus);
+  return (
+    <div className="pui-metamask-status">
+      <img src={logo} alt="Logo" className="pui-metamask-logo" />
+      <div className="pui-single-box">
+        <StatusComponent {...statusProps} />
+        <Accordion className="pui-metamask-accordion">
+          <AccordionItem title="What software do you need to issue your Security Token?">
+            <p>
+              To issue your Security Token, you need to have MetaMask installed
+              in your browser.
+              <br />
+              Additionally, in a wallet in your MetaMask account you need to
+              have ETH and POLY.
+            </p>
+          </AccordionItem>
+          <AccordionItem title="Why is MetaMask locked?">
+            <p>
+              MetaMask periodically locks itself for security reasons.
+              <br />
+              Please open the MetaMask extension in your browser and enter your
+              password to unlock MetaMask.
+            </p>
+          </AccordionItem>
+        </Accordion>
+      </div>
+    </div>
+  );
+};
+
+export default MetamaskStatus;
