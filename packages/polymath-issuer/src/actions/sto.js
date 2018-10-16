@@ -91,10 +91,11 @@ export const fetchFactories = () => async (
     /**
       Get supported module templates
 
-      TODO @monitz87: refactor into `getSupportedModuleTemplates(token: SecurityToken)`function when we add more modules
+      TODO @monitz87: refactor into `getSupportedModuleTemplates(token: SecurityToken)`
+      function when we add more modules
      */
-    const cappedSTOFactory = await token.getModuleFactory(
-      'CappedSTOFactory',
+    const cappedSTOFactory = await token.contract.getModuleFactory(
+      'CappedSTO',
       STO_TYPE
     );
     const owner = await cappedSTOFactory.owner();
@@ -133,8 +134,9 @@ export const configure = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const cappedSTOFactory = await token.getModuleFactory(
-    'CappedSTOFactory',
+  const { token } = getState().token;
+  const cappedSTOFactory = await token.contract.getModuleFactory(
+    'CappedSTO',
     STO_TYPE
   );
   const fee = await cappedSTOFactory.setupCost();
@@ -243,7 +245,7 @@ export const fetchPurchases = () => async (
   }
 };
 
-export const togglePauseSto = (endDate: Date) => async (
+export const togglePauseSto = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
@@ -285,7 +287,7 @@ export const togglePauseSto = (endDate: Date) => async (
             async () => {
               const contract: STO = getState().sto.contract;
               if (isStoPaused) {
-                await contract.unpause(endDate);
+                await contract.unpause();
               } else {
                 await contract.pause();
               }
