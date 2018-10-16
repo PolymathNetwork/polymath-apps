@@ -71,11 +71,12 @@ class SecurityTokenRegistry extends Contract {
         .transactionHash;
     }
 
-    timestamp = this._toDate(timestamp);
+    timestamp = this._toDate(Number(timestamp));
     let expires;
     if (!status) {
-      expires = new Date(expiryDate);
+      expires = this._toDate(Number(expiryDate));
     }
+
     return {
       ticker: symbol,
       owner,
