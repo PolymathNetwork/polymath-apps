@@ -1,5 +1,7 @@
 // @flow
 
+export { default as theme } from './theme';
+
 export * from './components/inputs';
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';
@@ -21,6 +23,8 @@ export { default as SignUpPage } from './components/SignUpPage';
 export { default as SignUpSuccessPage } from './components/SignUpSuccessPage';
 export { default as SignInPage } from './components/SignInPage';
 export { default as ErrorBoundary } from './components/ErrorBoundary';
+export { default as Grid } from './components/Grid';
+export { default as DynamicTable } from './components/DynamicTable';
 
 export { getNotice } from './components/NoticeBar/actions';
 export { notify } from './components/Toaster/actions';
@@ -64,6 +68,7 @@ export { default as icoPaperPlane } from './images/svg/paper-plane';
 export { default as icoHandshake } from './images/svg/handshake';
 export { default as icoHelp } from './images/svg/help';
 export { default as icoWhitelist } from './images/svg/whitelist';
+export { iconAddSolid as icoAdd } from 'carbon-icons';
 
 export type { PUIState } from './redux/reducer';
 export type { NetworkState } from './redux/reducer';
