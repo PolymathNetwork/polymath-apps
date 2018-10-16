@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import { Remark } from '@polymathnetwork/ui';
+import { Grid, Remark } from '@polymathnetwork/ui';
 import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
 
 import Progress from '../../token/components/Progress';
@@ -64,13 +64,15 @@ class SelectSTOTemplate extends Component<Props> {
                 CONFIGURE STO&raquo;.
               </h3>
               <br />
-              {this.props.factories.map(item => (
-                <STODetails
-                  key={item.address}
-                  item={item}
-                  handleUseSTO={this.handleUseSTO(item)}
-                />
-              ))}
+              <Grid gridGap={30} gridAutoFlow="row">
+                {this.props.factories.map(item => (
+                  <STODetails
+                    key={item.address}
+                    item={item}
+                    handleUseSTO={this.handleUseSTO(item)}
+                  />
+                ))}
+              </Grid>
             </div>
           </div>
         </div>
