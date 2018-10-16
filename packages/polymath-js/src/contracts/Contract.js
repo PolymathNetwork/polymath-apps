@@ -192,7 +192,6 @@ export default class Contract {
         : undefined,
     };
 
-    await method.estimateGas(preParams);
     let gas;
     if (gasLimit && gasLimit > 10) {
       gas = gasLimit;
@@ -228,9 +227,18 @@ export default class Contract {
     };
 
     const end = async () => {
-      if (!Contract.isLocalhost()) {
-        await sleep();
-      }
+      /**
+        FIXME @monitz87: should check with the corresponding event for
+        each transaction instead of sleeping an arbitrary amount of time.
+        This is prone to cause race conditions and is a terrible coding practice.
+        
+        This function wasn't awaiting for the sleep to end when connected to a 
+        local blockchain, but that caused inconsistent state issues
+        (due to race conditions when the transaction had finished but hadn't been mined yet) 
+        so I put the sleep back in for now.
+       */
+      await sleep();
+
       Contract._params.txEndCallback(receipt);
       if (receipt.status === '0x0') {
         throw new Error('Transaction failed');
