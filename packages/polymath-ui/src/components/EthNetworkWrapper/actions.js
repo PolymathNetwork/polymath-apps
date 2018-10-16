@@ -29,13 +29,24 @@ export type Action =
   | ExtractReturn<typeof connected>
   | ExtractReturn<typeof fail>;
 
-const web3 = new Web3();
-const web3WS = new Web3(); // since MetaMask doesn't support WebSockets we need this extra client for events subscribing
+let web3;
+let web3WS; // since MetaMask doesn't support WebSockets we need this extra client for events subscribing
+
+// If new Metamask version
+if (window.ethereum) {
+  web3 = new Web3(window.ethereum);
+  web3WS = new Web3(window.ethereum);
+} else {
+  web3 = new Web3();
+  web3WS = new Web3();
+}
 
 export const ERROR_NOT_INSTALLED = 1;
 export const ERROR_LOCKED = 2;
 export const ERROR_NETWORK = 3;
 export const ERROR_DISCONNECTED = 4;
+export const ERROR_ACCESS_REQUESTED = 5;
+export const ERROR_ACCESS_DENIED = 6;
 
 const initPolymathJs = async (params: {
   networkParams: Object,
@@ -54,20 +65,34 @@ const initPolymathJs = async (params: {
 };
 
 export const init = (networks: Array<string>) => async (dispatch: Function) => {
+  if (typeof window.ethereum !== 'undefined') {
+    const isMetamaskAuthorised = await window.ethereum.isEnabled();
+
+    // If dapp not authorised
+    if (!isMetamaskAuthorised) {
+      try {
+        dispatch(fail(ERROR_ACCESS_REQUESTED));
+
+        // Request accounts access
+        await window.ethereum.enable();
+      } catch (e) {
+        // User denied access
+        dispatch(fail(ERROR_ACCESS_DENIED));
+      }
+    }
+  }
+
   try {
     let id = undefined;
+
     if (typeof window.web3 !== 'undefined') {
       // Metamask/Mist
       web3.setProvider(window.web3.currentProvider);
       id = await web3.eth.net.getId();
     }
-
-    const isLocalhost =
-      String(id) === LOCAL_NETWORK_ID ||
-      String(id) === LOCALVM_NETWORK_ID ||
-      id === undefined;
-
-    const network = getNetwork(id);
+    // TODO @RafaelVidaurre: Make this code work with polymath in localhost
+    const isLocalhost = Number(id) === HARDCODED_NETWORK_ID || id === undefined;
+    const network = getNetwork(!isLocalhost ? id : undefined);
 
     if (
       network === undefined ||
@@ -127,7 +152,14 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
 
     dispatch(connected(networkParams));
   } catch (e) {
-    if (![ERROR_LOCKED, ERROR_NETWORK].includes(Number(e.message))) {
+    if (
+      ![
+        ERROR_LOCKED,
+        ERROR_NETWORK,
+        ERROR_ACCESS_REQUESTED,
+        ERROR_ACCESS_DENIED,
+      ].includes(Number(e.message))
+    ) {
       // eslint-disable-next-line
       console.error('polymath-auth', e);
       e.message = ERROR_NOT_INSTALLED;

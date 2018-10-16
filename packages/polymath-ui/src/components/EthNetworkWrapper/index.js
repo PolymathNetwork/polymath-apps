@@ -9,6 +9,7 @@ export {
   ERROR_NETWORK,
   ERROR_NOT_INSTALLED,
   ERROR_DISCONNECTED,
+  ERROR_ACCESS_REQUESTED,
 } from './actions';
 
 export type { NetworkState } from './reducer';
