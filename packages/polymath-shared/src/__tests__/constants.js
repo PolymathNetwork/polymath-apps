@@ -1,13 +1,6 @@
 import tickerRegistryArtifact from '../fixtures/contracts/TickerRegistry.json';
 import { LOCAL_NETWORK_ID } from '../constants';
 
-/**
- * DELETE THIS
- * - In local we want to use smart contracts' fixtures' addresses
- * - In staging we want to get staging kovan
- * - In mainnet we want to get production kovan + production mainnet
- */
-
 const ORIGINAL_ENV = { ...process.env };
 
 describe('constants', () => {

@@ -10,8 +10,6 @@ import CappedSTOFactoryArtifacts from './fixtures/contracts/CappedSTOFactory.jso
 import GeneralPermissionManagerFactoryArtifacts from './fixtures/contracts/GeneralPermissionManagerFactory.json';
 import PercentageTransferManagerFactoryArtifacts from './fixtures/contracts/PercentageTransferManagerFactory.json';
 
-// TODO @RafaelVidaurre: Make sure we are using the right version of CappedSTO
-
 export const KOVAN_NETWORK_ID = 42;
 export const MAINNET_NETWORK_ID = 1;
 export const LOCAL_NETWORK_ID = 15;
