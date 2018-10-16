@@ -39,6 +39,7 @@ import './style.scss';
 type StateProps = {|
   account: ?string,
   token: ?SecurityToken,
+  isMintingFrozen: boolean,
   stage: number,
   maxHoldersCount: ?number,
   isCountTMEnabled: boolean,
@@ -57,6 +58,7 @@ type DispatchProps = {|
 const mapStateToProps = (state: RootState): StateProps => ({
   account: state.network.account,
   token: state.token.token,
+  isMintingFrozen: state.token.isMintingFrozen,
   stage: state.sto.stage,
   maxHoldersCount: state.token.countTM.count,
   isCountTMEnabled: !!state.token.countTM.contract,
@@ -192,7 +194,11 @@ class TokenPage extends Component<Props, State> {
               ) : (
                 ''
               )}
-              {token.address && this.props.stage < 3 ? <MintTokens /> : ''}
+              {token.address && !this.props.isMintingFrozen ? (
+                <MintTokens />
+              ) : (
+                ''
+              )}
               <div className="token-symbol-wrapper">
                 <div className="pui-page-box">
                   <div className="ticker-field">
