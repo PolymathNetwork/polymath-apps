@@ -46,6 +46,7 @@ export default class Contract {
         }
         const networkAddresses = NETWORK_ADDRESSES[Contract._params.id];
         const contractName = this._artifact.contractName;
+
         const defaultAddress =
           networkAddresses && networkAddresses[contractName];
         const addressToUse = at || defaultAddress;

@@ -1,5 +1,7 @@
 // @flow
 
+import PolyTokenArtifacts from './fixtures/contracts/PolyToken.json';
+import PolyTokenFaucetArtifacts from './fixtures/contracts/PolyTokenFaucet.json';
 import PolymathRegistryArtifacts from './fixtures/contracts/PolymathRegistry.json';
 import TickerRegistryArtifacts from './fixtures/contracts/TickerRegistry.json';
 import ModuleRegistryArtifacts from './fixtures/contracts/ModuleRegistry.json';
@@ -44,6 +46,8 @@ type NetworkAddresses = {
 };
 
 const localAddresses = {
+  PolyToken: PolyTokenFaucetArtifacts.networks[LOCAL_NETWORK_ID].address,
+  PolyTokenFaucet: PolyTokenFaucetArtifacts.networks[LOCAL_NETWORK_ID].address,
   PolymathRegistry:
     PolymathRegistryArtifacts.networks[LOCAL_NETWORK_ID].address,
   TickerRegistry: TickerRegistryArtifacts.networks[LOCAL_NETWORK_ID].address,
@@ -59,7 +63,12 @@ const localAddresses = {
       .address,
 };
 
-const kovanStagingAddresses = {
+const kovanProductionPolyFaucetAddress =
+  '0xb06d72a24df50d4e2cac133b320c5e7de3ef94cb';
+
+const kovanProductionAddresses = {
+  PolyTokenFaucet: kovanProductionPolyFaucetAddress,
+  PolyToken: kovanProductionPolyFaucetAddress,
   PolymathRegistry: '0x05a6519e49e34239f78167abf293d94dae61b299',
   TickerRegistry: '0xc9af1d88fe48c8a6aa8677a29a89b0a6ae78f5a8',
   ModuleRegistry: '0x961913dcbe2f36176bf25774337f3277796820eb',
@@ -72,30 +81,20 @@ const kovanStagingAddresses = {
 };
 
 export const _STAGING_ADDRESSES = {
-  [KOVAN_NETWORK_ID]: kovanStagingAddresses,
-  [MAINNET_NETWORK_ID]: {
-    PolymathRegistry: '0x06595656b93ce14834f0d22b7bbda4382d5ab510',
-    TickerRegistry: '0xc31714e6759a1ee26db1d06af1ed276340cd4233',
-    ModuleRegistry: '0x31d85fffd7e38bd42d2ae0409ac149e3ef0fd92c',
-    SecurityTokenRegistry: '0xef58491224958d978facf55d2120c55a24516b98',
-    CappedSTOFactory: '0x2aa1b133f464ac08f66c2f702581d014e4603d31',
-    GeneralPermissionManagerFactory:
-      '0xeba0348e243f2de2f1687060f9c795ac279c66af',
-    CountTransferManagerFactory: '0xa662a05647a8e713be1bed193c094805d20471ff',
-    PercentageTransferManagerFactory:
-      '0x3870ee581a0528d24a6216311fcfa78f95a00593',
-  },
+  // FIXME @RafaelVidaurre: Don't share production Kovan with staging Kovan
+  [KOVAN_NETWORK_ID]: kovanProductionAddresses,
 };
 
 export const _LOCAL_ADDRESSES = {
-  [KOVAN_NETWORK_ID]: kovanStagingAddresses,
+  // FIXME @RafaelVidaurre: Don't share production Kovan with staging Kovan
+  [KOVAN_NETWORK_ID]: kovanProductionAddresses,
   [LOCAL_NETWORK_ID]: localAddresses,
 };
 
 export const _PRODUCTION_ADDRESSES = {
-  // FIXME @RafaelVidaurre: Don't share production Kovan with staging Kovan
-  [KOVAN_NETWORK_ID]: kovanStagingAddresses,
+  [KOVAN_NETWORK_ID]: kovanProductionAddresses,
   [MAINNET_NETWORK_ID]: {
+    PolyToken: '0x118A0df120cfB097aaD3A70914562F803A5bE45C',
     PolymathRegistry: '0x06595656b93ce14834f0d22b7bbda4382d5ab510',
     TickerRegistry: '0xc31714e6759a1ee26db1d06af1ed276340cd4233',
     ModuleRegistry: '0x31d85fffd7e38bd42d2ae0409ac149e3ef0fd92c',
