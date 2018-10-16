@@ -22,6 +22,7 @@ import SplashPage from './SplashPage';
 type StateProps = {|
   isNotice: boolean,
   location: Object,
+  networkError: number,
 |};
 
 type DispatchProps = {|
@@ -31,6 +32,7 @@ type DispatchProps = {|
 const mapStateToProps = (state): StateProps => ({
   isNotice: state.pui.notice.isOpen,
   location: state.router.location,
+  networkError: state.network.error,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -49,7 +51,7 @@ class Root extends Component<Props> {
   }
 
   render() {
-    const { isNotice, routes, location } = this.props;
+    const { isNotice, routes, location, networkError } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [NETWORK_MAIN, NETWORK_KOVAN];
 
@@ -63,7 +65,12 @@ class Root extends Component<Props> {
           ) : (
             <EthNetworkWrapper
               loading={<Loading />}
-              guide={<MetamaskStatus networks="Mainnet or Kovan" />}
+              guide={
+                <MetamaskStatus
+                  networks="Mainnet or Kovan"
+                  status={networkError}
+                />
+              }
               networks={networks}
             >
               {renderRoutes(routes)}
