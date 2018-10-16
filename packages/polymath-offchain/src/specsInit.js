@@ -1,3 +1,7 @@
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '.env.test' });
+const res = dotenv.config({ path: '.env.test' });
+
+if (res.error) {
+  throw res.error;
+}
