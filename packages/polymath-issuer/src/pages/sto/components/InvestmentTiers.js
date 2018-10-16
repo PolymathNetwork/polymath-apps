@@ -1,8 +1,8 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import { Tooltip, Toggle } from 'carbon-components-react';
-import { DynamicTable } from '@polymathnetwork/ui';
+import { Tooltip, Toggle, Button } from 'carbon-components-react';
+import { DynamicTable, icoAdd } from '@polymathnetwork/ui';
 
 const {
   Table,
@@ -82,6 +82,9 @@ const InvestmentTiers = () => (
       headers={headers}
       render={({ rows, headers, getHeaderProps }) => (
         <TableContainer>
+          <Button icon={icoAdd} onClick={() => {}}>
+            Add new
+          </Button>
           <Table>
             <TableHead>
               <TableRow>
