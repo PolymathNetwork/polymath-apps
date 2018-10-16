@@ -93,18 +93,8 @@ export const _LOCAL_ADDRESSES = {
 };
 
 export const _PRODUCTION_ADDRESSES = {
-  [KOVAN_NETWORK_ID]: {
-    PolymathRegistry: '0x05a6519e49e34239f78167abf293d94dae61b299',
-    TickerRegistry: '0xc9af1d88fe48c8a6aa8677a29a89b0a6ae78f5a8',
-    ModuleRegistry: '0x961913dcbe2f36176bf25774337f3277796820eb',
-    SecurityTokenRegistry: '0xced6e4ec2ac5425743bf4edf4d4e476120b8fc72',
-    CappedSTOFactory: '0xde4f3cfb6b214e60c4e69e6dfc95ede3c4e3d709',
-    GeneralPermissionManagerFactory:
-      '0x6f5fec2934a34d2e2374042cca6505f1c87ef79b',
-    CountTransferManagerFactory: '0xb540b6fa752a91c7e7834523172309e543a99a06',
-    PercentageTransferManagerFactory:
-      '0xfe908f07e6db57aa6bbd8374e59aac86b60374b0',
-  },
+  // FIXME @RafaelVidaurre: Don't share production Kovan with staging Kovan
+  [KOVAN_NETWORK_ID]: kovanStagingAddresses,
   [MAINNET_NETWORK_ID]: {
     PolymathRegistry: '0x06595656b93ce14834f0d22b7bbda4382d5ab510',
     TickerRegistry: '0xc31714e6759a1ee26db1d06af1ed276340cd4233',
