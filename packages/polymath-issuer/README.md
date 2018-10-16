@@ -4,6 +4,10 @@
 
 ## Development
 
+## Troubleshoot
+
+- Try to clean your Metamask cache: Settings > Reset Accounts
+
 # Environment variables
 
 You can set the following env vars inside a `.env` file on the package's root
