@@ -20,11 +20,20 @@ const NetworkIds = {
   LOCAL_NETWORK_ID,
 };
 
-const DEPLOYMENT_STAGE = process.env.DEPLOYMENT_STAGE;
+const DEPLOYMENT_STAGE =
+  process.env.REACT_APP_DEPLOYMENT_STAGE || process.env.DEPLOYMENT_STAGE;
+
+if (process.env.DEPLOYMENT_STAGE && process.env.REACT_APP_DEPLOYMENT_STAGE) {
+  throw new Error(
+    'Cannot set both "REACT_APP_DEPLOYMENT_STAGE" and "DEPLOYMENT_STAGE" env vars. Use only one'
+  );
+}
 
 if (!DEPLOYMENT_STAGE) {
   // TODO @RafaelVidaurre: Move to common env validation utility
-  throw new Error('DEPLOYMENT_STAGE env is not set');
+  throw new Error(
+    'no deployment stage env var has been set. Set either "DEPLOYMENT_STAGE" or "REACT_APP_DEPLOYMENT_STAGE"'
+  );
 }
 
 type NetworkId = $Keys<typeof NetworkIds>;
