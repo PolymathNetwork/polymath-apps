@@ -54,5 +54,13 @@ describe('constants', () => {
         require('../constants');
       }).toThrowError();
     });
+
+    test('throws an error if ambiguous deployment stage is set', () => {
+      process.env.DEPLOYMENT_STAGE = 'local';
+      process.env.REACT_APP_DEPLOYMENT_STAGE = 'local';
+      expect(() => {
+        require('../constants');
+      }).toThrowError();
+    });
   });
 });
