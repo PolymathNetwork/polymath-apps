@@ -11,7 +11,7 @@
     "url": "https://github.com/PolymathNetwork/polymath-apps/tree/develop/packages/polymath-ui"
   },
   "scripts": {
-    "dev": "docz dev",
+    "start": "docz dev",
     "build": "webpack --config webpack.prod.js",
     "build:website": "docz build",
     "test": "jest",
@@ -26,7 +26,7 @@
     "can-use-dom": "^0.1.0",
     "carbon-components": "8.16.8",
     "carbon-components-react": "5.31.0",
-    "carbon-icons": "6.3.2",
+    "carbon-icons": "7.0.7",
     "eth-sig-util": "^1.4.2",
     "react": "^16.5.2",
     "react-document-title": "2.0.3",
@@ -35,6 +35,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.2.1",
+    "reakit": "^0.15.7",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "styled-system": "^3.1.11"
