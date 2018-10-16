@@ -119,6 +119,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
       }
     });
 
+    // TODO @grsmto: Do proper dependency injection instead of sharing web3 instance via Redux state
     dispatch(connected({ id, name, account, web3, web3WS }));
   } catch (e) {
     if (
