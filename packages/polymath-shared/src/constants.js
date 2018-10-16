@@ -125,11 +125,6 @@ switch (DEPLOYMENT_STAGE) {
     networkAddresses = _LOCAL_ADDRESSES;
     break;
   }
-  default: {
-    throw new Error(
-      `Unexpected error: Invalid deployment stage "${DEPLOYMENT_STAGE}"`
-    );
-  }
 }
 
 export const NETWORK_ADDRESSES = networkAddresses;
