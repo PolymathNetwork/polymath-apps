@@ -3,7 +3,7 @@ name: DynamicTable
 ---
 
 import { Playground, PropsTable } from 'docz';
-import DynamicTable, { TableContainer, Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from './';
+import DynamicTable from './';
 
 # DynamicTable
 
@@ -15,6 +15,16 @@ import DynamicTable, { TableContainer, Table, TableHead, TableHeader, TableBody,
 
 <Playground>
   {() => {
+    const {
+      TableContainer, 
+      Table, 
+      TableHead, 
+      TableHeader, 
+      TableBody, 
+      TableRow, 
+      TableCell
+    } = DynamicTable;
+
     const headers = [
       {
         // `key` is the name of the field on the row object itself for the header
