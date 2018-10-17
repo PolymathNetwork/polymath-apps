@@ -3,7 +3,7 @@
 import Web3 from 'web3';
 
 import type { Action } from './actions';
-import * as a from './actions';
+import { CONNECTED, FAILED } from './';
 
 export type NetworkState = {|
   isConnected: boolean,
@@ -29,13 +29,13 @@ const defaultState: NetworkState = {
 
 export default (state: NetworkState = defaultState, action: Action) => {
   switch (action.type) {
-    case a.CONNECTED:
+    case CONNECTED:
       return {
         ...state,
         isConnected: true,
         ...action.params,
       };
-    case a.FAIL:
+    case FAILED:
       return {
         ...state,
         isConnected: false,
