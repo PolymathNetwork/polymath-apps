@@ -7,7 +7,7 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "local-blockchain:start": "yarn local-blockchain:prepare && yarn ganache-cli --db=\"./build/fixtures/blockchain-state/\" --gasLimit 90000000 -i=15 -d --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\"",
+    "local-blockchain:start": "yarn local-blockchain:prepare && yarn ganache-cli --db=\"./build/fixtures/blockchain-state/\" --gasLimit 90000000 -i=15 -d --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\" --blockTime 1",
     "local-blockchain:prepare": "rm -rf ./build && mkdir build && cp -r ./src/fixtures ./build/fixtures",
     "local-blockchain:migrate": "echo \"DEPRECATED: No need to run migrate locally anymore. The local blockchain now starts ready to go.\"",
     "local-blockchain:console": "truffle console",
