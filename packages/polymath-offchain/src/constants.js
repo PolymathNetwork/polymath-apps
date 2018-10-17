@@ -55,10 +55,10 @@ export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
 const NETWORKS = {};
 
 /**
-  - Production offchain MUST listen to Mainnet and Kovan
-  - Staging offchain MUST listen to kovan and can optionally listen to
-    the local blockchain
-  - Local offchain MUST listen to the local blockchain
+ * - Production offchain MUST listen to Mainnet and Kovan
+ * - Staging offchain MUST listen to kovan and can optionally listen to
+ *   the local blockchain
+ * - Local offchain MUST listen to the local blockchain
  */
 if (DEPLOYMENT_STAGE !== 'local') {
   if (!WEB3_NETWORK_KOVAN_WS) {

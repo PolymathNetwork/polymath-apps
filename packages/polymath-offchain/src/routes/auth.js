@@ -22,9 +22,9 @@ type AuthRequestBody = {|
 |};
 
 /**
-  Validates that the request parameters are typed correctly
-
-  TODO @monitz87: add value validations as well
+ * Validates that the request parameters are typed correctly
+ *
+ * TODO @monitz87: add value validations as well
  */
 const isAuthSetupRequestValid = (params: AuthSetupRequestParams | any) => {
   if (typeof params !== 'object') {
@@ -37,9 +37,9 @@ const isAuthSetupRequestValid = (params: AuthSetupRequestParams | any) => {
 };
 
 /**
-  Validates that the request parameters are typed correctly
-
-  TODO @monitz87: add value validations as well
+ * Validates that the request parameters are typed correctly
+ *
+ * TODO @monitz87: add value validations as well
  */
 const isAuthRequestValid = (body: AuthRequestBody | any) => {
   if (typeof body !== 'object') {
@@ -59,29 +59,29 @@ const isAuthRequestValid = (body: AuthRequestBody | any) => {
 };
 
 /**
-  GET /auth/:address
-
-  Auth setup route handler. The client provides his
-  ethereum address as a route parameter. A random code is assigned to the address 
-  for signing and is returned to the client in a JSON along 
-  with the typed message he has to sign.
-
-  If the address is invalid, the response is
-
-  {
-    status: 'error',
-    data: 'Invalid request parameters'
-  }
-
-  Otherwise it is
-
-  {
-    status: 'ok',
-    data: {
-      typedName: <typed message>,
-      code: <random verification code>
-    }
-  }
+ * GET /auth/:address
+ *
+ * Auth setup route handler. The client provides his
+ * ethereum address as a route parameter. A random code is assigned to the address
+ * for signing and is returned to the client in a JSON along
+ * with the typed message he has to sign.
+ *
+ * If the address is invalid, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Invalid request parameters'
+ * }
+ *
+ * Otherwise it is
+ *
+ * {
+ *   status: 'ok',
+ *   data: {
+ *     typedName: <typed message>,
+ *     code: <random verification code>
+ *   }
+ * }
  */
 export const getCodeHandler = async (ctx: Context) => {
   let params = ctx.params;
@@ -111,60 +111,60 @@ export const getCodeHandler = async (ctx: Context) => {
 };
 
 /**
-  Auth setup route
+ * Auth setup route
  */
 authRouter.get('/verification-code/:address', getCodeHandler);
 
 /**
-  POST /auth
-
-  Auth route handler.
-
-  If the request body is invalid, the response is
-
-  {
-    status: 'error',
-    data: 'Invalid request body
-  }
-
-  If the client didn't sign the verification code or the signature is not valid, the response will contain an error.
-
-  If the code doesn't match the address in our database, the response is
-
-  {
-    status: 'error',
-    data: 'Code is not valid'    
-  }
-
-  If the signature is invalid, the response is
-
-  {
-    status: 'error',
-    data: 'Sig is not valid'
-  }
-
-  If the client previously confirmed his email via PIN, the response
-  will contain the client's email and name, signaling the dApps to allow access.
-
-  {
-    status: 'ok',
-    data: {
-      name: <name of the user>
-      email: <email address of the user>
-    }
-  }
-
-  Otherwise, the response data will be null, signaling that the 
-  email confirmation process has to begin before the client can be granted access.
-
-  {
-    status: 'ok',
-    data: null
-  }
-
-  @param {string} code polymath verification code
-  @param {string} sig signature
-  @param {string} address issuer ethereum address
+ * POST /auth
+ *
+ * Auth route handler.
+ *
+ * If the request body is invalid, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Invalid request body
+ * }
+ *
+ * If the client didn't sign the verification code or the signature is not valid, the response will contain an error.
+ *
+ * If the code doesn't match the address in our database, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Code is not valid'
+ * }
+ *
+ * If the signature is invalid, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Sig is not valid'
+ * }
+ *
+ * If the client previously confirmed his email via PIN, the response
+ * will contain the client's email and name, signaling the dApps to allow access.
+ *
+ * {
+ *   status: 'ok',
+ *   data: {
+ *     name: <name of the user>
+ *     email: <email address of the user>
+ *   }
+ * }
+ *
+ * Otherwise, the response data will be null, signaling that the
+ * email confirmation process has to begin before the client can be granted access.
+ *
+ * {
+ *   status: 'ok',
+ *   data: null
+ * }
+ *
+ * @param {string} code polymath verification code
+ * @param {string} sig signature
+ * @param {string} address issuer ethereum address
  */
 export const authHandler = async (ctx: Context) => {
   let body = ctx.request.body;
@@ -211,7 +211,7 @@ export const authHandler = async (ctx: Context) => {
 };
 
 /**
-  Authentication route
+ * Authentication route
  */
 authRouter.post('/auth', authHandler);
 

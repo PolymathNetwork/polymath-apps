@@ -15,14 +15,6 @@ import type {
 // this has to be here for now
 const HARDCODED_NETWORK_ID = 15;
 
-const noRegistryAddressError = new Error(
-  'Registry addresses not set. Did you forget to call "setupContracts"?'
-);
-
-const noNetworkParamsError = new Error(
-  'Network params not set. Did you forget to call "Contract.setParams"?'
-);
-
 export default class Contract {
   static _params: NetworkParams;
   static _registryAddressesSet: boolean;
@@ -48,7 +40,9 @@ export default class Contract {
     return new Proxy(this, {
       get: (target: Object, field: string): Promise<Web3Receipt> | any => {
         if (!Contract._registryAddressesSet && field === '_tx') {
-          throw noRegistryAddressError;
+          throw new Error(
+            'Registry addresses not set. Did you forget to call "setupContracts"?'
+          );
         }
 
         if (Contract._registryAddressesSet && field === 'setAddress') {
@@ -56,7 +50,9 @@ export default class Contract {
         }
 
         if (!Contract._params && field !== 'setParams') {
-          throw noNetworkParamsError;
+          throw new Error(
+            'Network params not set. Did you forget to call "Contract.setParams"?'
+          );
         }
 
         if (Contract._params && field === 'setParams') {
@@ -112,9 +108,9 @@ export default class Contract {
   }
 
   /**
-    Sets address and instantiates web3 contract
-
-    @param {Address} address address of the contract
+   * Sets address and instantiates web3 contract
+   *
+   * @param {Address} address address of the contract
    */
   setAddress(at: Address) {
     if (!Contract.isMainnet() && this._artifactTestnet) {
@@ -228,14 +224,14 @@ export default class Contract {
 
     const end = async () => {
       /**
-        FIXME @monitz87: should check with the corresponding event for
-        each transaction instead of sleeping an arbitrary amount of time.
-        This is prone to cause race conditions and is a terrible coding practice.
-        
-        This function wasn't awaiting for the sleep to end when connected to a 
-        local blockchain, but that caused inconsistent state issues
-        (due to race conditions when the transaction had finished but hadn't been mined yet) 
-        so I put the sleep back in for now.
+       * FIXME @monitz87: should check with the corresponding event for
+       * each transaction instead of sleeping an arbitrary amount of time.
+       * This is prone to cause race conditions and is a terrible coding practice.
+       *
+       * This function wasn't awaiting for the sleep to end when connected to a
+       * local blockchain, but that caused inconsistent state issues
+       * (due to race conditions when the transaction had finished but hadn't been mined yet)
+       * so I put the sleep back in for now.
        */
       await sleep();
 

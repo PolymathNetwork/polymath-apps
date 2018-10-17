@@ -89,10 +89,10 @@ export const fetchFactories = () => async (
     const stoTemplates = [];
 
     /**
-      Get supported module templates
-
-      TODO @monitz87: refactor into `getSupportedModuleTemplates(token: SecurityToken)`
-      function when we add more modules
+     * Get supported module templates
+     *
+     * TODO @monitz87: refactor into `getSupportedModuleTemplates(token: SecurityToken)`
+     * function when we add more modules
      */
     const cappedSTOFactory = await token.contract.getModuleFactory(
       'CappedSTO',

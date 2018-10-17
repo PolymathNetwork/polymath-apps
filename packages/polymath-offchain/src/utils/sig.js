@@ -11,11 +11,11 @@ import { AuthCode } from '../models';
 import { TYPED_NAME } from '../constants';
 
 /**
-  TODO @monitz87:
-    - annotate and document this file. Right now use as-is
-      since I'm not terribly familiar with the ETH standard.
-    - ask Pablo if the recoverNormal part is really needed (since we're only signing structured data apparently)
-    - return sigUtil error messages when we start using HTTP codes in the responses
+ * TODO @monitz87:
+ *   - annotate and document this file. Right now use as-is
+ *     since I'm not terribly familiar with the ETH standard.
+ *   - ask Pablo if the recoverNormal part is really needed (since we're only signing structured data apparently)
+ *   - return sigUtil error messages when we start using HTTP codes in the responses
  */
 
 const recoverNormal = (message, sig) => {
@@ -45,13 +45,13 @@ const isValidSig = (value: string, sig: string, address: string) => {
 };
 
 /**
-  Check if a client trying to authenticate has signed the verification code and if the signature is valid
-
-  @param {string} code polymath verification code
-  @param {string} sig signature
-  @param {string} address issuer ethereum address
-
-  @returns {Promise} promise that resolves to null if the signature is valid, or an object describing the error if it is not
+ * Check if a client trying to authenticate has signed the verification code and if the signature is valid
+ *
+ * @param {string} code polymath verification code
+ * @param {string} sig signature
+ * @param {string} address issuer ethereum address
+ *
+ * @returns {Promise} promise that resolves to null if the signature is valid, or an object describing the error if it is not
  */
 export const verifySignature = async (
   code: string,
