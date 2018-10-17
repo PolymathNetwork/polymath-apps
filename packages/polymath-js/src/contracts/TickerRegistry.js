@@ -73,6 +73,7 @@ class TickerRegistry extends Contract {
 
   /**
    * TODO @bshevchenko: DEPRECATED since owner can be changed
+   * NOTE @RafaelVidaurre: Not really deprecated, still being used
    * @deprecated
    */
   async getMyTokens(): Promise<Array<SymbolDetails>> {
