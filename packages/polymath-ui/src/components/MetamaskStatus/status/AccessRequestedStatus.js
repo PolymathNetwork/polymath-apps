@@ -2,13 +2,21 @@
 
 import React from 'react';
 
-import metamask from '../../../images/metamask.png';
+import Button from '../../Button';
 
-const AccessRequested = () => (
-  <div id="metamask-access-requested" className="pui-single-box-header">
-    <div className="pui-single-box-metamask">
-      <img src={metamask} alt="Metamask" />
-    </div>
+import illustrationImgSrc from '../../../images/link-to-metamask.svg';
+
+type Props = {|
+  onRequestAuth: Function,
+|};
+
+const AccessRequestedStatus = ({ onRequestAuth }: Props) => (
+  <div id="metamask-access-requested">
+    <img
+      className="pui-metamask-status__header-img"
+      src={illustrationImgSrc}
+      alt="Polymath Studio to Metamask connection"
+    />
     <h1 className="pui-h1">
       To Proceed, Connect the Token Studio with Metamask
     </h1>
@@ -19,7 +27,10 @@ const AccessRequested = () => (
       Polymath Token Studio, simply open the metamask extension in your browser
       and follow the instructions.
     </h3>
+    <p>
+      <Button onClick={onRequestAuth}>Connect to Metamask</Button>
+    </p>
   </div>
 );
 
-export default AccessRequested;
+export default AccessRequestedStatus;
