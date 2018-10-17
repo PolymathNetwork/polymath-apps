@@ -3,14 +3,17 @@
 import EthNetworkWrapper from './EthNetworkWrapper';
 
 export { default as reducer } from './reducer';
-export {
-  CONNECTED,
-  ERROR_LOCKED,
-  ERROR_NETWORK,
-  ERROR_NOT_INSTALLED,
-  ERROR_DISCONNECTED,
-  ERROR_ACCESS_REQUESTED,
-} from './actions';
+
+export const ERROR_NOT_INSTALLED = 1;
+export const ERROR_LOCKED = 2;
+export const ERROR_NETWORK = 3;
+export const ERROR_DISCONNECTED = 4;
+export const ERROR_ACCESS_REQUESTED = 5;
+export const ERROR_ACCESS_DENIED = 6;
+
+export const CONNECTED = 'polymath-auth/CONNECTED';
+export const FAILED = 'polymath-auth/FAILED';
+
 export {
   NETWORK_MAIN,
   NETWORK_KOVAN,
@@ -18,7 +21,7 @@ export {
   NETWORK_ROPSTEN,
 } from './networks';
 
+export default EthNetworkWrapper;
+
 export type { NetworkState } from './reducer';
 export type { NetworkParams } from './actions';
-
-export default EthNetworkWrapper;
