@@ -462,7 +462,13 @@ export const exportMintedTokensList = () => async (
               ].join(',');
           });
 
-          window.open(encodeURI(csvContent));
+          //Required to trigger file download in Chrome and Firefox
+          let link = document.createElement('a');
+          link.setAttribute('href', encodeURI(csvContent));
+          link.setAttribute('download', 'whitelist.csv');
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
 
           dispatch(ui.fetched());
         } catch (e) {
