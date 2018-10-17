@@ -3,6 +3,7 @@
 type Network = {
   name: string,
   url: string,
+  polymathRegistryAddress: ?string,
 };
 
 export const NETWORK_MAIN = '1';
@@ -15,6 +16,8 @@ export default (id: string = 'local'): Network =>
     [NETWORK_MAIN]: {
       name: 'Mainnet',
       url: process.env.REACT_APP_NETWORK_MAIN_WS,
+      polymathRegistryAddress:
+        process.env.REACT_APP_POLYMATH_REGISTRY_ADDRESS_MAIN,
     },
     [NETWORK_ROPSTEN]: {
       name: 'Ropsten Testnet',
@@ -27,9 +30,13 @@ export default (id: string = 'local'): Network =>
     [NETWORK_KOVAN]: {
       name: 'Kovan Testnet',
       url: process.env.REACT_APP_NETWORK_KOVAN_WS,
+      polymathRegistryAddress:
+        process.env.REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN,
     },
     local: {
       name: 'Localhost',
       url: process.env.REACT_APP_NETWORK_LOCAL_WS,
+      polymathRegistryAddress:
+        process.env.REACT_APP_POLYMATH_REGISTRY_ADDRESS_LOCAL,
     },
   }[id]);

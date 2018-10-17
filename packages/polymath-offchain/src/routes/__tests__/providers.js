@@ -29,18 +29,24 @@ jest.mock('../../utils', () => {
 });
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json',
+  '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json',
   () => {
     return {
       abi: {},
-      networks: {
-        '15': {
-          address: '0xffffffffffffffffffffffffffffffffffffffff',
-        },
-      },
     };
   }
 );
+
+jest.mock(
+  '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json',
+  () => {
+    return {
+      abi: {},
+    };
+  }
+);
+
+const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
 
 const validEmail = 'jeremias@polymath.network';
 const validName = 'Jeremías Díaz';
@@ -50,14 +56,10 @@ const validUser = {
   name: validName,
 };
 
-const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
-
 const returnValidUser = () => validUser;
 const returnNull = () => null;
 
 describe('Function: checkForReservedTicker', () => {
-  const validAddress = '0xf55bcAA8a8AcF4aBA2edF74A50509358B96155b0';
-
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -380,7 +382,7 @@ describe('Route: POST /providers/apply', () => {
       data: 'Some signing error',
     };
 
-    verifySignature.mockImplementation(() => expectedError);
+    verifySignature.mockImplementationOnce(() => expectedError);
 
     const ctx = {
       request: {
@@ -394,9 +396,9 @@ describe('Route: POST /providers/apply', () => {
   });
 
   test('responds with an error if the user does not exist in the database', async () => {
-    User.findOne.mockImplementation(() => undefined);
+    User.findOne.mockImplementationOnce(() => undefined);
 
-    verifySignature.mockImplementation(returnNull);
+    verifySignature.mockImplementationOnce(returnNull);
 
     const ctx = {
       request: {
@@ -420,12 +422,16 @@ describe('Route: POST /providers/apply', () => {
     Web3.mockImplementation(() => {
       return {
         eth: {
-          net: {
-            getId: () => '15',
-          },
           Contract: () => {
             return {
               getPastEvents: () => [],
+              methods: {
+                getAddress: () => {
+                  return {
+                    call: () => '0xffffffffffffffffffffffffffffffffffffffff',
+                  };
+                },
+              },
             };
           },
         },
@@ -447,13 +453,6 @@ describe('Route: POST /providers/apply', () => {
   });
 
   test('sends dummy email and responds with ok status in local', async () => {
-    /**
-      FIXME @monitz87:
-      In order to test the handler with DEPLOYMENT_STAGE mocked as both 'production' and 'local',
-      we must reset the module cache and require the handler again. Since the reset appears to 
-      also reset the mock implementations, we must require all the modules again. This is a horrible hack 
-      and I sincerely hope there is a better way of doing it, but right now 100% coverage is king. 
-     */
     const requireModules = () => {
       jest.resetModules();
       return {
@@ -470,12 +469,16 @@ describe('Route: POST /providers/apply', () => {
     const returnMockWeb3Client = () => {
       return {
         eth: {
-          net: {
-            getId: () => '15',
-          },
           Contract: () => {
             return {
               getPastEvents: () => ['Some random event'],
+              methods: {
+                getAddress: () => {
+                  return {
+                    call: () => '0xffffffffffffffffffffffffffffffffffffffff',
+                  };
+                },
+              },
             };
           },
         },
@@ -540,13 +543,13 @@ describe('Route: POST /providers/apply', () => {
 
     let modules = requireModules();
 
-    modules.User.findOne.mockImplementation(returnValidUser);
+    modules.User.findOne.mockImplementationOnce(returnValidUser);
 
-    modules.Provider.find.mockImplementation(() => expectedProviders);
+    modules.Provider.find.mockImplementationOnce(() => expectedProviders);
 
-    modules.verifySignature.mockImplementation(returnNull);
+    modules.verifySignature.mockImplementationOnce(returnNull);
 
-    modules.Web3.mockImplementation(returnMockWeb3Client);
+    modules.Web3.mockImplementationOnce(returnMockWeb3Client);
 
     const newBody = { ...validBody };
     newBody.networkId = '1';
@@ -590,13 +593,13 @@ describe('Route: POST /providers/apply', () => {
 
     modules = requireModules();
 
-    modules.User.findOne.mockImplementation(returnValidUser);
+    modules.User.findOne.mockImplementationOnce(returnValidUser);
 
-    modules.Provider.find.mockImplementation(() => expectedProviders);
+    modules.Provider.find.mockImplementationOnce(() => expectedProviders);
 
-    modules.verifySignature.mockImplementation(returnNull);
+    modules.verifySignature.mockImplementationOnce(returnNull);
 
-    modules.Web3.mockImplementation(returnMockWeb3Client);
+    modules.Web3.mockImplementationOnce(returnMockWeb3Client);
 
     await modules.applyHandler(ctx);
 

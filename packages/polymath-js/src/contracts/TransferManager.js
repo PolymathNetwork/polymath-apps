@@ -5,7 +5,7 @@ import artifact from '@polymathnetwork/shared/fixtures/contracts/GeneralTransfer
 import Contract from './Contract';
 import type { Address, Investor, Web3Receipt } from '../types';
 
-const LOG_MODIFY_WHITELIST = 'LogModifyWhitelist';
+const MODIFY_WHITELIST_EVENT = 'ModifyWhitelist';
 
 export default class TransferManager extends Contract {
   paused: () => Promise<boolean>;
@@ -61,11 +61,14 @@ export default class TransferManager extends Contract {
 
   async getWhitelist(cannotBuyFromSTO?: boolean): Promise<Array<Investor>> {
     const logs = [];
-    const events = await this._contractWS.getPastEvents(LOG_MODIFY_WHITELIST, {
-      filter: cannotBuyFromSTO ? { _canBuyFromSTO: false } : {},
-      fromBlock: 0,
-      toBlock: 'latest',
-    });
+    const events = await this._contractWS.getPastEvents(
+      MODIFY_WHITELIST_EVENT,
+      {
+        filter: cannotBuyFromSTO ? { _canBuyFromSTO: false } : {},
+        fromBlock: 0,
+        toBlock: 'latest',
+      }
+    );
 
     for (let event of events) {
       logs.push({

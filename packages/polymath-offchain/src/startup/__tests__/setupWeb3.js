@@ -15,36 +15,40 @@ jest.mock('../../utils', () => {
   };
 });
 
-const mockArtifact = {
-  abi: {},
-  networks: {
-    '15': {
-      address: '0xffffffffffffffffffffffffffffffffffffffff',
-    },
-  },
-};
-
 jest.useFakeTimers();
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json',
-  () => mockArtifact
+  '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json',
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
 jest.mock(
   '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json',
-  () => mockArtifact
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
 jest.mock(
   '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json',
-  () => mockArtifact
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
-jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json',
-  () => mockArtifact
-);
+jest.mock('@polymathnetwork/shared/fixtures/contracts/CappedSTO.json', () => {
+  return {
+    abi: {},
+  };
+});
 
 jest.mock('winston', () => {
   return {
@@ -59,10 +63,10 @@ const registerTickerListenerMock = jest.fn();
 const moduleAddedListenerMock = jest.fn();
 const newSecurityTokenListenerMock = jest.fn();
 const getPastEventsMock = jest.fn().mockImplementation(() => []);
-const expiryLimitCallMock = jest.fn();
-const expiryLimitMock = jest.fn().mockImplementation(() => {
+const getExpiryLimitCallMock = jest.fn();
+const getExpiryLimitMock = jest.fn().mockImplementation(() => {
   return {
-    call: expiryLimitCallMock,
+    call: getExpiryLimitCallMock,
   };
 });
 const detailsCallMock = jest.fn();
@@ -83,24 +87,32 @@ const ownerMock = jest.fn().mockImplementation(() => {
     call: ownerCallMock,
   };
 });
+const getAddressCallMock = jest
+  .fn()
+  .mockImplementation(() => '0xffffffffffffffffffffffffffffffffffffffff');
+const getAddressMock = jest.fn().mockImplementation(() => {
+  return {
+    call: getAddressCallMock,
+  };
+});
 const contractMock = jest.fn().mockImplementation(() => {
   return {
     events: {
-      LogRegisterTicker: registerTickerListenerMock,
-      LogModuleAdded: moduleAddedListenerMock,
-      LogNewSecurityToken: newSecurityTokenListenerMock,
+      RegisterTicker: registerTickerListenerMock,
+      ModuleAdded: moduleAddedListenerMock,
+      NewSecurityToken: newSecurityTokenListenerMock,
     },
     getPastEvents: getPastEventsMock,
     methods: {
-      expiryLimit: expiryLimitMock,
+      getExpiryLimit: getExpiryLimitMock,
       getSTODetails: detailsMock,
       wallet: walletMock,
       owner: ownerMock,
+      getAddress: getAddressMock,
     },
   };
 });
 const connectionCloseMock = jest.fn();
-const getIdMock = jest.fn().mockImplementation(() => 15);
 const webSocketProviderMock = jest.fn().mockImplementation(() => {
   return {
     on: socketEventListenerMock,
@@ -113,7 +125,6 @@ const constructorMock = jest.fn().mockImplementation(() => {
     eth: {
       net: {
         isListening: isListeningMock,
-        getId: getIdMock,
       },
       Contract: contractMock,
     },
@@ -389,7 +400,7 @@ describe('Function: registerTickerHandler', () => {
   const validExpiryLimitSeconds = validExpiryLimit * 60 * 60 * 24;
   const validResult = {
     returnValues: {
-      _symbol: validTicker,
+      _ticker: validTicker,
       _owner: validAddress,
     },
     transactionHash: validTxHash,
@@ -412,7 +423,7 @@ describe('Function: registerTickerHandler', () => {
   });
 
   test('logs an error if the registered ticker owner is not in the database', async () => {
-    expiryLimitCallMock.mockImplementationOnce(() => validExpiryLimit);
+    getExpiryLimitCallMock.mockImplementationOnce(() => validExpiryLimit);
 
     User.findOne.mockImplementationOnce(() => undefined);
 
@@ -436,7 +447,9 @@ describe('Function: registerTickerHandler', () => {
       name: validName,
     };
 
-    expiryLimitCallMock.mockImplementationOnce(() => validExpiryLimitSeconds);
+    getExpiryLimitCallMock.mockImplementationOnce(
+      () => validExpiryLimitSeconds
+    );
 
     User.findOne.mockImplementationOnce(() => validUser);
 
@@ -556,14 +569,15 @@ describe('Function: addSTOListeners', () => {
 
     await addSTOListeners(validNetworkId);
 
-    expect(contractMock).toHaveBeenCalledTimes(5);
+    expect(contractMock).toHaveBeenCalledTimes(6);
     expect(contractMock.mock.calls[0][1]).toEqual(
-      mockArtifact.networks[getIdMock()].address
+      NETWORKS['15'].polymathRegistryAddress
     );
-    expect(contractMock.mock.calls[1][1]).toEqual(validTokenAddress1);
-    expect(contractMock.mock.calls[2][1]).toEqual(validTokenAddress2);
-    expect(contractMock.mock.calls[3][1]).toEqual(validTokenAddress3);
-    expect(contractMock.mock.calls[4][1]).toEqual(validTokenAddress4);
+    expect(contractMock.mock.calls[1][1]).toEqual(getAddressMock().call());
+    expect(contractMock.mock.calls[2][1]).toEqual(validTokenAddress1);
+    expect(contractMock.mock.calls[3][1]).toEqual(validTokenAddress2);
+    expect(contractMock.mock.calls[4][1]).toEqual(validTokenAddress3);
+    expect(contractMock.mock.calls[5][1]).toEqual(validTokenAddress4);
     expect(moduleAddedListenerMock).toHaveBeenCalledTimes(4);
   });
 });

@@ -43,11 +43,6 @@ type Props = {|
 
 class App extends Component<Props> {
   componentWillMount() {
-    Contract.setParams({
-      ...this.props.network,
-      txHashCallback: hash => this.props.txHash(hash),
-      txEndCallback: receipt => this.props.txEnd(receipt),
-    });
     this.props.fetchBalance();
     this.props.getNotice('investors');
   }

@@ -9,7 +9,7 @@ import type {
   SecurityToken,
   STOPurchase,
   STODetails,
-} from '@polymathnetwork/js';
+} from '@polymathnetwork/js/types';
 import { NotFoundPage } from '@polymathnetwork/ui';
 
 import { togglePauseSto, exportInvestorsList } from '../../../actions/sto';
@@ -44,7 +44,7 @@ type Props = {||} & StateProps & DispatchProps;
 class OverviewSTO extends Component<Props> {
   handlePause = () => {
     // $FlowFixMe
-    this.props.togglePauseSto(this.props.details.end);
+    this.props.togglePauseSto();
   };
 
   handleExport = () => {

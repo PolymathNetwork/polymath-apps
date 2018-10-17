@@ -7,7 +7,7 @@ import Contract from './Contract';
 import { PolyToken, SecurityToken } from '../index';
 import type { Address, STODetails, STOPurchase, Web3Receipt } from '../types';
 
-const LOG_TOKEN_PURCHASE = 'TokenPurchase';
+const TOKEN_PURCHASE_EVENT = 'TokenPurchase';
 
 export const FUNDRAISE_ETH = 0;
 export const FUNDRAISE_POLY = 1;
@@ -31,13 +31,8 @@ export default class STO extends Contract {
   }
 
   async checkFundraise(type: number): Promise<boolean> {
-    try {
-      // $FlowFixMe
-      return await this.fundRaiseType(type);
-    } catch (e) {
-      // $FlowFixMe
-      return Number(await this.fundraiseType()) === type;
-    }
+    // $FlowFixMe
+    return await this.fundRaiseTypes(type);
   }
 
   async isPolyFundraise(): Promise<boolean> {
@@ -75,7 +70,7 @@ export default class STO extends Contract {
 
   async getPurchases(): Promise<Array<STOPurchase>> {
     const result = [];
-    const events = await this._contractWS.getPastEvents(LOG_TOKEN_PURCHASE, {
+    const events = await this._contractWS.getPastEvents(TOKEN_PURCHASE_EVENT, {
       fromBlock: 0,
       toBlock: 'latest',
     });
@@ -107,7 +102,11 @@ export default class STO extends Contract {
     return this._tx(this._methods.buyTokens(this.account), value);
   }
 
-  async unpause(newEndDate: Date): Promise<Web3Receipt> {
-    return this._tx(this._methods.unpause(this._toUnixTS(newEndDate)));
+  async unpause(): Promise<Web3Receipt> {
+    return await this._tx(this._methods.unpause());
+  }
+
+  async pause(): Promise<Web3Receipt> {
+    return await this._tx(this._methods.pause());
   }
 }

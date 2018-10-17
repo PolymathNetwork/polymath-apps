@@ -507,9 +507,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\r\n\r\nimport \"./ICheckpoint.sol\";\r\nimport \"../Module.sol\";\r\nimport \"../../interfaces/ISecurityToken.sol\";\r\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\r\nimport \"openzeppelin-solidity/contracts/math/Math.sol\";\r\n\r\n/**\r\n * @title Checkpoint module for issuing ether dividends\r\n * @dev abstract contract\r\n */\r\ncontract DividendCheckpoint is ICheckpoint, Module {\r\n    using SafeMath for uint256;\r\n\r\n    uint256 public EXCLUDED_ADDRESS_LIMIT = 50;\r\n    bytes32 public constant DISTRIBUTE = \"DISTRIBUTE\";\r\n\r\n    struct Dividend {\r\n        uint256 checkpointId;\r\n        uint256 created; // Time at which the dividend was created\r\n        uint256 maturity; // Time after which dividend can be claimed - set to 0 to bypass\r\n        uint256 expiry;  // Time until which dividend can be claimed - after this time any remaining amount can be withdrawn by issuer - set to very high value to bypass\r\n        uint256 amount; // Dividend amount in WEI\r\n        uint256 claimedAmount; // Amount of dividend claimed so far\r\n        uint256 totalSupply; // Total supply at the associated checkpoint (avoids recalculating this)\r\n        bool reclaimed;  // True if expiry has passed and issuer has reclaimed remaining dividend\r\n        uint256 dividendWithheld;\r\n        uint256 dividendWithheldReclaimed;\r\n        mapping (address => bool) claimed; // List of addresses which have claimed dividend\r\n        mapping (address => bool) dividendExcluded; // List of addresses which cannot claim dividends\r\n        bytes32 name; // Name/title - used for identification\r\n    }\r\n\r\n    // List of all dividends\r\n    Dividend[] public dividends;\r\n\r\n    // List of addresses which cannot claim dividends\r\n    address[] public excluded;\r\n\r\n    // Mapping from address to withholding tax as a percentage * 10**16\r\n    mapping (address => uint256) public withholdingTax;\r\n\r\n    // Total amount of ETH withheld per investor\r\n    mapping (address => uint256) public investorWithheld;\r\n\r\n    event SetDefaultExcludedAddresses(address[] _excluded, uint256 _timestamp);\r\n    event SetWithholding(address[] _investors, uint256[] _withholding, uint256 _timestamp);\r\n    event SetWithholdingFixed(address[] _investors, uint256 _withholding, uint256 _timestamp);\r\n\r\n    modifier validDividendIndex(uint256 _dividendIndex) {\r\n        require(_dividendIndex < dividends.length, \"Incorrect dividend index\");\r\n        require(!dividends[_dividendIndex].reclaimed, \"Dividend has been reclaimed by issuer\");\r\n        require(now >= dividends[_dividendIndex].maturity, \"Dividend maturity is in the future\");\r\n        require(now < dividends[_dividendIndex].expiry, \"Dividend expiry is in the past\");\r\n        _;\r\n    }\r\n\r\n    /**\r\n    * @notice Init function i.e generalise function to maintain the structure of the module contract\r\n    * @return bytes4\r\n    */\r\n    function getInitFunction() public pure returns (bytes4) {\r\n        return bytes4(0);\r\n    }\r\n\r\n    /**\r\n     * @notice Return the default excluded addresses\r\n     * @return List of excluded addresses\r\n     */\r\n    function getDefaultExcluded() external view returns (address[]) {\r\n        return excluded;\r\n    }\r\n\r\n    /**\r\n     * @notice Function to clear and set list of excluded addresses used for future dividends\r\n     * @param _excluded addresses of investor\r\n     */\r\n    function setDefaultExcluded(address[] _excluded) public onlyOwner {\r\n        require(_excluded.length <= EXCLUDED_ADDRESS_LIMIT, \"Too many excluded addresses\");\r\n        excluded = _excluded;\r\n        emit SetDefaultExcludedAddresses(excluded, now);\r\n    }\r\n\r\n    /**\r\n     * @notice Function to set withholding tax rates for investors\r\n     * @param _investors addresses of investor\r\n     * @param _withholding withholding tax for individual investors (multiplied by 10**16)\r\n     */\r\n    function setWithholding(address[] _investors, uint256[] _withholding) public onlyOwner {\r\n        require(_investors.length == _withholding.length, \"Mismatched input lengths\");\r\n        emit SetWithholding(_investors, _withholding, now);\r\n        for (uint256 i = 0; i < _investors.length; i++) {\r\n            require(_withholding[i] <= 10**18, \"Incorrect withholding tax\");\r\n            withholdingTax[_investors[i]] = _withholding[i];\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @notice Function to set withholding tax rates for investors\r\n     * @param _investors addresses of investor\r\n     * @param _withholding withholding tax for all investors (multiplied by 10**16)\r\n     */\r\n    function setWithholdingFixed(address[] _investors, uint256 _withholding) public onlyOwner {\r\n        require(_withholding <= 10**18, \"Incorrect withholding tax\");\r\n        emit SetWithholdingFixed(_investors, _withholding, now);\r\n        for (uint256 i = 0; i < _investors.length; i++) {\r\n            withholdingTax[_investors[i]] = _withholding;\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @notice Issuer can push dividends to provided addresses\r\n     * @param _dividendIndex Dividend to push\r\n     * @param _payees Addresses to which to push the dividend\r\n     */\r\n    function pushDividendPaymentToAddresses(uint256 _dividendIndex, address[] _payees) public withPerm(DISTRIBUTE) validDividendIndex(_dividendIndex) {\r\n        Dividend storage dividend = dividends[_dividendIndex];\r\n        for (uint256 i = 0; i < _payees.length; i++) {\r\n            if ((!dividend.claimed[_payees[i]]) && (!dividend.dividendExcluded[_payees[i]])) {\r\n                _payDividend(_payees[i], dividend, _dividendIndex);\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @notice Issuer can push dividends using the investor list from the security token\r\n     * @param _dividendIndex Dividend to push\r\n     * @param _start Index in investor list at which to start pushing dividends\r\n     * @param _iterations Number of addresses to push dividends for\r\n     */\r\n    function pushDividendPayment(uint256 _dividendIndex, uint256 _start, uint256 _iterations) public withPerm(DISTRIBUTE) validDividendIndex(_dividendIndex) {\r\n        Dividend storage dividend = dividends[_dividendIndex];\r\n        address[] memory investors = ISecurityToken(securityToken).getInvestors();\r\n        uint256 numberInvestors = Math.min256(investors.length, _start.add(_iterations));\r\n        for (uint256 i = _start; i < numberInvestors; i++) {\r\n            address payee = investors[i];\r\n            if ((!dividend.claimed[payee]) && (!dividend.dividendExcluded[payee])) {\r\n                _payDividend(payee, dividend, _dividendIndex);\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @notice Investors can pull their own dividends\r\n     * @param _dividendIndex Dividend to pull\r\n     */\r\n    function pullDividendPayment(uint256 _dividendIndex) public validDividendIndex(_dividendIndex)\r\n    {\r\n        Dividend storage dividend = dividends[_dividendIndex];\r\n        require(!dividend.claimed[msg.sender], \"Dividend already claimed by msg.sender\");\r\n        require(!dividend.dividendExcluded[msg.sender], \"msg.sender excluded from Dividend\");\r\n        _payDividend(msg.sender, dividend, _dividendIndex);\r\n    }\r\n\r\n    /**\r\n     * @notice Internal function for paying dividends\r\n     * @param _payee address of investor\r\n     * @param _dividend storage with previously issued dividends\r\n     * @param _dividendIndex Dividend to pay\r\n     */\r\n    function _payDividend(address _payee, Dividend storage _dividend, uint256 _dividendIndex) internal;\r\n\r\n    /**\r\n     * @notice Issuer can reclaim remaining unclaimed dividend amounts, for expired dividends\r\n     * @param _dividendIndex Dividend to reclaim\r\n     */\r\n    function reclaimDividend(uint256 _dividendIndex) external;\r\n\r\n    /**\r\n     * @notice Calculate amount of dividends claimable\r\n     * @param _dividendIndex Dividend to calculate\r\n     * @param _payee Affected investor address\r\n     * @return claim, withheld amounts\r\n     */\r\n    function calculateDividend(uint256 _dividendIndex, address _payee) public view returns(uint256, uint256) {\r\n        require(_dividendIndex < dividends.length, \"Incorrect dividend index\");\r\n        Dividend storage dividend = dividends[_dividendIndex];\r\n        if (dividend.claimed[_payee] || dividend.dividendExcluded[_payee]) {\r\n            return (0, 0);\r\n        }\r\n        uint256 balance = ISecurityToken(securityToken).balanceOfAt(_payee, dividend.checkpointId);\r\n        uint256 claim = balance.mul(dividend.amount).div(dividend.totalSupply);\r\n        uint256 withheld = claim.mul(withholdingTax[_payee]).div(uint256(10**18));\r\n        return (claim, withheld);\r\n    }\r\n\r\n    /**\r\n     * @notice Get the index according to the checkpoint id\r\n     * @param _checkpointId Checkpoint id to query\r\n     * @return uint256[]\r\n     */\r\n    function getDividendIndex(uint256 _checkpointId) public view returns(uint256[]) {\r\n        uint256 counter = 0;\r\n        for(uint256 i = 0; i < dividends.length; i++) {\r\n            if (dividends[i].checkpointId == _checkpointId) {\r\n                counter++;\r\n            }\r\n        }\r\n\r\n        uint256[] memory index = new uint256[](counter);\r\n        counter = 0;\r\n        for(uint256 j = 0; j < dividends.length; j++) {\r\n            if (dividends[j].checkpointId == _checkpointId) {\r\n                index[counter] = j;\r\n                counter++;\r\n            }\r\n        }\r\n        return index;\r\n    }\r\n\r\n    /**\r\n     * @notice Allows issuer to withdraw withheld tax\r\n     * @param _dividendIndex Dividend to withdraw from\r\n     */\r\n    function withdrawWithholding(uint256 _dividendIndex) external;\r\n\r\n    /**\r\n     * @notice Return the permissions flag that are associated with this module\r\n     * @return bytes32 array\r\n     */\r\n    function getPermissions() public view returns(bytes32[]) {\r\n        bytes32[] memory allPermissions = new bytes32[](1);\r\n        allPermissions[0] = DISTRIBUTE;\r\n        return allPermissions;\r\n    }\r\n\r\n}\r\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpoint.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpoint.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpoint.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpoint.sol",
     "exportedSymbols": {
       "DividendCheckpoint": [
         15221
@@ -530,7 +530,7 @@
         "src": "0:24:39"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
         "file": "./ICheckpoint.sol",
         "id": 14539,
         "nodeType": "ImportDirective",
@@ -541,7 +541,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
         "file": "../Module.sol",
         "id": 14540,
         "nodeType": "ImportDirective",
@@ -552,7 +552,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "../../interfaces/ISecurityToken.sol",
         "id": 14541,
         "nodeType": "ImportDirective",
@@ -9423,7 +9423,7 @@
     "src": "0:9854:39"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpoint.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpoint.sol",
     "exportedSymbols": {
       "DividendCheckpoint": [
         15221
@@ -9444,7 +9444,7 @@
         "src": "0:24:39"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
         "file": "./ICheckpoint.sol",
         "id": 14539,
         "nodeType": "ImportDirective",
@@ -9455,7 +9455,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
         "file": "../Module.sol",
         "id": 14540,
         "nodeType": "ImportDirective",
@@ -9466,7 +9466,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "../../interfaces/ISecurityToken.sol",
         "id": 14541,
         "nodeType": "ImportDirective",
@@ -18342,5 +18342,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T21:31:06.215Z"
+  "updatedAt": "2018-10-10T20:29:24.811Z"
 }

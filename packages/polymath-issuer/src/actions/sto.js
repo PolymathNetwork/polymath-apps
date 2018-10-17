@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { STO, CappedSTOFactory, SecurityToken } from '@polymathnetwork/js';
+import { STO, SecurityToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
 import type {
@@ -11,7 +11,6 @@ import type {
 } from '@polymathnetwork/js/types';
 
 import { formName as configureFormName } from '../pages/sto/components/ConfigureSTOForm';
-import ConfiguredEmail from '../pages/sto/components/ConfiguredEmail';
 
 import type { ExtractReturn } from '../redux/helpers';
 import type { GetState } from '../redux/reducer';
@@ -22,6 +21,8 @@ export const data = (contract: STO, details: ?STODetails) => ({
   contract,
   details,
 });
+
+const STO_TYPE = 3;
 
 export const FACTORIES = 'sto/FACTORIES';
 export const factories = (factories: Array<STOFactory>) => ({
@@ -75,31 +76,51 @@ export const fetch = () => async (dispatch: Function, getState: GetState) => {
 };
 
 // TODO @bshevchenko: update when core will allow to retrieve factories list
-export const fetchFactories = () => async (dispatch: Function) => {
+export const fetchFactories = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const { token } = getState().token;
+  if (!token) {
+    return;
+  }
   dispatch(ui.fetching());
   try {
-    dispatch(
-      factories([
-        {
-          title: 'Capped STO',
-          name: 'Polymath Inc.',
-          desc:
-            'This smart contract creates a maximum number of tokens (i.e hard cap) which the total ' +
-            'aggregate of tokens acquired by all investors cannot exceed. Security tokens are sent to the investor upon' +
-            ' reception of the funds (ETH or POLY), and any security tokens left upon termination of the offering ' +
-            'will not be minted.',
-          isVerified: true,
-          securityAuditLink: {
-            title: 'Solidified',
-            url:
-              'https://github.com/PolymathNetwork/polymath-core/blob/master/audit%20reports/' +
-              'Polymath%20Audit%20Report%20Final.pdf',
-          },
-          address: CappedSTOFactory.address,
-          owner: await CappedSTOFactory.owner(),
-        },
-      ])
+    const stoTemplates = [];
+
+    /**
+     * Get supported module templates
+     *
+     * TODO @monitz87: refactor into `getSupportedModuleTemplates(token: SecurityToken)`
+     * function when we add more modules
+     */
+    const cappedSTOFactory = await token.contract.getModuleFactory(
+      'CappedSTO',
+      STO_TYPE
     );
+    const owner = await cappedSTOFactory.owner();
+    if (cappedSTOFactory) {
+      stoTemplates.push({
+        title: 'Capped STO',
+        name: 'Polymath Inc.',
+        desc:
+          'This smart contract creates a maximum number of tokens (i.e hard cap) which the total ' +
+          'aggregate of tokens acquired by all investors cannot exceed. Security tokens are sent to the investor upon' +
+          ' reception of the funds (ETH or POLY), and any security tokens left upon termination of the offering ' +
+          'will not be minted.',
+        isVerified: true,
+        securityAuditLink: {
+          title: 'Solidified',
+          url:
+            'https://github.com/PolymathNetwork/polymath-core/blob/master/audit%20reports/' +
+            'Polymath%20Audit%20Report%20Final.pdf',
+        },
+        address: cappedSTOFactory.address,
+        owner,
+      });
+    }
+
+    dispatch(factories(stoTemplates));
     dispatch(ui.fetched());
   } catch (e) {
     dispatch(ui.fetchingFailed(e));
@@ -113,7 +134,12 @@ export const configure = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const fee = await CappedSTOFactory.setupCost();
+  const { token } = getState().token;
+  const cappedSTOFactory = await token.contract.getModuleFactory(
+    'CappedSTO',
+    STO_TYPE
+  );
+  const fee = await cappedSTOFactory.setupCost();
   const feeView = ui.thousandsDelimiter(fee);
   dispatch(
     ui.confirm(
@@ -219,7 +245,7 @@ export const fetchPurchases = () => async (
   }
 };
 
-export const togglePauseSto = (endDate: Date) => async (
+export const togglePauseSto = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
@@ -261,7 +287,7 @@ export const togglePauseSto = (endDate: Date) => async (
             async () => {
               const contract: STO = getState().sto.contract;
               if (isStoPaused) {
-                await contract.unpause(endDate);
+                await contract.unpause();
               } else {
                 await contract.pause();
               }

@@ -151,14 +151,14 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b50604051608080610299833981016040908152815160208301519183015160609093015160008054600160a060020a031916600160a060020a0390931692909217825560019290925560029290925560035561022790819061007290396000f3006080604052600436106100985763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166325f4cead811461009d5780635dfc09a4146100c4578063968c4209146100d957806398d5fdca146100ee578063a035b1fe14610103578063a2b40d1914610118578063bfe0c27e14610132578063d265421914610170578063e5a6b10f14610185575b600080fd5b3480156100a957600080fd5b506100b261019a565b60408051918252519081900360200190f35b3480156100d057600080fd5b506100b26101a0565b3480156100e557600080fd5b506100b26101a6565b3480156100fa57600080fd5b506100b26101ac565b34801561010f57600080fd5b506100b26101b2565b34801561012457600080fd5b506101306004356101b8565b005b34801561013e57600080fd5b506101476101bd565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561017c57600080fd5b506100b26101d9565b34801561019157600080fd5b506101476101df565b60025481565b60015490565b60015481565b60035490565b60035481565b600355565b60005473ffffffffffffffffffffffffffffffffffffffff1690565b60025490565b60005473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a72305820e19c4f8a91747aeb8e4a2296af32c32fd858c7f5be01e8f339c3f8c062d8f3500029",
-  "deployedBytecode": "0x6080604052600436106100985763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166325f4cead811461009d5780635dfc09a4146100c4578063968c4209146100d957806398d5fdca146100ee578063a035b1fe14610103578063a2b40d1914610118578063bfe0c27e14610132578063d265421914610170578063e5a6b10f14610185575b600080fd5b3480156100a957600080fd5b506100b261019a565b60408051918252519081900360200190f35b3480156100d057600080fd5b506100b26101a0565b3480156100e557600080fd5b506100b26101a6565b3480156100fa57600080fd5b506100b26101ac565b34801561010f57600080fd5b506100b26101b2565b34801561012457600080fd5b506101306004356101b8565b005b34801561013e57600080fd5b506101476101bd565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561017c57600080fd5b506100b26101d9565b34801561019157600080fd5b506101476101df565b60025481565b60015490565b60015481565b60035490565b60035481565b600355565b60005473ffffffffffffffffffffffffffffffffffffffff1690565b60025490565b60005473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a72305820e19c4f8a91747aeb8e4a2296af32c32fd858c7f5be01e8f339c3f8c062d8f3500029",
+  "bytecode": "0x608060405234801561001057600080fd5b50604051608080610299833981016040908152815160208301519183015160609093015160008054600160a060020a031916600160a060020a0390931692909217825560019290925560029290925560035561022790819061007290396000f3006080604052600436106100985763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166325f4cead811461009d5780635dfc09a4146100c4578063968c4209146100d957806398d5fdca146100ee578063a035b1fe14610103578063a2b40d1914610118578063bfe0c27e14610132578063d265421914610170578063e5a6b10f14610185575b600080fd5b3480156100a957600080fd5b506100b261019a565b60408051918252519081900360200190f35b3480156100d057600080fd5b506100b26101a0565b3480156100e557600080fd5b506100b26101a6565b3480156100fa57600080fd5b506100b26101ac565b34801561010f57600080fd5b506100b26101b2565b34801561012457600080fd5b506101306004356101b8565b005b34801561013e57600080fd5b506101476101bd565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561017c57600080fd5b506100b26101d9565b34801561019157600080fd5b506101476101df565b60025481565b60015490565b60015481565b60035490565b60035481565b600355565b60005473ffffffffffffffffffffffffffffffffffffffff1690565b60025490565b60005473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058202ac14e1d0b4b097c80be58b454ef2224f24a847adfdf4d53eecf43dd84c9d7aa0029",
+  "deployedBytecode": "0x6080604052600436106100985763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166325f4cead811461009d5780635dfc09a4146100c4578063968c4209146100d957806398d5fdca146100ee578063a035b1fe14610103578063a2b40d1914610118578063bfe0c27e14610132578063d265421914610170578063e5a6b10f14610185575b600080fd5b3480156100a957600080fd5b506100b261019a565b60408051918252519081900360200190f35b3480156100d057600080fd5b506100b26101a0565b3480156100e557600080fd5b506100b26101a6565b3480156100fa57600080fd5b506100b26101ac565b34801561010f57600080fd5b506100b26101b2565b34801561012457600080fd5b506101306004356101b8565b005b34801561013e57600080fd5b506101476101bd565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561017c57600080fd5b506100b26101d9565b34801561019157600080fd5b506101476101df565b60025481565b60015490565b60015481565b60035490565b60035481565b600355565b60005473ffffffffffffffffffffffffffffffffffffffff1690565b60025490565b60005473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058202ac14e1d0b4b097c80be58b454ef2224f24a847adfdf4d53eecf43dd84c9d7aa0029",
   "sourceMap": "63:1207:31:-;;;232:264;8:9:-1;5:2;;;30:1;27;20:12;5:2;232:264:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;351:8;:20;;-1:-1:-1;;;;;;351:20:31;-1:-1:-1;;;;;351:20:31;;;;;;;;;-1:-1:-1;381:32:31;;;;423:19;:42;;;;475:5;:14;63:1207;;;;;;;;",
   "deployedSourceMap": "63:1207:31:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;165:34;;8:9:-1;5:2;;;30:1;27;20:12;5:2;165:34:31;;;;;;;;;;;;;;;;;;;;839:98;;8:9:-1;5:2;;;30:1;27;20:12;5:2;839:98:31;;;;130:29;;8:9:-1;5:2;;;30:1;27;20:12;5:2;130:29:31;;;;1187:80;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1187:80:31;;;;205:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;205:20:31;;;;502:77;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;502:77:31;;;;;;;663:93;;8:9:-1;5:2;;;30:1;27;20:12;5:2;663:93:31;;;;;;;;;;;;;;;;;;;;;;;1002:108;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1002:108:31;;;;101:23;;8:9:-1;5:2;;;30:1;27;20:12;5:2;101:23:31;;;;165:34;;;;:::o;839:98::-;916:14;;839:98;:::o;130:29::-;;;;:::o;1187:80::-;1255:5;;1187:80;:::o;205:20::-;;;;:::o;502:77::-;558:5;:14;502:77::o;663:93::-;715:7;741:8;;;663:93;:::o;1002:108::-;1084:19;;1002:108;:::o;101:23::-;;;;;;:::o",
   "source": "pragma solidity ^0.4.24;\n\nimport \"../interfaces/IOracle.sol\";\n\ncontract MockOracle is IOracle {\n\n    address public currency;\n    bytes32 public currencySymbol;\n    bytes32 public denominatedCurrency;\n    uint256 public price;\n\n    constructor(address _currency, bytes32 _currencySymbol, bytes32 _denominatedCurrency, uint256 _price) public {\n        currency = _currency;\n        currencySymbol = _currencySymbol;\n        denominatedCurrency = _denominatedCurrency;\n        price = _price;\n    }\n\n    function changePrice(uint256 _price) external {\n        price = _price;\n    }\n\n    /**\n    * @notice Returns address of oracle currency (0x0 for ETH)\n    */\n    function getCurrencyAddress() external view returns(address) {\n        return currency;\n    }\n\n    /**\n    * @notice Returns symbol of oracle currency (0x0 for ETH)\n    */\n    function getCurrencySymbol() external view returns(bytes32) {\n        return currencySymbol;\n    }\n\n    /**\n    * @notice Returns denomination of price\n    */\n    function getCurrencyDenominated() external view returns(bytes32) {\n        return denominatedCurrency;\n    }\n\n    /**\n    * @notice Returns price - should throw if not valid\n    */\n    function getPrice() external view returns(uint256) {\n        return price;\n    }\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
     "exportedSymbols": {
       "MockOracle": [
         13543
@@ -179,7 +179,7 @@
         "src": "0:24:31"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
         "file": "../interfaces/IOracle.sol",
         "id": 13462,
         "nodeType": "ImportDirective",
@@ -1092,7 +1092,7 @@
     "src": "0:1271:31"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
     "exportedSymbols": {
       "MockOracle": [
         13543
@@ -1113,7 +1113,7 @@
         "src": "0:24:31"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
         "file": "../interfaces/IOracle.sol",
         "id": 13462,
         "nodeType": "ImportDirective",
@@ -2034,9 +2034,9 @@
       "events": {},
       "links": {},
       "address": "0xf25186b5081ff5ce73482ad761db0eb0d25abfbf",
-      "transactionHash": "0x778ea6caddbf4e3618105eccc779c1b9ee4049ae418a8d3d4a2f5ab08b9d78e5"
+      "transactionHash": "0x813989e6e7d7dfcff5205fce3bfffaa70564162ce3eadf2f0dac8ba34532ab0c"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T21:31:23.936Z"
+  "updatedAt": "2018-10-10T20:30:03.297Z"
 }

@@ -125,9 +125,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"../interfaces/IModule.sol\";\nimport \"../interfaces/ISecurityToken.sol\";\nimport \"../interfaces/IERC20.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\n\n/**\n * @title Interface that any module contract should implement\n * @notice Contract is abstract\n */\ncontract Module is IModule {\n\n    address public factory;\n\n    address public securityToken;\n\n    bytes32 public constant FEE_ADMIN = \"FEE_ADMIN\";\n\n    IERC20 public polyToken;\n\n    /**\n     * @notice Constructor\n     * @param _securityToken Address of the security token\n     * @param _polyAddress Address of the polytoken\n     */\n    constructor (address _securityToken, address _polyAddress) public {\n        securityToken = _securityToken;\n        factory = msg.sender;\n        polyToken = IERC20(_polyAddress);\n    }\n\n    //Allows owner, factory or permissioned delegate\n    modifier withPerm(bytes32 _perm) {\n        bool isOwner = msg.sender == Ownable(securityToken).owner();\n        bool isFactory = msg.sender == factory;\n        require(isOwner||isFactory||ISecurityToken(securityToken).checkPermission(msg.sender, address(this), _perm), \"Permission check failed\");\n        _;\n    }\n\n    modifier onlyOwner {\n        require(msg.sender == Ownable(securityToken).owner(), \"Sender is not owner\");\n        _;\n    }\n\n    modifier onlyFactory {\n        require(msg.sender == factory, \"Sender is not factory\");\n        _;\n    }\n\n    modifier onlyFactoryOwner {\n        require(msg.sender == Ownable(factory).owner(), \"Sender is not factory owner\");\n        _;\n    }\n\n    modifier onlyFactoryOrOwner {\n        require((msg.sender == Ownable(securityToken).owner()) || (msg.sender == factory), \"Sender is not factory or owner\");\n        _;\n    }\n\n    /**\n     * @notice used to withdraw the fee by the factory owner\n     */\n    function takeFee(uint256 _amount) public withPerm(FEE_ADMIN) returns(bool) {\n        require(polyToken.transferFrom(securityToken, Ownable(factory).owner(), _amount), \"Unable to take fee\");\n        return true;\n    }\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
     "exportedSymbols": {
       "Module": [
         17112
@@ -148,7 +148,7 @@
         "src": "0:24:45"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
         "file": "../interfaces/IModule.sol",
         "id": 16937,
         "nodeType": "ImportDirective",
@@ -159,7 +159,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "../interfaces/ISecurityToken.sol",
         "id": 16938,
         "nodeType": "ImportDirective",
@@ -170,7 +170,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../interfaces/IERC20.sol",
         "id": 16939,
         "nodeType": "ImportDirective",
@@ -2584,7 +2584,7 @@
     "src": "0:2057:45"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
     "exportedSymbols": {
       "Module": [
         17112
@@ -2605,7 +2605,7 @@
         "src": "0:24:45"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
         "file": "../interfaces/IModule.sol",
         "id": 16937,
         "nodeType": "ImportDirective",
@@ -2616,7 +2616,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/ISecurityToken.sol",
         "file": "../interfaces/ISecurityToken.sol",
         "id": 16938,
         "nodeType": "ImportDirective",
@@ -2627,7 +2627,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../interfaces/IERC20.sol",
         "id": 16939,
         "nodeType": "ImportDirective",
@@ -5046,5 +5046,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T21:31:06.306Z"
+  "updatedAt": "2018-10-10T20:29:24.859Z"
 }

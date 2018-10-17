@@ -17,6 +17,7 @@ const HARDCODED_NETWORK_ID = 15;
 
 export default class Contract {
   static _params: NetworkParams;
+  static _registryAddressesSet: boolean;
   _artifact: Artifact;
   _artifactTestnet: ?Artifact;
   _contract: Web3Contract;
@@ -27,14 +28,50 @@ export default class Contract {
   constructor(artifact: Artifact, at?: Address, artifactTestnet?: Artifact) {
     this._artifact = artifact;
     this._artifactTestnet = artifactTestnet;
+
+    if (at) {
+      this.setAddress(at);
+    } else if (Contract._registryAddressesSet) {
+      throw new Error(
+        'Contracts instantiated after setup must specify an address'
+      );
+    }
+
     return new Proxy(this, {
       get: (target: Object, field: string): Promise<Web3Receipt> | any => {
-        target._init(at);
+        if (!Contract._registryAddressesSet && field === '_tx') {
+          throw new Error(
+            'Registry addresses not set. Did you forget to call "setupContracts"?'
+          );
+        }
+
+        if (Contract._registryAddressesSet && field === 'setAddress') {
+          throw new Error('Cannot change contract address on runtime.');
+        }
+
+        if (!Contract._params && field !== 'setParams') {
+          throw new Error(
+            'Network params not set. Did you forget to call "Contract.setParams"?'
+          );
+        }
+
+        if (Contract._params && field === 'setParams') {
+          throw new Error(
+            'Cannot change network params after they have been set'
+          );
+        }
+
         if (target && target[field]) {
           return target[field];
         }
 
-        const method = target._contract.methods[field];
+        const contract = target._contract;
+
+        if (!contract) {
+          return undefined;
+        }
+
+        const method = contract.methods[field];
         if (!method) {
           return method;
         }
@@ -70,30 +107,21 @@ export default class Contract {
     ).eth.Contract(this._artifact.abi, this.address);
   }
 
-  /** @private */
-  _init(at?: Address) {
+  /**
+   * Sets address and instantiates web3 contract
+   *
+   * @param {Address} address address of the contract
+   */
+  setAddress(at: Address) {
     if (!Contract.isMainnet() && this._artifactTestnet) {
       this._artifact = this._artifactTestnet;
     }
-    let address;
-    try {
-      // $FlowFixMe
-      address = JSON.parse(localStorage.getItem('polymath.js'))[
-        this._artifact.contractName
-      ][Contract._params.id];
-    } catch (e) {
-      try {
-        address = at || this._artifact.networks[Contract._params.id].address;
-      } catch (e) {
-        throw new Error(
-          'Contract is not deployed to the network ' + Contract._params.id
-        );
-      }
-    }
-    if (this._contract && this.address === address) {
+
+    if (this._contract) {
       return;
     }
-    this.address = address;
+
+    this.address = at;
     this._contract = this._newContract();
     this._contractWS =
       Contract._params.web3WS === Contract._params.web3
@@ -159,6 +187,7 @@ export default class Contract {
         ? this._toWei(new BigNumber(value).round(18).toString(10))
         : undefined,
     };
+
     let gas;
     if (gasLimit && gasLimit > 10) {
       gas = gasLimit;
@@ -194,9 +223,18 @@ export default class Contract {
     };
 
     const end = async () => {
-      if (!Contract.isLocalhost()) {
-        await sleep();
-      }
+      /**
+       * FIXME @monitz87: should check with the corresponding event for
+       * each transaction instead of sleeping an arbitrary amount of time.
+       * This is prone to cause race conditions and is a terrible coding practice.
+       *
+       * This function wasn't awaiting for the sleep to end when connected to a
+       * local blockchain, but that caused inconsistent state issues
+       * (due to race conditions when the transaction had finished but hadn't been mined yet)
+       * so I put the sleep back in for now.
+       */
+      await sleep();
+
       Contract._params.txEndCallback(receipt);
       if (receipt.status === '0x0') {
         throw new Error('Transaction failed');

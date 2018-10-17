@@ -13,9 +13,9 @@ type GetNoticesRequestParams = {|
 |};
 
 /**
-  Validates that the request parameters are typed correctly
-
-  TODO @monitz87: add value validations as well
+ * Validates that the request parameters are typed correctly
+ *
+ * TODO @monitz87: add value validations as well
  */
 const isGetNoticesRequestValid = (
   params: GetNoticesRequestParams | any
@@ -30,40 +30,40 @@ const isGetNoticesRequestValid = (
 };
 
 /**
-  GET /notice/:scope
-
-  Latest notice route handler. Given a scope string (issuer | investor), the route responds with the latest notice in that scope.
-  Notices with 'all' scope are returned even if they are not requested.
-
-  If the scope is invalid, the response is
-
-  {
-    status: 'error',
-    data: 'Invalid request parameters'
-  }
-
-  If there is no valid notice in the database, the response is
-
-  {
-    status: 'ok',
-    data: undefined
-  }
-
-  Otherwise, the response is 
-
-  {
-    status: 'ok',
-    data: {
-      type: string, // notice type (error, warning, info)
-      scope: string, // notice scope (all, issuers, investors)
-      title: string, // notice title
-      content: string, // notice content
-      isOneTime: boolean, // whether the notice should only be shown once to the client
-      isValid: boolean, // whether to show the notice
-      createdAt: Date, // when the notice was created
-      updatedAt: Date // when the notice was last updated
-    }
-  }
+ * GET /notice/:scope
+ *
+ * Latest notice route handler. Given a scope string (issuer | investor), the route responds with the latest notice in that scope.
+ * Notices with 'all' scope are returned even if they are not requested.
+ *
+ * If the scope is invalid, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Invalid request parameters'
+ * }
+ *
+ * If there is no valid notice in the database, the response is
+ *
+ * {
+ *   status: 'ok',
+ *   data: undefined
+ * }
+ *
+ * Otherwise, the response is
+ *
+ * {
+ *   status: 'ok',
+ *   data: {
+ *     type: string, // notice type (error, warning, info)
+ *     scope: string, // notice scope (all, issuers, investors)
+ *     title: string, // notice title
+ *     content: string, // notice content
+ *     isOneTime: boolean, // whether the notice should only be shown once to the client
+ *     isValid: boolean, // whether to show the notice
+ *     createdAt: Date, // when the notice was created
+ *     updatedAt: Date // when the notice was last updated
+ *   }
+ * }
  */
 export const getNoticesHandler = async (ctx: Context) => {
   let { params } = ctx;
@@ -92,7 +92,7 @@ export const getNoticesHandler = async (ctx: Context) => {
 };
 
 /**
-  Latest notice route
+ * Latest notice route
  */
 noticeRouter.get('/notice/:scope', getNoticesHandler);
 

@@ -18,6 +18,9 @@ type Environment = {|
   WEB3_NETWORK_LOCAL_WS?: string,
   WEB3_NETWORK_KOVAN_WS?: string,
   WEB3_NETWORK_MAINNET_WS?: string,
+  POLYMATH_REGISTRY_ADDRESS_LOCAL?: string,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN?: string,
+  POLYMATH_REGISTRY_ADDRESS_MAINNET?: string,
   PORT: string,
   POLYMATH_OFFCHAIN_URL: string,
   POLYMATH_ISSUER_URL: string,
@@ -40,6 +43,9 @@ const {
   WEB3_NETWORK_LOCAL_WS,
   WEB3_NETWORK_KOVAN_WS,
   WEB3_NETWORK_MAINNET_WS,
+  POLYMATH_REGISTRY_ADDRESS_LOCAL,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN,
+  POLYMATH_REGISTRY_ADDRESS_MAINNET,
 } = env;
 
 export const MONGODB_URI = env.MONGODB_URI;
@@ -48,31 +54,55 @@ export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
 
 const NETWORKS = {};
 
-if (DEPLOYMENT_STAGE === 'production') {
-  if (!WEB3_NETWORK_MAINNET_WS) {
-    throw new Error(`Missing env variable WEB3_NETWORK_MAINNET_WS`);
-  }
-  NETWORKS['1'] = {
-    name: 'mainnet',
-    url: WEB3_NETWORK_MAINNET_WS,
-  };
-}
-
+/**
+ * - Production offchain MUST listen to Mainnet and Kovan
+ * - Staging offchain MUST listen to kovan and can optionally listen to
+ *   the local blockchain
+ * - Local offchain MUST listen to the local blockchain
+ */
 if (DEPLOYMENT_STAGE !== 'local') {
   if (!WEB3_NETWORK_KOVAN_WS) {
     throw new Error(`Missing env variable WEB3_NETWORK_KOVAN_WS`);
   }
+  if (!POLYMATH_REGISTRY_ADDRESS_KOVAN) {
+    throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN');
+  }
   NETWORKS['42'] = {
     name: 'kovan',
     url: WEB3_NETWORK_KOVAN_WS,
+    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
   };
+
+  if (DEPLOYMENT_STAGE === 'production') {
+    if (!WEB3_NETWORK_MAINNET_WS) {
+      throw new Error('Missing env variable WEB3_NETWORK_MAINNET_WS');
+    }
+    if (!POLYMATH_REGISTRY_ADDRESS_MAINNET) {
+      throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_MAINNET');
+    }
+    NETWORKS['1'] = {
+      name: 'mainnet',
+      url: WEB3_NETWORK_MAINNET_WS,
+      polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
+    };
+  } else if (WEB3_NETWORK_LOCAL_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
+    NETWORKS['15'] = {
+      name: 'local',
+      url: WEB3_NETWORK_LOCAL_WS,
+      polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+    };
+  }
 } else {
   if (!WEB3_NETWORK_LOCAL_WS) {
     throw new Error(`Missing env variable WEB3_NETWORK_LOCAL_WS`);
   }
+  if (!POLYMATH_REGISTRY_ADDRESS_LOCAL) {
+    throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_MAINNET');
+  }
   NETWORKS['15'] = {
     name: 'local',
     url: WEB3_NETWORK_LOCAL_WS,
+    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
   };
 }
 

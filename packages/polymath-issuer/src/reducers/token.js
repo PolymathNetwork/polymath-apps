@@ -15,6 +15,7 @@ export type TokenState = {
   token: ?SecurityToken,
   isFetched: boolean,
   providers: ?Array<ServiceProvider>,
+  isMintingFrozen: boolean,
   mint: {
     uploaded: Array<Investor>,
     uploadedTokens: Array<number>,
@@ -32,6 +33,7 @@ const defaultState: TokenState = {
   token: null,
   isFetched: false,
   providers: null,
+  isMintingFrozen: true,
   mint: {
     uploaded: [],
     uploadedTokens: [],
@@ -61,6 +63,11 @@ export default (state: TokenState = defaultState, action: Action) => {
           isPaused: action.isPaused,
           count: action.count || state.countTM.count,
         },
+      };
+    case a.MINTING_FROZEN:
+      return {
+        ...state,
+        isMintingFrozen: action.isMintingFrozen,
       };
     case a.MINT_UPLOADED:
       return {

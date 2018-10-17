@@ -54,9 +54,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface that any module contract should implement\n */\ninterface IModule {\n\n    /**\n     * @notice This function returns the signature of configure function\n     */\n    function getInitFunction() external pure returns (bytes4);\n\n    /**\n     * @notice Return the permissions flag that are associated with a module\n     */\n    function getPermissions() external view returns(bytes32[]);\n\n    /**\n     * @notice used to withdraw the fee by the factory owner\n     */\n    function takeFee(uint256 _amount) external returns(bool);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
     "exportedSymbols": {
       "IModule": [
         10816
@@ -302,7 +302,7 @@
     "src": "0:570:13"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
     "exportedSymbols": {
       "IModule": [
         10816
@@ -553,5 +553,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T21:31:06.090Z"
+  "updatedAt": "2018-10-10T20:29:24.462Z"
 }

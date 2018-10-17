@@ -2,7 +2,7 @@
 
 import BigNumber from 'bignumber.js';
 import React, { Component } from 'react';
-import type { SecurityToken, STODetails } from '@polymathnetwork/js';
+import type { SecurityToken, STODetails } from '@polymathnetwork/js/types';
 
 import { etherscanAddress } from '../../helpers';
 import Countdown from '../Countdown';

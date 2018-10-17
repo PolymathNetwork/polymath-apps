@@ -26,9 +26,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for managing polymath feature switches\n */\ninterface IFeatureRegistry {\n\n    /**\n     * @notice Get the status of a feature\n     * @param _nameKey is the key for the feature status mapping\n     * @return bool\n     */\n    function getFeatureStatus(string _nameKey) external view returns(bool);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
     "exportedSymbols": {
       "IFeatureRegistry": [
         10795
@@ -152,7 +152,7 @@
     "src": "0:346:12"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
     "exportedSymbols": {
       "IFeatureRegistry": [
         10795
@@ -281,5 +281,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T21:31:06.090Z"
+  "updatedAt": "2018-10-10T20:29:24.698Z"
 }
