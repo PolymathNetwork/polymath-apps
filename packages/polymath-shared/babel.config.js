@@ -1,7 +1,7 @@
 const base = require('../../config/babel.config.js');
 module.exports = {
   babelrcRoots: ['../packages/*'],
-  presets: ['@babel/flow', '@babel/env', '@babel/react'],
+  presets: ['@babel/flow', '@babel/env'],
   plugins: [
     ...base.plugins,
     '@babel/plugin-proposal-object-rest-spread',
