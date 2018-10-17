@@ -1,10 +1,6 @@
 // @flow
 
-import {
-  STO_MODULE_TYPE,
-  NETWORKS,
-  POLYMATH_REGISTRY_ADDRESS,
-} from '../constants';
+import { STO_MODULE_TYPE, NETWORKS } from '../constants';
 import {
   sendSTOScheduledEmail,
   sendTickerReservedEmail,
@@ -33,7 +29,7 @@ const getAddress = async (name: string, networkId: string) => {
   const client = web3Clients[networkId];
   const polymathRegistry = new client.eth.Contract(
     PolymathRegistryArtifact.abi,
-    POLYMATH_REGISTRY_ADDRESS
+    NETWORKS[networkId].polymathRegistryAddress
   );
 
   return await polymathRegistry.methods.getAddress(name).call();

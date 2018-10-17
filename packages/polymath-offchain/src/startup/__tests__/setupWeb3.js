@@ -5,7 +5,7 @@ import {
 } from '../../utils';
 import logger from 'winston';
 import { User } from '../../models';
-import { NETWORKS, POLYMATH_REGISTRY_ADDRESS } from '../../constants';
+import { NETWORKS } from '../../constants';
 
 jest.mock('../../utils', () => {
   return {
@@ -63,10 +63,10 @@ const registerTickerListenerMock = jest.fn();
 const moduleAddedListenerMock = jest.fn();
 const newSecurityTokenListenerMock = jest.fn();
 const getPastEventsMock = jest.fn().mockImplementation(() => []);
-const expiryLimitCallMock = jest.fn();
-const expiryLimitMock = jest.fn().mockImplementation(() => {
+const getExpiryLimitCallMock = jest.fn();
+const getExpiryLimitMock = jest.fn().mockImplementation(() => {
   return {
-    call: expiryLimitCallMock,
+    call: getExpiryLimitCallMock,
   };
 });
 const detailsCallMock = jest.fn();
@@ -104,7 +104,7 @@ const contractMock = jest.fn().mockImplementation(() => {
     },
     getPastEvents: getPastEventsMock,
     methods: {
-      expiryLimit: expiryLimitMock,
+      getExpiryLimit: getExpiryLimitMock,
       getSTODetails: detailsMock,
       wallet: walletMock,
       owner: ownerMock,
@@ -400,7 +400,7 @@ describe('Function: registerTickerHandler', () => {
   const validExpiryLimitSeconds = validExpiryLimit * 60 * 60 * 24;
   const validResult = {
     returnValues: {
-      _symbol: validTicker,
+      _ticker: validTicker,
       _owner: validAddress,
     },
     transactionHash: validTxHash,
@@ -423,7 +423,7 @@ describe('Function: registerTickerHandler', () => {
   });
 
   test('logs an error if the registered ticker owner is not in the database', async () => {
-    expiryLimitCallMock.mockImplementationOnce(() => validExpiryLimit);
+    getExpiryLimitCallMock.mockImplementationOnce(() => validExpiryLimit);
 
     User.findOne.mockImplementationOnce(() => undefined);
 
@@ -447,7 +447,9 @@ describe('Function: registerTickerHandler', () => {
       name: validName,
     };
 
-    expiryLimitCallMock.mockImplementationOnce(() => validExpiryLimitSeconds);
+    getExpiryLimitCallMock.mockImplementationOnce(
+      () => validExpiryLimitSeconds
+    );
 
     User.findOne.mockImplementationOnce(() => validUser);
 
@@ -568,7 +570,9 @@ describe('Function: addSTOListeners', () => {
     await addSTOListeners(validNetworkId);
 
     expect(contractMock).toHaveBeenCalledTimes(6);
-    expect(contractMock.mock.calls[0][1]).toEqual(POLYMATH_REGISTRY_ADDRESS);
+    expect(contractMock.mock.calls[0][1]).toEqual(
+      NETWORKS['15'].polymathRegistryAddress
+    );
     expect(contractMock.mock.calls[1][1]).toEqual(getAddressMock().call());
     expect(contractMock.mock.calls[2][1]).toEqual(validTokenAddress1);
     expect(contractMock.mock.calls[3][1]).toEqual(validTokenAddress2);
