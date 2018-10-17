@@ -1,5 +1,14 @@
 const { stripIndent } = require('common-tags');
 
+const PolymathRegistryMethods = {
+  getAddress: 'Gets the address of a contract in the registry',
+};
+
+const ModuleRegistryMethods = {
+  getModulesByTypeAndToken:
+    'Returns the list of available Module factory addresses of a particular type for a given token',
+};
+
 const PolyTokenMethods = {
   allowance: 'Amount of allowance approved by an `owner` to a `spender`',
   balanceOf: 'Gets the total amount of tokens for an address',
@@ -51,7 +60,7 @@ const SecurityTokenMethods = {
   getModuleByName: 'Gets a module attached to the token by name',
   mintMulti: 'Mints new tokens and assigns them to `_investors`',
   mint: 'Mints new tokens and assignes them to an `_investor` address',
-  freeze: 'Freezes the token',
+  freezeTransfers: 'Prevents further transactions',
 };
 
 const SecurityTokenRegistryMethods = {
@@ -70,6 +79,18 @@ const GeneralTransferManagerMethods = {
 
 const config = {
   contracts: {
+    PolymathRegistry: {
+      description: stripIndent`
+        Registry that holds addresses for other smart contracts
+      `,
+      methods: PolymathRegistryMethods,
+    },
+    ModuleRegistry: {
+      description: stripIndent`
+        Registry contract to store registered modules
+      `,
+      methods: ModuleRegistryMethods,
+    },
     PolyToken: {
       description: stripIndent`
         The POLY token's smart contract. Implements the ERC20 interface
