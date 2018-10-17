@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Accordion, AccordionItem } from 'carbon-components-react';
 
 import {
@@ -14,13 +14,16 @@ import GenericStatus from './status/GenericStatus';
 
 import logo from '../../images/logo.svg';
 
+import './style.scss';
+
 type Props = {|
   networks: string,
   status: number,
+  onRequestAuth: Function,
 |};
 
-const MetamaskStatus = ({ networks, status }: Props) => {
-  let StatusComponent = GenericStatus;
+const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => {
+  let Status = GenericStatus;
   let statusProps = {};
 
   switch (status) {
@@ -33,7 +36,10 @@ const MetamaskStatus = ({ networks, status }: Props) => {
       };
       break;
     case ERROR_ACCESS_REQUESTED:
-      StatusComponent = AccessRequestedStatus;
+      Status = AccessRequestedStatus;
+      statusProps = {
+        onRequestAuth,
+      };
       break;
     case ERROR_NETWORK:
       statusProps = {
@@ -85,7 +91,7 @@ const MetamaskStatus = ({ networks, status }: Props) => {
     <div className="pui-metamask-status">
       <img src={logo} alt="Logo" className="pui-metamask-logo" />
       <div className="pui-single-box">
-        <StatusComponent {...statusProps} />
+        <Status {...statusProps} />
         <Accordion className="pui-metamask-accordion">
           <AccordionItem title="What software do you need to issue your Security Token?">
             <p>
