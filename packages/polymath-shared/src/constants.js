@@ -84,7 +84,6 @@ const kovanStagingAddresses = {
   CountTransferManagerFactory: '0x93b6ef91e4ea396594c18c88de5d31c566cabdf3',
   PercentageTransferManagerFactory:
     '0xeb3e23b507ed8d71ef9b0a7ca31af6a4e20c0143',
-  ETHDividendsCheckpointFactory: '0x2d7fdeab65afde5d621a44b417309ddb76075437',
   USDTieredSTOFactory:
     '0x2f414c1d14a063766e3ff91f2edd01d7338a6c696cbcd016312cd15858658a95',
 };
