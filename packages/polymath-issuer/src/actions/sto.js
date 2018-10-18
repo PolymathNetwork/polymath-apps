@@ -1,6 +1,8 @@
 // @flow
 
 import React from 'react';
+import FileSaver from 'file-saver';
+
 import { STO, CappedSTOFactory, SecurityToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
@@ -301,7 +303,7 @@ export const exportInvestorsList = () => async (
           const purchases = await contract.getPurchases();
 
           let csvContent =
-            'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
+            'charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
           purchases.forEach((purchase: STOPurchase) => {
             csvContent +=
               '\r\n' +
@@ -313,13 +315,10 @@ export const exportInvestorsList = () => async (
               ].join(',');
           });
 
-          //Required to trigger file download in Chrome and Firefox
-          let link = document.createElement('a');
-          link.setAttribute('href', encodeURI(csvContent));
-          link.setAttribute('download', 'whitelist.csv');
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
+          const blob = new Blob([csvContent], {
+            type: 'text/csv;charset=utf-8',
+          });
+          FileSaver.saveAs(blob, 'mintedTokenList.csv');
 
           dispatch(ui.fetched());
         } catch (e) {

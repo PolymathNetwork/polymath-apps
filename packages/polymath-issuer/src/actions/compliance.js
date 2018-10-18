@@ -3,6 +3,8 @@
 import React from 'react';
 import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
+import FileSaver from 'file-saver';
+
 import { ethereumAddress } from '@polymathnetwork/ui/validate';
 import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
 import type { Investor, Address } from '@polymathnetwork/js/types';
@@ -221,7 +223,7 @@ export const exportWhitelist = () => async (
     }
     // eslint-disable-next-line max-len
     let csvContent =
-      'data:text/csv;charset=utf-8,Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
+      'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
     investors.forEach((investor: Investor) => {
       csvContent +=
         '\r\n' +
@@ -239,13 +241,8 @@ export const exportWhitelist = () => async (
         ].join(',');
     });
 
-    //Required to trigger file download in Chrome and Firefox
-    let link = document.createElement('a');
-    link.setAttribute('href', encodeURI(csvContent));
-    link.setAttribute('download', 'whitelist.csv');
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+    FileSaver.saveAs(blob, 'whitelist.csv');
 
     dispatch(ui.fetched());
   } catch (e) {
