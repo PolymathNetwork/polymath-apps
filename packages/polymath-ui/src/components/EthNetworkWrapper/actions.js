@@ -13,11 +13,12 @@ import {
   ERROR_NOT_INSTALLED,
   ERROR_DISCONNECTED,
   ERROR_ACCESS_REQUESTED,
-  CONNECTED,
-  FAILED,
 } from './';
 
 import type { ExtractReturn } from './helpers';
+
+export const CONNECTED = 'polymath-auth/CONNECTED';
+export const FAILED = 'polymath-auth/FAILED';
 
 export type NetworkParams = {|
   id: number,

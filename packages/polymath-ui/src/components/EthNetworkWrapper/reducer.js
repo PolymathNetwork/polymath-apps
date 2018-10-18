@@ -3,7 +3,7 @@
 import Web3 from 'web3';
 
 import type { Action } from './actions';
-import { CONNECTED, FAILED } from './';
+import { CONNECTED, FAILED } from './actions';
 
 export type NetworkState = {|
   isConnected: boolean,
