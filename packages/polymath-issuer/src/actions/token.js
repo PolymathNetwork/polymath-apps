@@ -446,7 +446,7 @@ export const exportMintedTokensList = () => async (
           const investors = await token.contract.getMinted();
 
           let csvContent =
-            'charset=utf-8,Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
+            'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
           investors.forEach((investor: Investor) => {
             csvContent +=
               '\r\n' +

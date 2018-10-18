@@ -303,7 +303,7 @@ export const exportInvestorsList = () => async (
           const purchases = await contract.getPurchases();
 
           let csvContent =
-            'charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
+            'Address,Transaction Hash,Tokens Purchased,Amount Invested';
           purchases.forEach((purchase: STOPurchase) => {
             csvContent +=
               '\r\n' +
