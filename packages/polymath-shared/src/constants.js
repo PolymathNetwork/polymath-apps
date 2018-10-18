@@ -61,7 +61,7 @@ const localAddresses = {
 };
 
 const kovanStagingPolyFaucetAddress =
-  '0x33c0c74675bb3e8fbf7d7510da998c3ef913e407';
+  '0xe2b733524f1a630519d1b14811cafffd41ad26e5';
 const kovanStagingAddresses = {
   PolyTokenFaucet: kovanStagingPolyFaucetAddress,
   PolyToken: kovanStagingPolyFaucetAddress,
