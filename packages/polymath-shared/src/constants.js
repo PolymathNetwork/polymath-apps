@@ -8,6 +8,7 @@ import SecurityTokenRegistryArtifacts from './fixtures/contracts/SecurityTokenRe
 import CappedSTOFactoryArtifacts from './fixtures/contracts/CappedSTOFactory.json';
 import GeneralPermissionManagerFactoryArtifacts from './fixtures/contracts/GeneralPermissionManagerFactory.json';
 import PercentageTransferManagerFactoryArtifacts from './fixtures/contracts/PercentageTransferManagerFactory.json';
+import CountTransferManagerFactoryArtifacts from './fixtures/contracts/CountTransferManagerFactory.json';
 
 export const KOVAN_NETWORK_ID = 42;
 export const MAINNET_NETWORK_ID = 1;
@@ -65,6 +66,8 @@ const localAddresses = {
   PercentageTransferManagerFactory:
     PercentageTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID]
       .address,
+  CountTransferManagerFactory:
+    CountTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID],
 };
 
 const kovanStagingPolyFaucetAddress =
@@ -72,15 +75,18 @@ const kovanStagingPolyFaucetAddress =
 const kovanStagingAddresses = {
   PolyTokenFaucet: kovanStagingPolyFaucetAddress,
   PolyToken: kovanStagingPolyFaucetAddress,
-  PolymathRegistry: '0x9a987a1eee04c2784030347df6778e1a9170f467',
-  TickerRegistry: '0x6665a9bc33edc5839907f06c4c4586a4117aafb2',
-  ModuleRegistry: '0xf661fa176636c7b97d281bc802b0da8d43851ec4',
-  SecurityTokenRegistry: '0x7edd08ddc4763d6243cab427721d2afcca843579',
-  CappedSTOFactory: '0xdeacac8248723dbaf2bf6776f293228993e05a0e',
-  GeneralPermissionManagerFactory: '0xf97976bab461f354a06aa30132f56278c33c86bb',
-  CountTransferManagerFactory: '0xb36e11e8b01811610a04fccec25651566438109b',
+  PolymathRegistry: '0x40b53ebd7e0d4a5cf7112371e2552eb153e1087c',
+  TickerRegistry: '0x762af9b4d8c9e4affb92091479ce0524cd66001c',
+  ModuleRegistry: '0x3ac848b3e94b78d5acc3f8e3c41cae92d59e2bfd',
+  SecurityTokenRegistry: '0xeae834e007af3c081722f7f97003fca321c1470e',
+  CappedSTOFactory: '0xf2cc7915fe48d9a709a1199cb018dcc27c114946',
+  GeneralPermissionManagerFactory: '0x08b056dfd4f0b5e9ed8f6dfbff3163107384b857',
+  CountTransferManagerFactory: '0x93b6ef91e4ea396594c18c88de5d31c566cabdf3',
   PercentageTransferManagerFactory:
-    '0x25b7e309441e47c1892b56fa420bda02afdaa14f',
+    '0xeb3e23b507ed8d71ef9b0a7ca31af6a4e20c0143',
+  ETHDividendsCheckpointFactory: '0x2d7fdeab65afde5d621a44b417309ddb76075437',
+  USDTieredSTOFactory:
+    '0x2f414c1d14a063766e3ff91f2edd01d7338a6c696cbcd016312cd15858658a95',
 };
 
 const kovanProductionPolyFaucetAddress =
