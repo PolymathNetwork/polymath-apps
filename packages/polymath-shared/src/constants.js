@@ -9,7 +9,6 @@ import CappedSTOFactoryArtifacts from './fixtures/contracts/CappedSTOFactory.jso
 import GeneralPermissionManagerFactoryArtifacts from './fixtures/contracts/GeneralPermissionManagerFactory.json';
 import PercentageTransferManagerFactoryArtifacts from './fixtures/contracts/PercentageTransferManagerFactory.json';
 import CountTransferManagerFactoryArtifacts from './fixtures/contracts/CountTransferManagerFactory.json';
-import USDTieredSTOFactoryArtifacts from './fixtures/contracts/USDTieredSTOFactoryArtifacts.json';
 
 export const KOVAN_NETWORK_ID = 42;
 export const MAINNET_NETWORK_ID = 1;
@@ -69,7 +68,6 @@ const localAddresses = {
       .address,
   CountTransferManagerFactory:
     CountTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID],
-  USDTieredSTOFactory: USDTieredSTOFactoryArtifacts.netwoeks[LOCAL_NETWORK_ID],
 };
 
 const kovanStagingPolyFaucetAddress =

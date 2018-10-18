@@ -49,6 +49,12 @@ async function compileContracts() {
 }
 
 /**
+ * Moves the contracts that ship with `polymath-core`, we need this to get
+ * all the artifacts
+ */
+async function copyExistingPolymathCoreArtifacts() {}
+
+/**
  * Deploys contracts to the local blockchain
  */
 async function migrateContracts() {
