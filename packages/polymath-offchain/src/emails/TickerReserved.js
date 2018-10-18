@@ -4,6 +4,7 @@ import React from 'react';
 
 import { POLYMATH_ISSUER_URL, POLYMATH_OFFCHAIN_URL } from '../constants';
 import { EmailWrapper, EtherscanURL } from './EmailWrapper';
+import { composeURL } from '@polymathnetwork/shared/utils';
 
 type Props = {|
   txHash: string,
@@ -26,7 +27,10 @@ export const TickerReserved = ({
       </h1>
       <div className="icon-text tx-hash">
         <div className="icon">
-          <img alt="Icon" src={`${POLYMATH_OFFCHAIN_URL}/img/checkmark.png`} />
+          <img
+            alt="Icon"
+            src={composeURL(POLYMATH_OFFCHAIN_URL, '/img/checkmark.png')}
+          />
         </div>
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
@@ -36,7 +40,10 @@ export const TickerReserved = ({
       </div>
       <div className="icon-text" style={{ height: '78px' }}>
         <div className="icon">
-          <img alt="Icon" src={`${POLYMATH_OFFCHAIN_URL}/img/warning.png`} />
+          <img
+            alt="Icon"
+            src={composeURL(POLYMATH_OFFCHAIN_URL, '/img/warning.png')}
+          />
         </div>
         <h2>
           Your reservation is valid for <strong>{expiryLimit}</strong> days.
@@ -60,7 +67,12 @@ export const TickerReserved = ({
           before your reservation period expires.
         </p>
         <p align="center">
-          <a href={`${POLYMATH_ISSUER_URL}/dashboard/${ticker}/providers`}>
+          <a
+            href={composeURL(
+              POLYMATH_ISSUER_URL,
+              `/dashboard/${ticker}/providers`
+            )}
+          >
             <strong>Click here to continue with your Token Creation</strong>
           </a>
         </p>

@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import { EmailWrapper, EtherscanURL } from './EmailWrapper';
 import { POLYMATH_ISSUER_URL, POLYMATH_OFFCHAIN_URL } from '../constants';
+import { composeURL } from '@polymathnetwork/shared/utils';
 
 type Props = {|
   ticker: string,
@@ -48,7 +49,10 @@ export const STOScheduled = ({
       </h1>
       <div className="icon-text tx-hash">
         <div className="icon">
-          <img alt="Icon" src={`${POLYMATH_OFFCHAIN_URL}/img/checkmark.png`} />
+          <img
+            alt="Icon"
+            src={composeURL(POLYMATH_OFFCHAIN_URL, '/img/checkmark.png')}
+          />
         </div>
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
@@ -92,7 +96,7 @@ export const STOScheduled = ({
           </p>
         </div>
         <p align="center">
-          <a href={`${POLYMATH_ISSUER_URL}/dasbhoard/${ticker}/sto`}>
+          <a href={composeURL(POLYMATH_ISSUER_URL, `/dasbhoard/${ticker}/sto`)}>
             <strong>
               Click here to access your Security Offering Dashboard
             </strong>
