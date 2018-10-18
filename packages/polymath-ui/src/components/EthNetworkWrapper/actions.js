@@ -13,7 +13,6 @@ import {
   ERROR_NOT_INSTALLED,
   ERROR_DISCONNECTED,
   ERROR_ACCESS_REQUESTED,
-  ERROR_ACCESS_DENIED,
   CONNECTED,
   FAILED,
 } from './';
@@ -36,11 +35,12 @@ export const requestAuthorization = () => async (dispatch: Function) => {
   try {
     dispatch(fail(ERROR_ACCESS_REQUESTED));
 
-    // Request accounts access
+    // Request accounts access, will make Metamask pop up
     await window.ethereum.enable();
   } catch (e) {
     // User denied access
-    dispatch(fail(ERROR_ACCESS_DENIED));
+    // eslint-disable-next-line
+    console.error(e);
   }
 };
 
