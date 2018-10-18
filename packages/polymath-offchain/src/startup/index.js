@@ -11,9 +11,13 @@ import './setupMailing';
 import connectWeb3 from './setupWeb3';
 
 (async () => {
-  const { '15': local, '42': kovan, '1': mainnet } = NETWORKS;
+  const { '15': local, '16': localVM, '42': kovan, '1': mainnet } = NETWORKS;
   if (local) {
     await connectWeb3('15');
+  }
+
+  if (localVM) {
+    await connectWeb3('16');
   }
 
   if (kovan) {

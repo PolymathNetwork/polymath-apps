@@ -15,6 +15,7 @@ export const cleanEnvironment = <T: { [string]: string }>(
 };
 
 type Environment = {|
+  WEB3_NETWORK_LOCALVM_WS?: string,
   WEB3_NETWORK_LOCAL_WS?: string,
   WEB3_NETWORK_KOVAN_WS?: string,
   WEB3_NETWORK_MAINNET_WS?: string,
@@ -37,10 +38,17 @@ const env = cleanEnvironment<Environment>(process.env, [
 ]);
 
 const {
+  WEB3_NETWORK_LOCALVM_WS,
   WEB3_NETWORK_LOCAL_WS,
   WEB3_NETWORK_KOVAN_WS,
   WEB3_NETWORK_MAINNET_WS,
 } = env;
+
+if (WEB3_NETWORK_LOCAL_WS && WEB3_NETWORK_LOCALVM_WS) {
+  throw new Error(
+    'Only one of WEB3_NETWORK_LOCAL_WS or WEB3_NETWORK_LOCALVM_WS must be set, not both'
+  );
+}
 
 export const MONGODB_URI = env.MONGODB_URI;
 export const NODE_ENV = env.NODE_ENV;
@@ -48,32 +56,63 @@ export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
 
 const NETWORKS = {};
 
-if (DEPLOYMENT_STAGE === 'production') {
-  if (!WEB3_NETWORK_MAINNET_WS) {
-    throw new Error(`Missing env variable WEB3_NETWORK_MAINNET_WS`);
-  }
-  NETWORKS['1'] = {
-    name: 'mainnet',
-    url: WEB3_NETWORK_MAINNET_WS,
-  };
-}
-
+/**
+ * - Production offchain MUST listen to Mainnet and Kovan
+ * - Staging offchain MUST listen to kovan and can optionally listen to
+ *   the local blockchain
+ * - Local offchain MUST listen to the local blockchain
+ */
 if (DEPLOYMENT_STAGE !== 'local') {
   if (!WEB3_NETWORK_KOVAN_WS) {
     throw new Error(`Missing env variable WEB3_NETWORK_KOVAN_WS`);
   }
+
   NETWORKS['42'] = {
     name: 'kovan',
     url: WEB3_NETWORK_KOVAN_WS,
   };
-} else {
-  if (!WEB3_NETWORK_LOCAL_WS) {
-    throw new Error(`Missing env variable WEB3_NETWORK_LOCAL_WS`);
+
+  if (DEPLOYMENT_STAGE === 'production') {
+    if (!WEB3_NETWORK_MAINNET_WS) {
+      throw new Error('Missing env variable WEB3_NETWORK_MAINNET_WS');
+    }
+    NETWORKS['1'] = {
+      name: 'mainnet',
+      url: WEB3_NETWORK_MAINNET_WS,
+    };
+  } else {
+    if (WEB3_NETWORK_LOCAL_WS) {
+      NETWORKS['15'] = {
+        name: 'local',
+        url: WEB3_NETWORK_LOCAL_WS,
+      };
+    }
+
+    if (WEB3_NETWORK_LOCALVM_WS) {
+      NETWORKS['16'] = {
+        name: 'localVM',
+        url: WEB3_NETWORK_LOCALVM_WS,
+      };
+    }
   }
-  NETWORKS['15'] = {
-    name: 'local',
-    url: WEB3_NETWORK_LOCAL_WS,
-  };
+} else {
+  if (!WEB3_NETWORK_LOCAL_WS && !WEB3_NETWORK_LOCALVM_WS) {
+    throw new Error(
+      'Missing env variables: at least one of WEB3_NETWORK_LOCAL_WS or WEB3_NETWORK_LOCALVM_WS must be set'
+    );
+  }
+
+  if (WEB3_NETWORK_LOCAL_WS) {
+    NETWORKS['15'] = {
+      name: 'local',
+      url: WEB3_NETWORK_LOCAL_WS,
+    };
+  } else {
+    NETWORKS['16'] = {
+      name: 'localVM',
+      url: WEB3_NETWORK_LOCALVM_WS,
+    };
+  }
 }
 
 export { NETWORKS };
