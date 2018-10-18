@@ -1,13 +1,13 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
 import metamask from '../../../images/metamask.png';
 
 type Props = {|
   id: string,
-  title: string,
-  description: string,
+  title: React.Node,
+  description: React.Node,
 |};
 
 const GenericStatus = ({ id, title, description }: Props) => (
