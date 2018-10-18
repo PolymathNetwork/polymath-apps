@@ -1,5 +1,5 @@
 import tickerRegistryArtifact from '../fixtures/contracts/TickerRegistry.json';
-import { LOCAL_NETWORK_ID } from '../constants';
+import { LOCAL_NETWORK_ID, KOVAN_NETWORK_ID } from '../constants';
 
 const ORIGINAL_ENV = { ...process.env };
 
@@ -37,6 +37,22 @@ describe('constants', () => {
       expect(addresses[LOCAL_NETWORK_ID].TickerRegistry).toEqual(
         tickerRegistryArtifactAddress
       );
+    });
+
+    test('staging uses different addresses from production for kovan', () => {
+      process.env.DEPLOYMENT_STAGE = 'staging';
+      const stagingConstants = require('../constants');
+      const stagingAddresses =
+        stagingConstants.NETWORK_ADDRESSES[KOVAN_NETWORK_ID];
+
+      jest.resetModules();
+
+      process.env.DEPLOYMENT_STAGE = 'production';
+      const productionConstants = require('../constants');
+      const productionAddresses =
+        productionConstants.NETWORK_ADDRESSES[KOVAN_NETWORK_ID];
+
+      expect(productionAddresses).not.toEqual(stagingAddresses);
     });
   });
 
