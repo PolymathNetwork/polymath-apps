@@ -51,14 +51,15 @@ const fail = (error: number) => ({ type: FAILED, error });
 export const init = (networks: Array<string>) => async (dispatch: Function) => {
   let web3;
   let web3WS; // since MetaMask doesn't support WebSockets we need this extra client for events subscribing
-  let networkId = undefined;
+  let networkId;
+
+  const newProviderInjected = !!window.ethereum;
+  const oldProviderInjected = !!window.web3;
 
   // Instantiate Web3 HTTP
-  if (window.ethereum) {
-    // If new Metamask/Mist version
+  if (newProviderInjected) {
     web3 = new Web3(window.ethereum);
-  } else if (window.web3) {
-    // If old Metamask/Mist version
+  } else if (oldProviderInjected) {
     web3 = new Web3(window.web3.currentProvider);
   } else {
     // If no Metamask/Mist
