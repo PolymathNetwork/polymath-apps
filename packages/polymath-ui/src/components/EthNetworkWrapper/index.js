@@ -9,10 +9,6 @@ export const ERROR_LOCKED = 2;
 export const ERROR_NETWORK = 3;
 export const ERROR_DISCONNECTED = 4;
 export const ERROR_ACCESS_REQUESTED = 5;
-export const ERROR_ACCESS_DENIED = 6;
-
-export const CONNECTED = 'polymath-auth/CONNECTED';
-export const FAILED = 'polymath-auth/FAILED';
 
 export default EthNetworkWrapper;
 

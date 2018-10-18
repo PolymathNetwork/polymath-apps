@@ -13,9 +13,6 @@ import {
   ERROR_NOT_INSTALLED,
   ERROR_DISCONNECTED,
   ERROR_ACCESS_REQUESTED,
-  ERROR_ACCESS_DENIED,
-  CONNECTED,
-  FAILED,
 } from './';
 
 import type { ExtractReturn } from './helpers';
@@ -25,6 +22,9 @@ import {
   LOCAL_NETWORK_ID,
   LOCALVM_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
+
+export const CONNECTED = 'polymath-auth/CONNECTED';
+export const FAILED = 'polymath-auth/FAILED';
 
 export type NetworkParams = {|
   id: number,
