@@ -37,6 +37,8 @@ export const requestAuthorization = () => async (dispatch: Function) => {
 
     // Request accounts access, will make Metamask pop up
     await window.ethereum.enable();
+
+    // We don't need to dispatch a success action because page will be reloaded by polling
   } catch (e) {
     // User denied access
     // eslint-disable-next-line
