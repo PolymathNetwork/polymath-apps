@@ -42,6 +42,13 @@ type NetworkAddresses = {
   },
 };
 
+/**
+ * NOTE @RafaelVidaurre: In Kovan we use the PolyFaucetTokenAddress as the PolyToken
+ * address.
+ * This is because the faucet is a decorated version of the token.
+ * This is only used for test networks.
+ */
+
 const localAddresses = {
   PolyToken: PolyTokenFaucetArtifacts.networks[LOCAL_NETWORK_ID].address,
   PolyTokenFaucet: PolyTokenFaucetArtifacts.networks[LOCAL_NETWORK_ID].address,
