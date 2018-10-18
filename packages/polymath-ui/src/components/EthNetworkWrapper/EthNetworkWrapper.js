@@ -78,7 +78,7 @@ export class EthNetworkWrapper extends Component<Props> {
         onRequestAuth: this.handleAuthRequest.bind(this),
       });
     }
-    if (!isFailed && !isConnected) {
+    if (!isConnected) {
       return Loading;
     }
     return children;
