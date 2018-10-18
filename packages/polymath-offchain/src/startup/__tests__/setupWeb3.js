@@ -101,9 +101,13 @@ const contractMock = jest.fn().mockImplementation(() => {
 });
 const connectionCloseMock = jest.fn();
 const getIdMock = jest.fn().mockImplementation(() => 15);
-const webSocketProviderMock = jest.fn().mockImplementation(() => {
+const websocketProviderMock = jest.fn().mockImplementation(() => {
   return {
     on: socketEventListenerMock,
+    connection: {
+      CLOSED: 3,
+      readyState: 0,
+    },
   };
 });
 const hexToUtf8Mock = jest.fn();
@@ -118,7 +122,7 @@ const constructorMock = jest.fn().mockImplementation(() => {
       Contract: contractMock,
     },
     providers: {
-      WebsocketProvider: webSocketProviderMock,
+      WebsocketProvider: websocketProviderMock,
     },
     currentProvider: {
       connection: {
@@ -132,7 +136,7 @@ const constructorMock = jest.fn().mockImplementation(() => {
 });
 
 constructorMock.providers = {
-  WebsocketProvider: webSocketProviderMock,
+  WebsocketProvider: websocketProviderMock,
 };
 
 constructorMock.utils = {
@@ -160,12 +164,37 @@ describe('Function: connectWeb3', () => {
 
   const validNetworkId = '15';
 
+  test('returns false if the connection could not be opened', async () => {
+    const connectWeb3 = require('../setupWeb3').default;
+
+    websocketProviderMock.mockImplementationOnce(() => {
+      return {
+        on: socketEventListenerMock,
+        connection: {
+          CLOSED: 3,
+          readyState: 3,
+        },
+      };
+    });
+
+    const connectionSuccessful = await connectWeb3(validNetworkId);
+
+    expect(websocketProviderMock).toHaveBeenCalledWith(
+      NETWORKS[validNetworkId].url
+    );
+    expect(socketEventListenerMock).toHaveBeenCalledTimes(3);
+    expect(socketEventListenerMock.mock.calls[0][0]).toBe('error');
+    expect(socketEventListenerMock.mock.calls[1][0]).toBe('close');
+    expect(socketEventListenerMock.mock.calls[2][0]).toBe('end');
+    expect(connectionSuccessful).toBe(false);
+  });
+
   test('connects to the provider and adds socket listeners', async () => {
     const connectWeb3 = require('../setupWeb3').default;
 
     await connectWeb3(validNetworkId);
 
-    expect(webSocketProviderMock).toHaveBeenCalledWith(
+    expect(websocketProviderMock).toHaveBeenCalledWith(
       NETWORKS[validNetworkId].url
     );
     expect(socketEventListenerMock).toHaveBeenCalledTimes(3);
