@@ -3,31 +3,75 @@
   "version": "0.0.0",
   "description": "Utilities and other shared code between the workspace",
   "private": true,
+  "engines": {
+    "node": ">=8.9"
+  },
   "scripts": {
-    "local-blockchain:start": "yarn local-blockchain:prepare && ganache-cli --db=\"./build/fixtures/blockchain-state/\" --gasLimit 90000000 -i=15 -d --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\"",
+    "local-blockchain:start": "yarn local-blockchain:prepare && yarn ganache-cli --db=\"./build/fixtures/blockchain-state/\" --gasLimit 90000000 -i=15 -d --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\" --blockTime 1",
     "local-blockchain:prepare": "rm -rf ./build && mkdir build && cp -r ./src/fixtures ./build/fixtures",
     "local-blockchain:migrate": "echo \"DEPRECATED: No need to run migrate locally anymore. The local blockchain now starts ready to go.\"",
     "local-blockchain:console": "truffle console",
     "local-blockchain:generate-fixtures": "node ./scripts/generateLocalBlockchain",
     "build:contract-docs": "node ./scripts/generateContractDocs",
-    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\""
+    "test": "jest"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0",
+    "@babel/core": "^7.1.2",
     "@babel/node": "7.0.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
     "@babel/plugin-transform-runtime": "7.0.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-flow": "7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "bignumber.js": "^5.0.0",
     "eslint-config-react-app": "^2.1.0",
     "flow-bin": "^0.81.0",
     "fs-extra": "^7.0.0",
     "ganache-cli": "^6.1.8",
     "jest": "22.4.3",
+    "jest-junit": "^5.2.0",
     "lodash": "^4.17.11",
     "polymath-core": "1.4.0",
+    "regenerator-runtime": "^0.12.1",
     "truffle": "^4.1.11",
     "web3": "^1.0.0-beta.33"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.2",
+    "dotenv": "^6.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js}"
+    ],
+    "moduleFileExtensions": [
+      "json",
+      "js",
+      "jsx"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/startup/!(setupWeb3)",
+      "!src/server.js",
+      "!src/specsInit.js"
+    ],
+    "setupFiles": [
+      "./src/specsInit.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "cobertura",
+      "text"
+    ],
+    "coverageDirectory": "<rootDir>/reports",
+    "reporters": [
+      "jest-junit",
+      "default"
+    ]
   }
 }

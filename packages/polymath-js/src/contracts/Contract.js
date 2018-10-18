@@ -1,6 +1,7 @@
 // @flow
 
 import BigNumber from 'bignumber.js';
+import { NETWORK_ADDRESSES } from '@polymathnetwork/shared/constants';
 
 import type {
   NetworkParams,
@@ -29,7 +30,38 @@ export default class Contract {
     this._artifactTestnet = artifactTestnet;
     return new Proxy(this, {
       get: (target: Object, field: string): Promise<Web3Receipt> | any => {
-        target._init(at);
+        /**
+         * NOTE @RafaelVidaurre: This logic will be replaced after we move
+         * away from dual version support for smart contracts, and with the
+         * use of PolymathRegistry as the way to get the contract addresses.
+         * Here we use hardcoded addresses defined based on deployment stage
+         * and network being used.
+         */
+        if (!Contract._params.id) {
+          throw new Error(
+            'Used a Contract class before "Contract.setParams" was called. ' +
+              'Make sure this method is called before any smart contracts ' +
+              'class is used.'
+          );
+        }
+        const networkAddresses = NETWORK_ADDRESSES[Contract._params.id];
+        const contractName = this._artifact.contractName;
+
+        const defaultAddress =
+          networkAddresses && networkAddresses[contractName];
+        const addressToUse = at || defaultAddress;
+
+        if (!addressToUse) {
+          throw new Error(
+            `No address was found for smart contract "${contractName}".` +
+              'the address must be either exported in ' +
+              '"@polymathnetwork/shared" or passed in the contract\'s ' +
+              'constructor.'
+          );
+        }
+
+        // Legacy initialization logic
+        target._init(addressToUse);
         if (target && target[field]) {
           return target[field];
         }
