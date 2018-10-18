@@ -12,9 +12,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Proxy\n * @dev Gives the possibility to delegate any call to a foreign implementation.\n */\ncontract Proxy {\n\n    /**\n    * @dev Tells the address of the implementation where every call will be delegated.\n    * @return address of the implementation to which it will be delegated\n    */\n    function _implementation() internal view returns (address);\n\n    /**\n    * @dev Fallback function.\n    * Implemented entirely in `_fallback`.\n    */\n    function _fallback() internal {\n        _delegate(_implementation());\n    }\n\n    /**\n    * @dev Fallback function allowing to perform a delegatecall to the given implementation.\n    * This function will return whatever the implementation call returns\n    */\n    function _delegate(address implementation) internal {\n        assembly {\n            // Copy msg.data. We take full control of memory in this inline assembly\n            // block because it will not return to Solidity code. We overwrite the\n            // Solidity scratch pad at memory position 0.\n            calldatacopy(0, 0, calldatasize)\n\n            // Call the implementation.\n            // out and outsize are 0 because we don't know the size yet.\n            let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)\n\n            // Copy the returned data.\n            returndatacopy(0, 0, returndatasize)\n\n            switch result\n            // delegatecall returns 0 on error.\n            case 0 { revert(0, returndatasize) }\n            default { return(0, returndatasize) }\n        }\n    }\n\n    function () public payable {\n        _fallback();\n    }\n}",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
     "exportedSymbols": {
       "Proxy": [
         28974
@@ -366,7 +366,7 @@
     "src": "0:1625:77"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
     "exportedSymbols": {
       "Proxy": [
         28974
@@ -723,5 +723,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:25.132Z"
+  "updatedAt": "2018-10-18T21:45:32.115Z"
 }

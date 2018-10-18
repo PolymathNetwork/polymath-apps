@@ -356,9 +356,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface that any module factory contract should implement\n */\ninterface IModuleFactory {\n\n    event ChangeFactorySetupFee(uint256 _oldSetupCost, uint256 _newSetupCost, address _moduleFactory);\n    event ChangeFactoryUsageFee(uint256 _oldUsageCost, uint256 _newUsageCost, address _moduleFactory);\n    event ChangeFactorySubscriptionFee(uint256 _oldSubscriptionCost, uint256 _newMonthlySubscriptionCost, address _moduleFactory);\n    event GenerateModuleFromFactory(\n        address _module,\n        bytes32 indexed _moduleName,\n        address indexed _moduleFactory,\n        address _creator,\n        uint256 _setupCost,\n        uint256 _timestamp\n    );\n    event ChangeSTVersionBound(string _boundType, uint8 _major, uint8 _minor, uint8 _patch);\n\n    //Should create an instance of the Module, or throw\n    function deploy(bytes _data) external returns(address);\n\n    /**\n     * @notice Type of the Module factory\n     */\n    function getTypes() external view returns(uint8[]);\n\n    /**\n     * @notice Get the name of the Module\n     */\n    function getName() external view returns(bytes32);\n\n    /**\n     * @notice Get the description of the Module\n     */\n    function getDescription() external view returns(string);\n\n    /**\n     * @notice Get the title of the Module\n     */\n    function getTitle() external view returns(string);\n\n    /**\n     * @notice Get the version of the Module\n     */\n    function getVersion() external view returns(string);\n\n    /**\n     * @notice Get the Instructions that helped to used the module\n     */\n    function getInstructions() external view returns (string);\n\n    /**\n     * @notice Get the tags related to the module factory\n     */\n    function getTags() external view returns (bytes32[]);\n\n    /**\n     * @notice used to change the fee of the setup cost\n     * @param _newSetupCost new setup cost\n     */\n    function changeFactorySetupFee(uint256 _newSetupCost) external;\n\n    /**\n     * @notice used to change the fee of the usage cost\n     * @param _newUsageCost new usage cost\n     */\n    function changeFactoryUsageFee(uint256 _newUsageCost) external;\n\n    /**\n     * @notice used to change the fee of the subscription cost\n     * @param _newSubscriptionCost new subscription cost\n     */\n    function changeFactorySubscriptionFee(uint256 _newSubscriptionCost) external;\n\n    /**\n     * @notice Function use to change the lower and upper bound of the compatible version st\n     * @param _boundType Type of bound\n     * @param _newVersion new version array\n     */\n    function changeSTVersionBounds(string _boundType, uint8[] _newVersion) external;\n\n    /**\n     * @notice Get the setup cost of the module\n     */\n    function getSetupCost() external view returns (uint256);\n\n    /**\n     * @notice use to get the lower bound\n     * @return lower bound\n     */\n    function getLowerSTVersionBounds() external view returns(uint8[]);\n\n     /**\n     * @notice use to get the upper bound\n     * @return upper bound\n     */\n    function getUpperSTVersionBounds() external view returns(uint8[]);\n\n}\n",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
     "exportedSymbols": {
       "IModuleFactory": [
         10951
@@ -1930,7 +1930,7 @@
     "src": "0:3085:14"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
     "exportedSymbols": {
       "IModuleFactory": [
         10951
@@ -3507,5 +3507,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:24.700Z"
+  "updatedAt": "2018-10-18T21:45:31.716Z"
 }

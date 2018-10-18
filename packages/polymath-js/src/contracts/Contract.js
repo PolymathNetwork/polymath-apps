@@ -1,6 +1,6 @@
 // @flow
-
 import BigNumber from 'bignumber.js';
+import { LOCAL_NETWORK_ID } from '@polymathnetwork/shared';
 
 import type {
   NetworkParams,
@@ -10,10 +10,6 @@ import type {
   Address,
   Web3Receipt,
 } from '../types';
-
-// FIXME @RafaelVidaurre: This shouldn't be the right way to do it, but
-// this has to be here for now
-const HARDCODED_NETWORK_ID = 15;
 
 export default class Contract {
   static _params: NetworkParams;
@@ -92,7 +88,7 @@ export default class Contract {
   }
 
   static isLocalhost(): boolean {
-    return Contract._params.id === HARDCODED_NETWORK_ID;
+    return Contract._params.id === LOCAL_NETWORK_ID;
   }
 
   get account(): Address {

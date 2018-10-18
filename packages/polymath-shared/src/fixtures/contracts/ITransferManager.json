@@ -201,9 +201,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"../../Pausable.sol\";\nimport \"../Module.sol\";\n\n/**\n * @title Interface to be implemented by all Transfer Manager modules\n * @dev abstract contract\n */\ncontract ITransferManager is Module, Pausable {\n\n    //If verifyTransfer returns:\n    //  FORCE_VALID, the transaction will always be valid, regardless of other TM results\n    //  INVALID, then the transfer should not be allowed regardless of other TM results\n    //  VALID, then the transfer is valid for this TM\n    //  NA, then the result from this TM is ignored\n    enum Result {INVALID, NA, VALID, FORCE_VALID}\n\n    function verifyTransfer(address _from, address _to, uint256 _amount, bytes _data, bool _isTransfer) public returns(Result);\n\n    function unpause() onlyOwner public {\n        super._unpause();\n    }\n\n    function pause() onlyOwner public {\n        super._pause();\n    }\n}\n",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
     "exportedSymbols": {
       "ITransferManager": [
         24290
@@ -224,7 +224,7 @@
         "src": "0:24:64"
       },
       {
-        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../../Pausable.sol",
         "id": 24242,
         "nodeType": "ImportDirective",
@@ -235,7 +235,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
         "file": "../Module.sol",
         "id": 24243,
         "nodeType": "ImportDirective",
@@ -744,7 +744,7 @@
     "src": "0:877:64"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
     "exportedSymbols": {
       "ITransferManager": [
         24290
@@ -765,7 +765,7 @@
         "src": "0:24:64"
       },
       {
-        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../../Pausable.sol",
         "id": 24242,
         "nodeType": "ImportDirective",
@@ -776,7 +776,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
         "file": "../Module.sol",
         "id": 24243,
         "nodeType": "ImportDirective",
@@ -1290,5 +1290,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:25.004Z"
+  "updatedAt": "2018-10-18T21:45:31.986Z"
 }

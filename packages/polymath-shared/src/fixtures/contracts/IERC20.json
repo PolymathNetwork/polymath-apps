@@ -240,9 +240,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title ERC20 interface\n * @dev see https://github.com/ethereum/EIPs/issues/20\n */\ninterface IERC20 {\n  function decimals() external view returns (uint8);\n  function totalSupply() external view returns (uint256);\n  function balanceOf(address _owner) external view returns (uint256);\n  function allowance(address _owner, address _spender) external view returns (uint256);\n  function transfer(address _to, uint256 _value) external returns (bool);\n  function transferFrom(address _from, address _to, uint256 _value) external returns (bool);\n  function approve(address _spender, uint256 _value) external returns (bool);\n  function decreaseApproval(address _spender, uint _subtractedValue) external returns (bool);\n  function increaseApproval(address _spender, uint _addedValue) external returns (bool);\n  event Transfer(address indexed from, address indexed to, uint256 value);\n  event Approval(address indexed owner, address indexed spender, uint256 value);\n}\n",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
     "exportedSymbols": {
       "IERC20": [
         10785
@@ -1350,7 +1350,7 @@
     "src": "0:989:11"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
     "exportedSymbols": {
       "IERC20": [
         10785
@@ -2463,5 +2463,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:24.448Z"
+  "updatedAt": "2018-10-18T21:45:31.715Z"
 }

@@ -63,9 +63,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\ninterface IOracle {\n\n    /**\n    * @notice Returns address of oracle currency (0x0 for ETH)\n    */\n    function getCurrencyAddress() external view returns(address);\n\n    /**\n    * @notice Returns symbol of oracle currency (0x0 for ETH)\n    */\n    function getCurrencySymbol() external view returns(bytes32);\n\n    /**\n    * @notice Returns denomination of price\n    */\n    function getCurrencyDenominated() external view returns(bytes32);\n\n    /**\n    * @notice Returns price - should throw if not valid\n    */\n    function getPrice() external view returns(uint256);\n\n}\n",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
     "exportedSymbols": {
       "IOracle": [
         11062
@@ -330,7 +330,7 @@
     "src": "0:595:16"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
     "exportedSymbols": {
       "IOracle": [
         11062
@@ -600,5 +600,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:24.717Z"
+  "updatedAt": "2018-10-18T21:45:31.718Z"
 }

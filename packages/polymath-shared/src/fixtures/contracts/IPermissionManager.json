@@ -205,9 +205,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface to be implemented by all permission manager modules\n */\ninterface IPermissionManager {\n\n    /**\n    * @notice Use to check the permission on delegate corresponds to module contract address\n    * @param _delegate Ethereum address of the delegate\n    * @param _module Ethereum contract address of the module\n    * @param _perm Permission flag\n    * @return bool\n    */\n    function checkPermission(address _delegate, address _module, bytes32 _perm) external view returns(bool);\n\n     /**\n    * @notice Use to add a delegate\n    * @param _delegate Ethereum address of the delegate\n    * @param _details Details about the delegate i.e `Belongs to financial firm`\n    */\n    function addDelegate(address _delegate, bytes32 _details) external;\n\n    /**\n    * @notice use to check if an address is a delegate or not\n    * @param _potentialDelegate the address of potential delegate\n    * @return bool\n    */\n    function checkDelegate(address _potentialDelegate) external view returns(bool);\n\n    /**\n    * @notice Use to provide/change the permission to the delegate corresponds to the module contract\n    * @param _delegate Ethereum address of the delegate\n    * @param _module Ethereum contract address of the module\n    * @param _perm Permission flag\n    * @param _valid Bool flag use to switch on/off the permission\n    * @return bool\n    */\n    function changePermission(\n        address _delegate,\n        address _module,\n        bytes32 _perm,\n        bool _valid\n    )\n    external;\n\n    /**\n    * @notice Use to change one or more permissions for a single delegate at once\n    * @param _delegate Ethereum address of the delegate\n    * @param _modules Multiple module matching the multiperms, needs to be same length\n    * @param _perms Multiple permission flag needs to be changed\n    * @param _valids Bool array consist the flag to switch on/off the permission\n    * @return nothing\n    */\n    function changePermissionMulti(\n        address _delegate,\n        address[] _modules,\n        bytes32[] _perms,\n        bool[] _valids\n    )\n    external;\n\n    /**\n    * @notice use to return all delegates with a given permission and module\n    * @param _module Ethereum contract address of the module\n    * @param _perm Permission flag\n    * @return address[]\n    */\n    function getAllDelegatesWithPerm(address _module, bytes32 _perm) external view returns(address[]);\n\n     /**\n    * @notice use to return all permission of a single or multiple module\n    * @dev possible that function get out of gas is there are lot of modules and perm related to them\n    * @param _delegate Ethereum address of the delegate\n    * @param _tokenAddress Ethereum address of the security token\n    * @param _types uint8[] of types\n    * @return address[] the address array of Modules this delegate has permission\n    * @return bytes32[] the permission array of the corresponding Modules\n    */\n    function getAllModulesAndPermsFromTypes(address _delegate, uint8[] _types, address _tokenAddress) external view returns(address[], bytes32[]);\n\n    /**\n    * @notice Use to get the Permission flag related the `this` contract\n    * @return Array of permission flags\n    */\n    function getPermissions() external view returns(bytes32[]);\n\n    /**\n    * @notice use to get all delegates\n    * @return address[]\n    */\n    function getAllDelegates() external view returns(address[]);\n\n}\n",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/PermissionManager/IPermissionManager.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/PermissionManager/IPermissionManager.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/PermissionManager/IPermissionManager.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/PermissionManager/IPermissionManager.sol",
     "exportedSymbols": {
       "IPermissionManager": [
         18456
@@ -1288,7 +1288,7 @@
     "src": "0:3416:49"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/PermissionManager/IPermissionManager.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/PermissionManager/IPermissionManager.sol",
     "exportedSymbols": {
       "IPermissionManager": [
         18456
@@ -2374,5 +2374,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:24.887Z"
+  "updatedAt": "2018-10-18T21:45:31.931Z"
 }

@@ -53,9 +53,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for security token proxy deployment\n */\ninterface IUSDTieredSTOProxy {\n\n   /**\n     * @notice deploys the STO.\n     * @param _securityToken Contract address of the securityToken\n     * @param _polyAddress Contract address of the PolyToken.\n     * @param _factoryAddress Contract address of the factory \n     * @return address Address of the deployed STO\n     */\n    function deploySTO(address _securityToken, address _polyAddress, address _factoryAddress) external returns (address);\n    \n     /**\n     * @notice Use to get the init function signature\n     * @param _contractAddress Address of the STO contract\n     * @return bytes4\n     */\n    function getInitFunction(address _contractAddress) external returns (bytes4);\n\n}",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
     "exportedSymbols": {
       "IUSDTieredSTOProxy": [
         11709
@@ -314,7 +314,7 @@
     "src": "0:775:22"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
     "exportedSymbols": {
       "IUSDTieredSTOProxy": [
         11709
@@ -578,5 +578,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:24.733Z"
+  "updatedAt": "2018-10-18T21:45:31.723Z"
 }

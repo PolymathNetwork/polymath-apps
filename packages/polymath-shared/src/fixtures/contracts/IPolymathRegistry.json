@@ -26,9 +26,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n    \ninterface IPolymathRegistry {\n\n    /**\n     * @notice Get the contract address\n     * @param _nameKey is the key for the contract address mapping\n     * @return address\n     */\n    function getAddress(string _nameKey) view external returns(address); \n\n}\n    ",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
+  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
   "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
     "exportedSymbols": {
       "IPolymathRegistry": [
         11088
@@ -152,7 +152,7 @@
     "src": "0:289:18"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
+    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
     "exportedSymbols": {
       "IPolymathRegistry": [
         11088
@@ -281,5 +281,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T20:29:24.717Z"
+  "updatedAt": "2018-10-18T21:45:31.718Z"
 }
