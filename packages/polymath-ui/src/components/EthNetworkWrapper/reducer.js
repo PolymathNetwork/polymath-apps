@@ -33,6 +33,7 @@ export default (state: NetworkState = defaultState, action: Action) => {
       return {
         ...state,
         isConnected: true,
+        isFailed: false,
         ...action.params,
       };
     case FAILED:

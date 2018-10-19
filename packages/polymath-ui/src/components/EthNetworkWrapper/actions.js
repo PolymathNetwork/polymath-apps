@@ -98,7 +98,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     String(networkId) === LOCALVM_NETWORK_ID ||
     networkId === undefined;
   const network = getNetworkInfos(networkId);
-  const [account] = await web3.eth.getAccounts();
+  const accounts = await web3.eth.getAccounts();
 
   // Instantiate Web3 Web Socket
   web3WS = new Web3(process.env.REACT_APP_NODE_WS || network.url);
@@ -113,8 +113,8 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   // https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md#ear-listening-for-selected-account-changes
   setInterval(() => {
     // On account change
-    web3.eth.getAccounts().then(accounts => {
-      if (accounts[0] !== account) {
+    web3.eth.getAccounts().then(_accounts => {
+      if (_accounts[0] !== accounts[0]) {
         window.location.reload();
       }
     });
@@ -137,17 +137,15 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   });
 
   // Check if dapp is authorized by Metamask/Mist
-  if (window.ethereum) {
-    const isMetamaskAuthorised = await window.ethereum.isEnabled();
-
-    // If dapp not authorised
-    if (!isMetamaskAuthorised) {
-      return dispatch(requestAuthorization());
+  if (newProviderInjected) {
+    const isMetamaskApproved = await window.ethereum.isApproved();
+    if (!isMetamaskApproved) {
+      dispatch(requestAuthorization());
+      return dispatch(fail(ERROR_ACCESS_REQUESTED));
     }
   }
 
-  // If no account found
-  if (!account) {
+  if (!accounts.length) {
     return dispatch(fail(ERROR_LOCKED));
   }
 
@@ -160,9 +158,9 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   }
 
   const networkParams = {
-    id,
-    name,
-    account,
+    id: networkId,
+    name: network.name,
+    account: accounts[0],
     web3,
     web3WS,
   };
