@@ -1,22 +1,14 @@
 // @flow
 
-import { URL } from 'url';
-
 /**
- * Compose url from base and path handling trailing slashes in the base
+ * Remove the trailing slash from an URL (for use in constants.js)
  *
- * @param {string} base base URL
- * @param {string} path absolute or relative path
+ * @param {string} url
  *
- * @returns {string} a composed URL
- *
- * Behavior differs whether path is absolute (leading slash) or relative (no leading slash)
- *
- * Examples:
- *   - composeUrl('https://some.website/', '/absolute/path') returns 'https://some.website/absolute/path'
- *   - composeUrl('https://some.website/', 'relative/path') returns 'https://some.website/relative/path'
- *   - composeUrl('https://some.website/with/path', '/absolute/path') returns 'https://some.website/absolute/path'
- *   - composeUrl('https://some.website/with/path', 'relative/path') returns 'https://some.website/with/path/relative/path'
+ * @returns {string} an URL without the trailing slash
  */
-export const composeURL = (base: string, path: string) =>
-  new URL(path, base).href;
+const normalizeURL = url => url.replace(/\/$/, '');
+
+module.exports = {
+  normalizeURL,
+};
