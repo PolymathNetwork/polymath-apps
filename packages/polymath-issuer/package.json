@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "echo \"No tests yet. Change the 'test' command to 'node scripts/test.js' if you want to enable tests in this repository\"",
+    "test": "node ./scripts/test.js",
     "typecheck": "flow --show-all-branches"
   },
   "dependencies": {
