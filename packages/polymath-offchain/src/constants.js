@@ -1,5 +1,7 @@
 // @flow
 
+import { normalizeURL } from '@polymathnetwork/shared/utils';
+
 export const cleanEnvironment = <T: { [string]: string }>(
   env: any = process.env,
   expectedVars: Array<string>
@@ -78,8 +80,8 @@ if (DEPLOYMENT_STAGE !== 'local') {
 
 export { NETWORKS };
 export const PORT = parseInt(env.PORT, 10);
-export const POLYMATH_ISSUER_URL = env.POLYMATH_ISSUER_URL;
-export const POLYMATH_OFFCHAIN_URL = env.POLYMATH_OFFCHAIN_URL;
+export const POLYMATH_ISSUER_URL = normalizeURL(env.POLYMATH_ISSUER_URL);
+export const POLYMATH_OFFCHAIN_URL = normalizeURL(env.POLYMATH_OFFCHAIN_URL);
 export const SENDGRID_API_KEY = env.SENDGRID_API_KEY;
 export const TYPED_NAME = 'Verification code from the Polymath server';
 export const STO_MODULE_TYPE = 3;
