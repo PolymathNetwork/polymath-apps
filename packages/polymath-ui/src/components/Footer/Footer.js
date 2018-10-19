@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import './style.scss';
 
@@ -18,26 +17,28 @@ export default class Footer extends Component<Props> {
         </p>
         <ul className="pui-footer-links">
           <li>
-            <Link
-              to={
+            <a
+              href={
                 this.props.termsOfService ||
                 'https://polymath.network/termsofservice.html'
               }
               target="_blank"
+              rel="noopener noreferrer"
             >
               Terms Of Service
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
-              to={
+            <a
+              href={
                 this.props.privacyPolicy ||
                 'https://polymath.network/privacypolicy.html'
               }
               target="_blank"
+              rel="noopener noreferrer"
             >
               Privacy Policy
-            </Link>
+            </a>
           </li>
         </ul>
       </div>
