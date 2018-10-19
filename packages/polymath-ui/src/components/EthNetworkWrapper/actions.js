@@ -32,18 +32,17 @@ export type NetworkParams = {|
 // this has to be here for now
 const HARDCODED_NETWORK_ID = 15;
 
+// Request accounts access, will make Metamask pop up
 export const requestAuthorization = () => async (dispatch: Function) => {
   try {
-    dispatch(fail(ERROR_ACCESS_REQUESTED));
-
-    // Request accounts access, will make Metamask pop up
-    await window.ethereum.enable();
-
     // We don't need to dispatch a success action because page will be reloaded by polling
+    return await window.ethereum.enable();
   } catch (e) {
     // User denied access
     // eslint-disable-next-line
     console.error(e);
+    // Commented because UI doesn't support this state
+    // return dispatch(fail(ERROR_ACCESS_DENIED);
   }
 };
 
