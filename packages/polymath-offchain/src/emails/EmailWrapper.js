@@ -3,7 +3,6 @@
 import React from 'react';
 import { POLYMATH_OFFCHAIN_URL, NETWORKS } from '../constants';
 import styles from './styles';
-import { composeURL } from '@polymathnetwork/shared/utils';
 
 import type { Node } from 'react';
 
@@ -21,19 +20,14 @@ export const EmailWrapper = ({ children }: Props) => (
     <body>
       <div className="wrapper">
         <div className="top-bar">
-          <img
-            alt="Icon"
-            src={composeURL(POLYMATH_OFFCHAIN_URL, '/img/logo.png')}
-          />
+          <img alt="Icon" src={`${POLYMATH_OFFCHAIN_URL}/img/logo.png`} />
         </div>
         <div className="content">
           {children}
           <div className="icon-text" style={{ height: '52px' }}>
             <div className="icon question">
-              <img
-                alt="Icon"
-                src={composeURL(POLYMATH_OFFCHAIN_URL, '/img/question.png')}
-              />
+              src=
+              {`${POLYMATH_OFFCHAIN_URL}/img/question.png`}
             </div>
             <h2>
               If you have any questions, please reach out to

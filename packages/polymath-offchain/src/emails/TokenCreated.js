@@ -4,7 +4,6 @@ import React from 'react';
 
 import { EmailWrapper, EtherscanURL } from './EmailWrapper';
 import { POLYMATH_ISSUER_URL, POLYMATH_OFFCHAIN_URL } from '../constants';
-import { composeURL } from '@polymathnetwork/shared/utils';
 
 type Props = {|
   ticker: string,
@@ -21,10 +20,7 @@ export const TokenCreated = ({ txHash, ticker, networkId }: Props) => {
       <h1>You Have Successfully Created the {ticker.toUpperCase()} Token</h1>
       <div className="icon-text tx-hash">
         <div className="icon">
-          <img
-            alt="Icon"
-            src={composeURL(POLYMATH_OFFCHAIN_URL, '/img/checkmark.png')}
-          />
+          <img alt="Icon" src={`${POLYMATH_OFFCHAIN_URL}/img/checkmark.png`} />
         </div>
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
@@ -57,7 +53,7 @@ export const TokenCreated = ({ txHash, ticker, networkId }: Props) => {
           </li>
         </ol>
         <p align="center">
-          <a href={composeURL(POLYMATH_ISSUER_URL, `/dashboard/${ticker}`)}>
+          <a href={`${POLYMATH_ISSUER_URL}/dashboard/${ticker}`}>
             <strong>Click here to proceed with your Token Minting</strong>
           </a>
         </p>
