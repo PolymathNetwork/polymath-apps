@@ -19,8 +19,20 @@ const PolyTokenMethods = {
   transfer: 'Transfers tokens to an address',
 };
 
-const CappedSTOFactoryMethods = {
+const STOModuleFactoryMethods = {
   setupCost: 'The amount of POLY required to setup a token with this module',
+  getName: true,
+  getSetupCost: true,
+  getVersion: true,
+  owner: true,
+};
+
+const CappedSTOFactoryMethods = {
+  ...STOModuleFactoryMethods,
+};
+
+const USDTieredSTOFactoryMethods = {
+  ...STOModuleFactoryMethods,
 };
 
 const CountTransferManagerFactoryMethods = {
@@ -103,6 +115,14 @@ const config = {
         Capped STOs set a limit on the total amount of funding an STO can raise.
       `,
       methods: CappedSTOFactoryMethods,
+    },
+    USDTieredSTOFactory: {
+      description: stripIndent`
+        Factory for [USDTieredSTO](#USDTieredSTO) STO module.
+        USDTieredSTO allows issuers to set multiple USD price tiers for their
+        STO.
+      `,
+      methods: USDTieredSTOFactoryMethods,
     },
     CountTransferManagerFactory: {
       description: stripIndent`

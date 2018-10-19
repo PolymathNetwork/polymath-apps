@@ -146,6 +146,10 @@ Capped STOs set a limit on the total amount of funding an STO can raise.
 /* == Read-Only methods == */
 // The amount of POLY required to setup a token with this module
 function setupCost() => UInt256
+function getName() => Bytes32
+function getSetupCost() => UInt256
+function getVersion() => String
+function owner() => Address
 ```
 
 <details><summary>Other methods</summary>
@@ -156,16 +160,79 @@ function description() => String
 function getDescription() => String
 function getInstructions() => String
 function getLowerSTVersionBounds() => UInt8[]
-function getName() => Bytes32
-function getSetupCost() => UInt256
 function getTags() => Bytes32[]
 function getTitle() => String
 function getTypes() => UInt8[]
 function getUpperSTVersionBounds() => UInt8[]
-function getVersion() => String
 function monthlySubscriptionCost() => UInt256
 function name() => Bytes32
+function polyToken() => Address
+function title() => String
+function usageCost() => UInt256
+function version() => String
+
+/* == Can mutate state == */
+function changeDescription(_newDesc: String) => void
+function changeFactorySetupFee(_newSetupCost: UInt256) => void
+function changeFactorySubscriptionFee(_newSubscriptionCost: UInt256) => void
+function changeFactoryUsageFee(_newUsageCost: UInt256) => void
+function changeName(_newName: Bytes32) => void
+function changeSTVersionBounds(_boundType: String, _newVersion: UInt8[]) => void
+function changeTitle(_newTitle: String) => void
+function changeVersion(_newVersion: String) => void
+function deploy(_data: Bytes) => Address
+function renounceOwnership() => void
+function transferOwnership(_newOwner: Address) => void
+```
+
+</details>
+
+## Events
+
+```ts
+event ChangeFactorySetupFee(_oldSetupCost: UInt256, _newSetupCost: UInt256, _moduleFactory: Address)
+event ChangeFactorySubscriptionFee(_oldSubscriptionCost: UInt256, _newMonthlySubscriptionCost: UInt256, _moduleFactory: Address)
+event ChangeFactoryUsageFee(_oldUsageCost: UInt256, _newUsageCost: UInt256, _moduleFactory: Address)
+event ChangeSTVersionBound(_boundType: String, _major: UInt8, _minor: UInt8, _patch: UInt8)
+event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _setupCost: UInt256, _timestamp: UInt256)
+event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _timestamp: UInt256)
+event OwnershipRenounced(previousOwner: Address)
+event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+```
+
+# USDTieredSTOFactory
+
+Factory for [USDTieredSTO](#USDTieredSTO) STO module.
+USDTieredSTO allows issuers to set multiple USD price tiers for their
+STO.
+
+## Methods
+
+```ts
+/* == Read-Only methods == */
+// The amount of POLY required to setup a token with this module
+function setupCost() => UInt256
+function getName() => Bytes32
+function getSetupCost() => UInt256
+function getVersion() => String
 function owner() => Address
+```
+
+<details><summary>Other methods</summary>
+
+```ts
+/* == Read-Only methods == */
+function USDTieredSTOProxyAddress() => Address
+function description() => String
+function getDescription() => String
+function getInstructions() => String
+function getLowerSTVersionBounds() => UInt8[]
+function getTags() => Bytes32[]
+function getTitle() => String
+function getTypes() => UInt8[]
+function getUpperSTVersionBounds() => UInt8[]
+function monthlySubscriptionCost() => UInt256
+function name() => Bytes32
 function polyToken() => Address
 function title() => String
 function usageCost() => UInt256
