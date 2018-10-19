@@ -34,15 +34,21 @@ export type NetworkParams = {|
   web3WS: Web3,
 |};
 
+// FIXME @RafaelVidaurre: This shouldn't be the right way to do it, but
+// this has to be here for now
+const HARDCODED_NETWORK_ID = 15;
+
+// Request accounts access, will make Metamask pop up
 export const requestAuthorization = () => async (dispatch: Function) => {
   try {
-    dispatch(fail(ERROR_ACCESS_REQUESTED));
-
-    // Request accounts access
-    await window.ethereum.enable();
+    // We don't need to dispatch a success action because page will be reloaded by polling
+    return await window.ethereum.enable();
   } catch (e) {
     // User denied access
-    dispatch(fail(ERROR_ACCESS_DENIED));
+    // eslint-disable-next-line
+    console.error(e);
+    // Commented because UI doesn't support this state
+    // return dispatch(fail(ERROR_ACCESS_DENIED);
   }
 };
 
@@ -69,14 +75,15 @@ const initPolymathJs = async (params: {
 export const init = (networks: Array<string>) => async (dispatch: Function) => {
   let web3;
   let web3WS; // since MetaMask doesn't support WebSockets we need this extra client for events subscribing
-  let networkId = undefined;
+  let networkId;
+
+  const newProviderInjected = !!window.ethereum;
+  const oldProviderInjected = !!window.web3;
 
   // Instantiate Web3 HTTP
-  if (window.ethereum) {
-    // If new Metamask/Mist version
+  if (newProviderInjected) {
     web3 = new Web3(window.ethereum);
-  } else if (window.web3) {
-    // If old Metamask/Mist version
+  } else if (oldProviderInjected) {
     web3 = new Web3(window.web3.currentProvider);
   } else {
     // If no Metamask/Mist
