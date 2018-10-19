@@ -19,6 +19,7 @@ import type { TokenState } from '../reducers/token';
 import type { STOState } from '../reducers/sto';
 import type { TickerState } from '../reducers/ticker';
 import type { WhitelistState } from '../reducers/compliance';
+import type { STOModulesState } from '../reducers/stoModules';
 
 export default combineReducers({
   network,
@@ -39,6 +40,7 @@ export type RootState = {
   sto: STOState,
   whitelist: WhitelistState,
   pui: PUIState,
+  stoModules: STOModulesState,
   form: any,
 };
 
