@@ -99,7 +99,6 @@ const newProvider = async (networkId: string) => {
     new Promise(resolve => {
       setTimeout(resolve, connection._client.config.closeTimeout);
     });
-
   await waitForHandshakeTimeout();
   if (connection.readyState === connection.CLOSED) {
     return null;
@@ -560,7 +559,7 @@ const followUpConnection = async (networkId: string, provider) => {
 
   @param {string} networkId id of the network to which we want to connect a client
  */
-const reconnect = async (networkId: string) => {
+export const reconnect = async (networkId: string) => {
   let provider;
 
   for (;;) {

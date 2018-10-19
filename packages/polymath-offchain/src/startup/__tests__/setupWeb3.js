@@ -99,6 +99,11 @@ const contractMock = jest.fn().mockImplementation(() => {
     },
   };
 });
+const clientMock = {
+  config: {
+    closeTimeout: 5000,
+  },
+};
 const connectionCloseMock = jest.fn();
 const getIdMock = jest.fn().mockImplementation(() => 15);
 const websocketProviderMock = jest.fn().mockImplementation(() => {
@@ -107,6 +112,7 @@ const websocketProviderMock = jest.fn().mockImplementation(() => {
     connection: {
       CLOSED: 3,
       readyState: 0,
+      _client: clientMock,
     },
   };
 });
@@ -130,6 +136,7 @@ const constructorMock = jest.fn().mockImplementation(() => {
         CLOSING: 2,
         CLOSED: 3,
         readyState: 3,
+        _client: clientMock,
       },
     },
   };
@@ -173,27 +180,34 @@ describe('Function: connectWeb3', () => {
         connection: {
           CLOSED: 3,
           readyState: 3,
+          _client: clientMock,
         },
       };
     });
 
-    const connectionSuccessful = await connectWeb3(validNetworkId);
+    const connectPromise = connectWeb3(validNetworkId);
+
+    jest.advanceTimersByTime(5000);
+
+    const connectionSuccessful = await connectPromise;
 
     expect(websocketProviderMock).toHaveBeenCalledWith(
       NETWORKS[validNetworkId].url
     );
-    expect(socketEventListenerMock).toHaveBeenCalledTimes(3);
-    expect(socketEventListenerMock.mock.calls[0][0]).toBe('error');
-    expect(socketEventListenerMock.mock.calls[1][0]).toBe('close');
-    expect(socketEventListenerMock.mock.calls[2][0]).toBe('end');
+    expect(socketEventListenerMock).toHaveBeenCalledTimes(0);
     expect(connectionSuccessful).toBe(false);
   });
 
   test('connects to the provider and adds socket listeners', async () => {
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3(validNetworkId);
+    const connectPromise = connectWeb3(validNetworkId);
 
+    jest.advanceTimersByTime(5000);
+
+    const connectionSuccessful = await connectPromise;
+
+    expect(connectionSuccessful).toBe(true);
     expect(websocketProviderMock).toHaveBeenCalledWith(
       NETWORKS[validNetworkId].url
     );
@@ -208,10 +222,15 @@ describe('Function: connectWeb3', () => {
 
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3(validNetworkId);
+    const connectPromise = connectWeb3(validNetworkId);
+
+    jest.advanceTimersByTime(5000);
+
+    const connectionSuccessful = await connectPromise;
 
     jest.advanceTimersByTime(20000);
 
+    expect(connectionSuccessful).toBe(true);
     expect(isListeningMock).toHaveBeenCalledTimes(4);
   });
 
@@ -229,10 +248,15 @@ describe('Function: connectWeb3', () => {
       .mockImplementationOnce(eventListener)
       .mockImplementationOnce(eventListener);
 
-    const connectWeb3 = require('../setupWeb3').default;
+    let connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3(validNetworkId);
+    let connectPromise = connectWeb3(validNetworkId);
 
+    jest.advanceTimersByTime(5000);
+
+    let connectionSuccessful = await connectPromise;
+
+    expect(connectionSuccessful).toBe(true);
     expect(logger.error).toHaveBeenCalledTimes(1);
     expect(logger.info).toHaveBeenCalledWith(
       `[SETUP] Reconnecting LOCAL socket after error...`
@@ -254,7 +278,13 @@ describe('Function: connectWeb3', () => {
       .mockImplementationOnce(eventListener)
       .mockImplementationOnce(eventListener);
 
-    await connectWeb3(validNetworkId);
+    connectPromise = connectWeb3(validNetworkId);
+
+    jest.advanceTimersByTime(5000);
+
+    connectionSuccessful = await connectPromise;
+
+    expect(connectionSuccessful).toBe(true);
 
     expect(logger.error).not.toHaveBeenCalled();
     expect(logger.info).toHaveBeenCalledWith(
@@ -277,8 +307,13 @@ describe('Function: connectWeb3', () => {
 
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3(validNetworkId);
+    const connectPromise = connectWeb3(validNetworkId);
 
+    jest.advanceTimersByTime(5000);
+
+    const connectionSuccessful = await connectPromise;
+
+    expect(connectionSuccessful).toBe(true);
     expect(logger.info).toHaveBeenCalledWith(
       `[SETUP] Reconnecting LOCAL socket after close...`
     );
@@ -299,17 +334,90 @@ describe('Function: connectWeb3', () => {
 
     const connectWeb3 = require('../setupWeb3').default;
 
-    await connectWeb3(validNetworkId);
+    const connectPromise = connectWeb3(validNetworkId);
 
+    jest.advanceTimersByTime(5000);
+
+    const connectionSuccessful = await connectPromise;
+
+    expect(connectionSuccessful).toBe(true);
     expect(logger.info).toHaveBeenCalledWith(
       `[SETUP] Reconnecting LOCAL socket after end...`
     );
   });
 
-  test('logs blockchain listener errors', () => {
+  test('logs blockchain listener errors', async () => {
+    const expectedError = new Error('Something went wrong');
     contractMock.mockImplementationOnce(() => {
-      throw new Error('Something went wrong');
+      throw expectedError;
     });
+
+    const connectWeb3 = require('../setupWeb3').default;
+
+    const connectPromise = connectWeb3(validNetworkId);
+
+    jest.advanceTimersByTime(5000);
+
+    const connectionSuccessful = await connectPromise;
+
+    expect(connectionSuccessful).toBe(true);
+    expect(logger.error).toHaveBeenCalledWith(
+      expectedError.message,
+      expectedError
+    );
+  });
+});
+
+describe('Function: reconnect', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.clearAllTimers();
+  });
+
+  const validNetworkId = '15';
+
+  test('retries connection if provider is null', async () => {
+    websocketProviderMock
+      .mockImplementationOnce(() => {
+        return {
+          on: () => null,
+          connection: {
+            CLOSED: 3,
+            readyState: 3,
+            _client: clientMock,
+          },
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          on: () => null,
+          connection: {
+            CLOSED: 3,
+            readyState: 0,
+            _client: clientMock,
+          },
+        };
+      });
+
+    const reconnect = require('../setupWeb3').reconnect;
+
+    const reconnecting = reconnect(validNetworkId);
+
+    /**
+      NOTE @monitz87: This is needed because of how jest timer mocks
+      interact with promises (see https://stackoverflow.com/a/52196951)
+     */
+    jest.advanceTimersByTime(5000);
+    await Promise.resolve();
+    jest.advanceTimersByTime(5000);
+    await Promise.resolve();
+    jest.advanceTimersByTime(5000);
+
+    await reconnecting;
+
+    expect(logger.info).toHaveBeenCalledWith(
+      `[SETUP] Network LOCAL not found. Retrying connection...`
+    );
   });
 });
 
@@ -343,7 +451,11 @@ describe('Function: keepAlive', () => {
 
     const client = new Web3();
 
-    await keepAlive(client, validNetworkId);
+    const keepingAlive = keepAlive(client, validNetworkId);
+
+    jest.advanceTimersByTime(5000);
+
+    await keepingAlive;
 
     expect(clearInterval).toHaveBeenCalledTimes(1);
     expect(logger.info).toHaveBeenCalledWith(
@@ -370,6 +482,7 @@ describe('Function: keepAlive', () => {
             CLOSING: 2,
             CLOSED: 3,
             readyState: 0,
+            _client: clientMock,
           },
         },
       };

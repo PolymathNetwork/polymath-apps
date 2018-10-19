@@ -127,7 +127,7 @@ export const NETWORKS: {
  */
 if (DEPLOYMENT_STAGE !== 'local') {
   if (!WEB3_NETWORK_KOVAN_WS) {
-    throw new Error(`Missing env variable WEB3_NETWORK_KOVAN_WS`);
+    throw new Error('Missing env variable WEB3_NETWORK_KOVAN_WS');
   }
 
   NETWORKS[KOVAN_NETWORK_ID].connect = true;
