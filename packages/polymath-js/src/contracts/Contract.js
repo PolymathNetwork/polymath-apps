@@ -1,6 +1,6 @@
 // @flow
 import BigNumber from 'bignumber.js';
-import { LOCAL_NETWORK_ID } from '@polymathnetwork/shared';
+import { LOCAL_NETWORK_ID } from '@polymathnetwork/shared/constants';
 
 import type {
   NetworkParams,

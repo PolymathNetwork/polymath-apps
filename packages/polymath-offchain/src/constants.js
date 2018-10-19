@@ -97,7 +97,7 @@ if (DEPLOYMENT_STAGE !== 'local') {
     throw new Error(`Missing env variable WEB3_NETWORK_LOCAL_WS`);
   }
   if (!POLYMATH_REGISTRY_ADDRESS_LOCAL) {
-    throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_MAINNET');
+    throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_LOCAL');
   }
   NETWORKS['15'] = {
     name: 'local',
