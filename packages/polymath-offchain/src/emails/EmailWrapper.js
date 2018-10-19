@@ -26,8 +26,10 @@ export const EmailWrapper = ({ children }: Props) => (
           {children}
           <div className="icon-text" style={{ height: '52px' }}>
             <div className="icon question">
-              src=
-              {`${POLYMATH_OFFCHAIN_URL}/img/question.png`}
+              <img
+                alt="Icon"
+                src={`${POLYMATH_OFFCHAIN_URL}/img/question.png`}
+              />
             </div>
             <h2>
               If you have any questions, please reach out to
