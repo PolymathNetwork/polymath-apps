@@ -1,0 +1,21 @@
+---
+name: CurrencySelectInput
+---
+
+import { Playground, PropsTable } from 'docz';
+import CurrencySelectInput from './';
+
+import { currencyOptions } from './data';
+
+# CurrencySelectInput
+
+<PropsTable of={CurrencySelectInput} />
+
+## Basic usage
+
+<Playground style={{ minHeight: '400px' }}>
+  <CurrencySelectInput 
+    placeholder="Raise in" 
+    values={currencyOptions}
+  />
+</Playground>
