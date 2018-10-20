@@ -34,9 +34,12 @@
     "react-measure": "2.0.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-select": "^2.1.0",
     "react-transition-group": "^2.2.1",
+    "reakit": "^0.15.8",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
+    "styled-components": "^4.0.2",
     "styled-system": "^3.1.11"
   },
   "devDependencies": {
