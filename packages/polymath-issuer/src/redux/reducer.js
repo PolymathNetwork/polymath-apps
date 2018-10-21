@@ -13,6 +13,7 @@ import token from '../reducers/token';
 import sto from '../reducers/sto';
 import ticker from '../reducers/ticker';
 import whitelist from '../reducers/compliance';
+import stoModules from '../reducers/stoModules';
 
 import type { ProvidersState } from '../reducers/providers';
 import type { TokenState } from '../reducers/token';
@@ -28,6 +29,7 @@ export default combineReducers({
   providers,
   token,
   sto,
+  stoModules,
   pui,
   whitelist,
 });

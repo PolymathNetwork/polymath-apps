@@ -8,7 +8,7 @@
  */
 import * as actions from '../actions/stoModules';
 import type { STOModuleType } from '../constants';
-import type { STOModulesUpdateAction } from '../actions/stoModules';
+import type { UpdateAction } from '../actions/stoModules';
 
 export type STOModulesState = {
   [stoModuleType: STOModuleType]: {|
@@ -21,7 +21,7 @@ const defaultState: STOModulesState = {};
 
 export default (
   state: STOModulesState = defaultState,
-  { type, payload }: STOModulesUpdateAction
+  { type, payload }: UpdateAction
 ) => {
   switch (type) {
     case actions.STO_MODULES_UPDATE: {

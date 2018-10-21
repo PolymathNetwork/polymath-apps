@@ -1,5 +1,5 @@
 import { isFSA } from 'flux-standard-action';
-import * as actions from '../index';
+import * as actions from '../stoModules';
 
 describe('Actions: stoModulesDetails', () => {
   describe('STO_MODULES_UPDATE', () => {
@@ -20,8 +20,7 @@ describe('Actions: stoModulesDetails', () => {
         },
       };
 
-      const result = actions.stoModulesUpdate(moduleDetails);
-      console.log(result);
+      const result = actions.update(moduleDetails);
       expect(isFSA(result)).toEqual(true);
       expect(result).toEqual(expectedResult);
     });
