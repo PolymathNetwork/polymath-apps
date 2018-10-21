@@ -5,11 +5,15 @@
   "engines": {
     "node": ">=8.9"
   },
+  "config": {
+    "babel_production_config": "../../config/babel.config.prod.js"
+  },
   "scripts": {
-    "start": "babel-node src/server.js",
+    "start": "node -r ./babel.register.js src/server.js",
     "test": "jest",
     "start:dist": "node ./build/server.js",
-    "build": "babel src --out-dir build",
+    "build": "yarn build:shared && babel --config-file $npm_package_config_babel_production_config --ignore /node_modules/ src --out-dir build",
+    "build:shared": "babel --config-file $npm_package_config_babel_production_config --ignore /node_modules/  ../polymath-shared/src --out-dir ../polymath-shared/build",
     "typecheck": "flow --show-all-branches"
   },
   "dependencies": {
@@ -32,8 +36,8 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0",
-    "@babel/node": "7.0.0",
+    "@babel/core": "7.1.0",
+    "@babel/register": "7.0.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",
     "@babel/plugin-proposal-export-default-from": "7.0.0",
     "@babel/plugin-syntax-async-generators": "7.0.0",

@@ -214,6 +214,9 @@ module.exports = {
               require.resolve('thread-loader'),
               {
                 loader: require.resolve('babel-loader'),
+                options: {
+                  configFile: '../../config/babel.config.prod.js',
+                },
               },
             ],
           },
@@ -228,6 +231,7 @@ module.exports = {
               {
                 loader: require.resolve('babel-loader'),
                 options: {
+                  configFile: '../../config/babel.config.prod.js',
                   babelrc: false,
                   compact: false,
                   presets: [

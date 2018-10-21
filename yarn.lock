@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@babel/cli@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.0.0.tgz#108b395fd43fff6681d36fb41274df4d8ffeb12e"
+"@babel/cli@7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.1.0.tgz#a9429fd63911711b0fa93ae50d73beee6c42aef8"
   dependencies:
     commander "^2.8.1"
     convert-source-map "^1.1.0"
@@ -96,7 +96,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.0.0-beta.46", "@babel/core@^7.1.2":
+"@babel/core@^7.0.0-beta.46":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.1.2.tgz#f8d2a9ceb6832887329a7b60f9d035791400ba4e"
   dependencies:
@@ -1383,7 +1383,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.0.0"
 
-"@babel/register@^7.0.0":
+"@babel/register@7.0.0", "@babel/register@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.0.0.tgz#fa634bae1bfa429f60615b754fc1f1d745edd827"
   dependencies:
