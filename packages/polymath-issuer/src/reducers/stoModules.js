@@ -1,11 +1,4 @@
 // @flow
-
-/**
- * Stores details about STOModulesDetails
- * Data to store:
- * - stoModule details
- * - loading state
- */
 import * as actions from '../actions/stoModules';
 import type { STOModuleType } from '../constants';
 import type { UpdateAction } from '../actions/stoModules';
@@ -15,6 +8,7 @@ export type STOModulesState = {
     name: string,
     ownerAddress: string,
     description: string,
+    setupCost: number,
   |},
 };
 const defaultState: STOModulesState = {};

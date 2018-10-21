@@ -8,6 +8,7 @@ type UpdateParams = {|
   description: string,
   setupCost: number,
   name: string,
+  ownerAddress: number,
 |};
 
 export const update = ({
@@ -15,9 +16,10 @@ export const update = ({
   description,
   setupCost,
   name,
+  ownerAddress,
 }: UpdateParams) => ({
   type: STO_MODULES_UPDATE,
-  payload: { moduleType: type, setupCost, description, name },
+  payload: { moduleType: type, setupCost, description, name, ownerAddress },
 });
 
 export type UpdateAction = ExtractReturn<typeof update>;
