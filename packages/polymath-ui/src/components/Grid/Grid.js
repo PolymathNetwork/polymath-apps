@@ -7,15 +7,15 @@ import {
   alignItems,
 } from 'styled-system';
 
-const Box = styled.div`
+import Box from '../Box';
+
+const Grid = styled(Box)`
   display: grid;
   ${gridGap};
   ${gridAutoFlow};
   ${gridAutoColumns};
   ${alignItems};
 `;
-
-const Grid = Box;
 
 Grid.defaultProps = {
   gridGap: 20,
