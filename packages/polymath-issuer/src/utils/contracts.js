@@ -1,9 +1,10 @@
+// @flow
+
 /**
  * Temporary utilities for interacting with smart contracts, this will
  * be replaced by the new version of polymathjs
  */
 
-// @flow
 import Contract, { ModuleRegistry } from '@polymathnetwork/js';
 import web3 from 'web3';
 import IModuleFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/IModuleFactory.json';
@@ -33,6 +34,14 @@ export async function getSTOModule(
     addresses[0]
   );
 
-  const res = web3.toUtf8(await GenericFactoryModule.methods.getName().call());
+  const moduleName: string = web3.utils.hexToUtf8(
+    await GenericFactoryModule.methods.getName().call()
+  );
+
+  if (moduleName !== type) {
+    throw new Error(
+      `STO module of type "${type}" doesn't exist for the current security token's version`
+    );
+  }
   // return result;
 }

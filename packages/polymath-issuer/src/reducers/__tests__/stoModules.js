@@ -3,23 +3,30 @@ import * as stoModulesActions from '../../actions/stoModules';
 
 describe('Reducer: stoModules', () => {
   test('on STO_MODULES_UPDATE', () => {
-    const type = 'USDTieredSTO';
-    const description = 'description';
-    const name = 'STO Name';
-    const setupCost = 1234;
-    const action = stoModulesActions.update({
-      type,
-      description,
-      name,
-      setupCost,
-    });
+    const usdTieredSTO = {
+      type: 'USDTieredSTO',
+      address: 'FakeUSDTieredSTOAddress',
+      ownerAddress: 'FakeUSDTieredSTOOwnerAddress',
+      description: 'USDTieredSTO Description',
+      setupCost: 1234,
+    };
+    const cappedSTO = {
+      type: 'CappedSTO',
+      address: 'FakeCappedSTOAddress',
+      ownerAddress: 'FakeCappedSTOOwnerAddress',
+      description: 'CappedSTO Description',
+      setupCost: 4567,
+    };
+
+    const action = stoModulesActions.update([usdTieredSTO, cappedSTO]);
     const result = reducer(undefined, action);
-    const { moduleType, ...rest } = action.payload;
+
+    const { address: usdTieredSTOAddress, ...usdTieredSTOState } = usdTieredSTO;
+    const { address: cappedSTOAddress, ...cappedSTOState } = cappedSTO;
 
     expect(result).toEqual({
-      [moduleType]: {
-        ...rest,
-      },
+      [usdTieredSTOAddress]: usdTieredSTOState,
+      [cappedSTOAddress]: cappedSTOState,
     });
   });
 });

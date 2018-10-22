@@ -11,10 +11,10 @@ import type { STOModule } from '../../../reducers/stoModules';
 
 type RenderProps = STOModule | null;
 
-type OwnProps = {
+type OwnProps = {|
   type: STOModuleType,
   render: RenderProps => Node,
-};
+|};
 
 type StateProps = {
   data: STOModule | null,

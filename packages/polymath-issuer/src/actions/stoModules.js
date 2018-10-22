@@ -14,17 +14,12 @@ type UpdateParams = {|
   setupCost: number,
   name: string,
   ownerAddress: number,
+  address: string,
 |};
 
-export const update = ({
-  type,
-  description,
-  setupCost,
-  name,
-  ownerAddress,
-}: UpdateParams) => ({
+export const update = (stoModules: UpdateParams[]) => ({
   type: STO_MODULES_UPDATE,
-  payload: { moduleType: type, setupCost, description, name, ownerAddress },
+  payload: { stoModules },
 });
 
 export type FetchParams = {|
@@ -36,17 +31,17 @@ export const fetch = ({ type }: FetchParams) => {
     getState: () => RootState
   ) => {
     const { token } = getState();
-    if (!token.token) {
+    const securityToken = token.token;
+    if (!securityToken) {
       throw new Error(
         'Called stoModules.fetch action before having a security token in the state'
       );
     }
 
     console.log('Start');
-    const moduleDetails = await getSTOModule(type, token.token.address);
-    console.log('moduleDetails', moduleDetails);
-    const { description, setupCost, name, ownerAddress } = moduleDetails;
-    dispatch(update({ type, description, setupCost, name, ownerAddress }));
+    const moduleDetails = await getSTOModules(securityToken.address);
+
+    dispatch(update(moduleDetails));
   };
 };
 

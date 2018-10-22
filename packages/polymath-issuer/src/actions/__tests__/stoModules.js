@@ -4,25 +4,28 @@ import * as actions from '../stoModules';
 describe('Actions: stoModulesDetails', () => {
   describe('STO_MODULES_UPDATE', () => {
     test('returns expected action', () => {
-      const moduleDetails = {
+      const usdTieredSTO = {
         type: 'USDTieredSTO',
-        description: 'description',
-        name: 'name',
-        setupCost: 123456789,
+        address: 'FakeUSDTieredSTOAddress',
+        ownerAddress: 'FakeUSDTieredSTOOwnerAddress',
+        description: 'USDTieredSTO Description',
+        setupCost: 1234,
       };
-      const expectedResult = {
-        type: actions.STO_MODULES_UPDATE,
-        payload: {
-          moduleType: moduleDetails.type,
-          description: moduleDetails.description,
-          name: moduleDetails.name,
-          setupCost: moduleDetails.setupCost,
-        },
+      const cappedSTO = {
+        type: 'CappedSTO',
+        address: 'FakeCappedSTOAddress',
+        ownerAddress: 'FakeCappedSTOOwnerAddress',
+        description: 'CappedSTO Description',
+        setupCost: 4567,
       };
 
-      const result = actions.update(moduleDetails);
+      const expectedPayload = {
+        stoModules: [usdTieredSTO, cappedSTO],
+      };
+
+      const result = actions.update([usdTieredSTO, cappedSTO]);
       expect(isFSA(result)).toEqual(true);
-      expect(result).toEqual(expectedResult);
+      expect(result.payload).toEqual(expectedPayload);
     });
   });
 });

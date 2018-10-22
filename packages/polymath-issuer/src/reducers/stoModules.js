@@ -4,13 +4,14 @@ import type { STOModuleType } from '../constants';
 import type { UpdateAction } from '../actions/stoModules';
 
 export type STOModule = {|
+  type: STOModuleType,
   name: string,
   ownerAddress: string,
   description: string,
   setupCost: number,
 |};
 export type STOModulesState = {
-  [stoModuleType: STOModuleType]: STOModule,
+  [address: string]: STOModule,
 };
 const defaultState: STOModulesState = {};
 
@@ -20,15 +21,13 @@ export default (
 ) => {
   switch (type) {
     case actions.STO_MODULES_UPDATE: {
-      const { moduleType, ...rest } = payload;
-      const stoModuleState = state[moduleType];
-      return {
-        ...state,
-        [moduleType]: {
-          ...stoModuleState,
-          ...rest,
-        },
-      };
+      const { stoModules } = payload;
+      const newState = {};
+      stoModules.forEach(({ address, ...moduleData }) => {
+        newState[address] = moduleData;
+      });
+
+      return newState;
     }
     default: {
       return state;
