@@ -16,6 +16,7 @@ import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/Capped
 
 // TODO @monitz87: remake this when we rework polymath-js
 const web3Clients = {};
+const heartbeatIntervalIds = {};
 
 /**
   Get the corresponding Security Token contract
@@ -75,7 +76,7 @@ const getSTRContract = async (networkId: string) => {
 
 /**
   Initializes and configures the WebsocketProvider
-  for the web3, setting listeners to reconnect on error.
+  for the web3 client, setting listeners to reconnect when the connection fails.
 
   @param {string} networkId id of the network for which we want the provider
 
@@ -84,11 +85,24 @@ const getSTRContract = async (networkId: string) => {
   which doesn't reconnect sockets nor re-subscribes to events when the
   socket connection is closed
  */
-const newProvider = (networkId: string) => {
+const newProvider = async (networkId: string) => {
   const { name, url } = NETWORKS[networkId];
   const networkName = name.toUpperCase();
 
   const provider = new Web3.providers.WebsocketProvider(url);
+  const connection = provider.connection;
+
+  /**
+    Check if the connection is successful
+   */
+  const waitForHandshakeTimeout = () =>
+    new Promise(resolve => {
+      setTimeout(resolve, connection._client.config.closeTimeout);
+    });
+  await waitForHandshakeTimeout();
+  if (connection.readyState === connection.CLOSED) {
+    return null;
+  }
 
   /**
     Reconnect when socket connection errors or ends
@@ -99,15 +113,18 @@ const newProvider = (networkId: string) => {
     }
 
     logger.info(`[SETUP] Reconnecting ${networkName} socket after error...`);
-    connectWeb3(networkId);
+    clearInterval(heartbeatIntervalIds[networkId]);
+    reconnect(networkId);
   });
   provider.on('close', () => {
     logger.info(`[SETUP] Reconnecting ${networkName} socket after close...`);
-    connectWeb3(networkId);
+    clearInterval(heartbeatIntervalIds[networkId]);
+    reconnect(networkId);
   });
   provider.on('end', () => {
     logger.info(`[SETUP] Reconnecting ${networkName} socket after end...`);
-    connectWeb3(networkId);
+    clearInterval(heartbeatIntervalIds[networkId]);
+    reconnect(networkId);
   });
 
   return provider;
@@ -463,8 +480,6 @@ const setupListeners = async (networkId: string) => {
   await addSTOListeners(networkId);
 };
 
-const heartbeatIntervalIds = {};
-
 /**
   Ping the socket. If there is something wrong with the conection,
   we kill the heartbeat and reset the web3 client and all the listeners
@@ -499,7 +514,7 @@ export const keepAlive = async (client: Object, networkId: string) => {
       )
     ) {
       logger.info(`[SETUP] Reconnecting ${networkName} socket after close...`);
-      await connectWeb3(networkId);
+      await reconnect(networkId);
     }
   }
 };
@@ -518,12 +533,13 @@ const simulateHeartbeat = (networkId: string) => {
 };
 
 /**
-  Connects a web3 client to a new provider in the chosen network and starts all the event listeners
+  Sets up heartbeat and listeners
 
   @param {string} networkId id of the network to which we want to connect a client
+  @param {Object} provider Web3 WebsocketProvider instance
  */
-const connectWeb3 = async (networkId: string) => {
-  web3Clients[networkId] = new Web3(newProvider(networkId));
+const followUpConnection = async (networkId: string, provider) => {
+  web3Clients[networkId] = new Web3(provider);
 
   simulateHeartbeat(networkId);
 
@@ -532,6 +548,55 @@ const connectWeb3 = async (networkId: string) => {
   } catch (error) {
     logger.error(error.message, error);
   }
+};
+
+/**
+  Reconnects the corresponding web3 client after a connection closes. Retries indefinitely
+  if the provider cannnot connect
+
+  TODO @monitz87: add a retry limit to this function that takes into consideration
+  if the network is optional to decide whether to just stop reconnecting or exit the app
+
+  @param {string} networkId id of the network to which we want to connect a client
+ */
+export const reconnect = async (networkId: string) => {
+  let provider;
+
+  for (;;) {
+    provider = await newProvider(networkId);
+    if (provider) {
+      break;
+    }
+
+    logger.info(
+      `[SETUP] Network ${NETWORKS[
+        networkId
+      ].name.toUpperCase()} not found. Retrying connection...`
+    );
+  }
+
+  await followUpConnection(networkId, provider);
+
+  return true;
+};
+
+/**
+  Connects a web3 client to a new provider in the chosen network and starts all the event listeners
+
+  @param {string} networkId id of the network to which we want to connect a client
+
+  @returns {boolean} false if the network is unavailable, true if the connection was succesful
+ */
+const connectWeb3 = async (networkId: string) => {
+  const provider = await newProvider(networkId);
+
+  if (provider === null) {
+    return false;
+  }
+
+  await followUpConnection(networkId, provider);
+
+  return true;
 };
 
 export default connectWeb3;
