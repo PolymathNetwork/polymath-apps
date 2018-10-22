@@ -5,15 +5,12 @@
   "engines": {
     "node": ">=8.9"
   },
-  "config": {
-    "babel_production_config": "../../config/babel.config.prod.js"
-  },
   "scripts": {
     "start": "node -r ./babel.register.js src/server.js",
     "test": "jest",
     "start:dist": "node ./build/server.js",
-    "build": "yarn build:shared && babel --config-file $npm_package_config_babel_production_config --ignore /node_modules/ src --out-dir build",
-    "build:shared": "babel --config-file $npm_package_config_babel_production_config --ignore /node_modules/  ../polymath-shared/src --out-dir ../polymath-shared/build",
+    "build": "yarn build:shared && babel --root-mode upward --ignore /node_modules/ src --out-dir build",
+    "build:shared": "rm -rf ../polymath-shared/build && babel --root-mode upward --ignore /node_modules/  ../polymath-shared/src --out-dir ../polymath-shared/build --copy-files",
     "typecheck": "flow --show-all-branches"
   },
   "dependencies": {

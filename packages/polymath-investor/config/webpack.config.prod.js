@@ -215,7 +215,7 @@ module.exports = {
               {
                 loader: require.resolve('babel-loader'),
                 options: {
-                  configFile: '../../config/babel.config.prod.js',
+                  rootMode: 'upward',
                 },
               },
             ],
@@ -231,7 +231,7 @@ module.exports = {
               {
                 loader: require.resolve('babel-loader'),
                 options: {
-                  configFile: '../../config/babel.config.prod.js',
+                  rootMode: 'upward',
                   babelrc: false,
                   compact: false,
                   presets: [
