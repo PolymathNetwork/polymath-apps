@@ -9,7 +9,7 @@ import { currencyOptions } from './data';
 import Box from '../Box';
 import theme from '../../theme';
 
-import SelectValue from './SelectValue';
+import Value from './Value';
 
 type Props = {|
   values: [
@@ -70,7 +70,7 @@ const Container = styled(Box)`
   min-width: 200px;
 `;
 
-const CurrencySelectInput = ({ values, onRemoveValue, ...props }: Props) => {
+const CurrencySelect = ({ values, onRemoveValue, ...props }: Props) => {
   return (
     <Fragment>
       <Container mr={5}>
@@ -88,7 +88,7 @@ const CurrencySelectInput = ({ values, onRemoveValue, ...props }: Props) => {
       </Container>
       {values &&
         values.map(value => (
-          <SelectValue
+          <Value
             value={value}
             key={value.value}
             label={value.label}
@@ -99,8 +99,8 @@ const CurrencySelectInput = ({ values, onRemoveValue, ...props }: Props) => {
   );
 };
 
-export default CurrencySelectInput;
+export default CurrencySelect;
 
-CurrencySelectInput.defaultProps = {
+CurrencySelect.defaultProps = {
   options: currencyOptions,
 };

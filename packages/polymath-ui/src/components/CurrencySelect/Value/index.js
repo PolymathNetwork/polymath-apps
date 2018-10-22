@@ -35,7 +35,7 @@ const StyledIconButton = styled(IconButton)`
   border-radius: 10px;
 `;
 
-class SelectValue extends React.Component {
+export default class Value extends React.Component {
   constructor(props) {
     super(props);
 
@@ -55,5 +55,3 @@ class SelectValue extends React.Component {
     );
   }
 }
-
-export default SelectValue;
