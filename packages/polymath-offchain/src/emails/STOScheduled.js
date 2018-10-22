@@ -92,7 +92,7 @@ export const STOScheduled = ({
           </p>
         </div>
         <p align="center">
-          <a href={`${POLYMATH_ISSUER_URL}/dasbhoard/${ticker}/sto`}>
+          <a href={`${POLYMATH_ISSUER_URL}/dashboard/${ticker}/sto`}>
             <strong>
               Click here to access your Security Offering Dashboard
             </strong>
