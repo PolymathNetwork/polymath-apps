@@ -1,5 +1,5 @@
 // @flow
-import { getSTOModule } from '../utils/contracts';
+import { getSTOModules } from '../utils/contracts';
 
 import type { RootState } from '../redux/reducer';
 import type { Dispatch } from 'redux';
@@ -25,7 +25,7 @@ export const update = (stoModules: UpdateParams[]) => ({
 export type FetchParams = {|
   type: STOModuleType,
 |};
-export const fetch = ({ type }: FetchParams) => {
+export const fetch = () => {
   return async (
     dispatch: Dispatch<UpdateAction>,
     getState: () => RootState
@@ -38,7 +38,6 @@ export const fetch = ({ type }: FetchParams) => {
       );
     }
 
-    console.log('Start');
     const moduleDetails = await getSTOModules(securityToken.address);
 
     dispatch(update(moduleDetails));

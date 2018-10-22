@@ -45,3 +45,7 @@ export async function getSTOModule(
   }
   // return result;
 }
+
+export async function getSTOModules(securityTokenAddress: string) {
+  // ... pending
+}

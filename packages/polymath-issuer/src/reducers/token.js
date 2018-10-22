@@ -17,7 +17,6 @@ import type { ServiceProvider } from '../pages/providers/data';
 type SecurityToken = {|
   ticker: string,
   name: string,
-  status: boolean,
   owner: string,
   expires: ?Date,
   timestamp: Date,
