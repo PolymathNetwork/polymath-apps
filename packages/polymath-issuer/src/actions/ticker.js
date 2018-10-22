@@ -1,5 +1,5 @@
 import React from 'react';
-import { TickerRegistry } from '@polymathnetwork/js';
+import { TickerRegistry, PolyToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 
@@ -68,9 +68,19 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
           );
           return;
         }
+
+        const allowance = await PolyToken.allowance(
+          TickerRegistry.account,
+          TickerRegistry.address
+        );
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Reserving Token Symbol'];
+        if (allowance == 0) {
+          title.unshift('Approving POLY Spend');
+        }
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Reserving Token Symbol'],
+            title,
             async () => {
               await TickerRegistry.registerTicker(details);
               if (isEmailConfirmed) {
