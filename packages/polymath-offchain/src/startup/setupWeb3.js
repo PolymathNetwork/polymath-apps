@@ -1,6 +1,8 @@
 // @flow
 
 import { STO_MODULE_TYPE, NETWORKS } from '../constants';
+import { NETWORK_ADDRESSES } from '@polymathnetwork/shared/constants';
+import type { NetworkId } from '@polymathnetwork/shared/constants';
 import {
   sendSTOScheduledEmail,
   sendTickerReservedEmail,
@@ -51,11 +53,11 @@ const getCSTOContract = (address: string, networkId: string) => {
 
   @returns a web3 Ticker Registry contract
  */
-const getTRContract = async (networkId: string) => {
+const getTRContract = async (networkId: NetworkId) => {
   const client = web3Clients[networkId];
   return new client.eth.Contract(
     TickerRegistryArtifact.abi,
-    TickerRegistryArtifact.networks[networkId].address
+    NETWORK_ADDRESSES[networkId].TickerRegistry
   );
 };
 
@@ -66,11 +68,11 @@ const getTRContract = async (networkId: string) => {
 
   @returns a web3 Ticker Registry contract
  */
-const getSTRContract = async (networkId: string) => {
+const getSTRContract = async (networkId: NetworkId) => {
   const client = web3Clients[networkId];
   return new client.eth.Contract(
     SecurityTokenRegistryArtifact.abi,
-    SecurityTokenRegistryArtifact.networks[networkId].address
+    NETWORK_ADDRESSES[networkId].SecurityTokenRegistry
   );
 };
 
@@ -85,7 +87,7 @@ const getSTRContract = async (networkId: string) => {
   which doesn't reconnect sockets nor re-subscribes to events when the
   socket connection is closed
  */
-const newProvider = async (networkId: string) => {
+const newProvider = async (networkId: NetworkId) => {
   const { name, url } = NETWORKS[networkId];
   const networkName = name.toUpperCase();
 
@@ -134,7 +136,7 @@ const newProvider = async (networkId: string) => {
   Get details of a Capped STO from the blockchain
 
   @param {string} address
-  @param {string} networkId id of the network to which the STO belongs
+  @param {NetworkId} networkId id of the network to which the STO belongs
 
   @returns an object with the STO details:
 
@@ -144,7 +146,7 @@ const newProvider = async (networkId: string) => {
     isPolyFundraise (is the currency POLY or ETH),
     fundsReceiver (wallet to which the funds will be transfered)
  */
-const getCappedSTODetails = async (address: string, networkId: string) => {
+const getCappedSTODetails = async (address: string, networkId: NetworkId) => {
   const contract = getCSTOContract(address, networkId);
 
   try {
@@ -185,14 +187,14 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
 
   @param {Object} contract Security Token contract
   @param {string} ticker Security Token ticker
-  @param {string} networkId id of the network to which this listener is set
+  @param {NetworkId} networkId id of the network to which this listener is set
   @param {Object} error listener error
   @param {Object} result event information
  */
 export const moduleAddedHandler = async (
   contract: Object,
   ticker: string,
-  networkId: string,
+  networkId: NetworkId,
   error: Object,
   result: Object
 ) => {
@@ -264,12 +266,12 @@ export const moduleAddedHandler = async (
 
   @param contract security token web3 contract 
   @param ticker security token ticker
-  @param {string} networkId id of the network to which this listener will be set
+  @param {NetworkId} networkId id of the network to which this listener will be set
  */
 export const addSTOListener = (
   contract: Object,
   ticker: string,
-  networkId: string
+  networkId: NetworkId
 ) => {
   contract.events.LogModuleAdded(
     {
@@ -292,13 +294,13 @@ export const addSTOListener = (
   Gets ticker details and sends an email to the issuer with reservation information
 
   @param {Object} contract Ticker Registry contract 
-  @param {string} networkId id of the network to which this listener is set
+  @param {NetworkId} networkId id of the network to which this listener is set
   @param {Object} error listener error
   @param {Object} result event information
  */
 export const registerTickerHandler = async (
   contract: Object,
-  networkId: string,
+  networkId: NetworkId,
   error: Object,
   result: Object
 ) => {
@@ -349,9 +351,9 @@ export const registerTickerHandler = async (
 /**
   Listen for registered tickers
 
-  @param {string} networkId id of the network to which this listener will be set
+  @param {NetworkId} networkId id of the network to which this listener will be set
  */
-export const addTickerRegisterListener = async (networkId: string) => {
+export const addTickerRegisterListener = async (networkId: NetworkId) => {
   const contract = await getTRContract(networkId);
 
   contract.events.LogRegisterTicker({}, (error, result) =>
@@ -370,13 +372,13 @@ export const addTickerRegisterListener = async (networkId: string) => {
   Every time a new token gets deployed, also adds an STO schedule listener to it
 
   @param {Object} contract Security Token Registry contract 
-  @param {string} networkId id of the network to which this listener is set
+  @param {NetworkId} networkId id of the network to which this listener is set
   @param {Object} error listener error
   @param {Object} result event information
  */
 export const newSecurityTokenHandler = async (
   contract: Object,
-  networkId: string,
+  networkId: NetworkId,
   error: Object,
   result: Object
 ) => {
@@ -417,9 +419,9 @@ export const newSecurityTokenHandler = async (
   Listen for newly deployed security tokens
 
   @param contract Security Token Registry contract
-  @param {string} networkId id of the network to which this listener will be set
+  @param {NetworkId} networkId id of the network to which this listener will be set
 */
-export const addTokenCreateListener = async (networkId: string) => {
+export const addTokenCreateListener = async (networkId: NetworkId) => {
   const contract = await getSTRContract(networkId);
 
   contract.events.LogNewSecurityToken({}, (error, result) =>
@@ -435,9 +437,9 @@ export const addTokenCreateListener = async (networkId: string) => {
 
 /**
   Get previously deployed security tokens and add listeners for STO scheduling
-  @param {string} networkId id of the network to which we will set the listeners
+  @param {NetworkId} networkId id of the network to which we will set the listeners
 */
-export const addSTOListeners = async (networkId: string) => {
+export const addSTOListeners = async (networkId: NetworkId) => {
   const contract = await getSTRContract(networkId);
   try {
     const previousTokenEvents = await contract.getPastEvents(
@@ -470,9 +472,9 @@ export const addSTOListeners = async (networkId: string) => {
   - Security token created
   - STO scheduled
 
-  @param {string} networkId id of the network to which we will set the listeners
+  @param {NetworkId} networkId id of the network to which we will set the listeners
  */
-const setupListeners = async (networkId: string) => {
+const setupListeners = async (networkId: NetworkId) => {
   await addTickerRegisterListener(networkId);
 
   await addTokenCreateListener(networkId);
@@ -485,9 +487,9 @@ const setupListeners = async (networkId: string) => {
   we kill the heartbeat and reset the web3 client and all the listeners
 
   @param {Object} client web3 client we want to keep alive
-  @param {string} networkId id of the network the client is connected to
+  @param {NetworkId} networkId id of the network the client is connected to
  */
-export const keepAlive = async (client: Object, networkId: string) => {
+export const keepAlive = async (client: Object, networkId: NetworkId) => {
   const connection = client.currentProvider.connection;
 
   const networkName = NETWORKS[networkId].name.toUpperCase();
@@ -522,9 +524,9 @@ export const keepAlive = async (client: Object, networkId: string) => {
 /**
   Ping socket every 5 seconds to keep it alive
 
-  @param {string} networkId id of the network for which we want to simulate heartbeat
+  @param {NetworkId} networkId id of the network for which we want to simulate heartbeat
   */
-const simulateHeartbeat = (networkId: string) => {
+const simulateHeartbeat = (networkId: NetworkId) => {
   const client = web3Clients[networkId];
   heartbeatIntervalIds[networkId] = setInterval(
     () => keepAlive(client, networkId),
@@ -535,10 +537,10 @@ const simulateHeartbeat = (networkId: string) => {
 /**
   Sets up heartbeat and listeners
 
-  @param {string} networkId id of the network to which we want to connect a client
+  @param {NetworkId} networkId id of the network to which we want to connect a client
   @param {Object} provider Web3 WebsocketProvider instance
  */
-const followUpConnection = async (networkId: string, provider) => {
+const followUpConnection = async (networkId: NetworkId, provider) => {
   web3Clients[networkId] = new Web3(provider);
 
   simulateHeartbeat(networkId);
@@ -557,9 +559,9 @@ const followUpConnection = async (networkId: string, provider) => {
   TODO @monitz87: add a retry limit to this function that takes into consideration
   if the network is optional to decide whether to just stop reconnecting or exit the app
 
-  @param {string} networkId id of the network to which we want to connect a client
+  @param {NetworkId} networkId id of the network to which we want to connect a client
  */
-export const reconnect = async (networkId: string) => {
+export const reconnect = async (networkId: NetworkId) => {
   let provider;
 
   for (;;) {
@@ -583,11 +585,11 @@ export const reconnect = async (networkId: string) => {
 /**
   Connects a web3 client to a new provider in the chosen network and starts all the event listeners
 
-  @param {string} networkId id of the network to which we want to connect a client
+  @param {NetworkId} networkId id of the network to which we want to connect a client
 
   @returns {boolean} false if the network is unavailable, true if the connection was succesful
  */
-const connectWeb3 = async (networkId: string) => {
+const connectWeb3 = async (networkId: NetworkId) => {
   const provider = await newProvider(networkId);
 
   if (provider === null) {
