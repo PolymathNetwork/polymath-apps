@@ -11,7 +11,7 @@ import type { STOModule } from '../../../../constants';
 type Props = {|
   stoModule: STOModule,
   dispatch: Dispatch<any>,
-  pickingEnabled: boolean,
+  pickingEnabled?: boolean,
 |};
 
 class STOTemplate extends Component<Props> {
@@ -24,7 +24,7 @@ class STOTemplate extends Component<Props> {
     const { stoModule, pickingEnabled } = this.props;
     return (
       <STOTemplateComponent
-        pickingEnabled={pickingEnabled}
+        pickingEnabled={!!pickingEnabled}
         handlePickSTOTemplate={this.pickSTOTemplate}
         stoModule={stoModule}
       />

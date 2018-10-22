@@ -73,7 +73,7 @@ class ConfigureSTO extends Component<Props> {
               <div className="bx--row">
                 <div className="bx--col-xs-8">
                   <div className="pui-page-box">
-                    <h2 className="pui-h2">Simple Capped Offering</h2>
+                    <h2 className="pui-h2">{stoModule.title}</h2>
                     <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
                       Provide the financial details and timing for your offering
                       below.

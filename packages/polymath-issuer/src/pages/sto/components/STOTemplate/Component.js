@@ -11,7 +11,7 @@ import type { STOModule } from '../../../../constants';
 type Props = {|
   stoModule: STOModule,
   handlePickSTOTemplate: () => void,
-  pickingEnabled: boolean,
+  pickingEnabled?: boolean,
 |};
 
 export default class STOTemplateComponent extends Component<Props> {
