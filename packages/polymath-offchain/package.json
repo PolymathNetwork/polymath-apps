@@ -79,6 +79,9 @@
     "reporters": [
       "jest-junit",
       "default"
-    ]
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "<rootDir>/../../config/babelJestWrapper"
+    }
   }
 }
