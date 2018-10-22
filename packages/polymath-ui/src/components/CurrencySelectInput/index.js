@@ -18,6 +18,8 @@ type Props = {|
       label: Node,
     },
   ],
+  options: [],
+  onRemoveValue: Function,
 |};
 
 const colourStyles = {
@@ -26,8 +28,6 @@ const colourStyles = {
     borderRadius: 0,
   }),
   control: (styles, state) => {
-    console.log(styles);
-    console.log(state);
     return {
       ...styles,
       backgroundColor: theme.colors.blue[0],
@@ -41,21 +41,6 @@ const colourStyles = {
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
-      // backgroundColor: isDisabled
-      //   ? null
-      //   : isSelected
-      //     ? data.color
-      //     : isFocused
-      //       ? color.alpha(0.1).css()
-      //       : null,
-      // color: isDisabled
-      //   ? '#ccc'
-      //   : isSelected
-      //     ? chroma.contrast(color, 'white') > 2
-      //       ? 'white'
-      //       : 'black'
-      //     : data.color,
-      // cursor: isDisabled ? 'not-allowed' : 'default',
     };
   },
   // multiValue: (styles, { data }) => {
@@ -79,22 +64,40 @@ const colourStyles = {
   }),
 };
 
-const CurrencySelectInput = ({ values, ...props }: Props) => (
-  <InlineBlock minWidth="200px">
-    <Select
-      closeMenuOnSelect={false}
-      isMulti
-      styles={colourStyles}
-      components={{ IndicatorSeparator: null }}
-      value={values}
-      {...props}
-    />
-    {values &&
-      values.map(value => (
-        <SelectValue key={value.value} label={value.label} />
-      ))}
-  </InlineBlock>
-);
+const Container = styled(Box)`
+  display: inline-block;
+  vertical-align: middle;
+  min-width: 200px;
+`;
+
+const CurrencySelectInput = ({ values, onRemoveValue, ...props }: Props) => {
+  return (
+    <Fragment>
+      <Container mr={5}>
+        <Select
+          closeMenuOnSelect={false}
+          isMulti
+          styles={colourStyles}
+          components={{
+            IndicatorSeparator: null,
+            ValueContainer: () => null,
+          }}
+          value={values}
+          {...props}
+        />
+      </Container>
+      {values &&
+        values.map(value => (
+          <SelectValue
+            value={value}
+            key={value.value}
+            label={value.label}
+            onRemove={onRemoveValue}
+          />
+        ))}
+    </Fragment>
+  );
+};
 
 export default CurrencySelectInput;
 
