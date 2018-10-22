@@ -12,6 +12,8 @@ import {
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
 
+import AddTierModal from './AddTierModal';
+
 const {
   Table,
   TableContainer,
@@ -69,9 +71,12 @@ type Props = {
 };
 
 class InvestmentTiers extends React.Component<Props> {
-  onTiersToggle() {
+  onTiersToggle(isMultipleTiers) {
     // maybe trigger onChange with a single tier or an array of tiers?
-    this.props.onChange();
+    this.props.onChange({
+      tiers: isMultipleTiers ? this.props.tiers : [this.props.tiers[0]],
+      isMultipleTiers,
+    });
   }
 
   render() {
@@ -157,9 +162,6 @@ class InvestmentTiers extends React.Component<Props> {
                 placeholder="0"
               />
             </Grid>
-            <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-              <Box>Amount of Funds the STO Will Raise</Box>
-            </Grid>
           </Fragment>
         ) : (
           <DynamicTable
@@ -196,6 +198,7 @@ class InvestmentTiers extends React.Component<Props> {
             )}
           />
         )}
+        <AddTierModal isOpen />
       </Fragment>
     );
   }

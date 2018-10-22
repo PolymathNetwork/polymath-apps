@@ -1,11 +1,14 @@
 // @flow
-
+import BigNumber from 'bignumber.js';
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
-import { Form, Tooltip } from 'carbon-components-react';
+import { Form, Tooltip, Button } from 'carbon-components-react';
 import {
+  Box,
   Grid,
+  Heading,
+  RaisedAmount,
   CurrencySelect,
   TextInput,
   DatePickerInput,
@@ -36,6 +39,12 @@ type State = {|
   rate: number,
   amountOfFunds: string,
 |};
+
+const niceAmount = (poly: BigNumber) =>
+  poly
+    .round(2)
+    .toNumber()
+    .toLocaleString();
 
 class PegToFiatSTOForm extends Component<Props, State> {
   state = {
@@ -141,44 +150,46 @@ class PegToFiatSTOForm extends Component<Props, State> {
 
     return (
       <Form onSubmit={this.props.handleSubmit}>
-        <h3 className="pui-h3">STO Schedule</h3>
-        <div className="time-pickers-container">
-          <Field
-            name="startDate"
-            component={DatePickerInput}
-            label="Start Date"
-            placeholder="mm / dd / yyyy"
-            validate={[required, todayOrLater]}
-          />
-          <Field
-            name="startTime"
-            step={30}
-            component={TimePickerSelect}
-            className="bx--time-picker__select"
-            placeholder="hh:mm"
-            label="Time"
-            validate={[required, this.checkStartTime]}
-          />
+        <Heading variant="h3">STO Schedule</Heading>
+        <Box mb={4}>
+          <div className="time-pickers-container">
+            <Field
+              name="startDate"
+              component={DatePickerInput}
+              label="Start Date"
+              placeholder="mm / dd / yyyy"
+              validate={[required, todayOrLater]}
+            />
+            <Field
+              name="startTime"
+              step={30}
+              component={TimePickerSelect}
+              className="bx--time-picker__select"
+              placeholder="hh:mm"
+              label="Time"
+              validate={[required, this.checkStartTime]}
+            />
 
-          <Field
-            name="endDate"
-            component={DatePickerInput}
-            label="End Date"
-            placeholder="mm / dd / yyyy"
-            validate={[required, todayOrLater, this.checkStartAfterEnd]}
-          />
-          <Field
-            name="endTime"
-            step={30}
-            component={TimePickerSelect}
-            className="bx--time-picker__select"
-            placeholder="hh:mm"
-            label="Time"
-            validate={[required, this.checkEndTime]}
-          />
-        </div>
+            <Field
+              name="endDate"
+              component={DatePickerInput}
+              label="End Date"
+              placeholder="mm / dd / yyyy"
+              validate={[required, todayOrLater, this.checkStartAfterEnd]}
+            />
+            <Field
+              name="endTime"
+              step={30}
+              component={TimePickerSelect}
+              className="bx--time-picker__select"
+              placeholder="hh:mm"
+              label="Time"
+              validate={[required, this.checkEndTime]}
+            />
+          </div>
+        </Box>
 
-        <h3 className="pui-h3">STO Financing Details & Terms</h3>
+        <Heading variant="h3">STO Financing Details & Terms</Heading>
         <CurrencySelect
           name="currency"
           placeholder="Raise in"
@@ -232,13 +243,23 @@ class PegToFiatSTOForm extends Component<Props, State> {
 
         <InvestmentTiers
           onChange={values => {
-            console.log(values);
+            this.setState(values);
           }}
           isMultipleTiers={isMultipleTiers}
           tiers={tiers}
         />
 
-        <h3>ETH Addresses</h3>
+        <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
+          <Grid.Item gridColumn="span 1 / 3">
+            <RaisedAmount
+              title="Amount Of Funds the STO Will Raise"
+              primaryAmount="10000"
+              tokenAmount="10000"
+            />
+          </Grid.Item>
+        </Grid>
+
+        <Heading variant="h3">ETH Addresses</Heading>
 
         <Remark title="Note">
           Before submitting to the chain, we recommend that you test sending
@@ -278,6 +299,8 @@ class PegToFiatSTOForm extends Component<Props, State> {
           onChange={this.handleRateChange}
           validate={[required, numeric, gt0]}
         />
+
+        <Button type="submit">Confirm & launch STO</Button>
       </Form>
     );
   }
