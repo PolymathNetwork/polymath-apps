@@ -1,7 +1,7 @@
 import React from 'react';
-import { InlineFlex, Block } from 'reakit';
 import styled from 'styled-components';
 
+import Box from '../../Box';
 import theme from '../../../theme';
 
 const Ellipsis = styled(Block)`

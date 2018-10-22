@@ -1,6 +1,7 @@
 import React from 'react';
-import { styled, Button } from 'reakit';
+import styled from 'styled-components';
 
+import Box from '../Box';
 import BaseIcon from '../Icon';
 
 const StyledIcon = styled(BaseIcon)`
@@ -10,9 +11,9 @@ const StyledIcon = styled(BaseIcon)`
 `;
 
 const IconButton = ({ Icon, ...props }) => (
-  <Button {...props}>
+  <Box as="button" {...props}>
     <StyledIcon Icon={Icon} />
-  </Button>
+  </Box>
 );
 
 export default IconButton;

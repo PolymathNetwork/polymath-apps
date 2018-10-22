@@ -1,11 +1,12 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
 import Select from 'react-select';
-import { InlineBlock } from 'reakit';
 
 import { currencyOptions } from './data';
 
+import Box from '../Box';
 import theme from '../../theme';
 
 import SelectValue from './SelectValue';
