@@ -13,9 +13,9 @@ import {
   notify,
   tx,
   confirm,
-} from '@polymathnetwork/ui';
-import * as offchain from '@polymathnetwork/ui/offchain';
-import { thousandsDelimiter } from '@polymathnetwork/ui/helpers';
+} from '../../';
+import * as offchain from '../../offchain';
+import { thousandsDelimiter } from '../../helpers';
 // TODO @grsmto: We shouldn't dig into view components to retrieve that
 // that should be passed as arguments to the action instead
 import { formName as signUpFormName } from '../../components/SignUpPage/SignUpForm';
@@ -23,8 +23,8 @@ import { formName as signUpFormName } from '../../components/SignUpPage/SignUpFo
 import type { Address } from '@polymathnetwork/js/types';
 import type { Node } from 'react';
 
-import type { ExtractReturn } from '@polymathnetwork/ui/redux/helpers';
-import type { GetState } from '@polymathnetwork/ui/redux/reducer';
+import type { ExtractReturn } from '../helpers';
+import type { GetState } from '../reducer';
 
 export const SIGN_IN_START = 'polymath/account/SIGN_IN_START';
 export const signInStart = () => ({ type: SIGN_IN_START });
