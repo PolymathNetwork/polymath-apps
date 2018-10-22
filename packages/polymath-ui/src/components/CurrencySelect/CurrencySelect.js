@@ -30,7 +30,7 @@ const colourStyles = {
   control: (styles, state) => {
     return {
       ...styles,
-      backgroundColor: theme.colors.blue[0],
+      backgroundColor: theme.colors.gray[0],
       borderRadius: 0,
       borderColor: 'transparent',
       '&:hover': {
