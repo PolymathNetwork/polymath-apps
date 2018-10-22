@@ -41,9 +41,10 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     }
 
     const isLocalhost =
-      Number(id) === NETWORK_LOCAL ||
-      Number(id) === NETWORK_LOCALVM ||
+      String(id) === NETWORK_LOCAL ||
+      String(id) === NETWORK_LOCALVM ||
       id === undefined;
+
     const network = getNetwork(id);
 
     if (
