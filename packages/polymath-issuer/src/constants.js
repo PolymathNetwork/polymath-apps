@@ -28,3 +28,15 @@ export type STOModule = {|
   setupCost: number,
   address: string,
 |};
+export type SecurityToken = {|
+  ticker: string,
+  name: string,
+  owner: string,
+  expires: ?Date,
+  timestamp: Date,
+  txHash: string,
+  address: string,
+  isDivisible?: boolean,
+  details?: string,
+  contract?: any,
+|};

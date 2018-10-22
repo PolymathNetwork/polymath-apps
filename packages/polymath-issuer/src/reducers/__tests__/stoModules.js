@@ -11,17 +11,14 @@ describe('Reducer: stoModules', () => {
       const action = stoModulesActions.update([usdTieredSTO, cappedSTO]);
       const result = reducer(undefined, action);
 
-      const {
-        address: usdTieredSTOAddress,
-        ...usdTieredSTOState
-      } = usdTieredSTO;
-      const { address: cappedSTOAddress, ...cappedSTOState } = cappedSTO;
+      const { address: usdTieredSTOAddress } = usdTieredSTO;
+      const { address: cappedSTOAddress } = cappedSTO;
 
       expect(result).toEqual({
         fetched: true,
         modules: {
-          [usdTieredSTOAddress]: usdTieredSTOState,
-          [cappedSTOAddress]: cappedSTOState,
+          [usdTieredSTOAddress]: usdTieredSTO,
+          [cappedSTOAddress]: cappedSTO,
         },
       });
     });

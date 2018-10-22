@@ -22,8 +22,8 @@ export default (
     case actions.STO_MODULES_UPDATE: {
       const { stoModules } = payload;
       const modules = {};
-      stoModules.forEach(({ address, ...moduleData }) => {
-        modules[address] = moduleData;
+      stoModules.forEach(stoModuleData => {
+        modules[stoModuleData.address] = stoModuleData;
       });
 
       return { ...state, modules, fetched: true };

@@ -30,6 +30,8 @@ export const factories = (factories: Array<STOFactory>) => ({
   factories,
 });
 
+// TODO @RafaelVidaurre: This should only save the picked address instead of the
+// whole object
 export const USE_FACTORY = 'sto/USE_FACTORY';
 export const useFactory = (factory: STOFactory) => ({
   type: USE_FACTORY,

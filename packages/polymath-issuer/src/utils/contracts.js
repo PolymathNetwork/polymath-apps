@@ -5,10 +5,13 @@
  * be replaced by the new version of polymathjs
  */
 
-import Contract, { ModuleRegistry } from '@polymathnetwork/js';
+import Contract, { ModuleRegistry, PolyToken } from '@polymathnetwork/js';
 import web3 from 'web3';
+import BigNumber from 'bignumber.js';
 import IModuleFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/IModuleFactory.json';
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../constants';
+
+import type { STOModule } from '../constants';
 
 /**
  * Retrieves an STOModule's information based on an address
@@ -38,6 +41,8 @@ export async function getSTOModule(address: string) {
   const descriptionRes = await ModuleFactory.methods.getDescription().call();
   const titleRes = await ModuleFactory.methods.getTitle().call();
   const ownerRes = await ModuleFactory.methods.owner().call();
+  const setupCostRes = await ModuleFactory.methods.setupCost().call();
+  const setupCost = PolyToken.removeDecimals(setupCostRes);
 
   const stoModuleData = {
     title: titleRes,
@@ -45,6 +50,7 @@ export async function getSTOModule(address: string) {
     type,
     address,
     ownerAddress: ownerRes,
+    setupCost,
   };
 
   return stoModuleData;
@@ -60,14 +66,14 @@ export async function getSTOModule(address: string) {
  * STO modules
  */
 export async function getSTOModules(securityTokenAddress: string) {
-  const addresses = await ModuleRegistry.getModulesByTypeAndToken(
+  const addresses: string[] = await ModuleRegistry.getModulesByTypeAndToken(
     MODULE_TYPES.STO,
     securityTokenAddress
   );
 
   const gettingSTOModulesData = addresses.map(getSTOModule);
 
-  const stoModules = await Promise.all(gettingSTOModulesData);
+  const stoModules: STOModule[] = await Promise.all(gettingSTOModulesData);
 
   return stoModules;
 }

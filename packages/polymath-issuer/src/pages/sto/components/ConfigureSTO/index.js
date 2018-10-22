@@ -6,19 +6,17 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Button } from 'carbon-components-react';
 import { NotFoundPage } from '@polymathnetwork/ui';
+import STOTemplate from '../STOTemplate';
+import ConfigureSTOForm from '../ConfigureSTOForm';
+import { configure, goBack } from '../../../../actions/sto';
 
-import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
-
-import STOTemplate from './STOTemplate';
-import ConfigureSTOForm from './ConfigureSTOForm';
-import PegToFiatSTOForm from './PegToFiatSTOForm';
-import { configure, goBack } from '../../../actions/sto';
-import type { RootState } from '../../../redux/reducer';
+import type { SecurityToken, STOModule } from '../../../../constants';
+import type { RootState } from '../../../../redux/reducer';
 
 type StateProps = {|
   account: ?string,
   token: ?SecurityToken,
-  factory: ?STOFactory,
+  factory: ?STOModule,
   networkName: string,
   polyBalance: BigNumber,
 |};
@@ -53,8 +51,8 @@ class ConfigureSTO extends Component<Props> {
   };
 
   render() {
-    const { token, factory } = this.props;
-    if (!token || !token.address || !factory) {
+    const { token, factory: stoModule } = this.props;
+    if (!token || !token.address || !stoModule) {
       return <NotFoundPage />;
     }
     return (
@@ -85,7 +83,7 @@ class ConfigureSTO extends Component<Props> {
                   </div>
                 </div>
                 <div className="bx--col-xs-4">
-                  <STOTemplate item={factory} />
+                  <STOTemplate stoModule={stoModule} />
                 </div>
               </div>
             </div>

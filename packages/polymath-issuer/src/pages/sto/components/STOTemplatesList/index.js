@@ -12,7 +12,7 @@ export default () => (
       }
 
       return map(data, stoModule => {
-        return <STOTemplate stoModule={stoModule} />;
+        return <STOTemplate pickingEnabled={true} stoModule={stoModule} />;
       });
     }}
   />

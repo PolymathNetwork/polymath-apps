@@ -10,18 +10,19 @@ import type { STOModule } from '../../../../constants';
 
 type Props = {|
   stoModule: STOModule,
-  handleUseSTO: () => void,
+  handlePickSTOTemplate: () => void,
+  pickingEnabled: boolean,
 |};
 
 export default class STOTemplateComponent extends Component<Props> {
   render() {
-    const { stoModule, handleUseSTO } = this.props;
+    const { stoModule, handlePickSTOTemplate, pickingEnabled } = this.props;
+    console.log('stoModule', stoModule);
 
     // FIXME @RafaelVidaurre: Hardcoding this for now, need to get this value
     // from somewhere
     const isVerified = true;
 
-    const isSelect = handleUseSTO !== undefined;
     const authorAddress = (
       <div className="bx--form-item">
         <label className="bx--label">STO Author&apos;s ETH address</label>
@@ -71,7 +72,7 @@ export default class STOTemplateComponent extends Component<Props> {
         </h2>
         <br />
         <br />
-        {isSelect ? (
+        {pickingEnabled ? (
           <div className="bx--row">
             <div className="bx--col-xs-8">
               {authorAddress}
@@ -95,17 +96,19 @@ export default class STOTemplateComponent extends Component<Props> {
             </div>
           </div>
         )}
-        <div style={isSelect ? { textAlign: 'right' } : {}}>
+        <div style={pickingEnabled ? { textAlign: 'right' } : {}}>
           {etherscanAddress(
             stoModule.address,
             <Button kind="secondary" className="see-on-etherscan-link">
               See on Etherscan
             </Button>
           )}
-          {isSelect ? (
+          {pickingEnabled ? (
             <span>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <Button onClick={handleUseSTO}>SELECT AND CONFIGURE STO</Button>
+              <Button onClick={handlePickSTOTemplate}>
+                SELECT AND CONFIGURE STO
+              </Button>
             </span>
           ) : (
             ''
