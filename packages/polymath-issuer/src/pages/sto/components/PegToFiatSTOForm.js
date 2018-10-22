@@ -3,27 +3,20 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
-import {
-  Form,
-  Button,
-  Tooltip,
-  FormGroup,
-  Toggle,
-} from 'carbon-components-react';
+import { Form, Tooltip } from 'carbon-components-react';
 import {
   Grid,
-  RadioInput,
+  CurrencySelect,
   TextInput,
-  SelectInput,
   DatePickerInput,
   TimePickerSelect,
+  Remark,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
 import {
   required,
   numeric,
   todayOrLater,
-  ethereumAddress,
   gt,
 } from '@polymathnetwork/ui/validate';
 
@@ -34,8 +27,6 @@ export const formName = 'peg_to_fiat_sto';
 type Props = {
   handleSubmit: () => void,
 };
-
-const defaultCurrency = 'POLY';
 
 const gt0 = gt(0);
 
@@ -48,10 +39,11 @@ type State = {|
 
 class PegToFiatSTOForm extends Component<Props, State> {
   state = {
-    currency: defaultCurrency,
     cap: 0,
     rate: 0,
     amountOfFunds: '0',
+    isMultipleTiers: false,
+    tiers: [],
   };
 
   handleCurrencyChange = (event: Object, newValue: string) => {
@@ -145,6 +137,8 @@ class PegToFiatSTOForm extends Component<Props, State> {
   };
 
   render() {
+    const { isMultipleTiers, tiers } = this.state;
+
     return (
       <Form onSubmit={this.props.handleSubmit}>
         <h3 className="pui-h3">STO Schedule</h3>
@@ -185,17 +179,11 @@ class PegToFiatSTOForm extends Component<Props, State> {
         </div>
 
         <h3 className="pui-h3">STO Financing Details & Terms</h3>
-        <Field
+        <CurrencySelect
           name="currency"
-          component={SelectInput}
-          label="Raise in"
-          placeholder="Choose a currency"
-          options={[
-            { value: 'ETH', label: 'ETH' },
-            { value: 'POLY', label: 'POLY' },
-          ]}
+          placeholder="Raise in"
           onChange={this.handleCurrencyChange}
-          defaultValue={defaultCurrency}
+          onRemove={() => {}}
         />
 
         <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
@@ -242,7 +230,54 @@ class PegToFiatSTOForm extends Component<Props, State> {
           />
         </Grid>
 
-        <InvestmentTiers />
+        <InvestmentTiers
+          onChange={values => {
+            console.log(values);
+          }}
+          isMultipleTiers={isMultipleTiers}
+          tiers={tiers}
+        />
+
+        <h3>ETH Addresses</h3>
+
+        <Remark title="Note">
+          Before submitting to the chain, we recommend that you test sending
+          funds to the wallet that is different from his own as well as retrieve
+          funds from this wallet.
+        </Remark>
+
+        <Field
+          name="receiver-address"
+          component={TextInput}
+          normalize={thousandsDelimiter}
+          label={
+            <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
+              <p className="bx--tooltip__label">
+                ETH Address to Receive the Funds Raised During the STO
+              </p>
+              <p />
+            </Tooltip>
+          }
+          placeholder="Enter your current ETH address"
+          onChange={this.handleRateChange}
+          validate={[required, numeric, gt0]}
+        />
+        <Field
+          name="receiver-address"
+          component={TextInput}
+          normalize={thousandsDelimiter}
+          label={
+            <Tooltip triggerText="ETH Address for Unsold Tokens">
+              <p className="bx--tooltip__label">
+                ETH Address for Unsold Tokens
+              </p>
+              <p />
+            </Tooltip>
+          }
+          placeholder="Enter your current ETH address"
+          onChange={this.handleRateChange}
+          validate={[required, numeric, gt0]}
+        />
       </Form>
     );
   }
