@@ -4,11 +4,9 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'carbon-components-react';
 import { etherscanAddress } from '@polymathnetwork/ui';
-import type { STOFactory } from '@polymathnetwork/js/types';
 
 type Props = {|
-  item: STOFactory,
-  handleUseSTO?: () => Function,
+  type: string,
 |};
 
 export default class STODetails extends Component<Props> {

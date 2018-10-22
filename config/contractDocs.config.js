@@ -138,7 +138,7 @@ const config = {
       `,
       methods: CountTransferManagerMethods,
     },
-    // IModuleFactory: {},
+    IModuleFactory: {},
 
     PercentageTransferManager: {
       description: stripIndent`

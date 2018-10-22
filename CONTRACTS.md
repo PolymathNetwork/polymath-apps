@@ -381,6 +381,50 @@ event Pause(_timestammp: UInt256)
 event Unpause(_timestamp: UInt256)
 ```
 
+# IModuleFactory
+
+_TODO: Add description_
+
+## Methods
+
+```ts
+```
+
+<details><summary>Other methods</summary>
+
+```ts
+/* == Read-Only methods == */
+function getDescription() => String
+function getInstructions() => String
+function getLowerSTVersionBounds() => UInt8[]
+function getName() => Bytes32
+function getSetupCost() => UInt256
+function getTags() => Bytes32[]
+function getTitle() => String
+function getTypes() => UInt8[]
+function getUpperSTVersionBounds() => UInt8[]
+function getVersion() => String
+
+/* == Can mutate state == */
+function changeFactorySetupFee(_newSetupCost: UInt256) => void
+function changeFactorySubscriptionFee(_newSubscriptionCost: UInt256) => void
+function changeFactoryUsageFee(_newUsageCost: UInt256) => void
+function changeSTVersionBounds(_boundType: String, _newVersion: UInt8[]) => void
+function deploy(_data: Bytes) => Address
+```
+
+</details>
+
+## Events
+
+```ts
+event ChangeFactorySetupFee(_oldSetupCost: UInt256, _newSetupCost: UInt256, _moduleFactory: Address)
+event ChangeFactorySubscriptionFee(_oldSubscriptionCost: UInt256, _newMonthlySubscriptionCost: UInt256, _moduleFactory: Address)
+event ChangeFactoryUsageFee(_oldUsageCost: UInt256, _newUsageCost: UInt256, _moduleFactory: Address)
+event ChangeSTVersionBound(_boundType: String, _major: UInt8, _minor: UInt8, _patch: UInt8)
+event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _setupCost: UInt256, _timestamp: UInt256)
+```
+
 # PercentageTransferManager
 
 Similar to [CountTransferManager](#CountTransferManager) except the

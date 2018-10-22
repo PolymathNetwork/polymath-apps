@@ -3,13 +3,14 @@ import * as actions from '../actions/stoModules';
 import type { STOModuleType } from '../constants';
 import type { UpdateAction } from '../actions/stoModules';
 
+export type STOModule = {|
+  name: string,
+  ownerAddress: string,
+  description: string,
+  setupCost: number,
+|};
 export type STOModulesState = {
-  [stoModuleType: STOModuleType]: {|
-    name: string,
-    ownerAddress: string,
-    description: string,
-    setupCost: number,
-  |},
+  [stoModuleType: STOModuleType]: STOModule,
 };
 const defaultState: STOModulesState = {};
 
@@ -28,6 +29,9 @@ export default (
           ...rest,
         },
       };
+    }
+    default: {
+      return state;
     }
   }
 };
