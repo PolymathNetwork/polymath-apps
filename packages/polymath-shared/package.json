@@ -7,6 +7,7 @@
     "node": ">=8.9"
   },
   "scripts": {
+    "build": "rm -rf ./build && babel --root-mode upward --ignore /node_modules/ src --out-dir build --copy-files",
     "local-blockchain:start": "yarn local-blockchain:prepare && yarn ganache-cli --db=\"./build/fixtures/blockchain-state/\" --gasLimit 90000000 -i=15 -d --mnemonic=\"candy maple cake sugar pudding cream honey rich smooth crumble sweet treat\" --blockTime 1",
     "local-blockchain:prepare": "rm -rf ./build && mkdir build && cp -r ./src/fixtures ./build/fixtures",
     "local-blockchain:migrate": "echo \"DEPRECATED: No need to run migrate locally anymore. The local blockchain now starts ready to go.\"",
@@ -16,8 +17,8 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/node": "7.0.0",
+    "@babel/core": "7.1.0",
+    "@babel/cli": "7.1.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",
     "@babel/plugin-transform-regenerator": "^7.0.0",
     "@babel/plugin-transform-runtime": "7.0.0",
@@ -72,6 +73,9 @@
     "reporters": [
       "jest-junit",
       "default"
-    ]
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "<rootDir>/../../config/babelJestWrapper"
+    }
   }
 }
