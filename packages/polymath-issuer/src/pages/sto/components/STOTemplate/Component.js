@@ -4,32 +4,40 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'carbon-components-react';
 import { etherscanAddress } from '@polymathnetwork/ui';
+import { SECURITY_AUDIT_URL } from '../../../../constants';
+
+import type { STOModule } from '../../../../constants';
 
 type Props = {|
-  type: string,
+  stoModule: STOModule,
+  handleUseSTO: () => void,
 |};
 
-export default class STODetails extends Component<Props> {
+export default class STOTemplateComponent extends Component<Props> {
   render() {
-    const { item, handleUseSTO } = this.props;
+    const { stoModule, handleUseSTO } = this.props;
+
+    // FIXME @RafaelVidaurre: Hardcoding this for now, need to get this value
+    // from somewhere
+    const isVerified = true;
 
     const isSelect = handleUseSTO !== undefined;
     const authorAddress = (
       <div className="bx--form-item">
         <label className="bx--label">STO Author&apos;s ETH address</label>
-        <p>{item.owner}</p>
+        <p>{stoModule.ownerAddress}</p>
       </div>
     );
     const desc = (
       <div className="bx--form-item">
         <label className="bx--label">Description</label>
-        <p>{item.desc}</p>
+        <p>{stoModule.description}</p>
       </div>
     );
     const verifiedOnEtherscan = (
       <div className="bx--form-item">
         <label className="bx--label">Verified on Etherscan</label>
-        {item.isVerified ? (
+        {isVerified ? (
           <p>
             <Icon name="checkmark--glyph" fill="#00AA5E" />
             &nbsp;Yes
@@ -47,16 +55,17 @@ export default class STODetails extends Component<Props> {
         <label className="bx--label">Third Party Audit</label>
         <p>
           <Icon name="checkmark--glyph" fill="#00AA5E" />
-          <a href={item.securityAuditLink.url} target="_blank">
+          <a href={SECURITY_AUDIT_URL} target="_blank">
             Click here to see report
           </a>
         </p>
       </div>
     );
+
     return (
       <div className="pui-page-box sto-factory">
         <h2 className="pui-h2 pui-h-tags">
-          {item.title}
+          {stoModule.title}
           <span className="bx--tag bx--tag--custom">Raise Funds in POLY</span>
           <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
         </h2>
@@ -88,7 +97,7 @@ export default class STODetails extends Component<Props> {
         )}
         <div style={isSelect ? { textAlign: 'right' } : {}}>
           {etherscanAddress(
-            item.address,
+            stoModule.address,
             <Button kind="secondary" className="see-on-etherscan-link">
               See on Etherscan
             </Button>

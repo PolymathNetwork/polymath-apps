@@ -7,8 +7,10 @@ import { Grid, Remark } from '@polymathnetwork/ui';
 import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
 
 import Progress from '../../token/components/Progress';
-import STODetails from './STODetails';
+// import STODetails from './STODetails';
+import STOTemplatesList from './STOTemplatesList';
 import { fetchFactories, useFactory } from '../../../actions/sto';
+
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|
@@ -34,9 +36,9 @@ const mapDispatchToProps: DispatchProps = {
 type Props = {||} & StateProps & DispatchProps;
 
 class SelectSTOTemplate extends Component<Props> {
-  componentWillMount() {
-    this.props.fetchFactories();
-  }
+  // componentWillMount() {
+  //   // this.props.fetchFactories();
+  // }
 
   handleUseSTO = (sto: STOFactory) => () => this.props.useFactory(sto);
 
@@ -65,13 +67,7 @@ class SelectSTOTemplate extends Component<Props> {
               </h3>
               <br />
               <Grid gridGap={30} gridAutoFlow="row">
-                {this.props.factories.map(item => (
-                  <STODetails
-                    key={item.address}
-                    item={item}
-                    handleUseSTO={this.handleUseSTO(item)}
-                  />
-                ))}
+                <STOTemplatesList />
               </Grid>
             </div>
           </div>

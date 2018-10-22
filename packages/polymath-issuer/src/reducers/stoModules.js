@@ -1,19 +1,18 @@
 // @flow
 import * as actions from '../actions/stoModules';
-import type { STOModuleType } from '../constants';
-import type { UpdateAction } from '../actions/stoModules';
+import type { STOModule } from '../constants';
 
-export type STOModule = {|
-  type: STOModuleType,
-  name: string,
-  ownerAddress: string,
-  description: string,
-  setupCost: number,
-|};
+import type { UpdateAction } from '../actions/stoModules';
 export type STOModulesState = {
-  [address: string]: STOModule,
+  fetched: boolean,
+  modules: {
+    [address: string]: STOModule,
+  },
 };
-const defaultState: STOModulesState = {};
+const defaultState: STOModulesState = {
+  fetched: false,
+  modules: {},
+};
 
 export default (
   state: STOModulesState = defaultState,
@@ -22,12 +21,12 @@ export default (
   switch (type) {
     case actions.STO_MODULES_UPDATE: {
       const { stoModules } = payload;
-      const newState = {};
+      const modules = {};
       stoModules.forEach(({ address, ...moduleData }) => {
-        newState[address] = moduleData;
+        modules[address] = moduleData;
       });
 
-      return newState;
+      return { ...state, modules, fetched: true };
     }
     default: {
       return state;

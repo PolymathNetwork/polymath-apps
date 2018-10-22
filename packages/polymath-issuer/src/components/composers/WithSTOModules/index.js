@@ -7,39 +7,42 @@ import { fetch } from '../../../actions/stoModules';
 import type { Node } from 'react';
 import type { Dispatch } from 'redux';
 import type { RootState } from '../../../redux/reducer';
+import type { STOModulesState } from '../../../reducers/stoModules';
 
-type StoModules = $PropertyType<RootState, 'stoModules'>[];
+type STOModules = $PropertyType<STOModulesState, 'modules'>;
 
 type OwnProps = {|
-  render: ({ stoModules: StoModules | null }) => Node,
+  render: ({ data: STOModules | null }) => Node,
 |};
 
 type StateProps = {|
-  stoModules?: StoModules,
+  modules: STOModules,
+  fetched: boolean,
   dispatch: Dispatch<any>,
 |};
 
 type Props = StateProps & OwnProps;
 
-const mapStateToProps = ({ stoModules }: RootState) => ({
-  stoModules,
+const mapStateToProps = ({ stoModules: { modules, fetched } }: RootState) => ({
+  modules,
+  fetched,
 });
 
-export class WithSTOModules extends Component<Props> {
+class WithSTOModules extends Component<Props> {
   componentDidMount() {
-    const { stoModules, dispatch } = this.props;
-    if (!stoModules) {
+    const { fetched, dispatch } = this.props;
+
+    if (!fetched) {
       dispatch(fetch()).catch(err => {
         throw err;
       });
     }
   }
   render() {
-    let { stoModules } = this.props;
+    const { modules, fetched } = this.props;
+    const loading = !fetched;
 
-    stoModules = stoModules || null;
-
-    return this.props.render({ stoModules });
+    return this.props.render({ data: modules, loading });
   }
 }
 

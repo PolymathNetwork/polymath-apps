@@ -25,6 +25,7 @@ export const update = (stoModules: UpdateParams[]) => ({
 export type FetchParams = {|
   type: STOModuleType,
 |};
+
 export const fetch = () => {
   return async (
     dispatch: Dispatch<UpdateAction>,
@@ -39,6 +40,7 @@ export const fetch = () => {
     }
 
     const moduleDetails = await getSTOModules(securityToken.address);
+    console.log('moduleDetails', moduleDetails);
 
     dispatch(update(moduleDetails));
   };

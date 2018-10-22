@@ -9,7 +9,7 @@ import { NotFoundPage } from '@polymathnetwork/ui';
 
 import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
 
-import STODetails from './STODetails';
+import STOTemplate from './STOTemplate';
 import ConfigureSTOForm from './ConfigureSTOForm';
 import PegToFiatSTOForm from './PegToFiatSTOForm';
 import { configure, goBack } from '../../../actions/sto';
@@ -85,7 +85,7 @@ class ConfigureSTO extends Component<Props> {
                   </div>
                 </div>
                 <div className="bx--col-xs-4">
-                  <STODetails item={factory} />
+                  <STOTemplate item={factory} />
                 </div>
               </div>
             </div>
