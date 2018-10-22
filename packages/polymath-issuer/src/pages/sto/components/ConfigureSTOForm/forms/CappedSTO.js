@@ -3,8 +3,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
-
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
+
 import {
   TextInput,
   SelectInput,

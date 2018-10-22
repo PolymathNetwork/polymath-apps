@@ -10,8 +10,6 @@ import type {
   STOPurchase,
 } from '@polymathnetwork/js/types';
 
-import { formName as configureFormName } from '../pages/sto/components/ConfigureSTOForm';
-
 import type { ExtractReturn } from '../redux/helpers';
 import type { GetState } from '../redux/reducer';
 
@@ -188,43 +186,47 @@ export const configure = () => async (
         if (!factory || !token || !token.contract) {
           return;
         }
-        dispatch(
-          ui.tx(
-            ['Approving POLY Spend', 'Deploying And Scheduling'],
-            async () => {
-              const contract: SecurityToken = token.contract;
-              const { values } = getState().form[configureFormName];
-              const [startDate] = values.startDate;
-              const [endDate] = values.endDate;
-              const startDateWithTime = dateTimeFromDateAndTime(
-                startDate,
-                values.startTime
-              );
-              const endDateWithTime = dateTimeFromDateAndTime(
-                endDate,
-                values.endTime
-              );
-              const isEthFundraise = values.currency === 'ETH';
 
-              await contract.setCappedSTO(
-                startDateWithTime,
-                endDateWithTime,
-                values.cap.replace(/,/g, ''),
-                values.rate.replace(/,/g, ''),
-                isEthFundraise,
-                values.fundsReceiver
-              );
-            },
-            'STO Configured Successfully',
-            () => {
-              return dispatch(fetch());
-            },
-            `/dashboard/${token.ticker}/compliance`,
-            undefined,
-            false,
-            token.ticker.toUpperCase() + ' STO Creation'
-          )
-        );
+        // FIXME @RafaelVidaurre: Leaving this commented, we should NOT use
+        // redux-form's state here
+
+        // dispatch(
+        //   ui.tx(
+        //     ['Approving POLY Spend', 'Deploying And Scheduling'],
+        //     async () => {
+        //       const contract: SecurityToken = token.contract;
+        //       const { values } = getState().form[configureFormName];
+        //       const [startDate] = values.startDate;
+        //       const [endDate] = values.endDate;
+        //       const startDateWithTime = dateTimeFromDateAndTime(
+        //         startDate,
+        //         values.startTime
+        //       );
+        //       const endDateWithTime = dateTimeFromDateAndTime(
+        //         endDate,
+        //         values.endTime
+        //       );
+        //       const isEthFundraise = values.currency === 'ETH';
+
+        //       await contract.setCappedSTO(
+        //         startDateWithTime,
+        //         endDateWithTime,
+        //         values.cap.replace(/,/g, ''),
+        //         values.rate.replace(/,/g, ''),
+        //         isEthFundraise,
+        //         values.fundsReceiver
+        //       );
+        //     },
+        //     'STO Configured Successfully',
+        //     () => {
+        //       return dispatch(fetch());
+        //     },
+        //     `/dashboard/${token.ticker}/compliance`,
+        //     undefined,
+        //     false,
+        //     token.ticker.toUpperCase() + ' STO Creation'
+        //   )
+        // );
       },
       'Before You Proceed with your Security Token Offering Deployment and Scheduling',
       undefined,

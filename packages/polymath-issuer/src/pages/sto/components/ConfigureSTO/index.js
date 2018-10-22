@@ -78,8 +78,10 @@ class ConfigureSTO extends Component<Props> {
                       Provide the financial details and timing for your offering
                       below.
                     </h4>
-                    <ConfigureSTOForm onSubmit={this.handleSubmit} />
-                    <PegToFiatSTOForm onSubmit={this.handleSubmit} />
+                    <ConfigureSTOForm
+                      stoModule={stoModule}
+                      onSubmit={this.handleSubmit}
+                    />
                   </div>
                 </div>
                 <div className="bx--col-xs-4">
