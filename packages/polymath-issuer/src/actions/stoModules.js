@@ -40,7 +40,6 @@ export const fetch = () => {
     }
 
     const moduleDetails = await getSTOModules(securityToken.address);
-    console.log('moduleDetails', moduleDetails);
 
     dispatch(update(moduleDetails));
   };

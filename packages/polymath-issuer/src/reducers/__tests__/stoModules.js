@@ -1,32 +1,29 @@
 import reducer from '../stoModules';
 import * as stoModulesActions from '../../actions/stoModules';
+import { factories } from '../../../testUtils';
 
 describe('Reducer: stoModules', () => {
-  test('on STO_MODULES_UPDATE', () => {
-    const usdTieredSTO = {
-      type: 'USDTieredSTO',
-      address: 'FakeUSDTieredSTOAddress',
-      ownerAddress: 'FakeUSDTieredSTOOwnerAddress',
-      description: 'USDTieredSTO Description',
-      setupCost: 1234,
-    };
-    const cappedSTO = {
-      type: 'CappedSTO',
-      address: 'FakeCappedSTOAddress',
-      ownerAddress: 'FakeCappedSTOOwnerAddress',
-      description: 'CappedSTO Description',
-      setupCost: 4567,
-    };
+  describe('on STO_MODULES_UPDATE', () => {
+    test('updates the state properly', () => {
+      const usdTieredSTO = factories.usdTieredSTO();
+      const cappedSTO = factories.cappedSTO();
 
-    const action = stoModulesActions.update([usdTieredSTO, cappedSTO]);
-    const result = reducer(undefined, action);
+      const action = stoModulesActions.update([usdTieredSTO, cappedSTO]);
+      const result = reducer(undefined, action);
 
-    const { address: usdTieredSTOAddress, ...usdTieredSTOState } = usdTieredSTO;
-    const { address: cappedSTOAddress, ...cappedSTOState } = cappedSTO;
+      const {
+        address: usdTieredSTOAddress,
+        ...usdTieredSTOState
+      } = usdTieredSTO;
+      const { address: cappedSTOAddress, ...cappedSTOState } = cappedSTO;
 
-    expect(result).toEqual({
-      [usdTieredSTOAddress]: usdTieredSTOState,
-      [cappedSTOAddress]: cappedSTOState,
+      expect(result).toEqual({
+        fetched: true,
+        modules: {
+          [usdTieredSTOAddress]: usdTieredSTOState,
+          [cappedSTOAddress]: cappedSTOState,
+        },
+      });
     });
   });
 });
