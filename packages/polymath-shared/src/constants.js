@@ -8,6 +8,7 @@ import SecurityTokenRegistryArtifacts from './fixtures/contracts/SecurityTokenRe
 import CappedSTOFactoryArtifacts from './fixtures/contracts/CappedSTOFactory.json';
 import GeneralPermissionManagerFactoryArtifacts from './fixtures/contracts/GeneralPermissionManagerFactory.json';
 import PercentageTransferManagerFactoryArtifacts from './fixtures/contracts/PercentageTransferManagerFactory.json';
+import CountTransferManagerFactoryArtifacts from './fixtures/contracts/CountTransferManagerFactory.json';
 
 export const KOVAN_NETWORK_ID = 42;
 export const MAINNET_NETWORK_ID = 1;
@@ -35,12 +36,19 @@ if (!DEPLOYMENT_STAGE) {
   );
 }
 
-type NetworkId = $Keys<typeof NetworkIds>;
+export type NetworkId = $Keys<typeof NetworkIds>;
 type NetworkAddresses = {
   [networkId: NetworkId]: {
     [contractName: string]: string,
   },
 };
+
+/**
+ * NOTE @RafaelVidaurre: In Kovan we use the PolyFaucetTokenAddress as the PolyToken
+ * address.
+ * This is because the faucet is a decorated version of the token.
+ * This is only used for test networks.
+ */
 
 const localAddresses = {
   PolyToken: PolyTokenFaucetArtifacts.networks[LOCAL_NETWORK_ID].address,
@@ -58,22 +66,29 @@ const localAddresses = {
   PercentageTransferManagerFactory:
     PercentageTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID]
       .address,
+  CountTransferManagerFactory:
+    CountTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID],
 };
 
+/**
+ * TODO @monitz87: The PolyToken address is the same one used in production kovan
+ * due to a limitation in the deployment script. We would want to use a separate PolyToken
+ * contract for kovan staging, but for now we have to settle with this.
+ */
 const kovanStagingPolyFaucetAddress =
-  '0x33c0c74675bb3e8fbf7d7510da998c3ef913e407';
+  '0xb06d72a24df50d4e2cac133b320c5e7de3ef94cb';
 const kovanStagingAddresses = {
   PolyTokenFaucet: kovanStagingPolyFaucetAddress,
   PolyToken: kovanStagingPolyFaucetAddress,
-  PolymathRegistry: '0x9a987a1eee04c2784030347df6778e1a9170f467',
-  TickerRegistry: '0x6665a9bc33edc5839907f06c4c4586a4117aafb2',
-  ModuleRegistry: '0xf661fa176636c7b97d281bc802b0da8d43851ec4',
-  SecurityTokenRegistry: '0x7edd08ddc4763d6243cab427721d2afcca843579',
-  CappedSTOFactory: '0xdeacac8248723dbaf2bf6776f293228993e05a0e',
-  GeneralPermissionManagerFactory: '0xf97976bab461f354a06aa30132f56278c33c86bb',
-  CountTransferManagerFactory: '0xb36e11e8b01811610a04fccec25651566438109b',
+  PolymathRegistry: '0x40b53ebd7e0d4a5cf7112371e2552eb153e1087c',
+  TickerRegistry: '0x762af9b4d8c9e4affb92091479ce0524cd66001c',
+  ModuleRegistry: '0x3ac848b3e94b78d5acc3f8e3c41cae92d59e2bfd',
+  SecurityTokenRegistry: '0xeae834e007af3c081722f7f97003fca321c1470e',
+  CappedSTOFactory: '0xf2cc7915fe48d9a709a1199cb018dcc27c114946',
+  GeneralPermissionManagerFactory: '0x08b056dfd4f0b5e9ed8f6dfbff3163107384b857',
+  CountTransferManagerFactory: '0x93b6ef91e4ea396594c18c88de5d31c566cabdf3',
   PercentageTransferManagerFactory:
-    '0x25b7e309441e47c1892b56fa420bda02afdaa14f',
+    '0xeb3e23b507ed8d71ef9b0a7ca31af6a4e20c0143',
 };
 
 const kovanProductionPolyFaucetAddress =
@@ -92,16 +107,16 @@ const kovanProductionAddresses = {
     '0xfe908f07e6db57aa6bbd8374e59aac86b60374b0',
 };
 
-export const _STAGING_ADDRESSES = {
+export const _STAGING_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanStagingAddresses,
 };
 
-export const _LOCAL_ADDRESSES = {
+export const _LOCAL_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanStagingAddresses,
   [LOCAL_NETWORK_ID]: localAddresses,
 };
 
-export const _PRODUCTION_ADDRESSES = {
+export const _PRODUCTION_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanProductionAddresses,
   [MAINNET_NETWORK_ID]: {
     PolyToken: '0x118A0df120cfB097aaD3A70914562F803A5bE45C',
@@ -132,6 +147,11 @@ switch (DEPLOYMENT_STAGE) {
   case 'local': {
     networkAddresses = _LOCAL_ADDRESSES;
     break;
+  }
+  default: {
+    throw new Error(
+      'Wrong value for env variable "DEPLOYMENT_STAGE". Should be one of "local", "staging", "production"'
+    );
   }
 }
 

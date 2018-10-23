@@ -64,14 +64,14 @@
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
-        9917
+        2687
       ]
     },
-    "id": 9918,
+    "id": 2688,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 9896,
+        "id": 2666,
         "literals": [
           "solidity",
           "^",
@@ -79,7 +79,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:15"
+        "src": "0:24:13"
       },
       {
         "baseContracts": [],
@@ -87,9 +87,9 @@
         "contractKind": "contract",
         "documentation": "@title Interface for the polymath module registry contract",
         "fullyImplemented": false,
-        "id": 9917,
+        "id": 2687,
         "linearizedBaseContracts": [
-          9917
+          2687
         ],
         "name": "IModuleRegistry",
         "nodeType": "ContractDefinition",
@@ -97,7 +97,7 @@
           {
             "body": null,
             "documentation": "@notice Called by a security token to notify the registry it is using a module\n@param _moduleFactory is the address of the relevant module factory",
-            "id": 9901,
+            "id": 2671,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -105,16 +105,16 @@
             "name": "useModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9899,
+              "id": 2669,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9898,
+                  "id": 2668,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9901,
-                  "src": "324:22:15",
+                  "scope": 2671,
+                  "src": "324:22:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -122,10 +122,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 9897,
+                    "id": 2667,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "324:7:15",
+                    "src": "324:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -135,17 +135,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "323:24:15"
+              "src": "323:24:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9900,
+              "id": 2670,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "356:0:15"
+              "src": "356:0:13"
             },
-            "scope": 9917,
-            "src": "305:52:15",
+            "scope": 2687,
+            "src": "305:52:13",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -153,7 +153,7 @@
           {
             "body": null,
             "documentation": "@notice Called by moduleFactory owner to register new modules for SecurityToken to use\n@param _moduleFactory is the address of the module factory to be registered",
-            "id": 9908,
+            "id": 2678,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -161,16 +161,16 @@
             "name": "registerModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9904,
+              "id": 2674,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9903,
+                  "id": 2673,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9908,
-                  "src": "580:22:15",
+                  "scope": 2678,
+                  "src": "580:22:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -178,10 +178,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 9902,
+                    "id": 2672,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "580:7:15",
+                    "src": "580:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -191,20 +191,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "579:24:15"
+              "src": "579:24:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9907,
+              "id": 2677,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9906,
+                  "id": 2676,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9908,
-                  "src": "621:4:15",
+                  "scope": 2678,
+                  "src": "621:4:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -212,10 +212,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 9905,
+                    "id": 2675,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "621:4:15",
+                    "src": "621:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -225,10 +225,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "620:6:15"
+              "src": "620:6:13"
             },
-            "scope": 9917,
-            "src": "556:71:15",
+            "scope": 2687,
+            "src": "556:71:13",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -236,7 +236,7 @@
           {
             "body": null,
             "documentation": "@notice Use to get all the tags releated to the functionality of the Module Factory.\n@param _moduleType Type of module",
-            "id": 9916,
+            "id": 2686,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -244,16 +244,16 @@
             "name": "getTagByModuleType",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9911,
+              "id": 2681,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9910,
+                  "id": 2680,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9916,
-                  "src": "810:17:15",
+                  "scope": 2686,
+                  "src": "810:17:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -261,10 +261,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 9909,
+                    "id": 2679,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "810:5:15",
+                    "src": "810:5:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -274,20 +274,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "809:19:15"
+              "src": "809:19:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9915,
+              "id": 2685,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9914,
+                  "id": 2684,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9916,
-                  "src": "849:9:15",
+                  "scope": 2686,
+                  "src": "849:9:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -296,19 +296,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 9912,
+                      "id": 2682,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "849:7:15",
+                      "src": "849:7:13",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 9913,
+                    "id": 2683,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "849:9:15",
+                    "src": "849:9:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -318,33 +318,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "848:11:15"
+              "src": "848:11:13"
             },
-            "scope": 9917,
-            "src": "782:78:15",
+            "scope": 2687,
+            "src": "782:78:13",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 9918,
-        "src": "96:767:15"
+        "scope": 2688,
+        "src": "96:767:13"
       }
     ],
-    "src": "0:864:15"
+    "src": "0:864:13"
   },
   "legacyAST": {
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
-        9917
+        2687
       ]
     },
-    "id": 9918,
+    "id": 2688,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 9896,
+        "id": 2666,
         "literals": [
           "solidity",
           "^",
@@ -352,7 +352,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:15"
+        "src": "0:24:13"
       },
       {
         "baseContracts": [],
@@ -360,9 +360,9 @@
         "contractKind": "contract",
         "documentation": "@title Interface for the polymath module registry contract",
         "fullyImplemented": false,
-        "id": 9917,
+        "id": 2687,
         "linearizedBaseContracts": [
-          9917
+          2687
         ],
         "name": "IModuleRegistry",
         "nodeType": "ContractDefinition",
@@ -370,7 +370,7 @@
           {
             "body": null,
             "documentation": "@notice Called by a security token to notify the registry it is using a module\n@param _moduleFactory is the address of the relevant module factory",
-            "id": 9901,
+            "id": 2671,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -378,16 +378,16 @@
             "name": "useModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9899,
+              "id": 2669,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9898,
+                  "id": 2668,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9901,
-                  "src": "324:22:15",
+                  "scope": 2671,
+                  "src": "324:22:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -395,10 +395,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 9897,
+                    "id": 2667,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "324:7:15",
+                    "src": "324:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -408,17 +408,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "323:24:15"
+              "src": "323:24:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9900,
+              "id": 2670,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "356:0:15"
+              "src": "356:0:13"
             },
-            "scope": 9917,
-            "src": "305:52:15",
+            "scope": 2687,
+            "src": "305:52:13",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -426,7 +426,7 @@
           {
             "body": null,
             "documentation": "@notice Called by moduleFactory owner to register new modules for SecurityToken to use\n@param _moduleFactory is the address of the module factory to be registered",
-            "id": 9908,
+            "id": 2678,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -434,16 +434,16 @@
             "name": "registerModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9904,
+              "id": 2674,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9903,
+                  "id": 2673,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9908,
-                  "src": "580:22:15",
+                  "scope": 2678,
+                  "src": "580:22:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -451,10 +451,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 9902,
+                    "id": 2672,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "580:7:15",
+                    "src": "580:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -464,20 +464,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "579:24:15"
+              "src": "579:24:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9907,
+              "id": 2677,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9906,
+                  "id": 2676,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9908,
-                  "src": "621:4:15",
+                  "scope": 2678,
+                  "src": "621:4:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -485,10 +485,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 9905,
+                    "id": 2675,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "621:4:15",
+                    "src": "621:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -498,10 +498,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "620:6:15"
+              "src": "620:6:13"
             },
-            "scope": 9917,
-            "src": "556:71:15",
+            "scope": 2687,
+            "src": "556:71:13",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -509,7 +509,7 @@
           {
             "body": null,
             "documentation": "@notice Use to get all the tags releated to the functionality of the Module Factory.\n@param _moduleType Type of module",
-            "id": 9916,
+            "id": 2686,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -517,16 +517,16 @@
             "name": "getTagByModuleType",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9911,
+              "id": 2681,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9910,
+                  "id": 2680,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9916,
-                  "src": "810:17:15",
+                  "scope": 2686,
+                  "src": "810:17:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -534,10 +534,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 9909,
+                    "id": 2679,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "810:5:15",
+                    "src": "810:5:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -547,20 +547,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "809:19:15"
+              "src": "809:19:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 9915,
+              "id": 2685,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9914,
+                  "id": 2684,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9916,
-                  "src": "849:9:15",
+                  "scope": 2686,
+                  "src": "849:9:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -569,19 +569,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 9912,
+                      "id": 2682,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "849:7:15",
+                      "src": "849:7:13",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 9913,
+                    "id": 2683,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "849:9:15",
+                    "src": "849:9:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -591,20 +591,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "848:11:15"
+              "src": "848:11:13"
             },
-            "scope": 9917,
-            "src": "782:78:15",
+            "scope": 2687,
+            "src": "782:78:13",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 9918,
-        "src": "96:767:15"
+        "scope": 2688,
+        "src": "96:767:13"
       }
     ],
-    "src": "0:864:15"
+    "src": "0:864:13"
   },
   "compiler": {
     "name": "solc",
@@ -612,5 +612,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T15:54:24.283Z"
+  "updatedAt": "2018-10-18T19:17:46.308Z"
 }

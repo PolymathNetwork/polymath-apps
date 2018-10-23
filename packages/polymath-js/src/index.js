@@ -25,3 +25,18 @@ export {
   default as CountTransferManager,
 } from './contracts/CountTransferManager';
 export default Contract;
+
+export type {
+  Investor,
+  STOPurchase,
+  STODetails,
+  STOFactory,
+  Address,
+  SymbolDetails,
+  Artifact,
+  NetworkParams,
+  Web3Receipt,
+  Web3Contract,
+  Web3Event,
+  Web3,
+} from './types';

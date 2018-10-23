@@ -62,6 +62,14 @@ describe('constants', () => {
       expect(() => {
         require('../constants');
       }).toThrowError();
+
+      jest.resetModules();
+
+      process.env.DEPLOYMENT_STAGE = 'invalid'; // not 'local', 'staging' or 'production'
+
+      expect(() => {
+        require('../constants');
+      }).toThrowError();
     });
 
     test('throws an error if ambiguous deployment stage is set', () => {
