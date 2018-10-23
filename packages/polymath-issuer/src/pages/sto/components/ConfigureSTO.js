@@ -11,6 +11,7 @@ import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
 
 import STODetails from './STODetails';
 import ConfigureSTOForm from './ConfigureSTOForm';
+import PegToFiatSTOForm from './PegToFiatSTOForm';
 import { configure, goBack } from '../../../actions/sto';
 import type { RootState } from '../../../redux/reducer';
 
@@ -80,6 +81,7 @@ class ConfigureSTO extends Component<Props> {
                       below.
                     </h4>
                     <ConfigureSTOForm onSubmit={this.handleSubmit} />
+                    <PegToFiatSTOForm onSubmit={this.handleSubmit} />
                   </div>
                 </div>
                 <div className="bx--col-xs-4">

@@ -292,8 +292,15 @@ div {
 }
 
 .bx--tooltip__trigger {
+  display: block;
+
   > div {
-    display: inline-flex;
+    display: inline-block;
+  }
+
+  svg {
+    vertical-align: middle;
+    margin-top: -2px;
   }
 }
 

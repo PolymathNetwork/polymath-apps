@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { Loading } from 'carbon-components-react';
 import type { SecurityToken } from '@polymathnetwork/js/types';
@@ -62,7 +63,9 @@ class STOPage extends Component<Props> {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(STOPage);
+export default hot(module)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(STOPage)
+);

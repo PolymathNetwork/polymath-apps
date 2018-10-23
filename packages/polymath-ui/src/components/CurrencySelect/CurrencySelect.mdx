@@ -1,0 +1,21 @@
+---
+name: CurrencySelect
+---
+
+import { Playground, PropsTable } from 'docz';
+import CurrencySelect from './';
+
+import { currencyOptions } from './data';
+
+# CurrencySelect
+
+<PropsTable of={CurrencySelect} />
+
+## Basic usage
+
+<Playground style={{ minHeight: '400px' }}>
+  <CurrencySelect 
+    placeholder="Raise in" 
+    values={currencyOptions}
+  />
+</Playground>

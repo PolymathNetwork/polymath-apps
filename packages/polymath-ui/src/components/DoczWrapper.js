@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 // import { Provider } from 'react-redux';
 // import { createStore, combineReducers } from 'redux';
 
@@ -8,10 +9,14 @@ import React from 'react';
 
 import '../styles/globals.scss';
 
+import theme from '../theme';
+
 // const reducers = combineReducers({ ui: uiReducer, network: networkReducer });
 // const store = createStore(reducers);
 
 // const Wrapper = ({ children }) => <Provider store={store}>{children}</Provider>;
-const Wrapper = ({ children }) => children;
+const Wrapper = ({ children }) => (
+  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+);
 
 export default Wrapper;

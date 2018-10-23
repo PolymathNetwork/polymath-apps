@@ -1,0 +1,26 @@
+---
+name: RadioInput
+menu: Inputs
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import RadioInput from './';
+
+# Inputs
+
+<PropsTable of={RadioInput} />
+
+## Basic usage
+
+<Playground>
+  <RadioInput 
+    input={{
+      name: "radio-input"
+    }}
+    options={[
+      { label: 'Divisible', value: '0' },
+      { label: 'Indivisible', value: '1' },
+    ]} 
+  />
+</Playground>
