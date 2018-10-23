@@ -19,3 +19,7 @@ export const Paragraph = styled(Box)(
 );
 
 export default Paragraph;
+
+Paragraph.defaultProps = {
+  mb: 2,
+};

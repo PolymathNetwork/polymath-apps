@@ -5,6 +5,7 @@ export { default as theme } from './theme';
 export { default as Box } from './components/Box';
 export { default as Grid } from './components/Grid';
 export { default as Heading } from './components/Heading';
+export { default as Paragraph } from './components/Paragraph';
 export * from './components/inputs';
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';
