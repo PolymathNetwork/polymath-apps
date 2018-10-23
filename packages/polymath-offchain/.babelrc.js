@@ -8,4 +8,9 @@ module.exports = {
     '@babel/plugin-transform-regenerator',
     moduleResolver('build'),
   ],
+  env: {
+    test: {
+      plugins: [moduleResolver('src')],
+    },
+  },
 };
