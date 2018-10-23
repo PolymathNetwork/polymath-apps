@@ -2,10 +2,14 @@
 
 import Web3 from 'web3';
 
-import getNetwork, { NETWORK_LOCAL, NETWORK_LOCALVM } from './networks';
+import getNetwork from './networks';
 import type { ExtractReturn } from './helpers';
 import Contract, { setupContracts } from '@polymathnetwork/js';
 import { txHash, txEnd } from '../TxModal/actions';
+import {
+  LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
 
 export type NetworkParams = {|
   id: number,
@@ -59,8 +63,8 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     }
 
     const isLocalhost =
-      String(id) === NETWORK_LOCAL ||
-      String(id) === NETWORK_LOCALVM ||
+      String(id) === LOCAL_NETWORK_ID ||
+      String(id) === LOCALVM_NETWORK_ID ||
       id === undefined;
 
     const network = getNetwork(id);

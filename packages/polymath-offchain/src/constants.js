@@ -1,7 +1,12 @@
 // @flow
 
 import { normalizeURL } from '@polymathnetwork/shared/utils';
-import type { NetworkId } from '@polymathnetwork/shared/constants';
+import {
+  LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
+  KOVAN_NETWORK_ID,
+  MAINNET_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
 
 export const cleanEnvironment = <T: { [string]: string }>(
   env: any = process.env,
@@ -23,7 +28,8 @@ type Environment = {|
   WEB3_NETWORK_KOVAN_WS?: string,
   WEB3_NETWORK_MAINNET_WS?: string,
   POLYMATH_REGISTRY_ADDRESS_LOCAL?: string,
-  POLYMATH_REGISTRY_ADDRESS_KOVAN?: string,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING?: string,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION?: string,
   POLYMATH_REGISTRY_ADDRESS_MAINNET?: string,
   PORT: string,
   POLYMATH_OFFCHAIN_URL: string,
@@ -49,7 +55,8 @@ const {
   WEB3_NETWORK_KOVAN_WS,
   WEB3_NETWORK_MAINNET_WS,
   POLYMATH_REGISTRY_ADDRESS_LOCAL,
-  POLYMATH_REGISTRY_ADDRESS_KOVAN,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION,
   POLYMATH_REGISTRY_ADDRESS_MAINNET,
 } = env;
 
@@ -62,11 +69,6 @@ if (WEB3_NETWORK_LOCAL_WS && WEB3_NETWORK_LOCALVM_WS) {
 export const MONGODB_URI = env.MONGODB_URI;
 export const NODE_ENV = env.NODE_ENV;
 export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
-
-export const LOCAL_NETWORK_ID: NetworkId = '15';
-export const LOCALVM_NETWORK_ID: NetworkId = '16';
-export const KOVAN_NETWORK_ID: NetworkId = '42';
-export const MAINNET_NETWORK_ID: NetworkId = '1';
 
 const CRITICAL_RETRIES = 5; // Amount of retries for mandatory connections
 const OPTIONAL_RETRIES = 0; // Amount of retries for optional (testing) connections
@@ -119,7 +121,7 @@ export const NETWORKS: {
     optional: true,
     maxRetries: OPTIONAL_RETRIES,
     localNetwork: false,
-    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN || '',
+    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING || '', // Must be set later according to deployment stage
   },
   [MAINNET_NETWORK_ID]: {
     name: 'mainnet',
@@ -143,9 +145,6 @@ if (DEPLOYMENT_STAGE !== 'local') {
   if (!WEB3_NETWORK_KOVAN_WS) {
     throw new Error('Missing env variable WEB3_NETWORK_KOVAN_WS');
   }
-  if (!POLYMATH_REGISTRY_ADDRESS_KOVAN) {
-    throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN');
-  }
 
   NETWORKS[KOVAN_NETWORK_ID].connect = true;
   NETWORKS[KOVAN_NETWORK_ID].optional = false;
@@ -158,11 +157,30 @@ if (DEPLOYMENT_STAGE !== 'local') {
     if (!POLYMATH_REGISTRY_ADDRESS_MAINNET) {
       throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_MAINNET');
     }
+    if (!POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION) {
+      throw new Error(
+        'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION'
+      );
+    }
 
     NETWORKS[MAINNET_NETWORK_ID].connect = true;
     NETWORKS[MAINNET_NETWORK_ID].optional = false;
     NETWORKS[MAINNET_NETWORK_ID].maxRetries = CRITICAL_RETRIES;
+
+    NETWORKS[
+      KOVAN_NETWORK_ID
+    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION;
   } else {
+    if (!POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING) {
+      throw new Error(
+        'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING'
+      );
+    }
+
+    NETWORKS[
+      KOVAN_NETWORK_ID
+    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING;
+
     if (WEB3_NETWORK_LOCAL_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
       NETWORKS[LOCAL_NETWORK_ID].connect = true;
       NETWORKS[LOCAL_NETWORK_ID].optional = true;

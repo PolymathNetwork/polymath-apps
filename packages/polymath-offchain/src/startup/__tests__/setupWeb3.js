@@ -118,7 +118,7 @@ const clientMock = {
   },
 };
 const connectionCloseMock = jest.fn();
-const webSocketProviderMock = jest.fn().mockImplementation(() => {
+const websocketProviderMock = jest.fn().mockImplementation(() => {
   return {
     on: socketEventListenerMock,
     connection: {

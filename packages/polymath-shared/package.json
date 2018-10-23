@@ -57,8 +57,7 @@
       "src/**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
-      "!**/startup/!(setupWeb3)",
-      "!src/server.js",
+      "!src/constants.js",
       "!src/specsInit.js"
     ],
     "setupFiles": [

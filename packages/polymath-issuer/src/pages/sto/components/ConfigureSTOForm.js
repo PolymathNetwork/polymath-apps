@@ -118,7 +118,6 @@ class ConfigureSTOForm extends Component<Props, State> {
       const startDateTime = this.convertAMPMTime(startTime, startDate);
       const endDateTime = this.convertAMPMTime(endTime, endDate);
 
-      console.log(startDateTime, endDateTime);
       if (startDateTime.getTime() > endDateTime.getTime()) {
         return 'Selected end date/time is before the start date/time - Please update the dates accordingly';
       } else if (startDateTime.getTime() + 600000 > endDateTime.getTime()) {

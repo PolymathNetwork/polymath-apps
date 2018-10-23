@@ -2,12 +2,12 @@
 /* Setup scripts */
 import './setupEnvironment';
 import {
-  NETWORKS,
   LOCAL_NETWORK_ID,
   LOCALVM_NETWORK_ID,
   KOVAN_NETWORK_ID,
   MAINNET_NETWORK_ID,
-} from '../constants';
+} from '@polymathnetwork/shared/constants';
+import { NETWORKS } from '../constants';
 import './initializeLogger';
 
 import logger from 'winston';
@@ -17,18 +17,14 @@ import './setupMailing';
 import connectWeb3 from './setupWeb3';
 
 import type { NetworkOptions } from '../constants';
-import type { NetworkId } from '@polymathnetwork/shared/constants';
 
 /**
   Attemps to connect to a network via web3.
 
-  @param {NetworkId} networkId id of the network
+  @param {string} networkId id of the network
   @param {NetworkOptions} options connection options
  */
-const connectToNetwork = async (
-  networkId: NetworkId,
-  options: NetworkOptions
-) => {
+const connectToNetwork = async (networkId: string, options: NetworkOptions) => {
   const { name, optional, maxRetries, localNetwork } = options;
 
   const localMessage = `Are you sure ganache is running with id=${networkId}?`;
