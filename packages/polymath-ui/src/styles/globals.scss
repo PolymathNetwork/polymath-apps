@@ -114,7 +114,7 @@ div {
   background: white !important;
 
   .bx--btn__icon {
-    fill: #252E6A !important;
+    fill: #252e6a !important;
   }
 
   &:hover {
@@ -125,8 +125,6 @@ div {
       fill: white !important;
     }
   }
-
-  
 }
 
 .bx--btn--sm {
@@ -186,6 +184,7 @@ div {
   line-height: 22px;
   color: $poly-blue-dark !important;
   font-family: $font;
+  min-width: auto;
 
   &::placeholder {
     color: $poly-gray-dark !important;
@@ -199,6 +198,10 @@ div {
 .bx--modal {
   .bx--modal-container {
     border-top: 0;
+
+    @media (min-width: 1024px) {
+      max-width: 60%;
+    }
   }
 
   .bx--modal-content {
@@ -244,7 +247,7 @@ div {
       font-size: 12px;
       color: #152935;
       border-radius: 4px;
-      background-color: #EBF0F7;
+      background-color: #ebf0f7;
       padding: 6.5px 0 6.5px 16px;
       margin-top: 10px;
     }
@@ -273,7 +276,7 @@ div {
   .bx--select-input {
     height: 40px !important;
     padding-left: 0.5rem !important;
-    background-color: rgba(61,112,178,0.1) !important;
+    background-color: rgba(61, 112, 178, 0.1) !important;
     color: $poly-blue-dark !important;
     font-weight: normal !important;
   }
@@ -297,7 +300,13 @@ div {
 
 .bx--tooltip__trigger {
   > div {
-    display: inline-flex;
+    display: inline-block;
+    margin-left: 5px;
+  }
+
+  svg {
+    vertical-align: middle;
+    margin-top: -2px;
   }
 }
 
@@ -537,7 +546,8 @@ div {
   margin-bottom: 5px;
   color: $poly-blue !important;
 
-  svg, path {
+  svg,
+  path {
     fill: $poly-blue !important;
   }
 
@@ -545,7 +555,8 @@ div {
     background: transparent !important;
     color: $poly-blue-hover !important;
 
-    svg, path {
+    svg,
+    path {
       fill: $poly-blue-hover !important;
     }
   }
@@ -568,11 +579,10 @@ div {
   clear: both;
 }
 
-.bx--overflow-menu-options__btn{
+.bx--overflow-menu-options__btn {
   font-family: $font;
-  color: $poly-blue
+  color: $poly-blue;
 }
-
 
 /**
  * TX HANDLING
@@ -623,7 +633,14 @@ div {
     left: calc(-1 * var(--borderWidth));
     height: calc(100% + var(--borderWidth) * 2);
     width: calc(100% + var(--borderWidth) * 2);
-    background: linear-gradient(60deg,  #252E6A, #5495E5, #5495E5, #5495E5, #252E6A);
+    background: linear-gradient(
+      60deg,
+      #252e6a,
+      #5495e5,
+      #5495e5,
+      #5495e5,
+      #252e6a
+    );
     z-index: -1;
     animation: AnimatedGradient 3s infinite;
     background-size: 300% 300%;
@@ -647,7 +664,7 @@ div {
     }
 
     .pui-tx-animation:after {
-      background: #5596E6;
+      background: #5596e6;
     }
   }
 
@@ -727,7 +744,7 @@ div {
         font-size: 12px;
         color: #152935;
         border-radius: 4px;
-        background-color: #EBF0F7;
+        background-color: #ebf0f7;
         padding: 6.5px 0 6.5px 16px;
         width: 312px;
 
@@ -738,7 +755,6 @@ div {
     }
   }
 }
-
 
 /**
  * OTHER
@@ -779,12 +795,12 @@ div {
 }
 
 .pui-paused {
-  filter: grayscale(100%) opacity(50%)
+  filter: grayscale(100%) opacity(50%);
 }
 
 .pui-required-star::after {
   color: $poly-red;
-  content: "*"
+  content: '*';
 }
 
 .pui-large-confirm-modal {
