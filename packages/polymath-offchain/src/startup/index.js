@@ -49,7 +49,6 @@ const connectToNetwork = async (
       if (optional) {
         logger.warn(message);
         break;
-        q;
       } else {
         throw new Error(message);
       }
