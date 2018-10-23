@@ -36,10 +36,6 @@ const mapDispatchToProps: DispatchProps = {
 type Props = {||} & StateProps & DispatchProps;
 
 class SelectSTOTemplate extends Component<Props> {
-  // componentWillMount() {
-  //   // this.props.fetchFactories();
-  // }
-
   handleUseSTO = (sto: STOFactory) => () => this.props.useFactory(sto);
 
   render() {
