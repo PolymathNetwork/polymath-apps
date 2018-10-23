@@ -46,10 +46,6 @@ class ConfigureSTO extends Component<Props> {
     this.props.goBack();
   };
 
-  handleSubmit = () => {
-    this.props.configure();
-  };
-
   render() {
     const { token, factory: stoModule } = this.props;
     if (!token || !token.address || !stoModule) {
@@ -78,10 +74,7 @@ class ConfigureSTO extends Component<Props> {
                       Provide the financial details and timing for your offering
                       below.
                     </h4>
-                    <ConfigureSTOForm
-                      stoModule={stoModule}
-                      onSubmit={this.handleSubmit}
-                    />
+                    <ConfigureSTOForm stoModule={stoModule} />
                   </div>
                 </div>
                 <div className="bx--col-xs-4">
