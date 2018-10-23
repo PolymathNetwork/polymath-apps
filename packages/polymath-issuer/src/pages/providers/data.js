@@ -207,6 +207,20 @@ const providers: Array<ServiceProvider> = [
       "clients working in the private capital markets. Most firms aren't capitalizing on opportunities in today's " +
       'markets because they are still using manual systems...',
   },
+  {
+    id: 22,
+    cat: 2,
+    title: 'Glyph',
+    logo: '/providers/kyc/glyph.png',
+    background: '/providers/kyc/bg/img-glyph.png',
+    desc:
+      'Glyph is a unique identity platform that enables users to own their own KYC and other identity assets such as ' +
+      'accredited investor status, and share them via a simple Oauth 2.0 model and accompanying app. (Imagine log in ' +
+      'with Facebook, that also provides custom authentication data at the point of use). This enables verifying ' +
+      'partners to collect any kind of identity information seamlessly, in 60 seconds or less, and receive that ' +
+      'information in a number of formats. Glyph has been described as the most customizable and beautiful KYC check ' +
+      'available. ',
+  },
 
   // MARKETING
   {

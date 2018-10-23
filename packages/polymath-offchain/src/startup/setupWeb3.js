@@ -1,6 +1,8 @@
 // @flow
 
 import { STO_MODULE_TYPE, NETWORKS } from '../constants';
+import { NETWORK_ADDRESSES } from '@polymathnetwork/shared/constants';
+import type { NetworkId } from '@polymathnetwork/shared/constants';
 import {
   sendSTOScheduledEmail,
   sendTickerReservedEmail,
@@ -16,16 +18,17 @@ import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/Capped
 
 // TODO @monitz87: remake this when we rework polymath-js
 const web3Clients = {};
+const heartbeatIntervalIds = {};
 
 /**
  * Get the address for a specified contract
  *
  * @param {string} name name of the contract
- * @param {string} networkId id of the network where the contract is deployed
+ * @param {NetworkId} networkId id of the network where the contract is deployed
  *
  * @returns the contract address
  */
-const getAddress = async (name: string, networkId: string) => {
+const getAddress = async (name: string, networkId: NetworkId) => {
   const client = web3Clients[networkId];
   const polymathRegistry = new client.eth.Contract(
     PolymathRegistryArtifact.abi,
@@ -39,11 +42,11 @@ const getAddress = async (name: string, networkId: string) => {
  * Get the corresponding Security Token contract
  *
  * @param {string} address
- * @param {string} networkId id of the network to which the contract is deployed
+ * @param {NetworkId} networkId id of the network to which the contract is deployed
  *
  * @returns a web3 Security Token contract
  */
-const getSTContract = (address: string, networkId: string) => {
+const getSTContract = (address: string, networkId: NetworkId) => {
   const client = web3Clients[networkId];
   return new client.eth.Contract(SecurityTokenArtifact.abi, address);
 };
@@ -52,11 +55,11 @@ const getSTContract = (address: string, networkId: string) => {
  * Get the corresponding Capped STO contract
  *
  * @param {string} address
- * @param {string} networkId id of the network to which the contract is deployed
+ * @param {NetworkId} networkId id of the network to which the contract is deployed
  *
  * @returns a web3 Capped STO contract
  */
-const getCSTOContract = (address: string, networkId: string) => {
+const getCSTOContract = (address: string, networkId: NetworkId) => {
   const client = web3Clients[networkId];
   return new client.eth.Contract(CappedSTOArtifact.abi, address);
 };
@@ -64,11 +67,11 @@ const getCSTOContract = (address: string, networkId: string) => {
 /**
  * Get the Security Token Registry contract
  *
- * @param {string} networkId id of the network to which the contract is deployed
+ * @param {NetworkId} networkId id of the network to which the contract is deployed
  *
- * @returns a web3 Ticker Registry contract
+ * @returns a web3 Security Token Registry contract
  */
-const getSTRContract = async (networkId: string) => {
+const getSTRContract = async (networkId: NetworkId) => {
   const client = web3Clients[networkId];
   const address = await getAddress('SecurityTokenRegistry', networkId);
 
@@ -79,18 +82,31 @@ const getSTRContract = async (networkId: string) => {
  * Initializes and configures the WebsocketProvider
  * for the web3 client, setting listeners to reconnect on error.
  *
- * @param {string} networkId id of the network for which we want the provider
+ * @param {NetworkId} networkId id of the network for which we want the provider
  *
  * NOTE @monitz87:
  * This is a hack to fix a current implementation limitation of web3,
  * which doesn't reconnect sockets nor re-subscribes to events when the
  * socket connection is closed
  */
-const newProvider = (networkId: string) => {
+const newProvider = async (networkId: NetworkId) => {
   const { name, url } = NETWORKS[networkId];
   const networkName = name.toUpperCase();
 
   const provider = new Web3.providers.WebsocketProvider(url);
+  const connection = provider.connection;
+
+  /**
+    Check if the connection is successful
+   */
+  const waitForHandshakeTimeout = () =>
+    new Promise(resolve => {
+      setTimeout(resolve, connection._client.config.closeTimeout);
+    });
+  await waitForHandshakeTimeout();
+  if (connection.readyState === connection.CLOSED) {
+    return null;
+  }
 
   /**
    * Reconnect when socket connection errors or ends
@@ -101,35 +117,38 @@ const newProvider = (networkId: string) => {
     }
 
     logger.info(`[SETUP] Reconnecting ${networkName} socket after error...`);
-    connectWeb3(networkId);
+    clearInterval(heartbeatIntervalIds[networkId]);
+    reconnect(networkId);
   });
   provider.on('close', () => {
     logger.info(`[SETUP] Reconnecting ${networkName} socket after close...`);
-    connectWeb3(networkId);
+    clearInterval(heartbeatIntervalIds[networkId]);
+    reconnect(networkId);
   });
   provider.on('end', () => {
     logger.info(`[SETUP] Reconnecting ${networkName} socket after end...`);
-    connectWeb3(networkId);
+    clearInterval(heartbeatIntervalIds[networkId]);
+    reconnect(networkId);
   });
 
   return provider;
 };
 
 /**
- * Get details of a Capped STO from the blockchain
- *
- * @param {string} address
- * @param {string} networkId id of the network to which the STO belongs
- *
- * @returns an object with the STO details:
- *
- *   start (start date),
- *   cap (maximum amount of tokens to sell),
- *   rate (how many tokens for 1 ETH/POLY),
- *   isPolyFundraise (is the currency POLY or ETH?),
- *   fundsReceiver (wallet to which the funds will be transfered)
+  Get details of a Capped STO from the blockchain
+
+  @param {string} address
+  @param {NetworkId} networkId id of the network to which the STO belongs
+
+  @returns an object with the STO details:
+
+    start (start date),
+    cap (maximum amount of tokens to sell),
+    rate (how many tokens for 1 ETH/POLY),
+    isPolyFundraise (is the currency POLY or ETH),
+    fundsReceiver (wallet to which the funds will be transfered)
  */
-const getCappedSTODetails = async (address: string, networkId: string) => {
+const getCappedSTODetails = async (address: string, networkId: NetworkId) => {
   const contract = getCSTOContract(address, networkId);
 
   try {
@@ -170,14 +189,14 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
  *
  * @param {Object} contract Security Token contract
  * @param {string} ticker Security Token ticker
- * @param {string} networkId id of the network to which this listener is set
+ * @param {NetworkId} networkId id of the network to which this listener is set
  * @param {Object} error listener error
  * @param {Object} result event information
  */
 export const moduleAddedHandler = async (
   contract: Object,
   ticker: string,
-  networkId: string,
+  networkId: NetworkId,
   error: Object,
   result: Object
 ) => {
@@ -249,12 +268,12 @@ export const moduleAddedHandler = async (
  *
  * @param contract security token web3 contract
  * @param ticker security token ticker
- * @param {string} networkId id of the network to which this listener will be set
+ * @param {NetworkId} networkId id of the network to which this listener will be set
  */
 export const addSTOListener = (
   contract: Object,
   ticker: string,
-  networkId: string
+  networkId: NetworkId
 ) => {
   contract.events.ModuleAdded(
     {
@@ -276,14 +295,14 @@ export const addSTOListener = (
 /**
  * Gets ticker details and sends an email to the issuer with reservation information
  *
- * @param {Object} contract Ticker Registry contract
- * @param {string} networkId id of the network to which this listener is set
+ * @param {Object} contract Security Token Registry contract
+ * @param {NetworkId} networkId id of the network to which this listener is set
  * @param {Object} error listener error
  * @param {Object} result event information
  */
 export const registerTickerHandler = async (
   contract: Object,
-  networkId: string,
+  networkId: NetworkId,
   error: Object,
   result: Object
 ) => {
@@ -334,9 +353,9 @@ export const registerTickerHandler = async (
 /**
  * Listen for registered tickers
  *
- * @param {string} networkId id of the network to which this listener will be set
+ * @param {NetworkId} networkId id of the network to which this listener will be set
  */
-export const addTickerRegisterListener = async (networkId: string) => {
+export const addTickerRegisterListener = async (networkId: NetworkId) => {
   const contract = await getSTRContract(networkId);
 
   contract.events.RegisterTicker({}, (error, result) =>
@@ -355,13 +374,13 @@ export const addTickerRegisterListener = async (networkId: string) => {
  * Every time a new token gets deployed, also adds an STO schedule listener to it
  *
  * @param {Object} contract Security Token Registry contract
- * @param {string} networkId id of the network to which this listener is set
+ * @param {NetworkId} networkId id of the network to which this listener is set
  * @param {Object} error listener error
  * @param {Object} result event information
  */
 export const newSecurityTokenHandler = async (
   contract: Object,
-  networkId: string,
+  networkId: NetworkId,
   error: Object,
   result: Object
 ) => {
@@ -402,9 +421,9 @@ export const newSecurityTokenHandler = async (
  * Listen for newly deployed security tokens
  *
  * @param contract Security Token Registry contract
- * @param {string} networkId id of the network to which this listener will be set
+ * @param {NetworkId} networkId id of the network to which this listener will be set
  */
-export const addTokenCreateListener = async (networkId: string) => {
+export const addTokenCreateListener = async (networkId: NetworkId) => {
   const contract = await getSTRContract(networkId);
 
   contract.events.NewSecurityToken({}, (error, result) =>
@@ -420,9 +439,9 @@ export const addTokenCreateListener = async (networkId: string) => {
 
 /**
  * Get previously deployed security tokens and add listeners for STO scheduling
- * @param {string} networkId id of the network to which we will set the listeners
+ * @param {NetworkId} networkId id of the network to which we will set the listeners
  */
-export const addSTOListeners = async (networkId: string) => {
+export const addSTOListeners = async (networkId: NetworkId) => {
   const contract = await getSTRContract(networkId);
   try {
     const previousTokenEvents = await contract.getPastEvents(
@@ -455,9 +474,9 @@ export const addSTOListeners = async (networkId: string) => {
  * - Security token created
  * - STO scheduled
  *
- * @param {string} networkId id of the network to which we will set the listeners
+ * @param {NetworkId} networkId id of the network to which we will set the listeners
  */
-const setupListeners = async (networkId: string) => {
+const setupListeners = async (networkId: NetworkId) => {
   await addTickerRegisterListener(networkId);
 
   await addTokenCreateListener(networkId);
@@ -465,16 +484,14 @@ const setupListeners = async (networkId: string) => {
   await addSTOListeners(networkId);
 };
 
-const heartbeatIntervalIds = {};
-
 /**
  * Ping the socket. If there is something wrong with the conection,
  * we kill the heartbeat and reset the web3 client and all the listeners
  *
  * @param {Object} client web3 client we want to keep alive
- * @param {string} networkId id of the network the client is connected to
+ * @param {NetworkId} networkId id of the network the client is connected to
  */
-export const keepAlive = async (client: Object, networkId: string) => {
+export const keepAlive = async (client: Object, networkId: NetworkId) => {
   const connection = client.currentProvider.connection;
 
   const networkName = NETWORKS[networkId].name.toUpperCase();
@@ -501,7 +518,7 @@ export const keepAlive = async (client: Object, networkId: string) => {
       )
     ) {
       logger.info(`[SETUP] Reconnecting ${networkName} socket after close...`);
-      await connectWeb3(networkId);
+      await reconnect(networkId);
     }
   }
 };
@@ -509,9 +526,9 @@ export const keepAlive = async (client: Object, networkId: string) => {
 /**
  * Ping socket every 5 seconds to keep it alive
  *
- * @param {string} networkId id of the network for which we want to simulate heartbeat
+ * @param {NetworkId} networkId id of the network for which we want to simulate heartbeat
  */
-const simulateHeartbeat = (networkId: string) => {
+const simulateHeartbeat = (networkId: NetworkId) => {
   const client = web3Clients[networkId];
   heartbeatIntervalIds[networkId] = setInterval(
     () => keepAlive(client, networkId),
@@ -520,12 +537,13 @@ const simulateHeartbeat = (networkId: string) => {
 };
 
 /**
- * Connects a web3 client to a new provider in the chosen network and starts all the event listeners
- *
- * @param {string} networkId id of the network to which we want to connect a client
+  Sets up heartbeat and listeners
+
+  @param {NetworkId} networkId id of the network to which we want to connect a client
+  @param {Object} provider Web3 WebsocketProvider instance
  */
-const connectWeb3 = async (networkId: string) => {
-  web3Clients[networkId] = new Web3(newProvider(networkId));
+const followUpConnection = async (networkId: NetworkId, provider) => {
+  web3Clients[networkId] = new Web3(provider);
 
   simulateHeartbeat(networkId);
 
@@ -534,6 +552,55 @@ const connectWeb3 = async (networkId: string) => {
   } catch (error) {
     logger.error(error.message);
   }
+};
+
+/**
+  Reconnects the corresponding web3 client after a connection closes. Retries indefinitely
+  if the provider cannnot connect
+
+  TODO @monitz87: add a retry limit to this function that takes into consideration
+  if the network is optional to decide whether to just stop reconnecting or exit the app
+
+  @param {NetworkId} networkId id of the network to which we want to connect a client
+ */
+export const reconnect = async (networkId: NetworkId) => {
+  let provider;
+
+  for (;;) {
+    provider = await newProvider(networkId);
+    if (provider) {
+      break;
+    }
+
+    logger.info(
+      `[SETUP] Network ${NETWORKS[
+        networkId
+      ].name.toUpperCase()} not found. Retrying connection...`
+    );
+  }
+
+  await followUpConnection(networkId, provider);
+
+  return true;
+};
+
+/**
+  Connects a web3 client to a new provider in the chosen network and starts all the event listeners
+
+  @param {NetworkId} networkId id of the network to which we want to connect a client
+
+  @returns {boolean} false if the network is unavailable, true if the connection was succesful
+ */
+const connectWeb3 = async (networkId: NetworkId) => {
+  const provider = await newProvider(networkId);
+
+  if (provider === null) {
+    return false;
+  }
+
+  await followUpConnection(networkId, provider);
+
+  return true;
 };
 
 export default connectWeb3;
