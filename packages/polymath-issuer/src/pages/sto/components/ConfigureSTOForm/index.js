@@ -9,9 +9,10 @@ type Props = {|
   stoModule: STOModule,
 |};
 
-export default ({ stoModule }: Props) => {
+export const ConfigureSTOFormComponent = ({ stoModule }: Props) => {
   const { type } = stoModule;
 
+  // Find the right form component for the stoModule's type
   const FormComponent = forms[type];
 
   if (!FormComponent) {
@@ -20,3 +21,5 @@ export default ({ stoModule }: Props) => {
 
   return <FormComponent stoModule={stoModule} />;
 };
+
+export default ConfigureSTOFormComponent;
