@@ -4,20 +4,11 @@ import { getSTOModules } from '../utils/contracts';
 import type { RootState } from '../redux/reducer';
 import type { Dispatch } from 'redux';
 import type { ExtractReturn } from '../redux/helpers';
-import type { STOModuleType } from '../constants';
+import type { STOModule, STOModuleType } from '../constants';
 
 export const STO_MODULES_UPDATE = 'STO_MODULES_UPDATE';
 
-type UpdateParams = {|
-  type: STOModuleType,
-  description: string,
-  setupCost: number,
-  name: string,
-  ownerAddress: number,
-  address: string,
-|};
-
-export const update = (stoModules: UpdateParams[]) => ({
+export const update = (stoModules: STOModule[]) => ({
   type: STO_MODULES_UPDATE,
   payload: { stoModules },
 });
@@ -39,7 +30,9 @@ export const fetch = () => {
       );
     }
 
-    const moduleDetails = await getSTOModules(securityToken.address);
+    const moduleDetails: STOModule[] = await getSTOModules(
+      securityToken.address
+    );
 
     dispatch(update(moduleDetails));
   };
