@@ -71,6 +71,10 @@ type Props = {
 };
 
 class InvestmentTiers extends React.Component<Props> {
+  state = {
+    isAddingTier: false,
+  };
+
   onTiersToggle(isMultipleTiers) {
     // maybe trigger onChange with a single tier or an array of tiers?
     this.props.onChange({
@@ -79,8 +83,21 @@ class InvestmentTiers extends React.Component<Props> {
     });
   }
 
+  handleCloseModal() {
+    this.setState({ isAddingTier: false });
+  }
+
+  handleAddNewTier() {
+    this.setState({ isAddingTier: true });
+  }
+
+  handleTierAdded(tier) {
+    // add tier data in state?
+  }
+
   render() {
-    const { isMultipleTiers } = this.props;
+    const { isMultipleTiers, tiers } = this.props;
+    const { isAddingTier } = this.state;
 
     return (
       <Fragment>
@@ -170,7 +187,10 @@ class InvestmentTiers extends React.Component<Props> {
             render={({ rows, headers, getHeaderProps }) => (
               <TableContainer>
                 <Box textAlign="right" mb={3}>
-                  <Button icon={icoAdd} onClick={() => {}}>
+                  <Button
+                    icon={icoAdd}
+                    onClick={this.handleAddNewTier.bind(this)}
+                  >
                     Add new
                   </Button>
                 </Box>
@@ -198,7 +218,11 @@ class InvestmentTiers extends React.Component<Props> {
             )}
           />
         )}
-        <AddTierModal isOpen />
+        <AddTierModal
+          title={`Add the Investment Tier #${tiers.length}`}
+          isOpen={isAddingTier}
+          onClose={this.handleCloseModal.bind(this)}
+        />
       </Fragment>
     );
   }
