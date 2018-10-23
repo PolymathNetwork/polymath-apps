@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { STO, SecurityToken } from '@polymathnetwork/js';
+import { STO } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
 import type {
