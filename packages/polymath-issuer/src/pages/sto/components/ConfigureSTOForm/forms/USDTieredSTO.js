@@ -7,13 +7,11 @@ import {
   Grid,
   Heading,
   RaisedAmount,
-  CurrencySelect,
-  TextInput,
-  DatePickerInput,
-  TimePickerSelect,
   Remark,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
+
+import { DatePickerInput, TimePickerSelect } from '@polymathnetwork/ui/next';
 
 // === Temp validators= === //
 const required = () => {};
