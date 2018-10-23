@@ -7,7 +7,6 @@
 
 import Contract, { ModuleRegistry, PolyToken } from '@polymathnetwork/js';
 import web3 from 'web3';
-import BigNumber from 'bignumber.js';
 import IModuleFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/IModuleFactory.json';
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../constants';
 
