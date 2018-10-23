@@ -21,12 +21,8 @@ import { Field } from 'redux-form';
 class AddTierModal extends Component {
   render() {
     return (
-      <ComposedModal
-        open={this.props.isOpen}
-        className={this.props.className}
-        closeModal={this.props.onClose}
-      >
-        <ModalHeader title={this.props.title} />
+      <ComposedModal open={this.props.isOpen} className={this.props.className}>
+        <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
         <ModalBody>
           <Paragraph>
             Each tier includes a fixed number of tokens and a fixed price per
