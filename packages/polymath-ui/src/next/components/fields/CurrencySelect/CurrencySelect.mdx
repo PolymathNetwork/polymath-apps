@@ -1,14 +1,14 @@
 ---
-name: NextDatePickerInput
+name: NextCurrencySelect
 ---
 
 import { Playground, PropsTable } from 'docz';
 import { Formik, Field }  from 'formik';
-import DatePickerInput from './index';
+import CurrencySelect from './index';
 
-# NextDatePickerInput
+# NextCurrencySelect
 
-<PropsTable of={DatePickerInput} />
+<PropsTable of={CurrencySelect} />
 
 ## Basic usage
 
@@ -17,7 +17,7 @@ import DatePickerInput from './index';
   <form>
     <pre>{JSON.stringify(values, null, 2)}</pre>
     <br/>
-    <Field name="myDate" component={DatePickerInput} />
+    <Field name="currency" component={CurrencySelect} />
   </form>
 )} />
   

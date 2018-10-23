@@ -34,7 +34,7 @@ const TimePickerSelectField = ({
 
   return (
     <Select
-      id={`${formName}-${field.name}`}
+      id={field.name}
       className={className}
       defaultValue="placeholder-item"
       invalid={invalid}

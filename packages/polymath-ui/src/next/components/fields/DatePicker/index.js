@@ -19,7 +19,7 @@ export default class DatePickerInputField extends Component<InputProps> {
   render() {
     const {
       field,
-      form: { errors, touched, name: formName },
+      form: { errors, touched },
       label,
       className,
       ...otherProps
@@ -34,11 +34,11 @@ export default class DatePickerInputField extends Component<InputProps> {
         className={className}
         datePickerType="single"
         dateFormat="m / d / Y"
-        id={`${formName}-${field.name}`}
+        id={field.name}
         onChange={this.handleOnChange}
       >
         <DatePickerInput
-          id={`${formName}-${field.name}-input`}
+          id={`${field.name}-input`}
           labelText={label}
           placeholder="mm / dd / yyyy"
           invalid={invalid}
