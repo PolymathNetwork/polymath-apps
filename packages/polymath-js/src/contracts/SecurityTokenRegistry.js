@@ -27,17 +27,21 @@ class SecurityTokenRegistry extends Contract {
   getExpiryLimit: () => Promise<number>;
 
   async expiryLimitInDays(): Promise<number> {
-    return Math.round((await this.getExpiryLimit()) / 24 / 60 / 60);
+    return Math.round(
+      (await this._contractWS.methods.getExpiryLimit().call()) / 24 / 60 / 60
+    );
   }
 
   async registrationFee(): Promise<BigNumber> {
-    const fee = await this._methods.getTickerRegistrationFee().call();
+    const fee = await this._contractWS.methods
+      .getTickerRegistrationFee()
+      .call();
     return PolyToken.removeDecimals(fee);
   }
 
   async launchFee(): Promise<BigNumber> {
     return PolyToken.removeDecimals(
-      await this._methods.getSecurityTokenLaunchFee().call()
+      await this._contractWS.methods.getSecurityTokenLaunchFee().call()
     );
   }
 
@@ -60,7 +64,7 @@ class SecurityTokenRegistry extends Contract {
     txHash?: string
   ): Promise<?SymbolDetails> {
     let [owner, timestamp, expiryDate, name, status] = this._toArray(
-      await this._methods.getTickerDetails(symbol).call()
+      await this._contractWS.methods.getTickerDetails(symbol).call()
     );
     if (this._isEmptyAddress(owner)) {
       return null;

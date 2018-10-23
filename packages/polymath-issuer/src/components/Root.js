@@ -13,9 +13,11 @@ import {
   ErrorBoundary,
   EthNetworkWrapper,
   setupHistory,
-  NETWORK_MAIN,
-  NETWORK_KOVAN,
 } from '@polymathnetwork/ui';
+import {
+  MAINNET_NETWORK_ID,
+  KOVAN_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
 
 import SplashPage from './SplashPage';
 
@@ -51,7 +53,7 @@ class Root extends Component<Props> {
   render() {
     const { isNotice, routes, location } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
-    const networks = [NETWORK_MAIN, NETWORK_KOVAN];
+    const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
     return (
       <ErrorBoundary>

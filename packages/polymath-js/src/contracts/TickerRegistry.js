@@ -119,7 +119,7 @@ class TickerRegistry extends Contract {
         swarmHash
       ),
       null,
-      1.15
+      1.05
     );
   }
 }

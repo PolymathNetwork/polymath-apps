@@ -29,9 +29,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"./Proxy.sol\";\nimport \"openzeppelin-solidity/contracts/AddressUtils.sol\";\n\n/**\n * @title UpgradeabilityProxy\n * @dev This contract represents a proxy where the implementation address to which it will delegate can be upgraded\n */\ncontract UpgradeabilityProxy is Proxy {\n\n    // Version name of the current implementation\n    string internal __version;\n\n    // Address of the current implementation\n    address internal __implementation;\n\n    /**\n    * @dev This event will be emitted every time the implementation gets upgraded\n    * @param _newVersion representing the version name of the upgraded implementation\n    * @param _newImplementation representing the address of the upgraded implementation\n    */\n    event Upgraded(string _newVersion, address indexed _newImplementation);\n\n    /**\n    * @dev Upgrades the implementation address\n    * @param _newVersion representing the version name of the new implementation to be set\n    * @param _newImplementation representing the address of the new implementation to be set\n    */\n    function _upgradeTo(string _newVersion, address _newImplementation) internal {\n        require(__implementation != _newImplementation && _newImplementation != address(0), \"Old address is not allowed and implementation address should not be 0x\");\n        require(AddressUtils.isContract(_newImplementation), \"Cannot set a proxy implementation to a non-contract address\");\n        require(bytes(_newVersion).length > 0, \"Version should not be empty string\");\n        require(keccak256(abi.encodePacked(__version)) != keccak256(abi.encodePacked(_newVersion)));\n        __version = _newVersion;\n        __implementation = _newImplementation;\n        emit Upgraded(_newVersion, _newImplementation);\n    }\n\n}",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/UpgradeabilityProxy.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/UpgradeabilityProxy.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/UpgradeabilityProxy.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/UpgradeabilityProxy.sol",
     "exportedSymbols": {
       "UpgradeabilityProxy": [
         29068
@@ -52,7 +52,7 @@
         "src": "0:24:79"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
         "file": "./Proxy.sol",
         "id": 28986,
         "nodeType": "ImportDirective",
@@ -1272,7 +1272,7 @@
     "src": "0:1770:79"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/UpgradeabilityProxy.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/UpgradeabilityProxy.sol",
     "exportedSymbols": {
       "UpgradeabilityProxy": [
         29068
@@ -1293,7 +1293,7 @@
         "src": "0:24:79"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/proxy/Proxy.sol",
         "file": "./Proxy.sol",
         "id": 28986,
         "nodeType": "ImportDirective",
@@ -2518,5 +2518,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-18T21:45:32.116Z"
+  "updatedAt": "2018-10-23T22:44:47.433Z"
 }
