@@ -17,7 +17,6 @@ type Props = {|
 export default class STOTemplateComponent extends Component<Props> {
   render() {
     const { stoModule, handlePickSTOTemplate, pickingEnabled } = this.props;
-    console.log('stoModule', stoModule);
 
     // FIXME @RafaelVidaurre: Hardcoding this for now, need to get this value
     // from somewhere
