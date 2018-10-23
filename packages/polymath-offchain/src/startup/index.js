@@ -17,14 +17,18 @@ import './setupMailing';
 import connectWeb3 from './setupWeb3';
 
 import type { NetworkOptions } from '../constants';
+import type { NetworkId } from '@polymathnetwork/shared/constants';
 
 /**
   Attemps to connect to a network via web3.
 
-  @param {string} networkId id of the network
+  @param {NetworkId} networkId id of the network
   @param {NetworkOptions} options connection options
  */
-const connectToNetwork = async (networkId: string, options: NetworkOptions) => {
+const connectToNetwork = async (
+  networkId: NetworkId,
+  options: NetworkOptions
+) => {
   const { name, optional, maxRetries, localNetwork } = options;
 
   const localMessage = `Are you sure ganache is running with id=${networkId}?`;
@@ -44,6 +48,7 @@ const connectToNetwork = async (networkId: string, options: NetworkOptions) => {
     if (retries >= maxRetries) {
       if (optional) {
         logger.warn(message);
+        break;
       } else {
         throw new Error(message);
       }

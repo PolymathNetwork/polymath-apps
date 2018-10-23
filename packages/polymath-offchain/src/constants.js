@@ -1,6 +1,7 @@
 // @flow
 
 import { normalizeURL } from '@polymathnetwork/shared/utils';
+import type { NetworkId } from '@polymathnetwork/shared/constants';
 
 export const cleanEnvironment = <T: { [string]: string }>(
   env: any = process.env,
@@ -56,10 +57,10 @@ export const MONGODB_URI = env.MONGODB_URI;
 export const NODE_ENV = env.NODE_ENV;
 export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
 
-export const LOCAL_NETWORK_ID = '15';
-export const LOCALVM_NETWORK_ID = '16';
-export const KOVAN_NETWORK_ID = '42';
-export const MAINNET_NETWORK_ID = '1';
+export const LOCAL_NETWORK_ID: NetworkId = '15';
+export const LOCALVM_NETWORK_ID: NetworkId = '16';
+export const KOVAN_NETWORK_ID: NetworkId = '42';
+export const MAINNET_NETWORK_ID: NetworkId = '1';
 
 const CRITICAL_RETRIES = 5; // Amount of retries for mandatory connections
 const OPTIONAL_RETRIES = 0; // Amount of retries for optional (testing) connections
@@ -74,7 +75,7 @@ const OPTIONAL_RETRIES = 0; // Amount of retries for optional (testing) connecti
   @member {number} maxRetries number of connection retries before giving up (if the network is optional, a warning is logged; if not, an error is thrown)
   @member {boolean} localNetwork if the network is a local blockchain
  */
-export type NetworkParams = {|
+export type NetworkOptions = {|
   name: string,
   url: string,
   connect: boolean,
@@ -84,7 +85,7 @@ export type NetworkParams = {|
 |};
 
 export const NETWORKS: {
-  [id: string]: NetworkParams,
+  [id: string]: NetworkOptions,
 } = {
   [LOCAL_NETWORK_ID]: {
     name: 'local',
