@@ -81,6 +81,18 @@ function validateStartTime(value) {
   }
   return true;
 }
+export const investmentTierSchema = Yup.object().shape({
+  tokensAmount: Yup.number().required(),
+  tokenPrice: Yup.number()
+    .required()
+    .moreThan(0),
+  discountedTokensAmount: Yup.number()
+    .required()
+    .min(0),
+  discountedTokensPrice: Yup.number()
+    .required()
+    .min(0),
+});
 
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
 const formSchema = Yup.object().shape({
@@ -102,27 +114,12 @@ const formSchema = Yup.object().shape({
   nonAccreditedMax: Yup.number()
     .required()
     .moreThan(0),
-  hardCap: Yup.number()
-    .required()
-    .moreThan(0),
   receiverAddress: Yup.string().required(),
   unsoldTokensAddress: Yup.string().required(),
   investmentTiers: Yup.object().shape({
     isMultipleTiers: Yup.boolean(),
-    tiers: Yup.array().of(
-      Yup.object().shape({
-        tokensAmount: Yup.number().required(),
-        tokenPrice: Yup.number()
-          .required()
-          .moreThan(0),
-        discountedTokensAmount: Yup.number()
-          .required()
-          .min(0),
-        discountedTokensPrice: Yup.number()
-          .required()
-          .min(0),
-      })
-    ),
+    tiers: Yup.array().of(investmentTierSchema),
+    newTier: investmentTierSchema.nullable(),
   }),
 });
 
@@ -131,6 +128,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
     investmentTiers: {
       tiers: [],
       isMultipleTiers: false,
+      newTier: null,
     },
     currencies: ['ETH', 'POLY'],
   };
@@ -140,9 +138,11 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       onSubmit={onSubmit}
       validationSchema={formSchema}
       initialValues={initialValues}
-      validateOnChange
-      render={({ handleSubmit, values, setFieldValue }) => {
+      validateOnBlur={true}
+      validateOnChange={false}
+      render={({ handleSubmit, values, errors, setFieldValue }) => {
         console.log('Rendered form', values);
+        console.log('errors', errors);
 
         return (
           <Form onSubmit={handleSubmit}>
@@ -150,7 +150,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             <Box mb={4}>
               <div className="time-pickers-container">
                 <Field
-                  validateOnChange
                   name="startDate"
                   component={DatePickerInput}
                   label="Start Date"
@@ -164,7 +163,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                   label="Time"
                 />
                 <Field
-                  validateOnChange
                   name="endDate"
                   component={DatePickerInput}
                   label="End Date"
@@ -189,20 +187,13 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
 
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
               <Field
-                name="hardCap"
+                name="minimumInvestment"
                 component={NumberInput}
-                normalize={thousandsDelimiter}
                 min={0}
                 label={
                   <Tooltip triggerText="Minimum investment for All investors">
                     <p className="bx--tooltip__label">
                       Minimum investment for All investors
-                    </p>
-                    <p>
-                      Hard Cap is the maximum number of tokens available through
-                      this offering. e.g. if you want the total aggregate of
-                      your investors in this offering to own 10 million tokens,
-                      enter 10000000.
                     </p>
                   </Tooltip>
                 }

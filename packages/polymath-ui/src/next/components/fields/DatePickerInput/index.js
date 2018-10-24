@@ -1,5 +1,6 @@
 // @flow
 
+import { get } from 'lodash';
 import React, { Component } from 'react';
 import moment from 'moment';
 import { DatePicker, DatePickerInput } from 'carbon-components-react';
@@ -33,8 +34,9 @@ export default class DatePickerInputField extends Component<InputProps> {
     } = this.props;
 
     const { onChange, value, ...fieldProps } = field;
-    const error = touched[field.name] && errors[field.name];
-    const invalid = error && touched;
+    const isTouched = get(touched, field.name);
+    const error = isTouched && errors[field.name];
+    const invalid = !!error;
     const displayValue = moment(value).format('MM / DD / YYYY') || '';
 
     return (
@@ -51,7 +53,6 @@ export default class DatePickerInputField extends Component<InputProps> {
           labelText={label}
           placeholder="mm / dd / yyyy"
           invalid={invalid}
-          validate={false}
           invalidText={error}
           value={displayValue}
           onChange={() => {}}

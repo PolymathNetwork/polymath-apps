@@ -1,4 +1,5 @@
 import React from 'react';
+import { get } from 'lodash';
 import { TextInput } from 'carbon-components-react';
 
 import type { InputProps } from '../types';
@@ -14,8 +15,9 @@ export default (props: InputProps) => {
     ...otherProps
   } = props;
 
-  const error = touched[field.name] && errors[field.name];
-  const invalid = error && touched;
+  const isTouched = get(touched, field.name);
+  const error = (isTouched && get(errors, field.name)) || null;
+  const invalid = !!error;
 
   return (
     <TextInput

@@ -1,7 +1,8 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import { Field } from 'formik';
+import { map, compact } from 'lodash';
+import { Field, FieldArray } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
 import {
   Box,
@@ -10,7 +11,7 @@ import {
   icoAdd,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
-import { TextInput, NumberInput } from '@polymathnetwork/ui/next';
+import { NumberInput } from '@polymathnetwork/ui/next';
 
 import AddTierModal from './AddTierModal';
 
@@ -26,13 +27,11 @@ const {
 
 const headers = [
   {
-    // `key` is the name of the field on the row object itself for the header
     key: 'tier',
-    // `header` will be the name you want rendered in the Table Header
     header: '# Tier',
   },
   {
-    key: 'tokensCount',
+    key: 'tokensAmount',
     header: 'Number of Tokens',
   },
   {
@@ -40,28 +39,16 @@ const headers = [
     header: 'Token Price',
   },
   {
-    key: 'discountedTokensCount',
+    key: 'discountedTokensAmount',
     header: 'Max Number of Discounted Tokens',
   },
   {
-    key: 'polyDiscount',
+    key: 'discountedTokensPrice',
     header: 'POLY Discount',
   },
   {
-    key: 'raiseTarget',
+    key: 'totalRaise',
     header: 'Total Raise Target',
-  },
-];
-
-const rows = [
-  {
-    id: 'a',
-    tier: 1,
-    tokensCount: 10,
-    tokenPrice: 100,
-    discountedTokensCount: 20000,
-    polyDiscount: '10%',
-    raiseTarget: 300000,
   },
 ];
 
@@ -77,6 +64,7 @@ type Props = {
   },
   form: {
     setFieldValue: (name: string, value: any) => void,
+    setTouched: (name: string, value: boolean) => void,
   },
 };
 
@@ -92,29 +80,41 @@ class InvestmentTiers extends React.Component<Props, State> {
   onTiersToggle = () => {
     const {
       field: { value, name },
-      form: { setFieldValue },
+      form: { setFieldValue, setTouched },
     } = this.props;
-    const isMultipleTiers = value.isMultipleTiers;
-    setFieldValue(`${name}.isMultipleTiers`, !isMultipleTiers);
+    const isMultipleTiers = !value.isMultipleTiers;
+
+    // Reset tiers data when changing mode
+    const newValue = {
+      ...value,
+      isMultipleTiers,
+      tiers: [],
+    };
+
+    setTouched(name, false);
+    setFieldValue(name, newValue);
   };
 
-  handleCloseModal() {
+  handleClose = () => {
     this.setState({ isAddingTier: false });
-  }
+  };
 
-  handleAddNewTier() {
+  handleAddNewTier = () => {
     this.setState({ isAddingTier: true });
-  }
-
-  handleTierAdded(tier: any) {
-    // add tier data in state?
-  }
+  };
 
   render() {
     const {
       field: { value, name },
     } = this.props;
     const { isAddingTier } = this.state;
+
+    const tableItems = map(compact(value.tiers), (tier, tierNum) => ({
+      ...tier,
+      tier: tierNum,
+      id: tierNum + 1,
+      totalRaise: tier.tokenPrice * tier.tokensAmount,
+    }));
 
     return (
       <Fragment>
@@ -161,7 +161,6 @@ class InvestmentTiers extends React.Component<Props, State> {
               <Field
                 name={`${name}.tiers[0].tokenPrice`}
                 component={NumberInput}
-                normalize={thousandsDelimiter}
                 label="Token Price"
                 placeholder="Enter amount"
               />
@@ -169,8 +168,7 @@ class InvestmentTiers extends React.Component<Props, State> {
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
               <Field
                 name={`${name}.tiers[0].discountedTokensAmount`}
-                component={TextInput}
-                normalize={thousandsDelimiter}
+                component={NumberInput}
                 label={
                   <Tooltip triggerText="Number of discounted tokens">
                     <p className="bx--tooltip__label">
@@ -183,7 +181,7 @@ class InvestmentTiers extends React.Component<Props, State> {
               />
               <Field
                 name={`${name}.tiers[0].discountedTokensPrice`}
-                component={TextInput}
+                component={NumberInput}
                 label={
                   <Tooltip triggerText="Discount for Tokens Purchased with POLY">
                     <p className="bx--tooltip__label">
@@ -198,7 +196,7 @@ class InvestmentTiers extends React.Component<Props, State> {
           </Fragment>
         ) : (
           <DynamicTable
-            rows={rows}
+            rows={tableItems}
             headers={headers}
             render={({ rows, headers, getHeaderProps }) => (
               <TableContainer>
@@ -234,10 +232,18 @@ class InvestmentTiers extends React.Component<Props, State> {
             )}
           />
         )}
-        <AddTierModal
-          title={`Add the Investment Tier #${value.tiers.length}`}
-          isOpen={isAddingTier}
-          onClose={this.handleCloseModal.bind(this)}
+        <FieldArray
+          name="investmentTiers.tiers"
+          render={({ push }) => (
+            <Field
+              name="investmentTiers.newTier"
+              component={AddTierModal}
+              title={`Add the Investment Tier #${value.tiers.length}`}
+              isOpen={isAddingTier}
+              onAdd={push}
+              onClose={this.handleClose}
+            />
+          )}
         />
       </Fragment>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { get } from 'lodash';
 import { NumberInput } from 'carbon-components-react';
 
 import type { InputProps } from '../types';
@@ -14,11 +15,9 @@ export default (props: InputProps) => {
     ...otherProps
   } = props;
 
-  const error = touched[field.name] && errors[field.name];
-  const invalid = error && touched;
-
-  console.log(field.name, invalid);
-  console.log(touched);
+  const isTouched = get(touched, field.name);
+  const error = (isTouched && get(errors, field.name)) || null;
+  const invalid = !!error;
 
   return (
     <NumberInput
@@ -27,6 +26,7 @@ export default (props: InputProps) => {
       invalidText={error}
       label={label}
       value={value || ''}
+      allowEmpty={true}
       {...otherProps}
       {...fieldProps}
     />

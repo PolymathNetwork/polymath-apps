@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { get } from 'lodash';
 import {
   ComposedModal,
   ModalHeader,
@@ -15,11 +16,28 @@ import {
   RaisedAmount,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
-import { TextInput } from '@polymathnetwork/ui/next';
+import { NumberInput } from '@polymathnetwork/ui/next';
 import { Field } from 'formik';
 
 class AddTierModal extends Component {
+  handleOnAdd = () => {
+    const {
+      field,
+      form: { errors, setFieldValue, setFieldTouched },
+    } = this.props;
+    const isValid = !get(errors, field.name);
+
+    if (isValid) {
+      setFieldValue(field.name, null);
+      this.props.onAdd(field.value);
+      setFieldTouched(field.name, false);
+      this.props.onClose();
+    }
+  };
   render() {
+    const {
+      field: { name },
+    } = this.props;
     return (
       <ComposedModal open={this.props.isOpen} className={this.props.className}>
         <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
@@ -31,9 +49,8 @@ class AddTierModal extends Component {
           </Paragraph>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
             <Field
-              name="number-of-tokens"
-              component={TextInput}
-              normalize={thousandsDelimiter}
+              name={`${name}.tokensAmount`}
+              component={NumberInput}
               label={
                 <Tooltip triggerText="Number of tokens">
                   <p className="bx--tooltip__label">Number of tokens</p>
@@ -43,22 +60,20 @@ class AddTierModal extends Component {
               placeholder="Enter amount"
             />
             <Field
-              name="token-price"
-              component={TextInput}
-              normalize={thousandsDelimiter}
+              name={`${name}.tokenPrice`}
+              component={NumberInput}
               label="Token Price"
               placeholder="Enter amount"
             />
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
             <Field
-              name="number-of-discounted-tokens"
-              component={TextInput}
-              normalize={thousandsDelimiter}
+              name={`${name}.discountedTokensAmount`}
+              component={NumberInput}
               label={
                 <Tooltip triggerText="Number of tokens">
                   <p className="bx--tooltip__label">
-                    maximum Number of Discounted tokens
+                    Maximum Number of Discounted tokens
                   </p>
                   <p />
                 </Tooltip>
@@ -66,8 +81,8 @@ class AddTierModal extends Component {
               placeholder="Enter amount"
             />
             <Field
-              name="token-price"
-              component={TextInput}
+              name={`${name}.discountedTokensPrice`}
+              component={NumberInput}
               normalize={thousandsDelimiter}
               label={
                 <Tooltip triggerText="Discount for Tokens Purchased with POLY">
@@ -99,7 +114,7 @@ class AddTierModal extends Component {
           >
             Cancel
           </Button>
-          <Button onClick={this.props.onClose}>Add new</Button>
+          <Button onClick={this.handleOnAdd}>Add new</Button>
         </ModalFooter>
       </ComposedModal>
     );

@@ -1,6 +1,6 @@
 // @flow
 
-import { range } from 'lodash';
+import { range, get } from 'lodash';
 import React from 'react';
 import { Select, SelectItem } from 'carbon-components-react';
 import moment from 'moment';
@@ -21,7 +21,8 @@ const TimePickerSelectField = ({
   placeholder,
   ...props
 }: Props) => {
-  const error = touched[field.name] && errors[field.name];
+  const isTouched = get(touched, field.name);
+  const error = (isTouched && get(errors, field.name)) || null;
   const invalid = !!error;
   const timeOptions = timeIntervals.map(minutes => {
     const time = moment(0)
