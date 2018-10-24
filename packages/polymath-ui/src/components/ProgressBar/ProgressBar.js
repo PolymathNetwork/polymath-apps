@@ -2,27 +2,35 @@
 
 import React, { Component } from 'react';
 import Measure from 'react-measure';
+import styled from 'styled-components';
 
-// TODO @bshevchenko: extract following styles into the scss file
-const backgroundColor = '#F0F3F6';
-const strokeColor = '#3D70B2';
-const strokeWidth = 16;
+import theme from '../../theme';
 
 type Props = {|
   className: string,
   progress: number,
   style: {},
+  strokeWidth: number,
+  backgroundColor: string,
+  strokeColor: string,
 |};
 
 type State = {|
   width: number,
 |};
 
+const Svg = styled.svg`
+  display: block;
+`;
+
 export default class ProgressBar extends Component<Props, State> {
   static defaultProps = {
     className: '',
     progress: 0,
     style: {},
+    strokeWidth: 16,
+    backgroundColor: theme.colors.gray[0],
+    strokeColor: theme.colors.blue[0],
   };
 
   state = {
@@ -34,7 +42,14 @@ export default class ProgressBar extends Component<Props, State> {
   };
 
   render() {
-    const { className, progress, style } = this.props;
+    const {
+      className,
+      progress,
+      style,
+      strokeWidth,
+      backgroundColor,
+      strokeColor,
+    } = this.props;
     const width = this.state.width;
 
     // noinspection SpellCheckingInspection
@@ -58,7 +73,7 @@ export default class ProgressBar extends Component<Props, State> {
       <Measure bounds onResize={this.handleResize}>
         {({ measureRef }) => (
           <div ref={measureRef}>
-            <svg
+            <Svg
               className={`pui-progress-bar ${className}`}
               style={style}
               viewBox={viewBox}
@@ -80,7 +95,7 @@ export default class ProgressBar extends Component<Props, State> {
                 fillOpacity="0"
                 style={pathStyle}
               />
-            </svg>
+            </Svg>
           </div>
         )}
       </Measure>
