@@ -32,6 +32,10 @@ export default class Countdown extends Component<CountdownProps, State> {
     seconds: 0,
   };
 
+  static defaultProps = {
+    pausable: true,
+  };
+
   componentWillMount() {
     this.updateTimeUntil(this.props.deadline);
   }

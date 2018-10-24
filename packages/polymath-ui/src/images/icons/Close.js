@@ -4,7 +4,7 @@ const SvgClose = props => (
   <svg
     fillRule="evenodd"
     viewBox="0 0 10 10"
-    tabIndex={-1}
+    tabindex={-1}
     aria-label="icon--close"
     width="1em"
     height="1em"

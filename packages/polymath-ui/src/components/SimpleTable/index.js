@@ -2,14 +2,14 @@
 import React from 'react';
 import { DataTable } from 'carbon-components-react';
 
-import Component from './Table';
+import Component from './SimpleTable';
 
-const Table = Object.assign(Component, DataTable);
+const SimpleTable = Object.assign(Component, DataTable);
 
-Table.Table = ({ children, ...props }) => (
+SimpleTable.Table = ({ children, ...props }) => (
   <DataTable.Table zebra={false} {...props}>
     {children}
   </DataTable.Table>
 );
 
-export default Table;
+export default SimpleTable;

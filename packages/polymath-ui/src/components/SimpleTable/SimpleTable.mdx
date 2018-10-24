@@ -1,5 +1,5 @@
 ---
-name: Table
+name: SimpleTable
 ---
 
 import { Fragment } from 'react';
@@ -8,6 +8,7 @@ import { Playground, PropsTable } from 'docz';
 import Box from '../Box';
 import InlineFlex from '../InlineFlex';
 import ProgressBar from '../ProgressBar';
+import TierStatus from '../TierStatus';
 import SimpleTable from './';
 
 # Table
@@ -30,9 +31,11 @@ import SimpleTable from './';
     
     const headers = [
       {
-        // `key` is the name of the field on the row object itself for the header
+        key: 'tierStatus',
+        header: '',
+      },
+      {
         key: 'tier',
-        // `header` will be the name you want rendered in the Table Header
         header: '# Tier',
       },
       {
@@ -56,6 +59,7 @@ import SimpleTable from './';
     const rows = [
       {
         id: 'a',
+        tierStatus: <TierStatus status={'done'} />,
         tier: 1,
         tokenPrice: 100,
         raiseTarget: 300000,
@@ -63,7 +67,39 @@ import SimpleTable from './';
         progress: (
           <InlineFlex>
             <Box width="150px" mr={1}>
-              <ProgressBar progress={0.5} />
+              <ProgressBar height="10px" progress={0.5} />
+            </Box>
+            100%
+          </InlineFlex>
+        )
+      },
+      {
+        id: 'b',
+        tierStatus: <TierStatus status={'on-going'} />,
+        tier: 2,
+        tokenPrice: 100,
+        raiseTarget: 300000,
+        raised: 100,
+        progress: (
+          <InlineFlex>
+            <Box width="150px" mr={1}>
+              <ProgressBar height="10px" progress={0.5} />
+            </Box>
+            100%
+          </InlineFlex>
+        )
+      },
+      {
+        id: 'c',
+        tierStatus: <TierStatus status={'not-started'} />,
+        tier: 3,
+        tokenPrice: 100,
+        raiseTarget: 300000,
+        raised: 100,
+        progress: (
+          <InlineFlex>
+            <Box width="150px" mr={1}>
+              <ProgressBar height="10px" progress={0.5} />
             </Box>
             100%
           </InlineFlex>
