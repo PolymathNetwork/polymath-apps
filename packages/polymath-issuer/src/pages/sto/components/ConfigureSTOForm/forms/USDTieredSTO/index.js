@@ -107,15 +107,28 @@ const formSchema = Yup.object().shape({
     .moreThan(0),
   receiverAddress: Yup.string().required(),
   unsoldTokensAddress: Yup.string().required(),
-  tiersData: Yup.object().shape({
+  investmentTiers: Yup.object().shape({
     isMultipleTiers: Yup.boolean(),
-    tiers: Yup.array(),
+    tiers: Yup.array().of(
+      Yup.object().shape({
+        tokensAmount: Yup.number().required(),
+        tokenPrice: Yup.number()
+          .required()
+          .moreThan(0),
+        discountedTokensAmount: Yup.number()
+          .required()
+          .min(0),
+        discountedTokensPrice: Yup.number()
+          .required()
+          .min(0),
+      })
+    ),
   }),
 });
 
 export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
   const initialValues = {
-    tiersData: {
+    investmentTiers: {
       tiers: [],
       isMultipleTiers: false,
     },
@@ -128,151 +141,144 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       validationSchema={formSchema}
       initialValues={initialValues}
       validateOnChange
-      render={({ handleSubmit, values, setFieldValue }) => (
-        <Form onSubmit={handleSubmit}>
-          <Heading variant="h3">STO Schedule</Heading>
-          <Box mb={4}>
-            <div className="time-pickers-container">
-              <Field
-                validateOnChange
-                name="startDate"
-                component={DatePickerInput}
-                label="Start Date"
-                placeholder="mm / dd / yyyy"
-              />
-              <Field
-                name="startTime"
-                component={TimePickerSelect}
-                className="bx--time-picker__select"
-                placeholder="hh:mm"
-                label="Time"
-              />
-              <Field
-                validateOnChange
-                name="endDate"
-                component={DatePickerInput}
-                label="End Date"
-                placeholder="mm / dd / yyyy"
-              />
-              <Field
-                name="endTime"
-                component={TimePickerSelect}
-                className="bx--time-picker__select"
-                placeholder="hh:mm"
-                label="Time"
-              />
-            </div>
-          </Box>
-          <Heading variant="h3">STO Financing Details & Terms</Heading>
-          <Field
-            component={CurrencySelect}
-            name="currencies"
-            placeholder="Raise in"
-            onRemove={() => {}}
-          />
+      render={({ handleSubmit, values, setFieldValue }) => {
+        console.log('Rendered form', values);
 
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
+        return (
+          <Form onSubmit={handleSubmit}>
+            <Heading variant="h3">STO Schedule</Heading>
+            <Box mb={4}>
+              <div className="time-pickers-container">
+                <Field
+                  validateOnChange
+                  name="startDate"
+                  component={DatePickerInput}
+                  label="Start Date"
+                  placeholder="mm / dd / yyyy"
+                />
+                <Field
+                  name="startTime"
+                  component={TimePickerSelect}
+                  className="bx--time-picker__select"
+                  placeholder="hh:mm"
+                  label="Time"
+                />
+                <Field
+                  validateOnChange
+                  name="endDate"
+                  component={DatePickerInput}
+                  label="End Date"
+                  placeholder="mm / dd / yyyy"
+                />
+                <Field
+                  name="endTime"
+                  component={TimePickerSelect}
+                  className="bx--time-picker__select"
+                  placeholder="hh:mm"
+                  label="Time"
+                />
+              </div>
+            </Box>
+            <Heading variant="h3">STO Financing Details & Terms</Heading>
             <Field
-              name="hardCap"
-              component={NumberInput}
-              normalize={thousandsDelimiter}
-              min={0}
+              component={CurrencySelect}
+              name="currencies"
+              placeholder="Raise in"
+              onRemove={() => {}}
+            />
+
+            <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
+              <Field
+                name="hardCap"
+                component={NumberInput}
+                normalize={thousandsDelimiter}
+                min={0}
+                label={
+                  <Tooltip triggerText="Minimum investment for All investors">
+                    <p className="bx--tooltip__label">
+                      Minimum investment for All investors
+                    </p>
+                    <p>
+                      Hard Cap is the maximum number of tokens available through
+                      this offering. e.g. if you want the total aggregate of
+                      your investors in this offering to own 10 million tokens,
+                      enter 10000000.
+                    </p>
+                  </Tooltip>
+                }
+                placeholder="Enter amount"
+              />
+              <Field
+                name="nonAccreditedMax"
+                min={0}
+                component={NumberInput}
+                label={
+                  <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
+                    <p className="bx--tooltip__label">
+                      Maximum Investment for Non-Accredited Investors by Default
+                    </p>
+                    <p>
+                      Conversion rate between the currency you chose and your
+                      Security Token. E.g. 1000 means that 1 ETH (or POLY) will
+                      buy 1000 Security Tokens.
+                    </p>
+                  </Tooltip>
+                }
+                placeholder="Enter amount"
+              />
+            </Grid>
+
+            <Field name="investmentTiers" component={InvestmentTiers} />
+
+            <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
+              <Grid.Item gridColumn="span 1 / 3">
+                <RaisedAmount
+                  title="Amount Of Funds the STO Will Raise"
+                  primaryAmount="10000"
+                  tokenAmount="10000"
+                />
+              </Grid.Item>
+            </Grid>
+
+            <Heading variant="h3">ETH Addresses</Heading>
+
+            <Remark title="Note">
+              Before submitting to the chain, we recommend that you test sending
+              funds to the wallet that is different from his own as well as
+              retrieve funds from this wallet.
+            </Remark>
+
+            <Field
+              name="receiverAddress"
+              component={TextInput}
               label={
-                <Tooltip triggerText="Minimum investment for All investors">
+                <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
                   <p className="bx--tooltip__label">
-                    Minimum investment for All investors
+                    ETH Address to Receive the Funds Raised During the STO
                   </p>
-                  <p>
-                    Hard Cap is the maximum number of tokens available through
-                    this offering. e.g. if you want the total aggregate of your
-                    investors in this offering to own 10 million tokens, enter
-                    10000000.
-                  </p>
+                  <p />
                 </Tooltip>
               }
-              placeholder="Enter amount"
+              placeholder="Enter your current ETH address"
             />
             <Field
-              name="nonAccreditedMax"
-              min={0}
-              component={NumberInput}
+              name="unsoldTokensAddress"
+              component={TextInput}
               label={
-                <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
+                <Tooltip triggerText="ETH Address for Unsold Tokens">
                   <p className="bx--tooltip__label">
-                    Maximum Investment for Non-Accredited Investors by Default
+                    ETH Address for Unsold Tokens
                   </p>
-                  <p>
-                    Conversion rate between the currency you chose and your
-                    Security Token. E.g. 1000 means that 1 ETH (or POLY) will
-                    buy 1000 Security Tokens.
-                  </p>
+                  <p />
                 </Tooltip>
               }
-              placeholder="Enter amount"
+              placeholder="Enter your current ETH address"
             />
-          </Grid>
 
-          <Field
-            name="tiersData"
-            render={({ field, form }) => (
-              <InvestmentTiers
-                onChange={value => {
-                  form.setFieldValue('tiersData', value);
-                }}
-                isMultipleTiers={field.value.isMultipleTiers}
-                tiers={field.value.tiers}
-              />
-            )}
-          />
-
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
-            <Grid.Item gridColumn="span 1 / 3">
-              <RaisedAmount
-                title="Amount Of Funds the STO Will Raise"
-                primaryAmount="10000"
-                tokenAmount="10000"
-              />
-            </Grid.Item>
-          </Grid>
-
-          <Heading variant="h3">ETH Addresses</Heading>
-
-          <Remark title="Note">
-            Before submitting to the chain, we recommend that you test sending
-            funds to the wallet that is different from his own as well as
-            retrieve funds from this wallet.
-          </Remark>
-
-          <Field
-            name="receiverAddress"
-            component={TextInput}
-            label={
-              <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
-                <p className="bx--tooltip__label">
-                  ETH Address to Receive the Funds Raised During the STO
-                </p>
-                <p />
-              </Tooltip>
-            }
-            placeholder="Enter your current ETH address"
-          />
-          <Field
-            name="unsoldTokensAddress"
-            component={TextInput}
-            label={
-              <Tooltip triggerText="ETH Address for Unsold Tokens">
-                <p className="bx--tooltip__label">
-                  ETH Address for Unsold Tokens
-                </p>
-                <p />
-              </Tooltip>
-            }
-            placeholder="Enter your current ETH address"
-          />
-
-          <Button type="submit">Confirm & launch STO</Button>
-        </Form>
-      )}
+            <Button type="submit">Confirm & launch STO</Button>
+          </Form>
+        );
+      }}
     />
   );
 };

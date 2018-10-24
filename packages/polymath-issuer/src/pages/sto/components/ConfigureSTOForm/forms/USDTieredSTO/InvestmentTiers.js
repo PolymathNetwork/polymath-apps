@@ -10,7 +10,7 @@ import {
   icoAdd,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
-import { TextInput } from '@polymathnetwork/ui/next';
+import { TextInput, NumberInput } from '@polymathnetwork/ui/next';
 
 import AddTierModal from './AddTierModal';
 
@@ -65,10 +65,19 @@ const rows = [
   },
 ];
 
-type Props = {
-  onChange: ({ isMultipleTiers: boolean, tiers: any[] }) => void,
+type FieldValue = {|
   isMultipleTiers: boolean,
   tiers: any[],
+|};
+
+type Props = {
+  field: {
+    value: FieldValue,
+    name: string,
+  },
+  form: {
+    setFieldValue: (name: string, value: any) => void,
+  },
 };
 
 type State = {|
@@ -80,13 +89,14 @@ class InvestmentTiers extends React.Component<Props, State> {
     isAddingTier: false,
   };
 
-  onTiersToggle(isMultipleTiers: boolean) {
-    // maybe trigger onChange with a single tier or an array of tiers?
-    this.props.onChange({
-      tiers: this.props.tiers,
-      isMultipleTiers,
-    });
-  }
+  onTiersToggle = () => {
+    const {
+      field: { value, name },
+      form: { setFieldValue },
+    } = this.props;
+    const isMultipleTiers = value.isMultipleTiers;
+    setFieldValue(`${name}.isMultipleTiers`, !isMultipleTiers);
+  };
 
   handleCloseModal() {
     this.setState({ isAddingTier: false });
@@ -101,7 +111,9 @@ class InvestmentTiers extends React.Component<Props, State> {
   }
 
   render() {
-    const { isMultipleTiers, tiers } = this.props;
+    const {
+      field: { value, name },
+    } = this.props;
     const { isAddingTier } = this.state;
 
     return (
@@ -117,21 +129,22 @@ class InvestmentTiers extends React.Component<Props, State> {
               </p>
             </Tooltip>
           </label>
-          <Toggle
-            onToggle={this.onTiersToggle.bind(this)}
-            toggled={isMultipleTiers}
-            id="investmentTiers"
+          <Field
+            name={`${name}.isMultipleTiers`}
+            onToggle={this.onTiersToggle}
+            id={`${name}-isMultipleTiers`}
             labelA="Single"
             labelB="Multiple"
+            component={Toggle}
           />
         </div>
 
-        {!isMultipleTiers ? (
+        {!value.isMultipleTiers ? (
           <Fragment>
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
               <Field
-                name="number-of-tokens"
-                component={TextInput}
+                name={`${name}.tiers[0].tokensAmount`}
+                component={NumberInput}
                 label={
                   <Tooltip triggerText="Number of tokens">
                     <p className="bx--tooltip__label">Number of tokens</p>
@@ -146,8 +159,8 @@ class InvestmentTiers extends React.Component<Props, State> {
                 placeholder="Enter amount"
               />
               <Field
-                name="token-price"
-                component={TextInput}
+                name={`${name}.tiers[0].tokenPrice`}
+                component={NumberInput}
                 normalize={thousandsDelimiter}
                 label="Token Price"
                 placeholder="Enter amount"
@@ -155,13 +168,13 @@ class InvestmentTiers extends React.Component<Props, State> {
             </Grid>
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
               <Field
-                name="number-of-discounted-tokens"
+                name={`${name}.tiers[0].discountedTokensAmount`}
                 component={TextInput}
                 normalize={thousandsDelimiter}
                 label={
-                  <Tooltip triggerText="Number of tokens">
+                  <Tooltip triggerText="Number of discounted tokens">
                     <p className="bx--tooltip__label">
-                      maximum Number of Discounted tokens
+                      Maximum Number of Discounted tokens
                     </p>
                     <p />
                   </Tooltip>
@@ -169,7 +182,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 placeholder="Enter amount"
               />
               <Field
-                name="token-price"
+                name={`${name}.tiers[0].discountedTokensPrice`}
                 component={TextInput}
                 label={
                   <Tooltip triggerText="Discount for Tokens Purchased with POLY">
@@ -222,7 +235,7 @@ class InvestmentTiers extends React.Component<Props, State> {
           />
         )}
         <AddTierModal
-          title={`Add the Investment Tier #${tiers.length}`}
+          title={`Add the Investment Tier #${value.tiers.length}`}
           isOpen={isAddingTier}
           onClose={this.handleCloseModal.bind(this)}
         />
