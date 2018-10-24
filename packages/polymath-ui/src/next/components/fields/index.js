@@ -5,3 +5,4 @@ export DatePickerInput from './DatePickerInput';
 export TimePickerSelect from './TimePickerSelect';
 export TextInput from './TextInput';
 export NumberInput from './NumberInput';
+export CurrencySelect from './CurrencySelect';

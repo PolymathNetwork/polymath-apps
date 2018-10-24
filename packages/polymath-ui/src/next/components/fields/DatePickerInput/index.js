@@ -55,6 +55,7 @@ export default class DatePickerInputField extends Component<InputProps> {
           invalidText={error}
           value={displayValue}
           onChange={() => {}}
+          pattern={null}
           {...fieldProps}
           {...otherProps}
         />

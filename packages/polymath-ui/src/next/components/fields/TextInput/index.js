@@ -6,6 +6,7 @@ import type { InputProps } from '../types';
 export default (props: InputProps) => {
   const {
     field,
+    field: { value, ...fieldProps },
     form,
     form: { errors, touched },
     label,
@@ -21,9 +22,10 @@ export default (props: InputProps) => {
       id={field.name}
       invalid={invalid}
       invalidText={error}
-      type="number"
+      labelText={label}
+      value={value || ''}
       {...otherProps}
-      {...field}
+      {...fieldProps}
     />
   );
 };

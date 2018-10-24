@@ -63,24 +63,18 @@ const DropdownIndicator = props => {
 };
 
 class CurrencySelect extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.handleRemove = this.handleRemove.bind(this);
-  }
-
   static defaultProps = {
     options: currencyOptions,
   };
 
-  handleRemove(removedValue: string) {
+  handleRemove = (removedValue: string) => {
     const { value, onChange } = this.props;
     const newValue = Array.isArray(value)
       ? value.filter(_value => _value !== removedValue)
       : null;
 
     onChange(newValue, 'remove-value'); // 2nd param is from React-Select "actions" https://react-select.com/props
-  }
+  };
 
   render() {
     const { value, options, ...props } = this.props;

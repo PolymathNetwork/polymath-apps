@@ -21,6 +21,7 @@ export default (props: InputProps) => {
       id={field.name}
       invalid={invalid}
       invalidText={error}
+      labelText={label}
       {...otherProps}
       {...field}
     />

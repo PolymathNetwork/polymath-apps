@@ -11,22 +11,15 @@ import {
   RaisedAmount,
   Remark,
   thousandsDelimiter,
-  CurrencySelect,
 } from '@polymathnetwork/ui';
 import {
   TextInput,
   DatePickerInput,
   TimePickerSelect,
   NumberInput,
+  CurrencySelect,
 } from '@polymathnetwork/ui/next';
-// import { required } from '@polymathnetwork/ui/next/validations';
 import InvestmentTiers from './InvestmentTiers';
-
-// === Temp validators= === //
-// const required = () => {};
-// const todayOrLater = () => {};
-// const afterStart = () => {};
-// const secondsAfterNow = () => {};
 
 type ComponentProps = {|
   onSubmit: () => void,
@@ -100,6 +93,17 @@ const formSchema = Yup.object().shape({
   endTime: Yup.number()
     .required()
     .test('validEndTime', validateEndTime),
+  currencies: Yup.array()
+    .required()
+    .min(1),
+  nonAccreditedMax: Yup.number()
+    .required()
+    .moreThan(0),
+  hardCap: Yup.number()
+    .required()
+    .moreThan(0),
+  receiverAddress: Yup.string().required(),
+  unsoldTokensAddress: Yup.string().required(),
 });
 
 export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
@@ -152,15 +156,15 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
           <Heading variant="h3">STO Financing Details & Terms</Heading>
           <Field
             component={CurrencySelect}
-            name="currency"
+            name="currencies"
             placeholder="Raise in"
             onRemove={() => {}}
           />
 
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
             <Field
-              name="cap"
-              component={TextInput}
+              name="hardCap"
+              component={NumberInput}
               normalize={thousandsDelimiter}
               label={
                 <Tooltip triggerText="Minimum investment for All investors">
@@ -176,10 +180,9 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 </Tooltip>
               }
               placeholder="Enter amount"
-              // validate={[required, numeric, gt(0)]}
             />
             <Field
-              name="maxInvestment"
+              name="nonAccreditedMax"
               component={NumberInput}
               label={
                 <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
@@ -194,7 +197,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 </Tooltip>
               }
               placeholder="Enter amount"
-              // validate={[required, numeric, gt(0)]}
             />
           </Grid>
 
@@ -226,9 +228,8 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
           </Remark>
 
           <Field
-            name="receiver-address"
+            name="receiverAddress"
             component={TextInput}
-            // normalize={thousandsDelimiter}
             label={
               <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
                 <p className="bx--tooltip__label">
@@ -238,15 +239,10 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
               </Tooltip>
             }
             placeholder="Enter your current ETH address"
-            onChange={() => {
-              // this.handleRateChange
-            }}
-            // validate={[required, numeric, gt(0)]}
           />
           <Field
-            name="receiver-address"
+            name="unsoldTokensAddress"
             component={TextInput}
-            // normalize={thousandsDelimiter}
             label={
               <Tooltip triggerText="ETH Address for Unsold Tokens">
                 <p className="bx--tooltip__label">
@@ -256,7 +252,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
               </Tooltip>
             }
             placeholder="Enter your current ETH address"
-            // validate={[required, numeric, gt(0)]}
           />
 
           <Button type="submit">Confirm & launch STO</Button>
