@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import { TextInput } from 'carbon-components-react';
+import React from 'react';
+import { NumberInput } from 'carbon-components-react';
 
 import type { InputProps } from '../types';
 
 export default (props: InputProps) => {
   const {
     field,
+    form,
     form: { errors, touched },
     label,
     className,
@@ -16,12 +17,12 @@ export default (props: InputProps) => {
   const invalid = error && touched;
 
   return (
-    // <TextInput
-    //   invalid={invalid}
-    //   invalidText={error}
-    //   {...otherProps}
-    //   {...field}
-    // />
-    <div>Pending...</div>
+    <NumberInput
+      id={field.name}
+      invalid={invalid}
+      invalidText={error}
+      {...otherProps}
+      {...field}
+    />
   );
 };

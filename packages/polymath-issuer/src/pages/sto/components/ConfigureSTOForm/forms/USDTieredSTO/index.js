@@ -17,6 +17,7 @@ import {
   TextInput,
   DatePickerInput,
   TimePickerSelect,
+  NumberInput,
 } from '@polymathnetwork/ui/next';
 // import { required } from '@polymathnetwork/ui/next/validations';
 import InvestmentTiers from './InvestmentTiers';
@@ -107,6 +108,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
     cap: 0,
     amountOfFunds: 0,
     isMultipleTiers: false,
+    currencies: ['ETH', 'POLY'],
   };
 
   return (
@@ -132,7 +134,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 placeholder="hh:mm"
                 label="Time"
               />
-
               <Field
                 name="endDate"
                 component={DatePickerInput}
@@ -178,9 +179,8 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
               // validate={[required, numeric, gt(0)]}
             />
             <Field
-              name="max-investment"
-              component={TextInput}
-              // normalize={thousandsDelimiter}
+              name="maxInvestment"
+              component={NumberInput}
               label={
                 <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
                   <p className="bx--tooltip__label">

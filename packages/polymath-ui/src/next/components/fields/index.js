@@ -4,4 +4,4 @@
 export DatePickerInput from './DatePickerInput';
 export TimePickerSelect from './TimePickerSelect';
 export TextInput from './TextInput';
-export CurrencySelect from './CurrencySelect';
+export NumberInput from './NumberInput';
