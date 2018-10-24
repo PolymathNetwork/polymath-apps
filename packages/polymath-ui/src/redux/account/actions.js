@@ -110,7 +110,15 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
 
   dispatch(fetched());
 
+  let user = JSON.parse(String(localStorage.getItem('USER')));
+
+  if (user) {
+    dispatch(signedIn());
+    return dispatch(signedUp(user.name, user.email, true));
+  }
+
   let sig;
+
   try {
     sig = await signData(
       web3,
@@ -124,6 +132,7 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
   }
 
   dispatch(fetching());
+
   try {
     const user = await offchain.auth(code, sig, account);
 
@@ -138,6 +147,7 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
 
     if (user) {
       dispatch(signedUp(user.name, user.email, true));
+      localStorage.setItem('USER', JSON.stringify(user));
     }
 
     dispatch(fetched());

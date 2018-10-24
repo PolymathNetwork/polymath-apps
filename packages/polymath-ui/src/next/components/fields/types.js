@@ -1,4 +1,6 @@
 // @flow
+import type { Node } from 'react';
+
 export type InputProps = {
   field: {
     onChange: (value: any) => void,
@@ -16,7 +18,7 @@ export type InputProps = {
     },
     name: string,
   },
-  label: string,
+  label: Node,
   className?: string,
   placeholder: string,
 };

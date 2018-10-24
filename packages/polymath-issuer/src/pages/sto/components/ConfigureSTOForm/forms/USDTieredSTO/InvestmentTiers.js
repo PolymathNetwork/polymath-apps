@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import { Field } from 'redux-form';
+import { Field } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
 import {
   Box,
