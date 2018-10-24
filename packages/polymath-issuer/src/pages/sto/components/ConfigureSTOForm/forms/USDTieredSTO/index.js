@@ -104,13 +104,12 @@ const formSchema = Yup.object().shape({
     .moreThan(0),
   receiverAddress: Yup.string().required(),
   unsoldTokensAddress: Yup.string().required(),
+  isMultipleTiers: Yup.boolean(),
 });
 
 export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
   const initialValues = {
     tiers: [],
-    cap: 0,
-    amountOfFunds: 0,
     isMultipleTiers: false,
     currencies: ['ETH', 'POLY'],
   };
@@ -120,12 +119,14 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       onSubmit={onSubmit}
       validationSchema={formSchema}
       initialValues={initialValues}
+      validateOnChange
       render={({ handleSubmit, values }) => (
         <Form onSubmit={handleSubmit}>
           <Heading variant="h3">STO Schedule</Heading>
           <Box mb={4}>
             <div className="time-pickers-container">
               <Field
+                validateOnChange
                 name="startDate"
                 component={DatePickerInput}
                 label="Start Date"
@@ -139,6 +140,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 label="Time"
               />
               <Field
+                validateOnChange
                 name="endDate"
                 component={DatePickerInput}
                 label="End Date"
@@ -166,6 +168,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
               name="hardCap"
               component={NumberInput}
               normalize={thousandsDelimiter}
+              min={0}
               label={
                 <Tooltip triggerText="Minimum investment for All investors">
                   <p className="bx--tooltip__label">
@@ -183,6 +186,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             />
             <Field
               name="nonAccreditedMax"
+              min={0}
               component={NumberInput}
               label={
                 <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">

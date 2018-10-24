@@ -18,6 +18,7 @@ import {
 } from '@polymathnetwork/ui';
 
 import SplashPage from './SplashPage';
+import USDTieredSTOForm from '../pages/sto/components/ConfigureSTOForm/forms/USDTieredSTO';
 
 type StateProps = {|
   isNotice: boolean,
@@ -56,7 +57,8 @@ class Root extends Component<Props> {
     return (
       <ErrorBoundary>
         <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
-          {isMobile || isUnsupportedBrowser ? (
+          <USDTieredSTOForm />
+          {/* {isMobile || isUnsupportedBrowser ? (
             <NotSupportedPage />
           ) : location.pathname === '/' ? (
             <SplashPage />
@@ -68,7 +70,7 @@ class Root extends Component<Props> {
             >
               {renderRoutes(routes)}
             </EthNetworkWrapper>
-          )}
+          )} */}
         </div>
       </ErrorBoundary>
     );
