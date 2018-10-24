@@ -9,7 +9,7 @@ import theme from '../../../theme';
 
 const Container = styled(Box)`
   display: inline-flex;
-  background-color: ${theme.colors.gray[0]};
+  background-color: ${theme.colors.blue[0]};
   border-radius: 50px;
   vertical-align: middle;
   align-items: center;
@@ -22,7 +22,7 @@ const Container = styled(Box)`
 const LabelContainer = styled(Box)`
   display: flex;
   margin-left: -${theme.space[1]}px;
-  margin-right: ${theme.space[2]}px;
+  margin-right: ${theme.space[3]}px;
 `;
 
 const StyledIconButton = styled(IconButton)`
@@ -33,6 +33,10 @@ const StyledIconButton = styled(IconButton)`
   height: 16px;
   width: 16px;
   border-radius: 10px;
+
+  :hover {
+    background-color: ${theme.colors.gray[2]};
+  }
 `;
 
 export default class Value extends React.Component {

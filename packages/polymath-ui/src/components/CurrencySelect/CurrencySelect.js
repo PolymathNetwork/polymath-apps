@@ -7,8 +7,10 @@ import Select, { components } from 'react-select';
 import { currencyOptions } from './data';
 
 import Box from '../Box';
+import Icon from '../Icon';
 import theme from '../../theme';
 import CaretDownIcon from '../../images/icons/CaretDown';
+import CloseIcon from '../../images/icons/Close';
 
 import Value from './Value';
 
@@ -23,7 +25,7 @@ type Props = {|
   onChange: Function,
 |};
 
-const colourStyles = {
+const styles = {
   container: styles => ({
     ...styles,
     borderRadius: 0,
@@ -31,7 +33,7 @@ const colourStyles = {
   control: (styles, state) => {
     return {
       ...styles,
-      backgroundColor: theme.colors.gray[0],
+      backgroundColor: theme.colors.blue[0],
       borderRadius: 0,
       borderColor: 'transparent',
       '&:hover': {
@@ -39,9 +41,30 @@ const colourStyles = {
       },
     };
   },
-  dropdownIndicator: (styles, { data }) => ({
+  indicatorsContainer: styles => ({
     ...styles,
-    color: theme.colors.baseTextColor,
+    flexGrow: 1,
+  }),
+  dropdownIndicator: styles => ({
+    ...styles,
+    color: theme.colors.baseText,
+    fontSize: theme.fontSizes[1],
+    flexGrow: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: theme.space[3],
+  }),
+  clearIndicator: styles => ({
+    ...styles,
+    color: 'white',
+    backgroundColor: theme.colors.primary,
+    borderRadius: '10px',
+    fontSize: theme.fontSizes[0],
+    alignItems: 'center',
+    padding: '0px 6px 0px 7px',
+    marginLeft: theme.space[3],
+    justifyContent: 'space-between',
+    minWidth: '35px',
   }),
 };
 
@@ -51,13 +74,28 @@ const Container = styled(Box)`
   min-width: 200px;
 `;
 
+const Caret = styled(Icon)`
+  color: ${({ theme }) => theme.colors.secondary};
+`;
+
 const DropdownIndicator = props => {
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
         {props.selectProps.placeholder}
-        <CaretDownIcon />
+        <Caret Icon={CaretDownIcon} width="10" height="10" />
       </components.DropdownIndicator>
+    )
+  );
+};
+
+const ClearIndicator = props => {
+  return (
+    components.ClearIndicator && (
+      <components.ClearIndicator {...props}>
+        {props.selectProps.value.length}
+        <Icon Icon={CloseIcon} width="8" height="9" />
+      </components.ClearIndicator>
     )
   );
 };
@@ -96,10 +134,12 @@ class CurrencySelect extends React.Component<Props> {
         <Container mr={4}>
           <Select
             closeMenuOnSelect={false}
+            isClearable={Array.isArray(value) ? value.length : value}
             isMulti={Array.isArray(value)}
-            styles={colourStyles}
+            styles={styles}
             components={{
               DropdownIndicator,
+              ClearIndicator,
               IndicatorSeparator: null,
               ValueContainer: () => null,
             }}
