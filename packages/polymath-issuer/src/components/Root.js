@@ -57,8 +57,7 @@ class Root extends Component<Props> {
     return (
       <ErrorBoundary>
         <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
-          <USDTieredSTOForm />
-          {/* {isMobile || isUnsupportedBrowser ? (
+          {isMobile || isUnsupportedBrowser ? (
             <NotSupportedPage />
           ) : location.pathname === '/' ? (
             <SplashPage />
@@ -70,7 +69,7 @@ class Root extends Component<Props> {
             >
               {renderRoutes(routes)}
             </EthNetworkWrapper>
-          )} */}
+          )}
         </div>
       </ErrorBoundary>
     );
