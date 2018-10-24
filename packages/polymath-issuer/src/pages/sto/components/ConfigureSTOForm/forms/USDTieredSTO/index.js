@@ -11,9 +11,8 @@ import {
   RaisedAmount,
   Remark,
   thousandsDelimiter,
+  CurrencySelect,
 } from '@polymathnetwork/ui';
-// import { numeric, todayOrLater, gt } from '@polymathnetwork/ui/validate';
-import { todayOrLater } from '@polymathnetwork/ui/validate';
 import {
   TextInput,
   DatePickerInput,
@@ -132,7 +131,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 className="bx--time-picker__select"
                 placeholder="hh:mm"
                 label="Time"
-                // validate={[number().required(), validateStartTime]}
               />
 
               <Field
@@ -140,7 +138,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 component={DatePickerInput}
                 label="End Date"
                 placeholder="mm / dd / yyyy"
-                // validate={[required, todayOrLater, afterStart]}
               />
               <Field
                 name="endTime"
@@ -148,17 +145,16 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 className="bx--time-picker__select"
                 placeholder="hh:mm"
                 label="Time"
-                // validate={[required, afterStart]}
               />
             </div>
           </Box>
           <Heading variant="h3">STO Financing Details & Terms</Heading>
-          {/* <CurrencySelect
-          name="currency"
-          placeholder="Raise in"
-          onChange={this.handleCurrencyChange}
-          onRemove={() => {}}
-        /> */}
+          <Field
+            component={CurrencySelect}
+            name="currency"
+            placeholder="Raise in"
+            onRemove={() => {}}
+          />
 
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
             <Field
