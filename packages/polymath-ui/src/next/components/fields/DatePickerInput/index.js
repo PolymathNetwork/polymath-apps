@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import moment from 'moment';
 import { DatePicker, DatePickerInput } from 'carbon-components-react';
 
 import type { InputProps } from '../types';
@@ -14,7 +15,13 @@ export default class DatePickerInputField extends Component<InputProps> {
       field: { name },
     } = this.props;
 
-    setFieldValue(name, stringValue);
+    const [month, day, year] = stringValue.split(' / ');
+    const date = moment({
+      year,
+      month: parseInt(month, 10) - 1,
+      day,
+    }).toDate();
+    setFieldValue(name, date);
   };
   render() {
     const {
@@ -28,6 +35,7 @@ export default class DatePickerInputField extends Component<InputProps> {
     const { onChange, value, ...fieldProps } = field;
     const error = touched[field.name] && errors[field.name];
     const invalid = error && touched;
+    const displayValue = moment(value).format('MM / DD / YYYY') || '';
 
     return (
       <DatePicker
@@ -43,9 +51,9 @@ export default class DatePickerInputField extends Component<InputProps> {
           labelText={label}
           placeholder="mm / dd / yyyy"
           invalid={invalid}
+          validate={false}
           invalidText={error}
-          pattern={null}
-          value={value || ''}
+          value={displayValue}
           onChange={() => {}}
           {...fieldProps}
           {...otherProps}

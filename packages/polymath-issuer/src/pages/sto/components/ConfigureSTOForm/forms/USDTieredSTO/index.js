@@ -32,10 +32,40 @@ type ComponentProps = {|
   onSubmit: () => void,
 |};
 
-function validateEndTime() {}
+function validateEndTime(value) {
+  const startDate: Date = this.parent.startDate;
+  const startTime: number = this.parent.startTime;
+  const endDate: Date = this.parent.endDate;
+  if (!startDate || !startTime || !endDate) {
+    return true;
+  }
+  const startUnix = moment(startDate).unix() * 1000 + startTime;
+  const endUnix = moment(endDate).unix() * 1000 + value;
+  if (startUnix >= endUnix) {
+    return this.createError({ message: 'End time is before start time.' });
+  }
+
+  return true;
+}
+function validateEndDate(value) {
+  const startDate: Date = this.parent.startDate;
+  const valid = moment(value).isAfter(startDate);
+  if (!valid) {
+    return this.createError({ message: 'End date must be after start date.' });
+  }
+  return true;
+}
+function todayOrAfter(value) {
+  const valid = moment(value).isSameOrAfter(moment(Date.now()).startOf('day'));
+  if (valid) {
+    return true;
+  }
+
+  return this.createError({ message: 'Must be today or later.' });
+}
 function validateStartTime(value) {
   const requiredTimeBuffer = 10 * 60 * 1000;
-  const startDate: string = this.parent.startDate;
+  const startDate: Date = this.parent.startDate;
 
   if (!startDate) {
     return true;
@@ -56,14 +86,20 @@ function validateStartTime(value) {
   return true;
 }
 
+// TODO @RafaelVidaurre: Move reusable validators to yup singleton
 const formSchema = Yup.object().shape({
-  startDate: Yup.string().required(),
+  startDate: Yup.date()
+    .required()
+    .test('validateStartDate', todayOrAfter),
   startTime: Yup.number()
     .required()
-    .test('validStartTime', validateStartTime),
+    .test('validateStartTime', validateStartTime),
   endDate: Yup.date()
     .required()
-    .test('isAfterStart', validateEndTime),
+    .test('validateEndDate', validateEndDate),
+  endTime: Yup.number()
+    .required()
+    .test('validEndTime', validateEndTime),
 });
 
 export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
@@ -89,7 +125,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 component={DatePickerInput}
                 label="Start Date"
                 placeholder="mm / dd / yyyy"
-                // validate={[string().required(), todayOrLater]}
               />
               <Field
                 name="startTime"
