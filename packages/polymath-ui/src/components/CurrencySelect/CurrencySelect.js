@@ -2,24 +2,25 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 
 import { currencyOptions } from './data';
 
 import Box from '../Box';
 import theme from '../../theme';
+import CaretDownIcon from '../../images/icons/CaretDown';
 
 import Value from './Value';
 
+type ValueType = {
+  value: string,
+  label: Node,
+};
+
 type Props = {|
-  values: [
-    {
-      value: string,
-      label: Node,
-    },
-  ],
-  options: [],
-  onRemoveValue: Function,
+  values: [ValueType],
+  options: [ValueType],
+  onChange: Function,
 |};
 
 const colourStyles = {
@@ -38,29 +39,9 @@ const colourStyles = {
       },
     };
   },
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-    return {
-      ...styles,
-    };
-  },
-  // multiValue: (styles, { data }) => {
-  //   const color = chroma(data.color);
-  //   return {
-  //     ...styles,
-  //     backgroundColor: color.alpha(0.1).css(),
-  //   };
-  // },
-  multiValueLabel: (styles, { data }) => ({
+  dropdownIndicator: (styles, { data }) => ({
     ...styles,
-    color: data.color,
-  }),
-  multiValueRemove: (styles, { data }) => ({
-    ...styles,
-    color: data.color,
-    ':hover': {
-      backgroundColor: data.color,
-      color: 'white',
-    },
+    color: theme.colors.baseTextColor,
   }),
 };
 
@@ -70,37 +51,63 @@ const Container = styled(Box)`
   min-width: 200px;
 `;
 
-const CurrencySelect = ({ values, onRemoveValue, ...props }: Props) => {
+const DropdownIndicator = props => {
   return (
-    <Fragment>
-      <Container mr={5}>
-        <Select
-          closeMenuOnSelect={false}
-          isMulti
-          styles={colourStyles}
-          components={{
-            IndicatorSeparator: null,
-            ValueContainer: () => null,
-          }}
-          value={values}
-          {...props}
-        />
-      </Container>
-      {values &&
-        values.map(value => (
-          <Value
-            value={value}
-            key={value.value}
-            label={value.label}
-            onRemove={onRemoveValue}
-          />
-        ))}
-    </Fragment>
+    components.DropdownIndicator && (
+      <components.DropdownIndicator {...props}>
+        {props.selectProps.placeholder}
+        <CaretDownIcon />
+      </components.DropdownIndicator>
+    )
   );
 };
 
-export default CurrencySelect;
+class CurrencySelect extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
 
-CurrencySelect.defaultProps = {
-  options: currencyOptions,
-};
+    this.handleRemove = this.handleRemove.bind(this);
+  }
+
+  static defaultProps = {
+    options: currencyOptions,
+  };
+
+  handleRemove(value: ValueType) {
+    const { onChange, values } = this.props;
+    onChange(values.filter(_value => _value !== value));
+  }
+
+  render() {
+    const { values, ...props } = this.props;
+    return (
+      <Fragment>
+        <Container mr={4}>
+          <Select
+            closeMenuOnSelect={false}
+            isMulti
+            styles={colourStyles}
+            components={{
+              DropdownIndicator,
+              IndicatorSeparator: null,
+              ValueContainer: () => null,
+            }}
+            value={values}
+            {...props}
+          />
+        </Container>
+        {values &&
+          values.map(value => (
+            <Value
+              value={value}
+              key={value.value}
+              label={value.label}
+              onRemove={this.handleRemove}
+            />
+          ))}
+      </Fragment>
+    );
+  }
+}
+
+export default CurrencySelect;

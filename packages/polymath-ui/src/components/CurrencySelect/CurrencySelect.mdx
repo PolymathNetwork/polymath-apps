@@ -17,5 +17,6 @@ import { currencyOptions } from './data';
   <CurrencySelect 
     placeholder="Raise in" 
     values={currencyOptions}
+    onChange={(values) => { console.log(values); }}
   />
 </Playground>
