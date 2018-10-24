@@ -12,14 +12,14 @@ import CaretDownIcon from '../../images/icons/CaretDown';
 
 import Value from './Value';
 
-type ValueType = {
+type Option = {
   value: string,
   label: Node,
 };
 
 type Props = {|
-  values: [ValueType],
-  options: [ValueType],
+  value: [string],
+  options: [Option],
   onChange: Function,
 |};
 
@@ -73,38 +73,54 @@ class CurrencySelect extends React.Component<Props> {
     options: currencyOptions,
   };
 
-  handleRemove(value: ValueType) {
-    const { onChange, values } = this.props;
-    onChange(values.filter(_value => _value !== value));
+  handleRemove(removedValue: string) {
+    const { value, onChange } = this.props;
+    const newValue = Array.isArray(value)
+      ? value.filter(_value => _value !== removedValue)
+      : null;
+
+    onChange(newValue, 'remove-value'); // 2nd param is from React-Select "actions" https://react-select.com/props
   }
 
   render() {
-    const { values, ...props } = this.props;
+    const { value, options, ...props } = this.props;
     return (
       <Fragment>
         <Container mr={4}>
           <Select
             closeMenuOnSelect={false}
-            isMulti
+            isMulti={Array.isArray(value)}
             styles={colourStyles}
             components={{
               DropdownIndicator,
               IndicatorSeparator: null,
               ValueContainer: () => null,
             }}
-            value={values}
+            options={options}
+            value={
+              Array.isArray(value)
+                ? value.map(
+                    _value =>
+                      options.find(option => option.value === _value) || {}
+                  )
+                : value
+            }
             {...props}
           />
         </Container>
-        {values &&
-          values.map(value => (
-            <Value
-              value={value}
-              key={value.value}
-              label={value.label}
-              onRemove={this.handleRemove}
-            />
-          ))}
+        {Array.isArray(value) &&
+          value.map(value => {
+            const option = options.find(option => option.value === value);
+
+            return option ? (
+              <Value
+                value={option.value}
+                key={value}
+                label={option.label}
+                onRemove={this.handleRemove}
+              />
+            ) : null;
+          })}
       </Fragment>
     );
   }

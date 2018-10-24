@@ -5,8 +5,6 @@ name: CurrencySelect
 import { Playground, PropsTable } from 'docz';
 import CurrencySelect from './';
 
-import { currencyOptions } from './data';
-
 # CurrencySelect
 
 <PropsTable of={CurrencySelect} />
@@ -14,9 +12,15 @@ import { currencyOptions } from './data';
 ## Basic usage
 
 <Playground style={{ minHeight: '400px' }}>
-  <CurrencySelect 
-    placeholder="Raise in" 
-    values={currencyOptions}
-    onChange={(values) => { console.log(values); }}
-  />
+  {() => {
+    const values = ['ETH', 'DAI'];
+
+    return (
+      <CurrencySelect 
+        placeholder="Raise in" 
+        value={values}
+        onChange={(values) => { console.log(values); }}
+      />
+    );
+  }}
 </Playground>
