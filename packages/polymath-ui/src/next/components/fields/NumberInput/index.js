@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput } from 'carbon-components-react';
+import { NumberInput } from 'carbon-components-react';
 
 import type { InputProps } from '../types';
 
@@ -18,12 +18,12 @@ export default (props: InputProps) => {
   const invalid = error && touched;
 
   return (
-    <TextInput
+    <NumberInput
       id={field.name}
       invalid={invalid}
       invalidText={error}
-      labelText={label}
-      value={val || ''}
+      label={label}
+      value={value || ''}
       {...otherProps}
       {...fieldProps}
     />

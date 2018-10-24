@@ -40,6 +40,7 @@ function validateEndTime(value) {
 
   return true;
 }
+
 function validateEndDate(value) {
   const startDate: Date = this.parent.startDate;
   const valid = moment(value).isAfter(startDate);
@@ -48,6 +49,7 @@ function validateEndDate(value) {
   }
   return true;
 }
+
 function todayOrAfter(value) {
   const valid = moment(value).isSameOrAfter(moment(Date.now()).startOf('day'));
   if (valid) {
@@ -56,6 +58,7 @@ function todayOrAfter(value) {
 
   return this.createError({ message: 'Must be today or later.' });
 }
+
 function validateStartTime(value) {
   const requiredTimeBuffer = 10 * 60 * 1000;
   const startDate: Date = this.parent.startDate;
@@ -104,13 +107,18 @@ const formSchema = Yup.object().shape({
     .moreThan(0),
   receiverAddress: Yup.string().required(),
   unsoldTokensAddress: Yup.string().required(),
-  isMultipleTiers: Yup.boolean(),
+  tiersData: Yup.object().shape({
+    isMultipleTiers: Yup.boolean(),
+    tiers: Yup.array(),
+  }),
 });
 
 export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
   const initialValues = {
-    tiers: [],
-    isMultipleTiers: false,
+    tiersData: {
+      tiers: [],
+      isMultipleTiers: false,
+    },
     currencies: ['ETH', 'POLY'],
   };
 
@@ -120,7 +128,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       validationSchema={formSchema}
       initialValues={initialValues}
       validateOnChange
-      render={({ handleSubmit, values }) => (
+      render={({ handleSubmit, values, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <Heading variant="h3">STO Schedule</Heading>
           <Box mb={4}>
@@ -204,14 +212,18 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             />
           </Grid>
 
-          {/* <InvestmentTiers
-          onChange={values => {
-            // this.setState(values);
-            console.log(values);
-          }}
-          isMultipleTiers={values.isMultipleTiers}
-          tiers={values.tiers}
-        /> */}
+          <Field
+            name="tiersData"
+            render={({ field, form }) => (
+              <InvestmentTiers
+                onChange={value => {
+                  form.setFieldValue('tiersData', value);
+                }}
+                isMultipleTiers={field.value.isMultipleTiers}
+                tiers={field.value.tiers}
+              />
+            )}
+          />
 
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
             <Grid.Item gridColumn="span 1 / 3">

@@ -13,10 +13,10 @@ import {
   Grid,
   Paragraph,
   RaisedAmount,
-  TextInput,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
-import { Field } from 'redux-form';
+import { TextInput } from '@polymathnetwork/ui/next';
+import { Field } from 'formik';
 
 class AddTierModal extends Component {
   render() {

@@ -8,9 +8,9 @@ import {
   Grid,
   DynamicTable,
   icoAdd,
-  TextInput,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
+import { TextInput } from '@polymathnetwork/ui/next';
 
 import AddTierModal from './AddTierModal';
 
@@ -66,19 +66,24 @@ const rows = [
 ];
 
 type Props = {
-  onChange: () => void,
+  onChange: ({ isMultipleTiers: boolean, tiers: any[] }) => void,
   isMultipleTiers: boolean,
+  tiers: any[],
 };
 
-class InvestmentTiers extends React.Component<Props> {
+type State = {|
+  isAddingTier: boolean,
+|};
+
+class InvestmentTiers extends React.Component<Props, State> {
   state = {
     isAddingTier: false,
   };
 
-  onTiersToggle(isMultipleTiers) {
+  onTiersToggle(isMultipleTiers: boolean) {
     // maybe trigger onChange with a single tier or an array of tiers?
     this.props.onChange({
-      tiers: isMultipleTiers ? this.props.tiers : [this.props.tiers[0]],
+      tiers: this.props.tiers,
       isMultipleTiers,
     });
   }
@@ -91,7 +96,7 @@ class InvestmentTiers extends React.Component<Props> {
     this.setState({ isAddingTier: true });
   }
 
-  handleTierAdded(tier) {
+  handleTierAdded(tier: any) {
     // add tier data in state?
   }
 
@@ -127,7 +132,6 @@ class InvestmentTiers extends React.Component<Props> {
               <Field
                 name="number-of-tokens"
                 component={TextInput}
-                normalize={thousandsDelimiter}
                 label={
                   <Tooltip triggerText="Number of tokens">
                     <p className="bx--tooltip__label">Number of tokens</p>
@@ -167,7 +171,6 @@ class InvestmentTiers extends React.Component<Props> {
               <Field
                 name="token-price"
                 component={TextInput}
-                normalize={thousandsDelimiter}
                 label={
                   <Tooltip triggerText="Discount for Tokens Purchased with POLY">
                     <p className="bx--tooltip__label">
