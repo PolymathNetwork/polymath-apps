@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { size, space, textAlign } from 'styled-system';
+import { width, height, space, textAlign } from 'styled-system';
 
 const Box = styled.div`
   margin: unset;
@@ -10,7 +10,8 @@ const Box = styled.div`
   font-family: inherit;
   font-size: 100%;
   box-sizing: border-box;
-  ${size};
+  ${width};
+  ${height};
   ${space};
   ${textAlign};
 `;

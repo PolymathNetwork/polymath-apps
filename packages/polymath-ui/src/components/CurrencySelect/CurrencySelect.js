@@ -63,6 +63,13 @@ const DropdownIndicator = props => {
 };
 
 class CurrencySelect extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   static defaultProps = {
     options: currencyOptions,
   };
@@ -76,8 +83,14 @@ class CurrencySelect extends React.Component<Props> {
     onChange(newValue, 'remove-value'); // 2nd param is from React-Select "actions" https://react-select.com/props
   };
 
+  handleChange(options: [Option], action: string) {
+    const { onChange } = this.props;
+
+    return onChange(options.map(option => option.value), action);
+  }
+
   render() {
-    const { value, options, ...props } = this.props;
+    const { value, options, onChange, ...props } = this.props;
     return (
       <Fragment>
         <Container mr={4}>
@@ -99,6 +112,7 @@ class CurrencySelect extends React.Component<Props> {
                   )
                 : value
             }
+            onChange={this.handleChange}
             {...props}
           />
         </Container>

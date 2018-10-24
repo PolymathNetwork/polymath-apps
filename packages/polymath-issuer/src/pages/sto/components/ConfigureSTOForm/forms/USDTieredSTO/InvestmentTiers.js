@@ -195,42 +195,44 @@ class InvestmentTiers extends React.Component<Props, State> {
             </Grid>
           </Fragment>
         ) : (
-          <DynamicTable
-            rows={tableItems}
-            headers={headers}
-            render={({ rows, headers, getHeaderProps }) => (
-              <TableContainer>
-                <Box textAlign="right" mb={3}>
-                  <Button
-                    icon={icoAdd}
-                    onClick={this.handleAddNewTier.bind(this)}
-                  >
-                    Add new
-                  </Button>
-                </Box>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      {headers.map(header => (
-                        <TableHeader {...getHeaderProps({ header })}>
-                          {header.header}
-                        </TableHeader>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map(row => (
-                      <TableRow key={row.id}>
-                        {row.cells.map(cell => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
+          <Box mb={3}>
+            <DynamicTable
+              rows={tableItems}
+              headers={headers}
+              render={({ rows, headers, getHeaderProps }) => (
+                <TableContainer>
+                  <Box textAlign="right" mb={3}>
+                    <Button
+                      icon={icoAdd}
+                      onClick={this.handleAddNewTier.bind(this)}
+                    >
+                      Add new
+                    </Button>
+                  </Box>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        {headers.map(header => (
+                          <TableHeader {...getHeaderProps({ header })}>
+                            {header.header}
+                          </TableHeader>
                         ))}
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            )}
-          />
+                    </TableHead>
+                    <TableBody>
+                      {rows.map(row => (
+                        <TableRow key={row.id}>
+                          {row.cells.map(cell => (
+                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                          ))}
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            />
+          </Box>
         )}
         <FieldArray
           name="investmentTiers.tiers"

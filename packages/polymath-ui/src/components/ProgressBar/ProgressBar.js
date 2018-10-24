@@ -2,27 +2,35 @@
 
 import React, { Component } from 'react';
 import Measure from 'react-measure';
+import styled from 'styled-components';
 
-// TODO @bshevchenko: extract following styles into the scss file
-const backgroundColor = '#F0F3F6';
-const strokeColor = '#3D70B2';
-const strokeWidth = 16;
+import theme from '../../theme';
 
 type Props = {|
   className: string,
   progress: number,
   style: {},
+  height: string,
+  backgroundColor: string,
+  color: string,
 |};
 
 type State = {|
   width: number,
 |};
 
+const Svg = styled.svg`
+  display: block;
+`;
+
 export default class ProgressBar extends Component<Props, State> {
   static defaultProps = {
     className: '',
     progress: 0,
     style: {},
+    height: 16,
+    backgroundColor: theme.colors.gray[0],
+    color: theme.colors.blue[0],
   };
 
   state = {
@@ -34,8 +42,16 @@ export default class ProgressBar extends Component<Props, State> {
   };
 
   render() {
-    const { className, progress, style } = this.props;
+    const {
+      className,
+      progress,
+      style,
+      height,
+      backgroundColor,
+      color,
+    } = this.props;
     const width = this.state.width;
+    const strokeWidth = parseInt(height, 10);
 
     // noinspection SpellCheckingInspection
     const pathStyle = {
@@ -58,7 +74,7 @@ export default class ProgressBar extends Component<Props, State> {
       <Measure bounds onResize={this.handleResize}>
         {({ measureRef }) => (
           <div ref={measureRef}>
-            <svg
+            <Svg
               className={`pui-progress-bar ${className}`}
               style={style}
               viewBox={viewBox}
@@ -68,19 +84,19 @@ export default class ProgressBar extends Component<Props, State> {
                 d={pathString}
                 strokeLinecap="round"
                 stroke={backgroundColor}
-                strokeWidth={strokeWidth}
+                strokeWidth={height}
                 fillOpacity="0"
               />
               <path
                 className="pui-progress-bar-path"
                 d={pathString}
                 strokeLinecap="round"
-                stroke={strokeColor}
-                strokeWidth={strokeWidth}
+                stroke={color}
+                strokeWidth={height}
                 fillOpacity="0"
                 style={pathStyle}
               />
-            </svg>
+            </Svg>
           </div>
         )}
       </Measure>
