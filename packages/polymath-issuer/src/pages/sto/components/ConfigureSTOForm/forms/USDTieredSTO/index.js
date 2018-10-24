@@ -141,9 +141,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       validateOnBlur={true}
       validateOnChange={false}
       render={({ handleSubmit, values, errors, setFieldValue }) => {
-        console.log('Rendered form', values);
-        console.log('errors', errors);
-
         return (
           <Form onSubmit={handleSubmit}>
             <Heading variant="h3">STO Schedule</Heading>
