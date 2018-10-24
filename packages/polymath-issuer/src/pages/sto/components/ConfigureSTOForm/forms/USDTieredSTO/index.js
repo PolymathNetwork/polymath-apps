@@ -1,17 +1,11 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Formik, Field } from 'formik';
 import moment from 'moment';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
-import {
-  Box,
-  Grid,
-  Heading,
-  RaisedAmount,
-  Remark,
-  thousandsDelimiter,
-} from '@polymathnetwork/ui';
+import { Box, Grid, Heading, RaisedAmount, Remark } from '@polymathnetwork/ui';
 import {
   TextInput,
   DatePickerInput,
@@ -20,9 +14,17 @@ import {
   CurrencySelect,
 } from '@polymathnetwork/ui/next';
 import InvestmentTiers from './InvestmentTiers';
+import { configureSTO } from '../../../../../../actions/sto';
+
+import type { Dispatch } from 'redux';
 
 type ComponentProps = {|
   onSubmit: () => void,
+|};
+
+type ContainerProps = {|
+  dispatch: Dispatch<any>,
+  address: string,
 |};
 
 function validateEndTime(value) {
@@ -114,6 +116,7 @@ const formSchema = Yup.object().shape({
   nonAccreditedMax: Yup.number()
     .required()
     .moreThan(0),
+  minimumInvestment: Yup.number().min(0),
   receiverAddress: Yup.string().required(),
   unsoldTokensAddress: Yup.string().required(),
   investmentTiers: Yup.object().shape({
@@ -123,23 +126,47 @@ const formSchema = Yup.object().shape({
   }),
 });
 
-export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
-  const initialValues = {
-    investmentTiers: {
-      tiers: [],
-      isMultipleTiers: false,
-      newTier: null,
-    },
-    currencies: ['ETH', 'POLY'],
-  };
+// FIXME @RafaelVidaurre: RESET to empty values, these are hardcoded for testing
+// TODO @RafaelVidaurre: Improve fields naming
+const dummyStartDateUnix = Date.now() + 1000 * 60 * 60 * 24;
+const dummyEndDateUnix = dummyStartDateUnix + 1000 * 60 * 60 * 24 * 10;
 
+const initialValues = {
+  startDate: new Date(dummyStartDateUnix),
+  endDate: new Date(dummyEndDateUnix),
+  startTime: 1000 * 60 * 60 * 10,
+  endTime: 1000 * 60 * 60 * 10,
+  investmentTiers: {
+    isMultipleTiers: true,
+    tiers: [
+      {
+        tokensAmount: 10000,
+        tokenPrice: 50,
+        discountedTokensAmount: 1000,
+        discountedTokensPrice: 40,
+      },
+      {
+        tokensAmount: 50000,
+        tokenPrice: 150,
+        discountedTokensAmount: 10000,
+        discountedTokensPrice: 30,
+      },
+    ],
+    newTier: null,
+  },
+  nonAccreditedMax: 10000,
+  minimumInvestment: 100,
+  receiverAddress: '0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e',
+  unsoldTokensAddress: '0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e',
+  currencies: ['ETH', 'POLY'],
+};
+
+export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
   return (
     <Formik
       onSubmit={onSubmit}
       validationSchema={formSchema}
       initialValues={initialValues}
-      validateOnBlur={true}
-      validateOnChange={false}
       render={({ handleSubmit, values, errors, setFieldValue }) => {
         return (
           <Form onSubmit={handleSubmit}>
@@ -271,11 +298,27 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
   );
 };
 
-export default class USDTieredSTOFormContainer extends Component {
+// TODO @RafaelVidaurre: Move to new file
+const mapStateToProps = ({
+  sto: {
+    factory: { address },
+  },
+}) => ({ address });
+
+class USDTieredSTOFormContainer extends Component<ContainerProps> {
   submit = values => {
-    console.log('values', values);
+    const { dispatch, address } = this.props;
+
+    const config = {
+      data: values,
+    };
+    dispatch(configureSTO(address, config)).catch(error => {
+      throw error;
+    });
   };
   render() {
     return <USDTieredSTOFormComponent onSubmit={this.submit} />;
   }
 }
+
+export default connect(mapStateToProps)(USDTieredSTOFormContainer);

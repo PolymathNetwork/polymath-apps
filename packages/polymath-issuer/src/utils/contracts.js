@@ -76,3 +76,13 @@ export async function getSTOModules(securityTokenAddress: string) {
 
   return stoModules;
 }
+
+// - missing config values
+// 1. Get the right contract
+// 2. Execute transaction
+export async function setupSTOModule(
+  stoModule: STOModule,
+  securityTokenAddress: string
+) {
+  console.log('Setting up STO Module!', stoModule, securityTokenAddress);
+}

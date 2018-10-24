@@ -3,13 +3,17 @@
 import React from 'react';
 import { STO } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
+import { setupSTOModule } from '../utils/contracts';
+
+import type { Dispatch } from 'redux';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
+import type { STOConfig } from '../constants';
+import type { RootState } from '../redux/reducer';
 import type {
   STOFactory,
   STODetails,
   STOPurchase,
 } from '@polymathnetwork/js/types';
-
 import type { ExtractReturn } from '../redux/helpers';
 import type { GetState } from '../redux/reducer';
 
@@ -21,6 +25,39 @@ export const data = (contract: STO, details: ?STODetails) => ({
 });
 
 const STO_TYPE = 3;
+
+const ConfigSTOConfirmContent = ({ setupCost }) => (
+  <div>
+    <p>
+      Once submitted to the blockchain, the dates for your offering cannot be
+      changed. Please confirm dates with your Advisor and Legal providers before
+      you click on &laquo;CONFIRM&raquo;. Also, note that Investors must be
+      added to the whitelist before or while the STO is live, so they can
+      participate to your fundraise and that all necessary documentation must be
+      posted on your Securities Offering Site.
+    </p>
+    <p>
+      Completion of your STO smart contract deployment and scheduling will
+      require two wallet transactions.
+    </p>
+    <p>
+      • The first transaction will be used to pay for the smart contract fee of:
+    </p>
+    <div className="bx--details poly-cost">
+      {setupCost.toString()}
+      POLY
+    </div>
+    <p>
+      • The second transaction will be used to pay the mining fee (aka gas fee)
+      to complete the scheduling of your STO.
+    </p>
+    <p>
+      Hit &laquo;CANCEL&raquo; if you would like to edit the information
+      provided or &laquo;CONFIRM&raquo; if you have confirmed the details of
+      your STO with your Advisor and are ready to proceed.
+    </p>
+  </div>
+);
 
 export const FACTORIES = 'sto/FACTORIES';
 export const factories = (factories: Array<STOFactory>) => ({
@@ -130,6 +167,88 @@ export const fetchFactories = () => async (
 const dateTimeFromDateAndTime = (date: Date, time: TwelveHourTime) =>
   new Date(date.valueOf() + ui.twelveHourTimeToMinutes(time) * 60000);
 
+export const configureSTO = (
+  moduleAddress: string,
+  config: STOConfig
+) => async (dispatch: Dispatch<any>, getState: GetState) => {
+  /**
+   * X Get factory from state
+   * X Get factory's setupCost
+   * - Dispatch ui.confirm
+   * - If Balance is < cost launch faucet?
+   * - Dispatch ui.tx with approval and setup
+   * - Run setupsto module
+   */
+  const {
+    token,
+    stoModules,
+    sto: { factory },
+  }: RootState = getState();
+  if (!token) {
+    throw new Error(
+      'configureSTO action was called before token state was initialized.'
+    );
+  }
+  if (!stoModules.fetched) {
+    throw new Error(
+      'configureSTO action was called before stoModules state was initialized.'
+    );
+  }
+  if (!factory) {
+    // FIXME @RafaelVidaurre: Should be removed after routing is fixed
+    throw new Error('Unexpected error, factory not set in state.');
+  }
+
+  const stoModule = stoModules.modules[factory.address];
+  if (!stoModule) {
+    throw new Error('Factory selected is not present in stoModules state');
+  }
+
+  console.log('stoModule', stoModule);
+  const { setupCost } = stoModule;
+  // TODO @RafaelVidaurre: Format setup cost
+
+  dispatch(
+    ui.confirm(
+      <ConfigSTOConfirmContent setupCost={setupCost} />,
+      async () => {
+        const balance = getState().pui.account.balance;
+        const hasEnoughBalance = balance.lt(setupCost);
+
+        if (!hasEnoughBalance) {
+          dispatch(
+            ui.faucet(
+              `The launching of a STO has a fixed cost of ${setupCost} POLY.`
+            )
+          );
+          return;
+        }
+
+        // NOTE @RafaelVidaurre: Legacy checks, verify if actually necessary
+        const {
+          token: { token },
+        } = getState();
+        if (!token) {
+          return;
+        }
+
+        dispatch(
+          ui.tx(
+            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            async () => {
+              await setupSTOModule(stoModule, token.address);
+            }
+          )
+        );
+      },
+      'Before You Proceed with your Security Token Offering Deployment and Scheduling',
+      undefined,
+      'pui-large-confirm-modal'
+    )
+  );
+};
+
+// TODO @RafaelVidaurre: Switch to new configure when CappedSTO is re-written, this is legacy now
 export const configure = () => async (
   dispatch: Function,
   getState: GetState
@@ -143,34 +262,7 @@ export const configure = () => async (
   const feeView = ui.thousandsDelimiter(fee);
   dispatch(
     ui.confirm(
-      <div>
-        <p>
-          Once submitted to the blockchain, the dates for your offering cannot
-          be changed. Please confirm dates with your Advisor and Legal providers
-          before you click on &laquo;CONFIRM&raquo;. Also, note that Investors
-          must be added to the whitelist before or while the STO is live, so
-          they can participate to your fundraise and that all necessary
-          documentation must be posted on your Securities Offering Site.
-        </p>
-        <p>
-          Completion of your STO smart contract deployment and scheduling will
-          require two wallet transactions.
-        </p>
-        <p>
-          • The first transaction will be used to pay for the smart contract fee
-          of:
-        </p>
-        <div className="bx--details poly-cost">{feeView} POLY</div>
-        <p>
-          • The second transaction will be used to pay the mining fee (aka gas
-          fee) to complete the scheduling of your STO.
-        </p>
-        <p>
-          Hit &laquo;CANCEL&raquo; if you would like to edit the information
-          provided or &laquo;CONFIRM&raquo; if you have confirmed the details of
-          your STO with your Advisor and are ready to proceed.
-        </p>
-      </div>,
+      <ConfigSTOConfirmContent setupCost={feeView} />,
       async () => {
         // $FlowFixMe
         if (getState().pui.account.balance.lt(fee)) {
@@ -187,46 +279,45 @@ export const configure = () => async (
           return;
         }
 
-        // FIXME @RafaelVidaurre: Leaving this commented, we should NOT use
+        // FIXME @RafaelVidaurre: we should NOT use
         // redux-form's state here
+        dispatch(
+          ui.tx(
+            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            async () => {
+              const contract: any = token.contract;
+              const { values } = getState().form[configureFormName];
+              const [startDate] = values.startDate;
+              const [endDate] = values.endDate;
+              const startDateWithTime = dateTimeFromDateAndTime(
+                startDate,
+                values.startTime
+              );
+              const endDateWithTime = dateTimeFromDateAndTime(
+                endDate,
+                values.endTime
+              );
+              const isEthFundraise = values.currency === 'ETH';
 
-        // dispatch(
-        //   ui.tx(
-        //     ['Approving POLY Spend', 'Deploying And Scheduling'],
-        //     async () => {
-        //       const contract: SecurityToken = token.contract;
-        //       const { values } = getState().form[configureFormName];
-        //       const [startDate] = values.startDate;
-        //       const [endDate] = values.endDate;
-        //       const startDateWithTime = dateTimeFromDateAndTime(
-        //         startDate,
-        //         values.startTime
-        //       );
-        //       const endDateWithTime = dateTimeFromDateAndTime(
-        //         endDate,
-        //         values.endTime
-        //       );
-        //       const isEthFundraise = values.currency === 'ETH';
-
-        //       await contract.setCappedSTO(
-        //         startDateWithTime,
-        //         endDateWithTime,
-        //         values.cap.replace(/,/g, ''),
-        //         values.rate.replace(/,/g, ''),
-        //         isEthFundraise,
-        //         values.fundsReceiver
-        //       );
-        //     },
-        //     'STO Configured Successfully',
-        //     () => {
-        //       return dispatch(fetch());
-        //     },
-        //     `/dashboard/${token.ticker}/compliance`,
-        //     undefined,
-        //     false,
-        //     token.ticker.toUpperCase() + ' STO Creation'
-        //   )
-        // );
+              await contract.setCappedSTO(
+                startDateWithTime,
+                endDateWithTime,
+                values.cap.replace(/,/g, ''),
+                values.rate.replace(/,/g, ''),
+                isEthFundraise,
+                values.fundsReceiver
+              );
+            },
+            'STO Configured Successfully',
+            () => {
+              return dispatch(fetch());
+            },
+            `/dashboard/${token.ticker}/compliance`,
+            undefined,
+            false,
+            token.ticker.toUpperCase() + ' STO Creation'
+          )
+        );
       },
       'Before You Proceed with your Security Token Offering Deployment and Scheduling',
       undefined,

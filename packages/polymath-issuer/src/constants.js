@@ -40,3 +40,6 @@ export type SecurityToken = {|
   details?: string,
   contract?: any,
 |};
+export type STOConfig = {|
+  data: { [prop: string]: any },
+|};
