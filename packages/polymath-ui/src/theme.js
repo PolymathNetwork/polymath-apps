@@ -3,6 +3,7 @@ const space = [0, 5, 10, 20, 30, 50, 80, 120];
 const colors = {
   baseTextColor: '#152935',
   gray: ['#EBF0F7', '#8C9BA5', '#5A6872'],
+  blue: ['#3D70B2'],
 };
 
 const headings = {
