@@ -645,9 +645,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"../interfaces/IERC20.sol\";\nimport \"../interfaces/IModuleFactory.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\nimport \"../libraries/VersionUtils.sol\";\n\n/**\n * @title Interface that any module factory contract should implement\n * @notice Contract is abstract\n */\ncontract ModuleFactory is IModuleFactory, Ownable {\n\n    IERC20 public polyToken;\n    uint256 public setupCost;\n    uint256 public usageCost;\n    uint256 public monthlySubscriptionCost;\n    string public description;\n    string public version;\n    bytes32 public name;\n    string public title;\n\n    // @notice Allow only two variables to store\n    // 1. lowerBound \n    // 2. upperBound\n    // @dev (0.0.0 will act as the wildcard) \n    // @dev uint24 consists packed value of uint8 _major, uint8 _minor, uint8 _patch\n    mapping(string => uint24) compatibleSTVersionRange;\n\n    event ChangeFactorySetupFee(uint256 _oldSetupCost, uint256 _newSetupCost, address _moduleFactory);\n    event ChangeFactoryUsageFee(uint256 _oldUsageCost, uint256 _newUsageCost, address _moduleFactory);\n    event ChangeFactorySubscriptionFee(uint256 _oldSubscriptionCost, uint256 _newMonthlySubscriptionCost, address _moduleFactory);\n    event GenerateModuleFromFactory(address _module, bytes32 indexed _moduleName, address indexed _moduleFactory, address _creator, uint256 _timestamp);\n    event ChangeSTVersionBound(string _boundType, uint8 _major, uint8 _minor, uint8 _patch);\n\n    /**\n     * @notice Constructor\n     * @param _polyAddress Address of the polytoken\n     */\n    constructor (address _polyAddress, uint256 _setupCost, uint256 _usageCost, uint256 _subscriptionCost) public {\n      polyToken = IERC20(_polyAddress);\n      setupCost = _setupCost;\n      usageCost = _usageCost;\n      monthlySubscriptionCost = _subscriptionCost;\n    }\n\n    /**\n     * @notice used to change the fee of the setup cost\n     * @param _newSetupCost new setup cost\n     */\n    function changeFactorySetupFee(uint256 _newSetupCost) public onlyOwner {\n        emit ChangeFactorySetupFee(setupCost, _newSetupCost, address(this));\n        setupCost = _newSetupCost;\n    }\n\n    /**\n     * @notice used to change the fee of the usage cost\n     * @param _newUsageCost new usage cost\n     */\n    function changeFactoryUsageFee(uint256 _newUsageCost) public onlyOwner {\n        emit ChangeFactoryUsageFee(usageCost, _newUsageCost, address(this));\n        usageCost = _newUsageCost;\n    }\n\n    /**\n     * @notice used to change the fee of the subscription cost\n     * @param _newSubscriptionCost new subscription cost\n     */\n    function changeFactorySubscriptionFee(uint256 _newSubscriptionCost) public onlyOwner {\n        emit ChangeFactorySubscriptionFee(monthlySubscriptionCost, _newSubscriptionCost, address(this));\n        monthlySubscriptionCost = _newSubscriptionCost;\n\n    }\n\n    /**\n     * @notice Update the title of the ModuleFactory\n     * @param _newTitle New Title that will replace the old one.\n     */\n    function changeTitle(string _newTitle) public onlyOwner {\n        require(bytes(_newTitle).length > 0);\n        title = _newTitle;\n    }\n\n    /**\n     * @notice Update the description of the ModuleFactory\n     * @param _newDesc New description that will replace the old one.\n     */\n    function changeDescription(string _newDesc) public onlyOwner {\n        require(bytes(_newDesc).length > 0);\n        description = _newDesc;\n    }\n\n    /**\n     * @notice Update the name of the ModuleFactory\n     * @param _newName New name that will replace the old one.\n     */\n    function changeName(bytes32 _newName) public onlyOwner {\n        require(_newName != bytes32(0));\n        name = _newName;\n    }\n\n    /**\n     * @notice Update the version of the ModuleFactory\n     * @param _newVersion New name that will replace the old one.\n     */\n    function changeVersion(string _newVersion) public onlyOwner {\n        require(bytes(_newVersion).length > 0 );\n        version = _newVersion;\n    }\n\n    /**\n     * @notice Function use to change the lower and upper bound of the compatible version st\n     * @param _boundType Type of bound\n     * @param _newVersion new version array\n     */\n    function changeSTVersionBounds(string _boundType, uint8[] _newVersion) external onlyOwner {\n        require(keccak256(abi.encodePacked(_boundType)) == keccak256(abi.encodePacked(\"lowerBound\")) || keccak256(abi.encodePacked(_boundType)) == keccak256(abi.encodePacked(\"upperBound\")),\n        \"Must be a valid bound type\");\n        require(_newVersion.length == 3);\n        if (compatibleSTVersionRange[_boundType] != uint24(0)) { \n            uint8[] memory _currentVersion = VersionUtils.unpack(compatibleSTVersionRange[_boundType]);\n            require(VersionUtils.isValidVersion(_currentVersion, _newVersion), \"Failed because of in-valid version\");\n        }\n        compatibleSTVersionRange[_boundType] = VersionUtils.pack(_newVersion[0], _newVersion[1], _newVersion[2]);\n        emit ChangeSTVersionBound(_boundType, _newVersion[0], _newVersion[1], _newVersion[2]);\n    }\n\n    /**\n     * @notice use to get the lower bound\n     * @return lower bound\n     */\n    function getLowerSTVersionBounds() external view returns(uint8[]) {\n       return VersionUtils.unpack(compatibleSTVersionRange[\"lowerBound\"]);\n    }\n\n    /**\n     * @notice use to get the upper bound\n     * @return upper bound\n     */\n    function getUpperSTVersionBounds() external view returns(uint8[]) {\n        return VersionUtils.unpack(compatibleSTVersionRange[\"upperBound\"]);\n    }\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/ModuleFactory.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/ModuleFactory.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/ModuleFactory.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/ModuleFactory.sol",
     "exportedSymbols": {
       "ModuleFactory": [
         17498
@@ -668,7 +668,7 @@
         "src": "0:24:46"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../interfaces/IERC20.sol",
         "id": 17115,
         "nodeType": "ImportDirective",
@@ -679,7 +679,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
         "file": "../interfaces/IModuleFactory.sol",
         "id": 17116,
         "nodeType": "ImportDirective",
@@ -701,7 +701,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/VersionUtils.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/VersionUtils.sol",
         "file": "../libraries/VersionUtils.sol",
         "id": 17118,
         "nodeType": "ImportDirective",
@@ -5793,7 +5793,7 @@
     "src": "0:5545:46"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/ModuleFactory.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/ModuleFactory.sol",
     "exportedSymbols": {
       "ModuleFactory": [
         17498
@@ -5814,7 +5814,7 @@
         "src": "0:24:46"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../interfaces/IERC20.sol",
         "id": 17115,
         "nodeType": "ImportDirective",
@@ -5825,7 +5825,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleFactory.sol",
         "file": "../interfaces/IModuleFactory.sol",
         "id": 17116,
         "nodeType": "ImportDirective",
@@ -5847,7 +5847,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/VersionUtils.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/VersionUtils.sol",
         "file": "../libraries/VersionUtils.sol",
         "id": 17118,
         "nodeType": "ImportDirective",
@@ -10944,5 +10944,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-18T21:45:31.929Z"
+  "updatedAt": "2018-10-23T22:44:47.246Z"
 }

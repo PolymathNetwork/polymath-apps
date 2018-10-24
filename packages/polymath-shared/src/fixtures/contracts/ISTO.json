@@ -347,9 +347,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\nimport \"../../Pausable.sol\";\nimport \"../Module.sol\";\nimport \"../../interfaces/IERC20.sol\";\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\n\n/**\n * @title Interface to be implemented by all STO modules\n */\ncontract ISTO is Module, Pausable  {\n    using SafeMath for uint256;\n\n    enum FundRaiseType { ETH, POLY, DAI }\n    mapping (uint8 => bool) public fundRaiseTypes;\n    mapping (uint8 => uint256) public fundsRaised;\n\n    // Start time of the STO\n    uint256 public startTime;\n    // End time of the STO\n    uint256 public endTime;\n    // Time STO was paused\n    uint256 public pausedTime;\n    // Number of individual investors\n    uint256 public investorCount;\n    // Address where ETH & POLY funds are delivered\n    address public wallet;\n     // Final amount of tokens sold\n    uint256 public totalTokensSold;\n\n    // Event\n    event SetFundRaiseTypes(FundRaiseType[] _fundRaiseTypes);\n\n    /**\n    * @notice Reclaim ERC20Basic compatible tokens\n    * @dev We duplicate here due to the overriden owner & onlyOwner\n    * @param _tokenContract The address of the token contract\n    */\n    function reclaimERC20(address _tokenContract) external onlyOwner {\n        require(_tokenContract != address(0));\n        IERC20 token = IERC20(_tokenContract);\n        uint256 balance = token.balanceOf(address(this));\n        require(token.transfer(msg.sender, balance));\n    }\n\n    /**\n     * @notice Return funds raised by the STO\n     */\n    function getRaised(FundRaiseType _fundRaiseType) public view returns (uint256) {\n        return fundsRaised[uint8(_fundRaiseType)];\n    }\n\n    /**\n     * @notice Return the total no. of tokens sold\n     */\n    function getTokensSold() public view returns (uint256);\n\n    /**\n     * @notice pause (overridden function)\n     */\n    function pause() public onlyOwner {\n        require(now < endTime);\n        super._pause();\n    }\n\n    /**\n     * @notice unpause (overridden function)\n     */\n    function unpause() public onlyOwner {\n        super._unpause();\n    }\n\n    function _setFundRaiseType(FundRaiseType[] _fundRaiseTypes) internal {\n        // FundRaiseType[] parameter type ensures only valid values for _fundRaiseTypes\n        require(_fundRaiseTypes.length > 0, \"Raise type not specified\");\n        fundRaiseTypes[uint8(FundRaiseType.ETH)] = false;\n        fundRaiseTypes[uint8(FundRaiseType.POLY)] = false;\n        fundRaiseTypes[uint8(FundRaiseType.DAI)] = false;\n        for (uint8 j = 0; j < _fundRaiseTypes.length; j++) {\n            fundRaiseTypes[uint8(_fundRaiseTypes[j])] = true;\n        }\n        emit SetFundRaiseTypes(_fundRaiseTypes);\n    }\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/STO/ISTO.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/STO/ISTO.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/STO/ISTO.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/STO/ISTO.sol",
     "exportedSymbols": {
       "ISTO": [
         19978
@@ -370,7 +370,7 @@
         "src": "0:24:54"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../../Pausable.sol",
         "id": 19782,
         "nodeType": "ImportDirective",
@@ -381,7 +381,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
         "file": "../Module.sol",
         "id": 19783,
         "nodeType": "ImportDirective",
@@ -392,7 +392,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../../interfaces/IERC20.sol",
         "id": 19784,
         "nodeType": "ImportDirective",
@@ -2906,7 +2906,7 @@
     "src": "0:2643:54"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/STO/ISTO.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/STO/ISTO.sol",
     "exportedSymbols": {
       "ISTO": [
         19978
@@ -2927,7 +2927,7 @@
         "src": "0:24:54"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../../Pausable.sol",
         "id": 19782,
         "nodeType": "ImportDirective",
@@ -2938,7 +2938,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
         "file": "../Module.sol",
         "id": 19783,
         "nodeType": "ImportDirective",
@@ -2949,7 +2949,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../../interfaces/IERC20.sol",
         "id": 19784,
         "nodeType": "ImportDirective",
@@ -5468,5 +5468,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-18T21:45:31.953Z"
+  "updatedAt": "2018-10-23T22:44:47.286Z"
 }

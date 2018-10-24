@@ -1,14 +1,14 @@
 {
   "contractName": "DecimalMath",
   "abi": [],
-  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820e6d3e8fa67d83b8f20d064117edc79d9c9d60d7b04140f45b4523c63de370e950029",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820e6d3e8fa67d83b8f20d064117edc79d9c9d60d7b04140f45b4523c63de370e950029",
+  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a7230582016f512573e72a6f223ebf6efddbe572687c949e4a257ba91f9b732d8427894870029",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a7230582016f512573e72a6f223ebf6efddbe572687c949e4a257ba91f9b732d8427894870029",
   "sourceMap": "88:748:23:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
   "deployedSourceMap": "88:748:23:-;;;;;;;;",
   "source": "pragma solidity  ^0.4.24;\n\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\n\nlibrary DecimalMath {\n\n    using SafeMath for uint256;\n\n     /**\n     * @notice This function multiplies two decimals represented as (decimal * 10**DECIMALS)\n     * @return uint256 Result of multiplication represented as (decimal * 10**DECIMALS)\n     */\n    function mul(uint256 x, uint256 y) internal pure returns (uint256 z) {\n        z = SafeMath.add(SafeMath.mul(x, y), (10 ** 18) / 2) / (10 ** 18);\n    }\n\n    /**\n     * @notice This function divides two decimals represented as (decimal * 10**DECIMALS)\n     * @return uint256 Result of division represented as (decimal * 10**DECIMALS)\n     */\n    function div(uint256 x, uint256 y) internal pure returns (uint256 z) {\n        z = SafeMath.add(SafeMath.mul(x, (10 ** 18)), y / 2) / y;\n    }\n\n}",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/DecimalMath.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/DecimalMath.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/DecimalMath.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/DecimalMath.sol",
     "exportedSymbols": {
       "DecimalMath": [
         11777
@@ -1000,7 +1000,7 @@
     "src": "0:836:23"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/DecimalMath.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/libraries/DecimalMath.sol",
     "exportedSymbols": {
       "DecimalMath": [
         11777
@@ -1997,5 +1997,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-18T21:45:31.723Z"
+  "updatedAt": "2018-10-23T22:44:47.070Z"
 }

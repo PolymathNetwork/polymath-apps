@@ -7,8 +7,4 @@
  *
  * @returns {string} an URL without the trailing slash
  */
-const normalizeURL = url => url.replace(/\/$/, '');
-
-module.exports = {
-  normalizeURL,
-};
+export const normalizeURL = (url: string) => url.replace(/\/$/, '');

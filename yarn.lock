@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@babel/cli@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.0.0.tgz#108b395fd43fff6681d36fb41274df4d8ffeb12e"
+"@babel/cli@7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.1.0.tgz#a9429fd63911711b0fa93ae50d73beee6c42aef8"
   dependencies:
     commander "^2.8.1"
     convert-source-map "^1.1.0"
@@ -96,7 +96,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.0.0-beta.46", "@babel/core@^7.1.2":
+"@babel/core@^7.0.0-beta.46":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.1.2.tgz#f8d2a9ceb6832887329a7b60f9d035791400ba4e"
   dependencies:
@@ -1383,7 +1383,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.0.0"
 
-"@babel/register@^7.0.0":
+"@babel/register@7.0.0", "@babel/register@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.0.0.tgz#fa634bae1bfa429f60615b754fc1f1d745edd827"
   dependencies:
@@ -6646,8 +6646,8 @@ dom-serializer@0, dom-serializer@~0.1.0:
     entities "~1.1.1"
 
 dom-testing-library@^3.9.0:
-  version "3.11.2"
-  resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.11.2.tgz#11ecb840641f89fbbdcf8cc625009c24e7779615"
+  version "3.11.3"
+  resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.11.3.tgz#2ab0cdfd37d3dafa5abdbdbf069ad85aec338da8"
   dependencies:
     "@sheerun/mutationobserver-shim" "^0.3.2"
     pretty-format "^23.6.0"
@@ -14980,7 +14980,11 @@ react-input-autosize@^2.0.1, react-input-autosize@^2.2.1:
   dependencies:
     prop-types "^15.5.8"
 
-react-is@^16.3.1, react-is@^16.5.2:
+react-is@^16.3.1:
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.6.0.tgz#456645144581a6e99f6816ae2bd24ee94bdd0c01"
+
+react-is@^16.5.2:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.5.2.tgz#e2a7b7c3f5d48062eb769fcb123505eb928722e3"
 
@@ -15093,9 +15097,21 @@ react-select@1.0.0-rc.10:
     prop-types "^15.5.8"
     react-input-autosize "^2.0.1"
 
-react-select@^2.0.0, react-select@^2.1.0:
+react-select@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-2.1.0.tgz#95977a763b14f2fc42255a510acd73bef9561f7d"
+  dependencies:
+    classnames "^2.2.5"
+    emotion "^9.1.2"
+    memoize-one "^4.0.0"
+    prop-types "^15.6.0"
+    raf "^3.4.0"
+    react-input-autosize "^2.2.1"
+    react-transition-group "^2.2.1"
+
+react-select@^2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-2.1.1.tgz#762d0babd8c7c46a944db51cbb72e4ee117253f9"
   dependencies:
     classnames "^2.2.5"
     emotion "^9.1.2"

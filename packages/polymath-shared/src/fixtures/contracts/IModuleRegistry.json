@@ -215,9 +215,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for the Polymath Module Registry contract\n */\ninterface IModuleRegistry {\n\n    /**\n     * @notice Called by a security token to notify the registry it is using a module\n     * @param _moduleFactory is the address of the relevant module factory\n     */\n    function useModule(address _moduleFactory) external;\n\n    /**\n     * @notice Called by the ModuleFactory owner to register new modules for SecurityToken to use\n     * @param _moduleFactory is the address of the module factory to be registered\n     */\n    function registerModule(address _moduleFactory) external;\n\n    /**\n     * @notice Called by the ModuleFactory owner or registry curator to delete a ModuleFactory\n     * @param _moduleFactory is the address of the module factory to be deleted\n     */\n    function removeModule(address _moduleFactory) external;\n\n    /**\n    * @notice Called by Polymath to verify modules for SecurityToken to use.\n    * @notice A module can not be used by an ST unless first approved/verified by Polymath\n    * @notice (The only exception to this is that the author of the module is the owner of the ST)\n    * @param _moduleFactory is the address of the module factory to be registered\n    */\n    function verifyModule(address _moduleFactory, bool _verified) external;\n\n    /**\n     * @notice Used to get the reputation of a Module Factory\n     * @param _factoryAddress address of the Module Factory\n     * @return address array which has the list of securityToken's uses that module factory\n     */\n    function getReputationByFactory(address _factoryAddress) external view returns(address[]);\n\n    /**\n     * @notice Returns all the tags related to the a module type which are valid for the given token\n     * @param _moduleType is the module type\n     * @param _securityToken is the token\n     * @return list of tags\n     * @return corresponding list of module factories\n     */\n    function getTagsByTypeAndToken(uint8 _moduleType, address _securityToken) external view returns(bytes32[], address[]);\n\n    /**\n     * @notice Returns all the tags related to the a module type which are valid for the given token\n     * @param _moduleType is the module type\n     * @return list of tags\n     * @return corresponding list of module factories\n     */\n    function getTagsByType(uint8 _moduleType) external view returns(bytes32[], address[]);\n\n    /**\n     * @notice Returns the list of addresses of Module Factory of a particular type\n     * @param _moduleType Type of Module\n     * @return address array that contains the list of addresses of module factory contracts.\n     */\n    function getModulesByType(uint8 _moduleType) external view returns(address[]);\n\n    /**\n     * @notice Returns the list of available Module factory addresses of a particular type for a given token.\n     * @param _moduleType is the module type to look for\n     * @param _securityToken is the address of SecurityToken\n     * @return address array that contains the list of available addresses of module factory contracts.\n     */\n    function getModulesByTypeAndToken(uint8 _moduleType, address _securityToken) external view returns (address[]);\n\n    /**\n     * @notice Use to get the latest contract address of the regstries\n     */\n    function updateFromRegistry() external;\n\n    /**\n     * @notice Get the owner of the contract\n     * @return address owner\n     */\n    function owner() external view returns(address);\n\n    /**\n     * @notice Check whether the contract operations is paused or not\n     * @return bool \n     */\n    function isPaused() external view returns(bool);\n\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
         11039
@@ -1238,7 +1238,7 @@
     "src": "0:3608:15"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
         11039
@@ -2264,5 +2264,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-18T21:45:31.717Z"
+  "updatedAt": "2018-10-23T22:44:47.064Z"
 }

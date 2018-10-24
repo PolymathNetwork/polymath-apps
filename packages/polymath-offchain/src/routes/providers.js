@@ -1,11 +1,7 @@
 // @flow
 
 import Router from 'koa-router';
-import {
-  DEPLOYMENT_STAGE,
-  NETWORKS,
-  POLYMATH_REGISTRY_ADDRESS,
-} from '../constants';
+import { DEPLOYMENT_STAGE, NETWORKS } from '../constants';
 import Web3 from 'web3';
 import { User, Provider } from '../models';
 import { sendProviderApplicationEmail, verifySignature } from '../utils';
@@ -75,7 +71,7 @@ export const checkForReservedTicker = async (
   const web3Client = new Web3(networkData.url);
   const polymathRegistry = new web3Client.eth.Contract(
     PolymathRegistryArtifact.abi,
-    POLYMATH_REGISTRY_ADDRESS
+    networkData.polymathRegistryAddress
   );
 
   const strAddress = await polymathRegistry.methods
@@ -250,7 +246,7 @@ export const applyHandler = async (ctx: Context) => {
       );
     }
   } else {
-    // Send dummy email
+    // Send dummy email to the issuer instead of the provider
     await sendProviderApplicationEmail(
       userEmail,
       userName,

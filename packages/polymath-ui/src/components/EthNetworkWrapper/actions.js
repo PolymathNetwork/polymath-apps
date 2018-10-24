@@ -6,6 +6,10 @@ import getNetwork from './networks';
 import type { ExtractReturn } from './helpers';
 import Contract, { setupContracts } from '@polymathnetwork/js';
 import { txHash, txEnd } from '../TxModal/actions';
+import {
+  LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
 
 export type NetworkParams = {|
   id: number,
@@ -14,10 +18,6 @@ export type NetworkParams = {|
   web3: Web3,
   web3WS: Web3,
 |};
-
-// FIXME @RafaelVidaurre: This shouldn't be the right way to do it, but
-// this has to be here for now
-const HARDCODED_NETWORK_ID = 15;
 
 export const CONNECTED = 'polymath-auth/CONNECTED';
 const connected = (params: NetworkParams) => ({ type: CONNECTED, params });
@@ -61,9 +61,13 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
       web3.setProvider(window.web3.currentProvider);
       id = await web3.eth.net.getId();
     }
-    // TODO @RafaelVidaurre: Make this code work with polymath in localhost
-    const isLocalhost = Number(id) === HARDCODED_NETWORK_ID || id === undefined;
-    const network = getNetwork(!isLocalhost ? id : undefined);
+
+    const isLocalhost =
+      String(id) === LOCAL_NETWORK_ID ||
+      String(id) === LOCALVM_NETWORK_ID ||
+      id === undefined;
+
+    const network = getNetwork(id);
 
     if (
       network === undefined ||

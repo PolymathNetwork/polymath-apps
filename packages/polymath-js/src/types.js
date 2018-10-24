@@ -44,6 +44,7 @@ export type Web3Contract = {|
       toBlock?: number | string,
     }
   ) => Promise<Array<Web3Event>>,
+  methods: Object,
 |};
 
 export type Web3Receipt = {|
