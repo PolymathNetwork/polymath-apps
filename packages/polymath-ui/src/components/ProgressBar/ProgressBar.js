@@ -10,9 +10,9 @@ type Props = {|
   className: string,
   progress: number,
   style: {},
-  strokeWidth: number,
+  height: string,
   backgroundColor: string,
-  strokeColor: string,
+  color: string,
 |};
 
 type State = {|
@@ -28,9 +28,9 @@ export default class ProgressBar extends Component<Props, State> {
     className: '',
     progress: 0,
     style: {},
-    strokeWidth: 16,
+    height: 16,
     backgroundColor: theme.colors.gray[0],
-    strokeColor: theme.colors.blue[0],
+    color: theme.colors.blue[0],
   };
 
   state = {
@@ -46,11 +46,12 @@ export default class ProgressBar extends Component<Props, State> {
       className,
       progress,
       style,
-      strokeWidth,
+      height,
       backgroundColor,
-      strokeColor,
+      color,
     } = this.props;
     const width = this.state.width;
+    const strokeWidth = parseInt(height, 10);
 
     // noinspection SpellCheckingInspection
     const pathStyle = {
@@ -83,15 +84,15 @@ export default class ProgressBar extends Component<Props, State> {
                 d={pathString}
                 strokeLinecap="round"
                 stroke={backgroundColor}
-                strokeWidth={strokeWidth}
+                strokeWidth={height}
                 fillOpacity="0"
               />
               <path
                 className="pui-progress-bar-path"
                 d={pathString}
                 strokeLinecap="round"
-                stroke={strokeColor}
-                strokeWidth={strokeWidth}
+                stroke={color}
+                strokeWidth={height}
                 fillOpacity="0"
                 style={pathStyle}
               />
