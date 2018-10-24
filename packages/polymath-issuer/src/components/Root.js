@@ -18,7 +18,6 @@ import {
 } from '@polymathnetwork/ui';
 
 import SplashPage from './SplashPage';
-import USDTieredSTOForm from '../pages/sto/components/ConfigureSTOForm/forms/USDTieredSTO';
 
 type StateProps = {|
   isNotice: boolean,

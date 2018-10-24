@@ -10,7 +10,23 @@ import web3 from 'web3';
 import IModuleFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/IModuleFactory.json';
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../constants';
 
-import type { STOModule } from '../constants';
+import type { STOModule, STOModuleType } from '../constants';
+
+// NOTE @RafaelVidaurre: Most of this logic can be shared for any type of modules
+
+export async function getSTOModuleContract(
+  type: STOModuleType,
+  address: string
+) {
+  const web3Client = Contract._params.web3;
+  const moduleAbi = ModuleFactoryAbisByType[type];
+  if (!moduleAbi) {
+    throw new Error(`Abi not found for module factory of type "${type}"`);
+  }
+
+  // Generate a Contract instance depending on the ModuleFactory type
+  return new web3Client.eth.Contract(moduleAbi, address);
+}
 
 /**
  * Retrieves an STOModule's information based on an address
@@ -29,13 +45,7 @@ export async function getSTOModule(address: string) {
   const nameRes = await GenericModuleFactory.methods.getName().call();
   const type = web3.utils.hexToUtf8(nameRes);
 
-  const moduleAbi = ModuleFactoryAbisByType[type];
-  if (!moduleAbi) {
-    throw new Error(`Abi not found for module factory of type "${type}"`);
-  }
-
-  // Generate a Contract instance depending on the ModuleFactory type
-  const ModuleFactory = new web3Client.eth.Contract(moduleAbi, address);
+  const ModuleFactory = await getSTOModuleContract(type, address);
 
   const descriptionRes = await ModuleFactory.methods.getDescription().call();
   const titleRes = await ModuleFactory.methods.getTitle().call();
@@ -84,5 +94,10 @@ export async function setupSTOModule(
   stoModule: STOModule,
   securityTokenAddress: string
 ) {
-  console.log('Setting up STO Module!', stoModule, securityTokenAddress);
+  const { type, address, setupCost } = stoModule;
+
+  const ModuleFactory = await getSTOModuleContract(type, address);
+
+  // Transfer to token first NOTE: securityTokenAddress.balance should be used to verify
+  await PolyToken.transfer(securityTokenAddress, setupCost);
 }
