@@ -28,6 +28,7 @@ export { default as SignUpSuccessPage } from './components/SignUpSuccessPage';
 export { default as SignInPage } from './components/SignInPage';
 export { default as ErrorBoundary } from './components/ErrorBoundary';
 export { default as DynamicTable } from './components/DynamicTable';
+export { default as Table } from './components/Table';
 export { default as CurrencySelect } from './components/CurrencySelect';
 export { default as RaisedAmount } from './components/RaisedAmount';
 

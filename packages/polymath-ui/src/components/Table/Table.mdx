@@ -1,0 +1,105 @@
+---
+name: Table
+---
+
+import { Fragment } from 'react';
+import { Playground, PropsTable } from 'docz';
+
+import Box from '../Box';
+import InlineFlex from '../InlineFlex';
+import ProgressBar from '../ProgressBar';
+import SimpleTable from './';
+
+# Table
+
+<PropsTable of={SimpleTable} />
+
+## Basic usage
+
+<Playground>
+  {() => {
+    const {
+      TableContainer,
+      Table,
+      TableHead, 
+      TableHeader, 
+      TableBody, 
+      TableRow, 
+      TableCell
+    } = SimpleTable;
+    
+    const headers = [
+      {
+        // `key` is the name of the field on the row object itself for the header
+        key: 'tier',
+        // `header` will be the name you want rendered in the Table Header
+        header: '# Tier',
+      },
+      {
+        key: 'tokenPrice',
+        header: 'Token Price',
+      },
+      {
+        key: 'raiseTarget',
+        header: 'Total Raise Target',
+      },
+      {
+        key: 'raised',
+        header: 'Raised',
+      },
+      {
+        key: 'progress',
+        header: ''
+      },
+    ];
+
+    const rows = [
+      {
+        id: 'a',
+        tier: 1,
+        tokenPrice: 100,
+        raiseTarget: 300000,
+        raised: 100,
+        progress: (
+          <InlineFlex>
+            <Box width="150px" mr={1}>
+              <ProgressBar progress={0.5} />
+            </Box>
+            100%
+          </InlineFlex>
+        )
+      }
+    ];
+
+    return (
+      <SimpleTable
+        rows={rows}
+        headers={headers}
+        render={({ rows, headers }) => (
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {headers.map(header => (
+                    <TableHeader>
+                      {header.header}
+                    </TableHeader>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map(row => (
+                  <TableRow key={row.id}>
+                    {row.cells.map(cell => (
+                      <TableCell key={cell.id}>{cell.value}</TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      />
+    );
+  }}
+</Playground>
