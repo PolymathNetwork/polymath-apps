@@ -30,7 +30,7 @@ export default class ProgressBar extends Component<Props, State> {
     style: {},
     height: 16,
     backgroundColor: theme.colors.gray[0],
-    color: theme.colors.blue[0],
+    color: theme.colors.secondary,
   };
 
   state = {

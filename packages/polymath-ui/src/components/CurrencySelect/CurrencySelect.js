@@ -41,7 +41,7 @@ const colourStyles = {
   },
   dropdownIndicator: (styles, { data }) => ({
     ...styles,
-    color: theme.colors.baseTextColor,
+    color: theme.colors.baseText,
   }),
 };
 
