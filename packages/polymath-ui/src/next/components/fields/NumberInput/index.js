@@ -16,7 +16,6 @@ export default (props: InputProps) => {
 
   const error = touched[field.name] && errors[field.name];
   const invalid = error && touched;
-  const val = value + 'aa';
 
   return (
     <TextInput
