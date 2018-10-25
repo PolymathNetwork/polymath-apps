@@ -228,11 +228,7 @@ export const configureSTO = (
           ui.tx(
             ['Approving POLY Spend', 'Deploying And Scheduling'],
             async () => {
-              try {
-                await setupSTOModule(stoModule, token.address, config.data);
-              } catch (err) {
-                console.log(err);
-              }
+              await setupSTOModule(stoModule, token.address, config.data);
             },
             'STO Configured Successfully',
             () => {
