@@ -123,9 +123,10 @@ class InvestmentTiers extends React.Component<Props, State> {
             <Tooltip triggerText="Investment Tiers">
               <p className="bx--tooltip__label">Investment Tiers</p>
               <p>
-                Conversion rate between the currency you chose and your Security
-                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
-                Security Tokens.
+                All tokens may be sold at the same price (single-tier) or using
+                a multi-tiered structure. If multiple tiers are used, tokens
+                will be sold at the price defined in tier 2, once all tokens in
+                tier 1 are sold.
               </p>
             </Tooltip>
           </label>
@@ -163,6 +164,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 component={NumberInput}
                 label="Token Price"
                 placeholder="Enter amount"
+                unit="USD"
               />
             </Grid>
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
@@ -191,6 +193,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   </Tooltip>
                 }
                 placeholder="0"
+                unit="%"
               />
             </Grid>
           </Fragment>
