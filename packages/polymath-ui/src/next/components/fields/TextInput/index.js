@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { get } from 'lodash';
-import { TextInput } from 'carbon-components-react';
+
+import Field from '../../../../components/Field';
+import TextInput from '../../../../components/TextInput';
+import InputError from '../../../../components/InputError';
+import InputLabel from '../../../../components/InputLabel';
 
 import type { InputProps } from '../types';
 
@@ -20,14 +24,16 @@ export default (props: InputProps) => {
   const invalid = !!error;
 
   return (
-    <TextInput
-      id={field.name}
-      invalid={invalid}
-      invalidText={error}
-      labelText={label}
-      value={value || ''}
-      {...otherProps}
-      {...fieldProps}
-    />
+    <Field>
+      <InputLabel>{label}</InputLabel>
+      <TextInput
+        id={field.name}
+        invalid={invalid}
+        value={value || ''}
+        {...otherProps}
+        {...fieldProps}
+      />
+      <InputError>{error}</InputError>
+    </Field>
   );
 };

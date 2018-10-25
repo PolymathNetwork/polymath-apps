@@ -7,6 +7,8 @@ export { default as Grid } from './components/Grid';
 export { default as InlineFlex } from './components/InlineFlex';
 export { default as Heading } from './components/Heading';
 export { default as Paragraph } from './components/Paragraph';
+export { default as Field } from './components/Field';
+export { default as Modal } from './components/Modal';
 export * from './components/inputs';
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';

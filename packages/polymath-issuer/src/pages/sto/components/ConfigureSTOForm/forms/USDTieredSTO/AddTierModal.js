@@ -12,6 +12,7 @@ import {
 } from 'carbon-components-react';
 import {
   Grid,
+  Box,
   Paragraph,
   RaisedAmount,
   thousandsDelimiter,
@@ -39,7 +40,12 @@ class AddTierModal extends Component {
       field: { name },
     } = this.props;
     return (
-      <ComposedModal open={this.props.isOpen} className={this.props.className}>
+      <ComposedModal
+        open={this.props.isOpen}
+        className={this.props.className}
+        onClose={this.props.onClose}
+        onKeyDown={this.props.onClose}
+      >
         <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
         <ModalBody>
           <Paragraph>
@@ -64,6 +70,7 @@ class AddTierModal extends Component {
               component={NumberInput}
               label="Token Price"
               placeholder="Enter amount"
+              unit="USD"
             />
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
@@ -80,20 +87,23 @@ class AddTierModal extends Component {
               }
               placeholder="Enter amount"
             />
-            <Field
-              name={`${name}.discountedTokensPrice`}
-              component={NumberInput}
-              normalize={thousandsDelimiter}
-              label={
-                <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                  <p className="bx--tooltip__label">
-                    Discount for Tokens Purchased with POLY
-                  </p>
-                  <p />
-                </Tooltip>
-              }
-              placeholder="0"
-            />
+            <Box maxWidth="5em">
+              <Field
+                name={`${name}.discountedTokensPrice`}
+                component={NumberInput}
+                normalize={thousandsDelimiter}
+                label={
+                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
+                    <p className="bx--tooltip__label">
+                      Discount for Tokens Purchased with POLY
+                    </p>
+                    <p />
+                  </Tooltip>
+                }
+                placeholder="0"
+                unit="USD"
+              />
+            </Box>
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
             <Grid.Item gridColumn="span 1 / 3">

@@ -223,9 +223,15 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                     <p className="bx--tooltip__label">
                       Minimum investment for All investors
                     </p>
+                    <p>
+                      Any investment smaller than the minimum investment you
+                      specify will be rejected, and funds returned to the
+                      investor (minus the mining fee).
+                    </p>
                   </Tooltip>
                 }
                 placeholder="Enter amount"
+                unit="USD"
               />
               <Field
                 name="nonAccreditedMax"
@@ -244,6 +250,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                   </Tooltip>
                 }
                 placeholder="Enter amount"
+                unit="USD"
               />
             </Grid>
 
