@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Select, { components } from 'react-select';
 
@@ -61,17 +61,23 @@ const styles = {
     borderRadius: '10px',
     fontSize: theme.fontSizes[0],
     alignItems: 'center',
-    padding: '0px 6px 0px 7px',
+    padding: '3px 5px 3px 7px',
     marginLeft: theme.space[3],
     justifyContent: 'space-between',
-    minWidth: '35px',
+    minWidth: '32px',
   }),
 };
 
 const Container = styled(Box)`
+  min-height: 80px;
+`;
+
+const SelectContainer = styled(Box)`
   display: inline-block;
   vertical-align: middle;
   min-width: 200px;
+  margin-right: ${({ theme }) => theme.space[4]}px;
+  margin-bottom: ${({ theme }) => theme.space[1]}px;
 `;
 
 const Caret = styled(Icon)`
@@ -94,7 +100,7 @@ const ClearIndicator = props => {
     components.ClearIndicator && (
       <components.ClearIndicator {...props}>
         {props.selectProps.value.length}
-        <Icon Icon={CloseIcon} width="8" height="9" />
+        <Icon Icon={CloseIcon} width="8" height="10" />
       </components.ClearIndicator>
     )
   );
@@ -130,8 +136,8 @@ class CurrencySelect extends React.Component<Props> {
   render() {
     const { value, options, onChange, ...props } = this.props;
     return (
-      <Fragment>
-        <Container mr={4}>
+      <Container>
+        <SelectContainer>
           <Select
             closeMenuOnSelect={false}
             isClearable={Array.isArray(value) ? value.length : value}
@@ -155,7 +161,7 @@ class CurrencySelect extends React.Component<Props> {
             onChange={this.handleChange}
             {...props}
           />
-        </Container>
+        </SelectContainer>
         {Array.isArray(value) &&
           value.map(value => {
             const option = options.find(option => option.value === value);
@@ -169,7 +175,7 @@ class CurrencySelect extends React.Component<Props> {
               />
             ) : null;
           })}
-      </Fragment>
+      </Container>
     );
   }
 }

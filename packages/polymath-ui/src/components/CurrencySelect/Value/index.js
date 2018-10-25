@@ -11,12 +11,11 @@ const Container = styled(Box)`
   display: inline-flex;
   background-color: ${theme.colors.blue[0]};
   border-radius: 50px;
-  vertical-align: middle;
+  vertical-align: top;
   align-items: center;
   padding: 0 ${theme.space[1]}px;
-  & + & {
-    margin-left: ${theme.space[2]}px;
-  }
+  margin-right: ${theme.space[2]}px;
+  margin-top: 6px;
 `;
 
 const LabelContainer = styled(Box)`
@@ -29,9 +28,9 @@ const StyledIconButton = styled(IconButton)`
   background-color: ${theme.colors.gray[1]};
   color: ${theme.colors.gray[0]};
   box-sizing: border-box;
-  padding: 5px;
-  height: 16px;
-  width: 16px;
+  padding: 4px;
+  height: 15px;
+  width: 15px;
   border-radius: 10px;
 
   :hover {
