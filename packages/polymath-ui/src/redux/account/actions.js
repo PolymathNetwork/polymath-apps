@@ -258,7 +258,7 @@ export const providersApply = (data: Object) => async (
   await offchain.providersApply(data, getState().network.id.toString());
 };
 
-export const faucet = (message: string) => async (
+export const faucet = (message: string, amount?: number = 25000) => async (
   dispatch: Function,
   getState: GetState
 ) => {
@@ -307,7 +307,6 @@ export const faucet = (message: string) => async (
     return;
   }
 
-  const amount = 25000;
   const buttonLabel = `REQUEST ${amount / 1000}K POLY`;
   dispatch(
     confirm(

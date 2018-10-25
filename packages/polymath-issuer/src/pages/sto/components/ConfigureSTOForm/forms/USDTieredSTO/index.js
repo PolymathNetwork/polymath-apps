@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { map } from 'lodash';
 import { Formik, Field } from 'formik';
 import moment from 'moment';
 import { Form, Tooltip, Button } from 'carbon-components-react';
@@ -14,8 +15,11 @@ import {
   CurrencySelect,
 } from '@polymathnetwork/ui/next';
 import InvestmentTiers from './InvestmentTiers';
+import { toWei } from '../../../../../../utils/contracts';
+import { FUND_RAISE_TYPES } from '../../../../../../constants';
 import { configureSTO } from '../../../../../../actions/sto';
 
+import type { FundRaiseType } from '../../../../../../constants';
 import type { Dispatch } from 'redux';
 
 type ComponentProps = {|
@@ -305,13 +309,60 @@ const mapStateToProps = ({
   },
 }) => ({ address });
 
+type InvestmentTier = {|
+  tokensAmount: number,
+  tokenPrice: number,
+  discountedTokensAmount: number,
+  discountedTokensPrice: number,
+|};
+type FormValues = {|
+  startDate: Date,
+  startTime: number,
+  endDate: Date,
+  endTime: number,
+  investmentTiers: {
+    tiers: Array<InvestmentTier>,
+  },
+  nonAccreditedMax: number,
+  minimumInvestment: number,
+  currencies: FundRaiseType,
+  receiverAddress: string,
+  unsoldTokensAddress: string,
+|};
+
 class USDTieredSTOFormContainer extends Component<ContainerProps> {
-  submit = values => {
+  submit = (values: FormValues) => {
     const { dispatch, address } = this.props;
 
-    const config = {
-      data: values,
+    const formattedValues = {
+      startsAt: new Date(values.startDate).getTime() + values.startTime,
+      endsAt: new Date(values.endDate).getTime() + values.endTime,
+      ratePerTier: map(values.investmentTiers.tiers, 'tokenPrice'),
+      discountRatePerTier: map(
+        values.investmentTiers.tiers,
+        'discountedTokensPrice'
+      ),
+      tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
+        toWei(tokensAmount)
+      ),
+      discountTokensPerTier: map(
+        values.investmentTiers.tiers,
+        ({ discountedTokensAmount }) => toWei(discountedTokensAmount)
+      ),
+      nonAccreditedLimit: values.nonAccreditedMax,
+      minimumInvestment: values.minimumInvestment,
+      currencies: map(
+        values.currencies,
+        currency => FUND_RAISE_TYPES[currency]
+      ),
+      receiverAddress: values.receiverAddress,
+      unsoldTokensAddress: values.unsoldTokensAddress,
     };
+
+    const config = {
+      data: formattedValues,
+    };
+
     dispatch(configureSTO(address, config)).catch(error => {
       throw error;
     });

@@ -171,14 +171,6 @@ export const configureSTO = (
   moduleAddress: string,
   config: STOConfig
 ) => async (dispatch: Dispatch<any>, getState: GetState) => {
-  /**
-   * X Get factory from state
-   * X Get factory's setupCost
-   * - Dispatch ui.confirm
-   * - If Balance is < cost launch faucet?
-   * - Dispatch ui.tx with approval and setup
-   * - Run setupsto module
-   */
   const {
     token,
     stoModules,
@@ -204,7 +196,6 @@ export const configureSTO = (
     throw new Error('Factory selected is not present in stoModules state');
   }
 
-  console.log('stoModule', stoModule);
   const { setupCost } = stoModule;
   // TODO @RafaelVidaurre: Format setup cost
 
@@ -213,12 +204,13 @@ export const configureSTO = (
       <ConfigSTOConfirmContent setupCost={setupCost} />,
       async () => {
         const balance = getState().pui.account.balance;
-        const hasEnoughBalance = balance.lt(setupCost);
+        const hasEnoughBalance = balance.gte(setupCost);
 
         if (!hasEnoughBalance) {
           dispatch(
             ui.faucet(
-              `The launching of a STO has a fixed cost of ${setupCost} POLY.`
+              `The launching of a STO has a fixed cost of ${setupCost} POLY.`,
+              setupCost
             )
           );
           return;
@@ -236,8 +228,16 @@ export const configureSTO = (
           ui.tx(
             ['Approving POLY Spend', 'Deploying And Scheduling'],
             async () => {
-              await setupSTOModule(stoModule, token.address);
-            }
+              await setupSTOModule(stoModule, token.address, config.data);
+            },
+            'STO Configured Successfully',
+            () => {
+              return dispatch(fetch());
+            },
+            `/dashboard/${token.ticker}/compliance`,
+            undefined,
+            false,
+            token.ticker.toUpperCase() + ' STO Creation'
           )
         );
       },
@@ -249,7 +249,7 @@ export const configureSTO = (
 };
 
 // TODO @RafaelVidaurre: Switch to new configure when CappedSTO is re-written, this is legacy now
-export const configure = () => async (
+export const configure = values => async (
   dispatch: Function,
   getState: GetState
 ) => {
@@ -286,7 +286,6 @@ export const configure = () => async (
             ['Approving POLY Spend', 'Deploying And Scheduling'],
             async () => {
               const contract: any = token.contract;
-              const { values } = getState().form[configureFormName];
               const [startDate] = values.startDate;
               const [endDate] = values.endDate;
               const startDateWithTime = dateTimeFromDateAndTime(

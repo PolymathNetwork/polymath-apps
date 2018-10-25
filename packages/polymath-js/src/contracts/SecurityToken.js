@@ -290,6 +290,65 @@ export default class SecurityToken extends Contract {
     );
   }
 
+  async setUSDTieredSTO(): Promise<Web3Receipt> {
+    const cappedSTOFactory = await this.getModuleFactory(
+      'CappedSTO',
+      MODULE_TYPES.STO
+    );
+    const setupCost = await cappedSTOFactory.setupCost();
+    await PolyToken.transfer(this.address, setupCost);
+    const data = Contract._params.web3.eth.abi.encodeFunctionCall(
+      {
+        name: 'configure',
+        type: 'function',
+        inputs: [
+          {
+            type: 'uint256',
+            name: '_startTime',
+          },
+          {
+            type: 'uint256',
+            name: '_endTime',
+          },
+          {
+            type: 'uint256',
+            name: '_cap',
+          },
+          {
+            type: 'uint256',
+            name: '_rate',
+          },
+          {
+            type: 'uint8[]',
+            name: '_fundRaiseTypes',
+          },
+          {
+            type: 'address',
+            name: '_fundsReceiver',
+          },
+        ],
+      },
+      [
+        this._toUnixTS(start),
+        this._toUnixTS(end),
+        this._toWei(cap),
+        rate,
+        isEth ? [FUNDRAISE_ETH] : [FUNDRAISE_POLY],
+        fundsReceiver,
+      ]
+    );
+    return this._tx(
+      this._methods.addModule(
+        cappedSTOFactory.address,
+        data,
+        PolyToken.addDecimals(setupCost),
+        0
+      ),
+      null,
+      1.05
+    );
+  }
+
   async setPercentageTM(percentage: number): Promise<Web3Receipt> {
     const percentageTransferManagerFactory = await this.getModuleFactory(
       'PercentageTransferManager',

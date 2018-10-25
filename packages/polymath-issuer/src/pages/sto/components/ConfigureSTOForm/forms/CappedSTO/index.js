@@ -1,10 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
-
 import {
   TextInput,
   SelectInput,
@@ -19,6 +19,9 @@ import {
   ethereumAddress,
   gt,
 } from '@polymathnetwork/ui/validate';
+import { configure } from '../../../../../../actions/sto';
+
+import type { Dispatch } from 'redux';
 
 export const formName = 'configure_sto';
 
@@ -37,7 +40,7 @@ type State = {|
   amountOfFunds: string,
 |};
 
-class ConfigureSTOForm extends Component<Props, State> {
+class ConfigureCappedSTOForm extends Component<Props, State> {
   state = {
     currency: defaultCurrency,
     cap: 0,
@@ -253,6 +256,26 @@ class ConfigureSTOForm extends Component<Props, State> {
   }
 }
 
-export default reduxForm({
-  form: formName,
-})(ConfigureSTOForm);
+type ContainerProps = {|
+  dispatch: Dispatch<any>,
+  handleSubmit: Function => Function,
+|};
+
+class ConfigureCappedSTOFormContainer extends Component<ContainerProps> {
+  submit = values => {
+    const { dispatch } = this.props;
+    dispatch(configure(values)).catch(err => {
+      throw err;
+    });
+  };
+  render() {
+    const { handleSubmit } = this.props;
+    return <ConfigureCappedSTOForm handleSubmit={handleSubmit(this.submit)} />;
+  }
+}
+
+export default connect(null)(
+  reduxForm({
+    form: formName,
+  })(ConfigureCappedSTOFormContainer)
+);
