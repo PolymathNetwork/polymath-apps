@@ -9,6 +9,11 @@ export const MODULE_TYPES = {
   DIVIDEND: 4,
   BURN: 5,
 };
+export const FUND_RAISE_TYPES = {
+  ETH: 0,
+  POLY: 1,
+  DAI: 2,
+};
 
 export const ModuleFactoryAbisByType: { [type: STOModuleType]: Object } = {
   USDTieredSTO: USDTieredSTOFactoryArtifacts.abi,
@@ -43,3 +48,4 @@ export type SecurityToken = {|
 export type STOConfig = {|
   data: { [prop: string]: any },
 |};
+export type FundRaiseType = $Keys<typeof FUND_RAISE_TYPES>;
