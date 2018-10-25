@@ -14,15 +14,18 @@
     height: 100%;
 
     .pui-notice-bar-title {
-      font-size: 20px;
       color: white;
-      line-height: 22px;
       flex: 2;
       display: flex;
       align-items: center;
 
       svg {
         margin-right: 8px;
+      }
+
+      .pui-notice-bar-title-text {
+        font-size: 20px;
+        line-height: 22px;
       }
     }
 

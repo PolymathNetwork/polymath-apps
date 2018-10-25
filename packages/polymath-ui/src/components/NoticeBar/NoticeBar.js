@@ -52,7 +52,7 @@ class NoticeBar extends Component<Props> {
               width="24"
               height="25"
             />
-            {notice.title}
+            <p className="pui-notice-bar-title-text">{notice.title}</p>
           </div>
           <div className="pui-notice-bar-text-container">
             <p
@@ -79,13 +79,21 @@ class NoticeBar extends Component<Props> {
     /**
      * NOTE @monitz87: I had to use this fork of the 'clamp-js' library (https://www.npmjs.com/package/clamp-js-main)
      * because line clamping is horribly unsupported in CSS (and what little support there is is very browser-specific).
-     * What this code does is truncate the paragraph (maintaining the integrity of any HTML elements inside it) if it
+     * What this code does is truncate the title and paragraph (maintaining the integrity of any HTML elements inside it) if they
      * exceeds 2 lines, adding ellipses to replace the missing text
      */
     const paragraph = document.getElementsByClassName('pui-notice-bar-text')[0];
+    // If the notice is closed the element disappears
     if (paragraph) {
-      // If the notice is closed the element disappears
       clamp(paragraph, { clamp: 2 });
+    }
+
+    const title = document.getElementsByClassName(
+      'pui-notice-bar-title-text'
+    )[0];
+    // If the notice is closed the element disappears
+    if (title) {
+      clamp(title, { clamp: 2 });
     }
   }
 }
