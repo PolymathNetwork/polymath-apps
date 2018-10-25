@@ -7,14 +7,14 @@ import { ellipsis } from '../../../styles/utils';
 import theme from '../../../theme';
 
 const Container = styled(Box)`
-  display: inline-flex;
+  display: flex;
   align-items: center;
   max-width: 100%;
 `;
 
 const Text = styled.span`
   ${ellipsis}
-  margin-left: ${theme.space[2]}px;
+  margin-left: ${theme.space[3]}px;
   font-size: ${theme.fontSizes[1]}px;
 `;
 

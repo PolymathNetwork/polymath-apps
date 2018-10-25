@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import Box from '../Box';
 import BaseIcon from '../Icon';
 
+const Button = styled(Box)`
+  transition: all ${({ theme }) => theme.transitions.hover};
+`;
+
 const StyledIcon = styled(BaseIcon)`
   display: block;
   width: 100%;
@@ -11,9 +15,9 @@ const StyledIcon = styled(BaseIcon)`
 `;
 
 const IconButton = ({ Icon, ...props }) => (
-  <Box as="button" {...props}>
+  <Button as="button" {...props}>
     <StyledIcon Icon={Icon} />
-  </Box>
+  </Button>
 );
 
 export default IconButton;

@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import Icon from '../Icon';
 
@@ -9,14 +8,17 @@ import ClockIcon from '../../images/icons/Clock';
 import ProgressIcon from '../../images/icons/Progress';
 import ChecklistIcon from '../../images/icons/Checklist';
 
-const TierStatus = ({ status }) =>
+const TierStatus = ({ status, ...props }) =>
   ({
-    'not-started': <Icon Icon={ClockIcon} color={theme.colors.gray[3]} />,
-    'on-going': <Icon Icon={ProgressIcon} color={theme.colors.blue[0]} />,
-    done: <Icon Icon={ChecklistIcon} color={theme.colors.green[0]} />,
+    'not-started': (
+      <Icon Icon={ClockIcon} color={theme.colors.gray[3]} {...props} />
+    ),
+    active: (
+      <Icon Icon={ProgressIcon} color={theme.colors.secondary} {...props} />
+    ),
+    done: (
+      <Icon Icon={ChecklistIcon} color={theme.colors.green[0]} {...props} />
+    ),
   }[status]);
 
-export default styled(TierStatus)`
-  position: relative;
-  top: -1px;
-`;
+export default TierStatus;

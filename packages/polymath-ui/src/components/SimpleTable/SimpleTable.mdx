@@ -29,7 +29,7 @@ import SimpleTable from './';
       TableCell
     } = SimpleTable;
     
-    const headers = [
+    const headersData = [
       {
         key: 'tierStatus',
         header: '',
@@ -40,15 +40,15 @@ import SimpleTable from './';
       },
       {
         key: 'tokenPrice',
-        header: 'Token Price',
+        header: <Box textAlign="right">Token Price</Box>,
       },
       {
         key: 'raiseTarget',
-        header: 'Total Raise Target',
+        header: <Box textAlign="right">Total Raise Target</Box>,
       },
       {
         key: 'raised',
-        header: 'Raised',
+        header: <Box textAlign="right">Raised</Box>,
       },
       {
         key: 'progress',
@@ -56,14 +56,21 @@ import SimpleTable from './';
       },
     ];
 
-    const rows = [
+    const rowsData = [
       {
         id: 'a',
-        tierStatus: <TierStatus status={'done'} />,
+        rowProps: {
+          status: 'done'
+        },
         tier: 1,
-        tokenPrice: 100,
-        raiseTarget: 300000,
-        raised: 100,
+        tierStatus: (
+          <Box mt="-1px">
+            <TierStatus status={'done'} width="16px" height="16px" />
+          </Box>
+        ),
+        tokenPrice: <Box textAlign="right">100</Box>,
+        raiseTarget: <Box textAlign="right">300000</Box>,
+        raised: <Box textAlign="right">100</Box>,
         progress: (
           <InlineFlex>
             <Box width="150px" mr={1}>
@@ -75,11 +82,18 @@ import SimpleTable from './';
       },
       {
         id: 'b',
-        tierStatus: <TierStatus status={'on-going'} />,
+        rowProps: {
+          status: 'active'
+        },
+        tierStatus: (
+          <Box mt="-1px">
+            <TierStatus status={'active'} width="16px" height="16px" />
+          </Box>
+        ),
         tier: 2,
-        tokenPrice: 100,
-        raiseTarget: 300000,
-        raised: 100,
+        tokenPrice: <Box textAlign="right">100</Box>,
+        raiseTarget: <Box textAlign="right">300000</Box>,
+        raised: <Box textAlign="right">100</Box>,
         progress: (
           <InlineFlex>
             <Box width="150px" mr={1}>
@@ -91,11 +105,18 @@ import SimpleTable from './';
       },
       {
         id: 'c',
-        tierStatus: <TierStatus status={'not-started'} />,
+        rowProps: {
+          status: 'not-started'
+        },
+        tierStatus: (
+          <Box mt="-1px">
+            <TierStatus status={'not-started'} width="16px" height="16px" />
+          </Box>
+        ),
         tier: 3,
-        tokenPrice: 100,
-        raiseTarget: 300000,
-        raised: 100,
+        tokenPrice: <Box textAlign="right">100</Box>,
+        raiseTarget: <Box textAlign="right">300000</Box>,
+        raised: <Box textAlign="right">100</Box>,
         progress: (
           <InlineFlex>
             <Box width="150px" mr={1}>
@@ -109,31 +130,33 @@ import SimpleTable from './';
 
     return (
       <SimpleTable
-        rows={rows}
-        headers={headers}
+        rows={rowsData}
+        headers={headersData}
         render={({ rows, headers }) => (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {headers.map(header => (
-                    <TableHeader>
-                      {header.header}
-                    </TableHeader>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map(row => (
-                  <TableRow key={row.id}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {headers.map(header => (
+                  <TableHeader>
+                    {header.header}
+                  </TableHeader>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map(row => {
+                const rowData = rowsData.find(rowData => rowData.id === row.id);
+                
+                return (
+                  <TableRow key={row.id} isActive={rowData.rowProps.status === 'active'}>
                     {row.cells.map(cell => (
                       <TableCell key={cell.id}>{cell.value}</TableCell>
                     ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                );
+              })}
+            </TableBody>
+          </Table>
         )}
       />
     );
