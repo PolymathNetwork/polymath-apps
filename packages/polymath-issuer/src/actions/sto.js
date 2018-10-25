@@ -249,7 +249,7 @@ export const configureSTO = (
 };
 
 // TODO @RafaelVidaurre: Switch to new configure when CappedSTO is re-written, this is legacy now
-export const configure = () => async (
+export const configure = values => async (
   dispatch: Function,
   getState: GetState
 ) => {
@@ -286,7 +286,6 @@ export const configure = () => async (
             ['Approving POLY Spend', 'Deploying And Scheduling'],
             async () => {
               const contract: any = token.contract;
-              const { values } = getState().form[configureFormName];
               const [startDate] = values.startDate;
               const [endDate] = values.endDate;
               const startDateWithTime = dateTimeFromDateAndTime(
