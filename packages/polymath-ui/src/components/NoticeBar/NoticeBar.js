@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { Icon } from 'carbon-components-react';
 import { connect } from 'react-redux';
+import clamp from 'clamp-js-main';
+import ReactDOMServer from 'react-dom/server';
 
 import { closeNotice } from './actions';
 import type { RootState } from '../../redux/reducer';
@@ -52,21 +54,39 @@ class NoticeBar extends Component<Props> {
             />
             {notice.title}
           </div>
-          <div
-            className="pui-notice-bar-text"
-            dangerouslySetInnerHTML={{ __html: notice.content }}
-          />
-          <div
-            role="button"
-            className="pui-notice-bar-close"
-            onClick={this.handleClose}
-            tabIndex={0}
-          >
-            <Icon name="close--glyph" fill="#ffffff" width="16" height="16" />
+          <div className="pui-notice-bar-text-container">
+            <p
+              className="pui-notice-bar-text"
+              dangerouslySetInnerHTML={{ __html: notice.content }}
+            />
+          </div>
+          <div className="pui-notice-bar-button-container">
+            <div
+              role="button"
+              className="pui-notice-bar-close"
+              onClick={this.handleClose}
+              tabIndex={0}
+            >
+              <Icon name="close--glyph" fill="#ffffff" width="16" height="16" />
+            </div>
           </div>
         </div>
       </div>
     );
+  }
+
+  componentDidUpdate() {
+    /**
+     * NOTE @monitz87: I had to use this fork of the 'clamp-js' library (https://www.npmjs.com/package/clamp-js-main)
+     * because line clamping is horribly unsupported in CSS (and what little support there is is very browser-specific).
+     * What this code does is truncate the paragraph (maintaining the integrity of any HTML elements inside it) if it
+     * exceeds 2 lines, adding ellipses to replace the missing text
+     */
+    const paragraph = document.getElementsByClassName('pui-notice-bar-text')[0];
+    if (paragraph) {
+      // If the notice is closed the element disappears
+      clamp(paragraph, { clamp: 2 });
+    }
   }
 }
 
