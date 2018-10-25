@@ -1,3 +1,4 @@
+// TODO @grsmto: app should use REM for fontSizes and spacing
 const fontSizes = [12, 14, 16, 18, 20, 24, 28, 32, 36, 42];
 const space = [0, 5, 10, 15, 25, 30, 50, 80, 120];
 const colors = {
@@ -7,6 +8,7 @@ const colors = {
   gray: ['#F5F7FA', '#8C9BA5', '#5A6872'],
   blue: ['#EBF0F7', '#5596E6', '#3D70B2', '#252D6B'],
   green: ['#00AA5E'],
+  red: ['#e0182d'],
 };
 
 const headings = {
