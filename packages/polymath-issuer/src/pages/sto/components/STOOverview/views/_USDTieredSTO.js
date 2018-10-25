@@ -20,8 +20,11 @@ import type {
   STODetails,
 } from '@polymathnetwork/js/types';
 
-import { togglePauseSto, exportInvestorsList } from '../../../actions/sto';
-import type { RootState } from '../../../redux/reducer';
+import {
+  togglePauseSto,
+  exportInvestorsList,
+} from '../../../../../actions/sto';
+import type { RootState } from '../../../../../redux/reducer';
 import type { CountdownProps } from '@polymathnetwork/ui';
 
 type StateProps = {|

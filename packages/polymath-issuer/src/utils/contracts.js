@@ -1,19 +1,24 @@
 // @flow
 
 /**
- * Temporary utilities for interacting with smart contracts, this will
+ * !!Temporary!! Utilities for interacting with smart contracts, this will
  * be replaced by the new version of polymathjs
+ * NOTE @RafaelVidaurre: Most of this logic can be shared for any type of modules
  */
 
 import Contract, {
   ModuleRegistry,
   SecurityToken,
   PolyToken,
+  STO,
 } from '@polymathnetwork/js';
 import web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import IModuleFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/IModuleFactory.json';
+import ISTOArtifacts from '@polymathnetwork/shared/fixtures/contracts/ISTO.json';
+
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../constants';
+import USDTieredSTO from './USDTieredSTO';
 
 import type { STOModule, STOModuleType, STOConfig } from '../constants';
 
@@ -124,9 +129,47 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
   );
 }
 
-// NOTE @RafaelVidaurre: Most of this logic can be shared for any type of modules
+export async function getTokenSTO(tokenAddress: string) {
+  const securityToken = new SecurityToken(tokenAddress);
 
-export async function getSTOModuleContract(
+  const [stoAddress] = await securityToken._methods
+    .getModulesByType(MODULE_TYPES.STO)
+    .call();
+
+  if (!stoAddress) {
+    return null;
+  }
+
+  const web3Client = Contract._params.web3;
+  const GenericSTO = new web3Client.eth.Contract(ISTOArtifacts.abi, stoAddress);
+
+  const factoryAddress = await GenericSTO.methods.factory().call();
+  const GenericModuleFactory = new web3Client.eth.Contract(
+    IModuleFactoryArtifacts.abi,
+    factoryAddress
+  );
+  const nameRes = await GenericModuleFactory.methods.getName().call();
+  const type: STOModuleType = web3.utils.hexToUtf8(nameRes);
+
+  let sto;
+  if (type === 'USDTieredSTO') {
+    sto = new USDTieredSTO(stoAddress, securityToken);
+  }
+  if (type === 'CappedSTO') {
+    sto = new STO(stoAddress, securityToken);
+  }
+
+  return sto;
+}
+
+/**
+ * Gets a contract instance for a given STOModuleType and address
+ *
+ * @param type Module's type
+ * @param address Module's address
+ * @returns Contract instance
+ */
+export async function getSTOModuleFactoryContract(
   type: STOModuleType,
   address: string
 ) {
@@ -157,7 +200,7 @@ export async function getSTOModule(address: string) {
   const nameRes = await GenericModuleFactory.methods.getName().call();
   const type = web3.utils.hexToUtf8(nameRes);
 
-  const ModuleFactory = await getSTOModuleContract(type, address);
+  const ModuleFactory = await getSTOModuleFactoryContract(type, address);
 
   const descriptionRes = await ModuleFactory.methods.getDescription().call();
   const titleRes = await ModuleFactory.methods.getTitle().call();
@@ -181,15 +224,15 @@ export async function getSTOModule(address: string) {
  * Returns a list of STOModules' information that are compatible with a given
  * security token
  *
- * @param securityTokenAddress
+ * @param tokenAddress
  *
  * @return Array of objects containing information about the available
  * STO modules
  */
-export async function getSTOModules(securityTokenAddress: string) {
+export async function getSTOModules(tokenAddress: string) {
   const addresses: string[] = await ModuleRegistry.getModulesByTypeAndToken(
     MODULE_TYPES.STO,
-    securityTokenAddress
+    tokenAddress
   );
 
   const gettingSTOModulesData = addresses.map(getSTOModule);
@@ -199,19 +242,17 @@ export async function getSTOModules(securityTokenAddress: string) {
   return stoModules;
 }
 
-// 1. Format values
-// 2.Send transaction
 export async function setupSTOModule(
   stoModule: STOModule,
-  securityTokenAddress: string,
+  tokenAddress: string,
   configValues: STOConfig
 ) {
   const { address, setupCost } = stoModule;
 
-  // const ModuleFactory = await getSTOModuleContract(type, address);
+  // const ModuleFactory = await getSTOModuleFactoryContract(type, address);
 
-  // TODO @RafaelVidaurre: securityTokenAddress.balance should be used to verify
-  await PolyToken.transfer(securityTokenAddress, setupCost);
+  // TODO @RafaelVidaurre: tokenAddress.balance should be used to verify
+  await PolyToken.transfer(tokenAddress, setupCost);
 
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall({
     startTime: toUnixTimestamp(configValues.startsAt),
@@ -229,7 +270,7 @@ export async function setupSTOModule(
     usdToken: '0x0000000000000000000000000000000000000000',
   });
 
-  const securityToken = new SecurityToken(securityTokenAddress);
+  const securityToken = new SecurityToken(tokenAddress);
 
   const test = await securityToken._tx(
     securityToken._methods.addModule(
@@ -239,6 +280,4 @@ export async function setupSTOModule(
       0 //What is this for?
     )
   );
-
-  console.log('test', test);
 }

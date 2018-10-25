@@ -35,6 +35,8 @@ const USDTieredSTOFactoryMethods = {
   ...STOModuleFactoryMethods,
 };
 
+const USDTieredSTO = {};
+
 const CountTransferManagerFactoryMethods = {
   setupCost: 'The amount of POLY required to setup a token with this module',
 };
@@ -124,6 +126,12 @@ const config = {
       `,
       methods: USDTieredSTOFactoryMethods,
     },
+    USDTieredSTO: {
+      description: stripIndent`
+        USDTieredSTO Module
+      `,
+      methods: USDTieredSTO,
+    },
     CountTransferManagerFactory: {
       description: stripIndent`
         Factory for [CountTransferManager](#CountTransferManager)
@@ -181,6 +189,9 @@ const config = {
     // CappedSTO: {},
     GeneralTransferManager: {
       methods: GeneralTransferManagerMethods,
+    },
+    ISTO: {
+      methods: {},
     },
   },
 };

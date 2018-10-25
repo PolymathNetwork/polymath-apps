@@ -3,7 +3,7 @@
 import React from 'react';
 import { STO } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
-import { setupSTOModule } from '../utils/contracts';
+import { setupSTOModule, getTokenSTO } from '../utils/contracts';
 
 import type { Dispatch } from 'redux';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
@@ -93,18 +93,31 @@ export type Action =
   | ExtractReturn<typeof pauseStatus>
   | ExtractReturn<typeof factories>;
 
+// NOTE @RafaelVidaurre: Legacy action that retrieves initial state
+// of the STO process. We need a better way to do this.
 export const fetch = () => async (dispatch: Function, getState: GetState) => {
   dispatch(ui.fetching());
   try {
     const { token } = getState().token;
+
+    // No token created yet
     if (!token || !token.contract) {
       dispatch(ui.fetched());
       return;
     }
-    const sto = await token.contract.getSTO();
-    dispatch(data(sto, sto ? await sto.getDetails() : null));
+
+    const sto = await getTokenSTO(token.address);
+    // console.log('sto', sto);
     if (sto) {
-      dispatch(pauseStatus(await sto.paused()));
+      const details = await sto.getDetails();
+      // console.log('details', details);
+      // console.log('details', details);
+      const isPaused = await sto.paused();
+      // console.log('isPaused', isPaused);
+      pauseStatus(isPaused);
+      dispatch(data(sto, details));
+    } else {
+      dispatch(data(sto, null));
     }
     dispatch(ui.fetched());
   } catch (e) {

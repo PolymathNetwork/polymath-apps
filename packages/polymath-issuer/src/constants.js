@@ -2,6 +2,8 @@
 import USDTieredSTOFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTOFactory.json';
 import CappedSTOFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/CappedSTOFactory.json';
 
+import type { BigNumber } from 'bignumber.js';
+
 export const MODULE_TYPES = {
   PERMISSION: 1,
   TRANSFER: 2,
@@ -49,3 +51,29 @@ export type STOConfig = {|
   data: { [prop: string]: any },
 |};
 export type FundRaiseType = $Keys<typeof FUND_RAISE_TYPES>;
+export type USDTieredSTOTier = {|
+  rate: number,
+  tokensSold: number,
+  totalTokens: number,
+  totalUsd: number,
+  usdRaised: number,
+|};
+export type USDTieredSTO = {|
+  paused: boolean,
+  open: boolean,
+  startDate: Date,
+  endDate: Date,
+  tiers: USDTieredSTOTier[],
+  totalUsdRaised: number,
+  factoryAddress: string,
+|};
+
+// NEED:
+/**
+ * - Total funds raised (USD)
+ * - Amount of tokens sold
+ * - Rate per tier
+ * - Cap per tier in USD
+ * - Amount raised per tier USD
+ * - Open or closed
+ */

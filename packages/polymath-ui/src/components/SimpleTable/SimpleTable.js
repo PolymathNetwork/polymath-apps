@@ -5,8 +5,8 @@ import styled, { css } from 'styled-components';
 
 import DynamicTable from '../DynamicTable';
 
-const SimpleTable = ({ children, ...props }) => {
-  return <DynamicTable {...props}>{children}</DynamicTable>;
+const SimpleTable = ({ ...props }) => {
+  return <DynamicTable {...props} />;
 };
 
 SimpleTable.Table = styled.table`

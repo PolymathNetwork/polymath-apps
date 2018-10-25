@@ -12,8 +12,11 @@ import type {
 } from '@polymathnetwork/js/types';
 import { NotFoundPage } from '@polymathnetwork/ui';
 
-import { togglePauseSto, exportInvestorsList } from '../../../actions/sto';
-import type { RootState } from '../../../redux/reducer';
+import {
+  togglePauseSto,
+  exportInvestorsList,
+} from '../../../../../actions/sto';
+import type { RootState } from '../../../../../redux/reducer';
 
 type StateProps = {|
   token: ?SecurityToken,
