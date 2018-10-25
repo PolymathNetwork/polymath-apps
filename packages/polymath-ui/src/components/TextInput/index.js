@@ -1,8 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const InputText = styled.input`
+const Container = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[1]}px;
+
+  ${({ unit, theme }) =>
+    unit &&
+    css`
+      position: relative;
+    `};
+`;
+
+const Input = styled.input`
   display: block;
   width: 100%;
   height: 2.5rem;
@@ -13,6 +22,9 @@ const InputText = styled.input`
   border: none;
   order: 2;
   border-bottom: 1px solid transparent;
+
+  padding-right: ${({ unit, theme }) => unit && '50px'};
+
   // transition: all ${({ theme }) => theme.transitions.hover};
 
   // :focus {
@@ -20,6 +32,20 @@ const InputText = styled.input`
   // }
 `;
 
-export default ({ type = 'text', ...props }) => (
-  <InputText type={type} {...props} />
+const Unit = styled.span`
+  display: flex;
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  color: ${({ theme }) => theme.colors.placeholder};
+`;
+
+export default ({ type = 'text', unit, ...props }) => (
+  <Container unit={unit}>
+    <Input type={type} unit={unit} {...props} />
+    {unit && <Unit>{unit}</Unit>}
+  </Container>
 );
