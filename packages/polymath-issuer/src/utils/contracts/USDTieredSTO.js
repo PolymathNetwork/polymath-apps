@@ -1,40 +1,80 @@
 // @flow
 
+import { map } from 'lodash';
 import P from 'bluebird';
 import { keys, range, compact } from 'lodash';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 import Contract from '@polymathnetwork/js';
 import USDTieredSTOArtifacts from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTO.json';
-import { FUND_RAISE_TYPES } from '../constants';
+import { FUND_RAISE_TYPES, EVENT_TYPES } from '../../constants';
 
 import type {
   USDTieredSTO as USDTieredSTOType,
   USDTieredSTOTierStatus,
   FundRaiseType,
-} from '../constants';
+} from '../../constants';
 
 export default class USDTieredSTO {
   address: string;
   contract: Object;
+  wsContract: Object;
+  legacyContractInstance: {
+    _tx: (method: Object) => Promise<Object>,
+  };
 
   constructor(address: string) {
     const web3Client = Contract._params.web3;
+    const web3WsClient = Contract._params.web3WS;
 
-    this.address = address;
+    // FIXME @RafaelVidaurre: Remove this dependency ASAP, using this for now
+    // to quickly get transactions running
+    this.legacyContractInstance = new Contract(USDTieredSTOArtifacts, address);
     this.contract = new web3Client.eth.Contract(
       USDTieredSTOArtifacts.abi,
       address
     );
+    this.wsContract = new web3WsClient.eth.Contract(
+      USDTieredSTOArtifacts.abi,
+      address
+    );
+    this.address = address;
+  }
+
+  async getPurchases() {
+    const events = await this.wsContract.getPastEvents(
+      EVENT_TYPES.TOKEN_PURCHASE,
+      {
+        // TODO @RafaelVidaurre: Read from the block it was deploy at
+        fromBlock: 0,
+        toBlock: 'latest',
+      }
+    );
+
+    // TODO @RafaelVidaurre: Retrieve token type
+    return map(events, event => {
+      return {
+        investor: event._purchaser,
+        receiver: event._beneficiary,
+        tokens: new BigNumber(Web3.utils.fromWei(event._tokens)),
+        usd: new BigNumber(Web3.utils.fromWei(event._usdAmount)),
+        tierPrice: new BigNumber(Web3.utils.fromWei(event._tierPrice)),
+        tier: event._tier,
+      };
+    });
   }
 
   async pause() {
-    const res = await Contract._tx(this.contract.methods.pause());
+    const res = await this.legacyContractInstance._tx(
+      this.contract.methods.pause()
+    );
     return res;
   }
 
   async unpause() {
-    const res = await Contract._tx(this.contract.methods.unpause());
+    const res = await this.legacyContractInstance._tx(
+      this.contract.methods.unpause()
+    );
     return res;
   }
 

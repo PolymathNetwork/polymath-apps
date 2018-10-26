@@ -4,6 +4,10 @@ import CappedSTOFactoryArtifacts from '@polymathnetwork/shared/fixtures/contract
 
 import type { BigNumber } from 'bignumber.js';
 
+export const EVENT_TYPES = {
+  TOKEN_PURCHASE: 'TokenPurchase',
+};
+
 export const MODULE_TYPES = {
   PERMISSION: 1,
   TRANSFER: 2,

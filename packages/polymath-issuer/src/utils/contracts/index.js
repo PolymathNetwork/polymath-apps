@@ -12,15 +12,15 @@ import Contract, {
   PolyToken,
   STO,
 } from '@polymathnetwork/js';
-import web3 from 'web3';
+import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import IModuleFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/IModuleFactory.json';
 import ISTOArtifacts from '@polymathnetwork/shared/fixtures/contracts/ISTO.json';
 
-import { ModuleFactoryAbisByType, MODULE_TYPES } from '../constants';
+import { ModuleFactoryAbisByType, MODULE_TYPES } from '../../constants';
 import USDTieredSTO from './USDTieredSTO';
 
-import type { STOModule, STOModuleType, STOConfig } from '../constants';
+import type { STOModule, STOModuleType, STOConfig } from '../../constants';
 
 type Address = string;
 type USDTieredSTOParams = {|
@@ -150,11 +150,11 @@ export async function getTokenSTO(tokenAddress: string) {
     factoryAddress
   );
   const nameRes = await GenericModuleFactory.methods.getName().call();
-  const type: STOModuleType = web3.utils.hexToUtf8(nameRes);
+  const type: STOModuleType = Web3.utils.hexToUtf8(nameRes);
 
   let sto;
   if (type === 'USDTieredSTO') {
-    sto = new USDTieredSTO(stoAddress, securityToken);
+    sto = new USDTieredSTO(stoAddress);
   }
   if (type === 'CappedSTO') {
     sto = new STO(stoAddress, securityToken);
@@ -199,7 +199,7 @@ export async function getSTOModule(address: string) {
 
   // Create a generic contract instance using the IModuleFactory abi
   const nameRes = await GenericModuleFactory.methods.getName().call();
-  const type = web3.utils.hexToUtf8(nameRes);
+  const type = Web3.utils.hexToUtf8(nameRes);
 
   const ModuleFactory = await getSTOModuleFactoryContract(type, address);
 
@@ -281,15 +281,48 @@ export async function setupSTOModule(
       address,
       encodedFunctionCall,
       toWei(setupCost),
-      0 //What is this for?
+      0
     )
   );
 }
 
+type SendTransactionParams = {|
+  abi: Object,
+  method: Object,
+  fromAddress: string,
+|};
+
 /**
  * Sends a transaction to the network
  *
- * @param address address to send the transaction from
  * @param method Web3 method object
+ * @param address address to send the transaction from
  */
-export async function sendTransaction(method) {}
+export async function sendTransaction({
+  method,
+  fromAddress,
+}: SendTransactionParams) {
+  // Buffer value to account for imprecise in gasEstimation
+  const gasBuffer = 1.05;
+
+  // Estimate gas
+  const params = { from: fromAddress };
+  const estimatedGas = await method.estimateGas(params);
+  const gas = Math.ceil(estimatedGas * gasBuffer);
+
+  const transactionParams = {
+    ...params,
+    gas,
+    gasPrice: Web3.eth.gasPrice, // WHY is this hardcoded in polyjs?
+  };
+
+  console.log('transactionParams', transactionParams);
+
+  const result = await method.call(params);
+
+  console.log('result', result);
+
+  const receipt = await method.send(params);
+
+  console.log('receipt', receipt);
+}

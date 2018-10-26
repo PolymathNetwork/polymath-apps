@@ -4,6 +4,7 @@ import React from 'react';
 import { STO } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import { setupSTOModule, getTokenSTO } from '../utils/contracts';
+import USDTieredSTO from '../utils/contracts/USDTieredSTO';
 
 import type { Dispatch } from 'redux';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
@@ -352,7 +353,6 @@ export const togglePauseSto = () => async (
   getState: GetState
 ) => {
   const isStoPaused = getState().sto.pauseStatus;
-  console.log('isStoPaused', isStoPaused);
   dispatch(
     ui.confirm(
       isStoPaused ? (
@@ -394,7 +394,14 @@ export const togglePauseSto = () => async (
               } else {
                 await contract.pause();
               }
+
+              // NOTE @RafaelVidaurre: This is for legacy only, the STO state
+              // contains pause state
               dispatch(pauseStatus(await contract.paused()));
+
+              if (contract instanceof USDTieredSTO) {
+                dispatch(fetch());
+              }
             },
             isStoPaused
               ? 'Successfully Resumed STO'
@@ -429,18 +436,42 @@ export const exportInvestorsList = () => async (
           const contract = getState().sto.contract; // $FlowFixMe
           const purchases = await contract.getPurchases();
 
-          let csvContent =
-            'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
-          purchases.forEach((purchase: STOPurchase) => {
-            csvContent +=
-              '\r\n' +
-              [
-                purchase.investor,
-                purchase.txHash,
-                purchase.amount.toString(10),
-                purchase.paid.toString(10),
-              ].join(',');
-          });
+          console.log('purchases', purchases);
+
+          let csvContent;
+
+          // TODO @RafaelVidaurre: Dry and abstract this better
+          // FIXME @RafaelVidaurre: Adapt when new CSV exports are merged
+          if (contract instanceof USDTieredSTO) {
+            csvContent =
+              'data:text/csv;charset=utf-8,Address,Tokens Purchased,USD Amount Invested,Tier Number,Tier Price';
+
+            purchases.forEach((purchase: STOPurchase) => {
+              csvContent +=
+                '\r\n' +
+                [
+                  purchase.investor,
+                  purchase.tokens.toFormat(2),
+                  purchase.usd.toFormat(2),
+                  purchase.tier,
+                  purchase.tierPrice.toFormat(2),
+                ].join(',');
+            });
+          } else {
+            csvContent =
+              'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
+
+            purchases.forEach((purchase: STOPurchase) => {
+              csvContent +=
+                '\r\n' +
+                [
+                  purchase.investor,
+                  purchase.txHash,
+                  purchase.amount.toString(10),
+                  purchase.paid.toString(10),
+                ].join(',');
+            });
+          }
 
           window.open(encodeURI(csvContent));
 
