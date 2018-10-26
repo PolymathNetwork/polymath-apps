@@ -258,7 +258,7 @@ export async function setupSTOModule(
   // TODO @RafaelVidaurre: tokenAddress.balance should be used to verify
   await PolyToken.transfer(tokenAddress, setupCost);
 
-  const encodedFunctionCall = encodeUSDTieredSTOSetupCall({
+  const encodeParams = {
     startTime: toUnixTimestamp(configValues.startsAt),
     endTime: toUnixTimestamp(configValues.endsAt),
     ratePerTier: configValues.ratePerTier,
@@ -272,7 +272,10 @@ export async function setupSTOModule(
     reserveWallet: configValues.unsoldTokensAddress,
     // NOTE @RafaelVidaurre: Disable this until we support DAI
     usdToken: '0x0000000000000000000000000000000000000000',
-  });
+  };
+
+  console.log('encodeParams', encodeParams);
+  const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
 
   const securityToken = new SecurityToken(tokenAddress);
 

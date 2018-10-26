@@ -386,7 +386,8 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       ),
       discountRatePerTier: map(
         values.investmentTiers.tiers,
-        ({ discountedTokensPrice }) => toWei(discountedTokensPrice)
+        // TODO @RafaelVidaurre: Percentage Input should return this formatted
+        ({ discountedTokensPrice }) => toWei(`${discountedTokensPrice / 100}`)
       ),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
         toWei(tokensAmount)

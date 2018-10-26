@@ -58,8 +58,8 @@ export default class USDTieredSTO {
         receiver: event._beneficiary,
         tokens: new BigNumber(Web3.utils.fromWei(event._tokens)),
         usd: new BigNumber(Web3.utils.fromWei(event._usdAmount)),
-        tierPrice: new BigNumber(Web3.utils.fromWei(event._tierPrice)),
         tier: event._tier,
+        tierPrice: new BigNumber(Web3.utils.fromWei(event._tierPrice)),
       };
     });
   }
