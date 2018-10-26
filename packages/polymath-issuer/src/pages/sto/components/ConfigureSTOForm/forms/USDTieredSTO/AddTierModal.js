@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { get } from 'lodash';
 import {
-  ComposedModal,
   ModalHeader,
   ModalBody,
   ModalFooter,
@@ -13,6 +12,7 @@ import {
 import {
   Grid,
   Box,
+  Modal,
   Paragraph,
   RaisedAmount,
   thousandsDelimiter,
@@ -41,11 +41,7 @@ class AddTierModal extends Component {
       field: { name },
     } = this.props;
     return (
-      <ComposedModal
-        open={this.props.isOpen}
-        className={this.props.className}
-        onClose={this.props.onClose}
-      >
+      <Modal isOpen={this.props.isOpen} onClose={this.props.onClose}>
         <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
         <ModalBody>
           <Paragraph>
@@ -150,7 +146,7 @@ class AddTierModal extends Component {
           </Button>
           <Button onClick={this.handleOnAdd}>Add new</Button>
         </ModalFooter>
-      </ComposedModal>
+      </Modal>
     );
   }
 }
