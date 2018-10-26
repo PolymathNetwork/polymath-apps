@@ -87,7 +87,7 @@ class AddTierModal extends Component {
                 name={`${name}.discountedTokensAmount`}
                 component={NumberInput}
                 label={
-                  <Tooltip triggerText="Number of tokens">
+                  <Tooltip triggerText="Number of discounted tokens">
                     <p className="bx--tooltip__label">
                       Maximum Number of Discounted tokens
                     </p>
