@@ -2,8 +2,6 @@
 import USDTieredSTOFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTOFactory.json';
 import CappedSTOFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/CappedSTOFactory.json';
 
-import type { BigNumber } from 'bignumber.js';
-
 export const MODULE_TYPES = {
   PERMISSION: 1,
   TRANSFER: 2,
