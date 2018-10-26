@@ -38,8 +38,19 @@ class AddTierModal extends Component {
   };
   render() {
     const {
-      field: { name },
+      field: { name, value },
+      form: { values },
+      ticker,
     } = this.props;
+
+    const thisTier = value || {};
+    const tokenPrice = thisTier.tokenPrice || 0;
+    const tokensAmount = thisTier.tokensAmount || 0;
+
+    const tierNum = values.investmentTiers.tiers.length + 1;
+    const tierTokensAmount = tokensAmount || 0;
+    const tierUsdAmount = tokenPrice * tierTokensAmount;
+
     return (
       <Modal isOpen={this.props.isOpen} onClose={this.props.onClose}>
         <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
@@ -128,9 +139,9 @@ class AddTierModal extends Component {
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
             <Grid.Item gridColumn="span 1 / 3">
               <RaisedAmount
-                title="Amount Of Funds the STO Will Raise"
-                primaryAmount="10000"
-                tokenAmount="10000"
+                title={`Amount Of Funds the tier ${tierNum} STO Will Raise`}
+                primaryAmount={`${tierUsdAmount} USD`}
+                tokenAmount={`${tierTokensAmount} ${ticker.toUpperCase()}`}
               />
             </Grid.Item>
           </Grid>

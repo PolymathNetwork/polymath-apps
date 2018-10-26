@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { map, keys } from 'lodash';
+import { isNumber, map, reduce } from 'lodash';
 import { Formik, FastField, ErrorMessage } from 'formik';
 import moment from 'moment';
 import { Form, Tooltip, Button } from 'carbon-components-react';
@@ -20,16 +20,19 @@ import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
 import { configureSTO } from '../../../../../../actions/sto';
 
+import type { RootState } from '../../../../../../redux/reducer';
 import type { FundRaiseType } from '../../../../../../constants';
 import type { Dispatch } from 'redux';
 
 type ComponentProps = {|
   onSubmit: (values: FormValues) => void,
+  ticker: string,
 |};
 
 type ContainerProps = {|
   dispatch: Dispatch<any>,
   address: string,
+  ticker: string,
 |};
 
 function validateEndTime(value) {
@@ -162,14 +165,7 @@ const initialValues = {
   endTime: 0,
   investmentTiers: {
     isMultipleTiers: false,
-    tiers: [
-      {
-        tokensAmount: '',
-        tokenPrice: '',
-        discountedTokensAmount: '',
-        discountedTokensPrice: 0,
-      },
-    ],
+    tiers: [],
     newTier: null,
   },
   nonAccreditedMax: 0,
@@ -179,15 +175,36 @@ const initialValues = {
   currencies: ['ETH', 'POLY'],
 };
 
-export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
+export const USDTieredSTOFormComponent = ({
+  onSubmit,
+  ticker,
+}: ComponentProps) => {
   return (
     <Formik
       onSubmit={onSubmit}
       validationSchema={formSchema}
       initialValues={initialValues}
       render={({ handleSubmit, values, errors, touched }) => {
-        console.log('values', values);
-        console.log('errors,', errors);
+        const { tiers } = values.investmentTiers;
+        const totalTokensAmount = reduce(
+          tiers,
+          (total, { tokensAmount }) => {
+            return (isNumber(tokensAmount) ? tokensAmount : 0) + total;
+          },
+          0
+        );
+        const totalUsdAmount = reduce(
+          tiers,
+          (total, { tokenPrice, tokensAmount }) => {
+            const amount = isNumber(tokensAmount) ? tokensAmount : 0;
+            const price = isNumber(tokenPrice) ? tokenPrice : 0;
+            return price * amount + total;
+          },
+          0
+        );
+
+        console.log(values);
+
         return (
           <Form onSubmit={handleSubmit}>
             <Heading variant="h3">STO Schedule</Heading>
@@ -284,15 +301,19 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             </Grid>
 
             <div>
-              <FastField name="investmentTiers" component={InvestmentTiers} />
+              <FastField
+                name="investmentTiers"
+                ticker={ticker}
+                component={InvestmentTiers}
+              />
             </div>
 
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
               <Grid.Item gridColumn="span 1 / 3">
                 <RaisedAmount
                   title="Amount Of Funds the STO Will Raise"
-                  primaryAmount="10000"
-                  tokenAmount="10000"
+                  primaryAmount={`${totalUsdAmount} USD`}
+                  tokenAmount={`${totalTokensAmount} ${ticker.toUpperCase()}`}
                 />
               </Grid.Item>
             </Grid>
@@ -351,7 +372,10 @@ const mapStateToProps = ({
   sto: {
     factory: { address },
   },
-}) => ({ address });
+  token: {
+    token: { ticker },
+  },
+}: RootState) => ({ address, ticker });
 
 type InvestmentTier = {|
   tokensAmount: number,
@@ -416,7 +440,8 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
     });
   };
   render() {
-    return <USDTieredSTOFormComponent onSubmit={this.submit} />;
+    const { ticker } = this.props;
+    return <USDTieredSTOFormComponent ticker={ticker} onSubmit={this.submit} />;
   }
 }
 

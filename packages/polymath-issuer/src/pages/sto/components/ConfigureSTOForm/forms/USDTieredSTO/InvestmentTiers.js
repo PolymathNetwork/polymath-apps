@@ -4,13 +4,7 @@ import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray, ErrorMessage } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
-import {
-  Box,
-  Grid,
-  DynamicTable,
-  icoAdd,
-  thousandsDelimiter,
-} from '@polymathnetwork/ui';
+import { Box, Grid, DynamicTable, icoAdd } from '@polymathnetwork/ui';
 import InputError from '@polymathnetwork/ui/components/InputError';
 import { NumberInput } from '@polymathnetwork/ui/next';
 
@@ -63,6 +57,7 @@ type Props = {
     value: FieldValue,
     name: string,
   },
+  ticker: string,
   form: {
     setFieldValue: (name: string, value: any) => void,
     setFieldTouched: (name: string, value: boolean) => void,
@@ -107,6 +102,7 @@ class InvestmentTiers extends React.Component<Props, State> {
   render() {
     const {
       field: { value, name },
+      ticker,
     } = this.props;
     const { isAddingTier } = this.state;
 
@@ -270,6 +266,7 @@ class InvestmentTiers extends React.Component<Props, State> {
           render={({ push }) => (
             <Field
               name="investmentTiers.newTier"
+              ticker={ticker}
               component={AddTierModal}
               title={`Add the Investment Tier #${value.tiers.length}`}
               isOpen={isAddingTier}
