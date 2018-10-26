@@ -4,9 +4,8 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import BigNumber from 'bignumber.js';
-import { map, reduce } from 'lodash';
+import { reduce } from 'lodash';
 import {
-  InlineFlex,
   Box,
   ProgressBar,
   Countdown,
@@ -19,8 +18,7 @@ import {
 } from '../../../../../../actions/sto';
 import TiersTable from './TiersTable';
 
-import type { BigNumber as BigNumberType } from 'bignumber.js';
-import type { STOPurchase, STODetails } from '@polymathnetwork/js/types';
+import type { Dispatch } from 'redux';
 import type { CountdownProps } from '@polymathnetwork/ui';
 import type { RootState } from '../../../../../../redux/reducer';
 import type { SecurityToken, USDTieredSTO } from '../../../../../../constants';
@@ -28,13 +26,14 @@ import type { SecurityToken, USDTieredSTO } from '../../../../../../constants';
 type ComponentProps = {|
   token: SecurityToken,
   handlePause: () => void,
-  handleExport: () => void,
+  handleExportInvestors: () => void,
   sto: USDTieredSTO,
 |};
 
 type StateProps = {|
   sto: USDTieredSTO,
   token: SecurityToken,
+  dispatch: Dispatch<any>,
 |};
 type ContainerProps = StateProps;
 
@@ -50,30 +49,29 @@ const dateFormat = (date: Date) =>
 const getCountdownProps = (
   startDate: Date,
   endDate: Date,
-  isStoPaused: boolean
+  pauseStatus: boolean
 ): ?CountdownProps => {
   const now = new Date();
   if (now < startDate) {
     return {
       deadline: startDate,
       title: 'Time Left Until the Offering Starts',
-      isPaused: isStoPaused,
+      isPaused: pauseStatus,
     };
   } else if (now < endDate) {
     return {
       deadline: endDate,
       title: 'Time Left Until the Offering Ends',
-      isPaused: isStoPaused,
+      isPaused: pauseStatus,
     };
   }
   return null;
 };
-// FIXME RafaelVidaurre
 
 const USDTieredSTOOverviewComponent = ({
   token,
   handlePause,
-  handleExport,
+  handleExportInvestors,
   sto,
 }: ComponentProps) => {
   console.log(sto);
@@ -81,7 +79,7 @@ const USDTieredSTOOverviewComponent = ({
   const countdownProps = getCountdownProps(
     sto.startDate,
     sto.endDate,
-    sto.paused
+    sto.pauseStatus
   );
   const totalUsdCap = reduce(
     sto.tiers,
@@ -106,7 +104,7 @@ const USDTieredSTOOverviewComponent = ({
           </p>
           <div
             className={
-              'pui-sto-status-grow' + (sto.paused ? ' pui-paused' : '')
+              'pui-sto-status-grow' + (sto.pauseStatus ? ' pui-paused' : '')
             }
           >
             <div className="pui-sto-status-numbers">
@@ -130,12 +128,6 @@ const USDTieredSTOOverviewComponent = ({
                   <div>End Date</div>
                   {dateFormat(sto.startDate)}
                 </div>
-                <div className="pui-key-value">
-                  <div>
-                    {/* 1 {symbol}{' '} */}
-                    <span>{/* = {sto.rate} {ticker} */}</span>
-                  </div>
-                </div>
               </div>
               <div>
                 <div className="pui-key-value pui-countdown-raised">
@@ -150,7 +142,11 @@ const USDTieredSTOOverviewComponent = ({
             <Box mt={4}>
               <TiersTable sto={sto} />
             </Box>
-            <Button icon="download" kind="secondary" onClick={handleExport}>
+            <Button
+              icon="download"
+              kind="secondary"
+              onClick={handleExportInvestors}
+            >
               Export List Of Investors
             </Button>
           </div>
@@ -159,9 +155,9 @@ const USDTieredSTOOverviewComponent = ({
               <Countdown
                 deadline={countdownProps.deadline}
                 title={countdownProps.title}
-                buttonTitle={sto.paused ? 'RESUME STO' : 'PAUSE STO'}
+                buttonTitle={sto.pauseStatus ? 'RESUME STO' : 'PAUSE STO'}
                 handleButtonClick={handlePause}
-                isPaused={sto.paused}
+                isPaused={sto.pauseStatus}
               />
             </div>
           )}
@@ -178,11 +174,13 @@ const mapStateToProps = ({ sto, token: { token } }: RootState) => {
 
 class USDTieredSTOOverviewContainer extends Component<ContainerProps> {
   pause = () => {
-    console.log('pausing');
+    const { dispatch } = this.props;
+    dispatch(togglePauseSto());
   };
   // NOTE @RafaelVidaurre: Export what? Add specificity
-  export = () => {
-    console.log('exporting');
+  exportInvestors = () => {
+    const { dispatch } = this.props;
+    dispatch(exportInvestorsList());
   };
 
   render() {
@@ -192,7 +190,7 @@ class USDTieredSTOOverviewContainer extends Component<ContainerProps> {
       <USDTieredSTOOverviewComponent
         token={token}
         sto={sto}
-        handleExport={this.export}
+        handleExportInvestors={this.exportInvestors}
         handlePause={this.pause}
       />
     );

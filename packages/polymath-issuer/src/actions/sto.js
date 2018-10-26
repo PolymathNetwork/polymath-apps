@@ -107,14 +107,9 @@ export const fetch = () => async (dispatch: Function, getState: GetState) => {
     }
 
     const sto = await getTokenSTO(token.address);
-    // console.log('sto', sto);
     if (sto) {
       const details = await sto.getDetails();
-      // console.log('details', details);
-      // console.log('details', details);
-      const isPaused = await sto.paused();
-      // console.log('isPaused', isPaused);
-      pauseStatus(isPaused);
+      dispatch(pauseStatus(details.pauseStatus));
       dispatch(data(sto, details));
     } else {
       dispatch(data(sto, null));
@@ -357,6 +352,7 @@ export const togglePauseSto = () => async (
   getState: GetState
 ) => {
   const isStoPaused = getState().sto.pauseStatus;
+  console.log('isStoPaused', isStoPaused);
   dispatch(
     ui.confirm(
       isStoPaused ? (

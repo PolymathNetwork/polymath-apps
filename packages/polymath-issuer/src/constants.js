@@ -61,7 +61,8 @@ export type USDTieredSTOTier = {|
   status: USDTieredSTOTierStatus,
 |};
 export type USDTieredSTO = {|
-  paused: boolean,
+  // NOTE @RafaelVidaurre: pauseStatus instead of "pause" because of legacy compat
+  pauseStatus: boolean,
   open: boolean,
   startDate: Date,
   endDate: Date,

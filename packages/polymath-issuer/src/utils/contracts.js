@@ -285,3 +285,11 @@ export async function setupSTOModule(
     )
   );
 }
+
+/**
+ * Sends a transaction to the network
+ *
+ * @param address address to send the transaction from
+ * @param method Web3 method object
+ */
+export async function sendTransaction(method) {}

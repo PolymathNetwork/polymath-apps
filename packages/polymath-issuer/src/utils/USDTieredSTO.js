@@ -11,6 +11,7 @@ import { FUND_RAISE_TYPES } from '../constants';
 import type {
   USDTieredSTO as USDTieredSTOType,
   USDTieredSTOTierStatus,
+  FundRaiseType,
 } from '../constants';
 
 export default class USDTieredSTO {
@@ -27,9 +28,33 @@ export default class USDTieredSTO {
     );
   }
 
+  async pause() {
+    const res = await Contract._tx(this.contract.methods.pause());
+    return res;
+  }
+
+  async unpause() {
+    const res = await Contract._tx(this.contract.methods.unpause());
+    return res;
+  }
+
   async paused(): Promise<boolean> {
     const isPaused = await this.contract.methods.paused().call();
     return isPaused;
+  }
+
+  async getRaiseTypes(): Promise<FundRaiseType[]> {
+    let raiseTypes = await P.map(keys(FUND_RAISE_TYPES), async raiseType => {
+      const raiseTypeId = FUND_RAISE_TYPES[raiseType];
+      const usesType = await this.contract.methods
+        .fundRaiseTypes(raiseTypeId)
+        .call();
+      if (usesType) {
+        return raiseType;
+      }
+    });
+
+    return compact(raiseTypes);
   }
 
   async getDetails(): Promise<USDTieredSTOType> {
@@ -48,19 +73,6 @@ export default class USDTieredSTO {
     currentTier = parseInt(currentTier, 10);
     totalUsdRaised = new BigNumber(Web3.utils.fromWei(totalUsdRaised));
     totalTokensSold = new BigNumber(Web3.utils.fromWei(totalTokensSold));
-
-    // // Fund raise types
-    // let raiseTypes = await P.map(keys(FUND_RAISE_TYPES), async raiseType => {
-    //   const raiseTypeId = FUND_RAISE_TYPES[raiseType];
-    //   const usesType = await this.contract.methods
-    //     .fundRaiseTypes(raiseTypeId)
-    //     .call();
-    //   if (usesType) {
-    //     return raiseType;
-    //   }
-    // });
-
-    // raiseTypes = compact(raiseTypes);
 
     // Get tiers data
     const tiers = await P.map(range(tiersCount), async tierNumber => {
@@ -100,10 +112,10 @@ export default class USDTieredSTO {
     });
 
     return {
+      type: 'USDTieredSTO',
       startDate: new Date(startTime * 1000),
       endDate: new Date(endTime * 1000),
-      paused,
-      type: 'USDTieredSTO',
+      pauseStatus: paused,
       factoryAddress,
       open,
       currentTier,
@@ -111,7 +123,6 @@ export default class USDTieredSTO {
       tiers,
       totalUsdRaised,
       totalTokensSold,
-      // raiseTypes,
     };
   }
 }
