@@ -3,11 +3,12 @@
 import React from 'react';
 import { STO } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
+import { twelveHourTimeToMinutes } from '@polymathnetwork/ui/deprecated';
 import { setupSTOModule, getTokenSTO } from '../utils/contracts';
 import USDTieredSTO from '../utils/contracts/USDTieredSTO';
 
 import type { Dispatch } from 'redux';
-import type { TwelveHourTime } from '@polymathnetwork/ui';
+import type { TwelveHourTime } from '@polymathnetwork/ui/deprecated';
 import type { STOConfig } from '../constants';
 import type { RootState } from '../redux/reducer';
 import type {
@@ -174,7 +175,7 @@ export const fetchFactories = () => async (
 };
 
 const dateTimeFromDateAndTime = (date: Date, time: TwelveHourTime) =>
-  new Date(date.valueOf() + ui.twelveHourTimeToMinutes(time) * 60000);
+  new Date(date.valueOf() + twelveHourTimeToMinutes(time) * 60000);
 
 export const configureSTO = (
   moduleAddress: string,
