@@ -2,15 +2,83 @@
 
 import { range } from 'lodash';
 import React, { Component } from 'react';
-import { Select, SelectItem } from 'carbon-components-react';
+// import { Select, SelectItem } from 'carbon-components-react';
+import Select, { components } from 'react-select';
+import styled from 'styled-components';
 import moment from 'moment';
-
+import Box from '../../../../components/Box';
+import Icon from '../../../../components/Icon';
+import theme from '../../../../theme';
+import CaretDownIcon from '../../../../images/icons/CaretDown';
+import Field from '../../../../components/Field';
+import InputLabel from '../../../../components/InputLabel';
 import type { InputProps } from '../types';
 
 type OwnProps = {
   format: string,
 };
 type Props = InputProps & OwnProps;
+
+const styles = {
+  container: styles => ({
+    ...styles,
+    borderRadius: 0,
+  }),
+  control: (styles, state) => {
+    return {
+      ...styles,
+      backgroundColor: theme.colors.blue[0],
+      borderRadius: 0,
+      borderColor: 'transparent',
+      '&:hover': {
+        borderColor: 'transparent',
+      },
+    };
+  },
+  valueContainer: styles => ({
+    ...styles,
+    flexGrow: 9,
+  }),
+  indicatorsContainer: styles => ({
+    ...styles,
+    flexGrow: 1,
+  }),
+  dropdownIndicator: styles => ({
+    ...styles,
+    color: theme.colors.baseText,
+    fontSize: theme.fontSizes[1],
+    flexGrow: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: theme.space[2],
+  }),
+};
+
+const Container = styled(Box)`
+  min-height: 80px;
+`;
+
+const SelectContainer = styled(Box)`
+  display: inline-block;
+  vertical-align: middle;
+  min-width: 7rem;
+  margin-right: ${({ theme }) => theme.space[4]}px;
+  margin-bottom: ${({ theme }) => theme.space[1]}px;
+`;
+
+const Caret = styled(Icon)`
+  color: ${({ theme }) => theme.colors.secondary};
+`;
+
+const DropdownIndicator = props => {
+  return (
+    components.DropdownIndicator && (
+      <components.DropdownIndicator {...props}>
+        <Caret Icon={CaretDownIcon} width="10" height="10" />
+      </components.DropdownIndicator>
+    )
+  );
+};
 
 const minutesInADay = 60 * 24;
 const timeIntervals = range(0, minutesInADay, 30);
@@ -20,18 +88,26 @@ class TimePickerSelectField extends Component<Props> {
     format: 'h:mm A',
   };
 
-  handleOnChange = ({ target: { value } }: SyntheticInputEvent<>) => {
+  handleChange = ({ value, label }: { value: number, label: string }) => {
     const {
       form: { setFieldValue },
       field: { name },
     } = this.props;
-    const numericValue = parseInt(value, 10);
-    setFieldValue(name, numericValue);
+    setFieldValue(name, value);
+  };
+
+  handleMenuClose = () => {
+    const {
+      form: { setFieldTouched },
+      field: { name },
+    } = this.props;
+
+    setFieldTouched(name, true);
   };
 
   render() {
     const {
-      field,
+      field: { name, value },
       className,
       format,
       label,
@@ -47,23 +123,33 @@ class TimePickerSelectField extends Component<Props> {
       const inMs = minutes * 60 * 1000;
       return { label: time.format(format), value: inMs };
     });
+    const selectedOption = timeOptions.find(option => option.value === value);
 
     return (
-      <Select
-        id={field.name}
-        hideLabel={false}
-        className={className}
-        defaultValue=""
-        labelText={label}
-        {...props}
-        {...field}
-        onChange={this.handleOnChange}
-      >
-        <SelectItem disabled hidden value="" text={placeholder} />
-        {timeOptions.map(({ value, label }) => {
-          return <SelectItem key={value} value={value} text={label} />;
-        })}
-      </Select>
+      <Field>
+        <InputLabel>{label}</InputLabel>
+        <Container>
+          <SelectContainer>
+            <Select
+              id={name}
+              styles={styles}
+              components={{
+                DropdownIndicator,
+                IndicatorSeparator: null,
+                ClearIndicator: null,
+              }}
+              backspaceRemovesValue={false}
+              isSearchable={false}
+              options={timeOptions}
+              onChange={this.handleChange}
+              onMenuClose={this.handleMenuClose}
+              value={selectedOption}
+              placeholder={placeholder}
+              {...props}
+            />
+          </SelectContainer>
+        </Container>
+      </Field>
     );
   }
 }

@@ -154,6 +154,12 @@ class CurrencySelect extends React.Component<Props> {
 
   render() {
     const { value, options, onChange, ...props } = this.props;
+    const selectedValue = Array.isArray(value)
+      ? value.map(
+          _value => options.find(option => option.value === _value) || {}
+        )
+      : value;
+
     return (
       <Container>
         <SelectContainer>
@@ -169,14 +175,7 @@ class CurrencySelect extends React.Component<Props> {
               ValueContainer: () => null,
             }}
             options={options}
-            value={
-              Array.isArray(value)
-                ? value.map(
-                    _value =>
-                      options.find(option => option.value === _value) || {}
-                  )
-                : value
-            }
+            value={selectedValue}
             onChange={this.handleChange}
             onMenuClose={this.handleBlur}
             {...props}

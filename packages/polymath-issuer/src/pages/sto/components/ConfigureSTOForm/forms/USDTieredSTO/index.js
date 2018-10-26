@@ -206,7 +206,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                   <FastField
                     name="startTime"
                     component={TimePickerSelect}
-                    className="bx--time-picker__select"
                     placeholder="hh:mm"
                     label="Time"
                   />
@@ -225,7 +224,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                   <FastField
                     name="endTime"
                     component={TimePickerSelect}
-                    className="bx--time-picker__select"
                     placeholder="hh:mm"
                     label="Time"
                   />

@@ -10,6 +10,7 @@ export type InputProps = {
   },
   form: {
     setFieldValue: (name: string, value: any) => void,
+    setFieldTouched: (name: string, value: boolean) => void,
     errors: {
       [fieldName: string]: string[],
     },
