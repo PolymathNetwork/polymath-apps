@@ -67,13 +67,3 @@ export type USDTieredSTO = {|
   totalUsdRaised: number,
   factoryAddress: string,
 |};
-
-// NEED:
-/**
- * - Total funds raised (USD)
- * - Amount of tokens sold
- * - Rate per tier
- * - Cap per tier in USD
- * - Amount raised per tier USD
- * - Open or closed
- */
