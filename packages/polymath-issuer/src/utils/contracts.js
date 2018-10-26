@@ -57,6 +57,7 @@ export function toWei(
  * @param params Function parameters
  */
 function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
+  console.log('Encoded', params);
   return Contract._params.web3.eth.abi.encodeFunctionCall(
     {
       name: 'configure',
@@ -241,6 +242,9 @@ export async function getSTOModules(tokenAddress: string) {
 
   return stoModules;
 }
+
+// TODO @RafaelVidaurre: Make this generic. Right now it only works for
+// USDTieredSTO
 
 export async function setupSTOModule(
   stoModule: STOModule,

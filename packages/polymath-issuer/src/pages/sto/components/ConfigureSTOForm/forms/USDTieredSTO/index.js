@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { map, keys } from 'lodash';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, FastField, ErrorMessage } from 'formik';
 import moment from 'moment';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
@@ -170,7 +170,7 @@ const initialValues = {
         discountedTokensPrice: 0,
       },
     ],
-    newtier: null,
+    newTier: null,
   },
   nonAccreditedMax: 0,
   minimumInvestment: 0,
@@ -187,13 +187,14 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       initialValues={initialValues}
       render={({ handleSubmit, values, errors, touched }) => {
         console.log('values', values);
+        console.log('errors,', errors);
         return (
           <Form onSubmit={handleSubmit}>
             <Heading variant="h3">STO Schedule</Heading>
             <Box mb={4}>
               <div className="time-pickers-container">
                 <div>
-                  <Field
+                  <FastField
                     name="startDate"
                     component={DatePickerInput}
                     label="Start Date"
@@ -202,7 +203,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                   <ErrorMessage component={InputError} name="startDate" />
                 </div>
                 <div>
-                  <Field
+                  <FastField
                     name="startTime"
                     component={TimePickerSelect}
                     className="bx--time-picker__select"
@@ -212,7 +213,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                   <ErrorMessage component={InputError} name="startTime" />
                 </div>
                 <div>
-                  <Field
+                  <FastField
                     name="endDate"
                     component={DatePickerInput}
                     label="End Date"
@@ -221,7 +222,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                   <ErrorMessage component={InputError} name="endDate" />
                 </div>
                 <div>
-                  <Field
+                  <FastField
                     name="endTime"
                     component={TimePickerSelect}
                     className="bx--time-picker__select"
@@ -234,7 +235,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             </Box>
             <Heading variant="h3">STO Financing Details & Terms</Heading>
             <div>
-              <Field
+              <FastField
                 component={CurrencySelect}
                 name="currencies"
                 placeholder="Raise in"
@@ -244,7 +245,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
 
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
               <div>
-                <Field
+                <FastField
                   name="minimumInvestment"
                   component={NumberInput}
                   min={0}
@@ -261,7 +262,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 <ErrorMessage component={InputError} name="minimumInvestment" />
               </div>
               <div>
-                <Field
+                <FastField
                   name="nonAccreditedMax"
                   component={NumberInput}
                   label={
@@ -285,7 +286,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             </Grid>
 
             <div>
-              <Field name="investmentTiers" component={InvestmentTiers} />
+              <FastField name="investmentTiers" component={InvestmentTiers} />
             </div>
 
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
@@ -307,7 +308,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             </Remark>
 
             <div>
-              <Field
+              <FastField
                 name="receiverAddress"
                 component={TextInput}
                 label={
@@ -324,7 +325,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
             </div>
 
             <div>
-              <Field
+              <FastField
                 name="unsoldTokensAddress"
                 component={TextInput}
                 label={
@@ -380,14 +381,14 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
     const { dispatch, address } = this.props;
 
     const formattedValues = {
-      startsAt: new Date(
-        new Date(values.startDate).getTime() + values.startTime
+      startsAt: new Date(values.startDate).getTime() + values.startTime,
+      endsAt: new Date(values.endDate).getTime() + values.endTime,
+      ratePerTier: map(values.investmentTiers.tiers, ({ tokenPrice }) =>
+        toWei(tokenPrice)
       ),
-      endsAt: new Date(new Date(values.endDate).getTime() + values.endTime),
-      ratePerTier: map(values.investmentTiers.tiers, 'tokenPrice'),
       discountRatePerTier: map(
         values.investmentTiers.tiers,
-        'discountedTokensPrice'
+        ({ discountedTokensPrice }) => toWei(discountedTokensPrice)
       ),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
         toWei(tokensAmount)
@@ -396,8 +397,8 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
         values.investmentTiers.tiers,
         ({ discountedTokensAmount }) => toWei(discountedTokensAmount)
       ),
-      nonAccreditedLimit: values.nonAccreditedMax,
-      minimumInvestment: values.minimumInvestment,
+      nonAccreditedLimit: toWei(values.nonAccreditedMax),
+      minimumInvestment: toWei(values.minimumInvestment),
       currencies: map(
         values.currencies,
         currency => FUND_RAISE_TYPES[currency]
