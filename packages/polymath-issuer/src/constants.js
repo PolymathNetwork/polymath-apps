@@ -51,12 +51,14 @@ export type STOConfig = {|
   data: { [prop: string]: any },
 |};
 export type FundRaiseType = $Keys<typeof FUND_RAISE_TYPES>;
+export type USDTieredSTOTierStatus = 'done' | 'active' | 'not-started';
 export type USDTieredSTOTier = {|
   rate: BigNumber,
   tokensSold: BigNumber,
   totalTokens: BigNumber,
   totalUsd: BigNumber,
   usdRaised: BigNumber,
+  status: USDTieredSTOTierStatus,
 |};
 export type USDTieredSTO = {|
   paused: boolean,
@@ -67,4 +69,7 @@ export type USDTieredSTO = {|
   totalTokensSold: BigNumber,
   totalUsdRaised: BigNumber,
   factoryAddress: string,
+  currentTier: number,
+  type: 'USDTieredSTO',
+  finalized: boolean,
 |};

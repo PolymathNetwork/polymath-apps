@@ -94,25 +94,6 @@ const USDTieredSTOOverviewComponent = ({
   const raised = sto.totalUsdRaised;
   const totalTokensSold = sto.totalTokensSold;
 
-  const tiersTableRows = map(
-    sto.tiers,
-    ({ rate, usdRaised, totalUsd, tokensSold, totalTokens }, tierNumber) => ({
-      id: tierNumber,
-      tier: tierNumber,
-      rate,
-      usdRaised,
-      totalUsd,
-      progress: (
-        <InlineFlex>
-          <Box width="150px" mr={1}>
-            <ProgressBar progress={tokensSold.div(totalTokens).toNumber()} />
-          </Box>
-          100%
-        </InlineFlex>
-      ),
-    })
-  );
-
   return (
     <DocumentTitle title={`${ticker} STO Overview – Polymath`}>
       <div>

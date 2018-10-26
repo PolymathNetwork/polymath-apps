@@ -58,11 +58,17 @@ const USDTieredSTOTiersTable = ({ sto: { tiers } }: Props) => {
   const rowsData = map(
     tiers,
     (
-      { rate, totalTokens, tokensSold, totalUsd, usdRaised }: USDTieredSTOTier,
+      {
+        rate,
+        totalTokens,
+        tokensSold,
+        totalUsd,
+        usdRaised,
+        status,
+      }: USDTieredSTOTier,
       tierNum
     ) => {
       const id = tierNum + 1;
-      const status = 'done'; // FIXME @RafaelVidaurre: Don't hardcode
       const progress = tokensSold.div(totalTokens).toNumber();
 
       return {
