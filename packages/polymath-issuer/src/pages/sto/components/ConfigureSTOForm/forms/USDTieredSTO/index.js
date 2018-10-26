@@ -154,36 +154,12 @@ const formSchema = Yup.object().shape({
 
 // FIXME @RafaelVidaurre: RESET to empty values, these are hardcoded for testing
 // TODO @RafaelVidaurre: Improve fields naming
-const dummyStartDateUnix = Date.now() + 1000 * 60 * 60 * 24;
-const dummyEndDateUnix = dummyStartDateUnix + 1000 * 60 * 60 * 24 * 10;
 
 const initialValues = {
-  // startDate: new Date(dummyStartDateUnix),
-  // endDate: new Date(dummyEndDateUnix),
-  // startTime: 1000 * 60 * 60 * 10,
-  // endTime: 1000 * 60 * 60 * 10,
-  startDate: '',
-  endDate: '',
-  startTime: '',
-  endTime: '',
-  // investmentTiers: {
-  //   isMultipleTiers: true,
-  //   tiers: [
-  //     {
-  //       tokensAmount: 10000,
-  //       tokenPrice: 50,
-  //       discountedTokensAmount: 1000,
-  //       discountedTokensPrice: 40,
-  //     },
-  //     {
-  //       tokensAmount: 50000,
-  //       tokenPrice: 150,
-  //       discountedTokensAmount: 10000,
-  //       discountedTokensPrice: 30,
-  //     },
-  //   ],
-  //   newTier: null,
-  // },
+  startDate: new Date(Date.now() + 1000 * 360 * 24),
+  endDate: new Date(Date.now() + 1000 * 360 * 24 * 10),
+  startTime: 0,
+  endTime: 0,
   investmentTiers: {
     isMultipleTiers: false,
     tiers: [
@@ -210,6 +186,7 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       validationSchema={formSchema}
       initialValues={initialValues}
       render={({ handleSubmit, values, errors, touched }) => {
+        console.log('values', values);
         return (
           <Form onSubmit={handleSubmit}>
             <Heading variant="h3">STO Schedule</Heading>
@@ -261,7 +238,6 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
                 component={CurrencySelect}
                 name="currencies"
                 placeholder="Raise in"
-                onRemove={() => {}}
               />
               <ErrorMessage component={InputError} name="currencies" />
             </div>
@@ -404,8 +380,10 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
     const { dispatch, address } = this.props;
 
     const formattedValues = {
-      startsAt: new Date(values.startDate).getTime() + values.startTime,
-      endsAt: new Date(values.endDate).getTime() + values.endTime,
+      startsAt: new Date(
+        new Date(values.startDate).getTime() + values.startTime
+      ),
+      endsAt: new Date(new Date(values.endDate).getTime() + values.endTime),
       ratePerTier: map(values.investmentTiers.tiers, 'tokenPrice'),
       discountRatePerTier: map(
         values.investmentTiers.tiers,
@@ -427,6 +405,7 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       receiverAddress: values.receiverAddress,
       unsoldTokensAddress: values.unsoldTokensAddress,
     };
+    console.log('formattedValues', formattedValues);
 
     const config = {
       data: formattedValues,
