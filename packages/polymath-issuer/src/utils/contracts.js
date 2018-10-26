@@ -276,7 +276,7 @@ export async function setupSTOModule(
 
   const securityToken = new SecurityToken(tokenAddress);
 
-  const test = await securityToken._tx(
+  await securityToken._tx(
     securityToken._methods.addModule(
       address,
       encodedFunctionCall,

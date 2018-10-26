@@ -9,7 +9,6 @@ import {
   InlineFlex,
   Box,
   ProgressBar,
-  SimpleTable,
   Countdown,
   etherscanAddress,
 } from '@polymathnetwork/ui';
@@ -17,13 +16,14 @@ import { Button } from 'carbon-components-react';
 import {
   togglePauseSto,
   exportInvestorsList,
-} from '../../../../../actions/sto';
+} from '../../../../../../actions/sto';
+import TiersTable from './TiersTable';
 
 import type { BigNumber as BigNumberType } from 'bignumber.js';
 import type { STOPurchase, STODetails } from '@polymathnetwork/js/types';
 import type { CountdownProps } from '@polymathnetwork/ui';
-import type { RootState } from '../../../../../redux/reducer';
-import type { SecurityToken, USDTieredSTO } from '../../../../../constants';
+import type { RootState } from '../../../../../../redux/reducer';
+import type { SecurityToken, USDTieredSTO } from '../../../../../../constants';
 
 type ComponentProps = {|
   token: SecurityToken,
@@ -38,27 +38,8 @@ type StateProps = {|
 |};
 type ContainerProps = StateProps;
 
-const {
-  TableContainer,
-  Table,
-  TableHead,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableCell,
-} = SimpleTable;
-
 // FIXME @RafaelVidaurre: etherscanAddress should be a component
-
 // FIXME @RafaelVidaurre: review these
-const niceAmount = (poly: BigNumberType) => {
-  console.log(poly);
-  return poly
-    .decimalPlaces(2)
-    .toNumber()
-    .toLocaleString();
-};
-
 const dateFormat = (date: Date) =>
   date.toLocaleDateString('en', {
     year: 'numeric',
@@ -87,30 +68,6 @@ const getCountdownProps = (
   }
   return null;
 };
-
-const tableHeaders = [
-  {
-    key: 'tier',
-    header: '# Tier',
-  },
-  {
-    key: 'rate',
-    header: 'Token Price',
-  },
-  {
-    key: 'totalUsd',
-    header: 'Total Raise Target',
-  },
-  {
-    key: 'usdRaised',
-    header: 'Raised',
-  },
-  {
-    key: 'progress',
-    header: 'Progress',
-  },
-];
-
 // FIXME RafaelVidaurre
 
 const USDTieredSTOOverviewComponent = ({
@@ -120,56 +77,22 @@ const USDTieredSTOOverviewComponent = ({
   sto,
 }: ComponentProps) => {
   console.log(sto);
-  // Revisit
   const totalUsdRaised = sto.totalUsdRaised;
   const countdownProps = getCountdownProps(
     sto.startDate,
     sto.endDate,
     sto.paused
   );
-
   const totalUsdCap = reduce(
     sto.tiers,
-    (total, { totalUsd }) => totalUsd + total,
-    0
+    (total, { totalUsd }) => totalUsd.plus(total),
+    new BigNumber(0)
   );
-
   const totalUsdRaisedPercent = (totalUsdRaised / totalUsdCap) * 100;
   const totalUsdRaisedText = totalUsdRaisedPercent.toFixed(1);
-
-  // TODO: Revisit
-  // const symbol = sto.isPolyFundraise ? 'POLY' : 'ETH';
-  // const symbol = 'POLY';
-  // const raisedText = `${niceAmount(sto.raised)} ${symbol}`;
-  // const capText = `${niceAmount(sto.cap)} USD`;
-  // const distTokens = `${niceAmount(sto.raised.times(sto.rate))}`;
-
   const ticker = token.ticker.toUpperCase();
-
   const raised = sto.totalUsdRaised;
-  const tokensSold = reduce(
-    sto.tiers,
-    (total, { tokensSold }) => tokensSold,
-    0
-  );
-
-  // const tableRowsHardcoded = [
-  //   {
-  //     id: 'a',
-  //     tier: 1,
-  //     tokenPrice: 100,
-  //     raiseTarget: 300000,
-  //     raised: 100,
-  //     progress: (
-  //       <InlineFlex>
-  //         <Box width="150px" mr={1}>
-  //           <ProgressBar progress={0.5} />
-  //         </Box>
-  //         100%
-  //       </InlineFlex>
-  //     ),
-  //   },
-  // ];
+  const totalTokensSold = sto.totalTokensSold;
 
   const tiersTableRows = map(
     sto.tiers,
@@ -190,8 +113,6 @@ const USDTieredSTOOverviewComponent = ({
     })
   );
 
-  console.log(tiersTableRows);
-
   return (
     <DocumentTitle title={`${ticker} STO Overview – Polymath`}>
       <div>
@@ -211,7 +132,7 @@ const USDTieredSTOOverviewComponent = ({
               <div>{totalUsdRaisedText}%</div>
               <div className="pui-key-value">
                 <div>Cap</div>
-                {totalUsdCap} USD
+                {totalUsdCap.toFormat(2)} USD
               </div>
             </div>
             <ProgressBar
@@ -238,44 +159,15 @@ const USDTieredSTOOverviewComponent = ({
               <div>
                 <div className="pui-key-value pui-countdown-raised">
                   <div>Total Funds Raised</div>
-                  {`${raised} USD`}
+                  {`${raised.toFormat(2)} USD`}
                   <div>
-                    {tokensSold.toString()} {ticker}
+                    {totalTokensSold.toString(2)} {ticker}
                   </div>
                 </div>
               </div>
             </div>
             <Box mt={4}>
-              <SimpleTable
-                rows={tiersTableRows}
-                headers={tableHeaders}
-                render={({ rows, headers }) => {
-                  return (
-                    <TableContainer>
-                      <Table>
-                        <TableHead>
-                          <TableRow>
-                            {headers.map(header => (
-                              <TableHeader>{header.header}</TableHeader>
-                            ))}
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {rows.map(row => (
-                            <TableRow key={row.id}>
-                              {row.cells.map(cell => (
-                                <TableCell key={cell.id}>
-                                  {cell.value}
-                                </TableCell>
-                              ))}
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  );
-                }}
-              />
+              <TiersTable sto={sto} />
             </Box>
             <Button icon="download" kind="secondary" onClick={handleExport}>
               Export List Of Investors

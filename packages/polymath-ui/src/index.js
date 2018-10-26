@@ -35,6 +35,7 @@ export { default as SimpleTable } from './components/SimpleTable';
 export { default as CurrencySelect } from './components/CurrencySelect';
 export { default as RaisedAmount } from './components/RaisedAmount';
 export { default as ProgressBar } from './components/ProgressBar';
+export { default as TierStatus } from './components/TierStatus';
 
 export { getNotice } from './components/NoticeBar/actions';
 export { notify } from './components/Toaster/actions';

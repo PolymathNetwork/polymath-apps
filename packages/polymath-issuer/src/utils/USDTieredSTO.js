@@ -36,18 +36,19 @@ export default class USDTieredSTO {
     const startTime = await this.contract.methods.startTime().call();
     const endTime = await this.contract.methods.endTime().call();
     const paused = await this.paused();
-    const totalUsdRaised = await this.contract.methods.fundsRaisedUSD().call();
     const factoryAddress = await this.contract.methods.factory().call();
     const open = await this.contract.methods.isOpen().call();
     const finalized = await this.contract.methods.isFinalized().call();
     const tiersCount = await this.contract.methods.getNumberOfTiers().call();
+    let totalUsdRaised = await this.contract.methods.fundsRaisedUSD().call();
+    let totalTokensSold = await this.contract.methods.getTokensSold().call();
 
-    const totalTokensSold = await this.contract.methods.getTokensSold().call();
+    totalTokensSold = new BigNumber(Web3.utils.fromWei(totalTokensSold));
+    totalUsdRaised = new BigNumber(Web3.utils.fromWei(totalUsdRaised));
 
     // // Fund raise types
     let raiseTypes = await P.map(keys(FUND_RAISE_TYPES), async raiseType => {
       const raiseTypeId = FUND_RAISE_TYPES[raiseType];
-      console.log('raiseType', raiseType);
       const usesType = await this.contract.methods
         .fundRaiseTypes(raiseTypeId)
         .call();
@@ -72,10 +73,9 @@ export default class USDTieredSTO {
 
       const totalTokens = new BigNumber(Web3.utils.fromWei(totalTokensRes));
       const tokensSold = new BigNumber(Web3.utils.fromWei(tokensSoldRes));
-
-      const rate = parseFloat(rateRes, 10);
-      const totalUsd = totalTokens.times(rate).toNumber();
-      const usdRaised = tokensSold.times(rate).toNumber();
+      const rate = new BigNumber(Web3.utils.fromWei(rateRes), 10);
+      const totalUsd = totalTokens.times(rate);
+      const usdRaised = tokensSold.times(rate);
 
       return {
         rate,
@@ -97,7 +97,7 @@ export default class USDTieredSTO {
       raiseTypes,
       tiers,
       totalUsdRaised,
-      tokensSold: new BigNumber(Web3.utils.fromWei(totalTokensSold)),
+      totalTokensSold,
     };
   }
 }
