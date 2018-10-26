@@ -74,6 +74,7 @@ export type USDTieredSTO = {|
   totalTokensSold: BigNumber,
   totalUsdRaised: BigNumber,
   factoryAddress: string,
+  address: string,
   currentTier: number,
   type: 'USDTieredSTO',
   finalized: boolean,

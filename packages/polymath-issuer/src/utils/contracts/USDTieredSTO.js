@@ -157,6 +157,7 @@ export default class USDTieredSTO {
       endDate: new Date(endTime * 1000),
       pauseStatus: paused,
       factoryAddress,
+      address: this.address,
       open,
       currentTier,
       finalized,

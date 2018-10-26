@@ -100,7 +100,7 @@ const USDTieredSTOOverviewComponent = ({
         <div className="pui-page-box">
           <h2 className="pui-h2">USD Tiered STO</h2>
           <p className="pui-sto-status-contract">
-            Contract {etherscanAddress(sto.factoryAddress)}
+            Contract {etherscanAddress(sto.address)}
           </p>
           <div
             className={
