@@ -7,6 +7,8 @@ import {
 } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
+import FileSaver from 'file-saver';
+
 import { ethereumAddress } from '@polymathnetwork/ui/validate';
 import type {
   SecurityToken,
@@ -444,7 +446,7 @@ export const exportMintedTokensList = () => async (
           const investors = await token.contract.getMinted();
 
           let csvContent =
-            'data:text/csv;charset=utf-8,Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
+            'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
           investors.forEach((investor: Investor) => {
             csvContent +=
               '\r\n' +
@@ -462,7 +464,10 @@ export const exportMintedTokensList = () => async (
               ].join(',');
           });
 
-          window.open(encodeURI(csvContent));
+          const blob = new Blob([csvContent], {
+            type: 'text/csv;charset=utf-8',
+          });
+          FileSaver.saveAs(blob, 'mintedTokenList.csv');
 
           dispatch(ui.fetched());
         } catch (e) {

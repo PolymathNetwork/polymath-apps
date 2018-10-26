@@ -13,11 +13,13 @@ import CountTransferManagerFactoryArtifacts from './fixtures/contracts/CountTran
 export const KOVAN_NETWORK_ID = 42;
 export const MAINNET_NETWORK_ID = 1;
 export const LOCAL_NETWORK_ID = 15;
+export const LOCALVM_NETWORK_ID = 16;
 
 const NetworkIds = {
   KOVAN_NETWORK_ID,
   MAINNET_NETWORK_ID,
   LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
 };
 
 const DEPLOYMENT_STAGE =
@@ -109,11 +111,14 @@ const kovanProductionAddresses = {
 
 export const _STAGING_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanStagingAddresses,
+  [LOCAL_NETWORK_ID]: localAddresses,
+  [LOCALVM_NETWORK_ID]: localAddresses,
 };
 
 export const _LOCAL_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanStagingAddresses,
   [LOCAL_NETWORK_ID]: localAddresses,
+  [LOCALVM_NETWORK_ID]: localAddresses,
 };
 
 export const _PRODUCTION_ADDRESSES: NetworkAddresses = {
