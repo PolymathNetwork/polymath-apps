@@ -17,8 +17,8 @@ exports[`renders without crashing 1`] = `
   >
     <li>
       <a
-        href="/https://polymath.network/termsofservice.html"
-        onClick={[Function]}
+        href="https://polymath.network/termsofservice.html"
+        rel="noopener noreferrer"
         target="_blank"
       >
         Terms Of Service
@@ -26,8 +26,8 @@ exports[`renders without crashing 1`] = `
     </li>
     <li>
       <a
-        href="/https://polymath.network/privacypolicy.html"
-        onClick={[Function]}
+        href="https://polymath.network/privacypolicy.html"
+        rel="noopener noreferrer"
         target="_blank"
       >
         Privacy Policy
