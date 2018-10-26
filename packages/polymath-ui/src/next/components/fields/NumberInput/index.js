@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { get } from 'lodash';
 
 import Field from '../../../../components/Field';
 import TextInput from '../../../../components/TextInput';
-import InputError from '../../../../components/InputError';
 import InputLabel from '../../../../components/InputLabel';
 
 import type { InputProps } from '../types';
@@ -27,16 +25,10 @@ export default (props: InputProps) => {
   const {
     field,
     field: { value, ...fieldProps },
-    form,
-    form: { errors, touched },
     label,
     className,
     ...otherProps
   } = props;
-
-  const isTouched = get(touched, field.name);
-  const error = (isTouched && get(errors, field.name)) || null;
-  const invalid = !!error;
 
   return (
     <Field>
@@ -44,13 +36,11 @@ export default (props: InputProps) => {
       <NumberInput
         type="number"
         id={field.name}
-        invalid={invalid}
-        value={value || ''}
+        value={typeof value === 'number' ? value : ''}
         allowEmpty={true}
         {...otherProps}
         {...fieldProps}
       />
-      <InputError>{error}</InputError>
     </Field>
   );
 };

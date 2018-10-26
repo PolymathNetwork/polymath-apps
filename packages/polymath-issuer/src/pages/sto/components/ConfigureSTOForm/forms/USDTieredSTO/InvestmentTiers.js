@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
-import { Field, FieldArray } from 'formik';
+import { Field, FieldArray, ErrorMessage } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
 import {
   Box,
@@ -11,6 +11,7 @@ import {
   icoAdd,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
+import InputError from '@polymathnetwork/ui/components/InputError';
 import { NumberInput } from '@polymathnetwork/ui/next';
 
 import AddTierModal from './AddTierModal';
@@ -64,7 +65,7 @@ type Props = {
   },
   form: {
     setFieldValue: (name: string, value: any) => void,
-    setTouched: (name: string, value: boolean) => void,
+    setFieldTouched: (name: string, value: boolean) => void,
   },
 };
 
@@ -80,7 +81,7 @@ class InvestmentTiers extends React.Component<Props, State> {
   onTiersToggle = () => {
     const {
       field: { value, name },
-      form: { setFieldValue, setTouched },
+      form: { setFieldValue, setFieldTouched },
     } = this.props;
     const isMultipleTiers = !value.isMultipleTiers;
 
@@ -91,7 +92,7 @@ class InvestmentTiers extends React.Component<Props, State> {
       tiers: [],
     };
 
-    setTouched(name, false);
+    setFieldTouched(name, false);
     setFieldValue(name, newValue);
   };
 
@@ -143,58 +144,82 @@ class InvestmentTiers extends React.Component<Props, State> {
         {!value.isMultipleTiers ? (
           <Fragment>
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-              <Field
-                name={`${name}.tiers[0].tokensAmount`}
-                component={NumberInput}
-                label={
-                  <Tooltip triggerText="Number of tokens">
-                    <p className="bx--tooltip__label">Number of tokens</p>
-                    <p>
-                      Hard Cap is the maximum number of tokens available through
-                      this offering. e.g. if you want the total aggregate of
-                      your investors in this offering to own 10 million tokens,
-                      enter 10000000.
-                    </p>
-                  </Tooltip>
-                }
-                placeholder="Enter amount"
-              />
-              <Field
-                name={`${name}.tiers[0].tokenPrice`}
-                component={NumberInput}
-                label="Token Price"
-                placeholder="Enter amount"
-                unit="USD"
-              />
+              <div>
+                <Field
+                  name={`${name}.tiers[0].tokensAmount`}
+                  component={NumberInput}
+                  label={
+                    <Tooltip triggerText="Number of tokens">
+                      <p className="bx--tooltip__label">Number of tokens</p>
+                      <p>
+                        Hard Cap is the maximum number of tokens available
+                        through this offering. e.g. if you want the total
+                        aggregate of your investors in this offering to own 10
+                        million tokens, enter 10000000.
+                      </p>
+                    </Tooltip>
+                  }
+                  placeholder="Enter amount"
+                />
+                <ErrorMessage
+                  component={InputError}
+                  name={`${name}.tiers[0].tokensAmount`}
+                />
+              </div>
+              <div>
+                <Field
+                  name={`${name}.tiers[0].tokenPrice`}
+                  component={NumberInput}
+                  label="Token Price"
+                  placeholder="Enter amount"
+                  unit="USD"
+                />
+                <ErrorMessage
+                  component={InputError}
+                  name={`${name}.tiers[0].tokenPrice`}
+                />
+              </div>
             </Grid>
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-              <Field
-                name={`${name}.tiers[0].discountedTokensAmount`}
-                component={NumberInput}
-                label={
-                  <Tooltip triggerText="Number of discounted tokens">
-                    <p className="bx--tooltip__label">
-                      Maximum Number of Discounted tokens
-                    </p>
-                    <p />
-                  </Tooltip>
-                }
-                placeholder="Enter amount"
-              />
-              <Field
-                name={`${name}.tiers[0].discountedTokensPrice`}
-                component={NumberInput}
-                label={
-                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                    <p className="bx--tooltip__label">
-                      Discount for Tokens Purchased with POLY
-                    </p>
-                    <p />
-                  </Tooltip>
-                }
-                placeholder="0"
-                unit="%"
-              />
+              <div>
+                <Field
+                  name={`${name}.tiers[0].discountedTokensAmount`}
+                  component={NumberInput}
+                  label={
+                    <Tooltip triggerText="Number of discounted tokens">
+                      <p className="bx--tooltip__label">
+                        Maximum Number of Discounted tokens
+                      </p>
+                      <p />
+                    </Tooltip>
+                  }
+                  placeholder="Enter amount"
+                />
+                <ErrorMessage
+                  component={InputError}
+                  name={`${name}.tiers[0].discountedTokensAmount`}
+                />
+              </div>
+              <div>
+                <Field
+                  name={`${name}.tiers[0].discountedTokensPrice`}
+                  component={NumberInput}
+                  label={
+                    <Tooltip triggerText="Discount for Tokens Purchased with POLY">
+                      <p className="bx--tooltip__label">
+                        Discount for Tokens Purchased with POLY
+                      </p>
+                      <p />
+                    </Tooltip>
+                  }
+                  placeholder="Enter percentage"
+                  unit="%"
+                />
+                <ErrorMessage
+                  component={InputError}
+                  name={`${name}.tiers[0].discountedTokensPrice`}
+                />
+              </div>
             </Grid>
           </Fragment>
         ) : (
@@ -216,7 +241,10 @@ class InvestmentTiers extends React.Component<Props, State> {
                     <TableHead>
                       <TableRow>
                         {headers.map(header => (
-                          <TableHeader {...getHeaderProps({ header })}>
+                          <TableHeader
+                            {...getHeaderProps({ header })}
+                            type="button"
+                          >
                             {header.header}
                           </TableHeader>
                         ))}

@@ -25,19 +25,10 @@ export default class DatePickerInputField extends Component<InputProps> {
     setFieldValue(name, date);
   };
   render() {
-    const {
-      field,
-      form: { errors, touched },
-      label,
-      className,
-      ...otherProps
-    } = this.props;
+    const { field, label, className, ...otherProps } = this.props;
 
     const { onChange, value, ...fieldProps } = field;
-    const isTouched = get(touched, field.name);
-    const error = isTouched && errors[field.name];
-    const invalid = !!error;
-    const displayValue = moment(value).format('MM / DD / YYYY') || '';
+    const displayValue = value ? moment(value).format('MM / DD / YYYY') : '';
 
     return (
       <DatePicker
@@ -52,8 +43,6 @@ export default class DatePickerInputField extends Component<InputProps> {
           id={`${field.name}-input`}
           labelText={label}
           placeholder="mm / dd / yyyy"
-          invalid={invalid}
-          invalidText={error}
           value={displayValue}
           onChange={() => {}}
           pattern={null}

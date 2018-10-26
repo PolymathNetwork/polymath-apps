@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { get } from 'lodash';
 
 import Field from '../../../../components/Field';
@@ -13,27 +13,20 @@ export default (props: InputProps) => {
     field,
     field: { value, ...fieldProps },
     form,
-    form: { errors, touched },
     label,
     className,
     ...otherProps
   } = props;
-
-  const isTouched = get(touched, field.name);
-  const error = (isTouched && get(errors, field.name)) || null;
-  const invalid = !!error;
 
   return (
     <Field>
       <InputLabel>{label}</InputLabel>
       <TextInput
         id={field.name}
-        invalid={invalid}
         value={value || ''}
         {...otherProps}
         {...fieldProps}
       />
-      <InputError>{error}</InputError>
     </Field>
   );
 };

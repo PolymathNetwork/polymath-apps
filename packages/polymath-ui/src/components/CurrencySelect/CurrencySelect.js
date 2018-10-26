@@ -23,6 +23,10 @@ type Props = {|
   value: [string],
   options: [Option],
   onChange: Function,
+  name: string,
+  form: {
+    setFieldTouched: (name: string, value: boolean) => void,
+  },
 |};
 
 const styles = {
@@ -112,6 +116,7 @@ class CurrencySelect extends React.Component<Props> {
 
     this.handleRemove = this.handleRemove.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   static defaultProps = {
@@ -119,18 +124,32 @@ class CurrencySelect extends React.Component<Props> {
   };
 
   handleRemove = (removedValue: string) => {
-    const { value, onChange } = this.props;
+    const {
+      value,
+      onChange,
+      name,
+      form: { setFieldTouched },
+    } = this.props;
     const newValue = Array.isArray(value)
       ? value.filter(_value => _value !== removedValue)
       : null;
 
     onChange(newValue, 'remove-value'); // 2nd param is from React-Select "actions" https://react-select.com/props
+    setFieldTouched(name, true);
   };
 
   handleChange(options: [Option], action: string) {
     const { onChange } = this.props;
 
     return onChange(options.map(option => option.value), action);
+  }
+
+  handleBlur() {
+    const {
+      name,
+      form: { setFieldTouched },
+    } = this.props;
+    setFieldTouched(name, true);
   }
 
   render() {
@@ -159,6 +178,7 @@ class CurrencySelect extends React.Component<Props> {
                 : value
             }
             onChange={this.handleChange}
+            onMenuClose={this.handleBlur}
             {...props}
           />
         </SelectContainer>

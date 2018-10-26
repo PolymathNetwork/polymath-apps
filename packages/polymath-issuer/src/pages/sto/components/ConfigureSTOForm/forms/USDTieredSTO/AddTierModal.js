@@ -17,8 +17,9 @@ import {
   RaisedAmount,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
+import InputError from '@polymathnetwork/ui/components/InputError';
 import { NumberInput } from '@polymathnetwork/ui/next';
-import { Field } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 
 class AddTierModal extends Component {
   handleOnAdd = () => {
@@ -44,7 +45,6 @@ class AddTierModal extends Component {
         open={this.props.isOpen}
         className={this.props.className}
         onClose={this.props.onClose}
-        onKeyDown={this.props.onClose}
       >
         <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
         <ModalBody>
@@ -54,55 +54,79 @@ class AddTierModal extends Component {
             investment tier.
           </Paragraph>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-            <Field
-              name={`${name}.tokensAmount`}
-              component={NumberInput}
-              label={
-                <Tooltip triggerText="Number of tokens">
-                  <p className="bx--tooltip__label">Number of tokens</p>
-                  <p />
-                </Tooltip>
-              }
-              placeholder="Enter amount"
-            />
-            <Field
-              name={`${name}.tokenPrice`}
-              component={NumberInput}
-              label="Token Price"
-              placeholder="Enter amount"
-              unit="USD"
-            />
+            <div>
+              <Field
+                name={`${name}.tokensAmount`}
+                component={NumberInput}
+                label={
+                  <Tooltip triggerText="Number of tokens">
+                    <p className="bx--tooltip__label">Number of tokens</p>
+                    <p />
+                  </Tooltip>
+                }
+                placeholder="Enter amount"
+              />
+              <ErrorMessage
+                component={InputError}
+                name={`${name}.tokensAmount`}
+              />
+            </div>
+            <div>
+              <Field
+                name={`${name}.tokenPrice`}
+                component={NumberInput}
+                label="Token Price"
+                placeholder="Enter amount"
+                unit="USD"
+              />
+              <ErrorMessage
+                component={InputError}
+                name={`${name}.tokenPrice`}
+              />
+            </div>
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-            <Field
-              name={`${name}.discountedTokensAmount`}
-              component={NumberInput}
-              label={
-                <Tooltip triggerText="Number of tokens">
-                  <p className="bx--tooltip__label">
-                    Maximum Number of Discounted tokens
-                  </p>
-                  <p />
-                </Tooltip>
-              }
-              placeholder="Enter amount"
-            />
-            <Box maxWidth="5em">
+            <div>
               <Field
-                name={`${name}.discountedTokensPrice`}
+                name={`${name}.discountedTokensAmount`}
                 component={NumberInput}
-                normalize={thousandsDelimiter}
                 label={
-                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
+                  <Tooltip triggerText="Number of tokens">
                     <p className="bx--tooltip__label">
-                      Discount for Tokens Purchased with POLY
+                      Maximum Number of Discounted tokens
                     </p>
                     <p />
                   </Tooltip>
                 }
-                placeholder="0"
-                unit="USD"
+                placeholder="Enter amount"
               />
+              <ErrorMessage
+                component={InputError}
+                name={`${name}.discountedTokensAmount`}
+              />
+            </div>
+            <Box maxWidth="5em">
+              <div>
+                <Field
+                  name={`${name}.discountedTokensPrice`}
+                  component={NumberInput}
+                  normalize={thousandsDelimiter}
+                  label={
+                    <Tooltip triggerText="Discount for Tokens Purchased with POLY">
+                      <p className="bx--tooltip__label">
+                        Discount for Tokens Purchased with POLY
+                      </p>
+                      <p />
+                    </Tooltip>
+                  }
+                  placeholder="0"
+                  unit="USD"
+                />
+                <ErrorMessage
+                  component={InputError}
+                  name={`${name}.discountedTokensPrice`}
+                />
+              </div>
             </Box>
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>

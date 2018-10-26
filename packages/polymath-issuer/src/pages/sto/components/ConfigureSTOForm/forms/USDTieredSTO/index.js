@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { map } from 'lodash';
-import { Formik, Field } from 'formik';
+import { map, keys } from 'lodash';
+import { Formik, Field, ErrorMessage } from 'formik';
 import moment from 'moment';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
@@ -14,6 +14,7 @@ import {
   NumberInput,
   CurrencySelect,
 } from '@polymathnetwork/ui/next';
+import InputError from '@polymathnetwork/ui/components/InputError';
 import InvestmentTiers from './InvestmentTiers';
 import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
@@ -23,7 +24,7 @@ import type { FundRaiseType } from '../../../../../../constants';
 import type { Dispatch } from 'redux';
 
 type ComponentProps = {|
-  onSubmit: () => void,
+  onSubmit: (values: FormValues) => void,
 |};
 
 type ContainerProps = {|
@@ -87,42 +88,63 @@ function validateStartTime(value) {
   }
   return true;
 }
+
+const requiredMessage = 'Required.';
+/* eslint-disable no-template-curly-in-string */
+const moreThanMessage = 'Must be larger than ${more}.';
+const minMessage = 'Must be at least ${min}.';
+/* eslint-enable no-template-curly-in-string */
+
+/**
+ * NOTE @monitz87: typeError is needed here because of some
+ * strange behavior by the yup library, which simply ignores
+ * the required constraint in favor of the field type for these fields.
+ * I suspect it has something to do with them being inside an array schema
+ */
 export const investmentTierSchema = Yup.object().shape({
-  tokensAmount: Yup.number().required(),
+  tokensAmount: Yup.number()
+    .typeError(requiredMessage)
+    .required(requiredMessage)
+    .moreThan(0, moreThanMessage),
   tokenPrice: Yup.number()
-    .required()
-    .moreThan(0),
+    .typeError(requiredMessage)
+    .required(requiredMessage)
+    .moreThan(0, moreThanMessage),
   discountedTokensAmount: Yup.number()
-    .required()
-    .min(0),
+    .typeError(requiredMessage)
+    .required(requiredMessage)
+    .min(0, minMessage),
   discountedTokensPrice: Yup.number()
-    .required()
-    .min(0),
+    .typeError(requiredMessage)
+    .required(requiredMessage)
+    .min(0, minMessage),
 });
 
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
 const formSchema = Yup.object().shape({
   startDate: Yup.date()
-    .required()
+    .required(requiredMessage)
     .test('validateStartDate', todayOrAfter),
   startTime: Yup.number()
-    .required()
+    .required(requiredMessage)
     .test('validateStartTime', validateStartTime),
   endDate: Yup.date()
-    .required()
+    .required(requiredMessage)
     .test('validateEndDate', validateEndDate),
   endTime: Yup.number()
-    .required()
+    .required(requiredMessage)
     .test('validEndTime', validateEndTime),
   currencies: Yup.array()
-    .required()
-    .min(1),
+    .of(Yup.string())
+    .required(requiredMessage),
   nonAccreditedMax: Yup.number()
-    .required()
-    .moreThan(0),
-  minimumInvestment: Yup.number().min(0),
-  receiverAddress: Yup.string().required(),
-  unsoldTokensAddress: Yup.string().required(),
+    .required(requiredMessage)
+    .min(0, minMessage),
+  minimumInvestment: Yup.number()
+    .required(requiredMessage)
+    .min(0, minMessage),
+  receiverAddress: Yup.string().required(requiredMessage),
+  unsoldTokensAddress: Yup.string().required(requiredMessage),
   investmentTiers: Yup.object().shape({
     isMultipleTiers: Yup.boolean(),
     tiers: Yup.array().of(investmentTierSchema),
@@ -136,30 +158,46 @@ const dummyStartDateUnix = Date.now() + 1000 * 60 * 60 * 24;
 const dummyEndDateUnix = dummyStartDateUnix + 1000 * 60 * 60 * 24 * 10;
 
 const initialValues = {
-  startDate: new Date(dummyStartDateUnix),
-  endDate: new Date(dummyEndDateUnix),
-  startTime: 1000 * 60 * 60 * 10,
-  endTime: 1000 * 60 * 60 * 10,
+  // startDate: new Date(dummyStartDateUnix),
+  // endDate: new Date(dummyEndDateUnix),
+  // startTime: 1000 * 60 * 60 * 10,
+  // endTime: 1000 * 60 * 60 * 10,
+  startDate: '',
+  endDate: '',
+  startTime: '',
+  endTime: '',
+  // investmentTiers: {
+  //   isMultipleTiers: true,
+  //   tiers: [
+  //     {
+  //       tokensAmount: 10000,
+  //       tokenPrice: 50,
+  //       discountedTokensAmount: 1000,
+  //       discountedTokensPrice: 40,
+  //     },
+  //     {
+  //       tokensAmount: 50000,
+  //       tokenPrice: 150,
+  //       discountedTokensAmount: 10000,
+  //       discountedTokensPrice: 30,
+  //     },
+  //   ],
+  //   newTier: null,
+  // },
   investmentTiers: {
-    isMultipleTiers: true,
+    isMultipleTiers: false,
     tiers: [
       {
-        tokensAmount: 10000,
-        tokenPrice: 50,
-        discountedTokensAmount: 1000,
-        discountedTokensPrice: 40,
-      },
-      {
-        tokensAmount: 50000,
-        tokenPrice: 150,
-        discountedTokensAmount: 10000,
-        discountedTokensPrice: 30,
+        tokensAmount: '',
+        tokenPrice: '',
+        discountedTokensAmount: '',
+        discountedTokensPrice: 0,
       },
     ],
-    newTier: null,
+    newtier: null,
   },
-  nonAccreditedMax: 10000,
-  minimumInvestment: 100,
+  nonAccreditedMax: 0,
+  minimumInvestment: 0,
   receiverAddress: '0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e',
   unsoldTokensAddress: '0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e',
   currencies: ['ETH', 'POLY'],
@@ -171,90 +209,108 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
       onSubmit={onSubmit}
       validationSchema={formSchema}
       initialValues={initialValues}
-      render={({ handleSubmit, values, errors, setFieldValue }) => {
+      render={({ handleSubmit, values, errors, touched }) => {
         return (
           <Form onSubmit={handleSubmit}>
             <Heading variant="h3">STO Schedule</Heading>
             <Box mb={4}>
               <div className="time-pickers-container">
-                <Field
-                  name="startDate"
-                  component={DatePickerInput}
-                  label="Start Date"
-                  placeholder="mm / dd / yyyy"
-                />
-                <Field
-                  name="startTime"
-                  component={TimePickerSelect}
-                  className="bx--time-picker__select"
-                  placeholder="hh:mm"
-                  label="Time"
-                />
-                <Field
-                  name="endDate"
-                  component={DatePickerInput}
-                  label="End Date"
-                  placeholder="mm / dd / yyyy"
-                />
-                <Field
-                  name="endTime"
-                  component={TimePickerSelect}
-                  className="bx--time-picker__select"
-                  placeholder="hh:mm"
-                  label="Time"
-                />
+                <div>
+                  <Field
+                    name="startDate"
+                    component={DatePickerInput}
+                    label="Start Date"
+                    placeholder="mm / dd / yyyy"
+                  />
+                  <ErrorMessage component={InputError} name="startDate" />
+                </div>
+                <div>
+                  <Field
+                    name="startTime"
+                    component={TimePickerSelect}
+                    className="bx--time-picker__select"
+                    placeholder="hh:mm"
+                    label="Time"
+                  />
+                  <ErrorMessage component={InputError} name="startTime" />
+                </div>
+                <div>
+                  <Field
+                    name="endDate"
+                    component={DatePickerInput}
+                    label="End Date"
+                    placeholder="mm / dd / yyyy"
+                  />
+                  <ErrorMessage component={InputError} name="endDate" />
+                </div>
+                <div>
+                  <Field
+                    name="endTime"
+                    component={TimePickerSelect}
+                    className="bx--time-picker__select"
+                    placeholder="hh:mm"
+                    label="Time"
+                  />
+                  <ErrorMessage component={InputError} name="endTime" />
+                </div>
               </div>
             </Box>
             <Heading variant="h3">STO Financing Details & Terms</Heading>
-            <Field
-              component={CurrencySelect}
-              name="currencies"
-              placeholder="Raise in"
-              onRemove={() => {}}
-            />
+            <div>
+              <Field
+                component={CurrencySelect}
+                name="currencies"
+                placeholder="Raise in"
+                onRemove={() => {}}
+              />
+              <ErrorMessage component={InputError} name="currencies" />
+            </div>
 
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-              <Field
-                name="minimumInvestment"
-                component={NumberInput}
-                min={0}
-                label={
-                  <Tooltip triggerText="Minimum investment for All investors">
-                    <p className="bx--tooltip__label">
-                      Minimum investment for All investors
-                    </p>
-                    <p>
-                      Any investment smaller than the minimum investment you
-                      specify will be rejected, and funds returned to the
-                      investor (minus the mining fee).
-                    </p>
-                  </Tooltip>
-                }
-                placeholder="Enter amount"
-                unit="USD"
-              />
-              <Field
-                name="nonAccreditedMax"
-                min={0}
-                component={NumberInput}
-                label={
-                  <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
-                    <p className="bx--tooltip__label">
-                      Maximum Investment for Non-Accredited Investors by Default
-                    </p>
-                    <p>
-                      Conversion rate between the currency you chose and your
-                      Security Token. E.g. 1000 means that 1 ETH (or POLY) will
-                      buy 1000 Security Tokens.
-                    </p>
-                  </Tooltip>
-                }
-                placeholder="Enter amount"
-                unit="USD"
-              />
+              <div>
+                <Field
+                  name="minimumInvestment"
+                  component={NumberInput}
+                  min={0}
+                  label={
+                    <Tooltip triggerText="Minimum investment for All investors">
+                      <p className="bx--tooltip__label">
+                        Minimum investment for All investors
+                      </p>
+                    </Tooltip>
+                  }
+                  placeholder="Enter amount"
+                  unit="USD"
+                />
+                <ErrorMessage component={InputError} name="minimumInvestment" />
+              </div>
+              <div>
+                <Field
+                  name="nonAccreditedMax"
+                  component={NumberInput}
+                  label={
+                    <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
+                      <p className="bx--tooltip__label">
+                        Maximum Investment for Non-Accredited Investors by
+                        Default
+                      </p>
+                      <p>
+                        Conversion rate between the currency you chose and your
+                        Security Token. E.g. 1000 means that 1 ETH (or POLY)
+                        will buy 1000 Security Tokens.
+                      </p>
+                    </Tooltip>
+                  }
+                  placeholder="Enter amount"
+                  unit="USD"
+                />
+                <ErrorMessage component={InputError} name="nonAccreditedMax" />
+              </div>
             </Grid>
 
-            <Field name="investmentTiers" component={InvestmentTiers} />
+            <div>
+              <Field name="investmentTiers" component={InvestmentTiers} />
+            </div>
 
             <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
               <Grid.Item gridColumn="span 1 / 3">
@@ -274,33 +330,39 @@ export const USDTieredSTOFormComponent = ({ onSubmit }: ComponentProps) => {
               retrieve funds from this wallet.
             </Remark>
 
-            <Field
-              name="receiverAddress"
-              component={TextInput}
-              label={
-                <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
-                  <p className="bx--tooltip__label">
-                    ETH Address to Receive the Funds Raised During the STO
-                  </p>
-                  <p />
-                </Tooltip>
-              }
-              placeholder="Enter your current ETH address"
-            />
-            <Field
-              name="unsoldTokensAddress"
-              component={TextInput}
-              label={
-                <Tooltip triggerText="ETH Address for Unsold Tokens">
-                  <p className="bx--tooltip__label">
-                    ETH Address for Unsold Tokens
-                  </p>
-                  <p />
-                </Tooltip>
-              }
-              placeholder="Enter your current ETH address"
-            />
+            <div>
+              <Field
+                name="receiverAddress"
+                component={TextInput}
+                label={
+                  <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
+                    <p className="bx--tooltip__label">
+                      ETH Address to Receive the Funds Raised During the STO
+                    </p>
+                    <p />
+                  </Tooltip>
+                }
+                placeholder="Enter your current ETH address"
+              />
+              <ErrorMessage component={InputError} name="receiverAddress" />
+            </div>
 
+            <div>
+              <Field
+                name="unsoldTokensAddress"
+                component={TextInput}
+                label={
+                  <Tooltip triggerText="ETH Address for Unsold Tokens">
+                    <p className="bx--tooltip__label">
+                      ETH Address for Unsold Tokens
+                    </p>
+                    <p />
+                  </Tooltip>
+                }
+                placeholder="Enter your current ETH address"
+              />
+              <ErrorMessage component={InputError} name="unsoldTokensAddress" />
+            </div>
             <Button type="submit">Confirm & launch STO</Button>
           </Form>
         );
