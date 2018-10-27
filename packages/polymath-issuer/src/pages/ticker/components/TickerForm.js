@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { Form, Button, Tooltip } from 'carbon-components-react';
-import { TextInput } from '@polymathnetwork/ui';
+import { TextInput } from '@polymathnetwork/ui/deprecated';
 import {
   required,
   maxLength,

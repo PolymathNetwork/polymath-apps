@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
+import { thousandsDelimiter } from '@polymathnetwork/ui';
 import {
   TextInput,
   SelectInput,
   DatePickerInput,
   TimePickerSelect,
-  thousandsDelimiter,
-} from '@polymathnetwork/ui';
+} from '@polymathnetwork/ui/deprecated';
 import {
   required,
   numeric,

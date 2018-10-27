@@ -2,19 +2,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isNumber, map, reduce } from 'lodash';
-import { Formik, FastField, ErrorMessage } from 'formik';
+import { Formik, FastField } from 'formik';
 import moment from 'moment';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
-import { Box, Grid, Heading, RaisedAmount, Remark } from '@polymathnetwork/ui';
 import {
+  Box,
+  Grid,
+  FormItem,
+  Heading,
+  RaisedAmount,
+  Remark,
   TextInput,
   DatePickerInput,
   TimePickerSelect,
   NumberInput,
   CurrencySelect,
-} from '@polymathnetwork/ui/next';
-import InputError from '@polymathnetwork/ui/components/InputError';
+} from '@polymathnetwork/ui';
+
 import InvestmentTiers from './InvestmentTiers';
 import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
@@ -203,101 +208,95 @@ export const USDTieredSTOFormComponent = ({
           0
         );
 
-        console.log(values);
-
         return (
           <Form onSubmit={handleSubmit}>
             <Heading variant="h3">STO Schedule</Heading>
             <Box mb={4}>
               <div className="time-pickers-container">
-                <div>
-                  <FastField
-                    name="startDate"
+                <FormItem name="startDate">
+                  <FormItem.Label>Start Date</FormItem.Label>
+                  <FormItem.Input
                     component={DatePickerInput}
-                    label="Start Date"
                     placeholder="mm / dd / yyyy"
                   />
-                  <ErrorMessage component={InputError} name="startDate" />
-                </div>
-                <div>
-                  <FastField
-                    name="startTime"
+                  <FormItem.Error />
+                </FormItem>
+                <FormItem name="startTime">
+                  <FormItem.Label>Time</FormItem.Label>
+                  <FormItem.Input
                     component={TimePickerSelect}
                     placeholder="hh:mm"
-                    label="Time"
                   />
-                  <ErrorMessage component={InputError} name="startTime" />
-                </div>
-                <div>
-                  <FastField
-                    name="endDate"
+                  <FormItem.Error />
+                </FormItem>
+                <FormItem name="endDate">
+                  <FormItem.Label>End Date</FormItem.Label>
+                  <FormItem.Input
                     component={DatePickerInput}
-                    label="End Date"
                     placeholder="mm / dd / yyyy"
                   />
-                  <ErrorMessage component={InputError} name="endDate" />
-                </div>
-                <div>
-                  <FastField
-                    name="endTime"
+                  <FormItem.Error />
+                </FormItem>
+                <FormItem name="endTime">
+                  <FormItem.Label>Time</FormItem.Label>
+                  <FormItem.Input
                     component={TimePickerSelect}
                     placeholder="hh:mm"
-                    label="Time"
                   />
-                  <ErrorMessage component={InputError} name="endTime" />
-                </div>
+                  <FormItem.Error />
+                </FormItem>
               </div>
             </Box>
+
             <Heading variant="h3">STO Financing Details & Terms</Heading>
-            <div>
-              <FastField
+
+            <FormItem name="currencies">
+              <FormItem.Input
                 component={CurrencySelect}
-                name="currencies"
                 placeholder="Raise in"
               />
-              <ErrorMessage component={InputError} name="currencies" />
-            </div>
+              <FormItem.Error />
+            </FormItem>
 
-            <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-              <div>
-                <FastField
-                  name="minimumInvestment"
+            <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+              <FormItem name="minimumInvestment">
+                <FormItem.Label>
+                  <br />
+                  <Tooltip triggerText="Minimum investment for All investors">
+                    <p className="bx--tooltip__label">
+                      Minimum investment for All investors
+                    </p>
+                  </Tooltip>
+                </FormItem.Label>
+                <FormItem.Input
                   component={NumberInput}
                   min={0}
-                  label={
-                    <Tooltip triggerText="Minimum investment for All investors">
-                      <p className="bx--tooltip__label">
-                        Minimum investment for All investors
-                      </p>
-                    </Tooltip>
-                  }
                   placeholder="Enter amount"
                   unit="USD"
                 />
-                <ErrorMessage component={InputError} name="minimumInvestment" />
-              </div>
-              <div>
-                <FastField
-                  name="nonAccreditedMax"
+                <FormItem.Error />
+              </FormItem>
+
+              <FormItem name="nonAccreditedMax">
+                <FormItem.Label>
+                  <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
+                    <p className="bx--tooltip__label">
+                      Maximum Investment for Non-Accredited Investors by Default
+                    </p>
+                    <p>
+                      Conversion rate between the currency you chose and your
+                      Security Token. E.g. 1000 means that 1 ETH (or POLY) will
+                      buy 1000 Security Tokens.
+                    </p>
+                  </Tooltip>
+                </FormItem.Label>
+                <FormItem.Input
                   component={NumberInput}
-                  label={
-                    <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
-                      <p className="bx--tooltip__label">
-                        Maximum Investment for Non-Accredited Investors by
-                        Default
-                      </p>
-                      <p>
-                        Conversion rate between the currency you chose and your
-                        Security Token. E.g. 1000 means that 1 ETH (or POLY)
-                        will buy 1000 Security Tokens.
-                      </p>
-                    </Tooltip>
-                  }
                   placeholder="Enter amount"
                   unit="USD"
                 />
-                <ErrorMessage component={InputError} name="nonAccreditedMax" />
-              </div>
+                <FormItem.Error />
+              </FormItem>
             </Grid>
 
             <div>
@@ -326,39 +325,36 @@ export const USDTieredSTOFormComponent = ({
               retrieve funds from this wallet.
             </Remark>
 
-            <div>
-              <FastField
-                name="receiverAddress"
+            <FormItem name="receiverAddress">
+              <FormItem.Label>
+                <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
+                  <p className="bx--tooltip__label">
+                    ETH Address to Receive the Funds Raised During the STO
+                  </p>
+                </Tooltip>
+              </FormItem.Label>
+              <FormItem.Input
                 component={TextInput}
-                label={
-                  <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
-                    <p className="bx--tooltip__label">
-                      ETH Address to Receive the Funds Raised During the STO
-                    </p>
-                    <p />
-                  </Tooltip>
-                }
                 placeholder="Enter your current ETH address"
               />
-              <ErrorMessage component={InputError} name="receiverAddress" />
-            </div>
+              <FormItem.Error />
+            </FormItem>
 
-            <div>
-              <FastField
-                name="unsoldTokensAddress"
+            <FormItem name="unsoldTokensAddress">
+              <FormItem.Label>
+                <Tooltip triggerText="ETH Address for Unsold Tokens">
+                  <p className="bx--tooltip__label">
+                    ETH Address for Unsold Tokens
+                  </p>
+                </Tooltip>
+              </FormItem.Label>
+              <FormItem.Input
                 component={TextInput}
-                label={
-                  <Tooltip triggerText="ETH Address for Unsold Tokens">
-                    <p className="bx--tooltip__label">
-                      ETH Address for Unsold Tokens
-                    </p>
-                    <p />
-                  </Tooltip>
-                }
                 placeholder="Enter your current ETH address"
               />
-              <ErrorMessage component={InputError} name="unsoldTokensAddress" />
-            </div>
+              <FormItem.Error />
+            </FormItem>
+
             <Button type="submit">Confirm & launch STO</Button>
           </Form>
         );
@@ -429,7 +425,6 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       receiverAddress: values.receiverAddress,
       unsoldTokensAddress: values.unsoldTokensAddress,
     };
-    console.log('formattedValues', formattedValues);
 
     const config = {
       data: formattedValues,

@@ -2,7 +2,7 @@
 // @flow
 // $FlowFixMe
 import Web3 from 'web3';
-import type { TwelveHourTime } from './components/inputs/TimePickerInput';
+import type { TwelveHourTime } from './deprecated/components/inputs/TimePickerInput';
 
 const web3 = new Web3();
 

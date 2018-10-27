@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Box from '../../Box';
-import { ellipsis } from '../../../styles/utils';
+import Box from '../../../Box';
+import { ellipsis } from '../../../../styles/utils';
 
-import theme from '../../../theme';
+import theme from '../../../../theme';
 
 const Container = styled(Box)`
   display: flex;

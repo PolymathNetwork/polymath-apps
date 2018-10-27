@@ -1,6 +1,5 @@
 // @flow
 
-import { get } from 'lodash';
 import React, { Component } from 'react';
 import moment from 'moment';
 import { DatePicker, DatePickerInput } from 'carbon-components-react';
