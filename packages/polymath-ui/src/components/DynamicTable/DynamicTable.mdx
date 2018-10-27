@@ -1,0 +1,100 @@
+---
+name: DynamicTable
+---
+
+import { Playground, PropsTable } from 'docz';
+import DynamicTable from './';
+
+# DynamicTable
+
+<PropsTable of={DynamicTable} />
+
+## Basic usage
+
+## Investment tiers
+
+<Playground>
+  {() => {
+    const {
+      TableContainer, 
+      Table, 
+      TableHead, 
+      TableHeader, 
+      TableBody, 
+      TableRow, 
+      TableCell
+    } = DynamicTable;
+
+    const headers = [
+      {
+        // `key` is the name of the field on the row object itself for the header
+        key: 'tier',
+        // `header` will be the name you want rendered in the Table Header
+        header: '# Tier',
+      },
+      {
+        key: 'tokensCount',
+        header: 'Number of Tokens',
+      },
+      {
+        key: 'tokenPrice',
+        header: 'Token Price',
+      },
+      {
+        key: 'discountedTokensCount',
+        header: 'Max Number of Discounted Tokens',
+      },
+      {
+        key: 'polyDiscount',
+        header: 'POLY Discount',
+      },
+      {
+        key: 'raiseTarget',
+        header: 'Total Raise Target',
+      },
+    ];
+
+    const rows = [
+      {
+        id: 'a',
+        tier: 1,
+        tokensCount: 10,
+        tokenPrice: 100,
+        discountedTokensCount: 20000,
+        polyDiscount: '10%',
+        raiseTarget: 300000
+      }
+    ];
+    
+    return (
+      <DynamicTable
+        rows={rows}
+        headers={headers}
+        render={({ rows, headers, getHeaderProps }) => (
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {headers.map(header => (
+                    <TableHeader {...getHeaderProps({ header })}>
+                      {header.header}
+                    </TableHeader>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map(row => (
+                  <TableRow key={row.id}>
+                    {row.cells.map(cell => (
+                      <TableCell key={cell.id}>{cell.value}</TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      />
+    );
+  }}
+</Playground>

@@ -19,9 +19,23 @@ const PolyTokenMethods = {
   transfer: 'Transfers tokens to an address',
 };
 
-const CappedSTOFactoryMethods = {
+const STOModuleFactoryMethods = {
   setupCost: 'The amount of POLY required to setup a token with this module',
+  getName: true,
+  getSetupCost: true,
+  getVersion: true,
+  owner: true,
 };
+
+const CappedSTOFactoryMethods = {
+  ...STOModuleFactoryMethods,
+};
+
+const USDTieredSTOFactoryMethods = {
+  ...STOModuleFactoryMethods,
+};
+
+const USDTieredSTO = {};
 
 const CountTransferManagerFactoryMethods = {
   setupCost: 'The amount of POLY required to setup a token with this module',
@@ -104,6 +118,20 @@ const config = {
       `,
       methods: CappedSTOFactoryMethods,
     },
+    USDTieredSTOFactory: {
+      description: stripIndent`
+        Factory for [USDTieredSTO](#USDTieredSTO) STO module.
+        USDTieredSTO allows issuers to set multiple USD price tiers for their
+        STO.
+      `,
+      methods: USDTieredSTOFactoryMethods,
+    },
+    USDTieredSTO: {
+      description: stripIndent`
+        USDTieredSTO Module
+      `,
+      methods: USDTieredSTO,
+    },
     CountTransferManagerFactory: {
       description: stripIndent`
         Factory for [CountTransferManager](#CountTransferManager)
@@ -118,7 +146,7 @@ const config = {
       `,
       methods: CountTransferManagerMethods,
     },
-    // IModuleFactory: {},
+    IModuleFactory: {},
 
     PercentageTransferManager: {
       description: stripIndent`
@@ -161,6 +189,9 @@ const config = {
     // CappedSTO: {},
     GeneralTransferManager: {
       methods: GeneralTransferManagerMethods,
+    },
+    ISTO: {
+      methods: {},
     },
   },
 };

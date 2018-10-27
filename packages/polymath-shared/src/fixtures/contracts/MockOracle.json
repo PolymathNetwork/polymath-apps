@@ -153,22 +153,22 @@
   ],
   "bytecode": "0x608060405234801561001057600080fd5b50604051608080610299833981016040908152815160208301519183015160609093015160008054600160a060020a031916600160a060020a0390931692909217825560019290925560029290925560035561022790819061007290396000f3006080604052600436106100985763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166325f4cead811461009d5780635dfc09a4146100c4578063968c4209146100d957806398d5fdca146100ee578063a035b1fe14610103578063a2b40d1914610118578063bfe0c27e14610132578063d265421914610170578063e5a6b10f14610185575b600080fd5b3480156100a957600080fd5b506100b261019a565b60408051918252519081900360200190f35b3480156100d057600080fd5b506100b26101a0565b3480156100e557600080fd5b506100b26101a6565b3480156100fa57600080fd5b506100b26101ac565b34801561010f57600080fd5b506100b26101b2565b34801561012457600080fd5b506101306004356101b8565b005b34801561013e57600080fd5b506101476101bd565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561017c57600080fd5b506100b26101d9565b34801561019157600080fd5b506101476101df565b60025481565b60015490565b60015481565b60035490565b60035481565b600355565b60005473ffffffffffffffffffffffffffffffffffffffff1690565b60025490565b60005473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058202ac14e1d0b4b097c80be58b454ef2224f24a847adfdf4d53eecf43dd84c9d7aa0029",
   "deployedBytecode": "0x6080604052600436106100985763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166325f4cead811461009d5780635dfc09a4146100c4578063968c4209146100d957806398d5fdca146100ee578063a035b1fe14610103578063a2b40d1914610118578063bfe0c27e14610132578063d265421914610170578063e5a6b10f14610185575b600080fd5b3480156100a957600080fd5b506100b261019a565b60408051918252519081900360200190f35b3480156100d057600080fd5b506100b26101a0565b3480156100e557600080fd5b506100b26101a6565b3480156100fa57600080fd5b506100b26101ac565b34801561010f57600080fd5b506100b26101b2565b34801561012457600080fd5b506101306004356101b8565b005b34801561013e57600080fd5b506101476101bd565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561017c57600080fd5b506100b26101d9565b34801561019157600080fd5b506101476101df565b60025481565b60015490565b60015481565b60035490565b60035481565b600355565b60005473ffffffffffffffffffffffffffffffffffffffff1690565b60025490565b60005473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058202ac14e1d0b4b097c80be58b454ef2224f24a847adfdf4d53eecf43dd84c9d7aa0029",
-  "sourceMap": "63:1207:31:-;;;232:264;8:9:-1;5:2;;;30:1;27;20:12;5:2;232:264:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;351:8;:20;;-1:-1:-1;;;;;;351:20:31;-1:-1:-1;;;;;351:20:31;;;;;;;;;-1:-1:-1;381:32:31;;;;423:19;:42;;;;475:5;:14;63:1207;;;;;;;;",
-  "deployedSourceMap": "63:1207:31:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;165:34;;8:9:-1;5:2;;;30:1;27;20:12;5:2;165:34:31;;;;;;;;;;;;;;;;;;;;839:98;;8:9:-1;5:2;;;30:1;27;20:12;5:2;839:98:31;;;;130:29;;8:9:-1;5:2;;;30:1;27;20:12;5:2;130:29:31;;;;1187:80;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1187:80:31;;;;205:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;205:20:31;;;;502:77;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;502:77:31;;;;;;;663:93;;8:9:-1;5:2;;;30:1;27;20:12;5:2;663:93:31;;;;;;;;;;;;;;;;;;;;;;;1002:108;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1002:108:31;;;;101:23;;8:9:-1;5:2;;;30:1;27;20:12;5:2;101:23:31;;;;165:34;;;;:::o;839:98::-;916:14;;839:98;:::o;130:29::-;;;;:::o;1187:80::-;1255:5;;1187:80;:::o;205:20::-;;;;:::o;502:77::-;558:5;:14;502:77::o;663:93::-;715:7;741:8;;;663:93;:::o;1002:108::-;1084:19;;1002:108;:::o;101:23::-;;;;;;:::o",
+  "sourceMap": "63:1207:32:-;;;232:264;8:9:-1;5:2;;;30:1;27;20:12;5:2;232:264:32;;;;;;;;;;;;;;;;;;;;;;;;;;;;;351:8;:20;;-1:-1:-1;;;;;;351:20:32;-1:-1:-1;;;;;351:20:32;;;;;;;;;-1:-1:-1;381:32:32;;;;423:19;:42;;;;475:5;:14;63:1207;;;;;;;;",
+  "deployedSourceMap": "63:1207:32:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;165:34;;8:9:-1;5:2;;;30:1;27;20:12;5:2;165:34:32;;;;;;;;;;;;;;;;;;;;839:98;;8:9:-1;5:2;;;30:1;27;20:12;5:2;839:98:32;;;;130:29;;8:9:-1;5:2;;;30:1;27;20:12;5:2;130:29:32;;;;1187:80;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1187:80:32;;;;205:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;205:20:32;;;;502:77;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;502:77:32;;;;;;;663:93;;8:9:-1;5:2;;;30:1;27;20:12;5:2;663:93:32;;;;;;;;;;;;;;;;;;;;;;;1002:108;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1002:108:32;;;;101:23;;8:9:-1;5:2;;;30:1;27;20:12;5:2;101:23:32;;;;165:34;;;;:::o;839:98::-;916:14;;839:98;:::o;130:29::-;;;;:::o;1187:80::-;1255:5;;1187:80;:::o;205:20::-;;;;:::o;502:77::-;558:5;:14;502:77::o;663:93::-;715:7;741:8;;;663:93;:::o;1002:108::-;1084:19;;1002:108;:::o;101:23::-;;;;;;:::o",
   "source": "pragma solidity ^0.4.24;\n\nimport \"../interfaces/IOracle.sol\";\n\ncontract MockOracle is IOracle {\n\n    address public currency;\n    bytes32 public currencySymbol;\n    bytes32 public denominatedCurrency;\n    uint256 public price;\n\n    constructor(address _currency, bytes32 _currencySymbol, bytes32 _denominatedCurrency, uint256 _price) public {\n        currency = _currency;\n        currencySymbol = _currencySymbol;\n        denominatedCurrency = _denominatedCurrency;\n        price = _price;\n    }\n\n    function changePrice(uint256 _price) external {\n        price = _price;\n    }\n\n    /**\n    * @notice Returns address of oracle currency (0x0 for ETH)\n    */\n    function getCurrencyAddress() external view returns(address) {\n        return currency;\n    }\n\n    /**\n    * @notice Returns symbol of oracle currency (0x0 for ETH)\n    */\n    function getCurrencySymbol() external view returns(bytes32) {\n        return currencySymbol;\n    }\n\n    /**\n    * @notice Returns denomination of price\n    */\n    function getCurrencyDenominated() external view returns(bytes32) {\n        return denominatedCurrency;\n    }\n\n    /**\n    * @notice Returns price - should throw if not valid\n    */\n    function getPrice() external view returns(uint256) {\n        return price;\n    }\n\n}\n",
   "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
   "ast": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
     "exportedSymbols": {
       "MockOracle": [
-        13543
+        13389
       ]
     },
-    "id": 13544,
+    "id": 13390,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 13461,
+        "id": 13307,
         "literals": [
           "solidity",
           "^",
@@ -176,16 +176,16 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:31"
+        "src": "0:24:32"
       },
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
         "file": "../interfaces/IOracle.sol",
-        "id": 13462,
+        "id": 13308,
         "nodeType": "ImportDirective",
-        "scope": 13544,
-        "sourceUnit": 11063,
-        "src": "26:35:31",
+        "scope": 13390,
+        "sourceUnit": 10992,
+        "src": "26:35:32",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -195,42 +195,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 13463,
+              "id": 13309,
               "name": "IOracle",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 11062,
-              "src": "86:7:31",
+              "referencedDeclaration": 10991,
+              "src": "86:7:32",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IOracle_$11062",
+                "typeIdentifier": "t_contract$_IOracle_$10991",
                 "typeString": "contract IOracle"
               }
             },
-            "id": 13464,
+            "id": 13310,
             "nodeType": "InheritanceSpecifier",
-            "src": "86:7:31"
+            "src": "86:7:32"
           }
         ],
         "contractDependencies": [
-          11062
+          10991
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 13543,
+        "id": 13389,
         "linearizedBaseContracts": [
-          13543,
-          11062
+          13389,
+          10991
         ],
         "name": "MockOracle",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 13466,
+            "id": 13312,
             "name": "currency",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "101:23:31",
+            "scope": 13389,
+            "src": "101:23:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -238,10 +238,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 13465,
+              "id": 13311,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "101:7:31",
+              "src": "101:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -252,11 +252,11 @@
           },
           {
             "constant": false,
-            "id": 13468,
+            "id": 13314,
             "name": "currencySymbol",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "130:29:31",
+            "scope": 13389,
+            "src": "130:29:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -264,10 +264,10 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 13467,
+              "id": 13313,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
-              "src": "130:7:31",
+              "src": "130:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes32",
                 "typeString": "bytes32"
@@ -278,11 +278,11 @@
           },
           {
             "constant": false,
-            "id": 13470,
+            "id": 13316,
             "name": "denominatedCurrency",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "165:34:31",
+            "scope": 13389,
+            "src": "165:34:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -290,10 +290,10 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 13469,
+              "id": 13315,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
-              "src": "165:7:31",
+              "src": "165:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes32",
                 "typeString": "bytes32"
@@ -304,11 +304,11 @@
           },
           {
             "constant": false,
-            "id": 13472,
+            "id": 13318,
             "name": "price",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "205:20:31",
+            "scope": 13389,
+            "src": "205:20:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -316,10 +316,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 13471,
+              "id": 13317,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "205:7:31",
+              "src": "205:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -330,26 +330,26 @@
           },
           {
             "body": {
-              "id": 13499,
+              "id": 13345,
               "nodeType": "Block",
-              "src": "341:155:31",
+              "src": "341:155:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13485,
+                    "id": 13331,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13483,
+                      "id": 13329,
                       "name": "currency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13466,
-                      "src": "351:8:31",
+                      "referencedDeclaration": 13312,
+                      "src": "351:8:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -359,43 +359,43 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13484,
+                      "id": 13330,
                       "name": "_currency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13474,
-                      "src": "362:9:31",
+                      "referencedDeclaration": 13320,
+                      "src": "362:9:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "351:20:31",
+                    "src": "351:20:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 13486,
+                  "id": 13332,
                   "nodeType": "ExpressionStatement",
-                  "src": "351:20:31"
+                  "src": "351:20:32"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13489,
+                    "id": 13335,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13487,
+                      "id": 13333,
                       "name": "currencySymbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13468,
-                      "src": "381:14:31",
+                      "referencedDeclaration": 13314,
+                      "src": "381:14:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -405,43 +405,43 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13488,
+                      "id": 13334,
                       "name": "_currencySymbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13476,
-                      "src": "398:15:31",
+                      "referencedDeclaration": 13322,
+                      "src": "398:15:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "src": "381:32:31",
+                    "src": "381:32:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 13490,
+                  "id": 13336,
                   "nodeType": "ExpressionStatement",
-                  "src": "381:32:31"
+                  "src": "381:32:32"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13493,
+                    "id": 13339,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13491,
+                      "id": 13337,
                       "name": "denominatedCurrency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13470,
-                      "src": "423:19:31",
+                      "referencedDeclaration": 13316,
+                      "src": "423:19:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -451,43 +451,43 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13492,
+                      "id": 13338,
                       "name": "_denominatedCurrency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13478,
-                      "src": "445:20:31",
+                      "referencedDeclaration": 13324,
+                      "src": "445:20:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "src": "423:42:31",
+                    "src": "423:42:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 13494,
+                  "id": 13340,
                   "nodeType": "ExpressionStatement",
-                  "src": "423:42:31"
+                  "src": "423:42:32"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13497,
+                    "id": 13343,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13495,
+                      "id": 13341,
                       "name": "price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13472,
-                      "src": "475:5:31",
+                      "referencedDeclaration": 13318,
+                      "src": "475:5:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -497,31 +497,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13496,
+                      "id": 13342,
                       "name": "_price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13480,
-                      "src": "483:6:31",
+                      "referencedDeclaration": 13326,
+                      "src": "483:6:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "475:14:31",
+                    "src": "475:14:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 13498,
+                  "id": 13344,
                   "nodeType": "ExpressionStatement",
-                  "src": "475:14:31"
+                  "src": "475:14:32"
                 }
               ]
             },
             "documentation": null,
-            "id": 13500,
+            "id": 13346,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -529,16 +529,16 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13481,
+              "id": 13327,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13474,
+                  "id": 13320,
                   "name": "_currency",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "244:17:31",
+                  "scope": 13346,
+                  "src": "244:17:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -546,10 +546,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 13473,
+                    "id": 13319,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "244:7:31",
+                    "src": "244:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -560,11 +560,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 13476,
+                  "id": 13322,
                   "name": "_currencySymbol",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "263:23:31",
+                  "scope": 13346,
+                  "src": "263:23:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -572,10 +572,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13475,
+                    "id": 13321,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "263:7:31",
+                    "src": "263:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -586,11 +586,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 13478,
+                  "id": 13324,
                   "name": "_denominatedCurrency",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "288:28:31",
+                  "scope": 13346,
+                  "src": "288:28:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -598,10 +598,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13477,
+                    "id": 13323,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "288:7:31",
+                    "src": "288:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -612,11 +612,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 13480,
+                  "id": 13326,
                   "name": "_price",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "318:14:31",
+                  "scope": 13346,
+                  "src": "318:14:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -624,10 +624,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 13479,
+                    "id": 13325,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "318:7:31",
+                    "src": "318:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -637,43 +637,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "243:90:31"
+              "src": "243:90:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13482,
+              "id": 13328,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "341:0:31"
+              "src": "341:0:32"
             },
-            "scope": 13543,
-            "src": "232:264:31",
+            "scope": 13389,
+            "src": "232:264:32",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 13509,
+              "id": 13355,
               "nodeType": "Block",
-              "src": "548:31:31",
+              "src": "548:31:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13507,
+                    "id": 13353,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13505,
+                      "id": 13351,
                       "name": "price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13472,
-                      "src": "558:5:31",
+                      "referencedDeclaration": 13318,
+                      "src": "558:5:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -683,31 +683,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13506,
+                      "id": 13352,
                       "name": "_price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13502,
-                      "src": "566:6:31",
+                      "referencedDeclaration": 13348,
+                      "src": "566:6:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "558:14:31",
+                    "src": "558:14:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 13508,
+                  "id": 13354,
                   "nodeType": "ExpressionStatement",
-                  "src": "558:14:31"
+                  "src": "558:14:32"
                 }
               ]
             },
             "documentation": null,
-            "id": 13510,
+            "id": 13356,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -715,16 +715,16 @@
             "name": "changePrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13503,
+              "id": 13349,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13502,
+                  "id": 13348,
                   "name": "_price",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13510,
-                  "src": "523:14:31",
+                  "scope": 13356,
+                  "src": "523:14:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -732,10 +732,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 13501,
+                    "id": 13347,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "523:7:31",
+                    "src": "523:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -745,50 +745,50 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "522:16:31"
+              "src": "522:16:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13504,
+              "id": 13350,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "548:0:31"
+              "src": "548:0:32"
             },
-            "scope": 13543,
-            "src": "502:77:31",
+            "scope": 13389,
+            "src": "502:77:32",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13517,
+              "id": 13363,
               "nodeType": "Block",
-              "src": "724:32:31",
+              "src": "724:32:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13515,
+                    "id": 13361,
                     "name": "currency",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13466,
-                    "src": "741:8:31",
+                    "referencedDeclaration": 13312,
+                    "src": "741:8:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "functionReturnParameters": 13514,
-                  "id": 13516,
+                  "functionReturnParameters": 13360,
+                  "id": 13362,
                   "nodeType": "Return",
-                  "src": "734:15:31"
+                  "src": "734:15:32"
                 }
               ]
             },
             "documentation": "@notice Returns address of oracle currency (0x0 for ETH)",
-            "id": 13518,
+            "id": 13364,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -796,23 +796,23 @@
             "name": "getCurrencyAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13511,
+              "id": 13357,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "690:2:31"
+              "src": "690:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13514,
+              "id": 13360,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13513,
+                  "id": 13359,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13518,
-                  "src": "715:7:31",
+                  "scope": 13364,
+                  "src": "715:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -820,10 +820,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 13512,
+                    "id": 13358,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "715:7:31",
+                    "src": "715:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -833,43 +833,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "714:9:31"
+              "src": "714:9:32"
             },
-            "scope": 13543,
-            "src": "663:93:31",
+            "scope": 13389,
+            "src": "663:93:32",
             "stateMutability": "view",
-            "superFunction": 11046,
+            "superFunction": 10975,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13525,
+              "id": 13371,
               "nodeType": "Block",
-              "src": "899:38:31",
+              "src": "899:38:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13523,
+                    "id": 13369,
                     "name": "currencySymbol",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13468,
-                    "src": "916:14:31",
+                    "referencedDeclaration": 13314,
+                    "src": "916:14:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 13522,
-                  "id": 13524,
+                  "functionReturnParameters": 13368,
+                  "id": 13370,
                   "nodeType": "Return",
-                  "src": "909:21:31"
+                  "src": "909:21:32"
                 }
               ]
             },
             "documentation": "@notice Returns symbol of oracle currency (0x0 for ETH)",
-            "id": 13526,
+            "id": 13372,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -877,23 +877,23 @@
             "name": "getCurrencySymbol",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13519,
+              "id": 13365,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "865:2:31"
+              "src": "865:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13522,
+              "id": 13368,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13521,
+                  "id": 13367,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13526,
-                  "src": "890:7:31",
+                  "scope": 13372,
+                  "src": "890:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -901,10 +901,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13520,
+                    "id": 13366,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "890:7:31",
+                    "src": "890:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -914,43 +914,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "889:9:31"
+              "src": "889:9:32"
             },
-            "scope": 13543,
-            "src": "839:98:31",
+            "scope": 13389,
+            "src": "839:98:32",
             "stateMutability": "view",
-            "superFunction": 11051,
+            "superFunction": 10980,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13533,
+              "id": 13379,
               "nodeType": "Block",
-              "src": "1067:43:31",
+              "src": "1067:43:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13531,
+                    "id": 13377,
                     "name": "denominatedCurrency",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13470,
-                    "src": "1084:19:31",
+                    "referencedDeclaration": 13316,
+                    "src": "1084:19:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 13530,
-                  "id": 13532,
+                  "functionReturnParameters": 13376,
+                  "id": 13378,
                   "nodeType": "Return",
-                  "src": "1077:26:31"
+                  "src": "1077:26:32"
                 }
               ]
             },
             "documentation": "@notice Returns denomination of price",
-            "id": 13534,
+            "id": 13380,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -958,23 +958,23 @@
             "name": "getCurrencyDenominated",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13527,
+              "id": 13373,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1033:2:31"
+              "src": "1033:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13530,
+              "id": 13376,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13529,
+                  "id": 13375,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13534,
-                  "src": "1058:7:31",
+                  "scope": 13380,
+                  "src": "1058:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -982,10 +982,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13528,
+                    "id": 13374,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1058:7:31",
+                    "src": "1058:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -995,43 +995,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1057:9:31"
+              "src": "1057:9:32"
             },
-            "scope": 13543,
-            "src": "1002:108:31",
+            "scope": 13389,
+            "src": "1002:108:32",
             "stateMutability": "view",
-            "superFunction": 11056,
+            "superFunction": 10985,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13541,
+              "id": 13387,
               "nodeType": "Block",
-              "src": "1238:29:31",
+              "src": "1238:29:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13539,
+                    "id": 13385,
                     "name": "price",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13472,
-                    "src": "1255:5:31",
+                    "referencedDeclaration": 13318,
+                    "src": "1255:5:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 13538,
-                  "id": 13540,
+                  "functionReturnParameters": 13384,
+                  "id": 13386,
                   "nodeType": "Return",
-                  "src": "1248:12:31"
+                  "src": "1248:12:32"
                 }
               ]
             },
             "documentation": "@notice Returns price - should throw if not valid",
-            "id": 13542,
+            "id": 13388,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1039,23 +1039,23 @@
             "name": "getPrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13535,
+              "id": 13381,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1204:2:31"
+              "src": "1204:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13538,
+              "id": 13384,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13537,
+                  "id": 13383,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13542,
-                  "src": "1229:7:31",
+                  "scope": 13388,
+                  "src": "1229:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1063,10 +1063,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 13536,
+                    "id": 13382,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1229:7:31",
+                    "src": "1229:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1076,33 +1076,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1228:9:31"
+              "src": "1228:9:32"
             },
-            "scope": 13543,
-            "src": "1187:80:31",
+            "scope": 13389,
+            "src": "1187:80:32",
             "stateMutability": "view",
-            "superFunction": 11061,
+            "superFunction": 10990,
             "visibility": "external"
           }
         ],
-        "scope": 13544,
-        "src": "63:1207:31"
+        "scope": 13390,
+        "src": "63:1207:32"
       }
     ],
-    "src": "0:1271:31"
+    "src": "0:1271:32"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/mocks/MockOracle.sol",
     "exportedSymbols": {
       "MockOracle": [
-        13543
+        13389
       ]
     },
-    "id": 13544,
+    "id": 13390,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 13461,
+        "id": 13307,
         "literals": [
           "solidity",
           "^",
@@ -1110,16 +1110,16 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:31"
+        "src": "0:24:32"
       },
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IOracle.sol",
         "file": "../interfaces/IOracle.sol",
-        "id": 13462,
+        "id": 13308,
         "nodeType": "ImportDirective",
-        "scope": 13544,
-        "sourceUnit": 11063,
-        "src": "26:35:31",
+        "scope": 13390,
+        "sourceUnit": 10992,
+        "src": "26:35:32",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -1129,42 +1129,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 13463,
+              "id": 13309,
               "name": "IOracle",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 11062,
-              "src": "86:7:31",
+              "referencedDeclaration": 10991,
+              "src": "86:7:32",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IOracle_$11062",
+                "typeIdentifier": "t_contract$_IOracle_$10991",
                 "typeString": "contract IOracle"
               }
             },
-            "id": 13464,
+            "id": 13310,
             "nodeType": "InheritanceSpecifier",
-            "src": "86:7:31"
+            "src": "86:7:32"
           }
         ],
         "contractDependencies": [
-          11062
+          10991
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 13543,
+        "id": 13389,
         "linearizedBaseContracts": [
-          13543,
-          11062
+          13389,
+          10991
         ],
         "name": "MockOracle",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 13466,
+            "id": 13312,
             "name": "currency",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "101:23:31",
+            "scope": 13389,
+            "src": "101:23:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1172,10 +1172,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 13465,
+              "id": 13311,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "101:7:31",
+              "src": "101:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
                 "typeString": "address"
@@ -1186,11 +1186,11 @@
           },
           {
             "constant": false,
-            "id": 13468,
+            "id": 13314,
             "name": "currencySymbol",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "130:29:31",
+            "scope": 13389,
+            "src": "130:29:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1198,10 +1198,10 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 13467,
+              "id": 13313,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
-              "src": "130:7:31",
+              "src": "130:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes32",
                 "typeString": "bytes32"
@@ -1212,11 +1212,11 @@
           },
           {
             "constant": false,
-            "id": 13470,
+            "id": 13316,
             "name": "denominatedCurrency",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "165:34:31",
+            "scope": 13389,
+            "src": "165:34:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1224,10 +1224,10 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 13469,
+              "id": 13315,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
-              "src": "165:7:31",
+              "src": "165:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes32",
                 "typeString": "bytes32"
@@ -1238,11 +1238,11 @@
           },
           {
             "constant": false,
-            "id": 13472,
+            "id": 13318,
             "name": "price",
             "nodeType": "VariableDeclaration",
-            "scope": 13543,
-            "src": "205:20:31",
+            "scope": 13389,
+            "src": "205:20:32",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1250,10 +1250,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 13471,
+              "id": 13317,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "205:7:31",
+              "src": "205:7:32",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -1264,26 +1264,26 @@
           },
           {
             "body": {
-              "id": 13499,
+              "id": 13345,
               "nodeType": "Block",
-              "src": "341:155:31",
+              "src": "341:155:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13485,
+                    "id": 13331,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13483,
+                      "id": 13329,
                       "name": "currency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13466,
-                      "src": "351:8:31",
+                      "referencedDeclaration": 13312,
+                      "src": "351:8:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1293,43 +1293,43 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13484,
+                      "id": 13330,
                       "name": "_currency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13474,
-                      "src": "362:9:31",
+                      "referencedDeclaration": 13320,
+                      "src": "362:9:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "351:20:31",
+                    "src": "351:20:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 13486,
+                  "id": 13332,
                   "nodeType": "ExpressionStatement",
-                  "src": "351:20:31"
+                  "src": "351:20:32"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13489,
+                    "id": 13335,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13487,
+                      "id": 13333,
                       "name": "currencySymbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13468,
-                      "src": "381:14:31",
+                      "referencedDeclaration": 13314,
+                      "src": "381:14:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -1339,43 +1339,43 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13488,
+                      "id": 13334,
                       "name": "_currencySymbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13476,
-                      "src": "398:15:31",
+                      "referencedDeclaration": 13322,
+                      "src": "398:15:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "src": "381:32:31",
+                    "src": "381:32:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 13490,
+                  "id": 13336,
                   "nodeType": "ExpressionStatement",
-                  "src": "381:32:31"
+                  "src": "381:32:32"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13493,
+                    "id": 13339,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13491,
+                      "id": 13337,
                       "name": "denominatedCurrency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13470,
-                      "src": "423:19:31",
+                      "referencedDeclaration": 13316,
+                      "src": "423:19:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -1385,43 +1385,43 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13492,
+                      "id": 13338,
                       "name": "_denominatedCurrency",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13478,
-                      "src": "445:20:31",
+                      "referencedDeclaration": 13324,
+                      "src": "445:20:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "src": "423:42:31",
+                    "src": "423:42:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 13494,
+                  "id": 13340,
                   "nodeType": "ExpressionStatement",
-                  "src": "423:42:31"
+                  "src": "423:42:32"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13497,
+                    "id": 13343,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13495,
+                      "id": 13341,
                       "name": "price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13472,
-                      "src": "475:5:31",
+                      "referencedDeclaration": 13318,
+                      "src": "475:5:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -1431,31 +1431,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13496,
+                      "id": 13342,
                       "name": "_price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13480,
-                      "src": "483:6:31",
+                      "referencedDeclaration": 13326,
+                      "src": "483:6:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "475:14:31",
+                    "src": "475:14:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 13498,
+                  "id": 13344,
                   "nodeType": "ExpressionStatement",
-                  "src": "475:14:31"
+                  "src": "475:14:32"
                 }
               ]
             },
             "documentation": null,
-            "id": 13500,
+            "id": 13346,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -1463,16 +1463,16 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13481,
+              "id": 13327,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13474,
+                  "id": 13320,
                   "name": "_currency",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "244:17:31",
+                  "scope": 13346,
+                  "src": "244:17:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1480,10 +1480,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 13473,
+                    "id": 13319,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "244:7:31",
+                    "src": "244:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1494,11 +1494,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 13476,
+                  "id": 13322,
                   "name": "_currencySymbol",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "263:23:31",
+                  "scope": 13346,
+                  "src": "263:23:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1506,10 +1506,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13475,
+                    "id": 13321,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "263:7:31",
+                    "src": "263:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1520,11 +1520,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 13478,
+                  "id": 13324,
                   "name": "_denominatedCurrency",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "288:28:31",
+                  "scope": 13346,
+                  "src": "288:28:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1532,10 +1532,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13477,
+                    "id": 13323,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "288:7:31",
+                    "src": "288:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1546,11 +1546,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 13480,
+                  "id": 13326,
                   "name": "_price",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13500,
-                  "src": "318:14:31",
+                  "scope": 13346,
+                  "src": "318:14:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1558,10 +1558,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 13479,
+                    "id": 13325,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "318:7:31",
+                    "src": "318:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1571,43 +1571,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "243:90:31"
+              "src": "243:90:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13482,
+              "id": 13328,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "341:0:31"
+              "src": "341:0:32"
             },
-            "scope": 13543,
-            "src": "232:264:31",
+            "scope": 13389,
+            "src": "232:264:32",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 13509,
+              "id": 13355,
               "nodeType": "Block",
-              "src": "548:31:31",
+              "src": "548:31:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13507,
+                    "id": 13353,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 13505,
+                      "id": 13351,
                       "name": "price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13472,
-                      "src": "558:5:31",
+                      "referencedDeclaration": 13318,
+                      "src": "558:5:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -1617,31 +1617,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 13506,
+                      "id": 13352,
                       "name": "_price",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 13502,
-                      "src": "566:6:31",
+                      "referencedDeclaration": 13348,
+                      "src": "566:6:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "558:14:31",
+                    "src": "558:14:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 13508,
+                  "id": 13354,
                   "nodeType": "ExpressionStatement",
-                  "src": "558:14:31"
+                  "src": "558:14:32"
                 }
               ]
             },
             "documentation": null,
-            "id": 13510,
+            "id": 13356,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1649,16 +1649,16 @@
             "name": "changePrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13503,
+              "id": 13349,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13502,
+                  "id": 13348,
                   "name": "_price",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13510,
-                  "src": "523:14:31",
+                  "scope": 13356,
+                  "src": "523:14:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1666,10 +1666,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 13501,
+                    "id": 13347,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "523:7:31",
+                    "src": "523:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1679,50 +1679,50 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "522:16:31"
+              "src": "522:16:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13504,
+              "id": 13350,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "548:0:31"
+              "src": "548:0:32"
             },
-            "scope": 13543,
-            "src": "502:77:31",
+            "scope": 13389,
+            "src": "502:77:32",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13517,
+              "id": 13363,
               "nodeType": "Block",
-              "src": "724:32:31",
+              "src": "724:32:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13515,
+                    "id": 13361,
                     "name": "currency",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13466,
-                    "src": "741:8:31",
+                    "referencedDeclaration": 13312,
+                    "src": "741:8:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "functionReturnParameters": 13514,
-                  "id": 13516,
+                  "functionReturnParameters": 13360,
+                  "id": 13362,
                   "nodeType": "Return",
-                  "src": "734:15:31"
+                  "src": "734:15:32"
                 }
               ]
             },
             "documentation": "@notice Returns address of oracle currency (0x0 for ETH)",
-            "id": 13518,
+            "id": 13364,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1730,23 +1730,23 @@
             "name": "getCurrencyAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13511,
+              "id": 13357,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "690:2:31"
+              "src": "690:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13514,
+              "id": 13360,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13513,
+                  "id": 13359,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13518,
-                  "src": "715:7:31",
+                  "scope": 13364,
+                  "src": "715:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1754,10 +1754,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 13512,
+                    "id": 13358,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "715:7:31",
+                    "src": "715:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1767,43 +1767,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "714:9:31"
+              "src": "714:9:32"
             },
-            "scope": 13543,
-            "src": "663:93:31",
+            "scope": 13389,
+            "src": "663:93:32",
             "stateMutability": "view",
-            "superFunction": 11046,
+            "superFunction": 10975,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13525,
+              "id": 13371,
               "nodeType": "Block",
-              "src": "899:38:31",
+              "src": "899:38:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13523,
+                    "id": 13369,
                     "name": "currencySymbol",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13468,
-                    "src": "916:14:31",
+                    "referencedDeclaration": 13314,
+                    "src": "916:14:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 13522,
-                  "id": 13524,
+                  "functionReturnParameters": 13368,
+                  "id": 13370,
                   "nodeType": "Return",
-                  "src": "909:21:31"
+                  "src": "909:21:32"
                 }
               ]
             },
             "documentation": "@notice Returns symbol of oracle currency (0x0 for ETH)",
-            "id": 13526,
+            "id": 13372,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1811,23 +1811,23 @@
             "name": "getCurrencySymbol",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13519,
+              "id": 13365,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "865:2:31"
+              "src": "865:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13522,
+              "id": 13368,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13521,
+                  "id": 13367,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13526,
-                  "src": "890:7:31",
+                  "scope": 13372,
+                  "src": "890:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1835,10 +1835,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13520,
+                    "id": 13366,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "890:7:31",
+                    "src": "890:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1848,43 +1848,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "889:9:31"
+              "src": "889:9:32"
             },
-            "scope": 13543,
-            "src": "839:98:31",
+            "scope": 13389,
+            "src": "839:98:32",
             "stateMutability": "view",
-            "superFunction": 11051,
+            "superFunction": 10980,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13533,
+              "id": 13379,
               "nodeType": "Block",
-              "src": "1067:43:31",
+              "src": "1067:43:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13531,
+                    "id": 13377,
                     "name": "denominatedCurrency",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13470,
-                    "src": "1084:19:31",
+                    "referencedDeclaration": 13316,
+                    "src": "1084:19:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 13530,
-                  "id": 13532,
+                  "functionReturnParameters": 13376,
+                  "id": 13378,
                   "nodeType": "Return",
-                  "src": "1077:26:31"
+                  "src": "1077:26:32"
                 }
               ]
             },
             "documentation": "@notice Returns denomination of price",
-            "id": 13534,
+            "id": 13380,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1892,23 +1892,23 @@
             "name": "getCurrencyDenominated",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13527,
+              "id": 13373,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1033:2:31"
+              "src": "1033:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13530,
+              "id": 13376,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13529,
+                  "id": 13375,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13534,
-                  "src": "1058:7:31",
+                  "scope": 13380,
+                  "src": "1058:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1916,10 +1916,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 13528,
+                    "id": 13374,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1058:7:31",
+                    "src": "1058:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1929,43 +1929,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1057:9:31"
+              "src": "1057:9:32"
             },
-            "scope": 13543,
-            "src": "1002:108:31",
+            "scope": 13389,
+            "src": "1002:108:32",
             "stateMutability": "view",
-            "superFunction": 11056,
+            "superFunction": 10985,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 13541,
+              "id": 13387,
               "nodeType": "Block",
-              "src": "1238:29:31",
+              "src": "1238:29:32",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 13539,
+                    "id": 13385,
                     "name": "price",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 13472,
-                    "src": "1255:5:31",
+                    "referencedDeclaration": 13318,
+                    "src": "1255:5:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 13538,
-                  "id": 13540,
+                  "functionReturnParameters": 13384,
+                  "id": 13386,
                   "nodeType": "Return",
-                  "src": "1248:12:31"
+                  "src": "1248:12:32"
                 }
               ]
             },
             "documentation": "@notice Returns price - should throw if not valid",
-            "id": 13542,
+            "id": 13388,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1973,23 +1973,23 @@
             "name": "getPrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13535,
+              "id": 13381,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1204:2:31"
+              "src": "1204:2:32"
             },
             "payable": false,
             "returnParameters": {
-              "id": 13538,
+              "id": 13384,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 13537,
+                  "id": 13383,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13542,
-                  "src": "1229:7:31",
+                  "scope": 13388,
+                  "src": "1229:7:32",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1997,10 +1997,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 13536,
+                    "id": 13382,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1229:7:31",
+                    "src": "1229:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -2010,20 +2010,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1228:9:31"
+              "src": "1228:9:32"
             },
-            "scope": 13543,
-            "src": "1187:80:31",
+            "scope": 13389,
+            "src": "1187:80:32",
             "stateMutability": "view",
-            "superFunction": 11061,
+            "superFunction": 10990,
             "visibility": "external"
           }
         ],
-        "scope": 13544,
-        "src": "63:1207:31"
+        "scope": 13390,
+        "src": "63:1207:32"
       }
     ],
-    "src": "0:1271:31"
+    "src": "0:1271:32"
   },
   "compiler": {
     "name": "solc",
@@ -2038,5 +2038,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-23T22:45:13.045Z"
+  "updatedAt": "2018-10-26T23:03:16.728Z"
 }

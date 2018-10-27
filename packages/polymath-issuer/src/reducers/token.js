@@ -3,13 +3,16 @@
 import { CONNECTED } from '@polymathnetwork/ui/components/EthNetworkWrapper';
 import { setHelpersNetwork } from '@polymathnetwork/ui';
 import { CountTransferManager } from '@polymathnetwork/js';
-import type { SecurityToken, Investor } from '@polymathnetwork/js/types';
-
 import * as a from '../actions/token';
 import { DATA } from '../actions/providers';
 
+import type { Investor } from '@polymathnetwork/js/types';
+import type { SecurityToken } from '../constants';
 import type { Action, InvestorCSVRow } from '../actions/token';
 import type { ServiceProvider } from '../pages/providers/data';
+
+// NOTE @RafaelVidaurre: Duplicating this type since typing between packags is
+// currently broken (should be in polymathjs)
 
 export type TokenState = {
   token: ?SecurityToken,

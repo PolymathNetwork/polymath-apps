@@ -65,6 +65,7 @@ export default class STO extends Contract {
       rate,
       investorCount,
       isPolyFundraise,
+      type: 'CappedSTO',
     };
   }
 

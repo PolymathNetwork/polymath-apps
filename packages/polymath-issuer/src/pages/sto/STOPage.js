@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { Loading } from 'carbon-components-react';
 import type { SecurityToken } from '@polymathnetwork/js/types';
@@ -13,7 +14,7 @@ import {
   STAGE_OVERVIEW,
 } from '../../reducers/sto';
 import SelectSTOTemplate from './components/SelectSTOTemplate';
-import OverviewSTO from './components/OverviewSTO';
+import STOOverview from './components/STOOverview';
 import ConfigureSTO from './components/ConfigureSTO';
 import type { RootState } from '../../redux/reducer';
 
@@ -55,14 +56,16 @@ class STOPage extends Component<Props> {
       case STAGE_CONFIGURE:
         return <ConfigureSTO />;
       case STAGE_OVERVIEW:
-        return <OverviewSTO />;
+        return <STOOverview />;
       default:
         return <Loading />;
     }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(STOPage);
+export default hot(module)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(STOPage)
+);

@@ -146,6 +146,10 @@ Capped STOs set a limit on the total amount of funding an STO can raise.
 /* == Read-Only methods == */
 // The amount of POLY required to setup a token with this module
 function setupCost() => UInt256
+function getName() => Bytes32
+function getSetupCost() => UInt256
+function getVersion() => String
+function owner() => Address
 ```
 
 <details><summary>Other methods</summary>
@@ -156,16 +160,12 @@ function description() => String
 function getDescription() => String
 function getInstructions() => String
 function getLowerSTVersionBounds() => UInt8[]
-function getName() => Bytes32
-function getSetupCost() => UInt256
 function getTags() => Bytes32[]
 function getTitle() => String
 function getTypes() => UInt8[]
 function getUpperSTVersionBounds() => UInt8[]
-function getVersion() => String
 function monthlySubscriptionCost() => UInt256
 function name() => Bytes32
-function owner() => Address
 function polyToken() => Address
 function title() => String
 function usageCost() => UInt256
@@ -198,6 +198,173 @@ event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleF
 event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _timestamp: UInt256)
 event OwnershipRenounced(previousOwner: Address)
 event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+```
+
+# USDTieredSTOFactory
+
+Factory for [USDTieredSTO](#USDTieredSTO) STO module.
+USDTieredSTO allows issuers to set multiple USD price tiers for their
+STO.
+
+## Methods
+
+```ts
+/* == Read-Only methods == */
+// The amount of POLY required to setup a token with this module
+function setupCost() => UInt256
+function getName() => Bytes32
+function getSetupCost() => UInt256
+function getVersion() => String
+function owner() => Address
+```
+
+<details><summary>Other methods</summary>
+
+```ts
+/* == Read-Only methods == */
+function USDTieredSTOProxyAddress() => Address
+function description() => String
+function getDescription() => String
+function getInstructions() => String
+function getLowerSTVersionBounds() => UInt8[]
+function getTags() => Bytes32[]
+function getTitle() => String
+function getTypes() => UInt8[]
+function getUpperSTVersionBounds() => UInt8[]
+function monthlySubscriptionCost() => UInt256
+function name() => Bytes32
+function polyToken() => Address
+function title() => String
+function usageCost() => UInt256
+function version() => String
+
+/* == Can mutate state == */
+function changeDescription(_newDesc: String) => void
+function changeFactorySetupFee(_newSetupCost: UInt256) => void
+function changeFactorySubscriptionFee(_newSubscriptionCost: UInt256) => void
+function changeFactoryUsageFee(_newUsageCost: UInt256) => void
+function changeName(_newName: Bytes32) => void
+function changeSTVersionBounds(_boundType: String, _newVersion: UInt8[]) => void
+function changeTitle(_newTitle: String) => void
+function changeVersion(_newVersion: String) => void
+function deploy(_data: Bytes) => Address
+function renounceOwnership() => void
+function transferOwnership(_newOwner: Address) => void
+```
+
+</details>
+
+## Events
+
+```ts
+event ChangeFactorySetupFee(_oldSetupCost: UInt256, _newSetupCost: UInt256, _moduleFactory: Address)
+event ChangeFactorySubscriptionFee(_oldSubscriptionCost: UInt256, _newMonthlySubscriptionCost: UInt256, _moduleFactory: Address)
+event ChangeFactoryUsageFee(_oldUsageCost: UInt256, _newUsageCost: UInt256, _moduleFactory: Address)
+event ChangeSTVersionBound(_boundType: String, _major: UInt8, _minor: UInt8, _patch: UInt8)
+event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _setupCost: UInt256, _timestamp: UInt256)
+event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _timestamp: UInt256)
+event OwnershipRenounced(previousOwner: Address)
+event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+```
+
+# USDTieredSTO
+
+USDTieredSTO Module
+
+## Methods
+
+```ts
+```
+
+<details><summary>Other methods</summary>
+
+```ts
+/* == Read-Only methods == */
+function ETH_ORACLE() => String
+function FEE_ADMIN() => Bytes32
+function POLY_ORACLE() => String
+function accredited(: Address) => Boolean
+function allowBeneficialInvestments() => Boolean
+function capReached() => Boolean
+function convertFromUSD(_fundRaiseType: UInt8, _amount: UInt256) => UInt256
+function convertToUSD(_fundRaiseType: UInt8, _amount: UInt256) => UInt256
+function currentTier() => UInt8
+function endTime() => UInt256
+function factory() => Address
+function finalAmountReturned() => UInt256
+function fundRaiseTypes(: UInt8) => Boolean
+function fundsRaised(: UInt8) => UInt256
+function fundsRaisedUSD() => UInt256
+function getNumberOfTiers() => UInt256
+function getPermissions() => Bytes32[]
+function getRaised(_fundRaiseType: UInt8) => UInt256
+function getRate(_fundRaiseType: UInt8) => UInt256
+function getTokensMinted() => UInt256
+function getTokensSold() => UInt256
+function getTokensSoldFor(_fundRaiseType: UInt8) => UInt256
+function investorCount() => UInt256
+function investorInvested(: Address, : UInt8) => UInt256
+function investorInvestedUSD(: Address) => UInt256
+function isFinalized() => Boolean
+function isOpen() => Boolean
+function minimumInvestmentUSD() => UInt256
+function mintedPerTier(: UInt8, : UInt256) => UInt256
+function mintedPerTierDiscountPoly(: UInt256) => UInt256
+function mintedPerTierTotal(: UInt256) => UInt256
+function nonAccreditedLimitUSD() => UInt256
+function nonAccreditedLimitUSDOverride(: Address) => UInt256
+function paused() => Boolean
+function pausedTime() => UInt256
+function polyToken() => Address
+function ratePerTier(: UInt256) => UInt256
+function ratePerTierDiscountPoly(: UInt256) => UInt256
+function reserveWallet() => Address
+function securityToken() => Address
+function startTime() => UInt256
+function tokensPerTierDiscountPoly(: UInt256) => UInt256
+function tokensPerTierTotal(: UInt256) => UInt256
+function totalTokensSold() => UInt256
+function usdToken() => Address
+function wallet() => Address
+
+/* == Can mutate state == */
+function buyWithPOLY(_beneficiary: Address, _investedPOLY: UInt256) => void
+function buyWithUSD(_beneficiary: Address, _investedDAI: UInt256) => void
+function changeAccredited(_investors: Address[], _accredited: Boolean[]) => void
+function changeAllowBeneficialInvestments(_allowBeneficialInvestments: Boolean) => void
+function changeNonAccreditedLimit(_investors: Address[], _nonAccreditedLimit: UInt256[]) => void
+function configure(_startTime: UInt256, _endTime: UInt256, _ratePerTier: UInt256[], _ratePerTierDiscountPoly: UInt256[], _tokensPerTierTotal: UInt256[], _tokensPerTierDiscountPoly: UInt256[], _nonAccreditedLimitUSD: UInt256, _minimumInvestmentUSD: UInt256, _fundRaiseTypes: UInt8[], _wallet: Address, _reserveWallet: Address, _usdToken: Address) => void
+function finalize() => void
+function modifyAddresses(_wallet: Address, _reserveWallet: Address, _usdToken: Address) => void
+function modifyFunding(_fundRaiseTypes: UInt8[]) => void
+function modifyLimits(_nonAccreditedLimitUSD: UInt256, _minimumInvestmentUSD: UInt256) => void
+function modifyTiers(_ratePerTier: UInt256[], _ratePerTierDiscountPoly: UInt256[], _tokensPerTierTotal: UInt256[], _tokensPerTierDiscountPoly: UInt256[]) => void
+function modifyTimes(_startTime: UInt256, _endTime: UInt256) => void
+function pause() => void
+function reclaimERC20(_tokenContract: Address) => void
+function takeFee(_amount: UInt256) => Boolean
+function unpause() => void
+```
+
+</details>
+
+## Events
+
+```ts
+event FundsReceived(_purchaser: Address, _beneficiary: Address, _usdAmount: UInt256, _fundRaiseType: UInt8, _receivedValue: UInt256, _spentValue: UInt256, _rate: UInt256)
+event FundsReceivedPOLY(_purchaser: Address, _beneficiary: Address, _usdAmount: UInt256, _receivedValue: UInt256, _spentValue: UInt256, _rate: UInt256)
+event Pause(_timestammp: UInt256)
+event ReserveTokenMint(_owner: Address, _wallet: Address, _tokens: UInt256, _tier: UInt8)
+event SetAccredited(_investor: Address, _accredited: Boolean)
+event SetAddresses(_wallet: Address, _reserveWallet: Address, _usdToken: Address)
+event SetAllowBeneficialInvestments(_allowed: Boolean)
+event SetFundRaiseTypes(_fundRaiseTypes: UInt8[])
+event SetLimits(_nonAccreditedLimitUSD: UInt256, _minimumInvestmentUSD: UInt256)
+event SetNonAccreditedLimit(_investor: Address, _limit: UInt256)
+event SetTiers(_ratePerTier: UInt256[], _ratePerTierDiscountPoly: UInt256[], _tokensPerTierTotal: UInt256[], _tokensPerTierDiscountPoly: UInt256[])
+event SetTimes(_startTime: UInt256, _endTime: UInt256)
+event TokenPurchase(_purchaser: Address, _beneficiary: Address, _tokens: UInt256, _usdAmount: UInt256, _tierPrice: UInt256, _tier: UInt8)
+event Unpause(_timestamp: UInt256)
 ```
 
 # CountTransferManagerFactory
@@ -312,6 +479,50 @@ function verifyTransfer(: Address, _to: Address, : UInt256, : Bytes, : Boolean) 
 event ModifyHolderCount(_oldHolderCount: UInt256, _newHolderCount: UInt256)
 event Pause(_timestammp: UInt256)
 event Unpause(_timestamp: UInt256)
+```
+
+# IModuleFactory
+
+_TODO: Add description_
+
+## Methods
+
+```ts
+```
+
+<details><summary>Other methods</summary>
+
+```ts
+/* == Read-Only methods == */
+function getDescription() => String
+function getInstructions() => String
+function getLowerSTVersionBounds() => UInt8[]
+function getName() => Bytes32
+function getSetupCost() => UInt256
+function getTags() => Bytes32[]
+function getTitle() => String
+function getTypes() => UInt8[]
+function getUpperSTVersionBounds() => UInt8[]
+function getVersion() => String
+
+/* == Can mutate state == */
+function changeFactorySetupFee(_newSetupCost: UInt256) => void
+function changeFactorySubscriptionFee(_newSubscriptionCost: UInt256) => void
+function changeFactoryUsageFee(_newUsageCost: UInt256) => void
+function changeSTVersionBounds(_boundType: String, _newVersion: UInt8[]) => void
+function deploy(_data: Bytes) => Address
+```
+
+</details>
+
+## Events
+
+```ts
+event ChangeFactorySetupFee(_oldSetupCost: UInt256, _newSetupCost: UInt256, _moduleFactory: Address)
+event ChangeFactorySubscriptionFee(_oldSubscriptionCost: UInt256, _newMonthlySubscriptionCost: UInt256, _moduleFactory: Address)
+event ChangeFactoryUsageFee(_oldUsageCost: UInt256, _newUsageCost: UInt256, _moduleFactory: Address)
+event ChangeSTVersionBound(_boundType: String, _major: UInt8, _minor: UInt8, _patch: UInt8)
+event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _setupCost: UInt256, _timestamp: UInt256)
 ```
 
 # PercentageTransferManager
@@ -707,5 +918,52 @@ event ChangeIssuanceAddress(_issuanceAddress: Address)
 event ChangeSigningAddress(_signingAddress: Address)
 event ModifyWhitelist(_investor: Address, _dateAdded: UInt256, _addedBy: Address, _fromTime: UInt256, _toTime: UInt256, _expiryTime: UInt256, _canBuyFromSTO: Boolean)
 event Pause(_timestammp: UInt256)
+event Unpause(_timestamp: UInt256)
+```
+
+# ISTO
+
+_TODO: Add description_
+
+## Methods
+
+```ts
+```
+
+<details><summary>Other methods</summary>
+
+```ts
+/* == Read-Only methods == */
+function FEE_ADMIN() => Bytes32
+function endTime() => UInt256
+function factory() => Address
+function fundRaiseTypes(: UInt8) => Boolean
+function fundsRaised(: UInt8) => UInt256
+function getPermissions() => Bytes32[]
+function getRaised(_fundRaiseType: UInt8) => UInt256
+function getTokensSold() => UInt256
+function investorCount() => UInt256
+function paused() => Boolean
+function pausedTime() => UInt256
+function polyToken() => Address
+function securityToken() => Address
+function startTime() => UInt256
+function totalTokensSold() => UInt256
+function wallet() => Address
+
+/* == Can mutate state == */
+function pause() => void
+function reclaimERC20(_tokenContract: Address) => void
+function takeFee(_amount: UInt256) => Boolean
+function unpause() => void
+```
+
+</details>
+
+## Events
+
+```ts
+event Pause(_timestammp: UInt256)
+event SetFundRaiseTypes(_fundRaiseTypes: UInt8[])
 event Unpause(_timestamp: UInt256)
 ```

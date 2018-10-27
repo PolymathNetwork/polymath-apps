@@ -8,6 +8,7 @@ export {
   STO,
   TransferManager,
   PermissionManager,
+  ModuleRegistry,
   PercentageTransferManager,
   CountTransferManager,
   PolymathRegistry,

@@ -1,17 +1,20 @@
 // @flow
 
 import React from 'react';
-import { STO, SecurityToken } from '@polymathnetwork/js';
+import { STO } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
+import { setupSTOModule, getTokenSTO } from '../utils/contracts';
+import USDTieredSTO from '../utils/contracts/USDTieredSTO';
+
+import type { Dispatch } from 'redux';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
+import type { STOConfig } from '../constants';
+import type { RootState } from '../redux/reducer';
 import type {
   STOFactory,
   STODetails,
   STOPurchase,
 } from '@polymathnetwork/js/types';
-
-import { formName as configureFormName } from '../pages/sto/components/ConfigureSTOForm';
-
 import type { ExtractReturn } from '../redux/helpers';
 import type { GetState } from '../redux/reducer';
 
@@ -24,12 +27,47 @@ export const data = (contract: STO, details: ?STODetails) => ({
 
 const STO_TYPE = 3;
 
+const ConfigSTOConfirmContent = ({ setupCost }) => (
+  <div>
+    <p>
+      Once submitted to the blockchain, the dates for your offering cannot be
+      changed. Please confirm dates with your Advisor and Legal providers before
+      you click on &laquo;CONFIRM&raquo;. Also, note that Investors must be
+      added to the whitelist before or while the STO is live, so they can
+      participate to your fundraise and that all necessary documentation must be
+      posted on your Securities Offering Site.
+    </p>
+    <p>
+      Completion of your STO smart contract deployment and scheduling will
+      require two wallet transactions.
+    </p>
+    <p>
+      • The first transaction will be used to pay for the smart contract fee of:
+    </p>
+    <div className="bx--details poly-cost">
+      {setupCost.toString()}
+      POLY
+    </div>
+    <p>
+      • The second transaction will be used to pay the mining fee (aka gas fee)
+      to complete the scheduling of your STO.
+    </p>
+    <p>
+      Hit &laquo;CANCEL&raquo; if you would like to edit the information
+      provided or &laquo;CONFIRM&raquo; if you have confirmed the details of
+      your STO with your Advisor and are ready to proceed.
+    </p>
+  </div>
+);
+
 export const FACTORIES = 'sto/FACTORIES';
 export const factories = (factories: Array<STOFactory>) => ({
   type: FACTORIES,
   factories,
 });
 
+// TODO @RafaelVidaurre: This should only save the picked address instead of the
+// whole object
 export const USE_FACTORY = 'sto/USE_FACTORY';
 export const useFactory = (factory: STOFactory) => ({
   type: USE_FACTORY,
@@ -56,18 +94,26 @@ export type Action =
   | ExtractReturn<typeof pauseStatus>
   | ExtractReturn<typeof factories>;
 
+// NOTE @RafaelVidaurre: Legacy action that retrieves initial state
+// of the STO process. We need a better way to do this.
 export const fetch = () => async (dispatch: Function, getState: GetState) => {
   dispatch(ui.fetching());
   try {
     const { token } = getState().token;
+
+    // No token created yet
     if (!token || !token.contract) {
       dispatch(ui.fetched());
       return;
     }
-    const sto = await token.contract.getSTO();
-    dispatch(data(sto, sto ? await sto.getDetails() : null));
+
+    const sto = await getTokenSTO(token.address);
     if (sto) {
-      dispatch(pauseStatus(await sto.paused()));
+      const details = await sto.getDetails();
+      dispatch(pauseStatus(details.pauseStatus));
+      dispatch(data(sto, details));
+    } else {
+      dispatch(data(sto, null));
     }
     dispatch(ui.fetched());
   } catch (e) {
@@ -130,7 +176,89 @@ export const fetchFactories = () => async (
 const dateTimeFromDateAndTime = (date: Date, time: TwelveHourTime) =>
   new Date(date.valueOf() + ui.twelveHourTimeToMinutes(time) * 60000);
 
-export const configure = () => async (
+export const configureSTO = (
+  moduleAddress: string,
+  config: STOConfig
+) => async (dispatch: Dispatch<any>, getState: GetState) => {
+  const {
+    token,
+    stoModules,
+    sto: { factory },
+  }: RootState = getState();
+  if (!token) {
+    throw new Error(
+      'configureSTO action was called before token state was initialized.'
+    );
+  }
+  if (!stoModules.fetched) {
+    throw new Error(
+      'configureSTO action was called before stoModules state was initialized.'
+    );
+  }
+  if (!factory) {
+    // FIXME @RafaelVidaurre: Should be removed after routing is fixed
+    throw new Error('Unexpected error, factory not set in state.');
+  }
+
+  const stoModule = stoModules.modules[factory.address];
+  if (!stoModule) {
+    throw new Error('Factory selected is not present in stoModules state');
+  }
+
+  const { setupCost } = stoModule;
+  // TODO @RafaelVidaurre: Format setup cost
+
+  dispatch(
+    ui.confirm(
+      <ConfigSTOConfirmContent setupCost={setupCost} />,
+      async () => {
+        const balance = getState().pui.account.balance;
+        const hasEnoughBalance = balance.gte(setupCost);
+
+        if (!hasEnoughBalance) {
+          dispatch(
+            ui.faucet(
+              `The launching of a STO has a fixed cost of ${setupCost} POLY.`,
+              setupCost
+            )
+          );
+          return;
+        }
+
+        // NOTE @RafaelVidaurre: Legacy checks, verify if actually necessary
+        const {
+          token: { token },
+        } = getState();
+        if (!token) {
+          return;
+        }
+
+        dispatch(
+          ui.tx(
+            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            async () => {
+              await setupSTOModule(stoModule, token.address, config.data);
+            },
+            'STO Configured Successfully',
+            () => {
+              return dispatch(fetch());
+            },
+            `/dashboard/${token.ticker}/compliance`,
+            undefined,
+            false,
+            token.ticker.toUpperCase() + ' STO Creation'
+          )
+        );
+      },
+      'Before You Proceed with your Security Token Offering Deployment and Scheduling',
+      undefined,
+      'pui-large-confirm-modal'
+    )
+  );
+};
+
+// TODO @RafaelVidaurre: Switch to new configure when CappedSTO is re-written, this is legacy now
+export const configure = values => async (
   dispatch: Function,
   getState: GetState
 ) => {
@@ -143,34 +271,7 @@ export const configure = () => async (
   const feeView = ui.thousandsDelimiter(fee);
   dispatch(
     ui.confirm(
-      <div>
-        <p>
-          Once submitted to the blockchain, the dates for your offering cannot
-          be changed. Please confirm dates with your Advisor and Legal providers
-          before you click on &laquo;CONFIRM&raquo;. Also, note that Investors
-          must be added to the whitelist before or while the STO is live, so
-          they can participate to your fundraise and that all necessary
-          documentation must be posted on your Securities Offering Site.
-        </p>
-        <p>
-          Completion of your STO smart contract deployment and scheduling will
-          require two wallet transactions.
-        </p>
-        <p>
-          • The first transaction will be used to pay for the smart contract fee
-          of:
-        </p>
-        <div className="bx--details poly-cost">{feeView} POLY</div>
-        <p>
-          • The second transaction will be used to pay the mining fee (aka gas
-          fee) to complete the scheduling of your STO.
-        </p>
-        <p>
-          Hit &laquo;CANCEL&raquo; if you would like to edit the information
-          provided or &laquo;CONFIRM&raquo; if you have confirmed the details of
-          your STO with your Advisor and are ready to proceed.
-        </p>
-      </div>,
+      <ConfigSTOConfirmContent setupCost={feeView} />,
       async () => {
         // $FlowFixMe
         if (getState().pui.account.balance.lt(fee)) {
@@ -186,12 +287,14 @@ export const configure = () => async (
         if (!factory || !token || !token.contract) {
           return;
         }
+
+        // FIXME @RafaelVidaurre: we should NOT use
+        // redux-form's state here
         dispatch(
           ui.tx(
             ['Approving POLY Spend', 'Deploying And Scheduling'],
             async () => {
-              const contract: SecurityToken = token.contract;
-              const { values } = getState().form[configureFormName];
+              const contract: any = token.contract;
               const [startDate] = values.startDate;
               const [endDate] = values.endDate;
               const startDateWithTime = dateTimeFromDateAndTime(
@@ -291,7 +394,14 @@ export const togglePauseSto = () => async (
               } else {
                 await contract.pause();
               }
+
+              // NOTE @RafaelVidaurre: This is for legacy only, the STO state
+              // contains pause state
               dispatch(pauseStatus(await contract.paused()));
+
+              if (contract instanceof USDTieredSTO) {
+                dispatch(fetch());
+              }
             },
             isStoPaused
               ? 'Successfully Resumed STO'
@@ -326,18 +436,42 @@ export const exportInvestorsList = () => async (
           const contract = getState().sto.contract; // $FlowFixMe
           const purchases = await contract.getPurchases();
 
-          let csvContent =
-            'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
-          purchases.forEach((purchase: STOPurchase) => {
-            csvContent +=
-              '\r\n' +
-              [
-                purchase.investor,
-                purchase.txHash,
-                purchase.amount.toString(10),
-                purchase.paid.toString(10),
-              ].join(',');
-          });
+          console.log('purchases', purchases);
+
+          let csvContent;
+
+          // TODO @RafaelVidaurre: Dry and abstract this better
+          // FIXME @RafaelVidaurre: Adapt when new CSV exports are merged
+          if (contract instanceof USDTieredSTO) {
+            csvContent =
+              'data:text/csv;charset=utf-8,Address,Tokens Purchased,USD Amount Invested,Tier Number,Tier Price';
+
+            purchases.forEach((purchase: STOPurchase) => {
+              csvContent +=
+                '\r\n' +
+                [
+                  purchase.investor,
+                  purchase.tokens.toFormat(2),
+                  purchase.usd.toFormat(2),
+                  purchase.tier,
+                  purchase.tierPrice.toFormat(2),
+                ].join(',');
+            });
+          } else {
+            csvContent =
+              'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
+
+            purchases.forEach((purchase: STOPurchase) => {
+              csvContent +=
+                '\r\n' +
+                [
+                  purchase.investor,
+                  purchase.txHash,
+                  purchase.amount.toString(10),
+                  purchase.paid.toString(10),
+                ].join(',');
+            });
+          }
 
           window.open(encodeURI(csvContent));
 

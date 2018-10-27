@@ -1,0 +1,24 @@
+---
+name: NextTimePickerSelect
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field }  from 'formik';
+import TimePickerSelect from './index';
+
+# NextTimePickerSelect
+
+<PropsTable of={TimePickerSelect} />
+
+## Basic usage
+
+<Playground>
+<Formik render={(values) => (
+  <form>
+    <pre>{JSON.stringify(values, null, 2)}</pre>
+    <br/>
+    <Field name="myTime" placeholder="time" component={TimePickerSelect} />
+  </form>
+)} />
+  
+</Playground>

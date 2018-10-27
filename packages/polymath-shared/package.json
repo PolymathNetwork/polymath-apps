@@ -34,7 +34,7 @@
     "jest": "22.4.3",
     "jest-junit": "^5.2.0",
     "lodash": "^4.17.11",
-    "polymath-core": "git://github.com/PolymathNetwork/polymath-core#dec62a59cc6258bed03c4ac4a635b36167c2043c",
+    "polymath-core": "git://github.com/PolymathNetwork/polymath-core#5fa2f1ea900075d615434f1adced2332a1878c9e",
     "regenerator-runtime": "^0.12.1",
     "truffle": "4.1.13",
     "web3": "1.0.0-beta.34"

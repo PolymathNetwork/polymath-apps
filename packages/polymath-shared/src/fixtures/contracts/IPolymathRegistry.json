@@ -25,20 +25,20 @@
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.4.24;\n\n    \ninterface IPolymathRegistry {\n\n    /**\n     * @notice Get the contract address\n     * @param _nameKey is the key for the contract address mapping\n     * @return address\n     */\n    function getAddress(string _nameKey) view external returns(address); \n\n}\n    ",
+  "source": "pragma solidity ^0.4.24;\n\n    \ninterface IPolymathRegistry {\n\n    /**\n     * @notice Returns the contract address\n     * @param _nameKey is the key for the contract address mapping\n     * @return address\n     */\n    function getAddress(string _nameKey) external view returns(address);\n\n}\n    ",
   "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
   "ast": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
     "exportedSymbols": {
       "IPolymathRegistry": [
-        11088
+        11017
       ]
     },
-    "id": 11089,
+    "id": 11018,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 11080,
+        "id": 11009,
         "literals": [
           "solidity",
           "^",
@@ -54,17 +54,17 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 11088,
+        "id": 11017,
         "linearizedBaseContracts": [
-          11088
+          11017
         ],
         "name": "IPolymathRegistry",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": null,
-            "documentation": "@notice Get the contract address\n@param _nameKey is the key for the contract address mapping\n@return address",
-            "id": 11087,
+            "documentation": "@notice Returns the contract address\n@param _nameKey is the key for the contract address mapping\n@return address",
+            "id": 11016,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -72,16 +72,16 @@
             "name": "getAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11083,
+              "id": 11012,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11082,
+                  "id": 11011,
                   "name": "_nameKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11087,
-                  "src": "232:15:18",
+                  "scope": 11016,
+                  "src": "236:15:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -89,10 +89,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 11081,
+                    "id": 11010,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "232:6:18",
+                    "src": "236:6:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -102,20 +102,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "231:17:18"
+              "src": "235:17:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11086,
+              "id": 11015,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11085,
+                  "id": 11014,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11087,
-                  "src": "271:7:18",
+                  "scope": 11016,
+                  "src": "275:7:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -123,10 +123,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11084,
+                    "id": 11013,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "271:7:18",
+                    "src": "275:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -136,33 +136,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "270:9:18"
+              "src": "274:9:18"
             },
-            "scope": 11088,
-            "src": "212:68:18",
+            "scope": 11017,
+            "src": "216:68:18",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11089,
-        "src": "31:253:18"
+        "scope": 11018,
+        "src": "31:256:18"
       }
     ],
-    "src": "0:289:18"
+    "src": "0:292:18"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IPolymathRegistry.sol",
     "exportedSymbols": {
       "IPolymathRegistry": [
-        11088
+        11017
       ]
     },
-    "id": 11089,
+    "id": 11018,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 11080,
+        "id": 11009,
         "literals": [
           "solidity",
           "^",
@@ -178,17 +178,17 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 11088,
+        "id": 11017,
         "linearizedBaseContracts": [
-          11088
+          11017
         ],
         "name": "IPolymathRegistry",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": null,
-            "documentation": "@notice Get the contract address\n@param _nameKey is the key for the contract address mapping\n@return address",
-            "id": 11087,
+            "documentation": "@notice Returns the contract address\n@param _nameKey is the key for the contract address mapping\n@return address",
+            "id": 11016,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -196,16 +196,16 @@
             "name": "getAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11083,
+              "id": 11012,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11082,
+                  "id": 11011,
                   "name": "_nameKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11087,
-                  "src": "232:15:18",
+                  "scope": 11016,
+                  "src": "236:15:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -213,10 +213,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 11081,
+                    "id": 11010,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "232:6:18",
+                    "src": "236:6:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -226,20 +226,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "231:17:18"
+              "src": "235:17:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11086,
+              "id": 11015,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11085,
+                  "id": 11014,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11087,
-                  "src": "271:7:18",
+                  "scope": 11016,
+                  "src": "275:7:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -247,10 +247,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11084,
+                    "id": 11013,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "271:7:18",
+                    "src": "275:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -260,20 +260,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "270:9:18"
+              "src": "274:9:18"
             },
-            "scope": 11088,
-            "src": "212:68:18",
+            "scope": 11017,
+            "src": "216:68:18",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11089,
-        "src": "31:253:18"
+        "scope": 11018,
+        "src": "31:256:18"
       }
     ],
-    "src": "0:289:18"
+    "src": "0:292:18"
   },
   "compiler": {
     "name": "solc",
@@ -281,5 +281,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-23T22:44:47.066Z"
+  "updatedAt": "2018-10-26T23:02:44.328Z"
 }

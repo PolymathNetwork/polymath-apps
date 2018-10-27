@@ -96,7 +96,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
             window.location.reload();
           }
         });
-      }, 100);
+      }, 1000);
     }
     if (!account) {
       throw new Error(ERROR_LOCKED);

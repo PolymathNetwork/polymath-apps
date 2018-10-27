@@ -157,7 +157,7 @@ class ImportWhitelistModal extends Component<Props> {
         )}
         <p align="right">
           <Button
-            class="cancel-btn"
+            className="cancel-btn"
             kind="secondary"
             onClick={this.handleClose}
           >

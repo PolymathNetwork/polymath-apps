@@ -11,11 +11,11 @@
     "url": "https://github.com/PolymathNetwork/polymath-apps/tree/develop/packages/polymath-ui"
   },
   "scripts": {
+    "start": "docz dev",
     "build": "webpack --config webpack.prod.js",
+    "build:website": "docz build",
     "test": "jest",
     "typecheck": "flow --show-all-branches",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build",
     "analyze": "source-map-explorer build/main.*"
   },
   "dependencies": {
@@ -24,19 +24,23 @@
     "axios": "^0.18.0",
     "bignumber.js": "6.0.0",
     "can-use-dom": "^0.1.0",
-    "carbon-components": "9.8.0",
-    "carbon-components-react": "^6.29.2",
-    "carbon-icons": "^7.0.7",
+    "carbon-components": "9.13.0",
+    "carbon-components-react": "6.29.2",
+    "carbon-icons": "7.0.7",
     "eth-sig-util": "^1.4.2",
     "react": "^16.5.2",
     "react-document-title": "2.0.3",
     "react-dom": "^16.5.2",
     "react-measure": "2.0.2",
+    "react-modal": "^3.6.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-select": "^2.1.0",
     "react-transition-group": "^2.2.1",
     "redux": "^4.0.0",
-    "redux-form": "^7.4.2"
+    "redux-form": "^7.4.2",
+    "styled-components": "^4.0.2",
+    "styled-system": "^3.1.11"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",
