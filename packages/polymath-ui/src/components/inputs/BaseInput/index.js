@@ -43,9 +43,11 @@ const Unit = styled.span`
   color: ${({ theme }) => theme.colors.placeholder};
 `;
 
-export default ({ type = 'text', unit, ...props }) => (
-  <Container unit={unit}>
-    <Input type={type} unit={unit} {...props} />
-    {unit && <Unit>{unit}</Unit>}
-  </Container>
-);
+export default ({ unit, ...props }) => {
+  return (
+    <Container unit={unit}>
+      <Input unit={unit} {...props} />
+      {unit && <Unit>{unit}</Unit>}
+    </Container>
+  );
+};

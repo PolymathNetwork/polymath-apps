@@ -2,9 +2,9 @@ import React from 'react';
 
 import Label from './Label';
 
-import ethIcon from '../../images/icons/eth.svg';
-import polyIcon from '../../images/icons/poly-2.svg';
-import daiIcon from '../../images/icons/dai.svg';
+import ethIcon from '../../../images/icons/eth.svg';
+import polyIcon from '../../../images/icons/poly-2.svg';
+import daiIcon from '../../../images/icons/dai.svg';
 
 export const currencyOptions = [
   {

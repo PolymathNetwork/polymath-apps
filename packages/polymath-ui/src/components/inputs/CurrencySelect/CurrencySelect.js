@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import CurrencySelect from '../../../../components/CurrencySelect';
+
+import Input from './Input';
 import { InputProps } from '../types';
 
-export default class CurrencySelectField extends Component<InputProps> {
+export default class CurrencySelect extends Component<InputProps> {
   handleChange = value => {
     const {
       field,
@@ -12,8 +13,6 @@ export default class CurrencySelectField extends Component<InputProps> {
   };
   render() {
     const { field, ...otherProps } = this.props;
-    return (
-      <CurrencySelect {...field} {...otherProps} onChange={this.handleChange} />
-    );
+    return <Input {...field} {...otherProps} onChange={this.handleChange} />;
   }
 }

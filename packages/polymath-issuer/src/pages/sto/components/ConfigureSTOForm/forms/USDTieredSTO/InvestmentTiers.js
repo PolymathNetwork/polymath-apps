@@ -2,11 +2,16 @@
 
 import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
-import { Field, FieldArray, ErrorMessage } from 'formik';
+import { Field, FieldArray } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
-import { Box, Grid, DynamicTable, icoAdd } from '@polymathnetwork/ui';
-import InputError from '@polymathnetwork/ui/components/InputError';
-import { NumberInput } from '@polymathnetwork/ui/next';
+import {
+  Box,
+  Grid,
+  DynamicTable,
+  icoAdd,
+  FormItem,
+  NumberInput,
+} from '@polymathnetwork/ui';
 
 import AddTierModal from './AddTierModal';
 
@@ -139,83 +144,67 @@ class InvestmentTiers extends React.Component<Props, State> {
 
         {!value.isMultipleTiers ? (
           <Fragment>
-            <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-              <div>
-                <Field
-                  name={`${name}.tiers[0].tokensAmount`}
+            <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+              <FormItem name={`${name}.tiers[0].tokensAmount`}>
+                <FormItem.Label>
+                  <Tooltip triggerText="Number of tokens">
+                    <p className="bx--tooltip__label">Number of tokens</p>
+                    <p>
+                      Hard Cap is the maximum number of tokens available through
+                      this offering. e.g. if you want the total aggregate of
+                      your investors in this offering to own 10 million tokens,
+                      enter 10000000.
+                    </p>
+                  </Tooltip>
+                </FormItem.Label>
+                <FormItem.Input
+                  FormikComponent={Field}
                   component={NumberInput}
-                  label={
-                    <Tooltip triggerText="Number of tokens">
-                      <p className="bx--tooltip__label">Number of tokens</p>
-                      <p>
-                        Hard Cap is the maximum number of tokens available
-                        through this offering. e.g. if you want the total
-                        aggregate of your investors in this offering to own 10
-                        million tokens, enter 10000000.
-                      </p>
-                    </Tooltip>
-                  }
                   placeholder="Enter amount"
                 />
-                <ErrorMessage
-                  component={InputError}
-                  name={`${name}.tiers[0].tokensAmount`}
-                />
-              </div>
-              <div>
-                <Field
-                  name={`${name}.tiers[0].tokenPrice`}
+                <FormItem.Error />
+              </FormItem>
+              <FormItem name={`${name}.tiers[0].tokenPrice`}>
+                <FormItem.Label>Token Price</FormItem.Label>
+                <FormItem.Input
+                  FormikComponent={Field}
                   component={NumberInput}
-                  label="Token Price"
                   placeholder="Enter amount"
                   unit="USD"
                 />
-                <ErrorMessage
-                  component={InputError}
-                  name={`${name}.tiers[0].tokenPrice`}
-                />
-              </div>
+                <FormItem.Error />
+              </FormItem>
             </Grid>
-            <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-              <div>
-                <Field
-                  name={`${name}.tiers[0].discountedTokensAmount`}
+            <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+              <FormItem name={`${name}.tiers[0].discountedTokensAmount`}>
+                <FormItem.Label>
+                  <Tooltip triggerText="Number of discounted tokens">
+                    <p className="bx--tooltip__label">
+                      Maximum Number of Discounted tokens
+                    </p>
+                  </Tooltip>
+                </FormItem.Label>
+                <FormItem.Input
                   component={NumberInput}
-                  label={
-                    <Tooltip triggerText="Number of discounted tokens">
-                      <p className="bx--tooltip__label">
-                        Maximum Number of Discounted tokens
-                      </p>
-                      <p />
-                    </Tooltip>
-                  }
                   placeholder="Enter amount"
                 />
-                <ErrorMessage
-                  component={InputError}
-                  name={`${name}.tiers[0].discountedTokensAmount`}
-                />
-              </div>
-              <div>
-                <Field
-                  name={`${name}.tiers[0].discountedTokensPrice`}
+                <FormItem.Error />
+              </FormItem>
+              <FormItem name={`${name}.tiers[0].discountedTokensPrice`}>
+                <FormItem.Label>
+                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
+                    <p className="bx--tooltip__label">
+                      Discount for Tokens Purchased with POLY
+                    </p>
+                  </Tooltip>
+                </FormItem.Label>
+                <FormItem.Input
                   component={NumberInput}
-                  label={
-                    <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                      <p className="bx--tooltip__label">
-                        Discount for Tokens Purchased with POLY
-                      </p>
-                      <p />
-                    </Tooltip>
-                  }
                   placeholder="Enter percentage"
                   unit="%"
                 />
-                <ErrorMessage
-                  component={InputError}
-                  name={`${name}.tiers[0].discountedTokensPrice`}
-                />
-              </div>
+                <FormItem.Error />
+              </FormItem>
             </Grid>
           </Fragment>
         ) : (

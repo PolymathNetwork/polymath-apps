@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Button } from 'carbon-components-react';
-import { TextInput } from '@polymathnetwork/ui';
+import { TextInput } from '@polymathnetwork/ui/deprecated';
 import { required, integer, float } from '@polymathnetwork/ui/validate';
 import type { STODetails } from '@polymathnetwork/js';
 

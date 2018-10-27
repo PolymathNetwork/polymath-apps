@@ -9,7 +9,7 @@ import {
   Tooltip,
   Toggle,
 } from 'carbon-components-react';
-import { TextInput, RadioInput } from '@polymathnetwork/ui';
+import { TextInput, RadioInput } from '@polymathnetwork/ui/deprecated';
 import { url, required, integer, minValue } from '@polymathnetwork/ui/validate';
 
 export const formName = 'complete_token';

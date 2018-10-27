@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Field from '../../../../components/Field';
-import TextInput from '../../../../components/TextInput';
-import InputLabel from '../../../../components/InputLabel';
+import BaseInput from '../BaseInput';
 
 import type { InputProps } from '../types';
 
-const NumberInput = styled(TextInput)`
+const NumberInput = styled(BaseInput)`
   /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
   /* Only on desktop */
 
@@ -31,16 +29,13 @@ export default (props: InputProps) => {
   } = props;
 
   return (
-    <Field>
-      <InputLabel>{label}</InputLabel>
-      <NumberInput
-        type="number"
-        id={field.name}
-        value={typeof value === 'number' ? value : ''}
-        allowEmpty={true}
-        {...otherProps}
-        {...fieldProps}
-      />
-    </Field>
+    <NumberInput
+      type="number"
+      id={field.name}
+      value={typeof value === 'number' ? value : ''}
+      allowEmpty={true}
+      {...otherProps}
+      {...fieldProps}
+    />
   );
 };

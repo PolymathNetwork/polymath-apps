@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { CheckboxInput, DatePickerInput } from '@polymathnetwork/ui';
+import { CheckboxInput, DatePickerInput } from '@polymathnetwork/ui/deprecated';
 import { required, tomorrowOrLater } from '@polymathnetwork/ui/validate';
 
 type Props = {|

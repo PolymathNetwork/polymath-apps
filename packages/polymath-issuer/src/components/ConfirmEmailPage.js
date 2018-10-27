@@ -1,7 +1,8 @@
 // @flow
 
 import { Button, Form } from 'carbon-components-react';
-import { bull, TextInput } from '@polymathnetwork/ui';
+import { bull } from '@polymathnetwork/ui';
+import { TextInput } from '@polymathnetwork/ui/deprecated';
 import { required, email } from '@polymathnetwork/ui/validate';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';

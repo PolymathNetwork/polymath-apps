@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const InputLabel = styled.div`
+import { FormItemContext } from '../';
+
+const InputLabel = styled.label`
   display: inline-block;
   font-size: ${({ theme }) => theme.fontSizes[1]}px;
   vertical-align: baseline;
@@ -16,4 +18,8 @@ const InputLabel = styled.div`
   }
 `;
 
-export default ({ children }) => <InputLabel>{children}</InputLabel>;
+export default ({ children }) => (
+  <FormItemContext.Consumer>
+    {({ name }) => <InputLabel for={name}>{children}</InputLabel>}
+  </FormItemContext.Consumer>
+);
