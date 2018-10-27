@@ -110,13 +110,23 @@ class InvestmentTiers extends React.Component<Props, State> {
       ticker,
     } = this.props;
     const { isAddingTier } = this.state;
-
     const tableItems = map(compact(value.tiers), (tier, tierNum) => ({
       ...tier,
       tier: tierNum,
       id: tierNum + 1,
       totalRaise: tier.tokenPrice * tier.tokensAmount,
     }));
+    const defaultTableItem = [
+      {
+        discountedTokensAmount: '-',
+        discountedTokensPrice: '-',
+        tokenPrice: '-',
+        tokensAmount: '-',
+        tier: '-',
+        id: 0,
+        totalRaise: '-',
+      },
+    ];
 
     return (
       <Fragment>
@@ -210,7 +220,7 @@ class InvestmentTiers extends React.Component<Props, State> {
         ) : (
           <Box mb={3}>
             <DynamicTable
-              rows={tableItems}
+              rows={tableItems.length ? tableItems : defaultTableItem}
               headers={headers}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
