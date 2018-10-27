@@ -20,6 +20,6 @@ const InputLabel = styled.label`
 
 export default ({ children }) => (
   <FormItemContext.Consumer>
-    {({ name }) => <InputLabel for={name}>{children}</InputLabel>}
+    {({ name }) => <InputLabel htmlFor={name}>{children}</InputLabel>}
   </FormItemContext.Consumer>
 );
