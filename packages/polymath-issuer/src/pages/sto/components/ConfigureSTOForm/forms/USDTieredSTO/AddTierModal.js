@@ -126,8 +126,8 @@ class AddTierModal extends Component {
                       <p />
                     </Tooltip>
                   }
-                  placeholder="0"
-                  unit="USD"
+                  placeholder="Enter percentage"
+                  unit="%"
                 />
                 <ErrorMessage
                   component={InputError}
