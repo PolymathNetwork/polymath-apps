@@ -188,7 +188,13 @@ export default class Contract {
     if (gasLimit && gasLimit > 10) {
       gas = gasLimit;
     } else {
+      const block = await Contract._params.web3WS.eth.getBlock('latest');
+      const networkGasLimit = block.gasLimit;
       gas = Math.ceil((await method.estimateGas(preParams)) * (gasLimit || 1));
+
+      if (gas > networkGasLimit) {
+        gas = networkGasLimit;
+      }
     }
     const params = {
       ...preParams,
