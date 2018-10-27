@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { get } from 'lodash';
+import { Field } from 'formik';
 import {
   ModalHeader,
   ModalBody,
@@ -13,13 +14,12 @@ import {
   Grid,
   Box,
   Modal,
+  FormItem,
+  NumberInput,
   Paragraph,
   RaisedAmount,
   thousandsDelimiter,
 } from '@polymathnetwork/ui';
-import InputError from '@polymathnetwork/ui/components/InputError';
-import { NumberInput } from '@polymathnetwork/ui/next';
-import { Field, ErrorMessage } from 'formik';
 
 class AddTierModal extends Component {
   handleOnAdd = () => {
@@ -60,80 +60,62 @@ class AddTierModal extends Component {
             token. Provide the necessary information below to add a new
             investment tier.
           </Paragraph>
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-            <div>
-              <Field
-                name={`${name}.tokensAmount`}
+          <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+            <FormItem name={`${name}.tokensAmount`}>
+              <FormItem.Label>
+                <Tooltip triggerText="Number of tokens">
+                  <p className="bx--tooltip__label">Number of tokens</p>
+                </Tooltip>
+              </FormItem.Label>
+              <FormItem.Input
                 component={NumberInput}
-                label={
-                  <Tooltip triggerText="Number of tokens">
-                    <p className="bx--tooltip__label">Number of tokens</p>
-                    <p />
-                  </Tooltip>
-                }
                 placeholder="Enter amount"
               />
-              <ErrorMessage
-                component={InputError}
-                name={`${name}.tokensAmount`}
-              />
-            </div>
-            <div>
-              <Field
-                name={`${name}.tokenPrice`}
+              <FormItem.Error />
+            </FormItem>
+            <FormItem name={`${name}.tokenPrice`}>
+              <FormItem.Label>Token Price</FormItem.Label>
+              <FormItem.Input
                 component={NumberInput}
-                label="Token Price"
                 placeholder="Enter amount"
                 unit="USD"
               />
-              <ErrorMessage
-                component={InputError}
-                name={`${name}.tokenPrice`}
-              />
-            </div>
+              <FormItem.Error />
+            </FormItem>
           </Grid>
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-            <div>
-              <Field
-                name={`${name}.discountedTokensAmount`}
+          <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+            <FormItem name={`${name}.discountedTokensAmount`}>
+              <FormItem.Label>
+                <Tooltip triggerText="Maximum Number of discounted tokens">
+                  <p className="bx--tooltip__label">
+                    Maximum Number of discounted tokens
+                  </p>
+                </Tooltip>
+              </FormItem.Label>
+              <FormItem.Input
                 component={NumberInput}
-                label={
-                  <Tooltip triggerText="Number of discounted tokens">
-                    <p className="bx--tooltip__label">
-                      Maximum Number of Discounted tokens
-                    </p>
-                    <p />
-                  </Tooltip>
-                }
                 placeholder="Enter amount"
               />
-              <ErrorMessage
-                component={InputError}
-                name={`${name}.discountedTokensAmount`}
-              />
-            </div>
+              <FormItem.Error />
+            </FormItem>
             <Box maxWidth="5em">
-              <div>
-                <Field
-                  name={`${name}.discountedTokensPrice`}
+              <FormItem name={`${name}.discountedTokensPrice`}>
+                <FormItem.Label>
+                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
+                    <p className="bx--tooltip__label">
+                      Discount for Tokens Purchased with POLY
+                    </p>
+                  </Tooltip>
+                </FormItem.Label>
+                <FormItem.Input
+                  FormikComponent={Field}
                   component={NumberInput}
                   normalize={thousandsDelimiter}
-                  label={
-                    <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                      <p className="bx--tooltip__label">
-                        Discount for Tokens Purchased with POLY
-                      </p>
-                      <p />
-                    </Tooltip>
-                  }
                   placeholder="Enter percentage"
                   unit="%"
                 />
-                <ErrorMessage
-                  component={InputError}
-                  name={`${name}.discountedTokensPrice`}
-                />
-              </div>
+                <FormItem.Error />
+              </FormItem>
             </Box>
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>

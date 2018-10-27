@@ -3,14 +3,13 @@
 import React, { Component, Fragment } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import { STOStatus } from '@polymathnetwork/ui';
 import { Button } from 'carbon-components-react';
 import type {
   SecurityToken,
   STOPurchase,
   STODetails,
 } from '@polymathnetwork/js/types';
-import { NotFoundPage } from '@polymathnetwork/ui';
+import { NotFoundPage, STOStatus } from '@polymathnetwork/ui';
 
 import {
   togglePauseSto,

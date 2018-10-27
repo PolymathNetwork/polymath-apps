@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Tooltip, Button } from 'carbon-components-react';
-import { TextInput, TextAreaInput } from '@polymathnetwork/ui';
+import { TextInput, TextAreaInput } from '@polymathnetwork/ui/deprecated';
 import { required, maxLength, url } from '@polymathnetwork/ui/validate';
 
 export const formName = 'providers_apply';
