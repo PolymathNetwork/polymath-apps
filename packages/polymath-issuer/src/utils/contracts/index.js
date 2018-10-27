@@ -57,7 +57,6 @@ export function toWei(
  * @param params Function parameters
  */
 function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
-  console.log('Encoded', params);
   return Contract._params.web3.eth.abi.encodeFunctionCall(
     {
       name: 'configure',
@@ -203,8 +202,8 @@ export async function getSTOModule(address: string) {
 
   const ModuleFactory = await getSTOModuleFactoryContract(type, address);
 
-  const descriptionRes = await ModuleFactory.methods.getDescription().call();
-  const titleRes = await ModuleFactory.methods.getTitle().call();
+  const descriptionRes = await ModuleFactory.methods.description().call();
+  const titleRes = await ModuleFactory.methods.title().call();
   const ownerRes = await ModuleFactory.methods.owner().call();
   const setupCostRes = await ModuleFactory.methods.setupCost().call();
   const setupCost = PolyToken.removeDecimals(setupCostRes);
@@ -274,7 +273,6 @@ export async function setupSTOModule(
     usdToken: '0x0000000000000000000000000000000000000000',
   };
 
-  console.log('encodeParams', encodeParams);
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
 
   const securityToken = new SecurityToken(tokenAddress);
@@ -319,13 +317,7 @@ export async function sendTransaction({
     gasPrice: Web3.eth.gasPrice, // WHY is this hardcoded in polyjs?
   };
 
-  console.log('transactionParams', transactionParams);
-
   const result = await method.call(params);
 
-  console.log('result', result);
-
   const receipt = await method.send(params);
-
-  console.log('receipt', receipt);
 }
