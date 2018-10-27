@@ -92,10 +92,23 @@ function validateStartTime(value) {
   return true;
 }
 
+function validateDiscountedTokensAmount(value) {
+  const { tokensAmount } = this.parent;
+
+  if (value > 0 && (!tokensAmount || value > tokensAmount)) {
+    return this.createError({
+      message: 'Cannot be higher than the total amount of tokens.',
+    });
+  }
+
+  return true;
+}
+
 const requiredMessage = 'Required.';
 /* eslint-disable no-template-curly-in-string */
-const moreThanMessage = 'Must be larger than ${more}.';
+const moreThanMessage = 'Must be higher than ${more}.';
 const minMessage = 'Must be at least ${min}.';
+const maxMessage = 'Cannot be higher than ${max}.';
 /* eslint-enable no-template-curly-in-string */
 
 /**
@@ -116,10 +129,12 @@ export const investmentTierSchema = Yup.object().shape({
   discountedTokensAmount: Yup.number()
     .typeError(requiredMessage)
     .required(requiredMessage)
-    .min(0, minMessage),
+    .min(0, minMessage)
+    .test('validateDiscountedTokensAmount', validateDiscountedTokensAmount),
   discountedTokensPrice: Yup.number()
     .typeError(requiredMessage)
     .required(requiredMessage)
+    .max(100, maxMessage)
     .min(0, minMessage),
 });
 
