@@ -11,7 +11,6 @@ const colors = {
   green: ['#00AA5E'],
   red: ['#e0182d'],
 };
-
 const headings = {
   h1: {},
   h2: {},
@@ -24,6 +23,9 @@ const headings = {
 const transitions = {
   hover: 'ease 150ms',
 };
+const inputs = {
+  height: '2.5rem',
+};
 
 export default {
   fontSizes,
@@ -31,4 +33,5 @@ export default {
   colors,
   headings,
   transitions,
+  inputs,
 };
