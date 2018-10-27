@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable jsx-a11y/label-has-for */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Button, Icon } from 'carbon-components-react';
 import { etherscanAddress } from '@polymathnetwork/ui';
 import { SECURITY_AUDIT_URL } from '../../../../constants';
@@ -66,8 +66,14 @@ export default class STOTemplateComponent extends Component<Props> {
       <div className="pui-page-box sto-factory">
         <h2 className="pui-h2 pui-h-tags">
           {stoModule.title}
-          <span className="bx--tag bx--tag--custom">Raise Funds in POLY</span>
-          <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
+          {pickingEnabled ? (
+            <Fragment>
+              <span className="bx--tag bx--tag--custom">
+                Raise Funds in POLY
+              </span>
+              <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
+            </Fragment>
+          ) : null}
         </h2>
         <br />
         <br />
@@ -84,16 +90,14 @@ export default class STOTemplateComponent extends Component<Props> {
             </div>
           </div>
         ) : (
-          <div className="bx--row">
-            <div className="bx--col-xs-9">
-              {authorAddress}
-              {desc}
+          <Fragment>
+            <div className="bx--row">
+              <div className="bx--col-xs-6">{verifiedOnEtherscan}</div>
+              <div className="bx--col-xs-6">{securityAuditLink}</div>
             </div>
-            <div className="bx--col-xs-3">
-              {verifiedOnEtherscan}
-              {securityAuditLink}
-            </div>
-          </div>
+            {authorAddress}
+            {desc}
+          </Fragment>
         )}
         <div style={pickingEnabled ? { textAlign: 'right' } : {}}>
           {etherscanAddress(
