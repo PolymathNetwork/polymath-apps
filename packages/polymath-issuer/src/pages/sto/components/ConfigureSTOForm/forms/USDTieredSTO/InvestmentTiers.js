@@ -112,7 +112,7 @@ class InvestmentTiers extends React.Component<Props, State> {
     const { isAddingTier } = this.state;
     const tableItems = map(compact(value.tiers), (tier, tierNum) => ({
       ...tier,
-      tier: tierNum,
+      tier: tierNum + 1,
       id: tierNum + 1,
       totalRaise: tier.tokenPrice * tier.tokensAmount,
     }));

@@ -69,6 +69,7 @@ class Dashboard extends Component<Props> {
 
     if (!isTokenFetched) {
       // TODO @bshevchenko: why is this here?
+      // NOTE @monitz87: if you don't know, how do you expect us to?
       return <span />;
     }
     // $FlowFixMe

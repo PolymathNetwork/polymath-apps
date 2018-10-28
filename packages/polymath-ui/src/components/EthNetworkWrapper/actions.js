@@ -119,6 +119,8 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
       web3WS,
     };
 
+    console.log('network', network);
+
     await initPolymathJs({
       networkParams,
       dispatch,

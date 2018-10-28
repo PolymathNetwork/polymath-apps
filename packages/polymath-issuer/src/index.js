@@ -16,6 +16,8 @@ import routes from './routes';
 // $FlowFixMe
 import './style.scss';
 
+console.log('process.env =>', process.env);
+
 unregister();
 
 render(

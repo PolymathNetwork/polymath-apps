@@ -1,7 +1,9 @@
 // @flow
 
 import React from 'react';
-import { STO } from '@polymathnetwork/js';
+import FileSaver from 'file-saver';
+
+import { STO, CappedSTOFactory, SecurityToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import { twelveHourTimeToMinutes } from '@polymathnetwork/ui/deprecated';
 import { setupSTOModule, getTokenSTO } from '../utils/contracts';
@@ -474,7 +476,10 @@ export const exportInvestorsList = () => async (
             });
           }
 
-          window.open(encodeURI(csvContent));
+          const blob = new Blob([csvContent], {
+            type: 'text/csv;charset=utf-8',
+          });
+          FileSaver.saveAs(blob, 'mintedTokenList.csv');
 
           dispatch(ui.fetched());
         } catch (e) {
