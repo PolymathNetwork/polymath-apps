@@ -109,16 +109,6 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
   }
 
   dispatch(fetched());
-
-  // FIXME @RafaelVidaurre: Temporary hack, remove before deploying
-  let user = JSON.parse(String(localStorage.getItem('USER')));
-
-  if (user) {
-    dispatch(signedIn());
-    return dispatch(signedUp(user.name, user.email, true));
-  }
-  // FIXME @RafaelVidaurre: Temporary hack, remove before deploying
-
   let sig;
 
   try {
@@ -149,7 +139,6 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
 
     if (user) {
       dispatch(signedUp(user.name, user.email, true));
-      localStorage.setItem('USER', JSON.stringify(user));
     }
 
     dispatch(fetched());
