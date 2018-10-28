@@ -311,8 +311,10 @@ export const USDTieredSTOFormComponent = ({
               <Grid.Item gridColumn="span 1 / 3">
                 <RaisedAmount
                   title="Amount Of Funds the STO Will Raise"
-                  primaryAmount={`${totalUsdAmount} USD`}
-                  tokenAmount={`${totalTokensAmount} ${ticker.toUpperCase()}`}
+                  primaryAmount={totalUsdAmount}
+                  primaryUnit="USD"
+                  tokenAmount={totalTokensAmount}
+                  tokenUnit={ticker.toUpperCase()}
                 />
               </Grid.Item>
             </Grid>
