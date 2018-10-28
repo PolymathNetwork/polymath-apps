@@ -175,8 +175,8 @@ const initialValues = {
   },
   nonAccreditedMax: 0,
   minimumInvestment: 0,
-  receiverAddress: '0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e',
-  unsoldTokensAddress: '0x2932b7A2355D6fecc4b5c0B6BD44cC31df247a2e',
+  receiverAddress: undefined,
+  unsoldTokensAddress: undefined,
   currencies: ['ETH', 'POLY'],
 };
 
