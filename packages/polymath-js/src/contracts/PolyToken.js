@@ -26,7 +26,9 @@ export class PolyToken extends Contract {
   }
 
   async balanceOf(account: Address): Promise<BigNumber> {
-    return this.removeDecimals(await this._methods.balanceOf(account).call());
+    return this.removeDecimals(
+      await this._contractWS.methods.balanceOf(account).call()
+    );
   }
 
   async myBalance(): Promise<BigNumber> {

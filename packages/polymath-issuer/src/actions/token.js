@@ -2,11 +2,14 @@
 
 import React from 'react';
 import {
+  PolyToken,
   SecurityTokenRegistry,
   CountTransferManager,
 } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
+import FileSaver from 'file-saver';
+
 import { ethereumAddress } from '@polymathnetwork/ui/validate';
 import type {
   SecurityToken,
@@ -137,13 +140,28 @@ export const issue = (isLimitNI: boolean) => async (
           );
           return;
         }
+
+        const allowance = await PolyToken.allowance(
+          SecurityTokenRegistry.account,
+          SecurityTokenRegistry.address
+        );
+
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Creating Security Token'];
+        if (allowance == 0) {
+          title.unshift('Approving POLY Spend');
+        }
+
+        title.unshift(...(isLimitNI ? ['Limiting Number Of Investors'] : []));
+
         dispatch(
           ui.tx(
-            [
-              'Approving POLY Spend',
-              'Creating Security Token',
-              ...(isLimitNI ? ['Limiting Number Of Investors'] : []),
-            ],
+            // [
+            //   'Approving POLY Spend',
+            //   'Creating Security Token',
+            //   ...(isLimitNI ? ['Limiting Number Of Investors'] : []),
+            // ],
+            title,
             async () => {
               const { values } = getState().form[completeFormName];
               token = {
@@ -244,12 +262,15 @@ export const mintTokens = () => async (
     ui.tx(
       ['Whitelisting Addresses', 'Minting Tokens'],
       async () => {
+        console.log('something');
         await transferManager.modifyWhitelistMulti(uploaded, false);
         const addresses: Array<Address> = [];
         for (let investor: Investor of uploaded) {
           addresses.push(investor.address);
         } // $FlowFixMe
+        console.log('something 2');
         await token.contract.mintMulti(addresses, uploadedTokens);
+        console.log('something 3');
       },
       'Tokens were successfully minted',
       () => {
@@ -444,7 +465,7 @@ export const exportMintedTokensList = () => async (
           const investors = await token.contract.getMinted();
 
           let csvContent =
-            'data:text/csv;charset=utf-8,Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
+            'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
           investors.forEach((investor: Investor) => {
             csvContent +=
               '\r\n' +
@@ -462,7 +483,10 @@ export const exportMintedTokensList = () => async (
               ].join(',');
           });
 
-          window.open(encodeURI(csvContent));
+          const blob = new Blob([csvContent], {
+            type: 'text/csv;charset=utf-8',
+          });
+          FileSaver.saveAs(blob, 'mintedTokenList.csv');
 
           dispatch(ui.fetched());
         } catch (e) {

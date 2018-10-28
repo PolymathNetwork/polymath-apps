@@ -13,11 +13,13 @@ import CountTransferManagerFactoryArtifacts from './fixtures/contracts/CountTran
 export const KOVAN_NETWORK_ID = 42;
 export const MAINNET_NETWORK_ID = 1;
 export const LOCAL_NETWORK_ID = 15;
+export const LOCALVM_NETWORK_ID = 16;
 
 const NetworkIds = {
   KOVAN_NETWORK_ID,
   MAINNET_NETWORK_ID,
   LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
 };
 
 const DEPLOYMENT_STAGE =
@@ -36,7 +38,7 @@ if (!DEPLOYMENT_STAGE) {
   );
 }
 
-type NetworkId = $Keys<typeof NetworkIds>;
+export type NetworkId = $Keys<typeof NetworkIds>;
 type NetworkAddresses = {
   [networkId: NetworkId]: {
     [contractName: string]: string,
@@ -70,8 +72,13 @@ const localAddresses = {
     CountTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID],
 };
 
+/**
+ * TODO @monitz87: The PolyToken address is the same one used in production kovan
+ * due to a limitation in the deployment script. We would want to use a separate PolyToken
+ * contract for kovan staging, but for now we have to settle with this.
+ */
 const kovanStagingPolyFaucetAddress =
-  '0xe2b733524f1a630519d1b14811cafffd41ad26e5';
+  '0xb06d72a24df50d4e2cac133b320c5e7de3ef94cb';
 const kovanStagingAddresses = {
   PolyTokenFaucet: kovanStagingPolyFaucetAddress,
   PolyToken: kovanStagingPolyFaucetAddress,
@@ -102,16 +109,19 @@ const kovanProductionAddresses = {
     '0xfe908f07e6db57aa6bbd8374e59aac86b60374b0',
 };
 
-export const _STAGING_ADDRESSES = {
-  [KOVAN_NETWORK_ID]: kovanStagingAddresses,
-};
-
-export const _LOCAL_ADDRESSES = {
+export const _STAGING_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanStagingAddresses,
   [LOCAL_NETWORK_ID]: localAddresses,
+  [LOCALVM_NETWORK_ID]: localAddresses,
 };
 
-export const _PRODUCTION_ADDRESSES = {
+export const _LOCAL_ADDRESSES: NetworkAddresses = {
+  [KOVAN_NETWORK_ID]: kovanStagingAddresses,
+  [LOCAL_NETWORK_ID]: localAddresses,
+  [LOCALVM_NETWORK_ID]: localAddresses,
+};
+
+export const _PRODUCTION_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanProductionAddresses,
   [MAINNET_NETWORK_ID]: {
     PolyToken: '0x118A0df120cfB097aaD3A70914562F803A5bE45C',
@@ -142,6 +152,11 @@ switch (DEPLOYMENT_STAGE) {
   case 'local': {
     networkAddresses = _LOCAL_ADDRESSES;
     break;
+  }
+  default: {
+    throw new Error(
+      'Wrong value for env variable "DEPLOYMENT_STAGE". Should be one of "local", "staging", "production"'
+    );
   }
 }
 

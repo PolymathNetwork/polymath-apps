@@ -1,7 +1,14 @@
 // @flow
 
 import React from 'react';
-import { STO, CappedSTOFactory, SecurityToken } from '@polymathnetwork/js';
+import FileSaver from 'file-saver';
+
+import {
+  STO,
+  CappedSTOFactory,
+  SecurityToken,
+  PolyToken,
+} from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { TwelveHourTime } from '@polymathnetwork/ui';
 import type {
@@ -160,9 +167,16 @@ export const configure = () => async (
         if (!factory || !token || !token.contract) {
           return;
         }
+        const balance = await PolyToken.balanceOf(token.address);
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Deploying And Scheduling'];
+        if (balance == 0) {
+          title.unshift('Approving POLY Spend');
+        }
+
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            title,
             async () => {
               const contract: SecurityToken = token.contract;
               const { values } = getState().form[configureFormName];
@@ -301,7 +315,7 @@ export const exportInvestorsList = () => async (
           const purchases = await contract.getPurchases();
 
           let csvContent =
-            'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
+            'Address,Transaction Hash,Tokens Purchased,Amount Invested';
           purchases.forEach((purchase: STOPurchase) => {
             csvContent +=
               '\r\n' +
@@ -313,7 +327,10 @@ export const exportInvestorsList = () => async (
               ].join(',');
           });
 
-          window.open(encodeURI(csvContent));
+          const blob = new Blob([csvContent], {
+            type: 'text/csv;charset=utf-8',
+          });
+          FileSaver.saveAs(blob, 'mintedTokenList.csv');
 
           dispatch(ui.fetched());
         } catch (e) {

@@ -51,6 +51,19 @@ class ConfigureSTO extends Component<Props> {
     this.props.configure();
   };
 
+  getInitialValues() {
+    return {
+      startDate: '10 / 27 / 2018',
+      startTime: '11:30 AM',
+      endDate: '10 / 27 / 2018',
+      endTime: '12:30 PM',
+      currency: 'ETH',
+      cap: '1,000,000',
+      rate: '1,000',
+      fundsReceiver: '0xAF3EcFc1D5e1f1FBdFE84D17284507Cd0DD1A36b',
+    };
+  }
+
   render() {
     const { token, factory } = this.props;
     if (!token || !token.address || !factory) {
@@ -79,7 +92,10 @@ class ConfigureSTO extends Component<Props> {
                       Provide the financial details and timing for your offering
                       below.
                     </h4>
-                    <ConfigureSTOForm onSubmit={this.handleSubmit} />
+                    <ConfigureSTOForm
+                      onSubmit={this.handleSubmit}
+                      initialValues={this.getInitialValues()}
+                    />
                   </div>
                 </div>
                 <div className="bx--col-xs-4">

@@ -219,7 +219,12 @@ export default class SecurityToken extends Contract {
     fundsReceiver: Address
   ): Promise<Web3Receipt> {
     const setupCost = await CappedSTOFactory.setupCost();
-    await PolyToken.transfer(this.address, setupCost);
+
+    const balance = PolyToken.balanceOf(this.address);
+    //Skip transfer transaction if setupCost already paid
+    if (balance < setupCost) {
+      await PolyToken.transfer(this.address, setupCost);
+    }
     const data = Contract._params.web3.eth.abi.encodeFunctionCall(
       {
         name: 'configure', // TODO @bshevchenko: can we grab this ABI from the artifact?

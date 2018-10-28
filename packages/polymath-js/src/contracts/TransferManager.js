@@ -32,6 +32,7 @@ export default class TransferManager extends Contract {
   }
 
   async modifyWhitelistMulti(investors: Array<Investor>): Promise<Web3Receipt> {
+    console.log('modify whitelist multi');
     const addresses: Array<string> = [];
     const fromTimes: Array<number> = [];
     const toTimes: Array<number> = [];
