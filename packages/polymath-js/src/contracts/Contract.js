@@ -196,10 +196,12 @@ export default class Contract {
         gas = networkGasLimit;
       }
     }
+
+    const gasPrice = await Contract._params.web3.eth.getGasPrice();
     const params = {
       ...preParams,
       gas,
-      gasPrice: 5000000000,
+      gasPrice,
     };
 
     // dry run
