@@ -5,7 +5,13 @@ import RaisedAmount from '../RaisedAmount';
 
 test('renders without crashing', () => {
   const { container } = render(
-    <RaisedAmount title="a title" primaryAmount={555} tokenAmount={111} />
+    <RaisedAmount
+      title="a title"
+      primaryAmount={555}
+      primaryUnit="PRIM"
+      tokenAmount={111}
+      tokenUnit="TOK"
+    />
   );
 
   expect(container.firstChild).toMatchSnapshot();

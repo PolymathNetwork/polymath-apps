@@ -14,12 +14,12 @@ exports[`renders without crashing 1`] = `
     class="sc-bwzfXH jJQfzh"
     font-size="5"
   >
-    555
+    555 PRIM
   </div>
   <span
     class="sc-bxivhb kXRgtx"
   >
-    111
+    111 TOK
   </span>
 </div>
 `;
