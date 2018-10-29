@@ -6,6 +6,7 @@ import { Formik, FastField } from 'formik';
 import moment from 'moment';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
+import Web3 from 'web3';
 import {
   Box,
   Grid,
@@ -109,6 +110,16 @@ function validateDiscountedTokensAmount(value) {
   return true;
 }
 
+function validateIsAddress(value) {
+  if (!Web3.utils.isAddress(value)) {
+    return this.createError({
+      message: 'Is an invalid address',
+    });
+  }
+
+  return true;
+}
+
 const requiredMessage = 'Required.';
 /* eslint-disable no-template-curly-in-string */
 const moreThanMessage = 'Must be higher than ${more}.';
@@ -166,8 +177,12 @@ const formSchema = Yup.object().shape({
   minimumInvestment: Yup.number()
     .required(requiredMessage)
     .min(0, minMessage),
-  receiverAddress: Yup.string().required(requiredMessage),
-  unsoldTokensAddress: Yup.string().required(requiredMessage),
+  receiverAddress: Yup.string()
+    .required(requiredMessage)
+    .test('validateIsAddress', validateIsAddress),
+  unsoldTokensAddress: Yup.string()
+    .required(requiredMessage)
+    .test('validateIsAddress', validateIsAddress),
   investmentTiers: Yup.object().shape({
     isMultipleTiers: Yup.boolean(),
     tiers: Yup.array().of(investmentTierSchema),
@@ -190,8 +205,8 @@ const initialValues = {
   },
   nonAccreditedMax: 0,
   minimumInvestment: 0,
-  receiverAddress: undefined,
-  unsoldTokensAddress: undefined,
+  receiverAddress: null,
+  unsoldTokensAddress: null,
   currencies: ['ETH', 'POLY'],
 };
 

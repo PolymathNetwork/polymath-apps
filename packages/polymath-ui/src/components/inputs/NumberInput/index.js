@@ -45,7 +45,7 @@ export default class NumberInput extends Component<Props, State> {
       target: { value },
     } = event;
 
-    const normalizedValue = numeral(value);
+    const normalizedValue = numeral(value).value();
 
     setFieldValue(name, normalizedValue);
   };
@@ -57,12 +57,20 @@ export default class NumberInput extends Component<Props, State> {
       className,
       ...otherProps
     } = this.props;
+
+    let formattedValue = value;
+
+    if (value !== '' && value !== null) {
+      formattedValue = numeral(value).format('0,0');
+    }
+
     return (
       <StyledBaseInput
         type="text"
         id={field.name}
         {...otherProps}
         {...fieldProps}
+        value={formattedValue}
         onChange={this.handleChange}
       />
     );
