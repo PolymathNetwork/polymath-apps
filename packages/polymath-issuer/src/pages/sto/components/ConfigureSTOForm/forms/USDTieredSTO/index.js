@@ -113,7 +113,7 @@ const requiredMessage = 'Required.';
 /* eslint-disable no-template-curly-in-string */
 const moreThanMessage = 'Must be higher than ${more}.';
 const minMessage = 'Must be at least ${min}.';
-const maxMessage = 'Cannot be higher than ${max}.';
+const maxPercentageMessage = 'Cannot be higher than 100.';
 /* eslint-enable no-template-curly-in-string */
 
 /**
@@ -139,7 +139,7 @@ export const investmentTierSchema = Yup.object().shape({
   discountedTokensPercentage: Yup.number()
     .typeError(requiredMessage)
     .required(requiredMessage)
-    .max(100, maxMessage)
+    .max(1, maxPercentageMessage)
     .min(0, minMessage),
 });
 
