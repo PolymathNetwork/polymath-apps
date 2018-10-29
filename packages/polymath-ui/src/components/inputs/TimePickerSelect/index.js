@@ -21,6 +21,7 @@ const styles = {
   container: styles => ({
     ...styles,
     borderRadius: 0,
+    minHeight: theme.inputs.height,
   }),
   control: (styles, state) => {
     return {
@@ -31,24 +32,12 @@ const styles = {
       '&:hover': {
         borderColor: 'transparent',
       },
+      minHeight: theme.inputs.height,
     };
   },
   valueContainer: styles => ({
     ...styles,
-    flexGrow: 9,
-  }),
-  indicatorsContainer: styles => ({
-    ...styles,
-    flexGrow: 1,
-  }),
-  dropdownIndicator: styles => ({
-    ...styles,
-    color: theme.colors.baseText,
     fontSize: theme.fontSizes[1],
-    flexGrow: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingRight: theme.space[2],
   }),
 };
 

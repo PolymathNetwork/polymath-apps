@@ -5,6 +5,7 @@ import {
   textAlign,
   lineHeight,
   letterSpacing,
+  fontSize,
 } from 'styled-system';
 
 import Box from '../Box';
@@ -14,7 +15,8 @@ export const Paragraph = styled(Box)(
   fontWeight,
   textAlign,
   lineHeight,
-  letterSpacing
+  letterSpacing,
+  fontSize
 );
 
 export default Paragraph;

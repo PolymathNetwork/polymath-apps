@@ -15,7 +15,7 @@ const Container = styled(Box)`
   align-items: center;
   padding: 0 ${theme.space[1]}px;
   margin-right: ${theme.space[2]}px;
-  margin-top: 6px;
+  margin-top: 7px;
 `;
 
 const LabelContainer = styled(Box)`

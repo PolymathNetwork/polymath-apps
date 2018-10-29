@@ -20,12 +20,10 @@ type Option = {
 
 type Props = {|
   value: [string],
-  options: [Option],
   onChange: Function,
   name: string,
-  form: {
-    setFieldTouched: (name: string, value: boolean) => void,
-  },
+  options?: [Option],
+  onBlur?: Function,
 |};
 
 const styles = {
@@ -42,8 +40,15 @@ const styles = {
       '&:hover': {
         borderColor: 'transparent',
       },
+      minHeight: theme.inputs.height,
     };
   },
+  valueContainer: () => ({
+    position: 'absolute',
+    visibility: 'hidden',
+    zIndex: -1,
+    pointerEvents: 'none',
+  }),
   indicatorsContainer: styles => ({
     ...styles,
     flexGrow: 1,
@@ -115,7 +120,6 @@ export default class Input extends React.Component<Props> {
 
     this.handleRemove = this.handleRemove.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
   }
 
   static defaultProps = {
@@ -123,36 +127,25 @@ export default class Input extends React.Component<Props> {
   };
 
   handleRemove = (removedValue: string) => {
-    const {
-      value,
-      onChange,
-      name,
-      form: { setFieldTouched },
-    } = this.props;
+    const { value, onChange } = this.props;
     const newValue = Array.isArray(value)
       ? value.filter(_value => _value !== removedValue)
       : null;
 
     onChange(newValue, 'remove-value'); // 2nd param is from React-Select "actions" https://react-select.com/props
-    setFieldTouched(name, true);
   };
 
-  handleChange(options: [Option], action: string) {
+  handleChange(value: [Option], action: string) {
     const { onChange } = this.props;
 
-    return onChange(options.map(option => option.value), action);
-  }
-
-  handleBlur() {
-    const {
-      name,
-      form: { setFieldTouched },
-    } = this.props;
-    setFieldTouched(name, true);
+    return onChange(
+      Array.isArray(value) ? value.map(option => option.value) : value,
+      action
+    );
   }
 
   render() {
-    const { value, options, onChange, ...props } = this.props;
+    const { value, options, onChange, onBlur, ...props } = this.props;
     const selectedValue = Array.isArray(value)
       ? value.map(
           _value => options.find(option => option.value === _value) || {}
@@ -171,12 +164,11 @@ export default class Input extends React.Component<Props> {
               DropdownIndicator,
               ClearIndicator,
               IndicatorSeparator: null,
-              ValueContainer: () => null,
             }}
             options={options}
             value={selectedValue}
             onChange={this.handleChange}
-            onMenuClose={this.handleBlur}
+            onMenuClose={onBlur}
             {...props}
           />
         </SelectContainer>

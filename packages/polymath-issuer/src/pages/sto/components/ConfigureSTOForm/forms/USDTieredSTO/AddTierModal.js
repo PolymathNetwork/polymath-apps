@@ -109,6 +109,7 @@ class AddTierModal extends Component {
                   </Tooltip>
                 </FormItem.Label>
                 <FormItem.Input
+                  FormikComponent={Field}
                   component={PercentageInput}
                   placeholder="Enter percentage"
                   unit="%"
