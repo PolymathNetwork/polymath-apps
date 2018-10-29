@@ -2,7 +2,6 @@
 
 import { range } from 'lodash';
 import React, { Component } from 'react';
-// import { Select, SelectItem } from 'carbon-components-react';
 import Select, { components } from 'react-select';
 import styled from 'styled-components';
 import moment from 'moment';

@@ -2,9 +2,24 @@
 
 exports[`renders without crashing 1`] = `
 <div
-  className="pui-key-value pui-countdown-raised"
+  class="sc-htpNat kOpwYP"
 >
-  <div />
-  <div />
+  <h4
+    class="sc-bwzfXH hEfZSf"
+    font-size="1"
+  >
+    a title
+  </h4>
+  <div
+    class="sc-bwzfXH jJQfzh"
+    font-size="5"
+  >
+    555
+  </div>
+  <span
+    class="sc-bxivhb kXRgtx"
+  >
+    111
+  </span>
 </div>
 `;

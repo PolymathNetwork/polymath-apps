@@ -1,10 +1,12 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '../../../../testUtils';
 
-import Box from '../';
+import RaisedAmount from '../RaisedAmount';
 
 test('renders without crashing', () => {
-  const component = renderer.create(<Box>This is a box.</Box>);
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  const { container } = render(
+    <RaisedAmount title="a title" primaryAmount={555} tokenAmount={111} />
+  );
+
+  expect(container.firstChild).toMatchSnapshot();
 });

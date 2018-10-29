@@ -14,7 +14,7 @@
     "start": "docz dev",
     "build": "webpack --config webpack.prod.js",
     "build:website": "docz build",
-    "test": "jest",
+    "test": "jest --env=jsdom",
     "typecheck": "flow --show-all-branches",
     "analyze": "source-map-explorer build/main.*"
   },
@@ -66,6 +66,7 @@
     "node-sass": "^4.0.0",
     "react-dev-utils": "^6.0.4",
     "react-test-renderer": "^16.5.2",
+    "react-testing-library": "^5.2.3",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.12.1",
