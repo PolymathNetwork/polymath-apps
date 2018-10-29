@@ -122,7 +122,7 @@ export const investmentTierSchema = Yup.object().shape({
     .typeError(requiredMessage)
     .required(requiredMessage)
     .min(0, minMessage),
-  discountedTokensPrice: Yup.number()
+  discountedTokensPercentage: Yup.number()
     .typeError(requiredMessage)
     .required(requiredMessage)
     .min(0, minMessage),
@@ -379,7 +379,7 @@ type InvestmentTier = {|
   tokensAmount: number,
   tokenPrice: number,
   discountedTokensAmount: number,
-  discountedTokensPrice: number,
+  discountedTokensPercentage: number,
 |};
 type FormValues = {|
   startDate: Date,
@@ -408,8 +408,8 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       ),
       discountRatePerTier: map(
         values.investmentTiers.tiers,
-        // TODO @RafaelVidaurre: Percentage Input should return this formatted
-        ({ discountedTokensPrice }) => toWei(`${discountedTokensPrice / 100}`)
+        ({ discountedTokensPercentage, tokenPrice }) =>
+          toWei(`${tokenPrice * (1 - discountedTokensPercentage)}`)
       ),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
         toWei(tokensAmount)

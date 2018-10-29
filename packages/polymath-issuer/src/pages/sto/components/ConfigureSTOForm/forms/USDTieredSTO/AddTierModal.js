@@ -16,6 +16,7 @@ import {
   Modal,
   FormItem,
   NumberInput,
+  PercentageInput,
   Paragraph,
   RaisedAmount,
   thousandsDelimiter,
@@ -99,7 +100,7 @@ class AddTierModal extends Component {
               <FormItem.Error />
             </FormItem>
             <Box maxWidth="5em">
-              <FormItem name={`${name}.discountedTokensPrice`}>
+              <FormItem name={`${name}.discountedTokensPercentage`}>
                 <FormItem.Label>
                   <Tooltip triggerText="Discount for Tokens Purchased with POLY">
                     <p className="bx--tooltip__label">
@@ -108,11 +109,9 @@ class AddTierModal extends Component {
                   </Tooltip>
                 </FormItem.Label>
                 <FormItem.Input
-                  FormikComponent={Field}
-                  component={NumberInput}
-                  normalize={thousandsDelimiter}
-                  placeholder="0"
-                  unit="USD"
+                  component={PercentageInput}
+                  placeholder="Enter percentage"
+                  unit="%"
                 />
                 <FormItem.Error />
               </FormItem>
