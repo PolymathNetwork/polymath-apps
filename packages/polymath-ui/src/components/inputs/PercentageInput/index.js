@@ -56,7 +56,7 @@ export default class PercentageInput extends Component {
       ...otherProps
     } = this.props;
 
-    const formattedValue = typeof value === 'number' ? value * 100 : '';
+    const formattedValue = !isNaN(value) ? value * 100 : '';
 
     return (
       <StyledBaseInput
