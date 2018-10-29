@@ -113,7 +113,7 @@ const requiredMessage = 'Required.';
 /* eslint-disable no-template-curly-in-string */
 const moreThanMessage = 'Must be higher than ${more}.';
 const minMessage = 'Must be at least ${min}.';
-const maxMessage = 'Cannot be higher than ${max}.';
+const maxPercentageMessage = 'Cannot be higher than 100.';
 /* eslint-enable no-template-curly-in-string */
 
 /**
@@ -136,10 +136,10 @@ export const investmentTierSchema = Yup.object().shape({
     .required(requiredMessage)
     .min(0, minMessage)
     .test('validateDiscountedTokensAmount', validateDiscountedTokensAmount),
-  discountedTokensPrice: Yup.number()
+  discountedTokensPercentage: Yup.number()
     .typeError(requiredMessage)
     .required(requiredMessage)
-    .max(100, maxMessage)
+    .max(1, maxPercentageMessage)
     .min(0, minMessage),
 });
 
@@ -326,8 +326,10 @@ export const USDTieredSTOFormComponent = ({
               <Grid.Item gridColumn="span 1 / 3">
                 <RaisedAmount
                   title="Amount Of Funds the STO Will Raise"
-                  primaryAmount={`${totalUsdAmount} USD`}
-                  tokenAmount={`${totalTokensAmount} ${ticker.toUpperCase()}`}
+                  primaryAmount={totalUsdAmount}
+                  primaryUnit="USD"
+                  tokenAmount={totalTokensAmount}
+                  tokenUnit={ticker.toUpperCase()}
                 />
               </Grid.Item>
             </Grid>
@@ -392,7 +394,7 @@ type InvestmentTier = {|
   tokensAmount: number,
   tokenPrice: number,
   discountedTokensAmount: number,
-  discountedTokensPrice: number,
+  discountedTokensPercentage: number,
 |};
 type FormValues = {|
   startDate: Date,
@@ -421,8 +423,8 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       ),
       discountRatePerTier: map(
         values.investmentTiers.tiers,
-        // TODO @RafaelVidaurre: Percentage Input should return this formatted
-        ({ discountedTokensPrice }) => toWei(`${discountedTokensPrice / 100}`)
+        ({ discountedTokensPercentage, tokenPrice }) =>
+          toWei(`${tokenPrice * (1 - discountedTokensPercentage)}`)
       ),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
         toWei(tokensAmount)

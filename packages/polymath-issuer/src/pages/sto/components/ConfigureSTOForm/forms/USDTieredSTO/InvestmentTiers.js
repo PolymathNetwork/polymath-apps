@@ -11,6 +11,7 @@ import {
   icoAdd,
   FormItem,
   NumberInput,
+  PercentageInput,
 } from '@polymathnetwork/ui';
 
 import AddTierModal from './AddTierModal';
@@ -43,7 +44,7 @@ const headers = [
     header: 'Max Number of Discounted Tokens',
   },
   {
-    key: 'discountedTokensPrice',
+    key: 'discountedTokensPercentage',
     header: 'POLY Discount',
   },
   {
@@ -200,7 +201,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 />
                 <FormItem.Error />
               </FormItem>
-              <FormItem name={`${name}.tiers[0].discountedTokensPrice`}>
+              <FormItem name={`${name}.tiers[0].discountedTokensPercentage`}>
                 <FormItem.Label>
                   <Tooltip triggerText="Discount for Tokens Purchased with POLY">
                     <p className="bx--tooltip__label">
@@ -209,7 +210,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   </Tooltip>
                 </FormItem.Label>
                 <FormItem.Input
-                  component={NumberInput}
+                  component={PercentageInput}
                   placeholder="Enter percentage"
                   unit="%"
                 />

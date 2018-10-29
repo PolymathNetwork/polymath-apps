@@ -5,7 +5,7 @@ import BaseInput from '../BaseInput';
 
 import type { InputProps } from '../types';
 
-const NumberInput = styled(BaseInput)`
+const StyledBaseInput = styled(BaseInput)`
   /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
   /* Only on desktop */
 
@@ -29,7 +29,7 @@ export default (props: InputProps) => {
   } = props;
 
   return (
-    <NumberInput
+    <StyledBaseInput
       type="number"
       id={field.name}
       value={typeof value === 'number' ? value : ''}
