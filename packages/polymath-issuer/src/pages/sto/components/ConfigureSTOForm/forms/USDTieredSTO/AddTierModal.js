@@ -122,8 +122,10 @@ class AddTierModal extends Component {
             <Grid.Item gridColumn="span 1 / 3">
               <RaisedAmount
                 title={`Amount Of Funds the tier ${tierNum} STO Will Raise`}
-                primaryAmount={`${tierUsdAmount} USD`}
-                tokenAmount={`${tierTokensAmount} ${ticker.toUpperCase()}`}
+                primaryAmount={tierUsdAmount}
+                primaryUnit="USD"
+                tokenAmount={tierTokensAmount}
+                tokenUnit={ticker.toUpperCase()}
               />
             </Grid.Item>
           </Grid>
