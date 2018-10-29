@@ -204,9 +204,13 @@ export const moduleAddedHandler = async (
   }
 
   const {
-    returnValues: { _name, _module: moduleAddress },
+    returnValues: { _name, _module: moduleAddress, _types },
     transactionHash,
   } = result;
+
+  if (!_types.find(type => type === STO_MODULE_TYPE)) {
+    return;
+  }
 
   const networkName = NETWORKS[networkId].name.toUpperCase();
 
@@ -214,12 +218,6 @@ export const moduleAddedHandler = async (
 
   const moduleName: string = Web3.utils.hexToUtf8(_name);
 
-  /**
-   * Don't send an email for non CappedSTO modules
-   */
-  if (moduleName !== 'CappedSTO') {
-    return;
-  }
   /**
    * Get the details of the STO
    */
@@ -273,14 +271,8 @@ export const addSTOListener = (
   ticker: string,
   networkId: string
 ) => {
-  contract.events.ModuleAdded(
-    {
-      filter: {
-        _type: STO_MODULE_TYPE,
-      },
-    },
-    (error, result) =>
-      moduleAddedHandler(contract, ticker, networkId, error, result)
+  contract.events.ModuleAdded({}, (error, result) =>
+    moduleAddedHandler(contract, ticker, networkId, error, result)
   );
 
   logger.info(

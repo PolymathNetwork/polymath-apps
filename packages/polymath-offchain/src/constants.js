@@ -219,4 +219,4 @@ export const POLYMATH_ISSUER_URL = normalizeURL(env.POLYMATH_ISSUER_URL);
 export const POLYMATH_OFFCHAIN_URL = normalizeURL(env.POLYMATH_OFFCHAIN_URL);
 export const SENDGRID_API_KEY = env.SENDGRID_API_KEY;
 export const TYPED_NAME = 'Verification code from the Polymath server';
-export const STO_MODULE_TYPE = 3;
+export const STO_MODULE_TYPE = '3';
