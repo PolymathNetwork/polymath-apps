@@ -166,21 +166,26 @@ const formSchema = Yup.object().shape({
     .required(requiredMessage)
     .test('validateEndDate', validateEndDate),
   endTime: Yup.number()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validEndTime', validateEndTime),
   currencies: Yup.array()
     .of(Yup.string())
     .required(requiredMessage),
   nonAccreditedMax: Yup.number()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .min(0, minMessage),
   minimumInvestment: Yup.number()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .min(0, minMessage),
   receiverAddress: Yup.string()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateIsAddress', validateIsAddress),
   unsoldTokensAddress: Yup.string()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateIsAddress', validateIsAddress),
   investmentTiers: Yup.object().shape({
@@ -457,6 +462,8 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       receiverAddress: values.receiverAddress,
       unsoldTokensAddress: values.unsoldTokensAddress,
     };
+
+    console.log(formattedValues);
 
     const config = {
       data: formattedValues,
