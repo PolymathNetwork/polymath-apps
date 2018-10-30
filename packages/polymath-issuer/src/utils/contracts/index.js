@@ -269,8 +269,8 @@ export async function setupSTOModule(
     fundRaiseTypes: configValues.currencies, // ?
     wallet: configValues.receiverAddress,
     reserveWallet: configValues.unsoldTokensAddress,
-    // NOTE @RafaelVidaurre: Disable this until we support DAI
-    usdToken: '0x0000000000000000000000000000000000000000',
+    // NOTE @RafaelVidaurre: Use the actual DAI address (different between kovan, mainnet and local)
+    usdToken: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
   };
 
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
