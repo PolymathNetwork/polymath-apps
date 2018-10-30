@@ -144,12 +144,10 @@ export const investmentTierSchema = Yup.object().shape({
     .moreThan(0, moreThanMessage),
   discountedTokensAmount: Yup.number()
     .typeError(requiredMessage)
-    .required(requiredMessage)
     .min(0, minMessage)
     .test('validateDiscountedTokensAmount', validateDiscountedTokensAmount),
   discountedTokensPercentage: Yup.number()
     .typeError(requiredMessage)
-    .required(requiredMessage)
     .max(1, maxPercentageMessage)
     .min(0, minMessage),
 });
@@ -443,7 +441,7 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       ),
       discountRatePerTier: map(
         values.investmentTiers.tiers,
-        ({ discountedTokensPercentage, tokenPrice }) =>
+        ({ discountedTokensPercentage = 0, tokenPrice }) =>
           toWei(`${tokenPrice * (1 - discountedTokensPercentage)}`)
       ),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
@@ -451,7 +449,7 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       ),
       discountTokensPerTier: map(
         values.investmentTiers.tiers,
-        ({ discountedTokensAmount }) => toWei(discountedTokensAmount)
+        ({ discountedTokensAmount = 0 }) => toWei(discountedTokensAmount)
       ),
       nonAccreditedLimit: toWei(values.nonAccreditedMax),
       minimumInvestment: toWei(values.minimumInvestment),
@@ -462,8 +460,6 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       receiverAddress: values.receiverAddress,
       unsoldTokensAddress: values.unsoldTokensAddress,
     };
-
-    console.log(formattedValues);
 
     const config = {
       data: formattedValues,
