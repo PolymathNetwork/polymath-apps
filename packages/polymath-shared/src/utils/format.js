@@ -1,8 +1,13 @@
 // @flow
 import BigNumber from 'bignumber.js';
+import numeral from 'numeral';
+import { times } from 'lodash';
 
 import type { BigNumber as BigNumberType } from 'bignumber.js';
 
+type ToDollarsOpts = {
+  decimals: number,
+};
 /**
  * Converts a number to a string formatted representing dollars
  *
@@ -11,29 +16,49 @@ import type { BigNumber as BigNumberType } from 'bignumber.js';
  */
 export const toDollars = (
   value: number | BigNumberType,
-  decimals: number = 2
+  { decimals = 2 }: ToDollarsOpts = {}
 ) => {
   const number = new BigNumber(value);
-  return number.toFormat(decimals);
+  return `${number.toFormat(decimals)} USD`;
 };
 
+type ToPercentOpts = {
+  decimals: number,
+};
 /**
  * Converts a number into a percentage
  *
  * @param value number to convert
  * @param decimals amount of decimals to display
  */
-export const toPercent = (value: number, decimals: number = 0) => {
-  return (value * 100).toFixed(decimals);
+export const toPercent = (
+  value: number,
+  { decimals = 0 }: ToPercentOpts = {}
+) => {
+  let decimalsFormat = '';
+  times(decimals, time => {
+    if (time === 0) {
+      decimalsFormat = '.';
+    }
+    decimalsFormat += '0';
+  });
+
+  return numeral(value).format(`0,0${decimalsFormat} %`);
 };
 
+type ToTokensOpts = {
+  decimals: number,
+};
 /**
  * Converts a number into a string representing an amount of tokens
  *
  * @param value number to convert
  * @param decimals amount of decimals to display
  */
-export const toTokens = (value: number, decimals: number = 2) => {
+export const toTokens = (
+  value: number,
+  { decimals = 0 }: ToTokensOpts = {}
+) => {
   const number = new BigNumber(value);
   return number.toFormat(decimals);
 };
