@@ -19,7 +19,6 @@ import {
   PercentageInput,
   Paragraph,
   RaisedAmount,
-  thousandsDelimiter,
 } from '@polymathnetwork/ui';
 
 class AddTierModal extends Component {
@@ -100,7 +99,7 @@ class AddTierModal extends Component {
               <FormItem.Error />
             </FormItem>
             <Box maxWidth="5em">
-              <FormItem name={`${name}.discountedTokensPercentage`}>
+              <FormItem name={`${name}.discountedTokensRate`}>
                 <FormItem.Label>
                   <Tooltip triggerText="Discount for Tokens Purchased with POLY">
                     <p className="bx--tooltip__label">

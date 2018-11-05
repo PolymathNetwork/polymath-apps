@@ -146,7 +146,7 @@ export const investmentTierSchema = Yup.object().shape({
     .typeError(requiredMessage)
     .min(0, minMessage)
     .test('validateDiscountedTokensAmount', validateDiscountedTokensAmount),
-  discountedTokensPercentage: Yup.number()
+  discountedTokensRate: Yup.number()
     .typeError(requiredMessage)
     .max(1, maxPercentageMessage)
     .min(0, minMessage),
@@ -412,7 +412,7 @@ type InvestmentTier = {|
   tokensAmount: number,
   tokenPrice: number,
   discountedTokensAmount: number,
-  discountedTokensPercentage: number,
+  discountedTokensRate: number,
 |};
 type FormValues = {|
   startDate: Date,
@@ -441,8 +441,8 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
       ),
       discountRatePerTier: map(
         values.investmentTiers.tiers,
-        ({ discountedTokensPercentage = 0, tokenPrice }) =>
-          toWei(`${tokenPrice * (1 - discountedTokensPercentage)}`)
+        ({ discountedTokensRate = 0, tokenPrice }) =>
+          toWei(`${tokenPrice * (1 - discountedTokensRate)}`)
       ),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
         toWei(tokensAmount)
