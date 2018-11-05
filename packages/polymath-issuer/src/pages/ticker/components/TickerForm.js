@@ -30,7 +30,7 @@ class TickerForm extends Component<Props> {
           <Field
             name="ticker"
             component={TextInput}
-            label="Enter Token Symbol"
+            label={<p className="pui-required-star">Enter Token Symbol</p>}
             placeholder="Up to 10 characters (example: TORO-A)"
           />
         </div>
@@ -38,7 +38,9 @@ class TickerForm extends Component<Props> {
           name="name"
           component={TextInput}
           label={
-            <Tooltip triggerText="Token Name">
+            <Tooltip
+              triggerText={<p className="pui-required-star">Token Name</p>}
+            >
               <p className="bx--tooltip__label">Token Name</p>
               <p>
                 This is the name of your token for display purposes.
@@ -54,7 +56,11 @@ class TickerForm extends Component<Props> {
           name="owner"
           component={TextInput}
           label={
-            <Tooltip triggerText="Issuer&apos;s ETH Address">
+            <Tooltip
+              triggerText={
+                <p className="pui-required-star">Issuer's ETH Address</p>
+              }
+            >
               <p className="bx--tooltip__label">Issuer&apos;s ETH Address</p>
               <p>
                 This ETH address was read from your MetaMask. Only this account
