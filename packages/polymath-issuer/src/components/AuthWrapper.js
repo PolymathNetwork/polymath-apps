@@ -55,6 +55,7 @@ const mapDispatchToProps: DispatchProps = {
 
 type Props = {|
   children: Object,
+  onFail: () => any,
 |} & StateProps &
   DispatchProps;
 
@@ -62,6 +63,17 @@ class AuthWrapper extends Component<Props> {
   handleSignUpSuccess = () => {
     this.props.tickerReservationEmail();
   };
+
+  // TODO @grsmto: Refactor the auth process so we don't have to use this hack.
+  // Ideally we should check for user authorisations at route level instead of
+  // doing this at the view level independently from the current URL/route.
+  componentDidUpdate(prevProps) {
+    const { isSignedIn, isSignedUp } = this.props;
+
+    if (!prevProps.isSignedIn && isSignedIn && !isSignedUp) {
+      this.props.onFail();
+    }
+  }
 
   render() {
     const {
