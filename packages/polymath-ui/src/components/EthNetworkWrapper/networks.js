@@ -9,9 +9,11 @@ export const NETWORK_MAIN = '1';
 export const NETWORK_ROPSTEN = '3';
 export const NETWORK_RINKEBY = '4';
 export const NETWORK_KOVAN = '42';
+export const NETWORK_LOCAL = '15';
+export const NETWORK_LOCALVM = '16';
 
-export default (id: string = 'local'): Network =>
-  ({
+export function getNetworkInfos(id: string = NETWORK_LOCAL): Network {
+  const networks = {
     [NETWORK_MAIN]: {
       name: 'Mainnet',
       url: process.env.REACT_APP_NETWORK_MAIN_WS,
@@ -28,8 +30,15 @@ export default (id: string = 'local'): Network =>
       name: 'Kovan Testnet',
       url: process.env.REACT_APP_NETWORK_KOVAN_WS,
     },
-    local: {
+    [NETWORK_LOCAL]: {
       name: 'Localhost',
       url: process.env.REACT_APP_NETWORK_LOCAL_WS,
     },
-  }[id]);
+    [NETWORK_LOCALVM]: {
+      name: 'LocalVM',
+      url: process.env.REACT_APP_NETWORK_LOCALVM_WS,
+    },
+  };
+
+  return networks[id];
+}

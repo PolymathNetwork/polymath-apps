@@ -24,6 +24,7 @@
     "carbon-components-react": "6.29.2",
     "carbon-icons": "^7.0.7",
     "connected-react-router": "^4.5.0",
+    "file-saver": "^2.0.0-rc.4",
     "graphql": "0.13.2",
     "graphql-tag": "2.9.2",
     "history": "^4.7.2",
@@ -53,7 +54,7 @@
     "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0",
+    "@babel/core": "7.1.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",
     "@babel/plugin-proposal-export-default-from": "7.0.0",
     "@babel/plugin-syntax-async-generators": "7.0.0",

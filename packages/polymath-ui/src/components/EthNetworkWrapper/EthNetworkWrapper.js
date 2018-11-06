@@ -7,7 +7,7 @@ import canUseDOM from 'can-use-dom';
 
 import type { Node } from 'react';
 
-import { init } from './actions';
+import { init, requestAuthorization } from './actions';
 
 type StateProps = {|
   isConnected: boolean,
@@ -17,6 +17,7 @@ type StateProps = {|
 
 type DispatchProps = {|
   init: (networks: Array<string>) => any,
+  requestAuthorization: () => any,
 |};
 
 const mapStateToProps = (state): StateProps => ({
@@ -27,22 +28,19 @@ const mapStateToProps = (state): StateProps => ({
 
 const mapDispatchToProps: DispatchProps = {
   init,
+  requestAuthorization,
 };
 
 type Props = {|
   children: Node,
-  loading: Node,
-  guide: Node,
+  Loading: Node,
+  errorRender: Function,
   networks: Array<string>,
 |} & StateProps &
   DispatchProps;
 
 export class EthNetworkWrapper extends Component<Props> {
-  init = () => {
-    this.props.init(this.props.networks);
-  };
-
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.isConnected && !this.props.isFailed) {
       if (canUseDOM) {
         if (document.readyState === 'complete') {
@@ -56,14 +54,34 @@ export class EthNetworkWrapper extends Component<Props> {
     }
   }
 
+  init = () => {
+    this.props.init(this.props.networks);
+  };
+
+  handleAuthRequest() {
+    this.props.requestAuthorization();
+  }
+
   render() {
-    if (this.props.isConnected) {
-      return this.props.children;
+    const {
+      isConnected,
+      isFailed,
+      Loading,
+      errorRender,
+      error,
+      children,
+    } = this.props;
+
+    if (isFailed) {
+      return errorRender({
+        networkError: error,
+        onRequestAuth: this.handleAuthRequest.bind(this),
+      });
     }
-    if (!this.props.isFailed) {
-      return this.props.loading;
+    if (!isConnected) {
+      return Loading;
     }
-    return this.props.guide;
+    return children;
   }
 }
 

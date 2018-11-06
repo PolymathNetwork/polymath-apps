@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { Button } from 'carbon-components-react';
-import { Remark } from '@polymathnetwork/ui';
-import key from '@polymathnetwork/ui/images/key.png';
+import { Remark } from '../../';
+import key from '../../images/key.png';
 
 import { signIn } from '../../redux/account/actions';
 import type { RootState } from '../../redux/reducer';
