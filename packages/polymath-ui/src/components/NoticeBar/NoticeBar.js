@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { Icon } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import clamp from 'clamp-js-main';
-import ReactDOMServer from 'react-dom/server';
 
 import { closeNotice } from './actions';
 import type { RootState } from '../../redux/reducer';
