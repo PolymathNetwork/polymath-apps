@@ -41,7 +41,6 @@ export type PUIState = {
 };
 
 export type RootState = {
-  form: any, // redux-form
   network: NetworkState,
   pui: PUIState,
 };
