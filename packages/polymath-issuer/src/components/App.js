@@ -80,6 +80,13 @@ class App extends Component<Props> {
     this.props.signIn();
   }
 
+  onAuthFail = () => {
+    // Make sure user is on the ticker page if he doesn't have an account yet
+    if (this.props.location.pathname !== '/ticker') {
+      this.props.history.push('/ticker');
+    }
+  };
+
   render() {
     const { ticker, isFetching, route } = this.props;
 
@@ -91,7 +98,9 @@ class App extends Component<Props> {
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
-        <AuthWrapper>{renderRoutes(route.routes)}</AuthWrapper>
+        <AuthWrapper onFail={this.onAuthFail}>
+          {renderRoutes(route.routes)}
+        </AuthWrapper>
         <Footer />
       </Fragment>
     );

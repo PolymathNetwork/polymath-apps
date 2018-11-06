@@ -62,9 +62,15 @@ class Root extends Component<Props> {
             <SplashPage />
           ) : (
             <EthNetworkWrapper
-              loading={<Loading />}
-              guide={<MetamaskStatus networks="Mainnet or Kovan" />}
               networks={networks}
+              Loading={<Loading />}
+              errorRender={({ networkError, onRequestAuth }) => (
+                <MetamaskStatus
+                  networks="Mainnet or Kovan"
+                  status={networkError}
+                  onRequestAuth={onRequestAuth}
+                />
+              )}
             >
               {renderRoutes(routes)}
             </EthNetworkWrapper>

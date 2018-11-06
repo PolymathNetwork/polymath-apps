@@ -31,6 +31,9 @@ export default class ApplyModal extends Component<Props> {
           The information you enter below will be sent to the {catName}{' '}
           Providers your selected.
         </h4>
+        <p className="bx--type-epsilon">
+          Note: All fields are mandatory unless otherwise stated
+        </p>
         <br />
         <br />
         <ApplyForm onSubmit={this.handleSubmit} onClose={onClose} />
