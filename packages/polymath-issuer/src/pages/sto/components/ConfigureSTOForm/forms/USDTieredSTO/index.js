@@ -305,7 +305,6 @@ export const USDTieredSTOFormComponent = ({
                   component={NumberInput}
                   min={0}
                   placeholder="Enter amount"
-                  unit="USD"
                 />
                 <FormItem.Error />
               </FormItem>
