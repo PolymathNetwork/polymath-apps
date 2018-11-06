@@ -28,8 +28,7 @@ type Environment = {|
   WEB3_NETWORK_KOVAN_WS?: string,
   WEB3_NETWORK_MAINNET_WS?: string,
   POLYMATH_REGISTRY_ADDRESS_LOCAL?: string,
-  POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING?: string,
-  POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION?: string,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN?: string,
   POLYMATH_REGISTRY_ADDRESS_MAINNET?: string,
   PORT: string,
   POLYMATH_OFFCHAIN_URL: string,
@@ -55,8 +54,7 @@ const {
   WEB3_NETWORK_KOVAN_WS,
   WEB3_NETWORK_MAINNET_WS,
   POLYMATH_REGISTRY_ADDRESS_LOCAL,
-  POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
-  POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION,
+  POLYMATH_REGISTRY_ADDRESS_KOVAN,
   POLYMATH_REGISTRY_ADDRESS_MAINNET,
 } = env;
 
@@ -121,7 +119,7 @@ export const NETWORKS: {
     optional: true,
     maxRetries: OPTIONAL_RETRIES,
     localNetwork: false,
-    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING || '', // Must be set later according to deployment stage
+    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN || '', // Must be set later according to deployment stage
   },
   [MAINNET_NETWORK_ID]: {
     name: 'mainnet',
@@ -157,10 +155,8 @@ if (DEPLOYMENT_STAGE !== 'local') {
     if (!POLYMATH_REGISTRY_ADDRESS_MAINNET) {
       throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_MAINNET');
     }
-    if (!POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION) {
-      throw new Error(
-        'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION'
-      );
+    if (!POLYMATH_REGISTRY_ADDRESS_KOVAN) {
+      throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN');
     }
 
     NETWORKS[MAINNET_NETWORK_ID].connect = true;
@@ -169,17 +165,15 @@ if (DEPLOYMENT_STAGE !== 'local') {
 
     NETWORKS[
       KOVAN_NETWORK_ID
-    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION;
+    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN;
   } else {
-    if (!POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING) {
-      throw new Error(
-        'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING'
-      );
+    if (!POLYMATH_REGISTRY_ADDRESS_KOVAN) {
+      throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN');
     }
 
     NETWORKS[
       KOVAN_NETWORK_ID
-    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING;
+    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN;
 
     if (WEB3_NETWORK_LOCAL_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
       NETWORKS[LOCAL_NETWORK_ID].connect = true;
