@@ -24,7 +24,7 @@ const StyledBaseInput = styled(BaseInput)`
   }
 `;
 
-export default class PercentageInput extends PureComponent<Props, State> {
+export default class PercentageInput extends PureComponent<Props> {
   handleChange = event => {
     const {
       field: { name },

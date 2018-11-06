@@ -1,0 +1,22 @@
+---
+name: PercentageInput
+menu: Inputs
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field }  from 'formik';
+import PercentageInput from './index';
+
+# PercentageInput
+
+<PropsTable of={PercentageInput} />
+
+## Basic usage
+
+<Playground>
+  <Formik render={(values) => (
+    <form>
+      <Field name="myText" placeholder="Your percentage" component={PercentageInput} />
+    </form>
+  )} />
+</Playground>
