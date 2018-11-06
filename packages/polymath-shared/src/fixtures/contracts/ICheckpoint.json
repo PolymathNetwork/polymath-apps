@@ -115,14 +115,14 @@
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
     "exportedSymbols": {
       "ICheckpoint": [
-        12874
+        5482
       ]
     },
-    "id": 12875,
+    "id": 5483,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 12869,
+        "id": 5477,
         "literals": [
           "solidity",
           "^",
@@ -130,27 +130,27 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:33"
+        "src": "0:24:27"
       },
       {
         "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
         "file": "../../interfaces/IModule.sol",
-        "id": 12870,
+        "id": 5478,
         "nodeType": "ImportDirective",
-        "scope": 12875,
-        "sourceUnit": 9658,
-        "src": "26:38:33",
+        "scope": 5483,
+        "sourceUnit": 2428,
+        "src": "26:38:27",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
         "file": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
-        "id": 12871,
+        "id": 5479,
         "nodeType": "ImportDirective",
-        "scope": 12875,
-        "sourceUnit": 22809,
-        "src": "65:63:33",
+        "scope": 5483,
+        "sourceUnit": 12312,
+        "src": "65:63:27",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -160,53 +160,53 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 12872,
+              "id": 5480,
               "name": "IModule",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 9657,
-              "src": "226:7:33",
+              "referencedDeclaration": 2427,
+              "src": "226:7:27",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IModule_$9657",
+                "typeIdentifier": "t_contract$_IModule_$2427",
                 "typeString": "contract IModule"
               }
             },
-            "id": 12873,
+            "id": 5481,
             "nodeType": "InheritanceSpecifier",
-            "src": "226:7:33"
+            "src": "226:7:27"
           }
         ],
         "contractDependencies": [
-          9657
+          2427
         ],
         "contractKind": "contract",
         "documentation": "@title Interface to be implemented by all checkpoint modules",
         "fullyImplemented": false,
-        "id": 12874,
+        "id": 5482,
         "linearizedBaseContracts": [
-          12874,
-          9657
+          5482,
+          2427
         ],
         "name": "ICheckpoint",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 12875,
-        "src": "202:36:33"
+        "scope": 5483,
+        "src": "202:36:27"
       }
     ],
-    "src": "0:239:33"
+    "src": "0:239:27"
   },
   "legacyAST": {
     "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
     "exportedSymbols": {
       "ICheckpoint": [
-        12874
+        5482
       ]
     },
-    "id": 12875,
+    "id": 5483,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 12869,
+        "id": 5477,
         "literals": [
           "solidity",
           "^",
@@ -214,27 +214,27 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:33"
+        "src": "0:24:27"
       },
       {
         "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
         "file": "../../interfaces/IModule.sol",
-        "id": 12870,
+        "id": 5478,
         "nodeType": "ImportDirective",
-        "scope": 12875,
-        "sourceUnit": 9658,
-        "src": "26:38:33",
+        "scope": 5483,
+        "sourceUnit": 2428,
+        "src": "26:38:27",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
         "file": "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol",
-        "id": 12871,
+        "id": 5479,
         "nodeType": "ImportDirective",
-        "scope": 12875,
-        "sourceUnit": 22809,
-        "src": "65:63:33",
+        "scope": 5483,
+        "sourceUnit": 12312,
+        "src": "65:63:27",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -244,40 +244,40 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 12872,
+              "id": 5480,
               "name": "IModule",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 9657,
-              "src": "226:7:33",
+              "referencedDeclaration": 2427,
+              "src": "226:7:27",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IModule_$9657",
+                "typeIdentifier": "t_contract$_IModule_$2427",
                 "typeString": "contract IModule"
               }
             },
-            "id": 12873,
+            "id": 5481,
             "nodeType": "InheritanceSpecifier",
-            "src": "226:7:33"
+            "src": "226:7:27"
           }
         ],
         "contractDependencies": [
-          9657
+          2427
         ],
         "contractKind": "contract",
         "documentation": "@title Interface to be implemented by all checkpoint modules",
         "fullyImplemented": false,
-        "id": 12874,
+        "id": 5482,
         "linearizedBaseContracts": [
-          12874,
-          9657
+          5482,
+          2427
         ],
         "name": "ICheckpoint",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 12875,
-        "src": "202:36:33"
+        "scope": 5483,
+        "src": "202:36:27"
       }
     ],
-    "src": "0:239:33"
+    "src": "0:239:27"
   },
   "compiler": {
     "name": "solc",
@@ -285,5 +285,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-10T15:54:24.383Z"
+  "updatedAt": "2018-10-18T19:17:46.328Z"
 }

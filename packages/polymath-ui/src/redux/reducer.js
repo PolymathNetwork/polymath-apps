@@ -45,4 +45,6 @@ export type RootState = {
   pui: PUIState,
 };
 
+export type { NetworkState };
+
 export type GetState = () => RootState;

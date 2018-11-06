@@ -79,15 +79,18 @@ class CompleteTokenForm extends Component<Props> {
         <div className="token-form-right">
           <FormGroup
             legendText={
-              <Tooltip triggerText="Additional Token Information">
-                <p className="bx--tooltip__label">
-                  Additional Token Information
-                </p>
-                <p>
-                  Paste link to a shared file or folder that includes additional
-                  information on your token, such as legend.
-                </p>
-              </Tooltip>
+              <div>
+                <Tooltip triggerText="Additional Token Information">
+                  <p className="bx--tooltip__label">
+                    Additional Token Information
+                  </p>
+                  <p>
+                    Paste link to a shared file or folder that includes
+                    additional information on your token, such as legend.
+                  </p>
+                </Tooltip>
+                <span className="bx--type-caption"> Optional</span>
+              </div>
             }
           >
             <Field

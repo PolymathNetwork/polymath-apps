@@ -276,6 +276,7 @@ div {
 
   .bx--select__arrow {
     fill: $poly-blue-dark !important;
+    top: 3rem; // hack due to Carbon component not supporting multiline errors
   }
 }
 

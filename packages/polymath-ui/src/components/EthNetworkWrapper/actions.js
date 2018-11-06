@@ -6,7 +6,7 @@
 
 import Web3 from 'web3';
 
-import { getNetworkInfos } from './networks';
+import { getNetworkInfos, NETWORK_LOCAL, NETWORK_LOCALVM } from './networks';
 import {
   ERROR_LOCKED,
   ERROR_NETWORK,
@@ -80,6 +80,11 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   // Instantiate Web3 Web Socket
   web3WS = new Web3(process.env.REACT_APP_NODE_WS || network.url);
 
+  const isLocalhost =
+    String(networkId) === NETWORK_LOCAL ||
+    String(networkId) === NETWORK_LOCALVM ||
+    networkId === undefined;
+
   if (!networkId) {
     web3.setProvider(web3WS.currentProvider);
     networkId = await web3.eth.net.getId();
@@ -102,7 +107,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
         window.location.reload();
       }
     });
-  }, 100);
+  }, 1000);
 
   // TODO @bshevchenko: https://github.com/INFURA/infura/issues/80 hack below
   web3WS.eth.subscribe('newBlockHeaders', error => {

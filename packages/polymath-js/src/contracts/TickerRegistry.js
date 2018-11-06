@@ -42,7 +42,7 @@ class TickerRegistry extends Contract {
 
   async getDetails(symbol: string, txHash?: string): Promise<?SymbolDetails> {
     let [owner, timestamp, name, swarmHash, status] = this._toArray(
-      await this._methods.getDetails(symbol).call()
+      await this._contractWS.methods.getDetails(symbol).call()
     );
     if (this._isEmptyAddress(owner)) {
       return null;
@@ -73,6 +73,7 @@ class TickerRegistry extends Contract {
 
   /**
    * TODO @bshevchenko: DEPRECATED since owner can be changed
+   * NOTE @RafaelVidaurre: Not really deprecated, still being used
    * @deprecated
    */
   async getMyTokens(): Promise<Array<SymbolDetails>> {
@@ -118,7 +119,7 @@ class TickerRegistry extends Contract {
         swarmHash
       ),
       null,
-      1.15
+      1.05
     );
   }
 }

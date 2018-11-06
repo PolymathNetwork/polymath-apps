@@ -141,7 +141,7 @@ class ConfigureSTOForm extends Component<Props, State> {
           <Field
             name="startDate"
             component={DatePickerInput}
-            label="Start Date"
+            label={<p className="pui-required-star">Start Date</p>}
             placeholder="mm / dd / yyyy"
             validate={[required, todayOrLater]}
           />
@@ -152,14 +152,14 @@ class ConfigureSTOForm extends Component<Props, State> {
             hideLabel={false}
             className="bx--time-picker__select"
             placeholder="hh:mm"
-            label="Start Time"
+            label={<p className="pui-required-star">Start Time</p>}
             validate={[required, this.checkStartTime]}
           />
 
           <Field
             name="endDate"
             component={DatePickerInput}
-            label="End Date"
+            label={<p className="pui-required-star">End Date</p>}
             placeholder="mm / dd / yyyy"
             validate={[required, todayOrLater, this.checkStartAfterEnd]}
           />
@@ -169,7 +169,7 @@ class ConfigureSTOForm extends Component<Props, State> {
             component={TimePickerSelect}
             className="bx--time-picker__select"
             placeholder="hh:mm"
-            label="End Time"
+            label={<p className="pui-required-star">End Time</p>}
             validate={[required, this.checkEndTime]}
           />
         </div>
@@ -177,7 +177,7 @@ class ConfigureSTOForm extends Component<Props, State> {
         <Field
           name="currency"
           component={SelectInput}
-          label="Raise in"
+          label={<p className="pui-required-star">Raise in</p>}
           placeholder="Choose a currency"
           options={[
             { value: 'ETH', label: 'ETH' },
@@ -191,7 +191,11 @@ class ConfigureSTOForm extends Component<Props, State> {
           component={TextInput}
           normalize={thousandsDelimiter}
           label={
-            <Tooltip triggerText="Hard Cap (in Tokens)">
+            <Tooltip
+              triggerText={
+                <p className="pui-required-star">Hard Cap (in Tokens)</p>
+              }
+            >
               <p className="bx--tooltip__label">Hard Cap (in Tokens)</p>
               <p>
                 Hard Cap is the maximum number of tokens available through this
@@ -209,7 +213,7 @@ class ConfigureSTOForm extends Component<Props, State> {
           component={TextInput}
           normalize={thousandsDelimiter}
           label={
-            <Tooltip triggerText="Rate">
+            <Tooltip triggerText={<p className="pui-required-star">Rate</p>}>
               <p className="bx--tooltip__label">Rate</p>
               <p>
                 Conversion rate between the currency you chose and your Security
@@ -226,7 +230,13 @@ class ConfigureSTOForm extends Component<Props, State> {
           name="fundsReceiver"
           component={TextInput}
           label={
-            <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
+            <Tooltip
+              triggerText={
+                <p className="pui-required-star">
+                  ETH Address to receive the funds raised during the STO
+                </p>
+              }
+            >
               <p className="bx--tooltip__label">Fund Receiver Address</p>
               <p>
                 The ethereum address that will receive the funds raised through
