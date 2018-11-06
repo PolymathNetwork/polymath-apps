@@ -31,6 +31,11 @@ const mapDispatchToProps: DispatchProps = {
 type Props = {||} & StateProps & DispatchProps;
 
 class NoticeBar extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.paragraph = React.createRef();
+    this.title = React.createRef();
+  }
   handleClose = () => {
     this.props.closeNotice();
   };
@@ -51,11 +56,14 @@ class NoticeBar extends Component<Props> {
               width="24"
               height="25"
             />
-            <p className="pui-notice-bar-title-text">{notice.title}</p>
+            <p className="pui-notice-bar-title-text" ref={this.title}>
+              {notice.title}
+            </p>
           </div>
           <div className="pui-notice-bar-text-container">
             <p
               className="pui-notice-bar-text"
+              ref={this.paragraph}
               dangerouslySetInnerHTML={{ __html: notice.content }}
             />
           </div>
@@ -81,15 +89,13 @@ class NoticeBar extends Component<Props> {
      * What this code does is truncate the title and paragraph (maintaining the integrity of any HTML elements inside it) if they
      * exceeds 2 lines, adding ellipses to replace the missing text
      */
-    const paragraph = document.getElementsByClassName('pui-notice-bar-text')[0];
+    const paragraph = this.paragraph.current;
     // If the notice is closed the element disappears
     if (paragraph) {
       clamp(paragraph, { clamp: 2 });
     }
 
-    const title = document.getElementsByClassName(
-      'pui-notice-bar-title-text'
-    )[0];
+    const title = this.title.current;
     // If the notice is closed the element disappears
     if (title) {
       clamp(title, { clamp: 2 });
