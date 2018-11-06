@@ -119,7 +119,7 @@ export const NETWORKS: {
     optional: true,
     maxRetries: OPTIONAL_RETRIES,
     localNetwork: false,
-    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN || '', // Must be set later according to deployment stage
+    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN || '',
   },
   [MAINNET_NETWORK_ID]: {
     name: 'mainnet',
