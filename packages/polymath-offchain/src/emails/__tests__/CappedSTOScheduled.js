@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { STOScheduled } from '../STOScheduled';
+import { CappedSTOScheduled } from '../CappedSTOScheduled';
 
-describe('Component: STOScheduled', () => {
+describe('Component: CappedSTOScheduled', () => {
   const ticker = 'SOMETICK';
   const start = new Date('10/14/1987');
   const cap = 1000000;
@@ -15,7 +15,7 @@ describe('Component: STOScheduled', () => {
   test('renders with all valid props', () => {
     // capRate with no decimals
     let component = renderer.create(
-      <STOScheduled
+      <CappedSTOScheduled
         ticker={ticker}
         start={start}
         cap={cap}
@@ -32,7 +32,7 @@ describe('Component: STOScheduled', () => {
 
     // capRate with decimals
     component = renderer.create(
-      <STOScheduled
+      <CappedSTOScheduled
         ticker={ticker}
         start={start}
         cap={cap}
@@ -52,7 +52,7 @@ describe('Component: STOScheduled', () => {
   test('renders with invalid capRate', () => {
     // capRate is NaN
     let component = renderer.create(
-      <STOScheduled
+      <CappedSTOScheduled
         ticker={ticker}
         start={start}
         cap={'a'}
@@ -69,7 +69,7 @@ describe('Component: STOScheduled', () => {
 
     // capRate is Infinity
     component = renderer.create(
-      <STOScheduled
+      <CappedSTOScheduled
         ticker={ticker}
         start={start}
         cap={cap}
@@ -88,7 +88,7 @@ describe('Component: STOScheduled', () => {
 
   test('renders currency as ETH if isPolyFundraise is false', () => {
     const component = renderer.create(
-      <STOScheduled
+      <CappedSTOScheduled
         ticker={ticker}
         start={start}
         cap={'a'}

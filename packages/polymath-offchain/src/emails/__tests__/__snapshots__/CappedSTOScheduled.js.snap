@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: STOScheduled renders currency as ETH if isPolyFundraise is false 1`] = `
+exports[`Component: CappedSTOScheduled renders currency as ETH if isPolyFundraise is false 1`] = `
 <html
   lang="en"
 >
@@ -352,7 +352,7 @@ exports[`Component: STOScheduled renders currency as ETH if isPolyFundraise is f
               href="http://localhost:3000/dashboard/SOMETICK/sto"
             >
               <strong>
-                Click here to access your Security Offering Dashboard
+                Click here to access your Security Token Offering Dashboard
               </strong>
             </a>
           </p>
@@ -419,7 +419,7 @@ exports[`Component: STOScheduled renders currency as ETH if isPolyFundraise is f
 </html>
 `;
 
-exports[`Component: STOScheduled renders with all valid props 1`] = `
+exports[`Component: CappedSTOScheduled renders with all valid props 1`] = `
 <html
   lang="en"
 >
@@ -771,7 +771,7 @@ exports[`Component: STOScheduled renders with all valid props 1`] = `
               href="http://localhost:3000/dashboard/SOMETICK/sto"
             >
               <strong>
-                Click here to access your Security Offering Dashboard
+                Click here to access your Security Token Offering Dashboard
               </strong>
             </a>
           </p>
@@ -838,7 +838,7 @@ exports[`Component: STOScheduled renders with all valid props 1`] = `
 </html>
 `;
 
-exports[`Component: STOScheduled renders with all valid props 2`] = `
+exports[`Component: CappedSTOScheduled renders with all valid props 2`] = `
 <html
   lang="en"
 >
@@ -1190,7 +1190,7 @@ exports[`Component: STOScheduled renders with all valid props 2`] = `
               href="http://localhost:3000/dashboard/SOMETICK/sto"
             >
               <strong>
-                Click here to access your Security Offering Dashboard
+                Click here to access your Security Token Offering Dashboard
               </strong>
             </a>
           </p>
@@ -1257,7 +1257,7 @@ exports[`Component: STOScheduled renders with all valid props 2`] = `
 </html>
 `;
 
-exports[`Component: STOScheduled renders with invalid capRate 1`] = `
+exports[`Component: CappedSTOScheduled renders with invalid capRate 1`] = `
 <html
   lang="en"
 >
@@ -1609,7 +1609,7 @@ exports[`Component: STOScheduled renders with invalid capRate 1`] = `
               href="http://localhost:3000/dashboard/SOMETICK/sto"
             >
               <strong>
-                Click here to access your Security Offering Dashboard
+                Click here to access your Security Token Offering Dashboard
               </strong>
             </a>
           </p>
@@ -1676,7 +1676,7 @@ exports[`Component: STOScheduled renders with invalid capRate 1`] = `
 </html>
 `;
 
-exports[`Component: STOScheduled renders with invalid capRate 2`] = `
+exports[`Component: CappedSTOScheduled renders with invalid capRate 2`] = `
 <html
   lang="en"
 >
@@ -2028,7 +2028,7 @@ exports[`Component: STOScheduled renders with invalid capRate 2`] = `
               href="http://localhost:3000/dashboard/SOMETICK/sto"
             >
               <strong>
-                Click here to access your Security Offering Dashboard
+                Click here to access your Security Token Offering Dashboard
               </strong>
             </a>
           </p>
