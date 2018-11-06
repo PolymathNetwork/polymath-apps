@@ -202,10 +202,18 @@ export async function getSTOModule(address: string) {
 
   const ModuleFactory = await getSTOModuleFactoryContract(type, address);
 
-  const descriptionRes = await ModuleFactory.methods.description().call();
-  const titleRes = await ModuleFactory.methods.title().call();
-  const ownerRes = await ModuleFactory.methods.owner().call();
-  const setupCostRes = await ModuleFactory.methods.setupCost().call();
+  const fetchingDescription = ModuleFactory.methods.description().call();
+  const fetchingTitle = ModuleFactory.methods.title().call();
+  const fetchingOwner = ModuleFactory.methods.owner().call();
+  const fetchingSetupCost = ModuleFactory.methods.setupCost().call();
+
+  const [descriptionRes, titleRes, ownerRes, setupCostRes] = await Promise.all([
+    fetchingDescription,
+    fetchingTitle,
+    fetchingOwner,
+    fetchingSetupCost,
+  ]);
+
   const setupCost = PolyToken.removeDecimals(setupCostRes);
 
   const stoModuleData = {
