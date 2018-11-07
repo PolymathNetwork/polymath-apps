@@ -5,12 +5,11 @@ exports[`NumberInput renders without crashing  1`] = `
   class="sc-bdVaJa dVtwCI"
 >
   <input
-    class="sc-bxivhb kRpXks sc-bwzfXH csQacs"
-    form="[object Object]"
+    class="sc-bwzfXH csQacs"
+    data-testid="base-input"
     id="foo"
-    name="foo"
     type="text"
-    value=""
+    value="12,344.555"
   />
 </div>
 `;

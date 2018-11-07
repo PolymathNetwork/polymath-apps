@@ -1,19 +1,16 @@
+// @flow
+
+// TODO @RafaelVidaurre: Support negative values
+
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 import BaseInput from '../BaseInput';
 
-type Props = {|
-  name: string,
-  value?: number,
-  onChange?: value => void,
-  onBlur?: () => void,
-|};
+import type { InputProps } from '../types';
 
-type State = {|
-  oldValue: null,
-  displayValue: string,
-|};
+type Props = InputProps & { value: number };
+type State = {| displayValue: string, oldValue?: string |};
 
 // Any state which is valid for desplaying in the input. If the new value of
 // the input doesn't match this, it will rollback to a previous state
@@ -23,33 +20,52 @@ const displayValueRegex = /(^[\d,]*\.?$)|(^\.$)|(^\.[0,]|[1-9,][\d,]*$)|(^[\d,]*
 const endsWithZeroInDecimalsRegex = /^[\d,]*\.[,\d]*[0,]$/;
 const pendingDot = /^[\d,]*\.$/;
 
-// States that can be auto-corrected
-const startsWithDotRegex = /^\.\d+$/;
+const StyledBaseInput = styled(BaseInput)`
+  /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
+  /* Only on desktop */
 
-export class NumberInput extends Component<Props, State> {
-  state = { displayValue: '', oldValue: null };
-  static defaultProps = {
-    onChange: () => {},
-    onBlur: () => {},
+  @media screen and (min-width: 768px) {
+    -moz-appearance: textfield;
+
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+`;
+
+export default class NumberInput extends Component<Props, State> {
+  state = {
+    displayValue: '',
+    oldValue: '',
   };
 
   static getDisplayValue(value: number) {
     return numeral(value).format('0,0[.][000000000]');
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const { oldValue } = state;
-    const { value } = props;
-    const propsValueChanged = oldValue !== value;
+  static getDerivedStateFromProps(props: Props, state: State) {
+    const { value } = props.field;
+    const { oldValue, displayValue } = state;
 
-    if (propsValueChanged) {
-      return {
-        displayValue: NumberInput.getDisplayValue(value),
-        oldValue: value,
-      };
+    let newDisplayValue = displayValue;
+
+    if (value !== oldValue) {
+      newDisplayValue = NumberInput.getDisplayValue(value);
     }
 
-    return null;
+    return {
+      oldValue: value,
+      displayValue: newDisplayValue,
+    };
+  }
+
+  static isValidDisplayValue(value: string) {
+    if (value === '') {
+      return true;
+    }
+
+    return displayValueRegex.test(value);
   }
 
   /**
@@ -70,26 +86,16 @@ export class NumberInput extends Component<Props, State> {
     return endsWithZeroInDecimals || pendingDor;
   }
 
-  static isValidDisplayValue(value: string) {
-    if (value === '') {
-      return true;
-    }
-
-    return displayValueRegex.test(value);
-  }
-
+  /**
+   * Returns a valid version of a display value, for example. If the
+   * display value is "0.."" return "0."
+   */
   sanitizeDisplayValue = (nextDisplayValue: string): string => {
     const displayValue = this.state.displayValue;
     const isValid = NumberInput.isValidDisplayValue(nextDisplayValue);
 
     if (!isValid) {
       return displayValue;
-    }
-
-    const canBeCorrected = startsWithDotRegex.test(nextDisplayValue);
-
-    if (canBeCorrected) {
-      return numeral(nextDisplayValue).format('0,0[.][0000000000]');
     }
 
     if (!NumberInput.isInIntermediateState(nextDisplayValue)) {
@@ -99,52 +105,43 @@ export class NumberInput extends Component<Props, State> {
     return nextDisplayValue;
   };
 
-  handleChange = event => {
-    const { onChange } = this.props;
+  handleChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
     const { value } = event.target;
+    const { name } = this.props.field;
+    const { setFieldValue } = this.props.form;
 
+    // Only update the field value if we reach a valid displayValue state
+    //
     const displayValue = this.sanitizeDisplayValue(value);
+    //
 
+    // Update field value only if displayValue is not in an intermediate state
     if (!NumberInput.isInIntermediateState(displayValue)) {
       const newValue = numeral(displayValue).value();
-      this.setState({ displayValue });
-      onChange(newValue);
+      //
+      setFieldValue(name, newValue);
     } else {
       this.setState({ displayValue });
     }
   };
+
   render() {
-    const { name, value, onBlur, ...otherProps } = this.props;
+    const {
+      field,
+      field: { value, ...fieldProps },
+      className,
+      ...otherProps
+    } = this.props;
     const { displayValue } = this.state;
+    //
 
     return (
-      <BaseInput
+      <StyledBaseInput
         type="text"
-        id={name}
+        id={field.name}
         {...otherProps}
+        {...fieldProps}
         value={displayValue}
-        onBlur={onBlur}
-        onChange={this.handleChange}
-      />
-    );
-  }
-}
-
-export default class NumberInputField extends Component<FieldProps> {
-  handleChange = newValue => {
-    const { name } = this.props.field;
-    const { setFieldValue } = this.props.form;
-
-    setFieldValue(name, newValue);
-  };
-
-  render() {
-    const { name, value, ...otherProps } = this.props.field;
-    return (
-      <NumberInput
-        {...otherProps}
-        name={name}
-        value={value}
         onChange={this.handleChange}
       />
     );

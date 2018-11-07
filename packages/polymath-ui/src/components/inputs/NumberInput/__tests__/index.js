@@ -1,8 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '../../../../../testUtils';
-import { NumberInput } from '../index';
-
-let defaultProps;
+import NumberInputField, { NumberInput } from '../index';
 
 /**
  * Props for primitive:
@@ -25,10 +23,12 @@ describe('NumberInput', () => {
   });
 
   test('updates display value when field value changes', () => {
-    const { container, rerender } = render(<NumberInput />);
+    const { getByTestId, rerender } = render(
+      <NumberInput value={2} name="test" />
+    );
 
     rerender(<NumberInput name="foo" value={123.456} />);
-    expect(container.querySelector('input').value).toEqual('123.456');
+    expect(getByTestId('base-input').value).toEqual('123.456');
   });
 
   test('calls onChange with new numeric value when display value changes to a final state', () => {
@@ -36,10 +36,10 @@ describe('NumberInput', () => {
     // "0.1", "123" are final
     // "0.0", "12." are not final
     const onChange = jest.fn();
-    const { container } = render(
+    const { getByTestId } = render(
       <NumberInput value={1} name="foo" onChange={onChange} />
     );
-    const input = container.getByTestId('base-input');
+    const input = getByTestId('base-input');
     fireEvent.change(input, { target: { value: '12' } });
     expect(onChange).toHaveBeenCalledWith(12);
   });
@@ -56,39 +56,42 @@ describe('NumberInput', () => {
     // "." could become ".1"
     // "0.12000" could become "0.120003"
     const onChange = jest.fn();
-    const { container } = render(
+    const { getByTestId } = render(
       <NumberInput value={1} name="foo" onChange={onChange} />
     );
-    const input = container.getByTestId('base-input');
+    const input = getByTestId('base-input');
     fireEvent.change(input, { target: { value: '1.' } });
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  test('prepends a "0" if the display value starts with a "." ', () => {
-    const { container } = render(<NumberInput value={1} name="foo" />);
-    const input = container.getByTestId('base-input');
-    fireEvent.change(input, { target: { value: '.' } });
-    expect(input.value).toEqual('0.');
+  test('prepends a "0" if the display value starts with a "." and has decimals ', async () => {
+    const { getByTestId } = render(<NumberInput value={1} name="foo" />);
+    const input = getByTestId('base-input');
+    fireEvent.change(input, { target: { value: '.1' } });
+
+    expect(getByTestId('base-input').value).toEqual('0.1');
+
     fireEvent.change(input, { target: { value: '.123' } });
-    expect(input.value).toEqual('0.123');
+
+    expect(getByTestId('base-input').value).toEqual('0.123');
   });
 
   test('removes prepended "0" from display value unless it is in first digits position', () => {
     // Examples: "01", "04.1234"
-    const { container } = render(<NumberInput value={0} name="foo" />);
-    const input = container.getByTestId('base-input');
+    const { getByTestId } = render(<NumberInput value={0} name="foo" />);
+    const input = getByTestId('base-input');
     fireEvent.change(input, { target: { value: '00' } });
     expect(input.value).toEqual('0');
     fireEvent.change(input, { target: { value: '00.123' } });
     expect(input.value).toEqual('0.123');
     fireEvent.change(input, { target: { value: '001444' } });
-    expect(input.value).toEqual('1444');
+    expect(input.value).toEqual('1,444');
   });
 
   test('does not allow changes that reach a non-intermediate invalid state', () => {
     // Examples of these states are "0.." "00"
-    const { container } = render(<NumberInput value={0} name="foo" />);
-    const input = container.getByTestId('base-input');
+    const { getByTestId } = render(<NumberInput value={0} name="foo" />);
+    const input = getByTestId('base-input');
     // Intermediate state
     fireEvent.change(input, { target: { value: '0.' } });
     // Invalid state
@@ -98,15 +101,31 @@ describe('NumberInput', () => {
 
   test('calls onBlur when the input looses focus', () => {
     const onBlur = jest.fn();
-    const { container } = render(
+    const { getByTestId } = render(
       <NumberInput value={0} name="foo" onBlur={onBlur} />
     );
-    const input = container.getByTestId('base-input');
+    const input = getByTestId('base-input');
     fireEvent.blur(input);
     expect(onBlur).toHaveBeenCalled();
   });
 });
 
 describe('NumberInputField', () => {
-  test('pending', () => {});
+  test('forwards Formik props to NumberInput correctly', () => {
+    const field = {
+      name: 'someField',
+      value: '1234',
+    };
+    const form = {
+      setFieldValue: jest.fn(),
+    };
+
+    const { getByTestId } = render(
+      <NumberInputField field={field} form={form} />
+    );
+
+    const input = getByTestId('base-input');
+    fireEvent.change(input, { target: { value: '123' } });
+    expect(form.setFieldValue).toHaveBeenCalledWith(field.name, 123);
+  });
 });

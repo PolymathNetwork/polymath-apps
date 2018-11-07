@@ -9,7 +9,19 @@ import theme from '../src/theme';
 const middlewares = [thunk];
 
 const customRender = (node, ...opts) => {
-  return render(<ThemeProvider theme={theme}>{node}</ThemeProvider>);
+  const { rerender, ...result } = render(
+    <ThemeProvider theme={theme}>{node}</ThemeProvider>,
+    ...opts
+  );
+
+  const customRerender = (rerenderNode, ...rerenderOpts) => {
+    return rerender(
+      <ThemeProvider theme={theme}>{rerenderNode}</ThemeProvider>,
+      ...rerenderOpts
+    );
+  };
+
+  return { rerender: customRerender, ...result };
 };
 
 export const mockStore = configureMockStore(middlewares);

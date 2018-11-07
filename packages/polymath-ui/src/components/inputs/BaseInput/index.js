@@ -46,7 +46,7 @@ const Unit = styled.span`
 export default ({ unit, ...props }) => {
   return (
     <Container unit={unit}>
-      <Input unit={unit} {...props} />
+      <Input data-testid="base-input" unit={unit} {...props} />
       {unit && <Unit>{unit}</Unit>}
     </Container>
   );
