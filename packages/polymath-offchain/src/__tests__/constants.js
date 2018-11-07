@@ -41,9 +41,8 @@ describe('Constants', () => {
       WEB3_NETWORK_KOVAN_WS: 'ws//some.kovan.url',
       WEB3_NETWORK_MAINNET_WS: 'ws//some.mainnet.url',
       POLYMATH_REGISTRY_ADDRESS_LOCAL: '0x0',
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING: '0x1',
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION: '0x2',
-      POLYMATH_REGISTRY_ADDRESS_MAINNET: '0x3',
+      POLYMATH_REGISTRY_ADDRESS_KOVAN: '0x1',
+      POLYMATH_REGISTRY_ADDRESS_MAINNET: '0x2',
     };
   });
 
@@ -83,9 +82,9 @@ describe('Constants', () => {
   test('throws error when no kovan PolymathRegistry address has been set for staging stage', () => {
     process.env.DEPLOYMENT_STAGE = 'staging';
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
-    process.env.POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING = undefined;
+    process.env.POLYMATH_REGISTRY_ADDRESS_KOVAN = undefined;
     expect(() => require('../constants.js')).toThrow(
-      'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING'
+      'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN'
     );
   });
 
@@ -101,9 +100,9 @@ describe('Constants', () => {
   test('throws error when no kovan PolymathRegistry address has been set for production stage', () => {
     process.env.DEPLOYMENT_STAGE = 'production';
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
-    process.env.POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION = undefined;
+    process.env.POLYMATH_REGISTRY_ADDRESS_KOVAN = undefined;
     expect(() => require('../constants.js')).toThrow(
-      'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION'
+      'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN'
     );
   });
 
@@ -143,7 +142,7 @@ describe('Constants', () => {
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
       POLYMATH_REGISTRY_ADDRESS_LOCAL,
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
       POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
@@ -173,7 +172,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
-        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -198,7 +197,7 @@ describe('Constants', () => {
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
       POLYMATH_REGISTRY_ADDRESS_LOCAL,
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
       POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
@@ -228,7 +227,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
-        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -253,7 +252,7 @@ describe('Constants', () => {
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
       POLYMATH_REGISTRY_ADDRESS_LOCAL,
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
       POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
@@ -283,7 +282,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
-        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -308,7 +307,7 @@ describe('Constants', () => {
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
       POLYMATH_REGISTRY_ADDRESS_LOCAL,
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
       POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
@@ -338,7 +337,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
-        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -363,7 +362,7 @@ describe('Constants', () => {
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
       POLYMATH_REGISTRY_ADDRESS_LOCAL,
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
       POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
@@ -393,7 +392,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
-        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -418,7 +417,7 @@ describe('Constants', () => {
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
       POLYMATH_REGISTRY_ADDRESS_LOCAL,
-      POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
       POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
@@ -448,7 +447,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
-        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
