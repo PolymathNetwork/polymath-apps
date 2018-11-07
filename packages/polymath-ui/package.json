@@ -27,6 +27,7 @@
     "carbon-components": "9.13.0",
     "carbon-components-react": "6.29.2",
     "carbon-icons": "^7.0.7",
+    "clamp-js-main": "^0.11.5",
     "eth-sig-util": "^1.4.2",
     "react": "^16.5.2",
     "react-document-title": "2.0.3",
