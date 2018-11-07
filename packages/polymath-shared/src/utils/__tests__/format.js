@@ -3,20 +3,20 @@ import BigNumber from 'bignumber.js';
 import * as format from '../format';
 
 describe('formatters', () => {
-  describe('toDollars', () => {
+  describe('toUSD', () => {
     test('correctly formats to dollars', () => {
-      expect(format.toDollars(1000.43)).toEqual('1,000.43 USD');
+      expect(format.toUSD(1000.43)).toEqual('1,000.43 USD');
     });
 
     test('supports amount of decimals', () => {
-      expect(format.toDollars(100.1234, { decimals: 1 })).toEqual('100.1 USD');
-      expect(format.toDollars(10000.444444, { decimals: 5 })).toEqual(
+      expect(format.toUSD(100.1234, { decimals: 1 })).toEqual('100.1 USD');
+      expect(format.toUSD(10000.444444, { decimals: 5 })).toEqual(
         '10,000.44444 USD'
       );
     });
 
     test('supports BigNumber instances', () => {
-      expect(format.toDollars(new BigNumber('100000000.432'))).toEqual(
+      expect(format.toUSD(new BigNumber('100000000.432'))).toEqual(
         '100,000,000.43 USD'
       );
     });

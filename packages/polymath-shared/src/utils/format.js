@@ -5,7 +5,7 @@ import { times } from 'lodash';
 
 import type { BigNumber as BigNumberType } from 'bignumber.js';
 
-type ToDollarsOpts = {
+type toUSDOpts = {
   decimals: number,
 };
 /**
@@ -14,9 +14,9 @@ type ToDollarsOpts = {
  * @param value number to convert
  * @param decimals amount of decimals to display
  */
-export const toDollars = (
+export const toUSD = (
   value: number | BigNumberType,
-  { decimals = 2 }: ToDollarsOpts = {}
+  { decimals = 2 }: toUSDOpts = {}
 ) => {
   const number = new BigNumber(value);
   return `${number.toFormat(decimals)} USD`;

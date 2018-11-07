@@ -117,12 +117,12 @@ class InvestmentTiers extends React.Component<Props, State> {
       return {
         ...tier,
         tokensAmount: format.toTokens(tier.tokensAmount, { decimals: 0 }),
-        tokenPrice: format.toDollars(tier.tokenPrice),
+        tokenPrice: format.toUSD(tier.tokenPrice),
         discountedTokensAmount: format.toTokens(tier.discountedTokensAmount, {
           decimals: 0,
         }),
         discountedTokensPercentage: format.toPercent(tier.discountedTokensRate),
-        totalRaise: format.toDollars(tier.tokenPrice),
+        totalRaise: format.toUSD(tier.tokenPrice),
         tier: tierNum + 1,
         id: tierNum + 1,
       };
