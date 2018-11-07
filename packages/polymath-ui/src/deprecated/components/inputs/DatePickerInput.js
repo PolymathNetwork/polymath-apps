@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-bind, no-useless-escape */
 
 import React from 'react';
+import moment from 'moment';
 import { DatePicker, DatePickerInput } from 'carbon-components-react';
 
 type Props = {
@@ -28,11 +29,13 @@ export default ({
   ...rest
 }: Props) => {
   const invalid = touched && !!error;
+  const minValue = moment().format('MM / DD / YYYY');
   return (
     <DatePicker
       id={name}
       className={className}
       datePickerType="single"
+      minDate={minValue}
       // eslint-disable-next-line
       onChange={(date: Date) => {
         onChange(date || null);
