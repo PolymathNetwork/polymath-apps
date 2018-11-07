@@ -1,7 +1,9 @@
 .pui-page-box {
   &.sto-factory {
     .bx--form-item {
-      p, div, li {
+      p,
+      div,
+      li {
         font-size: 14px !important;
       }
 
@@ -10,14 +12,13 @@
       }
 
       p {
-        color: #5A6872 !important;
+        color: #5a6872 !important;
+        word-break: break-word;
       }
 
       li {
         margin-bottom: 10px;
       }
-
-      
     }
   }
 }

@@ -69,7 +69,7 @@ const localAddresses = {
     PercentageTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID]
       .address,
   CountTransferManagerFactory:
-    CountTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID],
+    CountTransferManagerFactoryArtifacts.networks[LOCAL_NETWORK_ID].address,
 };
 
 /**
