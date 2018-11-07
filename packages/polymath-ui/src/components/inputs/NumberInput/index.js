@@ -1,7 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { PureComponent } from 'react';
 import numeral from 'numeral';
 
 import BaseInput from '../BaseInput';
@@ -9,33 +8,8 @@ import BaseInput from '../BaseInput';
 import type { InputProps } from '../types';
 
 type Props = InputProps & { value: string };
-type State = {| value: string |};
 
-const StyledBaseInput = styled(BaseInput)`
-  /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
-  /* Only on desktop */
-
-  @media screen and (min-width: 768px) {
-    -moz-appearance: textfield;
-
-    ::-webkit-inner-spin-button,
-    ::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-    }
-  }
-`;
-
-export default class NumberInput extends Component<Props, State> {
-  state = {
-    value: '',
-  };
-  static getDerivedStateFromProps(props: Props) {
-    const { value } = props;
-    return {
-      value,
-    };
-  }
-
+export default class NumberInput extends PureComponent<Props> {
   handleChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
     const {
       field: { name },
@@ -65,7 +39,7 @@ export default class NumberInput extends Component<Props, State> {
     }
 
     return (
-      <StyledBaseInput
+      <BaseInput
         type="text"
         id={field.name}
         {...otherProps}

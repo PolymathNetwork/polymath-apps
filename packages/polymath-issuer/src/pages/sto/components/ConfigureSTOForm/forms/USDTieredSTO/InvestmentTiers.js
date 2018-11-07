@@ -212,7 +212,6 @@ class InvestmentTiers extends React.Component<Props, State> {
                 <FormItem.Input
                   component={PercentageInput}
                   placeholder="Enter percentage"
-                  unit="%"
                 />
                 <FormItem.Error />
               </FormItem>

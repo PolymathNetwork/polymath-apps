@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+// @flow
+
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import numeral from 'numeral';
 
 import BaseInput from '../BaseInput';
 
 import type { InputProps } from '../types';
+
+type Props = InputProps & { value: string };
 
 const StyledBaseInput = styled(BaseInput)`
   /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
@@ -19,17 +24,7 @@ const StyledBaseInput = styled(BaseInput)`
   }
 `;
 
-export default class PercentageInput extends Component {
-  state = {
-    value: '',
-  };
-  static getDerivedStateFromProps(props) {
-    const { value } = props;
-    return {
-      value,
-    };
-  }
-
+export default class PercentageInput extends PureComponent<Props> {
   handleChange = event => {
     const {
       field: { name },
@@ -39,10 +34,6 @@ export default class PercentageInput extends Component {
       target: { value },
     } = event;
 
-    let parsedValue = parseFloat(value, 10);
-    if (isNaN(parsedValue)) {
-      parsedValue = this.state.value;
-    }
     const normalizedValue = parseFloat(value, 10) / 100;
 
     setFieldValue(name, normalizedValue);
@@ -55,12 +46,24 @@ export default class PercentageInput extends Component {
       className,
       ...otherProps
     } = this.props;
-
-    const formattedValue = !isNaN(value) ? value * 100 : '';
+    const formattedValue = isNaN(value)
+      ? ''
+      : Math.max(
+          Math.min(
+            numeral(value) // This avoid strange JS decimal converting: 0.1111*100 = 11.110000000000001
+              .multiply(100)
+              .value(),
+            100
+          ),
+          0
+        );
 
     return (
       <StyledBaseInput
-        type="text"
+        type="number"
+        unit="%"
+        min={0}
+        max={100}
         id={field.name}
         value={formattedValue}
         allowEmpty={true}
