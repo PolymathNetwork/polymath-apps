@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumberInput renders without crashing  1`] = `
+<div
+  class="sc-bdVaJa dVtwCI"
+>
+  <input
+    class="sc-bxivhb kRpXks sc-bwzfXH csQacs"
+    form="[object Object]"
+    id="foo"
+    name="foo"
+    type="text"
+    value=""
+  />
+</div>
+`;
