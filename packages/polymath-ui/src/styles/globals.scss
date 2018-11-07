@@ -88,6 +88,10 @@ div {
 .bx--grid {
   margin-top: $navbar-height;
 
+  @media (min-width: 1600px) {
+    max-width: calc(1600px - 10%);
+  }
+
   &.pui-grid-notice {
     margin-top: 136px;
   }
