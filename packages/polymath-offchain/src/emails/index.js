@@ -4,4 +4,5 @@ export { ProviderApplication } from './ProviderApplication';
 export { AccountConfirmation } from './AccountConfirmation';
 export { TickerReserved } from './TickerReserved';
 export { TokenCreated } from './TokenCreated';
-export { STOScheduled } from './STOScheduled';
+export { CappedSTOScheduled } from './CappedSTOScheduled';
+export { USDTieredSTOScheduled } from './USDTieredSTOScheduled';

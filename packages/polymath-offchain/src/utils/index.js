@@ -5,6 +5,7 @@ export {
   sendProviderApplicationEmail,
   sendTickerReservedEmail,
   sendTokenCreatedEmail,
-  sendSTOScheduledEmail,
+  sendCappedSTOScheduledEmail,
+  sendUSDTieredSTOScheduledEmail,
   sendAccountConfirmationEmail,
 } from './emails';
