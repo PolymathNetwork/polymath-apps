@@ -294,38 +294,3 @@ export async function setupSTOModule(
     )
   );
 }
-
-type SendTransactionParams = {|
-  abi: Object,
-  method: Object,
-  fromAddress: string,
-|};
-
-/**
- * Sends a transaction to the network
- *
- * @param method Web3 method object
- * @param address address to send the transaction from
- */
-export async function sendTransaction({
-  method,
-  fromAddress,
-}: SendTransactionParams) {
-  // Buffer value to account for imprecise in gasEstimation
-  const gasBuffer = 1.05;
-
-  // Estimate gas
-  const params = { from: fromAddress };
-  const estimatedGas = await method.estimateGas(params);
-  const gas = Math.ceil(estimatedGas * gasBuffer);
-
-  const transactionParams = {
-    ...params,
-    gas,
-    gasPrice: Web3.eth.gasPrice, // WHY is this hardcoded in polyjs?
-  };
-
-  const result = await method.call(params);
-
-  const receipt = await method.send(params);
-}
