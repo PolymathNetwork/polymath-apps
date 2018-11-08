@@ -1,22 +1,17 @@
+// Carbon configuration
+$css--font-face: false;
+$css--body: false;
+// $css--helpers: true !default;
+// $css--use-layer: true !default;
+// $css--reset: true !default;
+// $css--typography: true !default;
+// $css--plex: true !default;
+
 @import '~carbon-components/scss/globals/scss/styles.scss';
+
 @import url('https://fonts.googleapis.com/css?family=Overpass:100,200,300,400,600');
 
 @import './_variables.scss';
-/**
- * GLOBAL
- */
-body {
-  font-family: $font;
-  background: white !important;
-}
-
-div {
-  font-family: $font;
-}
-
-*:focus {
-  outline: 0 !important;
-}
 
 /**
  * TYPOGRAPHY
