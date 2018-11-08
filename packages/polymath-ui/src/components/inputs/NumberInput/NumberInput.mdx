@@ -4,11 +4,11 @@ name: NextNumberInput
 
 import { Playground, PropsTable } from 'docz';
 import { Formik, Field }  from 'formik';
-import NumberInput from './index';
+import NumberInputField, { NumberInput } from './index';
 
 # NextNumberInput
 
-<PropsTable of={NumberInput} />
+<PropsTable of={NumberInputField} />
 
 ## Basic usage
 
@@ -17,8 +17,12 @@ import NumberInput from './index';
   <form>
     <pre>{JSON.stringify(values, null, 2)}</pre>
     <br/>
-    <Field name="myText" placeholder="foo" component={NumberInput} />
+    <Field name="myText" placeholder="foo" component={NumberInputField} />
   </form>
 )} />
   
 </Playground>
+
+# NextNumberInput Primitive
+
+<NumberInput name="name" value={1234.5} />
