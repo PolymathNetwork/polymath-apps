@@ -5585,6 +5585,11 @@ circular-json@^0.4.0:
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.4.0.tgz#c448ea998b7fe31ecf472ec29c6b608e2e2a62fd"
   integrity sha512-tKV502ADgm9Z37s6B1QOohegjJJrCl2iyMMb1+8ITHrh1fquW8Jdbkb4s5r4Iwutr1UfL1qvkqvc1wZZlLvwow==
 
+clamp-js-main@^0.11.5:
+  version "0.11.5"
+  resolved "https://registry.yarnpkg.com/clamp-js-main/-/clamp-js-main-0.11.5.tgz#624172c66f8ad0a982bcf10189fd081de7acea0f"
+  integrity sha512-XjwTIP0HtHR9Vf0B1X6Yc/ma9qkcvCDHnEKX07v6EgtpA1t9Nb2d0CEzes+/UT2pPpZ9RdBAHrya7+roFspABA==
+
 clap@^1.0.9:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/clap/-/clap-1.2.3.tgz#4f36745b32008492557f46412d66d50cb99bce51"

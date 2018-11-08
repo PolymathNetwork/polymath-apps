@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'carbon-components-react';
 import { connect } from 'react-redux';
+import clamp from 'clamp-js-main';
 
 import { closeNotice } from './actions';
 import type { RootState } from '../../redux/reducer';
@@ -30,6 +31,11 @@ const mapDispatchToProps: DispatchProps = {
 type Props = {||} & StateProps & DispatchProps;
 
 class NoticeBar extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.paragraph = React.createRef();
+    this.title = React.createRef();
+  }
   handleClose = () => {
     this.props.closeNotice();
   };
@@ -50,23 +56,50 @@ class NoticeBar extends Component<Props> {
               width="24"
               height="25"
             />
-            {notice.title}
+            <p className="pui-notice-bar-title-text" ref={this.title}>
+              {notice.title}
+            </p>
           </div>
-          <div
-            className="pui-notice-bar-text"
-            dangerouslySetInnerHTML={{ __html: notice.content }}
-          />
-          <div
-            role="button"
-            className="pui-notice-bar-close"
-            onClick={this.handleClose}
-            tabIndex={0}
-          >
-            <Icon name="close--glyph" fill="#ffffff" width="16" height="16" />
+          <div className="pui-notice-bar-text-container">
+            <p
+              className="pui-notice-bar-text"
+              ref={this.paragraph}
+              dangerouslySetInnerHTML={{ __html: notice.content }}
+            />
+          </div>
+          <div className="pui-notice-bar-button-container">
+            <div
+              role="button"
+              className="pui-notice-bar-close"
+              onClick={this.handleClose}
+              tabIndex={0}
+            >
+              <Icon name="close--glyph" fill="#ffffff" width="16" height="16" />
+            </div>
           </div>
         </div>
       </div>
     );
+  }
+
+  componentDidUpdate() {
+    /**
+     * NOTE @monitz87: I had to use this fork of the 'clamp-js' library (https://www.npmjs.com/package/clamp-js-main)
+     * because line clamping is horribly unsupported in CSS (and what little support there is is very browser-specific).
+     * What this code does is truncate the title and paragraph (maintaining the integrity of any HTML elements inside it) if they
+     * exceeds 2 lines, adding ellipses to replace the missing text
+     */
+    const paragraph = this.paragraph.current;
+    // If the notice is closed the element disappears
+    if (paragraph) {
+      clamp(paragraph, { clamp: 2 });
+    }
+
+    const title = this.title.current;
+    // If the notice is closed the element disappears
+    if (title) {
+      clamp(title, { clamp: 2 });
+    }
   }
 }
 
