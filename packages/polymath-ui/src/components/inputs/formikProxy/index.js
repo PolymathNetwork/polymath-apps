@@ -13,7 +13,6 @@ const formikProxy = WrappedComponent => {
       const { setFieldValue } = this.props.form;
       const { name } = this.props.field;
 
-      console.log('newValue', newValue);
       setFieldValue(name, newValue);
     };
 
