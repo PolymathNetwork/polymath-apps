@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
+import formikProxy from '../formikProxy';
 import BaseInput from '../BaseInput';
 
 type Props = {|
@@ -70,6 +71,12 @@ export class NumberInput extends Component<Props, State> {
     return endsWithZeroInDecimals || pendingDor;
   }
 
+  /**
+   * Wether or not the display value is valid. If this returns false the
+   * display value will revert to its previous state
+   *
+   * @returns boolean
+   */
   static isValidDisplayValue(value: string) {
     if (value === '') {
       return true;
@@ -92,6 +99,7 @@ export class NumberInput extends Component<Props, State> {
       return numeral(nextDisplayValue).format('0,0[.][0000000000]');
     }
 
+    // TODO @RafaelVidaurre: Remove this redundancy
     if (!NumberInput.isInIntermediateState(nextDisplayValue)) {
       return numeral(nextDisplayValue).format('0,0[.][0000000000]');
     }
@@ -113,6 +121,7 @@ export class NumberInput extends Component<Props, State> {
       this.setState({ displayValue });
     }
   };
+
   render() {
     const { name, value, onBlur, ...otherProps } = this.props;
     const { displayValue } = this.state;
@@ -130,23 +139,4 @@ export class NumberInput extends Component<Props, State> {
   }
 }
 
-export default class NumberInputField extends Component<FieldProps> {
-  handleChange = newValue => {
-    const { name } = this.props.field;
-    const { setFieldValue } = this.props.form;
-
-    setFieldValue(name, newValue);
-  };
-
-  render() {
-    const { name, value, ...otherProps } = this.props.field;
-    return (
-      <NumberInput
-        {...otherProps}
-        name={name}
-        value={value}
-        onChange={this.handleChange}
-      />
-    );
-  }
-}
+export default formikProxy(NumberInput);

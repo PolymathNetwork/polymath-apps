@@ -1,18 +1,8 @@
-import React from 'react';
-import { render, fireEvent } from '../../../../../testUtils';
+import React, { Component } from 'react';
+import { Formik } from 'formik';
+import { render, waitForElement, fireEvent } from '../../../../../testUtils';
 import NumberInputField, { NumberInput } from '../index';
-
-/**
- * Props for primitive:
- * - name
- * - value
- * - onChange
- * - onBlur
- *
- * Props for interface to Formik
- * - field { name, value }
- * - form { setFieldValue, errors, touched }
- */
+import FormItem from '../../../FormItem';
 
 // TODO @RafaelVidaurre: Support decimals config, length limit, negative values
 describe('NumberInput', () => {
@@ -110,22 +100,54 @@ describe('NumberInput', () => {
   });
 });
 
-describe('NumberInputField', () => {
-  test('forwards Formik props to NumberInput correctly', () => {
-    const field = {
-      name: 'someField',
-      value: '1234',
-    };
-    const form = {
-      setFieldValue: jest.fn(),
-    };
-
-    const { getByTestId } = render(
-      <NumberInputField field={field} form={form} />
+class TestForm extends Component {
+  state = { submitted: 'notsubmitted' };
+  handleSubmit = (...args) => {
+    const { onSubmit } = this.props;
+    this.setState({ submitted: 'submitted' });
+    onSubmit(...args);
+  };
+  render() {
+    return (
+      <Formik
+        onSubmit={this.handleSubmit}
+        render={({ handleSubmit }) => {
+          const { submitted } = this.state;
+          return (
+            <form data-testid="form" onSubmit={handleSubmit}>
+              <p>{submitted}</p>
+              <FormItem name="foo">
+                <FormItem.Input component={NumberInputField} />
+              </FormItem>
+              <input data-testid="submit" type="submit" value="Submit" />
+            </form>
+          );
+        }}
+      />
     );
+  }
+}
 
+async function sleepFor(time) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}
+
+describe('NumberInputField', () => {
+  test('works with forms', async () => {
+    const onSubmit = jest.fn();
+    const { getByTestId } = render(<TestForm onSubmit={onSubmit} />);
     const input = getByTestId('base-input');
-    fireEvent.change(input, { target: { value: '123' } });
-    expect(form.setFieldValue).toHaveBeenCalledWith(field.name, 123);
+    const form = getByTestId('form');
+    fireEvent.change(input, { target: { value: 123 } });
+    fireEvent.submit(form);
+
+    // FIXME @RafaelVidaurre: Hack to get right post-submit state
+    await sleepFor(1);
+
+    expect(onSubmit).toHaveBeenCalledWith({ foo: 123 }, expect.anything());
   });
 });
