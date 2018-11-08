@@ -300,7 +300,7 @@ class MintTokens extends Component<Props> {
           >
             <DisabledTooltip
               label="Mint Tokens"
-              title="Minting Disabled"
+              title="Minting temporarily disabled"
               content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution is disabled during this period and   will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
               direction="top"
             />

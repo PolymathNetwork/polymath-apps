@@ -38,17 +38,22 @@ const dispatchTemporaryNotice = (dispatch: Function) => {
   const notice = {
     type: 'warning',
     scope: 'issuer',
-    title: 'Important Information',
+    title: 'New Release',
     content:
       'Polymath is currently migrating your security tokens to an upgraded 2.0 release. Token distribution is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience.',
     isValid: true,
   };
 
-  const lsId = 'notice-temp-token-migration';
-  if (localStorage.getItem('notice-temp-token-migration')) {
-    return;
-  }
-  localStorage.setItem(lsId, true);
+  /**
+   * NOTE @monitz87: uncomment the following code if we want the pre-release notice
+   * to be one-time only (for now it is persistent)
+   */
+  // const lsId = 'notice-temp-token-migration';
+  // if (localStorage.getItem('notice-temp-token-migration')) {
+  //   return;
+  // }
+  // localStorage.setItem(lsId, true);
+
   dispatch({ type: NOTICE, notice });
 };
 
