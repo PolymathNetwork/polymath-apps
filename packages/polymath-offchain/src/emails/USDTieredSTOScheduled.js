@@ -34,7 +34,7 @@ export const USDTieredSTOScheduled = ({
       <h2>You can view the transaction details here:</h2>
       <div className="tx">
         Transaction details on Etherscan:{' '}
-        <EtherscanURL type={'tx'} hash={txHash} networkId={networkId} />
+        <EtherscanURL type="tx" hash={txHash} networkId={networkId} />
       </div>
     </div>
     <div className="text">
