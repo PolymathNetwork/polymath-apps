@@ -64,7 +64,12 @@ export default class SecurityToken extends Contract {
     amount: BigNumber
   ): Promise<boolean> {
     return this._methods
-      .verifyTransfer(from, to, this.addDecimals(amount))
+      .verifyTransfer(
+        from,
+        to,
+        this.addDecimals(amount),
+        Contract._params.web3.utils.fromAscii('')
+      )
       .call();
   }
 
