@@ -26,7 +26,7 @@ const formikProxy = WrappedComponent => {
 
     render() {
       const { field, form, ...otherProps } = this.props;
-      console.log('Prosdwad');
+
       return (
         <WrappedComponent
           {...otherProps}
