@@ -2,12 +2,18 @@
 
 import React from 'react';
 import FileSaver from 'file-saver';
+import { includes } from 'lodash';
 
-import { STO, CappedSTOFactory, SecurityToken } from '@polymathnetwork/js';
+import { STO } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import { twelveHourTimeToMinutes } from '@polymathnetwork/ui/deprecated';
+import {
+  EMPTY_ADDRESS,
+  DAI_ADDRESSES,
+} from '@polymathnetwork/shared/constants';
 import { setupSTOModule, getTokenSTO } from '../utils/contracts';
 import USDTieredSTO from '../utils/contracts/USDTieredSTO';
+import { FUND_RAISE_TYPES } from '../constants';
 
 import type { Dispatch } from 'redux';
 import type { TwelveHourTime } from '@polymathnetwork/ui/deprecated';
@@ -231,16 +237,29 @@ export const configureSTO = (
         // NOTE @RafaelVidaurre: Legacy checks, verify if actually necessary
         const {
           token: { token },
+          network: { id: networkId },
         } = getState();
         if (!token) {
           return;
         }
 
+        const raisesInDai = includes(
+          config.data.currencies,
+          FUND_RAISE_TYPES.DAI
+        );
+        const daiTokenAddress = DAI_ADDRESSES[networkId];
+        const usdTokenAddress = raisesInDai ? daiTokenAddress : EMPTY_ADDRESS;
+
+        const stoModuleConfig = {
+          ...config.data,
+          usdTokenAddress,
+        };
+
         dispatch(
           ui.tx(
             ['Approving POLY Spend', 'Deploying And Scheduling'],
             async () => {
-              await setupSTOModule(stoModule, token.address, config.data);
+              await setupSTOModule(stoModule, token.address, stoModuleConfig);
             },
             'STO Configured Successfully',
             () => {
