@@ -15,6 +15,13 @@ const formikProxy = WrappedComponent => {
 
       setFieldValue(name, newValue);
     };
+
+    handleBlur = () => {
+      const { setFieldTouched } = this.props.form;
+      const { name } = this.props.field;
+
+      setFieldTouched(name, true);
+    };
     render() {
       const { field, form, ...otherProps } = this.props;
       return (
@@ -23,6 +30,7 @@ const formikProxy = WrappedComponent => {
           value={field.value}
           name={field.name}
           onChange={this.handleChange}
+          onBlur={this.handleBlur}
         />
       );
     }

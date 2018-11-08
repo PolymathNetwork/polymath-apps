@@ -39,6 +39,7 @@ describe('formikProxy', () => {
     };
     const form = {
       setFieldValue: jest.fn(),
+      setFieldTouched: jest.fn(),
     };
 
     const { getByTestId } = render(<EnhancedInput field={field} form={form} />);
@@ -47,5 +48,7 @@ describe('formikProxy', () => {
     expect(input.name).toEqual(field.name);
     fireEvent.change(input, { target: { value: 'someValue' } });
     expect(form.setFieldValue).toHaveBeenCalledWith(field.name, 'someValue');
+    fireEvent.blur(input);
+    expect(form.setFieldTouched).toHaveBeenCalledWith(field.name, true);
   });
 });
