@@ -13,6 +13,7 @@ import {
   NumberInput,
   PercentageInput,
 } from '@polymathnetwork/ui';
+import { format } from '@polymathnetwork/shared/utils';
 
 import AddTierModal from './AddTierModal';
 
@@ -111,12 +112,22 @@ class InvestmentTiers extends React.Component<Props, State> {
       ticker,
     } = this.props;
     const { isAddingTier } = this.state;
-    const tableItems = map(compact(value.tiers), (tier, tierNum) => ({
-      ...tier,
-      tier: tierNum + 1,
-      id: tierNum + 1,
-      totalRaise: tier.tokenPrice * tier.tokensAmount,
-    }));
+
+    const tableItems = map(compact(value.tiers), (tier, tierNum) => {
+      return {
+        ...tier,
+        tokensAmount: format.toTokens(tier.tokensAmount, { decimals: 0 }),
+        tokenPrice: format.toUSD(tier.tokenPrice),
+        discountedTokensAmount: format.toTokens(tier.discountedTokensAmount, {
+          decimals: 0,
+        }),
+        discountedTokensPercentage: format.toPercent(tier.discountedTokensRate),
+        totalRaise: format.toUSD(tier.tokenPrice),
+        tier: tierNum + 1,
+        id: tierNum + 1,
+      };
+    });
+
     const defaultTableItem = [
       {
         discountedTokensAmount: '-',
@@ -201,7 +212,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 />
                 <FormItem.Error />
               </FormItem>
-              <FormItem name={`${name}.tiers[0].discountedTokensPercentage`}>
+              <FormItem name={`${name}.tiers[0].discountedTokensRate`}>
                 <FormItem.Label>
                   <Tooltip triggerText="Discount for Tokens Purchased with POLY">
                     <p className="bx--tooltip__label">
@@ -212,7 +223,6 @@ class InvestmentTiers extends React.Component<Props, State> {
                 <FormItem.Input
                   component={PercentageInput}
                   placeholder="Enter percentage"
-                  unit="%"
                 />
                 <FormItem.Error />
               </FormItem>

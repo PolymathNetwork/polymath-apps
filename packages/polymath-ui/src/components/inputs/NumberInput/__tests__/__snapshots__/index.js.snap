@@ -5,7 +5,7 @@ exports[`NumberInput renders without crashing  1`] = `
   class="sc-bdVaJa dVtwCI"
 >
   <input
-    class="sc-bxivhb kRpXks sc-bwzfXH csQacs"
+    class="sc-bwzfXH csQacs"
     data-testid="base-input"
     id="foo"
     type="text"

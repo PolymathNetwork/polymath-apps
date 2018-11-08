@@ -28,12 +28,14 @@ export default class DatePickerInputField extends Component<InputProps> {
 
     const { onChange, value, ...fieldProps } = field;
     const displayValue = value ? moment(value).format('MM / DD / YYYY') : '';
+    const minValue = moment().format('MM / DD / YYYY');
 
     return (
       <DatePicker
         className={className}
         datePickerType="single"
         dateFormat="m / d / Y"
+        minDate={minValue}
         id={field.name}
         onChange={this.handleOnChange}
       >

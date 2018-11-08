@@ -14,7 +14,7 @@ export default () => (
       return map(data, stoModule => {
         return (
           <STOTemplate
-            key={stoModule.type}
+            key={stoModule.address}
             stoModule={stoModule}
             pickingEnabled
           />
