@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'carbon-components-react';
 import { etherscanAddress } from '@polymathnetwork/ui';
+import { DisabledTooltip } from '@polymathnetwork/ui/components';
 import type { STOFactory } from '@polymathnetwork/js/types';
 
 type Props = {|
@@ -98,7 +99,14 @@ export default class STODetails extends Component<Props> {
           {isSelect ? (
             <span>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <Button onClick={handleUseSTO}>SELECT AND CONFIGURE STO</Button>
+              <Button onClick={handleUseSTO} disabled={true}>
+                <DisabledTooltip
+                  label="SELECT AND CONFIGURE STO"
+                  title="STOs Disabled"
+                  content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution is disabled during this period and   will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                  direction="top"
+                />
+              </Button>
             </span>
           ) : (
             ''
