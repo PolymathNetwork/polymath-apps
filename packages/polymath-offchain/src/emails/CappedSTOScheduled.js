@@ -25,7 +25,7 @@ const thousandsDelimiter = (v: number) => {
   );
 };
 
-export const STOScheduled = ({
+export const CappedSTOScheduled = ({
   ticker,
   start,
   cap,
@@ -53,7 +53,7 @@ export const STOScheduled = ({
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
           Transaction details on Etherscan:{' '}
-          <EtherscanURL type={'tx'} hash={txHash} networkId={networkId} />
+          <EtherscanURL type="tx" hash={txHash} networkId={networkId} />
         </div>
       </div>
       <div className="text">
@@ -94,7 +94,7 @@ export const STOScheduled = ({
         <p align="center">
           <a href={`${POLYMATH_ISSUER_URL}/dashboard/${ticker}/sto`}>
             <strong>
-              Click here to access your Security Offering Dashboard
+              Click here to access your Security Token Offering Dashboard
             </strong>
           </a>
         </p>

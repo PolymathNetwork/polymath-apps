@@ -1,7 +1,7 @@
 // @flow
 import BigNumber from 'bignumber.js';
 import numeral from 'numeral';
-import { times } from 'lodash';
+import { times, isNumber } from 'lodash';
 
 import type { BigNumber as BigNumberType } from 'bignumber.js';
 
@@ -18,6 +18,9 @@ export const toUSD = (
   value: number | BigNumberType,
   { decimals = 2 }: toUSDOpts = {}
 ) => {
+  if (!isNumber(value)) {
+    return `- USD`;
+  }
   const number = new BigNumber(value);
   return `${number.toFormat(decimals)} USD`;
 };
@@ -59,6 +62,9 @@ export const toTokens = (
   value: number,
   { decimals = 0 }: ToTokensOpts = {}
 ) => {
+  if (!isNumber(value)) {
+    return `-`;
+  }
   const number = new BigNumber(value);
   return number.toFormat(decimals);
 };

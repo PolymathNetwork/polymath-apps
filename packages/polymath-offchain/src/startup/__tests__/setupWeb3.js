@@ -1,15 +1,17 @@
 import {
-  sendSTOScheduledEmail,
+  sendCappedSTOScheduledEmail,
+  sendUSDTieredSTOScheduledEmail,
   sendTickerReservedEmail,
   sendTokenCreatedEmail,
 } from '../../utils';
 import logger from 'winston';
 import { User } from '../../models';
-import { NETWORKS } from '../../constants';
+import { NETWORKS, STO_MODULE_TYPE } from '../../constants';
 
 jest.mock('../../utils', () => {
   return {
-    sendSTOScheduledEmail: jest.fn(),
+    sendCappedSTOScheduledEmail: jest.fn(),
+    sendUSDTieredSTOScheduledEmail: jest.fn(),
     sendTickerReservedEmail: jest.fn(),
     sendTokenCreatedEmail: jest.fn(),
   };
@@ -69,6 +71,12 @@ const getExpiryLimitMock = jest.fn().mockImplementation(() => {
     call: getExpiryLimitCallMock,
   };
 });
+const startTimeCallMock = jest.fn();
+const startTimeMock = jest.fn().mockImplementation(() => {
+  return {
+    call: startTimeCallMock,
+  };
+});
 const detailsCallMock = jest.fn();
 const detailsMock = jest.fn().mockImplementation(() => {
   return {
@@ -106,6 +114,7 @@ const contractMock = jest.fn().mockImplementation(() => {
     methods: {
       getExpiryLimit: getExpiryLimitMock,
       getSTODetails: detailsMock,
+      startTime: startTimeMock,
       wallet: walletMock,
       owner: ownerMock,
       getAddress: getAddressMock,
@@ -725,7 +734,7 @@ describe('Function: addSTOListeners', () => {
 });
 
 describe('Function: moduleAddedHandler', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
   });
@@ -736,6 +745,7 @@ describe('Function: moduleAddedHandler', () => {
 
   const validHexName = '0xffffffffffffffff';
   const validModuleAddress = '0x1111111111111111111111111111111111111111';
+  const validTypes = [STO_MODULE_TYPE];
   const validTxHash = '0x2222222222222222';
 
   const validWalletAddress = '0xfffffffffffffffffffffffffffffffffffffffffff';
@@ -757,8 +767,16 @@ describe('Function: moduleAddedHandler', () => {
     returnValues: {
       _name: validHexName,
       _module: validModuleAddress,
+      _types: validTypes,
     },
     transactionHash: validTxHash,
+  };
+
+  const validEmail = 'jeremias@polymath.network';
+  const validName = 'Jeremías Díaz';
+  const validUser = {
+    email: validEmail,
+    name: validName,
   };
 
   test('logs an error if the event failed', async () => {
@@ -774,12 +792,30 @@ describe('Function: moduleAddedHandler', () => {
     );
   });
 
-  test('returns if the added STO is not a CappedSTO', async () => {
-    hexToUtf8Mock.mockImplementationOnce(() => 'NonCappedSTOModule');
+  test('returns if the added module is not an STO module', async () => {
+    const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
+
+    await moduleAddedHandler(null, null, validNetworkId, null, {
+      returnValues: {
+        _name: validHexName,
+        _module: validModuleAddress,
+        _types: [],
+      },
+    });
+
+    expect(hexToUtf8Mock).not.toHaveBeenCalled();
+  });
+
+  test("returns if the added STO doesn't have an email template", async () => {
+    hexToUtf8Mock.mockImplementationOnce(() => 'UnsupportedSTOModule');
+
+    User.findOne.mockImplementationOnce(() => validUser);
 
     const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
 
-    await moduleAddedHandler(null, null, validNetworkId, null, validResult);
+    const contract = contractMock();
+
+    await moduleAddedHandler(contract, null, validNetworkId, null, validResult);
 
     expect(hexToUtf8Mock).toHaveBeenCalledTimes(1);
     expect(detailsCallMock).not.toHaveBeenCalled();
@@ -792,7 +828,40 @@ describe('Function: moduleAddedHandler', () => {
     detailsCallMock.mockImplementationOnce(() => {
       throw expectedError;
     });
-    walletCallMock.mockImplementationOnce(() => validWalletAddress);
+    ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
+
+    User.findOne.mockImplementationOnce(() => validUser);
+
+    const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
+
+    const contract = contractMock();
+
+    await moduleAddedHandler(
+      contract,
+      validTicker,
+      validNetworkId,
+      null,
+      validResult
+    );
+
+    expect(hexToUtf8Mock).toHaveBeenCalledTimes(1);
+    expect(logger.error).toHaveBeenCalledTimes(1);
+    expect(logger.error).toHaveBeenCalledWith(
+      expectedError.message,
+      expectedError
+    );
+  });
+
+  test('logs an error if getUSDTieredSTODetails fails', async () => {
+    const expectedError = new Error('Something went wrong');
+
+    hexToUtf8Mock.mockImplementationOnce(() => 'USDTieredSTO');
+    startTimeCallMock.mockImplementationOnce(() => {
+      throw expectedError;
+    });
+    ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
+
+    User.findOne.mockImplementationOnce(() => validUser);
 
     const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
 
@@ -815,11 +884,6 @@ describe('Function: moduleAddedHandler', () => {
   });
 
   test('logs an error if the token owner is not in the database', async () => {
-    hexToUtf8Mock.mockImplementationOnce(() => 'CappedSTO');
-    detailsCallMock.mockImplementationOnce(() => {
-      return validDetails;
-    });
-    walletCallMock.mockImplementationOnce(() => validWalletAddress);
     ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
 
     User.findOne.mockImplementationOnce(() => undefined);
@@ -836,8 +900,6 @@ describe('Function: moduleAddedHandler', () => {
       validResult
     );
 
-    expect(detailsCallMock).toHaveBeenCalledTimes(1);
-    expect(walletCallMock).toHaveBeenCalledTimes(1);
     expect(ownerCallMock).toHaveBeenCalledTimes(1);
     expect(User.findOne).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
@@ -845,14 +907,7 @@ describe('Function: moduleAddedHandler', () => {
     );
   });
 
-  test('sends email to issuer with STO information', async () => {
-    const validEmail = 'jeremias@polymath.network';
-    const validName = 'Jeremías Díaz';
-    const validUser = {
-      email: validEmail,
-      name: validName,
-    };
-
+  test('sends email to issuer with Capped STO information', async () => {
     hexToUtf8Mock.mockImplementationOnce(() => 'CappedSTO');
     detailsCallMock.mockImplementationOnce(() => {
       return validDetails;
@@ -874,8 +929,8 @@ describe('Function: moduleAddedHandler', () => {
       validResult
     );
 
-    expect(sendSTOScheduledEmail).toHaveBeenCalledTimes(1);
-    expect(sendSTOScheduledEmail).toHaveBeenCalledWith(
+    expect(sendCappedSTOScheduledEmail).toHaveBeenCalledTimes(1);
+    expect(sendCappedSTOScheduledEmail).toHaveBeenCalledWith(
       validEmail,
       validName,
       validTxHash,
@@ -884,6 +939,40 @@ describe('Function: moduleAddedHandler', () => {
       validWalletAddress,
       validIsPolyFundraise,
       validRate,
+      new Date(validStart * 1000),
+      validNetworkId
+    );
+  });
+
+  test('sends email to issuer with USD Tiered STO information', async () => {
+    hexToUtf8Mock.mockImplementationOnce(() => 'USDTieredSTO');
+    startTimeCallMock.mockImplementationOnce(() => {
+      return validStart;
+    });
+    walletCallMock.mockImplementationOnce(() => validWalletAddress);
+    ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
+
+    User.findOne.mockImplementationOnce(() => validUser);
+
+    const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
+
+    const contract = contractMock();
+
+    await moduleAddedHandler(
+      contract,
+      validTicker,
+      validNetworkId,
+      null,
+      validResult
+    );
+
+    expect(sendUSDTieredSTOScheduledEmail).toHaveBeenCalledTimes(1);
+    expect(sendUSDTieredSTOScheduledEmail).toHaveBeenCalledWith(
+      validEmail,
+      validName,
+      validTxHash,
+      validTicker,
+      validWalletAddress,
       new Date(validStart * 1000),
       validNetworkId
     );
