@@ -25,6 +25,7 @@ type StateProps = {|
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
   hasLegacyTokens: ?boolean,
+  isFetching: boolean,
 |};
 
 type DispatchProps = {|
@@ -43,6 +44,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
   hasLegacyTokens: state.ticker.hasLegacyTokens,
+  isFetching: state.pui.common.isFetching,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -68,9 +70,9 @@ class AuthWrapper extends Component<Props> {
   // Ideally we should check for user authorisations at route level instead of
   // doing this at the view level independently from the current URL/route.
   componentDidUpdate(prevProps) {
-    const { isSignedIn, isSignedUp } = this.props;
+    const { isFetching, isSignedIn, isSignedUp } = this.props;
 
-    if (!prevProps.isSignedIn && isSignedIn && !isSignedUp) {
+    if (prevProps.isFetching && !isFetching && isSignedIn && !isSignedUp) {
       this.props.onFail();
     }
   }
