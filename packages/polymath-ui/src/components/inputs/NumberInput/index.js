@@ -27,6 +27,20 @@ const pendingDot = /^[\d,]*\.$/;
 // States that can be auto-corrected
 const startsWithDotRegex = /^\.\d+$/;
 
+const StyledBaseInput = styled(BaseInput)`
+  /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
+  /* Only on desktop */
+
+  @media screen and (min-width: 768px) {
+    -moz-appearance: textfield;
+
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+`;
+
 export class NumberInput extends Component<Props, State> {
   state = { displayValue: '', oldValue: null };
   static defaultProps = {
@@ -127,7 +141,7 @@ export class NumberInput extends Component<Props, State> {
     const { displayValue } = this.state;
 
     return (
-      <BaseInput
+      <StyledBaseInput
         type="text"
         id={name}
         {...otherProps}
