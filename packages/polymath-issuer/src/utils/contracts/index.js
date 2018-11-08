@@ -256,7 +256,7 @@ export async function getSTOModules(tokenAddress: string) {
 export async function setupSTOModule(
   stoModule: STOModule,
   tokenAddress: string,
-  configValues: STOConfig
+  configValues: object
 ) {
   const { address, setupCost } = stoModule;
 
@@ -278,7 +278,7 @@ export async function setupSTOModule(
     wallet: configValues.receiverAddress,
     reserveWallet: configValues.unsoldTokensAddress,
     // NOTE @RafaelVidaurre: Use the actual DAI address (different between kovan, mainnet and local)
-    usdToken: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
+    usdToken: configValues.usdTokenAddress,
   };
 
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
