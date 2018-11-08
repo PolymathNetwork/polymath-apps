@@ -256,11 +256,9 @@ export async function getSTOModules(tokenAddress: string) {
 export async function setupSTOModule(
   stoModule: STOModule,
   tokenAddress: string,
-  configValues: object
+  configValues: any
 ) {
   const { address, setupCost } = stoModule;
-
-  // const ModuleFactory = await getSTOModuleFactoryContract(type, address);
 
   // TODO @RafaelVidaurre: tokenAddress.balance should be used to verify
   await PolyToken.transfer(tokenAddress, setupCost);
@@ -274,10 +272,9 @@ export async function setupSTOModule(
     tokensPerTierDiscountPoly: configValues.discountTokensPerTier,
     nonAccreditedLimitUSD: configValues.nonAccreditedLimit,
     minimumInvestmentUSD: configValues.minimumInvestment,
-    fundRaiseTypes: configValues.currencies, // ?
+    fundRaiseTypes: configValues.currencies,
     wallet: configValues.receiverAddress,
     reserveWallet: configValues.unsoldTokensAddress,
-    // NOTE @RafaelVidaurre: Use the actual DAI address (different between kovan, mainnet and local)
     usdToken: configValues.usdTokenAddress,
   };
 
