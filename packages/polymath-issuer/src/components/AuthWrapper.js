@@ -30,7 +30,7 @@ type DispatchProps = {|
   txHash: (hash: string) => any,
   txEnd: (receipt: any) => any,
   signIn: () => any,
-  getNotice: (scope: string) => any,
+  getNotice: (scope: string, address: string) => any,
   tickerReservationEmail: () => any,
 |};
 
@@ -78,7 +78,6 @@ class AuthWrapper extends Component<Props> {
     const {
       isSignedIn,
       isSignedUp,
-      isTickerReserved,
       isEmailConfirmed,
       isSignUpSuccess,
       children,
@@ -88,18 +87,13 @@ class AuthWrapper extends Component<Props> {
       <SignInPage />
     ) : !isSignedUp ? (
       <SignUpPage />
-    ) : isTickerReserved && !isEmailConfirmed ? (
+    ) : !isEmailConfirmed ? (
       isSignUpSuccess ? (
         <SignUpSuccessPage
           text={
-            <span>
-              You are now ready to continue with your Security Token.
-              <br />
-              We just sent you an email with the token symbol reservation
-              transaction details for your records. Check your inbox.
-            </span>
+            <span>You are now ready to begin with your Security Token.</span>
           }
-          continueLabel="CONTINUE WITH TOKEN CREATION"
+          continueLabel="CONTINUE WITH SYMBOL REGISTRATION"
           onWillMount={this.handleSignUpSuccess}
         />
       ) : (
