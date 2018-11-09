@@ -16,7 +16,7 @@ type State = {|
   displayValue: string,
 |};
 
-// Any state which is valid for desplaying in the input. If the new value of
+// Any state which is valid for displaying in the input. If the new value of
 // the input doesn't match this, it will rollback to a previous state
 const displayValueRegex = /(^[\d,]*\.?$)|(^\.$)|(^\.[0,]|[1-9,][\d,]*$)|(^[\d,]*\.[\d,]*$)/;
 
