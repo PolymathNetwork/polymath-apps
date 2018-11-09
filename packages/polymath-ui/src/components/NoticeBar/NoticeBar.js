@@ -92,13 +92,13 @@ class NoticeBar extends Component<Props> {
     const paragraph = this.paragraph.current;
     // If the notice is closed the element disappears
     if (paragraph) {
-      clamp(paragraph, { clamp: 2 });
+      clamp(paragraph, { clamp: 3 });
     }
 
     const title = this.title.current;
     // If the notice is closed the element disappears
     if (title) {
-      clamp(title, { clamp: 2 });
+      clamp(title, { clamp: 3 });
     }
   }
 }

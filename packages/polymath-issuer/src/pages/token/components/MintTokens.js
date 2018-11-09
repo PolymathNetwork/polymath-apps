@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Remark, addressShortifier, confirm } from '@polymathnetwork/ui';
+import { DisabledTooltip } from '@polymathnetwork/ui/components';
 import {
   Icon,
   FileUploader,
@@ -291,12 +292,18 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            disabled={!isReady}
+            // disabled={!isReady} NOTE @monitz87: this should be re-enabled after the 11/15/2018 release
+            disabled={true}
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"
           >
-            Mint Tokens
+            <DisabledTooltip
+              label="Mint Tokens"
+              title="Minting temporarily disabled"
+              content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution is disabled during this period and   will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+              direction="top"
+            />
           </Button>
 
           <Button

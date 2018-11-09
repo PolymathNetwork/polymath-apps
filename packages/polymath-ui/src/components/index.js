@@ -17,3 +17,4 @@ export { default as NotSupportedPage } from './NotSupportedPage';
 export { default as SignUpPage } from './SignUpPage';
 export { default as SignUpSuccessPage } from './SignUpSuccessPage';
 export { default as SignInPage } from './SignInPage';
+export { default as DisabledTooltip } from './DisabledTooltip';
