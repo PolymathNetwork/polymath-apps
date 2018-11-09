@@ -15,6 +15,8 @@ if (res.error) {
   throw res.error;
 }
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+});
 
 configure({ adapter: new Adapter() });

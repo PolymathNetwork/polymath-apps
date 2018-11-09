@@ -5,6 +5,13 @@ import { times, isNumber } from 'lodash';
 
 import type { BigNumber as BigNumberType } from 'bignumber.js';
 
+/**
+ * Wether a value is a BigNumber instance or not
+ */
+function isBigNumber(value: any) {
+  return value instanceof BigNumber;
+}
+
 type toUSDOpts = {
   decimals: number,
 };
@@ -18,7 +25,8 @@ export const toUSD = (
   value: number | BigNumberType,
   { decimals = 2 }: toUSDOpts = {}
 ) => {
-  if (!isNumber(value)) {
+  const isValid = isNumber(value) || isBigNumber(value);
+  if (!isValid) {
     return `- USD`;
   }
   const number = new BigNumber(value);
@@ -62,7 +70,8 @@ export const toTokens = (
   value: number,
   { decimals = 0 }: ToTokensOpts = {}
 ) => {
-  if (!isNumber(value)) {
+  const isValid = isNumber(value) || isBigNumber(value);
+  if (!isValid) {
     return `-`;
   }
   const number = new BigNumber(value);
