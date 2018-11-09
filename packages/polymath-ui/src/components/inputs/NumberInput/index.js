@@ -82,7 +82,7 @@ export class NumberInput extends Component<Props, State> {
     );
     const hasPendingDot = pendingDotRegex.test(displayValue);
 
-    return endsWithZeroInDecimals || pendingDor;
+    return endsWithZeroInDecimals || hasPendingDot;
   }
 
   /**
