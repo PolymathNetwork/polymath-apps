@@ -80,7 +80,7 @@ export class NumberInput extends Component<Props, State> {
     const endsWithZeroInDecimals = endsWithZeroInDecimalsRegex.test(
       displayValue
     );
-    const pendingDor = pendingDot.test(displayValue);
+    const hasPendingDot = pendingDotRegex.test(displayValue);
 
     return endsWithZeroInDecimals || pendingDor;
   }
