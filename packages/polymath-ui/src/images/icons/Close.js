@@ -3,10 +3,11 @@ import React from 'react';
 const SvgClose = props => (
   <svg
     fillRule="evenodd"
-    viewBox="0 0 10 10"
-    aria-label="icon--close"
-    width="1em"
     height="1em"
+    viewBox="0 0 10 10"
+    width="1em"
+    tabIndex={-1}
+    aria-label="icon--close"
     {...props}
   >
     <path

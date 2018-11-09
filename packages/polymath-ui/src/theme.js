@@ -6,8 +6,8 @@ const colors = {
   primary: '#252D6B',
   secondary: '#3D70B2',
   placeholder: '#5A6872',
-  gray: ['#F5F7FA', '#8C9BA5', '#5A6872'],
-  blue: ['#EBF0F7', '#5596E6', '#3D70B2', '#252D6B'],
+  gray: ['#F5F7FA', '#EBF0F7', '#8C9BA5', '#5A6872'],
+  blue: ['#5596E6', '#3D70B2', '#252D6B'],
   green: ['#00AA5E'],
   red: ['#e0182d'],
 };
