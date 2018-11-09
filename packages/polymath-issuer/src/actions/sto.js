@@ -4,7 +4,7 @@ import React from 'react';
 import FileSaver from 'file-saver';
 import { includes } from 'lodash';
 
-import { STO } from '@polymathnetwork/js';
+import { STO, PolyToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import { twelveHourTimeToMinutes } from '@polymathnetwork/ui/deprecated';
 import {
@@ -309,12 +309,15 @@ export const configure = values => async (
         if (!factory || !token || !token.contract) {
           return;
         }
-
-        // FIXME @RafaelVidaurre: we should NOT use
-        // redux-form's state here
+        const balance = await PolyToken.balanceOf(token.address);
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Deploying And Scheduling'];
+        if (balance === 0) {
+          title.unshift('Approving POLY Spend');
+        }
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            title,
             async () => {
               const contract: any = token.contract;
               const [startDate] = values.startDate;
@@ -457,8 +460,6 @@ export const exportInvestorsList = () => async (
         try {
           const contract = getState().sto.contract; // $FlowFixMe
           const purchases = await contract.getPurchases();
-
-          console.log('purchases', purchases);
 
           let csvContent;
 

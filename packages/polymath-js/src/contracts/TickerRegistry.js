@@ -110,7 +110,12 @@ class TickerRegistry extends Contract {
       this.registrationFee(),
       IPFS.put(ipfs),
     ]);
-    await PolyToken.approve(this.address, fee);
+    const allowance = await PolyToken.allowance(this.account, this.address);
+    //Skip approve transaction if transfer is already allowed
+    if (allowance < fee) {
+      await PolyToken.approve(this.address, fee);
+    }
+
     return await this._tx(
       this._methods.registerTicker(
         this.account,

@@ -34,8 +34,8 @@ const isNewEmailRequestValid = (body: NewEmailRequestBody | any) => {
 /**
  * POST /email/new
  *
- * Email confirmation setup route handler. Receives an email address and sends a 
- * random confirmation PIN string to that address which is then requested by 
+ * Email confirmation setup route handler. Receives an email address and sends a
+ * random confirmation PIN string to that address which is then requested by
  * the dApp. Also stores (or updates) the user in the database
  *
  * If the request body is invalid, the response is
@@ -51,7 +51,7 @@ const isNewEmailRequestValid = (body: NewEmailRequestBody | any) => {
  *
  * {
  *   status: 'error',
- *   data: 'Code is not valid'    
+ *   data: 'Code is not valid'
  * }
  *
  * If the signature is invalid, the response is

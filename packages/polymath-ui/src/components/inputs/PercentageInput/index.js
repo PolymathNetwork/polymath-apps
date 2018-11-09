@@ -1,6 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
+import { isNumber } from 'lodash';
 import styled from 'styled-components';
 import numeral from 'numeral';
 
@@ -39,6 +40,22 @@ export default class PercentageInput extends PureComponent<Props> {
     setFieldValue(name, normalizedValue);
   };
 
+  static formatValue = (value: any) => {
+    if (!isNumber(value) || isNaN(value)) {
+      return '';
+    }
+
+    return Math.max(
+      Math.min(
+        numeral(value) // This avoid strange JS decimal converting: 0.1111*100 = 11.110000000000001
+          .multiply(100)
+          .value(),
+        100
+      ),
+      0
+    );
+  };
+
   render() {
     const {
       field,
@@ -46,17 +63,7 @@ export default class PercentageInput extends PureComponent<Props> {
       className,
       ...otherProps
     } = this.props;
-    const formattedValue = isNaN(value)
-      ? ''
-      : Math.max(
-          Math.min(
-            numeral(value) // This avoid strange JS decimal converting: 0.1111*100 = 11.110000000000001
-              .multiply(100)
-              .value(),
-            100
-          ),
-          0
-        );
+    const formattedValue = PercentageInput.formatValue(value);
 
     return (
       <StyledBaseInput

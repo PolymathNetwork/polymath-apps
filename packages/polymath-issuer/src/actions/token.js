@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {
+  PolyToken,
   SecurityTokenRegistry,
   CountTransferManager,
 } from '@polymathnetwork/js';
@@ -156,13 +157,23 @@ export const issue = (isLimitNI: boolean) => async (
           );
           return;
         }
+
+        const allowance = await PolyToken.allowance(
+          SecurityTokenRegistry.account,
+          SecurityTokenRegistry.address
+        );
+
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Creating Security Token'];
+        if (allowance < fee) {
+          title.unshift('Approving POLY Spend');
+        }
+
+        title.unshift(...(isLimitNI ? ['Limiting Number Of Investors'] : []));
+
         dispatch(
           ui.tx(
-            [
-              'Approving POLY Spend',
-              'Creating Security Token',
-              ...(isLimitNI ? ['Limiting Number Of Investors'] : []),
-            ],
+            title,
             async () => {
               const { values } = getState().form[completeFormName];
               token = {
@@ -268,6 +279,7 @@ export const mintTokens = () => async (
         for (let investor: Investor of uploaded) {
           addresses.push(investor.address);
         } // $FlowFixMe
+
         await token.contract.mintMulti(addresses, uploadedTokens);
       },
       'Tokens were successfully minted',
