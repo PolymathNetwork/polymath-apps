@@ -165,7 +165,7 @@ export const issue = (isLimitNI: boolean) => async (
 
         //Skip approve transaction if transfer is already allowed
         let title = ['Creating Security Token'];
-        if (allowance == 0) {
+        if (allowance < fee) {
           title.unshift('Approving POLY Spend');
         }
 
@@ -279,6 +279,7 @@ export const mintTokens = () => async (
         for (let investor: Investor of uploaded) {
           addresses.push(investor.address);
         } // $FlowFixMe
+
         await token.contract.mintMulti(addresses, uploadedTokens);
       },
       'Tokens were successfully minted',
