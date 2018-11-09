@@ -43,6 +43,11 @@ class AddTierModal extends Component {
       ticker,
     } = this.props;
 
+    let disabled = false;
+
+    if (!value) {
+      disabled = true;
+    }
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || 0;
     const tokensAmount = thisTier.tokensAmount || 0;
@@ -138,7 +143,9 @@ class AddTierModal extends Component {
           >
             Cancel
           </Button>
-          <Button onClick={this.handleOnAdd}>Add new</Button>
+          <Button disabled={disabled} onClick={this.handleOnAdd}>
+            Add new
+          </Button>
         </ModalFooter>
       </Modal>
     );
