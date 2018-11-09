@@ -58,9 +58,9 @@ export class EthNetworkWrapper extends Component<Props> {
     this.props.init(this.props.networks);
   };
 
-  handleAuthRequest() {
+  handleAuthRequest = () => {
     this.props.requestAuthorization();
-  }
+  };
 
   render() {
     const {
@@ -75,7 +75,7 @@ export class EthNetworkWrapper extends Component<Props> {
     if (isFailed) {
       return errorRender({
         networkError: error,
-        onRequestAuth: this.handleAuthRequest.bind(this),
+        onRequestAuth: this.handleAuthRequest,
       });
     }
     if (!isConnected) {
