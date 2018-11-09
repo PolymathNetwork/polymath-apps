@@ -25,7 +25,7 @@ export const TokenCreated = ({ txHash, ticker, networkId }: Props) => {
         <h2>You can view the transaction details here:</h2>
         <div className="tx">
           Transaction details on Etherscan:{' '}
-          <EtherscanURL hash={txHash} type={'tx'} networkId={networkId} />
+          <EtherscanURL hash={txHash} type="tx" networkId={networkId} />
         </div>
       </div>
       <div className="text">

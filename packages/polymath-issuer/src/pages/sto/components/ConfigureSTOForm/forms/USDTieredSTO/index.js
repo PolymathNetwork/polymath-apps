@@ -423,7 +423,7 @@ const formikEnhancer = withFormik({
   mapPropsToValues: () => {
     return initialValues;
   },
-  handleSubmit: (values: FormValues, props) => {
+  handleSubmit: (values: FormValues, { props }) => {
     const { dispatch, address } = props;
 
     const formattedValues = {
@@ -483,6 +483,7 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
   }
 }
 
-const enhancedForm = formikEnhancer(USDTieredSTOFormContainer);
+const FormikEnhancedForm = formikEnhancer(USDTieredSTOFormContainer);
+const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
-export default connect(mapStateToProps)(enhancedForm);
+export default ConnectedForm;

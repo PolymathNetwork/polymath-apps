@@ -256,11 +256,9 @@ export async function getSTOModules(tokenAddress: string) {
 export async function setupSTOModule(
   stoModule: STOModule,
   tokenAddress: string,
-  configValues: STOConfig
+  configValues: any
 ) {
   const { address, setupCost } = stoModule;
-
-  // const ModuleFactory = await getSTOModuleFactoryContract(type, address);
 
   // TODO @RafaelVidaurre: tokenAddress.balance should be used to verify
   await PolyToken.transfer(tokenAddress, setupCost);
@@ -274,11 +272,10 @@ export async function setupSTOModule(
     tokensPerTierDiscountPoly: configValues.discountTokensPerTier,
     nonAccreditedLimitUSD: configValues.nonAccreditedLimit,
     minimumInvestmentUSD: configValues.minimumInvestment,
-    fundRaiseTypes: configValues.currencies, // ?
+    fundRaiseTypes: configValues.currencies,
     wallet: configValues.receiverAddress,
     reserveWallet: configValues.unsoldTokensAddress,
-    // NOTE @RafaelVidaurre: Use the actual DAI address (different between kovan, mainnet and local)
-    usdToken: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
+    usdToken: configValues.usdTokenAddress,
   };
 
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
@@ -293,39 +290,4 @@ export async function setupSTOModule(
       0
     )
   );
-}
-
-type SendTransactionParams = {|
-  abi: Object,
-  method: Object,
-  fromAddress: string,
-|};
-
-/**
- * Sends a transaction to the network
- *
- * @param method Web3 method object
- * @param address address to send the transaction from
- */
-export async function sendTransaction({
-  method,
-  fromAddress,
-}: SendTransactionParams) {
-  // Buffer value to account for imprecise in gasEstimation
-  const gasBuffer = 1.05;
-
-  // Estimate gas
-  const params = { from: fromAddress };
-  const estimatedGas = await method.estimateGas(params);
-  const gas = Math.ceil(estimatedGas * gasBuffer);
-
-  const transactionParams = {
-    ...params,
-    gas,
-    gasPrice: Web3.eth.gasPrice, // WHY is this hardcoded in polyjs?
-  };
-
-  const result = await method.call(params);
-
-  const receipt = await method.send(params);
 }
