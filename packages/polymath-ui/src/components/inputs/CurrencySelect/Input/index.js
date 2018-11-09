@@ -157,6 +157,7 @@ export default class Input extends React.Component<Props> {
         <SelectContainer>
           <Select
             closeMenuOnSelect={false}
+            noOptionsMessage={() => null}
             isClearable={Array.isArray(value) ? value.length : value}
             isMulti={Array.isArray(value)}
             styles={styles}
