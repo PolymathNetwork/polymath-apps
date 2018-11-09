@@ -14,7 +14,7 @@ export default ({ label, title, content, direction = 'bottom' }: Props) => (
   <Tooltip
     triggerText={label}
     showIcon={false}
-    triggerClassName="tooltip-inherit-cursor"
+    triggerClassName="disabled-tooltip"
     direction={direction}
   >
     <p className="bx--tooltip__label">{title}</p>

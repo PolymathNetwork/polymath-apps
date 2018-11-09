@@ -1,3 +1,7 @@
-.bx--tooltip__trigger.tooltip-inherit-cursor {
+.bx--tooltip__trigger.disabled-tooltip {
   cursor: inherit;
+}
+
+button .bx--tooltip__trigger.disabled-tooltip {
+  font-size: inherit;
 }
