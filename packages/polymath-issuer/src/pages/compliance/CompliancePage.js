@@ -11,6 +11,7 @@ import {
   confirm,
   NotFoundPage,
 } from '@polymathnetwork/ui';
+import { DisabledTooltip } from '@polymathnetwork/ui/components';
 import {
   Button,
   DataTable,
@@ -679,23 +680,37 @@ class CompliancePage extends Component<Props, State> {
                 />
                 <Button
                   className="apply-percentage-btn"
-                  onClick={this.handleApplyPercentage}
-                  disabled={
-                    this.state.percentage === this.props.percentage ||
-                    typeof this.state.percentage === 'undefined'
-                  }
+                  // onClick={this.handleApplyPercentage} NOTE @monitz87: re-enable after the 11/15/2018 release
+                  onClick={() => null}
+                  // disabled={
+                  //   this.state.percentage === this.props.percentage ||
+                  //   typeof this.state.percentage === 'undefined'
+                  // } NOTE @monitz87: re-enable after the 11/15/2018 release
+                  disabled={true}
                 >
-                  Apply
+                  <DisabledTooltip
+                    label="Apply"
+                    title="Ownership restrictions temporarily disabled"
+                    content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                    direction="top"
+                  />
                 </Button>
               </div>
             </div>
 
             <Button
               icon="upload"
-              onClick={this.handleImportModalOpen}
+              disabled={true}
+              // onClick={this.handleImportModalOpen} NOTE @monitz87: re-enable after the 11/15/2018 release
+              onClick={() => null}
               className="import-whitelist-btn"
             >
-              Import Whitelist
+              <DisabledTooltip
+                label="Import Whitelist"
+                title="Importing whitelist temporarily disabled"
+                content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                direction="top"
+              />
             </Button>
             <ImportWhitelistModal
               isOpen={this.state.isImportModalOpen}

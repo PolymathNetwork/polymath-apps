@@ -99,11 +99,15 @@ export default class STODetails extends Component<Props> {
           {isSelect ? (
             <span>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <Button onClick={handleUseSTO} disabled={true}>
+              <Button
+                // onClick={handleUseSTO} NOTE @monitz87: re-enable after the 11/15/2018 release
+                onClick={() => null}
+                disabled={true}
+              >
                 <DisabledTooltip
                   label="SELECT AND CONFIGURE STO"
                   title="STOs temporarily disabled"
-                  content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution is disabled during this period and   will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                  content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
                   direction="top"
                 />
               </Button>
