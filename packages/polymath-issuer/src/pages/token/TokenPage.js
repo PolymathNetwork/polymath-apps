@@ -18,6 +18,7 @@ import {
   NotFoundPage,
   confirm,
 } from '@polymathnetwork/ui';
+import { DisabledTooltip } from '@polymathnetwork/ui/components';
 import moment from 'moment';
 import type { SecurityToken } from '@polymathnetwork/js/types';
 
@@ -305,14 +306,21 @@ class TokenPage extends Component<Props, State> {
                           onChange={this.handleMaxHoldersCountChange}
                         />
                         <Button
-                          onClick={this.handleApplyMaxHoldersCount}
-                          disabled={
-                            this.state.maxHoldersCount ===
-                              this.props.maxHoldersCount ||
-                            typeof this.state.maxHoldersCount === 'undefined'
-                          }
+                          // onClick={this.handleApplyMaxHoldersCount} NOTE @monitz87: re-enable after the 11/15/2018 release
+                          onClick={() => null}
+                          // disabled={
+                          //   this.state.maxHoldersCount ===
+                          //     this.props.maxHoldersCount ||
+                          //   typeof this.state.maxHoldersCount === 'undefined'
+                          // } NOTE @monitz87: re-enable this after the 11/15/2018 release
+                          disabled={true}
                         >
-                          Apply
+                          <DisabledTooltip
+                            label="Apply"
+                            title="Investor limit temporarily disabled"
+                            content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                            direction="top"
+                          />
                         </Button>
                       </div>
                       <br />

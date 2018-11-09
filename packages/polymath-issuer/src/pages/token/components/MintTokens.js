@@ -294,14 +294,15 @@ class MintTokens extends Component<Props> {
             type="submit"
             // disabled={!isReady} NOTE @monitz87: this should be re-enabled after the 11/15/2018 release
             disabled={true}
-            onClick={this.handleSubmit}
+            // onClick={this.handleSubmit} NOTE @monitz87: re-enable after the 11/15/2018 release
+            onClick={() => null}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"
           >
             <DisabledTooltip
               label="Mint Tokens"
               title="Minting temporarily disabled"
-              content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution is disabled during this period and   will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+              content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
               direction="top"
             />
           </Button>
