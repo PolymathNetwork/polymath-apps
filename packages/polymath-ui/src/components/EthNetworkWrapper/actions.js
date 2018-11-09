@@ -115,7 +115,11 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   });
 
   // Check if dapp is authorized by Metamask/Mist
-  if (newProviderInjected && window.ethereum._metamask.isApproved) {
+  if (
+    !accounts.length &&
+    newProviderInjected &&
+    window.ethereum._metamask && window.ethereum._metamask.isApproved
+  ) {
     const isMetamaskApproved = await window.ethereum._metamask.isApproved();
 
     if (!isMetamaskApproved) {
