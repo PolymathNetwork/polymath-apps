@@ -28,20 +28,18 @@ export type NetworkParams = {|
   web3WS: Web3,
 |};
 
-// FIXME @RafaelVidaurre: This shouldn't be the right way to do it, but
-// this has to be here for now
-const HARDCODED_NETWORK_ID = 15;
-
 // Request accounts access, will make Metamask pop up
+// FIXME @RafaelVidaurre: We shouldn't need to reload the browser after doing
+// this. This should work differently after we refactor the state management
 export const requestAuthorization = () => async (dispatch: Function) => {
   try {
     // We don't need to dispatch a success action because page will be reloaded by polling
-    return await window.ethereum.enable();
+    await window.ethereum.enable();
+    window.location.reload();
   } catch (e) {
     // User denied access
     // eslint-disable-next-line
-    console.error(e);
-    // Commented because UI doesn't support this state
+    // NOTE @Grsmto: commented because UI doesn't support this state
     // return dispatch(fail(ERROR_ACCESS_DENIED);
   }
 };
