@@ -279,9 +279,7 @@ export const mintTokens = () => async (
         for (let investor: Investor of uploaded) {
           addresses.push(investor.address);
         } // $FlowFixMe
-        console.log('something 2');
         await token.contract.mintMulti(addresses, uploadedTokens);
-        console.log('something 3');
       },
       'Tokens were successfully minted',
       () => {

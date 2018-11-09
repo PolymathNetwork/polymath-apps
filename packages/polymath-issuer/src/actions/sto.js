@@ -461,8 +461,6 @@ export const exportInvestorsList = () => async (
           const contract = getState().sto.contract; // $FlowFixMe
           const purchases = await contract.getPurchases();
 
-          console.log('purchases', purchases);
-
           let csvContent;
 
           // TODO @RafaelVidaurre: Dry and abstract this better
