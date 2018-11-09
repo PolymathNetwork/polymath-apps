@@ -22,7 +22,7 @@ const displayValueRegex = /(^[\d,]*\.?$)|(^\.$)|(^\.[0,]|[1-9,][\d,]*$)|(^[\d,]*
 
 // States that cannot be formatted
 const endsWithZeroInDecimalsRegex = /^[\d,]*\.[,\d]*[0,]$/;
-const pendingDot = /^[\d,]*\.$/;
+const pendingDotRegex = /^[\d,]*\.$/;
 
 // States that can be auto-corrected
 const startsWithDotRegex = /^\.\d+$/;
