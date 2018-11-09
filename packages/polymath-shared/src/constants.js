@@ -124,7 +124,7 @@ export const _LOCAL_ADDRESSES: NetworkAddresses = {
 export const _PRODUCTION_ADDRESSES: NetworkAddresses = {
   [KOVAN_NETWORK_ID]: kovanProductionAddresses,
   [MAINNET_NETWORK_ID]: {
-    PolyToken: '0x118A0df120cfB097aaD3A70914562F803A5bE45C',
+    PolyToken: '0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec',
     PolymathRegistry: '0x06595656b93ce14834f0d22b7bbda4382d5ab510',
     TickerRegistry: '0xc31714e6759a1ee26db1d06af1ed276340cd4233',
     ModuleRegistry: '0x31d85fffd7e38bd42d2ae0409ac149e3ef0fd92c',
