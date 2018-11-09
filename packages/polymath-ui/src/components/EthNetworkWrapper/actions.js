@@ -118,7 +118,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   if (
     !accounts.length &&
     newProviderInjected &&
-    window.ethereum._metamask.isApproved
+    window.ethereum._metamask && window.ethereum._metamask.isApproved
   ) {
     const isMetamaskApproved = await window.ethereum._metamask.isApproved();
 
