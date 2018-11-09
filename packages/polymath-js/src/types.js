@@ -124,6 +124,7 @@ export type STODetails = {|
   rate: number,
   investorCount: number,
   isPolyFundraise: boolean,
+  type: string,
 |};
 
 export type STOPurchase = {|

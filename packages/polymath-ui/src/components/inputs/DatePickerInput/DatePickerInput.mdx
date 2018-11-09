@@ -1,0 +1,24 @@
+---
+name: NextDatePickerInput
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field }  from 'formik';
+import DatePickerInput from './index';
+
+# NextDatePickerInput
+
+<PropsTable of={DatePickerInput} />
+
+## Basic usage
+
+<Playground>
+<Formik render={(values) => (
+  <form>
+    <pre>{JSON.stringify(values, null, 2)}</pre>
+    <br/>
+    <Field name="myDate" component={DatePickerInput} />
+  </form>
+)} />
+  
+</Playground>

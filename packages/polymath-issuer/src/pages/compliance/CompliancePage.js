@@ -671,22 +671,24 @@ class CompliancePage extends Component<Props, State> {
                   <br />
                   Own Up To of Outstanding Tokens
                 </label>
-                <TextInput
-                  id="percentage"
-                  value={this.state.percentage}
-                  placeholder="–"
-                  onChange={this.handlePercentageChange}
-                />
-                <Button
-                  className="apply-percentage-btn"
-                  onClick={this.handleApplyPercentage}
-                  disabled={
-                    this.state.percentage === this.props.percentage ||
-                    typeof this.state.percentage === 'undefined'
-                  }
-                >
-                  Apply
-                </Button>
+                <div>
+                  <TextInput
+                    id="percentage"
+                    value={this.state.percentage}
+                    placeholder="–"
+                    onChange={this.handlePercentageChange}
+                  />
+                  <Button
+                    className="apply-percentage-btn"
+                    onClick={this.handleApplyPercentage}
+                    disabled={
+                      this.state.percentage === this.props.percentage ||
+                      typeof this.state.percentage === 'undefined'
+                    }
+                  >
+                    Apply
+                  </Button>
+                </div>
               </div>
             </div>
 

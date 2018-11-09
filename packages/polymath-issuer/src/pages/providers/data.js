@@ -1,3 +1,5 @@
+// @flow
+
 export type SPStatus = {|
   title: string,
   message: string,

@@ -3,18 +3,22 @@
 import { CONNECTED } from '@polymathnetwork/ui/components/EthNetworkWrapper';
 import { setHelpersNetwork } from '@polymathnetwork/ui';
 import { CountTransferManager } from '@polymathnetwork/js';
-import type { SecurityToken, Investor } from '@polymathnetwork/js/types';
-
 import * as a from '../actions/token';
 import { DATA } from '../actions/providers';
 
+import type { Investor } from '@polymathnetwork/js/types';
+import type { SecurityToken } from '../constants';
 import type { Action, InvestorCSVRow } from '../actions/token';
 import type { ServiceProvider } from '../pages/providers/data';
+
+// NOTE @RafaelVidaurre: Duplicating this type since typing between packags is
+// currently broken (should be in polymathjs)
 
 export type TokenState = {
   token: ?SecurityToken,
   isFetched: boolean,
   providers: ?Array<ServiceProvider>,
+  isMintingFrozen: boolean,
   mint: {
     uploaded: Array<Investor>,
     uploadedTokens: Array<number>,
@@ -32,6 +36,7 @@ const defaultState: TokenState = {
   token: null,
   isFetched: false,
   providers: null,
+  isMintingFrozen: true,
   mint: {
     uploaded: [],
     uploadedTokens: [],
@@ -61,6 +66,11 @@ export default (state: TokenState = defaultState, action: Action) => {
           isPaused: action.isPaused,
           count: action.count || state.countTM.count,
         },
+      };
+    case a.MINTING_FROZEN:
+      return {
+        ...state,
+        isMintingFrozen: action.isMintingFrozen,
       };
     case a.MINT_UPLOADED:
       return {

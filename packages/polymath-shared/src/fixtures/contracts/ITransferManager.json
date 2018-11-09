@@ -158,6 +158,10 @@
           "type": "uint256"
         },
         {
+          "name": "_data",
+          "type": "bytes"
+        },
+        {
           "name": "_isTransfer",
           "type": "bool"
         }
@@ -196,20 +200,20 @@
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.4.24;\n\nimport \"../../Pausable.sol\";\nimport \"../../interfaces/IModule.sol\";\n\n/**\n * @title Interface to be implemented by all Transfer Manager modules\n */\ncontract ITransferManager is IModule, Pausable {\n\n    //If verifyTransfer returns:\n    //  FORCE_VALID, the transaction will always be valid, regardless of other TM results\n    //  INVALID, then the transfer should not be allowed regardless of other TM results\n    //  VALID, then the transfer is valid for this TM\n    //  NA, then the result from this TM is ignored\n    enum Result {INVALID, NA, VALID, FORCE_VALID}\n\n    function verifyTransfer(address _from, address _to, uint256 _amount, bool _isTransfer) public returns(Result);\n\n    function unpause() onlyOwner public {\n        super._unpause();\n    }\n\n    function pause() onlyOwner public {\n        super._pause();\n    }\n}\n",
-  "sourcePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"../../Pausable.sol\";\nimport \"../Module.sol\";\n\n/**\n * @title Interface to be implemented by all Transfer Manager modules\n * @dev abstract contract\n */\ncontract ITransferManager is Module, Pausable {\n\n    //If verifyTransfer returns:\n    //  FORCE_VALID, the transaction will always be valid, regardless of other TM results\n    //  INVALID, then the transfer should not be allowed regardless of other TM results\n    //  VALID, then the transfer is valid for this TM\n    //  NA, then the result from this TM is ignored\n    enum Result {INVALID, NA, VALID, FORCE_VALID}\n\n    function verifyTransfer(address _from, address _to, uint256 _amount, bytes _data, bool _isTransfer) public returns(Result);\n\n    function unpause() public onlyOwner {\n        super._unpause();\n    }\n\n    function pause() public onlyOwner {\n        super._pause();\n    }\n}\n",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
   "ast": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
     "exportedSymbols": {
       "ITransferManager": [
-        8764
+        27076
       ]
     },
-    "id": 8765,
+    "id": 27077,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 8717,
+        "id": 27027,
         "literals": [
           "solidity",
           "^",
@@ -217,27 +221,27 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:42"
+        "src": "0:24:73"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../../Pausable.sol",
-        "id": 8718,
+        "id": 27028,
         "nodeType": "ImportDirective",
-        "scope": 8765,
-        "sourceUnit": 475,
-        "src": "26:28:42",
+        "scope": 27077,
+        "sourceUnit": 1528,
+        "src": "26:28:73",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
-        "file": "../../interfaces/IModule.sol",
-        "id": 8719,
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "file": "../Module.sol",
+        "id": 27029,
         "nodeType": "ImportDirective",
-        "scope": 8765,
-        "sourceUnit": 2428,
-        "src": "55:38:42",
+        "scope": 27077,
+        "sourceUnit": 20007,
+        "src": "55:23:73",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -247,92 +251,94 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 8720,
-              "name": "IModule",
+              "id": 27030,
+              "name": "Module",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2427,
-              "src": "202:7:42",
+              "referencedDeclaration": 20006,
+              "src": "213:6:73",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IModule_$2427",
-                "typeString": "contract IModule"
+                "typeIdentifier": "t_contract$_Module_$20006",
+                "typeString": "contract Module"
               }
             },
-            "id": 8721,
+            "id": 27031,
             "nodeType": "InheritanceSpecifier",
-            "src": "202:7:42"
+            "src": "213:6:73"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 8722,
+              "id": 27032,
               "name": "Pausable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 474,
-              "src": "211:8:42",
+              "referencedDeclaration": 1527,
+              "src": "221:8:73",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Pausable_$474",
+                "typeIdentifier": "t_contract$_Pausable_$1527",
                 "typeString": "contract Pausable"
               }
             },
-            "id": 8723,
+            "id": 27033,
             "nodeType": "InheritanceSpecifier",
-            "src": "211:8:42"
+            "src": "221:8:73"
           }
         ],
         "contractDependencies": [
-          474,
-          2427
+          1527,
+          10760,
+          20006
         ],
         "contractKind": "contract",
-        "documentation": "@title Interface to be implemented by all Transfer Manager modules",
+        "documentation": "@title Interface to be implemented by all Transfer Manager modules\n@dev abstract contract",
         "fullyImplemented": false,
-        "id": 8764,
+        "id": 27076,
         "linearizedBaseContracts": [
-          8764,
-          474,
-          2427
+          27076,
+          1527,
+          20006,
+          10760
         ],
         "name": "ITransferManager",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "ITransferManager.Result",
-            "id": 8728,
+            "id": 27038,
             "members": [
               {
-                "id": 8724,
+                "id": 27034,
                 "name": "INVALID",
                 "nodeType": "EnumValue",
-                "src": "557:7:42"
+                "src": "567:7:73"
               },
               {
-                "id": 8725,
+                "id": 27035,
                 "name": "NA",
                 "nodeType": "EnumValue",
-                "src": "566:2:42"
+                "src": "576:2:73"
               },
               {
-                "id": 8726,
+                "id": 27036,
                 "name": "VALID",
                 "nodeType": "EnumValue",
-                "src": "570:5:42"
+                "src": "580:5:73"
               },
               {
-                "id": 8727,
+                "id": 27037,
                 "name": "FORCE_VALID",
                 "nodeType": "EnumValue",
-                "src": "577:11:42"
+                "src": "587:11:73"
               }
             ],
             "name": "Result",
             "nodeType": "EnumDefinition",
-            "src": "544:45:42"
+            "src": "554:45:73"
           },
           {
             "body": null,
             "documentation": null,
-            "id": 8741,
+            "id": 27053,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -340,16 +346,16 @@
             "name": "verifyTransfer",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8737,
+              "id": 27049,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8730,
+                  "id": 27040,
                   "name": "_from",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "619:13:42",
+                  "scope": 27053,
+                  "src": "629:13:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -357,10 +363,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8729,
+                    "id": 27039,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "619:7:42",
+                    "src": "629:7:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -371,11 +377,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8732,
+                  "id": 27042,
                   "name": "_to",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "634:11:42",
+                  "scope": 27053,
+                  "src": "644:11:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -383,10 +389,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8731,
+                    "id": 27041,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "634:7:42",
+                    "src": "644:7:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -397,11 +403,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8734,
+                  "id": 27044,
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "647:15:42",
+                  "scope": 27053,
+                  "src": "657:15:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -409,10 +415,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 8733,
+                    "id": 27043,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "647:7:42",
+                    "src": "657:7:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -423,11 +429,37 @@
                 },
                 {
                   "constant": false,
-                  "id": 8736,
+                  "id": 27046,
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 27053,
+                  "src": "674:11:73",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 27045,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "674:5:73",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 27048,
                   "name": "_isTransfer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "664:16:42",
+                  "scope": 27053,
+                  "src": "687:16:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -435,10 +467,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 8735,
+                    "id": 27047,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "664:4:42",
+                    "src": "687:4:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -448,35 +480,35 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "618:63:42"
+              "src": "628:76:73"
             },
             "payable": false,
             "returnParameters": {
-              "id": 8740,
+              "id": 27052,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8739,
+                  "id": 27051,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "697:6:42",
+                  "scope": 27053,
+                  "src": "720:6:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_Result_$8728",
+                    "typeIdentifier": "t_enum$_Result_$27038",
                     "typeString": "enum ITransferManager.Result"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 8738,
+                    "id": 27050,
                     "name": "Result",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 8728,
-                    "src": "697:6:42",
+                    "referencedDeclaration": 27038,
+                    "src": "720:6:73",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_Result_$8728",
+                      "typeIdentifier": "t_enum$_Result_$27038",
                       "typeString": "enum ITransferManager.Result"
                     }
                   },
@@ -484,19 +516,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "696:8:42"
+              "src": "719:8:73"
             },
-            "scope": 8764,
-            "src": "595:110:42",
+            "scope": 27076,
+            "src": "605:123:73",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 8751,
+              "id": 27063,
               "nodeType": "Block",
-              "src": "747:33:42",
+              "src": "770:33:73",
               "statements": [
                 {
                   "expression": {
@@ -506,32 +538,32 @@
                       "argumentTypes": [],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 8746,
+                        "id": 27058,
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12663,
-                        "src": "757:5:42",
+                        "referencedDeclaration": 33450,
+                        "src": "780:5:73",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_super$_ITransferManager_$8764",
+                          "typeIdentifier": "t_super$_ITransferManager_$27076",
                           "typeString": "contract super ITransferManager"
                         }
                       },
-                      "id": 8748,
+                      "id": 27060,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "_unpause",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 473,
-                      "src": "757:14:42",
+                      "referencedDeclaration": 1526,
+                      "src": "780:14:73",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 8749,
+                    "id": 27061,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -539,70 +571,70 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "757:16:42",
+                    "src": "780:16:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8750,
+                  "id": 27062,
                   "nodeType": "ExpressionStatement",
-                  "src": "757:16:42"
+                  "src": "780:16:73"
                 }
               ]
             },
             "documentation": null,
-            "id": 8752,
+            "id": 27064,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 8744,
+                "id": 27056,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 8743,
+                  "id": 27055,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2363,
-                  "src": "730:9:42",
+                  "referencedDeclaration": 19927,
+                  "src": "760:9:73",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "730:9:42"
+                "src": "760:9:73"
               }
             ],
             "name": "unpause",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8742,
+              "id": 27054,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "727:2:42"
+              "src": "750:2:73"
             },
             "payable": false,
             "returnParameters": {
-              "id": 8745,
+              "id": 27057,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "747:0:42"
+              "src": "770:0:73"
             },
-            "scope": 8764,
-            "src": "711:69:42",
+            "scope": 27076,
+            "src": "734:69:73",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 8762,
+              "id": 27074,
               "nodeType": "Block",
-              "src": "820:31:42",
+              "src": "843:31:73",
               "statements": [
                 {
                   "expression": {
@@ -612,32 +644,32 @@
                       "argumentTypes": [],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 8757,
+                        "id": 27069,
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12663,
-                        "src": "830:5:42",
+                        "referencedDeclaration": 33450,
+                        "src": "853:5:73",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_super$_ITransferManager_$8764",
+                          "typeIdentifier": "t_super$_ITransferManager_$27076",
                           "typeString": "contract super ITransferManager"
                         }
                       },
-                      "id": 8759,
+                      "id": 27071,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "_pause",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 457,
-                      "src": "830:12:42",
+                      "referencedDeclaration": 1512,
+                      "src": "853:12:73",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 8760,
+                    "id": 27072,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -645,84 +677,84 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "830:14:42",
+                    "src": "853:14:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8761,
+                  "id": 27073,
                   "nodeType": "ExpressionStatement",
-                  "src": "830:14:42"
+                  "src": "853:14:73"
                 }
               ]
             },
             "documentation": null,
-            "id": 8763,
+            "id": 27075,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 8755,
+                "id": 27067,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 8754,
+                  "id": 27066,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2363,
-                  "src": "803:9:42",
+                  "referencedDeclaration": 19927,
+                  "src": "833:9:73",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "803:9:42"
+                "src": "833:9:73"
               }
             ],
             "name": "pause",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8753,
+              "id": 27065,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "800:2:42"
+              "src": "823:2:73"
             },
             "payable": false,
             "returnParameters": {
-              "id": 8756,
+              "id": 27068,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "820:0:42"
+              "src": "843:0:73"
             },
-            "scope": 8764,
-            "src": "786:65:42",
+            "scope": 27076,
+            "src": "809:65:73",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 8765,
-        "src": "173:680:42"
+        "scope": 27077,
+        "src": "184:692:73"
       }
     ],
-    "src": "0:854:42"
+    "src": "0:877:73"
   },
   "legacyAST": {
-    "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/TransferManager/ITransferManager.sol",
     "exportedSymbols": {
       "ITransferManager": [
-        8764
+        27076
       ]
     },
-    "id": 8765,
+    "id": 27077,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 8717,
+        "id": 27027,
         "literals": [
           "solidity",
           "^",
@@ -730,27 +762,27 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:42"
+        "src": "0:24:73"
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../../Pausable.sol",
-        "id": 8718,
+        "id": 27028,
         "nodeType": "ImportDirective",
-        "scope": 8765,
-        "sourceUnit": 475,
-        "src": "26:28:42",
+        "scope": 27077,
+        "sourceUnit": 1528,
+        "src": "26:28:73",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/rafaelvidaurre/Code/polymath/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/interfaces/IModule.sol",
-        "file": "../../interfaces/IModule.sol",
-        "id": 8719,
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/polymath-shared/scripts/generateLocalBlockchain/contracts/modules/Module.sol",
+        "file": "../Module.sol",
+        "id": 27029,
         "nodeType": "ImportDirective",
-        "scope": 8765,
-        "sourceUnit": 2428,
-        "src": "55:38:42",
+        "scope": 27077,
+        "sourceUnit": 20007,
+        "src": "55:23:73",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -760,92 +792,94 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 8720,
-              "name": "IModule",
+              "id": 27030,
+              "name": "Module",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2427,
-              "src": "202:7:42",
+              "referencedDeclaration": 20006,
+              "src": "213:6:73",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IModule_$2427",
-                "typeString": "contract IModule"
+                "typeIdentifier": "t_contract$_Module_$20006",
+                "typeString": "contract Module"
               }
             },
-            "id": 8721,
+            "id": 27031,
             "nodeType": "InheritanceSpecifier",
-            "src": "202:7:42"
+            "src": "213:6:73"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 8722,
+              "id": 27032,
               "name": "Pausable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 474,
-              "src": "211:8:42",
+              "referencedDeclaration": 1527,
+              "src": "221:8:73",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Pausable_$474",
+                "typeIdentifier": "t_contract$_Pausable_$1527",
                 "typeString": "contract Pausable"
               }
             },
-            "id": 8723,
+            "id": 27033,
             "nodeType": "InheritanceSpecifier",
-            "src": "211:8:42"
+            "src": "221:8:73"
           }
         ],
         "contractDependencies": [
-          474,
-          2427
+          1527,
+          10760,
+          20006
         ],
         "contractKind": "contract",
-        "documentation": "@title Interface to be implemented by all Transfer Manager modules",
+        "documentation": "@title Interface to be implemented by all Transfer Manager modules\n@dev abstract contract",
         "fullyImplemented": false,
-        "id": 8764,
+        "id": 27076,
         "linearizedBaseContracts": [
-          8764,
-          474,
-          2427
+          27076,
+          1527,
+          20006,
+          10760
         ],
         "name": "ITransferManager",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "ITransferManager.Result",
-            "id": 8728,
+            "id": 27038,
             "members": [
               {
-                "id": 8724,
+                "id": 27034,
                 "name": "INVALID",
                 "nodeType": "EnumValue",
-                "src": "557:7:42"
+                "src": "567:7:73"
               },
               {
-                "id": 8725,
+                "id": 27035,
                 "name": "NA",
                 "nodeType": "EnumValue",
-                "src": "566:2:42"
+                "src": "576:2:73"
               },
               {
-                "id": 8726,
+                "id": 27036,
                 "name": "VALID",
                 "nodeType": "EnumValue",
-                "src": "570:5:42"
+                "src": "580:5:73"
               },
               {
-                "id": 8727,
+                "id": 27037,
                 "name": "FORCE_VALID",
                 "nodeType": "EnumValue",
-                "src": "577:11:42"
+                "src": "587:11:73"
               }
             ],
             "name": "Result",
             "nodeType": "EnumDefinition",
-            "src": "544:45:42"
+            "src": "554:45:73"
           },
           {
             "body": null,
             "documentation": null,
-            "id": 8741,
+            "id": 27053,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -853,16 +887,16 @@
             "name": "verifyTransfer",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8737,
+              "id": 27049,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8730,
+                  "id": 27040,
                   "name": "_from",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "619:13:42",
+                  "scope": 27053,
+                  "src": "629:13:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -870,10 +904,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8729,
+                    "id": 27039,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "619:7:42",
+                    "src": "629:7:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -884,11 +918,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8732,
+                  "id": 27042,
                   "name": "_to",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "634:11:42",
+                  "scope": 27053,
+                  "src": "644:11:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -896,10 +930,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8731,
+                    "id": 27041,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "634:7:42",
+                    "src": "644:7:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -910,11 +944,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8734,
+                  "id": 27044,
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "647:15:42",
+                  "scope": 27053,
+                  "src": "657:15:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -922,10 +956,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 8733,
+                    "id": 27043,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "647:7:42",
+                    "src": "657:7:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -936,11 +970,37 @@
                 },
                 {
                   "constant": false,
-                  "id": 8736,
+                  "id": 27046,
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 27053,
+                  "src": "674:11:73",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 27045,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "674:5:73",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 27048,
                   "name": "_isTransfer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "664:16:42",
+                  "scope": 27053,
+                  "src": "687:16:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -948,10 +1008,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 8735,
+                    "id": 27047,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "664:4:42",
+                    "src": "687:4:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -961,35 +1021,35 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "618:63:42"
+              "src": "628:76:73"
             },
             "payable": false,
             "returnParameters": {
-              "id": 8740,
+              "id": 27052,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8739,
+                  "id": 27051,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8741,
-                  "src": "697:6:42",
+                  "scope": 27053,
+                  "src": "720:6:73",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_Result_$8728",
+                    "typeIdentifier": "t_enum$_Result_$27038",
                     "typeString": "enum ITransferManager.Result"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 8738,
+                    "id": 27050,
                     "name": "Result",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 8728,
-                    "src": "697:6:42",
+                    "referencedDeclaration": 27038,
+                    "src": "720:6:73",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_Result_$8728",
+                      "typeIdentifier": "t_enum$_Result_$27038",
                       "typeString": "enum ITransferManager.Result"
                     }
                   },
@@ -997,19 +1057,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "696:8:42"
+              "src": "719:8:73"
             },
-            "scope": 8764,
-            "src": "595:110:42",
+            "scope": 27076,
+            "src": "605:123:73",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 8751,
+              "id": 27063,
               "nodeType": "Block",
-              "src": "747:33:42",
+              "src": "770:33:73",
               "statements": [
                 {
                   "expression": {
@@ -1019,32 +1079,32 @@
                       "argumentTypes": [],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 8746,
+                        "id": 27058,
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12663,
-                        "src": "757:5:42",
+                        "referencedDeclaration": 33450,
+                        "src": "780:5:73",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_super$_ITransferManager_$8764",
+                          "typeIdentifier": "t_super$_ITransferManager_$27076",
                           "typeString": "contract super ITransferManager"
                         }
                       },
-                      "id": 8748,
+                      "id": 27060,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "_unpause",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 473,
-                      "src": "757:14:42",
+                      "referencedDeclaration": 1526,
+                      "src": "780:14:73",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 8749,
+                    "id": 27061,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1052,70 +1112,70 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "757:16:42",
+                    "src": "780:16:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8750,
+                  "id": 27062,
                   "nodeType": "ExpressionStatement",
-                  "src": "757:16:42"
+                  "src": "780:16:73"
                 }
               ]
             },
             "documentation": null,
-            "id": 8752,
+            "id": 27064,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 8744,
+                "id": 27056,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 8743,
+                  "id": 27055,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2363,
-                  "src": "730:9:42",
+                  "referencedDeclaration": 19927,
+                  "src": "760:9:73",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "730:9:42"
+                "src": "760:9:73"
               }
             ],
             "name": "unpause",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8742,
+              "id": 27054,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "727:2:42"
+              "src": "750:2:73"
             },
             "payable": false,
             "returnParameters": {
-              "id": 8745,
+              "id": 27057,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "747:0:42"
+              "src": "770:0:73"
             },
-            "scope": 8764,
-            "src": "711:69:42",
+            "scope": 27076,
+            "src": "734:69:73",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 8762,
+              "id": 27074,
               "nodeType": "Block",
-              "src": "820:31:42",
+              "src": "843:31:73",
               "statements": [
                 {
                   "expression": {
@@ -1125,32 +1185,32 @@
                       "argumentTypes": [],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 8757,
+                        "id": 27069,
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12663,
-                        "src": "830:5:42",
+                        "referencedDeclaration": 33450,
+                        "src": "853:5:73",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_super$_ITransferManager_$8764",
+                          "typeIdentifier": "t_super$_ITransferManager_$27076",
                           "typeString": "contract super ITransferManager"
                         }
                       },
-                      "id": 8759,
+                      "id": 27071,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "_pause",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 457,
-                      "src": "830:12:42",
+                      "referencedDeclaration": 1512,
+                      "src": "853:12:73",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 8760,
+                    "id": 27072,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1158,71 +1218,71 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "830:14:42",
+                    "src": "853:14:73",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8761,
+                  "id": 27073,
                   "nodeType": "ExpressionStatement",
-                  "src": "830:14:42"
+                  "src": "853:14:73"
                 }
               ]
             },
             "documentation": null,
-            "id": 8763,
+            "id": 27075,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 8755,
+                "id": 27067,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 8754,
+                  "id": 27066,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2363,
-                  "src": "803:9:42",
+                  "referencedDeclaration": 19927,
+                  "src": "833:9:73",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "803:9:42"
+                "src": "833:9:73"
               }
             ],
             "name": "pause",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8753,
+              "id": 27065,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "800:2:42"
+              "src": "823:2:73"
             },
             "payable": false,
             "returnParameters": {
-              "id": 8756,
+              "id": 27068,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "820:0:42"
+              "src": "843:0:73"
             },
-            "scope": 8764,
-            "src": "786:65:42",
+            "scope": 27076,
+            "src": "809:65:73",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 8765,
-        "src": "173:680:42"
+        "scope": 27077,
+        "src": "184:692:73"
       }
     ],
-    "src": "0:854:42"
+    "src": "0:877:73"
   },
   "compiler": {
     "name": "solc",
@@ -1230,5 +1290,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-18T19:17:46.379Z"
+  "updatedAt": "2018-11-05T19:10:15.882Z"
 }

@@ -17,3 +17,7 @@ export { default as NotSupportedPage } from './NotSupportedPage';
 export { default as SignUpPage } from './SignUpPage';
 export { default as SignUpSuccessPage } from './SignUpSuccessPage';
 export { default as SignInPage } from './SignInPage';
+export { default as SimpleTable } from './SimpleTable';
+export { default as TierStatus } from './TierStatus';
+export { default as ProgressBar } from './ProgressBar';
+export { default as Box } from './Box';

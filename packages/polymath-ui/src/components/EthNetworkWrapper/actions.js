@@ -2,8 +2,14 @@
 
 import Web3 from 'web3';
 
-import getNetwork, { NETWORK_LOCAL, NETWORK_LOCALVM } from './networks';
+import getNetwork from './networks';
 import type { ExtractReturn } from './helpers';
+import Contract, { setupContracts } from '@polymathnetwork/js';
+import { txHash, txEnd } from '../TxModal/actions';
+import {
+  LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
 
 export type NetworkParams = {|
   id: number,
@@ -31,6 +37,22 @@ export const ERROR_LOCKED = 2;
 export const ERROR_NETWORK = 3;
 export const ERROR_DISCONNECTED = 4;
 
+const initPolymathJs = async (params: {
+  networkParams: Object,
+  polymathRegistryAddress: string,
+  dispatch: Function,
+}) => {
+  const { networkParams, polymathRegistryAddress, dispatch } = params;
+  Contract.setParams({
+    ...networkParams,
+    txHashCallback: hash => dispatch(txHash(hash)),
+    txEndCallback: receipt => dispatch(txEnd(receipt)),
+  });
+
+  // initialize polymath-js contracts with addresses from the polymath registry
+  await setupContracts(polymathRegistryAddress);
+};
+
 export const init = (networks: Array<string>) => async (dispatch: Function) => {
   try {
     let id = undefined;
@@ -41,8 +63,8 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     }
 
     const isLocalhost =
-      String(id) === NETWORK_LOCAL ||
-      String(id) === NETWORK_LOCALVM ||
+      String(id) === LOCAL_NETWORK_ID ||
+      String(id) === LOCALVM_NETWORK_ID ||
       id === undefined;
 
     const network = getNetwork(id);
@@ -89,7 +111,21 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
       }
     });
 
-    dispatch(connected({ id, name, account, web3, web3WS }));
+    const networkParams = {
+      id,
+      name,
+      account,
+      web3,
+      web3WS,
+    };
+
+    await initPolymathJs({
+      networkParams,
+      dispatch,
+      polymathRegistryAddress: network.polymathRegistryAddress,
+    });
+
+    dispatch(connected(networkParams));
   } catch (e) {
     if (![ERROR_LOCKED, ERROR_NETWORK].includes(Number(e.message))) {
       // eslint-disable-next-line

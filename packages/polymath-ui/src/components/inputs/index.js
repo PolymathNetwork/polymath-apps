@@ -1,12 +1,9 @@
-export { default as TextInput } from './TextInput';
-export { default as TextAreaInput } from './TextAreaInput';
-export { default as SelectInput } from './SelectInput';
-export { default as RadioInput } from './RadioInput';
-export { default as CheckboxInput } from './CheckboxInput';
-export { default as DatePickerInput } from './DatePickerInput';
-export { default as DatePickerRangeInput } from './DatePickerRangeInput';
-export { default as TimePickerSelect } from './TimePickerSelect';
-export {
-  default as TimePickerInput,
-  twelveHourTimeToMinutes,
-} from './TimePickerInput';
+// NOTE @RafaelVidaurre: These are remade version of our legacy form inputs,
+// use these in new forms whenever possible
+
+export DatePickerInput from './DatePickerInput';
+export TimePickerSelect from './TimePickerSelect';
+export TextInput from './TextInput';
+export NumberInput from './NumberInput';
+export PercentageInput from './PercentageInput';
+export CurrencySelect from './CurrencySelect';

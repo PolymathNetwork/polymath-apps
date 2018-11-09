@@ -33,6 +33,12 @@ export const mintResetUploaded = () => ({ type: MINT_RESET_UPLOADED });
 export const DATA = 'token/DATA';
 export const data = (token: ?SecurityToken) => ({ type: DATA, token });
 
+export const MINTING_FROZEN = 'token/MINTING_FROZEN';
+export const mintingFrozen = (isMintingFrozen: boolean) => ({
+  type: MINTING_FROZEN,
+  isMintingFrozen,
+});
+
 export const COUNT_TM = 'token/COUNT_TM';
 export const countTransferManager = (
   tm: CountTransferManager,
@@ -68,14 +74,25 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
         );
       }
       // $FlowFixMe
-      token.contract.subscribe('LogFreezeTransfers', {}, event => {
+      const isMintingFrozen = await token.contract._methods
+        .mintingFrozen()
+        .call();
+      dispatch(mintingFrozen(isMintingFrozen));
+
+      // $FlowFixMe
+      token.contract.subscribe('FreezeMinting', {}, event => {
+        dispatch(mintingFrozen(true));
+      });
+
+      // $FlowFixMe
+      token.contract.subscribe('FreezeTransfers', {}, event => {
         // eslint-disable-next-line
         dispatch({
           type: FREEZE_STATUS,
-          freezeStatus: !!event.returnValues._freeze,
+          freezeStatus: !!event.returnValues._status,
         });
       }); // $FlowFixMe
-      const frozenInit = await token.contract.freeze();
+      const frozenInit = await token.contract.transfersFrozen();
       dispatch({ type: FREEZE_STATUS, freezeStatus: frozenInit });
     }
 
@@ -94,7 +111,7 @@ export const issue = (isLimitNI: boolean) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const fee = await SecurityTokenRegistry.registrationFee();
+  const fee = await SecurityTokenRegistry.launchFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
   let { token } = getState().token; // $FlowFixMe
   const ticker = token.ticker;
@@ -156,11 +173,6 @@ export const issue = (isLimitNI: boolean) => async (
 
         dispatch(
           ui.tx(
-            // [
-            //   'Approving POLY Spend',
-            //   'Creating Security Token',
-            //   ...(isLimitNI ? ['Limiting Number Of Investors'] : []),
-            // ],
             title,
             async () => {
               const { values } = getState().form[completeFormName];
@@ -262,7 +274,6 @@ export const mintTokens = () => async (
     ui.tx(
       ['Whitelisting Addresses', 'Minting Tokens'],
       async () => {
-        console.log('something');
         await transferManager.modifyWhitelistMulti(uploaded, false);
         const addresses: Array<Address> = [];
         for (let investor: Investor of uploaded) {

@@ -7,8 +7,8 @@ import BigNumber from 'bignumber.js';
 import Contract from './Contract';
 import type { Address, Web3Event, Web3Receipt } from '../types';
 
-export const TRANSFER = 'Transfer';
-export const APPROVAL = 'Approval';
+export const TRANSFER_EVENT = 'Transfer';
+export const APPROVAL_EVENT = 'Approval';
 
 export class PolyToken extends Contract {
   decimals: number = 18;
@@ -90,8 +90,8 @@ export class PolyToken extends Contract {
       );
     };
     return Promise.all([
-      this.subscribe(TRANSFER, { _from: this.account }, callbackInternal),
-      this.subscribe(TRANSFER, { _to: this.account }, callbackInternal),
+      this.subscribe(TRANSFER_EVENT, { _from: this.account }, callbackInternal),
+      this.subscribe(TRANSFER_EVENT, { _to: this.account }, callbackInternal),
     ]);
   }
 }

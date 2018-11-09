@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Form } from 'carbon-components-react';
 
-import TextInput from '../inputs/TextInput';
+import TextInput from '../../deprecated/components/inputs/TextInput';
 
 export const formName = 'enterPIN';
 
