@@ -143,7 +143,7 @@ export default class USDTieredSTO {
       const usdRaised = tokensSold.times(rate);
       let status: USDTieredSTOTierStatus;
 
-      if (tierNumber < currentTier) {
+      if (tierNumber < currentTier || totalTokens <= tokensSold) {
         status = 'done';
       } else if (tierNumber === currentTier) {
         status = 'active';
