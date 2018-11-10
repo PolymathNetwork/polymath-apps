@@ -32,7 +32,7 @@ export default ({
     <TextInput
       {...input}
       id={input.name}
-      labelText={label}
+      labelText={label || ''}
       invalid={touched && !!error}
       invalidText={error}
       className={className}

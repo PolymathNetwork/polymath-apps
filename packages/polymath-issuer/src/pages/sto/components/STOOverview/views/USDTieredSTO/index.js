@@ -73,7 +73,6 @@ const USDTieredSTOOverviewComponent = ({
   handleExportInvestors,
   sto,
 }: ComponentProps) => {
-  console.log(sto);
   const totalUsdRaised = sto.totalUsdRaised;
   const countdownProps = getCountdownProps(
     sto.startDate,
