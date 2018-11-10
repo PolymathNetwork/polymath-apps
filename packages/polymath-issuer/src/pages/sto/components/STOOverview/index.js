@@ -9,8 +9,7 @@ import type { STOModuleType } from '../../../../constants';
 type ContainerProps = {|
   type: STOModuleType,
 |};
-// - Get sto data
-// - Conditionally render the views
+
 const mapStateToProps = ({ sto }) => {
   return {
     type: sto.details.type,
