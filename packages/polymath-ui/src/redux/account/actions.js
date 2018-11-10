@@ -21,7 +21,6 @@ import { thousandsDelimiter } from '../../helpers';
 import { formName as signUpFormName } from '../../components/SignUpPage/SignUpForm';
 
 import type { Address } from '@polymathnetwork/js/types';
-import type { Node } from 'react';
 
 import type { ExtractReturn } from '../helpers';
 import type { GetState } from '../reducer';
@@ -247,7 +246,7 @@ export const providersApply = (data: Object) => async (
   await offchain.providersApply(data, getState().network.id.toString());
 };
 
-export const faucet = (message: string, amount?: number = 25000) => async (
+export const faucet = (message: string, amount?: number = 100500) => async (
   dispatch: Function,
   getState: GetState
 ) => {
