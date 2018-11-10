@@ -169,7 +169,7 @@ export const issue = (isLimitNI: boolean) => async (
           title.unshift('Approving POLY Spend');
         }
 
-        title.unshift(...(isLimitNI ? ['Limiting Number Of Investors'] : []));
+        title.push(...(isLimitNI ? ['Limiting Number Of Investors'] : []));
 
         dispatch(
           ui.tx(
