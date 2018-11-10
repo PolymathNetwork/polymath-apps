@@ -125,7 +125,7 @@ const USDTieredSTOOverviewComponent = ({
                 </div>
                 <div className="pui-key-value">
                   <div>End Date</div>
-                  {dateFormat(sto.startDate)}
+                  {dateFormat(sto.endDate)}
                 </div>
               </div>
               <div>

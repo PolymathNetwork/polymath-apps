@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { DatePicker, DatePickerInput } from 'carbon-components-react';
 
 import type { InputProps } from '../types';

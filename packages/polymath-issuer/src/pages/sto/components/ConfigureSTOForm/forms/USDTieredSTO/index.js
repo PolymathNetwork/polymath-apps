@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isNumber, map, reduce } from 'lodash';
 import { FastField, withFormik } from 'formik';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
 import Web3 from 'web3';
@@ -28,6 +28,8 @@ import { configureSTO } from '../../../../../../actions/sto';
 import type { Dispatch } from 'redux';
 import type { RootState } from '../../../../../../redux/reducer';
 import type { FundRaiseType } from '../../../../../../constants';
+
+const TRANSACTION_TIME_BUFFER = 20 * 60 * 1000;
 
 type FormikProps = {|
   handleSubmit: () => void,
@@ -64,7 +66,7 @@ function validateEndTime(value) {
 
 function validateEndDate(value) {
   const startDate: Date = this.parent.startDate;
-  const valid = moment(value).isAfter(startDate);
+  const valid = moment(value).isSameOrAfter(startDate);
   if (!valid) {
     return this.createError({ message: 'End date must be after start date.' });
   }
@@ -81,7 +83,6 @@ function todayOrAfter(value) {
 }
 
 function validateStartTime(value) {
-  const requiredTimeBuffer = 10 * 60 * 1000;
   const startDate: Date = this.parent.startDate;
 
   if (!startDate) {
@@ -89,13 +90,13 @@ function validateStartTime(value) {
   }
 
   const startUnix = moment(startDate).unix() * 1000 + value;
-  const nowUnix = Date.now();
+  const nowUnix = moment(Date.now()).unix() * 1000;
   const timeUntilStart = startUnix - nowUnix;
 
   if (nowUnix >= startUnix) {
     return this.createError({ message: 'Time is in the past.' });
   }
-  if (timeUntilStart < requiredTimeBuffer) {
+  if (timeUntilStart < TRANSACTION_TIME_BUFFER) {
     return this.createError({
       message: 'Please allow for transaction processing time.',
     });
@@ -196,9 +197,6 @@ const formSchema = Yup.object().shape({
     newTier: investmentTierSchema.nullable(),
   }),
 });
-
-// FIXME @RafaelVidaurre: RESET to empty values, these are hardcoded for testing
-// TODO @RafaelVidaurre: Improve fields naming
 
 const initialValues = {
   startDate: new Date(Date.now() + 1000 * 360 * 24),
@@ -385,7 +383,6 @@ export const USDTieredSTOFormComponent = ({
   );
 };
 
-// TODO @RafaelVidaurre: Move to new file
 const mapStateToProps = ({
   sto: {
     factory: { address },
@@ -427,8 +424,8 @@ const formikEnhancer = withFormik({
     const { dispatch, address } = props;
 
     const formattedValues = {
-      startsAt: new Date(values.startDate).getTime() + values.startTime,
-      endsAt: new Date(values.endDate).getTime() + values.endTime,
+      startsAt: moment(values.startDate).unix() * 1000 + values.startTime,
+      endsAt: moment(values.endDate).unix() * 1000 + values.endTime,
       ratePerTier: map(values.investmentTiers.tiers, ({ tokenPrice }) =>
         toWei(tokenPrice)
       ),
