@@ -98,21 +98,31 @@ export default class USDTieredSTO {
   }
 
   async getDetails(): Promise<USDTieredSTOType> {
-    // TODO: Find better way. Also paralellize
-    const startTime = await this.contract.methods.startTime().call();
-    const endTime = await this.contract.methods.endTime().call();
-    const paused = await this.paused();
-    const factoryAddress = await this.contract.methods.factory().call();
-    const open = await this.contract.methods.isOpen().call();
-    const finalized = await this.contract.methods.isFinalized().call();
-    const tiersCount = await this.contract.methods.getNumberOfTiers().call();
-    let currentTier = await this.contract.methods.currentTier().call();
-    let totalUsdRaised = await this.contract.methods.fundsRaisedUSD().call();
-    let totalTokensSold = await this.contract.methods.getTokensSold().call();
+    const [
+      startTime,
+      endTime,
+      paused,
+      factoryAddress,
+      open,
+      finalized,
+      tiersCount,
+      currentTierRes,
+      totalUsdRaised,
+      totalTokensSold,
+    ] = await Promise.all([
+      this.contract.methods.startTime().call(),
+      this.contract.methods.endTime().call(),
+      this.paused(),
+      this.contract.methods.factory().call(),
+      this.contract.methods.isOpen().call(),
+      this.contract.methods.isFinalized().call(),
+      this.contract.methods.getNumberOfTiers().call(),
+      this.contract.methods.currentTier().call(),
+      this.contract.methods.fundsRaisedUSD().call(),
+      this.contract.methods.getTokensSold().call(),
+    ]);
 
-    currentTier = parseInt(currentTier, 10);
-    totalUsdRaised = new BigNumber(Web3.utils.fromWei(totalUsdRaised));
-    totalTokensSold = new BigNumber(Web3.utils.fromWei(totalTokensSold));
+    const currentTier = parseInt(currentTierRes, 10);
 
     // Get tiers data
     const tiers = await P.map(range(tiersCount), async tierNumber => {
@@ -159,11 +169,11 @@ export default class USDTieredSTO {
       factoryAddress,
       address: this.address,
       open,
-      currentTier,
       finalized,
       tiers,
-      totalUsdRaised,
-      totalTokensSold,
+      currentTier,
+      totalUsdRaised: new BigNumber(Web3.utils.fromWei(totalUsdRaised)),
+      totalTokensSold: new BigNumber(Web3.utils.fromWei(totalTokensSold)),
     };
   }
 }
