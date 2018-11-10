@@ -5,13 +5,14 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { reduce } from 'lodash';
+import { Button } from 'carbon-components-react';
 import {
   Box,
   ProgressBar,
   Countdown,
   etherscanAddress,
 } from '@polymathnetwork/ui';
-import { Button } from 'carbon-components-react';
+import { format } from '@polymathnetwork/shared/utils';
 import {
   togglePauseSto,
   exportInvestorsList,
@@ -38,7 +39,6 @@ type StateProps = {|
 type ContainerProps = StateProps;
 
 // FIXME @RafaelVidaurre: etherscanAddress should be a component
-// FIXME @RafaelVidaurre: review these
 const dateFormat = (date: Date) =>
   date.toLocaleDateString('en', {
     year: 'numeric',
@@ -74,7 +74,6 @@ const USDTieredSTOOverviewComponent = ({
   handleExportInvestors,
   sto,
 }: ComponentProps) => {
-  console.log(sto);
   const totalUsdRaised = sto.totalUsdRaised;
   const countdownProps = getCountdownProps(
     sto.startDate,
@@ -111,7 +110,7 @@ const USDTieredSTOOverviewComponent = ({
               <div>{totalUsdRaisedText}%</div>
               <div className="pui-key-value">
                 <div>Cap</div>
-                {totalUsdCap.toFormat(2)} USD
+                {format.toUSD(totalUsdCap)}
               </div>
             </div>
             <ProgressBar
@@ -132,9 +131,9 @@ const USDTieredSTOOverviewComponent = ({
               <div>
                 <div className="pui-key-value pui-countdown-raised">
                   <div>Total Funds Raised</div>
-                  {`${raised.toFormat(2)} USD`}
+                  {`${format.toUSD(raised)} USD`}
                   <div>
-                    {totalTokensSold.toString(2)} {ticker}
+                    {format.toTokens(totalTokensSold, { decimals: 2 })} {ticker}
                   </div>
                 </div>
               </div>
@@ -177,7 +176,7 @@ class USDTieredSTOOverviewContainer extends Component<ContainerProps> {
     const { dispatch } = this.props;
     dispatch(togglePauseSto());
   };
-  // NOTE @RafaelVidaurre: Export what? Add specificity
+
   exportInvestors = () => {
     const { dispatch } = this.props;
     dispatch(exportInvestorsList());
