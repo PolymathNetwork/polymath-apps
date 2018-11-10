@@ -672,29 +672,31 @@ class CompliancePage extends Component<Props, State> {
                   <br />
                   Own Up To of Outstanding Tokens
                 </label>
-                <TextInput
-                  id="percentage"
-                  value={this.state.percentage}
-                  placeholder="–"
-                  onChange={this.handlePercentageChange}
-                />
-                <Button
-                  className="apply-percentage-btn"
-                  // onClick={this.handleApplyPercentage} NOTE @monitz87: re-enable after the 11/15/2018 release
-                  onClick={() => null}
-                  // disabled={
-                  //   this.state.percentage === this.props.percentage ||
-                  //   typeof this.state.percentage === 'undefined'
-                  // } NOTE @monitz87: re-enable after the 11/15/2018 release
-                  disabled={true}
-                >
-                  <DisabledTooltip
-                    label="Apply"
-                    title="Ownership restrictions temporarily disabled"
-                    content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
-                    direction="top"
+                <div>
+                  <TextInput
+                    id="percentage"
+                    value={this.state.percentage}
+                    placeholder="–"
+                    onChange={this.handlePercentageChange}
                   />
-                </Button>
+                  <Button
+                    className="apply-percentage-btn"
+                    // onClick={this.handleApplyPercentage} NOTE @monitz87: re-enable after the 11/15/2018 release
+                    onClick={() => null}
+                    // disabled={
+                    //   this.state.percentage === this.props.percentage ||
+                    //   typeof this.state.percentage === 'undefined'
+                    // } NOTE @monitz87: re-enable after the 11/15/2018 release
+                    disabled={true}
+                  >
+                    <DisabledTooltip
+                      label="Apply"
+                      title="Ownership restrictions temporarily disabled"
+                      content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                      direction="top"
+                    />
+                  </Button>
+                </div>
               </div>
             </div>
 
