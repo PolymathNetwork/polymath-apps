@@ -227,8 +227,7 @@ export const configureSTO = (
         if (!hasEnoughBalance) {
           dispatch(
             ui.faucet(
-              `The launching of a STO has a fixed cost of ${setupCost} POLY.`,
-              setupCost
+              `The launching of a STO has a fixed cost of ${setupCost} POLY.`
             )
           );
           return;
