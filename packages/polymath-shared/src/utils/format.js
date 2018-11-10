@@ -7,9 +7,11 @@ import type { BigNumber as BigNumberType } from 'bignumber.js';
 
 /**
  * Wether a value is a BigNumber instance or not
+ * NOTE @RafaelVidaurre: We cannot use instanceof here since we are handling
+ * multiple versions of BigNumber
  */
 function isBigNumber(value: any) {
-  return value instanceof BigNumber;
+  return typeof value === 'object';
 }
 
 type toUSDOpts = {
