@@ -67,6 +67,7 @@ function validateEndTime(value) {
 function validateEndDate(value) {
   const startDate: Date = this.parent.startDate;
   const valid = moment(value).isSameOrAfter(startDate);
+
   if (!valid) {
     return this.createError({ message: 'End date must be after start date.' });
   }
@@ -199,8 +200,13 @@ const formSchema = Yup.object().shape({
 });
 
 const initialValues = {
-  startDate: new Date(Date.now() + 1000 * 360 * 24),
-  endDate: new Date(Date.now() + 1000 * 360 * 24 * 10),
+  startDate: moment(Date.now())
+    .startOf('day')
+    .toDate(),
+  endDate: moment(Date.now())
+    .add(1, 'day')
+    .startOf('day')
+    .toDate(),
   startTime: 0,
   endTime: 0,
   investmentTiers: {

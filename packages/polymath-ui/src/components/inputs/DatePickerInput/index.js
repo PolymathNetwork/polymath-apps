@@ -20,7 +20,10 @@ export default class DatePickerInputField extends Component<InputProps> {
       year,
       month: parseInt(month, 10) - 1,
       day,
-    }).toDate();
+    })
+      .startOf('day')
+      .toDate();
+
     setFieldValue(name, date);
   };
   render() {
