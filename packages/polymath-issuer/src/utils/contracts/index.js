@@ -20,7 +20,7 @@ import ISTOArtifacts from '@polymathnetwork/shared/fixtures/contracts/ISTO.json'
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../../constants';
 import USDTieredSTO from './USDTieredSTO';
 
-import type { STOModule, STOModuleType, STOConfig } from '../../constants';
+import type { STOModule, STOModuleType } from '../../constants';
 
 type Address = string;
 type USDTieredSTOParams = {|
