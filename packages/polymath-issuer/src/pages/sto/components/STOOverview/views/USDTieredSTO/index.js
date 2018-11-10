@@ -38,7 +38,6 @@ type StateProps = {|
 type ContainerProps = StateProps;
 
 // FIXME @RafaelVidaurre: etherscanAddress should be a component
-// FIXME @RafaelVidaurre: review these
 const dateFormat = (date: Date) =>
   date.toLocaleDateString('en', {
     year: 'numeric',
@@ -126,7 +125,7 @@ const USDTieredSTOOverviewComponent = ({
                 </div>
                 <div className="pui-key-value">
                   <div>End Date</div>
-                  {dateFormat(sto.startDate)}
+                  {dateFormat(sto.endDate)}
                 </div>
               </div>
               <div>
