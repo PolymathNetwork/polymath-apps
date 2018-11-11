@@ -17,7 +17,7 @@ import {
   EnterPINModal,
 } from '@polymathnetwork/ui';
 
-import { getMyTokens } from '../actions/ticker';
+import { getMyTokens, getLegacyTokens } from '../actions/ticker';
 import AuthWrapper from './AuthWrapper';
 
 import type { RootState } from '../redux/reducer';
@@ -38,6 +38,7 @@ type DispatchProps = {|
   txEnd: (receipt: any) => any,
   signIn: () => any,
   getMyTokens: () => any,
+  getLegacyTokens: () => any,
   getNotice: (scope: string) => any,
 |};
 
@@ -57,6 +58,7 @@ const mapDispatchToProps: DispatchProps = {
   txEnd,
   signIn,
   getMyTokens,
+  getLegacyTokens,
   getNotice,
 };
 
@@ -68,6 +70,7 @@ type Props = {|
 class App extends Component<Props> {
   componentWillMount() {
     this.props.getMyTokens();
+    this.props.getLegacyTokens();
     this.props.getNotice('issuers');
   }
 
