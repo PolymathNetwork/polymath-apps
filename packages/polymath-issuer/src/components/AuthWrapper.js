@@ -13,6 +13,7 @@ import {
 
 import { tickerReservationEmail } from '../actions/ticker';
 import ConfirmEmailPage from './ConfirmEmailPage';
+import MigrateTokenPage from './MigrateTokenPage';
 
 import type { RootState } from '../redux/reducer';
 
@@ -23,6 +24,11 @@ type StateProps = {|
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
+  hasLegacyTokens: ?boolean,
+  legacyTokens: Array<{|
+    address: string,
+    ticker: string,
+  |}>,
 |};
 
 type DispatchProps = {|
@@ -40,6 +46,8 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
+  hasLegacyTokens: state.ticker.hasLegacyTokens,
+  legacyTokens: state.ticker.legacyTokens,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -64,17 +72,18 @@ class AuthWrapper extends Component<Props> {
     const {
       isSignedIn,
       isSignedUp,
-      isTickerReserved,
       isEmailConfirmed,
       isSignUpSuccess,
       children,
+      hasLegacyTokens,
+      legacyTokens,
     } = this.props;
 
     return !isSignedIn ? (
       <SignInPage />
     ) : !isSignedUp ? (
       <SignUpPage />
-    ) : isTickerReserved && !isEmailConfirmed ? (
+    ) : !isEmailConfirmed ? (
       isSignUpSuccess ? (
         <SignUpSuccessPage
           text={
@@ -91,6 +100,8 @@ class AuthWrapper extends Component<Props> {
       ) : (
         <ConfirmEmailPage />
       )
+    ) : hasLegacyTokens ? (
+      <MigrateTokenPage legacyTokens={legacyTokens} />
     ) : (
       children
     );
