@@ -1,12 +1,11 @@
 import React from 'react';
 import Contract, {
   SecurityTokenRegistry,
-  SecurityToken,
   PolyToken,
 } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
-import LegacySTRArtifact from './LegacySecurityTokenRegistry.json';
-import LegacySTArtifact from './LegacySecurityToken.json';
+import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
+import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 import axios from 'axios';
 
@@ -28,6 +27,8 @@ export const TOKENS = 'ticker/TOKENS';
 
 export const LEGACY_TOKENS = 'ticker/LEGACY_TOKENS';
 
+export const FETCHING_TOKENS = 'ticker/FETCHING_TOKENS';
+
 export const getMyTokens = () => async (dispatch: Function) => {
   const tokens = await SecurityTokenRegistry.getMyTokens();
   dispatch({ type: TOKENS, tokens });
@@ -37,7 +38,7 @@ export const getMyTokens = () => async (dispatch: Function) => {
 };
 
 export const getLegacyTokens = () => async (dispatch: Function) => {
-  dispatch(ui.fetching());
+  dispatch({ type: FETCHING_TOKENS });
   const { web3WS, account } = Contract._params;
   const networkId = await web3WS.eth.net.getId();
 
@@ -46,10 +47,6 @@ export const getLegacyTokens = () => async (dispatch: Function) => {
     dispatch(ui.fetched());
     return;
   }
-  const legacySTR = new web3WS.eth.Contract(
-    LegacySTRArtifact.abi,
-    LegacySTRArtifact.networks[networkId].address
-  );
 
   // Fetch the tokens using the etherscan API
   const logs = await axios.get('https://api-kovan.etherscan.io/api', {
@@ -71,20 +68,32 @@ export const getLegacyTokens = () => async (dispatch: Function) => {
     o => o.name === 'LogNewSecurityToken' && o.type === 'event'
   ).inputs;
 
-  const ownedTokens = logs.data.result.map(legacyToken => {
+  const ownedTokens = [];
+
+  for (const legacyToken of logs.data.result) {
     const data = web3WS.eth.abi.decodeLog(
       inputs,
       legacyToken.data,
       legacyToken.topics.slice(1)
     );
 
-    return {
-      ticker: data._ticker,
-      address: data._securityTokenAddress,
-    };
-  });
+    const { _ticker: ticker, _securityTokenAddress: address } = data;
 
-  dispatch(ui.fetched());
+    const legacyTokenContract = new web3WS.eth.Contract(
+      LegacySTArtifact.abi,
+      address
+    );
+
+    const currentOwner = await legacyTokenContract.methods.owner().call();
+
+    if (currentOwner === account) {
+      ownedTokens.push({
+        ticker,
+        address,
+      });
+    }
+  }
+
   dispatch({ type: LEGACY_TOKENS, legacyTokens: ownedTokens });
 };
 
