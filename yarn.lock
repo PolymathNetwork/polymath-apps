@@ -5962,6 +5962,29 @@ csstype@^2.5.2:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.7.tgz#bf9235d5872141eccfb2d16d82993c6b149179ff"
 
+csv-generate@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/csv-generate/-/csv-generate-2.2.2.tgz#c37808c5f3ead2deec940794073dd32d492adfd1"
+
+csv-parse@^3.1.2:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-3.2.0.tgz#9043b5921e7ecd5e3110947df1ef00d290dbeca7"
+
+csv-stringify@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/csv-stringify/-/csv-stringify-4.3.1.tgz#7bee36f746ef555dd481a735a9e2938965f8478b"
+  dependencies:
+    lodash.get "~4.4.2"
+
+csv@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/csv/-/csv-4.0.0.tgz#c7de44b9a0fd47f7a10db24064519f642a7ce92d"
+  dependencies:
+    csv-generate "^2.2.2"
+    csv-parse "^3.1.2"
+    csv-stringify "^4.3.1"
+    stream-transform "^1.0.7"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -11666,7 +11689,7 @@ lodash.flattendeep@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
 
-lodash.get@4.4.2, lodash.get@^4.4.2:
+lodash.get@4.4.2, lodash.get@^4.4.2, lodash.get@~4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
 
@@ -16888,6 +16911,10 @@ stream-shift@^1.0.0:
 stream-slice@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/stream-slice/-/stream-slice-0.1.2.tgz#2dc4f4e1b936fb13f3eb39a2def1932798d07a4b"
+
+stream-transform@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/stream-transform/-/stream-transform-1.0.7.tgz#5135dd6c29941a1179212da6083be2cacdebc15a"
 
 strict-uri-encode@^1.0.0:
   version "1.1.0"

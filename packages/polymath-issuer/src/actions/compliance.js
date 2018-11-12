@@ -176,6 +176,7 @@ export const importWhitelist = () => async (
     transferManager,
     percentageTM: { contract: percentageTM, isPaused: isPercentageDisabled },
   } = getState().whitelist;
+  console.log('whitelist csv', uploaded);
   dispatch(
     ui.tx(
       [
