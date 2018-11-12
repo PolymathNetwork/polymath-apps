@@ -43,13 +43,13 @@ export const getLegacyTokens = () => async (dispatch: Function) => {
   const networkId = await web3WS.eth.net.getId();
 
   // Fetch only on mainnet
-  if (networkId !== 42) {
-    dispatch(ui.fetched());
+  if (networkId !== 1) {
+    dispatch({ type: LEGACY_TOKENS, legacyTokens: [] });
     return;
   }
 
   // Fetch the tokens using the etherscan API
-  const logs = await axios.get('https://api-kovan.etherscan.io/api', {
+  const logs = await axios.get('https://api.etherscan.io/api', {
     params: {
       module: 'logs',
       action: 'getLogs',
