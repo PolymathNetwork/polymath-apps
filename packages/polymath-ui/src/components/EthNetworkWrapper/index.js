@@ -14,13 +14,6 @@ export const ERROR_ACCESS_DENIED = 6;
 export const CONNECTED = 'polymath-auth/CONNECTED';
 export const FAILED = 'polymath-auth/FAILED';
 
-export {
-  NETWORK_MAIN,
-  NETWORK_KOVAN,
-  NETWORK_RINKEBY,
-  NETWORK_ROPSTEN,
-} from './networks';
-
 export default EthNetworkWrapper;
 
 export type { NetworkState } from './reducer';

@@ -86,10 +86,11 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   // Get current Metamask/Mist network id
   networkId = await web3.eth.net.getId();
 
-  // TODO @RafaelVidaurre: Make this code work with polymath in localhost
   const isLocalhost =
-    Number(networkId) === HARDCODED_NETWORK_ID || networkId === undefined;
-  const network = getNetworkInfos(!isLocalhost ? networkId : undefined);
+    String(networkId) === LOCAL_NETWORK_ID ||
+    String(networkId) === LOCALVM_NETWORK_ID ||
+    networkId === undefined;
+  const network = getNetworkInfos(networkId);
   const [account] = await web3.eth.getAccounts();
 
   // Instantiate Web3 Web Socket
