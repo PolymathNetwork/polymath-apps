@@ -72,12 +72,13 @@ type Props = {|
 class App extends Component<Props> {
   componentWillMount() {
     this.props.getMyTokens();
-    this.props.getLegacyTokens();
     this.props.getNotice('issuers');
   }
 
   componentDidMount() {
-    this.props.signIn();
+    this.props.signIn().then(() => {
+      this.props.getLegacyTokens();
+    });
   }
 
   render() {

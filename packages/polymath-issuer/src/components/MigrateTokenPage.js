@@ -121,13 +121,13 @@ class MigrateTokenPageContainer extends Component {
                     1.15
                   );
                 } catch (err) {
-                  getLegacyTokens()(dispatch);
+                  dispatch(getLegacyTokens());
                   throw err;
                 }
               },
               'Token Migrated Successfully',
               async () => {
-                await getLegacyTokens()(dispatch);
+                await dispatch(getLegacyTokens());
               },
               undefined,
               undefined,
