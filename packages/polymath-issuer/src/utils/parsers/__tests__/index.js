@@ -9,12 +9,12 @@ describe('parsers', () => {
     test('parses the file correctly', () => {
       const result = parseWhitelistCsv(validWhitelistCsv);
       expect(result).toMatchSnapshot();
-      expect(result.invalidRows).toEqual(null);
+      expect(result.invalidRows).toHaveLength(0);
     });
 
     test('returns a list of invalid rows', () => {
       const result = parseWhitelistCsv(invalidWhitelistCsv);
-      expect(result.invalidRows).not.toEqual(null);
+      expect(result.invalidRows).not.toHaveLength(0);
     });
   });
 

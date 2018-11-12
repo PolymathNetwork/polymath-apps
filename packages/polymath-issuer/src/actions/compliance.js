@@ -4,13 +4,13 @@ import React from 'react';
 import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
 import FileSaver from 'file-saver';
-
-import { ethereumAddress } from '@polymathnetwork/ui/validate';
+import { map } from 'lodash';
 import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
-import type { Investor, Address } from '@polymathnetwork/js/types';
-
 import { formName as addInvestorFormName } from '../pages/compliance/components/AddInvestorForm';
 import { formName as editInvestorsFormName } from '../pages/compliance/components/EditInvestorsForm';
+import { parseWhitelistCsv } from '../utils/parsers';
+
+import type { Investor, Address } from '@polymathnetwork/js/types';
 import type { GetState } from '../redux/reducer';
 
 export const PERMANENT_LOCKUP_TS = 67184812800000; // milliseconds
@@ -87,85 +87,108 @@ export const fetchWhitelist = () => async (
 };
 
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
-  dispatch({ type: UPLOAD_START });
+  const maxRows = 75;
   const reader = new FileReader();
+
+  dispatch({ type: UPLOAD_START });
+
   reader.readAsText(file);
   reader.onload = () => {
     dispatch({ type: UPLOAD_ONLOAD });
-    const investors: Array<Investor> = [];
-    const criticals: Array<InvestorCSVRow> = [];
-    let isTooMany = false;
-    let string = 0;
-    // $FlowFixMe
-    for (let entry of reader.result.split(/\r\n|\n/)) {
-      string++;
-      const [
-        address,
-        sale,
-        purchase,
-        expiryIn,
-        canBuyFromSTOIn,
-        isPercentageIn,
-      ] = entry.split(',');
-      const handleDate = (d: string) =>
-        d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
-      const from = handleDate(sale);
-      const to = handleDate(purchase);
-      const expiry = new Date(Date.parse(expiryIn));
-      const canBuyFromSTO =
-        typeof canBuyFromSTOIn === 'string' &&
-        canBuyFromSTOIn.toLowerCase() === 'true';
-      const isPercentage =
-        typeof isPercentageIn === 'string' &&
-        isPercentageIn.toLowerCase() === 'true';
+    const { invalidRows, data } = parseWhitelistCsv(reader.result);
 
-      let isDuplicatedAddress = false;
-      investors.forEach(investor => {
-        if (investor.address === address) {
-          isDuplicatedAddress = true;
-        }
-      });
+    const isTooMany = data.length > maxRows;
 
-      if (
-        !isDuplicatedAddress &&
-        ethereumAddress(address) === null &&
-        !isNaN(from) &&
-        !isNaN(to) &&
-        !isNaN(expiry) &&
-        (isPercentage ||
-          isPercentageIn === '' ||
-          isPercentageIn === undefined) &&
-        (canBuyFromSTO ||
-          canBuyFromSTOIn === '' ||
-          canBuyFromSTOIn === undefined)
-      ) {
-        if (investors.length === 75) {
-          isTooMany = true;
-          continue;
-        }
-        investors.push({
-          address,
-          from,
-          to,
-          expiry,
-          canBuyFromSTO,
-          isPercentage,
-        });
-      } else {
-        criticals.push([
-          string,
-          address,
-          sale,
-          purchase,
-          expiryIn,
-          canBuyFromSTOIn,
-          isPercentageIn,
-        ]);
-      }
-    }
-    dispatch({ type: UPLOADED, investors, criticals, isTooMany });
+    // FIXME @RafaelVidaurre: This should be using an action creator, not a POJO
+    dispatch({
+      type: UPLOADED,
+      investors: data,
+      criticals: invalidRows,
+      isTooMany,
+    });
   };
 };
+
+// export const uploadCSV = (file: Object) => async (dispatch: Function) => {
+//   dispatch({ type: UPLOAD_START });
+//   const reader = new FileReader();
+//   reader.readAsText(file);
+//   reader.onload = () => {
+//     dispatch({ type: UPLOAD_ONLOAD });
+//     const investors: Array<Investor> = [];
+//     const criticals: Array<InvestorCSVRow> = [];
+//     let isTooMany = false;
+//     let string = 0;
+//     // $FlowFixMe
+//     for (let entry of reader.result.split(/\r\n|\n/)) {
+//       string++;
+//       const [
+//         address,
+//         sale,
+//         purchase,
+//         expiryIn,
+//         canBuyFromSTOIn,
+//         isPercentageIn,
+//       ] = entry.split(',');
+//       const handleDate = (d: string) =>
+//         d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
+//       const from = handleDate(sale);
+//       const to = handleDate(purchase);
+//       const expiry = new Date(Date.parse(expiryIn));
+//       const canBuyFromSTO =
+//         typeof canBuyFromSTOIn === 'string' &&
+//         canBuyFromSTOIn.toLowerCase() === 'true';
+//       const isPercentage =
+//         typeof isPercentageIn === 'string' &&
+//         isPercentageIn.toLowerCase() === 'true';
+
+//       let isDuplicatedAddress = false;
+//       investors.forEach(investor => {
+//         if (investor.address === address) {
+//           isDuplicatedAddress = true;
+//         }
+//       });
+
+//       if (
+//         !isDuplicatedAddress &&
+//         ethereumAddress(address) === null &&
+//         !isNaN(from) &&
+//         !isNaN(to) &&
+//         !isNaN(expiry) &&
+//         (isPercentage ||
+//           isPercentageIn === '' ||
+//           isPercentageIn === undefined) &&
+//         (canBuyFromSTO ||
+//           canBuyFromSTOIn === '' ||
+//           canBuyFromSTOIn === undefined)
+//       ) {
+//         if (investors.length === 75) {
+//           isTooMany = true;
+//           continue;
+//         }
+//         investors.push({
+//           address,
+//           from,
+//           to,
+//           expiry,
+//           canBuyFromSTO,
+//           isPercentage,
+//         });
+//       } else {
+//         criticals.push([
+//           string,
+//           address,
+//           sale,
+//           purchase,
+//           expiryIn,
+//           canBuyFromSTOIn,
+//           isPercentageIn,
+//         ]);
+//       }
+//     }
+//     dispatch({ type: UPLOADED, investors, criticals, isTooMany });
+//   };
+// };
 
 export const importWhitelist = () => async (
   dispatch: Function,
@@ -176,7 +199,29 @@ export const importWhitelist = () => async (
     transferManager,
     percentageTM: { contract: percentageTM, isPaused: isPercentageDisabled },
   } = getState().whitelist;
-  console.log('whitelist csv', uploaded);
+
+  // FIXME @RafaelVidaurre: For now performing this unintuitive transformation
+  // to avoid breaking more code
+
+  const transformedItems = map(
+    uploaded,
+    ({
+      address,
+      sellLockupDate,
+      buyLockupDate,
+      kycAmlExpiryDate,
+      canBuyFromSto,
+    }) => {
+      return {
+        address,
+        from: sellLockupDate,
+        to: buyLockupDate,
+        expiry: kycAmlExpiryDate,
+        canBuyFromSTO: canBuyFromSto,
+      };
+    }
+  );
+
   dispatch(
     ui.tx(
       [
@@ -184,10 +229,10 @@ export const importWhitelist = () => async (
         ...(!isPercentageDisabled ? ['Setting ownership restrictions'] : []),
       ],
       async () => {
-        await transferManager.modifyWhitelistMulti(uploaded);
+        await transferManager.modifyWhitelistMulti(transformedItems);
         if (!isPercentageDisabled) {
           // $FlowFixMe
-          await percentageTM.modifyWhitelistMulti(uploaded);
+          await percentageTM.modifyWhitelistMulti(transformedItems);
         }
       },
       'Investors has been added successfully',

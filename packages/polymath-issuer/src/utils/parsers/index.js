@@ -49,10 +49,6 @@ export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
     );
   });
 
-  if (!invalidRows.length) {
-    return null;
-  }
-
   return invalidRows;
 }
 
