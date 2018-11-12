@@ -5,7 +5,9 @@ import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
 import FileSaver from 'file-saver';
 import { map } from 'lodash';
+import BigNumber from 'bignumber.js';
 import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
+import { toWei } from '../utils/contracts';
 import { formName as addInvestorFormName } from '../pages/compliance/components/AddInvestorForm';
 import { formName as editInvestorsFormName } from '../pages/compliance/components/EditInvestorsForm';
 import { parseWhitelistCsv } from '../utils/parsers';
@@ -177,10 +179,14 @@ export const importWhitelist = () => async (
         if (setAccreditedInvestorsData) {
           const addresses = map(uploaded, 'address');
           const statuses = map(uploaded, ({ isAccredited }) => !!isAccredited);
-          const limits = map(uploaded, 'nonAccreditedLimit');
+          const limits = map(uploaded, ({ nonAccreditedLimit }) => {
+            const limit = nonAccreditedLimit || new BigNumber(0);
+            return toWei(limit.toString());
+          });
 
           await sto.contract.changeAccredited(addresses, statuses);
           // TODO: Fix this one
+          console.log('limits', limits);
           await sto.contract.changeNonAccreditedLimit(addresses, limits);
         }
       },

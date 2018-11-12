@@ -4,6 +4,9 @@ import csvParse from 'csv-parse/lib/sync';
 import moment from 'moment';
 import { filter, each } from 'lodash';
 import web3 from 'web3';
+import BigNumber from 'bignumber.js';
+
+import type { BigNumberType } from 'bignumber.js';
 
 const PERMANENT_LOCKUP_TS = 67184812800000;
 
@@ -15,7 +18,7 @@ type WhitelistCsvRow = {
   canBuyFromSto?: boolean,
   bypassesOwnershipRestriction?: boolean,
   accredited?: boolean,
-  nonAccreditedLimit?: number,
+  nonAccreditedLimit?: BigNumberType,
 };
 
 const numericalRegex = /^-?\d+\.?\d*$/;
@@ -80,7 +83,7 @@ export function parseWhitelistCsv(file: string) {
         return moment({ month, day, year }).toDate();
       }
       if (numericalRegex.test(value)) {
-        return parseFloat(value);
+        return new BigNumber(value);
       }
 
       return value;
