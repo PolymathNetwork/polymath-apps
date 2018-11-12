@@ -258,7 +258,7 @@ export const configureSTO = (
         const titles = ['Deploying And Scheduling'];
 
         if (tokenBalance < setupCost) {
-          titles.unshift('Transfering POLY');
+          titles.unshift('Transferring POLY');
         }
 
         dispatch(
