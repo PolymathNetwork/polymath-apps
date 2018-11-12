@@ -27,6 +27,7 @@ type StateProps = {|
   isSignedIn: ?boolean,
   isSignedUp: ?boolean,
   isFetching: boolean,
+  isFetchingTokens: boolean,
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
@@ -47,6 +48,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isSignedIn: state.pui.account.isSignedIn,
   isSignedUp: state.pui.account.isSignedUp,
   isFetching: state.pui.common.isFetching,
+  isFetchingTokens: state.ticker.isFetchingTokens,
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
@@ -79,12 +81,12 @@ class App extends Component<Props> {
   }
 
   render() {
-    const { ticker, isFetching, route } = this.props;
+    const { ticker, isFetching, route, isFetchingTokens } = this.props;
 
     return (
       <Fragment>
         <Navbar ticker={ticker} />
-        {isFetching ? <Loading /> : ''}
+        {isFetching || isFetchingTokens ? <Loading /> : ''}
         <Toaster />
         <TxModal />
         <EnterPINModal />
