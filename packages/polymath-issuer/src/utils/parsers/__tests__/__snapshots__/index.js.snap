@@ -1,46 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parsers parseWhitelistCsv parses the file correctly 1`] = `
-Array [
-  Object {
-    "accredited": true,
-    "address": 0,
-    "buyLockupDate": 2024-06-04T04:00:00.000Z,
-    "bypassesOwnershipRestriction": true,
-    "canBuyFromSto": true,
-    "kycAmlExpiryDate": 2021-01-01T03:00:00.000Z,
-    "nonAccreditedLimit": null,
-    "sellLockupDate": 2022-01-01T03:00:00.000Z,
-  },
-  Object {
-    "accredited": true,
-    "address": 0,
-    "buyLockupDate": 2030-12-21T03:00:00.000Z,
-    "bypassesOwnershipRestriction": null,
-    "canBuyFromSto": true,
-    "kycAmlExpiryDate": 2024-10-10T03:00:00.000Z,
-    "nonAccreditedLimit": null,
-    "sellLockupDate": 2030-12-21T03:00:00.000Z,
-  },
-  Object {
-    "accredited": null,
-    "address": 0,
-    "buyLockupDate": null,
-    "bypassesOwnershipRestriction": true,
-    "canBuyFromSto": null,
-    "kycAmlExpiryDate": 2025-12-01T03:00:00.000Z,
-    "nonAccreditedLimit": 1000,
-    "sellLockupDate": null,
-  },
-  Object {
-    "accredited": null,
-    "address": 0,
-    "buyLockupDate": null,
-    "bypassesOwnershipRestriction": true,
-    "canBuyFromSto": true,
-    "kycAmlExpiryDate": 2025-12-01T03:00:00.000Z,
-    "nonAccreditedLimit": null,
-    "sellLockupDate": null,
-  },
-]
+Object {
+  "data": Array [
+    Object {
+      "accredited": true,
+      "address": "0x592E80AD45c08aba6C5bBd2d5C5A097BDF35Dee1",
+      "buyLockupDate": 2024-06-04T04:00:00.000Z,
+      "bypassesOwnershipRestriction": true,
+      "canBuyFromSto": true,
+      "kycAmlExpiryDate": 2021-01-01T03:00:00.000Z,
+      "nonAccreditedLimit": null,
+      "sellLockupDate": 2022-01-01T03:00:00.000Z,
+    },
+    Object {
+      "accredited": true,
+      "address": "0xd9f346Bf88cA2cb7e11B0106018DE80A0169764D",
+      "buyLockupDate": 2030-12-21T03:00:00.000Z,
+      "bypassesOwnershipRestriction": null,
+      "canBuyFromSto": true,
+      "kycAmlExpiryDate": 2024-10-10T03:00:00.000Z,
+      "nonAccreditedLimit": null,
+      "sellLockupDate": 2030-12-21T03:00:00.000Z,
+    },
+    Object {
+      "accredited": null,
+      "address": "0xA1833Cd1a3e72335DE0b6945b5d83247F234d6e8",
+      "buyLockupDate": null,
+      "bypassesOwnershipRestriction": true,
+      "canBuyFromSto": null,
+      "kycAmlExpiryDate": 2025-12-01T03:00:00.000Z,
+      "nonAccreditedLimit": 1000,
+      "sellLockupDate": null,
+    },
+    Object {
+      "accredited": null,
+      "address": "0x07889A89C6854bb4Ec445825E680255b17751192",
+      "buyLockupDate": null,
+      "bypassesOwnershipRestriction": true,
+      "canBuyFromSto": true,
+      "kycAmlExpiryDate": 2025-12-01T03:00:00.000Z,
+      "nonAccreditedLimit": null,
+      "sellLockupDate": null,
+    },
+  ],
+  "invalidRows": null,
+}
 `;

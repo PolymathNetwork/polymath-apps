@@ -1,8 +1,61 @@
+// @flow
+
 import csvParse from 'csv-parse/lib/sync';
 import moment from 'moment';
+import { filter, each } from 'lodash';
+import web3 from 'web3';
+
+type WhitelistCsvRow = {
+  address: string,
+  sellLockupDate?: Date,
+  buyLockupDate?: Date,
+  kycAmlExpiryDate?: Date,
+  canBuyFromSto?: boolean,
+  bypassesOwnershipRestriction?: boolean,
+  accredited?: boolean,
+  nonAccreditedLimit?: number,
+};
+
+const numericalRegex = /^-?\d+\.?\d*$/;
+
+function isInvalidDate(value: any) {
+  return value !== null && !moment.isDate(value);
+}
+
+export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
+  const addressCounts = {};
+  each(rows, ({ address }) => {
+    if (web3.utils.isAddress(address)) {
+      addressCounts[address] = addressCounts[address] || 0;
+      addressCounts[address] += 1;
+    }
+  });
+
+  const invalidRows = filter(rows, (row: WhitelistCsvRow) => {
+    const addressIsInvalid = !web3.utils.isAddress(row.address);
+    const addressIsDuplicate = addressCounts[row.address] > 1;
+    const buyLockupDateIsInvalid = isInvalidDate(row.buyLockupDate);
+    const sellLockupDateIsInvalid = isInvalidDate(row.sellLockupDate);
+    const kycAmlExpiryDateIsInvalid = isInvalidDate(row.kycAmlExpiryDate);
+
+    return (
+      addressIsInvalid ||
+      addressIsDuplicate ||
+      buyLockupDateIsInvalid ||
+      sellLockupDateIsInvalid ||
+      kycAmlExpiryDateIsInvalid
+    );
+  });
+
+  if (!invalidRows.length) {
+    return null;
+  }
+
+  return invalidRows;
+}
 
 export function parseWhitelistCsv(file: string) {
-  const parsedCsv = csvParse(file, {
+  const data = csvParse(file, {
     cast: (value, context) => {
       if (value === '') {
         return null;
@@ -22,7 +75,7 @@ export function parseWhitelistCsv(file: string) {
         }
         return moment({ month, day, year }).toDate();
       }
-      if (!isNaN(value)) {
+      if (numericalRegex.test(value)) {
         return parseFloat(value);
       }
 
@@ -42,5 +95,9 @@ export function parseWhitelistCsv(file: string) {
     },
   });
 
-  return parsedCsv;
+  const invalidRows = validateWhitelistCsv(data);
+
+  console.log('data', data);
+
+  return { invalidRows, data };
 }
