@@ -25,10 +25,6 @@ type StateProps = {|
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
   hasLegacyTokens: ?boolean,
-  legacyTokens: Array<{|
-    address: string,
-    ticker: string,
-  |}>,
 |};
 
 type DispatchProps = {|
@@ -47,7 +43,6 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
   hasLegacyTokens: state.ticker.hasLegacyTokens,
-  legacyTokens: state.ticker.legacyTokens,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -76,7 +71,6 @@ class AuthWrapper extends Component<Props> {
       isSignUpSuccess,
       children,
       hasLegacyTokens,
-      legacyTokens,
     } = this.props;
 
     return !isSignedIn ? (
@@ -101,7 +95,7 @@ class AuthWrapper extends Component<Props> {
         <ConfirmEmailPage />
       )
     ) : hasLegacyTokens ? (
-      <MigrateTokenPage legacyTokens={legacyTokens} />
+      <MigrateTokenPage />
     ) : (
       children
     );

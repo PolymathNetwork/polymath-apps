@@ -6,9 +6,12 @@ import {
   Accordion,
   AccordionItem,
   Button,
-  UnorderedList,
-  ListItem,
+  Loading,
 } from 'carbon-components-react';
+import Contract from '@polymathnetwork/js';
+import * as ui from '@polymathnetwork/ui';
+import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
+import { getLegacyTokens } from '../actions/ticker';
 
 type StateProps = {|
   legacyTokens: Array<{|
@@ -22,6 +25,129 @@ const mapStateToProps = (state: RootState): StateProps => ({
   legacyTokens: state.ticker.legacyTokens,
   account: state.network.account,
 });
+
+class MigrateTokenPageContainer extends Component {
+  state = {
+    loading: true,
+    tokenIsFrozen: true,
+  };
+
+  async getFrozenStatus() {
+    const { legacyTokens } = this.props;
+    const legacySecurityToken = new Contract(
+      LegacySTArtifact,
+      legacyTokens[0].address
+    );
+    try {
+      const tokenIsFrozen = await legacySecurityToken._contractWS.methods
+        .freeze()
+        .call();
+
+      /**
+       * NOTE @monitz87: this prevents an infinite loop when the component is updated
+       */
+      if (
+        this.state.tokenIsFrozen !== tokenIsFrozen ||
+        this.state.loading === true
+      ) {
+        this.setState({
+          loading: false,
+          tokenIsFrozen,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  componentDidMount() {
+    this.getFrozenStatus();
+  }
+
+  componentDidUpdate() {
+    this.getFrozenStatus();
+  }
+
+  handleClick = (event: Object) => {
+    const { dispatch, legacyTokens } = this.props;
+    const { tokenIsFrozen } = this.state;
+    const token = legacyTokens[0];
+    const ticker = token.ticker.toUpperCase();
+
+    const legacySecurityToken = new Contract(LegacySTArtifact, token.address);
+
+    const titles = ['Renouncing Ownership'];
+
+    if (!tokenIsFrozen) {
+      titles.unshift('Freezing Transfers');
+    }
+
+    dispatch(
+      ui.confirm(
+        <div>
+          <p>
+            Completion of your {ticker} token version update will require{' '}
+            {tokenIsFrozen ? 'one' : 'two'} wallet transaction
+            {tokenIsFrozen ? '' : 's'}.
+          </p>
+          {tokenIsFrozen ? null : (
+            <p>
+              • The first transaction will be used to freeze transactions on the
+              token.
+            </p>
+          )}
+          <p>
+            • The {tokenIsFrozen ? '' : 'second '}
+            transaction will be used to renounce ownership of the token.
+          </p>
+        </div>,
+        async () => {
+          dispatch(
+            ui.tx(
+              titles,
+              async () => {
+                try {
+                  if (!tokenIsFrozen) {
+                    await legacySecurityToken._tx(
+                      legacySecurityToken._methods.freezeTransfers(),
+                      null,
+                      1.15
+                    );
+                  }
+
+                  await legacySecurityToken._tx(
+                    legacySecurityToken._methods.renounceOwnership(),
+                    null,
+                    1.15
+                  );
+                } catch (err) {
+                  getLegacyTokens()(dispatch);
+                  throw err;
+                }
+              },
+              'Token Migrated Successfully',
+              async () => {
+                await getLegacyTokens()(dispatch);
+              },
+              undefined,
+              undefined,
+              true,
+              `Proceeding with the ${ticker} Token Version Update`
+            )
+          );
+        }
+      )
+    );
+  };
+
+  render() {
+    return this.state.loading ? (
+      <Loading />
+    ) : (
+      <MigrateTokenPage handleClick={this.handleClick} />
+    );
+  }
+}
 
 class MigrateTokenPage extends Component {
   render() {
@@ -66,17 +192,15 @@ class MigrateTokenPage extends Component {
             tokens and renounce ownership since they will no longer be in use.
             Please click on the Start Migration button to begin this process.
           </h3>
-          <Button onClick={() => null}>Start Migration</Button>
+          <Button onClick={this.props.handleClick}>Start Migration</Button>
 
           <Accordion className="pui-metamask-accordion">
             <AccordionItem title="What other features were added to v2.0.0?">
-              <p>
-                <ul>
-                  <li>1) Pegged to Fiat Security Token Offerings</li>
-                  <li>2) Forced Transfer</li>
-                  <li>3) Tax Witholding and Address Exclusion on Dividends</li>
-                </ul>
-              </p>
+              <ul>
+                <li>1) Pegged to Fiat Security Token Offerings</li>
+                <li>2) Forced Transfer</li>
+                <li>3) Tax Witholding and Address Exclusion on Dividends</li>
+              </ul>
             </AccordionItem>
             <AccordionItem title="What is the cost impact of this migration to me?">
               <p>
@@ -133,4 +257,5 @@ class MigrateTokenPage extends Component {
   }
 }
 
-export default connect(mapStateToProps)(MigrateTokenPage);
+export { MigrateTokenPage };
+export default connect(mapStateToProps)(MigrateTokenPageContainer);

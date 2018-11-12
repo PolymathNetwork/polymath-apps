@@ -9,6 +9,7 @@ export type TickerState = {
   expiryLimit: number,
   isTickerReserved: boolean,
   tokens: Array<SymbolDetails>,
+  isFetchingTokens: boolean,
   hasLegacyTokens: boolean,
   legacyTokens: Array<{|
     address: string,
@@ -22,6 +23,7 @@ const defaultState: TickerState = {
   tokens: [],
   legacyTokens: [],
   hasLegacyTokens: false,
+  isFetchingTokens: false,
 };
 
 export default (state: TickerState = defaultState, action: Action) => {
@@ -41,12 +43,18 @@ export default (state: TickerState = defaultState, action: Action) => {
         ...state,
         isTickerReserved: true,
       };
+    case a.FETCHING_TOKENS:
+      return {
+        ...state,
+        isFetchingTokens: true,
+      };
     case a.LEGACY_TOKENS:
       const { legacyTokens } = action;
       return {
         ...state,
         hasLegacyTokens: legacyTokens.length > 0,
         legacyTokens: legacyTokens,
+        isFetchingTokens: false,
       };
     default:
       return state;
