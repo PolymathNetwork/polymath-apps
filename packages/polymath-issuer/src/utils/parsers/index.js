@@ -5,6 +5,8 @@ import moment from 'moment';
 import { filter, each } from 'lodash';
 import web3 from 'web3';
 
+const PERMANENT_LOCKUP_TS = 67184812800000;
+
 type WhitelistCsvRow = {
   address: string,
   sellLockupDate?: Date,
@@ -58,6 +60,12 @@ export function parseWhitelistCsv(file: string) {
   const data = csvParse(file, {
     cast: (value, context) => {
       if (value === '') {
+        if (
+          context.column === 'buyLockupDate' ||
+          context.column === 'sellLockupDate'
+        ) {
+          return new Date(PERMANENT_LOCKUP_TS);
+        }
         return null;
       }
       if (value.toLocaleLowerCase() === 'true') {
@@ -96,8 +104,6 @@ export function parseWhitelistCsv(file: string) {
   });
 
   const invalidRows = validateWhitelistCsv(data);
-
-  console.log('data', data);
 
   return { invalidRows, data };
 }
