@@ -9,6 +9,7 @@ import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
 import { formName as addInvestorFormName } from '../pages/compliance/components/AddInvestorForm';
 import { formName as editInvestorsFormName } from '../pages/compliance/components/EditInvestorsForm';
 import { parseWhitelistCsv } from '../utils/parsers';
+import { STAGE_OVERVIEW } from '../reducers/sto';
 
 import type { Investor, Address } from '@polymathnetwork/js/types';
 import type { GetState } from '../redux/reducer';
@@ -109,101 +110,33 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
   };
 };
 
-// export const uploadCSV = (file: Object) => async (dispatch: Function) => {
-//   dispatch({ type: UPLOAD_START });
-//   const reader = new FileReader();
-//   reader.readAsText(file);
-//   reader.onload = () => {
-//     dispatch({ type: UPLOAD_ONLOAD });
-//     const investors: Array<Investor> = [];
-//     const criticals: Array<InvestorCSVRow> = [];
-//     let isTooMany = false;
-//     let string = 0;
-//     // $FlowFixMe
-//     for (let entry of reader.result.split(/\r\n|\n/)) {
-//       string++;
-//       const [
-//         address,
-//         sale,
-//         purchase,
-//         expiryIn,
-//         canBuyFromSTOIn,
-//         isPercentageIn,
-//       ] = entry.split(',');
-//       const handleDate = (d: string) =>
-//         d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
-//       const from = handleDate(sale);
-//       const to = handleDate(purchase);
-//       const expiry = new Date(Date.parse(expiryIn));
-//       const canBuyFromSTO =
-//         typeof canBuyFromSTOIn === 'string' &&
-//         canBuyFromSTOIn.toLowerCase() === 'true';
-//       const isPercentage =
-//         typeof isPercentageIn === 'string' &&
-//         isPercentageIn.toLowerCase() === 'true';
-
-//       let isDuplicatedAddress = false;
-//       investors.forEach(investor => {
-//         if (investor.address === address) {
-//           isDuplicatedAddress = true;
-//         }
-//       });
-
-//       if (
-//         !isDuplicatedAddress &&
-//         ethereumAddress(address) === null &&
-//         !isNaN(from) &&
-//         !isNaN(to) &&
-//         !isNaN(expiry) &&
-//         (isPercentage ||
-//           isPercentageIn === '' ||
-//           isPercentageIn === undefined) &&
-//         (canBuyFromSTO ||
-//           canBuyFromSTOIn === '' ||
-//           canBuyFromSTOIn === undefined)
-//       ) {
-//         if (investors.length === 75) {
-//           isTooMany = true;
-//           continue;
-//         }
-//         investors.push({
-//           address,
-//           from,
-//           to,
-//           expiry,
-//           canBuyFromSTO,
-//           isPercentage,
-//         });
-//       } else {
-//         criticals.push([
-//           string,
-//           address,
-//           sale,
-//           purchase,
-//           expiryIn,
-//           canBuyFromSTOIn,
-//           isPercentageIn,
-//         ]);
-//       }
-//     }
-//     dispatch({ type: UPLOADED, investors, criticals, isTooMany });
-//   };
-// };
-
 export const importWhitelist = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
   const {
-    uploaded,
-    transferManager,
-    percentageTM: { contract: percentageTM, isPaused: isPercentageDisabled },
-  } = getState().whitelist;
+    whitelist: {
+      uploaded,
+      transferManager,
+      percentageTM: { contract: percentageTM, isPaused: isPercentageDisabled },
+    },
+    sto,
+  } = getState();
+  let setAccreditedInvestorsData = false;
+
+  if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
+    setAccreditedInvestorsData = true;
+  }
+
+  /**
+   * - Get current token's STO state
+   * - If USDTieredSTO add transaction for setting accredited data
+   */
 
   // FIXME @RafaelVidaurre: For now performing this unintuitive transformation
   // to avoid breaking more code
 
-  const transformedItems = map(
+  const whitelistItems = map(
     uploaded,
     ({
       address,
@@ -222,17 +155,33 @@ export const importWhitelist = () => async (
     }
   );
 
+  const titles = ['Submitting approved investors'];
+
+  if (!isPercentageDisabled) {
+    titles.push('Setting ownership restrictions');
+  }
+  if (setAccreditedInvestorsData) {
+    titles.push('Updating accredited investors');
+    titles.push('Updating non accredited investors limits');
+  }
+
   dispatch(
     ui.tx(
-      [
-        'Submitting approved investors',
-        ...(!isPercentageDisabled ? ['Setting ownership restrictions'] : []),
-      ],
+      titles,
       async () => {
-        await transferManager.modifyWhitelistMulti(transformedItems);
+        await transferManager.modifyWhitelistMulti(whitelistItems);
         if (!isPercentageDisabled) {
           // $FlowFixMe
-          await percentageTM.modifyWhitelistMulti(transformedItems);
+          await percentageTM.modifyWhitelistMulti(whitelistItems);
+        }
+        if (setAccreditedInvestorsData) {
+          const addresses = map(uploaded, 'address');
+          const statuses = map(uploaded, ({ isAccredited }) => !!isAccredited);
+          const limits = map(uploaded, 'nonAccreditedLimit');
+
+          await sto.contract.changeAccredited(addresses, statuses);
+          // TODO: Fix this one
+          await sto.contract.changeNonAccreditedLimit(addresses, limits);
         }
       },
       'Investors has been added successfully',
@@ -269,7 +218,7 @@ export const exportWhitelist = () => async (
     }
     // eslint-disable-next-line max-len
     let csvContent =
-      'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
+      'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership,Is Accredited,Non-Accredited Limit';
     investors.forEach((investor: Investor) => {
       csvContent +=
         '\r\n' +

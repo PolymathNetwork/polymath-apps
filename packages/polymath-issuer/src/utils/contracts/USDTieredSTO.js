@@ -104,7 +104,7 @@ export default class USDTieredSTO {
    * @param statuses statuses for each address matched by index
    */
   async changeAccredited(addresses: string[], statuses: boolean[]) {
-    await Contract._tx(
+    await this.legacyContractInstance._tx(
       this.contract.methods.changeAccredited(addresses, statuses)
     );
   }
@@ -116,7 +116,7 @@ export default class USDTieredSTO {
    * @param limits limits to set for each address matched by index
    */
   async changeNonAccreditedLimit(addresses: string[], limits: BigNumber[]) {
-    await Contract._tx(
+    await this.legacyContractInstance._tx(
       this.contract.methods.changeNonAccreditedLimit(addresses, limits)
     );
   }
