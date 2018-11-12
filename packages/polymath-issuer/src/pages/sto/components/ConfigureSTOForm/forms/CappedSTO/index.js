@@ -138,7 +138,7 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
 
   render() {
     return (
-      <Form onSubmit={this.props.handleSubmit}>
+      <Form onSubmit={this.props.handleSubmit} autoComplete="off">
         <div className="time-pickers-container">
           <Field
             name="startDate"

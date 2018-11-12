@@ -58,7 +58,7 @@ function validateEndTime(value) {
   const startUnix = moment(startDate).unix() * 1000 + startTime;
   const endUnix = moment(endDate).unix() * 1000 + value;
   if (startUnix >= endUnix) {
-    return this.createError({ message: 'End time is before start time.' });
+    return this.createError({ message: 'End time must be after start time.' });
   }
 
   return true;
@@ -200,15 +200,6 @@ const formSchema = Yup.object().shape({
 });
 
 const initialValues = {
-  startDate: moment(Date.now())
-    .startOf('day')
-    .toDate(),
-  endDate: moment(Date.now())
-    .add(1, 'day')
-    .startOf('day')
-    .toDate(),
-  startTime: 0,
-  endTime: 0,
   investmentTiers: {
     isMultipleTiers: false,
     tiers: [],
