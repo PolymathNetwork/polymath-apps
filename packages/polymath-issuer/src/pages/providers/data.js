@@ -205,7 +205,13 @@ const providers: Array<ServiceProvider> = [
     desc:
       'At Katipult, we come to work each day because we want to solve some of the biggest pain points for our ' +
       "clients working in the private capital markets. Most firms aren't capitalizing on opportunities in today's " +
-      'markets because they are still using manual systems...',
+      'markets because they are still using manual systems, ad hoc processes, and experiencing bottlenecks because ' +
+      'of key person dependencies. The majority of companies are still using Excel, email, paper-based processes ' +
+      'and phone calls to manage payments, signatures, client communication, and more.\n Our mission at Katipult is ' +
+      'to automate all the tedious administrative tasks, ensure that all of the workflows are inherently compliant, ' +
+      'and help our clients increase profitability and versatility through fully automated, integrated, centralized, ' +
+      'and easy to use software.\n You deserve a solution that allows your firm to be ahead of the competition. ' +
+      'We are here to help you!',
   },
   {
     id: 22,
