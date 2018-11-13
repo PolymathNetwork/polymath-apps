@@ -310,8 +310,8 @@ $css--body: false;
   font-family: $font;
 }
 
-.bx--accordion__content {
-  padding-top: 4px !important;
+.bx--accordion__item--active .bx--accordion__content {
+  padding-top: 4px;
 }
 
 .bx--tag {
