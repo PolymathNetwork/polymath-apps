@@ -441,36 +441,36 @@ $css--body: false;
   width: 734px;
   background-color: white;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+}
 
-  .pui-single-box-header {
-    position: relative;
+.pui-single-box-header {
+  position: relative;
 
-    .pui-h3,
-    .pui-h4 {
-      width: 438px;
-      margin-bottom: 28px;
+  .pui-h3,
+  .pui-h4 {
+    width: 438px;
+    margin-bottom: 28px;
+  }
+
+  .pui-single-box-bull,
+  .pui-single-box-metamask {
+    position: absolute;
+    right: -30px;
+    pointer-events: none;
+
+    img {
+      width: 100%;
     }
+  }
 
-    .pui-single-box-bull,
-    .pui-single-box-metamask {
-      position: absolute;
-      right: -30px;
-      pointer-events: none;
+  .pui-single-box-bull {
+    top: 25px;
+    width: 254px;
+  }
 
-      img {
-        width: 100%;
-      }
-    }
-
-    .pui-single-box-bull {
-      top: 25px;
-      width: 254px;
-    }
-
-    .pui-single-box-metamask {
-      top: -13px;
-      width: 222px;
-    }
+  .pui-single-box-metamask {
+    top: -13px;
+    width: 222px;
   }
 }
 
