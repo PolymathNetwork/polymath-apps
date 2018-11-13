@@ -242,7 +242,7 @@ export default class SecurityToken extends Contract {
       MODULE_TYPES.STO
     );
     const setupCost = await cappedSTOFactory.setupCost();
-    const balance = PolyToken.balanceOf(this.address);
+    const balance = await PolyToken.balanceOf(this.address);
     //Skip transfer transaction if setupCost already paid
     if (balance < setupCost) {
       await PolyToken.transfer(this.address, setupCost);
