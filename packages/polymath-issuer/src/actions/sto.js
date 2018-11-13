@@ -311,7 +311,7 @@ export const configure = values => async (
         const balance = await PolyToken.balanceOf(token.address);
         //Skip approve transaction if transfer is already allowed
         let title = ['Deploying And Scheduling'];
-        if (balance === 0) {
+        if (balance < fee) {
           title.unshift('Approving POLY Spend');
         }
         dispatch(
