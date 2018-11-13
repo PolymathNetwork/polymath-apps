@@ -17,7 +17,7 @@ import {
   EnterPINModal,
 } from '@polymathnetwork/ui';
 
-import { getMyTokens } from '../actions/ticker';
+import { getMyTokens, getLegacyTokens } from '../actions/ticker';
 import AuthWrapper from './AuthWrapper';
 
 import type { RootState } from '../redux/reducer';
@@ -27,6 +27,7 @@ type StateProps = {|
   isSignedIn: ?boolean,
   isSignedUp: ?boolean,
   isFetching: boolean,
+  isFetchingTokens: boolean,
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
@@ -38,6 +39,7 @@ type DispatchProps = {|
   txEnd: (receipt: any) => any,
   signIn: () => any,
   getMyTokens: () => any,
+  getLegacyTokens: () => any,
   getNotice: (scope: string) => any,
 |};
 
@@ -46,6 +48,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isSignedIn: state.pui.account.isSignedIn,
   isSignedUp: state.pui.account.isSignedUp,
   isFetching: state.pui.common.isFetching,
+  isFetchingTokens: state.ticker.isFetchingTokens,
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
@@ -57,6 +60,7 @@ const mapDispatchToProps: DispatchProps = {
   txEnd,
   signIn,
   getMyTokens,
+  getLegacyTokens,
   getNotice,
 };
 
@@ -72,16 +76,18 @@ class App extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.signIn();
+    this.props.signIn().then(() => {
+      this.props.getLegacyTokens();
+    });
   }
 
   render() {
-    const { ticker, isFetching, route } = this.props;
+    const { ticker, isFetching, route, isFetchingTokens } = this.props;
 
     return (
       <Fragment>
         <Navbar ticker={ticker} />
-        {isFetching ? <Loading /> : ''}
+        {isFetching || isFetchingTokens ? <Loading /> : ''}
         <Toaster />
         <TxModal />
         <EnterPINModal />

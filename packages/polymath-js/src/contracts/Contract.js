@@ -238,7 +238,6 @@ export default class Contract {
        * so I put the sleep back in for now.
        */
       await sleep();
-
       Contract._params.txEndCallback(receipt);
       if (receipt.status === '0x0') {
         throw new Error('Transaction failed');
