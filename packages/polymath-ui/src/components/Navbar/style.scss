@@ -1,4 +1,4 @@
-@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+@import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
 
 .pui-navbar {
   position: fixed;
@@ -8,7 +8,7 @@
   width: 100%;
   height: $navbar-height;
   background-color: white;
-  box-shadow: 0 1px 0 0 #DFE3E6;
+  box-shadow: 0 1px 0 0 #dfe3e6;
 
   > a {
     float: left;
@@ -34,7 +34,8 @@
       margin-left: 30px;
       font-weight: 300;
 
-      svg, img {
+      svg,
+      img {
         margin-right: 8px;
       }
     }

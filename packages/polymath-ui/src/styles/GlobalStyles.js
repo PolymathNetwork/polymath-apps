@@ -1,5 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
+import 'typeface-overpass';
+
+import '../deprecated/styles/globals.scss';
+
 const GlobalStyles = createGlobalStyle`
   body {
     color: ${({ theme }) => theme.colors.baseText};
