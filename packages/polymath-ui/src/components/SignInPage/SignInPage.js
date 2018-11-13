@@ -1,14 +1,20 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Button } from 'carbon-components-react';
-import { Remark } from '../../';
-import key from '../../images/key.png';
+
+import keyImg from '../../images/key.png';
 
 import { signIn } from '../../redux/account/actions';
 import type { RootState } from '../../redux/reducer';
+
+import Remark from '../Remark';
+import Heading from '../Heading';
+import Paragraph from '../Paragraph';
+import Box from '../Box';
+import PageCentered from '../PageCentered';
+import ContentBox from '../ContentBox';
 
 type StateProps = {|
   isSignInCancelled: boolean,
@@ -28,16 +34,18 @@ const mapDispatchToProps: DispatchProps = {
 
 type Props = StateProps & DispatchProps;
 
-export class SignInPage extends Component<Props> {
+export class SignInPage extends PureComponent<Props> {
   handleSign = () => {
     this.props.signIn();
   };
 
   render() {
+    const pageId = this.props.isSignInCancelled ? 'sign-in-failed' : 'sign-in';
+
     const ico = (
-      <p align="center" style={{ marginBottom: '15px', marginTop: '10px' }}>
-        <img src={key} alt="Key" />
-      </p>
+      <Box textAlign="center" mb={3}>
+        <img src={keyImg} alt="Key" />
+      </Box>
     );
     const desc = (
       <span>
@@ -48,56 +56,49 @@ export class SignInPage extends Component<Props> {
       </span>
     );
 
-    if (this.props.isSignInCancelled) {
-      return (
-        <DocumentTitle title="Sign In – Polymath">
-          <div id="sign-in-failed" className="pui-single-box">
-            {ico}
-            <h2
-              className="pui-h2"
-              align="center"
-              style={{ lineHeight: '36px' }}
-            >
-              Digital Signature Failed.
-              <br />
-              Please Sign Using Your Wallet
-            </h2>
-            <h3 className="pui-h3" align="center">
-              {desc} To proceed with the signing operation, please click on
-              &laquo;SIGN YOUR ACCOUNT&raquo;.
-            </h3>
-            <br />
-            <Remark title="Note">
-              This signing operation is not associated with any cost.
-            </Remark>
-            <p align="center">
-              <Button onClick={this.handleSign}>SIGN YOUR ACCOUNT</Button>
-            </p>
-          </div>
-        </DocumentTitle>
-      );
-    }
-
     return (
-      <DocumentTitle title="Sign In – Polymath">
-        <div id="sign-in" className="pui-single-box">
+      <PageCentered title="Sign In – Polymath" id={pageId}>
+        <ContentBox maxWidth={735}>
           {ico}
-          <h2 className="pui-h2" align="center">
-            Sign In with Your Wallet
-          </h2>
-          <h3 className="pui-h3" align="center">
-            {desc} This signing operation has no cost associated and can be
-            completed by clicking on the &laquo;SIGN&raquo; button in your
-            MetaMask.
-          </h3>
-          <br />
-          <Remark title="Note">
-            If MetaMask does not open automatically, please check that the
-            browser extension does not have an outstanding request by clicking
-            on its icon.
-          </Remark>
-        </div>
-      </DocumentTitle>
+          {this.props.isSignInCancelled ? (
+            <Fragment>
+              <Heading variant="h2" textAlign="center">
+                Digital Signature Failed.
+                <br />
+                Please Sign Using Your Wallet
+              </Heading>
+              <Heading as="h3" textAlign="center">
+                {desc} To proceed with the signing operation, please click on
+                &laquo;SIGN YOUR ACCOUNT&raquo;.
+              </Heading>
+              <br />
+              <Remark title="Note">
+                This signing operation is not associated with any cost.
+              </Remark>
+              <Paragraph textAlign="center">
+                <Button onClick={this.handleSign}>Sign your account</Button>
+              </Paragraph>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Heading variant="h2" textAlign="center">
+                Sign In with Your Wallet
+              </Heading>
+              <Heading as="h3" textAlign="center">
+                {desc} This signing operation has no cost associated and can be
+                completed by clicking on the &laquo;SIGN&raquo; button in your
+                MetaMask.
+              </Heading>
+              <br />
+              <Remark title="Note">
+                If MetaMask does not open automatically, please check that the
+                browser extension does not have an outstanding request by
+                clicking on its icon.
+              </Remark>
+            </Fragment>
+          )}
+        </ContentBox>
+      </PageCentered>
     );
   }
 }
