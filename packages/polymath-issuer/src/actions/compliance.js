@@ -4,7 +4,7 @@ import React from 'react';
 import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
 import FileSaver from 'file-saver';
-import { map } from 'lodash';
+import { map, each } from 'lodash';
 import BigNumber from 'bignumber.js';
 import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
 import { toWei } from '../utils/contracts';
@@ -177,17 +177,29 @@ export const importWhitelist = () => async (
           await percentageTM.modifyWhitelistMulti(whitelistItems);
         }
         if (setAccreditedInvestorsData) {
-          const addresses = map(uploaded, 'address');
-          const statuses = map(uploaded, ({ isAccredited }) => !!isAccredited);
-          const limits = map(uploaded, ({ nonAccreditedLimit }) => {
-            const limit = nonAccreditedLimit || new BigNumber(0);
-            return toWei(limit.toString());
+          const statusAddresses = [];
+          const statusValues = [];
+          const limitAddresses = [];
+          const limitValues = [];
+
+          // Transform inputs for the transactions
+          each(uploaded, ({ isAccredited, nonAccreditedLimit, address }) => {
+            if (typeof isAccredited === 'boolean') {
+              statusAddresses.push(address);
+              statusValues.push(isAccredited);
+            }
+            if (nonAccreditedLimit !== null) {
+              limitAddresses.push(address);
+              limitValues.push(nonAccreditedLimit);
+            }
           });
 
-          await sto.contract.changeAccredited(addresses, statuses);
-          // TODO: Fix this one
-          console.log('limits', limits);
-          await sto.contract.changeNonAccreditedLimit(addresses, limits);
+          await sto.contract.changeAccredited(statusAddresses, statusValues);
+
+          await sto.contract.changeNonAccreditedLimit(
+            limitAddresses,
+            limitValues
+          );
         }
       },
       'Investors has been added successfully',
@@ -208,10 +220,20 @@ export const exportWhitelist = () => async (
   dispatch(ui.fetching());
   try {
     const {
-      transferManager,
-      percentageTM: { contract: percentageTM },
+      whitelist: {
+        transferManager,
+        percentageTM: { contract: percentageTM },
+      },
+      sto,
     } = getState().whitelist;
+    let setAccreditedInvestorsData = false;
+
     const investors = await transferManager.getWhitelist();
+
+    if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
+      setAccreditedInvestorsData = true;
+    }
+
     if (percentageTM) {
       const percentages = await percentageTM.getWhitelist();
       for (let i = 0; i < investors.length; i++) {
@@ -222,9 +244,15 @@ export const exportWhitelist = () => async (
         }
       }
     }
+
+    // if (setAccreditedInvestorsData) {
+    //   const accreditedInvestorsData = await
+    // }
+
     // eslint-disable-next-line max-len
     let csvContent =
       'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership,Is Accredited,Non-Accredited Limit';
+
     investors.forEach((investor: Investor) => {
       csvContent +=
         '\r\n' +

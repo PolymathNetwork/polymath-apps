@@ -2,7 +2,7 @@
 
 import csvParse from 'csv-parse/lib/sync';
 import moment from 'moment';
-import { filter, each } from 'lodash';
+import { map, reduce, filter, each } from 'lodash';
 import web3 from 'web3';
 import BigNumber from 'bignumber.js';
 
@@ -57,8 +57,12 @@ export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
 
 export function parseWhitelistCsv(file: string) {
   const data = csvParse(file, {
-    cast: (value, context) => {
-      if (value === '') {
+    skip_empty_lines: true,
+    trim: true,
+    cast: (rawValue, context) => {
+      const value = rawValue;
+
+      if (value === '' || (typeof value === 'string' && !value.length)) {
         if (
           context.column === 'buyLockupDate' ||
           context.column === 'sellLockupDate'
@@ -104,5 +108,19 @@ export function parseWhitelistCsv(file: string) {
 
   const invalidRows = validateWhitelistCsv(data);
 
-  return { invalidRows, data };
+  // Sanitization post-parsing.
+  // Sometimes empty strings pass through for some reason
+  const sanitizedData = map(data, row => {
+    return reduce(
+      row,
+      (sanitized, rawValue, key) => {
+        const value = rawValue === '' ? null : rawValue;
+        sanitized[key] = value;
+        return sanitized;
+      },
+      {}
+    );
+  });
+
+  return { invalidRows, data: sanitizedData };
 }

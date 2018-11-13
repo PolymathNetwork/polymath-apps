@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   validWhitelistCsv,
   invalidWhitelistCsv,
@@ -8,7 +9,16 @@ describe('parsers', () => {
   describe('parseWhitelistCsv', () => {
     test('parses the file correctly', () => {
       const result = parseWhitelistCsv(validWhitelistCsv);
-      expect(result).toMatchSnapshot();
+      expect(result.data[0]).toEqual({
+        address: '0x592E80AD45c08aba6C5bBd2d5C5A097BDF35Dee1',
+        sellLockupDate: moment({ month: 0, day: 1, year: 2022 }).toDate(),
+        buyLockupDate: moment({ month: 5, day: 4, year: 2024 }).toDate(),
+        kycAmlExpiryDate: moment({ month: 0, day: 1, year: 2021 }).toDate(),
+        canBuyFromSto: true,
+        bypassesOwnershipRestriction: true,
+        accredited: true,
+        nonAccreditedLimit: null,
+      });
       expect(result.invalidRows).toHaveLength(0);
     });
 
