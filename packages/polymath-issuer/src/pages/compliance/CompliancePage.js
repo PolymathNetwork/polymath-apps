@@ -84,6 +84,7 @@ type StateProps = {|
   isPercentagePaused: boolean,
   percentage: ?number,
   isTokenFrozen: boolean,
+  networkId: number,
 |};
 
 type DispatchProps = {|
@@ -112,6 +113,7 @@ const mapStateToProps = (state: RootState) => ({
   isPercentagePaused: state.whitelist.percentageTM.isPaused,
   percentage: state.whitelist.percentageTM.percentage,
   isTokenFrozen: state.whitelist.freezeStatus,
+  networkId: state.network.id,
 });
 
 const mapDispatchToProps = {
@@ -586,7 +588,13 @@ class CompliancePage extends Component<Props, State> {
   );
 
   render() {
-    const { token, isPercentageEnabled, isPercentagePaused } = this.props;
+    const {
+      token,
+      isPercentageEnabled,
+      isPercentagePaused,
+      networkId,
+    } = this.props;
+    const isMainnet = networkId === 1;
     if (!token || !token.address) {
       return <NotFoundPage />;
     }
@@ -681,20 +689,26 @@ class CompliancePage extends Component<Props, State> {
                   />
                   <Button
                     className="apply-percentage-btn"
-                    // onClick={this.handleApplyPercentage} NOTE @monitz87: re-enable after the 11/15/2018 release
-                    onClick={() => null}
-                    // disabled={
-                    //   this.state.percentage === this.props.percentage ||
-                    //   typeof this.state.percentage === 'undefined'
-                    // } NOTE @monitz87: re-enable after the 11/15/2018 release
-                    disabled={true}
+                    onClick={
+                      isMainnet ? () => null : this.handleApplyPercentage
+                    } // NOTE @monitz87: re-enable after the 11/15/2018 release
+                    disabled={
+                      isMainnet
+                        ? true
+                        : this.state.percentage === this.props.percentage ||
+                          typeof this.state.percentage === 'undefined'
+                    } // NOTE @monitz87: re-enable after the 11/15/2018 release
                   >
-                    <DisabledTooltip
-                      label="Apply"
-                      title="Ownership restrictions temporarily disabled"
-                      content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
-                      direction="top"
-                    />
+                    {isMainnet ? (
+                      <DisabledTooltip
+                        label="Apply"
+                        title="Ownership restrictions temporarily disabled"
+                        content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                        direction="top"
+                      />
+                    ) : (
+                      'Apply'
+                    )}
                   </Button>
                 </div>
               </div>
@@ -702,17 +716,20 @@ class CompliancePage extends Component<Props, State> {
 
             <Button
               icon="upload"
-              disabled={true}
-              // onClick={this.handleImportModalOpen} NOTE @monitz87: re-enable after the 11/15/2018 release
-              onClick={() => null}
+              disabled={isMainnet} // NOTE @monitz87: re-enable after the 11/15/2018 release
+              onClick={isMainnet ? () => null : this.handleImportModalOpen} // NOTE @monitz87: re-enable after the 11/15/2018 release
               className="import-whitelist-btn"
             >
-              <DisabledTooltip
-                label="Import Whitelist"
-                title="Importing whitelist temporarily disabled"
-                content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
-                direction="top"
-              />
+              {isMainnet ? (
+                <DisabledTooltip
+                  label="Import Whitelist"
+                  title="Importing whitelist temporarily disabled"
+                  content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                  direction="top"
+                />
+              ) : (
+                'Import Whitelist'
+              )}
             </Button>
             <ImportWhitelistModal
               isOpen={this.state.isImportModalOpen}

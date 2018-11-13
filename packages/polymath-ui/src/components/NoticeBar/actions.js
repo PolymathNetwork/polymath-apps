@@ -4,9 +4,11 @@ import { notice as fetchNotice } from '../../offchain';
 import type { ExtractReturn } from '../../redux/helpers';
 
 export const NOTICE = 'polymath/ui/notice/NOTICE';
-export const getNotice = (scope: string, address: string) => async (
-  dispatch: Function
-) => {
+export const getNotice = (
+  scope: string,
+  address: string,
+  networkId: number
+) => async (dispatch: Function) => {
   const addressesWithOldTokens = [
     '0xfD4c0F5848642FC2041c003cb684fc66B16217bc',
     '0x27448B14A7c16c613b4e8Ef4Fdc26283955e994B',
@@ -52,8 +54,11 @@ export const getNotice = (scope: string, address: string) => async (
     '0x1e3ae713abc1370886D35ec2b725C66f7DE3651D',
   ];
 
-  // if the issuer is in the list, show the special notification
-  if (addressesWithOldTokens.find(notifyAddress => notifyAddress === address)) {
+  // if the issuer is in the list and on mainnet, show the special notification
+  if (
+    addressesWithOldTokens.find(notifyAddress => notifyAddress === address) &&
+    networkId === 1
+  ) {
     dispatchTemporaryNotice(dispatch);
     return;
   }

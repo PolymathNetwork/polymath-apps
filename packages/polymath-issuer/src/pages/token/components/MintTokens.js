@@ -27,6 +27,7 @@ type StateProps = {|
   criticals: Array<InvestorCSVRow>,
   token: Object,
   pui: Object,
+  networkId: ?number,
 |};
 
 type DispatchProps = {|
@@ -43,6 +44,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   criticals: state.token.mint.criticals,
   token: state.token,
   pui: state.pui,
+  networkId: state.network.id,
 });
 
 const mapDispatchToProps = {
@@ -206,7 +208,8 @@ class MintTokens extends Component<Props> {
   };
 
   render() {
-    const { isTooMany, isReady, isInvalid } = this.props;
+    const { isTooMany, isReady, isInvalid, networkId } = this.props;
+    const isMainnet = networkId === 1;
     return (
       <div className="mint-tokens-wrapper">
         <div className="pui-page-box">
@@ -292,19 +295,21 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            // disabled={!isReady} NOTE @monitz87: this should be re-enabled after the 11/15/2018 release
-            disabled={true}
-            // onClick={this.handleSubmit} NOTE @monitz87: re-enable after the 11/15/2018 release
-            onClick={() => null}
+            disabled={isMainnet ? true : !isReady} // NOTE @monitz87: this should be re-enabled after the 11/15/2018 release
+            onClick={isMainnet ? () => null : this.handleSubmit} // NOTE @monitz87: re-enable after the 11/15/2018 release
             style={{ marginTop: '10px' }}
             className="mint-token-btn"
           >
-            <DisabledTooltip
-              label="Mint Tokens"
-              title="Minting temporarily disabled"
-              content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
-              direction="top"
-            />
+            {isMainnet ? (
+              <DisabledTooltip
+                label="Mint Tokens"
+                title="Minting temporarily disabled"
+                content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                direction="top"
+              />
+            ) : (
+              'Mint Tokens'
+            )}
           </Button>
 
           <Button
