@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import numeral from 'numeral';
 import DocumentTitle from 'react-document-title';
 import {
   FormGroup,
@@ -17,6 +18,8 @@ import {
   Remark,
   NotFoundPage,
   confirm,
+  NumberInput,
+  thousandsDelimiter,
 } from '@polymathnetwork/ui';
 import moment from 'moment';
 import type { SecurityToken } from '@polymathnetwork/js/types';
@@ -123,22 +126,22 @@ class TokenPage extends Component<Props, State> {
     if (event.target.value === '') {
       this.setState({ maxHoldersCount: undefined });
     }
-    let value = parseInt(Number(event.target.value), 10);
-    if (!Number.isInteger(value) || value < 1) {
-      event.preventDefault();
-      return;
-    }
+    const value = numeral(event.target.value).format('0,0');
     this.setState({ maxHoldersCount: value });
   };
 
   handleApplyMaxHoldersCount = () => {
     const { isCountTMEnabled } = this.props;
+    const maxHoldersCount = parseInt(
+      this.state.maxHoldersCount.toString().replace(/,/g, ''),
+      10
+    );
     if (isCountTMEnabled) {
       // $FlowFixMe
-      this.props.updateMaxHoldersCount(this.state.maxHoldersCount);
+      this.props.updateMaxHoldersCount(maxHoldersCount);
     } else {
       // $FlowFixMe
-      this.props.limitNumberOfInvestors(this.state.maxHoldersCount);
+      this.props.limitNumberOfInvestors(maxHoldersCount);
     }
   };
 

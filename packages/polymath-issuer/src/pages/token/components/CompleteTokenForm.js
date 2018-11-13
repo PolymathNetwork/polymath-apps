@@ -9,8 +9,9 @@ import {
   Tooltip,
   Toggle,
 } from 'carbon-components-react';
+import { thousandsDelimiter } from '@polymathnetwork/ui';
 import { TextInput, RadioInput } from '@polymathnetwork/ui/deprecated';
-import { url, required, integer, minValue } from '@polymathnetwork/ui/validate';
+import { url, required, numeric, minValue } from '@polymathnetwork/ui/validate';
 
 export const formName = 'complete_token';
 
@@ -105,8 +106,9 @@ class CompleteTokenForm extends Component<Props> {
               <Field
                 name="investorsNumber"
                 component={TextInput}
+                normalize={thousandsDelimiter}
                 placeholder="Enter the number"
-                validate={[required, integer, minValue1]}
+                validate={[required, numeric, minValue1]}
               />
             </FormGroup>
           ) : (
