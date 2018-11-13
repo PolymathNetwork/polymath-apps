@@ -43,7 +43,8 @@
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "styled-components": "^4.0.2",
-    "styled-system": "^3.1.11"
+    "styled-system": "^3.1.11",
+    "typeface-overpass": "^0.0.54"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",
