@@ -1,0 +1,20 @@
+// @flow
+
+import React from 'react';
+import styled from 'styled-components';
+import DocumentTitle from 'react-document-title';
+
+import Box from '../Box';
+
+const StyledBox = styled(Box)`
+  margin-top: ${({ theme }) => theme.navbar.height};
+  min-height: calc(100vh - ${({ theme }) => theme.navbar.height} * 2);
+`;
+
+const Page = ({ children, title = 'Polymath', ...props }) => (
+  <StyledBox mx={['3%', '5%']} {...props}>
+    <DocumentTitle title={title}>{children}</DocumentTitle>
+  </StyledBox>
+);
+
+export default Page;
