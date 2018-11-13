@@ -5,7 +5,6 @@ import {
   signIn,
   txHash,
   txEnd,
-  getNotice,
   SignInPage,
   SignUpPage,
   SignUpSuccessPage,
@@ -30,7 +29,6 @@ type DispatchProps = {|
   txHash: (hash: string) => any,
   txEnd: (receipt: any) => any,
   signIn: () => any,
-  getNotice: (scope: string, address: string) => any,
   tickerReservationEmail: () => any,
 |};
 
@@ -48,7 +46,6 @@ const mapDispatchToProps: DispatchProps = {
   txHash,
   txEnd,
   signIn,
-  getNotice,
   tickerReservationEmail,
 };
 
