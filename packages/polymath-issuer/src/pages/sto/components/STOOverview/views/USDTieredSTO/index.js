@@ -155,7 +155,7 @@ const USDTieredSTOOverviewComponent = ({
               <div>
                 <div className="pui-key-value pui-countdown-raised">
                   <div>Total Funds Raised</div>
-                  {`${format.toUSD(raised)} USD`}
+                  {`${format.toUSD(raised)}`}
                   <div>
                     {format.toTokens(totalTokensSold, { decimals: 2 })} {ticker}
                   </div>
