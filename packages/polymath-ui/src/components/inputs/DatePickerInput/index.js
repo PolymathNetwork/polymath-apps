@@ -36,7 +36,7 @@ export default class DatePickerInputField extends Component<InputProps> {
     return (
       <DatePicker
         className={className}
-        datePickerType="simple"
+        datePickerType="single"
         dateFormat="m / d / Y"
         minDate={minValue}
         id={field.name}
