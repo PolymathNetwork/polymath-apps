@@ -67,7 +67,7 @@ export type USDTieredSTOTier = {|
 export type USDTieredSTO = {|
   // NOTE @RafaelVidaurre: pauseStatus instead of "pause" because of legacy compat
   pauseStatus: boolean,
-  open: boolean,
+  isOpen: boolean,
   startDate: Date,
   endDate: Date,
   tiers: USDTieredSTOTier[],
@@ -77,5 +77,6 @@ export type USDTieredSTO = {|
   address: string,
   currentTier: number,
   type: 'USDTieredSTO',
-  finalized: boolean,
+  isTerminated: boolean,
+  capReached: boolean,
 |};
