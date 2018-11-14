@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import DocumentTitle from 'react-document-title';
 
@@ -12,8 +12,10 @@ const StyledBox = styled(Box)`
 `;
 
 const Page = ({ children, title = 'Polymath', ...props }) => (
-  <StyledBox mx={['3%', '5%']} {...props}>
-    <DocumentTitle title={title}>{children}</DocumentTitle>
+  <StyledBox mx="5%" {...props}>
+    <DocumentTitle title={title}>
+      <Fragment>{children}</Fragment>
+    </DocumentTitle>
   </StyledBox>
 );
 

@@ -4,18 +4,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Page from '../Page';
-import Flex from '../Flex';
-
-const StyledPage = styled(Page)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import Grid from '../Grid';
 
 const PageCentered = ({ children, ...props }) => (
-  <StyledPage p={[1, 2]} {...props}>
+  <Page as={Grid} p={2} alignItems="center" justifyContent="center" {...props}>
     {children}
-  </StyledPage>
+  </Page>
 );
 
 export default PageCentered;
