@@ -210,8 +210,6 @@ export default class Contract {
       gasPrice,
     };
 
-    console.log('GAS PRICE', gasPrice);
-
     // dry run
     try {
       const okCode = this._isBoolOutput(method._method.name);
