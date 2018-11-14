@@ -61,7 +61,7 @@ const getCountdownProps = ({
   let buttonTitle: ?string;
 
   const now = new Date();
-  const isFinished = capReached || !isOpen;
+  const isFinished = capReached && !isOpen;
   const hasStarted = now >= startDate;
   const isRunning = hasStarted && !isPaused && !isTerminated && !isFinished;
 
@@ -75,8 +75,8 @@ const getCountdownProps = ({
   } else if (isFinished) {
     title = 'The Sale Is Closed';
   }
-  // Set a button if needed
-  if (!isRunning) {
+  // Enable the pause button if the sto is not closed
+  if (!isFinished && !isTerminated) {
     buttonTitle = isPaused ? 'RESUME' : 'PAUSE';
   }
   // Set the countdown time
