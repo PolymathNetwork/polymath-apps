@@ -12,9 +12,11 @@ import {
   Toaster,
   TxModal,
   ConfirmModal,
+  NoticeBar,
   Navbar,
   Footer,
   EnterPINModal,
+  StickyTop,
 } from '@polymathnetwork/ui';
 
 import { getMyTokens } from '../actions/ticker';
@@ -80,12 +82,15 @@ class App extends Component<Props> {
 
     return (
       <Fragment>
-        <Navbar ticker={ticker} />
         {isFetching ? <Loading /> : ''}
         <Toaster />
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
+        <StickyTop>
+          <NoticeBar />
+          <Navbar ticker={ticker} />
+        </StickyTop>
         <AuthWrapper>{renderRoutes(route.routes)}</AuthWrapper>
         <Footer />
       </Fragment>

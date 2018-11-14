@@ -7,7 +7,6 @@ import DocumentTitle from 'react-document-title';
 import Box from '../Box';
 
 const StyledBox = styled(Box)`
-  margin-top: ${({ theme }) => theme.navbar.height};
   min-height: calc(100vh - ${({ theme }) => theme.navbar.height} * 2);
 `;
 

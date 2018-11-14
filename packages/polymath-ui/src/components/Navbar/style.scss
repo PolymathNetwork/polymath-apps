@@ -1,10 +1,6 @@
 @import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
 
 .pui-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
   width: 100%;
   height: $navbar-height;
   background-color: white;

@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import NoticeBar from '../NoticeBar';
-
 import { thousandsDelimiter, addressShortifier } from '../../helpers';
 
 import polyLogo from '../../images/logo.svg';
@@ -39,10 +37,9 @@ type Props = {|
 
 class Navbar extends Component<Props> {
   render() {
-    const { balance, account, network, ticker, logo, isNotice } = this.props;
+    const { balance, account, network, ticker, logo } = this.props;
     return (
-      <div className={'pui-navbar' + (isNotice ? ' pui-navbar-notice' : '')}>
-        <NoticeBar />
+      <div className="pui-navbar">
         <Link to="/">
           <div className="pui-navbar-logo">
             {logo ? (
