@@ -46,8 +46,8 @@ const dateFormat = (date: Date) =>
     day: 'numeric',
   });
 
-// FIXME @RafaelVidaurre: We should have a dedicated component for
-// STO statuses. The Countdown component is too generic for this
+// FIXME @RafaelVidaurre: We should either have a dedicated component for
+// STO statuses or properly generalize the Countdown component
 const getCountdownProps = ({
   startDate,
   endDate,
