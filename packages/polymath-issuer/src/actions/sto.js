@@ -4,7 +4,7 @@ import React from 'react';
 import FileSaver from 'file-saver';
 import { includes } from 'lodash';
 
-import { STO, PolyToken } from '@polymathnetwork/js';
+import { STO, PolyToken, SecurityToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import { twelveHourTimeToMinutes } from '@polymathnetwork/ui/deprecated';
 import {
@@ -254,9 +254,16 @@ export const configureSTO = (
           usdTokenAddress,
         };
 
+        const tokenBalance = await PolyToken.balanceOf(token.address);
+        const titles = ['Deploying And Scheduling'];
+
+        if (tokenBalance.lt(setupCost)) {
+          titles.unshift('Transfering POLY');
+        }
+
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            titles,
             async () => {
               await setupSTOModule(stoModule, token.address, stoModuleConfig);
             },
@@ -309,11 +316,13 @@ export const configure = values => async (
           return;
         }
         const balance = await PolyToken.balanceOf(token.address);
+
         //Skip approve transaction if transfer is already allowed
         let title = ['Deploying And Scheduling'];
-        if (balance < fee) {
+        if (balance.lt(fee)) {
           title.unshift('Approving POLY Spend');
         }
+
         dispatch(
           ui.tx(
             title,
