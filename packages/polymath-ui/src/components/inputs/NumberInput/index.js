@@ -76,7 +76,6 @@ export class NumberInput extends Component<Props, State> {
    * @param displayValue The value in the input that the user sees
    */
   static isInIntermediateState(displayValue: string) {
-    // const startsWithDot = startsWithDotRegex.test(displayValue);
     const endsWithZeroInDecimals = endsWithZeroInDecimalsRegex.test(
       displayValue
     );
