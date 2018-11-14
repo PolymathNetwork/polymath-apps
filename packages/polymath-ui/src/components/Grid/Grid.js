@@ -1,10 +1,12 @@
-import React from 'react';
+// @flow
+
 import styled from 'styled-components';
 import {
   gridGap,
   gridAutoFlow,
   gridAutoColumns,
   alignItems,
+  justifyContent,
 } from 'styled-system';
 
 import Box from '../Box';
@@ -15,6 +17,7 @@ const Grid = styled(Box)`
   ${gridAutoFlow};
   ${gridAutoColumns};
   ${alignItems};
+  ${justifyContent};
 `;
 
 Grid.defaultProps = {

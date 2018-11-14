@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import {
   fontFamily,
   fontWeight,
-  textAlign,
   lineHeight,
   letterSpacing,
   fontSize,
@@ -13,7 +12,6 @@ import Box from '../Box';
 export const Paragraph = styled(Box)(
   fontFamily,
   fontWeight,
-  textAlign,
   lineHeight,
   letterSpacing,
   fontSize

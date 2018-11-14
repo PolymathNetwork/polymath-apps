@@ -11,7 +11,6 @@ import type { RootState } from '../../redux/reducer';
 
 import Remark from '../Remark';
 import Heading from '../Heading';
-import Paragraph from '../Paragraph';
 import Box from '../Box';
 import PageCentered from '../PageCentered';
 import ContentBox from '../ContentBox';
@@ -75,9 +74,9 @@ export class SignInPage extends PureComponent<Props> {
               <Remark title="Note">
                 This signing operation is not associated with any cost.
               </Remark>
-              <Paragraph textAlign="center">
+              <Box textAlign="center">
                 <Button onClick={this.handleSign}>Sign your account</Button>
-              </Paragraph>
+              </Box>
             </Fragment>
           ) : (
             <Fragment>
