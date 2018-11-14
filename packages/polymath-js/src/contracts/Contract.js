@@ -175,7 +175,8 @@ export default class Contract {
   async _tx(
     method: Object,
     value?: BigNumber,
-    gasLimit?: number
+    gasLimit?: number,
+    fixedGasPriceInGwei?: number
   ): Promise<Web3Receipt> {
     const preParams = {
       from: this.account,
@@ -197,7 +198,12 @@ export default class Contract {
       }
     }
 
-    const gasPrice = await Contract._params.web3.eth.getGasPrice();
+    const gasPrice = fixedGasPriceInGwei
+      ? this._toWei(
+          new BigNumber(fixedGasPriceInGwei).round(18).toString(10),
+          'gwei'
+        ).toString(10)
+      : await Contract._params.web3.eth.getGasPrice();
     const params = {
       ...preParams,
       gas,

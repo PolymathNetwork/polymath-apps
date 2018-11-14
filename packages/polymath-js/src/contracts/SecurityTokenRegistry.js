@@ -139,7 +139,8 @@ class SecurityTokenRegistry extends Contract {
         token.isDivisible
       ),
       null,
-      1.05
+      1.05,
+      15
     );
   }
 
