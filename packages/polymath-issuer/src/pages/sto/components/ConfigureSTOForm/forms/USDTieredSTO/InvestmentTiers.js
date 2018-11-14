@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
-import { iconAdd } from 'carbon-icons';
+import { iconAddSolid } from 'carbon-icons';
 import {
   Box,
   Grid,
@@ -237,7 +237,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 <TableContainer>
                   <Box textAlign="right" mb={3}>
                     <Button
-                      icon={iconAdd}
+                      icon={iconAddSolid}
                       onClick={this.handleAddNewTier.bind(this)}
                     >
                       Add new
