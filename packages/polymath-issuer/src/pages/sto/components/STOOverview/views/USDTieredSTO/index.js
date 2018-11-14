@@ -61,7 +61,7 @@ const getCountdownProps = ({
   let buttonTitle: ?string;
 
   const now = new Date();
-  const isFinished = capReached && !isOpen;
+  const isFinished = (capReached && !isOpen) || now >= endDate;
   const hasStarted = now >= startDate;
   const isRunning = hasStarted && !isPaused && !isTerminated && !isFinished;
 
