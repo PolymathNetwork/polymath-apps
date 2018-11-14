@@ -141,7 +141,7 @@ export class NumberInput extends Component<Props, State> {
     const { displayValue } = this.state;
 
     return (
-      <BaseInput
+      <StyledBaseInput
         type="text"
         id={name}
         {...otherProps}
