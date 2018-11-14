@@ -51,27 +51,25 @@ class Root extends Component<Props> {
   }
 
   render() {
-    const { isNotice, routes, location } = this.props;
+    const { routes, location } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
     return (
       <ErrorBoundary>
-        <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
-          {isMobile || isUnsupportedBrowser ? (
-            <NotSupportedPage />
-          ) : location.pathname === '/' ? (
-            <SplashPage />
-          ) : (
-            <EthNetworkWrapper
-              loading={<Loading />}
-              guide={<MetamaskStatus networks="Mainnet or Kovan" />}
-              networks={networks}
-            >
-              {renderRoutes(routes)}
-            </EthNetworkWrapper>
-          )}
-        </div>
+        {isMobile || isUnsupportedBrowser ? (
+          <NotSupportedPage />
+        ) : location.pathname === '/' ? (
+          <SplashPage />
+        ) : (
+          <EthNetworkWrapper
+            loading={<Loading />}
+            guide={<MetamaskStatus networks="Mainnet or Kovan" />}
+            networks={networks}
+          >
+            {renderRoutes(routes)}
+          </EthNetworkWrapper>
+        )}
       </ErrorBoundary>
     );
   }

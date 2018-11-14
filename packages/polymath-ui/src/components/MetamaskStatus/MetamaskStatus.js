@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Accordion, AccordionItem } from 'carbon-components-react';
 
 import {
@@ -10,6 +9,9 @@ import {
   ERROR_NETWORK,
   ERROR_DISCONNECTED,
 } from '../EthNetworkWrapper';
+
+import PageCentered from '../PageCentered';
+import ContentBox from '../ContentBox';
 
 import logo from '../../images/logo.svg';
 import metamask from '../../images/metamask.png';
@@ -78,10 +80,10 @@ class MetamaskStatus extends Component<Props> {
         );
     }
     return (
-      <DocumentTitle title="Polymath">
-        <div id={pageId}>
+      <PageCentered title="Polymath" id={pageId}>
+        <ContentBox maxWidth={735}>
           <img src={logo} alt="Logo" className="pui-metamask-logo" />
-          <div className="pui-single-box">
+          <div>
             <div className="pui-single-box-header">
               <div className="pui-single-box-metamask">
                 <img src={metamask} alt="Metamask" />
@@ -109,8 +111,8 @@ class MetamaskStatus extends Component<Props> {
               </AccordionItem>
             </Accordion>
           </div>
-        </div>
-      </DocumentTitle>
+        </ContentBox>
+      </PageCentered>
     );
   }
 }

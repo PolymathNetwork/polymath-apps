@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
@@ -124,7 +124,7 @@ class Dashboard extends Component<Props> {
       // },
     ];
     return (
-      <div className="dashboard">
+      <Fragment>
         <PausedBar />
         <Sidebar
           id="primary-nav"
@@ -132,7 +132,7 @@ class Dashboard extends Component<Props> {
           bottomItems={bottomSidebarItems}
         />
         {renderRoutes(route.routes)}
-      </div>
+      </Fragment>
     );
   }
 }
