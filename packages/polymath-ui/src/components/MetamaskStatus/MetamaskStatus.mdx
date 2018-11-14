@@ -1,0 +1,43 @@
+---
+name: MetamaskStatus
+---
+
+import { Playground, PropsTable } from 'docz';
+import MetamaskStatus from './MetamaskStatus';
+import {
+  ERROR_LOCKED,
+  ERROR_NETWORK,
+  ERROR_DISCONNECTED,
+  ERROR_ACCESS_REQUESTED,
+} from '../EthNetworkWrapper';
+
+# MetamaskStatus
+
+<PropsTable of={MetamaskStatus} />
+
+## Metamask locked
+
+<Playground>
+  <MetamaskStatus status={ERROR_LOCKED} />
+  <MetamaskStatus status={ERROR_NETWORK} />
+  <MetamaskStatus status={ERROR_DISCONNECTED} />
+</Playground>
+
+
+## Network error
+
+<Playground>
+  <MetamaskStatus status={ERROR_NETWORK} />
+</Playground>
+
+## Disconnected
+
+<Playground>
+  <MetamaskStatus status={ERROR_DISCONNECTED} />
+</Playground>
+
+## Access requested
+
+<Playground>
+  <MetamaskStatus status={ERROR_ACCESS_REQUESTED} />
+</Playground>

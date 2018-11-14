@@ -25,8 +25,8 @@ const {
   REACT_APP_POLYMATH_REGISTRY_ADDRESS_MAINNET,
 } = process.env;
 
-export default (id: string = LOCAL_NETWORK_ID): Network =>
-  ({
+export function getNetworkInfos(id: string = LOCAL_NETWORK_ID): Network {
+  const networks = {
     [MAINNET_NETWORK_ID]: {
       name: 'Mainnet',
       url: REACT_APP_NETWORK_MAIN_WS,
@@ -54,4 +54,7 @@ export default (id: string = LOCAL_NETWORK_ID): Network =>
       name: 'LocalVM',
       url: REACT_APP_NETWORK_LOCALVM_WS,
     },
-  }[id]);
+  };
+
+  return networks[id];
+}

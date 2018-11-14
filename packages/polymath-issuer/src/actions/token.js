@@ -181,9 +181,7 @@ export const issue = (isLimitNI: boolean) => async (
                 ...values,
               };
               token.isDivisible = token.isDivisible !== '1';
-              const receipt = await SecurityTokenRegistry.generateSecurityToken(
-                token
-              );
+              await SecurityTokenRegistry.generateSecurityToken(token);
 
               if (isLimitNI) {
                 token = await SecurityTokenRegistry.getTokenByTicker(ticker);

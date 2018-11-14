@@ -1,7 +1,13 @@
 import React from 'react';
-import { SecurityTokenRegistry, PolyToken } from '@polymathnetwork/js';
+import Contract, {
+  SecurityTokenRegistry,
+  PolyToken,
+} from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
+import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
+import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
+import axios from 'axios';
 
 // TODO @grsmto: Form values shouldn't be retrieved this way...fault of Redux-form
 // for encouraging bad pattern. This should be passed as props instead.
@@ -19,12 +25,76 @@ export const RESERVED = 'ticker/RESERVED';
 
 export const TOKENS = 'ticker/TOKENS';
 
+export const LEGACY_TOKENS = 'ticker/LEGACY_TOKENS';
+
+export const FETCHING_TOKENS = 'ticker/FETCHING_TOKENS';
+
 export const getMyTokens = () => async (dispatch: Function) => {
   const tokens = await SecurityTokenRegistry.getMyTokens();
   dispatch({ type: TOKENS, tokens });
   if (tokens.length) {
     dispatch({ type: RESERVED });
   }
+};
+
+export const getLegacyTokens = () => async (dispatch: Function) => {
+  dispatch({ type: FETCHING_TOKENS });
+  const { web3WS, account } = Contract._params;
+  const networkId = await web3WS.eth.net.getId();
+
+  // Fetch only on mainnet
+  if (networkId !== 1) {
+    dispatch({ type: LEGACY_TOKENS, legacyTokens: [] });
+    return;
+  }
+
+  // Fetch the tokens using the etherscan API
+  const logs = await axios.get('https://api.etherscan.io/api', {
+    params: {
+      module: 'logs',
+      action: 'getLogs',
+      fromBlock: 0,
+      toBlock: 'latest',
+      address: LegacySTRArtifact.networks[networkId].address,
+      topic0: web3WS.utils.sha3('LogNewSecurityToken(string,address,address)'),
+      topic0_2_opr: 'and',
+      topic2: web3WS.eth.abi.encodeParameter('address', account),
+      apikey: process.env.REACT_APP_ETHERSCAN_API_KEY,
+    },
+  });
+
+  // Decode the logs using the ABI
+  const inputs = LegacySTRArtifact.abi.find(
+    o => o.name === 'LogNewSecurityToken' && o.type === 'event'
+  ).inputs;
+
+  const ownedTokens = [];
+
+  for (const legacyToken of logs.data.result) {
+    const data = web3WS.eth.abi.decodeLog(
+      inputs,
+      legacyToken.data,
+      legacyToken.topics.slice(1)
+    );
+
+    const { _ticker: ticker, _securityTokenAddress: address } = data;
+
+    const legacyTokenContract = new web3WS.eth.Contract(
+      LegacySTArtifact.abi,
+      address
+    );
+
+    const currentOwner = await legacyTokenContract.methods.owner().call();
+
+    if (currentOwner === account) {
+      ownedTokens.push({
+        ticker,
+        address,
+      });
+    }
+  }
+
+  dispatch({ type: LEGACY_TOKENS, legacyTokens: ownedTokens });
 };
 
 export const reserve = () => async (dispatch: Function, getState: GetState) => {

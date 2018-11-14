@@ -125,7 +125,7 @@ class SecurityTokenRegistry extends Contract {
   }
 
   async generateSecurityToken(token: SecurityToken): Promise<Web3Receipt> {
-    const fee = await this.registrationFee();
+    const fee = await this.launchFee();
     const allowance = await PolyToken.allowance(this.account, this.address);
     //Skip approve transaction if transfer is already allowed
     if (allowance < fee) {
