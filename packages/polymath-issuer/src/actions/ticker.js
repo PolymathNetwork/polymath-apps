@@ -114,6 +114,7 @@ export const confirmEmail = (data: Object) => async (
   dispatch(ui.requestConfirmEmail(email));
 };
 
+// FIXME @RafaelVidaurre: Can we remove this? It doesn't seem to do anything now
 export const tickerReservationEmail = () => async (
   dispatch: Function,
   getState: GetState

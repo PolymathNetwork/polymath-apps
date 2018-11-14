@@ -262,7 +262,7 @@ export async function setupSTOModule(
 
   const balance = await PolyToken.balanceOf(tokenAddress);
 
-  if (balance < setupCost) {
+  if (balance.lt(setupCost)) {
     await PolyToken.transfer(tokenAddress, setupCost);
   }
 
