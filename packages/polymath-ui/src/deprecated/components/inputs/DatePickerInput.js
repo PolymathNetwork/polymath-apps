@@ -34,7 +34,7 @@ export default ({
     <DatePicker
       id={name}
       className={className}
-      datePickerType="simple"
+      datePickerType="single"
       minDate={minValue}
       // eslint-disable-next-line
       onChange={(date: Date) => {
@@ -46,6 +46,7 @@ export default ({
       {...rest}
     >
       <DatePickerInput
+        datePickerType="single"
         labelText={label}
         placeholder="mm / dd / yyyy"
         id={name}

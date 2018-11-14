@@ -41,10 +41,6 @@ const styles = {
   }),
 };
 
-const Container = styled(Box)`
-  min-height: 80px;
-`;
-
 const SelectContainer = styled(Box)`
   display: inline-block;
   vertical-align: middle;
@@ -113,27 +109,25 @@ class TimePickerSelectField extends Component<Props> {
     const selectedOption = timeOptions.find(option => option.value === value);
 
     return (
-      <Container>
-        <SelectContainer>
-          <Select
-            id={name}
-            styles={styles}
-            components={{
-              DropdownIndicator,
-              IndicatorSeparator: null,
-              ClearIndicator: null,
-            }}
-            backspaceRemovesValue={false}
-            isSearchable={false}
-            options={timeOptions}
-            onChange={this.handleChange}
-            onMenuClose={this.handleMenuClose}
-            value={selectedOption}
-            placeholder={placeholder}
-            {...props}
-          />
-        </SelectContainer>
-      </Container>
+      <SelectContainer>
+        <Select
+          id={name}
+          styles={styles}
+          components={{
+            DropdownIndicator,
+            IndicatorSeparator: null,
+            ClearIndicator: null,
+          }}
+          backspaceRemovesValue={false}
+          isSearchable={false}
+          options={timeOptions}
+          onChange={this.handleChange}
+          onMenuClose={this.handleMenuClose}
+          value={selectedOption}
+          placeholder={placeholder}
+          {...props}
+        />
+      </SelectContainer>
     );
   }
 }
