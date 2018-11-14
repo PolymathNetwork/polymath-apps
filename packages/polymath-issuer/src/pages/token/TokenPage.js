@@ -44,6 +44,7 @@ type StateProps = {|
   maxHoldersCount: ?number,
   isCountTMEnabled: boolean,
   isCountTMPaused: boolean,
+  networkId: ?number,
 |};
 
 type DispatchProps = {|
@@ -62,6 +63,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   maxHoldersCount: state.token.countTM.count,
   isCountTMEnabled: !!state.token.countTM.contract,
   isCountTMPaused: state.token.countTM.isPaused,
+  networkId: state.network.id,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -150,7 +152,8 @@ class TokenPage extends Component<Props, State> {
   };
   // eslint-disable-next-line complexity
   render() {
-    const { token, isCountTMEnabled, isCountTMPaused } = this.props;
+    const { token, isCountTMEnabled, isCountTMPaused, networkId } = this.props;
+    const isMainnet = networkId === 1;
     if (!token) {
       return <NotFoundPage />;
     }
@@ -306,21 +309,30 @@ class TokenPage extends Component<Props, State> {
                           onChange={this.handleMaxHoldersCountChange}
                         />
                         <Button
-                          // onClick={this.handleApplyMaxHoldersCount} NOTE @monitz87: re-enable after the 11/15/2018 release
-                          onClick={() => null}
-                          // disabled={
-                          //   this.state.maxHoldersCount ===
-                          //     this.props.maxHoldersCount ||
-                          //   typeof this.state.maxHoldersCount === 'undefined'
-                          // } NOTE @monitz87: re-enable this after the 11/15/2018 release
-                          disabled={true}
+                          onClick={
+                            isMainnet
+                              ? () => null
+                              : this.handleApplyMaxHoldersCount
+                          } // NOTE @monitz87: re-enable after the 11/15/2018 release
+                          disabled={
+                            isMainnet
+                              ? true
+                              : this.state.maxHoldersCount ===
+                                  this.props.maxHoldersCount ||
+                                typeof this.state.maxHoldersCount ===
+                                  'undefined'
+                          } // NOTE @monitz87: re-enable this after the 11/15/2018 release
                         >
-                          <DisabledTooltip
-                            label="Apply"
-                            title="Investor limit temporarily disabled"
-                            content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
-                            direction="top"
-                          />
+                          {isMainnet ? (
+                            <DisabledTooltip
+                              label="Apply"
+                              title="Investor limit temporarily disabled"
+                              content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 22nd - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience. For any question, please contact our support team via support@polymath.zendesk.com"
+                              direction="top"
+                            />
+                          ) : (
+                            'Apply'
+                          )}
                         </Button>
                       </div>
                       <br />

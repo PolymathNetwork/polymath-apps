@@ -10,11 +10,15 @@ import type { STOFactory } from '@polymathnetwork/js/types';
 type Props = {|
   item: STOFactory,
   handleUseSTO?: () => Function,
+  networkId: ?number,
 |};
 
 export default class STODetails extends Component<Props> {
   render() {
-    const { item, handleUseSTO } = this.props;
+    const { item, handleUseSTO, networkId } = this.props;
+    const isMainnet = networkId === 1;
+    console.log('IS MAINNET?', isMainnet);
+    console.log('NETWORK ID', networkId);
 
     const isSelect = handleUseSTO !== undefined;
     const authorAddress = (
@@ -100,16 +104,19 @@ export default class STODetails extends Component<Props> {
             <span>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <Button
-                // onClick={handleUseSTO} NOTE @monitz87: re-enable after the 11/15/2018 release
-                onClick={() => null}
-                disabled={true}
+                onClick={isMainnet ? () => null : handleUseSTO} // NOTE @monitz87: re-enable after the 11/15/2018 release
+                disabled={isMainnet} // NOTE @monitz87: re-enable after the 11/15/2018 release
               >
-                <DisabledTooltip
-                  label="SELECT AND CONFIGURE STO"
-                  title="STOs temporarily disabled"
-                  content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
-                  direction="top"
-                />
+                {isMainnet ? (
+                  <DisabledTooltip
+                    label="SELECT AND CONFIGURE STO"
+                    title="STOs temporarily disabled"
+                    content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 22nd - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience. For any question, please contact our support team via support@polymath.zendesk.com"
+                    direction="top"
+                  />
+                ) : (
+                  'SELECT AND CONFIGURE STO'
+                )}
               </Button>
             </span>
           ) : (

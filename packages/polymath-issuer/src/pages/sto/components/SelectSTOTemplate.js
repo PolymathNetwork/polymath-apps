@@ -14,6 +14,7 @@ import type { RootState } from '../../../redux/reducer';
 type StateProps = {|
   token: ?SecurityToken,
   factories: Array<STOFactory>,
+  networkId: ?number,
 |};
 
 type DispatchProps = {|
@@ -24,6 +25,7 @@ type DispatchProps = {|
 const mapStateToProps = (state: RootState): StateProps => ({
   token: state.token.token,
   factories: state.sto.factories,
+  networkId: state.network.id,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -41,7 +43,7 @@ class SelectSTOTemplate extends Component<Props> {
   handleUseSTO = (sto: STOFactory) => () => this.props.useFactory(sto);
 
   render() {
-    const { token } = this.props;
+    const { token, networkId } = this.props;
     return (
       // $FlowFixMe
       <DocumentTitle title={`Select ${token.ticker} STO Template – Polymath`}>
@@ -69,6 +71,7 @@ class SelectSTOTemplate extends Component<Props> {
                   key={item.address}
                   item={item}
                   handleUseSTO={this.handleUseSTO(item)}
+                  networkId={networkId}
                 />
               ))}
             </div>

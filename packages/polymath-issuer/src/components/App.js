@@ -38,7 +38,7 @@ type DispatchProps = {|
   txEnd: (receipt: any) => any,
   signIn: () => any,
   getMyTokens: () => any,
-  getNotice: (scope: string) => any,
+  getNotice: (scope: string, address: string, networkId: number) => any,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
@@ -74,7 +74,7 @@ class App extends Component<Props> {
       txEndCallback: receipt => this.props.txEnd(receipt),
     });
     this.props.getMyTokens();
-    this.props.getNotice('issuers', networkParams.account);
+    this.props.getNotice('issuers', networkParams.account, networkParams.id);
   }
 
   componentDidMount() {
