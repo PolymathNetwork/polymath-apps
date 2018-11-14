@@ -12,6 +12,7 @@ import {
 } from 'carbon-components-react';
 import Contract from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
+import newVersionLogo from '../images/2.0-logo.svg';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
 import { fetchLegacyToken } from '../actions/token';
 
@@ -177,7 +178,7 @@ class MigrateTokenPage extends Component<{| handleClick: Function |}> {
         <div className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-new-version-bull">
-              <img src="/2.0-logo.svg" alt="Bull" />
+              <img src={newVersionLogo} alt="Bull" />
             </div>
             <h1 className="pui-h1">Polymath v2.0 is Released!</h1>
             <h3 className="pui-h2">
