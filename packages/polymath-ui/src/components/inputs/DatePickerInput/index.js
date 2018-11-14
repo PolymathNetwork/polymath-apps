@@ -43,6 +43,7 @@ export default class DatePickerInputField extends Component<InputProps> {
         onChange={this.handleOnChange}
       >
         <DatePickerInput
+          datePickerType="single"
           autoComplete="off"
           id={`${field.name}-input`}
           labelText={label}

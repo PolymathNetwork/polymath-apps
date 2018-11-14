@@ -378,7 +378,12 @@ div {
 .bx--date-picker {
   .bx--date-picker__icon {
     fill: $poly-blue;
-    top: 2.5rem;
+    top: 0.7rem;
+    left: 0.9rem;
+  }
+
+  .bx--date-picker__icon ~ .bx--date-picker__input {
+    padding-left: 2.6rem;
   }
 
   .bx--date-picker__input {
