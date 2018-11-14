@@ -88,7 +88,7 @@ const dispatchTemporaryNotice = (dispatch: Function) => {
     scope: 'issuer',
     title: 'New Release',
     content:
-      'Polymath is currently migrating your security tokens to an upgraded 2.0 release. Token distribution is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience.',
+      'Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 22nd - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience. For any question, please contact our support team via support@polymath.zendesk.com',
     isValid: true,
   };
 

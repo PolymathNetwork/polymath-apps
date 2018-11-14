@@ -703,7 +703,7 @@ class CompliancePage extends Component<Props, State> {
                       <DisabledTooltip
                         label="Apply"
                         title="Ownership restrictions temporarily disabled"
-                        content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                        content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 22nd - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience. For any question, please contact our support team via support@polymath.zendesk.com"
                         direction="top"
                       />
                     ) : (
@@ -724,7 +724,7 @@ class CompliancePage extends Component<Props, State> {
                 <DisabledTooltip
                   label="Import Whitelist"
                   title="Importing whitelist temporarily disabled"
-                  content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 15th - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience."
+                  content="Polymath is currently migrating your tokens to an upgraded 2.0 release. Token distribution and configuration is disabled during this period and will resume by Nov. 22nd - 12:00pm ET. We hope you enjoy the added functionality of your upgraded security tokens, and we apologize for any inconvenience. For any question, please contact our support team via support@polymath.zendesk.com"
                   direction="top"
                 />
               ) : (
