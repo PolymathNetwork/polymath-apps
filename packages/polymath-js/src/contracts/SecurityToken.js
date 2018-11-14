@@ -244,7 +244,7 @@ export default class SecurityToken extends Contract {
     const setupCost = await cappedSTOFactory.setupCost();
     const balance = await PolyToken.balanceOf(this.address);
     //Skip transfer transaction if setupCost already paid
-    if (balance < setupCost) {
+    if (balance.lt(setupCost)) {
       await PolyToken.transfer(this.address, setupCost);
     }
     const data = Contract._params.web3.eth.abi.encodeFunctionCall(
