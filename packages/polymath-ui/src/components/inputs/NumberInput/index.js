@@ -4,9 +4,13 @@ import numeral from 'numeral';
 import formikProxy from '../formikProxy';
 import BaseInput from '../BaseInput';
 
+import type { BigNumber as BigNumberType } from 'bignumber.js';
+
 type Props = {|
   name: string,
-  value?: number,
+  max?: string | number | BigNumberType,
+  min?: string | number | BigNumberType,
+  value?: number | BitNumberType,
   onChange?: value => void,
   onBlur?: () => void,
 |};
@@ -46,6 +50,8 @@ export class NumberInput extends Component<Props, State> {
   static defaultProps = {
     onChange: () => {},
     onBlur: () => {},
+    min: -Infinity,
+    max: Infinity,
   };
 
   static getDisplayValue(value: number) {
@@ -106,14 +112,13 @@ export class NumberInput extends Component<Props, State> {
       return displayValue;
     }
 
-    const canBeCorrected = startsWithDotRegex.test(nextDisplayValue);
+    const startsWithDot = startsWithDotRegex.test(nextDisplayValue);
+    const inIntermediateState = NumberInput.isInIntermediateState(
+      nextDisplayValue
+    );
+    const canBeCorrected = startsWithDot || !inIntermediateState;
 
     if (canBeCorrected) {
-      return numeral(nextDisplayValue).format('0,0[.][0000000000]');
-    }
-
-    // TODO @RafaelVidaurre: Remove this redundancy
-    if (!NumberInput.isInIntermediateState(nextDisplayValue)) {
       return numeral(nextDisplayValue).format('0,0[.][0000000000]');
     }
 
@@ -136,14 +141,14 @@ export class NumberInput extends Component<Props, State> {
   };
 
   render() {
-    const { name, value, onBlur, ...otherProps } = this.props;
+    const { name, value, onBlur, min, max, ...inputProps } = this.props;
     const { displayValue } = this.state;
 
     return (
       <StyledBaseInput
         type="text"
         id={name}
-        {...otherProps}
+        {...inputProps}
         value={displayValue}
         onBlur={onBlur}
         onChange={this.handleChange}
