@@ -208,10 +208,3 @@ export default class USDTieredSTO {
     };
   }
 }
-
-/**
- * 0
- * 100 100
- * 1500 1600 1550 <-
- * 1000 2600
- */
