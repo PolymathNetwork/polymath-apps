@@ -278,7 +278,7 @@ class InvestmentTiers extends React.Component<Props, State> {
               name="investmentTiers.newTier"
               ticker={ticker}
               component={AddTierModal}
-              title={`Add the Investment Tier #${value.tiers.length}`}
+              title={`Add the Investment Tier #${value.tiers.length + 1}`}
               isOpen={isAddingTier}
               onAdd={push}
               onClose={this.handleClose}
