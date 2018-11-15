@@ -7,6 +7,7 @@ import moment from 'moment-timezone';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
 import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
 import {
   Box,
   Grid,
@@ -204,15 +205,23 @@ const formSchema = Yup.object().shape({
 const initialValues = {
   investmentTiers: {
     isMultipleTiers: false,
-    tiers: [],
-    newTier: null,
+    tiers: [
+      {
+        tokensAmount: null,
+        tokenPrice: null,
+      },
+    ],
+    newTier: {
+      tokensAmount: null,
+      tokenPrice: null,
+    },
   },
   startDate: null,
   startTime: null,
   endDate: null,
   endTime: null,
-  nonAccreditedMax: 0,
-  minimumInvestment: 0,
+  nonAccreditedMax: new BigNumber(0),
+  minimumInvestment: new BigNumber(0),
   receiverAddress: '',
   unsoldTokensAddress: '',
   currencies: ['ETH', 'POLY'],
@@ -229,18 +238,18 @@ export const USDTieredSTOFormComponent = ({
   const totalTokensAmount = reduce(
     tiers,
     (total, { tokensAmount }) => {
-      return (isNumber(tokensAmount) ? tokensAmount : 0) + total;
+      return (tokensAmount || new BigNumber(0)).plus(total);
     },
-    0
+    new BigNumber(0)
   );
   const totalUsdAmount = reduce(
     tiers,
     (total, { tokenPrice, tokensAmount }) => {
-      const amount = isNumber(tokensAmount) ? tokensAmount : 0;
-      const price = isNumber(tokenPrice) ? tokenPrice : 0;
-      return price * amount + total;
+      const amount = tokensAmount || new BigNumber(0);
+      const price = tokenPrice || new BigNumber(0);
+      return total.plus(price.times(amount));
     },
-    0
+    new BigNumber(0)
   );
 
   return (
@@ -305,6 +314,7 @@ export const USDTieredSTOFormComponent = ({
             min={0}
             placeholder="Enter amount"
             unit="USD"
+            useBigNumbers
           />
           <FormItem.Error />
         </FormItem>
@@ -329,6 +339,7 @@ export const USDTieredSTOFormComponent = ({
             component={NumberInput}
             placeholder="Enter amount"
             unit="USD"
+            useBigNumbers
           />
           <FormItem.Error />
         </FormItem>

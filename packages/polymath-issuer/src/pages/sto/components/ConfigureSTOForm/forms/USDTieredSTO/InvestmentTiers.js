@@ -83,7 +83,14 @@ class InvestmentTiers extends React.Component<Props, State> {
     const newValue = {
       ...value,
       isMultipleTiers,
-      tiers: [],
+      tiers: isMultipleTiers
+        ? []
+        : [
+            {
+              tokensAmount: null,
+              tokenPrice: null,
+            },
+          ],
     };
 
     setFieldTouched(name, false);
@@ -169,6 +176,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   FormikComponent={Field}
                   component={NumberInput}
                   placeholder="Enter amount"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -179,6 +187,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   component={NumberInput}
                   placeholder="Enter amount"
                   unit="USD"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
