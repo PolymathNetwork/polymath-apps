@@ -41,14 +41,6 @@ const headers = [
     header: 'Token Price',
   },
   {
-    key: 'discountedTokensAmount',
-    header: 'Max Number of Discounted Tokens',
-  },
-  {
-    key: 'discountedTokensPercentage',
-    header: 'POLY Discount',
-  },
-  {
     key: 'totalRaise',
     header: 'Total Raise Target',
   },
@@ -118,10 +110,6 @@ class InvestmentTiers extends React.Component<Props, State> {
         ...tier,
         tokensAmount: format.toTokens(tier.tokensAmount, { decimals: 0 }),
         tokenPrice: format.toUSD(tier.tokenPrice),
-        discountedTokensAmount: format.toTokens(tier.discountedTokensAmount, {
-          decimals: 0,
-        }),
-        discountedTokensPercentage: format.toPercent(tier.discountedTokensRate),
         totalRaise: format.toUSD(tier.tokenPrice * tier.tokensAmount),
         tier: tierNum + 1,
         id: tierNum + 1,
@@ -130,8 +118,6 @@ class InvestmentTiers extends React.Component<Props, State> {
 
     const defaultTableItem = [
       {
-        discountedTokensAmount: '-',
-        discountedTokensPrice: '-',
         tokenPrice: '-',
         tokensAmount: '-',
         tier: '-',
@@ -193,36 +179,6 @@ class InvestmentTiers extends React.Component<Props, State> {
                   component={NumberInput}
                   placeholder="Enter amount"
                   unit="USD"
-                />
-                <FormItem.Error />
-              </FormItem>
-            </Grid>
-            <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-              <FormItem name={`${name}.tiers[0].discountedTokensAmount`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Number of discounted tokens">
-                    <p className="bx--tooltip__label">
-                      Maximum Number of Discounted tokens
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  component={NumberInput}
-                  placeholder="Enter amount"
-                />
-                <FormItem.Error />
-              </FormItem>
-              <FormItem name={`${name}.tiers[0].discountedTokensRate`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                    <p className="bx--tooltip__label">
-                      Discount for Tokens Purchased with POLY
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  component={PercentageInput}
-                  placeholder="Enter percentage"
                 />
                 <FormItem.Error />
               </FormItem>
