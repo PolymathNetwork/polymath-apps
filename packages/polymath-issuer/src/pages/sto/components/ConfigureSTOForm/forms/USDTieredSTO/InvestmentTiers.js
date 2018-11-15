@@ -83,6 +83,10 @@ class InvestmentTiers extends React.Component<Props, State> {
     const newValue = {
       ...value,
       isMultipleTiers,
+      /**
+       * NOTE @monitz87: If switching back to single tier, we repopulate the array
+       * to have initial values in the single-tier form for validation
+       */
       tiers: isMultipleTiers
         ? []
         : [
