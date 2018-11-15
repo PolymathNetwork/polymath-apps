@@ -35,6 +35,18 @@ describe('NumberInput', () => {
     expect(getByTestId('base-input').value).toEqual('123.456');
   });
 
+  test('returns null when the field is empty', () => {
+    const onChange = jest.fn();
+    const { getByTestId } = render(
+      <NumberInput value={12} onChange={onChange} />
+    );
+
+    const input = getByTestId('base-input');
+    fireEvent.change(input, { target: { value: '' } });
+
+    expect(onChange).toHaveBeenCalledWith(null);
+  });
+
   test('calls onChange with new numeric value when display value changes to a final state', () => {
     // A final state is any state where a number value can be parsed Examples:
     // "0.1", "123" are final
@@ -132,10 +144,10 @@ describe('NumberInput', () => {
     });
 
     test('warns if a non-null value passed is not a BigNumber', () => {
-      render(<NumberInput value={123} useBigNumbers />);
+      render(<NumberInput name="foo" value={123} useBigNumbers />);
 
       expect(warnSpy).toHaveBeenCalledWith(
-        "NumberInput's value must be a BigNumber object when useBigNumbers is set to `true`"
+        `NumberInput(foo)'s value must be a BigNumber object when useBigNumbers is set to true`
       );
     });
 
@@ -174,9 +186,9 @@ describe('NumberInput', () => {
     test('warns if BigNumber mode is not enabled and max/min numbers are too large or not set', () => {
       // If potential inputs are too big for the number primitive to be safe
       jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
-      render(<NumberInput />);
+      render(<NumberInput name="bar" />);
       expect(console.warn).toHaveBeenCalledWith(
-        "NumberInput's min and max should be set when useBigNumbers is disabled. They have been defaulted to the biggest supported values for safety"
+        "NumberInput(bar)'s min and max should be set when useBigNumbers is disabled. They have been defaulted to the biggest supported values for safety"
       );
     });
 

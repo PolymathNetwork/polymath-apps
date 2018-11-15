@@ -24,10 +24,10 @@ type toUSDOpts = {
  * @param decimals amount of decimals to display
  */
 export const toUSD = (
-  value: number | BigNumberType,
+  value?: number | BigNumberType,
   { decimals = 2 }: toUSDOpts = {}
 ) => {
-  const isValid = isNumber(value) || isBigNumber(value);
+  const isValid = value !== null && (isNumber(value) || isBigNumber(value));
   if (!isValid) {
     return `- USD`;
   }
@@ -45,10 +45,18 @@ type ToPercentOpts = {
  * @param decimals amount of decimals to display
  */
 export const toPercent = (
-  value: number,
+  value: number | BigNumber,
   { decimals = 0 }: ToPercentOpts = {}
 ) => {
   let decimalsFormat = '';
+  const isValid = value !== null && (isNumber(value) || isBigNumber(value));
+
+  if (!isValid) {
+    return '- %';
+  }
+
+  const parsedValue = new BigNumber(value);
+
   times(decimals, time => {
     if (time === 0) {
       decimalsFormat = '.';
@@ -56,7 +64,7 @@ export const toPercent = (
     decimalsFormat += '0';
   });
 
-  return numeral(value).format(`0,0${decimalsFormat} %`);
+  return numeral(parsedValue.toFixed()).format(`0,0${decimalsFormat} %`);
 };
 
 type ToTokensOpts = {
@@ -72,7 +80,7 @@ export const toTokens = (
   value: number,
   { decimals = 0 }: ToTokensOpts = {}
 ) => {
-  const isValid = isNumber(value) || isBigNumber(value);
+  const isValid = value !== null && (isNumber(value) || isBigNumber(value));
   if (!isValid) {
     return `-`;
   }

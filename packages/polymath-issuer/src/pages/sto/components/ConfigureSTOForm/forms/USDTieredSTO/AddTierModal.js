@@ -10,6 +10,7 @@ import {
   Button,
   Tooltip,
 } from 'carbon-components-react';
+import BigNumber from 'bignumber.js';
 import {
   Grid,
   Box,
@@ -49,8 +50,8 @@ class AddTierModal extends Component {
       disabled = true;
     }
     const thisTier = value || {};
-    const tokenPrice = thisTier.tokenPrice || 0;
-    const tokensAmount = thisTier.tokensAmount || 0;
+    const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
+    const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
 
     const tierNum = values.investmentTiers.tiers.length + 1;
     const tierTokensAmount = tokensAmount || 0;
@@ -75,6 +76,7 @@ class AddTierModal extends Component {
               <FormItem.Input
                 component={NumberInput}
                 placeholder="Enter amount"
+                useBigNumbers
               />
               <FormItem.Error />
             </FormItem>
@@ -84,6 +86,7 @@ class AddTierModal extends Component {
                 component={NumberInput}
                 placeholder="Enter amount"
                 unit="USD"
+                useBigNumbers
               />
               <FormItem.Error />
             </FormItem>
@@ -100,6 +103,7 @@ class AddTierModal extends Component {
               <FormItem.Input
                 component={NumberInput}
                 placeholder="Enter amount"
+                useBigNumbers
               />
               <FormItem.Error />
             </FormItem>

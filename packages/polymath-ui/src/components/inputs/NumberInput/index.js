@@ -57,10 +57,11 @@ export class NumberInput extends Component<Props, State> {
     max: Infinity,
     useBigNumbers: false,
     value: null,
+    name: 'unnamed',
   };
 
   static getDisplayValue(value?: number | BigNumberType, props: Props) {
-    if (value === undefined) {
+    if (value === null) {
       return '';
     }
     const parsedValue = NumberInput.toBigNumber(value, props);
@@ -69,18 +70,18 @@ export class NumberInput extends Component<Props, State> {
 
   static getDerivedStateFromProps(props, state) {
     const { oldValue } = state;
-    const { value, useBigNumbers, min, max } = props;
+    const { value, useBigNumbers, min, max, name } = props;
     const propsValueChanged = oldValue !== value;
 
     if ((!useBigNumbers && min === -Infinity) || max === Infinity) {
       console.warn(
-        "NumberInput's min and max should be set when useBigNumbers is disabled. They have been defaulted to the biggest supported values for safety"
+        `NumberInput(${name})'s min and max should be set when useBigNumbers is disabled. They have been defaulted to the biggest supported values for safety`
       );
     }
 
     if (useBigNumbers && value !== null && !value.isBigNumber) {
       console.warn(
-        "NumberInput's value must be a BigNumber object when useBigNumbers is set to `true`"
+        `NumberInput(${name})'s value must be a BigNumber object when useBigNumbers is set to true`
       );
     }
 
@@ -157,12 +158,16 @@ export class NumberInput extends Component<Props, State> {
    *
    * @param nextDisplayValue the value to sanitize
    */
-  sanitizeDisplayValue = (nextDisplayValue: string): string => {
+  sanitizeDisplayValue = (nextDisplayValue?: string): string => {
     const displayValue = this.state.displayValue;
     const isValid = NumberInput.isValidDisplayValue(nextDisplayValue);
 
     if (!isValid) {
       return displayValue;
+    }
+
+    if (nextDisplayValue === '') {
+      return '';
     }
 
     const startsWithDot = startsWithDotRegex.test(nextDisplayValue);
@@ -187,6 +192,11 @@ export class NumberInput extends Component<Props, State> {
     this.setState({ displayValue });
 
     if (!NumberInput.isInIntermediateState(displayValue)) {
+      if (displayValue.replace(/\s/g, '') === '') {
+        onChange(null);
+        return;
+      }
+
       const parsedValue = NumberInput.toBigNumber(displayValue, this.props);
 
       if (useBigNumbers) {

@@ -7,6 +7,7 @@ import moment from 'moment-timezone';
 import { Form, Tooltip, Button } from 'carbon-components-react';
 import * as Yup from 'yup';
 import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
 import {
   Box,
   Grid,
@@ -205,8 +206,8 @@ const initialValues = {
     tiers: [],
     newTier: null,
   },
-  nonAccreditedMax: 0,
-  minimumInvestment: 0,
+  nonAccreditedMax: new BigNumber(0),
+  minimumInvestment: new BigNumber(0),
   receiverAddress: '',
   unsoldTokensAddress: '',
   currencies: ['ETH', 'POLY'],
@@ -293,6 +294,7 @@ export const USDTieredSTOFormComponent = ({
             min={0}
             placeholder="Enter amount"
             unit="USD"
+            useBigNumbers
           />
           <FormItem.Error />
         </FormItem>
@@ -314,6 +316,7 @@ export const USDTieredSTOFormComponent = ({
             component={NumberInput}
             placeholder="Enter amount"
             unit="USD"
+            useBigNumbers
           />
           <FormItem.Error />
         </FormItem>
