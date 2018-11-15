@@ -45,7 +45,7 @@ type ToPercentOpts = {
  * @param decimals amount of decimals to display
  */
 export const toPercent = (
-  value: number | BigNumber,
+  value: number | BigNumberType,
   { decimals = 0 }: ToPercentOpts = {}
 ) => {
   let decimalsFormat = '';
