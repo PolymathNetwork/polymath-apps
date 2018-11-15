@@ -160,12 +160,15 @@ export const investmentTierSchema = Yup.object().shape({
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
 const formSchema = Yup.object().shape({
   startDate: Yup.date()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateStartDate', todayOrAfter),
   startTime: Yup.number()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateStartTime', validateStartTime),
   endDate: Yup.date()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateEndDate', validateEndDate),
   endTime: Yup.number()
@@ -204,6 +207,10 @@ const initialValues = {
     tiers: [],
     newTier: null,
   },
+  startDate: null,
+  startTime: null,
+  endDate: null,
+  endTime: null,
   nonAccreditedMax: 0,
   minimumInvestment: 0,
   receiverAddress: '',
