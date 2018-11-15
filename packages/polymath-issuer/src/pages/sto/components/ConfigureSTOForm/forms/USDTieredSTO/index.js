@@ -240,36 +240,37 @@ export const USDTieredSTOFormComponent = ({
   return (
     <Form onSubmit={handleSubmit}>
       <Heading variant="h3">STO Schedule</Heading>
-      <Box mb={4}>
-        <div className="time-pickers-container">
-          <FormItem name="startDate">
-            <FormItem.Label>Start Date</FormItem.Label>
-            <FormItem.Input
-              component={DatePickerInput}
-              placeholder="mm / dd / yyyy"
-            />
-            <FormItem.Error />
-          </FormItem>
+
+      <div className="time-pickers-container">
+        <FormItem name="startDate">
+          <FormItem.Label>Start Date</FormItem.Label>
+          <FormItem.Input
+            component={DatePickerInput}
+            placeholder="mm / dd / yyyy"
+          />
+          <FormItem.Error />
+        </FormItem>
+        <Box mr={4}>
           <FormItem name="startTime">
             <FormItem.Label>Time</FormItem.Label>
             <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
             <FormItem.Error />
           </FormItem>
-          <FormItem name="endDate">
-            <FormItem.Label>End Date</FormItem.Label>
-            <FormItem.Input
-              component={DatePickerInput}
-              placeholder="mm / dd / yyyy"
-            />
-            <FormItem.Error />
-          </FormItem>
-          <FormItem name="endTime">
-            <FormItem.Label>Time</FormItem.Label>
-            <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
-            <FormItem.Error />
-          </FormItem>
-        </div>
-      </Box>
+        </Box>
+        <FormItem name="endDate">
+          <FormItem.Label>End Date</FormItem.Label>
+          <FormItem.Input
+            component={DatePickerInput}
+            placeholder="mm / dd / yyyy"
+          />
+          <FormItem.Error />
+        </FormItem>
+        <FormItem name="endTime">
+          <FormItem.Label>Time</FormItem.Label>
+          <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
+          <FormItem.Error />
+        </FormItem>
+      </div>
 
       <Heading variant="h3">STO Financing Details & Terms</Heading>
 
