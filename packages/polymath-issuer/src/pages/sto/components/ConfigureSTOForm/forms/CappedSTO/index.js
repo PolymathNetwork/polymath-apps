@@ -231,8 +231,9 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
             <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
               <p className="bx--tooltip__label">Fund Receiver Address</p>
               <p>
-                The ethereum address that will receive the funds raised through
-                the STO.
+                This wallet address will receive the funds raised during the
+                STO. This address may be self-custodied or that of a fully
+                custodied wallet.
               </p>
             </Tooltip>
           }
