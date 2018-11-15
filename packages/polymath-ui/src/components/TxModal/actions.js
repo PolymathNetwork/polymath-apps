@@ -10,6 +10,7 @@ export const tx = (
   code: () => any,
   successTitle: string,
   continueCode?: () => any,
+  errorCode?: () => any,
   continueRoute?: string,
   continueLabel?: string,
   isNoEmail?: boolean,
@@ -24,6 +25,7 @@ export const tx = (
     continueRoute,
     continueLabel,
     continueCode,
+    errorCode,
     isNoEmail,
     headingOverride,
   });
@@ -47,7 +49,7 @@ export const txContinue = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const { error, continueRoute, continueCode } = getState().pui.tx;
+  const { error, continueRoute, continueCode, errorCode } = getState().pui.tx;
   dispatch({ type: CONTINUE });
   if (!error) {
     if (continueCode) {
@@ -57,6 +59,10 @@ export const txContinue = () => async (
     if (continueRoute) {
       // $FlowFixMe
       getState().pui.common.history.push(continueRoute);
+    }
+  } else {
+    if (errorCode) {
+      await errorCode();
     }
   }
 };

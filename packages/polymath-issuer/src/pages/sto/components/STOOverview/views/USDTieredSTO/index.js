@@ -11,6 +11,7 @@ import {
   ProgressBar,
   Countdown,
   etherscanAddress,
+  RaisedAmount,
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
 import {
@@ -152,15 +153,13 @@ const USDTieredSTOOverviewComponent = ({
                   {dateFormat(sto.endDate)}
                 </div>
               </div>
-              <div>
-                <div className="pui-key-value pui-countdown-raised">
-                  <div>Total Funds Raised</div>
-                  {`${format.toUSD(raised)}`}
-                  <div>
-                    {format.toTokens(totalTokensSold, { decimals: 2 })} {ticker}
-                  </div>
-                </div>
-              </div>
+              <RaisedAmount
+                title="Total Funds Raised"
+                primaryAmount={raised}
+                primaryUnit="USD"
+                tokenAmount={totalTokensSold}
+                tokenUnit={ticker.toUpperCase()}
+              />
             </div>
             <Box mt={4}>
               <TiersTable sto={sto} />

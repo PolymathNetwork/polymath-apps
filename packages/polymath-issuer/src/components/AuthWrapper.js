@@ -13,7 +13,6 @@ import {
 
 import { tickerReservationEmail } from '../actions/ticker';
 import ConfirmEmailPage from './ConfirmEmailPage';
-import MigrateTokenPage from './MigrateTokenPage';
 
 import type { RootState } from '../redux/reducer';
 
@@ -24,7 +23,6 @@ type StateProps = {|
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
-  hasLegacyTokens: ?boolean,
   isFetching: boolean,
 |};
 
@@ -43,7 +41,6 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
-  hasLegacyTokens: state.ticker.hasLegacyTokens,
   isFetching: state.pui.common.isFetching,
 });
 
@@ -84,7 +81,6 @@ class AuthWrapper extends Component<Props> {
       isEmailConfirmed,
       isSignUpSuccess,
       children,
-      hasLegacyTokens,
     } = this.props;
 
     return !isSignedIn ? (
@@ -103,8 +99,6 @@ class AuthWrapper extends Component<Props> {
       ) : (
         <ConfirmEmailPage />
       )
-    ) : hasLegacyTokens ? (
-      <MigrateTokenPage />
     ) : (
       children
     );

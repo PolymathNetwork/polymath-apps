@@ -4,11 +4,11 @@ import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
+import { iconAddSolid } from 'carbon-icons';
 import {
   Box,
   Grid,
   DynamicTable,
-  icoAdd,
   FormItem,
   NumberInput,
   PercentageInput,
@@ -172,10 +172,10 @@ class InvestmentTiers extends React.Component<Props, State> {
                   <Tooltip triggerText="Number of tokens">
                     <p className="bx--tooltip__label">Number of tokens</p>
                     <p>
-                      Hard Cap is the maximum number of tokens available through
-                      this offering. e.g. if you want the total aggregate of
-                      your investors in this offering to own 10 million tokens,
-                      enter 10000000.
+                      Number of tokens to be sold in this tier. All tokens in
+                      the tier will carry the same price and need to be sold for
+                      the STO to move to the next tier (if multiple tiers are
+                      defined).
                     </p>
                   </Tooltip>
                 </FormItem.Label>
@@ -183,6 +183,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   FormikComponent={Field}
                   component={NumberInput}
                   placeholder="Enter amount"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -193,6 +194,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   component={NumberInput}
                   placeholder="Enter amount"
                   unit="USD"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -209,6 +211,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 <FormItem.Input
                   component={NumberInput}
                   placeholder="Enter amount"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -237,7 +240,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 <TableContainer>
                   <Box textAlign="right" mb={3}>
                     <Button
-                      icon={icoAdd}
+                      icon={iconAddSolid}
                       onClick={this.handleAddNewTier.bind(this)}
                     >
                       Add new
@@ -278,7 +281,7 @@ class InvestmentTiers extends React.Component<Props, State> {
               name="investmentTiers.newTier"
               ticker={ticker}
               component={AddTierModal}
-              title={`Add the Investment Tier #${value.tiers.length}`}
+              title={`Add the Investment Tier #${value.tiers.length + 1}`}
               isOpen={isAddingTier}
               onAdd={push}
               onClose={this.handleClose}

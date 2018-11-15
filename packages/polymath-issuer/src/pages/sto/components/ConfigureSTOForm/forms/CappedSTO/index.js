@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
-import { thousandsDelimiter } from '@polymathnetwork/ui';
+import { Box, thousandsDelimiter } from '@polymathnetwork/ui';
 import {
   TextInput,
   SelectInput,
@@ -147,17 +147,18 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
             placeholder="mm / dd / yyyy"
             validate={[required, todayOrLater]}
           />
-          <Field
-            name="startTime"
-            step={30}
-            component={TimePickerSelect}
-            hideLabel={false}
-            className="bx--time-picker__select"
-            placeholder="hh:mm"
-            label="Start Time"
-            validate={[required, this.checkStartTime]}
-          />
-
+          <Box mr={4}>
+            <Field
+              name="startTime"
+              step={30}
+              component={TimePickerSelect}
+              hideLabel={false}
+              className="bx--time-picker__select"
+              placeholder="hh:mm"
+              label="Start Time"
+              validate={[required, this.checkStartTime]}
+            />
+          </Box>
           <Field
             name="endDate"
             component={DatePickerInput}

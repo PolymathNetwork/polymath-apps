@@ -378,7 +378,13 @@ div {
 .bx--date-picker {
   .bx--date-picker__icon {
     fill: $poly-blue;
-    top: 2.5rem;
+    top: 2.6rem;
+    left: 0.9rem;
+    pointer-events: none;
+  }
+
+  .bx--date-picker__icon ~ .bx--date-picker__input {
+    padding-left: 2.6rem;
   }
 
   .bx--date-picker__input {
@@ -600,6 +606,7 @@ div {
 .pui-tx-modal {
   .bx--modal-container {
     width: 500px;
+    max-height: 90%;
   }
 
   .bx--modal-close {

@@ -1,14 +1,19 @@
 // @flow
 
 import React from 'react';
-import {
+import Contract, {
   PolyToken,
   SecurityTokenRegistry,
   CountTransferManager,
 } from '@polymathnetwork/js';
+import { MAINNET_NETWORK_ID } from '@polymathnetwork/shared/constants';
 import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
+import axios from 'axios';
 import FileSaver from 'file-saver';
+
+import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
+import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
 
 import { ethereumAddress } from '@polymathnetwork/ui/validate';
 import type {
@@ -107,6 +112,73 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
   }
 };
 
+export const LEGACY_TOKEN = 'token/LEGACY_TOKEN';
+
+export const FETCHING_LEGACY_TOKENS = 'token/FETCHING_LEGACY_TOKENS';
+
+export const fetchLegacyToken = (ticker: string) => async (
+  dispatch: Function
+) => {
+  dispatch({ type: FETCHING_LEGACY_TOKENS });
+  const { web3WS, account } = Contract._params;
+  const networkId = await web3WS.eth.net.getId();
+
+  // Fetch only on mainnet
+  if (String(networkId) !== MAINNET_NETWORK_ID) {
+    dispatch({ type: LEGACY_TOKEN, legacyToken: null });
+    return;
+  }
+
+  // Fetch the tokens using the etherscan API
+  const logs = await axios.get('https://api.etherscan.io/api', {
+    params: {
+      module: 'logs',
+      action: 'getLogs',
+      fromBlock: 0,
+      toBlock: 'latest',
+      address: LegacySTRArtifact.networks[networkId].address,
+      topic0: web3WS.utils.sha3('LogNewSecurityToken(string,address,address)'),
+      topic0_2_opr: 'and',
+      topic2: web3WS.eth.abi.encodeParameter('address', account),
+      apikey: process.env.REACT_APP_ETHERSCAN_API_KEY,
+    },
+  });
+
+  // Decode the logs using the ABI
+  const inputs = LegacySTRArtifact.abi.find(
+    o => o.name === 'LogNewSecurityToken' && o.type === 'event'
+  ).inputs;
+
+  for (const legacyToken of logs.data.result) {
+    const data = web3WS.eth.abi.decodeLog(
+      inputs,
+      legacyToken.data,
+      legacyToken.topics.slice(1)
+    );
+
+    const { _ticker: thisTicker, _securityTokenAddress: address } = data;
+
+    const legacyTokenContract = new web3WS.eth.Contract(
+      LegacySTArtifact.abi,
+      address
+    );
+
+    const currentOwner = await legacyTokenContract.methods.owner().call();
+
+    if (currentOwner === account && thisTicker === ticker) {
+      return dispatch({
+        type: LEGACY_TOKEN,
+        legacyToken: {
+          ticker,
+          address,
+        },
+      });
+    }
+  }
+
+  dispatch({ type: LEGACY_TOKEN, legacyToken: null });
+};
+
 export const issue = (isLimitNI: boolean) => async (
   dispatch: Function,
   getState: GetState
@@ -165,11 +237,17 @@ export const issue = (isLimitNI: boolean) => async (
 
         //Skip approve transaction if transfer is already allowed
         let title = ['Creating Security Token'];
+
         if (allowance < fee) {
           title.unshift('Approving POLY Spend');
         }
 
         title.push(...(isLimitNI ? ['Limiting Number Of Investors'] : []));
+
+        const continueCallback = () => {
+          // $FlowFixMe
+          return dispatch(fetch(ticker, isLimitNI ? token : undefined));
+        };
 
         dispatch(
           ui.tx(
@@ -181,18 +259,23 @@ export const issue = (isLimitNI: boolean) => async (
                 ...values,
               };
               token.isDivisible = token.isDivisible !== '1';
+
               await SecurityTokenRegistry.generateSecurityToken(token);
 
               if (isLimitNI) {
                 token = await SecurityTokenRegistry.getTokenByTicker(ticker);
-                await token.contract.setCountTM(values.investorsNumber);
+                try {
+                  await token.contract.setCountTM(values.investorsNumber);
+                } catch (err) {
+                  throw new Error(
+                    'Error limiting the number of investors. Please click on "Continue" to proceed to the next step where you can enable this limit.'
+                  );
+                }
               }
             },
             'Token Was Issued Successfully',
-            () => {
-              // $FlowFixMe
-              return dispatch(fetch(ticker, isLimitNI ? token : undefined));
-            },
+            continueCallback,
+            continueCallback,
             `/dashboard/${ticker}`,
             undefined,
             false,
@@ -286,6 +369,7 @@ export const mintTokens = () => async (
       },
       undefined,
       undefined,
+      undefined,
       true // TODO @bshevchenko
     )
   );
@@ -339,6 +423,7 @@ export const limitNumberOfInvestors = (count?: number) => async (
               },
               undefined,
               undefined,
+              undefined,
               true // TODO @bshevchenko
             )
           );
@@ -357,6 +442,7 @@ export const limitNumberOfInvestors = (count?: number) => async (
                   countTransferManager(await st.getCountTM(), false, count)
                 );
               },
+              undefined,
               undefined,
               undefined,
               true // TODO @bshevchenko
@@ -394,6 +480,7 @@ export const unlimitNumberOfInvestors = () => async (
             async () => {
               dispatch(countTransferManager(tm, true));
             },
+            undefined,
             undefined,
             undefined,
             true // TODO @bshevchenko
@@ -444,6 +531,7 @@ export const updateMaxHoldersCount = (count: number) => async (
             async () => {
               dispatch(countTransferManager(tm, false, count));
             },
+            undefined,
             undefined,
             undefined,
             true // TODO @bshevchenko

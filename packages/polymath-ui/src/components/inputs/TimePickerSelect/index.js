@@ -6,7 +6,6 @@ import Select, { components } from 'react-select';
 import styled from 'styled-components';
 import moment from 'moment';
 
-import Box from '../../Box';
 import Icon from '../../Icon';
 import theme from '../../../theme';
 import CaretDownIcon from '../../../images/icons/CaretDown';
@@ -22,6 +21,7 @@ const styles = {
     ...styles,
     borderRadius: 0,
     minHeight: theme.inputs.height,
+    minWidth: '7rem',
   }),
   control: (styles, state) => {
     return {
@@ -40,18 +40,6 @@ const styles = {
     fontSize: theme.fontSizes[1],
   }),
 };
-
-const Container = styled(Box)`
-  min-height: 80px;
-`;
-
-const SelectContainer = styled(Box)`
-  display: inline-block;
-  vertical-align: middle;
-  min-width: 7rem;
-  margin-right: ${({ theme }) => theme.space[4]}px;
-  margin-bottom: ${({ theme }) => theme.space[1]}px;
-`;
 
 const Caret = styled(Icon)`
   color: ${({ theme }) => theme.colors.secondary};
@@ -113,27 +101,23 @@ class TimePickerSelectField extends Component<Props> {
     const selectedOption = timeOptions.find(option => option.value === value);
 
     return (
-      <Container>
-        <SelectContainer>
-          <Select
-            id={name}
-            styles={styles}
-            components={{
-              DropdownIndicator,
-              IndicatorSeparator: null,
-              ClearIndicator: null,
-            }}
-            backspaceRemovesValue={false}
-            isSearchable={false}
-            options={timeOptions}
-            onChange={this.handleChange}
-            onMenuClose={this.handleMenuClose}
-            value={selectedOption}
-            placeholder={placeholder}
-            {...props}
-          />
-        </SelectContainer>
-      </Container>
+      <Select
+        inputId={name}
+        styles={styles}
+        components={{
+          DropdownIndicator,
+          IndicatorSeparator: null,
+          ClearIndicator: null,
+        }}
+        backspaceRemovesValue={false}
+        isSearchable={false}
+        options={timeOptions}
+        onChange={this.handleChange}
+        onMenuClose={this.handleMenuClose}
+        value={selectedOption}
+        placeholder={placeholder}
+        {...props}
+      />
     );
   }
 }

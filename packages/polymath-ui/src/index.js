@@ -79,7 +79,6 @@ export { default as icoPaperPlane } from './images/svg/paper-plane';
 export { default as icoHandshake } from './images/svg/handshake';
 export { default as icoHelp } from './images/svg/help';
 export { default as icoWhitelist } from './images/svg/whitelist';
-export { iconAddSolid as icoAdd } from 'carbon-icons';
 
 export type { PUIState } from './redux/reducer';
 export type { NetworkState } from './redux/reducer';
