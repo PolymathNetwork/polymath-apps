@@ -143,6 +143,11 @@ describe('NumberInput', () => {
       );
     });
 
+    test('does not warn if value passed is a BigNumber', () => {
+      render(<NumberInput useBigNumbers />);
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('warns if a non-null value passed is not a BigNumber', () => {
       render(<NumberInput name="foo" value={123} useBigNumbers />);
 
@@ -192,6 +197,11 @@ describe('NumberInput', () => {
       );
     });
 
+    test('does not warn if BigNumber is enabled', () => {
+      render(<NumberInput useBigNumbers min={10} max={1000} />);
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('forces min and max if BigNumber mode is not enabled', () => {
       // TODO @RafaelVidaurre: Add test for min when negatives are supported
       const onChange = jest.fn();
@@ -210,11 +220,13 @@ describe('NumberInput', () => {
 
 class TestForm extends Component {
   state = { submitted: 'notsubmitted' };
+
   handleSubmit = (...args) => {
     const { onSubmit } = this.props;
     this.setState({ submitted: 'submitted' });
     onSubmit(...args);
   };
+
   render() {
     return (
       <Formik

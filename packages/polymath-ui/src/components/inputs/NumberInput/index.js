@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
@@ -14,8 +16,8 @@ type Props = {|
   name: string,
   max: number | BigNumberType,
   min: number | BigNumberType,
-  value?: number | BitNumberType,
-  onChange?: value => void,
+  value?: number | BigNumberType,
+  onChange?: (value: any) => void,
   useBigNumbers: boolean,
   onBlur?: () => void,
 |};
@@ -68,12 +70,12 @@ export class NumberInput extends Component<Props, State> {
     return parsedValue.toFormat();
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: Props, state: State) {
     const { oldValue } = state;
     const { value, useBigNumbers, min, max, name } = props;
     const propsValueChanged = oldValue !== value;
 
-    if ((!useBigNumbers && min === -Infinity) || max === Infinity) {
+    if (!useBigNumbers && (min === -Infinity || max === Infinity)) {
       console.warn(
         `NumberInput(${name})'s min and max should be set when useBigNumbers is disabled. They have been defaulted to the biggest supported values for safety`
       );
