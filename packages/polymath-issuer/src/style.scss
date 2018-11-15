@@ -37,7 +37,7 @@
 
 // TODO @bshevchenko: extract into the @polymathnetwork/ui
 .ticker-field {
-  background: #EBF0F7;
+  background: #ebf0f7;
   padding: 12px 48px 31px 48px;
   margin-bottom: 1.5rem;
   margin-top: 24px;
@@ -64,7 +64,7 @@
     text-transform: uppercase;
 
     &::placeholder {
-      color: #DFE3E6 !important;
+      color: #dfe3e6 !important;
       font-weight: 300 !important;
       font-size: 26px !important;
       text-transform: initial !important;
@@ -74,10 +74,12 @@
 
 .time-pickers-container {
   display: flex;
+  margin-bottom: 30px;
 
   .bx--form-item {
     flex-grow: 0;
-    padding-right:0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 0px !important; // NOTE @monitz87: This is to override carbon's !important, I'm sorry
   }
 
   .bx--time-picker__select {
@@ -105,6 +107,7 @@
   padding: 12px 15px !important;
 }
 
-input, select{
-  box-shadow:none !important;
+input,
+select {
+  box-shadow: none !important;
 }

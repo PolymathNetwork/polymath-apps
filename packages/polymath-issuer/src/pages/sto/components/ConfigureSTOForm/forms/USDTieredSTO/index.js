@@ -32,6 +32,25 @@ import type { FundRaiseType } from '../../../../../../constants';
 
 const TRANSACTION_TIME_BUFFER = 20 * 60 * 1000;
 
+type InvestmentTier = {|
+  tokensAmount: number,
+  tokenPrice: number,
+|};
+type FormValues = {|
+  startDate: Date,
+  startTime: number,
+  endDate: Date,
+  endTime: number,
+  investmentTiers: {
+    tiers: Array<InvestmentTier>,
+  },
+  nonAccreditedMax: number,
+  minimumInvestment: number,
+  currencies: FundRaiseType,
+  receiverAddress: string,
+  unsoldTokensAddress: string,
+|};
+
 type FormikProps = {|
   handleSubmit: () => void,
   values: FormValues,
@@ -106,18 +125,6 @@ function validateStartTime(value) {
   return true;
 }
 
-function validateDiscountedTokensAmount(value) {
-  const { tokensAmount } = this.parent;
-
-  if (value > 0 && (!tokensAmount || value > tokensAmount)) {
-    return this.createError({
-      message: 'Cannot be higher than the total amount of tokens.',
-    });
-  }
-
-  return true;
-}
-
 function validateIsAddress(value) {
   if (!Web3.utils.isAddress(value)) {
     return this.createError({
@@ -150,24 +157,19 @@ export const investmentTierSchema = Yup.object().shape({
     .typeError(requiredMessage)
     .required(requiredMessage)
     .moreThan(0, moreThanMessage),
-  discountedTokensAmount: Yup.number()
-    .typeError(requiredMessage)
-    .min(0, minMessage)
-    .test('validateDiscountedTokensAmount', validateDiscountedTokensAmount),
-  discountedTokensRate: Yup.number()
-    .typeError(requiredMessage)
-    .max(1, maxPercentageMessage)
-    .min(0, minMessage),
 });
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
 const formSchema = Yup.object().shape({
   startDate: Yup.date()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateStartDate', todayOrAfter),
   startTime: Yup.number()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateStartTime', validateStartTime),
   endDate: Yup.date()
+    .typeError(requiredMessage)
     .required(requiredMessage)
     .test('validateEndDate', validateEndDate),
   endTime: Yup.number()
@@ -203,9 +205,21 @@ const formSchema = Yup.object().shape({
 const initialValues = {
   investmentTiers: {
     isMultipleTiers: false,
-    tiers: [],
-    newTier: null,
+    tiers: [
+      {
+        tokensAmount: null,
+        tokenPrice: null,
+      },
+    ],
+    newTier: {
+      tokensAmount: null,
+      tokenPrice: null,
+    },
   },
+  startDate: null,
+  startTime: null,
+  endDate: null,
+  endTime: null,
   nonAccreditedMax: new BigNumber(0),
   minimumInvestment: new BigNumber(0),
   receiverAddress: '',
@@ -224,18 +238,18 @@ export const USDTieredSTOFormComponent = ({
   const totalTokensAmount = reduce(
     tiers,
     (total, { tokensAmount }) => {
-      return (isNumber(tokensAmount) ? tokensAmount : 0) + total;
+      return (tokensAmount || new BigNumber(0)).plus(total);
     },
-    0
+    new BigNumber(0)
   );
   const totalUsdAmount = reduce(
     tiers,
     (total, { tokenPrice, tokensAmount }) => {
-      const amount = isNumber(tokensAmount) ? tokensAmount : 0;
-      const price = isNumber(tokenPrice) ? tokenPrice : 0;
-      return price * amount + total;
+      const amount = tokensAmount || new BigNumber(0);
+      const price = tokenPrice || new BigNumber(0);
+      return total.plus(price.times(amount));
     },
-    0
+    new BigNumber(0)
   );
 
   return (
@@ -408,27 +422,6 @@ const mapStateToProps = ({
   },
 }: RootState) => ({ address, ticker });
 
-type InvestmentTier = {|
-  tokensAmount: number,
-  tokenPrice: number,
-  discountedTokensAmount: number,
-  discountedTokensRate: number,
-|};
-type FormValues = {|
-  startDate: Date,
-  startTime: number,
-  endDate: Date,
-  endTime: number,
-  investmentTiers: {
-    tiers: Array<InvestmentTier>,
-  },
-  nonAccreditedMax: number,
-  minimumInvestment: number,
-  currencies: FundRaiseType,
-  receiverAddress: string,
-  unsoldTokensAddress: string,
-|};
-
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
   displayName: 'USDTieredSTOConfigForm',
@@ -445,17 +438,12 @@ const formikEnhancer = withFormik({
       ratePerTier: map(values.investmentTiers.tiers, ({ tokenPrice }) =>
         toWei(tokenPrice)
       ),
-      discountRatePerTier: map(
-        values.investmentTiers.tiers,
-        ({ discountedTokensRate = 0, tokenPrice }) =>
-          toWei(`${tokenPrice * (1 - discountedTokensRate)}`)
-      ),
+      discountRatePerTier: map(values.investmentTiers.tiers, () => toWei('0')),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
         toWei(tokensAmount)
       ),
-      discountTokensPerTier: map(
-        values.investmentTiers.tiers,
-        ({ discountedTokensAmount = 0 }) => toWei(discountedTokensAmount)
+      discountTokensPerTier: map(values.investmentTiers.tiers, () =>
+        toWei('0')
       ),
       nonAccreditedLimit: toWei(values.nonAccreditedMax),
       minimumInvestment: toWei(values.minimumInvestment),

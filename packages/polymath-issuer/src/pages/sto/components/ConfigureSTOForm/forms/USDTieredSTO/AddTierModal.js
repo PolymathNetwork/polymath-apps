@@ -54,8 +54,8 @@ class AddTierModal extends Component {
     const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
 
     const tierNum = values.investmentTiers.tiers.length + 1;
-    const tierTokensAmount = tokensAmount || 0;
-    const tierUsdAmount = tokenPrice * tierTokensAmount;
+    const tierTokensAmount = tokensAmount || new BigNumber(0);
+    const tierUsdAmount = tokenPrice.times(tierTokensAmount);
 
     return (
       <Modal isOpen={this.props.isOpen} onClose={this.props.onClose}>
@@ -96,41 +96,6 @@ class AddTierModal extends Component {
               />
               <FormItem.Error />
             </FormItem>
-          </Grid>
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-            <FormItem name={`${name}.discountedTokensAmount`}>
-              <FormItem.Label>
-                <Tooltip triggerText="Maximum Number of discounted tokens">
-                  <p className="bx--tooltip__label">
-                    Maximum Number of discounted tokens
-                  </p>
-                </Tooltip>
-              </FormItem.Label>
-              <FormItem.Input
-                component={NumberInput}
-                placeholder="Enter amount"
-                useBigNumbers
-              />
-              <FormItem.Error />
-            </FormItem>
-            <Box maxWidth="5em">
-              <FormItem name={`${name}.discountedTokensRate`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                    <p className="bx--tooltip__label">
-                      Discount for Tokens Purchased with POLY
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  FormikComponent={Field}
-                  component={PercentageInput}
-                  placeholder="Enter percentage"
-                  unit="%"
-                />
-                <FormItem.Error />
-              </FormItem>
-            </Box>
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
             <Grid.Item gridColumn="span 1 / 3">
