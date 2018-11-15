@@ -128,28 +128,31 @@ class MigrateTokenPageContainer extends Component<Props, State> {
             ui.tx(
               titles,
               async () => {
-                try {
-                  if (!tokenIsFrozen) {
-                    await legacySecurityToken._tx(
-                      legacySecurityToken._methods.freezeTransfers(),
-                      null,
-                      1.15
-                    );
-                  }
-
+                if (!tokenIsFrozen) {
                   await legacySecurityToken._tx(
-                    legacySecurityToken._methods.renounceOwnership(),
+                    legacySecurityToken._methods.freezeTransfers(),
                     null,
                     1.15
                   );
-                } catch (err) {
-                  dispatch(fetchLegacyToken(ticker));
-                  throw err;
                 }
+
+                await legacySecurityToken._tx(
+                  legacySecurityToken._methods.renounceOwnership(),
+                  null,
+                  1.15
+                );
               },
               'Token Migrated Successfully',
               async () => {
                 await dispatch(fetchLegacyToken(ticker));
+              },
+              async () => {
+                this.setState(
+                  {
+                    loading: true,
+                  },
+                  this.getFrozenStatus
+                );
               },
               undefined,
               undefined,

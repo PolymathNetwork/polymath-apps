@@ -195,6 +195,7 @@ export const importWhitelist = () => async (
       },
       undefined,
       undefined,
+      undefined,
       true // TODO @bshevchenko
     )
   );
@@ -287,6 +288,7 @@ export const addInvestor = () => async (
       },
       undefined,
       undefined,
+      undefined,
       true // TODO @bshevchenko
     )
   );
@@ -336,6 +338,7 @@ export const editInvestors = (addresses: Array<Address>) => async (
       },
       undefined,
       undefined,
+      undefined,
       true // TODO @bshevchenko
     )
   );
@@ -368,6 +371,7 @@ export const removeInvestors = (addresses: Array<Address>) => async (
       () => {
         return dispatch(fetchWhitelist());
       },
+      undefined,
       undefined,
       undefined,
       true // TODO @bshevchenko
@@ -421,6 +425,7 @@ export const enableOwnershipRestrictions = (percentage?: number) => async (
               },
               undefined,
               undefined,
+              undefined,
               true // TODO @bshevchenko
             )
           );
@@ -443,6 +448,7 @@ export const enableOwnershipRestrictions = (percentage?: number) => async (
                   )
                 );
               },
+              undefined,
               undefined,
               undefined,
               true // TODO @bshevchenko
@@ -490,6 +496,7 @@ export const disableOwnershipRestrictions = () => async (
             },
             undefined,
             undefined,
+            undefined,
             true // TODO @bshevchenko
           )
         );
@@ -514,6 +521,7 @@ export const updateOwnershipPercentage = (percentage: number) => async (
       async () => {
         dispatch(percentageTransferManager(tm, false, percentage));
       },
+      undefined,
       undefined,
       undefined,
       true // TODO @bshevchenko
@@ -544,6 +552,7 @@ export const toggleFreeze = () => async (
       () => {
         dispatch(showFrozenModal(!freezeStatus));
       },
+      undefined,
       undefined,
       undefined,
       true
