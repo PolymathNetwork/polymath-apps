@@ -237,11 +237,17 @@ export const issue = (isLimitNI: boolean) => async (
 
         //Skip approve transaction if transfer is already allowed
         let title = ['Creating Security Token'];
+
         if (allowance < fee) {
           title.unshift('Approving POLY Spend');
         }
 
         title.push(...(isLimitNI ? ['Limiting Number Of Investors'] : []));
+
+        const continueCallback = () => {
+          // $FlowFixMe
+          return dispatch(fetch(ticker, isLimitNI ? token : undefined));
+        };
 
         dispatch(
           ui.tx(
@@ -253,18 +259,23 @@ export const issue = (isLimitNI: boolean) => async (
                 ...values,
               };
               token.isDivisible = token.isDivisible !== '1';
+
               await SecurityTokenRegistry.generateSecurityToken(token);
 
               if (isLimitNI) {
                 token = await SecurityTokenRegistry.getTokenByTicker(ticker);
-                await token.contract.setCountTM(values.investorsNumber);
+                try {
+                  await token.contract.setCountTM(values.investorsNumber);
+                } catch (err) {
+                  throw new Error(
+                    'Error limiting the number of investors. Please click on "Continue" to proceed to the next step where you can enable this limit.'
+                  );
+                }
               }
             },
             'Token Was Issued Successfully',
-            () => {
-              // $FlowFixMe
-              return dispatch(fetch(ticker, isLimitNI ? token : undefined));
-            },
+            continueCallback,
+            continueCallback,
             `/dashboard/${ticker}`,
             undefined,
             false,
@@ -358,6 +369,7 @@ export const mintTokens = () => async (
       },
       undefined,
       undefined,
+      undefined,
       true // TODO @bshevchenko
     )
   );
@@ -411,6 +423,7 @@ export const limitNumberOfInvestors = (count?: number) => async (
               },
               undefined,
               undefined,
+              undefined,
               true // TODO @bshevchenko
             )
           );
@@ -429,6 +442,7 @@ export const limitNumberOfInvestors = (count?: number) => async (
                   countTransferManager(await st.getCountTM(), false, count)
                 );
               },
+              undefined,
               undefined,
               undefined,
               true // TODO @bshevchenko
@@ -466,6 +480,7 @@ export const unlimitNumberOfInvestors = () => async (
             async () => {
               dispatch(countTransferManager(tm, true));
             },
+            undefined,
             undefined,
             undefined,
             true // TODO @bshevchenko
@@ -516,6 +531,7 @@ export const updateMaxHoldersCount = (count: number) => async (
             async () => {
               dispatch(countTransferManager(tm, false, count));
             },
+            undefined,
             undefined,
             undefined,
             true // TODO @bshevchenko

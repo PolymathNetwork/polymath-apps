@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { SecurityTokenRegistry, PolyToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
@@ -92,6 +94,7 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
             () => {
               dispatch({ type: RESERVED });
             },
+            undefined,
             `/dashboard/${details.ticker}/providers`,
             undefined,
             !isEmailConfirmed,
