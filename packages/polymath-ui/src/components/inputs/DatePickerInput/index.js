@@ -3,10 +3,17 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import { DatePicker, DatePickerInput } from 'carbon-components-react';
+import styled from 'styled-components';
 
 import type { InputProps } from '../types';
 
 type PickerValue = [Date, string];
+
+const Container = styled.div`
+  .bx--date-picker .bx--date-picker__icon {
+    top: 0.7rem;
+  }
+`;
 
 export default class DatePickerInputField extends Component<InputProps> {
   handleOnChange = (pickerValue: PickerValue, stringValue: string) => {
@@ -27,34 +34,35 @@ export default class DatePickerInputField extends Component<InputProps> {
     setFieldValue(name, date);
   };
   render() {
-    const { field, label, className, ...otherProps } = this.props;
+    const { field, label, ...otherProps } = this.props;
 
     const { onChange, value, ...fieldProps } = field;
     const displayValue = value ? moment(value).format('MM / DD / YYYY') : '';
     const minValue = moment().format('MM / DD / YYYY');
 
     return (
-      <DatePicker
-        className={className}
-        datePickerType="single"
-        dateFormat="m / d / Y"
-        minDate={minValue}
-        id={field.name}
-        onChange={this.handleOnChange}
-      >
-        <DatePickerInput
+      <Container>
+        <DatePicker
           datePickerType="single"
-          autoComplete="off"
-          id={`${field.name}-input`}
-          labelText={label}
-          placeholder="mm / dd / yyyy"
-          value={displayValue}
-          onChange={() => {}}
-          pattern={null}
-          {...fieldProps}
-          {...otherProps}
-        />
-      </DatePicker>
+          dateFormat="m / d / Y"
+          minDate={minValue}
+          id={field.name}
+          onChange={this.handleOnChange}
+        >
+          <DatePickerInput
+            datePickerType="single"
+            autoComplete="off"
+            id={`${field.name}-input`}
+            labelText={label}
+            placeholder="mm / dd / yyyy"
+            value={displayValue}
+            onChange={() => {}}
+            pattern={null}
+            {...fieldProps}
+            {...otherProps}
+          />
+        </DatePicker>
+      </Container>
     );
   }
 }
