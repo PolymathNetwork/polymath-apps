@@ -31,6 +31,25 @@ import type { FundRaiseType } from '../../../../../../constants';
 
 const TRANSACTION_TIME_BUFFER = 20 * 60 * 1000;
 
+type InvestmentTier = {|
+  tokensAmount: number,
+  tokenPrice: number,
+|};
+type FormValues = {|
+  startDate: Date,
+  startTime: number,
+  endDate: Date,
+  endTime: number,
+  investmentTiers: {
+    tiers: Array<InvestmentTier>,
+  },
+  nonAccreditedMax: number,
+  minimumInvestment: number,
+  currencies: FundRaiseType,
+  receiverAddress: string,
+  unsoldTokensAddress: string,
+|};
+
 type FormikProps = {|
   handleSubmit: () => void,
   values: FormValues,
@@ -384,25 +403,6 @@ const mapStateToProps = ({
     token: { ticker },
   },
 }: RootState) => ({ address, ticker });
-
-type InvestmentTier = {|
-  tokensAmount: number,
-  tokenPrice: number,
-|};
-type FormValues = {|
-  startDate: Date,
-  startTime: number,
-  endDate: Date,
-  endTime: number,
-  investmentTiers: {
-    tiers: Array<InvestmentTier>,
-  },
-  nonAccreditedMax: number,
-  minimumInvestment: number,
-  currencies: FundRaiseType,
-  receiverAddress: string,
-  unsoldTokensAddress: string,
-|};
 
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
