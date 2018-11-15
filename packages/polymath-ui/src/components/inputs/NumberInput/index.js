@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
+import {
+  MIN_SAFE_NUMBER,
+  MAX_SAFE_NUMBER,
+} from '@polymathnetwork/shared/constants';
 import formikProxy from '../formikProxy';
 import BaseInput from '../BaseInput';
 
