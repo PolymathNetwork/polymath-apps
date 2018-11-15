@@ -11,6 +11,15 @@ import FormItem from '../../../FormItem';
 
 // TODO @RafaelVidaurre: Support decimals config, length limit, negative values
 describe('NumberInput', () => {
+  let warnSpy;
+  beforeEach(() => {
+    warnSpy = jest.spyOn(global.console, 'warn').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    warnSpy.mockRestore();
+  });
+
   test('renders without crashing ', () => {
     const { container } = render(<NumberInput name="foo" value={12344.555} />);
 
@@ -123,15 +132,11 @@ describe('NumberInput', () => {
     });
 
     test('warns if a non-null value passed is not a BigNumber', () => {
-      const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
-
       render(<NumberInput value={123} useBigNumbers />);
 
-      expect(console.warn).toHaveBeenCalledWith(
+      expect(warnSpy).toHaveBeenCalledWith(
         "NumberInput's value must be a BigNumber object when useBigNumbers is set to `true`"
       );
-
-      spy.mockRestore();
     });
 
     test('does not force min/max values', () => {
@@ -154,12 +159,16 @@ describe('NumberInput', () => {
 
     test('prevents setting a value larger than `max`', () => {
       const onChange = jest.fn();
-      const { getByTestId } = render(<NumberInput max={2} value={5} />);
+      const { getByTestId } = render(
+        <NumberInput max={2} value={5} onChange={onChange} />
+      );
       const input = getByTestId('base-input');
-      expect(input.value).toEqual(5);
-      fireEvent.change(input, { target: { value: '1' } });
       expect(input.value).toEqual('2');
-      expect(onChange).toHaveBeenCalledWith(2);
+      fireEvent.change(input, { target: { value: '3' } });
+      expect(input.value).toEqual('2');
+      fireEvent.change(input, { target: { value: '1' } });
+      expect(input.value).toEqual('1');
+      expect(onChange).toHaveBeenCalledWith(1);
     });
 
     test('warns if BigNumber mode is not enabled and max/min numbers are too large or not set', () => {
@@ -178,9 +187,10 @@ describe('NumberInput', () => {
         <NumberInput value={MAX_SAFE_NUMBER - 1} onChange={onChange} />
       );
       const input = getByTestId('base-input');
+      const expectedValue = new BigNumber(MAX_SAFE_NUMBER).toFixed();
       fireEvent.change(input, { target: { value: MAX_SAFE_NUMBER + 1000 } });
-      const inputValue = new BigNumber(input.value);
-      expect(inputValue.isEqualTo(new BigNumber(MAX_SAFE_NUMBER))).toBeTrue();
+      const inputValue = new BigNumber(input.value.replace(/,/g, ''));
+      expect(inputValue.toFixed()).toEqual(expectedValue);
       expect(onChange).toHaveBeenCalledWith(MAX_SAFE_NUMBER);
     });
   });
