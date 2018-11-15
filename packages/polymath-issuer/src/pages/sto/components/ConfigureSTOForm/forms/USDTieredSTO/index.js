@@ -286,6 +286,11 @@ export const USDTieredSTOFormComponent = ({
               <p className="bx--tooltip__label">
                 Minimum investment for All investors
               </p>
+              <p>
+                Any investment below this value, regardless of their origin
+                (accredited or non-accredited investor) will be rejected and the
+                funds sent back to their Investor minus the processing (gas) fee
+              </p>
             </Tooltip>
           </FormItem.Label>
           <FormItem.Input
@@ -304,9 +309,12 @@ export const USDTieredSTOFormComponent = ({
                 Maximum Investment for Non-Accredited Investors by Default
               </p>
               <p>
-                Conversion rate between the currency you chose and your Security
-                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
-                Security Tokens.
+                By default, Investors are assumed to be non-accredited (i.e.
+                Retail Investors) unless they are explicitly marked as
+                Accredited in the whitelist. All Non-Accredited investors are
+                subject to this maximum investment limit by default, unless
+                their wallet address is added to the whitelist with an
+                associated limit.
               </p>
             </Tooltip>
           </FormItem.Label>
@@ -351,7 +359,9 @@ export const USDTieredSTOFormComponent = ({
         <FormItem.Label>
           <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
             <p className="bx--tooltip__label">
-              ETH Address to Receive the Funds Raised During the STO
+              This wallet address will receive the funds raised during the STO.
+              This address may be self-custodied or that of a fully custodied
+              wallet.
             </p>
           </Tooltip>
         </FormItem.Label>
@@ -366,6 +376,11 @@ export const USDTieredSTOFormComponent = ({
         <FormItem.Label>
           <Tooltip triggerText="ETH Address for Unsold Tokens">
             <p className="bx--tooltip__label">ETH Address for Unsold Tokens</p>
+            <p>
+              This wallet address will receive all tokens not sold across all
+              tiers defined in the STO, by the time the STO reaches its end
+              date/time or is manually stopped.
+            </p>
           </Tooltip>
         </FormItem.Label>
         <FormItem.Input

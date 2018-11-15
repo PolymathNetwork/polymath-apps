@@ -70,6 +70,12 @@ class AddTierModal extends Component {
               <FormItem.Label>
                 <Tooltip triggerText="Number of tokens">
                   <p className="bx--tooltip__label">Number of tokens</p>
+                  <p>
+                    Number of tokens to be sold in this tier. All tokens in the
+                    tier will carry the same price and need to be sold for the
+                    STO to move to the next tier (if multiple tiers are
+                    defined).
+                  </p>
                 </Tooltip>
               </FormItem.Label>
               <FormItem.Input

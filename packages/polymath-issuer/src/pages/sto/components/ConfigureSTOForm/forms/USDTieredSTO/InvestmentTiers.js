@@ -172,10 +172,10 @@ class InvestmentTiers extends React.Component<Props, State> {
                   <Tooltip triggerText="Number of tokens">
                     <p className="bx--tooltip__label">Number of tokens</p>
                     <p>
-                      Hard Cap is the maximum number of tokens available through
-                      this offering. e.g. if you want the total aggregate of
-                      your investors in this offering to own 10 million tokens,
-                      enter 10000000.
+                      Number of tokens to be sold in this tier. All tokens in
+                      the tier will carry the same price and need to be sold for
+                      the STO to move to the next tier (if multiple tiers are
+                      defined).
                     </p>
                   </Tooltip>
                 </FormItem.Label>
