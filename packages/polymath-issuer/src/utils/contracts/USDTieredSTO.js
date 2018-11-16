@@ -107,8 +107,8 @@ export default class USDTieredSTO {
       isFinalized,
       tiersCount,
       currentTierRes,
-      totalUsdRaised,
-      totalTokensSold,
+      totalUsdRaisedRes,
+      totalTokensSoldRes,
       capReached,
     ] = await Promise.all([
       this.contract.methods.startTime().call(),
@@ -125,22 +125,29 @@ export default class USDTieredSTO {
     ]);
 
     const currentTier = parseInt(currentTierRes, 10);
+    const totalUsdRaised = new BigNumber(
+      Web3.utils.fromWei(totalUsdRaisedRes.toString())
+    );
+    const totalTokensSold = new BigNumber(
+      Web3.utils.fromWei(totalTokensSoldRes.toString())
+    );
 
     // Get tiers data
-    const tiers = await P.map(range(tiersCount), async tierNumber => {
+    let tiers = await P.map(range(tiersCount), async tierNumber => {
       const rateRes = await this.contract.methods
         .ratePerTier(tierNumber)
         .call();
       const totalTokensRes = await this.contract.methods
         .tokensPerTierTotal(tierNumber)
         .call();
+
       const tokensSoldRes = await this.contract.methods
         .mintedPerTierTotal(tierNumber)
         .call();
 
       const totalTokens = new BigNumber(Web3.utils.fromWei(totalTokensRes));
       const tokensSold = new BigNumber(Web3.utils.fromWei(tokensSoldRes));
-      const rate = new BigNumber(Web3.utils.fromWei(rateRes), 10);
+      const rate = new BigNumber(Web3.utils.fromWei(rateRes));
       const totalUsd = totalTokens.times(rate);
       const usdRaised = tokensSold.times(rate);
       let status: USDTieredSTOTierStatus;
@@ -163,6 +170,27 @@ export default class USDTieredSTO {
       };
     });
 
+    // NOTE @RafaelVidaurre: We need to calculate tokens sold per tier
+    // since we don't have a method to get tokens sold, and mintedPerTier can
+    // cause errors in specific situations
+    let totalTokensSum = new BigNumber(0);
+
+    tiers = map(tiers, tier => {
+      const { tokensSold, totalTokens } = tier;
+      let thisTokensSold = tokensSold;
+
+      totalTokensSum = totalTokensSum.plus(totalTokens);
+      const tierIsFullySold = totalTokensSum.lte(totalTokensSold);
+
+      if (!tierIsFullySold) {
+        thisTokensSold = totalTokensSold.minus(
+          totalTokensSum.minus(totalTokens)
+        );
+      }
+
+      return { ...tier, tokensSold: thisTokensSold };
+    });
+
     return {
       type: 'USDTieredSTO',
       startDate: new Date(startTime * 1000),
@@ -175,8 +203,8 @@ export default class USDTieredSTO {
       capReached,
       tiers,
       currentTier,
-      totalUsdRaised: new BigNumber(Web3.utils.fromWei(totalUsdRaised)),
-      totalTokensSold: new BigNumber(Web3.utils.fromWei(totalTokensSold)),
+      totalUsdRaised,
+      totalTokensSold,
     };
   }
 }
