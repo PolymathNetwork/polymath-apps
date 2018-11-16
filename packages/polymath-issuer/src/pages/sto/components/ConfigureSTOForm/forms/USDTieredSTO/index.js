@@ -202,6 +202,10 @@ const formSchema = Yup.object().shape({
   }),
 });
 
+/**
+ * NOTE @monitz87: Every field NEEDS to have an initial value because of
+ * https://github.com/jaredpalmer/formik/issues/738
+ */
 const initialValues = {
   investmentTiers: {
     isMultipleTiers: false,
