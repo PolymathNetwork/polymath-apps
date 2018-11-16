@@ -27,6 +27,14 @@ function isInvalidDate(value: any) {
   return value !== null && !moment.isDate(value);
 }
 
+function isInvalidNumber(value: number | null) {
+  return isNaN(value) && value !== null;
+}
+
+function isInvalidBoolean(value: boolean | null) {
+  return typeof value !== 'boolean' && value !== null;
+}
+
 export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
   const addressCounts = {};
   each(rows, ({ address }) => {
@@ -37,18 +45,22 @@ export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
   });
 
   const invalidRows = filter(rows, (row: WhitelistCsvRow) => {
-    const addressIsInvalid = !web3.utils.isAddress(row.address);
+    const invalidAddress = !web3.utils.isAddress(row.address);
     const addressIsDuplicate = addressCounts[row.address] > 1;
-    const buyLockupDateIsInvalid = isInvalidDate(row.buyLockupDate);
-    const sellLockupDateIsInvalid = isInvalidDate(row.sellLockupDate);
-    const kycAmlExpiryDateIsInvalid = isInvalidDate(row.kycAmlExpiryDate);
+    const invalidBuyLockupDate = isInvalidDate(row.buyLockupDate);
+    const invalidSellLockupDate = isInvalidDate(row.sellLockupDate);
+    const invalidKycAmlExpiryDate = isInvalidDate(row.kycAmlExpiryDate);
+    const invalidAccredited = isInvalidBoolean(row.accredited);
+    const invalidNonAccreditedLimit = isInvalidNumber(row.nonAccreditedLimit);
 
     return (
-      addressIsInvalid ||
+      invalidAddress ||
       addressIsDuplicate ||
-      buyLockupDateIsInvalid ||
-      sellLockupDateIsInvalid ||
-      kycAmlExpiryDateIsInvalid
+      invalidBuyLockupDate ||
+      invalidSellLockupDate ||
+      invalidKycAmlExpiryDate ||
+      invalidNonAccreditedLimit ||
+      invalidAccredited
     );
   });
 

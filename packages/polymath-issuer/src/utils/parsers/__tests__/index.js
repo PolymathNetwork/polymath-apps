@@ -68,5 +68,11 @@ describe('parsers', () => {
       const invalidRows = validateWhitelistCsv(csv);
       expect(invalidRows).toHaveLength(1);
     });
+
+    test('checks for unexpected values', () => {
+      const csv = [{ ...sampleCsvRow, isAccredited: 1234 }];
+      const invalidRows = validateWhitelistCsv(csv);
+      expect(invalidRows).toHaveLength(1);
+    });
   });
 });
