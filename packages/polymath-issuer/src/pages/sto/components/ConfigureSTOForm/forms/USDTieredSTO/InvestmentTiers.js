@@ -250,7 +250,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   </TableContainer>
                 )}
               />
-              <FormItemGroup.Error
+              <FormItem.Error
                 name="investmentTiers.tiers"
                 errors={errors}
                 touched={touched}
