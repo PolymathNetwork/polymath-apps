@@ -79,7 +79,6 @@
   .bx--form-item {
     flex-grow: 0;
     padding-right: 0.5rem;
-    margin-bottom: 0px !important; // NOTE @monitz87: This is to override carbon's !important, I'm sorry
   }
 
   .bx--time-picker__select {
