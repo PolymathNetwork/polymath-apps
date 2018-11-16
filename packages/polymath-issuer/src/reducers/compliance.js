@@ -41,6 +41,9 @@ const defaultState: WhitelistState = {
   freezeStatus: null,
   isFrozenModalOpen: null,
 };
+
+// NOTE @RafaelVidaurre: WARNING For some reason this reducer is being renamed.
+
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {

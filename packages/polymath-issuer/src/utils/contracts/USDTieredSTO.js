@@ -95,6 +95,30 @@ export default class USDTieredSTO {
     return compact(raiseTypes);
   }
 
+  /**
+   * Updates the accredited status of a list of addresses
+   *
+   * @param addresses addresses to update
+   * @param statuses statuses for each address matched by index
+   */
+  async changeAccredited(addresses: string[], statuses: boolean[]) {
+    await this.legacyContractInstance._tx(
+      this.contract.methods.changeAccredited(addresses, statuses)
+    );
+  }
+
+  /**
+   * Sets individual limits for non-accredited investors
+   *
+   * @param addresses addresses to update
+   * @param limits limits to set for each address matched by index
+   */
+  async changeNonAccreditedLimit(addresses: string[], limits: BigNumber[]) {
+    await this.legacyContractInstance._tx(
+      this.contract.methods.changeNonAccreditedLimit(addresses, limits)
+    );
+  }
+
   async getDetails(): Promise<USDTieredSTOType> {
     const [
       startTime,
