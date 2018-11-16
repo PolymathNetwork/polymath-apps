@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {
+  space,
   fontFamily,
   fontWeight,
   textAlign,
@@ -8,9 +9,8 @@ import {
   fontSize,
 } from 'styled-system';
 
-import Box from '../Box';
-
-export const Paragraph = styled(Box)(
+export const Paragraph = styled.p(
+  space,
   fontFamily,
   fontWeight,
   textAlign,
