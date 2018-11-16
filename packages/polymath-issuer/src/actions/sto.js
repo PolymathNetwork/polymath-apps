@@ -321,7 +321,7 @@ export const configure = values => async (
         //Skip approve transaction if transfer is already allowed
         let title = ['Deploying And Scheduling'];
         if (balance.lt(fee)) {
-          title.unshift('Approving POLY Spend');
+          title.unshift('Transferring POLY');
         }
 
         dispatch(
