@@ -138,8 +138,6 @@ export const fetchLegacyToken = (ticker: string) => async (
       toBlock: 'latest',
       address: LegacySTRArtifact.networks[networkId].address,
       topic0: web3WS.utils.sha3('LogNewSecurityToken(string,address,address)'),
-      topic0_2_opr: 'and',
-      topic2: web3WS.eth.abi.encodeParameter('address', account),
       apikey: process.env.REACT_APP_ETHERSCAN_API_KEY,
     },
   });
