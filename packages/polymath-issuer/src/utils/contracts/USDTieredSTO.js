@@ -176,16 +176,20 @@ export default class USDTieredSTO {
     let totalTokensSum = new BigNumber(0);
 
     tiers = map(tiers, tier => {
-      const { tokensSold, totalTokens } = tier;
+      const { tokensSold, totalTokens: tierTotalTokens } = tier;
       let thisTokensSold = tokensSold;
 
-      totalTokensSum = totalTokensSum.plus(totalTokens);
+      totalTokensSum = totalTokensSum.plus(tierTotalTokens);
+
       const tierIsFullySold = totalTokensSum.lte(totalTokensSold);
 
       if (!tierIsFullySold) {
         thisTokensSold = totalTokensSold.minus(
-          totalTokensSum.minus(totalTokens)
+          totalTokensSum.minus(tierTotalTokens)
         );
+        if (thisTokensSold.lt(0)) {
+          thisTokensSold = new BigNumber(0);
+        }
       }
 
       return { ...tier, tokensSold: thisTokensSold };

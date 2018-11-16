@@ -69,7 +69,7 @@ const USDTieredSTOTiersTable = ({ sto: { tiers } }: Props) => {
       tierNum
     ) => {
       const id = tierNum + 1;
-      const progress = tokensSold.div(totalTokens).toNumber();
+      const progress = tokensSold.div(totalTokens);
 
       return {
         id: `${id}`,
@@ -88,7 +88,7 @@ const USDTieredSTOTiersTable = ({ sto: { tiers } }: Props) => {
         progress: (
           <InlineFlex key={id}>
             <Box width="150px" mr={1}>
-              <ProgressBar height="10px" progress={progress} />
+              <ProgressBar height="10px" progress={progress.toNumber()} />
             </Box>
             {format.toPercent(progress)}
           </InlineFlex>
