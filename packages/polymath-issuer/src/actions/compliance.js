@@ -246,10 +246,6 @@ export const exportWhitelist = () => async (
       }
     }
 
-    // if (setAccreditedInvestorsData) {
-    //   const accreditedInvestorsData = await
-    // }
-
     // eslint-disable-next-line max-len
     let csvContent =
       'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
