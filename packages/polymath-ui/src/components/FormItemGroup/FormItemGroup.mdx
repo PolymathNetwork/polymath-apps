@@ -1,0 +1,59 @@
+---
+name: FormItemGroup
+---
+
+import { PropsTable } from 'docz';
+import { Formik, FastField } from 'formik';
+import * as Yup from 'yup';
+
+import Playground from '../DoczPlayground';
+import TextInput from '../inputs/TextInput';
+import FormItem from '../FormItem';
+import FormItemGroup from './';
+
+# FormItemGroup
+
+This component is used to render multiple `FormItem` as a single.
+For example a date/time picker component is shaped of multiple inputs but is displayed as a single form item.
+
+<br />
+
+<PropsTable of={FormItem} />
+
+## Basic usage
+
+<Playground>
+  <Formik
+    validationSchema={Yup.object().shape({
+      firstname: Yup.string().required(),
+      lastname: Yup.string().required(),
+    })}
+    render={() => (
+      <FormItemGroup>
+        <FormItemGroup.Items>
+          <FormItem name="firstname">
+            <FormItem.Label>Firstname</FormItem.Label>
+            <FormItem.Input
+              formikComponent={FastField}
+              component={TextInput}
+              placeholder="firstname"
+            />
+          </FormItem>
+          <FormItem name="lastname">
+            <FormItem.Label>lastname</FormItem.Label>
+            <FormItem.Input
+              formikComponent={FastField}
+              component={TextInput}
+              placeholder="lastname"
+            />
+          </FormItem>
+        </FormItemGroup.Items>
+
+        <FormItemGroup.Error name="firstname" />
+        <FormItemGroup.Error name="lastname" />
+      </FormItemGroup>
+    )}
+
+/>
+
+</Playground>

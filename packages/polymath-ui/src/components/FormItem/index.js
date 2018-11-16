@@ -14,8 +14,12 @@ type Props = {
 export const FormItemContext = React.createContext();
 
 const Container = styled.div`
-  margin-bottom: 5px;
   padding-bottom: 1.3rem;
+  margin-right: 0.5rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 const FormItem = ({ name, children, ...props }: Props) => {

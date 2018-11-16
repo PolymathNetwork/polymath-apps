@@ -10,6 +10,7 @@ export { default as InlineFlex } from './components/InlineFlex';
 export { default as Heading } from './components/Heading';
 export { default as Paragraph } from './components/Paragraph';
 export { default as FormItem } from './components/FormItem';
+export { default as FormItemGroup } from './components/FormItemGroup';
 export { default as Modal } from './components/Modal';
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';

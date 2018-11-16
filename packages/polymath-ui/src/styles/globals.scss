@@ -402,6 +402,14 @@ div {
   }
 }
 
+// Hack to avoid a bug where "invalid date" appear if nextMonthDay is clicked
+.bx--date-picker__days .nextMonthDay,
+.bx--date-picker__days .prevMonthDay,
+.bx--date-picker__day.disabled,
+.flatpickr-day.disabled {
+  pointer-events: none;
+}
+
 .bx--search-input {
   width: 285px !important;
 }
