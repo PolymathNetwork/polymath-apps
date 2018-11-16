@@ -40,29 +40,10 @@ describe('Actions: tx', () => {
     });
 
     test('should dispatch START action', async () => {
-      const {
-        titles,
-        successTitle,
-        continueLabel,
-        continueRoute,
-        isNoEmail,
-        headingOverride,
-        continueCode,
-      } = mockTxData;
       // TODO @RafaelVidaurre: Remove when an action creator for START exists
-      const expectedStartAction = {
-        type: actions.START,
-        titles: [titles],
-        successTitle,
-        continueLabel,
-        continueRoute,
-        isNoEmail,
-        headingOverride,
-        continueCode,
-      };
       await store.dispatch(actions.tx(...txArgs));
       const [dispatchedAction] = store.getActions();
-      expect(dispatchedAction).toEqual(expectedStartAction);
+      expect(dispatchedAction.type).toEqual(actions.START);
     });
   });
 });

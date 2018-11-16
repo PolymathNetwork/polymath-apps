@@ -50,6 +50,8 @@ const StyledBaseInput = styled(BaseInput)`
   }
 `;
 
+// TODO @RafaelVidaurre: Change max/min behavior to prevent a change instead of
+// changing the value to the max/min allowed
 export class NumberInput extends Component<Props, State> {
   state = { displayValue: '', oldValue: null };
   static defaultProps = {
