@@ -38,10 +38,12 @@ type InvestmentTier = {|
   tokenPrice: number,
 |};
 type FormValues = {|
-  startDate: Date,
-  startTime: number,
-  endDate: Date,
-  endTime: number,
+  date: {
+    startDate: Date,
+    startTime: number,
+    endDate: Date,
+    endTime: number,
+  },
   investmentTiers: {
     isMultipleTiers: boolean,
     newTier: InvestmentTier,
@@ -159,22 +161,24 @@ export const investmentTierSchema = validator.object().shape({
 
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
 const formSchema = validator.object().shape({
-  startDate: validator
-    .date()
-    .isRequired(requiredMessage)
-    .test('validateStartDate', todayOrAfter),
-  startTime: validator
-    .number()
-    .isRequired(requiredMessage)
-    .test('validateStartTime', validateStartTime),
-  endDate: validator
-    .date()
-    .isRequired(requiredMessage)
-    .test('validateEndDate', validateEndDate),
-  endTime: validator
-    .number()
-    .isRequired(requiredMessage)
-    .test('validEndTime', validateEndTime),
+  date: validator.object().shape({
+    startDate: validator
+      .date()
+      .isRequired(requiredMessage)
+      .test('validateStartDate', todayOrAfter),
+    startTime: validator
+      .number()
+      .isRequired(requiredMessage)
+      .test('validateStartTime', validateStartTime),
+    endDate: validator
+      .date()
+      .isRequired(requiredMessage)
+      .test('validateEndDate', validateEndDate),
+    endTime: validator
+      .number()
+      .isRequired(requiredMessage)
+      .test('validEndTime', validateEndTime),
+  }),
   currencies: validator
     .array()
     .of(validator.string())
@@ -220,10 +224,12 @@ const initialValues = {
     ],
     newTier: null,
   },
-  startDate: null,
-  startTime: null,
-  endDate: null,
-  endTime: null,
+  date: {
+    startDate: null,
+    startTime: null,
+    endDate: null,
+    endTime: null,
+  },
   nonAccreditedMax: new BigNumber(0),
   minimumInvestment: new BigNumber(0),
   receiverAddress: '',
@@ -236,6 +242,7 @@ export const USDTieredSTOFormComponent = ({
   ticker,
   values,
   errors,
+  touched,
   handleSubmit,
 }: ComponentProps) => {
   const { tiers } = values.investmentTiers;
@@ -265,7 +272,7 @@ export const USDTieredSTOFormComponent = ({
 
       <FormItemGroup>
         <FormItemGroup.Items>
-          <FormItem name="startDate">
+          <FormItem name="date.startDate">
             <FormItem.Label>Start Date</FormItem.Label>
             <FormItem.Input
               component={DatePickerInput}
@@ -273,7 +280,7 @@ export const USDTieredSTOFormComponent = ({
             />
           </FormItem>
           <Box mr={4}>
-            <FormItem name="startTime">
+            <FormItem name="date.startTime">
               <FormItem.Label>Time</FormItem.Label>
               <FormItem.Input
                 component={TimePickerSelect}
@@ -281,23 +288,19 @@ export const USDTieredSTOFormComponent = ({
               />
             </FormItem>
           </Box>
-          <FormItem name="endDate">
+          <FormItem name="date.endDate">
             <FormItem.Label>End Date</FormItem.Label>
             <FormItem.Input
               component={DatePickerInput}
               placeholder="mm / dd / yyyy"
             />
           </FormItem>
-          <FormItem name="endTime">
+          <FormItem name="date.endTime">
             <FormItem.Label>Time</FormItem.Label>
             <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
           </FormItem>
         </FormItemGroup.Items>
-
-        <FormItemGroup.Error name="startDate" />
-        <FormItemGroup.Error name="startTime" />
-        <FormItemGroup.Error name="endDate" />
-        <FormItemGroup.Error name="endTime" />
+        <FormItemGroup.Error name="date" errors={errors} touched={touched} />
       </FormItemGroup>
 
       <Heading variant="h3" mt={5}>
@@ -450,8 +453,9 @@ const formikEnhancer = withFormik({
     const { dispatch, address } = props;
 
     const formattedValues = {
-      startsAt: moment(values.startDate).unix() * 1000 + values.startTime,
-      endsAt: moment(values.endDate).unix() * 1000 + values.endTime,
+      startsAt:
+        moment(values.date.startDate).unix() * 1000 + values.date.startTime,
+      endsAt: moment(values.date.endDate).unix() * 1000 + values.date.endTime,
       ratePerTier: map(values.investmentTiers.tiers, ({ tokenPrice }) =>
         toWei(tokenPrice)
       ),

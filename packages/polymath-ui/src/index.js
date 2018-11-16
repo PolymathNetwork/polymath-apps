@@ -28,6 +28,7 @@ export { default as EnterPINModal } from './components/EnterPINModal';
 export { default as MetamaskStatus } from './components/MetamaskStatus';
 export { default as NotFoundPage } from './components/NotFoundPage';
 export { default as NotSupportedPage } from './components/NotSupportedPage';
+export { default as MaintenancePage } from './components/MaintenancePage';
 export { default as SignUpPage } from './components/SignUpPage';
 export { default as SignUpSuccessPage } from './components/SignUpSuccessPage';
 export { default as SignInPage } from './components/SignInPage';

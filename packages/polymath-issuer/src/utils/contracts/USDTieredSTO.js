@@ -45,21 +45,19 @@ export default class USDTieredSTO {
     const events = await this.wsContract.getPastEvents(
       EVENT_TYPES.TOKEN_PURCHASE,
       {
-        // TODO @RafaelVidaurre: Read from the block it was deploy at
         fromBlock: 0,
         toBlock: 'latest',
       }
     );
 
-    // TODO @RafaelVidaurre: Retrieve token type
-    return map(events, event => {
+    return map(events, ({ returnValues }) => {
       return {
-        investor: event._purchaser,
-        receiver: event._beneficiary,
-        tokens: new BigNumber(Web3.utils.fromWei(event._tokens)),
-        usd: new BigNumber(Web3.utils.fromWei(event._usdAmount)),
-        tier: event._tier,
-        tierPrice: new BigNumber(Web3.utils.fromWei(event._tierPrice)),
+        investor: returnValues._purchaser,
+        receiver: returnValues._beneficiary,
+        tokens: new BigNumber(Web3.utils.fromWei(returnValues._tokens)),
+        usd: new BigNumber(Web3.utils.fromWei(returnValues._usdAmount)),
+        tier: parseInt(returnValues._tier, 10) + 1,
+        tierPrice: new BigNumber(Web3.utils.fromWei(returnValues._tierPrice)),
       };
     });
   }
@@ -176,16 +174,20 @@ export default class USDTieredSTO {
     let totalTokensSum = new BigNumber(0);
 
     tiers = map(tiers, tier => {
-      const { tokensSold, totalTokens } = tier;
+      const { tokensSold, totalTokens: tierTotalTokens } = tier;
       let thisTokensSold = tokensSold;
 
-      totalTokensSum = totalTokensSum.plus(totalTokens);
+      totalTokensSum = totalTokensSum.plus(tierTotalTokens);
+
       const tierIsFullySold = totalTokensSum.lte(totalTokensSold);
 
       if (!tierIsFullySold) {
         thisTokensSold = totalTokensSold.minus(
-          totalTokensSum.minus(totalTokens)
+          totalTokensSum.minus(tierTotalTokens)
         );
+        if (thisTokensSold.lt(0)) {
+          thisTokensSold = new BigNumber(0);
+        }
       }
 
       return { ...tier, tokensSold: thisTokensSold };
