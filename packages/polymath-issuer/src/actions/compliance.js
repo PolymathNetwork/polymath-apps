@@ -130,14 +130,8 @@ export const importWhitelist = () => async (
     setAccreditedInvestorsData = true;
   }
 
-  /**
-   * - Get current token's STO state
-   * - If USDTieredSTO add transaction for setting accredited data
-   */
-
   // FIXME @RafaelVidaurre: For now performing this unintuitive transformation
   // to avoid breaking more code
-
   const whitelistItems = map(
     uploaded,
     ({
@@ -225,15 +219,9 @@ export const exportWhitelist = () => async (
         transferManager,
         percentageTM: { contract: percentageTM },
       },
-      sto,
     } = getState().whitelist;
-    let setAccreditedInvestorsData = false;
 
     const investors = await transferManager.getWhitelist();
-
-    if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
-      setAccreditedInvestorsData = true;
-    }
 
     if (percentageTM) {
       const percentages = await percentageTM.getWhitelist();
