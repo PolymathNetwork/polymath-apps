@@ -72,6 +72,10 @@ export class NumberInput extends Component<Props, State> {
     return parsedValue.toFormat();
   }
 
+  static isBigNumber(value) {
+    return value.isBigNumber || value._isBigNumber;
+  }
+
   static getDerivedStateFromProps(props: Props, state: State) {
     const { oldValue } = state;
     const { value, useBigNumbers, min, max, name } = props;
@@ -83,7 +87,7 @@ export class NumberInput extends Component<Props, State> {
       );
     }
 
-    if (useBigNumbers && value !== null && !value.isBigNumber) {
+    if (useBigNumbers && value !== null && !NumberInput.isBigNumber(value)) {
       console.warn(
         `NumberInput(${name})'s value must be a BigNumber object when useBigNumbers is set to true`
       );
