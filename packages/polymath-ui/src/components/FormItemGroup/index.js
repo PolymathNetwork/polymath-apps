@@ -2,7 +2,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import GroupError from './GroupError';
+import GroupError from '../FormItem/InputError';
 
 const FormItemGroup = styled.div`
   padding-bottom: 1.3rem;
@@ -14,6 +14,6 @@ FormItemGroup.Items = styled.div`
   margin-bottom: -0.5rem;
 `;
 
-FormItemGroup.Error = GroupError;
+FormItemGroup.Error = GroupError; // This is just an alias
 
 export default FormItemGroup;

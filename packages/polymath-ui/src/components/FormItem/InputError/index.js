@@ -1,12 +1,28 @@
 import React from 'react';
+import styled from 'styled-components';
+import { ErrorMessage } from 'formik';
 
-import FormError from '../../FormError';
 import { FormItemContext } from '../';
 
-const InputError = () => (
-  <FormItemContext.Consumer>
-    {({ name }) => <FormError name={name} />}
-  </FormItemContext.Consumer>
+import { formError } from '../../../styles/utils';
+
+const StyledError = styled.span`
+  ${formError};
+  margin-top: 0.25rem;
+  float: left;
+  margin-right: 0.5rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+`;
+
+const InputError = ({ name }) => (
+  <ErrorMessage component={StyledError} name={name} />
 );
 
-export default InputError;
+export default props => (
+  <FormItemContext.Consumer>
+    {context => <InputError {...props} {...context} />}
+  </FormItemContext.Consumer>
+);
