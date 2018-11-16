@@ -10,6 +10,11 @@ import type { InputProps } from '../types';
 type PickerValue = [Date, string];
 
 const Container = styled.div`
+  // TODO @grsmto: remove this hack once we got it of Carbon
+  .bx--form-item {
+    margin-bottom: 0px !important;
+  }
+
   .bx--date-picker .bx--date-picker__icon {
     top: 0.7rem;
   }
