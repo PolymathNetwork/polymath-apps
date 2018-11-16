@@ -5,9 +5,9 @@ import { map, reduce } from 'lodash';
 import { FastField, withFormik } from 'formik';
 import moment from 'moment-timezone';
 import { Form, Tooltip, Button } from 'carbon-components-react';
-import * as Yup from 'yup';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
+import validator from '@polymathnetwork/shared/validator';
 import {
   Box,
   Grid,
@@ -43,6 +43,8 @@ type FormValues = {|
   endDate: Date,
   endTime: number,
   investmentTiers: {
+    isMultipleTiers: boolean,
+    newTier: InvestmentTier,
     tiers: Array<InvestmentTier>,
   },
   nonAccreditedMax: number,
@@ -126,6 +128,8 @@ function validateStartTime(value) {
   return true;
 }
 
+function isRequired(value) {}
+
 function validateIsAddress(value) {
   if (!Web3.utils.isAddress(value)) {
     return this.createError({
@@ -142,62 +146,61 @@ const moreThanMessage = 'Must be higher than ${more}.';
 const minMessage = 'Must be at least ${min}.';
 /* eslint-enable no-template-curly-in-string */
 
-/**
- * NOTE @monitz87: typeError is needed here because of some
- * strange behavior by the yup library, which simply ignores
- * the required constraint in favor of the field type for these fields.
- * I suspect it has something to do with them being inside an array schema
- */
-export const investmentTierSchema = Yup.object().shape({
-  tokensAmount: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+export const investmentTierSchema = validator.object().shape({
+  tokensAmount: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .moreThan(0, moreThanMessage),
-  tokenPrice: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  tokenPrice: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .moreThan(0, moreThanMessage),
 });
+
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
-const formSchema = Yup.object().shape({
-  startDate: Yup.date()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+const formSchema = validator.object().shape({
+  startDate: validator
+    .date()
+    .isRequired(requiredMessage)
     .test('validateStartDate', todayOrAfter),
-  startTime: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  startTime: validator
+    .number()
+    .isRequired(requiredMessage)
     .test('validateStartTime', validateStartTime),
-  endDate: Yup.date()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  endDate: validator
+    .date()
+    .isRequired(requiredMessage)
     .test('validateEndDate', validateEndDate),
-  endTime: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  endTime: validator
+    .number()
+    .isRequired(requiredMessage)
     .test('validEndTime', validateEndTime),
-  currencies: Yup.array()
-    .of(Yup.string())
-    .required(requiredMessage),
-  nonAccreditedMax: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  currencies: validator
+    .array()
+    .of(validator.string())
+    .isRequired(requiredMessage),
+  nonAccreditedMax: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .min(0, minMessage),
-  minimumInvestment: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  minimumInvestment: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .min(0, minMessage),
-  receiverAddress: Yup.string()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  receiverAddress: validator
+    .string()
+    .isRequired(requiredMessage)
     .test('validateIsAddress', validateIsAddress),
-  unsoldTokensAddress: Yup.string()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  unsoldTokensAddress: validator
+    .string()
+    .isRequired(requiredMessage)
     .test('validateIsAddress', validateIsAddress),
-  investmentTiers: Yup.object().shape({
-    isMultipleTiers: Yup.boolean(),
-    tiers: Yup.array().of(investmentTierSchema),
+  investmentTiers: validator.object().shape({
+    isMultipleTiers: validator.boolean(),
+    tiers: validator
+      .array()
+      .of(investmentTierSchema)
+      .isRequired('You must add at least one tier.'),
     newTier: investmentTierSchema.nullable(),
   }),
 });
@@ -215,10 +218,7 @@ const initialValues = {
         tokenPrice: null,
       },
     ],
-    newTier: {
-      tokensAmount: null,
-      tokenPrice: null,
-    },
+    newTier: null,
   },
   startDate: null,
   startTime: null,
@@ -255,6 +255,9 @@ export const USDTieredSTOFormComponent = ({
     },
     new BigNumber(0)
   );
+
+  console.log(values);
+  console.log(errors);
 
   return (
     <Form onSubmit={handleSubmit}>

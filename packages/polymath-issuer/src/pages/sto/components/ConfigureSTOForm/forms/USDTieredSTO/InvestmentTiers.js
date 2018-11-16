@@ -11,6 +11,7 @@ import {
   Grid,
   DynamicTable,
   FormItem,
+  FormItemGroup,
   NumberInput,
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
@@ -81,7 +82,6 @@ class InvestmentTiers extends React.Component<Props, State> {
 
     // Reset tiers data when changing mode
     const newValue = {
-      ...value,
       isMultipleTiers,
       /**
        * NOTE @monitz87: If switching back to single tier, we repopulate the array
@@ -95,6 +95,12 @@ class InvestmentTiers extends React.Component<Props, State> {
               tokenPrice: null,
             },
           ],
+      newTier: isMultipleTiers
+        ? {
+            tokensAmount: null,
+            tokenPrice: null,
+          }
+        : null,
     };
 
     setFieldTouched(name, false);
@@ -119,14 +125,15 @@ class InvestmentTiers extends React.Component<Props, State> {
     const tableItems = map(compact(value.tiers), (tier, tierNum) => {
       const tokenPrice = tier.tokenPrice || new BigNumber(0);
       const tokensAmount = tier.tokensAmount || new BigNumber(0);
+      const tierNo = `${tierNum + 1}`;
 
       return {
         ...tier,
         tokensAmount: format.toTokens(tokensAmount, { decimals: 0 }),
         tokenPrice: format.toUSD(tokenPrice),
         totalRaise: format.toUSD(tokenPrice.times(tokensAmount)),
-        tier: tierNum + 1,
-        id: tierNum + 1,
+        tier: tierNo,
+        id: tierNo,
       };
     });
 
@@ -135,7 +142,7 @@ class InvestmentTiers extends React.Component<Props, State> {
         tokenPrice: '-',
         tokensAmount: '-',
         tier: '-',
-        id: 0,
+        id: '0',
         totalRaise: '-',
       },
     ];
@@ -202,45 +209,48 @@ class InvestmentTiers extends React.Component<Props, State> {
           </Fragment>
         ) : (
           <Box mb={3}>
-            <DynamicTable
-              rows={tableItems.length ? tableItems : defaultTableItem}
-              headers={headers}
-              render={({ rows, headers, getHeaderProps }) => (
-                <TableContainer>
-                  <Box textAlign="right" mb={3}>
-                    <Button
-                      icon={iconAddSolid}
-                      onClick={this.handleAddNewTier.bind(this)}
-                    >
-                      Add new
-                    </Button>
-                  </Box>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        {headers.map(header => (
-                          <TableHeader
-                            {...getHeaderProps({ header })}
-                            type="button"
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map(row => (
-                        <TableRow key={row.id}>
-                          {row.cells.map(cell => (
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
+            <FormItemGroup>
+              <DynamicTable
+                rows={tableItems.length ? tableItems : defaultTableItem}
+                headers={headers}
+                render={({ rows, headers, getHeaderProps }) => (
+                  <TableContainer>
+                    <Box textAlign="right" mb={3}>
+                      <Button
+                        icon={iconAddSolid}
+                        onClick={this.handleAddNewTier.bind(this)}
+                      >
+                        Add new
+                      </Button>
+                    </Box>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          {headers.map(header => (
+                            <TableHeader
+                              {...getHeaderProps({ header })}
+                              type="button"
+                            >
+                              {header.header}
+                            </TableHeader>
                           ))}
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-            />
+                      </TableHead>
+                      <TableBody>
+                        {rows.map(row => (
+                          <TableRow key={row.id}>
+                            {row.cells.map(cell => (
+                              <TableCell key={cell.id}>{cell.value}</TableCell>
+                            ))}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
+              />
+              <FormItemGroup.Error name="investmentTiers.tiers" />
+            </FormItemGroup>
           </Box>
         )}
         <FieldArray
