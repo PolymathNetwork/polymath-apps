@@ -2,7 +2,7 @@
 
 exports[`renders without crashing 1`] = `
 <h2
-  className="sc-htpNat iXcBRy"
+  className="sc-bwzfXH cBcNyd"
 >
   This is a box.
 </h2>
