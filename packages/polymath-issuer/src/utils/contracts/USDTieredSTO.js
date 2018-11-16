@@ -45,21 +45,19 @@ export default class USDTieredSTO {
     const events = await this.wsContract.getPastEvents(
       EVENT_TYPES.TOKEN_PURCHASE,
       {
-        // TODO @RafaelVidaurre: Read from the block it was deploy at
         fromBlock: 0,
         toBlock: 'latest',
       }
     );
 
-    // TODO @RafaelVidaurre: Retrieve token type
-    return map(events, event => {
+    return map(events, ({ returnValues }) => {
       return {
-        investor: event._purchaser,
-        receiver: event._beneficiary,
-        tokens: new BigNumber(Web3.utils.fromWei(event._tokens)),
-        usd: new BigNumber(Web3.utils.fromWei(event._usdAmount)),
-        tier: event._tier,
-        tierPrice: new BigNumber(Web3.utils.fromWei(event._tierPrice)),
+        investor: returnValues._purchaser,
+        receiver: returnValues._beneficiary,
+        tokens: new BigNumber(Web3.utils.fromWei(returnValues._tokens)),
+        usd: new BigNumber(Web3.utils.fromWei(returnValues._usdAmount)),
+        tier: parseInt(returnValues._tier, 10) + 1,
+        tierPrice: new BigNumber(Web3.utils.fromWei(returnValues._tierPrice)),
       };
     });
   }
@@ -131,8 +129,8 @@ export default class USDTieredSTO {
       isFinalized,
       tiersCount,
       currentTierRes,
-      totalUsdRaised,
-      totalTokensSold,
+      totalUsdRaisedRes,
+      totalTokensSoldRes,
       capReached,
     ] = await Promise.all([
       this.contract.methods.startTime().call(),
@@ -149,22 +147,29 @@ export default class USDTieredSTO {
     ]);
 
     const currentTier = parseInt(currentTierRes, 10);
+    const totalUsdRaised = new BigNumber(
+      Web3.utils.fromWei(totalUsdRaisedRes.toString())
+    );
+    const totalTokensSold = new BigNumber(
+      Web3.utils.fromWei(totalTokensSoldRes.toString())
+    );
 
     // Get tiers data
-    const tiers = await P.map(range(tiersCount), async tierNumber => {
+    let tiers = await P.map(range(tiersCount), async tierNumber => {
       const rateRes = await this.contract.methods
         .ratePerTier(tierNumber)
         .call();
       const totalTokensRes = await this.contract.methods
         .tokensPerTierTotal(tierNumber)
         .call();
+
       const tokensSoldRes = await this.contract.methods
         .mintedPerTierTotal(tierNumber)
         .call();
 
       const totalTokens = new BigNumber(Web3.utils.fromWei(totalTokensRes));
       const tokensSold = new BigNumber(Web3.utils.fromWei(tokensSoldRes));
-      const rate = new BigNumber(Web3.utils.fromWei(rateRes), 10);
+      const rate = new BigNumber(Web3.utils.fromWei(rateRes));
       const totalUsd = totalTokens.times(rate);
       const usdRaised = tokensSold.times(rate);
       let status: USDTieredSTOTierStatus;
@@ -187,6 +192,31 @@ export default class USDTieredSTO {
       };
     });
 
+    // NOTE @RafaelVidaurre: We need to calculate tokens sold per tier
+    // since we don't have a method to get tokens sold, and mintedPerTier can
+    // cause errors in specific situations
+    let totalTokensSum = new BigNumber(0);
+
+    tiers = map(tiers, tier => {
+      const { tokensSold, totalTokens: tierTotalTokens } = tier;
+      let thisTokensSold = tokensSold;
+
+      totalTokensSum = totalTokensSum.plus(tierTotalTokens);
+
+      const tierIsFullySold = totalTokensSum.lte(totalTokensSold);
+
+      if (!tierIsFullySold) {
+        thisTokensSold = totalTokensSold.minus(
+          totalTokensSum.minus(tierTotalTokens)
+        );
+        if (thisTokensSold.lt(0)) {
+          thisTokensSold = new BigNumber(0);
+        }
+      }
+
+      return { ...tier, tokensSold: thisTokensSold };
+    });
+
     return {
       type: 'USDTieredSTO',
       startDate: new Date(startTime * 1000),
@@ -199,8 +229,8 @@ export default class USDTieredSTO {
       capReached,
       tiers,
       currentTier,
-      totalUsdRaised: new BigNumber(Web3.utils.fromWei(totalUsdRaised)),
-      totalTokensSold: new BigNumber(Web3.utils.fromWei(totalTokensSold)),
+      totalUsdRaised,
+      totalTokensSold,
     };
   }
 }

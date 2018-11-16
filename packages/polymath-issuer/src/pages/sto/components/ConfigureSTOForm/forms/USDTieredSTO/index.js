@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isNumber, map, reduce } from 'lodash';
+import { map, reduce } from 'lodash';
 import { FastField, withFormik } from 'formik';
 import moment from 'moment-timezone';
 import { Form, Tooltip, Button } from 'carbon-components-react';
@@ -140,7 +140,6 @@ const requiredMessage = 'Required.';
 /* eslint-disable no-template-curly-in-string */
 const moreThanMessage = 'Must be higher than ${more}.';
 const minMessage = 'Must be at least ${min}.';
-const maxPercentageMessage = 'Cannot be higher than 100.';
 /* eslint-enable no-template-curly-in-string */
 
 /**

@@ -5,13 +5,13 @@ import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
+import BigNumber from 'bignumber.js';
 import {
   Box,
   Grid,
   DynamicTable,
   FormItem,
   NumberInput,
-  PercentageInput,
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
 
@@ -117,11 +117,14 @@ class InvestmentTiers extends React.Component<Props, State> {
     const { isAddingTier } = this.state;
 
     const tableItems = map(compact(value.tiers), (tier, tierNum) => {
+      const tokenPrice = tier.tokenPrice || new BigNumber(0);
+      const tokensAmount = tier.tokensAmount || new BigNumber(0);
+
       return {
         ...tier,
-        tokensAmount: format.toTokens(tier.tokensAmount, { decimals: 0 }),
-        tokenPrice: format.toUSD(tier.tokenPrice),
-        totalRaise: format.toUSD(tier.tokenPrice * tier.tokensAmount),
+        tokensAmount: format.toTokens(tokensAmount, { decimals: 0 }),
+        tokenPrice: format.toUSD(tokenPrice),
+        totalRaise: format.toUSD(tokenPrice.times(tokensAmount)),
         tier: tierNum + 1,
         id: tierNum + 1,
       };

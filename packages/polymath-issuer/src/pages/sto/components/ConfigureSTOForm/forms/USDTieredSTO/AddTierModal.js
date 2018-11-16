@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { get } from 'lodash';
-import { Field } from 'formik';
 import {
   ModalHeader,
   ModalBody,
@@ -13,11 +12,9 @@ import {
 import BigNumber from 'bignumber.js';
 import {
   Grid,
-  Box,
   Modal,
   FormItem,
   NumberInput,
-  PercentageInput,
   Paragraph,
   RaisedAmount,
 } from '@polymathnetwork/ui';
