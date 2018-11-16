@@ -10,6 +10,7 @@ export { default as InlineFlex } from './components/InlineFlex';
 export { default as Heading } from './components/Heading';
 export { default as Paragraph } from './components/Paragraph';
 export { default as FormItem } from './components/FormItem';
+export { default as FormItemGroup } from './components/FormItemGroup';
 export { default as Modal } from './components/Modal';
 export { default as STOStatus } from './components/STOStatus';
 export { default as Countdown } from './components/Countdown';
@@ -79,7 +80,6 @@ export { default as icoPaperPlane } from './images/svg/paper-plane';
 export { default as icoHandshake } from './images/svg/handshake';
 export { default as icoHelp } from './images/svg/help';
 export { default as icoWhitelist } from './images/svg/whitelist';
-export { iconAddSolid as icoAdd } from 'carbon-icons';
 
 export type { PUIState } from './redux/reducer';
 export type { NetworkState } from './redux/reducer';

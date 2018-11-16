@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Select, { components } from 'react-select';
 
@@ -76,10 +76,6 @@ const styles = {
   }),
 };
 
-const Container = styled(Box)`
-  min-height: 80px;
-`;
-
 const SelectContainer = styled(Box)`
   display: inline-block;
   vertical-align: middle;
@@ -146,7 +142,7 @@ export default class Input extends React.Component<Props> {
       : value;
 
     return (
-      <Container>
+      <Fragment>
         <SelectContainer>
           <Select
             closeMenuOnSelect={false}
@@ -179,7 +175,7 @@ export default class Input extends React.Component<Props> {
               />
             ) : null;
           })}
-      </Container>
+      </Fragment>
     );
   }
 }

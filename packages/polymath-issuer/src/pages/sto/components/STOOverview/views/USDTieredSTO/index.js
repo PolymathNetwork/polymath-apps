@@ -11,6 +11,7 @@ import {
   ProgressBar,
   Countdown,
   etherscanAddress,
+  RaisedAmount,
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
 import {
@@ -46,26 +47,54 @@ const dateFormat = (date: Date) =>
     day: 'numeric',
   });
 
-const getCountdownProps = (
-  startDate: Date,
-  endDate: Date,
-  pauseStatus: boolean
-): ?CountdownProps => {
+// FIXME @RafaelVidaurre: We should either have a dedicated component for
+// STO statuses or properly generalize the Countdown component
+const getCountdownProps = ({
+  startDate,
+  endDate,
+  pauseStatus: isPaused,
+  isTerminated,
+  capReached,
+  isOpen,
+}: USDTieredSTO): CountdownProps => {
+  let deadline: Date;
+  let title: string;
+  let buttonTitle: ?string;
+
   const now = new Date();
-  if (now < startDate) {
-    return {
-      deadline: startDate,
-      title: 'Time Left Until the Offering Starts',
-      isPaused: pauseStatus,
-    };
-  } else if (now < endDate) {
-    return {
-      deadline: endDate,
-      title: 'Time Left Until the Offering Ends',
-      isPaused: pauseStatus,
-    };
+  const isFinished = (capReached && !isOpen) || now >= endDate;
+  const hasStarted = now >= startDate;
+  const isRunning = hasStarted && !isPaused && !isTerminated && !isFinished;
+
+  // Set the title's text
+  if (!hasStarted) {
+    title = 'Time Left Until the Offering Starts';
+  } else if (isRunning) {
+    title = 'Time Left Until the Offering Ends';
+  } else if (isTerminated) {
+    title = 'The Sale Is Terminated';
+  } else if (isFinished) {
+    title = 'The Sale Is Closed';
   }
-  return null;
+  // Enable the pause button if the sto is not closed
+  if (!isFinished && !isTerminated) {
+    buttonTitle = isPaused ? 'RESUME' : 'PAUSE';
+  }
+  // Set the countdown time
+  if (!hasStarted) {
+    deadline = startDate;
+  } else if (isRunning) {
+    deadline = endDate;
+  } else {
+    deadline = new Date(0);
+  }
+
+  return {
+    title,
+    deadline,
+    isPaused,
+    buttonTitle,
+  };
 };
 
 const USDTieredSTOOverviewComponent = ({
@@ -75,11 +104,7 @@ const USDTieredSTOOverviewComponent = ({
   sto,
 }: ComponentProps) => {
   const totalUsdRaised = sto.totalUsdRaised;
-  const countdownProps = getCountdownProps(
-    sto.startDate,
-    sto.endDate,
-    sto.pauseStatus
-  );
+  const countdownProps = getCountdownProps(sto);
   const totalUsdCap = reduce(
     sto.tiers,
     (total, { totalUsd }) => totalUsd.plus(total),
@@ -128,15 +153,13 @@ const USDTieredSTOOverviewComponent = ({
                   {dateFormat(sto.endDate)}
                 </div>
               </div>
-              <div>
-                <div className="pui-key-value pui-countdown-raised">
-                  <div>Total Funds Raised</div>
-                  {`${format.toUSD(raised)} USD`}
-                  <div>
-                    {format.toTokens(totalTokensSold, { decimals: 2 })} {ticker}
-                  </div>
-                </div>
-              </div>
+              <RaisedAmount
+                title="Total Funds Raised"
+                primaryAmount={raised}
+                primaryUnit="USD"
+                tokenAmount={totalTokensSold}
+                tokenUnit={ticker.toUpperCase()}
+              />
             </div>
             <Box mt={4}>
               <TiersTable sto={sto} />
@@ -154,7 +177,7 @@ const USDTieredSTOOverviewComponent = ({
               <Countdown
                 deadline={countdownProps.deadline}
                 title={countdownProps.title}
-                buttonTitle={sto.pauseStatus ? 'RESUME STO' : 'PAUSE STO'}
+                buttonTitle={countdownProps.buttonTitle}
                 handleButtonClick={handlePause}
                 isPaused={sto.pauseStatus}
               />

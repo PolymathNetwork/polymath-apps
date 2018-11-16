@@ -13,7 +13,6 @@ import {
 
 import { tickerReservationEmail } from '../actions/ticker';
 import ConfirmEmailPage from './ConfirmEmailPage';
-import MigrateTokenPage from './MigrateTokenPage';
 
 import type { RootState } from '../redux/reducer';
 
@@ -24,14 +23,14 @@ type StateProps = {|
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
-  hasLegacyTokens: ?boolean,
+  isFetching: boolean,
 |};
 
 type DispatchProps = {|
   txHash: (hash: string) => any,
   txEnd: (receipt: any) => any,
   signIn: () => any,
-  getNotice: (scope: string) => any,
+  getNotice: (scope: string, address: string) => any,
   tickerReservationEmail: () => any,
 |};
 
@@ -42,7 +41,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
-  hasLegacyTokens: state.ticker.hasLegacyTokens,
+  isFetching: state.pui.common.isFetching,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -55,6 +54,7 @@ const mapDispatchToProps: DispatchProps = {
 
 type Props = {|
   children: Object,
+  onFail: () => any,
 |} & StateProps &
   DispatchProps;
 
@@ -63,6 +63,17 @@ class AuthWrapper extends Component<Props> {
     this.props.tickerReservationEmail();
   };
 
+  // TODO @grsmto: Refactor the auth process so we don't have to use this hack.
+  // Ideally we should check for user authorisations at route level instead of
+  // doing this at the view level independently from the current URL/route.
+  componentDidUpdate(prevProps) {
+    const { isFetching, isSignedIn, isSignedUp } = this.props;
+
+    if (prevProps.isFetching && !isFetching && isSignedIn && !isSignedUp) {
+      this.props.onFail();
+    }
+  }
+
   render() {
     const {
       isSignedIn,
@@ -70,7 +81,6 @@ class AuthWrapper extends Component<Props> {
       isEmailConfirmed,
       isSignUpSuccess,
       children,
-      hasLegacyTokens,
     } = this.props;
 
     return !isSignedIn ? (
@@ -81,21 +91,14 @@ class AuthWrapper extends Component<Props> {
       isSignUpSuccess ? (
         <SignUpSuccessPage
           text={
-            <span>
-              You are now ready to continue with your Security Token.
-              <br />
-              We just sent you an email with the token symbol reservation
-              transaction details for your records. Check your inbox.
-            </span>
+            <span>You are now ready to begin with your Security Token.</span>
           }
-          continueLabel="CONTINUE WITH TOKEN CREATION"
+          continueLabel="CONTINUE WITH SYMBOL REGISTRATION"
           onWillMount={this.handleSignUpSuccess}
         />
       ) : (
         <ConfirmEmailPage />
       )
-    ) : hasLegacyTokens ? (
-      <MigrateTokenPage />
     ) : (
       children
     );

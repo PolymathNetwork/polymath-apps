@@ -17,7 +17,7 @@ import {
   EnterPINModal,
 } from '@polymathnetwork/ui';
 
-import { getMyTokens, getLegacyTokens } from '../actions/ticker';
+import { getMyTokens } from '../actions/ticker';
 import AuthWrapper from './AuthWrapper';
 
 import type { RootState } from '../redux/reducer';
@@ -27,7 +27,7 @@ type StateProps = {|
   isSignedIn: ?boolean,
   isSignedUp: ?boolean,
   isFetching: boolean,
-  isFetchingTokens: boolean,
+  isFetchingLegacyTokens: boolean,
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
@@ -39,7 +39,6 @@ type DispatchProps = {|
   txEnd: (receipt: any) => any,
   signIn: () => any,
   getMyTokens: () => any,
-  getLegacyTokens: () => any,
   getNotice: (scope: string) => any,
 |};
 
@@ -48,7 +47,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isSignedIn: state.pui.account.isSignedIn,
   isSignedUp: state.pui.account.isSignedUp,
   isFetching: state.pui.common.isFetching,
-  isFetchingTokens: state.ticker.isFetchingTokens,
+  isFetchingLegacyTokens: state.token.isFetchingLegacyTokens,
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
@@ -60,7 +59,6 @@ const mapDispatchToProps: DispatchProps = {
   txEnd,
   signIn,
   getMyTokens,
-  getLegacyTokens,
   getNotice,
 };
 
@@ -76,23 +74,30 @@ class App extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.signIn().then(() => {
-      this.props.getLegacyTokens();
-    });
+    this.props.signIn();
   }
 
+  onAuthFail = () => {
+    // Make sure user is on the ticker page if he doesn't have an account yet
+    if (this.props.location.pathname !== '/ticker') {
+      this.props.history.push('/ticker');
+    }
+  };
+
   render() {
-    const { ticker, isFetching, route, isFetchingTokens } = this.props;
+    const { ticker, isFetching, route, isFetchingLegacyTokens } = this.props;
 
     return (
       <Fragment>
         <Navbar ticker={ticker} />
-        {isFetching || isFetchingTokens ? <Loading /> : ''}
+        {isFetching || isFetchingLegacyTokens ? <Loading /> : ''}
         <Toaster />
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
-        <AuthWrapper>{renderRoutes(route.routes)}</AuthWrapper>
+        <AuthWrapper onFail={this.onAuthFail}>
+          {renderRoutes(route.routes)}
+        </AuthWrapper>
         <Footer />
       </Fragment>
     );

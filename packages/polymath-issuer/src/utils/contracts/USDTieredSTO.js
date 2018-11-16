@@ -127,12 +127,13 @@ export default class USDTieredSTO {
       endTime,
       paused,
       factoryAddress,
-      open,
-      finalized,
+      isOpen,
+      isFinalized,
       tiersCount,
       currentTierRes,
       totalUsdRaised,
       totalTokensSold,
+      capReached,
     ] = await Promise.all([
       this.contract.methods.startTime().call(),
       this.contract.methods.endTime().call(),
@@ -144,6 +145,7 @@ export default class USDTieredSTO {
       this.contract.methods.currentTier().call(),
       this.contract.methods.fundsRaisedUSD().call(),
       this.contract.methods.getTokensSold().call(),
+      this.contract.methods.capReached().call(),
     ]);
 
     const currentTier = parseInt(currentTierRes, 10);
@@ -192,8 +194,9 @@ export default class USDTieredSTO {
       pauseStatus: paused,
       factoryAddress,
       address: this.address,
-      open,
-      finalized,
+      isOpen,
+      isTerminated: isFinalized,
+      capReached,
       tiers,
       currentTier,
       totalUsdRaised: new BigNumber(Web3.utils.fromWei(totalUsdRaised)),

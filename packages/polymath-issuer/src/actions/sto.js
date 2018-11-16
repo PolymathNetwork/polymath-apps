@@ -258,7 +258,7 @@ export const configureSTO = (
         const titles = ['Deploying And Scheduling'];
 
         if (tokenBalance.lt(setupCost)) {
-          titles.unshift('Transfering POLY');
+          titles.unshift('Transferring POLY');
         }
 
         dispatch(
@@ -271,6 +271,7 @@ export const configureSTO = (
             () => {
               return dispatch(fetch());
             },
+            undefined,
             `/dashboard/${token.ticker}/compliance`,
             undefined,
             false,
@@ -320,7 +321,7 @@ export const configure = values => async (
         //Skip approve transaction if transfer is already allowed
         let title = ['Deploying And Scheduling'];
         if (balance.lt(fee)) {
-          title.unshift('Approving POLY Spend');
+          title.unshift('Transferring POLY');
         }
 
         dispatch(
@@ -353,6 +354,7 @@ export const configure = values => async (
             () => {
               return dispatch(fetch());
             },
+            undefined,
             `/dashboard/${token.ticker}/compliance`,
             undefined,
             false,
@@ -439,6 +441,7 @@ export const togglePauseSto = () => async (
             isStoPaused
               ? 'Successfully Resumed STO'
               : 'Successfully Paused STO',
+            undefined,
             undefined,
             undefined,
             undefined,

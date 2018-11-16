@@ -125,7 +125,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
         window.location.reload();
       }
     });
-  }, 100);
+  }, 1000);
 
   // TODO @bshevchenko: https://github.com/INFURA/infura/issues/80 hack below
   web3WS.eth.subscribe('newBlockHeaders', error => {

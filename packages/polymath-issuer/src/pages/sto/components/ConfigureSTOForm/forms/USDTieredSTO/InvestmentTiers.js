@@ -4,11 +4,11 @@ import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
+import { iconAddSolid } from 'carbon-icons';
 import {
   Box,
   Grid,
   DynamicTable,
-  icoAdd,
   FormItem,
   NumberInput,
   PercentageInput,
@@ -39,14 +39,6 @@ const headers = [
   {
     key: 'tokenPrice',
     header: 'Token Price',
-  },
-  {
-    key: 'discountedTokensAmount',
-    header: 'Max Number of Discounted Tokens',
-  },
-  {
-    key: 'discountedTokensPercentage',
-    header: 'POLY Discount',
   },
   {
     key: 'totalRaise',
@@ -91,7 +83,18 @@ class InvestmentTiers extends React.Component<Props, State> {
     const newValue = {
       ...value,
       isMultipleTiers,
-      tiers: [],
+      /**
+       * NOTE @monitz87: If switching back to single tier, we repopulate the array
+       * to have initial values in the single-tier form for validation
+       */
+      tiers: isMultipleTiers
+        ? []
+        : [
+            {
+              tokensAmount: null,
+              tokenPrice: null,
+            },
+          ],
     };
 
     setFieldTouched(name, false);
@@ -118,10 +121,6 @@ class InvestmentTiers extends React.Component<Props, State> {
         ...tier,
         tokensAmount: format.toTokens(tier.tokensAmount, { decimals: 0 }),
         tokenPrice: format.toUSD(tier.tokenPrice),
-        discountedTokensAmount: format.toTokens(tier.discountedTokensAmount, {
-          decimals: 0,
-        }),
-        discountedTokensPercentage: format.toPercent(tier.discountedTokensRate),
         totalRaise: format.toUSD(tier.tokenPrice * tier.tokensAmount),
         tier: tierNum + 1,
         id: tierNum + 1,
@@ -130,8 +129,6 @@ class InvestmentTiers extends React.Component<Props, State> {
 
     const defaultTableItem = [
       {
-        discountedTokensAmount: '-',
-        discountedTokensPrice: '-',
         tokenPrice: '-',
         tokensAmount: '-',
         tier: '-',
@@ -172,10 +169,10 @@ class InvestmentTiers extends React.Component<Props, State> {
                   <Tooltip triggerText="Number of tokens">
                     <p className="bx--tooltip__label">Number of tokens</p>
                     <p>
-                      Hard Cap is the maximum number of tokens available through
-                      this offering. e.g. if you want the total aggregate of
-                      your investors in this offering to own 10 million tokens,
-                      enter 10000000.
+                      Number of tokens to be sold in this tier. All tokens in
+                      the tier will carry the same price and need to be sold for
+                      the STO to move to the next tier (if multiple tiers are
+                      defined).
                     </p>
                   </Tooltip>
                 </FormItem.Label>
@@ -183,6 +180,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   FormikComponent={Field}
                   component={NumberInput}
                   placeholder="Enter amount"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -193,36 +191,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   component={NumberInput}
                   placeholder="Enter amount"
                   unit="USD"
-                />
-                <FormItem.Error />
-              </FormItem>
-            </Grid>
-            <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-              <FormItem name={`${name}.tiers[0].discountedTokensAmount`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Number of discounted tokens">
-                    <p className="bx--tooltip__label">
-                      Maximum Number of Discounted tokens
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  component={NumberInput}
-                  placeholder="Enter amount"
-                />
-                <FormItem.Error />
-              </FormItem>
-              <FormItem name={`${name}.tiers[0].discountedTokensRate`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                    <p className="bx--tooltip__label">
-                      Discount for Tokens Purchased with POLY
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  component={PercentageInput}
-                  placeholder="Enter percentage"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -237,7 +206,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                 <TableContainer>
                   <Box textAlign="right" mb={3}>
                     <Button
-                      icon={icoAdd}
+                      icon={iconAddSolid}
                       onClick={this.handleAddNewTier.bind(this)}
                     >
                       Add new
@@ -278,7 +247,7 @@ class InvestmentTiers extends React.Component<Props, State> {
               name="investmentTiers.newTier"
               ticker={ticker}
               component={AddTierModal}
-              title={`Add the Investment Tier #${value.tiers.length}`}
+              title={`Add the Investment Tier #${value.tiers.length + 1}`}
               isOpen={isAddingTier}
               onAdd={push}
               onClose={this.handleClose}
