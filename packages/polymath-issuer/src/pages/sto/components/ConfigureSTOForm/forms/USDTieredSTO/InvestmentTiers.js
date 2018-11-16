@@ -118,6 +118,7 @@ class InvestmentTiers extends React.Component<Props, State> {
   render() {
     const {
       field: { value, name },
+      form: { touched, errors },
       ticker,
     } = this.props;
     const { isAddingTier } = this.state;
@@ -249,7 +250,11 @@ class InvestmentTiers extends React.Component<Props, State> {
                   </TableContainer>
                 )}
               />
-              <FormItemGroup.Error name="investmentTiers.tiers" />
+              <FormItemGroup.Error
+                name="investmentTiers.tiers"
+                errors={errors}
+                touched={touched}
+              />
             </FormItemGroup>
           </Box>
         )}
