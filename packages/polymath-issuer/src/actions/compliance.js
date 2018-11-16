@@ -252,7 +252,7 @@ export const exportWhitelist = () => async (
 
     // eslint-disable-next-line max-len
     let csvContent =
-      'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership,Is Accredited,Non-Accredited Limit';
+      'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
 
     investors.forEach((investor: Investor) => {
       csvContent +=
