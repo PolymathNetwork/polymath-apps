@@ -11,6 +11,7 @@ import {
   Box,
   Grid,
   FormItem,
+  FormItemGroup,
   Heading,
   RaisedAmount,
   Remark,
@@ -241,38 +242,46 @@ export const USDTieredSTOFormComponent = ({
     <Form onSubmit={handleSubmit}>
       <Heading variant="h3">STO Schedule</Heading>
 
-      <div className="time-pickers-container">
-        <FormItem name="startDate">
-          <FormItem.Label>Start Date</FormItem.Label>
-          <FormItem.Input
-            component={DatePickerInput}
-            placeholder="mm / dd / yyyy"
-          />
-          <FormItem.Error />
-        </FormItem>
-        <Box mr={4}>
-          <FormItem name="startTime">
+      <FormItemGroup>
+        <FormItemGroup.Items>
+          <FormItem name="startDate">
+            <FormItem.Label>Start Date</FormItem.Label>
+            <FormItem.Input
+              component={DatePickerInput}
+              placeholder="mm / dd / yyyy"
+            />
+          </FormItem>
+          <Box mr={4}>
+            <FormItem name="startTime">
+              <FormItem.Label>Time</FormItem.Label>
+              <FormItem.Input
+                component={TimePickerSelect}
+                placeholder="hh:mm"
+              />
+            </FormItem>
+          </Box>
+          <FormItem name="endDate">
+            <FormItem.Label>End Date</FormItem.Label>
+            <FormItem.Input
+              component={DatePickerInput}
+              placeholder="mm / dd / yyyy"
+            />
+          </FormItem>
+          <FormItem name="endTime">
             <FormItem.Label>Time</FormItem.Label>
             <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
-            <FormItem.Error />
           </FormItem>
-        </Box>
-        <FormItem name="endDate">
-          <FormItem.Label>End Date</FormItem.Label>
-          <FormItem.Input
-            component={DatePickerInput}
-            placeholder="mm / dd / yyyy"
-          />
-          <FormItem.Error />
-        </FormItem>
-        <FormItem name="endTime">
-          <FormItem.Label>Time</FormItem.Label>
-          <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
-          <FormItem.Error />
-        </FormItem>
-      </div>
+        </FormItemGroup.Items>
 
-      <Heading variant="h3">STO Financing Details & Terms</Heading>
+        <FormItemGroup.Error name="startDate" />
+        <FormItemGroup.Error name="startTime" />
+        <FormItemGroup.Error name="endDate" />
+        <FormItemGroup.Error name="endTime" />
+      </FormItemGroup>
+
+      <Heading variant="h3" mt={5}>
+        STO Financing Details & Terms
+      </Heading>
 
       <FormItem name="currencies">
         <FormItem.Input component={CurrencySelect} placeholder="Raise in" />
@@ -336,7 +345,7 @@ export const USDTieredSTOFormComponent = ({
         />
       </div>
 
-      <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
+      <Grid gridAutoFlow="column" gridAutoColumns="1fr">
         <Grid.Item gridColumn="span 1 / 3">
           <RaisedAmount
             title="Amount Of Funds the STO Will Raise"
@@ -348,7 +357,9 @@ export const USDTieredSTOFormComponent = ({
         </Grid.Item>
       </Grid>
 
-      <Heading variant="h3">ETH Addresses</Heading>
+      <Heading variant="h3" mt={5}>
+        ETH Addresses
+      </Heading>
 
       <Remark title="Note">
         Before submitting to the chain, we recommend that you test sending funds

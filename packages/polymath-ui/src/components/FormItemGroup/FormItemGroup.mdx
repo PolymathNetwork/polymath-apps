@@ -9,10 +9,14 @@ import * as Yup from 'yup';
 import Playground from '../DoczPlayground';
 import TextInput from '../inputs/TextInput';
 import FormItem from '../FormItem';
-import FormError from '../FormError';
 import FormItemGroup from './';
 
-# FormItem
+# FormItemGroup
+
+This component is used to render multiple `FormItem` as a single.
+For example a date/time picker component is shaped of multiple inputs but is displayed as a single form item.
+
+<br />
 
 <PropsTable of={FormItem} />
 
@@ -45,9 +49,11 @@ import FormItemGroup from './';
           </FormItem>
         </FormItemGroup.Items>
 
-        <FormError name="firstname" />
-        <FormError name="lastname" />
+        <FormItemGroup.Error name="firstname" />
+        <FormItemGroup.Error name="lastname" />
       </FormItemGroup>
     )}
-  />
+
+/>
+
 </Playground>
