@@ -273,7 +273,13 @@ class MigrateTokenPage extends Component<{| handleClick: Function |}> {
               </p>
             </AccordionItem>
             <AccordionItem title="Where can I find the full release notes for v2.0.0?">
-              <p>INSERT MEDIUM ARTICLE LINK</p>
+              <p>
+                Read this{' '}
+                <a href="https://blog.polymath.network/polymath-core-v2-0-0-release-2d5b954c4c99">
+                  blog post
+                </a>
+                .
+              </p>
             </AccordionItem>
           </Accordion>
         </div>
