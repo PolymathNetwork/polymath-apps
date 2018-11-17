@@ -53,8 +53,7 @@
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",
     "web3": "1.0.0-beta.30",
-    "whatwg-fetch": "2.0.4",
-    "yup": "^0.26.6"
+    "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",
