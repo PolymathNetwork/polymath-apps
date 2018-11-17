@@ -23,11 +23,11 @@ class AddTierModal extends Component {
   handleOnAdd = () => {
     const {
       field: { name, value },
-      form: { errors, setFieldValue, setFieldTouched },
+      form: { values, errors, setFieldValue, setFieldTouched },
       onAdd,
       onClose,
     } = this.props;
-    console.log('ERRORS', errors);
+
     const isValid = !get(errors, name);
 
     if (isValid) {
@@ -44,7 +44,7 @@ class AddTierModal extends Component {
   componentDidUpdate(prevProps) {
     const {
       field: { name },
-      form: { setFieldValue },
+      form: { setFieldValue, setFieldTouched },
     } = this.props;
 
     /**
@@ -52,6 +52,10 @@ class AddTierModal extends Component {
      * object to have intial values in the modal form for validation.
      */
     if (!prevProps.isOpen && this.props.isOpen) {
+      // NOTE @RafaelVidaurre: Hack to fix bug with Formik not recreating the
+      // errors object for this field
+      setFieldTouched(name, false);
+
       setFieldValue(name, { tokensAmount: null, tokenPrice: null });
     }
   }
@@ -59,12 +63,14 @@ class AddTierModal extends Component {
   render() {
     const {
       field: { name, value },
-      form: { values },
+      form: { values, errors },
       ticker,
       isOpen,
       onClose,
       title,
     } = this.props;
+
+    console.log('Rendered with theses errs: ', errors);
 
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);

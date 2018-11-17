@@ -130,8 +130,6 @@ function validateStartTime(value) {
   return true;
 }
 
-function isRequired(value) {}
-
 function validateIsAddress(value) {
   if (!Web3.utils.isAddress(value)) {
     return this.createError({
@@ -262,9 +260,6 @@ export const USDTieredSTOFormComponent = ({
     },
     new BigNumber(0)
   );
-
-  console.log(values);
-  console.log(errors);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -487,12 +482,10 @@ const formikEnhancer = withFormik({
 });
 
 class USDTieredSTOFormContainer extends Component<ContainerProps> {
-  shouldComponentUpdate(nextProps: ContainerProps) {
-    return nextProps.values === this.props.values;
-  }
   render() {
     const { ticker, handleSubmit, errors, values, touched } = this.props;
-
+    console.log('>>> errors', errors);
+    console.log('>>> values', values);
     return (
       <USDTieredSTOFormComponent
         errors={errors}
