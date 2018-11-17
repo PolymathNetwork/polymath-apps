@@ -484,8 +484,7 @@ const formikEnhancer = withFormik({
 class USDTieredSTOFormContainer extends Component<ContainerProps> {
   render() {
     const { ticker, handleSubmit, errors, values, touched } = this.props;
-    console.log('>>> errors', errors);
-    console.log('>>> values', values);
+
     return (
       <USDTieredSTOFormComponent
         errors={errors}
