@@ -23,7 +23,7 @@ class AddTierModal extends Component {
   handleOnAdd = () => {
     const {
       field: { name, value },
-      form: { values, errors, setFieldValue, setFieldTouched },
+      form: { errors, setFieldValue, setFieldTouched },
       onAdd,
       onClose,
     } = this.props;
@@ -63,14 +63,12 @@ class AddTierModal extends Component {
   render() {
     const {
       field: { name, value },
-      form: { values, errors },
+      form: { values },
       ticker,
       isOpen,
       onClose,
       title,
     } = this.props;
-
-    console.log('Rendered with theses errs: ', errors);
 
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
