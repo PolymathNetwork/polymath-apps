@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { get } from 'lodash';
-import { Field } from 'formik';
 import {
   ModalHeader,
   ModalBody,
@@ -10,13 +9,12 @@ import {
   Button,
   Tooltip,
 } from 'carbon-components-react';
+import BigNumber from 'bignumber.js';
 import {
   Grid,
-  Box,
   Modal,
   FormItem,
   NumberInput,
-  PercentageInput,
   Paragraph,
   RaisedAmount,
 } from '@polymathnetwork/ui';
@@ -24,41 +22,65 @@ import {
 class AddTierModal extends Component {
   handleOnAdd = () => {
     const {
-      field,
+      field: { name, value },
       form: { errors, setFieldValue, setFieldTouched },
+      onAdd,
+      onClose,
     } = this.props;
-    const isValid = !get(errors, field.name);
+
+    const isValid = !get(errors, name);
 
     if (isValid) {
-      setFieldValue(field.name, null);
-      this.props.onAdd(field.value);
-      setFieldTouched(field.name, false);
-      this.props.onClose();
+      setFieldValue(name, null);
+      onAdd(value);
+      setFieldTouched(name, false);
+      onClose();
+    } else {
+      setFieldTouched(`${name}.tokensAmount`, true);
+      setFieldTouched(`${name}.tokenPrice`, true);
     }
   };
+
+  componentDidUpdate(prevProps) {
+    const {
+      field: { name },
+      form: { setFieldValue, setFieldTouched },
+    } = this.props;
+
+    /**
+     * NOTE @monitz87: If opening the modal, we repopulate the newTier
+     * object to have intial values in the modal form for validation.
+     */
+    if (!prevProps.isOpen && this.props.isOpen) {
+      // NOTE @RafaelVidaurre: Hack to fix bug with Formik not recreating the
+      // errors object for this field
+      setFieldTouched(name, false);
+
+      setFieldValue(name, { tokensAmount: null, tokenPrice: null });
+    }
+  }
+
   render() {
     const {
       field: { name, value },
       form: { values },
       ticker,
+      isOpen,
+      onClose,
+      title,
     } = this.props;
 
-    let disabled = false;
-
-    if (!value) {
-      disabled = true;
-    }
     const thisTier = value || {};
-    const tokenPrice = thisTier.tokenPrice || 0;
-    const tokensAmount = thisTier.tokensAmount || 0;
+    const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
+    const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
 
     const tierNum = values.investmentTiers.tiers.length + 1;
-    const tierTokensAmount = tokensAmount || 0;
-    const tierUsdAmount = tokenPrice * tierTokensAmount;
+    const tierTokensAmount = tokensAmount || new BigNumber(0);
+    const tierUsdAmount = tokenPrice.times(tierTokensAmount);
 
     return (
-      <Modal isOpen={this.props.isOpen} onClose={this.props.onClose}>
-        <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalHeader title={title} closeModal={onClose} />
         <ModalBody>
           <Paragraph>
             Each tier includes a fixed number of tokens and a fixed price per
@@ -70,11 +92,18 @@ class AddTierModal extends Component {
               <FormItem.Label>
                 <Tooltip triggerText="Number of tokens">
                   <p className="bx--tooltip__label">Number of tokens</p>
+                  <p>
+                    Number of tokens to be sold in this tier. All tokens in the
+                    tier will carry the same price and need to be sold for the
+                    STO to move to the next tier (if multiple tiers are
+                    defined).
+                  </p>
                 </Tooltip>
               </FormItem.Label>
               <FormItem.Input
                 component={NumberInput}
                 placeholder="Enter amount"
+                useBigNumbers
               />
               <FormItem.Error />
             </FormItem>
@@ -84,43 +113,10 @@ class AddTierModal extends Component {
                 component={NumberInput}
                 placeholder="Enter amount"
                 unit="USD"
+                useBigNumbers
               />
               <FormItem.Error />
             </FormItem>
-          </Grid>
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-            <FormItem name={`${name}.discountedTokensAmount`}>
-              <FormItem.Label>
-                <Tooltip triggerText="Maximum Number of discounted tokens">
-                  <p className="bx--tooltip__label">
-                    Maximum Number of discounted tokens
-                  </p>
-                </Tooltip>
-              </FormItem.Label>
-              <FormItem.Input
-                component={NumberInput}
-                placeholder="Enter amount"
-              />
-              <FormItem.Error />
-            </FormItem>
-            <Box maxWidth="5em">
-              <FormItem name={`${name}.discountedTokensRate`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                    <p className="bx--tooltip__label">
-                      Discount for Tokens Purchased with POLY
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  FormikComponent={Field}
-                  component={PercentageInput}
-                  placeholder="Enter percentage"
-                  unit="%"
-                />
-                <FormItem.Error />
-              </FormItem>
-            </Box>
           </Grid>
           <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
             <Grid.Item gridColumn="span 1 / 3">
@@ -136,16 +132,10 @@ class AddTierModal extends Component {
         </ModalBody>
 
         <ModalFooter>
-          <Button
-            className="cancel-btn"
-            kind="secondary"
-            onClick={this.props.onClose}
-          >
+          <Button className="cancel-btn" kind="secondary" onClick={onClose}>
             Cancel
           </Button>
-          <Button disabled={disabled} onClick={this.handleOnAdd}>
-            Add new
-          </Button>
+          <Button onClick={this.handleOnAdd}>Add new</Button>
         </ModalFooter>
       </Modal>
     );

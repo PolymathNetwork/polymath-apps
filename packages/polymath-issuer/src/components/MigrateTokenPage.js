@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import type { RootState } from '../redux/reducer';
@@ -10,33 +12,46 @@ import {
 } from 'carbon-components-react';
 import Contract from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
+import newVersionLogo from '../images/2.0-logo.svg';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
-import { getLegacyTokens } from '../actions/ticker';
+import { fetchLegacyToken } from '../actions/token';
 
 type StateProps = {|
-  legacyTokens: Array<{|
+  legacyToken: ?{|
     address: string,
     ticker: string,
-  |}>,
-  account: string,
+  |},
+  account: ?string,
 |};
 
+type State = {|
+  loading: boolean,
+  tokenIsFrozen: boolean,
+|};
+
+type Props = {|
+  dispatch: Function,
+|} & StateProps;
+
 const mapStateToProps = (state: RootState): StateProps => ({
-  legacyTokens: state.ticker.legacyTokens,
+  legacyToken: state.token.legacyToken,
   account: state.network.account,
 });
 
-class MigrateTokenPageContainer extends Component {
+class MigrateTokenPageContainer extends Component<Props, State> {
   state = {
     loading: true,
     tokenIsFrozen: true,
   };
 
   async getFrozenStatus() {
-    const { legacyTokens } = this.props;
+    const { legacyToken } = this.props;
+    if (!legacyToken) {
+      return;
+    }
     const legacySecurityToken = new Contract(
       LegacySTArtifact,
-      legacyTokens[0].address
+      legacyToken.address
     );
     try {
       const tokenIsFrozen = await legacySecurityToken._contractWS.methods
@@ -69,12 +84,19 @@ class MigrateTokenPageContainer extends Component {
   }
 
   handleClick = (event: Object) => {
-    const { dispatch, legacyTokens } = this.props;
+    const { dispatch, legacyToken } = this.props;
     const { tokenIsFrozen } = this.state;
-    const token = legacyTokens[0];
-    const ticker = token.ticker.toUpperCase();
 
-    const legacySecurityToken = new Contract(LegacySTArtifact, token.address);
+    if (!legacyToken) {
+      return;
+    }
+
+    const ticker = legacyToken.ticker.toUpperCase();
+
+    const legacySecurityToken = new Contract(
+      LegacySTArtifact,
+      legacyToken.address
+    );
 
     const titles = ['Renouncing Ownership'];
 
@@ -106,28 +128,31 @@ class MigrateTokenPageContainer extends Component {
             ui.tx(
               titles,
               async () => {
-                try {
-                  if (!tokenIsFrozen) {
-                    await legacySecurityToken._tx(
-                      legacySecurityToken._methods.freezeTransfers(),
-                      null,
-                      1.15
-                    );
-                  }
-
+                if (!tokenIsFrozen) {
                   await legacySecurityToken._tx(
-                    legacySecurityToken._methods.renounceOwnership(),
+                    legacySecurityToken._methods.freezeTransfers(),
                     null,
                     1.15
                   );
-                } catch (err) {
-                  dispatch(getLegacyTokens());
-                  throw err;
                 }
+
+                await legacySecurityToken._tx(
+                  legacySecurityToken._methods.renounceOwnership(),
+                  null,
+                  1.15
+                );
               },
               'Token Migrated Successfully',
               async () => {
-                await dispatch(getLegacyTokens());
+                await dispatch(fetchLegacyToken(ticker));
+              },
+              async () => {
+                this.setState(
+                  {
+                    loading: true,
+                  },
+                  this.getFrozenStatus
+                );
               },
               undefined,
               undefined,
@@ -149,14 +174,14 @@ class MigrateTokenPageContainer extends Component {
   }
 }
 
-class MigrateTokenPage extends Component {
+class MigrateTokenPage extends Component<{| handleClick: Function |}> {
   render() {
     return (
       <DocumentTitle title="Migrate your Token – Polymath">
         <div className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-new-version-bull">
-              <img src="2.0-logo.svg" alt="Bull" />
+              <img src={newVersionLogo} alt="Bull" />
             </div>
             <h1 className="pui-h1">Polymath v2.0 is Released!</h1>
             <h3 className="pui-h2">
@@ -166,7 +191,7 @@ class MigrateTokenPage extends Component {
             <div className="pui-clearfix" />
           </div>
           <h3 className="pui-h4">
-            On 11/15 we released Polymath v2.0, which includes exciting new
+            On 11/22 we released Polymath v2.0, which includes exciting new
             features for your tokens. In particular, we have added "Forced
             Transfer" which allows an authorized wallet (multi-sig recommended)
             to transfer security tokens out of a wallet to which they do not
@@ -248,7 +273,13 @@ class MigrateTokenPage extends Component {
               </p>
             </AccordionItem>
             <AccordionItem title="Where can I find the full release notes for v2.0.0?">
-              <p>INSERT MEDIUM ARTICLE LINK</p>
+              <p>
+                Read this{' '}
+                <a href="https://blog.polymath.network/polymath-core-v2-0-0-release-2d5b954c4c99" target="_blank">
+                  blog post
+                </a>
+                .
+              </p>
             </AccordionItem>
           </Accordion>
         </div>

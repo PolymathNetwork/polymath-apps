@@ -16,24 +16,30 @@ import type { SecurityToken, Address } from '@polymathnetwork/js/types';
 
 import { isProvidersPassed } from '../pages/providers/data';
 
-import { fetch as fetchToken } from '../actions/token';
+import { fetch as fetchToken, fetchLegacyToken } from '../actions/token';
 import { fetchProviders } from '../actions/providers';
 
 import PausedBar from './PausedBar';
 
 import type { RootState } from '../redux/reducer';
 import type { ServiceProvider } from '../pages/providers/data';
+import MigrateTokenPage from './MigrateTokenPage';
 
 type StateProps = {|
   token: ?SecurityToken,
   isTokenFetched: boolean,
   providers: ?Array<ServiceProvider>,
   account: Address,
+  legacyToken: ?{|
+    ticker: string,
+    address: string,
+  |},
 |};
 
 type DispatchProps = {|
   fetchToken: (ticker: string) => any,
   fetchProviders: (ticker: string) => any,
+  fetchLegacyToken: (ticker: string) => any,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
@@ -41,11 +47,13 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isTokenFetched: state.token.isFetched,
   providers: state.providers.data,
   account: state.network.account,
+  legacyToken: state.token.legacyToken,
 });
 
 const mapDispatchToProps: DispatchProps = {
   fetchToken,
   fetchProviders,
+  fetchLegacyToken,
 };
 
 type Props = {|
@@ -60,18 +68,32 @@ type Props = {|
 
 class Dashboard extends Component<Props> {
   componentWillMount() {
-    this.props.fetchToken(this.props.match.params.id);
-    this.props.fetchProviders(this.props.match.params.id);
+    const ticker = this.props.match.params.id;
+    this.props.fetchLegacyToken(ticker);
+    this.props.fetchToken(ticker);
+    this.props.fetchProviders(ticker);
   }
 
   render() {
-    const { isTokenFetched, providers, route, token, account } = this.props;
+    const {
+      isTokenFetched,
+      providers,
+      route,
+      token,
+      account,
+      legacyToken,
+    } = this.props;
 
     if (!isTokenFetched) {
       // TODO @bshevchenko: why is this here?
       // NOTE @monitz87: if you don't know, how do you expect us to?
       return <span />;
     }
+
+    if (legacyToken) {
+      return <MigrateTokenPage />;
+    }
+
     // $FlowFixMe
     if (isTokenFetched && (token === null || token.owner !== account)) {
       return <NotFoundPage />;

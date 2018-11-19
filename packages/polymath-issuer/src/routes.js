@@ -1,5 +1,5 @@
 // @flow
-import { NotFoundPage } from '@polymathnetwork/ui';
+import { NotFoundPage, MaintenancePage } from '@polymathnetwork/ui';
 
 import App from './components/App';
 import Dashboard from './components/Dashboard';
@@ -47,6 +47,11 @@ export default [
             component: NotFoundPage,
           },
         ],
+      },
+      {
+        path: '/maintenance',
+        component: MaintenancePage,
+        exact: true,
       },
       {
         component: NotFoundPage,

@@ -4,14 +4,15 @@ import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Tooltip, Toggle, Button } from 'carbon-components-react';
+import { iconAddSolid } from 'carbon-icons';
+import BigNumber from 'bignumber.js';
 import {
   Box,
   Grid,
   DynamicTable,
-  icoAdd,
   FormItem,
+  FormItemGroup,
   NumberInput,
-  PercentageInput,
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
 
@@ -39,14 +40,6 @@ const headers = [
   {
     key: 'tokenPrice',
     header: 'Token Price',
-  },
-  {
-    key: 'discountedTokensAmount',
-    header: 'Max Number of Discounted Tokens',
-  },
-  {
-    key: 'discountedTokensPercentage',
-    header: 'POLY Discount',
   },
   {
     key: 'totalRaise',
@@ -89,9 +82,25 @@ class InvestmentTiers extends React.Component<Props, State> {
 
     // Reset tiers data when changing mode
     const newValue = {
-      ...value,
       isMultipleTiers,
-      tiers: [],
+      /**
+       * NOTE @monitz87: If switching back to single tier, we repopulate the array
+       * to have initial values in the single-tier form for validation
+       */
+      tiers: isMultipleTiers
+        ? []
+        : [
+            {
+              tokensAmount: null,
+              tokenPrice: null,
+            },
+          ],
+      newTier: isMultipleTiers
+        ? {
+            tokensAmount: null,
+            tokenPrice: null,
+          }
+        : null,
     };
 
     setFieldTouched(name, false);
@@ -109,33 +118,32 @@ class InvestmentTiers extends React.Component<Props, State> {
   render() {
     const {
       field: { value, name },
+      form: { touched, errors },
       ticker,
     } = this.props;
     const { isAddingTier } = this.state;
 
     const tableItems = map(compact(value.tiers), (tier, tierNum) => {
+      const tokenPrice = tier.tokenPrice || new BigNumber(0);
+      const tokensAmount = tier.tokensAmount || new BigNumber(0);
+      const tierNo = `${tierNum + 1}`;
+
       return {
         ...tier,
-        tokensAmount: format.toTokens(tier.tokensAmount, { decimals: 0 }),
-        tokenPrice: format.toUSD(tier.tokenPrice),
-        discountedTokensAmount: format.toTokens(tier.discountedTokensAmount, {
-          decimals: 0,
-        }),
-        discountedTokensPercentage: format.toPercent(tier.discountedTokensRate),
-        totalRaise: format.toUSD(tier.tokenPrice * tier.tokensAmount),
-        tier: tierNum + 1,
-        id: tierNum + 1,
+        tokensAmount: format.toTokens(tokensAmount, { decimals: 0 }),
+        tokenPrice: format.toUSD(tokenPrice),
+        totalRaise: format.toUSD(tokenPrice.times(tokensAmount)),
+        tier: tierNo,
+        id: tierNo,
       };
     });
 
     const defaultTableItem = [
       {
-        discountedTokensAmount: '-',
-        discountedTokensPrice: '-',
         tokenPrice: '-',
         tokensAmount: '-',
         tier: '-',
-        id: 0,
+        id: '0',
         totalRaise: '-',
       },
     ];
@@ -172,10 +180,10 @@ class InvestmentTiers extends React.Component<Props, State> {
                   <Tooltip triggerText="Number of tokens">
                     <p className="bx--tooltip__label">Number of tokens</p>
                     <p>
-                      Hard Cap is the maximum number of tokens available through
-                      this offering. e.g. if you want the total aggregate of
-                      your investors in this offering to own 10 million tokens,
-                      enter 10000000.
+                      Number of tokens to be sold in this tier. All tokens in
+                      the tier will carry the same price and need to be sold for
+                      the STO to move to the next tier (if multiple tiers are
+                      defined).
                     </p>
                   </Tooltip>
                 </FormItem.Label>
@@ -183,6 +191,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   FormikComponent={Field}
                   component={NumberInput}
                   placeholder="Enter amount"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -193,36 +202,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   component={NumberInput}
                   placeholder="Enter amount"
                   unit="USD"
-                />
-                <FormItem.Error />
-              </FormItem>
-            </Grid>
-            <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-              <FormItem name={`${name}.tiers[0].discountedTokensAmount`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Number of discounted tokens">
-                    <p className="bx--tooltip__label">
-                      Maximum Number of Discounted tokens
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  component={NumberInput}
-                  placeholder="Enter amount"
-                />
-                <FormItem.Error />
-              </FormItem>
-              <FormItem name={`${name}.tiers[0].discountedTokensRate`}>
-                <FormItem.Label>
-                  <Tooltip triggerText="Discount for Tokens Purchased with POLY">
-                    <p className="bx--tooltip__label">
-                      Discount for Tokens Purchased with POLY
-                    </p>
-                  </Tooltip>
-                </FormItem.Label>
-                <FormItem.Input
-                  component={PercentageInput}
-                  placeholder="Enter percentage"
+                  useBigNumbers
                 />
                 <FormItem.Error />
               </FormItem>
@@ -230,45 +210,52 @@ class InvestmentTiers extends React.Component<Props, State> {
           </Fragment>
         ) : (
           <Box mb={3}>
-            <DynamicTable
-              rows={tableItems.length ? tableItems : defaultTableItem}
-              headers={headers}
-              render={({ rows, headers, getHeaderProps }) => (
-                <TableContainer>
-                  <Box textAlign="right" mb={3}>
-                    <Button
-                      icon={icoAdd}
-                      onClick={this.handleAddNewTier.bind(this)}
-                    >
-                      Add new
-                    </Button>
-                  </Box>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        {headers.map(header => (
-                          <TableHeader
-                            {...getHeaderProps({ header })}
-                            type="button"
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map(row => (
-                        <TableRow key={row.id}>
-                          {row.cells.map(cell => (
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
+            <FormItemGroup>
+              <DynamicTable
+                rows={tableItems.length ? tableItems : defaultTableItem}
+                headers={headers}
+                render={({ rows, headers, getHeaderProps }) => (
+                  <TableContainer>
+                    <Box textAlign="right" mb={3}>
+                      <Button
+                        icon={iconAddSolid}
+                        onClick={this.handleAddNewTier.bind(this)}
+                      >
+                        Add new
+                      </Button>
+                    </Box>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          {headers.map(header => (
+                            <TableHeader
+                              {...getHeaderProps({ header })}
+                              type="button"
+                            >
+                              {header.header}
+                            </TableHeader>
                           ))}
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-            />
+                      </TableHead>
+                      <TableBody>
+                        {rows.map(row => (
+                          <TableRow key={row.id}>
+                            {row.cells.map(cell => (
+                              <TableCell key={cell.id}>{cell.value}</TableCell>
+                            ))}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
+              />
+              <FormItem.Error
+                name="investmentTiers.tiers"
+                errors={errors}
+                touched={touched}
+              />
+            </FormItemGroup>
           </Box>
         )}
         <FieldArray
@@ -278,7 +265,7 @@ class InvestmentTiers extends React.Component<Props, State> {
               name="investmentTiers.newTier"
               ticker={ticker}
               component={AddTierModal}
-              title={`Add the Investment Tier #${value.tiers.length}`}
+              title={`Add the Investment Tier #${value.tiers.length + 1}`}
               isOpen={isAddingTier}
               onAdd={push}
               onClose={this.handleClose}

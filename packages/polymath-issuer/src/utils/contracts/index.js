@@ -260,8 +260,11 @@ export async function setupSTOModule(
 ) {
   const { address, setupCost } = stoModule;
 
-  // TODO @RafaelVidaurre: tokenAddress.balance should be used to verify
-  await PolyToken.transfer(tokenAddress, setupCost);
+  const balance = await PolyToken.balanceOf(tokenAddress);
+
+  if (balance.lt(setupCost)) {
+    await PolyToken.transfer(tokenAddress, setupCost);
+  }
 
   const encodeParams = {
     startTime: toUnixTimestamp(configValues.startsAt),
@@ -278,9 +281,8 @@ export async function setupSTOModule(
     usdToken: configValues.usdTokenAddress,
   };
 
-  const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
-
   const securityToken = new SecurityToken(tokenAddress);
+  const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
 
   await securityToken._tx(
     securityToken._methods.addModule(

@@ -168,11 +168,10 @@ class MintTokens extends Component<Props> {
     this.props.confirm(
       <div>
         <p>
-          Note that manual minting will no longer be available once you schedule
-          an offering (STO) for this token. All tokens sold during the offering
-          will be minted as soon as the funds are received by the smart contract
-          and according to the rate you will define when scheduling your STO.
-          Your Token&apos;s total supply will therefore be:
+          All tokens sold during the offering will be minted as soon as the
+          funds are received by the smart contract and according to the rate you
+          will define when scheduling your STO. Your Token&apos;s total supply
+          will therefore be:
         </p>
         <p>
           • Total number of tokens minted manually + total number of tokens sold
