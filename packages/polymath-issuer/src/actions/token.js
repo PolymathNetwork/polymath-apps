@@ -193,13 +193,13 @@ export const issue = (isLimitNI: boolean) => async (
           {isLimitNI ? 'three' : 'two'} wallet transactions.
         </p>
         <p>
-          • The first transaction will be used to pay for the token creation
-          cost of:
+          • The first transaction will be used to prepare for the payment of the
+          token creation cost of:
         </p>
         <div className="bx--details poly-cost">{feeView} POLY</div>
         <p>
-          • The second transaction will be used to pay the mining fee (aka gas
-          fee) to complete the creation of your token.
+          • The second transaction will be used to pay for the token creation
+          cost (POLY + mining fee) to complete the creation of your token.
         </p>
         {isLimitNI && (
           <p>
