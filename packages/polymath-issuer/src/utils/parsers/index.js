@@ -83,8 +83,11 @@ export function parseWhitelistCsv(file: string) {
         }
         return null;
       }
-      if (value.toLocaleLowerCase() === 'true') {
+      if (value.toLowerCase() === 'true') {
         return true;
+      }
+      if (value.toLowerCase() === 'false') {
+        return false;
       }
       if (value.split('/').length === 3) {
         const [rawMonth, day, rawYear] = value.split('/');
