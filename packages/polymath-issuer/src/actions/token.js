@@ -233,8 +233,13 @@ export const issue = (isLimitNI: boolean) => async (
           SecurityTokenRegistry.address
         );
         const { values } = getState().form[completeFormName];
-        console.log(values.investorsNumber);
-        console.log(Number(values.investorsNumber));
+        // console.log(values.investorsNumber);
+        // console.log(Number(values.investorsNumber));
+        const maxHoldersCount = parseInt(
+          values.investorsNumber.toString().replace(/,/g, ''),
+          10
+        );
+        // console.log(maxHoldersCount)
 
         //Skip approve transaction if transfer is already allowed
         let title = ['Creating Security Token'];
@@ -249,6 +254,8 @@ export const issue = (isLimitNI: boolean) => async (
           // $FlowFixMe
           return dispatch(fetch(ticker, isLimitNI ? token : undefined));
         };
+
+        console.log(token);
 
         dispatch(
           ui.tx(
@@ -266,7 +273,7 @@ export const issue = (isLimitNI: boolean) => async (
               if (isLimitNI) {
                 token = await SecurityTokenRegistry.getTokenByTicker(ticker);
                 try {
-                  await token.contract.setCountTM(values.investorsNumber);
+                  await token.contract.setCountTM(maxHoldersCount);
                 } catch (err) {
                   throw new Error(
                     'Error limiting the number of investors. Please click on "Continue" to proceed to the next step where you can enable this limit.'
