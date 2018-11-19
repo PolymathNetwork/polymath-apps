@@ -8,6 +8,7 @@ import Web3 from 'web3';
 import Contract from '@polymathnetwork/js';
 import USDTieredSTOArtifacts from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTO.json';
 import { FUND_RAISE_TYPES, EVENT_TYPES } from '../../constants';
+import { toWei } from './index';
 
 import type {
   USDTieredSTO as USDTieredSTOType,
@@ -114,6 +115,7 @@ export default class USDTieredSTO {
    * @param limits limits to set for each address matched by index
    */
   async changeNonAccreditedLimit(addresses: string[], limits: BigNumber[]) {
+    const limitsInWei = limits.map(toWei);
     await this.legacyContractInstance._tx(
       this.contract.methods.changeNonAccreditedLimit(addresses, limits)
     );
