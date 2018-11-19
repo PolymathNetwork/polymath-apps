@@ -60,7 +60,7 @@ export const CappedSTOScheduled = ({
         <h3>Additional details of your Security Token Offering are below:</h3>
         <div className="value">
           <strong>Scheduled start</strong>
-          <p>{moment(start).format('MM/DD/YYYY')}</p>
+          <p>{moment(start).format('MM/DD/YYYY [GMT]Z')}</p>
         </div>
         <div className="value">
           <strong>
