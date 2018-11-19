@@ -17,11 +17,13 @@ describe('NumberInput', () => {
   });
 
   afterEach(() => {
-    warnSpy.mockRestore();
+    warnSpy.mockReset();
   });
 
   test('renders without crashing ', () => {
-    const { container } = render(<NumberInput name="foo" value={12344.555} />);
+    const { container } = render(
+      <NumberInput min={0} name="foo" value={12344.555} />
+    );
 
     expect(container.firstChild).toMatchSnapshot();
   });

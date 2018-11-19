@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { get } from 'lodash';
-import { Field } from 'formik';
 import {
   ModalHeader,
   ModalBody,
@@ -13,11 +12,9 @@ import {
 import BigNumber from 'bignumber.js';
 import {
   Grid,
-  Box,
   Modal,
   FormItem,
   NumberInput,
-  PercentageInput,
   Paragraph,
   RaisedAmount,
 } from '@polymathnetwork/ui';
@@ -25,30 +22,54 @@ import {
 class AddTierModal extends Component {
   handleOnAdd = () => {
     const {
-      field,
+      field: { name, value },
       form: { errors, setFieldValue, setFieldTouched },
+      onAdd,
+      onClose,
     } = this.props;
-    const isValid = !get(errors, field.name);
+
+    const isValid = !get(errors, name);
 
     if (isValid) {
-      setFieldValue(field.name, null);
-      this.props.onAdd(field.value);
-      setFieldTouched(field.name, false);
-      this.props.onClose();
+      setFieldValue(name, null);
+      onAdd(value);
+      setFieldTouched(name, false);
+      onClose();
+    } else {
+      setFieldTouched(`${name}.tokensAmount`, true);
+      setFieldTouched(`${name}.tokenPrice`, true);
     }
   };
+
+  componentDidUpdate(prevProps) {
+    const {
+      field: { name },
+      form: { setFieldValue, setFieldTouched },
+    } = this.props;
+
+    /**
+     * NOTE @monitz87: If opening the modal, we repopulate the newTier
+     * object to have intial values in the modal form for validation.
+     */
+    if (!prevProps.isOpen && this.props.isOpen) {
+      // NOTE @RafaelVidaurre: Hack to fix bug with Formik not recreating the
+      // errors object for this field
+      setFieldTouched(name, false);
+
+      setFieldValue(name, { tokensAmount: null, tokenPrice: null });
+    }
+  }
+
   render() {
     const {
       field: { name, value },
       form: { values },
       ticker,
+      isOpen,
+      onClose,
+      title,
     } = this.props;
 
-    let disabled = false;
-
-    if (!value) {
-      disabled = true;
-    }
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
     const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
@@ -58,8 +79,8 @@ class AddTierModal extends Component {
     const tierUsdAmount = tokenPrice.times(tierTokensAmount);
 
     return (
-      <Modal isOpen={this.props.isOpen} onClose={this.props.onClose}>
-        <ModalHeader title={this.props.title} closeModal={this.props.onClose} />
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalHeader title={title} closeModal={onClose} />
         <ModalBody>
           <Paragraph>
             Each tier includes a fixed number of tokens and a fixed price per
@@ -111,16 +132,10 @@ class AddTierModal extends Component {
         </ModalBody>
 
         <ModalFooter>
-          <Button
-            className="cancel-btn"
-            kind="secondary"
-            onClick={this.props.onClose}
-          >
+          <Button className="cancel-btn" kind="secondary" onClick={onClose}>
             Cancel
           </Button>
-          <Button disabled={disabled} onClick={this.handleOnAdd}>
-            Add new
-          </Button>
+          <Button onClick={this.handleOnAdd}>Add new</Button>
         </ModalFooter>
       </Modal>
     );

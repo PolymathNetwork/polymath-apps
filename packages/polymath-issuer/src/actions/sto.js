@@ -321,7 +321,7 @@ export const configure = values => async (
         //Skip approve transaction if transfer is already allowed
         let title = ['Deploying And Scheduling'];
         if (balance.lt(fee)) {
-          title.unshift('Approving POLY Spend');
+          title.unshift('Transferring POLY');
         }
 
         dispatch(
@@ -475,25 +475,24 @@ export const exportInvestorsList = () => async (
           let csvContent;
 
           // TODO @RafaelVidaurre: Dry and abstract this better
-          // FIXME @RafaelVidaurre: Adapt when new CSV exports are merged
           if (contract instanceof USDTieredSTO) {
             csvContent =
-              'data:text/csv;charset=utf-8,Address,Tokens Purchased,USD Amount Invested,Tier Number,Tier Price';
+              'Address,Tokens Purchased,USD Amount Invested,Tier Number,Tier Price';
 
-            purchases.forEach((purchase: STOPurchase) => {
+            purchases.forEach((purchase: object) => {
               csvContent +=
                 '\r\n' +
                 [
                   purchase.investor,
-                  purchase.tokens.toFormat(2),
-                  purchase.usd.toFormat(2),
+                  purchase.tokens.toFixed(),
+                  purchase.usd.toFixed(),
                   purchase.tier,
-                  purchase.tierPrice.toFormat(2),
+                  purchase.tierPrice.toFixed(),
                 ].join(',');
             });
           } else {
             csvContent =
-              'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
+              'Address,Transaction Hash,Tokens Purchased,Amount Invested';
 
             purchases.forEach((purchase: STOPurchase) => {
               csvContent +=
@@ -510,7 +509,7 @@ export const exportInvestorsList = () => async (
           const blob = new Blob([csvContent], {
             type: 'text/csv;charset=utf-8',
           });
-          FileSaver.saveAs(blob, 'mintedTokenList.csv');
+          FileSaver.saveAs(blob, 'investorsList.csv');
 
           dispatch(ui.fetched());
         } catch (e) {

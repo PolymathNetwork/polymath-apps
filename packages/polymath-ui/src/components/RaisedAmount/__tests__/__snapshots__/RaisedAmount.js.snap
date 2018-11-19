@@ -2,22 +2,22 @@
 
 exports[`renders without crashing 1`] = `
 <div
-  class="sc-htpNat kOpwYP"
+  class="sc-bwzfXH iZACQz"
 >
   <h4
-    class="sc-bwzfXH hEfZSf"
+    class="sc-bdVaJa ZKgMW"
     font-size="1"
   >
     a title
   </h4>
-  <div
-    class="sc-bwzfXH jJQfzh"
+  <p
+    class="sc-bdVaJa bHdiET"
     font-size="5"
   >
     555 PRIM
-  </div>
+  </p>
   <span
-    class="sc-bxivhb kXRgtx"
+    class="sc-htpNat fPrvfr"
   >
     111 TOK
   </span>

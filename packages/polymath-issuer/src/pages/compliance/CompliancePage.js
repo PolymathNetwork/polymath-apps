@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import DocumentTitle from 'react-document-title';
+import moment from 'moment';
 import {
   etherscanAddress,
   addressShortifier,
@@ -299,30 +300,44 @@ class CompliancePage extends Component<Props, State> {
                   <th>Purchase</th>
                   <th>KYC/AML</th>
                   <th>Can buy from STO</th>
-                  {!isPercentagePaused ? <th>Exempt From % Ownership</th> : ''}
+                  <th>Exempt From % Ownership</th>
+                  <th>Is Accredited</th>
+                  <th>Non-Accredited Limit</th>
                 </tr>
               </thead>
               <tbody>
                 {criticals.map(
-                  ([
-                    id,
-                    address,
-                    sale,
-                    purchase,
-                    expiry,
-                    canBuyFromSTO,
-                    isPercentage,
-                  ]: InvestorCSVRow) => (
-                    <tr key={id}>
-                      <td>{id}</td>
-                      <td>{addressShortifier(address)}</td>
-                      <td>{sale}</td>
-                      <td>{purchase}</td>
-                      <td>{expiry}</td>
-                      <td>{canBuyFromSTO}</td>
-                      {!isPercentagePaused ? <td>{isPercentage}</td> : ''}
-                    </tr>
-                  )
+                  (
+                    {
+                      address,
+                      sellLockupDate,
+                      buyLockupDate,
+                      kycAmlExpiryDate,
+                      canBuyFromSto,
+                      bypassesOwnershipRestriction,
+                      accredited,
+                      nonAccreditedLimit,
+                    }: InvestorCSVRow,
+                    idx
+                  ) => {
+                    const nonAccreditedLimitView =
+                      nonAccreditedLimit &&
+                      nonAccreditedLimit.toFormat &&
+                      nonAccreditedLimit.toFormat();
+                    return (
+                      <tr key={address}>
+                        <td>{`${idx + 1}`}</td>
+                        <td>{addressShortifier(address)}</td>
+                        <td>{dateFormat(sellLockupDate)}</td>
+                        <td>{dateFormat(buyLockupDate)}</td>
+                        <td>{dateFormat(kycAmlExpiryDate)}</td>
+                        <td>{canBuyFromSto ? 'true' : ''}</td>
+                        <td>{bypassesOwnershipRestriction ? 'true' : ''}</td>
+                        <td>{accredited ? 'true' : ''}</td>
+                        <td>{nonAccreditedLimitView}</td>
+                      </tr>
+                    );
+                  }
                 )}
               </tbody>
             </table>
