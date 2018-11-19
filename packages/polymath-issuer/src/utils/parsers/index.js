@@ -35,6 +35,7 @@ function isInvalidBoolean(value: boolean | null) {
   return typeof value !== 'boolean' && value !== null;
 }
 
+// TODO @RafaelVidaurre: Have a better schema-based validation for csv parsers
 export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
   const addressCounts = {};
   each(rows, ({ address }) => {
