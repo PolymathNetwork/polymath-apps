@@ -219,7 +219,7 @@ export const exportWhitelist = () => async (
         transferManager,
         percentageTM: { contract: percentageTM },
       },
-    } = getState().whitelist;
+    } = getState();
 
     const investors = await transferManager.getWhitelist();
 
