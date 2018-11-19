@@ -115,9 +115,9 @@ export default class USDTieredSTO {
    * @param limits limits to set for each address matched by index
    */
   async changeNonAccreditedLimit(addresses: string[], limits: BigNumber[]) {
-    const limitsInWei = limits.map(toWei);
+    const limitsInWei = limits.map(limit => toWei(limit.toFixed()));
     await this.legacyContractInstance._tx(
-      this.contract.methods.changeNonAccreditedLimit(addresses, limits)
+      this.contract.methods.changeNonAccreditedLimit(addresses, limitsInWei)
     );
   }
 
