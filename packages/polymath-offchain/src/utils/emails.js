@@ -180,7 +180,7 @@ export const sendTokenCreatedEmail = async (
  * @param {string} fundsReceiver wallet address that investment funds will be transferred to
  * @param {boolean} isPolyFundraise true if the funds are raised in POLY, false if they are raised in ETH
  * @param {number} rate conversion rate between currency of choice and the issuer's security token
- * @param {Date} start start date of the STO
+ * @param {number} start start time of the STO as a unix timestamp
  * @param {string} networkId id of the network in which the STO was scheduled
  */
 export const sendCappedSTOScheduledEmail = async (
@@ -192,7 +192,7 @@ export const sendCappedSTOScheduledEmail = async (
   fundsReceiver: string,
   isPolyFundraise: boolean,
   rate: number,
-  start: Date,
+  start: number,
   networkId: string
 ) => {
   await sendEmail(
@@ -222,7 +222,7 @@ export const sendCappedSTOScheduledEmail = async (
  * @param {string} txHash transaction hash
  * @param {string} ticker name of the issuer's security token
  * @param {string} fundsReceiver wallet address that investment funds will be transferred to
- * @param {Date} start start date of the STO
+ * @param {number} start start time of the STO as a unix timestamp
  * @param {string} networkId id of the network in which the STO was scheduled
  */
 export const sendUSDTieredSTOScheduledEmail = async (
@@ -231,7 +231,7 @@ export const sendUSDTieredSTOScheduledEmail = async (
   txHash: string,
   ticker: string,
   fundsReceiver: string,
-  start: Date,
+  start: number,
   networkId: string
 ) => {
   await sendEmail(

@@ -8,7 +8,7 @@ import { POLYMATH_ISSUER_URL, POLYMATH_OFFCHAIN_URL } from '../constants';
 
 type Props = {|
   ticker: string,
-  start: Date,
+  start: number,
   fundsReceiver: string,
   txHash: string,
   networkId: string,
@@ -41,7 +41,12 @@ export const USDTieredSTOScheduled = ({
       <h3>Additional details of your Security Token Offering are below:</h3>
       <div className="value">
         <strong>Scheduled start</strong>
-        <p>{moment(start).format('MM/DD/YYYY [GMT]Z')}</p>
+        <p>
+          {moment
+            .unix(start)
+            .utc()
+            .format('MM/DD/YYYY [at] HH:mm [GMT]')}
+        </p>
       </div>
       <div className="value">
         <strong>ETH Address to receive the funds raised during the STO</strong>

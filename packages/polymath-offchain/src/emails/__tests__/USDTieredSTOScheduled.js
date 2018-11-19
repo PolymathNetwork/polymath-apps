@@ -4,7 +4,7 @@ import { USDTieredSTOScheduled } from '../USDTieredSTOScheduled';
 
 describe('Component: USDTieredSTOScheduled', () => {
   const ticker = 'SOMETICK';
-  const start = new Date('10/14/1987');
+  const start = 561168000;
   const fundsReceiver = '0xffffffffffffffff';
   const txHash = '0xeeeeeeeeeeeeeeee';
   const networkId = '15';
