@@ -4,7 +4,7 @@ import { CappedSTOScheduled } from '../CappedSTOScheduled';
 
 describe('Component: CappedSTOScheduled', () => {
   const ticker = 'SOMETICK';
-  const start = new Date('10/14/1987');
+  const start = 561168000;
   const cap = 1000000;
   const rate = 1000;
   const isPolyFundraise = true;

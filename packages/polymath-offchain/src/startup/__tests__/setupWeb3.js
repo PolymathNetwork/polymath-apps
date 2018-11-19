@@ -939,7 +939,7 @@ describe('Function: moduleAddedHandler', () => {
       validWalletAddress,
       validIsPolyFundraise,
       validRate,
-      new Date(validStart * 1000),
+      validStart,
       validNetworkId
     );
   });
@@ -973,7 +973,7 @@ describe('Function: moduleAddedHandler', () => {
       validTxHash,
       validTicker,
       validWalletAddress,
-      new Date(validStart * 1000),
+      validStart,
       validNetworkId
     );
   });
