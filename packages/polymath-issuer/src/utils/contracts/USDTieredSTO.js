@@ -103,8 +103,10 @@ export default class USDTieredSTO {
    * @param statuses statuses for each address matched by index
    */
   async changeAccredited(addresses: string[], statuses: boolean[]) {
+    const checksumAddresses = addresses.map(Web3.utils.toChecksumAddress);
+
     await this.legacyContractInstance._tx(
-      this.contract.methods.changeAccredited(addresses, statuses)
+      this.contract.methods.changeAccredited(checksumAddresses, statuses)
     );
   }
 
