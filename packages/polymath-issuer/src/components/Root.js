@@ -3,13 +3,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
-import { Loading } from 'carbon-components-react';
-import { renderRoutes } from 'react-router-config';
+import { Router } from '@reach/router';
 import { hot } from 'react-hot-loader';
 import type { RouterHistory } from 'react-router-dom';
 import {
   MetamaskStatus,
   NotSupportedPage,
+  NotFoundPage,
   ErrorBoundary,
   EthNetworkWrapper,
   setupHistory,
@@ -19,7 +19,10 @@ import {
   KOVAN_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
 
-import SplashPage from './SplashPage';
+import App from '../components/App';
+import ProtectedPages from '../components/ProtectedPages';
+import Home from '../pages/home';
+import RegisterTicker from '../pages/ticker';
 
 type StateProps = {|
   isNotice: boolean,
@@ -51,7 +54,6 @@ class Root extends Component<Props> {
   }
 
   render() {
-    const { routes, location } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
@@ -59,22 +61,16 @@ class Root extends Component<Props> {
       <ErrorBoundary>
         {isMobile || isUnsupportedBrowser ? (
           <NotSupportedPage />
-        ) : location.pathname === '/' ? (
-          <SplashPage />
         ) : (
-          <EthNetworkWrapper
-            networks={networks}
-            Loading={<Loading />}
-            errorRender={({ networkError, onRequestAuth }) => (
-              <MetamaskStatus
-                networks="Mainnet or Kovan"
-                status={networkError}
-                onRequestAuth={onRequestAuth}
-              />
-            )}
-          >
-            {renderRoutes(routes)}
-          </EthNetworkWrapper>
+          <App>
+            <Router>
+              <Home path="/" />
+              <ProtectedPages path="/*" networks={networks}>
+                <RegisterTicker path="ticker" />
+              </ProtectedPages>
+              <NotFoundPage default />
+            </Router>
+          </App>
         )}
       </ErrorBoundary>
     );

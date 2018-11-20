@@ -17,7 +17,6 @@ import store, { history } from './redux/store';
 import { unregister } from './registerServiceWorker';
 
 import { SENTRY_KEY } from './constants';
-import routes from './routes';
 
 unregister();
 
@@ -33,7 +32,7 @@ render(
       <ThemeProvider theme={theme}>
         <Fragment>
           <GlobalStyles />
-          <Root routes={routes} history={history} />
+          <Root history={history} />
         </Fragment>
       </ThemeProvider>
     </ConnectedRouter>
