@@ -231,6 +231,14 @@ export const issue = (isLimitNI: boolean) => async (
           SecurityTokenRegistry.account,
           SecurityTokenRegistry.address
         );
+        const { values } = getState().form[completeFormName];
+
+        if (isLimitNI) {
+          values.investorsNumber = parseInt(
+            values.investorsNumber.toString().replace(/,/g, ''),
+            10
+          );
+        }
 
         //Skip approve transaction if transfer is already allowed
         let title = ['Creating Security Token'];
