@@ -6,6 +6,7 @@ import {
   lineHeight,
   letterSpacing,
   fontSize,
+  textAlign,
 } from 'styled-system';
 
 export const Paragraph = styled.p(
@@ -14,7 +15,8 @@ export const Paragraph = styled.p(
   fontWeight,
   lineHeight,
   letterSpacing,
-  fontSize
+  fontSize,
+  textAlign
 );
 
 export default Paragraph;
