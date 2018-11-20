@@ -1,8 +1,13 @@
 // @flow
-import BigNumber from 'bignumber.js';
 import React, { Component } from 'react';
+import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
+
+import PageWrap from '../PageWrap';
+import Flex from '../Flex';
+import Block from '../Block';
 
 import { thousandsDelimiter, addressShortifier } from '../../helpers';
 
@@ -35,49 +40,58 @@ type Props = {|
   logo: ?string,
 |} & StateProps;
 
+const Container = styled(Flex)`
+  height: ${({ theme }) => theme.navbar.height};
+`;
+
 class Navbar extends Component<Props> {
   render() {
     const { balance, account, network, ticker, logo } = this.props;
     return (
       <div className="pui-navbar">
-        <Link to="/">
-          <div className="pui-navbar-logo">
-            {logo ? (
-              <img src={logo} alt="Company Logo" />
-            ) : (
-              <img src={polyLogo} alt="Polymath" />
-            )}
-          </div>
-        </Link>
-        <ul className="pui-navbar-menu">
-          <li>
-            <img
-              src={networkIcon}
-              alt="Active network"
-              style={{ marginRight: '2px' }}
-            />
-            {network}
-          </li>
-          <li>
-            <img src={polyIcon} alt="Your POLY balance" />
-            {balance
-              ? thousandsDelimiter(new BigNumber(balance).integerValue()) +
-                ' POLY'
-              : '...'}
-          </li>
-          <li>
-            <img src={accountIcon} alt="Account" />
-            {addressShortifier(account)}
-          </li>
-          {ticker ? (
-            <li>
-              <img src={tokenIcon} alt="Token" />
-              {ticker}
-            </li>
-          ) : (
-            ''
-          )}
-        </ul>
+        <PageWrap>
+          <Container>
+            <Link to="/">
+              {logo ? (
+                <Block as="img" src={logo} alt="Company Logo" width="188" />
+              ) : (
+                <Block as="img" src={polyLogo} alt="Polymath" width="188" />
+              )}
+            </Link>
+            {account ? (
+              <Flex as="ul" ml="auto" className="pui-navbar-menu">
+                <li>
+                  <img
+                    src={networkIcon}
+                    alt="Active network"
+                    style={{ marginRight: '2px' }}
+                  />
+                  {network}
+                </li>
+                <li>
+                  <img src={polyIcon} alt="Your POLY balance" />
+                  {balance
+                    ? thousandsDelimiter(
+                        new BigNumber(balance).integerValue()
+                      ) + ' POLY'
+                    : '...'}
+                </li>
+                <li>
+                  <img src={accountIcon} alt="Account" />
+                  {addressShortifier(account)}
+                </li>
+                {ticker ? (
+                  <li>
+                    <img src={tokenIcon} alt="Token" />
+                    {ticker}
+                  </li>
+                ) : (
+                  ''
+                )}
+              </Flex>
+            ) : null}
+          </Container>
+        </PageWrap>
       </div>
     );
   }

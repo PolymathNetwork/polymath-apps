@@ -10,17 +10,7 @@
     float: left;
   }
 
-  .pui-navbar-logo {
-    margin-top: 9px;
-    margin-left: 120px;
-    width: 188px;
-  }
-
   .pui-navbar-menu {
-    float: right;
-    margin-right: 56px;
-    margin-top: 11px;
-
     li {
       display: inline-flex;
       align-items: center;
@@ -35,9 +25,5 @@
         margin-right: 8px;
       }
     }
-  }
-
-  &.pui-navbar-notice {
-    margin-top: $navbar-height;
   }
 }
