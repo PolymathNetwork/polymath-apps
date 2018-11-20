@@ -371,7 +371,13 @@ $css--body: false;
 .bx--date-picker {
   .bx--date-picker__icon {
     fill: $poly-blue;
-    top: 2.5rem;
+    top: 2.6rem;
+    left: 0.9rem;
+    pointer-events: none;
+  }
+
+  .bx--date-picker__icon ~ .bx--date-picker__input {
+    padding-left: 2.6rem;
   }
 
   .bx--date-picker__input {
@@ -387,6 +393,14 @@ $css--body: false;
       padding: 10px 13px 8px 16px;
     }
   }
+}
+
+// Hack to avoid a bug where "invalid date" appear if nextMonthDay is clicked
+.bx--date-picker__days .nextMonthDay,
+.bx--date-picker__days .prevMonthDay,
+.bx--date-picker__day.disabled,
+.flatpickr-day.disabled {
+  pointer-events: none;
 }
 
 .bx--search-input {
@@ -466,6 +480,16 @@ $css--body: false;
   .pui-single-box-bull {
     top: 25px;
     width: 254px;
+  }
+
+  .pui-single-box-new-version-bull {
+    margin-bottom: -30px;
+    margin-left: -26px;
+    width: 309px;
+
+    img {
+      width: 100%;
+    }
   }
 
   .pui-single-box-metamask {
@@ -583,6 +607,7 @@ $css--body: false;
 .pui-tx-modal {
   .bx--modal-container {
     width: 500px;
+    max-height: 90%;
   }
 
   .bx--modal-close {

@@ -4,6 +4,7 @@ name: FormItem
 
 import { PropsTable } from 'docz';
 import { Formik, FastField } from 'formik';
+import * as Yup from 'yup';
 
 import Playground from '../DoczPlayground';
 import TextInput from '../inputs/TextInput';
@@ -16,15 +17,20 @@ import FormItem from './';
 ## Basic usage
 
 <Playground>
-  <Formik render={() => (
-    <FormItem name="textInput">
-      <FormItem.Label>The label</FormItem.Label>
-      <FormItem.Input
-        formikComponent={FastField}
-        component={TextInput} 
-        placeholder="Placeholder"
-      />
-      <FormItem.Error />
-    </FormItem>
-  )} />
+  <Formik
+    validationSchema={Yup.object().shape({
+      textInput: Yup.string().required(),
+    })}
+    render={() => (
+      <FormItem name="textInput">
+        <FormItem.Label>The label</FormItem.Label>
+        <FormItem.Input
+          formikComponent={FastField}
+          component={TextInput}
+          placeholder="Placeholder"
+        />
+        <FormItem.Error />
+      </FormItem>
+    )}
+  />
 </Playground>

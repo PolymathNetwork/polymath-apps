@@ -9,7 +9,8 @@ import {
   ProviderApplication,
   TickerReserved,
   TokenCreated,
-  STOScheduled,
+  CappedSTOScheduled,
+  USDTieredSTOScheduled,
   AccountConfirmation,
 } from '../emails';
 import { SENDGRID_API_KEY } from '../constants';
@@ -169,7 +170,7 @@ export const sendTokenCreatedEmail = async (
 };
 
 /**
- * Sends an email to the issuer notifying him that an STO for his token has been scheduled
+ * Sends an email to the issuer notifying him that a Capped STO for his token has been scheduled
  *
  * @param {string} issuerEmail email address of the issuer
  * @param {string} issuerName name of the issuer
@@ -179,10 +180,10 @@ export const sendTokenCreatedEmail = async (
  * @param {string} fundsReceiver wallet address that investment funds will be transferred to
  * @param {boolean} isPolyFundraise true if the funds are raised in POLY, false if they are raised in ETH
  * @param {number} rate conversion rate between currency of choice and the issuer's security token
- * @param {Date} start start date of the STO
+ * @param {number} start start time of the STO as a unix timestamp
  * @param {string} networkId id of the network in which the STO was scheduled
  */
-export const sendSTOScheduledEmail = async (
+export const sendCappedSTOScheduledEmail = async (
   issuerEmail: string,
   issuerName: string,
   txHash: string,
@@ -191,7 +192,7 @@ export const sendSTOScheduledEmail = async (
   fundsReceiver: string,
   isPolyFundraise: boolean,
   rate: number,
-  start: Date,
+  start: number,
   networkId: string
 ) => {
   await sendEmail(
@@ -199,13 +200,49 @@ export const sendSTOScheduledEmail = async (
     issuerName,
     `${ticker} STO Created on Polymath`,
     ReactDOMServer.renderToStaticMarkup(
-      <STOScheduled
+      <CappedSTOScheduled
         txHash={txHash}
         ticker={ticker}
         cap={cap}
         fundsReceiver={fundsReceiver}
         isPolyFundraise={isPolyFundraise}
         rate={rate}
+        start={start}
+        networkId={networkId}
+      />
+    )
+  );
+};
+
+/**
+ * Sends an email to the issuer notifying him that a USD Tiered STO for his token has been scheduled
+ *
+ * @param {string} issuerEmail email address of the issuer
+ * @param {string} issuerName name of the issuer
+ * @param {string} txHash transaction hash
+ * @param {string} ticker name of the issuer's security token
+ * @param {string} fundsReceiver wallet address that investment funds will be transferred to
+ * @param {number} start start time of the STO as a unix timestamp
+ * @param {string} networkId id of the network in which the STO was scheduled
+ */
+export const sendUSDTieredSTOScheduledEmail = async (
+  issuerEmail: string,
+  issuerName: string,
+  txHash: string,
+  ticker: string,
+  fundsReceiver: string,
+  start: number,
+  networkId: string
+) => {
+  await sendEmail(
+    issuerEmail,
+    issuerName,
+    `${ticker} STO Created on Polymath`,
+    ReactDOMServer.renderToStaticMarkup(
+      <USDTieredSTOScheduled
+        txHash={txHash}
+        ticker={ticker}
+        fundsReceiver={fundsReceiver}
         start={start}
         networkId={networkId}
       />

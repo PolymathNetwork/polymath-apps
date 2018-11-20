@@ -6,12 +6,12 @@ import { PropsTable } from 'docz';
 import { Formik, Field }  from 'formik';
 
 import Playground from '../../DoczPlayground';
-import Input from './Input';
-import CurrencySelect from './CurrencySelect';
+import CurrencySelectField, { CurrencySelect } from './CurrencySelect';
+import FormItem from '../../FormItem';
 
-# CurrencySelect
+# CurrencySelect Primitive
 
-<PropsTable of={Input} />
+<PropsTable of={CurrencySelect} />
 
 ## Basic usage
 
@@ -20,7 +20,7 @@ import CurrencySelect from './CurrencySelect';
     const values = ['ETH', 'DAI'];
 
     return (
-      <Input 
+      <CurrencySelect 
         placeholder="Raise in" 
         value={values}
         onChange={(values) => { console.log(values); }}
@@ -29,20 +29,21 @@ import CurrencySelect from './CurrencySelect';
   }}
 </Playground>
 
-## In form
+# CurrencySelectField
+
+<PropsTable of={CurrencySelectField} />
 
 <Playground style={{ minHeight: '400px' }}>
   {() => {
-    const values = ['ETH', 'DAI'];
+    const currencies = ['ETH', 'DAI'];
 
     return (
-      <Formik render={(values) => (
+      <Formik initialValues={{ myCurrency: currencies }} render={(formValues) => (
         <form>
-          <Field 
-            name="myText" 
-            component={CurrencySelect} 
-            onChange={(values) => { console.log(values); }} 
-          />
+          <pre>{JSON.stringify(formValues.values, null, 2)}</pre>
+          <FormItem name="myCurrency">
+            <FormItem.Input component={CurrencySelectField} placeholder="Raise in" />
+          </FormItem>
         </form>
       )} />
     );

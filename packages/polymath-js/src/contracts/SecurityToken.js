@@ -64,7 +64,12 @@ export default class SecurityToken extends Contract {
     amount: BigNumber
   ): Promise<boolean> {
     return this._methods
-      .verifyTransfer(from, to, this.addDecimals(amount))
+      .verifyTransfer(
+        from,
+        to,
+        this.addDecimals(amount),
+        Contract._params.web3.utils.fromAscii('')
+      )
       .call();
   }
 
@@ -237,7 +242,11 @@ export default class SecurityToken extends Contract {
       MODULE_TYPES.STO
     );
     const setupCost = await cappedSTOFactory.setupCost();
-    await PolyToken.transfer(this.address, setupCost);
+    const balance = await PolyToken.balanceOf(this.address);
+    //Skip transfer transaction if setupCost already paid
+    if (balance.lt(setupCost)) {
+      await PolyToken.transfer(this.address, setupCost);
+    }
     const data = Contract._params.web3.eth.abi.encodeFunctionCall(
       {
         name: 'configure',

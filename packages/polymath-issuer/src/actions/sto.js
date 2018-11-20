@@ -2,12 +2,18 @@
 
 import React from 'react';
 import FileSaver from 'file-saver';
+import { includes } from 'lodash';
 
-import { STO, CappedSTOFactory, SecurityToken } from '@polymathnetwork/js';
+import { STO, PolyToken, SecurityToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import { twelveHourTimeToMinutes } from '@polymathnetwork/ui/deprecated';
+import {
+  EMPTY_ADDRESS,
+  DAI_ADDRESSES,
+} from '@polymathnetwork/shared/constants';
 import { setupSTOModule, getTokenSTO } from '../utils/contracts';
 import USDTieredSTO from '../utils/contracts/USDTieredSTO';
+import { FUND_RAISE_TYPES } from '../constants';
 
 import type { Dispatch } from 'redux';
 import type { TwelveHourTime } from '@polymathnetwork/ui/deprecated';
@@ -221,8 +227,7 @@ export const configureSTO = (
         if (!hasEnoughBalance) {
           dispatch(
             ui.faucet(
-              `The launching of a STO has a fixed cost of ${setupCost} POLY.`,
-              setupCost
+              `The launching of a STO has a fixed cost of ${setupCost} POLY.`
             )
           );
           return;
@@ -231,21 +236,42 @@ export const configureSTO = (
         // NOTE @RafaelVidaurre: Legacy checks, verify if actually necessary
         const {
           token: { token },
+          network: { id: networkId },
         } = getState();
         if (!token) {
           return;
         }
 
+        const raisesInDai = includes(
+          config.data.currencies,
+          FUND_RAISE_TYPES.DAI
+        );
+        const daiTokenAddress = DAI_ADDRESSES[networkId];
+        const usdTokenAddress = raisesInDai ? daiTokenAddress : EMPTY_ADDRESS;
+
+        const stoModuleConfig = {
+          ...config.data,
+          usdTokenAddress,
+        };
+
+        const tokenBalance = await PolyToken.balanceOf(token.address);
+        const titles = ['Deploying And Scheduling'];
+
+        if (tokenBalance.lt(setupCost)) {
+          titles.unshift('Transferring POLY');
+        }
+
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            titles,
             async () => {
-              await setupSTOModule(stoModule, token.address, config.data);
+              await setupSTOModule(stoModule, token.address, stoModuleConfig);
             },
             'STO Configured Successfully',
             () => {
               return dispatch(fetch());
             },
+            undefined,
             `/dashboard/${token.ticker}/compliance`,
             undefined,
             false,
@@ -290,12 +316,17 @@ export const configure = values => async (
         if (!factory || !token || !token.contract) {
           return;
         }
+        const balance = await PolyToken.balanceOf(token.address);
 
-        // FIXME @RafaelVidaurre: we should NOT use
-        // redux-form's state here
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Deploying And Scheduling'];
+        if (balance.lt(fee)) {
+          title.unshift('Transferring POLY');
+        }
+
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Deploying And Scheduling'],
+            title,
             async () => {
               const contract: any = token.contract;
               const [startDate] = values.startDate;
@@ -323,6 +354,7 @@ export const configure = values => async (
             () => {
               return dispatch(fetch());
             },
+            undefined,
             `/dashboard/${token.ticker}/compliance`,
             undefined,
             false,
@@ -412,6 +444,7 @@ export const togglePauseSto = () => async (
             undefined,
             undefined,
             undefined,
+            undefined,
             true
           )
         );
@@ -439,30 +472,27 @@ export const exportInvestorsList = () => async (
           const contract = getState().sto.contract; // $FlowFixMe
           const purchases = await contract.getPurchases();
 
-          console.log('purchases', purchases);
-
           let csvContent;
 
           // TODO @RafaelVidaurre: Dry and abstract this better
-          // FIXME @RafaelVidaurre: Adapt when new CSV exports are merged
           if (contract instanceof USDTieredSTO) {
             csvContent =
-              'data:text/csv;charset=utf-8,Address,Tokens Purchased,USD Amount Invested,Tier Number,Tier Price';
+              'Address,Tokens Purchased,USD Amount Invested,Tier Number,Tier Price';
 
-            purchases.forEach((purchase: STOPurchase) => {
+            purchases.forEach((purchase: object) => {
               csvContent +=
                 '\r\n' +
                 [
                   purchase.investor,
-                  purchase.tokens.toFormat(2),
-                  purchase.usd.toFormat(2),
+                  purchase.tokens.toFixed(),
+                  purchase.usd.toFixed(),
                   purchase.tier,
-                  purchase.tierPrice.toFormat(2),
+                  purchase.tierPrice.toFixed(),
                 ].join(',');
             });
           } else {
             csvContent =
-              'data:text/csv;charset=utf-8,Address,Transaction Hash,Tokens Purchased,Amount Invested';
+              'Address,Transaction Hash,Tokens Purchased,Amount Invested';
 
             purchases.forEach((purchase: STOPurchase) => {
               csvContent +=
@@ -479,7 +509,7 @@ export const exportInvestorsList = () => async (
           const blob = new Blob([csvContent], {
             type: 'text/csv;charset=utf-8',
           });
-          FileSaver.saveAs(blob, 'mintedTokenList.csv');
+          FileSaver.saveAs(blob, 'investorsList.csv');
 
           dispatch(ui.fetched());
         } catch (e) {

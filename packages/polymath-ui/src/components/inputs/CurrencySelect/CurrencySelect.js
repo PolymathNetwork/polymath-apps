@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
 
+import formikProxy from '../formikProxy';
 import Input from './Input';
-import { InputProps } from '../types';
 
-export default class CurrencySelect extends Component<InputProps> {
+// TODO @RafaelVidaurre: Add uncontrolled input support for primitives
+
+export class CurrencySelect extends Component {
+  static defaultProps = {
+    onChange: () => {},
+    onBlur: () => {},
+  };
+
   handleChange = value => {
-    const {
-      field,
-      form: { setFieldValue, setFieldTouched },
-    } = this.props;
-    setFieldValue(field.name, value);
-    setFieldTouched(field.name, true);
+    const { onChange, onBlur } = this.props;
+    onChange(value);
+    onBlur();
   };
 
   handleBlur = () => {
-    const {
-      name,
-      form: { setFieldTouched },
-    } = this.props;
-    setFieldTouched(name, true);
+    const { onBlur } = this.props;
+    onBlur();
   };
 
   render() {
-    const { field, ...otherProps } = this.props;
+    const { name, value, ...otherProps } = this.props;
     return (
       <Input
-        {...field}
         {...otherProps}
+        name={name}
+        value={value}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
       />
     );
   }
 }
+
+export default formikProxy(CurrencySelect);

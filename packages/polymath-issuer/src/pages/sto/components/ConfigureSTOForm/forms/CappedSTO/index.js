@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
-import { thousandsDelimiter } from '@polymathnetwork/ui';
+import { Box, thousandsDelimiter } from '@polymathnetwork/ui';
 import {
   TextInput,
   SelectInput,
@@ -138,7 +138,7 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
 
   render() {
     return (
-      <Form onSubmit={this.props.handleSubmit}>
+      <Form onSubmit={this.props.handleSubmit} autoComplete="off">
         <div className="time-pickers-container">
           <Field
             name="startDate"
@@ -147,17 +147,18 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
             placeholder="mm / dd / yyyy"
             validate={[required, todayOrLater]}
           />
-          <Field
-            name="startTime"
-            step={30}
-            component={TimePickerSelect}
-            hideLabel={false}
-            className="bx--time-picker__select"
-            placeholder="hh:mm"
-            label="Start Time"
-            validate={[required, this.checkStartTime]}
-          />
-
+          <Box mr={4}>
+            <Field
+              name="startTime"
+              step={30}
+              component={TimePickerSelect}
+              hideLabel={false}
+              className="bx--time-picker__select"
+              placeholder="hh:mm"
+              label="Start Time"
+              validate={[required, this.checkStartTime]}
+            />
+          </Box>
           <Field
             name="endDate"
             component={DatePickerInput}
@@ -231,8 +232,9 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
             <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
               <p className="bx--tooltip__label">Fund Receiver Address</p>
               <p>
-                The ethereum address that will receive the funds raised through
-                the STO.
+                This wallet address will receive the funds raised during the
+                STO. This address may be self-custodied or that of a fully
+                custodied wallet.
               </p>
             </Tooltip>
           }

@@ -1,5 +1,7 @@
+// @flow
+
 import React from 'react';
-import { SecurityTokenRegistry } from '@polymathnetwork/js';
+import { SecurityTokenRegistry, PolyToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 
@@ -68,9 +70,20 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
           );
           return;
         }
+
+        const allowance = await PolyToken.allowance(
+          SecurityTokenRegistry.account,
+          SecurityTokenRegistry.address
+        );
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Reserving Token Symbol'];
+        if (allowance == 0) {
+          title.unshift('Approving POLY Spend');
+        }
+
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Reserving Token Symbol'],
+            title,
             async () => {
               await SecurityTokenRegistry.registerTicker(details);
               if (isEmailConfirmed) {
@@ -81,6 +94,7 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
             () => {
               dispatch({ type: RESERVED });
             },
+            undefined,
             `/dashboard/${details.ticker}/providers`,
             undefined,
             !isEmailConfirmed,
@@ -103,6 +117,7 @@ export const confirmEmail = (data: Object) => async (
   dispatch(ui.requestConfirmEmail(email));
 };
 
+// FIXME @RafaelVidaurre: Can we remove this? It doesn't seem to do anything now
 export const tickerReservationEmail = () => async (
   dispatch: Function,
   getState: GetState

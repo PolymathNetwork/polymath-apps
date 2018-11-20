@@ -16,19 +16,17 @@ type Network = {
 };
 
 const {
-  REACT_APP_DEPLOYMENT_STAGE,
   REACT_APP_NETWORK_MAIN_WS,
   REACT_APP_NETWORK_KOVAN_WS,
   REACT_APP_NETWORK_LOCAL_WS,
   REACT_APP_NETWORK_LOCALVM_WS,
   REACT_APP_POLYMATH_REGISTRY_ADDRESS_LOCAL,
-  REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
-  REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION,
+  REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN,
   REACT_APP_POLYMATH_REGISTRY_ADDRESS_MAINNET,
 } = process.env;
 
-export default (id: string = LOCAL_NETWORK_ID): Network =>
-  ({
+export function getNetworkInfos(id: string = LOCAL_NETWORK_ID): Network {
+  const networks = {
     [MAINNET_NETWORK_ID]: {
       name: 'Mainnet',
       url: REACT_APP_NETWORK_MAIN_WS,
@@ -45,10 +43,7 @@ export default (id: string = LOCAL_NETWORK_ID): Network =>
     [KOVAN_NETWORK_ID]: {
       name: 'Kovan Testnet',
       url: REACT_APP_NETWORK_KOVAN_WS,
-      polymathRegistryAddress:
-        REACT_APP_DEPLOYMENT_STAGE === 'production'
-          ? REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN_PRODUCTION
-          : REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN_STAGING,
+      polymathRegistryAddress: REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN,
     },
     [LOCAL_NETWORK_ID]: {
       name: 'Localhost',
@@ -59,4 +54,7 @@ export default (id: string = LOCAL_NETWORK_ID): Network =>
       name: 'LocalVM',
       url: REACT_APP_NETWORK_LOCALVM_WS,
     },
-  }[id]);
+  };
+
+  return networks[id];
+}

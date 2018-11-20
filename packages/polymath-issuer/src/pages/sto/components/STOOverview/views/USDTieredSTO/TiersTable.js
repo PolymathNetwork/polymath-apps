@@ -1,6 +1,5 @@
 import React from 'react';
 import { map } from 'lodash';
-
 import {
   SimpleTable,
   Box,
@@ -8,6 +7,7 @@ import {
   ProgressBar,
   TierStatus,
 } from '@polymathnetwork/ui';
+import { format } from '@polymathnetwork/shared/utils';
 
 import type {
   USDTieredSTO,
@@ -69,7 +69,7 @@ const USDTieredSTOTiersTable = ({ sto: { tiers } }: Props) => {
       tierNum
     ) => {
       const id = tierNum + 1;
-      const progress = tokensSold.div(totalTokens).toNumber();
+      const progress = tokensSold.div(totalTokens);
 
       return {
         id: `${id}`,
@@ -82,15 +82,15 @@ const USDTieredSTOTiersTable = ({ sto: { tiers } }: Props) => {
             <TierStatus status={status} width="16px" height="16px" />
           </Box>
         ),
-        tokenPrice: <Box textAlign="right">{rate.toFormat(2)} USD</Box>,
-        raiseTarget: <Box textAlign="right">{totalUsd.toFormat(2)} USD</Box>,
-        raised: <Box textAlign="right">{usdRaised.toFormat(2)} USD</Box>,
+        tokenPrice: <Box textAlign="right">{format.toUSD(rate)}</Box>,
+        raiseTarget: <Box textAlign="right">{format.toUSD(totalUsd)}</Box>,
+        raised: <Box textAlign="right">{format.toUSD(usdRaised)}</Box>,
         progress: (
           <InlineFlex key={id}>
             <Box width="150px" mr={1}>
-              <ProgressBar height="10px" progress={progress} />
+              <ProgressBar height="10px" progress={progress.toNumber()} />
             </Box>
-            100%
+            {format.toPercent(progress)}
           </InlineFlex>
         ),
       };

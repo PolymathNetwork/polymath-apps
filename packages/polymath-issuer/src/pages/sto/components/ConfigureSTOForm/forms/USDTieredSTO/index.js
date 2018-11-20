@@ -1,16 +1,18 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isNumber, map, reduce } from 'lodash';
+import { map, reduce } from 'lodash';
 import { FastField, withFormik } from 'formik';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Form, Tooltip, Button } from 'carbon-components-react';
-import * as Yup from 'yup';
 import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
+import validator from '@polymathnetwork/shared/validator';
 import {
   Box,
   Grid,
   FormItem,
+  FormItemGroup,
   Heading,
   RaisedAmount,
   Remark,
@@ -28,6 +30,31 @@ import { configureSTO } from '../../../../../../actions/sto';
 import type { Dispatch } from 'redux';
 import type { RootState } from '../../../../../../redux/reducer';
 import type { FundRaiseType } from '../../../../../../constants';
+
+const TRANSACTION_TIME_BUFFER = 20 * 60 * 1000;
+
+type InvestmentTier = {|
+  tokensAmount: number,
+  tokenPrice: number,
+|};
+type FormValues = {|
+  date: {
+    startDate: Date,
+    startTime: number,
+    endDate: Date,
+    endTime: number,
+  },
+  investmentTiers: {
+    isMultipleTiers: boolean,
+    newTier: InvestmentTier,
+    tiers: Array<InvestmentTier>,
+  },
+  nonAccreditedMax: number,
+  minimumInvestment: number,
+  currencies: FundRaiseType,
+  receiverAddress: string,
+  unsoldTokensAddress: string,
+|};
 
 type FormikProps = {|
   handleSubmit: () => void,
@@ -56,7 +83,7 @@ function validateEndTime(value) {
   const startUnix = moment(startDate).unix() * 1000 + startTime;
   const endUnix = moment(endDate).unix() * 1000 + value;
   if (startUnix >= endUnix) {
-    return this.createError({ message: 'End time is before start time.' });
+    return this.createError({ message: 'End time must be after start time.' });
   }
 
   return true;
@@ -64,7 +91,8 @@ function validateEndTime(value) {
 
 function validateEndDate(value) {
   const startDate: Date = this.parent.startDate;
-  const valid = moment(value).isAfter(startDate);
+  const valid = moment(value).isSameOrAfter(startDate);
+
   if (!valid) {
     return this.createError({ message: 'End date must be after start date.' });
   }
@@ -81,7 +109,6 @@ function todayOrAfter(value) {
 }
 
 function validateStartTime(value) {
-  const requiredTimeBuffer = 10 * 60 * 1000;
   const startDate: Date = this.parent.startDate;
 
   if (!startDate) {
@@ -89,29 +116,17 @@ function validateStartTime(value) {
   }
 
   const startUnix = moment(startDate).unix() * 1000 + value;
-  const nowUnix = Date.now();
+  const nowUnix = moment(Date.now()).unix() * 1000;
   const timeUntilStart = startUnix - nowUnix;
 
   if (nowUnix >= startUnix) {
     return this.createError({ message: 'Time is in the past.' });
   }
-  if (timeUntilStart < requiredTimeBuffer) {
+  if (timeUntilStart < TRANSACTION_TIME_BUFFER) {
     return this.createError({
       message: 'Please allow for transaction processing time.',
     });
   }
-  return true;
-}
-
-function validateDiscountedTokensAmount(value) {
-  const { tokensAmount } = this.parent;
-
-  if (value > 0 && (!tokensAmount || value > tokensAmount)) {
-    return this.createError({
-      message: 'Cannot be higher than the total amount of tokens.',
-    });
-  }
-
   return true;
 }
 
@@ -129,89 +144,92 @@ const requiredMessage = 'Required.';
 /* eslint-disable no-template-curly-in-string */
 const moreThanMessage = 'Must be higher than ${more}.';
 const minMessage = 'Must be at least ${min}.';
-const maxPercentageMessage = 'Cannot be higher than 100.';
 /* eslint-enable no-template-curly-in-string */
 
-/**
- * NOTE @monitz87: typeError is needed here because of some
- * strange behavior by the yup library, which simply ignores
- * the required constraint in favor of the field type for these fields.
- * I suspect it has something to do with them being inside an array schema
- */
-export const investmentTierSchema = Yup.object().shape({
-  tokensAmount: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+export const investmentTierSchema = validator.object().shape({
+  tokensAmount: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .moreThan(0, moreThanMessage),
-  tokenPrice: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  tokenPrice: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .moreThan(0, moreThanMessage),
-  discountedTokensAmount: Yup.number()
-    .typeError(requiredMessage)
-    .min(0, minMessage)
-    .test('validateDiscountedTokensAmount', validateDiscountedTokensAmount),
-  discountedTokensPercentage: Yup.number()
-    .typeError(requiredMessage)
-    .max(1, maxPercentageMessage)
-    .min(0, minMessage),
 });
+
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
-const formSchema = Yup.object().shape({
-  startDate: Yup.date()
-    .required(requiredMessage)
-    .test('validateStartDate', todayOrAfter),
-  startTime: Yup.number()
-    .required(requiredMessage)
-    .test('validateStartTime', validateStartTime),
-  endDate: Yup.date()
-    .required(requiredMessage)
-    .test('validateEndDate', validateEndDate),
-  endTime: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
-    .test('validEndTime', validateEndTime),
-  currencies: Yup.array()
-    .of(Yup.string())
-    .required(requiredMessage),
-  nonAccreditedMax: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+const formSchema = validator.object().shape({
+  date: validator.object().shape({
+    startDate: validator
+      .date()
+      .isRequired(requiredMessage)
+      .test('validateStartDate', todayOrAfter),
+    startTime: validator
+      .number()
+      .isRequired(requiredMessage)
+      .test('validateStartTime', validateStartTime),
+    endDate: validator
+      .date()
+      .isRequired(requiredMessage)
+      .test('validateEndDate', validateEndDate),
+    endTime: validator
+      .number()
+      .isRequired(requiredMessage)
+      .test('validEndTime', validateEndTime),
+  }),
+  currencies: validator
+    .array()
+    .of(validator.string())
+    .isRequired(requiredMessage),
+  nonAccreditedMax: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .min(0, minMessage),
-  minimumInvestment: Yup.number()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  minimumInvestment: validator
+    .bigNumber()
+    .isRequired(requiredMessage)
     .min(0, minMessage),
-  receiverAddress: Yup.string()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  receiverAddress: validator
+    .string()
+    .isRequired(requiredMessage)
     .test('validateIsAddress', validateIsAddress),
-  unsoldTokensAddress: Yup.string()
-    .typeError(requiredMessage)
-    .required(requiredMessage)
+  unsoldTokensAddress: validator
+    .string()
+    .isRequired(requiredMessage)
     .test('validateIsAddress', validateIsAddress),
-  investmentTiers: Yup.object().shape({
-    isMultipleTiers: Yup.boolean(),
-    tiers: Yup.array().of(investmentTierSchema),
+  investmentTiers: validator.object().shape({
+    isMultipleTiers: validator.boolean(),
+    tiers: validator
+      .array()
+      .of(investmentTierSchema)
+      .isRequired('You must add at least one tier.'),
     newTier: investmentTierSchema.nullable(),
   }),
 });
 
-// FIXME @RafaelVidaurre: RESET to empty values, these are hardcoded for testing
-// TODO @RafaelVidaurre: Improve fields naming
-
+/**
+ * NOTE @monitz87: Every field NEEDS to have an initial value because of
+ * https://github.com/jaredpalmer/formik/issues/738
+ */
 const initialValues = {
-  startDate: new Date(Date.now() + 1000 * 360 * 24),
-  endDate: new Date(Date.now() + 1000 * 360 * 24 * 10),
-  startTime: 0,
-  endTime: 0,
   investmentTiers: {
     isMultipleTiers: false,
-    tiers: [],
+    tiers: [
+      {
+        tokensAmount: null,
+        tokenPrice: null,
+      },
+    ],
     newTier: null,
   },
-  nonAccreditedMax: 0,
-  minimumInvestment: 0,
+  date: {
+    startDate: null,
+    startTime: null,
+    endDate: null,
+    endTime: null,
+  },
+  nonAccreditedMax: new BigNumber(0),
+  minimumInvestment: new BigNumber(0),
   receiverAddress: '',
   unsoldTokensAddress: '',
   currencies: ['ETH', 'POLY'],
@@ -222,61 +240,67 @@ export const USDTieredSTOFormComponent = ({
   ticker,
   values,
   errors,
+  touched,
   handleSubmit,
 }: ComponentProps) => {
   const { tiers } = values.investmentTiers;
   const totalTokensAmount = reduce(
     tiers,
     (total, { tokensAmount }) => {
-      return (isNumber(tokensAmount) ? tokensAmount : 0) + total;
+      return (tokensAmount || new BigNumber(0)).plus(total);
     },
-    0
+    new BigNumber(0)
   );
   const totalUsdAmount = reduce(
     tiers,
     (total, { tokenPrice, tokensAmount }) => {
-      const amount = isNumber(tokensAmount) ? tokensAmount : 0;
-      const price = isNumber(tokenPrice) ? tokenPrice : 0;
-      return price * amount + total;
+      const amount = tokensAmount || new BigNumber(0);
+      const price = tokenPrice || new BigNumber(0);
+      return total.plus(price.times(amount));
     },
-    0
+    new BigNumber(0)
   );
 
   return (
     <Form onSubmit={handleSubmit}>
       <Heading variant="h3">STO Schedule</Heading>
-      <Box mb={4}>
-        <div className="time-pickers-container">
-          <FormItem name="startDate">
+
+      <FormItemGroup>
+        <FormItemGroup.Items>
+          <FormItem name="date.startDate">
             <FormItem.Label>Start Date</FormItem.Label>
             <FormItem.Input
               component={DatePickerInput}
               placeholder="mm / dd / yyyy"
             />
-            <FormItem.Error />
           </FormItem>
-          <FormItem name="startTime">
-            <FormItem.Label>Time</FormItem.Label>
-            <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
-            <FormItem.Error />
-          </FormItem>
-          <FormItem name="endDate">
+          <Box mr={4}>
+            <FormItem name="date.startTime">
+              <FormItem.Label>Time</FormItem.Label>
+              <FormItem.Input
+                component={TimePickerSelect}
+                placeholder="hh:mm"
+              />
+            </FormItem>
+          </Box>
+          <FormItem name="date.endDate">
             <FormItem.Label>End Date</FormItem.Label>
             <FormItem.Input
               component={DatePickerInput}
               placeholder="mm / dd / yyyy"
             />
-            <FormItem.Error />
           </FormItem>
-          <FormItem name="endTime">
+          <FormItem name="date.endTime">
             <FormItem.Label>Time</FormItem.Label>
             <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
-            <FormItem.Error />
           </FormItem>
-        </div>
-      </Box>
+        </FormItemGroup.Items>
+        <FormItemGroup.Error name="date" errors={errors} touched={touched} />
+      </FormItemGroup>
 
-      <Heading variant="h3">STO Financing Details & Terms</Heading>
+      <Heading variant="h3" mt={5}>
+        STO Financing Details & Terms
+      </Heading>
 
       <FormItem name="currencies">
         <FormItem.Input component={CurrencySelect} placeholder="Raise in" />
@@ -291,6 +315,11 @@ export const USDTieredSTOFormComponent = ({
               <p className="bx--tooltip__label">
                 Minimum investment for All investors
               </p>
+              <p>
+                Any investment below this value, regardless of their origin
+                (accredited or non-accredited investor) will be rejected and the
+                funds sent back to their Investor minus the processing (gas) fee
+              </p>
             </Tooltip>
           </FormItem.Label>
           <FormItem.Input
@@ -298,6 +327,7 @@ export const USDTieredSTOFormComponent = ({
             min={0}
             placeholder="Enter amount"
             unit="USD"
+            useBigNumbers
           />
           <FormItem.Error />
         </FormItem>
@@ -309,9 +339,12 @@ export const USDTieredSTOFormComponent = ({
                 Maximum Investment for Non-Accredited Investors by Default
               </p>
               <p>
-                Conversion rate between the currency you chose and your Security
-                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
-                Security Tokens.
+                By default, Investors are assumed to be non-accredited (i.e.
+                Retail Investors) unless they are explicitly marked as
+                Accredited in the whitelist. All Non-Accredited investors are
+                subject to this maximum investment limit by default, unless
+                their wallet address is added to the whitelist with an
+                associated limit.
               </p>
             </Tooltip>
           </FormItem.Label>
@@ -319,6 +352,7 @@ export const USDTieredSTOFormComponent = ({
             component={NumberInput}
             placeholder="Enter amount"
             unit="USD"
+            useBigNumbers
           />
           <FormItem.Error />
         </FormItem>
@@ -332,7 +366,7 @@ export const USDTieredSTOFormComponent = ({
         />
       </div>
 
-      <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={5}>
+      <Grid gridAutoFlow="column" gridAutoColumns="1fr">
         <Grid.Item gridColumn="span 1 / 3">
           <RaisedAmount
             title="Amount Of Funds the STO Will Raise"
@@ -344,7 +378,9 @@ export const USDTieredSTOFormComponent = ({
         </Grid.Item>
       </Grid>
 
-      <Heading variant="h3">ETH Addresses</Heading>
+      <Heading variant="h3" mt={5}>
+        ETH Addresses
+      </Heading>
 
       <Remark title="Note">
         Before submitting to the chain, we recommend that you test sending funds
@@ -356,7 +392,9 @@ export const USDTieredSTOFormComponent = ({
         <FormItem.Label>
           <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
             <p className="bx--tooltip__label">
-              ETH Address to Receive the Funds Raised During the STO
+              This wallet address will receive the funds raised during the STO.
+              This address may be self-custodied or that of a fully custodied
+              wallet.
             </p>
           </Tooltip>
         </FormItem.Label>
@@ -371,6 +409,11 @@ export const USDTieredSTOFormComponent = ({
         <FormItem.Label>
           <Tooltip triggerText="ETH Address for Unsold Tokens">
             <p className="bx--tooltip__label">ETH Address for Unsold Tokens</p>
+            <p>
+              This wallet address will receive all tokens not sold across all
+              tiers defined in the STO, by the time the STO reaches its end
+              date/time or is manually stopped.
+            </p>
           </Tooltip>
         </FormItem.Label>
         <FormItem.Input
@@ -385,7 +428,6 @@ export const USDTieredSTOFormComponent = ({
   );
 };
 
-// TODO @RafaelVidaurre: Move to new file
 const mapStateToProps = ({
   sto: {
     factory: { address },
@@ -395,27 +437,6 @@ const mapStateToProps = ({
   },
 }: RootState) => ({ address, ticker });
 
-type InvestmentTier = {|
-  tokensAmount: number,
-  tokenPrice: number,
-  discountedTokensAmount: number,
-  discountedTokensPercentage: number,
-|};
-type FormValues = {|
-  startDate: Date,
-  startTime: number,
-  endDate: Date,
-  endTime: number,
-  investmentTiers: {
-    tiers: Array<InvestmentTier>,
-  },
-  nonAccreditedMax: number,
-  minimumInvestment: number,
-  currencies: FundRaiseType,
-  receiverAddress: string,
-  unsoldTokensAddress: string,
-|};
-
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
   displayName: 'USDTieredSTOConfigForm',
@@ -423,26 +444,22 @@ const formikEnhancer = withFormik({
   mapPropsToValues: () => {
     return initialValues;
   },
-  handleSubmit: (values: FormValues, props) => {
+  handleSubmit: (values: FormValues, { props }) => {
     const { dispatch, address } = props;
 
     const formattedValues = {
-      startsAt: new Date(values.startDate).getTime() + values.startTime,
-      endsAt: new Date(values.endDate).getTime() + values.endTime,
+      startsAt:
+        moment(values.date.startDate).unix() * 1000 + values.date.startTime,
+      endsAt: moment(values.date.endDate).unix() * 1000 + values.date.endTime,
       ratePerTier: map(values.investmentTiers.tiers, ({ tokenPrice }) =>
         toWei(tokenPrice)
       ),
-      discountRatePerTier: map(
-        values.investmentTiers.tiers,
-        ({ discountedTokensPercentage = 0, tokenPrice }) =>
-          toWei(`${tokenPrice * (1 - discountedTokensPercentage)}`)
-      ),
+      discountRatePerTier: map(values.investmentTiers.tiers, () => toWei('0')),
       tokensPerTier: map(values.investmentTiers.tiers, ({ tokensAmount }) =>
         toWei(tokensAmount)
       ),
-      discountTokensPerTier: map(
-        values.investmentTiers.tiers,
-        ({ discountedTokensAmount = 0 }) => toWei(discountedTokensAmount)
+      discountTokensPerTier: map(values.investmentTiers.tiers, () =>
+        toWei('0')
       ),
       nonAccreditedLimit: toWei(values.nonAccreditedMax),
       minimumInvestment: toWei(values.minimumInvestment),
@@ -465,9 +482,6 @@ const formikEnhancer = withFormik({
 });
 
 class USDTieredSTOFormContainer extends Component<ContainerProps> {
-  shouldComponentUpdate(nextProps: ContainerProps) {
-    return nextProps.values === this.props.values;
-  }
   render() {
     const { ticker, handleSubmit, errors, values, touched } = this.props;
 
@@ -483,6 +497,7 @@ class USDTieredSTOFormContainer extends Component<ContainerProps> {
   }
 }
 
-const enhancedForm = formikEnhancer(USDTieredSTOFormContainer);
+const FormikEnhancedForm = formikEnhancer(USDTieredSTOFormContainer);
+const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
-export default connect(mapStateToProps)(enhancedForm);
+export default ConnectedForm;

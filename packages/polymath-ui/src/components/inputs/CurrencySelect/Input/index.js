@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Select, { components } from 'react-select';
 
@@ -76,10 +76,6 @@ const styles = {
   }),
 };
 
-const Container = styled(Box)`
-  min-height: 80px;
-`;
-
 const SelectContainer = styled(Box)`
   display: inline-block;
   vertical-align: middle;
@@ -115,13 +111,6 @@ const ClearIndicator = props => {
 };
 
 export default class Input extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.handleRemove = this.handleRemove.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
   static defaultProps = {
     options: currencyOptions,
   };
@@ -135,14 +124,14 @@ export default class Input extends React.Component<Props> {
     onChange(newValue, 'remove-value'); // 2nd param is from React-Select "actions" https://react-select.com/props
   };
 
-  handleChange(value: [Option], action: string) {
+  handleChange = (value: [Option], action: string) => {
     const { onChange } = this.props;
 
     return onChange(
       Array.isArray(value) ? value.map(option => option.value) : value,
       action
     );
-  }
+  };
 
   render() {
     const { value, options, onChange, onBlur, ...props } = this.props;
@@ -153,10 +142,11 @@ export default class Input extends React.Component<Props> {
       : value;
 
     return (
-      <Container>
+      <Fragment>
         <SelectContainer>
           <Select
             closeMenuOnSelect={false}
+            noOptionsMessage={() => null}
             isClearable={Array.isArray(value) ? value.length : value}
             isMulti={Array.isArray(value)}
             styles={styles}
@@ -185,7 +175,7 @@ export default class Input extends React.Component<Props> {
               />
             ) : null;
           })}
-      </Container>
+      </Fragment>
     );
   }
 }

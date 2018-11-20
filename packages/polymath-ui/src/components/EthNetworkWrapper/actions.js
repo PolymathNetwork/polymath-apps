@@ -1,8 +1,20 @@
 // @flow
 
+/**
+ * See documentation: https://github.com/PolymathNetwork/polymath-apps/wiki/Package:-Polymath-UI#actions
+ */
+
 import Web3 from 'web3';
 
-import getNetwork from './networks';
+import { getNetworkInfos } from './networks';
+import {
+  ERROR_LOCKED,
+  ERROR_NETWORK,
+  ERROR_NOT_INSTALLED,
+  ERROR_DISCONNECTED,
+  ERROR_ACCESS_REQUESTED,
+} from './';
+
 import type { ExtractReturn } from './helpers';
 import Contract, { setupContracts } from '@polymathnetwork/js';
 import { txHash, txEnd } from '../TxModal/actions';
@@ -10,6 +22,9 @@ import {
   LOCAL_NETWORK_ID,
   LOCALVM_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
+
+export const CONNECTED = 'polymath-auth/CONNECTED';
+export const FAILED = 'polymath-auth/FAILED';
 
 export type NetworkParams = {|
   id: number,
@@ -19,23 +34,27 @@ export type NetworkParams = {|
   web3WS: Web3,
 |};
 
-export const CONNECTED = 'polymath-auth/CONNECTED';
+// FIXME @RafaelVidaurre: This shouldn't be the right way to do it, but
+// this has to be here for now
+const HARDCODED_NETWORK_ID = 15;
+
+// Request accounts access, will make Metamask pop up
+export const requestAuthorization = () => async (dispatch: Function) => {
+  try {
+    // We don't need to dispatch a success action because page will be reloaded by polling
+    return await window.ethereum.enable();
+  } catch (e) {
+    // User denied access
+    // eslint-disable-next-line
+    console.error(e);
+    // Commented because UI doesn't support this state
+    // return dispatch(fail(ERROR_ACCESS_DENIED);
+  }
+};
+
 const connected = (params: NetworkParams) => ({ type: CONNECTED, params });
 
-export const FAIL = 'polymath-auth/FAIL';
-const fail = (error: number) => ({ type: FAIL, error });
-
-export type Action =
-  | ExtractReturn<typeof connected>
-  | ExtractReturn<typeof fail>;
-
-const web3 = new Web3();
-const web3WS = new Web3(); // since MetaMask doesn't support WebSockets we need this extra client for events subscribing
-
-export const ERROR_NOT_INSTALLED = 1;
-export const ERROR_LOCKED = 2;
-export const ERROR_NETWORK = 3;
-export const ERROR_DISCONNECTED = 4;
+const fail = (error: number) => ({ type: FAILED, error });
 
 const initPolymathJs = async (params: {
   networkParams: Object,
@@ -54,84 +73,113 @@ const initPolymathJs = async (params: {
 };
 
 export const init = (networks: Array<string>) => async (dispatch: Function) => {
-  try {
-    let id = undefined;
-    if (typeof window.web3 !== 'undefined') {
-      // Metamask/Mist
-      web3.setProvider(window.web3.currentProvider);
-      id = await web3.eth.net.getId();
-    }
+  let web3;
+  let web3WS; // since MetaMask doesn't support WebSockets we need this extra client for events subscribing
+  let networkId;
 
-    const isLocalhost =
-      String(id) === LOCAL_NETWORK_ID ||
-      String(id) === LOCALVM_NETWORK_ID ||
-      id === undefined;
+  const newProviderInjected = !!window.ethereum;
+  const oldProviderInjected = !!window.web3;
 
-    const network = getNetwork(id);
+  // Instantiate Web3 HTTP
+  if (newProviderInjected) {
+    web3 = new Web3(window.ethereum);
+  } else if (oldProviderInjected) {
+    web3 = new Web3(window.web3.currentProvider);
+  } else {
+    // If no Metamask/Mist
+    return dispatch(fail(ERROR_NOT_INSTALLED));
+  }
 
-    if (
-      network === undefined ||
-      (!isLocalhost && !networks.includes(String(id)))
-    ) {
-      throw new Error(ERROR_NETWORK);
-    }
-    web3WS.setProvider(process.env.REACT_APP_NODE_WS || network.url);
-    if (!id) {
-      web3.setProvider(web3WS.currentProvider);
-      id = await web3.eth.net.getId();
-    }
+  // Get current Metamask/Mist network id
+  networkId = await web3.eth.net.getId();
 
-    const name = network.name;
-    const [account] = await web3.eth.getAccounts();
-    if (id) {
-      // https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md#ear-listening-for-selected-account-changes
-      setInterval(() => {
-        web3.eth.getAccounts().then(accounts => {
-          if (accounts[0] !== account) {
-            window.location.reload();
-          }
-        });
-        web3.eth.net.getId().then(_id => {
-          if (id !== _id) {
-            window.location.reload();
-          }
-        });
-      }, 1000);
-    }
-    if (!account) {
-      throw new Error(ERROR_LOCKED);
-    }
+  const isLocalhost =
+    String(networkId) === LOCAL_NETWORK_ID ||
+    String(networkId) === LOCALVM_NETWORK_ID ||
+    networkId === undefined;
+  const network = getNetworkInfos(networkId);
+  const accounts = await web3.eth.getAccounts();
 
-    // TODO @bshevchenko: https://github.com/INFURA/infura/issues/80 hack below
-    web3WS.eth.subscribe('newBlockHeaders', error => {
-      if (error) {
-        // eslint-disable-next-line
-        console.error('web3WS newBlockHeaders', error);
-        dispatch(fail(ERROR_DISCONNECTED));
+  // Instantiate Web3 Web Socket
+  web3WS = new Web3(process.env.REACT_APP_NODE_WS || network.url);
+
+  if (!networkId) {
+    web3.setProvider(web3WS.currentProvider);
+    networkId = await web3.eth.net.getId();
+  }
+
+  // Listen for Metamask/Mist changes
+  // TODO: @grsmto: Refactor this before it should not be here: actions should be pure.
+  // https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md#ear-listening-for-selected-account-changes
+  setInterval(() => {
+    // On account change
+    web3.eth.getAccounts().then(_accounts => {
+      if (_accounts[0] !== accounts[0]) {
+        window.location.reload();
       }
     });
 
-    const networkParams = {
-      id,
-      name,
-      account,
-      web3,
-      web3WS,
-    };
-
-    await initPolymathJs({
-      networkParams,
-      dispatch,
-      polymathRegistryAddress: network.polymathRegistryAddress,
+    // On network change
+    web3.eth.net.getId().then(_id => {
+      if (networkId !== _id) {
+        window.location.reload();
+      }
     });
+  }, 1000);
 
-    dispatch(connected(networkParams));
-  } catch (e) {
-    if (![ERROR_LOCKED, ERROR_NETWORK].includes(Number(e.message))) {
+  // TODO @bshevchenko: https://github.com/INFURA/infura/issues/80 hack below
+  web3WS.eth.subscribe('newBlockHeaders', error => {
+    if (error) {
       // eslint-disable-next-line
-      console.error('polymath-auth', e);
-      e.message = ERROR_NOT_INSTALLED;
+      console.error('web3WS newBlockHeaders', error);
+      dispatch(fail(ERROR_DISCONNECTED));
     }
-    dispatch(fail(e.message));
+  });
+
+  // Check if dapp is authorized by Metamask/Mist
+  if (
+    !accounts.length &&
+    newProviderInjected &&
+    window.ethereum._metamask.isApproved
+  ) {
+    const isMetamaskApproved = await window.ethereum._metamask.isApproved();
+
+    if (!isMetamaskApproved) {
+      dispatch(requestAuthorization());
+      return dispatch(fail(ERROR_ACCESS_REQUESTED));
+    }
   }
+
+  if (!accounts.length) {
+    return dispatch(fail(ERROR_LOCKED));
+  }
+
+  // If Metamask/Mist network is not supported
+  if (
+    network === undefined ||
+    (!isLocalhost && !networks.includes(String(networkId)))
+  ) {
+    return dispatch(fail(ERROR_NETWORK));
+  }
+
+  const networkParams = {
+    id: networkId,
+    name: network.name,
+    account: accounts[0],
+    web3,
+    web3WS,
+  };
+
+  await initPolymathJs({
+    networkParams,
+    dispatch,
+    polymathRegistryAddress: network.polymathRegistryAddress,
+  });
+
+  // TODO @grsmto: Do proper dependency injection instead of sharing web3 instance via Redux state
+  return dispatch(connected(networkParams));
 };
+
+export type Action =
+  | ExtractReturn<typeof connected>
+  | ExtractReturn<typeof fail>;

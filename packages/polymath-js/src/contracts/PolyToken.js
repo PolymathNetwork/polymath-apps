@@ -2,6 +2,7 @@
 
 import artifact from '@polymathnetwork/shared/fixtures/contracts/PolyToken.json';
 import artifactTestnet from '@polymathnetwork/shared/fixtures/contracts/PolyTokenFaucet.json';
+import { MAINNET_NETWORK_ID } from '@polymathnetwork/shared/constants';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
@@ -79,19 +80,39 @@ export class PolyToken extends Contract {
   async subscribeMyTransfers(
     callback: (toOrFrom: Address, value: BigNumber, isSent: boolean) => void
   ) {
+    /**
+     * NOTE @monitz87: this differentiation of parameter names
+     * is necessary due to https://github.com/PolymathNetwork/polymath-core/issues/412
+     */
+    const networkId = String(Contract._params.id);
+    let valueKey = 'value',
+      toKey = 'to',
+      fromKey = 'from';
+
+    if (networkId !== MAINNET_NETWORK_ID) {
+      valueKey = `_${valueKey}`;
+      fromKey = `_${fromKey}`;
+      toKey = `_${toKey}`;
+    }
+
     const callbackInternal = (event: Web3Event) => {
       const values = event.returnValues;
-      const value = new BigNumber(values._value);
-      const isSent = values._from === this.account;
+
+      const value = new BigNumber(values[valueKey]);
+      const isSent = values[fromKey] === this.account;
       callback(
-        isSent ? values._to : values._from,
+        isSent ? values[toKey] : values[fromKey],
         this.removeDecimals(value),
         isSent
       );
     };
+    const filterFrom = {};
+    filterFrom[fromKey] = this.account;
+    const filterTo = {};
+    filterTo[toKey] = this.account;
     return Promise.all([
-      this.subscribe(TRANSFER_EVENT, { _from: this.account }, callbackInternal),
-      this.subscribe(TRANSFER_EVENT, { _to: this.account }, callbackInternal),
+      this.subscribe(TRANSFER_EVENT, filterFrom, callbackInternal),
+      this.subscribe(TRANSFER_EVENT, filterTo, callbackInternal),
     ]);
   }
 }

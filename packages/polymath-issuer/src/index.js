@@ -10,14 +10,22 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { ThemeProvider } from 'styled-components';
 import { theme, GlobalStyles } from '@polymathnetwork/ui';
+import * as Sentry from '@sentry/browser';
 
 import Root from './components/Root';
 import store, { history } from './redux/store';
 import { unregister } from './registerServiceWorker';
 
+import { SENTRY_KEY } from './constants';
 import routes from './routes';
 
 unregister();
+
+// Init error monitoring tool
+Sentry.init({
+  dsn: SENTRY_KEY,
+  environment: process.env.REACT_APP_DEPLOYMENT_STAGE,
+});
 
 render(
   <Provider store={store}>

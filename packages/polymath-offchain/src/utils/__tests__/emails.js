@@ -1,7 +1,8 @@
 import {
   sendProviderApplicationEmail,
   sendAccountConfirmationEmail,
-  sendSTOScheduledEmail,
+  sendCappedSTOScheduledEmail,
+  sendUSDTieredSTOScheduledEmail,
   sendTickerReservedEmail,
   sendTokenCreatedEmail,
 } from '../emails';
@@ -19,7 +20,8 @@ jest.mock('../../emails', () => {
     ProviderApplication: jest.fn(),
     TickerReserved: jest.fn(),
     TokenCreated: jest.fn(),
-    STOScheduled: jest.fn(),
+    CappedSTOScheduled: jest.fn(),
+    USDTieredSTOScheduled: jest.fn(),
     AccountConfirmation: jest.fn(),
   };
 });
@@ -291,7 +293,7 @@ describe('Function: sendTokenCreateEmail', () => {
   });
 });
 
-describe('Function: sendSTOScheduledEmail', () => {
+describe('Function: sendCappedSTOScheduledEmail', () => {
   const validCap = 100000000;
   const validFundsReceiver = '0xffffffffffffffffffffffffffffffffffffffff';
   const validIsPolyFundraise = true;
@@ -311,7 +313,7 @@ describe('Function: sendSTOScheduledEmail', () => {
       returnValidMarkup
     );
 
-    await sendSTOScheduledEmail(
+    await sendCappedSTOScheduledEmail(
       validEmail,
       validName,
       validTxHash,
@@ -320,6 +322,36 @@ describe('Function: sendSTOScheduledEmail', () => {
       validFundsReceiver,
       validIsPolyFundraise,
       validRate,
+      validStart
+    );
+
+    expect(sgMail.send).toHaveBeenCalledWith(expectedMsg);
+  });
+});
+
+describe('Function: sendUSDTieredSTOScheduledEmail', () => {
+  const validFundsReceiver = '0xffffffffffffffffffffffffffffffffffffffff';
+  const validStart = new Date('10/14/1987');
+
+  test('calls sgMail.send with correct parameters', async () => {
+    const expectedMsg = {
+      from: { email: polymathEmail, name: polymathName },
+      replyTo: { email: zendeskEmail, name: polymathName },
+      to: { email: validEmail, name: validName },
+      subject: `${validTicker} STO Created on Polymath`,
+      html: validMarkup,
+    };
+
+    ReactDOMServer.renderToStaticMarkup.mockImplementationOnce(
+      returnValidMarkup
+    );
+
+    await sendUSDTieredSTOScheduledEmail(
+      validEmail,
+      validName,
+      validTxHash,
+      validTicker,
+      validFundsReceiver,
       validStart
     );
 

@@ -1,5 +1,7 @@
 // @flow
 
+import * as format from './format';
+
 /**
  * Remove the trailing slash from an URL (for use in constants.js)
  *
@@ -8,3 +10,5 @@
  * @returns {string} an URL without the trailing slash
  */
 export const normalizeURL = (url: string) => url.replace(/\/$/, '');
+
+export { format };

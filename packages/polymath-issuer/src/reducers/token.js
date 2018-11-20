@@ -1,6 +1,6 @@
 // @flow
 
-import { CONNECTED } from '@polymathnetwork/ui/components/EthNetworkWrapper';
+import { CONNECTED } from '@polymathnetwork/ui/components/EthNetworkWrapper/actions';
 import { setHelpersNetwork } from '@polymathnetwork/ui';
 import { CountTransferManager } from '@polymathnetwork/js';
 import * as a from '../actions/token';
@@ -30,6 +30,11 @@ export type TokenState = {
     isPaused: boolean,
     count: ?number,
   },
+  isFetchingLegacyTokens: boolean,
+  legacyToken: ?{|
+    address: string,
+    ticker: string,
+  |},
 };
 
 const defaultState: TokenState = {
@@ -48,6 +53,8 @@ const defaultState: TokenState = {
     isPaused: true,
     count: null,
   },
+  legacyToken: null,
+  isFetchingLegacyTokens: false,
 };
 
 export default (state: TokenState = defaultState, action: Action) => {
@@ -95,6 +102,18 @@ export default (state: TokenState = defaultState, action: Action) => {
     case CONNECTED:
       setHelpersNetwork(action.params.name);
       return state;
+    case a.FETCHING_LEGACY_TOKENS:
+      return {
+        ...state,
+        isFetchingLegacyTokens: true,
+      };
+    case a.LEGACY_TOKEN:
+      const { legacyToken } = action;
+      return {
+        ...state,
+        legacyToken,
+        isFetchingLegacyTokens: false,
+      };
     default:
       return state;
   }

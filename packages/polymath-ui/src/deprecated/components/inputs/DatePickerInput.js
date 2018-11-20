@@ -46,6 +46,7 @@ export default ({
       {...rest}
     >
       <DatePickerInput
+        datePickerType="single"
         labelText={label}
         placeholder="mm / dd / yyyy"
         id={name}

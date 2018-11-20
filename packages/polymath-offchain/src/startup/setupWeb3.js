@@ -2,7 +2,8 @@
 
 import { STO_MODULE_TYPE, NETWORKS } from '../constants';
 import {
-  sendSTOScheduledEmail,
+  sendCappedSTOScheduledEmail,
+  sendUSDTieredSTOScheduledEmail,
   sendTickerReservedEmail,
   sendTokenCreatedEmail,
 } from '../utils';
@@ -13,6 +14,7 @@ import PolymathRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts
 import SecurityTokenRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
 import SecurityTokenArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json';
 import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json';
+import USDTieredSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTO.json';
 
 // TODO @monitz87: remake this when we rework polymath-js
 const web3Clients = {};
@@ -57,9 +59,22 @@ const getSTContract = (address: string, networkId: string) => {
  *
  * @returns a web3 Capped STO contract
  */
-const getCSTOContract = (address: string, networkId: string) => {
+const getCappedSTOContract = (address: string, networkId: string) => {
   const client = web3Clients[networkId];
   return new client.eth.Contract(CappedSTOArtifact.abi, address);
+};
+
+/**
+ * Get the corresponding USD Tiered STO contract
+ *
+ * @param {string} address
+ * @param {string} networkId id of the network to which the contract is deployed
+ *
+ * @returns a web3 USD Tiered STO contract
+ */
+const getUSDTieredSTOContract = (address: string, networkId: string) => {
+  const client = web3Clients[networkId];
+  return new client.eth.Contract(USDTieredSTOArtifact.abi, address);
 };
 
 /**
@@ -140,14 +155,22 @@ const newProvider = async (networkId: string) => {
 
   @returns an object with the STO details:
 
-    start (start date),
-    cap (maximum amount of tokens to sell),
-    rate (how many tokens for 1 ETH/POLY),
-    isPolyFundraise (is the currency POLY or ETH),
-    fundsReceiver (wallet to which the funds will be transfered)
+    - start (start time as a unix timestamp)
+    - cap (maximum amount of tokens to sell)
+    - rate (how many tokens for 1 ETH/POLY)
+    - isPolyFundraise (is the currency POLY or ETH)
+    - fundsReceiver (wallet to which the funds will be transfered)
+
+    USD Tiered STO:
+
+    NOTE @monitz87: this should be updated as soon as we have design for
+    the USD Tiered STO email
+
+    - start (start date)
+    - fundsReceiver (wallet to which the funds will be transfered)
  */
 const getCappedSTODetails = async (address: string, networkId: string) => {
-  const contract = getCSTOContract(address, networkId);
+  const contract = getCappedSTOContract(address, networkId);
 
   try {
     const details = await contract.methods.getSTODetails().call();
@@ -164,7 +187,7 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
      *
      * Start time is a UNIX timestamp (in seconds)
      */
-    const start = new Date(details[0] * 1000);
+    const start: number = details[0];
     const cap: number = Web3.utils.fromWei(details[2]);
     const rate: number = details[3];
     const isPolyFundraise: boolean = details[7];
@@ -174,6 +197,37 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
       cap,
       rate,
       isPolyFundraise,
+      fundsReceiver,
+    };
+  } catch (error) {
+    logger.error(error.message, error);
+    return null;
+  }
+};
+
+/**
+  Get details of a USD Tiered STO from the blockchain
+
+  @param {string} address
+  @param {string} networkId id of the network to which the STO belongs
+
+  @returns an object with the STO details:
+
+    NOTE @monitz87: this should be updated as soon as we have design for
+    the USD Tiered STO email
+
+    - start (start time as a unix timestamp)
+    - fundsReceiver (wallet to which the funds will be transfered)
+ */
+const getUSDTieredSTODetails = async (address: string, networkId: string) => {
+  const contract = getUSDTieredSTOContract(address, networkId);
+
+  try {
+    const start = await contract.methods.startTime().call();
+    const fundsReceiver: string = await contract.methods.wallet().call();
+
+    return {
+      start,
       fundsReceiver,
     };
   } catch (error) {
@@ -216,23 +270,8 @@ export const moduleAddedHandler = async (
 
   logger.info(`[EVENT] STO scheduled for "${ticker}" in ${networkName}`);
 
-  const moduleName: string = Web3.utils.hexToUtf8(_name);
-
-  /**
-   * Get the details of the STO
-   */
-  const details = await getCappedSTODetails(moduleAddress, networkId);
-
-  if (!details) {
-    return;
-  }
-
-  const { start, cap, rate, fundsReceiver, isPolyFundraise } = details;
-
   /**
    * Get the token issuer
-   *
-   * TODO @monitz87: find out if the funds receiver always has the same address as the issuer
    */
   const userAddress: string = await contract.methods.owner().call();
   const user = await User.findOne({ address: userAddress });
@@ -242,20 +281,72 @@ export const moduleAddedHandler = async (
     return;
   }
 
-  const { email, name } = user;
+  const moduleName: string = Web3.utils.hexToUtf8(_name);
 
-  await sendSTOScheduledEmail(
-    email,
-    name,
-    transactionHash,
-    ticker,
-    cap,
-    fundsReceiver,
-    isPolyFundraise,
-    rate,
-    start,
-    networkId
-  );
+  const supportedSTOEmails = ['CappedSTO', 'USDTieredSTO'];
+
+  /**
+   * Skip all STOs that don't have an email template yet
+   */
+  if (!supportedSTOEmails.find(stoName => stoName === moduleName)) {
+    logger.info(
+      `[WARNING] No email template exists for the ${moduleName} module, skipping.`
+    );
+    return;
+  }
+
+  /**
+   * Get the details of the STO
+   */
+  switch (moduleName) {
+    case 'CappedSTO': {
+      const details = await getCappedSTODetails(moduleAddress, networkId);
+
+      if (!details) {
+        return;
+      }
+
+      const { start, cap, rate, fundsReceiver, isPolyFundraise } = details;
+
+      const { email, name } = user;
+
+      await sendCappedSTOScheduledEmail(
+        email,
+        name,
+        transactionHash,
+        ticker,
+        cap,
+        fundsReceiver,
+        isPolyFundraise,
+        rate,
+        start,
+        networkId
+      );
+      break;
+    }
+    case 'USDTieredSTO': {
+      const details = await getUSDTieredSTODetails(moduleAddress, networkId);
+
+      if (!details) {
+        return;
+      }
+
+      const { start, fundsReceiver } = details;
+
+      const { email, name } = user;
+
+      await sendUSDTieredSTOScheduledEmail(
+        email,
+        name,
+        transactionHash,
+        ticker,
+        fundsReceiver,
+        start,
+        networkId
+      );
+      break;
+    }
+  }
 };
 
 /**

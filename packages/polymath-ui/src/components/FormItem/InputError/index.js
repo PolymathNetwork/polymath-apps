@@ -4,20 +4,25 @@ import { ErrorMessage } from 'formik';
 
 import { FormItemContext } from '../';
 
-const StyledError = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes[0]}px;
-  color: ${({ theme }) => theme.colors.red[0]};
-  order: 3;
-  font-weight: 400;
-  overflow: visible;
+import { formError } from '../../../styles/utils';
+
+const StyledError = styled.span`
+  ${formError};
   margin-top: 0.25rem;
-  margin-bottom: -1rem;
+  float: left;
+  margin-right: 0.5rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
-const InputError = () => (
-  <FormItemContext.Consumer>
-    {({ name }) => <ErrorMessage component={StyledError} name={name} />}
-  </FormItemContext.Consumer>
+const InputError = ({ name }) => (
+  <ErrorMessage component={StyledError} name={name} />
 );
 
-export default InputError;
+export default props => (
+  <FormItemContext.Consumer>
+    {context => <InputError {...props} {...context} />}
+  </FormItemContext.Consumer>
+);
