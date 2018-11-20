@@ -179,7 +179,7 @@ class ProvidersPage extends Component<Props, State> {
         you proceed with the token creation.
       </p>,
       () => {
-        this.handleIHaveMyOwn(0); // $FlowFixMe
+        // $FlowFixMe
         this.props.history.push('/dashboard/' + this.props.token.ticker);
       },
       'Before You Proceed',

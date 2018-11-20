@@ -21,6 +21,7 @@
   "dependencies": {
     "@babel/runtime": "7.0.0",
     "@polymathnetwork/js": "0.0.0",
+    "@sentry/browser": "^4.3.2",
     "axios": "^0.18.0",
     "bignumber.js": "6.0.0",
     "can-use-dom": "^0.1.0",

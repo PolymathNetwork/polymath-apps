@@ -155,7 +155,7 @@ const newProvider = async (networkId: string) => {
 
   @returns an object with the STO details:
 
-    - start (start date)
+    - start (start time as a unix timestamp)
     - cap (maximum amount of tokens to sell)
     - rate (how many tokens for 1 ETH/POLY)
     - isPolyFundraise (is the currency POLY or ETH)
@@ -187,7 +187,7 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
      *
      * Start time is a UNIX timestamp (in seconds)
      */
-    const start = new Date(details[0] * 1000);
+    const start: number = details[0];
     const cap: number = Web3.utils.fromWei(details[2]);
     const rate: number = details[3];
     const isPolyFundraise: boolean = details[7];
@@ -216,7 +216,7 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
     NOTE @monitz87: this should be updated as soon as we have design for
     the USD Tiered STO email
 
-    - start (start date)
+    - start (start time as a unix timestamp)
     - fundsReceiver (wallet to which the funds will be transfered)
  */
 const getUSDTieredSTODetails = async (address: string, networkId: string) => {
@@ -227,7 +227,7 @@ const getUSDTieredSTODetails = async (address: string, networkId: string) => {
     const fundsReceiver: string = await contract.methods.wallet().call();
 
     return {
-      start: new Date(start * 1000),
+      start,
       fundsReceiver,
     };
   } catch (error) {

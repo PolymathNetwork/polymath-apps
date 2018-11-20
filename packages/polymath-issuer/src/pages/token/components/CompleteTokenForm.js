@@ -18,13 +18,30 @@ export const formName = 'complete_token';
 const minValue1 = minValue(1);
 
 type Props = {
-  handleSubmit: (isDivisible: boolean) => void,
+  onSubmit: (isLimitNI: boolean) => void,
   onToggle: (isToggled: boolean) => void,
+};
+
+type State = {
   isToggled: boolean,
 };
 
-class CompleteTokenForm extends Component<Props> {
+class CompleteTokenForm extends Component<Props, State> {
+  state = {
+    isToggled: false,
+  };
+
+  handleToggle = (isToggled: boolean) => {
+    this.setState({ isToggled });
+  };
+
+  handleSubmit = () => {
+    this.props.onSubmit(this.state.isToggled);
+  };
+
   render() {
+    const { isToggled } = this.state;
+
     return (
       <Form onSubmit={this.props.handleSubmit} className="token-form">
         <div className="token-form-left">
@@ -71,10 +88,7 @@ class CompleteTokenForm extends Component<Props> {
               </Tooltip>
             }
           >
-            <Toggle
-              onToggle={this.props.onToggle}
-              id="investors-number-toggle"
-            />
+            <Toggle onToggle={this.handleToggle} id="investors-number-toggle" />
           </FormGroup>
         </div>
         <div className="token-form-right">
@@ -98,7 +112,7 @@ class CompleteTokenForm extends Component<Props> {
               validate={[url]}
             />
           </FormGroup>
-          {this.props.isToggled ? (
+          {isToggled ? (
             <FormGroup
               legendText="Max. Number of Investors"
               style={{ marginTop: '24px' }}

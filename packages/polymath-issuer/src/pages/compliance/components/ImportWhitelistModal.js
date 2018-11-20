@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Modal,
@@ -10,8 +10,6 @@ import {
   InlineNotification,
 } from 'carbon-components-react';
 import { Remark } from '@polymathnetwork/ui';
-import USDTieredSTO from '../../../utils/contracts/USDTieredSTO';
-import { STAGE_OVERVIEW } from '../../../reducers/sto';
 import { uploadCSV } from '../../../actions/compliance';
 
 import type { RootState } from '../../../redux/reducer';
@@ -20,9 +18,6 @@ type StateProps = {|
   isTooMany: boolean,
   isReady: boolean,
   isInvalid: boolean,
-  isPercentageDisabled: boolean,
-  isSTODeployed: boolean,
-  isUSDTieredSTODeployed: boolean,
 |};
 
 type DispatchProps = {|
@@ -40,11 +35,6 @@ const mapStateToProps = (state: RootState) => ({
   isTooMany: state.whitelist.isTooMany,
   isReady: state.whitelist.uploaded.length > 0,
   isInvalid: state.whitelist.criticals.length > 0,
-  isPercentageDisabled: state.whitelist.percentageTM.isPaused,
-  isSTODeployed: state.sto.stage >= STAGE_OVERVIEW,
-  isNotUSDTieredSTO:
-    state.sto.stage >= STAGE_OVERVIEW &&
-    !state.sto.contract instanceof USDTieredSTO,
 });
 
 const mapDispatchToProps = {
@@ -82,15 +72,7 @@ class ImportWhitelistModal extends Component<Props> {
   };
 
   render() {
-    const {
-      isOpen,
-      isTooMany,
-      isReady,
-      isInvalid,
-      isPercentageDisabled,
-      isSTODeployed,
-      isNotUSDTieredSTO,
-    } = this.props;
+    const { isOpen, isTooMany, isReady, isInvalid } = this.props;
     return (
       <Modal
         open={isOpen}
@@ -102,53 +84,37 @@ class ImportWhitelistModal extends Component<Props> {
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
           .CSV file. The format should be as follows:
-          <br />— ETH Address (address to whitelist);
-          <br />— Sell Restriction Date: <strong>mm/dd/yyyy</strong> (date when
+          <br />• ETH Address (address to whitelist);
+          <br />• Sell Restriction Date: <strong>mm/dd/yyyy</strong> (date when
           the resale restrictions should be lifted for that address);
           <br />
           Empty cell will be considered as permanent lockup.
-          <br />— Buy Restriction Date: <strong> mm/dd/yyyy</strong> (date when
+          <br />• Buy Restriction Date: <strong> mm/dd/yyyy</strong> (date when
           the buy restrictions should be lifted for that address);
-          <br />— KYC/AML Expiry Date: <strong>mm/dd/yyyy</strong>;<br />— Can
-          buy from STO: <strong>true</strong> to enable OR empty cell to
-          disable;
-          <br />— Exempt From % Ownership: <strong>true</strong> to enable OR
+          <br />• KYC/AML Expiry Date: <strong>mm/dd/yyyy</strong>;<br />• Can
+          buy from STO: set to <strong>"TRUE"</strong> to allow this address to
+          purchase any number of tokens OR leave an empty cell to disable;
+          <br />• Exempt From % Ownership: <strong>"TRUE"</strong> to enable OR
           empty cell to disable;
-          <br />— Is Accredited: <strong>true</strong> to mark as accredited OR
-          empty cell to disable;
-          <br />— Non Accredited Limit: leave this cell empty to use the default
-          limit;
           <br />
           <br />
-          {isPercentageDisabled || !isSTODeployed || isNotUSDTieredSTO ? (
-            <Fragment>
-              Important:
-              <br />
-            </Fragment>
-          ) : null}
-          {isPercentageDisabled ? (
-            <Fragment>
-              — <strong>Exempt From % Ownership</strong> will be ignored since %
-              Ownership Restrictions are not enabled for this token;
-              <br />
-            </Fragment>
-          ) : null}
-          {!isSTODeployed ? (
-            <Fragment>
-              — <strong>Is Accredited</strong> and{' '}
-              <strong>Non Accredited Limit</strong> will be ignored since your
-              STO has not yet been configured;
-              <br />
-            </Fragment>
-          ) : null}
-          {isNotUSDTieredSTO ? (
-            <Fragment>
-              — <strong>Is Accredited</strong> and{' '}
-              <strong>Non Accredited Limit</strong> will be ignored since the
-              STO configured for this token does not support these fields;
-              <br />
-            </Fragment>
-          ) : null}
+          If you have scheduled a USD Tiered STO, please include the additional
+          fields:
+          <br />• Is Accredited: Set to <strong>"TRUE"</strong> to mark the
+          address as that of an accredited investor OR leave empty to mark the
+          address as that of a non-accredited investor
+          <br />• Non Accredited Limit: Set a maximum investment limit for that
+          non-accredited investor's address or leave empty to use the default
+          limit programmed in the STO
+          <br />
+          <br />
+          Important:
+          <br />
+          Is Accredited and Non Accredited Limit will be ignored if you have not
+          yet scheduled your USD Tiered STO. If you have scheduled your STO, all
+          accredited/non-accredited investor information will be imported
+          adequately. If you have not, you will be required to re-upload this
+          information.
           <br />
           <br /> Maximum numbers of investors per transaction is{' '}
           <strong>75</strong>.

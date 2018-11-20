@@ -290,7 +290,7 @@ exports[`Component: USDTieredSTOScheduled renders with all valid props 1`] = `
               Scheduled start
             </strong>
             <p>
-              10/14/1987
+              10/14/1987 at 00:00 GMT
             </p>
           </div>
           <div

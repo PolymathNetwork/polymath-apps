@@ -177,10 +177,10 @@ export const importWhitelist = () => async (
           const limitValues = [];
 
           // Transform inputs for the transactions
-          each(uploaded, ({ isAccredited, nonAccreditedLimit, address }) => {
-            if (typeof isAccredited === 'boolean') {
+          each(uploaded, ({ accredited, nonAccreditedLimit, address }) => {
+            if (typeof accredited === 'boolean') {
               statusAddresses.push(address);
-              statusValues.push(isAccredited);
+              statusValues.push(accredited);
             }
             if (nonAccreditedLimit !== null) {
               limitAddresses.push(address);
@@ -219,7 +219,7 @@ export const exportWhitelist = () => async (
         transferManager,
         percentageTM: { contract: percentageTM },
       },
-    } = getState().whitelist;
+    } = getState();
 
     const investors = await transferManager.getWhitelist();
 

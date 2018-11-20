@@ -16,7 +16,7 @@ describe('parsers', () => {
         kycAmlExpiryDate: moment({ month: 0, day: 1, year: 2021 }).toDate(),
         canBuyFromSto: true,
         bypassesOwnershipRestriction: true,
-        accredited: true,
+        accredited: false,
         nonAccreditedLimit: null,
       });
       expect(result.invalidRows).toHaveLength(0);

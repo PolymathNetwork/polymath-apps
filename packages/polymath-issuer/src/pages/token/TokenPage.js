@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import numeral from 'numeral';
 import DocumentTitle from 'react-document-title';
 import {
   FormGroup,
@@ -17,9 +16,6 @@ import {
   Countdown,
   Remark,
   NotFoundPage,
-  confirm,
-  NumberInput,
-  thousandsDelimiter,
 } from '@polymathnetwork/ui';
 import moment from 'moment';
 import type { SecurityToken } from '@polymathnetwork/js/types';
@@ -55,7 +51,6 @@ type DispatchProps = {|
   limitNumberOfInvestors: (count?: number) => any,
   updateMaxHoldersCount: (count: number) => any,
   exportMintedTokensList: () => any,
-  confirm: () => any,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
@@ -74,7 +69,6 @@ const mapDispatchToProps: DispatchProps = {
   limitNumberOfInvestors,
   updateMaxHoldersCount,
   exportMintedTokensList,
-  confirm,
 };
 
 type Props = {||} & StateProps & DispatchProps;
@@ -105,10 +99,6 @@ class TokenPage extends Component<Props, State> {
     }
   }
 
-  handleToggleCreate = (isToggled: boolean) => {
-    this.setState({ isToggled });
-  };
-
   handleToggle = (isToggled: boolean) => {
     const { isCountTMEnabled, isCountTMPaused } = this.props;
     if (!isCountTMEnabled) {
@@ -126,27 +116,29 @@ class TokenPage extends Component<Props, State> {
     if (event.target.value === '') {
       this.setState({ maxHoldersCount: undefined });
     }
-    const value = numeral(event.target.value).format('0,0');
+    let value = parseInt(Number(event.target.value), 10);
+    if (!Number.isInteger(value) || value < 1) {
+      event.preventDefault();
+      return;
+    }
     this.setState({ maxHoldersCount: value });
   };
 
   handleApplyMaxHoldersCount = () => {
     const { isCountTMEnabled } = this.props;
-    const maxHoldersCount = parseInt(
-      this.state.maxHoldersCount.toString().replace(/,/g, ''),
-      10
-    );
     if (isCountTMEnabled) {
       // $FlowFixMe
-      this.props.updateMaxHoldersCount(maxHoldersCount);
+      this.props.updateMaxHoldersCount(this.state.maxHoldersCount);
     } else {
       // $FlowFixMe
-      this.props.limitNumberOfInvestors(maxHoldersCount);
+      this.props.limitNumberOfInvestors(this.state.maxHoldersCount);
     }
   };
 
-  handleIssue = () => {
-    this.props.issue(this.state.isToggled);
+  handleIssue = formData => {
+    const isLimitNI = !!formData.investorsNumber;
+
+    this.props.issue(isLimitNI);
   };
 
   handleExport = () => {
@@ -188,7 +180,6 @@ class TokenPage extends Component<Props, State> {
                     </h3>
                     <br />
                     <CompleteTokenForm
-                      onToggle={this.handleToggleCreate}
                       isToggled={this.state.isToggled}
                       onSubmit={this.handleIssue}
                     />
