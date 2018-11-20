@@ -89,35 +89,32 @@ const Status = ({ status, onRequestAuth, networks }) => {
 };
 
 const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
-  <PageCentered title="Polymath" id={pageId}>
+  <PageCentered>
     <ContentBox maxWidth={735}>
-      <img src={logo} alt="Logo" className="pui-metamask-logo" />
-      <div className="pui-single-box">
-        <Status
-          status={status}
-          networks={networks}
-          onRequestAuth={onRequestAuth}
-        />
-        <Accordion className="pui-metamask-accordion">
-          <AccordionItem title="What software do you need to issue your Security Token?">
-            <p>
-              To issue your Security Token, you need to have MetaMask installed
-              in your browser.
-              <br />
-              Additionally, in a wallet in your MetaMask account you need to
-              have ETH and POLY.
-            </p>
-          </AccordionItem>
-          <AccordionItem title="Why is MetaMask locked?">
-            <p>
-              MetaMask periodically locks itself for security reasons.
-              <br />
-              Please open the MetaMask extension in your browser and enter your
-              password to unlock MetaMask.
-            </p>
-          </AccordionItem>
-        </Accordion>
-      </div>
+      <Status
+        status={status}
+        networks={networks}
+        onRequestAuth={onRequestAuth}
+      />
+      <Accordion className="pui-metamask-accordion">
+        <AccordionItem title="What software do you need to issue your Security Token?">
+          <p>
+            To issue your Security Token, you need to have MetaMask installed in
+            your browser.
+            <br />
+            Additionally, in a wallet in your MetaMask account you need to have
+            ETH and POLY.
+          </p>
+        </AccordionItem>
+        <AccordionItem title="Why is MetaMask locked?">
+          <p>
+            MetaMask periodically locks itself for security reasons.
+            <br />
+            Please open the MetaMask extension in your browser and enter your
+            password to unlock MetaMask.
+          </p>
+        </AccordionItem>
+      </Accordion>
     </ContentBox>
   </PageCentered>
 );
