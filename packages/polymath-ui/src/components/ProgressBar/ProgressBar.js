@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import Measure from 'react-measure';
-import styled from 'styled-components';
+import { withTheme } from 'styled-components';
 
-import theme from '../../theme';
+import Block from '../Block';
 
 type Props = {|
   className: string,
@@ -19,18 +19,14 @@ type State = {|
   width: number,
 |};
 
-const Svg = styled.svg`
-  display: block;
-`;
-
-export default class ProgressBar extends Component<Props, State> {
+class ProgressBar extends Component<Props, State> {
   static defaultProps = {
     className: '',
     progress: 0,
     style: {},
     height: 16,
-    backgroundColor: theme.colors.gray[0],
-    color: theme.colors.secondary,
+    backgroundColor: ({ theme }) => theme.colors.gray[0],
+    color: ({ theme }) => theme.colors.secondary,
   };
 
   state = {
@@ -42,14 +38,7 @@ export default class ProgressBar extends Component<Props, State> {
   };
 
   render() {
-    const {
-      className,
-      progress,
-      style,
-      height,
-      backgroundColor,
-      color,
-    } = this.props;
+    const { progress, style, height, backgroundColor, color } = this.props;
     const width = this.state.width;
     const strokeWidth = parseInt(height, 10);
 
@@ -74,8 +63,9 @@ export default class ProgressBar extends Component<Props, State> {
       <Measure bounds onResize={this.handleResize}>
         {({ measureRef }) => (
           <div ref={measureRef}>
-            <Svg
-              className={`pui-progress-bar ${className}`}
+            <Block
+              as="svg"
+              className="pui-progress-bar"
               style={style}
               viewBox={viewBox}
             >
@@ -96,10 +86,12 @@ export default class ProgressBar extends Component<Props, State> {
                 fillOpacity="0"
                 style={pathStyle}
               />
-            </Svg>
+            </Block>
           </div>
         )}
       </Measure>
     );
   }
 }
+
+export default withTheme(ProgressBar);

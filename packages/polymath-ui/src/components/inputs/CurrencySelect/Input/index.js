@@ -1,12 +1,11 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Select, { components } from 'react-select';
 
 import Box from '../../../Box';
 import Icon from '../../../Icon';
-import theme from '../../../../theme';
 import CaretDownIcon from '../../../../images/icons/CaretDown';
 import CloseIcon from '../../../../images/icons/Close';
 
@@ -26,7 +25,7 @@ type Props = {|
   onBlur?: Function,
 |};
 
-const styles = {
+const getStyles = theme => ({
   container: styles => ({
     ...styles,
     borderRadius: 0,
@@ -74,7 +73,7 @@ const styles = {
     justifyContent: 'space-between',
     minWidth: '32px',
   }),
-};
+});
 
 const SelectContainer = styled(Box)`
   display: inline-block;
@@ -110,7 +109,7 @@ const ClearIndicator = props => {
   );
 };
 
-export default class Input extends React.Component<Props> {
+class Input extends React.Component<Props> {
   static defaultProps = {
     options: currencyOptions,
   };
@@ -149,7 +148,7 @@ export default class Input extends React.Component<Props> {
             noOptionsMessage={() => null}
             isClearable={Array.isArray(value) ? value.length : value}
             isMulti={Array.isArray(value)}
-            styles={styles}
+            styles={getStyles(theme)}
             components={{
               DropdownIndicator,
               ClearIndicator,
@@ -179,3 +178,5 @@ export default class Input extends React.Component<Props> {
     );
   }
 }
+
+export default withTheme(Input);

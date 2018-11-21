@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import Box from '../../../Box';
 import { ellipsis } from '../../../../styles/utils';
 
-import theme from '../../../../theme';
-
 const Container = styled(Box)`
   display: flex;
   align-items: center;
@@ -13,9 +11,9 @@ const Container = styled(Box)`
 `;
 
 const Text = styled.span`
-  ${ellipsis}
-  margin-left: ${theme.space[3]}px;
-  font-size: ${theme.fontSizes[1]}px;
+  margin-left: ${({ theme }) => theme.space[3]}px;
+  font-size: ${({ theme }) => theme.fontSizes[1]}px;
+  ${ellipsis};
 `;
 
 const Label = ({ icon, text }) => (
