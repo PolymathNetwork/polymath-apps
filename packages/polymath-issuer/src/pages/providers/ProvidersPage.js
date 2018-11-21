@@ -6,8 +6,8 @@ import type { SecurityToken } from '@polymathnetwork/js/types';
 import {
   Countdown,
   Remark,
+  Page,
   NotFoundPage,
-  PageDashboard,
   confirm,
 } from '@polymathnetwork/ui';
 import React, { Component } from 'react';
@@ -241,7 +241,7 @@ class ProvidersPage extends Component<Props, State> {
     }
 
     return (
-      <PageDashboard title={`${token.ticker} Providers – Polymath`}>
+      <Page title={`${token.ticker} Providers – Polymath`}>
         <Progress />
         <Remark title="Data Privacy">
           None of your data entered in the application form(s) is stored on
@@ -425,7 +425,7 @@ class ProvidersPage extends Component<Props, State> {
           onSubmit={() => this.handleProviderClick(this.state.providerInfo)}
         />
         <div className="pui-clearfix" />
-      </PageDashboard>
+      </Page>
     );
   }
 }

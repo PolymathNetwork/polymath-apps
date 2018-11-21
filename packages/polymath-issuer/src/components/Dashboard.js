@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Fragment, Component } from 'react';
+import styled from 'styled-components';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
@@ -65,6 +66,10 @@ type Props = {|
   },
 |} & StateProps &
   DispatchProps;
+
+const Container = styled.div`
+  margin-left: ${({ theme }) => theme.sidebar.width};
+`;
 
 class Dashboard extends Component<Props> {
   componentWillMount() {
@@ -153,7 +158,7 @@ class Dashboard extends Component<Props> {
           topItems={topSidebarItems}
           bottomItems={bottomSidebarItems}
         />
-        {renderRoutes(route.routes)}
+        <Container>{renderRoutes(route.routes)}</Container>
       </Fragment>
     );
   }

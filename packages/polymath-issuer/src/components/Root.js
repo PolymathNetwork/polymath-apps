@@ -7,11 +7,9 @@ import { Router } from '@reach/router';
 import { hot } from 'react-hot-loader';
 import type { RouterHistory } from 'react-router-dom';
 import {
-  MetamaskStatus,
   NotSupportedPage,
   NotFoundPage,
   ErrorBoundary,
-  EthNetworkWrapper,
   setupHistory,
 } from '@polymathnetwork/ui';
 import {
@@ -21,8 +19,8 @@ import {
 
 import App from '../components/App';
 import ProtectedPages from '../components/ProtectedPages';
-import Home from '../pages/home';
-import RegisterTicker from '../pages/ticker';
+import HomePage from '../pages/home';
+import TickerPage from '../pages/ticker/TickerPage';
 
 type StateProps = {|
   isNotice: boolean,
@@ -64,9 +62,9 @@ class Root extends Component<Props> {
         ) : (
           <App>
             <Router>
-              <Home path="/" />
+              <HomePage path="/" />
               <ProtectedPages path="/*" networks={networks}>
-                <RegisterTicker path="ticker" />
+                <TickerPage path="ticker" />
               </ProtectedPages>
               <NotFoundPage default />
             </Router>

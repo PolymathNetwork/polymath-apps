@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { Link } from '@reach/router';
-import { PageCentered, Flex, Button, logo } from '@polymathnetwork/ui';
+import { PageCentered, Button } from '@polymathnetwork/ui';
 
 export default class HomePage extends Component {
   render() {
@@ -25,7 +24,7 @@ export default class HomePage extends Component {
           <p>
             <Link to="/ticker">
               <Button id="create-token-btn" icon="arrow--right">
-                CREATE YOUR SECURITY TOKEN
+                Create your security token
               </Button>
             </Link>
           </p>

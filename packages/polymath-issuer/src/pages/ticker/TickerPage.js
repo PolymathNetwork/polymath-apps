@@ -2,9 +2,8 @@
 
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { change } from 'redux-form';
-import { Remark, bull, thousandsDelimiter } from '@polymathnetwork/ui';
+import { Page, Remark, bull, thousandsDelimiter } from '@polymathnetwork/ui';
 import { SecurityTokenRegistry } from '@polymathnetwork/js';
 import type { RouterHistory } from 'react-router';
 
@@ -52,7 +51,7 @@ class TickerPage extends Component<Props, State> {
     tickerRegistrationFee: '-',
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.change(this.props.account);
     this.props.tokenData(null);
     this.props.getExpiryLimit();
@@ -68,7 +67,7 @@ class TickerPage extends Component<Props, State> {
 
   render() {
     return (
-      <DocumentTitle title="Token Symbol Reservation – Polymath">
+      <Page title="Token Symbol Reservation – Polymath">
         <div id="ticker-reservation" className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
@@ -93,7 +92,7 @@ class TickerPage extends Component<Props, State> {
           </div>
           <TickerForm onSubmit={this.handleSubmit} />
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }
