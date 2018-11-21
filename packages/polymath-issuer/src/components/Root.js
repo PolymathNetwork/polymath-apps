@@ -9,6 +9,7 @@ import { hot } from 'react-hot-loader';
 import type { RouterHistory } from 'react-router-dom';
 import {
   MetamaskStatus,
+  MaintenancePage,
   NotSupportedPage,
   ErrorBoundary,
   EthNetworkWrapper,
@@ -55,6 +56,10 @@ class Root extends Component<Props> {
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
+    // FIXME @RafaelVidaurre: Remove this hack, only used for temporary maintenance mode
+    if (window.location.pathname === '/maintenance') {
+      return <MaintenancePage />;
+    }
     return (
       <ErrorBoundary>
         <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
