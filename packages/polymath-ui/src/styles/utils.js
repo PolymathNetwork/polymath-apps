@@ -11,3 +11,11 @@ export const formError = css`
   color: ${({ theme }) => theme.colors.red[0]};
   font-weight: 400;
 `;
+
+export const textLinkInverted = `
+  text-decoration: none;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+`;

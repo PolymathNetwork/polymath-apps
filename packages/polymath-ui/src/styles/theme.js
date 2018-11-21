@@ -47,6 +47,9 @@ const navbar = {
 const sidebar = {
   width: '64px',
 };
+const footer = {
+  height: navbar.height,
+};
 
 export default {
   fontSizes,
@@ -58,4 +61,5 @@ export default {
   inputs,
   navbar,
   sidebar,
+  footer,
 };

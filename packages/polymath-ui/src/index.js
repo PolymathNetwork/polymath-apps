@@ -1,8 +1,14 @@
 // @flow
 
-export { default as theme } from './theme';
+/**
+ * Theme styles
+ */
+export { default as theme } from './styles/theme';
 export { default as GlobalStyles } from './styles/GlobalStyles';
 
+/**
+ * Components
+ */
 export * from './components/inputs';
 
 export { default as Box } from './components/Box';
@@ -46,6 +52,9 @@ export { default as ProgressBar } from './components/ProgressBar';
 export { default as TierStatus } from './components/TierStatus';
 export { default as StickyTop } from './components/StickyTop';
 
+/**
+ * Redux
+ */
 export { getNotice } from './components/NoticeBar/actions';
 export { notify } from './components/Toaster/actions';
 export { tx, txEnd, txHash } from './components/TxModal/actions';
@@ -79,6 +88,9 @@ export {
 
 export { uiReducer, networkReducer } from './redux/reducer';
 
+/**
+ * Assets
+ */
 export { default as logo } from './images/logo.svg';
 export { default as bull } from './images/bull.png';
 export { default as metamask } from './images/metamask.png';
@@ -89,6 +101,9 @@ export { default as icoHandshake } from './images/svg/handshake';
 export { default as icoHelp } from './images/svg/help';
 export { default as icoWhitelist } from './images/svg/whitelist';
 
+/**
+ * Flow types
+ */
 export type { PUIState } from './redux/reducer';
 export type { NetworkState } from './redux/reducer';
 export type { ToastArgs } from './components/Toaster/Toaster';
