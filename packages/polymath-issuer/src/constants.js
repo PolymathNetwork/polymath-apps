@@ -28,7 +28,7 @@ export const ModuleFactoryAbisByType: { [type: STOModuleType]: Object } = {
 
 export const SECURITY_AUDIT_URL =
   'https://github.com/PolymathNetwork/polymath-core/blob/master/audit%20reports/' +
-  'Polymath%20Audit%20Report%20Final.pdf';
+  'Polymath%20Core%202.0.0%20Audit%20Report%20.pdf';
 
 export type STOModuleType = 'USDTieredSTO' | 'CappedSTO';
 export type STOModule = {|
