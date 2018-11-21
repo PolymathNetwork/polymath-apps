@@ -21,6 +21,7 @@ type StateProps = {|
   isFetching: boolean,
   isFetchingLegacyTokens: boolean,
   ticker: ?string,
+  ui: any,
 |};
 
 type DispatchProps = {|
@@ -32,6 +33,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isFetching: state.pui.common.isFetching,
   isFetchingLegacyTokens: state.token.isFetchingLegacyTokens,
   ticker: state.token.token ? state.token.token.ticker : null,
+  ui: state.ui,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -49,7 +51,13 @@ class App extends Component<Props> {
   }
 
   render() {
-    const { children, ticker, isFetching, isFetchingLegacyTokens } = this.props;
+    const {
+      children,
+      ticker,
+      ui,
+      isFetching,
+      isFetchingLegacyTokens,
+    } = this.props;
 
     return (
       <Fragment>
@@ -60,10 +68,10 @@ class App extends Component<Props> {
         <ConfirmModal />
         <StickyTop>
           <NoticeBar />
-          <Navbar ticker={ticker} />
+          <Navbar ticker={ticker} variant={ui.navbar.variant} />
         </StickyTop>
         {children}
-        <Footer />
+        <Footer variant={ui.footer.variant} />
       </Fragment>
     );
   }

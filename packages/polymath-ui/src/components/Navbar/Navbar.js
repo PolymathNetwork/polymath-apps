@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { connect } from 'react-redux';
 import { Link } from '@reach/router';
@@ -19,13 +19,12 @@ import tokenIcon from '../../images/icons/token.svg';
 
 import type { RootState } from '../../redux/reducer';
 
-import './style.scss';
-
 type StateProps = {|
   network: string,
   account: string,
   balance: ?BigNumber,
   isNotice: boolean,
+  variant?: string,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
@@ -40,17 +39,58 @@ type Props = {|
   logo: ?string,
 |} & StateProps;
 
-const Container = styled(Flex)`
+const Container = styled.div`
+  width: 100%;
+  height: ${({ theme }) => theme.navbar.height};
+  background-color: white;
+  box-shadow: 0 1px 0 0 #dfe3e6;
+  ${({ variant }) => variants[variant]};
+
+  > a {
+    float: left;
+  }
+
+  .pui-navbar-menu {
+    li {
+      display: inline-flex;
+      align-items: center;
+      color: $poly-gray-dark;
+      font-size: 14px;
+      line-height: 22px;
+      margin-left: 30px;
+      font-weight: 300;
+
+      svg,
+      img {
+        margin-right: 8px;
+      }
+    }
+  }
+`;
+
+const Inner = styled(Flex)`
   height: ${({ theme }) => theme.navbar.height};
 `;
 
+const variants = {
+  default: css`
+    background-color: white;
+    box-shadow: 0 -1px 0 0 #dfe3e6;
+  `,
+  transparent: css``,
+};
+
 class Navbar extends Component<Props> {
+  static defaultProps: {
+    variant: 'default',
+  };
+
   render() {
-    const { balance, account, network, ticker, logo } = this.props;
+    const { balance, account, network, ticker, logo, variant } = this.props;
     return (
-      <div className="pui-navbar">
+      <Container className="pui-navbar" variant={variant}>
         <PageWrap>
-          <Container>
+          <Inner>
             <Link to="/">
               {logo ? (
                 <Block as="img" src={logo} alt="Company Logo" width="188" />
@@ -90,9 +130,9 @@ class Navbar extends Component<Props> {
                 )}
               </Flex>
             ) : null}
-          </Container>
+          </Inner>
         </PageWrap>
-      </div>
+      </Container>
     );
   }
 }
