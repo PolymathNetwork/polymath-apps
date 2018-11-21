@@ -10,11 +10,16 @@ Node service that handles user authentication, emailing, providers and notices t
 
 You can set the following env vars inside a `.env` file on the package's root
 
-`WEB3_NETWORK_LOCAL_WS`: LOCAL URL for the web3 WebsocketProvider
-`WEB3_NETWORK_KOVAN_WS`: KOVAN URL for the web3 WebsocketProvider
-`WEB3_NETWORK_MAINNET_WS`: MAINNET URL for the web3 WebsocketProvider
+Depending on the deployment stage, you will have to set one or more of the following URLs and addresses:
 
-Not all 3 network URLs must be set, but **at least one is required**
+`WEB3_NETWORK_LOCAL_WS`: LOCAL URL for the web3 WebsocketProvider (mandatory in local, optional in staging and production)
+`WEB3_NETWORK_LOCALVM_WS`: LOCAL VM URL for the web3 WebSocketProvider (used for cross-browser testing, optional in all stages)
+`WEB3_NETWORK_KOVAN_WS`: KOVAN URL for the web3 WebsocketProvider (optional in local, mandatory in staging and production)
+`WEB3_NETWORK_MAINNET_WS`: MAINNET URL for the web3 WebsocketProvider (unused in local and staging, mandatory in production)
+
+`POLYMATH_REGISTRY_ADDRESS_LOCAL`: Address of the deployed PolymathRegistry in the local blockchain (mandatory in local, optional in staging and production)
+`POLYMATH_REGISTRY_ADDRESS_KOVAN`: Address of the deployed PolymathRegistry in the Kovan testnet (optional in local, mandatory in staging and production)
+`POLYMATH_REGISTRY_ADDRESS_MAINNET`: Address of the deployed PolymathRegistry in Mainnet (unused in local and staging, mandatory in production)
 
 `PORT`: Web server's port
 
