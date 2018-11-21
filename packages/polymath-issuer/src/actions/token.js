@@ -554,7 +554,15 @@ export const exportMintedTokensList = () => async (
   dispatch(
     ui.confirm(
       <p>
-        Are you sure you want to export minted tokens list?
+        Are you sure you want to export the whitelist?
+        <br />
+        <br />
+        Note that the whitelist export does not contain the settings for "Exempt
+        From % Ownership" or information specific to the USD Tiered STO such as
+        "Is Accredited" or "Non Accredited Limit".
+        <br />
+        This information will need to be appended to the file, should you wish
+        to re-import its contents.
         <br />
         Please be aware that the time to complete this operation will vary based
         on the number of entries in the list.
