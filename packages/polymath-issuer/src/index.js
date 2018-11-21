@@ -20,11 +20,13 @@ import { SENTRY_KEY } from './constants';
 
 unregister();
 
-// Init error monitoring tool
-Sentry.init({
-  dsn: SENTRY_KEY,
-  environment: process.env.REACT_APP_DEPLOYMENT_STAGE,
-});
+if (process.env.NODE_ENV === 'production') {
+  // Init error monitoring tool
+  Sentry.init({
+    dsn: SENTRY_KEY,
+    environment: process.env.REACT_APP_DEPLOYMENT_STAGE,
+  });
+}
 
 render(
   <Provider store={store}>
