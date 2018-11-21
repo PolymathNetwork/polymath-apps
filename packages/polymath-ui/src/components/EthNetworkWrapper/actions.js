@@ -6,7 +6,7 @@
 
 import Web3 from 'web3';
 
-import { getNetworkInfos } from './networks';
+import { getNetworkInfo } from './networks';
 import {
   ERROR_LOCKED,
   ERROR_NETWORK,
@@ -97,7 +97,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     String(networkId) === LOCAL_NETWORK_ID ||
     String(networkId) === LOCALVM_NETWORK_ID ||
     networkId === undefined;
-  const network = getNetworkInfos(networkId);
+  const network = getNetworkInfo(networkId);
   const accounts = await web3.eth.getAccounts();
 
   // Instantiate Web3 Web Socket
