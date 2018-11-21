@@ -133,7 +133,8 @@ export const NETWORKS: {
 };
 
 /**
- * - Production offchain MUST listen to Mainnet and Kovan
+ * - Production offchain MUST listen to Mainnet and Kovan and can optionally
+ *   listen to the local blockchain
  * - Staging offchain MUST listen to kovan and can optionally listen to
  *   the local blockchain
  * - Local offchain MUST listen to either the local blockchain or the
@@ -147,6 +148,18 @@ if (DEPLOYMENT_STAGE !== 'local') {
   NETWORKS[KOVAN_NETWORK_ID].connect = true;
   NETWORKS[KOVAN_NETWORK_ID].optional = false;
   NETWORKS[KOVAN_NETWORK_ID].maxRetries = CRITICAL_RETRIES;
+
+  if (WEB3_NETWORK_LOCAL_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
+    NETWORKS[LOCAL_NETWORK_ID].connect = true;
+    NETWORKS[LOCAL_NETWORK_ID].optional = true;
+    NETWORKS[LOCAL_NETWORK_ID].maxRetries = OPTIONAL_RETRIES;
+  }
+
+  if (WEB3_NETWORK_LOCALVM_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
+    NETWORKS[LOCALVM_NETWORK_ID].connect = true;
+    NETWORKS[LOCALVM_NETWORK_ID].optional = true;
+    NETWORKS[LOCALVM_NETWORK_ID].maxRetries = OPTIONAL_RETRIES;
+  }
 
   if (DEPLOYMENT_STAGE === 'production') {
     if (!WEB3_NETWORK_MAINNET_WS) {
@@ -174,18 +187,6 @@ if (DEPLOYMENT_STAGE !== 'local') {
     NETWORKS[
       KOVAN_NETWORK_ID
     ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN;
-
-    if (WEB3_NETWORK_LOCAL_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
-      NETWORKS[LOCAL_NETWORK_ID].connect = true;
-      NETWORKS[LOCAL_NETWORK_ID].optional = true;
-      NETWORKS[LOCAL_NETWORK_ID].maxRetries = OPTIONAL_RETRIES;
-    }
-
-    if (WEB3_NETWORK_LOCALVM_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
-      NETWORKS[LOCALVM_NETWORK_ID].connect = true;
-      NETWORKS[LOCALVM_NETWORK_ID].optional = true;
-      NETWORKS[LOCALVM_NETWORK_ID].maxRetries = OPTIONAL_RETRIES;
-    }
   }
 } else {
   if (!WEB3_NETWORK_LOCAL_WS && !WEB3_NETWORK_LOCALVM_WS) {

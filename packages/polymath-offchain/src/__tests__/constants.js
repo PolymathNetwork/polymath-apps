@@ -406,7 +406,62 @@ describe('Constants', () => {
     });
   });
 
-  test('sets network params correctly when on production stage', () => {
+  test('sets network params correctly when on production stage if no local network is specified', () => {
+    process.env.DEPLOYMENT_STAGE = 'production';
+    process.env.WEB3_NETWORK_LOCAL_WS = undefined;
+    process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
+
+    const { NETWORKS } = require('../constants');
+
+    const {
+      WEB3_NETWORK_KOVAN_WS,
+      WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
+    } = process.env;
+
+    expect(NETWORKS).toEqual({
+      [LOCAL_NETWORK_ID]: {
+        name: expectedLocalName,
+        url: '',
+        connect: false,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [LOCALVM_NETWORK_ID]: {
+        name: expectedLocalVMName,
+        url: '',
+        connect: false,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [KOVAN_NETWORK_ID]: {
+        name: expectedKovanName,
+        url: WEB3_NETWORK_KOVAN_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      },
+      [MAINNET_NETWORK_ID]: {
+        name: expectedMainnetName,
+        url: WEB3_NETWORK_MAINNET_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
+      },
+    });
+  });
+
+  test('sets network params correctly when on production stage if a local network is specified', () => {
     process.env.DEPLOYMENT_STAGE = 'production';
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
 
@@ -425,7 +480,7 @@ describe('Constants', () => {
       [LOCAL_NETWORK_ID]: {
         name: expectedLocalName,
         url: WEB3_NETWORK_LOCAL_WS,
-        connect: false,
+        connect: true,
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
@@ -435,6 +490,61 @@ describe('Constants', () => {
         name: expectedLocalVMName,
         url: '',
         connect: false,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [KOVAN_NETWORK_ID]: {
+        name: expectedKovanName,
+        url: WEB3_NETWORK_KOVAN_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      },
+      [MAINNET_NETWORK_ID]: {
+        name: expectedMainnetName,
+        url: WEB3_NETWORK_MAINNET_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
+      },
+    });
+  });
+
+  test('sets network params correctly when on production stage if a localVM network is specified', () => {
+    process.env.DEPLOYMENT_STAGE = 'production';
+    process.env.WEB3_NETWORK_LOCAL_WS = undefined;
+
+    const { NETWORKS } = require('../constants');
+
+    const {
+      WEB3_NETWORK_LOCALVM_WS,
+      WEB3_NETWORK_KOVAN_WS,
+      WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
+    } = process.env;
+
+    expect(NETWORKS).toEqual({
+      [LOCAL_NETWORK_ID]: {
+        name: expectedLocalName,
+        url: '',
+        connect: false,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [LOCALVM_NETWORK_ID]: {
+        name: expectedLocalVMName,
+        url: WEB3_NETWORK_LOCALVM_WS,
+        connect: true,
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
