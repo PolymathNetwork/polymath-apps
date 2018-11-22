@@ -54,8 +54,7 @@ const ConfigSTOConfirmContent = ({ setupCost }) => (
       • The first transaction will be used to pay for the smart contract fee of:
     </p>
     <div className="bx--details poly-cost">
-      {setupCost.toString()}
-      POLY
+      {`${setupCost.toString()} POLY`}
     </div>
     <p>
       • The second transaction will be used to pay the mining fee (aka gas fee)
