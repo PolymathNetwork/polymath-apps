@@ -28,6 +28,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+window.debugEnv = () => {
+  console.log(process.env);
+};
+
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
