@@ -6,7 +6,7 @@ import artifact from '@polymathnetwork/shared/fixtures/contracts/PercentageTrans
 import Contract from './Contract';
 import type { Address, Investor, Web3Receipt } from '../types';
 
-const LOG_MODIFY_WHITELIST = 'LogModifyWhitelist';
+const MODIFY_WHITELIST_EVENT = 'ModifyWhitelist';
 
 export default class PercentageTransferManager extends Contract {
   paused: () => Promise<boolean>;
@@ -71,10 +71,13 @@ export default class PercentageTransferManager extends Contract {
 
   async getWhitelist(): Promise<Array<Investor>> {
     const logs = [];
-    const events = await this._contractWS.getPastEvents(LOG_MODIFY_WHITELIST, {
-      fromBlock: 0,
-      toBlock: 'latest',
-    });
+    const events = await this._contractWS.getPastEvents(
+      MODIFY_WHITELIST_EVENT,
+      {
+        fromBlock: 0,
+        toBlock: 'latest',
+      }
+    );
 
     for (let event of events) {
       logs.push({

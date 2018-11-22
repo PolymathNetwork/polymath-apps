@@ -46,6 +46,7 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
         <ModalHeader
           label={this.props.headerLabel}
           title={
+            // NOTE @RafaelVidaurre: Carbon components throws a warning here since it expects a string, not a Node
             <span>
               <Icon
                 name="warning--glyph"

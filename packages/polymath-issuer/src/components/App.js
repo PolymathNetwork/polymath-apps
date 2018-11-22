@@ -27,6 +27,7 @@ type StateProps = {|
   isSignedIn: ?boolean,
   isSignedUp: ?boolean,
   isFetching: boolean,
+  isFetchingLegacyTokens: boolean,
   isTickerReserved: ?boolean,
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
@@ -46,6 +47,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isSignedIn: state.pui.account.isSignedIn,
   isSignedUp: state.pui.account.isSignedUp,
   isFetching: state.pui.common.isFetching,
+  isFetchingLegacyTokens: state.token.isFetchingLegacyTokens,
   isTickerReserved: state.ticker.isTickerReserved,
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
@@ -67,11 +69,6 @@ type Props = {|
 
 class App extends Component<Props> {
   componentWillMount() {
-    Contract.setParams({
-      ...this.props.network,
-      txHashCallback: hash => this.props.txHash(hash),
-      txEndCallback: receipt => this.props.txEnd(receipt),
-    });
     this.props.getMyTokens();
     this.props.getNotice('issuers');
   }
@@ -80,18 +77,27 @@ class App extends Component<Props> {
     this.props.signIn();
   }
 
+  onAuthFail = () => {
+    // Make sure user is on the ticker page if he doesn't have an account yet
+    if (this.props.location.pathname !== '/ticker') {
+      this.props.history.push('/ticker');
+    }
+  };
+
   render() {
-    const { ticker, isFetching, route } = this.props;
+    const { ticker, isFetching, route, isFetchingLegacyTokens } = this.props;
 
     return (
       <Fragment>
         <Navbar ticker={ticker} />
-        {isFetching ? <Loading /> : ''}
+        {isFetching || isFetchingLegacyTokens ? <Loading /> : ''}
         <Toaster />
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
-        <AuthWrapper>{renderRoutes(route.routes)}</AuthWrapper>
+        <AuthWrapper onFail={this.onAuthFail}>
+          {renderRoutes(route.routes)}
+        </AuthWrapper>
         <Footer />
       </Fragment>
     );

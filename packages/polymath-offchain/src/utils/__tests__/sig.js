@@ -86,7 +86,7 @@ describe('Function: verifySignature', () => {
   });
 
   /**
-    Check if valid using EIP712, then if not, check if valid using legacy signing
+   * Check if valid using EIP712, then if not, check if valid using legacy signing
    */
   test('returns null if signature is valid', async () => {
     AuthCode.findOne.mockImplementationOnce(returnValidAuthCode);

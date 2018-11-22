@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Form, Button } from 'carbon-components-react';
-import { TextInput, CheckboxInput, Remark } from '@polymathnetwork/ui';
+import { Remark } from '@polymathnetwork/ui';
+import { TextInput, CheckboxInput } from '@polymathnetwork/ui/deprecated';
 import { required, ethereumAddress } from '@polymathnetwork/ui/validate';
 
 import LockupDatesFields, { validate } from './LockupDatesFields';

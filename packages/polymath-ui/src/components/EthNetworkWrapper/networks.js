@@ -1,41 +1,60 @@
 // @flow
 
+import {
+  LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
+  ROPSTEN_NETWORK_ID,
+  RINKEBY_NETWORK_ID,
+  KOVAN_NETWORK_ID,
+  MAINNET_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
+
 type Network = {
   name: string,
   url: string,
+  polymathRegistryAddress: ?string,
 };
 
-export const NETWORK_MAIN = '1';
-export const NETWORK_ROPSTEN = '3';
-export const NETWORK_RINKEBY = '4';
-export const NETWORK_KOVAN = '42';
-export const NETWORK_LOCAL = '15';
-export const NETWORK_LOCALVM = '16';
+const {
+  REACT_APP_NETWORK_MAIN_WS,
+  REACT_APP_NETWORK_KOVAN_WS,
+  REACT_APP_NETWORK_LOCAL_WS,
+  REACT_APP_NETWORK_LOCALVM_WS,
+  REACT_APP_POLYMATH_REGISTRY_ADDRESS_LOCAL,
+  REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN,
+  REACT_APP_POLYMATH_REGISTRY_ADDRESS_MAINNET,
+} = process.env;
 
-export default (id: string = NETWORK_LOCAL): Network =>
-  ({
-    [NETWORK_MAIN]: {
+export function getNetworkInfo(id: string = LOCAL_NETWORK_ID): Network {
+  const networks = {
+    [MAINNET_NETWORK_ID]: {
       name: 'Mainnet',
-      url: process.env.REACT_APP_NETWORK_MAIN_WS,
+      url: REACT_APP_NETWORK_MAIN_WS,
+      polymathRegistryAddress: REACT_APP_POLYMATH_REGISTRY_ADDRESS_MAINNET,
     },
-    [NETWORK_ROPSTEN]: {
+    [ROPSTEN_NETWORK_ID]: {
       name: 'Ropsten Testnet',
       url: 'wss://ropsten.infura.io/ws',
     },
-    [NETWORK_RINKEBY]: {
+    [RINKEBY_NETWORK_ID]: {
       name: 'Rinkeby Testnet',
       url: 'wss://rinkeby.infura.io/ws',
     },
-    [NETWORK_KOVAN]: {
+    [KOVAN_NETWORK_ID]: {
       name: 'Kovan Testnet',
-      url: process.env.REACT_APP_NETWORK_KOVAN_WS,
+      url: REACT_APP_NETWORK_KOVAN_WS,
+      polymathRegistryAddress: REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN,
     },
-    [NETWORK_LOCAL]: {
+    [LOCAL_NETWORK_ID]: {
       name: 'Localhost',
-      url: process.env.REACT_APP_NETWORK_LOCAL_WS,
+      url: REACT_APP_NETWORK_LOCAL_WS,
+      polymathRegistryAddress: REACT_APP_POLYMATH_REGISTRY_ADDRESS_LOCAL,
     },
-    [NETWORK_LOCALVM]: {
+    [LOCALVM_NETWORK_ID]: {
       name: 'LocalVM',
-      url: process.env.REACT_APP_NETWORK_LOCALVM_WS,
+      url: REACT_APP_NETWORK_LOCALVM_WS,
     },
-  }[id]);
+  };
+
+  return networks[id];
+}

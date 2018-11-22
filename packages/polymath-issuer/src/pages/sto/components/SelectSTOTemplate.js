@@ -3,42 +3,34 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import { Remark } from '@polymathnetwork/ui';
-import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
+import { Grid, Remark } from '@polymathnetwork/ui';
 
 import Progress from '../../token/components/Progress';
-import STODetails from './STODetails';
-import { fetchFactories, useFactory } from '../../../actions/sto';
+import STOTemplatesList from './STOTemplatesList';
+import { useFactory } from '../../../actions/sto';
+
+import type { Dispatch } from 'redux';
+import type { SecurityToken, STOFactory } from '@polymathnetwork/js/types';
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|
   token: ?SecurityToken,
   factories: Array<STOFactory>,
+  dispatch: Dispatch<any>,
 |};
 
-type DispatchProps = {|
-  fetchFactories: () => any,
-  useFactory: (factory: STOFactory) => any,
-|};
-
-const mapStateToProps = (state: RootState): StateProps => ({
+const mapStateToProps = (state: RootState) => ({
   token: state.token.token,
   factories: state.sto.factories,
 });
 
-const mapDispatchToProps: DispatchProps = {
-  fetchFactories,
-  useFactory,
-};
-
-type Props = {||} & StateProps & DispatchProps;
+type Props = {||} & StateProps;
 
 class SelectSTOTemplate extends Component<Props> {
-  componentWillMount() {
-    this.props.fetchFactories();
-  }
-
-  handleUseSTO = (sto: STOFactory) => () => this.props.useFactory(sto);
+  handleUseSTO = (sto: STOFactory) => () => {
+    const { dispatch } = this.props;
+    dispatch(useFactory(sto));
+  };
 
   render() {
     const { token } = this.props;
@@ -64,13 +56,9 @@ class SelectSTOTemplate extends Component<Props> {
                 CONFIGURE STO&raquo;.
               </h3>
               <br />
-              {this.props.factories.map(item => (
-                <STODetails
-                  key={item.address}
-                  item={item}
-                  handleUseSTO={this.handleUseSTO(item)}
-                />
-              ))}
+              <Grid gridGap={30} gridAutoFlow="row">
+                <STOTemplatesList />
+              </Grid>
             </div>
           </div>
         </div>
@@ -79,7 +67,4 @@ class SelectSTOTemplate extends Component<Props> {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectSTOTemplate);
+export default connect(mapStateToProps)(SelectSTOTemplate);

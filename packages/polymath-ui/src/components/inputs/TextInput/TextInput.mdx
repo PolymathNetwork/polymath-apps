@@ -1,0 +1,24 @@
+---
+name: TextInput
+menu: Inputs
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field }  from 'formik';
+import TextInput from './index';
+
+# NextTextInput
+
+<PropsTable of={TextInput} />
+
+## Basic usage
+
+<Playground>
+  <Formik render={(values) => (
+    <form>
+      <pre>{JSON.stringify(values, null, 2)}</pre>
+      <br/>
+      <Field name="myText" placeholder="foo" component={TextInput} />
+    </form>
+  )} />
+</Playground>

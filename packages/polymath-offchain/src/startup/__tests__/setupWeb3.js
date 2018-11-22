@@ -1,50 +1,56 @@
 import {
-  sendSTOScheduledEmail,
+  sendCappedSTOScheduledEmail,
+  sendUSDTieredSTOScheduledEmail,
   sendTickerReservedEmail,
   sendTokenCreatedEmail,
 } from '../../utils';
 import logger from 'winston';
 import { User } from '../../models';
-import { NETWORKS } from '../../constants';
+import { NETWORKS, STO_MODULE_TYPE } from '../../constants';
 
 jest.mock('../../utils', () => {
   return {
-    sendSTOScheduledEmail: jest.fn(),
+    sendCappedSTOScheduledEmail: jest.fn(),
+    sendUSDTieredSTOScheduledEmail: jest.fn(),
     sendTickerReservedEmail: jest.fn(),
     sendTokenCreatedEmail: jest.fn(),
   };
 });
 
-const mockArtifact = {
-  abi: {},
-  networks: {
-    '15': {
-      address: '0xffffffffffffffffffffffffffffffffffffffff',
-    },
-  },
-};
-
 jest.useFakeTimers();
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json',
-  () => mockArtifact
+  '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json',
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
 jest.mock(
   '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json',
-  () => mockArtifact
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
 jest.mock(
   '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json',
-  () => mockArtifact
+  () => {
+    return {
+      abi: {},
+    };
+  }
 );
 
-jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json',
-  () => mockArtifact
-);
+jest.mock('@polymathnetwork/shared/fixtures/contracts/CappedSTO.json', () => {
+  return {
+    abi: {},
+  };
+});
 
 jest.mock('winston', () => {
   return {
@@ -59,10 +65,16 @@ const registerTickerListenerMock = jest.fn();
 const moduleAddedListenerMock = jest.fn();
 const newSecurityTokenListenerMock = jest.fn();
 const getPastEventsMock = jest.fn().mockImplementation(() => []);
-const expiryLimitCallMock = jest.fn();
-const expiryLimitMock = jest.fn().mockImplementation(() => {
+const getExpiryLimitCallMock = jest.fn();
+const getExpiryLimitMock = jest.fn().mockImplementation(() => {
   return {
-    call: expiryLimitCallMock,
+    call: getExpiryLimitCallMock,
+  };
+});
+const startTimeCallMock = jest.fn();
+const startTimeMock = jest.fn().mockImplementation(() => {
+  return {
+    call: startTimeCallMock,
   };
 });
 const detailsCallMock = jest.fn();
@@ -83,19 +95,29 @@ const ownerMock = jest.fn().mockImplementation(() => {
     call: ownerCallMock,
   };
 });
+const getAddressCallMock = jest
+  .fn()
+  .mockImplementation(() => '0xffffffffffffffffffffffffffffffffffffffff');
+const getAddressMock = jest.fn().mockImplementation(() => {
+  return {
+    call: getAddressCallMock,
+  };
+});
 const contractMock = jest.fn().mockImplementation(() => {
   return {
     events: {
-      LogRegisterTicker: registerTickerListenerMock,
-      LogModuleAdded: moduleAddedListenerMock,
-      LogNewSecurityToken: newSecurityTokenListenerMock,
+      RegisterTicker: registerTickerListenerMock,
+      ModuleAdded: moduleAddedListenerMock,
+      NewSecurityToken: newSecurityTokenListenerMock,
     },
     getPastEvents: getPastEventsMock,
     methods: {
-      expiryLimit: expiryLimitMock,
+      getExpiryLimit: getExpiryLimitMock,
       getSTODetails: detailsMock,
+      startTime: startTimeMock,
       wallet: walletMock,
       owner: ownerMock,
+      getAddress: getAddressMock,
     },
   };
 });
@@ -105,7 +127,6 @@ const clientMock = {
   },
 };
 const connectionCloseMock = jest.fn();
-const getIdMock = jest.fn().mockImplementation(() => 15);
 const websocketProviderMock = jest.fn().mockImplementation(() => {
   return {
     on: socketEventListenerMock,
@@ -123,7 +144,6 @@ const constructorMock = jest.fn().mockImplementation(() => {
     eth: {
       net: {
         isListening: isListeningMock,
-        getId: getIdMock,
       },
       Contract: contractMock,
     },
@@ -531,7 +551,7 @@ describe('Function: registerTickerHandler', () => {
   const validExpiryLimitSeconds = validExpiryLimit * 60 * 60 * 24;
   const validResult = {
     returnValues: {
-      _symbol: validTicker,
+      _ticker: validTicker,
       _owner: validAddress,
     },
     transactionHash: validTxHash,
@@ -554,7 +574,7 @@ describe('Function: registerTickerHandler', () => {
   });
 
   test('logs an error if the registered ticker owner is not in the database', async () => {
-    expiryLimitCallMock.mockImplementationOnce(() => validExpiryLimit);
+    getExpiryLimitCallMock.mockImplementationOnce(() => validExpiryLimit);
 
     User.findOne.mockImplementationOnce(() => undefined);
 
@@ -578,7 +598,9 @@ describe('Function: registerTickerHandler', () => {
       name: validName,
     };
 
-    expiryLimitCallMock.mockImplementationOnce(() => validExpiryLimitSeconds);
+    getExpiryLimitCallMock.mockImplementationOnce(
+      () => validExpiryLimitSeconds
+    );
 
     User.findOne.mockImplementationOnce(() => validUser);
 
@@ -698,20 +720,21 @@ describe('Function: addSTOListeners', () => {
 
     await addSTOListeners(validNetworkId);
 
-    expect(contractMock).toHaveBeenCalledTimes(5);
+    expect(contractMock).toHaveBeenCalledTimes(6);
     expect(contractMock.mock.calls[0][1]).toEqual(
-      mockArtifact.networks[getIdMock()].address
+      NETWORKS['15'].polymathRegistryAddress
     );
-    expect(contractMock.mock.calls[1][1]).toEqual(validTokenAddress1);
-    expect(contractMock.mock.calls[2][1]).toEqual(validTokenAddress2);
-    expect(contractMock.mock.calls[3][1]).toEqual(validTokenAddress3);
-    expect(contractMock.mock.calls[4][1]).toEqual(validTokenAddress4);
+    expect(contractMock.mock.calls[1][1]).toEqual(getAddressMock().call());
+    expect(contractMock.mock.calls[2][1]).toEqual(validTokenAddress1);
+    expect(contractMock.mock.calls[3][1]).toEqual(validTokenAddress2);
+    expect(contractMock.mock.calls[4][1]).toEqual(validTokenAddress3);
+    expect(contractMock.mock.calls[5][1]).toEqual(validTokenAddress4);
     expect(moduleAddedListenerMock).toHaveBeenCalledTimes(4);
   });
 });
 
 describe('Function: moduleAddedHandler', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
   });
@@ -722,6 +745,7 @@ describe('Function: moduleAddedHandler', () => {
 
   const validHexName = '0xffffffffffffffff';
   const validModuleAddress = '0x1111111111111111111111111111111111111111';
+  const validTypes = [STO_MODULE_TYPE];
   const validTxHash = '0x2222222222222222';
 
   const validWalletAddress = '0xfffffffffffffffffffffffffffffffffffffffffff';
@@ -743,8 +767,16 @@ describe('Function: moduleAddedHandler', () => {
     returnValues: {
       _name: validHexName,
       _module: validModuleAddress,
+      _types: validTypes,
     },
     transactionHash: validTxHash,
+  };
+
+  const validEmail = 'jeremias@polymath.network';
+  const validName = 'Jeremías Díaz';
+  const validUser = {
+    email: validEmail,
+    name: validName,
   };
 
   test('logs an error if the event failed', async () => {
@@ -760,12 +792,30 @@ describe('Function: moduleAddedHandler', () => {
     );
   });
 
-  test('returns if the added STO is not a CappedSTO', async () => {
-    hexToUtf8Mock.mockImplementationOnce(() => 'NonCappedSTOModule');
+  test('returns if the added module is not an STO module', async () => {
+    const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
+
+    await moduleAddedHandler(null, null, validNetworkId, null, {
+      returnValues: {
+        _name: validHexName,
+        _module: validModuleAddress,
+        _types: [],
+      },
+    });
+
+    expect(hexToUtf8Mock).not.toHaveBeenCalled();
+  });
+
+  test("returns if the added STO doesn't have an email template", async () => {
+    hexToUtf8Mock.mockImplementationOnce(() => 'UnsupportedSTOModule');
+
+    User.findOne.mockImplementationOnce(() => validUser);
 
     const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
 
-    await moduleAddedHandler(null, null, validNetworkId, null, validResult);
+    const contract = contractMock();
+
+    await moduleAddedHandler(contract, null, validNetworkId, null, validResult);
 
     expect(hexToUtf8Mock).toHaveBeenCalledTimes(1);
     expect(detailsCallMock).not.toHaveBeenCalled();
@@ -778,7 +828,40 @@ describe('Function: moduleAddedHandler', () => {
     detailsCallMock.mockImplementationOnce(() => {
       throw expectedError;
     });
-    walletCallMock.mockImplementationOnce(() => validWalletAddress);
+    ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
+
+    User.findOne.mockImplementationOnce(() => validUser);
+
+    const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
+
+    const contract = contractMock();
+
+    await moduleAddedHandler(
+      contract,
+      validTicker,
+      validNetworkId,
+      null,
+      validResult
+    );
+
+    expect(hexToUtf8Mock).toHaveBeenCalledTimes(1);
+    expect(logger.error).toHaveBeenCalledTimes(1);
+    expect(logger.error).toHaveBeenCalledWith(
+      expectedError.message,
+      expectedError
+    );
+  });
+
+  test('logs an error if getUSDTieredSTODetails fails', async () => {
+    const expectedError = new Error('Something went wrong');
+
+    hexToUtf8Mock.mockImplementationOnce(() => 'USDTieredSTO');
+    startTimeCallMock.mockImplementationOnce(() => {
+      throw expectedError;
+    });
+    ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
+
+    User.findOne.mockImplementationOnce(() => validUser);
 
     const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
 
@@ -801,11 +884,6 @@ describe('Function: moduleAddedHandler', () => {
   });
 
   test('logs an error if the token owner is not in the database', async () => {
-    hexToUtf8Mock.mockImplementationOnce(() => 'CappedSTO');
-    detailsCallMock.mockImplementationOnce(() => {
-      return validDetails;
-    });
-    walletCallMock.mockImplementationOnce(() => validWalletAddress);
     ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
 
     User.findOne.mockImplementationOnce(() => undefined);
@@ -822,8 +900,6 @@ describe('Function: moduleAddedHandler', () => {
       validResult
     );
 
-    expect(detailsCallMock).toHaveBeenCalledTimes(1);
-    expect(walletCallMock).toHaveBeenCalledTimes(1);
     expect(ownerCallMock).toHaveBeenCalledTimes(1);
     expect(User.findOne).toHaveBeenCalledTimes(1);
     expect(logger.error).toHaveBeenCalledWith(
@@ -831,14 +907,7 @@ describe('Function: moduleAddedHandler', () => {
     );
   });
 
-  test('sends email to issuer with STO information', async () => {
-    const validEmail = 'jeremias@polymath.network';
-    const validName = 'Jeremías Díaz';
-    const validUser = {
-      email: validEmail,
-      name: validName,
-    };
-
+  test('sends email to issuer with Capped STO information', async () => {
     hexToUtf8Mock.mockImplementationOnce(() => 'CappedSTO');
     detailsCallMock.mockImplementationOnce(() => {
       return validDetails;
@@ -860,8 +929,8 @@ describe('Function: moduleAddedHandler', () => {
       validResult
     );
 
-    expect(sendSTOScheduledEmail).toHaveBeenCalledTimes(1);
-    expect(sendSTOScheduledEmail).toHaveBeenCalledWith(
+    expect(sendCappedSTOScheduledEmail).toHaveBeenCalledTimes(1);
+    expect(sendCappedSTOScheduledEmail).toHaveBeenCalledWith(
       validEmail,
       validName,
       validTxHash,
@@ -870,7 +939,41 @@ describe('Function: moduleAddedHandler', () => {
       validWalletAddress,
       validIsPolyFundraise,
       validRate,
-      new Date(validStart * 1000),
+      validStart,
+      validNetworkId
+    );
+  });
+
+  test('sends email to issuer with USD Tiered STO information', async () => {
+    hexToUtf8Mock.mockImplementationOnce(() => 'USDTieredSTO');
+    startTimeCallMock.mockImplementationOnce(() => {
+      return validStart;
+    });
+    walletCallMock.mockImplementationOnce(() => validWalletAddress);
+    ownerCallMock.mockImplementationOnce(() => Promise.resolve(validOwner));
+
+    User.findOne.mockImplementationOnce(() => validUser);
+
+    const moduleAddedHandler = require('../setupWeb3').moduleAddedHandler;
+
+    const contract = contractMock();
+
+    await moduleAddedHandler(
+      contract,
+      validTicker,
+      validNetworkId,
+      null,
+      validResult
+    );
+
+    expect(sendUSDTieredSTOScheduledEmail).toHaveBeenCalledTimes(1);
+    expect(sendUSDTieredSTOScheduledEmail).toHaveBeenCalledWith(
+      validEmail,
+      validName,
+      validTxHash,
+      validTicker,
+      validWalletAddress,
+      validStart,
       validNetworkId
     );
   });

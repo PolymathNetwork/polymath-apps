@@ -39,7 +39,7 @@ class TxModal extends Component<DispatchProps & TxState> {
     } = this.props;
 
     let modalHeading;
-    if (headingOverride) {
+    if (headingOverride && !error) {
       modalHeading = this.props.headingOverride;
     } else {
       modalHeading = error

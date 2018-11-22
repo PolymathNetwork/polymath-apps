@@ -1,5 +1,14 @@
 const { stripIndent } = require('common-tags');
 
+const PolymathRegistryMethods = {
+  getAddress: 'Gets the address of a contract in the registry',
+};
+
+const ModuleRegistryMethods = {
+  getModulesByTypeAndToken:
+    'Returns the list of available Module factory addresses of a particular type for a given token',
+};
+
 const PolyTokenMethods = {
   allowance: 'Amount of allowance approved by an `owner` to a `spender`',
   balanceOf: 'Gets the total amount of tokens for an address',
@@ -10,15 +19,23 @@ const PolyTokenMethods = {
   transfer: 'Transfers tokens to an address',
 };
 
-const TickerRegistryMethods = {
-  expiryLimit: 'Amount of time in seconds a ticker can be reserved',
-  getDetails: 'Gets the details of a ticker',
-  registrationFee: 'Free in POLY required to register a ticker',
+const STOModuleFactoryMethods = {
+  setupCost: 'The amount of POLY required to setup a token with this module',
+  getName: true,
+  getSetupCost: true,
+  getVersion: true,
+  owner: true,
 };
 
 const CappedSTOFactoryMethods = {
-  setupCost: 'The amount of POLY required to setup a token with this module',
+  ...STOModuleFactoryMethods,
 };
+
+const USDTieredSTOFactoryMethods = {
+  ...STOModuleFactoryMethods,
+};
+
+const USDTieredSTO = {};
 
 const CountTransferManagerFactoryMethods = {
   setupCost: 'The amount of POLY required to setup a token with this module',
@@ -49,19 +66,22 @@ const SecurityTokenMethods = {
   allowance: 'Amount of allowance approved by an `owner` to a `spender`',
   balanceOf: 'Gets the total amount of tokens for an address',
   name: 'Name of the token',
-  symbol: "Token's symbol (this is what was registered in the TickerRegistry)",
+  symbol:
+    "Token's symbol (this is what was registered in the SecurityTokenRegistry)",
   totalSupply: 'Total amount of tokens that exist in the network',
   approve: 'Sets allowance for a `spender`',
   transfer: 'Transfers tokens to an address',
   getModuleByName: 'Gets a module attached to the token by name',
   mintMulti: 'Mints new tokens and assigns them to `_investors`',
   mint: 'Mints new tokens and assignes them to an `_investor` address',
-  freeze: 'Freezes the token',
+  freezeTransfers: 'Prevents further transactions',
 };
 
 const SecurityTokenRegistryMethods = {
   registrationFee: 'The amount of POLY required to generate a Security Token',
   generateSecurityToken: 'Generates a security token',
+  getTickerDetails: 'Gets the details of a ticker',
+  expiryLimit: 'Amount of time in seconds a ticker can be reserved',
 };
 
 const GeneralTransferManagerMethods = {
@@ -73,17 +93,23 @@ const GeneralTransferManagerMethods = {
 
 const config = {
   contracts: {
+    PolymathRegistry: {
+      description: stripIndent`
+        Registry that holds addresses for other smart contracts
+      `,
+      methods: PolymathRegistryMethods,
+    },
+    ModuleRegistry: {
+      description: stripIndent`
+        Registry contract to store registered modules
+      `,
+      methods: ModuleRegistryMethods,
+    },
     PolyToken: {
       description: stripIndent`
         The POLY token's smart contract. Implements the ERC20 interface
       `,
       methods: PolyTokenMethods,
-    },
-    TickerRegistry: {
-      description: stripIndent`
-        Keeps record of the tickers reserved by users
-      `,
-      methods: TickerRegistryMethods,
     },
     CappedSTOFactory: {
       description: stripIndent`
@@ -91,6 +117,20 @@ const config = {
         Capped STOs set a limit on the total amount of funding an STO can raise.
       `,
       methods: CappedSTOFactoryMethods,
+    },
+    USDTieredSTOFactory: {
+      description: stripIndent`
+        Factory for [USDTieredSTO](#USDTieredSTO) STO module.
+        USDTieredSTO allows issuers to set multiple USD price tiers for their
+        STO.
+      `,
+      methods: USDTieredSTOFactoryMethods,
+    },
+    USDTieredSTO: {
+      description: stripIndent`
+        USDTieredSTO Module
+      `,
+      methods: USDTieredSTO,
     },
     CountTransferManagerFactory: {
       description: stripIndent`
@@ -106,7 +146,7 @@ const config = {
       `,
       methods: CountTransferManagerMethods,
     },
-    // IModuleFactory: {},
+    IModuleFactory: {},
 
     PercentageTransferManager: {
       description: stripIndent`
@@ -138,9 +178,10 @@ const config = {
     SecurityTokenRegistry: {
       description: stripIndent`
         Keeps track of all the Security Tokens that exist in the network.
+        Keeps record of the tickers reserved by users.
 
-        Through this contract Security Tokens can be created. It requires an
-        allowance (of at least the registration fee) to be set to be able
+        Through this contract Security Tokens can be created and Tickers can be registered.
+        It requires an allowance (of at least the registration fee) to be set to be able
         to create a Security Token
       `,
       methods: SecurityTokenRegistryMethods,
@@ -148,6 +189,9 @@ const config = {
     // CappedSTO: {},
     GeneralTransferManager: {
       methods: GeneralTransferManagerMethods,
+    },
+    ISTO: {
+      methods: {},
     },
   },
 };

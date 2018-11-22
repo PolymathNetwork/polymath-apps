@@ -5,14 +5,14 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { Form, Button, Tooltip } from 'carbon-components-react';
-import { TextInput } from '@polymathnetwork/ui';
+import { TextInput } from '@polymathnetwork/ui/deprecated';
 import {
   required,
   maxLength,
   regex,
   ethereumAddress,
 } from '@polymathnetwork/ui/validate';
-import { TickerRegistry } from '@polymathnetwork/js';
+import { SecurityTokenRegistry } from '@polymathnetwork/js';
 
 export const formName = 'ticker';
 
@@ -107,7 +107,7 @@ export default reduxForm({
     }
     let details = null;
     try {
-      details = await TickerRegistry.getDetails(v);
+      details = await SecurityTokenRegistry.getTickerDetails(v);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('Error fetching details', err);

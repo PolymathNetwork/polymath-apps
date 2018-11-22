@@ -1,0 +1,36 @@
+---
+name: FormItem
+---
+
+import { PropsTable } from 'docz';
+import { Formik, FastField } from 'formik';
+import * as Yup from 'yup';
+
+import Playground from '../DoczPlayground';
+import TextInput from '../inputs/TextInput';
+import FormItem from './';
+
+# FormItem
+
+<PropsTable of={FormItem} />
+
+## Basic usage
+
+<Playground>
+  <Formik
+    validationSchema={Yup.object().shape({
+      textInput: Yup.string().required(),
+    })}
+    render={() => (
+      <FormItem name="textInput">
+        <FormItem.Label>The label</FormItem.Label>
+        <FormItem.Input
+          formikComponent={FastField}
+          component={TextInput}
+          placeholder="Placeholder"
+        />
+        <FormItem.Error />
+      </FormItem>
+    )}
+  />
+</Playground>

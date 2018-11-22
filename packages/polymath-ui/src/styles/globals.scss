@@ -88,6 +88,10 @@ div {
 .bx--grid {
   margin-top: $navbar-height;
 
+  @media (min-width: 1600px) {
+    max-width: calc(1600px - 10%);
+  }
+
   &.pui-grid-notice {
     margin-top: 136px;
   }
@@ -110,7 +114,7 @@ div {
   background: white !important;
 
   .bx--btn__icon {
-    fill: #252E6A !important;
+    fill: #252e6a !important;
   }
 
   &:hover {
@@ -121,8 +125,6 @@ div {
       fill: white !important;
     }
   }
-
-  
 }
 
 .bx--btn--sm {
@@ -182,6 +184,7 @@ div {
   line-height: 22px;
   color: $poly-blue-dark !important;
   font-family: $font;
+  min-width: auto;
 
   &::placeholder {
     color: $poly-gray-dark !important;
@@ -195,6 +198,10 @@ div {
 .bx--modal {
   .bx--modal-container {
     border-top: 0;
+
+    @media (min-width: 1024px) {
+      max-width: 60%;
+    }
   }
 
   .bx--modal-content {
@@ -240,7 +247,7 @@ div {
       font-size: 12px;
       color: #152935;
       border-radius: 4px;
-      background-color: #EBF0F7;
+      background-color: #ebf0f7;
       padding: 6.5px 0 6.5px 16px;
       margin-top: 10px;
     }
@@ -269,7 +276,7 @@ div {
   .bx--select-input {
     height: 40px !important;
     padding-left: 0.5rem !important;
-    background-color: rgba(61,112,178,0.1) !important;
+    background-color: rgba(61, 112, 178, 0.1) !important;
     color: $poly-blue-dark !important;
     font-weight: normal !important;
   }
@@ -292,8 +299,16 @@ div {
 }
 
 .bx--tooltip__trigger {
+  display: block;
+
   > div {
-    display: inline-flex;
+    display: inline-block;
+    margin-left: 5px;
+  }
+
+  svg {
+    vertical-align: middle;
+    margin-top: -2px;
   }
 }
 
@@ -363,7 +378,13 @@ div {
 .bx--date-picker {
   .bx--date-picker__icon {
     fill: $poly-blue;
-    top: 2.5rem;
+    top: 2.6rem;
+    left: 0.9rem;
+    pointer-events: none;
+  }
+
+  .bx--date-picker__icon ~ .bx--date-picker__input {
+    padding-left: 2.6rem;
   }
 
   .bx--date-picker__input {
@@ -381,6 +402,14 @@ div {
   }
 }
 
+// Hack to avoid a bug where "invalid date" appear if nextMonthDay is clicked
+.bx--date-picker__days .nextMonthDay,
+.bx--date-picker__days .prevMonthDay,
+.bx--date-picker__day.disabled,
+.flatpickr-day.disabled {
+  pointer-events: none;
+}
+
 .bx--search-input {
   width: 285px !important;
 }
@@ -390,8 +419,6 @@ div {
 }
 
 .bx--data-table-v2-container {
-  margin-top: -36px;
-
   .bx--data-table-v2 {
     td {
       a {
@@ -459,6 +486,16 @@ div {
     .pui-single-box-bull {
       top: 25px;
       width: 254px;
+    }
+
+    .pui-single-box-new-version-bull {
+      margin-bottom: -30px;
+      margin-left: -26px;
+      width: 309px;
+
+      img {
+        width: 100%;
+      }
     }
 
     .pui-single-box-metamask {
@@ -533,7 +570,8 @@ div {
   margin-bottom: 5px;
   color: $poly-blue !important;
 
-  svg, path {
+  svg,
+  path {
     fill: $poly-blue !important;
   }
 
@@ -541,7 +579,8 @@ div {
     background: transparent !important;
     color: $poly-blue-hover !important;
 
-    svg, path {
+    svg,
+    path {
       fill: $poly-blue-hover !important;
     }
   }
@@ -564,11 +603,10 @@ div {
   clear: both;
 }
 
-.bx--overflow-menu-options__btn{
+.bx--overflow-menu-options__btn {
   font-family: $font;
-  color: $poly-blue
+  color: $poly-blue;
 }
-
 
 /**
  * TX HANDLING
@@ -576,6 +614,7 @@ div {
 .pui-tx-modal {
   .bx--modal-container {
     width: 500px;
+    max-height: 90%;
   }
 
   .bx--modal-close {
@@ -619,7 +658,14 @@ div {
     left: calc(-1 * var(--borderWidth));
     height: calc(100% + var(--borderWidth) * 2);
     width: calc(100% + var(--borderWidth) * 2);
-    background: linear-gradient(60deg,  #252E6A, #5495E5, #5495E5, #5495E5, #252E6A);
+    background: linear-gradient(
+      60deg,
+      #252e6a,
+      #5495e5,
+      #5495e5,
+      #5495e5,
+      #252e6a
+    );
     z-index: -1;
     animation: AnimatedGradient 3s infinite;
     background-size: 300% 300%;
@@ -643,7 +689,7 @@ div {
     }
 
     .pui-tx-animation:after {
-      background: #5596E6;
+      background: #5596e6;
     }
   }
 
@@ -723,7 +769,7 @@ div {
         font-size: 12px;
         color: #152935;
         border-radius: 4px;
-        background-color: #EBF0F7;
+        background-color: #ebf0f7;
         padding: 6.5px 0 6.5px 16px;
         width: 312px;
 
@@ -734,7 +780,6 @@ div {
     }
   }
 }
-
 
 /**
  * OTHER
@@ -775,12 +820,12 @@ div {
 }
 
 .pui-paused {
-  filter: grayscale(100%) opacity(50%)
+  filter: grayscale(100%) opacity(50%);
 }
 
 .pui-required-star::after {
   color: $poly-red;
-  content: "*"
+  content: '*';
 }
 
 .pui-large-confirm-modal {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { change } from 'redux-form';
 import { Remark, bull, thousandsDelimiter } from '@polymathnetwork/ui';
-import { TickerRegistry } from '@polymathnetwork/js';
+import { SecurityTokenRegistry } from '@polymathnetwork/js';
 import type { RouterHistory } from 'react-router';
 
 import TickerForm, { formName } from './components/TickerForm';
@@ -56,7 +56,7 @@ class TickerPage extends Component<Props, State> {
     this.props.change(this.props.account);
     this.props.tokenData(null);
     this.props.getExpiryLimit();
-    TickerRegistry.registrationFee().then(fee => {
+    SecurityTokenRegistry.registrationFee().then(fee => {
       // $FlowFixMe
       this.setState({ tickerRegistrationFee: thousandsDelimiter(fee) });
     });

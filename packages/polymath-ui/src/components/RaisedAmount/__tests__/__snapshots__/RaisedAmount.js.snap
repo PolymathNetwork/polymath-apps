@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div
+  class="sc-bwzfXH iZACQz"
+>
+  <h4
+    class="sc-bdVaJa ZKgMW"
+    font-size="1"
+  >
+    a title
+  </h4>
+  <p
+    class="sc-bdVaJa bHdiET"
+    font-size="5"
+  >
+    555 PRIM
+  </p>
+  <span
+    class="sc-htpNat fPrvfr"
+  >
+    111 TOK
+  </span>
+</div>
+`;

@@ -19,9 +19,9 @@ type NewEmailRequestBody = {|
 |};
 
 /**
-  Validates that the request parameters are typed correctly
-
-  TODO @monitz87: add value validations as well
+ * Validates that the request parameters are typed correctly
+ *
+ * TODO @monitz87: add value validations as well
  */
 const isNewEmailRequestValid = (body: NewEmailRequestBody | any) => {
   if (typeof body !== 'object') {
@@ -32,47 +32,47 @@ const isNewEmailRequestValid = (body: NewEmailRequestBody | any) => {
 };
 
 /**
-  POST /email/new
-
-  Email confirmation setup route handler. Receives an email address and sends a 
-  random confirmation PIN string to that address which is then requested by 
-  the dApp. Also stores (or updates) the user in the database
-
-  If the request body is invalid, the response is
-
-  {
-    status: 'error',
-    data: 'Invalid request body
-  }
-
-  If the client didn't sign the verification code or the signature is not valid, the response will contain an error.
-
-  If the code doesn't match the address in our database, the response is
-
-  {
-    status: 'error',
-    data: 'Code is not valid'    
-  }
-
-  If the signature is invalid, the response is
-
-  {
-    status: 'error',
-    data: 'Sig is not valid'
-  }
-
-  Otherwise, the response is
-
-  {
-    status: 'ok',
-    data: 'Confirmation email has been sent'
-  }
-
-  @param {string} email issuer email address
-  @param {string} name issuer name
-  @param {string} code polymath verification code
-  @param {string} sig signature
-  @param {string} address issuer ethereum address
+ * POST /email/new
+ *
+ * Email confirmation setup route handler. Receives an email address and sends a
+ * random confirmation PIN string to that address which is then requested by
+ * the dApp. Also stores (or updates) the user in the database
+ *
+ * If the request body is invalid, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Invalid request body
+ * }
+ *
+ * If the client didn't sign the verification code or the signature is not valid, the response will contain an error.
+ *
+ * If the code doesn't match the address in our database, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Code is not valid'
+ * }
+ *
+ * If the signature is invalid, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Sig is not valid'
+ * }
+ *
+ * Otherwise, the response is
+ *
+ * {
+ *   status: 'ok',
+ *   data: 'Confirmation email has been sent'
+ * }
+ *
+ * @param {string} email issuer email address
+ * @param {string} name issuer name
+ * @param {string} code polymath verification code
+ * @param {string} sig signature
+ * @param {string} address issuer ethereum address
  */
 export const newEmailHandler = async (ctx: Context) => {
   let body = ctx.request.body;
@@ -96,7 +96,7 @@ export const newEmailHandler = async (ctx: Context) => {
   }
 
   /**
-    Assign a random PIN string to the user and send it via email
+   * Assign a random PIN string to the user and send it via email
    */
   const pin = crypto.randomBytes(8).toString('hex');
   await EmailPIN.create({ address, pin, email, isConfirmed: false });
@@ -115,9 +115,9 @@ type ConfirmationEmailRequestBody = {|
 |};
 
 /**
-  Validates that the request parameters are typed correctly
-
-  TODO @monitz87: add value validations as well
+ * Validates that the request parameters are typed correctly
+ *
+ * TODO @monitz87: add value validations as well
  */
 const isConfirmationEmailRequestValid = (
   body: ConfirmationEmailRequestBody | any
@@ -128,32 +128,32 @@ const isConfirmationEmailRequestValid = (
 };
 
 /**
-  POST /email/confirm
-
-  Email confirmation route handler. Receives a PIN string from the client and validates if that PIN was created in the last 24 hours.
-
-  If the request body is invalid, the response is
-
-  {
-    status: 'error',
-    data: 'Invalid request body
-  }
-
-  If the PIN doesn't match a user in the database, the response is
-
-  {
-    status: 'error',
-    data: 'Pin is not valid',
-  }
-
-  Otherwise, the user's email is confirmed and the response is
-
-  {
-    status: 'ok',
-    data: 'Email has been confirmed',
-  }
-
-  @param {string} pin confirmation PIN string received via email
+ * POST /email/confirm
+ *
+ * Email confirmation route handler. Receives a PIN string from the client and validates if that PIN was created in the last 24 hours.
+ *
+ * If the request body is invalid, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Invalid request body
+ * }
+ *
+ * If the PIN doesn't match a user in the database, the response is
+ *
+ * {
+ *   status: 'error',
+ *   data: 'Pin is not valid',
+ * }
+ *
+ * Otherwise, the user's email is confirmed and the response is
+ *
+ * {
+ *   status: 'ok',
+ *   data: 'Email has been confirmed',
+ * }
+ *
+ * @param {string} pin confirmation PIN string received via email
  */
 export const confirmEmailHandler = async (ctx: Context) => {
   let body = ctx.request.body;
@@ -171,9 +171,9 @@ export const confirmEmailHandler = async (ctx: Context) => {
   const { pin } = body;
 
   /**
-    Find if there is a matching pin number created in the last 24 hours
-
-    TODO @monitz87: make Email PINs expirable and use moment instead of Date
+   * Find if there is a matching pin number created in the last 24 hours
+   *
+   * TODO @monitz87: make Email PINs expirable and use moment instead of Date
    */
   const minCreatedAt = new Date();
   minCreatedAt.setHours(minCreatedAt.getHours() - 24);
@@ -203,12 +203,12 @@ export const confirmEmailHandler = async (ctx: Context) => {
 };
 
 /**
-  Confirmation email route
+ *  Confirmation email route
  */
 emailRouter.post('/email/new', newEmailHandler);
 
 /**
-  Pin validation route
+ * Pin validation route
  */
 emailRouter.post('/email/confirm', confirmEmailHandler);
 

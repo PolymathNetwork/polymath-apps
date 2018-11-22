@@ -1,5 +1,7 @@
+// @flow
+
 import React from 'react';
-import { TickerRegistry } from '@polymathnetwork/js';
+import { SecurityTokenRegistry, PolyToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 
@@ -12,7 +14,7 @@ export const EXPIRY_LIMIT = 'ticker/EXPIRY_LIMIT';
 export const expiryLimit = () => async (dispatch: Function) =>
   dispatch({
     type: EXPIRY_LIMIT,
-    value: await TickerRegistry.expiryLimitInDays(),
+    value: await SecurityTokenRegistry.expiryLimitInDays(),
   });
 
 export const RESERVED = 'ticker/RESERVED';
@@ -20,7 +22,7 @@ export const RESERVED = 'ticker/RESERVED';
 export const TOKENS = 'ticker/TOKENS';
 
 export const getMyTokens = () => async (dispatch: Function) => {
-  const tokens = await TickerRegistry.getMyTokens();
+  const tokens = await SecurityTokenRegistry.getMyTokens();
   dispatch({ type: TOKENS, tokens });
   if (tokens.length) {
     dispatch({ type: RESERVED });
@@ -29,7 +31,7 @@ export const getMyTokens = () => async (dispatch: Function) => {
 
 export const reserve = () => async (dispatch: Function, getState: GetState) => {
   const { isEmailConfirmed } = getState().pui.account;
-  const fee = await TickerRegistry.registrationFee();
+  const fee = await SecurityTokenRegistry.registrationFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
   const details: SymbolDetails = getState().form[formName].values;
   dispatch(
@@ -68,11 +70,22 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
           );
           return;
         }
+
+        const allowance = await PolyToken.allowance(
+          SecurityTokenRegistry.account,
+          SecurityTokenRegistry.address
+        );
+        //Skip approve transaction if transfer is already allowed
+        let title = ['Reserving Token Symbol'];
+        if (allowance == 0) {
+          title.unshift('Approving POLY Spend');
+        }
+
         dispatch(
           ui.tx(
-            ['Approving POLY Spend', 'Reserving Token Symbol'],
+            title,
             async () => {
-              await TickerRegistry.registerTicker(details);
+              await SecurityTokenRegistry.registerTicker(details);
               if (isEmailConfirmed) {
                 dispatch(tickerReservationEmail());
               }
@@ -81,6 +94,7 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
             () => {
               dispatch({ type: RESERVED });
             },
+            undefined,
             `/dashboard/${details.ticker}/providers`,
             undefined,
             !isEmailConfirmed,
@@ -103,12 +117,13 @@ export const confirmEmail = (data: Object) => async (
   dispatch(ui.requestConfirmEmail(email));
 };
 
+// FIXME @RafaelVidaurre: Can we remove this? It doesn't seem to do anything now
 export const tickerReservationEmail = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
   try {
-    const tokens = await TickerRegistry.getMyTokens();
+    const tokens = await SecurityTokenRegistry.getMyTokens();
     const token: SymbolDetails = tokens.pop();
   } catch (e) {
     // eslint-disable-next-line

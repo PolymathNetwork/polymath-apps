@@ -10,15 +10,14 @@ import {
   InlineNotification,
 } from 'carbon-components-react';
 import { Remark } from '@polymathnetwork/ui';
-
 import { uploadCSV } from '../../../actions/compliance';
+
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|
   isTooMany: boolean,
   isReady: boolean,
   isInvalid: boolean,
-  isPercentageDisabled: boolean,
 |};
 
 type DispatchProps = {|
@@ -36,7 +35,6 @@ const mapStateToProps = (state: RootState) => ({
   isTooMany: state.whitelist.isTooMany,
   isReady: state.whitelist.uploaded.length > 0,
   isInvalid: state.whitelist.criticals.length > 0,
-  isPercentageDisabled: state.whitelist.percentageTM.isPaused,
 });
 
 const mapDispatchToProps = {
@@ -74,13 +72,7 @@ class ImportWhitelistModal extends Component<Props> {
   };
 
   render() {
-    const {
-      isOpen,
-      isTooMany,
-      isReady,
-      isInvalid,
-      isPercentageDisabled,
-    } = this.props;
+    const { isOpen, isTooMany, isReady, isInvalid } = this.props;
     return (
       <Modal
         open={isOpen}
@@ -92,27 +84,40 @@ class ImportWhitelistModal extends Component<Props> {
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
           .CSV file. The format should be as follows:
-          <br />— ETH Address (address to whitelist);
-          <br />— Sell Restriction Date mm/dd/yyyy (date when the resale
-          restrictions should be lifted for that address);
+          <br />• ETH Address (address to whitelist);
+          <br />• Sell Restriction Date: <strong>mm/dd/yyyy</strong> (date when
+          the resale restrictions should be lifted for that address);
           <br />
           Empty cell will be considered as permanent lockup.
-          <br />— Buy Restriction Date mm/dd/yyyy (date when the buy
-          restrictions should be lifted for that address);
-          <br />— KYC/AML Expiry Date mm/dd/yyyy;
-          <br />— Can buy from STO: <strong>true</strong> to enable OR empty
-          cell to disable;
+          <br />• Buy Restriction Date: <strong> mm/dd/yyyy</strong> (date when
+          the buy restrictions should be lifted for that address);
+          <br />• KYC/AML Expiry Date: <strong>mm/dd/yyyy</strong>;<br />• Can
+          buy from STO: set to <strong>"TRUE"</strong> to allow this address to
+          purchase any number of tokens OR leave an empty cell to disable;
+          <br />• Exempt From % Ownership: <strong>"TRUE"</strong> to enable OR
+          empty cell to disable;
           <br />
-          {!isPercentageDisabled ? (
-            <span>
-              — Exempt From % Ownership: <strong>true</strong> to enable OR
-              empty cell to disable;
-              <br />
-            </span>
-          ) : (
-            ''
-          )}
-          Maximum numbers of investors per transaction is <strong>75</strong>.
+          <br />
+          If you have scheduled a USD Tiered STO, please include the additional
+          fields:
+          <br />• Is Accredited: Set to <strong>"TRUE"</strong> to mark the
+          address as that of an accredited investor OR leave empty to mark the
+          address as that of a non-accredited investor
+          <br />• Non Accredited Limit: Set a maximum investment limit for that
+          non-accredited investor's address or leave empty to use the default
+          limit programmed in the STO
+          <br />
+          <br />
+          Important:
+          <br />
+          Is Accredited and Non Accredited Limit will be ignored if you have not
+          yet scheduled your USD Tiered STO. If you have scheduled your STO, all
+          accredited/non-accredited investor information will be imported
+          adequately. If you have not, you will be required to re-upload this
+          information.
+          <br />
+          <br /> Maximum numbers of investors per transaction is{' '}
+          <strong>75</strong>.
         </h4>
         <h5 className="pui-h5">
           You can&nbsp;&nbsp;&nbsp;
@@ -157,7 +162,7 @@ class ImportWhitelistModal extends Component<Props> {
         )}
         <p align="right">
           <Button
-            class="cancel-btn"
+            className="cancel-btn"
             kind="secondary"
             onClick={this.handleClose}
           >

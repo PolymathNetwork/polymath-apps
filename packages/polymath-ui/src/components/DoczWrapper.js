@@ -1,17 +1,12 @@
 import React from 'react';
-// import { Provider } from 'react-redux';
-// import { createStore, combineReducers } from 'redux';
-
-// TODO @grsmto: we can't include this wrapper before it imports some polymath-js dependencies that break Docz build. Need to investigate why this is happening.
-
-// import { uiReducer, networkReducer } from '../redux/reducer';
+import { ThemeProvider } from 'styled-components';
 
 import '../styles/globals.scss';
 
-// const reducers = combineReducers({ ui: uiReducer, network: networkReducer });
-// const store = createStore(reducers);
+import theme from '../theme';
 
-// const Wrapper = ({ children }) => <Provider store={store}>{children}</Provider>;
-const Wrapper = ({ children }) => children;
+const Wrapper = ({ children }) => (
+  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+);
 
 export default Wrapper;

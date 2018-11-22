@@ -16,7 +16,6 @@ import {
   Countdown,
   Remark,
   NotFoundPage,
-  confirm,
 } from '@polymathnetwork/ui';
 import moment from 'moment';
 import type { SecurityToken } from '@polymathnetwork/js/types';
@@ -39,6 +38,7 @@ import './style.scss';
 type StateProps = {|
   account: ?string,
   token: ?SecurityToken,
+  isMintingFrozen: boolean,
   stage: number,
   maxHoldersCount: ?number,
   isCountTMEnabled: boolean,
@@ -51,12 +51,12 @@ type DispatchProps = {|
   limitNumberOfInvestors: (count?: number) => any,
   updateMaxHoldersCount: (count: number) => any,
   exportMintedTokensList: () => any,
-  confirm: () => any,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
   account: state.network.account,
   token: state.token.token,
+  isMintingFrozen: state.token.isMintingFrozen,
   stage: state.sto.stage,
   maxHoldersCount: state.token.countTM.count,
   isCountTMEnabled: !!state.token.countTM.contract,
@@ -69,7 +69,6 @@ const mapDispatchToProps: DispatchProps = {
   limitNumberOfInvestors,
   updateMaxHoldersCount,
   exportMintedTokensList,
-  confirm,
 };
 
 type Props = {||} & StateProps & DispatchProps;
@@ -99,10 +98,6 @@ class TokenPage extends Component<Props, State> {
       this.setState({ maxHoldersCount: nextProps.maxHoldersCount });
     }
   }
-
-  handleToggleCreate = (isToggled: boolean) => {
-    this.setState({ isToggled });
-  };
 
   handleToggle = (isToggled: boolean) => {
     const { isCountTMEnabled, isCountTMPaused } = this.props;
@@ -140,8 +135,10 @@ class TokenPage extends Component<Props, State> {
     }
   };
 
-  handleIssue = () => {
-    this.props.issue(this.state.isToggled);
+  handleIssue = formData => {
+    const isLimitNI = !!formData.investorsNumber;
+
+    this.props.issue(isLimitNI);
   };
 
   handleExport = () => {
@@ -183,7 +180,6 @@ class TokenPage extends Component<Props, State> {
                     </h3>
                     <br />
                     <CompleteTokenForm
-                      onToggle={this.handleToggleCreate}
                       isToggled={this.state.isToggled}
                       onSubmit={this.handleIssue}
                     />
@@ -192,7 +188,11 @@ class TokenPage extends Component<Props, State> {
               ) : (
                 ''
               )}
-              {token.address && this.props.stage < 3 ? <MintTokens /> : ''}
+              {token.address && !this.props.isMintingFrozen ? (
+                <MintTokens />
+              ) : (
+                ''
+              )}
               <div className="token-symbol-wrapper">
                 <div className="pui-page-box">
                   <div className="ticker-field">

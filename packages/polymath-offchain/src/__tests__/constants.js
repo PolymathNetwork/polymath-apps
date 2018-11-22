@@ -1,4 +1,10 @@
 import { cleanEnvironment } from '../constants.js';
+import {
+  LOCAL_NETWORK_ID,
+  LOCALVM_NETWORK_ID,
+  KOVAN_NETWORK_ID,
+  MAINNET_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
 
 const ORIGINAL_ENV = process.env;
 
@@ -34,6 +40,9 @@ describe('Constants', () => {
       WEB3_NETWORK_LOCALVM_WS: 'ws://some.localVM.url',
       WEB3_NETWORK_KOVAN_WS: 'ws//some.kovan.url',
       WEB3_NETWORK_MAINNET_WS: 'ws//some.mainnet.url',
+      POLYMATH_REGISTRY_ADDRESS_LOCAL: '0x0',
+      POLYMATH_REGISTRY_ADDRESS_KOVAN: '0x1',
+      POLYMATH_REGISTRY_ADDRESS_MAINNET: '0x2',
     };
   });
 
@@ -52,12 +61,30 @@ describe('Constants', () => {
     );
   });
 
+  test('throws error when no local PolymathRegistry address has been set for local stage', () => {
+    process.env.DEPLOYMENT_STAGE = 'local';
+    process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
+    process.env.POLYMATH_REGISTRY_ADDRESS_LOCAL = undefined;
+    expect(() => require('../constants.js')).toThrow(
+      'Missing env variable POLYMATH_REGISTRY_ADDRESS_LOCAL'
+    );
+  });
+
   test('throws error when no kovan network URL has been set for staging stage', () => {
     process.env.DEPLOYMENT_STAGE = 'staging';
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
     process.env.WEB3_NETWORK_KOVAN_WS = undefined;
     expect(() => require('../constants.js')).toThrow(
       'Missing env variable WEB3_NETWORK_KOVAN_WS'
+    );
+  });
+
+  test('throws error when no kovan PolymathRegistry address has been set for staging stage', () => {
+    process.env.DEPLOYMENT_STAGE = 'staging';
+    process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
+    process.env.POLYMATH_REGISTRY_ADDRESS_KOVAN = undefined;
+    expect(() => require('../constants.js')).toThrow(
+      'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN'
     );
   });
 
@@ -70,12 +97,30 @@ describe('Constants', () => {
     );
   });
 
+  test('throws error when no kovan PolymathRegistry address has been set for production stage', () => {
+    process.env.DEPLOYMENT_STAGE = 'production';
+    process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
+    process.env.POLYMATH_REGISTRY_ADDRESS_KOVAN = undefined;
+    expect(() => require('../constants.js')).toThrow(
+      'Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN'
+    );
+  });
+
   test('throws error when no mainnet network URL has been set for production stage', () => {
     process.env.DEPLOYMENT_STAGE = 'production';
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
     process.env.WEB3_NETWORK_MAINNET_WS = undefined;
     expect(() => require('../constants.js')).toThrow(
       'Missing env variable WEB3_NETWORK_MAINNET_WS'
+    );
+  });
+
+  test('throws error when no mainnet PolymathRegistry address has been set for production stage', () => {
+    process.env.DEPLOYMENT_STAGE = 'production';
+    process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
+    process.env.POLYMATH_REGISTRY_ADDRESS_MAINNET = undefined;
+    expect(() => require('../constants.js')).toThrow(
+      'Missing env variable POLYMATH_REGISTRY_ADDRESS_MAINNET'
     );
   });
 
@@ -90,18 +135,15 @@ describe('Constants', () => {
     process.env.DEPLOYMENT_STAGE = 'local';
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
 
-    const {
-      NETWORKS,
-      LOCAL_NETWORK_ID,
-      LOCALVM_NETWORK_ID,
-      KOVAN_NETWORK_ID,
-      MAINNET_NETWORK_ID,
-    } = require('../constants.js');
+    const { NETWORKS } = require('../constants');
 
     const {
       WEB3_NETWORK_LOCAL_WS,
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
     expect(NETWORKS).toEqual({
@@ -112,6 +154,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: true,
         maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [LOCALVM_NETWORK_ID]: {
         name: expectedLocalVMName,
@@ -120,6 +163,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [KOVAN_NETWORK_ID]: {
         name: expectedKovanName,
@@ -128,6 +172,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -136,6 +181,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
       },
     });
   });
@@ -144,18 +190,15 @@ describe('Constants', () => {
     process.env.DEPLOYMENT_STAGE = 'local';
     process.env.WEB3_NETWORK_LOCAL_WS = undefined;
 
-    const {
-      NETWORKS,
-      LOCAL_NETWORK_ID,
-      LOCALVM_NETWORK_ID,
-      KOVAN_NETWORK_ID,
-      MAINNET_NETWORK_ID,
-    } = require('../constants.js');
+    const { NETWORKS } = require('../constants');
 
     const {
       WEB3_NETWORK_LOCALVM_WS,
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
     expect(NETWORKS).toEqual({
@@ -166,6 +209,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [LOCALVM_NETWORK_ID]: {
         name: expectedLocalVMName,
@@ -174,6 +218,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: true,
         maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [KOVAN_NETWORK_ID]: {
         name: expectedKovanName,
@@ -182,6 +227,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -190,6 +236,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
       },
     });
   });
@@ -199,15 +246,15 @@ describe('Constants', () => {
     process.env.WEB3_NETWORK_LOCAL_WS = undefined;
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
 
-    const {
-      NETWORKS,
-      LOCAL_NETWORK_ID,
-      LOCALVM_NETWORK_ID,
-      KOVAN_NETWORK_ID,
-      MAINNET_NETWORK_ID,
-    } = require('../constants.js');
+    const { NETWORKS } = require('../constants');
 
-    const { WEB3_NETWORK_KOVAN_WS, WEB3_NETWORK_MAINNET_WS } = process.env;
+    const {
+      WEB3_NETWORK_KOVAN_WS,
+      WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
+    } = process.env;
 
     expect(NETWORKS).toEqual({
       [LOCAL_NETWORK_ID]: {
@@ -217,6 +264,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [LOCALVM_NETWORK_ID]: {
         name: expectedLocalVMName,
@@ -225,6 +273,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [KOVAN_NETWORK_ID]: {
         name: expectedKovanName,
@@ -233,6 +282,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -241,6 +291,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
       },
     });
   });
@@ -249,18 +300,15 @@ describe('Constants', () => {
     process.env.DEPLOYMENT_STAGE = 'staging';
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
 
-    const {
-      NETWORKS,
-      LOCAL_NETWORK_ID,
-      LOCALVM_NETWORK_ID,
-      KOVAN_NETWORK_ID,
-      MAINNET_NETWORK_ID,
-    } = require('../constants.js');
+    const { NETWORKS } = require('../constants');
 
     const {
       WEB3_NETWORK_LOCAL_WS,
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
     expect(NETWORKS).toEqual({
@@ -271,6 +319,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [LOCALVM_NETWORK_ID]: {
         name: expectedLocalVMName,
@@ -279,6 +328,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [KOVAN_NETWORK_ID]: {
         name: expectedKovanName,
@@ -287,6 +337,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -295,6 +346,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
       },
     });
   });
@@ -303,18 +355,15 @@ describe('Constants', () => {
     process.env.DEPLOYMENT_STAGE = 'staging';
     process.env.WEB3_NETWORK_LOCAL_WS = undefined;
 
-    const {
-      NETWORKS,
-      LOCAL_NETWORK_ID,
-      LOCALVM_NETWORK_ID,
-      KOVAN_NETWORK_ID,
-      MAINNET_NETWORK_ID,
-    } = require('../constants.js');
+    const { NETWORKS } = require('../constants');
 
     const {
       WEB3_NETWORK_LOCALVM_WS,
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
     expect(NETWORKS).toEqual({
@@ -325,6 +374,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [LOCALVM_NETWORK_ID]: {
         name: expectedLocalVMName,
@@ -333,6 +383,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [KOVAN_NETWORK_ID]: {
         name: expectedKovanName,
@@ -341,6 +392,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -349,36 +401,35 @@ describe('Constants', () => {
         optional: true,
         localNetwork: false,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
       },
     });
   });
 
-  test('sets network params correctly when on production stage', () => {
+  test('sets network params correctly when on production stage if no local network is specified', () => {
     process.env.DEPLOYMENT_STAGE = 'production';
+    process.env.WEB3_NETWORK_LOCAL_WS = undefined;
     process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
 
-    const {
-      NETWORKS,
-      LOCAL_NETWORK_ID,
-      LOCALVM_NETWORK_ID,
-      KOVAN_NETWORK_ID,
-      MAINNET_NETWORK_ID,
-    } = require('../constants.js');
+    const { NETWORKS } = require('../constants');
 
     const {
-      WEB3_NETWORK_LOCAL_WS,
       WEB3_NETWORK_KOVAN_WS,
       WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
     } = process.env;
 
     expect(NETWORKS).toEqual({
       [LOCAL_NETWORK_ID]: {
         name: expectedLocalName,
-        url: WEB3_NETWORK_LOCAL_WS,
+        url: '',
         connect: false,
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [LOCALVM_NETWORK_ID]: {
         name: expectedLocalVMName,
@@ -387,6 +438,7 @@ describe('Constants', () => {
         optional: true,
         localNetwork: true,
         maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
       },
       [KOVAN_NETWORK_ID]: {
         name: expectedKovanName,
@@ -395,6 +447,7 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
       },
       [MAINNET_NETWORK_ID]: {
         name: expectedMainnetName,
@@ -403,6 +456,117 @@ describe('Constants', () => {
         optional: false,
         localNetwork: false,
         maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
+      },
+    });
+  });
+
+  test('sets network params correctly when on production stage if a local network is specified', () => {
+    process.env.DEPLOYMENT_STAGE = 'production';
+    process.env.WEB3_NETWORK_LOCALVM_WS = undefined;
+
+    const { NETWORKS } = require('../constants');
+
+    const {
+      WEB3_NETWORK_LOCAL_WS,
+      WEB3_NETWORK_KOVAN_WS,
+      WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
+    } = process.env;
+
+    expect(NETWORKS).toEqual({
+      [LOCAL_NETWORK_ID]: {
+        name: expectedLocalName,
+        url: WEB3_NETWORK_LOCAL_WS,
+        connect: true,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [LOCALVM_NETWORK_ID]: {
+        name: expectedLocalVMName,
+        url: '',
+        connect: false,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [KOVAN_NETWORK_ID]: {
+        name: expectedKovanName,
+        url: WEB3_NETWORK_KOVAN_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      },
+      [MAINNET_NETWORK_ID]: {
+        name: expectedMainnetName,
+        url: WEB3_NETWORK_MAINNET_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
+      },
+    });
+  });
+
+  test('sets network params correctly when on production stage if a localVM network is specified', () => {
+    process.env.DEPLOYMENT_STAGE = 'production';
+    process.env.WEB3_NETWORK_LOCAL_WS = undefined;
+
+    const { NETWORKS } = require('../constants');
+
+    const {
+      WEB3_NETWORK_LOCALVM_WS,
+      WEB3_NETWORK_KOVAN_WS,
+      WEB3_NETWORK_MAINNET_WS,
+      POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      POLYMATH_REGISTRY_ADDRESS_MAINNET,
+    } = process.env;
+
+    expect(NETWORKS).toEqual({
+      [LOCAL_NETWORK_ID]: {
+        name: expectedLocalName,
+        url: '',
+        connect: false,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [LOCALVM_NETWORK_ID]: {
+        name: expectedLocalVMName,
+        url: WEB3_NETWORK_LOCALVM_WS,
+        connect: true,
+        optional: true,
+        localNetwork: true,
+        maxRetries: optionalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      },
+      [KOVAN_NETWORK_ID]: {
+        name: expectedKovanName,
+        url: WEB3_NETWORK_KOVAN_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      },
+      [MAINNET_NETWORK_ID]: {
+        name: expectedMainnetName,
+        url: WEB3_NETWORK_MAINNET_WS,
+        connect: true,
+        optional: false,
+        localNetwork: false,
+        maxRetries: criticalRetries,
+        polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_MAINNET,
       },
     });
   });

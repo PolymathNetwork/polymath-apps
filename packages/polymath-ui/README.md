@@ -12,3 +12,9 @@ Then run `docz:dev` to launch the component playground using [Docz](https://www.
 
 To run tests:
 `yarn test`
+
+## Add new SVG icons
+
+- Export your SVG in black `#000000` (or replace the hex value in the following command by the color of your SVG)
+- Add the SVG files to `images/{folder}`
+- `npx @svgr/cli --icon --replace-attr-values "#000000=currentColor" -d images/{folder} images/{folder}`

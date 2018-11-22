@@ -20,6 +20,7 @@ async function runCommand(
       }
     });
     cmd.stderr.on('data', error => {
+      console.log('ERROR:', error);
       throw new Error(error);
     });
 

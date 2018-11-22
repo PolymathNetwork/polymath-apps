@@ -9,13 +9,16 @@ import { hot } from 'react-hot-loader';
 import type { RouterHistory } from 'react-router-dom';
 import {
   MetamaskStatus,
+  MaintenancePage,
   NotSupportedPage,
   ErrorBoundary,
   EthNetworkWrapper,
   setupHistory,
-  NETWORK_MAIN,
-  NETWORK_KOVAN,
 } from '@polymathnetwork/ui';
+import {
+  MAINNET_NETWORK_ID,
+  KOVAN_NETWORK_ID,
+} from '@polymathnetwork/shared/constants';
 
 import SplashPage from './SplashPage';
 
@@ -51,8 +54,12 @@ class Root extends Component<Props> {
   render() {
     const { isNotice, routes, location } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
-    const networks = [NETWORK_MAIN, NETWORK_KOVAN];
+    const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
+    // FIXME @RafaelVidaurre: Remove this hack, only used for temporary maintenance mode
+    if (window.location.pathname === '/maintenance') {
+      return <MaintenancePage />;
+    }
     return (
       <ErrorBoundary>
         <div className={'bx--grid' + (isNotice ? ' pui-grid-notice' : '')}>
@@ -62,9 +69,15 @@ class Root extends Component<Props> {
             <SplashPage />
           ) : (
             <EthNetworkWrapper
-              loading={<Loading />}
-              guide={<MetamaskStatus networks="Mainnet or Kovan" />}
               networks={networks}
+              Loading={<Loading />}
+              errorRender={({ networkError, onRequestAuth }) => (
+                <MetamaskStatus
+                  networks="Mainnet or Kovan"
+                  status={networkError}
+                  onRequestAuth={onRequestAuth}
+                />
+              )}
             >
               {renderRoutes(routes)}
             </EthNetworkWrapper>
