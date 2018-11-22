@@ -162,7 +162,11 @@ export const fetchLegacyToken = (ticker: string) => async (
 
     const currentOwner = await legacyTokenContract.methods.owner().call();
 
-    if (currentOwner === account && thisTicker === ticker) {
+    if (
+      web3WS.utils.toChecksumAddress(currentOwner) ===
+        web3WS.utils.toChecksumAddress(account) &&
+      thisTicker.toUpperCase() === ticker.toUpperCase()
+    ) {
       return dispatch({
         type: LEGACY_TOKEN,
         legacyToken: {
