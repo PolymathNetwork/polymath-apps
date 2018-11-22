@@ -205,11 +205,6 @@ $css--body: false;
     margin-bottom: 0.45rem;
   }
 
-  .bx--modal-header__label {
-    text-transform: none;
-    font-size: 13px;
-  }
-
   .bx--modal-header__heading {
     color: $poly-blue;
     font-size: 28px;
@@ -819,10 +814,4 @@ $css--body: false;
 .pui-required-star::after {
   color: $poly-red;
   content: '*';
-}
-
-.pui-large-confirm-modal {
-  .bx--modal-container {
-    width: 700px;
-  }
 }

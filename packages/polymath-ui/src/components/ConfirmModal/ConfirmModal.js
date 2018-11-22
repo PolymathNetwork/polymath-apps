@@ -2,14 +2,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  ComposedModal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Icon,
-  Button,
-} from 'carbon-components-react';
+import { ModalBody, ModalFooter, Icon, Button } from 'carbon-components-react';
+
+import Modal from '../Modal';
+import Paragraph from '../Paragraph';
 
 import { closeModal } from './actions';
 import type { RootState } from '../../redux/reducer';
@@ -39,27 +35,20 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
 
   render() {
     return (
-      <ComposedModal
-        open={this.props.isOpen}
+      <Modal
+        isOpen={this.props.isOpen}
         className={'pui-confirm-modal ' + this.props.className}
       >
-        <ModalHeader
+        <Modal.Header
+          variant={this.props.isAlert ? 'alert' : 'warning'}
           label={this.props.headerLabel}
-          title={
-            // NOTE @RafaelVidaurre: Carbon components throws a warning here since it expects a string, not a Node
-            <span>
-              <Icon
-                name="warning--glyph"
-                fill="#E71D32"
-                width="24"
-                height="24"
-              />
-              &nbsp;
-              {this.props.title}
-            </span>
-          } // eslint-disable-next-line react/jsx-handler-names
-          buttonOnClick={this.handleClose}
-        />
+        >
+          <span>
+            <Icon name="warning--glyph" fill="#E71D32" width="24" height="24" />
+            &nbsp;
+            {this.props.title}
+          </span>
+        </Modal.Header>
         <ModalBody>
           <div className="bx--modal-content__text">{this.props.content}</div>
         </ModalBody>
@@ -78,7 +67,7 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
           )}
           <Button onClick={this.handleConfirm}>{this.props.buttonLabel}</Button>
         </ModalFooter>
-      </ComposedModal>
+      </Modal>
     );
   }
 }
