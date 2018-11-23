@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 
 import Icon from '../Icon';
+import Paragraph from '../Paragraph';
 
 import InfoIcon from '../../images/icons/Info';
 
@@ -12,9 +13,15 @@ const StyledTooltip = styled(ReactTooltip)`
   background-color: white;
   padding: 1rem;
   border: 1px solid #dfe3e6;
-  border-radius: 0.25rem;
   word-wrap: break-word;
   pointer-events: auto;
+  border-radius: 0;
+  transition: none;
+  margin-left: 10px;
+
+  &.show {
+    opacity: 1;
+  }
 
   &.place-top:before {
     border-top: 8px solid rgba(0, 0, 0, 0.05);
@@ -37,14 +44,21 @@ const StyledIcon = styled(Icon)`
 const Tooltip = ({ triggerText, children, id }) => (
   <Fragment>
     <StyledText>{triggerText}</StyledText>
-    <StyledIcon data-tip data-for={id} Icon={InfoIcon} width="16" height="16" />
+    <StyledIcon
+      data-tip
+      data-for={id || triggerText}
+      Icon={InfoIcon}
+      width="16"
+      height="16"
+    />
     <StyledTooltip
-      id={id}
+      id={id || triggerText}
       delayHide={200}
       effect="solid"
       type="light"
       place="bottom"
     >
+      <Paragraph bold>{triggerText}</Paragraph>
       {children}
     </StyledTooltip>
   </Fragment>
