@@ -129,7 +129,7 @@ export default class Modal extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className, isCloseable } = this.props;
     const { isOpen } = this.state;
 
     return (
@@ -140,7 +140,7 @@ export default class Modal extends Component {
           contentLabel="Modal"
           closeTimeoutMS={2000}
           className={{
-            base: `pui-modal`,
+            base: `pui-modal ${className}`,
             afterOpen: 'pui-modal--after-open',
             beforeClose: 'pui-modal--before-close',
           }}
@@ -151,7 +151,12 @@ export default class Modal extends Component {
           }}
           onRequestClose={this.handleCloseRequest}
         >
-          <StyledIconButton Icon={SvgClose} onClick={this.handleCloseRequest} />
+          {isCloseable && (
+            <StyledIconButton
+              Icon={SvgClose}
+              onClick={this.handleCloseRequest}
+            />
+          )}
           {children}
         </ReactModal>
       </Fragment>

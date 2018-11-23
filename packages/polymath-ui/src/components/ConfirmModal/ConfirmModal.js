@@ -2,10 +2,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ModalBody, ModalFooter, Icon, Button } from 'carbon-components-react';
+import { Icon, Button } from 'carbon-components-react';
 
 import Modal from '../Modal';
-import Paragraph from '../Paragraph';
 
 import { closeModal } from './actions';
 import type { RootState } from '../../redux/reducer';
@@ -38,9 +37,10 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
       <Modal
         isOpen={this.props.isOpen}
         className={'pui-confirm-modal ' + this.props.className}
+        onClose={this.handleClose}
       >
         <Modal.Header
-          variant={this.props.isAlert ? 'alert' : 'warning'}
+          status={this.props.isAlert ? 'warning' : 'alert'}
           label={this.props.headerLabel}
         >
           <span>
@@ -49,11 +49,11 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
             {this.props.title}
           </span>
         </Modal.Header>
-        <ModalBody>
+        <Modal.Body>
           <div className="bx--modal-content__text">{this.props.content}</div>
-        </ModalBody>
+        </Modal.Body>
 
-        <ModalFooter>
+        <Modal.Footer>
           {!this.props.isAlert ? (
             <Button
               className="cancel-btn"
@@ -66,7 +66,7 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
             ''
           )}
           <Button onClick={this.handleConfirm}>{this.props.buttonLabel}</Button>
-        </ModalFooter>
+        </Modal.Footer>
       </Modal>
     );
   }

@@ -7,7 +7,7 @@ import Heading from '../Heading';
 
 type Props = {|
   label?: string,
-  variant?: string,
+  status?: string,
   children: React.Node,
 |};
 
@@ -15,7 +15,7 @@ const Header = (props: Props) => {
   return (
     <React.Fragment>
       {props.label && (
-        <Paragraph color={props.variant} fontSize={1} bold mb={0}>
+        <Paragraph color={props.status} fontSize={1} bold mb={0}>
           {props.label}
         </Paragraph>
       )}
@@ -29,5 +29,5 @@ const Header = (props: Props) => {
 export default Header;
 
 Header.defaultProps = {
-  variant: 'warning',
+  status: 'idle',
 };
