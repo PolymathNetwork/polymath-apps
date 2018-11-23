@@ -1,16 +1,16 @@
 ---
-name: Navbar
+name: Header
 ---
 
 import { Playground, PropsTable } from 'docz';
-import Navbar from './Navbar';
+import Header from './Header';
 
-# Navbar
+# Header
 
-<PropsTable of={Navbar} />
+<PropsTable of={Header} />
 
 ## Basic usage
 
 <Playground>
-  <Navbar />
+  <Header />
 </Playground>

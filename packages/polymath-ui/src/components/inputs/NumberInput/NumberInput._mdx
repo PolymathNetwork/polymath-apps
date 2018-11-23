@@ -1,15 +1,15 @@
 ---
-name: TextInput
+name: NumberInput
 menu: Inputs
 ---
 
 import { Playground, PropsTable } from 'docz';
 import { Formik, Field } from 'formik';
-import TextInput from './';
+import NumberInputField, { NumberInput } from './index';
 
-# TextInput
+# NumberInput
 
-<PropsTable of={TextInput} />
+<PropsTable of={NumberInputField} />
 
 ## Basic usage
 
@@ -19,8 +19,12 @@ import TextInput from './';
       <form>
         <pre>{JSON.stringify(values, null, 2)}</pre>
         <br />
-        <Field name="myText" placeholder="foo" component={TextInput} />
+        <Field name="myText" placeholder="foo" component={NumberInputField} />
       </form>
     )}
   />
 </Playground>
+
+# NumberInput Primitive
+
+<NumberInput name="name" value={1234.5} />
