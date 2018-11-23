@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Box from '../../../Box';
-import { ellipsis } from '../../../../styles/utils';
+import Box from '../../Box';
+import { ellipsis } from '../../../styles/utils';
 
 const Container = styled(Box)`
   display: flex;
@@ -11,8 +11,8 @@ const Container = styled(Box)`
 `;
 
 const Text = styled.span`
-  margin-left: ${({ theme }) => theme.space[3]}px;
-  font-size: ${({ theme }) => theme.fontSizes[1]}px;
+  margin-left: ${({ theme }) => theme.space[3]};
+  font-size: ${({ theme }) => theme.fontSizes[1]};
   ${ellipsis};
 `;
 

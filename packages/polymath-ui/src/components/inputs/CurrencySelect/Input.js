@@ -4,13 +4,13 @@ import React, { Fragment } from 'react';
 import styled, { withTheme } from 'styled-components';
 import Select, { components } from 'react-select';
 
-import Box from '../../../Box';
-import Icon from '../../../Icon';
-import CaretDownIcon from '../../../../images/icons/CaretDown';
-import CloseIcon from '../../../../images/icons/Close';
+import Box from '../../Box';
+import Icon from '../../Icon';
+import CaretDownIcon from '../../../images/icons/CaretDown';
+import CloseIcon from '../../../images/icons/Close';
 
-import { currencyOptions } from '../data';
-import Value from '../Value';
+import { currencyOptions } from './data';
+import Value from './Value';
 
 type Option = {
   value: string,
@@ -21,6 +21,7 @@ type Props = {|
   value: [string],
   onChange: Function,
   name: string,
+  theme: any,
   options?: [Option],
   onBlur?: Function,
 |};
@@ -33,7 +34,7 @@ const getStyles = theme => ({
   control: (styles, state) => {
     return {
       ...styles,
-      backgroundColor: theme.colors.blue[0],
+      backgroundColor: theme.inputs.backgroundColor,
       borderRadius: 0,
       borderColor: 'transparent',
       '&:hover': {
@@ -79,8 +80,8 @@ const SelectContainer = styled(Box)`
   display: inline-block;
   vertical-align: middle;
   min-width: 200px;
-  margin-right: ${({ theme }) => theme.space[4]}px;
-  margin-bottom: ${({ theme }) => theme.space[1]}px;
+  margin-right: ${({ theme }) => theme.space[4]};
+  margin-bottom: ${({ theme }) => theme.space[1]};
 `;
 
 const Caret = styled(Icon)`
@@ -133,7 +134,7 @@ class Input extends React.Component<Props> {
   };
 
   render() {
-    const { value, options, onChange, onBlur, ...props } = this.props;
+    const { value, options, onChange, onBlur, theme, ...props } = this.props;
     const selectedValue = Array.isArray(value)
       ? value.map(
           _value => options.find(option => option.value === _value) || {}
