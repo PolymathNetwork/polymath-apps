@@ -37,7 +37,7 @@ const getStyles = theme => ({
   },
   valueContainer: styles => ({
     ...styles,
-    fontSize: theme.fontSizes[1],
+    fontSize: theme.fontSizes.baseText,
   }),
 });
 

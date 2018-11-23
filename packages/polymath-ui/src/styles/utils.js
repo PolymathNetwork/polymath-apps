@@ -7,7 +7,7 @@ export const ellipsis = `
 `;
 
 export const formError = css`
-  font-size: ${({ theme }) => theme.fontSizes[0]}px;
+  font-size: ${({ theme }) => theme.fontSizes[0]};
   color: ${({ theme }) => theme.colors.red[0]};
   font-weight: 400;
 `;

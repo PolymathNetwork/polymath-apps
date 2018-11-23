@@ -12,7 +12,7 @@ const Container = styled(Box)`
 
 const Text = styled.span`
   margin-left: ${({ theme }) => theme.space[3]};
-  font-size: ${({ theme }) => theme.fontSizes[1]};
+  font-size: ${({ theme }) => theme.fontSizes.baseText};
   ${ellipsis};
 `;
 
