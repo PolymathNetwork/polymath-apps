@@ -7,7 +7,9 @@ import DocumentTitle from 'react-document-title';
 import Box from '../Box';
 
 const StyledBox = styled(Box)`
-  min-height: calc(100vh - ${({ theme }) => theme.navbar.height} * 2);
+  min-height: calc(
+    100vh - ${({ theme }) => theme.header.height + theme.footer.height}
+  );
 `;
 
 const Page = ({ children, title = 'Polymath', ...props }) => (

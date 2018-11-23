@@ -17,6 +17,7 @@ export { default as InlineFlex } from './components/InlineFlex';
 export { default as Flex } from './components/Flex';
 export { default as Heading } from './components/Heading';
 export { default as Paragraph } from './components/Paragraph';
+export { default as ContentBox } from './components/ContentBox';
 export { default as FormItem } from './components/FormItem';
 export { default as FormItemGroup } from './components/FormItemGroup';
 export { default as Button } from './components/Button';
@@ -32,7 +33,7 @@ export { default as PausedBar } from './components/PausedBar';
 export * from './components/EthNetworkWrapper';
 export { default as EthNetworkWrapper } from './components/EthNetworkWrapper';
 export { default as NoticeBar } from './components/NoticeBar';
-export { default as Navbar } from './components/Navbar';
+export { default as Header } from './components/Header';
 export { default as Footer } from './components/Footer';
 export { default as TxModal } from './components/TxModal';
 export { default as ConfirmModal } from './components/ConfirmModal';
@@ -51,6 +52,7 @@ export { default as RaisedAmount } from './components/RaisedAmount';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as TierStatus } from './components/TierStatus';
 export { default as StickyTop } from './components/StickyTop';
+export { default as Tooltip } from './components/Tooltip';
 
 /**
  * Redux

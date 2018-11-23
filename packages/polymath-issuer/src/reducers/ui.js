@@ -2,7 +2,7 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
 
 export type UIState = {
-  navbar: {
+  header: {
     variant: 'default' | 'transparent',
   },
   footer: {
@@ -11,7 +11,7 @@ export type UIState = {
 };
 
 const defaultState: UIState = {
-  navbar: {
+  header: {
     variant: 'default',
   },
   footer: {

@@ -7,7 +7,7 @@ import {
   TxModal,
   ConfirmModal,
   NoticeBar,
-  Navbar,
+  Header,
   Footer,
   EnterPINModal,
   StickyTop,
@@ -66,9 +66,9 @@ class App extends Component<Props> {
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
-        <StickyTop>
+        <StickyTop zIndex={'header'}>
           <NoticeBar />
-          <Navbar ticker={ticker} variant={ui.navbar.variant} />
+          <Header ticker={ticker} variant={ui.header.variant} />
         </StickyTop>
         {children}
         <Footer variant={ui.footer.variant} />

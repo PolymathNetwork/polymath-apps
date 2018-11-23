@@ -41,16 +41,14 @@ type Props = {|
 
 const Container = styled.div`
   width: 100%;
-  height: ${({ theme }) => theme.navbar.height};
-  background-color: white;
-  box-shadow: 0 1px 0 0 #dfe3e6;
+  height: ${({ theme }) => theme.header.height};
   ${({ variant }) => variants[variant]};
 
   > a {
     float: left;
   }
 
-  .pui-navbar-menu {
+  .pui-header-menu {
     li {
       display: inline-flex;
       align-items: center;
@@ -69,18 +67,18 @@ const Container = styled.div`
 `;
 
 const Inner = styled(Flex)`
-  height: ${({ theme }) => theme.navbar.height};
+  height: ${({ theme }) => theme.header.height};
 `;
 
 const variants = {
   default: css`
     background-color: white;
-    box-shadow: 0 -1px 0 0 #dfe3e6;
+    box-shadow: 0 1px 0 0 #dfe3e6;
   `,
   transparent: css``,
 };
 
-class Navbar extends Component<Props> {
+class Header extends Component<Props> {
   static defaultProps: {
     variant: 'default',
   };
@@ -88,7 +86,7 @@ class Navbar extends Component<Props> {
   render() {
     const { balance, account, network, ticker, logo, variant } = this.props;
     return (
-      <Container className="pui-navbar" variant={variant}>
+      <Container className="pui-header" variant={variant}>
         <PageWrap>
           <Inner>
             <Link to="/">
@@ -99,7 +97,7 @@ class Navbar extends Component<Props> {
               )}
             </Link>
             {account ? (
-              <Flex as="ul" ml="auto" className="pui-navbar-menu">
+              <Flex as="ul" ml="auto" className="pui-header-menu">
                 <li>
                   <img
                     src={networkIcon}
@@ -137,4 +135,4 @@ class Navbar extends Component<Props> {
   }
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(Header);
