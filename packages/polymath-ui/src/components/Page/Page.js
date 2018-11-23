@@ -8,7 +8,8 @@ import Box from '../Box';
 
 const StyledBox = styled(Box)`
   min-height: calc(
-    100vh - ${({ theme }) => theme.header.height + theme.footer.height}
+    100vh -
+      (${({ theme }) => `${theme.header.height} + ${theme.footer.height}`})
   );
 `;
 

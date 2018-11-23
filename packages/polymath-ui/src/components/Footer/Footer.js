@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -71,7 +73,7 @@ const variants = {
   },
 };
 
-const Footer: SFC<Props> = props => {
+const Footer = (props: Props) => {
   return (
     <Container className="pui-footer" variant={props.variant}>
       <PageWrap>
