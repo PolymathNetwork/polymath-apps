@@ -4,8 +4,9 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { Form, Button, Tooltip } from 'carbon-components-react';
+import { Form, Button } from 'carbon-components-react';
 import { TextInput } from '@polymathnetwork/ui/deprecated';
+import { Tooltip } from '@polymathnetwork/ui';
 import {
   required,
   maxLength,
@@ -39,12 +40,9 @@ class TickerForm extends Component<Props> {
           component={TextInput}
           label={
             <Tooltip triggerText="Token Name">
-              <p className="bx--tooltip__label">Token Name</p>
-              <p>
-                This is the name of your token for display purposes.
-                <br />
-                For example: Toro Token
-              </p>
+              This is the name of your token for display purposes.
+              <br />
+              For example: Toro Token
             </Tooltip>
           }
           placeholder="Enter token name"
@@ -55,12 +53,9 @@ class TickerForm extends Component<Props> {
           component={TextInput}
           label={
             <Tooltip triggerText="Issuer&apos;s ETH Address">
-              <p className="bx--tooltip__label">Issuer&apos;s ETH Address</p>
-              <p>
-                This ETH address was read from your MetaMask. Only this account
-                will be able to access dashboard and complete token issuance and
-                STO.
-              </p>
+              This ETH address was read from your MetaMask. Only this account
+              will be able to access dashboard and complete token issuance and
+              STO.
             </Tooltip>
           }
           disabled

@@ -7,28 +7,31 @@ import Paragraph from '../Paragraph';
 
 import InfoIcon from '../../images/icons/Info';
 
-const StyledTooltip = styled(ReactTooltip)`
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-  max-width: 15rem;
-  background-color: white;
-  padding: 1rem;
-  border: 1px solid #dfe3e6;
-  word-wrap: break-word;
-  pointer-events: auto;
-  border-radius: 0;
-  transition: none;
-  margin-left: 10px;
+const StyledContainer = styled.div`
+  .__react_component_tooltip {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    max-width: 15rem;
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid #dfe3e6;
+    word-wrap: break-word;
+    pointer-events: auto;
+    border-radius: 0;
+    transition: none;
+    font-weight: normal;
+    font-size: ${({ theme }) => theme.fontSizes.baseText};
 
-  &.show {
-    opacity: 1;
-  }
+    &.show {
+      opacity: 1;
+    }
 
-  &.place-top:before {
-    border-top: 8px solid rgba(0, 0, 0, 0.05);
-  }
+    &.place-top:before {
+      border-top: 8px solid rgba(0, 0, 0, 0.05);
+    }
 
-  &.place-bottom:before {
-    border-bottom: 8px solid #dfe3e6;
+    &.place-bottom:before {
+      border-bottom: 8px solid #dfe3e6;
+    }
   }
 `;
 
@@ -47,20 +50,23 @@ const Tooltip = ({ triggerText, children, id }) => (
     <StyledIcon
       data-tip
       data-for={id || triggerText}
+      aria-describedby={id || triggerText}
       Icon={InfoIcon}
       width="16"
       height="16"
     />
-    <StyledTooltip
-      id={id || triggerText}
-      delayHide={200}
-      effect="solid"
-      type="light"
-      place="bottom"
-    >
-      <Paragraph bold>{triggerText}</Paragraph>
-      {children}
-    </StyledTooltip>
+    <StyledContainer role="tooltip">
+      <ReactTooltip
+        id={id || triggerText}
+        delayHide={200}
+        effect="solid"
+        type="light"
+        place="bottom"
+      >
+        <Paragraph bold>{triggerText}</Paragraph>
+        {children}
+      </ReactTooltip>
+    </StyledContainer>
   </Fragment>
 );
 
