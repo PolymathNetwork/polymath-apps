@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {
   space,
+  color,
   fontFamily,
   fontWeight,
   lineHeight,
@@ -11,12 +12,14 @@ import {
 
 export const Paragraph = styled.p(
   space,
+  color,
   fontFamily,
   fontWeight,
   lineHeight,
   letterSpacing,
   fontSize,
-  textAlign
+  textAlign,
+  props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })
 );
 
 export default Paragraph;
