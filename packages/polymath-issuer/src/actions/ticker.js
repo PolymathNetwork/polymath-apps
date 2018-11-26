@@ -109,11 +109,10 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
   );
 };
 
-export const confirmEmail = (data: Object) => async (
+export const confirmEmail = (email: string) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const { email } = data;
   dispatch(ui.requestConfirmEmail(email));
 };
 
