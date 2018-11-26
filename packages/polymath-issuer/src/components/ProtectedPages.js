@@ -1,28 +1,15 @@
 // @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Loading } from 'carbon-components-react';
-import {
-  EthNetworkWrapper,
-  MetamaskStatus,
-  signIn,
-  getNotice,
-} from '@polymathnetwork/ui';
+import { EthNetworkWrapper, MetamaskStatus } from '@polymathnetwork/ui';
 
 import AuthWrapper from './AuthWrapper';
 
-import { getMyTokens } from '../actions/ticker';
-
 type Props = {|
+  path: string,
   children: Node,
   networks: Array<string>,
-|} & DispatchProps;
-
-const mapDispatchToProps: DispatchProps = {
-  signIn,
-  getMyTokens,
-  getNotice,
-};
+|};
 
 class ProtectedPages extends Component<Props> {
   onAuthFail = () => {
@@ -53,7 +40,4 @@ class ProtectedPages extends Component<Props> {
   }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(ProtectedPages);
+export default ProtectedPages;

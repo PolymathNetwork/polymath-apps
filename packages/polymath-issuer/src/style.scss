@@ -19,17 +19,6 @@
   z-index: -1;
 }
 
-.dashboard {
-  padding-left: 46px;
-  padding-bottom: 46px;
-  padding-top: 56px;
-
-  .bx--progress {
-    margin-top: 0;
-    margin-bottom: 62px;
-  }
-}
-
 // TODO @bshevchenko: extract into the @polymathnetwork/ui
 .ticker-field {
   background: #ebf0f7;
