@@ -5,6 +5,10 @@ import Box from '../Box';
 import BaseIcon from '../Icon';
 
 const Button = styled(Box)`
+  appearance: none;
+  border: none;
+  padding: 0;
+  background-color: transparent;
   transition: all ${({ theme }) => theme.transitions.hover};
 `;
 
