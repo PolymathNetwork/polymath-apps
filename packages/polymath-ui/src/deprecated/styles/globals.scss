@@ -321,6 +321,18 @@ $css--body: false;
     color: $poly-blue !important;
   }
 
+  .bx--progress-step {
+    align-items: center;
+  }
+
+  .bx--progress-line {
+    right: calc(50% + 12px);
+  }
+
+  .bx--progress-label {
+    width: auto;
+  }
+
   .bx--progress-step--current {
     circle:first-child {
       stroke: $poly-blue;
