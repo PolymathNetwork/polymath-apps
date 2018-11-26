@@ -1,12 +1,11 @@
 // @flow
 
 import { Button, Form } from 'carbon-components-react';
-import { bull } from '@polymathnetwork/ui';
+import { Page, bull } from '@polymathnetwork/ui';
 import { TextInput } from '@polymathnetwork/ui/deprecated';
 import { required, email } from '@polymathnetwork/ui/validate';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { reduxForm, Field } from 'redux-form';
 
 import { confirmEmail } from '../actions/ticker';
@@ -63,7 +62,7 @@ class ConfirmEmailPage extends Component<Props> {
 
   render() {
     return (
-      <DocumentTitle title="Confirm Email – Polymath">
+      <Page title="Confirm Email – Polymath">
         <div className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
@@ -83,7 +82,7 @@ class ConfirmEmailPage extends Component<Props> {
             />
           </div>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

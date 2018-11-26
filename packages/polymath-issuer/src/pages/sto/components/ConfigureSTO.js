@@ -2,9 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Button } from 'carbon-components-react';
-import { NotFoundPage } from '@polymathnetwork/ui';
+import { Page, NotFoundPage } from '@polymathnetwork/ui';
 import { goBack } from '../../../actions/sto';
 import ConfigureSTOForm from './ConfigureSTOForm';
 import STOTemplate from './STOTemplate';
@@ -40,7 +39,7 @@ export const ConfigureSTOComponent = ({
   token,
   goBack,
 }: ComponentProps) => (
-  <DocumentTitle title={`Configure ${token.ticker} STO – Polymath`}>
+  <Page title={`Configure ${token.ticker} STO – Polymath`}>
     <div>
       <div className="bx--row">
         <div className="bx--col-xs-12">
@@ -72,7 +71,7 @@ export const ConfigureSTOComponent = ({
         </div>
       </div>
     </div>
-  </DocumentTitle>
+  </Page>
 );
 
 class ConfigureSTOContainer extends Component<Props> {

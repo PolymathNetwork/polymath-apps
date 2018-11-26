@@ -1,9 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import { Grid, Remark } from '@polymathnetwork/ui';
+import { Page, Grid, Remark } from '@polymathnetwork/ui';
 
 import Progress from '../../token/components/Progress';
 import STOTemplatesList from './STOTemplatesList';
@@ -36,7 +35,7 @@ class SelectSTOTemplate extends Component<Props> {
     const { token } = this.props;
     return (
       // $FlowFixMe
-      <DocumentTitle title={`Select ${token.ticker} STO Template – Polymath`}>
+      <Page title={`Select ${token.ticker} STO Template – Polymath`}>
         <div>
           <Progress />
           <div className="bx--row">
@@ -62,7 +61,7 @@ class SelectSTOTemplate extends Component<Props> {
             </div>
           </div>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

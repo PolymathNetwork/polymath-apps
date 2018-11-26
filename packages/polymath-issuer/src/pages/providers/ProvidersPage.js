@@ -12,7 +12,6 @@ import {
 } from '@polymathnetwork/ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Tabs, Tab, Icon, Checkbox, Button } from 'carbon-components-react';
 import type { Node } from 'react';
 import type { RouterHistory } from 'react-router-dom';

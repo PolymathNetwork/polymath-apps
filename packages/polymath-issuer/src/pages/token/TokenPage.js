@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import {
   FormGroup,
   Tooltip,
@@ -11,6 +10,7 @@ import {
   Button,
 } from 'carbon-components-react';
 import {
+  Page,
   etherscanTx,
   etherscanAddress,
   Countdown,
@@ -151,190 +151,181 @@ class TokenPage extends Component<Props, State> {
       return <NotFoundPage />;
     }
     return (
-      <DocumentTitle title={`${token.ticker} Token – Polymath`}>
+      <Page title={`${token.ticker} Token – Polymath`}>
         <div>
           <Progress />
-          <div>
-            <div className="bx--row">
-              {!token.address && token.expires ? (
-                <div className="create-token-wrapper">
-                  <div className="pui-page-box">
-                    <div className="token-countdown-container">
-                      <Countdown
-                        small
-                        title="Time Left"
-                        deadline={token.expires}
-                      />
-                    </div>
-                    <h2 className="pui-h2">Create Your Security Token</h2>
-                    <h3 className="pui-h3">
-                      Create your security token before your token reservation
-                      expires. If you let your token reservation expire, the
-                      token symbol you selected will be available for others to
-                      claim.
-                    </h3>
-                    <h3 className="pui-h3">
-                      To proceed with the creation of your security token, we
-                      recommend you work with your Advisory to answer the
-                      following questions:
-                    </h3>
-                    <br />
-                    <CompleteTokenForm
-                      isToggled={this.state.isToggled}
-                      onSubmit={this.handleIssue}
+          <div className="bx--row">
+            {!token.address && token.expires ? (
+              <div className="create-token-wrapper">
+                <div className="pui-page-box">
+                  <div className="token-countdown-container">
+                    <Countdown
+                      small
+                      title="Time Left"
+                      deadline={token.expires}
+                    />
+                  </div>
+                  <h2 className="pui-h2">Create Your Security Token</h2>
+                  <h3 className="pui-h3">
+                    Create your security token before your token reservation
+                    expires. If you let your token reservation expire, the token
+                    symbol you selected will be available for others to claim.
+                  </h3>
+                  <h3 className="pui-h3">
+                    To proceed with the creation of your security token, we
+                    recommend you work with your Advisory to answer the
+                    following questions:
+                  </h3>
+                  <br />
+                  <CompleteTokenForm
+                    isToggled={this.state.isToggled}
+                    onSubmit={this.handleIssue}
+                  />
+                </div>
+              </div>
+            ) : (
+              ''
+            )}
+            {token.address && !this.props.isMintingFrozen ? <MintTokens /> : ''}
+            <div className="token-symbol-wrapper">
+              <div className="pui-page-box">
+                <div className="ticker-field">
+                  <div className="bx--form-item">
+                    <label htmlFor="ticker" className="bx--label">
+                      Token Symbol
+                    </label>
+                    <input
+                      type="text"
+                      name="ticker"
+                      value={token.ticker}
+                      id="ticker"
+                      readOnly
+                      className="bx--text-input bx--text__input"
                     />
                   </div>
                 </div>
-              ) : (
-                ''
-              )}
-              {token.address && !this.props.isMintingFrozen ? (
-                <MintTokens />
-              ) : (
-                ''
-              )}
-              <div className="token-symbol-wrapper">
-                <div className="pui-page-box">
-                  <div className="ticker-field">
-                    <div className="bx--form-item">
-                      <label htmlFor="ticker" className="bx--label">
-                        Token Symbol
-                      </label>
-                      <input
-                        type="text"
-                        name="ticker"
-                        value={token.ticker}
-                        id="ticker"
-                        readOnly
-                        className="bx--text-input bx--text__input"
+                <div className="bx--form-item">
+                  <label htmlFor="name" className="bx--label">
+                    Token Name
+                  </label>
+                  <p>{token.name}</p>
+                </div>
+                {token.address ? (
+                  <div className="bx--form-item">
+                    <label htmlFor="name" className="bx--label">
+                      Token Address
+                    </label>
+                    <p>{etherscanAddress(token.address)}</p>
+                  </div>
+                ) : (
+                  ''
+                )}
+                <div className="bx--form-item">
+                  <label htmlFor="owner" className="bx--label">
+                    {!token.address ? 'Symbol' : 'Token '} Issuance Transaction
+                  </label>
+                  <p>{etherscanTx(token.txHash)}</p>
+                </div>
+                <div className="bx--form-item">
+                  <label htmlFor="name" className="bx--label">
+                    {!token.address ? 'Symbol' : 'Token '} Issuance Date
+                  </label>
+                  <p>{moment(token.timestamp).format('D MMMM, YYYY')}</p>
+                </div>
+                <hr />
+                <div className="bx--form-item">
+                  <label htmlFor="name" className="bx--label">
+                    Issuer&apos;s ETH Address
+                  </label>
+                  <p>{token.owner}</p>
+                </div>
+                {token.address ? (
+                  <div>
+                    <hr />
+                    <FormGroup
+                      style={{ marginTop: '8px', width: '260px' }}
+                      legendText={
+                        <Tooltip triggerText="Limit the Number of Investors Who Can Hold This Token">
+                          <p className="bx--tooltip__label">
+                            Limit the Number of Investors
+                          </p>
+                          <p>
+                            This option allows you to limit the number of
+                            concurrent token holders irrespective of the number
+                            of entries in the whitelist.
+                            <br />
+                            For example, enabling this option can allow you to
+                            allow a maximum of 99 concurrent token holders while
+                            your whitelist may have thousands of entries.
+                          </p>
+                        </Tooltip>
+                      }
+                    >
+                      <Toggle
+                        onToggle={this.handleToggle}
+                        id="investors-number-toggle"
+                        toggled={
+                          isCountTMEnabled
+                            ? !isCountTMPaused
+                            : this.state.isToggled
+                        }
                       />
-                    </div>
-                  </div>
-                  <div className="bx--form-item">
-                    <label htmlFor="name" className="bx--label">
-                      Token Name
-                    </label>
-                    <p>{token.name}</p>
-                  </div>
-                  {token.address ? (
-                    <div className="bx--form-item">
-                      <label htmlFor="name" className="bx--label">
-                        Token Address
-                      </label>
-                      <p>{etherscanAddress(token.address)}</p>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                  <div className="bx--form-item">
-                    <label htmlFor="owner" className="bx--label">
-                      {!token.address ? 'Symbol' : 'Token '} Issuance
-                      Transaction
-                    </label>
-                    <p>{etherscanTx(token.txHash)}</p>
-                  </div>
-                  <div className="bx--form-item">
-                    <label htmlFor="name" className="bx--label">
-                      {!token.address ? 'Symbol' : 'Token '} Issuance Date
-                    </label>
-                    <p>{moment(token.timestamp).format('D MMMM, YYYY')}</p>
-                  </div>
-                  <hr />
-                  <div className="bx--form-item">
-                    <label htmlFor="name" className="bx--label">
-                      Issuer&apos;s ETH Address
-                    </label>
-                    <p>{token.owner}</p>
-                  </div>
-                  {token.address ? (
-                    <div>
-                      <hr />
-                      <FormGroup
-                        style={{ marginTop: '8px', width: '260px' }}
-                        legendText={
-                          <Tooltip triggerText="Limit the Number of Investors Who Can Hold This Token">
-                            <p className="bx--tooltip__label">
-                              Limit the Number of Investors
-                            </p>
-                            <p>
-                              This option allows you to limit the number of
-                              concurrent token holders irrespective of the
-                              number of entries in the whitelist.
-                              <br />
-                              For example, enabling this option can allow you to
-                              allow a maximum of 99 concurrent token holders
-                              while your whitelist may have thousands of
-                              entries.
-                            </p>
-                          </Tooltip>
-                        }
-                      >
-                        <Toggle
-                          onToggle={this.handleToggle}
-                          id="investors-number-toggle"
-                          toggled={
-                            isCountTMEnabled
-                              ? !isCountTMPaused
-                              : this.state.isToggled
-                          }
-                        />
-                      </FormGroup>
-                      <div
-                        className="max-holders-count"
-                        style={
-                          !isCountTMPaused ||
-                          (!isCountTMEnabled && this.state.isToggled)
-                            ? {}
-                            : {
-                                display: 'none',
-                              }
-                        }
-                      >
-                        <Remark title="Note">
-                          If you set the maximum number of investors to a value
-                          lower than the current number of investors, only
-                          transactions that would result in a reduction of the
-                          number of investors will be allowed. All other
-                          transactions will fail. Please consult with your
-                          Advisory before activating this option.
-                        </Remark>
-                        <TextInput
-                          id="maxHoldersCount"
-                          value={this.state.maxHoldersCount}
-                          placeholder="Enter the max. number of Investors"
-                          onChange={this.handleMaxHoldersCountChange}
-                        />
-                        <Button
-                          onClick={this.handleApplyMaxHoldersCount}
-                          disabled={
-                            this.state.maxHoldersCount ===
-                              this.props.maxHoldersCount ||
-                            typeof this.state.maxHoldersCount === 'undefined'
-                          }
-                        >
-                          Apply
-                        </Button>
-                      </div>
-                      <br />
-                      <hr />
+                    </FormGroup>
+                    <div
+                      className="max-holders-count"
+                      style={
+                        !isCountTMPaused ||
+                        (!isCountTMEnabled && this.state.isToggled)
+                          ? {}
+                          : {
+                              display: 'none',
+                            }
+                      }
+                    >
+                      <Remark title="Note">
+                        If you set the maximum number of investors to a value
+                        lower than the current number of investors, only
+                        transactions that would result in a reduction of the
+                        number of investors will be allowed. All other
+                        transactions will fail. Please consult with your
+                        Advisory before activating this option.
+                      </Remark>
+                      <TextInput
+                        id="maxHoldersCount"
+                        value={this.state.maxHoldersCount}
+                        placeholder="Enter the max. number of Investors"
+                        onChange={this.handleMaxHoldersCountChange}
+                      />
                       <Button
-                        icon="download"
-                        kind="secondary"
-                        onClick={this.handleExport}
-                        className="export-tokens-list-btn"
+                        onClick={this.handleApplyMaxHoldersCount}
+                        disabled={
+                          this.state.maxHoldersCount ===
+                            this.props.maxHoldersCount ||
+                          typeof this.state.maxHoldersCount === 'undefined'
+                        }
                       >
-                        Export Minted Tokens List
+                        Apply
                       </Button>
                     </div>
-                  ) : (
-                    ''
-                  )}
-                </div>
+                    <br />
+                    <hr />
+                    <Button
+                      icon="download"
+                      kind="secondary"
+                      onClick={this.handleExport}
+                      className="export-tokens-list-btn"
+                    >
+                      Export Minted Tokens List
+                    </Button>
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
           </div>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }
