@@ -73,12 +73,6 @@ type ComponentProps = {|
   ticker: string,
   ...FormikProps,
 |};
-type ContainerProps = {|
-  dispatch: Dispatch<any>,
-  address: string,
-  ticker: string,
-  ...FormikProps,
-|};
 
 export const investmentTierSchema = validator.object().shape({
   tokensAmount: validator
@@ -170,7 +164,6 @@ const initialValues = {
 };
 
 export const USDTieredSTOFormComponent = ({
-  onSubmit,
   ticker,
   values,
   errors,
@@ -415,23 +408,7 @@ const formikEnhancer = withFormik({
   },
 });
 
-class USDTieredSTOFormContainer extends Component<ContainerProps> {
-  render() {
-    const { ticker, handleSubmit, errors, values, touched } = this.props;
-
-    return (
-      <USDTieredSTOFormComponent
-        errors={errors}
-        values={values}
-        touched={touched}
-        ticker={ticker}
-        handleSubmit={handleSubmit}
-      />
-    );
-  }
-}
-
-const FormikEnhancedForm = formikEnhancer(USDTieredSTOFormContainer);
+const FormikEnhancedForm = formikEnhancer(USDTieredSTOFormComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
 export default ConnectedForm;

@@ -32,8 +32,6 @@ import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
 import { configureSTO } from '../../../../../../actions/sto';
 
-import type { Dispatch } from 'redux';
-
 const formSchema = validator.object().shape({
   date: validator.object().shape({
     startDate: validator
@@ -86,7 +84,6 @@ const initialValues = {
 };
 
 export const CappedSTOFormComponent = ({
-  onSubmit,
   ticker,
   values,
   errors,
@@ -228,7 +225,6 @@ export const CappedSTOFormComponent = ({
         <FormItem.Input
           component={TextInput}
           placeholder="Enter your current ETH address"
-          useBigNumbers
         />
         <FormItem.Error />
       </FormItem>
@@ -277,30 +273,7 @@ const formikEnhancer = withFormik({
   },
 });
 
-type ContainerProps = {|
-  dispatch: Dispatch<any>,
-  address: string,
-  ticker: string,
-  ...FormikProps,
-|};
-
-class CappedSTOFormContainer extends Component<ContainerProps> {
-  render() {
-    const { ticker, handleSubmit, errors, values, touched } = this.props;
-
-    return (
-      <CappedSTOFormComponent
-        errors={errors}
-        values={values}
-        touched={touched}
-        ticker={ticker}
-        handleSubmit={handleSubmit}
-      />
-    );
-  }
-}
-
-const FormikEnhancedForm = formikEnhancer(CappedSTOFormContainer);
+const FormikEnhancedForm = formikEnhancer(CappedSTOFormComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
 export default ConnectedForm;
