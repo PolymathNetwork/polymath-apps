@@ -1,11 +1,10 @@
 // @flow
 
 import React, { Fragment, Component } from 'react';
-import styled from 'styled-components';
-import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {
+  PageWrap,
   Sidebar,
   icoBriefcase,
   icoInbox,
@@ -24,7 +23,9 @@ import PausedBar from './PausedBar';
 
 import type { RootState } from '../redux/reducer';
 import type { ServiceProvider } from '../pages/providers/data';
+
 import MigrateTokenPage from './MigrateTokenPage';
+import Progress from '../pages/token/components/Progress';
 
 type StateProps = {|
   token: ?SecurityToken,
@@ -67,13 +68,10 @@ type Props = {|
 |} & StateProps &
   DispatchProps;
 
-const Container = styled.div`
-  margin-left: ${({ theme }) => theme.sidebar.width};
-`;
-
 class Dashboard extends Component<Props> {
-  componentWillMount() {
-    const ticker = this.props.match.params.id;
+  componentDidMount() {
+    const { ticker } = this.props;
+
     this.props.fetchLegacyToken(ticker);
     this.props.fetchToken(ticker);
     this.props.fetchProviders(ticker);
@@ -83,7 +81,7 @@ class Dashboard extends Component<Props> {
     const {
       isTokenFetched,
       providers,
-      route,
+      children,
       token,
       account,
       legacyToken,
@@ -158,7 +156,10 @@ class Dashboard extends Component<Props> {
           topItems={topSidebarItems}
           bottomItems={bottomSidebarItems}
         />
-        <Container>{renderRoutes(route.routes)}</Container>
+        <PageWrap>
+          <Progress />
+        </PageWrap>
+        {children}
       </Fragment>
     );
   }

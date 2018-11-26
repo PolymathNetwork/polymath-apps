@@ -153,7 +153,6 @@ class TokenPage extends Component<Props, State> {
     return (
       <Page title={`${token.ticker} Token – Polymath`}>
         <div>
-          <Progress />
           <div className="bx--row">
             {!token.address && token.expires ? (
               <div className="create-token-wrapper">

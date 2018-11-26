@@ -14,7 +14,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Tabs, Tab, Icon, Checkbox, Button } from 'carbon-components-react';
 import type { Node } from 'react';
-import type { RouterHistory } from 'react-router-dom';
+import type { RouterHistory } from '@reach/router';
 
 import {
   applyProviders,
@@ -241,7 +241,6 @@ class ProvidersPage extends Component<Props, State> {
 
     return (
       <Page title={`${token.ticker} Providers – Polymath`}>
-        <Progress />
         <Remark title="Data Privacy">
           None of your data entered in the application form(s) is stored on
           Polymath servers or shared with any third party other than the firm(s)
