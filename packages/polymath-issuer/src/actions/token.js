@@ -15,7 +15,7 @@ import FileSaver from 'file-saver';
 import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
 
-import { ethereumAddress } from '@polymathnetwork/ui/validate';
+import { ethereumAddress } from '@polymathnetwork/ui/deprecated/validate';
 import type {
   SecurityToken,
   Investor,
