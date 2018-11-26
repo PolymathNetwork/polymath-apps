@@ -32,10 +32,19 @@ type USDTieredSTOParams = {|
   tokensPerTierDiscountPoly: number[],
   nonAccreditedLimitUSD: number,
   minimumInvestmentUSD: number,
-  fundRaiseTypes: number,
+  fundRaiseTypes: number[],
   wallet: Address,
   reserveWallet: Address,
   usdToken: Address,
+|};
+
+type CappedSTOParams = {|
+  startTime: number,
+  endTime: number,
+  cap: number,
+  rate: number,
+  fundRaiseTypes: number[],
+  wallet: Address,
 |};
 
 // const POLY_TOKEN_DECIMALS = 18;
@@ -125,6 +134,55 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
       params.wallet,
       params.reserveWallet,
       params.usdToken,
+    ]
+  );
+}
+
+/**
+ * Returns an encoded function call to setup a CappedSTO module
+ *
+ * @param params Function parameters
+ */
+function encodeCappedSTOSetupCall(params: CappedSTOParams) {
+  console.log('PARAMS!!', params);
+  return Contract._params.web3.eth.abi.encodeFunctionCall(
+    {
+      name: 'configure',
+      type: 'function',
+      inputs: [
+        {
+          type: 'uint256',
+          name: '_startTime',
+        },
+        {
+          type: 'uint256',
+          name: '_endTime',
+        },
+        {
+          type: 'uint256',
+          name: '_cap',
+        },
+        {
+          type: 'uint256',
+          name: '_rate',
+        },
+        {
+          type: 'uint8[]',
+          name: '_fundRaiseTypes',
+        },
+        {
+          type: 'address',
+          name: '_fundsReceiver',
+        },
+      ],
+    },
+    [
+      params.startTime,
+      params.endTime,
+      params.cap,
+      params.rate,
+      params.fundRaiseTypes,
+      params.wallet,
     ]
   );
 }
@@ -250,21 +308,22 @@ export async function getSTOModules(tokenAddress: string) {
   return stoModules;
 }
 
-// TODO @RafaelVidaurre: Make this generic. Right now it only works for
-// USDTieredSTO
+async function paySetupCost(cost: number, tokenAddress: string) {
+  const balance = await PolyToken.balanceOf(tokenAddress);
 
-export async function setupSTOModule(
+  if (balance.lt(cost)) {
+    await PolyToken.transfer(tokenAddress, cost);
+  }
+}
+
+export async function setupUSDTieredSTOModule(
   stoModule: STOModule,
   tokenAddress: string,
   configValues: any
 ) {
   const { address, setupCost } = stoModule;
 
-  const balance = await PolyToken.balanceOf(tokenAddress);
-
-  if (balance.lt(setupCost)) {
-    await PolyToken.transfer(tokenAddress, setupCost);
-  }
+  await paySetupCost(setupCost, tokenAddress);
 
   const encodeParams = {
     startTime: toUnixTimestamp(configValues.startsAt),
@@ -283,6 +342,37 @@ export async function setupSTOModule(
 
   const securityToken = new SecurityToken(tokenAddress);
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
+
+  await securityToken._tx(
+    securityToken._methods.addModule(
+      address,
+      encodedFunctionCall,
+      toWei(setupCost),
+      0
+    )
+  );
+}
+
+export async function setupCappedSTOModule(
+  stoModule: STOModule,
+  tokenAddress: string,
+  configValues: any
+) {
+  const { address, setupCost } = stoModule;
+
+  await paySetupCost(setupCost, tokenAddress);
+
+  const encodeParams = {
+    startTime: toUnixTimestamp(configValues.startsAt),
+    endTime: toUnixTimestamp(configValues.endsAt),
+    cap: configValues.cap,
+    rate: configValues.rate,
+    fundRaiseTypes: configValues.currencies,
+    wallet: configValues.receiverAddress,
+  };
+
+  const securityToken = new SecurityToken(tokenAddress);
+  const encodedFunctionCall = encodeCappedSTOSetupCall(encodeParams);
 
   await securityToken._tx(
     securityToken._methods.addModule(

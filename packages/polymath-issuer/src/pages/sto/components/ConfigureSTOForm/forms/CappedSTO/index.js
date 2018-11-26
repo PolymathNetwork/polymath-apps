@@ -1,283 +1,305 @@
-// @flow
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { withFormik } from 'formik';
+import BigNumber from 'bignumber.js';
 import moment from 'moment';
-import { Form, Button, Tooltip, FormGroup } from 'carbon-components-react';
-import { Box, thousandsDelimiter } from '@polymathnetwork/ui';
+import { Form, Button, Tooltip } from 'carbon-components-react';
 import {
+  Box,
+  Grid,
+  FormItem,
+  FormItemGroup,
+  Heading,
   TextInput,
-  SelectInput,
   DatePickerInput,
   TimePickerSelect,
-} from '@polymathnetwork/ui/deprecated';
+  NumberInput,
+  CurrencySelect,
+  Remark,
+  RaisedAmount,
+} from '@polymathnetwork/ui';
+import validator from '@polymathnetwork/ui/validator';
 import {
-  required,
-  numeric,
-  todayOrLater,
-  ethereumAddress,
-  gt,
-} from '@polymathnetwork/ui/validate';
-import { configure } from '../../../../../../actions/sto';
+  validateTodayOrAfter,
+  validateStartTime,
+  validateEndDate,
+  validateEndTime,
+  REQUIRED_MESSAGE,
+  MORE_THAN_MESSAGE,
+  ADDRESS_MESSAGE,
+} from '../../validators';
+import { toWei } from '../../../../../../utils/contracts';
+import { FUND_RAISE_TYPES } from '../../../../../../constants';
+import { configureSTO } from '../../../../../../actions/sto';
 
 import type { Dispatch } from 'redux';
 
-export const formName = 'configure_sto';
+const formSchema = validator.object().shape({
+  date: validator.object().shape({
+    startDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartDate', validateTodayOrAfter),
+    startTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartTime', validateStartTime),
+    endDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateEndDate', validateEndDate),
+    endTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validEndTime', validateEndTime),
+  }),
+  currency: validator.string().isRequired(REQUIRED_MESSAGE),
+  cap: validator
+    .bigNumber()
+    .isRequired(REQUIRED_MESSAGE)
+    .moreThan(0, MORE_THAN_MESSAGE),
+  rate: validator
+    .bigNumber()
+    .isRequired(REQUIRED_MESSAGE)
+    .moreThan(0, MORE_THAN_MESSAGE),
+  receiverAddress: validator
+    .string()
+    .isRequired(REQUIRED_MESSAGE)
+    .isAddress(ADDRESS_MESSAGE),
+});
 
-type Props = {
-  handleSubmit: () => void,
+/**
+ * NOTE @monitz87: Every field NEEDS to have an initial value because of
+ * https://github.com/jaredpalmer/formik/issues/738
+ */
+const initialValues = {
+  date: {
+    startDate: null,
+    startTime: null,
+    endDate: null,
+    endTime: null,
+  },
+  currency: 'POLY',
+  cap: null,
+  rate: null,
+  receiverAddress: '',
 };
 
-const defaultCurrency = 'POLY';
+export const CappedSTOFormComponent = ({
+  onSubmit,
+  ticker,
+  values,
+  errors,
+  touched,
+  handleSubmit,
+}) => {
+  const { cap, rate, currency } = values;
 
-const gt0 = gt(0);
+  let totalTokensAmount = new BigNumber(0),
+    totalRaiseAmount = new BigNumber(0);
 
-type State = {|
-  currency: string,
-  cap: number,
-  rate: number,
-  amountOfFunds: string,
-|};
-
-class ConfigureCappedSTOForm extends Component<Props, State> {
-  state = {
-    currency: defaultCurrency,
-    cap: 0,
-    rate: 0,
-    amountOfFunds: '0',
-  };
-
-  handleCurrencyChange = (event: Object, newValue: string) => {
-    this.setState({ currency: newValue });
-  };
-
-  handleCapChange = (event: Object, newValue: string) => {
-    this.setState({ cap: Number(newValue.replace(/,/g, '')) });
-    this.updateAmountOfFunds(
-      Number(newValue.replace(/,/g, '')) / this.state.rate
-    );
-  };
-
-  handleRateChange = (event: Object, newValue: string) => {
-    this.setState({ rate: Number(newValue.replace(/,/g, '')) });
-    this.updateAmountOfFunds(
-      this.state.cap / Number(newValue.replace(/,/g, ''))
-    );
-  };
-
-  checkStartAfterEnd = (value, allValues) => {
-    if (!allValues.startDate) {
-      return null;
-    } else if (moment(allValues.startDate[0]).isAfter(allValues.endDate[0])) {
-      return 'Selected end date/time is before the start date/time - Please update the dates accordingly';
-    } else {
-      return null;
-    }
-  };
-
-  convertAMPMTime = (time, date) => {
-    var hours = Number(time.match(/^(\d+)/)[1]);
-    var minutes = Number(time.match(/:(\d+)/)[1]);
-    var AMPM = time.match(/\s(.*)$/)[1];
-    if (AMPM === 'PM' && hours < 12) hours = hours + 12;
-    if (AMPM === 'AM' && hours === 12) hours = hours - 12;
-
-    return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      hours,
-      parseInt(minutes, 10)
-    );
-  };
-
-  checkStartTime = (value, allValues) => {
-    const startTime = allValues.startTime;
-    const startDate = new Date(allValues.startDate);
-
-    if (!startTime || !startDate) {
-      return null;
-    } else {
-      const startDateTime = this.convertAMPMTime(startTime, startDate);
-
-      if (new Date().getTime() > startDateTime.getTime()) {
-        return 'Time is in the past.';
-      } else if (new Date().getTime() + 600000 > startDateTime.getTime()) {
-        return 'Selected time is too close to current time.';
-      }
-    }
-  };
-
-  checkEndTime = (value, allValues) => {
-    const startTime = allValues.startTime;
-    const startDate = new Date(allValues.startDate);
-    const endTime = allValues.endTime;
-    const endDate = new Date(allValues.endDate);
-
-    if (!startTime || !startDate || !endTime || !endDate) {
-      return null;
-    } else {
-      const startDateTime = this.convertAMPMTime(startTime, startDate);
-      const endDateTime = this.convertAMPMTime(endTime, endDate);
-
-      if (startDateTime.getTime() > endDateTime.getTime()) {
-        return 'Selected end date/time is before the start date/time - Please update the dates accordingly';
-      } else if (startDateTime.getTime() + 600000 > endDateTime.getTime()) {
-        return 'Start time is too close to the end time.';
-      }
-    }
-  };
-
-  updateAmountOfFunds = (value: number) => {
-    this.setState({
-      amountOfFunds:
-        isNaN(value) || value === Infinity ? '0' : thousandsDelimiter(value),
-    });
-  };
-
-  render() {
-    return (
-      <Form onSubmit={this.props.handleSubmit} autoComplete="off">
-        <div className="time-pickers-container">
-          <Field
-            name="startDate"
-            component={DatePickerInput}
-            label="Start Date"
-            placeholder="mm / dd / yyyy"
-            validate={[required, todayOrLater]}
-          />
-          <Box mr={4}>
-            <Field
-              name="startTime"
-              step={30}
-              component={TimePickerSelect}
-              hideLabel={false}
-              className="bx--time-picker__select"
-              placeholder="hh:mm"
-              label="Start Time"
-              validate={[required, this.checkStartTime]}
-            />
-          </Box>
-          <Field
-            name="endDate"
-            component={DatePickerInput}
-            label="End Date"
-            placeholder="mm / dd / yyyy"
-            validate={[required, todayOrLater, this.checkStartAfterEnd]}
-          />
-          <Field
-            name="endTime"
-            step={30}
-            component={TimePickerSelect}
-            className="bx--time-picker__select"
-            placeholder="hh:mm"
-            label="End Time"
-            validate={[required, this.checkEndTime]}
-          />
-        </div>
-
-        <Field
-          name="currency"
-          component={SelectInput}
-          label="Raise in"
-          placeholder="Choose a currency"
-          options={[
-            { value: 'ETH', label: 'ETH' },
-            { value: 'POLY', label: 'POLY' },
-          ]}
-          onChange={this.handleCurrencyChange}
-          defaultValue={defaultCurrency}
-        />
-        <Field
-          name="cap"
-          component={TextInput}
-          normalize={thousandsDelimiter}
-          label={
-            <Tooltip triggerText="Hard Cap (in Tokens)">
-              <p className="bx--tooltip__label">Hard Cap (in Tokens)</p>
-              <p>
-                Hard Cap is the maximum number of tokens available through this
-                offering. e.g. if you want the total aggregate of your investors
-                in this offering to own 10 million tokens, enter 10000000.
-              </p>
-            </Tooltip>
-          }
-          placeholder="Enter amount"
-          onChange={this.handleCapChange}
-          validate={[required, numeric, gt0]}
-        />
-        <Field
-          name="rate"
-          component={TextInput}
-          normalize={thousandsDelimiter}
-          label={
-            <Tooltip triggerText="Rate">
-              <p className="bx--tooltip__label">Rate</p>
-              <p>
-                Conversion rate between the currency you chose and your Security
-                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
-                Security Tokens.
-              </p>
-            </Tooltip>
-          }
-          placeholder="Enter amount"
-          onChange={this.handleRateChange}
-          validate={[required, numeric, gt0]}
-        />
-        <Field
-          name="fundsReceiver"
-          component={TextInput}
-          label={
-            <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
-              <p className="bx--tooltip__label">Fund Receiver Address</p>
-              <p>
-                This wallet address will receive the funds raised during the
-                STO. This address may be self-custodied or that of a fully
-                custodied wallet.
-              </p>
-            </Tooltip>
-          }
-          placeholder="Enter address"
-          validate={[required, ethereumAddress]}
-        />
-        <FormGroup
-          legendText="Amount Of Funds The STO Will Raise"
-          style={{ marginTop: '20px', fontSize: '14px' }}
-        >
-          {this.state.amountOfFunds} {this.state.currency}
-        </FormGroup>
-        <Button type="submit">DEPLOY AND SCHEDULE STO</Button>
-        <p className="pui-input-hint">
-          When you launch your security token offering, only whitelisted
-          investors will be able to participate. Please make sure to add to the
-          whitelist the ETH addresses deemed suitable by your KYC/AML provider.
-        </p>
-      </Form>
-    );
+  if (cap && rate) {
+    totalTokensAmount = new BigNumber(cap);
+    totalRaiseAmount = totalTokensAmount.dividedBy(new BigNumber(rate));
   }
-}
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Heading variant="h3">STO Schedule</Heading>
+
+      <FormItemGroup>
+        <FormItemGroup.Items>
+          <FormItem name="date.startDate">
+            <FormItem.Label>Start Date</FormItem.Label>
+            <FormItem.Input
+              component={DatePickerInput}
+              placeholder="mm / dd / yyyy"
+            />
+          </FormItem>
+          <Box mr={4}>
+            <FormItem name="date.startTime">
+              <FormItem.Label>Time</FormItem.Label>
+              <FormItem.Input
+                component={TimePickerSelect}
+                placeholder="hh:mm"
+              />
+            </FormItem>
+          </Box>
+          <FormItem name="date.endDate">
+            <FormItem.Label>End Date</FormItem.Label>
+            <FormItem.Input
+              component={DatePickerInput}
+              placeholder="mm / dd / yyyy"
+            />
+          </FormItem>
+          <FormItem name="date.endTime">
+            <FormItem.Label>Time</FormItem.Label>
+            <FormItem.Input component={TimePickerSelect} placeholder="hh:mm" />
+          </FormItem>
+        </FormItemGroup.Items>
+        <FormItemGroup.Error name="date" errors={errors} touched={touched} />
+      </FormItemGroup>
+
+      <Heading variant="h3" mt={5}>
+        STO Financing Details & Terms
+      </Heading>
+
+      <FormItem name="currency">
+        <FormItem.Input
+          component={CurrencySelect}
+          placeholder="Raise in"
+          options={['ETH', 'POLY']}
+        />
+        <FormItem.Error />
+      </FormItem>
+
+      <FormItem name="cap">
+        <FormItem.Label>
+          <Tooltip triggerText="Hard Cap (in Tokens)">
+            <p className="bx--tooltip__label">Hard Cap (in Tokens)</p>
+            <p>
+              Hard Cap is the maximum number of tokens available through this
+              offering. e.g. if you want the total aggregate of your investors
+              in this offering to own 10 million tokens, enter 10000000.
+            </p>
+          </Tooltip>
+        </FormItem.Label>
+        <FormItem.Input
+          component={NumberInput}
+          placeholder="Enter amount"
+          useBigNumbers
+        />
+        <FormItem.Error />
+      </FormItem>
+
+      <FormItem name="rate">
+        <FormItem.Label>
+          <Tooltip triggerText="Rate">
+            <p className="bx--tooltip__label">Rate</p>
+            <p>
+              Conversion rate between the currency you chose and your Security
+              Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000 Security
+              Tokens.
+            </p>
+          </Tooltip>
+        </FormItem.Label>
+        <FormItem.Input
+          component={NumberInput}
+          placeholder="Enter amount"
+          useBigNumbers
+        />
+        <FormItem.Error />
+      </FormItem>
+
+      <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+        <Grid.Item gridColumn="span 1 / 3">
+          <RaisedAmount
+            title="Amount Of Funds the STO Will Raise"
+            primaryAmount={totalRaiseAmount}
+            primaryUnit={currency}
+            tokenAmount={totalTokensAmount}
+            tokenUnit={ticker.toUpperCase()}
+          />
+        </Grid.Item>
+      </Grid>
+
+      <Heading variant="h3" mt={5}>
+        ETH Addresses
+      </Heading>
+
+      <Remark title="Note">
+        Before submitting to the chain, we recommend that you test sending funds
+        to the wallet that is different from his own as well as retrieve funds
+        from this wallet.
+      </Remark>
+
+      <FormItem name="receiverAddress">
+        <FormItem.Label>
+          <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
+            <p className="bx--tooltip__label">Fund Receiver Address</p>
+            <p>
+              This wallet address will receive the funds raised during the STO.
+              This address may be self-custodied or that of a fully custodied
+              wallet.
+            </p>
+          </Tooltip>
+        </FormItem.Label>
+        <FormItem.Input
+          component={TextInput}
+          placeholder="Enter your current ETH address"
+          useBigNumbers
+        />
+        <FormItem.Error />
+      </FormItem>
+
+      <Button type="submit">Confirm & launch STO</Button>
+    </Form>
+  );
+};
+
+const mapStateToProps = ({
+  sto: {
+    factory: { address },
+  },
+  token: {
+    token: { ticker },
+  },
+}) => ({ address, ticker });
+
+const formikEnhancer = withFormik({
+  validationSchema: formSchema,
+  displayName: 'CappedSTOConfigForm',
+  validateOnChange: false,
+  mapPropsToValues: () => {
+    return initialValues;
+  },
+  handleSubmit: (values, { props }) => {
+    const { dispatch } = props;
+
+    const formattedValues = {
+      startsAt:
+        moment(values.date.startDate).unix() * 1000 + values.date.startTime,
+      endsAt: moment(values.date.endDate).unix() * 1000 + values.date.endTime,
+      cap: toWei(values.cap),
+      rate: values.rate.toString(),
+      currencies: [FUND_RAISE_TYPES[values.currency]],
+      receiverAddress: values.receiverAddress,
+    };
+
+    const config = {
+      data: formattedValues,
+    };
+
+    dispatch(configureSTO(config, 'CappedSTO')).catch(error => {
+      throw error;
+    });
+  },
+});
 
 type ContainerProps = {|
   dispatch: Dispatch<any>,
-  handleSubmit: Function => Function,
+  address: string,
+  ticker: string,
+  ...FormikProps,
 |};
 
-class ConfigureCappedSTOFormContainer extends Component<ContainerProps> {
-  submit = values => {
-    const { dispatch } = this.props;
-    dispatch(configure(values)).catch(err => {
-      throw err;
-    });
-  };
+class CappedSTOFormContainer extends Component<ContainerProps> {
   render() {
-    const { handleSubmit } = this.props;
-    return <ConfigureCappedSTOForm handleSubmit={handleSubmit(this.submit)} />;
+    const { ticker, handleSubmit, errors, values, touched } = this.props;
+
+    return (
+      <CappedSTOFormComponent
+        errors={errors}
+        values={values}
+        touched={touched}
+        ticker={ticker}
+        handleSubmit={handleSubmit}
+      />
+    );
   }
 }
 
-export default connect(null)(
-  reduxForm({
-    form: formName,
-  })(ConfigureCappedSTOFormContainer)
-);
+const FormikEnhancedForm = formikEnhancer(CappedSTOFormContainer);
+const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
+
+export default ConnectedForm;
