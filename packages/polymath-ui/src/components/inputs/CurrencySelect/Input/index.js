@@ -10,6 +10,8 @@ import theme from '../../../../theme';
 import CaretDownIcon from '../../../../images/icons/CaretDown';
 import CloseIcon from '../../../../images/icons/Close';
 
+import { intersectionWith } from 'lodash';
+
 import { currencyOptions } from '../data';
 import Value from '../Value';
 
@@ -112,7 +114,7 @@ const ClearIndicator = props => {
 
 export default class Input extends React.Component<Props> {
   static defaultProps = {
-    options: currencyOptions,
+    options: currencyOptions.map(option => option.value),
   };
 
   handleRemove = (removedValue: string) => {
@@ -128,18 +130,28 @@ export default class Input extends React.Component<Props> {
     const { onChange } = this.props;
 
     return onChange(
-      Array.isArray(value) ? value.map(option => option.value) : value,
+      Array.isArray(value) ? value.map(option => option.value) : value.value,
       action
     );
   };
 
   render() {
     const { value, options, onChange, onBlur, ...props } = this.props;
-    const selectedValue = Array.isArray(value)
-      ? value.map(
-          _value => options.find(option => option.value === _value) || {}
-        )
-      : value;
+
+    const filteredOptions = intersectionWith(
+      currencyOptions,
+      options,
+      (currency, symbol) => {
+        return currency.value === symbol;
+      }
+    );
+
+    const valueIsArray = Array.isArray(value);
+    const arrayValue = valueIsArray ? value : [value];
+
+    const selectedValue = arrayValue.map(
+      _value => filteredOptions.find(option => option.value === _value) || {}
+    );
 
     return (
       <Fragment>
@@ -147,34 +159,32 @@ export default class Input extends React.Component<Props> {
           <Select
             closeMenuOnSelect={false}
             noOptionsMessage={() => null}
-            isClearable={Array.isArray(value) ? value.length : value}
-            isMulti={Array.isArray(value)}
+            isClearable={valueIsArray ? value.length : value}
+            isMulti={valueIsArray}
             styles={styles}
             components={{
               DropdownIndicator,
               ClearIndicator,
               IndicatorSeparator: null,
             }}
-            options={options}
+            options={filteredOptions}
             value={selectedValue}
             onChange={this.handleChange}
             onMenuClose={onBlur}
             {...props}
           />
         </SelectContainer>
-        {Array.isArray(value) &&
-          value.map(value => {
-            const option = options.find(option => option.value === value);
-
-            return option ? (
-              <Value
-                value={option.value}
-                key={value}
-                label={option.label}
-                onRemove={this.handleRemove}
-              />
-            ) : null;
-          })}
+        {arrayValue.map(value => {
+          const option = filteredOptions.find(option => option.value === value);
+          return option ? (
+            <Value
+              value={option.value}
+              key={value}
+              label={option.label}
+              onRemove={this.handleRemove}
+            />
+          ) : null;
+        })}
       </Fragment>
     );
   }
