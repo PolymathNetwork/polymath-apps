@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Select, { components } from 'react-select';
 
@@ -81,7 +81,6 @@ const SelectContainer = styled(Box)`
   vertical-align: middle;
   min-width: 200px;
   margin-right: ${({ theme }) => theme.space[4]}px;
-  margin-bottom: ${({ theme }) => theme.space[1]}px;
 `;
 
 const Caret = styled(Icon)`
@@ -142,7 +141,7 @@ export default class Input extends React.Component<Props> {
       : value;
 
     return (
-      <Fragment>
+      <div>
         <SelectContainer>
           <Select
             closeMenuOnSelect={false}
@@ -175,7 +174,7 @@ export default class Input extends React.Component<Props> {
               />
             ) : null;
           })}
-      </Fragment>
+      </div>
     );
   }
 }
