@@ -17,21 +17,37 @@ const defaultState: UIState = {
   footer: {
     variant: 'default',
   },
+  sidebar: {
+    isVisible: false,
+  },
 };
 
 export default (state: UIState = defaultState, action) => {
   if (action.type === LOCATION_CHANGE) {
-    switch (action.payload.location.pathname) {
-      case '/':
-        return {
-          ...state,
-          footer: {
-            variant: 'transparent',
-          },
-        };
-      default:
-        return defaultState;
+    const pathname = action.payload.location.pathname;
+
+    if (pathname === '/') {
+      return {
+        ...state,
+        header: {
+          variant: 'transparent',
+        },
+        footer: {
+          variant: 'transparent',
+        },
+      };
     }
+
+    if (pathname.match(/dashboard/)) {
+      return {
+        ...state,
+        sidebar: {
+          isVisible: true,
+        },
+      };
+    }
+
+    return defaultState;
   } else {
     return state;
   }

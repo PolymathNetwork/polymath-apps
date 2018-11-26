@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { Loading } from 'carbon-components-react';
 import {
   Toaster,
@@ -45,6 +46,11 @@ type Props = {|
 |} & StateProps &
   DispatchProps;
 
+const Container = styled.div`
+  margin-left: ${({ theme, isSidebar }) =>
+    isSidebar && `calc(${theme.sidebar.width} / 2)`};
+`;
+
 class App extends Component<Props> {
   componentDidMount() {
     this.props.getNotice('issuers');
@@ -66,12 +72,14 @@ class App extends Component<Props> {
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
-        <StickyTop zIndex={'header'}>
-          <NoticeBar />
-          <Header ticker={ticker} variant={ui.header.variant} />
-        </StickyTop>
-        {children}
-        <Footer variant={ui.footer.variant} />
+        <Container isSidebar={ui.sidebar.isVisible}>
+          <StickyTop zIndex={'header'}>
+            <NoticeBar />
+            <Header ticker={ticker} variant={ui.header.variant} />
+          </StickyTop>
+          {children}
+          <Footer variant={ui.footer.variant} />
+        </Container>
       </Fragment>
     );
   }

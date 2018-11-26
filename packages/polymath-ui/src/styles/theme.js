@@ -41,7 +41,8 @@ space.xxl = space[7];
 space.xxxl = space[8];
 
 const zIndexes = {
-  header: 100,
+  header: 80,
+  sidebar: 100,
 };
 
 const colors = {
