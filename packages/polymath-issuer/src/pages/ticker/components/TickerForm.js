@@ -11,7 +11,7 @@ import {
   maxLength,
   regex,
   ethereumAddress,
-} from '@polymathnetwork/ui/validate';
+} from '@polymathnetwork/ui/deprecated/validate';
 import { SecurityTokenRegistry } from '@polymathnetwork/js';
 
 export const formName = 'ticker';

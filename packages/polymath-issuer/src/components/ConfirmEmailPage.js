@@ -3,7 +3,7 @@
 import { Button, Form } from 'carbon-components-react';
 import { bull } from '@polymathnetwork/ui';
 import { TextInput } from '@polymathnetwork/ui/deprecated';
-import { required, email } from '@polymathnetwork/ui/validate';
+import { required, email } from '@polymathnetwork/ui/deprecated/validate';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';

@@ -11,7 +11,12 @@ import {
 } from 'carbon-components-react';
 import { thousandsDelimiter } from '@polymathnetwork/ui';
 import { TextInput, RadioInput } from '@polymathnetwork/ui/deprecated';
-import { url, required, numeric, minValue } from '@polymathnetwork/ui/validate';
+import {
+  url,
+  required,
+  numeric,
+  minValue,
+} from '@polymathnetwork/ui/deprecated/validate';
 
 export const formName = 'complete_token';
 
