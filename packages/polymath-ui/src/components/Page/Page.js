@@ -4,9 +4,9 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import DocumentTitle from 'react-document-title';
 
-import Box from '../Box';
+import PageWrap from '../PageWrap';
 
-const StyledBox = styled(Box)`
+const Container = styled(PageWrap)`
   min-height: calc(
     100vh -
       (${({ theme }) => `${theme.header.height} + ${theme.footer.height}`})
@@ -14,11 +14,15 @@ const StyledBox = styled(Box)`
 `;
 
 const Page = ({ children, title = 'Polymath', ...props }) => (
-  <StyledBox mx="5%" {...props}>
+  <Container {...props}>
     <DocumentTitle title={title}>
       <Fragment>{children}</Fragment>
     </DocumentTitle>
-  </StyledBox>
+  </Container>
 );
 
 export default Page;
+
+Page.defaultProps = {
+  my: 'xl',
+};
