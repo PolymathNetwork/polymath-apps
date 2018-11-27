@@ -412,6 +412,7 @@ class ProvidersPage extends Component<Props, State> {
             isOpen={this.state.isApply}
             onClose={this.handleCancelApply}
             onSubmit={this.handleApply}
+            selectedProviders={this.state.selected}
           />
           <ProviderModal
             selected={isProviderModalSelected}
