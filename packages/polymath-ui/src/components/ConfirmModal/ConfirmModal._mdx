@@ -1,5 +1,6 @@
 ---
 name: ConfirmModal
+menu: Modals
 ---
 
 import { Playground, PropsTable } from 'docz';
