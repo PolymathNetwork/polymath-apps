@@ -7,3 +7,4 @@ export TextInput from './TextInput';
 export NumberInput from './NumberInput';
 export PercentageInput from './PercentageInput';
 export CurrencySelect from './CurrencySelect';
+export TextArea from './TextArea';
