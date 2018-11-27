@@ -32,4 +32,16 @@ Yup.addMethod(Yup.string, 'isEmail', function(message) {
   });
 });
 
+Yup.addMethod(Yup.string, 'isUrl', function(message) {
+  const urlRegex = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[-a-zA-Z0-9@:%._+~#=]{2,256}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/i;
+
+  return this.test('validateIsUrl', function(value) {
+    return urlRegex.test(value)
+      ? true
+      : this.createError({
+          message,
+        });
+  });
+});
+
 export default Yup;
