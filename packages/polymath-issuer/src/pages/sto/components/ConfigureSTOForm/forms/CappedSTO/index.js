@@ -206,9 +206,9 @@ export const CappedSTOFormComponent = ({
       </Heading>
 
       <Remark title="Note">
-        Before submitting to the chain, we recommend that you test sending funds
-        to the wallet that is different from his own as well as retrieve funds
-        from this wallet.
+        Before we write this address to the blockchain, we recommend that you
+        test sending to and retrieving funds from it to make sure it corresponds
+        to the wallet you would like to use.
       </Remark>
 
       <FormItem name="receiverAddress">

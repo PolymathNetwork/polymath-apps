@@ -310,9 +310,9 @@ export const USDTieredSTOFormComponent = ({
       </Heading>
 
       <Remark title="Note">
-        Before submitting to the chain, we recommend that you test sending funds
-        to the wallet that is different from his own as well as retrieve funds
-        from this wallet.
+        Before we write these addresses to the blockchain, we recommend that you
+        test sending to and retrieving funds from them to make sure they
+        correspond to the wallets you would like to use.
       </Remark>
 
       <FormItem name="receiverAddress">
