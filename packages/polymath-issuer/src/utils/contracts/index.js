@@ -144,7 +144,6 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
  * @param params Function parameters
  */
 function encodeCappedSTOSetupCall(params: CappedSTOParams) {
-  console.log('PARAMS!!', params);
   return Contract._params.web3.eth.abi.encodeFunctionCall(
     {
       name: 'configure',
