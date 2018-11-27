@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Modal } from 'carbon-components-react';
+import { ActionModal, Paragraph } from '@polymathnetwork/ui';
 import type { ServiceProvider } from './data';
 
 type Props = {|
@@ -20,33 +20,28 @@ export default class ProviderModal extends Component<Props> {
   render() {
     const { isOpen, providerInfo, onClose, onSubmit, selected } = this.props;
     return (
-      <Modal
-        open={isOpen}
-        onRequestClose={onClose}
-        modalHeading={providerInfo.title}
-        primaryButtonDisabled={selected}
-        primaryButtonText="Select"
-        secondaryButtonText="Cancel"
-        onRequestSubmit={onSubmit}
-        onSecondarySubmit={onClose}
-        className="providers-display-modal"
+      <ActionModal
+        isOpen={isOpen}
+        onClose={onClose}
+        isActionDisabled={selected}
+        actionButtonText="Select"
+        onSubmit={onSubmit}
       >
-        <img
-          className="providers-background"
-          src={providerInfo.background}
-          alt={providerInfo.title}
-        />
-        <p className="bx--modal-content__text">
-          {providerInfo.desc.split('\n').map(item => {
-            return (
-              <span>
-                {item}
-                <br />
-              </span>
-            );
-          })}
-        </p>
-      </Modal>
+        <ActionModal.Header>{providerInfo.title}</ActionModal.Header>
+        <ActionModal.Body>
+          <img src={providerInfo.background} alt={providerInfo.title} />
+          <Paragraph pt={3} fontSize={2}>
+            {providerInfo.desc.split('\n').map(item => {
+              return (
+                <span>
+                  {item}
+                  <br />
+                </span>
+              );
+            })}
+          </Paragraph>
+        </ActionModal.Body>
+      </ActionModal>
     );
   }
 }

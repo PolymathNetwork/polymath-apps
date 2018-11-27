@@ -23,7 +23,6 @@ import {
 } from '../../actions/providers';
 import ApplyModal from './ApplyModal';
 import ProviderModal from './ProviderModal';
-import Progress from '../token/components/Progress';
 import { categories } from './data';
 
 import type { RootState } from '../../redux/reducer';
