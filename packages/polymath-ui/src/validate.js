@@ -42,7 +42,8 @@ export const regex = (
 ) => (value && !expr.test(value) ? message : null);
 
 export const email = (value: ?string) =>
-  value && !/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z0-9-]+$/i.test(value)
+  value &&
+  !/^[A-Z0-9._%-]+(\+)?[A-Z0-9._%-]+@([A-Z0-9-]+\.)+[A-Z0-9-]+$/i.test(value)
     ? 'Invalid email address.'
     : null;
 
