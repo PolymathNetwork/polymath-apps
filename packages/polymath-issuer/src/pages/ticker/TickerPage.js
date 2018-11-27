@@ -3,13 +3,12 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { change } from 'redux-form';
 import { Remark, bull, thousandsDelimiter } from '@polymathnetwork/ui';
 import { SecurityTokenRegistry } from '@polymathnetwork/js';
 import type { RouterHistory } from 'react-router';
 
-import TickerForm, { formName } from './components/TickerForm';
-import { reserve, expiryLimit } from '../../actions/ticker';
+import ReserveTickerForm from './components/ReserveTickerForm';
+import { expiryLimit } from '../../actions/ticker';
 import { data as tokenData } from '../../actions/token';
 
 type StateProps = {|
@@ -19,8 +18,6 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  change: (?string) => any,
-  reserve: () => any,
   tokenData: (data: any) => any,
   getExpiryLimit: () => any,
 |};
@@ -32,8 +29,6 @@ const mapStateToProps = (state): StateProps => ({
 });
 
 const mapDispatchToProps: DispatchProps = {
-  change: value => change(formName, 'owner', value, false, false),
-  reserve,
   tokenData,
   getExpiryLimit: expiryLimit,
 };
@@ -53,7 +48,6 @@ class TickerPage extends Component<Props, State> {
   };
 
   componentWillMount() {
-    this.props.change(this.props.account);
     this.props.tokenData(null);
     this.props.getExpiryLimit();
     SecurityTokenRegistry.registrationFee().then(fee => {
@@ -61,10 +55,6 @@ class TickerPage extends Component<Props, State> {
       this.setState({ tickerRegistrationFee: thousandsDelimiter(fee) });
     });
   }
-
-  handleSubmit = () => {
-    this.props.reserve();
-  };
 
   render() {
     return (
@@ -91,7 +81,7 @@ class TickerPage extends Component<Props, State> {
               registered trademarks.
             </Remark>
           </div>
-          <TickerForm onSubmit={this.handleSubmit} />
+          <ReserveTickerForm />
         </div>
       </DocumentTitle>
     );

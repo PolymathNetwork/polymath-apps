@@ -16,18 +16,16 @@ const formSchema = validator.object().shape({
     .email('Invalid email.'),
 });
 
-export const ConfirmEmailFormComponent = ({ handleSubmit }) => {
-  return (
-    <Form onSubmit={handleSubmit}>
-      <FormItem name="email">
-        <FormItem.Input component={TextInput} placeholder="you@example.com" />
-        <FormItem.Error />
-      </FormItem>
+export const ConfirmEmailFormComponent = ({ handleSubmit }) => (
+  <Form onSubmit={handleSubmit}>
+    <FormItem name="email">
+      <FormItem.Input component={TextInput} placeholder="you@example.com" />
+      <FormItem.Error />
+    </FormItem>
 
-      <Button type="submit">Send Confirmation Email</Button>
-    </Form>
-  );
-};
+    <Button type="submit">Send Confirmation Email</Button>
+  </Form>
+);
 
 const mapStateToProps = ({
   pui: {
