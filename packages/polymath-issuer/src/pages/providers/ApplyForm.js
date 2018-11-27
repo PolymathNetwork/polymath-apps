@@ -87,8 +87,8 @@ class ApplyForm extends Component<Props> {
         <Field
           name="otherDetails"
           component={TextAreaInput}
-          label="Other Details [Optional]"
-          placeholder="Start text here"
+          label="Other Details"
+          placeholder="Optional - Start text here"
           validate={[maxLength300]}
         />
         <p align="right">
