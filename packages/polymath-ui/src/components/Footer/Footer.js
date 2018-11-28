@@ -22,7 +22,6 @@ const Container = styled.div`
 
   .pui-footer-text {
     display: inline-flex;
-    color: ${({ theme }) => theme.colors.lightText};
     font-size: 14px;
     line-height: 22px;
     font-weight: 300;
@@ -60,7 +59,7 @@ const variants = {
     `,
     Links: css`
       a {
-        color: ${({ theme }) => theme.colors.lightText};
+        color: ${({ theme }) => theme.colors.baseText};
       }
     `,
   },
@@ -78,9 +77,9 @@ const Footer = (props: Props) => {
     <Container className="pui-footer" variant={props.variant}>
       <PageWrap>
         <Inner>
-          <p className="pui-footer-text">
+          <span className="pui-footer-text">
             &copy; {new Date().getFullYear()} {props.title || 'Polymath'}
-          </p>
+          </span>
           <Links className="pui-footer-links" variant={props.variant}>
             <li>
               <a

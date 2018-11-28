@@ -2,8 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const Container = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.baseText};
-
   ${({ unit, theme }) =>
     unit &&
     css`
@@ -17,7 +15,9 @@ const Input = styled.input`
   height: 2.5rem;
   min-width: 18.75rem;
   padding: 0 1rem;
+  font-size: ${({ theme }) => theme.fontSizes.baseText};
   color: ${({ theme }) => theme.colors.baseText};
+  font-family: ${({ theme }) => theme.fontFamilies.baseText};
   background-color: ${({ theme }) => theme.colors.gray[1]};
   border: none;
   order: 2;

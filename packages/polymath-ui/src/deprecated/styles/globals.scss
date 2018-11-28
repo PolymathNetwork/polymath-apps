@@ -149,9 +149,6 @@ $css--body: false;
   margin-right: 0 !important;
 
   p {
-    font-size: 14px;
-    line-height: 16px;
-
     svg {
       margin-right: 4px;
     }
@@ -252,6 +249,10 @@ $css--body: false;
   font-family: $font;
 }
 
+.bx--tabs__nav-link:focus {
+  box-shadow: none;
+}
+
 .bx--progress {
   margin-top: 38px;
   margin-bottom: 9px;
@@ -314,41 +315,6 @@ $css--body: false;
   }
 }
 
-.bx--date-picker {
-  .bx--date-picker__icon {
-    fill: $poly-blue;
-    top: 2.6rem;
-    left: 0.9rem;
-    pointer-events: none;
-  }
-
-  .bx--date-picker__icon ~ .bx--date-picker__input {
-    padding-left: 2.6rem;
-  }
-
-  .bx--date-picker__input {
-    width: 150px !important;
-    max-width: 150px;
-  }
-
-  &.bx--date-picker--range {
-    width: 255px;
-
-    .bx--date-picker__input {
-      width: 125px !important;
-      padding: 10px 13px 8px 16px;
-    }
-  }
-}
-
-// Hack to avoid a bug where "invalid date" appear if nextMonthDay is clicked
-.bx--date-picker__days .nextMonthDay,
-.bx--date-picker__days .prevMonthDay,
-.bx--date-picker__day.disabled,
-.flatpickr-day.disabled {
-  pointer-events: none;
-}
-
 .bx--search-input {
   width: 285px !important;
 }
@@ -390,6 +356,14 @@ $css--body: false;
   .bx--batch-summary__cancel {
     text-transform: uppercase;
   }
+}
+
+.bx--toggle__label {
+  font-family: $font;
+}
+
+.bx--tabs {
+  font-family: $font;
 }
 
 /**
@@ -453,7 +427,7 @@ $css--body: false;
     border: 0;
     border-top: 1px solid $poly-gray-light;
     margin-bottom: 18px;
-    margin-top: -3px;
+    margin-top: 18px;
   }
 
   .bx--form-item {
