@@ -6,7 +6,10 @@ import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Form, Button } from 'carbon-components-react';
 import { Remark } from '@polymathnetwork/ui';
 import { TextInput, CheckboxInput } from '@polymathnetwork/ui/deprecated';
-import { required, ethereumAddress } from '@polymathnetwork/ui/validate';
+import {
+  required,
+  ethereumAddress,
+} from '@polymathnetwork/ui/deprecated/validate';
 
 import LockupDatesFields, { validate } from './LockupDatesFields';
 import type { RootState } from '../../../redux/reducer';

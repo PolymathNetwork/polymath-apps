@@ -17,6 +17,10 @@ export class BigNumberSchema extends Yup.mixed {
   }
 
   _typeCheck(value) {
+    if (value === null) {
+      return true;
+    }
+
     return value && (value.isBigNumber || value._isBigNumber);
   }
 
@@ -76,5 +80,16 @@ export class BigNumberSchema extends Yup.mixed {
 
   negative(message) {
     return this.lessThan(0, message);
+  }
+
+  required(message) {
+    return this.test({
+      message,
+      name: 'required',
+      exclusive: true,
+      test(value) {
+        return value !== null;
+      },
+    });
   }
 }

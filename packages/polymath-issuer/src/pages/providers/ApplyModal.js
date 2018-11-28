@@ -10,6 +10,7 @@ type Props = {|
   catName: string,
   onClose: () => any,
   onSubmit: () => any,
+  selectedProviders: Array<any>,
 |};
 
 export default class ApplyModal extends Component<Props> {
@@ -18,7 +19,7 @@ export default class ApplyModal extends Component<Props> {
   };
 
   render() {
-    const { isOpen, catName, onClose } = this.props;
+    const { isOpen, catName, onClose, selectedProviders } = this.props;
     return (
       <Modal
         open={isOpen}
@@ -33,7 +34,7 @@ export default class ApplyModal extends Component<Props> {
         </h4>
         <br />
         <br />
-        <ApplyForm onSubmit={this.handleSubmit} onClose={onClose} />
+        <ApplyForm selectedProviders={selectedProviders} onClose={onClose} />
       </Modal>
     );
   }
