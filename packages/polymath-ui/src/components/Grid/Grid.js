@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
   gridGap,
   gridAutoFlow,
+  gridTemplateColumns,
   gridAutoColumns,
   alignItems,
   justifyContent,
@@ -15,6 +16,7 @@ const Grid = styled(Box)`
   display: grid;
   ${gridGap};
   ${gridAutoFlow};
+  ${gridTemplateColumns};
   ${gridAutoColumns};
   ${alignItems};
   ${justifyContent};

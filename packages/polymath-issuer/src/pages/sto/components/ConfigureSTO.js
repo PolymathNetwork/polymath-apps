@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'carbon-components-react';
-import { Page, NotFoundPage } from '@polymathnetwork/ui';
+import { Grid, Page, NotFoundPage } from '@polymathnetwork/ui';
 import { goBack } from '../../../actions/sto';
 import ConfigureSTOForm from './ConfigureSTOForm';
 import STOTemplate from './STOTemplate';
@@ -53,21 +53,22 @@ export const ConfigureSTOComponent = ({
           </Button>
           <h1 className="pui-h1">Security Token Offering Configuration</h1>
           <br />
-          <div className="bx--row">
-            <div className="bx--col-xs-8">
-              <div className="pui-page-box">
-                <h2 className="pui-h2">{stoModule.title}</h2>
-                <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
-                  Provide the financial details and timing for your offering
-                  below.
-                </h4>
-                <ConfigureSTOForm stoModule={stoModule} />
-              </div>
+          <Grid
+            gridAutoFlow="column"
+            gridTemplateColumns="1.5fr minmax(400px, 1fr)"
+          >
+            <div className="pui-page-box">
+              <h2 className="pui-h2">{stoModule.title}</h2>
+              <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
+                Provide the financial details and timing for your offering
+                below.
+              </h4>
+              <ConfigureSTOForm stoModule={stoModule} />
             </div>
-            <div className="bx--col-xs-4">
+            <Grid.Item>
               <STOTemplate stoModule={stoModule} />
-            </div>
-          </div>
+            </Grid.Item>
+          </Grid>
         </div>
       </div>
     </div>
