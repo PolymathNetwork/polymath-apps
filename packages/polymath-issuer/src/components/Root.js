@@ -6,6 +6,7 @@ import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
 import { Router } from '@reach/router';
 import { hot } from 'react-hot-loader';
 import type { RouterHistory } from 'react-router-dom';
+import Modal from 'react-modal';
 import {
   NotSupportedPage,
   NotFoundPage,
@@ -48,6 +49,8 @@ type Props = {|
 
 class Root extends Component<Props> {
   componentDidMount() {
+    Modal.setAppElement('#root');
+
     this.props.setupHistory(this.props.history);
   }
 
