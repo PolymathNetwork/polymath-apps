@@ -66,7 +66,7 @@ export class SignInPage extends PureComponent<Props> {
                 <br />
                 Please Sign Using Your Wallet
               </Heading>
-              <Heading as="h3" textAlign="center">
+              <Heading as="h3" variant="h4" textAlign="center">
                 {desc} To proceed with the signing operation, please click on
                 &laquo;SIGN YOUR ACCOUNT&raquo;.
               </Heading>
@@ -83,7 +83,7 @@ export class SignInPage extends PureComponent<Props> {
               <Heading variant="h2" textAlign="center">
                 Sign In with Your Wallet
               </Heading>
-              <Heading as="h3" textAlign="center">
+              <Heading as="h3" variant="h4" textAlign="center">
                 {desc} This signing operation has no cost associated and can be
                 completed by clicking on the &laquo;SIGN&raquo; button in your
                 MetaMask.

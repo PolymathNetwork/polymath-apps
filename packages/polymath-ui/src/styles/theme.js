@@ -73,14 +73,22 @@ const headings = {
   h1: {
     color: colors.primary,
     fontSize: fontSizes[9],
+    fontWeight: fontWeights.bold,
   },
   h2: {
     color: colors.primary,
     fontSize: fontSizes[6],
+    fontWeight: fontWeights.bold,
   },
   h3: {
     color: colors.highlightText,
     fontSize: fontSizes[4],
+    fontWeight: fontWeights.bold,
+  },
+  h4: {
+    color: colors.baseText,
+    fontSize: fontSizes[4],
+    fontWeight: fontWeights.normal,
   },
 };
 const transitions = {

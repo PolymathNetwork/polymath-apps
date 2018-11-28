@@ -18,6 +18,5 @@ Heading.defaultProps = {
   variant: 'h3',
   as: 'h2',
   lineHeight: 'normal',
-  fontWeight: 'bold',
   mb: 'm',
 };
