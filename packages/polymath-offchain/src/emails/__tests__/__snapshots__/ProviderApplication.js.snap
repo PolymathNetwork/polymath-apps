@@ -414,7 +414,7 @@ exports[`Component: ProviderApplication renders with all props 1`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="tokenstudio@polymath.network"
+              href="mailto:tokenstudio@polymath.network"
             >
               tokenstudio@polymath.network
             </a>
@@ -829,7 +829,7 @@ exports[`Component: ProviderApplication renders without optional props 1`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="tokenstudio@polymath.network"
+              href="mailto:tokenstudio@polymath.network"
             >
               tokenstudio@polymath.network
             </a>

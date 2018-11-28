@@ -34,7 +34,7 @@ export const EmailWrapper = ({ children }: Props) => (
             <h2>
               If you have any questions, please reach out to
               <br />
-              <a href="tokenstudio@polymath.network">
+              <a href="mailto:tokenstudio@polymath.network">
                 tokenstudio@polymath.network
               </a>
             </h2>
