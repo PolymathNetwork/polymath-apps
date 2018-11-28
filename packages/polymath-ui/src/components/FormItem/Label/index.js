@@ -5,6 +5,7 @@ import { FormItemContext } from '../';
 
 const InputLabel = styled.label`
   display: block;
+  color: ${({ theme }) => theme.colors.highlightText};
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   margin-bottom: 0.5rem;
   font-weight: 600;

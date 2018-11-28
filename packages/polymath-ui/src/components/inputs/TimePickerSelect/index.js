@@ -26,7 +26,7 @@ const getStyles = theme => ({
   control: (styles, state) => {
     return {
       ...styles,
-      backgroundColor: theme.colors.blue[0],
+      backgroundColor: theme.inputs.backgroundColor,
       borderRadius: 0,
       borderColor: 'transparent',
       '&:hover': {
