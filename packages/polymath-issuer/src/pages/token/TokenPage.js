@@ -21,7 +21,6 @@ import moment from 'moment';
 import type { SecurityToken } from '@polymathnetwork/js/types';
 
 import {
-  issue,
   unlimitNumberOfInvestors,
   limitNumberOfInvestors,
   updateMaxHoldersCount,
@@ -46,7 +45,6 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  issue: (isToggled: boolean) => any,
   unlimitNumberOfInvestors: () => any,
   limitNumberOfInvestors: (count?: number) => any,
   updateMaxHoldersCount: (count: number) => any,
@@ -64,7 +62,6 @@ const mapStateToProps = (state: RootState): StateProps => ({
 });
 
 const mapDispatchToProps: DispatchProps = {
-  issue,
   unlimitNumberOfInvestors,
   limitNumberOfInvestors,
   updateMaxHoldersCount,
@@ -135,12 +132,6 @@ class TokenPage extends Component<Props, State> {
     }
   };
 
-  handleIssue = formData => {
-    const isLimitNI = !!formData.investorsNumber;
-
-    this.props.issue(isLimitNI);
-  };
-
   handleExport = () => {
     this.props.exportMintedTokensList();
   };
@@ -179,10 +170,7 @@ class TokenPage extends Component<Props, State> {
                       following questions:
                     </h3>
                     <br />
-                    <CompleteTokenForm
-                      isToggled={this.state.isToggled}
-                      onSubmit={this.handleIssue}
-                    />
+                    <CompleteTokenForm />
                   </div>
                 </div>
               ) : (
