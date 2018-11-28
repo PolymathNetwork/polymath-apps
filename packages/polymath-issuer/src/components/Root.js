@@ -1,27 +1,31 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { isMobile, isChrome, isFirefox, isOpera } from 'react-device-detect';
-import { Router } from '@reach/router';
+import { Loading } from 'carbon-components-react';
+import { renderRoutes } from 'react-router-config';
 import { hot } from 'react-hot-loader';
 import type { RouterHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 import {
   NotSupportedPage,
-  NotFoundPage,
+  MaintenancePage,
   ErrorBoundary,
   setupHistory,
+  EthNetworkWrapper,
+  MetamaskStatus,
+  StickyTop,
+  Header,
+  Footer,
+  NoticeBar,
 } from '@polymathnetwork/ui';
 import {
   MAINNET_NETWORK_ID,
   KOVAN_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
 
-import App from '../components/App';
-import ProtectedPages from '../components/ProtectedPages';
 import HomePage from '../pages/home';
-import TickerPage from '../pages/ticker/TickerPage';
 
 type StateProps = {|
   isNotice: boolean,
@@ -55,6 +59,7 @@ class Root extends Component<Props> {
   }
 
   render() {
+    const { routes, location } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
@@ -66,16 +71,29 @@ class Root extends Component<Props> {
       <ErrorBoundary>
         {isMobile || isUnsupportedBrowser ? (
           <NotSupportedPage />
+        ) : location.pathname === '/' ? (
+          <Fragment>
+            <StickyTop zIndex={'header'}>
+              <NoticeBar />
+              <Header variant="transparent" />
+            </StickyTop>
+            <HomePage />
+            <Footer variant="transparent" />
+          </Fragment>
         ) : (
-          <App>
-            <Router>
-              <HomePage path="/" />
-              <ProtectedPages path="/*" networks={networks}>
-                <TickerPage path="ticker" />
-              </ProtectedPages>
-              <NotFoundPage default />
-            </Router>
-          </App>
+          <EthNetworkWrapper
+            networks={networks}
+            Loading={<Loading />}
+            errorRender={({ networkError, onRequestAuth }) => (
+              <MetamaskStatus
+                networks="Mainnet or Kovan"
+                status={networkError}
+                onRequestAuth={onRequestAuth}
+              />
+            )}
+          >
+            {renderRoutes(routes)}
+          </EthNetworkWrapper>
         )}
       </ErrorBoundary>
     );

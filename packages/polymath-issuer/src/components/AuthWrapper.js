@@ -3,12 +3,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   signIn,
+  txHash,
+  txEnd,
+  getNotice,
   SignInPage,
   SignUpPage,
   SignUpSuccessPage,
 } from '@polymathnetwork/ui';
 
-import { tickerReservationEmail, getMyTokens } from '../actions/ticker';
+import { tickerReservationEmail } from '../actions/ticker';
 import ConfirmEmailPage from './ConfirmEmailPage';
 
 import type { RootState } from '../redux/reducer';
@@ -24,8 +27,10 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
+  txHash: (hash: string) => any,
+  txEnd: (receipt: any) => any,
   signIn: () => any,
-  getMyTokens: () => any,
+  getNotice: (scope: string, address: string) => any,
   tickerReservationEmail: () => any,
 |};
 
@@ -40,8 +45,10 @@ const mapStateToProps = (state: RootState): StateProps => ({
 });
 
 const mapDispatchToProps: DispatchProps = {
+  txHash,
+  txEnd,
   signIn,
-  getMyTokens,
+  getNotice,
   tickerReservationEmail,
 };
 
@@ -52,11 +59,6 @@ type Props = {|
   DispatchProps;
 
 class AuthWrapper extends Component<Props> {
-  componentDidMount() {
-    this.props.getMyTokens();
-    this.props.signIn();
-  }
-
   handleSignUpSuccess = () => {
     this.props.tickerReservationEmail();
   };

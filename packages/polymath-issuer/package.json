@@ -17,7 +17,6 @@
     "@polymathnetwork/js": "0.0.0",
     "@polymathnetwork/shared": "0.0.0",
     "@polymathnetwork/ui": "0.0.0",
-    "@reach/router": "^1.2.1",
     "bfj": "5.2.0",
     "bignumber.js": "6.0.0",
     "bluebird": "^3.5.2",

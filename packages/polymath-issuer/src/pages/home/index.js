@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import { PageCentered, Button } from '@polymathnetwork/ui';
 
 export default class HomePage extends Component {

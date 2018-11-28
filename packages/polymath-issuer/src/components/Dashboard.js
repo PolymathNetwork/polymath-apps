@@ -2,6 +2,8 @@
 
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
+
 // eslint-disable-next-line no-unused-vars
 import {
   PageWrap,
@@ -70,7 +72,7 @@ type Props = {|
 
 class Dashboard extends Component<Props> {
   componentDidMount() {
-    const { ticker } = this.props;
+    const ticker = this.props.match.params.id;
 
     this.props.fetchLegacyToken(ticker);
     this.props.fetchToken(ticker);
@@ -81,7 +83,7 @@ class Dashboard extends Component<Props> {
     const {
       isTokenFetched,
       providers,
-      children,
+      route,
       token,
       account,
       legacyToken,
@@ -159,7 +161,7 @@ class Dashboard extends Component<Props> {
         <PageWrap>
           <Progress />
         </PageWrap>
-        {children}
+        {renderRoutes(route.routes)}
       </Fragment>
     );
   }
