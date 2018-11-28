@@ -3,7 +3,13 @@
 
 import React, { Component, Fragment } from 'react';
 import { Button, Icon } from 'carbon-components-react';
-import { etherscanAddress } from '@polymathnetwork/ui';
+import {
+  Box,
+  LabeledItem,
+  Paragraph,
+  InlineFlex,
+  etherscanAddress,
+} from '@polymathnetwork/ui';
 import { SECURITY_AUDIT_URL } from '../../../../constants';
 
 import type { STOModule } from '../../../../constants';
@@ -23,43 +29,44 @@ export default class STOTemplateComponent extends Component<Props> {
     const isVerified = true;
 
     const authorAddress = (
-      <div className="bx--form-item">
-        <label className="bx--label">STO Author&apos;s ETH address</label>
-        <p>{stoModule.ownerAddress}</p>
-      </div>
+      <LabeledItem>
+        <LabeledItem.Label>STO Author&apos;s ETH address</LabeledItem.Label>
+        <Paragraph>{stoModule.ownerAddress}</Paragraph>
+      </LabeledItem>
     );
     const desc = (
-      <div className="bx--form-item">
-        <label className="bx--label">Description</label>
-        <p>{stoModule.description}</p>
-      </div>
+      <LabeledItem>
+        <LabeledItem.Label>Description</LabeledItem.Label>
+        <Paragraph>{stoModule.description}</Paragraph>
+      </LabeledItem>
     );
     const verifiedOnEtherscan = (
-      <div className="bx--form-item">
-        <label className="bx--label">Verified on Etherscan</label>
+      <LabeledItem>
+        <LabeledItem.Label>Verified on Etherscan</LabeledItem.Label>
         {isVerified ? (
-          <p>
+          <InlineFlex as={Paragraph}>
             <Icon name="checkmark--glyph" fill="#00AA5E" />
             &nbsp;Yes
-          </p>
+          </InlineFlex>
         ) : (
-          <p>
+          <InlineFlex as={Paragraph}>
             <Icon name="close--glyph" fill="red" />
             &nbsp;No
-          </p>
+          </InlineFlex>
         )}
-      </div>
+      </LabeledItem>
     );
     const securityAuditLink = (
-      <div className="bx--form-item">
-        <label className="bx--label">Third Party Audit</label>
-        <p>
+      <LabeledItem>
+        <LabeledItem.Label>Third Party Audit</LabeledItem.Label>
+        <InlineFlex as={Paragraph}>
           <Icon name="checkmark--glyph" fill="#00AA5E" />
+          &nbsp;
           <a href={SECURITY_AUDIT_URL} target="_blank">
             Click here to see report
           </a>
-        </p>
-      </div>
+        </InlineFlex>
+      </LabeledItem>
     );
 
     return (
@@ -91,10 +98,12 @@ export default class STOTemplateComponent extends Component<Props> {
           </div>
         ) : (
           <Fragment>
-            <div className="bx--row">
-              <div className="bx--col-xs-6">{verifiedOnEtherscan}</div>
-              <div className="bx--col-xs-6">{securityAuditLink}</div>
-            </div>
+            <Box mb={4}>
+              <div className="bx--row">
+                <div className="bx--col-xs-6">{verifiedOnEtherscan}</div>
+                <div className="bx--col-xs-6">{securityAuditLink}</div>
+              </div>
+            </Box>
             {authorAddress}
             {desc}
           </Fragment>

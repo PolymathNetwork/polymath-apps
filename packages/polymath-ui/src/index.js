@@ -21,6 +21,7 @@ export { default as Paragraph } from './components/Paragraph';
 export { default as ContentBox } from './components/ContentBox';
 export { default as FormItem } from './components/FormItem';
 export { default as FormItemGroup } from './components/FormItemGroup';
+export { default as LabeledItem } from './components/LabeledItem';
 export { default as Button } from './components/Button';
 export { default as Page } from './components/Page';
 export { default as PageCentered } from './components/PageCentered';
