@@ -9,22 +9,6 @@
   float: right;
 }
 
-.create-token-wrapper,
-.mint-tokens-wrapper {
-  width: 807px;
-  float: left;
-}
-
-.token-symbol-wrapper {
-  width: 404px;
-  float: left;
-  margin-left: 20px;
-
-  .bx--tooltip__trigger {
-    font-size: 17px;
-  }
-}
-
 .token-form {
   .token-form-left {
     float: left;
@@ -39,7 +23,7 @@
 
         .bx--radio-button__label {
           font-size: 16px;
-          font-family: "Overpass", sans-serif !important;
+          font-family: 'Overpass', sans-serif !important;
         }
       }
     }
@@ -49,10 +33,6 @@
     float: left;
     margin-left: 60px;
     width: 440px;
-
-    .bx--label {
-      font-size: 17px !important;
-    }
   }
 }
 
@@ -69,10 +49,10 @@
   button {
     margin-top: 0;
     background: transparent !important;
-    color: #252E6A;
+    color: #252e6a;
 
     &:hover:not(:disabled) {
-      color: #58468E;
+      color: #58468e;
     }
 
     &:hover {

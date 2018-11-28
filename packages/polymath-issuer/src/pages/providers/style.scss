@@ -130,13 +130,18 @@
   }
 
   .bx--tabs__nav-item {
-    padding: 16px 24px 36px 24px;
-    width: 200px;
+    padding: 0;
 
     .bx--tabs__nav-link {
+      padding: 16px 24px 36px 24px;
+      width: 200px;
       font-size: 16px;
       font-weight: 600;
       color: #5a6872;
+
+      &:focus {
+        color: #252e6a;
+      }
 
       div {
         display: inline-flex;
@@ -152,7 +157,7 @@
 
     .bx--tag {
       font-size: 10px;
-      font-weight: 300;
+      font-weight: 400;
       background-color: #3d70b2;
       color: white;
     }
