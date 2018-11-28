@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Button, Tooltip } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-import BigNumber from 'bignumber.js';
 import {
   FormItem,
   NumberInput,
@@ -31,7 +30,11 @@ const formSchema = validator.object().shape({
           )
         : schema
   ),
-  details: validator.string().isUrl(urlMessage),
+  // eslint-disable-next-line no-template-curly-in-string
+  details: validator
+    .string()
+    .isUrl(urlMessage)
+    .max(100, 'Must be ${max} characters or fewer.'),
 });
 
 const initialValues = {
