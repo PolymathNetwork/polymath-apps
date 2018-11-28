@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Modal } from 'carbon-components-react';
+import { Modal } from '@polymathnetwork/ui';
 
 import ApplyForm from './ApplyForm';
 
@@ -21,12 +21,11 @@ export default class ApplyModal extends Component<Props> {
     const { isOpen, catName, onClose } = this.props;
     return (
       <Modal
-        open={isOpen}
-        onRequestClose={onClose}
-        modalHeading={'Apply to ' + catName + ' Providers'}
-        passiveModal
+        isOpen={isOpen}
+        onClose={onClose}
         className="providers-apply-modal"
       >
+        <Modal.Header>{'Apply to ' + catName + ' Providers'}</Modal.Header>
         <h4 className="pui-h4">
           The information you enter below will be sent to the {catName}{' '}
           Providers your selected.

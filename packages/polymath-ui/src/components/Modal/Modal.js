@@ -1,14 +1,16 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-import { GlobalModalStyle, StyledIconButton } from './styles';
+import { modalStyle, StyledIconButton } from './styles';
 import SvgClose from '../../images/icons/Close';
 
 type Props = {|
   children: Node,
+  className: string,
   isOpen: boolean,
   onClose: Function,
   isCloseable: boolean,
@@ -16,9 +18,10 @@ type Props = {|
 
 type State = {|
   forceClose: boolean,
+  isOpen: boolean,
 |};
 
-export default class Modal extends Component<Props, State> {
+class Modal extends Component<Props, State> {
   static propTypes = {
     children: PropTypes.node.isRequired,
     isOpen: PropTypes.bool,
@@ -34,6 +37,7 @@ export default class Modal extends Component<Props, State> {
 
   state = {
     forceClose: false,
+    isOpen: false,
   };
 
   handleCloseRequest = () => {
@@ -60,18 +64,17 @@ export default class Modal extends Component<Props, State> {
 
     return (
       <Fragment>
-        <GlobalModalStyle />
         <ReactModal
           isOpen={isOpen}
           contentLabel="Modal"
           closeTimeoutMS={2000}
           className={{
-            base: `pui-modal ${className}`,
+            base: `pui-modal`,
             afterOpen: 'pui-modal--after-open',
             beforeClose: 'pui-modal--before-close',
           }}
           overlayClassName={{
-            base: `pui-modal__overlay`,
+            base: `pui-modal__overlay ${className}`,
             afterOpen: 'pui-modal__overlay--after-open',
             beforeClose: 'pui-modal__overlay--before-close',
           }}
@@ -89,3 +92,9 @@ export default class Modal extends Component<Props, State> {
     );
   }
 }
+
+const StyledModal = styled(Modal)`
+  ${modalStyle};
+`;
+
+export default StyledModal;

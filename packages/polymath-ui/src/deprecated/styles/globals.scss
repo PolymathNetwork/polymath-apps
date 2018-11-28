@@ -186,65 +186,6 @@ $css--body: false;
   height: 80px;
 }
 
-.bx--modal {
-  .bx--modal-container {
-    border-top: 0;
-
-    @media (min-width: 1024px) {
-      max-width: 60%;
-    }
-  }
-
-  .bx--modal-content {
-    margin-bottom: 2rem;
-  }
-
-  .bx--modal-header {
-    margin-bottom: 0.45rem;
-  }
-
-  .bx--modal-header__heading {
-    color: $poly-blue;
-    font-size: 28px;
-    line-height: 42px;
-    font-weight: 600;
-    font-family: $font;
-  }
-
-  .bx--modal-content__text,
-  .bx--modal-content__text p {
-    font-family: $font;
-    font-weight: 300;
-    line-height: 24px;
-
-    p {
-      margin-top: 10px;
-    }
-
-    p:first-child {
-      margin-top: -3px;
-    }
-
-    .bx--inline-notification__title {
-      font-weight: 600 !important;
-    }
-
-    .bx--details {
-      font-size: 12px;
-      color: #152935;
-      border-radius: 4px;
-      background-color: #ebf0f7;
-      padding: 6.5px 0 6.5px 16px;
-      margin-top: 10px;
-    }
-  }
-
-  .bx--modal-footer {
-    background: white;
-    padding-top: 0;
-  }
-}
-
 .bx--form-requirement {
   font-family: $font;
 }

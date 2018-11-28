@@ -10,8 +10,6 @@ import { closeModal } from './actions';
 import type { RootState } from '../../redux/reducer';
 import type { ModalState } from './reducer';
 
-import './style.scss';
-
 type DispatchProps = {|
   closeModal: () => any,
 |};

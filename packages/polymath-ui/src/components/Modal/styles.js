@@ -1,10 +1,11 @@
 // @flow
 
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { css } from 'styled-components';
+import { maxWidth } from 'styled-system';
 
 import IconButton from '../IconButton';
 
-export const GlobalModalStyle = createGlobalStyle`
+export const modalStyle = css`
   .pui-modal {
     position: relative;
     display: flex;
@@ -12,9 +13,10 @@ export const GlobalModalStyle = createGlobalStyle`
     background-color: white;
     min-width: 100%;
     max-height: 100%;
+    width: 500px;
     height: 100%;
     padding: 3%;
-    box-shadow: 0 12px 24px 0 rgba(0,0,0,.1);
+    box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
     overflow-y: auto;
 
     @media (min-width: 600px) {
@@ -27,7 +29,10 @@ export const GlobalModalStyle = createGlobalStyle`
     }
 
     @media (min-width: 1024px) {
-      max-width: 50%;
+      ${props =>
+        props.maxWidth
+          ? maxWidth({ ...props, maxWidth: props.maxWidth })
+          : 'max-width: 50%'};
       max-height: 80%;
     }
 
@@ -79,7 +84,13 @@ export const GlobalModalStyle = createGlobalStyle`
     }
   }
 
-  .pui-modal__overlay {
+  // TODO @grsmto: remove hack once we refactored ConfirmModal Redux actions:
+  // the action should not pass an hardcoded class name
+  &.pui-large-confirm-modal .pui-modal {
+    width: 700px;
+  }
+
+  &.pui-modal__overlay {
     position: fixed;
     top: 0;
     right: 0;
