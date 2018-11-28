@@ -32,15 +32,15 @@ const formSchema = validator.object().shape({
   projectURL: validator
     .string()
     .isRequired(requiredMessage)
-    .isUrl(100, urlMessage),
+    .isUrl(urlMessage),
   profilesURL: validator
     .string()
     .isRequired(requiredMessage)
-    .isUrl(100, urlMessage),
+    .isUrl(urlMessage),
   structureURL: validator
     .string()
     .isRequired(requiredMessage)
-    .isUrl(100, urlMessage),
+    .isUrl(urlMessage),
   otherDetails: validator.string().max(300, maxMessage),
 });
 
