@@ -25,5 +25,6 @@ export const Paragraph = styled.p(
 export default Paragraph;
 
 Paragraph.defaultProps = {
-  mb: 2,
+  mb: 'm',
+  fontSize: 'baseText',
 };

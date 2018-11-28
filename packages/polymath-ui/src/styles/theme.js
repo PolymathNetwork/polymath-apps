@@ -4,6 +4,7 @@ const fontSizes = [
   '1rem',
   '1.125rem', // 18px
   '1.25rem', // 20px
+  '1.5rem', // 24px
   '1.75rem', // 28px
   '2rem', // 32px
   '2.25rem', // 36px
@@ -22,22 +23,25 @@ const lineHeights = {
   normal: 1.5,
   loose: 2,
 };
+
 const fontWeights = {
   light: 300,
   normal: 400,
   bold: 600,
 };
+
 const space = [
   '0',
   '5px',
   '10px',
-  '15px',
-  '25px',
+  '16px',
+  '23px',
   '30px',
   '50px',
   '80px',
   '120px',
 ];
+space.s = space[2];
 space.m = space[3];
 space.l = space[5];
 space.xl = space[6];
@@ -82,6 +86,7 @@ const headings = {
 const transitions = {
   hover: 'ease 150ms',
 };
+const maxWidth = '1600px';
 const inputs = {
   height: '2.5rem',
   backgroundColor: colors.gray[1],
@@ -106,6 +111,7 @@ export default {
   colors,
   headings,
   transitions,
+  maxWidth,
   inputs,
   header,
   sidebar,

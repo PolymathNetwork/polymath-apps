@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 
 import Icon from '../Icon';
-import Paragraph from '../Paragraph';
 
 import InfoIcon from '../../images/icons/Info';
 
@@ -33,6 +32,10 @@ const StyledContainer = styled.div`
       border-bottom: 8px solid #dfe3e6;
     }
   }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const StyledText = styled.span`
@@ -58,12 +61,12 @@ const Tooltip = ({ triggerText, children, id }) => (
     <StyledContainer role="tooltip">
       <ReactTooltip
         id={id || triggerText}
+        delayShow={200}
         delayHide={200}
         effect="solid"
         type="light"
         place="bottom"
       >
-        <Paragraph bold>{triggerText}</Paragraph>
         {children}
       </ReactTooltip>
     </StyledContainer>
