@@ -15,7 +15,7 @@ const Header = (props: Props) => {
   return (
     <React.Fragment>
       {props.label && (
-        <Paragraph color={props.status} fontSize={1} bold mb={0}>
+        <Paragraph color={props.status} fontSize={1} bold mb={1}>
           {props.label}
         </Paragraph>
       )}
