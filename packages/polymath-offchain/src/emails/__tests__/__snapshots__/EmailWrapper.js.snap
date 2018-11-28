@@ -265,9 +265,9 @@ exports[`Component: EmailWrapper renders with children 1`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="mailto:tokenstudio@polymath.zendesk.com"
+              href="tokenstudio@polymath.network"
             >
-              tokenstudio@polymath.zendesk.com
+              tokenstudio@polymath.network
             </a>
           </h2>
         </div>
@@ -569,9 +569,9 @@ exports[`Component: EmailWrapper renders with no children 1`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="mailto:tokenstudio@polymath.zendesk.com"
+              href="tokenstudio@polymath.network"
             >
-              tokenstudio@polymath.zendesk.com
+              tokenstudio@polymath.network
             </a>
           </h2>
         </div>
