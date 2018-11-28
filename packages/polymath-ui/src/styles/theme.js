@@ -12,6 +12,10 @@ const fontSizes = [
 
 fontSizes.baseText = fontSizes[1];
 
+const fontFamilies = {
+  baseText: "'Overpass', sans-serif",
+};
+
 const lineHeights = {
   none: 1,
   tight: 1.15,
@@ -97,6 +101,7 @@ const footer = {
 
 export default {
   fontSizes,
+  fontFamilies,
   fontWeights,
   lineHeights,
   space,
