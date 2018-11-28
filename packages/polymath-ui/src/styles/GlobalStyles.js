@@ -33,6 +33,10 @@ const GlobalStyles = createGlobalStyle`
     height: auto;
   }
 
+  // Zendesk widget position
+  .zEWidget-launcher {
+    margin: 50px 80px!important;
+  }
 `;
 
 export default GlobalStyles;
