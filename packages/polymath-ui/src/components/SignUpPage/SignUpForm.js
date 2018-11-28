@@ -1,5 +1,8 @@
 // @flow
 
+/**
+ * NOTE @monitz87: This form should be refactored to use formik
+ */
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Link } from 'carbon-components-react';
 import { Field, reduxForm } from 'redux-form';

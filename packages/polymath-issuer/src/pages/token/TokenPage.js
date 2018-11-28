@@ -1,5 +1,10 @@
 // @flow
 
+/**
+ * NOTE @monitz87: This page has two forms (mint and limit number of investors).
+ * These should be refactored to use formik (and possibly moved to other files)
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
