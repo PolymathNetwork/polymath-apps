@@ -46,8 +46,9 @@ const zIndexes = {
 };
 
 const colors = {
-  baseText: '#152935',
+  baseText: '#5A6872',
   lightText: '#5A6872',
+  highlightText: '#152935',
   primary: '#252D6B',
   secondary: '#3D70B2',
   placeholder: '#5A6872',
