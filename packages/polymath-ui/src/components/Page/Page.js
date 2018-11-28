@@ -24,5 +24,5 @@ const Page = ({ children, title = 'Polymath', ...props }) => (
 export default Page;
 
 Page.defaultProps = {
-  my: 'xl',
+  py: 'xl',
 };
