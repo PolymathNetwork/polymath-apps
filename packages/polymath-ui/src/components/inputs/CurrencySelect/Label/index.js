@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Box from '../../Box';
-import { ellipsis } from '../../../styles/utils';
+import Box from '../../../Box';
+import { ellipsis } from '../../../../styles/utils';
 
 const Container = styled(Box)`
   display: flex;

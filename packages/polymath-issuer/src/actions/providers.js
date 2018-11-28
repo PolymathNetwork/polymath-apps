@@ -1,6 +1,5 @@
 import * as ui from '@polymathnetwork/ui';
 
-import { formName } from '../pages/providers/ApplyForm';
 import {
   getProgress,
   getProviders,
@@ -11,6 +10,7 @@ import type { GetState } from '../../redux/reducer';
 import type { SPStatus } from '../pages/providers/data';
 
 export const DATA = 'providers/DATA';
+export const APPLICATION = 'providers/APPLICATION';
 
 export const fetchProviders = (ticker: string) => (dispatch: Function) => {
   const progress = getProgress(ticker);
@@ -24,10 +24,10 @@ export const fetchProviders = (ticker: string) => (dispatch: Function) => {
   dispatch({ type: DATA, providers });
 };
 
-export const applyProviders = (ids: Array<number>) => async (
-  dispatch: Function,
-  getState: GetState
-) => {
+export const applyProviders = (
+  ids: Array<number>,
+  application: Object
+) => async (dispatch: Function, getState: GetState) => {
   try {
     // TODO @bshevchenko: await dispatch(emailProviders(ids))
 
@@ -40,10 +40,11 @@ export const applyProviders = (ids: Array<number>) => async (
       };
     }
     saveProgress(ticker, progress);
+    dispatch({ type: APPLICATION, application });
     dispatch(
       ui.providersApply({
         ids,
-        ...getState().form[formName].values,
+        ...application,
       })
     );
     dispatch(ui.notify('Your Application Has Been Sent', true));

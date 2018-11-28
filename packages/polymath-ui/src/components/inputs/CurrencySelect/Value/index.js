@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import SvgClose from '../../../images/icons/Close';
-import Box from '../../Box';
-import IconButton from '../../IconButton';
+import SvgClose from '../../../../images/icons/Close';
+import Box from '../../../Box';
+import IconButton from '../../../IconButton';
 
 const Container = styled(Box)`
   display: inline-flex;

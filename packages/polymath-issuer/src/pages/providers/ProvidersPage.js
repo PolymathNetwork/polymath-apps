@@ -14,7 +14,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Tabs, Tab, Icon, Checkbox, Button } from 'carbon-components-react';
 import type { Node } from 'react';
-import type { RouterHistory } from '@reach/router';
+import type { RouterHistory } from 'react-router-dom';
 
 import {
   applyProviders,
@@ -413,6 +413,7 @@ class ProvidersPage extends Component<Props, State> {
           isOpen={this.state.isApply}
           onClose={this.handleCancelApply}
           onSubmit={this.handleApply}
+          selectedProviders={this.state.selected}
         />
         <ProviderModal
           selected={isProviderModalSelected}

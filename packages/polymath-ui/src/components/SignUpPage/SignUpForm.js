@@ -1,11 +1,14 @@
 // @flow
 
+/**
+ * NOTE @monitz87: This form should be refactored to use formik
+ */
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Link } from 'carbon-components-react';
 import { Field, reduxForm } from 'redux-form';
 
 import { CheckboxInput, TextInput } from '../../deprecated/components/inputs';
-import { required, maxLength, email } from '../../validate';
+import { required, maxLength, email } from '../../deprecated/validate';
 
 export const formName = 'signup';
 

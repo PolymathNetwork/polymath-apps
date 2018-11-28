@@ -5,9 +5,6 @@ import { SecurityTokenRegistry, PolyToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 
-// TODO @grsmto: Form values shouldn't be retrieved this way...fault of Redux-form
-// for encouraging bad pattern. This should be passed as props instead.
-import { formName } from '../pages/ticker/components/TickerForm';
 import type { GetState } from '../../redux/reducer';
 
 export const EXPIRY_LIMIT = 'ticker/EXPIRY_LIMIT';
@@ -29,11 +26,13 @@ export const getMyTokens = () => async (dispatch: Function) => {
   }
 };
 
-export const reserve = () => async (dispatch: Function, getState: GetState) => {
+export const reserve = (details: Object) => async (
+  dispatch: Function,
+  getState: GetState
+) => {
   const { isEmailConfirmed } = getState().pui.account;
   const fee = await SecurityTokenRegistry.registrationFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
-  const details: SymbolDetails = getState().form[formName].values;
   dispatch(
     ui.confirm(
       <div>
@@ -109,11 +108,10 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
   );
 };
 
-export const confirmEmail = (data: Object) => async (
+export const confirmEmail = (email: string) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const { email } = data;
   dispatch(ui.requestConfirmEmail(email));
 };
 

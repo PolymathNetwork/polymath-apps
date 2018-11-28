@@ -19,7 +19,7 @@ export const ConfigureSTOFormComponent = ({ stoModule }: Props) => {
     throw new Error(`No form component exists for STO module type "${type}"`);
   }
 
-  return <FormComponent stoModule={stoModule} />;
+  return <FormComponent />;
 };
 
 export default ConfigureSTOFormComponent;
