@@ -121,6 +121,16 @@ const providers: Array<ServiceProvider> = [
       'a tokenized asset, traded in a token exchange.\n- Our Local affiliates will provide in-country service ' +
       'and communications while our Corporate team focuses on the interaction with our technology ecosystem.',
   },
+  {
+    id: 23,
+    cat: 0,
+    title: 'Chain',
+    logo: '/providers/advisory/chain-par.png',
+    background: '/providers/advisory/bg/chain-par.png',
+    desc:
+      'Chain Partners is a blockchain company builder based in Seoul, Korea. We are a group of technologists, ' +
+      'entrepreneurs, and engineers, building the infrastructure for a decentralized future.',
+  },
 
   // LEGAL
   {
