@@ -24,7 +24,7 @@ Yup.addMethod(Yup.string, 'isEmail', function(message) {
   const emailRegex = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z0-9-]+$/i;
 
   return this.test('validateIsEmail', function(value) {
-    return emailRegex.test(value)
+    return !value || emailRegex.test(value)
       ? true
       : this.createError({
           message,
@@ -36,7 +36,7 @@ Yup.addMethod(Yup.string, 'isUrl', function(message) {
   const urlRegex = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[-a-zA-Z0-9@:%._+~#=]{2,256}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/i;
 
   return this.test('validateIsUrl', function(value) {
-    return urlRegex.test(value)
+    return !value || urlRegex.test(value)
       ? true
       : this.createError({
           message,
