@@ -53,7 +53,6 @@ class TickerPage extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.change(this.props.account);
     this.props.tokenData(null);
     this.props.getExpiryLimit();
     SecurityTokenRegistry.registrationFee().then(fee => {
