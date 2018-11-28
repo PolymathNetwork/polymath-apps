@@ -2,14 +2,8 @@
 
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import {
-  Form,
-  FormGroup,
-  Button,
-  Tooltip,
-  Toggle,
-} from 'carbon-components-react';
-import { thousandsDelimiter } from '@polymathnetwork/ui';
+import { Form, FormGroup, Button, Toggle } from 'carbon-components-react';
+import { thousandsDelimiter, Tooltip } from '@polymathnetwork/ui';
 import { TextInput, RadioInput } from '@polymathnetwork/ui/deprecated';
 import { url, required, numeric, minValue } from '@polymathnetwork/ui/validate';
 
@@ -48,8 +42,8 @@ class CompleteTokenForm extends Component<Props, State> {
           <FormGroup
             legendText={
               <Tooltip triggerText="My Security Token Must Be">
-                <p className="bx--tooltip__label">
-                  Divisible or Indivisible token
+                <p>
+                  <strong>Divisible or Indivisible token</strong>
                 </p>
                 <p>
                   Indivisible tokens are typically used to represent an equity,
@@ -73,8 +67,8 @@ class CompleteTokenForm extends Component<Props, State> {
             style={{ marginTop: '8px' }}
             legendText={
               <Tooltip triggerText="Limit the Number of Investors Who Can Hold This Token">
-                <p className="bx--tooltip__label">
-                  Limit the Number of Investors
+                <p>
+                  <strong>Limit the Number of Investors</strong>
                 </p>
                 <p>
                   This option allows you to limit the number of concurrent token
@@ -95,8 +89,8 @@ class CompleteTokenForm extends Component<Props, State> {
           <FormGroup
             legendText={
               <Tooltip triggerText="Additional Token Information">
-                <p className="bx--tooltip__label">
-                  Additional Token Information
+                <p>
+                  <strong>Additional Token Information</strong>
                 </p>
                 <p>
                   Paste link to a shared file or folder that includes additional

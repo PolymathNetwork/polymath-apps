@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
 import { FastField, withFormik } from 'formik';
 import moment from 'moment-timezone';
-import { Form, Tooltip, Button } from 'carbon-components-react';
+import { Form, Button } from 'carbon-components-react';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import validator from '@polymathnetwork/shared/validator';
@@ -16,6 +16,7 @@ import {
   Heading,
   RaisedAmount,
   Remark,
+  Tooltip,
   TextInput,
   DatePickerInput,
   TimePickerSelect,
@@ -312,8 +313,8 @@ export const USDTieredSTOFormComponent = ({
           <FormItem.Label>
             <br />
             <Tooltip triggerText="Minimum investment for All investors">
-              <p className="bx--tooltip__label">
-                Minimum investment for All investors
+              <p>
+                <strong>Minimum investment for All investors</strong>
               </p>
               <p>
                 Any investment below this value, regardless of their origin
@@ -335,8 +336,10 @@ export const USDTieredSTOFormComponent = ({
         <FormItem name="nonAccreditedMax">
           <FormItem.Label>
             <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
-              <p className="bx--tooltip__label">
-                Maximum Investment for Non-Accredited Investors by Default
+              <p>
+                <strong>
+                  Maximum Investment for Non-Accredited Investors by Default
+                </strong>
               </p>
               <p>
                 By default, Investors are assumed to be non-accredited (i.e.
@@ -391,7 +394,12 @@ export const USDTieredSTOFormComponent = ({
       <FormItem name="receiverAddress">
         <FormItem.Label>
           <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
-            <p className="bx--tooltip__label">
+            <p>
+              <strong>
+                ETH Address to Receive the Funds Raised During the STO
+              </strong>
+            </p>
+            <p>
               This wallet address will receive the funds raised during the STO.
               This address may be self-custodied or that of a fully custodied
               wallet.
@@ -408,7 +416,9 @@ export const USDTieredSTOFormComponent = ({
       <FormItem name="unsoldTokensAddress">
         <FormItem.Label>
           <Tooltip triggerText="ETH Address for Unsold Tokens">
-            <p className="bx--tooltip__label">ETH Address for Unsold Tokens</p>
+            <p>
+              <strong>ETH Address for Unsold Tokens</strong>
+            </p>
             <p>
               This wallet address will receive all tokens not sold across all
               tiers defined in the STO, by the time the STO reaches its end

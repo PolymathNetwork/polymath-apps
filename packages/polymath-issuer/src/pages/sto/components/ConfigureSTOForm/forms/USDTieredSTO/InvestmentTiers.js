@@ -3,7 +3,7 @@
 import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
-import { Tooltip, Toggle, Button } from 'carbon-components-react';
+import { Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
 import BigNumber from 'bignumber.js';
 import {
@@ -12,6 +12,7 @@ import {
   DynamicTable,
   FormItem,
   FormItemGroup,
+  Tooltip,
   NumberInput,
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
@@ -153,7 +154,9 @@ class InvestmentTiers extends React.Component<Props, State> {
         <div className="bx--form-item">
           <label htmlFor="investmentTiers" className="bx--label">
             <Tooltip triggerText="Investment Tiers">
-              <p className="bx--tooltip__label">Investment Tiers</p>
+              <p>
+                <strong>Investment Tiers</strong>
+              </p>
               <p>
                 All tokens may be sold at the same price (single-tier) or using
                 a multi-tiered structure. If multiple tiers are used, tokens
@@ -178,7 +181,9 @@ class InvestmentTiers extends React.Component<Props, State> {
               <FormItem name={`${name}.tiers[0].tokensAmount`}>
                 <FormItem.Label>
                   <Tooltip triggerText="Number of tokens">
-                    <p className="bx--tooltip__label">Number of tokens</p>
+                    <p>
+                      <strong>Number of tokens</strong>
+                    </p>
                     <p>
                       Number of tokens to be sold in this tier. All tokens in
                       the tier will carry the same price and need to be sold for

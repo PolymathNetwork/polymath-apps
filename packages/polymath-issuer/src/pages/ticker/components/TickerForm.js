@@ -40,6 +40,9 @@ class TickerForm extends Component<Props> {
           component={TextInput}
           label={
             <Tooltip triggerText="Token Name">
+              <p>
+                <strong>Token Name</strong>
+              </p>
               This is the name of your token for display purposes.
               <br />
               For example: Toro Token
@@ -53,6 +56,9 @@ class TickerForm extends Component<Props> {
           component={TextInput}
           label={
             <Tooltip triggerText="Issuer&apos;s ETH Address">
+              <p>
+                <strong>Issuer&apos;s ETH Address</strong>
+              </p>
               This ETH address was read from your MetaMask. Only this account
               will be able to access dashboard and complete token issuance and
               STO.

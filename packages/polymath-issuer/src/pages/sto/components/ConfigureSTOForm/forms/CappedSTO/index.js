@@ -195,7 +195,9 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
           normalize={thousandsDelimiter}
           label={
             <Tooltip triggerText="Hard Cap (in Tokens)">
-              <p className="bx--tooltip__label">Hard Cap (in Tokens)</p>
+              <p>
+                <strong>Hard Cap (in Tokens)</strong>
+              </p>
               <p>
                 Hard Cap is the maximum number of tokens available through this
                 offering. e.g. if you want the total aggregate of your investors
@@ -213,7 +215,9 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
           normalize={thousandsDelimiter}
           label={
             <Tooltip triggerText="Rate">
-              <p className="bx--tooltip__label">Rate</p>
+              <p>
+                <strong>Rate</strong>
+              </p>
               <p>
                 Conversion rate between the currency you chose and your Security
                 Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
@@ -230,7 +234,9 @@ class ConfigureCappedSTOForm extends Component<Props, State> {
           component={TextInput}
           label={
             <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
-              <p className="bx--tooltip__label">Fund Receiver Address</p>
+              <p>
+                <strong>Fund Receiver Address</strong>
+              </p>
               <p>
                 This wallet address will receive the funds raised during the
                 STO. This address may be self-custodied or that of a fully
