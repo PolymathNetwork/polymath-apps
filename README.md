@@ -86,8 +86,9 @@ Please read our [contribution guidelines](https://github.com/PolymathNetwork/pol
 
 # Deployments
 
-- Any merge to `master` automatically deploys to our [Production](#production)
-- Any merge to `develop` automatically deploys to a [Staging](#environment)
+- Any merge to `master` automatically deploys to [Production](#production)
+- Any merge to `develop` automatically deploys to [Staging](#staging)
+- Any merge to `release/*` (i.e. `release/2.1.1`) automatically deploys to [Beta](#beta)
 
 ## Environments
 
@@ -100,7 +101,9 @@ What the final user sees, this is [tokenstudio.polymath.network](https://tokenst
 Production-like environment, this runs code that has not yet made its way into
 the master branch.
 
-There can be multiple Staging environments if so required.
+### Beta
+
+This environment runs the code that is stable enough for an upcoming release. This is [betastudio.polymath.network](https://betastudio.polymath.network)
 
 # Upgrading Smart Contracts
 

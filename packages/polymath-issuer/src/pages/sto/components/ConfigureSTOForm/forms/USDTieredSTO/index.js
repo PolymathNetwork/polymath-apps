@@ -106,7 +106,7 @@ function todayOrAfter(value) {
     return true;
   }
 
-  return this.createError({ message: 'Must be today or later.' });
+  return this.createError({ message: 'Start time must be today or later.' });
 }
 
 function validateStartTime(value) {
@@ -121,7 +121,7 @@ function validateStartTime(value) {
   const timeUntilStart = startUnix - nowUnix;
 
   if (nowUnix >= startUnix) {
-    return this.createError({ message: 'Time is in the past.' });
+    return this.createError({ message: 'Start time is in the past.' });
   }
   if (timeUntilStart < TRANSACTION_TIME_BUFFER) {
     return this.createError({

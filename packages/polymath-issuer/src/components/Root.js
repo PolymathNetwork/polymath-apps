@@ -58,6 +58,10 @@ class Root extends Component<Props> {
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
+    // FIXME @RafaelVidaurre: Remove this hack, only used for temporary maintenance mode
+    if (window.location.pathname === '/maintenance') {
+      return <MaintenancePage />;
+    }
     return (
       <ErrorBoundary>
         {isMobile || isUnsupportedBrowser ? (

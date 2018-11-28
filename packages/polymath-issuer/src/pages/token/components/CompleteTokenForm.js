@@ -5,11 +5,18 @@ import { reduxForm, Field } from 'redux-form';
 import { Form, FormGroup, Button, Toggle } from 'carbon-components-react';
 import { thousandsDelimiter, Tooltip } from '@polymathnetwork/ui';
 import { TextInput, RadioInput } from '@polymathnetwork/ui/deprecated';
-import { url, required, numeric, minValue } from '@polymathnetwork/ui/validate';
+import {
+  url,
+  required,
+  numeric,
+  minValue,
+  maxLength,
+} from '@polymathnetwork/ui/validate';
 
 export const formName = 'complete_token';
 
 const minValue1 = minValue(1);
+const maxLength100 = maxLength(100);
 
 type Props = {
   onSubmit: (isLimitNI: boolean) => void,
@@ -103,7 +110,7 @@ class CompleteTokenForm extends Component<Props, State> {
               name="details"
               component={TextInput}
               placeholder="Paste link here"
-              validate={[url]}
+              validate={[url, maxLength100]}
             />
           </FormGroup>
           {isToggled ? (
