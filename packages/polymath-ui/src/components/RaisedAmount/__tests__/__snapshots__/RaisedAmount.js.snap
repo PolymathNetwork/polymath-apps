@@ -5,21 +5,19 @@ exports[`renders without crashing 1`] = `
   class="sc-bwzfXH iZACQz"
 >
   <h4
-    class="sc-bdVaJa ZKgMW"
+    class="sc-bdVaJa hBtrnw"
+    color="highlightText"
     font-size="1"
   >
     a title
   </h4>
   <p
-    class="sc-bdVaJa bHdiET"
+    class="sc-bdVaJa cgHohL"
+    color="highlightText"
     font-size="5"
   >
     555 PRIM
   </p>
-  <span
-    class="sc-htpNat fPrvfr"
-  >
-    111 TOK
-  </span>
+  111 TOK
 </div>
 `;

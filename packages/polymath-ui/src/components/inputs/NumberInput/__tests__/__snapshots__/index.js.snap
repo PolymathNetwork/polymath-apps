@@ -2,10 +2,10 @@
 
 exports[`NumberInput renders without crashing  1`] = `
 <div
-  class="sc-bdVaJa dVtwCI"
+  class="sc-bdVaJa eDCunu"
 >
   <input
-    class="sc-bxivhb kRpXks sc-bwzfXH csQacs"
+    class="sc-bxivhb kRpXks sc-bwzfXH dDKRkS"
     data-testid="base-input"
     id="foo"
     type="text"

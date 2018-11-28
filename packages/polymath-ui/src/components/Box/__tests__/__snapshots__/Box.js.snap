@@ -2,7 +2,7 @@
 
 exports[`renders without crashing 1`] = `
 <div
-  className="sc-bdVaJa eLSBby"
+  className="sc-bdVaJa fxZZEH"
 >
   This is a box.
 </div>

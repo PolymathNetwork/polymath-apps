@@ -2,7 +2,8 @@
 
 exports[`renders without crashing 1`] = `
 <p
-  className="sc-bdVaJa jKaQbl"
+  className="sc-bdVaJa hROhaZ"
+  fontSize="baseText"
 >
   This is a box.
 </p>

@@ -2,37 +2,45 @@
 
 exports[`renders without crashing 1`] = `
 <div
-  className="pui-footer"
+  class="pui-footer sc-bxivhb guQklD"
 >
-  <p
-    className="pui-footer-text"
+  <div
+    class="sc-bwzfXH jJgfrb"
   >
-    © 
-    2018
-     
-    Polymath
-  </p>
-  <ul
-    className="pui-footer-links"
-  >
-    <li>
-      <a
-        href="https://polymath.network/termsofservice.html"
-        rel="noopener noreferrer"
-        target="_blank"
+    <div
+      class="sc-ifAKCX jkQXLd"
+    >
+      <span
+        class="pui-footer-text"
       >
-        Terms Of Service
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://polymath.network/privacypolicy.html"
-        rel="noopener noreferrer"
-        target="_blank"
+        © 
+        2018
+         
+        Polymath
+      </span>
+      <ul
+        class="pui-footer-links sc-EHOje ddmQAk"
       >
-        Privacy Policy
-      </a>
-    </li>
-  </ul>
+        <li>
+          <a
+            href="https://polymath.network/termsofservice.html"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Terms Of Service
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://polymath.network/privacypolicy.html"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Privacy Policy
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 `;
