@@ -17,9 +17,6 @@ const defaultState: UIState = {
   footer: {
     variant: 'default',
   },
-  sidebar: {
-    isVisible: false,
-  },
 };
 
 export default (state: UIState = defaultState, action) => {
@@ -34,15 +31,6 @@ export default (state: UIState = defaultState, action) => {
         },
         footer: {
           variant: 'transparent',
-        },
-      };
-    }
-
-    if (pathname.match(/dashboard/)) {
-      return {
-        ...state,
-        sidebar: {
-          isVisible: true,
         },
       };
     }
