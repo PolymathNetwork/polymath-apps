@@ -34,7 +34,7 @@ const validEmail = 'jeremias@polymath.network';
 const validName = 'Jeremías Díaz';
 const polymathEmail = 'noreply@polymath.network';
 const polymathName = 'Polymath Network';
-const zendeskEmail = 'tokenstudio@polymath.zendesk.com';
+const replyToEmail = 'tokenstudio@polymath.network';
 const validMarkup = '<html></html>';
 
 const returnValidMarkup = () => validMarkup;
@@ -61,7 +61,7 @@ describe('Function: sendEmail', () => {
       from: { email: polymathEmail, name: polymathName },
       to: { email: validEmail, name: validName },
       replyTo: {
-        email: zendeskEmail,
+        email: replyToEmail,
         name: polymathName,
       },
       subject: validSubject,
@@ -246,7 +246,7 @@ describe('Function: sendTickerReservedEmail', () => {
   test('calls sgMail.send with correct parameters', async () => {
     const expectedMsg = {
       from: { email: polymathEmail, name: polymathName },
-      replyTo: { email: zendeskEmail, name: polymathName },
+      replyTo: { email: replyToEmail, name: polymathName },
       to: { email: validEmail, name: validName },
       subject: `${validTicker} Symbol Reserved on Polymath`,
       html: validMarkup,
@@ -272,7 +272,7 @@ describe('Function: sendTokenCreateEmail', () => {
   test('calls sgMail.send with correct parameters', async () => {
     const expectedMsg = {
       from: { email: polymathEmail, name: polymathName },
-      replyTo: { email: zendeskEmail, name: polymathName },
+      replyTo: { email: replyToEmail, name: polymathName },
       to: { email: validEmail, name: validName },
       subject: `${validTicker} Token Created on Polymath`,
       html: validMarkup,
@@ -303,7 +303,7 @@ describe('Function: sendCappedSTOScheduledEmail', () => {
   test('calls sgMail.send with correct parameters', async () => {
     const expectedMsg = {
       from: { email: polymathEmail, name: polymathName },
-      replyTo: { email: zendeskEmail, name: polymathName },
+      replyTo: { email: replyToEmail, name: polymathName },
       to: { email: validEmail, name: validName },
       subject: `${validTicker} STO Created on Polymath`,
       html: validMarkup,
@@ -336,7 +336,7 @@ describe('Function: sendUSDTieredSTOScheduledEmail', () => {
   test('calls sgMail.send with correct parameters', async () => {
     const expectedMsg = {
       from: { email: polymathEmail, name: polymathName },
-      replyTo: { email: zendeskEmail, name: polymathName },
+      replyTo: { email: replyToEmail, name: polymathName },
       to: { email: validEmail, name: validName },
       subject: `${validTicker} STO Created on Polymath`,
       html: validMarkup,
@@ -365,7 +365,7 @@ describe('Function: sendAccountConfirmationEmail', () => {
   test('calls sgMail.send with correct parameters', async () => {
     const expectedMsg = {
       from: { email: polymathEmail, name: polymathName },
-      replyTo: { email: zendeskEmail, name: polymathName },
+      replyTo: { email: replyToEmail, name: polymathName },
       to: { email: validEmail, name: validName },
       subject: 'Confirm your account on Polymath',
       html: validMarkup,
