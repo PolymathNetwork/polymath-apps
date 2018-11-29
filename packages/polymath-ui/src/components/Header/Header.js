@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { connect } from 'react-redux';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 
 import PageWrap from '../PageWrap';
 import Flex from '../Flex';
