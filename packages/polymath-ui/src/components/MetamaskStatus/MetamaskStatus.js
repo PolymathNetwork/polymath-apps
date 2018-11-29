@@ -12,6 +12,9 @@ import {
 import AccessRequestedStatus from './status/AccessRequestedStatus';
 import GenericStatus from './status/GenericStatus';
 
+import PageCentered from '../PageCentered';
+import ContentBox from '../ContentBox';
+
 import logo from '../../images/logo.svg';
 
 import './style.scss';
@@ -86,9 +89,8 @@ const Status = ({ status, onRequestAuth, networks }) => {
 };
 
 const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
-  <div className="pui-metamask-status">
-    <img src={logo} alt="Logo" className="pui-metamask-logo" />
-    <div className="pui-single-box">
+  <PageCentered>
+    <ContentBox maxWidth={735}>
       <Status
         status={status}
         networks={networks}
@@ -113,8 +115,8 @@ const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
           </p>
         </AccordionItem>
       </Accordion>
-    </div>
-  </div>
+    </ContentBox>
+  </PageCentered>
 );
 
 export default MetamaskStatus;

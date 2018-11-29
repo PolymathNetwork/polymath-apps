@@ -1,0 +1,30 @@
+---
+name: NumberInput
+menu: Inputs
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field } from 'formik';
+import NumberInputField, { NumberInput } from './index';
+
+# NumberInput
+
+<PropsTable of={NumberInputField} />
+
+## Basic usage
+
+<Playground>
+  <Formik
+    render={values => (
+      <form>
+        <pre>{JSON.stringify(values, null, 2)}</pre>
+        <br />
+        <Field name="myText" placeholder="foo" component={NumberInputField} />
+      </form>
+    )}
+  />
+</Playground>
+
+# NumberInput Primitive
+
+<NumberInput name="name" value={1234.5} />

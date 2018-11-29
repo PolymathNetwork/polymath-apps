@@ -1,11 +1,15 @@
 // @flow
 
-import React from 'react';
+// Import Sass styles. Order is important.
+// $FlowFixMe
+import './style.scss';
+
+import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '@polymathnetwork/ui';
+import { theme, GlobalStyles } from '@polymathnetwork/ui';
 import * as Sentry from '@sentry/browser';
 
 import Root from './components/Root';
@@ -14,9 +18,6 @@ import { unregister } from './registerServiceWorker';
 
 import { SENTRY_KEY } from './constants';
 import routes from './routes';
-
-// $FlowFixMe
-import './style.scss';
 
 unregister();
 
@@ -36,7 +37,10 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>
-        <Root routes={routes} history={history} />
+        <Fragment>
+          <GlobalStyles />
+          <Root routes={routes} history={history} />
+        </Fragment>
       </ThemeProvider>
     </ConnectedRouter>
   </Provider>,

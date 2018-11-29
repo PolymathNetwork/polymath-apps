@@ -6,7 +6,7 @@ export { default as Toaster } from './Toaster';
 export { default as Sidebar } from './Sidebar';
 export { default as PausedBar } from './PausedBar';
 export { default as EthNetworkWrapper } from './EthNetworkWrapper';
-export { default as Navbar } from './Navbar';
+export { default as Header } from './Header';
 export { default as Footer } from './Footer';
 export { default as TxModal } from './TxModal';
 export { default as ConfirmModal } from './ConfirmModal';

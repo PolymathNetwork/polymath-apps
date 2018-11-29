@@ -1,5 +1,7 @@
+// @flow
+
 import { Button, Form } from 'carbon-components-react';
-import { bull } from '@polymathnetwork/ui';
+import { Page, bull } from '@polymathnetwork/ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
@@ -55,7 +57,7 @@ const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 class ConfirmEmailPage extends Component<Props> {
   render() {
     return (
-      <DocumentTitle title="Confirm Email – Polymath">
+      <Page title="Confirm Email – Polymath">
         <div className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
@@ -72,7 +74,7 @@ class ConfirmEmailPage extends Component<Props> {
             <ConnectedForm />
           </div>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

@@ -46,7 +46,9 @@ const formSchema = validator.object().shape({
 
 const linkTooltip = (title: string) => (
   <Tooltip triggerText={title}>
-    <p className="bx--tooltip__label">Links</p>
+    <p>
+      <strong>Links</strong>
+    </p>
     <p>
       Paste links to the file/folder from your preferred file sharing service.
       <br />

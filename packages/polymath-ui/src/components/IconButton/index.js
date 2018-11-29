@@ -5,7 +5,11 @@ import Box from '../Box';
 import BaseIcon from '../Icon';
 
 const Button = styled(Box)`
-  transition: all ${({ theme }) => theme.transitions.hover};
+  appearance: none;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  transition: all ${({ theme }) => theme.transitions.hover.ms}ms;
 `;
 
 const StyledIcon = styled(BaseIcon)`

@@ -1,9 +1,10 @@
-import { ModalHeader, ModalBody, ModalFooter } from 'carbon-components-react';
-
 import Modal from './Modal';
+import Header from './Header';
+import Footer from './Footer';
+import Body from './Body';
 
-Modal.ModalHeader = ModalHeader;
-Modal.ModalHeader = ModalBody;
-Modal.ModalHeader = ModalFooter;
+Modal.Header = Header;
+Modal.Body = Body;
+Modal.Footer = Footer;
 
 export default Modal;

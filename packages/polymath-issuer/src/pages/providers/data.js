@@ -78,7 +78,7 @@ const providers: Array<ServiceProvider> = [
     logo: '/providers/advisory/genesisblock.png',
     background: '/providers/advisory/bg/img-genesisblock.png',
     desc:
-      'Genesis Block provides strategic business and regulatory advisory, financial services,' +
+      'Genesis Block provides strategic business and regulatory advisory, financial services, ' +
       'and technology solutions to companies seeking to leverage blockchain technology in their core ' +
       'business and capital strategy. Our mission is to realize the disruptive potential of blockchain ' +
       'and foster its growth and adoption in every aspect of life.',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Tooltip } from 'carbon-components-react';
+import { Form, Button } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 import {
@@ -8,6 +8,7 @@ import {
   TextInput,
   RadioInput,
   ToggleInput,
+  Tooltip,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 

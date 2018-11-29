@@ -3,13 +3,13 @@ name: CurrencySelect
 ---
 
 import { PropsTable } from 'docz';
-import { Formik, Field }  from 'formik';
+import { Formik, Field } from 'formik';
 
 import Playground from '../../DoczPlayground';
 import CurrencySelectField, { CurrencySelect } from './CurrencySelect';
 import FormItem from '../../FormItem';
 
-# CurrencySelect Primitive
+# CurrencySelect
 
 <PropsTable of={CurrencySelect} />
 
@@ -20,16 +20,18 @@ import FormItem from '../../FormItem';
     const values = ['ETH', 'DAI'];
 
     return (
-      <CurrencySelect 
-        placeholder="Raise in" 
+      <CurrencySelect
+        placeholder="Raise in"
         value={values}
         onChange={(values) => { console.log(values); }}
       />
     );
-  }}
+
+}}
+
 </Playground>
 
-# CurrencySelectField
+## As form field
 
 <PropsTable of={CurrencySelectField} />
 
@@ -47,5 +49,7 @@ import FormItem from '../../FormItem';
         </form>
       )} />
     );
-  }}
+
+}}
+
 </Playground>

@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { Form, Button, Tooltip } from 'carbon-components-react';
-import { FormItem, TextInput } from '@polymathnetwork/ui';
+import { Form, Button } from 'carbon-components-react';
+import { FormItem, TextInput, Tooltip } from '@polymathnetwork/ui';
 import { reserve } from '../../../actions/ticker';
 
 import { connect } from 'react-redux';
@@ -68,7 +68,9 @@ export const ReserveTickerFormComponent = ({ handleSubmit }) => (
     <FormItem name="name">
       <FormItem.Label>
         <Tooltip triggerText="Token Name">
-          <p className="bx--tooltip__label">Token Name</p>
+          <p>
+            <strong>Token Name</strong>
+          </p>
           <p>
             This is the name of your token for display purposes.
             <br />
@@ -83,7 +85,9 @@ export const ReserveTickerFormComponent = ({ handleSubmit }) => (
     <FormItem name="owner">
       <FormItem.Label>
         <Tooltip triggerText="Issuer&apos;s ETH Address">
-          <p className="bx--tooltip__label">Issuer&apos;s ETH Address</p>
+          <p>
+            <strong>Issuer&apos;s ETH Address</strong>
+          </p>
           <p>
             This ETH address was read from your MetaMask. Only this account will
             be able to access dashboard and complete token issuance and STO.

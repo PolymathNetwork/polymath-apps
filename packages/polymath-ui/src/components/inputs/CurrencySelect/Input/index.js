@@ -1,16 +1,14 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Select, { components } from 'react-select';
+import { intersectionWith } from 'lodash';
 
 import Box from '../../../Box';
 import Icon from '../../../Icon';
-import theme from '../../../../theme';
 import CaretDownIcon from '../../../../images/icons/CaretDown';
 import CloseIcon from '../../../../images/icons/Close';
-
-import { intersectionWith } from 'lodash';
 
 import { currencyOptions } from '../data';
 import Value from '../Value';
@@ -24,11 +22,12 @@ type Props = {|
   value: [string],
   onChange: Function,
   name: string,
+  theme: any,
   options?: [Option],
   onBlur?: Function,
 |};
 
-const styles = {
+const getStyles = theme => ({
   container: styles => ({
     ...styles,
     borderRadius: 0,
@@ -36,7 +35,7 @@ const styles = {
   control: (styles, state) => {
     return {
       ...styles,
-      backgroundColor: theme.colors.blue[0],
+      backgroundColor: theme.inputs.backgroundColor,
       borderRadius: 0,
       borderColor: 'transparent',
       '&:hover': {
@@ -76,14 +75,14 @@ const styles = {
     justifyContent: 'space-between',
     minWidth: '32px',
   }),
-};
+});
 
 const SelectContainer = styled(Box)`
   display: inline-block;
   vertical-align: middle;
   min-width: 200px;
-  margin-right: ${({ theme }) => theme.space[4]}px;
-  margin-bottom: ${({ theme }) => theme.space[1]}px;
+  margin-right: ${({ theme }) => theme.space[4]};
+  margin-bottom: ${({ theme }) => theme.space[1]};
 `;
 
 const Caret = styled(Icon)`
@@ -112,7 +111,7 @@ const ClearIndicator = props => {
   );
 };
 
-export default class Input extends React.Component<Props> {
+class Input extends React.Component<Props> {
   static defaultProps = {
     options: currencyOptions.map(option => option.value),
   };
@@ -136,7 +135,7 @@ export default class Input extends React.Component<Props> {
   };
 
   render() {
-    const { value, options, onChange, onBlur, ...props } = this.props;
+    const { value, options, onChange, onBlur, theme, ...props } = this.props;
 
     const filteredOptions = intersectionWith(
       currencyOptions,
@@ -161,7 +160,7 @@ export default class Input extends React.Component<Props> {
             noOptionsMessage={() => null}
             isClearable={valueIsArray ? value.length : value}
             isMulti={valueIsArray}
-            styles={styles}
+            styles={getStyles(theme)}
             components={{
               DropdownIndicator,
               ClearIndicator,
@@ -189,3 +188,5 @@ export default class Input extends React.Component<Props> {
     );
   }
 }
+
+export default withTheme(Input);

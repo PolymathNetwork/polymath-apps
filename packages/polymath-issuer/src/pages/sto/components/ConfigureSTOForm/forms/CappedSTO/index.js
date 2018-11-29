@@ -147,41 +147,41 @@ export const CappedSTOFormComponent = ({
           placeholder="Raise in"
           options={['ETH', 'POLY']}
         />
-        <FormItem.Error />
-      </FormItem>
-
-      <FormItem name="cap">
-        <FormItem.Label>
-          <Tooltip triggerText="Hard Cap (in Tokens)">
-            <p className="bx--tooltip__label">Hard Cap (in Tokens)</p>
-            <p>
-              Hard Cap is the maximum number of tokens available through this
-              offering. e.g. if you want the total aggregate of your investors
-              in this offering to own 10 million tokens, enter 10000000.
-            </p>
-          </Tooltip>
-        </FormItem.Label>
-        <FormItem.Input
-          component={NumberInput}
+        <Field
+          name="cap"
+          component={TextInput}
+          normalize={thousandsDelimiter}
+          label={
+            <Tooltip triggerText="Hard Cap (in Tokens)">
+              <p>
+                <strong>Hard Cap (in Tokens)</strong>
+              </p>
+              <p>
+                Hard Cap is the maximum number of tokens available through this
+                offering. e.g. if you want the total aggregate of your investors
+                in this offering to own 10 million tokens, enter 10000000.
+              </p>
+            </Tooltip>
+          }
           placeholder="Enter amount"
           useBigNumbers
         />
-        <FormItem.Error />
-      </FormItem>
-
-      <FormItem name="rate">
-        <FormItem.Label>
-          <Tooltip triggerText="Rate">
-            <p className="bx--tooltip__label">Rate</p>
-            <p>
-              Conversion rate between the currency you chose and your Security
-              Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000 Security
-              Tokens.
-            </p>
-          </Tooltip>
-        </FormItem.Label>
-        <FormItem.Input
-          component={NumberInput}
+        <Field
+          name="rate"
+          component={TextInput}
+          normalize={thousandsDelimiter}
+          label={
+            <Tooltip triggerText="Rate">
+              <p>
+                <strong>Rate</strong>
+              </p>
+              <p>
+                Conversion rate between the currency you chose and your Security
+                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
+                Security Tokens.
+              </p>
+            </Tooltip>
+          }
           placeholder="Enter amount"
           maxDecimals={0}
           useBigNumbers
@@ -214,7 +214,9 @@ export const CappedSTOFormComponent = ({
       <FormItem name="receiverAddress">
         <FormItem.Label>
           <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
-            <p className="bx--tooltip__label">Fund Receiver Address</p>
+            <p>
+              <strong>Fund Receiver Address</strong>
+            </p>
             <p>
               This wallet address will receive the funds raised during the STO.
               This address may be self-custodied or that of a fully custodied

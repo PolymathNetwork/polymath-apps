@@ -1,14 +1,13 @@
 import React from 'react';
+import { withTheme } from 'styled-components';
 
 import Icon from '../Icon';
-
-import theme from '../../theme';
 
 import ClockIcon from '../../images/icons/Clock';
 import ProgressIcon from '../../images/icons/Progress';
 import ChecklistIcon from '../../images/icons/Checklist';
 
-const TierStatus = ({ status, ...props }) =>
+const TierStatus = ({ status, theme, ...props }) =>
   ({
     'not-started': (
       <Icon Icon={ClockIcon} color={theme.colors.gray[3]} {...props} />
@@ -21,4 +20,4 @@ const TierStatus = ({ status, ...props }) =>
     ),
   }[status]);
 
-export default TierStatus;
+export default withTheme(TierStatus);

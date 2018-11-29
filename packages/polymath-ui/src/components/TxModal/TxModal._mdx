@@ -1,5 +1,6 @@
 ---
 name: TxModal
+menu: Modals
 ---
 
 import { Playground, PropsTable } from 'docz';
