@@ -100,22 +100,17 @@ export const modalStyle = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    content: '';
     opacity: 0;
     background-color: rgba(223, 227, 230, 0.5);
-    transition: opacity 200ms, z-index 0s 200ms, visibility 0s 200ms;
-    visibility: hidden;
 
     &.pui-modal__overlay--after-open {
       opacity: 1;
-      visibility: visible;
-      transition: all 150ms;
+      transition: all ${({ theme }) => theme.transitions.modal.ms}ms;
       z-index: 9000;
     }
 
     &.pui-modal__overlay--before-close {
       opacity: 0;
-      visibility: hidden;
     }
   }
 `;

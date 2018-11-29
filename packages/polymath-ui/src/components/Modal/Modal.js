@@ -1,7 +1,7 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
+import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
@@ -14,6 +14,7 @@ type Props = {|
   isOpen: boolean,
   onClose: Function,
   isCloseable: boolean,
+  theme: any,
 |};
 
 type State = {|
@@ -59,41 +60,36 @@ class Modal extends Component<Props, State> {
   }
 
   render() {
-    const { children, className, isCloseable } = this.props;
+    const { children, className, isCloseable, theme } = this.props;
     const { isOpen } = this.state;
 
     return (
-      <Fragment>
-        <ReactModal
-          isOpen={isOpen}
-          contentLabel="Modal"
-          closeTimeoutMS={2000}
-          className={{
-            base: `pui-modal`,
-            afterOpen: 'pui-modal--after-open',
-            beforeClose: 'pui-modal--before-close',
-          }}
-          overlayClassName={{
-            base: `pui-modal__overlay ${className}`,
-            afterOpen: 'pui-modal__overlay--after-open',
-            beforeClose: 'pui-modal__overlay--before-close',
-          }}
-          onRequestClose={this.handleCloseRequest}
-        >
-          {isCloseable && (
-            <StyledIconButton
-              Icon={SvgClose}
-              onClick={this.handleCloseRequest}
-            />
-          )}
-          {children}
-        </ReactModal>
-      </Fragment>
+      <ReactModal
+        isOpen={isOpen}
+        contentLabel="Modal"
+        closeTimeoutMS={theme.transitions.modal.ms}
+        className={{
+          base: 'pui-modal',
+          afterOpen: 'pui-modal--after-open',
+          beforeClose: 'pui-modal--before-close',
+        }}
+        overlayClassName={{
+          base: `pui-modal__overlay ${className}`,
+          afterOpen: 'pui-modal__overlay--after-open',
+          beforeClose: 'pui-modal__overlay--before-close',
+        }}
+        onRequestClose={this.handleCloseRequest}
+      >
+        {isCloseable && (
+          <StyledIconButton Icon={SvgClose} onClick={this.handleCloseRequest} />
+        )}
+        {children}
+      </ReactModal>
     );
   }
 }
 
-const StyledModal = styled(Modal)`
+const StyledModal = styled(withTheme(Modal))`
   ${modalStyle};
 `;
 

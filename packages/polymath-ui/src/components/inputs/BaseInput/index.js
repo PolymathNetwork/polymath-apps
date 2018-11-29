@@ -23,7 +23,7 @@ const Input = styled.input`
   order: 2;
   border-bottom: 1px solid transparent;
   padding-right: ${({ unit, theme }) => unit && '50px'};
-  transition: all ${({ theme }) => theme.transitions.hover};
+  transition: all ${({ theme }) => theme.transitions.hover.ms}ms;
 
   :focus {
     background-color: ${({ theme }) => theme.colors.gray[0]};

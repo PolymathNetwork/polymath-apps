@@ -9,7 +9,7 @@ const Button = styled(Box)`
   border: none;
   padding: 0;
   background-color: transparent;
-  transition: all ${({ theme }) => theme.transitions.hover};
+  transition: all ${({ theme }) => theme.transitions.hover.ms}ms;
 `;
 
 const StyledIcon = styled(BaseIcon)`

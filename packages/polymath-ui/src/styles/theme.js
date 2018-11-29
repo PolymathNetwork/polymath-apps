@@ -92,7 +92,12 @@ const headings = {
   },
 };
 const transitions = {
-  hover: 'ease 150ms',
+  hover: {
+    ms: 150,
+  },
+  modal: {
+    ms: 200,
+  },
 };
 const maxWidth = '1600px';
 const inputs = {
