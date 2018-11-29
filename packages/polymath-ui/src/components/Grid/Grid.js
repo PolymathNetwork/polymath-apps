@@ -5,6 +5,7 @@ import {
   gridGap,
   gridAutoFlow,
   gridTemplateColumns,
+  gridTemplateAreas,
   gridAutoColumns,
   gridAutoRows,
   alignItems,
@@ -18,6 +19,7 @@ const Grid = styled(Box)`
   ${gridGap};
   ${gridAutoFlow};
   ${gridTemplateColumns};
+  ${gridTemplateAreas};
   ${gridAutoColumns};
   ${gridAutoRows};
   ${alignItems};
