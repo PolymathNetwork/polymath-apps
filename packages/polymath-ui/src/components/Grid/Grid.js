@@ -6,6 +6,7 @@ import {
   gridAutoFlow,
   gridTemplateColumns,
   gridAutoColumns,
+  gridAutoRows,
   alignItems,
   justifyContent,
 } from 'styled-system';
@@ -18,12 +19,13 @@ const Grid = styled(Box)`
   ${gridAutoFlow};
   ${gridTemplateColumns};
   ${gridAutoColumns};
+  ${gridAutoRows};
   ${alignItems};
   ${justifyContent};
 `;
 
 Grid.defaultProps = {
-  gridGap: 20,
+  gridGap: 4,
 };
 
 export default Grid;
