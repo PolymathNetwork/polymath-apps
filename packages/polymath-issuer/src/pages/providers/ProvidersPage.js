@@ -247,8 +247,8 @@ class ProvidersPage extends Component<Props, State> {
           you decide to apply for.
         </Remark>
         <h1 className="pui-h1">Choose Your Providers</h1>
-        <div className="bx--row">
-          <div className="bx--col-xs-8">
+        <Grid.Row>
+          <Grid.Col gridSpan={[12, 12, 7]}>
             <h3 className="pui-h3">
               Your Polymath dashboard is integrated with several providers to
               streamline your on-boarding process and access to their services.
@@ -263,20 +263,22 @@ class ProvidersPage extends Component<Props, State> {
               same time nor have any obligation to select any of the providers
               below. You can always elect to use your own.
             </h3>
-          </div>
-          <div className="bx--col-xs-4 pui-countdown-container">
-            {!token.address && token.expires ? (
-              <Countdown
-                title="Time Left to Create Your Token"
-                deadline={token.expires}
-                buttonTitle="Create Your Token Now"
-                handleButtonClick={this.handleCreateToken}
-              />
-            ) : (
-              ''
-            )}
-          </div>
-        </div>
+          </Grid.Col>
+          <Grid.Col gridSpan={[12, 12, 5]}>
+            <div className="pui-countdown-container">
+              {!token.address && token.expires ? (
+                <Countdown
+                  title="Time Left to Create Your Token"
+                  deadline={token.expires}
+                  buttonTitle="Create Your Token Now"
+                  handleButtonClick={this.handleCreateToken}
+                />
+              ) : (
+                ''
+              )}
+            </div>
+          </Grid.Col>
+        </Grid.Row>
         <Tabs selected={this.state.tabSelected}>
           {categories.map((cat: SPCategory) => (
             <Tab

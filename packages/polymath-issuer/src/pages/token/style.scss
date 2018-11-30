@@ -11,9 +11,6 @@
 
 .token-form {
   .token-form-left {
-    float: left;
-    width: 255px;
-
     .bx--radio-button-group {
       display: block;
       margin-top: 4px;
@@ -27,12 +24,6 @@
         }
       }
     }
-  }
-
-  .token-form-right {
-    float: left;
-    margin-left: 60px;
-    width: 440px;
   }
 }
 
