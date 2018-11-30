@@ -151,8 +151,8 @@ class InvestmentTiers extends React.Component<Props, State> {
 
     return (
       <Fragment>
-        <div className="bx--form-item">
-          <label htmlFor="investmentTiers" className="bx--label">
+        <FormItem name={`${name}.isMultipleTiers`}>
+          <FormItem.Label>
             <Tooltip triggerText="Investment Tiers">
               <p>
                 <strong>Investment Tiers</strong>
@@ -164,16 +164,15 @@ class InvestmentTiers extends React.Component<Props, State> {
                 tier 1 are sold.
               </p>
             </Tooltip>
-          </label>
-          <Field
-            name={`${name}.isMultipleTiers`}
+          </FormItem.Label>
+          <FormItem.Input
             onToggle={this.onTiersToggle}
             id={`${name}-isMultipleTiers`}
             labelA="Single"
             labelB="Multiple"
             component={Toggle}
           />
-        </div>
+        </FormItem>
 
         {!value.isMultipleTiers ? (
           <Fragment>
