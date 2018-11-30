@@ -24,6 +24,7 @@ const ActionModal = (props: Props) => {
     actionButtonText,
     cancelButtonText,
     children,
+    ...otherProps
   } = props;
   return (
     <Modal
@@ -31,6 +32,7 @@ const ActionModal = (props: Props) => {
       className="pui-action-modal"
       onClose={onClose}
       onSubmit={onSubmit}
+      {...otherProps}
     >
       {children}
       <Modal.Footer>

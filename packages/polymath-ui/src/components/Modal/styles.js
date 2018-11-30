@@ -13,7 +13,6 @@ export const modalStyle = css`
     background-color: white;
     min-width: 100%;
     max-height: 100%;
-    width: 500px;
     height: 100%;
     padding: 3%;
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
