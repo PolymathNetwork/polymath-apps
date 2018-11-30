@@ -1,3 +1,6 @@
+const breakpoints = ['42.5em', '64em', '80em'];
+// 680px, 1024px, 1280px
+
 const fontSizes = [
   '0.75rem', // 12px
   '0.875rem', // 14px
@@ -115,6 +118,7 @@ const footer = {
 };
 
 export default {
+  breakpoints,
   fontSizes,
   fontFamilies,
   fontWeights,
