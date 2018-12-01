@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "paths": {
+      "~/*": ["*"]
+    }
+  },
+  "exclude": ["src/specsInit.ts", "lib", "build", "node_modules"],
+  "references": [{ "path": "../polymath-new-ui" }]
+}
