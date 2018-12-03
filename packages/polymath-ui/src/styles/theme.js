@@ -75,7 +75,7 @@ const colors = {
 const headings = {
   h1: {
     color: colors.primary,
-    fontSize: fontSizes[9],
+    fontSize: fontSizes[8],
     fontWeight: fontWeights.bold,
   },
   h2: {
