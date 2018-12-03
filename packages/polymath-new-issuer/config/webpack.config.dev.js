@@ -138,7 +138,7 @@ module.exports = {
             },
           },
           {
-            test: /\.(js|jsx|mjs|ts|tsx)$/,
+            test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
@@ -148,19 +148,21 @@ module.exports = {
           },
 
           // Compile .tsx?
-          // {
-          //   test: /\.(ts|tsx)$/,
-          //   include: paths.appSrc,
-          //   use: [
-          //     {
-          //       loader: require.resolve('ts-loader'),
-          //       options: {
-          //         // disable type checker - we will use it in fork plugin
-          //         transpileOnly: true,
-          //       },
-          //     },
-          //   ],
-          // },
+          {
+            test: /\.(ts|tsx)$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('ts-loader'),
+                options: {
+                  compiler: 'ttypescript',
+                  projectReferences: true,
+                  // disable type checker - we will use it in fork plugin
+                  // transpileOnly: true,
+                },
+              },
+            ],
+          },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
           // "style" loader turns CSS into JS modules that inject <style> tags.

@@ -11,6 +11,7 @@
     "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:new-issuer": "lerna exec --scope=@polymathnetwork/new-issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
+    "start:dev": "ttsc -b packages --watch",
     "test": "lerna exec --stream -- yarn test --forceExit",
     "test:investor": "lerna exec --stream --scope=@polymathnetwork/investor -- yarn test",
     "test:issuer": "lerna exec --stream --scope=@polymathnetwork/issuer -- yarn test",
@@ -56,7 +57,10 @@
     "lint-staged": "^7.2.2",
     "prettier": "^1.14.2",
     "prettier-eslint-cli": "^4.7.1",
-    "source-map-explorer": "^1.6.0"
+    "source-map-explorer": "^1.6.0",
+    "tsconfig-paths": "^3.7.0",
+    "ttypescript": "^1.5.5",
+    "typescript": "^3.2.1"
   },
   "husky": {
     "hooks": {
