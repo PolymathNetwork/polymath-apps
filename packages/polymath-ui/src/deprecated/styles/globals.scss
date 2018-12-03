@@ -78,17 +78,6 @@ $css--body: false;
 /**
  * CARBON
  */
-.bx--grid {
-  margin-top: $navbar-height;
-
-  @media (min-width: 1600px) {
-    max-width: calc(1600px - 10%);
-  }
-
-  &.pui-grid-notice {
-    margin-top: 136px;
-  }
-}
 
 .bx--btn {
   margin-top: 20px;
@@ -215,27 +204,6 @@ $css--body: false;
   stroke: $poly-blue-light !important;
 }
 
-.bx--tooltip {
-  p {
-    font-size: 14px !important;
-    font-family: $font;
-  }
-}
-
-.bx--tooltip__trigger {
-  display: block;
-
-  > div {
-    display: inline-block;
-    margin-left: 5px;
-  }
-
-  svg {
-    vertical-align: middle;
-    margin-top: -2px;
-  }
-}
-
 .bx--accordion__heading,
 .bx--accordion__content {
   font-family: $font;
@@ -315,49 +283,6 @@ $css--body: false;
   }
 }
 
-.bx--search-input {
-  width: 285px !important;
-}
-
-.bx--toolbar-search-container {
-  margin-top: 27px;
-}
-
-.bx--data-table-v2-container {
-  .bx--data-table-v2 {
-    td {
-      a {
-        font-size: 13px !important;
-      }
-    }
-  }
-
-  .bx--batch-actions {
-    height: 41px;
-    padding-left: 0;
-    margin-top: 34px;
-    background-color: $poly-blue;
-  }
-
-  .bx--btn {
-    margin-top: 0;
-  }
-
-  .bx--toolbar-content {
-    .bx--btn {
-      margin-top: 27px;
-    }
-  }
-
-  .bx--batch-summary__para {
-    font-weight: 300;
-  }
-
-  .bx--batch-summary__cancel {
-    text-transform: uppercase;
-  }
-}
-
 .bx--toggle__label {
   font-family: $font;
 }
@@ -380,21 +305,11 @@ $css--body: false;
 .pui-single-box-header {
   position: relative;
 
-  .pui-h3,
-  .pui-h4 {
-    width: 438px;
-    margin-bottom: 28px;
-  }
-
   .pui-single-box-bull,
   .pui-single-box-metamask {
     position: absolute;
     right: -30px;
     pointer-events: none;
-
-    img {
-      width: 100%;
-    }
   }
 
   .pui-single-box-bull {
@@ -446,7 +361,6 @@ $css--body: false;
 .pui-input-hint {
   font-size: 12px;
   color: $poly-gray;
-  font-weight: 300;
   line-height: 18px;
   margin-top: 7px;
   font-family: $font;
@@ -543,12 +457,6 @@ $css--body: false;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.pui-metamask-logo {
-  position: absolute;
-  left: 72px;
-  top: 50px;
 }
 
 .pui-metamask-accordion {

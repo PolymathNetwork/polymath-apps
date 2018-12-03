@@ -25,10 +25,6 @@
     .bx--modal-close {
       display: flex !important;
     }
-
-    .pui-tx-animation:after {
-      background: #5596e6;
-    }
   }
 
   .pui-tx-continue {
@@ -41,19 +37,11 @@
     .bx--modal-header__label {
       color: $poly-green;
     }
-
-    .pui-tx-animation:after {
-      background: $poly-green;
-    }
   }
 
   &.pui-tx-failed {
     .bx--modal-header__label {
       color: $poly-red;
-    }
-
-    .pui-tx-animation:after {
-      background: $poly-red;
     }
   }
 
