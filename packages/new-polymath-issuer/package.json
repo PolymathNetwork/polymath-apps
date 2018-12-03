@@ -8,18 +8,22 @@
   "engines": {
     "node": ">=8.9"
   },
+  "dependencies": {
+    "@polymathnetwork/new-ui": "0.0.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
   "devDependencies": {
     "@types/node": "^10.12.12",
     "@types/react": "^16.7.12",
     "@types/react-dom": "^16.0.11",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
     "jest": "^23.6.0",
+    "ts-loader": "^5.3.1",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.11.0",
     "ttypescript": "^1.5.5",
     "typescript": "^3.2.1",
     "webpack": "^4.26.1"
-  },
-  "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
   }
 }
