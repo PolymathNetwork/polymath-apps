@@ -21,7 +21,7 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts'],
     plugins: [
-      // new TsconfigPathsPlugin(),
+      new TsconfigPathsPlugin(),
       new DeclarationBundlerPlugin({
         moduleName: '@polymathnetwork/new-issuer',
       }),
