@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
 import { FastField, withFormik } from 'formik';
 import moment from 'moment-timezone';
-import { Form, Tooltip, Button } from 'carbon-components-react';
+import { Form, Tooltip, Button, Icon } from 'carbon-components-react';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import validator from '@polymathnetwork/shared/validator';
@@ -58,6 +58,7 @@ type FormValues = {|
 
 type FormikProps = {|
   handleSubmit: () => void,
+  handleRemoveTier: () => void,
   values: FormValues,
   touched: { [name: string]: boolean },
   errors: { [name: string]: string },
@@ -242,6 +243,7 @@ export const USDTieredSTOFormComponent = ({
   errors,
   touched,
   handleSubmit,
+  handleRemoveTier,
 }: ComponentProps) => {
   const { tiers } = values.investmentTiers;
   const totalTokensAmount = reduce(
