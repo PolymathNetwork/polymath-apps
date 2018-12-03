@@ -5,6 +5,8 @@ import { maxWidth } from 'styled-system';
 
 import IconButton from '../IconButton';
 
+const statusBarHeight = '5px';
+
 export const modalStyle = css`
   .pui-modal {
     position: relative;
@@ -16,7 +18,6 @@ export const modalStyle = css`
     height: 100%;
     padding: 3%;
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
 
     @media (min-width: 600px) {
       height: auto;
@@ -56,18 +57,6 @@ export const modalStyle = css`
 
     .bx--modal-content__text,
     .bx--modal-content__text p {
-      font-family: $font;
-      font-weight: 300;
-      line-height: 24px;
-
-      p {
-        margin-top: 10px;
-      }
-
-      p:first-child {
-        margin-top: -3px;
-      }
-
       .bx--inline-notification__title {
         font-weight: 600 !important;
       }
@@ -78,7 +67,7 @@ export const modalStyle = css`
         border-radius: 4px;
         background-color: #ebf0f7;
         padding: 6.5px 0 6.5px 16px;
-        margin-top: 10px;
+        margin: 20px 0;
       }
     }
   }
@@ -114,6 +103,12 @@ export const modalStyle = css`
   }
 `;
 
+export const StyledInner = styled.div`
+  display: flex;
+  overflow-y: auto
+  flex-direction: column;
+`;
+
 export const StyledIconButton = styled(IconButton)`
   position: absolute;
   top: 0;
@@ -127,5 +122,46 @@ export const StyledIconButton = styled(IconButton)`
 
   :hover {
     color: ${({ theme }) => theme.colors.gray[3]};
+  }
+`;
+
+const loadingStyles = `
+  visibility: hidden;
+  background: linear-gradient(60deg, #252e6a, #5495e5, #5495e5, #5495e5, #252e6a);
+  background-size: 300% 300%;
+  animation: AnimatedGradient 3s infinite, appear 0s 300ms forwards;  
+`;
+
+export const StyledStatusBar = styled.div`
+  position: absolute;
+  top: -${statusBarHeight};
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: ${statusBarHeight};
+  ${({ isLoading, status, theme }) =>
+    status === 'loading'
+      ? loadingStyles
+      : `background: ${theme.colors[status]}`};
+
+  @keyframes AnimatedGradient {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+
+  @keyframes appear {
+    0% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: visible;
+    }
   }
 `;

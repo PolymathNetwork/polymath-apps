@@ -51,7 +51,7 @@ ActionModal.defaultProps = {
   isActionDisabled: false,
   actionButtonText: 'Confirm',
   cancelButtonText: 'Cancel',
-  onClose: () => {},
+  onClose: null,
 };
 
 export default ActionModal;
