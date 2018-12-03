@@ -126,10 +126,9 @@ export const StyledIconButton = styled(IconButton)`
 `;
 
 const loadingStyles = `
-  visibility: hidden;
   background: linear-gradient(60deg, #252e6a, #5495e5, #5495e5, #5495e5, #252e6a);
   background-size: 300% 300%;
-  animation: AnimatedGradient 3s infinite, appear 0s 300ms forwards;  
+  animation: AnimatedGradient 3s infinite;  
 `;
 
 export const StyledStatusBar = styled.div`
@@ -153,15 +152,6 @@ export const StyledStatusBar = styled.div`
     }
     100% {
       background-position: 0 0;
-    }
-  }
-
-  @keyframes appear {
-    0% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: visible;
     }
   }
 `;
