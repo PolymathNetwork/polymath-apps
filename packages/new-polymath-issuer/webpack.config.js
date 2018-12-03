@@ -9,17 +9,24 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        loader: 'babel-loader',
         options: {
-          projectReferences: true,
-          compiler: 'ttypescript',
+          rootMode: 'upward',
         },
-        exclude: /node_modules/,
       },
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'ts-loader',
+      //   options: {
+      //     projectReferences: true,
+      //     compiler: 'ttypescript',
+      //   },
+      //   exclude: /node_modules/,
+      // },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts'],
+    extensions: ['.tsx', '.ts', '.js'],
     plugins: [
       new TsconfigPathsPlugin(),
       new DeclarationBundlerPlugin({
