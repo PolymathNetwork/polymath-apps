@@ -1,3 +1,3 @@
-import { Foo } from '@polymathnetwork/new-ui';
+// import { Foo } from '@polymathnetwork/new-ui';
 
-console.log('Foo', Foo);
+// console.log('Foo', Foo);
