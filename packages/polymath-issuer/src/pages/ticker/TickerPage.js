@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  Heading,
   PageCentered,
   Remark,
   ContentBox,
@@ -72,15 +73,17 @@ class TickerPage extends Component<Props, State> {
             <div className="pui-single-box-bull">
               <img src={bull} alt="Bull" />
             </div>
-            <h1 className="pui-h1">Reserve Your Token Symbol</h1>
-            <h4 className="pui-h4">
+            <Heading as="h1" variant="h1">
+              Reserve Your Token Symbol
+            </Heading>
+            <Heading as="h3" variant="h4" mr={190}>
               Your token symbol will be reserved for {this.props.expiryLimit}{' '}
               days, and is permanently yours once you create your Token. This
               reservation ensures that no other organization can create a token
               symbol identical token to yours using the Polymath platform. This
               operation carries a cost of: {this.state.tickerRegistrationFee}{' '}
               POLY.
-            </h4>
+            </Heading>
             <div className="pui-clearfix" />
             <Remark title="Note">
               If your organization has a CUSIP number, please enter the 5-letter

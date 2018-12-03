@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import { bull } from '../../';
 
-import Page from '../Page';
+import PageCentered from '../PageCentered';
+import ContentBox from '../ContentBox';
+import Heading from '../Heading';
 import SignUpForm, { formName } from './SignUpForm';
 import { signUp } from '../../redux/account/actions';
 
@@ -37,17 +39,19 @@ class SignUpPage extends Component<Props> {
 
   render() {
     return (
-      <Page title="Sign Up – Polymath">
-        <div id="sign-up" className="pui-single-box">
+      <PageCentered title="Sign Up – Polymath" id="sign-up">
+        <ContentBox maxWidth={735}>
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
               <img src={bull} alt="Bull" />
             </div>
-            <h1 className="pui-h1">Create Your Account</h1>
-            <h3 className="pui-h3">
+            <Heading as="h1" variant="h1">
+              Create Your Account
+            </Heading>
+            <Heading variant="h4" mr={190}>
               Start your private environment to select your Token symbol, create
               your Token, plan and execute your Security Token Offering.
-            </h3>
+            </Heading>
           </div>
           <SignUpForm
             onSubmit={this.handleSubmit}
@@ -65,8 +69,8 @@ class SignUpPage extends Component<Props> {
               Click here to disable the collection of this information
             </a>
           </p>
-        </div>
-      </Page>
+        </ContentBox>
+      </PageCentered>
     );
   }
 }

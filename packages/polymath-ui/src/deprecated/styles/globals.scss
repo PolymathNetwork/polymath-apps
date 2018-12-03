@@ -54,7 +54,7 @@ $css--body: false;
 .pui-h3 {
   color: $poly-gray-dark;
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 30px;
   margin-bottom: 6px;
 }
@@ -62,7 +62,7 @@ $css--body: false;
 .pui-h4 {
   color: $poly-gray-dark;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 24px;
   margin-bottom: 6px;
 }
@@ -70,7 +70,7 @@ $css--body: false;
 .pui-h5 {
   color: $poly-gray-dark;
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 22px;
   margin-bottom: 6px;
 }
@@ -134,9 +134,6 @@ $css--body: false;
 }
 
 .bx--form-item {
-  margin-bottom: 16px !important;
-  margin-right: 0 !important;
-
   p {
     svg {
       margin-right: 4px;
@@ -157,7 +154,6 @@ $css--body: false;
 
 .bx--text-input {
   font-size: 14px;
-  font-weight: 300;
   line-height: 22px;
   color: $poly-blue-dark !important;
   font-family: $font;
@@ -198,6 +194,10 @@ $css--body: false;
     fill: $poly-blue-dark !important;
     top: 3rem; // hack due to Carbon component not supporting multiline errors
   }
+}
+
+.bx--radio-button__label {
+  font-family: $font;
 }
 
 .bx--loading__svg {
