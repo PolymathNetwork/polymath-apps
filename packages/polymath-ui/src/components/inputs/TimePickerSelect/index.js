@@ -3,20 +3,20 @@
 import { range } from 'lodash';
 import React, { Component } from 'react';
 import Select, { components } from 'react-select';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import moment from 'moment';
 
 import Icon from '../../Icon';
-import theme from '../../../theme';
 import CaretDownIcon from '../../../images/icons/CaretDown';
 import type { InputProps } from '../types';
 
 type OwnProps = {
   format: string,
+  theme: any,
 };
 type Props = InputProps & OwnProps;
 
-const styles = {
+const getStyles = theme => ({
   container: styles => ({
     ...styles,
     borderRadius: 0,
@@ -26,7 +26,7 @@ const styles = {
   control: (styles, state) => {
     return {
       ...styles,
-      backgroundColor: theme.colors.blue[0],
+      backgroundColor: theme.inputs.backgroundColor,
       borderRadius: 0,
       borderColor: 'transparent',
       '&:hover': {
@@ -37,9 +37,9 @@ const styles = {
   },
   valueContainer: styles => ({
     ...styles,
-    fontSize: theme.fontSizes[1],
+    fontSize: theme.fontSizes.baseText,
   }),
-};
+});
 
 const Caret = styled(Icon)`
   color: ${({ theme }) => theme.colors.secondary};
@@ -87,6 +87,7 @@ class TimePickerSelectField extends Component<Props> {
       format,
       label,
       placeholder,
+      theme,
       ...props
     } = this.props;
 
@@ -103,7 +104,7 @@ class TimePickerSelectField extends Component<Props> {
     return (
       <Select
         inputId={name}
-        styles={styles}
+        styles={getStyles(theme)}
         components={{
           DropdownIndicator,
           IndicatorSeparator: null,
@@ -122,4 +123,4 @@ class TimePickerSelectField extends Component<Props> {
   }
 }
 
-export default TimePickerSelectField;
+export default withTheme(TimePickerSelectField);

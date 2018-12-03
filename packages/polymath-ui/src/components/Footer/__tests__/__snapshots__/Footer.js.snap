@@ -1,38 +1,123 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
+.c1 {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1600px;
+  padding-left: calc(64px + 2%);
+  padding-right: calc(64px + 2%);
+}
+
+.c0 {
+  width: 100%;
+  height: 48px;
+  background-color: white;
+  box-shadow: 0 -1px 0 0 #dfe3e6;
+}
+
+.c0 .pui-footer-text {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 300;
+}
+
+.c2 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 48px;
+}
+
+.c3 {
+  margin-left: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 a {
+  color: #5A6872;
+}
+
+.c3 li {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 22px;
+  margin-left: 30px;
+  font-weight: 300;
+}
+
+.c3 li a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3 li a:hover,
+.c3 li a:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 <div
-  className="pui-footer"
+  class="pui-footer c0"
 >
-  <p
-    className="pui-footer-text"
+  <div
+    class="c1"
   >
-    © 
-    2018
-     
-    Polymath
-  </p>
-  <ul
-    className="pui-footer-links"
-  >
-    <li>
-      <a
-        href="https://polymath.network/termsofservice.html"
-        rel="noopener noreferrer"
-        target="_blank"
+    <div
+      class="c2"
+    >
+      <span
+        class="pui-footer-text"
       >
-        Terms Of Service
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://polymath.network/privacypolicy.html"
-        rel="noopener noreferrer"
-        target="_blank"
+        © 
+        2018
+         
+        Polymath
+      </span>
+      <ul
+        class="pui-footer-links c3"
       >
-        Privacy Policy
-      </a>
-    </li>
-  </ul>
+        <li>
+          <a
+            href="https://polymath.network/termsofservice.html"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Terms Of Service
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://polymath.network/privacypolicy.html"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Privacy Policy
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 `;

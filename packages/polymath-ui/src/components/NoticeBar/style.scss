@@ -1,11 +1,11 @@
-@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+@import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
 
 .pui-notice-bar {
   position: fixed;
   margin-top: -$navbar-height;
   height: $navbar-height;
   width: 100%;
-  background: #DB2C3E;
+  background: #db2c3e;
 
   .pui-notice-bar-contents {
     width: 1192px;
@@ -39,7 +39,7 @@
       align-items: center;
 
       a {
-        color: #5068A4;
+        color: #5068a4;
       }
     }
 
@@ -52,10 +52,10 @@
   }
 
   &.pui-notice-bar-warning {
-    background-color: #EFC100;
+    background-color: #efc100;
   }
 
   &.pui-notice-bar-info {
-    background-color: #5AAAFA;
+    background-color: #5aaafa;
   }
 }

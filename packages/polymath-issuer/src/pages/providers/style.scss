@@ -1,5 +1,5 @@
 .tag-my-own {
-  background-color: #5596E6 !important;
+  background-color: #5596e6 !important;
 }
 
 .providers-controls {
@@ -26,23 +26,11 @@
   }
 }
 
-.providers-display-modal {
-  .providers-background {
-    width: 100%;
-  }
-
-  .bx--modal-content__text{
-    padding-top:14px;
-    font-size:16px;
-    line-height:24px;
-  }
-}
-
 .providers {
   .provider {
     width: 297px;
     height: 323px;
-    color: #5A6872;
+    color: #5a6872;
     padding-top: 40px;
     padding-left: 24px;
     padding-right: 24px;
@@ -64,17 +52,16 @@
       }
     }
 
-    .provider-description{
-      span{
-        color:#3D70B2;
+    .provider-description {
+      span {
+        color: #3d70b2;
       }
-
     }
 
     .provider-applied {
       font-size: 12px;
       font-weight: 300;
-      color: #8C9BA5;
+      color: #8c9ba5;
       display: inline-flex;
       align-items: center;
       float: right;
@@ -100,11 +87,11 @@
     }
 
     &.provider-selected {
-      outline: 1px solid #3D70B2;
+      outline: 1px solid #3d70b2;
     }
 
     &.provider-applied {
-      outline: 1px solid #00AA5E;
+      outline: 1px solid #00aa5e;
       cursor: default;
     }
 
@@ -130,7 +117,7 @@
 .bx--tabs {
   margin-top: 48px;
 
-  .bx--tabs__nav-item+.bx--tabs__nav-item {
+  .bx--tabs__nav-item + .bx--tabs__nav-item {
     margin-left: 0;
   }
 
@@ -140,17 +127,22 @@
 
   .bx--tabs__nav {
     margin-left: 0;
-    border-bottom: 1px solid #DFE3E6;
+    border-bottom: 1px solid #dfe3e6;
   }
 
   .bx--tabs__nav-item {
-    padding: 16px 24px 36px 24px;
-    width: 200px;
+    padding: 0;
 
     .bx--tabs__nav-link {
+      padding: 16px 24px 36px 24px;
+      width: 200px;
       font-size: 16px;
       font-weight: 600;
-      color: #5A6872;
+      color: #5a6872;
+
+      &:focus {
+        color: #252e6a;
+      }
 
       div {
         display: inline-flex;
@@ -160,23 +152,23 @@
 
     &:hover {
       .bx--tabs__nav-link {
-        color: #252E6A !important;
+        color: #252e6a !important;
       }
     }
 
     .bx--tag {
       font-size: 10px;
-      font-weight: 300;
-      background-color: #3D70B2;
+      font-weight: 400;
+      background-color: #3d70b2;
       color: white;
     }
   }
 
   .bx--tabs__nav-item--selected {
-    border-bottom: 4px solid #252E6A;
+    border-bottom: 4px solid #252e6a;
 
     .bx--tabs__nav-link {
-      color: #252E6A;
+      color: #252e6a;
     }
   }
 }

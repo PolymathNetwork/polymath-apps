@@ -7,10 +7,12 @@ import styled from 'styled-components';
 
 import type { InputProps } from '../types';
 
+import './style.scss';
+
 type PickerValue = [Date, string];
 
 const Container = styled.div`
-  // TODO @grsmto: remove this hack once we got it of Carbon
+  // TODO @grsmto: remove this hack once we got rid of Carbon
   .bx--form-item {
     margin-bottom: 0px !important;
   }

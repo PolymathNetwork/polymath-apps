@@ -1,10 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
-import { renderRoutes } from 'react-router-config';
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
+
 // eslint-disable-next-line no-unused-vars
 import {
+  PageWrap,
   Sidebar,
   icoBriefcase,
   icoInbox,
@@ -23,7 +25,9 @@ import PausedBar from './PausedBar';
 
 import type { RootState } from '../redux/reducer';
 import type { ServiceProvider } from '../pages/providers/data';
+
 import MigrateTokenPage from './MigrateTokenPage';
+import Progress from '../pages/token/components/Progress';
 
 type StateProps = {|
   token: ?SecurityToken,
@@ -67,8 +71,9 @@ type Props = {|
   DispatchProps;
 
 class Dashboard extends Component<Props> {
-  componentWillMount() {
+  componentDidMount() {
     const ticker = this.props.match.params.id;
+
     this.props.fetchLegacyToken(ticker);
     this.props.fetchToken(ticker);
     this.props.fetchProviders(ticker);
@@ -146,15 +151,18 @@ class Dashboard extends Component<Props> {
       // },
     ];
     return (
-      <div className="dashboard">
+      <Fragment>
         <PausedBar />
         <Sidebar
           id="primary-nav"
           topItems={topSidebarItems}
           bottomItems={bottomSidebarItems}
         />
+        <PageWrap>
+          <Progress />
+        </PageWrap>
         {renderRoutes(route.routes)}
-      </div>
+      </Fragment>
     );
   }
 }

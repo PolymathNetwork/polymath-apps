@@ -2,13 +2,17 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Loading, Icon, Button } from 'carbon-components-react';
+import { Loading, Icon, Button } from 'carbon-components-react';
+
+import Modal from '../Modal';
 
 import { txContinue } from './actions';
 import { etherscanTx } from '../../helpers';
 import { icoPaperPlane } from '../../';
 import type { RootState } from '../../redux/reducer';
 import type { TxState } from './reducer';
+
+import './style.scss';
 
 type DispatchProps = {|
   txContinue: () => any,
@@ -49,6 +53,8 @@ class TxModal extends Component<DispatchProps & TxState> {
           : 'Sign Transaction' + (Number(total) > 1 ? 's' : '');
     }
 
+    let status = error ? 'Failed' : isFinished ? 'Completed' : 'Processing';
+
     return (
       <Modal
         className={
@@ -56,17 +62,17 @@ class TxModal extends Component<DispatchProps & TxState> {
           (isFinished ? ' pui-tx-success' : '') +
           (error ? ' pui-tx-failed' : '')
         }
-        open={!!total}
-        passiveModal
-        modalHeading={modalHeading}
-        modalLabel={
-          'Transaction ' +
-          (isFinished ? 'Completed' : '') +
-          (error ? 'Failed' : '') +
-          (!isFinished && !error ? 'Processing' : '')
-        }
+        isOpen={!!total}
+        isCloseable={false}
       >
         <div className="pui-tx-animation" />
+
+        <Modal.Header
+          status={error ? 'alert' : isFinished ? 'success' : 'idle'}
+          label={'Transaction ' + status}
+        >
+          {modalHeading}
+        </Modal.Header>
 
         {titles.map((title: string, i: number) => (
           <div

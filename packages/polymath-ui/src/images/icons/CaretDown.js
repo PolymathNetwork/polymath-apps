@@ -2,9 +2,9 @@ import React from 'react';
 
 const SvgCaretDown = props => (
   <svg
-    fillRule="evenodd"
     width="1em"
     height="1em"
+    fillRule="evenodd"
     viewBox="0 0 10 5"
     {...props}
   >

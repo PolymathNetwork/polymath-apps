@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import type { RootState } from '../redux/reducer';
-import DocumentTitle from 'react-document-title';
 import {
   Accordion,
   AccordionItem,
@@ -11,6 +10,7 @@ import {
   Loading,
 } from 'carbon-components-react';
 import Contract from '@polymathnetwork/js';
+import { Page } from '@polymathnetwork/ui';
 import * as ui from '@polymathnetwork/ui';
 import newVersionLogo from '../images/2.0-logo.svg';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
@@ -177,7 +177,7 @@ class MigrateTokenPageContainer extends Component<Props, State> {
 class MigrateTokenPage extends Component<{| handleClick: Function |}> {
   render() {
     return (
-      <DocumentTitle title="Migrate your Token – Polymath">
+      <Page title="Migrate your Token – Polymath">
         <div className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-new-version-bull">
@@ -275,7 +275,10 @@ class MigrateTokenPage extends Component<{| handleClick: Function |}> {
             <AccordionItem title="Where can I find the full release notes for v2.0.0?">
               <p>
                 Read this{' '}
-                <a href="https://blog.polymath.network/polymath-core-v2-0-0-release-2d5b954c4c99" target="_blank">
+                <a
+                  href="https://blog.polymath.network/polymath-core-v2-0-0-release-2d5b954c4c99"
+                  target="_blank"
+                >
                   blog post
                 </a>
                 .
@@ -283,7 +286,7 @@ class MigrateTokenPage extends Component<{| handleClick: Function |}> {
             </AccordionItem>
           </Accordion>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

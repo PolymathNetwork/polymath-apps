@@ -1,4 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
+
+/**
+ * NOTE @monitz87: This form should be refactored to use formik
+ */
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Form } from 'carbon-components-react';

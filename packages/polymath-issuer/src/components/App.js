@@ -1,6 +1,5 @@
 // @flow
 import React, { Component, Fragment } from 'react';
-import Contract from '@polymathnetwork/js';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 import { Loading } from 'carbon-components-react';
@@ -12,9 +11,11 @@ import {
   Toaster,
   TxModal,
   ConfirmModal,
-  Navbar,
+  NoticeBar,
+  Header,
   Footer,
   EnterPINModal,
+  StickyTop,
 } from '@polymathnetwork/ui';
 
 import { getMyTokens } from '../actions/ticker';
@@ -32,6 +33,7 @@ type StateProps = {|
   isEmailConfirmed: ?boolean,
   isSignUpSuccess: boolean,
   ticker: ?string,
+  ui: any,
 |};
 
 type DispatchProps = {|
@@ -52,6 +54,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isEmailConfirmed: state.pui.account.isEmailConfirmed,
   isSignUpSuccess: state.pui.account.isEnterPINSuccess,
   ticker: state.token.token ? state.token.token.ticker : null,
+  ui: state.ui,
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -85,20 +88,29 @@ class App extends Component<Props> {
   };
 
   render() {
-    const { ticker, isFetching, route, isFetchingLegacyTokens } = this.props;
+    const {
+      ticker,
+      isFetching,
+      ui,
+      route,
+      isFetchingLegacyTokens,
+    } = this.props;
 
     return (
       <Fragment>
-        <Navbar ticker={ticker} />
         {isFetching || isFetchingLegacyTokens ? <Loading /> : ''}
         <Toaster />
         <TxModal />
         <EnterPINModal />
         <ConfirmModal />
+        <StickyTop zIndex={'header'}>
+          <NoticeBar />
+          <Header ticker={ticker} variant={ui.header.variant} />
+        </StickyTop>
         <AuthWrapper onFail={this.onAuthFail}>
           {renderRoutes(route.routes)}
         </AuthWrapper>
-        <Footer />
+        <Footer variant={ui.footer.variant} />
       </Fragment>
     );
   }

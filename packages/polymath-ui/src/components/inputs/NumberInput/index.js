@@ -17,6 +17,7 @@ type Props = {|
   max: number | BigNumberType,
   min: number | BigNumberType,
   value?: number | BigNumberType,
+  maxDecimals: number,
   onChange?: (value: any) => void,
   useBigNumbers: boolean,
   onBlur?: () => void,
@@ -52,6 +53,10 @@ const StyledBaseInput = styled(BaseInput)`
 
 // TODO @RafaelVidaurre: Change max/min behavior to prevent a change instead of
 // changing the value to the max/min allowed
+
+// FIXME @monitz87: right now if the user inputs ".0" it gets changed back to "0".
+// It should support consecutive zeroes after the decimal point until the user inputs another
+// number
 export class NumberInput extends Component<Props, State> {
   state = { displayValue: '', oldValue: null };
   static defaultProps = {
@@ -59,6 +64,7 @@ export class NumberInput extends Component<Props, State> {
     onBlur: () => {},
     min: -Infinity,
     max: Infinity,
+    maxDecimals: 18, // max amount of decimals supported by solidity
     useBigNumbers: false,
     value: null,
     name: 'unnamed',
@@ -109,13 +115,19 @@ export class NumberInput extends Component<Props, State> {
    */
   static toBigNumber(
     v: number | string | BigNumberType,
-    { min, max, useBigNumbers }: Props
+    { min, max, useBigNumbers, maxDecimals }: Props
   ) {
     let value = v;
     if (typeof value === 'string') {
       value = value.replace(/,/g, '');
+    } else if (typeof value === 'number') {
+      value = String(value);
     }
-    value = new BigNumber(value);
+
+    value = new BigNumber(value).decimalPlaces(
+      maxDecimals,
+      BigNumber.ROUND_FLOOR
+    );
 
     let minimum = min;
     let maximum = max;
@@ -153,9 +165,13 @@ export class NumberInput extends Component<Props, State> {
    *
    * @returns boolean
    */
-  static isValidDisplayValue(value: string) {
+  static isValidDisplayValue(value: string, maxDecimals: number) {
     if (value === '') {
       return true;
+    }
+
+    if (maxDecimals === 0 && pendingDotRegex.test(value)) {
+      return false;
     }
 
     return displayValueRegex.test(value);
@@ -168,7 +184,10 @@ export class NumberInput extends Component<Props, State> {
    */
   sanitizeDisplayValue = (nextDisplayValue?: string): string => {
     const displayValue = this.state.displayValue;
-    const isValid = NumberInput.isValidDisplayValue(nextDisplayValue);
+    const isValid = NumberInput.isValidDisplayValue(
+      nextDisplayValue,
+      this.props.maxDecimals
+    );
 
     if (!isValid) {
       return displayValue;

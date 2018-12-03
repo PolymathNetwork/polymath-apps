@@ -32,7 +32,7 @@ export const sendEmail = async (
   subject: string,
   body: string,
   replyTo: string | EmailData = {
-    email: 'tokenstudio@polymath.zendesk.com',
+    email: 'tokenstudio@polymath.network',
     name: 'Polymath Network',
   }
 ) => {

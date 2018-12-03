@@ -1,8 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
+.c0 {
+  margin-bottom: m;
+  line-height: normal;
+}
+
 <h2
-  className="sc-bwzfXH cBcNyd"
+  className="c0"
 >
   This is a box.
 </h2>

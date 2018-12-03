@@ -1,0 +1,39 @@
+@import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
+
+.bx--date-picker {
+  .bx--date-picker__icon {
+    fill: $poly-blue;
+    top: 2.6rem;
+    left: 0.9rem;
+    pointer-events: none;
+  }
+
+  .bx--date-picker__icon ~ .bx--date-picker__input {
+    padding-left: 2.6rem;
+  }
+
+  .bx--date-picker__input {
+    width: 150px !important;
+    max-width: 150px;
+    font-family: $font;
+    padding-right: 0;
+    background-color: $poly-gray-light;
+  }
+
+  &.bx--date-picker--range {
+    width: 255px;
+
+    .bx--date-picker__input {
+      width: 125px !important;
+      padding: 10px 13px 8px 16px;
+    }
+  }
+}
+
+// Hack to avoid a bug where "invalid date" appear if nextMonthDay is clicked
+.bx--date-picker__days .nextMonthDay,
+.bx--date-picker__days .prevMonthDay,
+.bx--date-picker__day.disabled,
+.flatpickr-day.disabled {
+  pointer-events: none;
+}

@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { formValueSelector } from 'redux-form';
 import { bull } from '../../';
 
+import Page from '../Page';
 import SignUpForm, { formName } from './SignUpForm';
 import { signUp } from '../../redux/account/actions';
 
@@ -37,7 +37,7 @@ class SignUpPage extends Component<Props> {
 
   render() {
     return (
-      <DocumentTitle title="Sign Up – Polymath">
+      <Page title="Sign Up – Polymath">
         <div id="sign-up" className="pui-single-box">
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
@@ -66,7 +66,7 @@ class SignUpPage extends Component<Props> {
             </a>
           </p>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

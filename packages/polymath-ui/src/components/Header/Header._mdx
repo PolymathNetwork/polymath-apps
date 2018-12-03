@@ -1,0 +1,16 @@
+---
+name: Header
+---
+
+import { Playground, PropsTable } from 'docz';
+import Header from './Header';
+
+# Header
+
+<PropsTable of={Header} />
+
+## Basic usage
+
+<Playground>
+  <Header />
+</Playground>

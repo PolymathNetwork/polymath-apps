@@ -9,7 +9,7 @@ import {
   Toaster,
   TxModal,
   ConfirmModal,
-  Navbar,
+  Header,
   Footer,
   EnterPINModal,
   setupHistory,
@@ -50,7 +50,7 @@ class PolymathUI extends Component<Props> {
     const { ticker, logo, title, termsOfService, privacyPolicy } = this.props;
     return (
       <div>
-        <Navbar ticker={ticker} logo={logo} />
+        <Header ticker={ticker} logo={logo} />
         <Toaster />
         <TxModal />
         <EnterPINModal />

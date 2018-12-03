@@ -1,15 +1,16 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router';
+
+import { render } from '../../../../testUtils';
 
 import Footer from '../Footer';
 
 test('renders without crashing', () => {
-  const component = renderer.create(
+  const { container } = render(
     <MemoryRouter>
       <Footer />
     </MemoryRouter>
   );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+
+  expect(container.firstChild).toMatchSnapshot();
 });
