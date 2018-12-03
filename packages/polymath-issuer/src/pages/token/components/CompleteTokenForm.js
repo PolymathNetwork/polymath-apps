@@ -51,7 +51,9 @@ export const CompleteTokenFormComponent = ({ handleSubmit, values }) => (
       <FormItem name="isDivisible">
         <FormItem.Label>
           <Tooltip triggerText="My Security Token Must Be">
-            <p className="bx--tooltip__label">Divisible or Indivisible token</p>
+            <p>
+              <strong>Divisible or Indivisible token</strong>
+            </p>
             <p>
               Indivisible tokens are typically used to represent an equity,
               while divisible tokens may be used to represent divisible assets
@@ -73,7 +75,9 @@ export const CompleteTokenFormComponent = ({ handleSubmit, values }) => (
       <FormItem name="limitInvestors">
         <FormItem.Label>
           <Tooltip triggerText="Limit the Number of Investors Who Can Hold This Token">
-            <p className="bx--tooltip__label">Limit the Number of Investors</p>
+            <p>
+              <strong>Limit the Number of Investors</strong>
+            </p>
             <p>
               This option allows you to limit the number of concurrent token
               holders irrespective of the number of entries in the whitelist.
@@ -93,7 +97,9 @@ export const CompleteTokenFormComponent = ({ handleSubmit, values }) => (
       <FormItem name="details">
         <FormItem.Label>
           <Tooltip triggerText="Additional Token Information">
-            <p className="bx--tooltip__label">Additional Token Information</p>
+            <p>
+              <strong>Additional Token Information</strong>
+            </p>
             <p>
               Paste link to a shared file or folder that includes additional
               information on your token, such as legend.

@@ -147,43 +147,46 @@ export const CappedSTOFormComponent = ({
           placeholder="Raise in"
           options={['ETH', 'POLY']}
         />
-        <Field
-          name="cap"
-          component={TextInput}
-          normalize={thousandsDelimiter}
-          label={
-            <Tooltip triggerText="Hard Cap (in Tokens)">
-              <p>
-                <strong>Hard Cap (in Tokens)</strong>
-              </p>
-              <p>
-                Hard Cap is the maximum number of tokens available through this
-                offering. e.g. if you want the total aggregate of your investors
-                in this offering to own 10 million tokens, enter 10000000.
-              </p>
-            </Tooltip>
-          }
+        <FormItem.Error />
+      </FormItem>
+
+      <FormItem name="cap">
+        <FormItem.Label>
+          <Tooltip triggerText="Hard Cap (in Tokens)">
+            <p>
+              <strong>Hard Cap (in Tokens)</strong>
+            </p>
+            <p>
+              Hard Cap is the maximum number of tokens available through this
+              offering. e.g. if you want the total aggregate of your investors
+              in this offering to own 10 million tokens, enter 10000000.
+            </p>
+          </Tooltip>
+        </FormItem.Label>
+        <FormItem.Input
+          component={NumberInput}
           placeholder="Enter amount"
           useBigNumbers
         />
-        <Field
-          name="rate"
-          component={TextInput}
-          normalize={thousandsDelimiter}
-          label={
-            <Tooltip triggerText="Rate">
-              <p>
-                <strong>Rate</strong>
-              </p>
-              <p>
-                Conversion rate between the currency you chose and your Security
-                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
-                Security Tokens.
-              </p>
-            </Tooltip>
-          }
+        <FormItem.Error />
+      </FormItem>
+
+      <FormItem name="rate">
+        <FormItem.Label>
+          <Tooltip triggerText="Rate">
+            <p>
+              <strong>Rate</strong>
+            </p>
+            <p>
+              Conversion rate between the currency you chose and your Security
+              Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000 Security
+              Tokens.
+            </p>
+          </Tooltip>
+        </FormItem.Label>
+        <FormItem.Input
+          component={NumberInput}
           placeholder="Enter amount"
-          maxDecimals={0}
           useBigNumbers
         />
         <FormItem.Error />
