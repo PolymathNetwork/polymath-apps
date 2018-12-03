@@ -34,14 +34,21 @@ module.exports = {
           //   enforce: 'pre',
           //   include: 'src',
           // },
+          // {
+          // test: /\.tsx?$/,
+          // loader: 'ts-loader',
+          // options: {
+          //   projectReferences: true,
+          //   compiler: 'ttypescript',
+          // },
+          // exclude: /node_modules/,
+          // },
           {
             test: /\.tsx?$/,
-            loader: 'ts-loader',
+            loader: 'babel-loader',
             options: {
-              projectReferences: true,
-              compiler: 'ttypescript',
+              rootMode: 'upward',
             },
-            exclude: /node_modules/,
           },
           {
             test: /\.css$/,
@@ -82,6 +89,15 @@ module.exports = {
           },
         ],
       },
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'ts-loader',
+      //   options: {
+      //     projectReferences: true,
+      //     compiler: 'ttypescript',
+      //   },
+      //   exclude: /node_modules/,
+      // },
     ],
   },
   resolve: {

@@ -12,6 +12,7 @@ module.exports = mainDir => {
   return [
     'module-resolver',
     {
+      root: ['../packages/new-polymath-ui'],
       alias: {
         /* Resolve local dependencies to the corresponding directory */
         '^@polymathnetwork/([^/]+)/(.+)': `@polymathnetwork/\\1/${mainDir}/\\2`,
@@ -21,6 +22,7 @@ module.exports = mainDir => {
           '@polymathnetwork/\\1/package.json',
         /* TODO @RafaelVidaurre: See if this is necessary */
         '^@polymathnetwork/(.+)': '@polymathnetwork/\\1',
+        '~/(.+)': './\1',
       },
     },
   ];
