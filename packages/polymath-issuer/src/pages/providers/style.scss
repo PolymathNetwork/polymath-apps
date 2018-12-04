@@ -44,13 +44,13 @@
 
     .provider-description {
       span {
+        white-space: nowrap;
         color: #3d70b2;
       }
     }
 
     .provider-applied {
       font-size: 12px;
-      font-weight: 300;
       color: #8c9ba5;
       display: inline-flex;
       align-items: center;
@@ -64,7 +64,6 @@
 
     p {
       font-size: 12px;
-      font-weight: 300;
       height: 150px;
     }
 

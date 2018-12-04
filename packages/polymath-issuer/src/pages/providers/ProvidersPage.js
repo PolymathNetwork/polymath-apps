@@ -5,6 +5,7 @@
 import type { SecurityToken } from '@polymathnetwork/js/types';
 import {
   Grid,
+  Heading,
   Countdown,
   Remark,
   Page,
@@ -378,9 +379,9 @@ class ProvidersPage extends Component<Props, State> {
                             <div className="provider-img">
                               <img src={p.logo} alt={p.title} />
                             </div>
-                            <h3 className="pui-h3">
+                            <Heading variant="h3">
                               {p.isToBeAnnounced ? 'SOON...' : p.title}
-                            </h3>
+                            </Heading>
                             <p className="provider-description">
                               {p.isToBeAnnounced
                                 ? 'To Be Announced'
