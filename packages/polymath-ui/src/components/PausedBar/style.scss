@@ -16,8 +16,7 @@
   }
 
   .pui-pausebar-warning {
-    margin-left: 120px;
-    margin-top: 11px;
+    margin-top: 12px;
     font-size: 16px;
     font-weight: 600;
     display: flex;
@@ -27,13 +26,13 @@
     color: $poly-blue;
 
     p {
+      margin-bottom: 0;
       color: $poly-gray-dark;
     }
   }
 
   .pui-pausebar-menu {
     float: right;
-    margin-right: 56px;
     margin-top: 8px;
     font-size: 14px;
     font-weight: 600;

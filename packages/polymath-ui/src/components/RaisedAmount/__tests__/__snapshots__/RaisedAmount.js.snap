@@ -17,6 +17,7 @@ exports[`renders without crashing 1`] = `
   padding: 10px 15px;
   border-radius: 4px;
   background-color: #EBF0F7;
+  min-width: 250px;
 }
 
 <div

@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import Heading from '../../Heading';
 import Button from '../../Button';
 
 import illustrationImgSrc from '../../../images/link-to-metamask.svg';
@@ -17,16 +18,16 @@ const AccessRequestedStatus = ({ onRequestAuth }: Props) => (
       src={illustrationImgSrc}
       alt="Polymath Studio to Metamask connection"
     />
-    <h1 className="pui-h1">
+    <Heading as="h1" variant="h1">
       To Proceed, Connect the Token Studio with Metamask
-    </h1>
-    <h3 className="pui-h3">
+    </Heading>
+    <Heading as="h3" variant="h4">
       The Polymath Token Studio uses the Metamask plugin to associate your
       profile and security token with your wallet. This association allows your
       wallet to be the key to controlling your security token. To use the
       Polymath Token Studio, simply open the metamask extension in your browser
       and follow the instructions.
-    </h3>
+    </Heading>
     <p>
       <Button onClick={onRequestAuth}>Connect to Metamask</Button>
     </p>

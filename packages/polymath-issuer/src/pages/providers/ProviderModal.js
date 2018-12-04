@@ -31,9 +31,9 @@ export default class ProviderModal extends Component<Props> {
         <ActionModal.Body>
           <img src={providerInfo.background} alt={providerInfo.title} />
           <Paragraph pt={3} fontSize={2}>
-            {providerInfo.desc.split('\n').map(item => {
+            {providerInfo.desc.split('\n').map((item, i) => {
               return (
-                <span>
+                <span key={i}>
                   {item}
                   <br />
                 </span>

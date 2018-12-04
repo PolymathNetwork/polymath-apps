@@ -23,7 +23,7 @@ SimpleTable.Table = styled.table`
   th,
   td {
     vertical-align: middle;
-    padding-left: ${({ theme }) => theme.space[3]}px;
+    padding-left: ${({ theme }) => theme.space[3]};
   }
 
   th {

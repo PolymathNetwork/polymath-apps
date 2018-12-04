@@ -4,7 +4,7 @@ exports[`renders without crashing 1`] = `
 .c0 {
   box-sizing: border-box;
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 4px;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   -webkit-align-items: end;

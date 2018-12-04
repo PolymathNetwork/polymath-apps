@@ -24,6 +24,7 @@ const ActionModal = (props: Props) => {
     actionButtonText,
     cancelButtonText,
     children,
+    ...otherProps
   } = props;
   return (
     <Modal
@@ -31,6 +32,7 @@ const ActionModal = (props: Props) => {
       className="pui-action-modal"
       onClose={onClose}
       onSubmit={onSubmit}
+      {...otherProps}
     >
       {children}
       <Modal.Footer>
@@ -49,7 +51,7 @@ ActionModal.defaultProps = {
   isActionDisabled: false,
   actionButtonText: 'Confirm',
   cancelButtonText: 'Cancel',
-  onClose: () => {},
+  onClose: null,
 };
 
 export default ActionModal;

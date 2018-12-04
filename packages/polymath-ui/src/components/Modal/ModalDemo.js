@@ -33,6 +33,7 @@ export default class ModalDemo extends React.Component {
           isOpen={this.state.isModalOpen}
           title="Modal test"
           onClose={this.handleModalClose.bind(this)}
+          {...this.props}
         >
           Some content.
         </Modal>

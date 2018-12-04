@@ -53,10 +53,7 @@ export const ConfigureSTOComponent = ({
           </Button>
           <h1 className="pui-h1">Security Token Offering Configuration</h1>
           <br />
-          <Grid
-            gridAutoFlow="column"
-            gridTemplateColumns="1.5fr minmax(400px, 1fr)"
-          >
+          <Grid gridTemplateColumns={['', '', '', '1.5fr minmax(400px, 1fr)']}>
             <div className="pui-page-box">
               <h2 className="pui-h2">{stoModule.title}</h2>
               <h4 className="pui-h4" style={{ marginBottom: '15px' }}>

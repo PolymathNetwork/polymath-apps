@@ -28,16 +28,11 @@
 
 .providers {
   .provider {
-    width: 297px;
-    height: 323px;
     color: #5a6872;
     padding-top: 40px;
     padding-left: 24px;
     padding-right: 24px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
-    float: left;
-    margin-right: 20px;
-    margin-top: 20px;
     cursor: pointer;
 
     .provider-img {
@@ -45,22 +40,17 @@
       display: flex;
       align-items: flex-end;
       margin-bottom: 23px;
-      
-      img{
-        height:50px;
-        max-width:250px;
-      }
     }
 
     .provider-description {
       span {
+        white-space: nowrap;
         color: #3d70b2;
       }
     }
 
     .provider-applied {
       font-size: 12px;
-      font-weight: 300;
       color: #8c9ba5;
       display: inline-flex;
       align-items: center;
@@ -74,7 +64,6 @@
 
     p {
       font-size: 12px;
-      font-weight: 300;
       height: 150px;
     }
 
@@ -126,6 +115,7 @@
   }
 
   .bx--tabs__nav {
+    overflow-x: auto;
     margin-left: 0;
     border-bottom: 1px solid #dfe3e6;
   }

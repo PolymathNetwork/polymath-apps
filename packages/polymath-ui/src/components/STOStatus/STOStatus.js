@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import type { SecurityToken, STODetails } from '@polymathnetwork/js/types';
 
 import { etherscanAddress } from '../../helpers';
+import Box from '../Box';
 import Countdown from '../Countdown';
 import ProgressBar from '../ProgressBar';
 
@@ -96,10 +97,9 @@ export default class STOStatus extends Component<Props> {
               {capText}
             </div>
           </div>
-          <ProgressBar
-            className="pui-sto-status-progress-bar"
-            progress={fractionComplete / 100}
-          />
+          <Box mb="l">
+            <ProgressBar progress={fractionComplete / 100} />
+          </Box>
           <div className="pui-sto-status-bottom-row">
             <div className="pui-sto-status-dates">
               <div className="pui-key-value">
@@ -139,8 +139,8 @@ export default class STOStatus extends Component<Props> {
                 notPausable
                   ? undefined
                   : this.props.isStoPaused
-                    ? 'RESUME STO'
-                    : 'PAUSE STO'
+                  ? 'RESUME STO'
+                  : 'PAUSE STO'
               }
               handleButtonClick={this.props.toggleStoPause}
               isPaused={this.props.isStoPaused}

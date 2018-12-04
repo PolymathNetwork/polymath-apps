@@ -1,12 +1,17 @@
 // @flow
 
 import { Button, Form } from 'carbon-components-react';
-import { Page, bull } from '@polymathnetwork/ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-import DocumentTitle from 'react-document-title';
-import { FormItem, TextInput } from '@polymathnetwork/ui';
+import {
+  bull,
+  PageCentered,
+  ContentBox,
+  Heading,
+  FormItem,
+  TextInput,
+} from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 
 import { confirmEmail } from '../actions/ticker';
@@ -54,27 +59,28 @@ const formikEnhancer = withFormik({
 const FormikEnhancedForm = formikEnhancer(ConfirmEmailFormComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
-class ConfirmEmailPage extends Component<Props> {
+class ConfirmEmailPage extends Component {
   render() {
     return (
-      <Page title="Confirm Email – Polymath">
-        <div className="pui-single-box">
+      <PageCentered title="Sign In – Polymath" id="verify-email-address">
+        <ContentBox maxWidth={735}>
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
               <img src={bull} alt="Bull" />
             </div>
-            <h1 className="pui-h1">Verify Your Email Address</h1>
-            <h3 className="pui-h4">
+            <Heading as="h1" variant="h1">
+              Verify Your Email Address
+            </Heading>
+            <Heading variant="h4" mr={200}>
               Please check that we can contact you at the email address below.
               Once you have confirmed your email address we&apos;ll
               <br />
               send you a copy of your transaction details.
-            </h3>
-            <div className="pui-clearfix" />
+            </Heading>
             <ConnectedForm />
           </div>
-        </div>
-      </Page>
+        </ContentBox>
+      </PageCentered>
     );
   }
 }
