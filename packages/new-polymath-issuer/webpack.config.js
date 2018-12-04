@@ -107,9 +107,9 @@ module.exports = {
         moduleName: '@polymathnetwork/new-issuer',
       }),
     ],
-    alias: {
-      '@polymathnetwork/new-ui': path.resolve(__dirname, '../new-polymath-ui'),
-    },
+    // alias: {
+    //   '@polymathnetwork/new-ui': path.resolve(__dirname, '../new-polymath-ui'),
+    // },
   },
   plugins: [
     new HtmlWebpackPlugin({
