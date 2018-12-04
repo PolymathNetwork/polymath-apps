@@ -51,15 +51,15 @@ class TxModal extends Component<DispatchProps & TxState> {
       modalHeading = error
         ? error.message
         : isFinished
-          ? successTitle
-          : 'Sign Transaction' + (Number(total) > 1 ? 's' : '');
+        ? successTitle
+        : 'Sign Transaction' + (Number(total) > 1 ? 's' : '');
     }
     let status = error ? 'alert' : isFinished ? 'success' : 'loading';
     let statusTitle = error
       ? 'Failed'
       : isFinished
-        ? 'Completed'
-        : 'Processing';
+      ? 'Completed'
+      : 'Processing';
 
     return (
       <Modal

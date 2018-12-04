@@ -86,8 +86,8 @@ class EnterPINModal extends Component<StateProps & DispatchProps & State> {
             isSuccess
               ? 'PIN is Correct'
               : isError
-                ? 'Invalid PIN, Please Try Again'
-                : 'Action Required'
+              ? 'Invalid PIN, Please Try Again'
+              : 'Action Required'
           }
         >
           Enter the PIN from the Activation Email

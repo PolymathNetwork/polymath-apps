@@ -139,8 +139,8 @@ export default class STOStatus extends Component<Props> {
                 notPausable
                   ? undefined
                   : this.props.isStoPaused
-                    ? 'RESUME STO'
-                    : 'PAUSE STO'
+                  ? 'RESUME STO'
+                  : 'PAUSE STO'
               }
               handleButtonClick={this.props.toggleStoPause}
               isPaused={this.props.isStoPaused}
