@@ -7,7 +7,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const DeclarationBundlerPlugin = require('declaration-bundler-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -121,12 +121,12 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
     // new WatchMissingNodeModulesPlugin(paths.appNodeModules),
-    new ForkTsCheckerWebpackPlugin({
-      async: false,
-      watch: 'src',
-      tsconfig: 'tsconfig.json',
-      tslint: 'tslint.json',
-    }),
+    // new ForkTsCheckerWebpackPlugin({
+    //   async: false,
+    //   watch: 'src',
+    //   tsconfig: 'tsconfig.json',
+    //   tslint: 'tslint.json',
+    // }),
   ],
   output: {
     pathinfo: true,
