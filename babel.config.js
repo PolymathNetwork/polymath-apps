@@ -18,7 +18,8 @@ const istanbulPlugin = [
  * a bug in babel (see https://github.com/babel/babel/issues/8909)
  */
 module.exports = {
-  babelrcRoots: [__dirname, `${__dirname}/../packages/*`],
+  babelrcRoots: [__dirname, `${__dirname}/packages/*`],
+  // babelrcRoots: [__dirname, ]
   plugins: [
     '@babel/proposal-export-default-from',
     '@babel/proposal-class-properties',

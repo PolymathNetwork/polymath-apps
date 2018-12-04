@@ -12,9 +12,11 @@ module.exports = mainDir => {
   return [
     'module-resolver',
     {
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      root: [`./src`],
       cwd: 'packagejson',
       alias: {
-        '~/(.+)': `./${mainDir}/`,
+        '~/(.+)': `./src`,
         /* Resolve local dependencies to the corresponding directory */
         '^@polymathnetwork/([^/]+)/(.+)': `@polymathnetwork/\\1/${mainDir}/\\2`,
         '^@polymathnetwork/(.+)$': `@polymathnetwork/\\1/${mainDir}`,

@@ -8,7 +8,6 @@ const DeclarationBundlerPlugin = require('declaration-bundler-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 // const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
 module.exports = {
   devtool: 'cheap-module-source-map',
   mode: 'development',
@@ -16,6 +15,7 @@ module.exports = {
     require.resolve('react-dev-utils/webpackHotDevClient'),
     path.resolve(__dirname, './src/index.ts'),
   ],
+  context: path.resolve(__dirname, '../'),
   module: {
     rules: [
       {
@@ -35,13 +35,12 @@ module.exports = {
           //   include: 'src',
           // },
           // {
-          // test: /\.tsx?$/,
-          // loader: 'ts-loader',
-          // options: {
-          //   projectReferences: true,
-          //   compiler: 'ttypescript',
-          // },
-          // exclude: /node_modules/,
+          //   test: /\.tsx?$/,
+          //   loader: 'ts-loader',
+          //   options: {
+          //     compiler: 'ttypescript',
+          //   },
+          //   exclude: /node_modules/,
           // },
           {
             test: /\.tsx?$/,
@@ -108,11 +107,14 @@ module.exports = {
         moduleName: '@polymathnetwork/new-issuer',
       }),
     ],
+    alias: {
+      '@polymathnetwork/new-ui': path.resolve(__dirname, '../new-polymath-ui'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: 'public/index.html',
+      template: __dirname + '/public/index.html',
     }),
 
     new webpack.NamedModulesPlugin(),
