@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Page, Grid, Remark } from '@polymathnetwork/ui';
+import { Heading, Page, Grid, Remark } from '@polymathnetwork/ui';
 
 import STOTemplatesList from './STOTemplatesList';
 import { useFactory } from '../../../actions/sto';
@@ -44,15 +44,16 @@ class SelectSTOTemplate extends Component<Props> {
                 Auditor to perform additional verification on the smart contract
                 you selected.
               </Remark>
-              <h1 className="pui-h1">Security Token Offering Templates</h1>
-              <h3 className="pui-h3">
+              <Heading as="h1" variant="h1">
+                Security Token Offering Templates
+              </Heading>
+              <Heading variant="h4" mb="xl">
                 Browse the STO templates below, and choose the template that
                 best fits your needs.
                 <br />
                 To select the template you desire, press &laquo;SELECT AND
                 CONFIGURE STO&raquo;.
-              </h3>
-              <br />
+              </Heading>
               <Grid gridGap={30} gridAutoFlow="row">
                 <STOTemplatesList />
               </Grid>
