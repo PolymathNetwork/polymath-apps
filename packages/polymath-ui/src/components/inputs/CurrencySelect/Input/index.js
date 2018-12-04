@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import Select, { components } from 'react-select';
 import { intersectionWith } from 'lodash';
@@ -82,7 +82,6 @@ const SelectContainer = styled(Box)`
   vertical-align: middle;
   min-width: 200px;
   margin-right: ${({ theme }) => theme.space[4]};
-  margin-bottom: ${({ theme }) => theme.space[1]};
 `;
 
 const Caret = styled(Icon)`
@@ -153,7 +152,7 @@ class Input extends React.Component<Props> {
     );
 
     return (
-      <Fragment>
+      <div>
         <SelectContainer>
           <Select
             closeMenuOnSelect={false}
@@ -184,7 +183,7 @@ class Input extends React.Component<Props> {
             />
           ) : null;
         })}
-      </Fragment>
+      </div>
     );
   }
 }
