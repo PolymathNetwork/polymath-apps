@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Heading, Page, Grid, Remark } from '@polymathnetwork/ui';
 
+import Progress from '../../token/components/Progress';
 import STOTemplatesList from './STOTemplatesList';
 import { useFactory } from '../../../actions/sto';
 
@@ -36,6 +37,7 @@ class SelectSTOTemplate extends Component<Props> {
       // $FlowFixMe
       <Page title={`Select ${token.ticker} STO Template – Polymath`}>
         <div>
+          <Progress />
           <div className="bx--row">
             <div className="bx--col-xs-12">
               <Remark title="Note">

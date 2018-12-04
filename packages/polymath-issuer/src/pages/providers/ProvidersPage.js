@@ -26,6 +26,7 @@ import {
 import ApplyModal from './ApplyModal';
 import ProviderModal from './ProviderModal';
 import { categories } from './data';
+import Progress from '../token/components/Progress';
 
 import type { RootState } from '../../redux/reducer';
 import type { SPStatus, SPCategory, ServiceProvider } from './data';
@@ -242,6 +243,7 @@ class ProvidersPage extends Component<Props, State> {
 
     return (
       <Page title={`${token.ticker} Providers – Polymath`}>
+        <Progress />
         <Remark title="Data Privacy">
           None of your data entered in the application form(s) is stored on
           Polymath servers or shared with any third party other than the firm(s)

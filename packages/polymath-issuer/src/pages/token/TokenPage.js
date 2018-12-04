@@ -34,6 +34,8 @@ import {
 import CompleteTokenForm from './components/CompleteTokenForm';
 import MintTokens from './components/MintTokens';
 
+import Progress from './components/Progress';
+
 import type { RootState } from '../../redux/reducer';
 
 import './style.scss';
@@ -147,6 +149,7 @@ class TokenPage extends Component<Props, State> {
     }
     return (
       <Page title={`${token.ticker} Token – Polymath`}>
+        <Progress />
         <Grid
           gridAutoFlow={['row', 'row', 'column']}
           gridAutoColumns="1fr 404px"
