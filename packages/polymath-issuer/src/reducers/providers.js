@@ -9,6 +9,7 @@ export type ProvidersState = {
 
 const defaultState: ProvidersState = {
   data: null,
+  application: {},
 };
 
 export default (state: ProvidersState = defaultState, action: Object) => {
@@ -17,6 +18,11 @@ export default (state: ProvidersState = defaultState, action: Object) => {
       return {
         ...state,
         data: action.providers,
+      };
+    case a.APPLICATION:
+      return {
+        ...state,
+        application: action.application,
       };
     default:
       return state;

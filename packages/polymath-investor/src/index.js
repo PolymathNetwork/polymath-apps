@@ -1,9 +1,14 @@
 // @flow
 
-import React from 'react';
+// Import Sass styles. Order is important.
+// $FlowFixMe
+import './app/style.scss';
+
+import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { GlobalStyles } from '@polymathnetwork/ui';
 
 import 'normalize.css/normalize.css';
 
@@ -18,7 +23,10 @@ const store = configureStore();
 render(
   <Provider store={store}>
     <BrowserRouter>
-      <RouteLoader />
+      <Fragment>
+        <GlobalStyles />
+        <RouteLoader />
+      </Fragment>
     </BrowserRouter>
   </Provider>,
   ((document.getElementById('root'): any): HTMLElement)

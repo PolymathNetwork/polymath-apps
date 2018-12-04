@@ -1,22 +1,16 @@
 import React from 'react';
 
 const SvgNetwork = props => (
-  <svg
-    viewBox="0 0 24 24"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    width="1em"
-    height="1em"
-    {...props}
-  >
+  <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
     <defs>
-      <path id="b" d="M0 0h1440v48H0z" />
+      <path id="network_svg__b" d="M0 0h1440v48H0z" />
       <filter
         x="0%"
         y="-1%"
         width="100.1%"
         height="104.2%"
         filterUnits="objectBoundingBox"
-        id="a"
+        id="network_svg__a"
       >
         <feOffset dy={1} in="SourceAlpha" result="shadowOffsetOuter1" />
         <feColorMatrix
@@ -27,8 +21,12 @@ const SvgNetwork = props => (
     </defs>
     <g fill="none" fillRule="evenodd">
       <g transform="translate(-751 -12)">
-        <use fill="#000" filter="url(#a)" xlinkHref="#b" />
-        <use fill="#FFF" xlinkHref="#b" />
+        <use
+          fill="#000"
+          filter="url(#network_svg__a)"
+          xlinkHref="#network_svg__b"
+        />
+        <use fill="#FFF" xlinkHref="#network_svg__b" />
       </g>
       <g>
         <path d="M0 0h24v24H0z" />

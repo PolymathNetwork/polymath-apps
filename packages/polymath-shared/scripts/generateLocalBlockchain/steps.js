@@ -5,9 +5,18 @@ const {
   BLOCKCHAIN_GAS_LIMIT,
   BLOCKCHAIN_MNEMONIC,
   BLOCKCHAIN_NETWORK_ID,
+  BLOCKCHAIN_URL,
+  WALLET_ADDRESSES,
+  DAI_AMOUNT,
+  LOCAL_PRIVATE_KEY,
+  GAS_PRICE,
+  INITIAL_ETHER,
   PACKAGE_ROOT_DIR,
 } = require('./constants');
+const Web3 = require('web3');
+const Tx = require('ethereumjs-tx');
 const { runCommand } = require('../utils');
+const BigNumber = require('bignumber.js');
 
 /**
  * Starts local blockchain through ganache-cli
@@ -20,9 +29,11 @@ async function startGanacheCLI() {
     // Set a directory to which ganache will write the state to
     `--db="${TEMP_BLOCKCHAIN_STATE_DIR}"`,
     // Set the block gas limit
-    `--gasLimit ${BLOCKCHAIN_GAS_LIMIT}`,
+    `--gasLimit=${BLOCKCHAIN_GAS_LIMIT}`,
     // Set a network id for ganache
     `-i=${BLOCKCHAIN_NETWORK_ID}`,
+    // Set an initial amount of ether for all wallets
+    `-e=${INITIAL_ETHER}`,
     `--mnemonic="${BLOCKCHAIN_MNEMONIC}"`,
     // Sets deterministic mode to ensure same accounts everytime
     '-d',
@@ -59,6 +70,70 @@ async function migrateContracts() {
 }
 
 /**
+ * Transfers 1 Million POLY (disguised as USD tokens) to each wallet
+ */
+async function transferDAI() {
+  const web3 = new Web3(BLOCKCHAIN_URL);
+  const PolyTokenFaucetArtifact = require('./build/contracts/PolyTokenFaucet.json');
+  const address =
+    PolyTokenFaucetArtifact.networks[BLOCKCHAIN_NETWORK_ID].address;
+  const abi = PolyTokenFaucetArtifact.abi;
+
+  const faucet = new web3.eth.Contract(abi, address);
+
+  console.log('===> Transferring DAI');
+  for (let beneficiary of WALLET_ADDRESSES) {
+    const action = faucet.methods.getTokens(
+      web3.utils.toWei(DAI_AMOUNT),
+      beneficiary
+    );
+
+    let block = await web3.eth.getBlock('latest');
+    let networkGasLimit = block.gasLimit;
+
+    const userAccount = await web3.eth.accounts.privateKeyToAccount(
+      LOCAL_PRIVATE_KEY
+    );
+
+    let gas = Math.round(
+      1.2 *
+        (await action.estimateGas({
+          from: userAccount.address,
+          value: undefined,
+        }))
+    );
+    if (gas > networkGasLimit) gas = networkGasLimit;
+
+    let nonce = await web3.eth.getTransactionCount(userAccount.address);
+    let actionABI = action.encodeABI();
+    let txParams = {
+      from: userAccount.address,
+      to: address,
+      data: actionABI,
+      gasLimit: gas,
+      gasPrice: GAS_PRICE,
+      nonce,
+      value: undefined,
+    };
+
+    const transaction = new Tx(txParams);
+    transaction.sign(
+      Buffer.from(userAccount.privateKey.replace('0x', ''), 'hex')
+    );
+    await web3.eth.sendSignedTransaction(
+      '0x' + transaction.serialize().toString('hex')
+    );
+    let balance = await faucet.methods.balanceOf(beneficiary).call();
+    let balanceInPoly = new BigNumber(balance).dividedBy(
+      new BigNumber(10).pow(18)
+    );
+    console.log(
+      `  ...DAI transferred to ${beneficiary}, balance: ${balanceInPoly.toNumber()}`
+    );
+  }
+}
+
+/**
  * Copies the relevant files into the repo and removes temp files
  */
 async function moveFilesAndCleaup() {
@@ -90,5 +165,6 @@ module.exports = {
   startGanacheCLI,
   compileContracts,
   migrateContracts,
+  transferDAI,
   moveFilesAndCleaup,
 };

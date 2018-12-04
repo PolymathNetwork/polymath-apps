@@ -1,25 +1,28 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { createGlobalStyle } from 'styled-components';
 
-const GlobalModalStyle = createGlobalStyle`
-  .bx--modal.pui-modal__overlay--after-open {
-    opacity: 1;
-    visibility: visible;
-    transition: all 150ms;
-    z-index: 9000;
-  }
+import { modalStyle, StyledIconButton } from './styles';
+import SvgClose from '../../images/icons/Close';
 
-  .bx--modal.pui-modal__overlay--before-close {
-    opacity: 0;
-    visibility: hidden;
-  }
-`;
+type Props = {|
+  children: Node,
+  className: string,
+  isOpen: boolean,
+  onClose: Function,
+  isCloseable: boolean,
+  theme: any,
+|};
 
-export default class Modal extends Component {
+type State = {|
+  forceClose: boolean,
+  isOpen: boolean,
+|};
+
+class Modal extends Component<Props, State> {
   static propTypes = {
     children: PropTypes.node.isRequired,
     isOpen: PropTypes.bool,
@@ -35,9 +38,10 @@ export default class Modal extends Component {
 
   state = {
     forceClose: false,
+    isOpen: false,
   };
 
-  handleCloseRequest() {
+  handleCloseRequest = () => {
     if (!this.props.isCloseable) {
       return;
     }
@@ -47,7 +51,7 @@ export default class Modal extends Component {
     } else {
       this.props.onClose();
     }
-  }
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
@@ -56,31 +60,37 @@ export default class Modal extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className, isCloseable, theme } = this.props;
     const { isOpen } = this.state;
 
     return (
-      <Fragment>
-        <GlobalModalStyle />
-        <ReactModal
-          isOpen={isOpen}
-          contentLabel="Modal"
-          closeTimeoutMS={2000}
-          className={{
-            base: `bx--modal-container pui-modal`,
-            afterOpen: 'pui-modal--after-open',
-            beforeClose: 'pui-modal--before-close',
-          }}
-          overlayClassName={{
-            base: `bx--modal pui-modal__overlay`,
-            afterOpen: 'pui-modal__overlay--after-open',
-            beforeClose: 'pui-modal__overlay--before-close',
-          }}
-          onRequestClose={this.handleCloseRequest.bind(this)}
-        >
-          {children}
-        </ReactModal>
-      </Fragment>
+      <ReactModal
+        isOpen={isOpen}
+        contentLabel="Modal"
+        closeTimeoutMS={theme.transitions.modal.ms}
+        className={{
+          base: 'pui-modal',
+          afterOpen: 'pui-modal--after-open',
+          beforeClose: 'pui-modal--before-close',
+        }}
+        overlayClassName={{
+          base: `pui-modal__overlay ${className}`,
+          afterOpen: 'pui-modal__overlay--after-open',
+          beforeClose: 'pui-modal__overlay--before-close',
+        }}
+        onRequestClose={this.handleCloseRequest}
+      >
+        {isCloseable && (
+          <StyledIconButton Icon={SvgClose} onClick={this.handleCloseRequest} />
+        )}
+        {children}
+      </ReactModal>
     );
   }
 }
+
+const StyledModal = styled(withTheme(Modal))`
+  ${modalStyle};
+`;
+
+export default StyledModal;

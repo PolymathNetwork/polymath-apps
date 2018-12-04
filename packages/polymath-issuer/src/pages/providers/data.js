@@ -78,7 +78,7 @@ const providers: Array<ServiceProvider> = [
     logo: '/providers/advisory/genesisblock.png',
     background: '/providers/advisory/bg/img-genesisblock.png',
     desc:
-      'Genesis Block provides strategic business and regulatory advisory, financial services,' +
+      'Genesis Block provides strategic business and regulatory advisory, financial services, ' +
       'and technology solutions to companies seeking to leverage blockchain technology in their core ' +
       'business and capital strategy. Our mission is to realize the disruptive potential of blockchain ' +
       'and foster its growth and adoption in every aspect of life.',
@@ -120,6 +120,16 @@ const providers: Array<ServiceProvider> = [
       'class service providers that will allow to meet regulatory requirements to issue securities by using ' +
       'a tokenized asset, traded in a token exchange.\n- Our Local affiliates will provide in-country service ' +
       'and communications while our Corporate team focuses on the interaction with our technology ecosystem.',
+  },
+  {
+    id: 23,
+    cat: 0,
+    title: 'Chain',
+    logo: '/providers/advisory/chain-par.png',
+    background: '/providers/advisory/bg/chain-par.png',
+    desc:
+      'Chain Partners is a blockchain company builder based in Seoul, Korea. We are a group of technologists, ' +
+      'entrepreneurs, and engineers, building the infrastructure for a decentralized future.',
   },
 
   // LEGAL

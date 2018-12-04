@@ -1,4 +1,4 @@
-@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+@import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
 
 .pui-pausebar {
   position: fixed;
@@ -8,7 +8,7 @@
   z-index: 10;
   width: 100%;
   height: $navbar-height;
-  background-color: #FCE8EA;
+  background-color: #fce8ea;
   box-shadow: 0 1px 0 0 $poly-red;
 
   > a {

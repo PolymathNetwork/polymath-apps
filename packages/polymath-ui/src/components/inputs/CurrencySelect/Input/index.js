@@ -1,12 +1,12 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Select, { components } from 'react-select';
+import { intersectionWith } from 'lodash';
 
 import Box from '../../../Box';
 import Icon from '../../../Icon';
-import theme from '../../../../theme';
 import CaretDownIcon from '../../../../images/icons/CaretDown';
 import CloseIcon from '../../../../images/icons/Close';
 
@@ -22,11 +22,12 @@ type Props = {|
   value: [string],
   onChange: Function,
   name: string,
+  theme: any,
   options?: [Option],
   onBlur?: Function,
 |};
 
-const styles = {
+const getStyles = theme => ({
   container: styles => ({
     ...styles,
     borderRadius: 0,
@@ -34,7 +35,7 @@ const styles = {
   control: (styles, state) => {
     return {
       ...styles,
-      backgroundColor: theme.colors.blue[0],
+      backgroundColor: theme.inputs.backgroundColor,
       borderRadius: 0,
       borderColor: 'transparent',
       '&:hover': {
@@ -74,13 +75,13 @@ const styles = {
     justifyContent: 'space-between',
     minWidth: '32px',
   }),
-};
+});
 
 const SelectContainer = styled(Box)`
   display: inline-block;
   vertical-align: middle;
   min-width: 200px;
-  margin-right: ${({ theme }) => theme.space[4]}px;
+  margin-right: ${({ theme }) => theme.space[4]};
 `;
 
 const Caret = styled(Icon)`
@@ -109,9 +110,9 @@ const ClearIndicator = props => {
   );
 };
 
-export default class Input extends React.Component<Props> {
+class Input extends React.Component<Props> {
   static defaultProps = {
-    options: currencyOptions,
+    options: currencyOptions.map(option => option.value),
   };
 
   handleRemove = (removedValue: string) => {
@@ -127,18 +128,28 @@ export default class Input extends React.Component<Props> {
     const { onChange } = this.props;
 
     return onChange(
-      Array.isArray(value) ? value.map(option => option.value) : value,
+      Array.isArray(value) ? value.map(option => option.value) : value.value,
       action
     );
   };
 
   render() {
-    const { value, options, onChange, onBlur, ...props } = this.props;
-    const selectedValue = Array.isArray(value)
-      ? value.map(
-          _value => options.find(option => option.value === _value) || {}
-        )
-      : value;
+    const { value, options, onChange, onBlur, theme, ...props } = this.props;
+
+    const filteredOptions = intersectionWith(
+      currencyOptions,
+      options,
+      (currency, symbol) => {
+        return currency.value === symbol;
+      }
+    );
+
+    const valueIsArray = Array.isArray(value);
+    const arrayValue = valueIsArray ? value : [value];
+
+    const selectedValue = arrayValue.map(
+      _value => filteredOptions.find(option => option.value === _value) || {}
+    );
 
     return (
       <div>
@@ -146,35 +157,35 @@ export default class Input extends React.Component<Props> {
           <Select
             closeMenuOnSelect={false}
             noOptionsMessage={() => null}
-            isClearable={Array.isArray(value) ? value.length : value}
-            isMulti={Array.isArray(value)}
-            styles={styles}
+            isClearable={valueIsArray ? value.length : value}
+            isMulti={valueIsArray}
+            styles={getStyles(theme)}
             components={{
               DropdownIndicator,
               ClearIndicator,
               IndicatorSeparator: null,
             }}
-            options={options}
+            options={filteredOptions}
             value={selectedValue}
             onChange={this.handleChange}
             onMenuClose={onBlur}
             {...props}
           />
         </SelectContainer>
-        {Array.isArray(value) &&
-          value.map(value => {
-            const option = options.find(option => option.value === value);
-
-            return option ? (
-              <Value
-                value={option.value}
-                key={value}
-                label={option.label}
-                onRemove={this.handleRemove}
-              />
-            ) : null;
-          })}
+        {arrayValue.map(value => {
+          const option = filteredOptions.find(option => option.value === value);
+          return option ? (
+            <Value
+              value={option.value}
+              key={value}
+              label={option.label}
+              onRemove={this.handleRemove}
+            />
+          ) : null;
+        })}
       </div>
     );
   }
 }
+
+export default withTheme(Input);

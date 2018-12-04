@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
-import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Button } from 'carbon-components-react';
 import type {
@@ -9,7 +8,7 @@ import type {
   STOPurchase,
   STODetails,
 } from '@polymathnetwork/js/types';
-import { NotFoundPage, STOStatus } from '@polymathnetwork/ui';
+import { Page, NotFoundPage, STOStatus } from '@polymathnetwork/ui';
 
 import {
   togglePauseSto,
@@ -59,7 +58,7 @@ class OverviewSTO extends Component<Props> {
       return <NotFoundPage />;
     }
     return (
-      <DocumentTitle title={`${token.ticker} STO Overview – Polymath`}>
+      <Page title={`${token.ticker} STO Overview – Polymath`}>
         <div>
           <Fragment>
             <h1 className="pui-h1">Security Token Overview</h1>
@@ -84,7 +83,7 @@ class OverviewSTO extends Component<Props> {
             </Button>
           </Fragment>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

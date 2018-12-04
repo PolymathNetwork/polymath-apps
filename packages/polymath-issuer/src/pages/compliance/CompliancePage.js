@@ -4,9 +4,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
-import DocumentTitle from 'react-document-title';
-import moment from 'moment';
 import {
+  Page,
   etherscanAddress,
   addressShortifier,
   confirm,
@@ -606,9 +605,8 @@ class CompliancePage extends Component<Props, State> {
     }
     // const paginatedRows = this.paginationRendering()
     return (
-      <DocumentTitle title="Compliance – Polymath">
+      <Page title="Compliance – Polymath">
         <div id="compliance">
-          <Progress />
           <h1 className="pui-h1">Token Whitelist</h1>
           <h3 className="pui-h3">
             Whitelisted addresses may hold, buy, or sell the security token and
@@ -766,7 +764,7 @@ class CompliancePage extends Component<Props, State> {
             </Modal>
           */}
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

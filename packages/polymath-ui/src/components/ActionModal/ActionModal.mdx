@@ -1,0 +1,25 @@
+---
+name: ActionModal
+menu: Modals
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import ActionModal from './';
+
+# ActionModal
+
+<PropsTable of={ActionModal} />
+
+## Basic usage
+
+<Playground>
+  <ActionModal
+    isOpen
+    actionButtonText="Button Text"
+    onSubmit={() => console.log('submit')}
+  >
+    <ActionModal.Header>A title</ActionModal.Header>
+    Some content.
+  </ActionModal>
+</Playground>

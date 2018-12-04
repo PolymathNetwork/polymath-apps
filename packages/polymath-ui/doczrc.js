@@ -7,6 +7,9 @@ export default {
   wrapper: 'src/components/DoczWrapper',
   plugins: [
     css({
+      preprocessor: 'postcss',
+    }),
+    css({
       preprocessor: 'sass',
     }),
   ],

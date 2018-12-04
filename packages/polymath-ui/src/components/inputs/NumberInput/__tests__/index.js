@@ -106,6 +106,33 @@ describe('NumberInput', () => {
     expect(input.value).toEqual('1,444');
   });
 
+  test('does not allow decimal points if maxDecimals is 0', () => {
+    const { getByTestId } = render(
+      <NumberInput value={1} name="foo" maxDecimals={0} />
+    );
+    const input = getByTestId('base-input');
+    fireEvent.change(input, { target: { value: '1.' } });
+    expect(input.value).toEqual('1');
+  });
+
+  test('truncates value to number of decimal places set by maxDecimals', () => {
+    const { getByTestId } = render(
+      <NumberInput value={1.234} name="foo" maxDecimals={3} />
+    );
+    const input = getByTestId('base-input');
+    fireEvent.change(input, { target: { value: '1.2345' } });
+    expect(input.value).toEqual('1.234');
+  });
+
+  test('truncates value to 18 decimals by default', () => {
+    const { getByTestId } = render(
+      <NumberInput value={1.222222222222222222} name="foo" />
+    );
+    const input = getByTestId('base-input');
+    fireEvent.change(input, { target: { value: '1.2222222222222222223' } });
+    expect(input.value).toEqual('1.222222222222222222');
+  });
+
   test('does not allow changes that reach a non-intermediate invalid state', () => {
     // Examples of these states are "0.." "00"
     const { getByTestId } = render(<NumberInput value={0} name="foo" />);
@@ -117,7 +144,7 @@ describe('NumberInput', () => {
     expect(input.value).toEqual('0.');
   });
 
-  test('calls onBlur when the input looses focus', () => {
+  test('calls onBlur when the input loses focus', () => {
     const onBlur = jest.fn();
     const { getByTestId } = render(
       <NumberInput value={0} name="foo" onBlur={onBlur} />

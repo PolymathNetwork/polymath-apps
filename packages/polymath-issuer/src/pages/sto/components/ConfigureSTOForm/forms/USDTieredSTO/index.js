@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
 import { FastField, withFormik } from 'formik';
 import moment from 'moment-timezone';
-import { Form, Tooltip, Button } from 'carbon-components-react';
-import Web3 from 'web3';
+import { Form, Button } from 'carbon-components-react';
 import BigNumber from 'bignumber.js';
-import validator from '@polymathnetwork/shared/validator';
+import validator from '@polymathnetwork/ui/validator';
 import {
   Box,
   Grid,
@@ -16,12 +15,23 @@ import {
   Heading,
   RaisedAmount,
   Remark,
+  Tooltip,
   TextInput,
   DatePickerInput,
   TimePickerSelect,
   NumberInput,
   CurrencySelect,
 } from '@polymathnetwork/ui';
+import {
+  validateEndDate,
+  validateEndTime,
+  validateTodayOrAfter,
+  validateStartTime,
+  REQUIRED_MESSAGE,
+  MIN_MESSAGE,
+  MORE_THAN_MESSAGE,
+  ADDRESS_MESSAGE,
+} from '../../validators';
 import InvestmentTiers from './InvestmentTiers';
 import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
@@ -30,8 +40,6 @@ import { configureSTO } from '../../../../../../actions/sto';
 import type { Dispatch } from 'redux';
 import type { RootState } from '../../../../../../redux/reducer';
 import type { FundRaiseType } from '../../../../../../constants';
-
-const TRANSACTION_TIME_BUFFER = 20 * 60 * 1000;
 
 type InvestmentTier = {|
   tokensAmount: number,
@@ -66,95 +74,16 @@ type ComponentProps = {|
   ticker: string,
   ...FormikProps,
 |};
-type ContainerProps = {|
-  dispatch: Dispatch<any>,
-  address: string,
-  ticker: string,
-  ...FormikProps,
-|};
-
-function validateEndTime(value) {
-  const startDate: Date = this.parent.startDate;
-  const startTime: number = this.parent.startTime;
-  const endDate: Date = this.parent.endDate;
-  if (!startDate || !startTime || !endDate) {
-    return true;
-  }
-  const startUnix = moment(startDate).unix() * 1000 + startTime;
-  const endUnix = moment(endDate).unix() * 1000 + value;
-  if (startUnix >= endUnix) {
-    return this.createError({ message: 'End time must be after start time.' });
-  }
-
-  return true;
-}
-
-function validateEndDate(value) {
-  const startDate: Date = this.parent.startDate;
-  const valid = moment(value).isSameOrAfter(startDate);
-
-  if (!valid) {
-    return this.createError({ message: 'End date must be after start date.' });
-  }
-  return true;
-}
-
-function todayOrAfter(value) {
-  const valid = moment(value).isSameOrAfter(moment(Date.now()).startOf('day'));
-  if (valid) {
-    return true;
-  }
-
-  return this.createError({ message: 'Start time must be today or later.' });
-}
-
-function validateStartTime(value) {
-  const startDate: Date = this.parent.startDate;
-
-  if (!startDate) {
-    return true;
-  }
-
-  const startUnix = moment(startDate).unix() * 1000 + value;
-  const nowUnix = moment(Date.now()).unix() * 1000;
-  const timeUntilStart = startUnix - nowUnix;
-
-  if (nowUnix >= startUnix) {
-    return this.createError({ message: 'Start time is in the past.' });
-  }
-  if (timeUntilStart < TRANSACTION_TIME_BUFFER) {
-    return this.createError({
-      message: 'Please allow for transaction processing time.',
-    });
-  }
-  return true;
-}
-
-function validateIsAddress(value) {
-  if (!Web3.utils.isAddress(value)) {
-    return this.createError({
-      message: 'Is an invalid address',
-    });
-  }
-
-  return true;
-}
-
-const requiredMessage = 'Required.';
-/* eslint-disable no-template-curly-in-string */
-const moreThanMessage = 'Must be higher than ${more}.';
-const minMessage = 'Must be at least ${min}.';
-/* eslint-enable no-template-curly-in-string */
 
 export const investmentTierSchema = validator.object().shape({
   tokensAmount: validator
     .bigNumber()
-    .isRequired(requiredMessage)
-    .moreThan(0, moreThanMessage),
+    .isRequired(REQUIRED_MESSAGE)
+    .moreThan(0, MORE_THAN_MESSAGE),
   tokenPrice: validator
     .bigNumber()
-    .isRequired(requiredMessage)
-    .moreThan(0, moreThanMessage),
+    .isRequired(REQUIRED_MESSAGE)
+    .moreThan(0, MORE_THAN_MESSAGE),
 });
 
 // TODO @RafaelVidaurre: Move reusable validators to yup singleton
@@ -162,41 +91,41 @@ const formSchema = validator.object().shape({
   date: validator.object().shape({
     startDate: validator
       .date()
-      .isRequired(requiredMessage)
-      .test('validateStartDate', todayOrAfter),
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartDate', validateTodayOrAfter),
     startTime: validator
       .number()
-      .isRequired(requiredMessage)
+      .isRequired(REQUIRED_MESSAGE)
       .test('validateStartTime', validateStartTime),
     endDate: validator
       .date()
-      .isRequired(requiredMessage)
+      .isRequired(REQUIRED_MESSAGE)
       .test('validateEndDate', validateEndDate),
     endTime: validator
       .number()
-      .isRequired(requiredMessage)
+      .isRequired(REQUIRED_MESSAGE)
       .test('validEndTime', validateEndTime),
   }),
   currencies: validator
     .array()
     .of(validator.string())
-    .isRequired(requiredMessage),
+    .isRequired(REQUIRED_MESSAGE),
   nonAccreditedMax: validator
     .bigNumber()
-    .isRequired(requiredMessage)
-    .min(0, minMessage),
+    .isRequired(REQUIRED_MESSAGE)
+    .min(0, MIN_MESSAGE),
   minimumInvestment: validator
     .bigNumber()
-    .isRequired(requiredMessage)
-    .min(0, minMessage),
+    .isRequired(REQUIRED_MESSAGE)
+    .min(0, MIN_MESSAGE),
   receiverAddress: validator
     .string()
-    .isRequired(requiredMessage)
-    .test('validateIsAddress', validateIsAddress),
+    .isRequired(REQUIRED_MESSAGE)
+    .isAddress(ADDRESS_MESSAGE),
   unsoldTokensAddress: validator
     .string()
-    .isRequired(requiredMessage)
-    .test('validateIsAddress', validateIsAddress),
+    .isRequired(REQUIRED_MESSAGE)
+    .isAddress(ADDRESS_MESSAGE),
   investmentTiers: validator.object().shape({
     isMultipleTiers: validator.boolean(),
     tiers: validator
@@ -236,7 +165,6 @@ const initialValues = {
 };
 
 export const USDTieredSTOFormComponent = ({
-  onSubmit,
   ticker,
   values,
   errors,
@@ -312,8 +240,8 @@ export const USDTieredSTOFormComponent = ({
           <FormItem.Label>
             <br />
             <Tooltip triggerText="Minimum investment for All investors">
-              <p className="bx--tooltip__label">
-                Minimum investment for All investors
+              <p>
+                <strong>Minimum investment for All investors</strong>
               </p>
               <p>
                 Any investment below this value, regardless of their origin
@@ -335,8 +263,10 @@ export const USDTieredSTOFormComponent = ({
         <FormItem name="nonAccreditedMax">
           <FormItem.Label>
             <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
-              <p className="bx--tooltip__label">
-                Maximum Investment for Non-Accredited Investors by Default
+              <p>
+                <strong>
+                  Maximum Investment for Non-Accredited Investors by Default
+                </strong>
               </p>
               <p>
                 By default, Investors are assumed to be non-accredited (i.e.
@@ -383,15 +313,20 @@ export const USDTieredSTOFormComponent = ({
       </Heading>
 
       <Remark title="Note">
-        Before submitting to the chain, we recommend that you test sending funds
-        to the wallet that is different from his own as well as retrieve funds
-        from this wallet.
+        Before we write these addresses to the blockchain, we recommend that you
+        test sending to and retrieving funds from them to make sure they
+        correspond to the wallets you would like to use.
       </Remark>
 
       <FormItem name="receiverAddress">
         <FormItem.Label>
           <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
-            <p className="bx--tooltip__label">
+            <p>
+              <strong>
+                ETH Address to Receive the Funds Raised During the STO
+              </strong>
+            </p>
+            <p>
               This wallet address will receive the funds raised during the STO.
               This address may be self-custodied or that of a fully custodied
               wallet.
@@ -408,7 +343,9 @@ export const USDTieredSTOFormComponent = ({
       <FormItem name="unsoldTokensAddress">
         <FormItem.Label>
           <Tooltip triggerText="ETH Address for Unsold Tokens">
-            <p className="bx--tooltip__label">ETH Address for Unsold Tokens</p>
+            <p>
+              <strong>ETH Address for Unsold Tokens</strong>
+            </p>
             <p>
               This wallet address will receive all tokens not sold across all
               tiers defined in the STO, by the time the STO reaches its end
@@ -445,7 +382,7 @@ const formikEnhancer = withFormik({
     return initialValues;
   },
   handleSubmit: (values: FormValues, { props }) => {
-    const { dispatch, address } = props;
+    const { dispatch } = props;
 
     const formattedValues = {
       startsAt:
@@ -475,29 +412,13 @@ const formikEnhancer = withFormik({
       data: formattedValues,
     };
 
-    dispatch(configureSTO(address, config)).catch(error => {
+    dispatch(configureSTO(config, 'USDTieredSTO')).catch(error => {
       throw error;
     });
   },
 });
 
-class USDTieredSTOFormContainer extends Component<ContainerProps> {
-  render() {
-    const { ticker, handleSubmit, errors, values, touched } = this.props;
-
-    return (
-      <USDTieredSTOFormComponent
-        errors={errors}
-        values={values}
-        touched={touched}
-        ticker={ticker}
-        handleSubmit={handleSubmit}
-      />
-    );
-  }
-}
-
-const FormikEnhancedForm = formikEnhancer(USDTieredSTOFormContainer);
+const FormikEnhancedForm = formikEnhancer(USDTieredSTOFormComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
 export default ConnectedForm;

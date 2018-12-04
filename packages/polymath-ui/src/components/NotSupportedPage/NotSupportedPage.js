@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import DocumentTitle from 'react-document-title';
 import { Button } from 'carbon-components-react';
 
+import Page from '../Page';
 import logo from '../../images/logo.svg';
 import illustration from '../../images/illustration.png';
 
@@ -10,7 +10,7 @@ import './style.scss';
 export default class NotSupportedPage extends Component {
   render() {
     return (
-      <DocumentTitle title="Polymath">
+      <Page title="Polymath">
         <div className="bx--row">
           <div className="bx--col-xs-12 dummy-page">
             <img src={logo} alt="Logo" className="logo-dark" />
@@ -27,7 +27,7 @@ export default class NotSupportedPage extends Component {
             </p>
           </div>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

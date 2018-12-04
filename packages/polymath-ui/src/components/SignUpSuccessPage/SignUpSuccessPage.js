@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Button, Icon } from 'carbon-components-react';
 import type { Node } from 'react';
 
+import Page from '../Page';
 import { emailConfirmed } from '../../redux/account/actions';
 
 type DispatchProps = {|
@@ -33,7 +33,7 @@ class SignUpSuccessPage extends Component<Props> {
 
   render() {
     return (
-      <DocumentTitle title="Sign Up – Polymath">
+      <Page title="Sign Up – Polymath">
         <div id="sign-up-success" className="pui-single-box">
           <p align="center" style={{ marginBottom: '15px', marginTop: '10px' }}>
             <Icon
@@ -56,7 +56,7 @@ class SignUpSuccessPage extends Component<Props> {
             </Button>
           </p>
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

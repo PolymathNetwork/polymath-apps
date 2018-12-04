@@ -1,12 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
-import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { reduce } from 'lodash';
 import { Button } from 'carbon-components-react';
 import {
+  Page,
   Box,
   ProgressBar,
   Countdown,
@@ -117,7 +117,7 @@ const USDTieredSTOOverviewComponent = ({
   const totalTokensSold = sto.totalTokensSold;
 
   return (
-    <DocumentTitle title={`${ticker} STO Overview – Polymath`}>
+    <Page title={`${ticker} STO Overview – Polymath`}>
       <div>
         <h1 className="pui-h1">Security Token Overview</h1>
         <br />
@@ -186,7 +186,7 @@ const USDTieredSTOOverviewComponent = ({
           <div className="pui-clearfix" />
         </div>
       </div>
-    </DocumentTitle>
+    </Page>
   );
 };
 
