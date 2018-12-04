@@ -3,6 +3,7 @@
 exports[`renders without crashing 1`] = `
 .c0 {
   vertical-align: middle;
+  line-height: 1;
   margin-right: 4px;
 }
 
