@@ -6,7 +6,6 @@ import { renderRoutes } from 'react-router-config';
 
 // eslint-disable-next-line no-unused-vars
 import {
-  PageWrap,
   Sidebar,
   icoBriefcase,
   icoInbox,
@@ -27,7 +26,6 @@ import type { RootState } from '../redux/reducer';
 import type { ServiceProvider } from '../pages/providers/data';
 
 import MigrateTokenPage from './MigrateTokenPage';
-import Progress from '../pages/token/components/Progress';
 
 type StateProps = {|
   token: ?SecurityToken,
@@ -158,9 +156,6 @@ class Dashboard extends Component<Props> {
           topItems={topSidebarItems}
           bottomItems={bottomSidebarItems}
         />
-        <PageWrap>
-          <Progress />
-        </PageWrap>
         {renderRoutes(route.routes)}
       </Fragment>
     );

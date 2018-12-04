@@ -3,10 +3,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
-import { Modal } from 'carbon-components-react';
 
 import { cancelConfirmEmail, confirmEmail } from '../../redux/account/actions';
 import EnterPINForm, { formName } from './EnterPINForm';
+
+import Modal from '../Modal';
 
 import type { RootState } from '../../redux/reducer';
 
@@ -23,6 +24,10 @@ type DispatchProps = {|
   reset: (formName: string) => any,
 |};
 
+type State = {
+  isLoading: boolean,
+};
+
 const mapStateToProps = (state: RootState): StateProps => ({
   email: state.pui.account.email,
   isEnterPINModalOpen: state.pui.account.isEnterPINModalOpen,
@@ -36,9 +41,22 @@ const mapDispatchToProps: DispatchProps = {
   reset,
 };
 
-class EnterPINModal extends Component<StateProps & DispatchProps> {
-  handleChange = (value: string) => {
-    this.props.confirmEmail(value);
+class EnterPINModal extends Component<StateProps & DispatchProps & State> {
+  state = {
+    isLoading: false,
+  };
+
+  handleChange = async (value: string) => {
+    try {
+      this.setState({
+        isLoading: true,
+      });
+      await this.props.confirmEmail(value);
+    } catch (e) {
+      this.setState({
+        isLoading: false,
+      });
+    }
   };
 
   handleClose = () => {
@@ -49,6 +67,7 @@ class EnterPINModal extends Component<StateProps & DispatchProps> {
   // eslint-disable-next-line
   render() {
     const { isSuccess, isError } = this.props;
+    const { isLoading } = this.state;
     return (
       <Modal
         className={
@@ -56,19 +75,23 @@ class EnterPINModal extends Component<StateProps & DispatchProps> {
           (isSuccess ? ' pui-tx-success' : '') +
           (isError ? ' pui-tx-failed' : '')
         }
-        open={this.props.isEnterPINModalOpen}
-        onRequestClose={this.handleClose}
-        passiveModal
-        modalHeading="Enter the PIN from the Activation Email"
-        modalLabel={
-          isSuccess
-            ? 'PIN is Correct'
-            : isError
-              ? 'Invalid PIN, Please Try Again'
-              : 'Action Required'
-        }
+        isOpen={this.props.isEnterPINModalOpen}
+        onClose={this.handleClose}
+        isCloseable={false}
+        status={isLoading && 'loading'}
       >
-        <div className="pui-tx-animation" />
+        <Modal.Header
+          status={isSuccess ? 'success' : isError ? 'alert' : 'idle'}
+          label={
+            isSuccess
+              ? 'PIN is Correct'
+              : isError
+                ? 'Invalid PIN, Please Try Again'
+                : 'Action Required'
+          }
+        >
+          Enter the PIN from the Activation Email
+        </Modal.Header>
         <EnterPINForm onChange={this.handleChange} />
       </Modal>
     );

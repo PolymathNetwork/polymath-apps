@@ -1,8 +1,6 @@
 @import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
 
 .pui-notice-bar {
-  position: fixed;
-  margin-top: -$navbar-height;
   height: $navbar-height;
   width: 100%;
   background: #db2c3e;

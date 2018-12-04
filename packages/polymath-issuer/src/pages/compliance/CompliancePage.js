@@ -607,6 +607,7 @@ class CompliancePage extends Component<Props, State> {
     return (
       <Page title="Compliance – Polymath">
         <div id="compliance">
+          <Progress />
           <h1 className="pui-h1">Token Whitelist</h1>
           <h3 className="pui-h3">
             Whitelisted addresses may hold, buy, or sell the security token and

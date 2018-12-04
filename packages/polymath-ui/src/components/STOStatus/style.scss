@@ -1,8 +1,6 @@
 @import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
 
 .pui-sto-status-contract {
-  color: $poly-gray-dark;
-  font-weight: 300;
   margin-bottom: 22px;
 
   a {
@@ -17,9 +15,6 @@
 
 .pui-sto-status-grow {
   flex-grow: 1;
-  padding-right: 40px !important;
-  width: calc(100% - 397px);
-  float: left;
 }
 
 .pui-sto-status-numbers {
@@ -30,22 +25,5 @@
   > * {
     // Align to bottom
     margin-top: auto;
-  }
-}
-
-.pui-sto-status-progress-bar {
-  margin-bottom: $spacing-xl;
-}
-
-.pui-sto-status-bottom-row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.pui-sto-status-dates {
-  display: flex;
-
-  > div {
-    padding-right: 34px;
   }
 }

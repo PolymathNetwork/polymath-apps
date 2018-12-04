@@ -4,6 +4,8 @@
 
 import type { SecurityToken } from '@polymathnetwork/js/types';
 import {
+  Grid,
+  Heading,
   Countdown,
   Remark,
   Page,
@@ -24,6 +26,7 @@ import {
 import ApplyModal from './ApplyModal';
 import ProviderModal from './ProviderModal';
 import { categories } from './data';
+import Progress from '../token/components/Progress';
 
 import type { RootState } from '../../redux/reducer';
 import type { SPStatus, SPCategory, ServiceProvider } from './data';
@@ -240,14 +243,15 @@ class ProvidersPage extends Component<Props, State> {
 
     return (
       <Page title={`${token.ticker} Providers – Polymath`}>
+        <Progress />
         <Remark title="Data Privacy">
           None of your data entered in the application form(s) is stored on
           Polymath servers or shared with any third party other than the firm(s)
           you decide to apply for.
         </Remark>
         <h1 className="pui-h1">Choose Your Providers</h1>
-        <div className="bx--row">
-          <div className="bx--col-xs-8">
+        <Grid.Row>
+          <Grid.Col gridSpan={[12, 12, 7]}>
             <h3 className="pui-h3">
               Your Polymath dashboard is integrated with several providers to
               streamline your on-boarding process and access to their services.
@@ -262,20 +266,22 @@ class ProvidersPage extends Component<Props, State> {
               same time nor have any obligation to select any of the providers
               below. You can always elect to use your own.
             </h3>
-          </div>
-          <div className="bx--col-xs-4 pui-countdown-container">
-            {!token.address && token.expires ? (
-              <Countdown
-                title="Time Left to Create Your Token"
-                deadline={token.expires}
-                buttonTitle="Create Your Token Now"
-                handleButtonClick={this.handleCreateToken}
-              />
-            ) : (
-              ''
-            )}
-          </div>
-        </div>
+          </Grid.Col>
+          <Grid.Col gridSpan={[12, 12, 5]}>
+            <div className="pui-countdown-container">
+              {!token.address && token.expires ? (
+                <Countdown
+                  title="Time Left to Create Your Token"
+                  deadline={token.expires}
+                  buttonTitle="Create Your Token Now"
+                  handleButtonClick={this.handleCreateToken}
+                />
+              ) : (
+                ''
+              )}
+            </div>
+          </Grid.Col>
+        </Grid.Row>
         <Tabs selected={this.state.tabSelected}>
           {categories.map((cat: SPCategory) => (
             <Tab
@@ -333,76 +339,82 @@ class ProvidersPage extends Component<Props, State> {
                 </div>
                 <div className="pui-clearfix" />
                 <div className="providers pui-no-select">
-                  {// eslint-disable-next-line complexity
-                  providers.map(
-                    (p: ServiceProvider) =>
-                      p.cat !== cat.id ? (
-                        ''
-                      ) : (
-                        <div
-                          role="button"
-                          key={p.id}
-                          onClick={() => this.handleProviderClick(p)}
-                          className={
-                            'provider' +
-                            (this.state.selected.includes(p.id)
-                              ? ' provider-selected'
-                              : '') +
-                            (p.progress && p.progress.isApplied
-                              ? ' provider-applied'
-                              : '') +
-                            (p.isToBeAnnounced
-                              ? ' provider-to-be-announced'
-                              : '') +
-                            (p.isIncreasedHeight
-                              ? ' provider-increased-height'
-                              : '')
-                          }
-                        >
-                          {p.progress && p.progress.isApplied ? (
-                            <div className="provider-applied">
-                              Applied
-                              <Icon name="checkmark--glyph" fill="#00AA5E" />
-                            </div>
-                          ) : (
-                            ''
-                          )}
-                          <div className="provider-img">
-                            <img src={p.logo} alt={p.title} />
-                          </div>
-                          <h3 className="pui-h3">
-                            {p.isToBeAnnounced ? 'SOON...' : p.title}
-                          </h3>
-                          <p className="provider-description">
-                            {p.isToBeAnnounced
-                              ? 'To Be Announced'
-                              : p.desc.substring(0, 300)}
-                            {p.desc.length > 300 ? (
-                              <span
-                                role="button"
-                                onClick={e => this.handleOpenModal(e, p)}
-                              >
-                                ... Read More
-                                <Icon
-                                  name="icon--arrow--right"
-                                  height="8"
-                                  fill="#3D70B2"
-                                />
-                              </span>
+                  <Grid
+                    gridTemplateColumns="repeat(auto-fill, minmax(280px, 1fr))"
+                    gridAutoRows="1fr"
+                    mt={4}
+                  >
+                    {// eslint-disable-next-line complexity
+                    providers.map(
+                      (p: ServiceProvider) =>
+                        p.cat !== cat.id ? (
+                          ''
+                        ) : (
+                          <div
+                            role="button"
+                            key={p.id}
+                            onClick={() => this.handleProviderClick(p)}
+                            className={
+                              'provider' +
+                              (this.state.selected.includes(p.id)
+                                ? ' provider-selected'
+                                : '') +
+                              (p.progress && p.progress.isApplied
+                                ? ' provider-applied'
+                                : '') +
+                              (p.isToBeAnnounced
+                                ? ' provider-to-be-announced'
+                                : '') +
+                              (p.isIncreasedHeight
+                                ? ' provider-increased-height'
+                                : '')
+                            }
+                          >
+                            {p.progress && p.progress.isApplied ? (
+                              <div className="provider-applied">
+                                Applied
+                                <Icon name="checkmark--glyph" fill="#00AA5E" />
+                              </div>
                             ) : (
                               ''
                             )}
-                          </p>
-                          {p.disclosure ? (
-                            <Remark title="Disclosure" small>
-                              {p.disclosure}
-                            </Remark>
-                          ) : (
-                            ''
-                          )}
-                        </div>
-                      )
-                  )}
+                            <div className="provider-img">
+                              <img src={p.logo} alt={p.title} />
+                            </div>
+                            <Heading variant="h3">
+                              {p.isToBeAnnounced ? 'SOON...' : p.title}
+                            </Heading>
+                            <p className="provider-description">
+                              {p.isToBeAnnounced
+                                ? 'To Be Announced'
+                                : p.desc.substring(0, 300)}
+                              {p.desc.length > 300 ? (
+                                <span
+                                  role="button"
+                                  onClick={e => this.handleOpenModal(e, p)}
+                                >
+                                  ... Read More
+                                  <Icon
+                                    name="icon--arrow--right"
+                                    height="8"
+                                    fill="#3D70B2"
+                                  />
+                                </span>
+                              ) : (
+                                ''
+                              )}
+                            </p>
+                            {p.disclosure ? (
+                              <Remark title="Disclosure" small>
+                                {p.disclosure}
+                              </Remark>
+                            ) : (
+                              ''
+                            )}
+                          </div>
+                        )
+                    )}
+                  </Grid>
                 </div>
               </div>
             </Tab>

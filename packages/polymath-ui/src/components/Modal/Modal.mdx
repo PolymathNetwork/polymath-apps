@@ -20,10 +20,22 @@ import ModalDemo from './ModalDemo';
   <ModalDemo />
 </Playground>
 
+## With status
+
+<Playground>
+  <ModalDemo status="success" />
+</Playground>
+
+## With loading
+
+<Playground>
+  <ModalDemo status="loading" />
+</Playground>
+
 ## Opened
 
 <Playground>
-  <Modal isOpen>
+  <Modal isOpen isLoading>
     <Modal.Header variant="alert" label="Confirmation required">
       Modal test
     </Modal.Header>

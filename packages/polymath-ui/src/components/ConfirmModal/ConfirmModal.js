@@ -37,12 +37,9 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
         className={'pui-confirm-modal ' + this.props.className}
         onClose={this.handleClose}
       >
-        <Modal.Header
-          status={this.props.isAlert ? 'warning' : 'alert'}
-          label={this.props.headerLabel}
-        >
+        <Modal.Header status="warning" label={this.props.headerLabel}>
           <span>
-            <Icon name="warning--glyph" fill="#E71D32" width="24" height="24" />
+            <Icon name="warning--glyph" fill="#EFC100" width="24" height="24" />
             &nbsp;
             {this.props.title}
           </span>
