@@ -166,6 +166,12 @@ $css--body: false;
 
 .bx--text-area {
   height: 80px;
+  font-family: $font;
+  background-color: $poly-gray-light;
+
+  &::placeholder {
+    color: $poly-gray-dark !important;
+  }
 }
 
 .bx--form-requirement {
@@ -233,6 +239,10 @@ $css--body: false;
 
   .bx--progress-step {
     align-items: center;
+
+    svg {
+      fill: $poly-blue;
+    }
   }
 
   .bx--progress-line {
