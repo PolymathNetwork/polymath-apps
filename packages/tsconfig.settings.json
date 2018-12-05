@@ -8,6 +8,7 @@
     "strict": true,
     "composite": true,
     "esModuleInterop": true,
+    "emitDeclarationOnly": true,
     "jsx": "react"
   }
 }

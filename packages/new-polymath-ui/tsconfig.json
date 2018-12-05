@@ -7,7 +7,12 @@
     "paths": {
       "~/*": ["*"]
     },
-    "plugins": [{ "transform": "../../config/absoluteToRelative.ts" }]
+    "plugins": [
+      {
+        "transform": "../../config/absoluteToRelative.ts",
+        "afterDeclarations": true
+      }
+    ]
   },
   "exclude": ["src/specsInit.ts", "build", "node_modules"]
 }

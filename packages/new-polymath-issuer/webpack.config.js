@@ -34,14 +34,6 @@ module.exports = {
           //   enforce: 'pre',
           //   include: 'src',
           // },
-          // {
-          //   test: /\.tsx?$/,
-          //   loader: 'ts-loader',
-          //   options: {
-          //     compiler: 'ttypescript',
-          //   },
-          //   exclude: /node_modules/,
-          // },
           {
             test: /\.tsx?$/,
             loader: 'babel-loader',

@@ -7,7 +7,12 @@
     "paths": {
       "~/*": ["*"]
     },
-    "plugins": [{ "transform": "../../config/absoluteToRelative.ts" }]
+    "plugins": [
+      {
+        "transform": "../../config/absoluteToRelative.ts",
+        "afterDeclarations": true
+      }
+    ]
   },
   "references": [{ "path": "../new-polymath-ui" }],
   "exclude": ["src/specsInit.ts", "build", "node_modules"]
