@@ -9,7 +9,7 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "concurrently --kill-others -n devServer,types \"webpack-dev-server\" \"tsc -b ../ --watch\""
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
@@ -34,6 +34,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "8.0.2",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "concurrently": "^4.1.0",
     "declaration-bundler-webpack-plugin": "^1.0.3",
     "fork-ts-checker-webpack-plugin": "^0.5.0",
     "html-webpack-plugin": "^3.2.0",
