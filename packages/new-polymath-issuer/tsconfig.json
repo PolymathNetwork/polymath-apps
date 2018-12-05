@@ -9,6 +9,9 @@
     },
     "plugins": [{ "transform": "../../config/absoluteToRelative.ts" }]
   },
-  "references": [{ "path": "../new-polymath-ui" }],
+  "references": [
+    { "path": "../new-polymath-ui" },
+    { "path": "../new-polymath-sdk" }
+  ],
   "exclude": ["src/specsInit.ts", "build", "node_modules"]
 }
