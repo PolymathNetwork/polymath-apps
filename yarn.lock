@@ -16384,6 +16384,10 @@ redux-mock-store@^1.2.3, redux-mock-store@^1.5.3:
   dependencies:
     lodash.isplainobject "^4.0.6"
 
+redux-saga@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.16.2.tgz#993662e86bc945d8509ac2b8daba3a8c615cc971"
+
 redux-seamless-immutable@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/redux-seamless-immutable/-/redux-seamless-immutable-0.4.0.tgz#b50f8680ecc5ef04021551267f78fa1ffd3cf985"
@@ -18933,6 +18937,10 @@ typedarray@^0.0.6:
 typeface-overpass@^0.0.54:
   version "0.0.54"
   resolved "https://registry.yarnpkg.com/typeface-overpass/-/typeface-overpass-0.0.54.tgz#968905e611db499d3de60c5f587516c4709ef805"
+
+typesafe-actions@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-2.0.4.tgz#31c8f8df3566d549eb52edb64a75997e970c17d0"
 
 typescript-eslint-parser@^16.0.0:
   version "16.0.1"

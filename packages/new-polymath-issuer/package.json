@@ -15,7 +15,9 @@
     "@babel/runtime": "7.0.0",
     "@polymathnetwork/new-ui": "0.0.0",
     "react": "16.5.2",
-    "react-dom": "16.5.2"
+    "react-dom": "16.5.2",
+    "redux-saga": "^0.16.2",
+    "typesafe-actions": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",

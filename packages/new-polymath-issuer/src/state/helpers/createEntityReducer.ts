@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 
-interface EntityState<T> {
+export interface EntityState<T> {
   byId: {
     [key: string]: T;
   };

@@ -4,7 +4,7 @@ import { Id } from '~/types';
 import * as actions from '~/state/actions/app';
 import { AppActions } from '~/state/actions/types';
 
-interface AppState {
+export interface AppState {
   activeTransactionGroup?: Id;
 }
 const initialState: AppState = {};
