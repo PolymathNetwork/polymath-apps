@@ -1,9 +1,11 @@
 // @flow
 
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { removeTier } from '../../../../../../actions/sto';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
-import { Toggle, Button } from 'carbon-components-react';
+import { Toggle, Button, Icon } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
 import BigNumber from 'bignumber.js';
 import {
@@ -114,6 +116,14 @@ class InvestmentTiers extends React.Component<Props, State> {
 
   handleAddNewTier = () => {
     this.setState({ isAddingTier: true });
+  };
+
+  handleRemoveTier = async (id, tiers) => {
+    const {
+      field: { value, name },
+      form: { setFieldValue },
+    } = this.props;
+    this.props.handleRemove(id, tiers, setFieldValue);
   };
 
   render() {
@@ -239,6 +249,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                               {header.header}
                             </TableHeader>
                           ))}
+                          <TableHeader>...</TableHeader>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -247,6 +258,18 @@ class InvestmentTiers extends React.Component<Props, State> {
                             {row.cells.map(cell => (
                               <TableCell key={cell.id}>{cell.value}</TableCell>
                             ))}
+                            {row.id > 0 ? (
+                              <TableCell>
+                                <Icon
+                                  name="icon--delete"
+                                  onClick={() => {
+                                    this.handleRemoveTier(row.id, value.tiers);
+                                  }}
+                                />
+                              </TableCell>
+                            ) : (
+                              <TableCell />
+                            )}
                           </TableRow>
                         ))}
                       </TableBody>
@@ -281,4 +304,11 @@ class InvestmentTiers extends React.Component<Props, State> {
   }
 }
 
-export default InvestmentTiers;
+const mapDispatchToProps = dispatch => ({
+  handleRemove: (id, tiers, setFieldValue) =>
+    dispatch(removeTier(id, tiers, setFieldValue)),
+});
+export default connect(
+  null,
+  mapDispatchToProps
+)(InvestmentTiers);
