@@ -1,1 +1,1 @@
-export * from './Polymath';
+export * from './classes';

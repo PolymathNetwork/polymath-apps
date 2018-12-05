@@ -5,6 +5,7 @@
   "typings": "build/dist/index.d.ts",
   "private": true,
   "dependencies": {
+    "@polymathnetwork/new-shared": "0.0.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

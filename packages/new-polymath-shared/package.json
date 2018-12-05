@@ -1,5 +1,5 @@
 {
-  "name": "@polymathnetwork/polymath-shared",
+  "name": "@polymathnetwork/new-shared",
   "version": "0.0.0",
   "main": "build/dist/index.js",
   "typings": "build/dist/index.d.ts",
