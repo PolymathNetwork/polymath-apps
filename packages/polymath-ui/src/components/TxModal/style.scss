@@ -21,55 +21,9 @@
     margin-bottom: 5px;
   }
 
-  .pui-tx-animation {
-    --borderWidth: 3px;
-    position: absolute;
-    top: -5px;
-    left: 3px;
-    z-index: 1;
-    width: 494px;
-    height: 2px;
-  }
-
-  .pui-tx-animation:after {
-    content: '';
-    position: absolute;
-    top: calc(-1 * var(--borderWidth));
-    left: calc(-1 * var(--borderWidth));
-    height: calc(100% + var(--borderWidth) * 2);
-    width: calc(100% + var(--borderWidth) * 2);
-    background: linear-gradient(
-      60deg,
-      #252e6a,
-      #5495e5,
-      #5495e5,
-      #5495e5,
-      #252e6a
-    );
-    z-index: -1;
-    animation: AnimatedGradient 3s infinite;
-    background-size: 300% 300%;
-  }
-
-  @keyframes AnimatedGradient {
-    0% {
-      background-position: 0 0;
-    }
-    50% {
-      background-position: 100% 0;
-    }
-    100% {
-      background-position: 0 0;
-    }
-  }
-
   &.pui-pin-modal {
     .bx--modal-close {
       display: flex !important;
-    }
-
-    .pui-tx-animation:after {
-      background: #5596e6;
     }
   }
 
@@ -83,19 +37,11 @@
     .bx--modal-header__label {
       color: $poly-green;
     }
-
-    .pui-tx-animation:after {
-      background: $poly-green;
-    }
   }
 
   &.pui-tx-failed {
     .bx--modal-header__label {
       color: $poly-red;
-    }
-
-    .pui-tx-animation:after {
-      background: $poly-red;
     }
   }
 

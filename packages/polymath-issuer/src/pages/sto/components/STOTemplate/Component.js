@@ -5,9 +5,10 @@ import React, { Component, Fragment } from 'react';
 import { Button, Icon } from 'carbon-components-react';
 import {
   Box,
+  Grid,
   LabeledItem,
   Paragraph,
-  InlineFlex,
+  IconText,
   etherscanAddress,
 } from '@polymathnetwork/ui';
 import { SECURITY_AUDIT_URL } from '../../../../constants';
@@ -44,28 +45,32 @@ export default class STOTemplateComponent extends Component<Props> {
       <LabeledItem>
         <LabeledItem.Label>Verified on Etherscan</LabeledItem.Label>
         {isVerified ? (
-          <InlineFlex as={Paragraph}>
-            <Icon name="checkmark--glyph" fill="#00AA5E" />
-            &nbsp;Yes
-          </InlineFlex>
+          <Paragraph>
+            <IconText>
+              <Icon name="checkmark--glyph" fill="#00AA5E" /> <span>Yes</span>
+            </IconText>
+          </Paragraph>
         ) : (
-          <InlineFlex as={Paragraph}>
-            <Icon name="close--glyph" fill="red" />
-            &nbsp;No
-          </InlineFlex>
+          <Paragraph>
+            <IconText>
+              <Icon name="close--glyph" fill="red" /> <span>No</span>
+            </IconText>
+          </Paragraph>
         )}
       </LabeledItem>
     );
     const securityAuditLink = (
       <LabeledItem>
         <LabeledItem.Label>Third Party Audit</LabeledItem.Label>
-        <InlineFlex as={Paragraph}>
-          <Icon name="checkmark--glyph" fill="#00AA5E" />
-          &nbsp;
-          <a href={SECURITY_AUDIT_URL} target="_blank">
-            Click here to see report
-          </a>
-        </InlineFlex>
+        <Paragraph>
+          <IconText>
+            <Icon name="checkmark--glyph" fill="#00AA5E" />
+            &nbsp;
+            <a href={SECURITY_AUDIT_URL} target="_blank">
+              Click here to see report
+            </a>
+          </IconText>
+        </Paragraph>
       </LabeledItem>
     );
 
@@ -85,17 +90,16 @@ export default class STOTemplateComponent extends Component<Props> {
         <br />
         <br />
         {pickingEnabled ? (
-          <div className="bx--row">
-            <div className="bx--col-xs-8">
+          <Grid.Row>
+            <Grid.Col gridSpan={[12, 8]}>
               {authorAddress}
               {desc}
-            </div>
-            <div className="bx--col-xs-2">&nbsp;</div>
-            <div className="bx--col-xs-2">
+            </Grid.Col>
+            <Grid.Col gridColumn={['1 / 13', '9 / span 4', '10 / span 3']}>
               {verifiedOnEtherscan}
               {securityAuditLink}
-            </div>
-          </div>
+            </Grid.Col>
+          </Grid.Row>
         ) : (
           <Fragment>
             <Box mb={4}>

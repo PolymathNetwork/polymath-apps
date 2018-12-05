@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { Icon, Button } from 'carbon-components-react';
 
+import PageWrap from '../PageWrap';
+
 import './style.scss';
 
 type StateProps = {|
@@ -38,29 +40,36 @@ class PausedBar extends Component<Props> {
   render() {
     return this.props.isTokenFrozen === true ? (
       <div className="pui-pausebar">
-        <div className="pui-pausebar-warning">
-          <Icon
-            name="icon--pause--outline"
-            fill="#E71D32"
-            width="24"
-            height="24"
-          />
-          &nbsp;All Transfers Paused&nbsp;&nbsp;
-          <p>
-            All transfers have been paused, including on-chain secondary
-            markets.
-          </p>
-        </div>
-        <ul className="pui-pausebar-menu">
-          <li>
-            <Button small onClick={this.handleUnFreezeModalOpen}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                RESUME TRANSFERS &nbsp;
-                <Icon name="icon--play" fill="#FFFFFF" width="16" height="16" />
-              </div>
-            </Button>
-          </li>
-        </ul>
+        <PageWrap>
+          <div className="pui-pausebar-warning">
+            <Icon
+              name="icon--pause--outline"
+              fill="#E71D32"
+              width="24"
+              height="24"
+            />
+            &nbsp;All Transfers Paused&nbsp;&nbsp;
+            <p>
+              All transfers have been paused, including on-chain secondary
+              markets.
+            </p>
+          </div>
+          <ul className="pui-pausebar-menu">
+            <li>
+              <Button small onClick={this.handleUnFreezeModalOpen}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  RESUME TRANSFERS &nbsp;
+                  <Icon
+                    name="icon--play"
+                    fill="#FFFFFF"
+                    width="16"
+                    height="16"
+                  />
+                </div>
+              </Button>
+            </li>
+          </ul>
+        </PageWrap>
       </div>
     ) : (
       ''

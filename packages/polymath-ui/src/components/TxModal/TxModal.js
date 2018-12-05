@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Loading, Icon, Button } from 'carbon-components-react';
 
+import Heading from '../Heading';
+import Paragraph from '../Paragraph';
 import Modal from '../Modal';
 
 import { txContinue } from './actions';
@@ -49,11 +51,15 @@ class TxModal extends Component<DispatchProps & TxState> {
       modalHeading = error
         ? error.message
         : isFinished
-          ? successTitle
-          : 'Sign Transaction' + (Number(total) > 1 ? 's' : '');
+        ? successTitle
+        : 'Sign Transaction' + (Number(total) > 1 ? 's' : '');
     }
-
-    let status = error ? 'Failed' : isFinished ? 'Completed' : 'Processing';
+    let status = error ? 'alert' : isFinished ? 'success' : 'loading';
+    let statusTitle = error
+      ? 'Failed'
+      : isFinished
+      ? 'Completed'
+      : 'Processing';
 
     return (
       <Modal
@@ -64,13 +70,10 @@ class TxModal extends Component<DispatchProps & TxState> {
         }
         isOpen={!!total}
         isCloseable={false}
+        status={status}
+        maxWidth={500}
       >
-        <div className="pui-tx-animation" />
-
-        <Modal.Header
-          status={error ? 'alert' : isFinished ? 'success' : 'idle'}
-          label={'Transaction ' + status}
-        >
+        <Modal.Header status={status} label={'Transaction ' + statusTitle}>
           {modalHeading}
         </Modal.Header>
 
@@ -93,7 +96,9 @@ class TxModal extends Component<DispatchProps & TxState> {
               )}
             </div>
             <div className="pui-tx-info">
-              <h3 className="pui-h3">{title}</h3>
+              <Heading as="h3" variant="h3" mb="s">
+                {title}
+              </Heading>
               <div className="pui-tx-details">
                 Transaction details on Etherscan:&nbsp;
                 {hashes[i] ? etherscanTx(hashes[i]) : '...'}
@@ -105,12 +110,10 @@ class TxModal extends Component<DispatchProps & TxState> {
         {isFinished && !this.props.isNoEmail ? (
           <div className="pui-tx-row pui-tx-email">
             <div className="pui-tx-icon">{icoPaperPlane}</div>
-            <div className="pui-tx-details">
-              <h4 className="pui-h4">
-                We just sent you an email with the transaction details for your
-                records. Check your inbox.
-              </h4>
-            </div>
+            <Paragraph fontSize={2}>
+              We just sent you an email with the transaction details for your
+              records. Check your inbox.
+            </Paragraph>
           </div>
         ) : (
           ''

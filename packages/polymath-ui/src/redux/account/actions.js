@@ -219,21 +219,22 @@ export const confirmEmail = (pin: string) => async (
     dispatch({ type: ENTER_PIN_DEFAULT });
     return;
   }
-  try {
-    await offchain.confirmEmail(pin);
-    // TODO @bshevchenko: show success screen
-    if (global.FS) {
-      const { email, name } = getState().pui.account;
-      const { account } = getState().network;
-      global.FS.identify(account, {
-        ethAddress: account,
-        email,
-        name,
-      });
-    }
-    dispatch({ type: ENTER_PIN_SUCCESS });
-  } catch (e) {
-    dispatch({ type: ENTER_PIN_ERROR });
+
+  await offchain.confirmEmail(pin);
+
+  if (global.FS) {
+    const { email, name } = getState().pui.account;
+    const { account } = getState().network;
+
+    global.FS.identify(account, {
+      ethAddress: account,
+      email,
+      name,
+    });
+
+    return dispatch({ type: ENTER_PIN_SUCCESS });
+  } else {
+    throw dispatch({ type: ENTER_PIN_ERROR });
   }
 };
 

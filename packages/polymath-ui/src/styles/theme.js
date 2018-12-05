@@ -1,3 +1,6 @@
+const breakpoints = ['42.5em', '64em', '80em'];
+// 680px, 1024px, 1280px
+
 const fontSizes = [
   '0.75rem', // 12px
   '0.875rem', // 14px
@@ -37,7 +40,7 @@ const space = [
   '16px',
   '23px',
   '30px',
-  '50px',
+  '48px',
   '80px',
   '120px',
 ];
@@ -72,7 +75,7 @@ const colors = {
 const headings = {
   h1: {
     color: colors.primary,
-    fontSize: fontSizes[9],
+    fontSize: fontSizes[8],
     fontWeight: fontWeights.bold,
   },
   h2: {
@@ -115,6 +118,7 @@ const footer = {
 };
 
 export default {
+  breakpoints,
   fontSizes,
   fontFamilies,
   fontWeights,

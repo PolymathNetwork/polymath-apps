@@ -9,33 +9,6 @@
   float: right;
 }
 
-.token-form {
-  .token-form-left {
-    float: left;
-    width: 255px;
-
-    .bx--radio-button-group {
-      display: block;
-      margin-top: 4px;
-
-      .radioButtonWrapper {
-        margin-bottom: 14px;
-
-        .bx--radio-button__label {
-          font-size: 16px;
-          font-family: 'Overpass', sans-serif !important;
-        }
-      }
-    }
-  }
-
-  .token-form-right {
-    float: left;
-    margin-left: 60px;
-    width: 440px;
-  }
-}
-
 .ticker-field {
   margin-top: 13px;
 }

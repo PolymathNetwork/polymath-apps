@@ -40,11 +40,17 @@ const StyledContainer = styled.div`
 
 const StyledText = styled.span`
   vertical-align: middle;
+  line-height: 1;
   margin-right: 4px;
 `;
 
 const StyledIcon = styled(Icon)`
-  color: ${({ theme }) => theme.colors.blue[1]};
+  transition: ${({ theme }) => `color ${theme.transitions.hover.ms}ms`};
+  color: ${({ theme }) => theme.colors.secondary};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.blue[0]};
+  }
 `;
 
 const Tooltip = ({ triggerText, children, id }) => (

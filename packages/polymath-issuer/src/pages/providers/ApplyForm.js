@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Tooltip, Button } from 'carbon-components-react';
-import { FormItem, TextInput, TextArea } from '@polymathnetwork/ui';
+import { Form, Button } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
+import { Tooltip, FormItem, TextInput, TextArea } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 
 import { applyProviders } from '../../actions/providers';
@@ -179,9 +179,10 @@ const formikEnhancer = withFormik({
     };
   },
   handleSubmit: (values, { props }) => {
-    const { dispatch, selectedProviders } = props;
+    const { dispatch, selectedProviders, onClose } = props;
 
     dispatch(applyProviders(selectedProviders, values));
+    onClose();
   },
 });
 

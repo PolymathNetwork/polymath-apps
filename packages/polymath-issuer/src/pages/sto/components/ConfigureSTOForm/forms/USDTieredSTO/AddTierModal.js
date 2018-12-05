@@ -2,18 +2,12 @@
 
 import React, { Component } from 'react';
 import { get } from 'lodash';
-import {
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  Tooltip,
-} from 'carbon-components-react';
 import BigNumber from 'bignumber.js';
 import {
   Grid,
-  Modal,
+  ActionModal,
   FormItem,
+  Tooltip,
   NumberInput,
   Paragraph,
   RaisedAmount,
@@ -79,9 +73,15 @@ class AddTierModal extends Component {
     const tierUsdAmount = tokenPrice.times(tierTokensAmount);
 
     return (
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalHeader title={title} closeModal={onClose} />
-        <ModalBody>
+      <ActionModal
+        isOpen={isOpen}
+        onClose={onClose}
+        actionButtonText="Add new"
+        onSubmit={this.handleOnAdd}
+        maxWidth={740}
+      >
+        <ActionModal.Header>{title}</ActionModal.Header>
+        <ActionModal.Body>
           <Paragraph>
             Each tier includes a fixed number of tokens and a fixed price per
             token. Provide the necessary information below to add a new
@@ -131,15 +131,8 @@ class AddTierModal extends Component {
               />
             </Grid.Item>
           </Grid>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button className="cancel-btn" kind="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button onClick={this.handleOnAdd}>Add new</Button>
-        </ModalFooter>
-      </Modal>
+        </ActionModal.Body>
+      </ActionModal>
     );
   }
 }

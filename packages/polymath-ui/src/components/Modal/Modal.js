@@ -5,7 +5,12 @@ import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-import { modalStyle, StyledIconButton } from './styles';
+import {
+  modalStyle,
+  StyledInner,
+  StyledIconButton,
+  StyledStatusBar,
+} from './styles';
 import SvgClose from '../../images/icons/Close';
 
 type Props = {|
@@ -14,6 +19,7 @@ type Props = {|
   isOpen: boolean,
   onClose: Function,
   isCloseable: boolean,
+  status: ?'loading' | 'idle' | 'warning' | 'alert' | 'success',
   theme: any,
 |};
 
@@ -60,7 +66,7 @@ class Modal extends Component<Props, State> {
   }
 
   render() {
-    const { children, className, isCloseable, theme } = this.props;
+    const { children, className, isCloseable, theme, status } = this.props;
     const { isOpen } = this.state;
 
     return (
@@ -80,10 +86,11 @@ class Modal extends Component<Props, State> {
         }}
         onRequestClose={this.handleCloseRequest}
       >
+        {status && <StyledStatusBar status={status} />}
         {isCloseable && (
           <StyledIconButton Icon={SvgClose} onClick={this.handleCloseRequest} />
         )}
-        {children}
+        <StyledInner>{children}</StyledInner>
       </ReactModal>
     );
   }

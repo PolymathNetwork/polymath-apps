@@ -7,6 +7,8 @@ import React, { Component, Fragment } from 'react';
 import { Form, Button, Link } from 'carbon-components-react';
 import { Field, reduxForm } from 'redux-form';
 
+import Paragraph from '../Paragraph';
+
 import { CheckboxInput, TextInput } from '../../deprecated/components/inputs';
 import { required, maxLength, email } from '../../deprecated/validate';
 
@@ -45,11 +47,10 @@ class SignUpForm extends Component<Props> {
             className="pui-checkbox-small-text"
             label={
               <Fragment>
-                <p>
+                <Paragraph mb={0}>
                   I accept that Polymath may contact me via email to send me
                   updates on my token issuance process.
-                </p>
-                <p>
+                  <br />
                   For more details, please consult our{' '}
                   <Link
                     target="_blank"
@@ -57,7 +58,7 @@ class SignUpForm extends Component<Props> {
                   >
                     Privacy Policy
                   </Link>
-                </p>
+                </Paragraph>
               </Fragment>
             }
           />
@@ -66,7 +67,7 @@ class SignUpForm extends Component<Props> {
             component={CheckboxInput}
             className="pui-checkbox-small-text"
             label={
-              <p>
+              <Paragraph mb={0}>
                 I accept the&nbsp;
                 <Link
                   target="_blank"
@@ -74,7 +75,7 @@ class SignUpForm extends Component<Props> {
                 >
                   Terms of Service
                 </Link>
-              </p>
+              </Paragraph>
             }
           />
         </div>
