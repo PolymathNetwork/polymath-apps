@@ -1,7 +1,7 @@
 {
   "files": [],
   "references": [
-    { "path": "new-polymath-issuer" },
-    { "path": "new-polymath-ui" }
+    { "path": "./new-polymath-issuer" },
+    { "path": "./new-polymath-ui" }
   ]
 }

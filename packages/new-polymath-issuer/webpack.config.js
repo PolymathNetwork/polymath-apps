@@ -13,7 +13,7 @@ module.exports = {
   mode: 'development',
   entry: [
     require.resolve('react-dev-utils/webpackHotDevClient'),
-    path.resolve(__dirname, './src/index.ts'),
+    path.resolve(__dirname, './src/index.tsx'),
   ],
   context: path.resolve(__dirname, '../'),
   module: {
@@ -99,7 +99,7 @@ module.exports = {
       }),
     ],
     // alias: {
-    //   '@polymathnetwork/new-ui': path.resolve(__dirname, '../new-polymath-ui'),
+    // Aliases would go here
     // },
   },
   plugins: [
