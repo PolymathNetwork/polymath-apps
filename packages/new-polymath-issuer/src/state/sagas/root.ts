@@ -1,7 +1,7 @@
 // import { takeEvery } from 'redux-saga';
 
+// Temporary...
 export function* watchSession() {
-  // takeEvery()
   yield;
 }
 
