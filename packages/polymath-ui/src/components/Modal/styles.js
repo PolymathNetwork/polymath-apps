@@ -32,7 +32,7 @@ export const modalStyle = css`
       ${props =>
         props.maxWidth
           ? maxWidth({ ...props, maxWidth: props.maxWidth })
-          : 'max-width: 50%'};
+          : 'max-width: 55%'};
       max-height: 80%;
     }
 
