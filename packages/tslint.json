@@ -1,0 +1,12 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "quotemark": [true, "single", "jsx-double", "avoid-escape"],
+    "no-redundant-jsdoc": true,
+    "interface-name": false,
+    "no-floating-promises": true,
+    "no-unused-variable": true,
+    "no-unused-expression": true,
+    "ordered-imports": false
+  }
+}
