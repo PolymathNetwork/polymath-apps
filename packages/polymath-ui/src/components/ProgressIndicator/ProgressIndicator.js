@@ -4,11 +4,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Flex from '../Flex';
-
 type Props = {
-  currentIndex: number,
-  className: string,
+  currentIndex?: number,
+  className?: string,
   children?: React.Node,
 };
 
