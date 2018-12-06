@@ -56,7 +56,7 @@ class SelectSTOTemplate extends Component<Props> {
                 To select the template you desire, press &laquo;SELECT AND
                 CONFIGURE STO&raquo;.
               </Heading>
-              <Grid gridGap={30} gridAutoFlow="row">
+              <Grid gridAutoFlow="row" gridTemplateColumns={false}>
                 <STOTemplatesList />
               </Grid>
             </div>

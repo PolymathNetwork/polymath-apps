@@ -345,73 +345,74 @@ class ProvidersPage extends Component<Props, State> {
                     mt={4}
                   >
                     {// eslint-disable-next-line complexity
-                    providers.map((p: ServiceProvider) =>
-                      p.cat !== cat.id ? (
-                        ''
-                      ) : (
-                        <div
-                          role="button"
-                          key={p.id}
-                          onClick={() => this.handleProviderClick(p)}
-                          className={
-                            'provider' +
-                            (this.state.selected.includes(p.id)
-                              ? ' provider-selected'
-                              : '') +
-                            (p.progress && p.progress.isApplied
-                              ? ' provider-applied'
-                              : '') +
-                            (p.isToBeAnnounced
-                              ? ' provider-to-be-announced'
-                              : '') +
-                            (p.isIncreasedHeight
-                              ? ' provider-increased-height'
-                              : '')
-                          }
-                        >
-                          {p.progress && p.progress.isApplied ? (
-                            <div className="provider-applied">
-                              Applied
-                              <Icon name="checkmark--glyph" fill="#00AA5E" />
-                            </div>
-                          ) : (
-                            ''
-                          )}
-                          <div className="provider-img">
-                            <img src={p.logo} alt={p.title} />
-                          </div>
-                          <Heading variant="h3">
-                            {p.isToBeAnnounced ? 'SOON...' : p.title}
-                          </Heading>
-                          <p className="provider-description">
-                            {p.isToBeAnnounced
-                              ? 'To Be Announced'
-                              : p.desc.substring(0, 300)}
-                            {p.desc.length > 300 ? (
-                              <span
-                                role="button"
-                                onClick={e => this.handleOpenModal(e, p)}
-                              >
-                                ... Read More
-                                <Icon
-                                  name="icon--arrow--right"
-                                  height="8"
-                                  fill="#3D70B2"
-                                />
-                              </span>
+                    providers.map(
+                      (p: ServiceProvider) =>
+                        p.cat !== cat.id ? (
+                          ''
+                        ) : (
+                          <div
+                            role="button"
+                            key={p.id}
+                            onClick={() => this.handleProviderClick(p)}
+                            className={
+                              'provider' +
+                              (this.state.selected.includes(p.id)
+                                ? ' provider-selected'
+                                : '') +
+                              (p.progress && p.progress.isApplied
+                                ? ' provider-applied'
+                                : '') +
+                              (p.isToBeAnnounced
+                                ? ' provider-to-be-announced'
+                                : '') +
+                              (p.isIncreasedHeight
+                                ? ' provider-increased-height'
+                                : '')
+                            }
+                          >
+                            {p.progress && p.progress.isApplied ? (
+                              <div className="provider-applied">
+                                Applied
+                                <Icon name="checkmark--glyph" fill="#00AA5E" />
+                              </div>
                             ) : (
                               ''
                             )}
-                          </p>
-                          {p.disclosure ? (
-                            <Remark title="Disclosure" small>
-                              {p.disclosure}
-                            </Remark>
-                          ) : (
-                            ''
-                          )}
-                        </div>
-                      )
+                            <div className="provider-img">
+                              <img src={p.logo} alt={p.title} />
+                            </div>
+                            <Heading variant="h3">
+                              {p.isToBeAnnounced ? 'SOON...' : p.title}
+                            </Heading>
+                            <p className="provider-description">
+                              {p.isToBeAnnounced
+                                ? 'To Be Announced'
+                                : p.desc.substring(0, 300)}
+                              {p.desc.length > 300 ? (
+                                <span
+                                  role="button"
+                                  onClick={e => this.handleOpenModal(e, p)}
+                                >
+                                  ... Read More
+                                  <Icon
+                                    name="icon--arrow--right"
+                                    height="8"
+                                    fill="#3D70B2"
+                                  />
+                                </span>
+                              ) : (
+                                ''
+                              )}
+                            </p>
+                            {p.disclosure ? (
+                              <Remark title="Disclosure" small>
+                                {p.disclosure}
+                              </Remark>
+                            ) : (
+                              ''
+                            )}
+                          </div>
+                        )
                     )}
                   </Grid>
                 </div>

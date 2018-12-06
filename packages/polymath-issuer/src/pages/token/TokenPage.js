@@ -150,10 +150,7 @@ class TokenPage extends Component<Props, State> {
     return (
       <Page title={`${token.ticker} Token – Polymath`}>
         <Progress />
-        <Grid
-          gridAutoFlow={['row', 'row', 'column']}
-          gridAutoColumns="1fr 404px"
-        >
+        <Grid gridTemplateColumns={['', '', '1fr 404px']}>
           {!token.address && token.expires ? (
             <div className="create-token-wrapper">
               <div className="pui-page-box">
