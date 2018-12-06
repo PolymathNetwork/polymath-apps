@@ -196,7 +196,7 @@ export const importWhitelist = () => async (
           );
         }
       },
-      'Investors has been added successfully',
+      'Investors have been added successfully',
       () => {
         dispatch(resetUploaded());
       },
