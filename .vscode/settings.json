@@ -7,5 +7,7 @@
     "**/flow-typed": true,
     "**/build": true
   },
-  "flow.pathToFlow": "./node_modules/.bin/flow"
+  "flow.enabled": false,
+  "eslint.enable": false,
+  "tslint.enable": true
 }

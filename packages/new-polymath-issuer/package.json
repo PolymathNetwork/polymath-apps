@@ -1,0 +1,57 @@
+{
+  "name": "@polymathnetwork/new-issuer",
+  "version": "0.0.0",
+  "main": "build/dist/index.js",
+  "typings": "build/dist/index.d.ts",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=8.9"
+  },
+  "scripts": {
+    "start": "concurrently --kill-others -n devServer,types \"webpack-dev-server\" \"ttsc -b ../ --watch\""
+  },
+  "dependencies": {
+    "@babel/runtime": "7.0.0",
+    "@polymathnetwork/new-ui": "0.0.0",
+    "@polymathnetwork/polymath-sdk": "0.0.0",
+    "react": "16.5.2",
+    "react-dom": "16.5.2",
+    "redux-saga": "^0.16.2",
+    "typesafe-actions": "^2.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "7.1.0",
+    "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/plugin-proposal-export-default-from": "7.0.0",
+    "@babel/plugin-syntax-async-generators": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/preset-typescript": "7.0.0",
+    "@types/node": "^10.12.12",
+    "@types/react": "16.7.13",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-redux": "^6.0.10",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "8.0.2",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "concurrently": "^4.1.0",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
+    "dotenv": "^6.2.0",
+    "dotenv-safe": "^6.1.0",
+    "fork-ts-checker-webpack-plugin": "^0.5.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.6.0",
+    "lodash": "^4.17.11",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "react-dev-utils": "^6.1.1",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.1",
+    "webpack": "^4.26.1",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
