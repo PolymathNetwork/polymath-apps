@@ -3,13 +3,9 @@ import { types } from '@polymathnetwork/new-shared';
 import { FooItem } from './FooItem';
 
 /**
- * Example of a component that has components exclusively associated to
+ * Example of a function component that has components that are only associated to
  * it.
  */
-
-interface Foo {
-  bar: string;
-}
 
 interface Props {
   transactions: types.Transaction[];
