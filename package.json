@@ -33,6 +33,7 @@
     "flow:create-stubs": "flow-mono create-stubs --use-root",
     "flow:install-types": "flow-mono install-types --overwrite --ignoreDeps=peer",
     "flow:align-versions": "flow-mono align-versions",
+    "postinstall": "rm -f node_modules/web3/index.d.ts node_modules/web3/types.d.ts",
     "heroku-postbuild": "yarn build:heroku-apps"
   },
   "devDependencies": {
