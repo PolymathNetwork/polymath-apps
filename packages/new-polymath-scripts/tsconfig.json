@@ -14,5 +14,6 @@
       }
     ]
   },
+  "include": ["../../../node_modules/@machinomy/types-truffle/index.d.ts"],
   "exclude": ["src/specsInit.ts", "build", "node_modules"]
 }

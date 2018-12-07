@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@types/uuid": "^3.4.4",
+    "@types/node": "^10.12.12",
     "reflect-metadata": "^0.1.12",
     "typescript": "^3.1.6"
   }
