@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/react": "16.7.13",
     "@types/react-dom": "^16.0.11",
-    "typescript": "^3.1.6",
+    "typescript": "^3.2.1",
     "@babel/core": "7.1.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",
     "@babel/plugin-proposal-export-default-from": "7.0.0",

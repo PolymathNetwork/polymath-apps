@@ -59,6 +59,7 @@
     "prettier-eslint-cli": "^4.7.1",
     "source-map-explorer": "^1.6.0",
     "tsconfig-paths": "^3.7.0",
+    "tslint-react": "^3.6.0",
     "ttypescript": "^1.5.5",
     "typescript": "^3.2.1"
   },

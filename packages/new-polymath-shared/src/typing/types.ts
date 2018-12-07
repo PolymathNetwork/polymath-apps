@@ -52,7 +52,7 @@ export interface Wallet {
   id: Id;
   address: Address;
   identity?: Identity;
-  balances: { [key in Tokens]: BigNumber };
+  balance?: BigNumber;
 }
 export interface Identity {
   id: Id;

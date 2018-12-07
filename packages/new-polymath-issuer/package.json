@@ -15,10 +15,12 @@
     "@babel/runtime": "7.0.0",
     "@polymathnetwork/new-ui": "0.0.0",
     "@polymathnetwork/polymath-sdk": "0.0.0",
+    "@reach/router": "^1.2.1",
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "redux-saga": "^0.16.2",
-    "typesafe-actions": "^2.0.4"
+    "typesafe-actions": "^2.0.4",
+    "web3": "^1.0.0-beta.36"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",
@@ -29,6 +31,7 @@
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.0.0",
     "@types/node": "^10.12.12",
+    "@types/reach__router": "^1.2.2",
     "@types/react": "16.7.13",
     "@types/react-dom": "^16.0.11",
     "@types/react-redux": "^6.0.10",

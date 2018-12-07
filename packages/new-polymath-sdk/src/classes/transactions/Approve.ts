@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
-import { PrimitiveTransaction } from './PrimitiveTransaction';
+import { Wallet } from '~/classes/Wallet';
 
 /**
  * - needs wallet
@@ -14,13 +14,12 @@ interface Context {
 }
 interface Args {
   amount: BigNumber;
-  spender: types.Address;
-  sender: types.Address;
-  balance: BigNumber;
+  spender: Wallet;
+  sender: Wallet;
 }
 
 class Approve {
-  public transactions: PrimitiveTransaction[] = [];
+  public transactions: any[] = [];
   private context: Context;
   private args: Args;
 
@@ -29,17 +28,19 @@ class Approve {
     this.args = args;
   }
 
-  public getExecutionPlan() {
+  public async getExecutionPlan() {
     const { isTestnet } = this.context;
-    const { amount, balance } = this.args;
+    const { sender, amount, spender } = this.args;
     const transactions = [];
-    const hasEnoughBalance = balance.lt(amount);
 
-    if (hasEnoughBalance) {
-      if (isTestnet) {
-        // transactions.push(PolyToken.getTokens());
-      }
-    }
+    const allowance = await spender.getAllowance(sender);
+    // const balance = await sender.getBalance(types.Tokens.Poly);
+
+    // if (allowance) {
+    //   if (isTestnet) {
+    //     // transactions.push(PolyToken.getTokens());
+    //   }
+    // }
     /**
      * 1. get balance
      * 2. get allowance

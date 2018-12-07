@@ -142,9 +142,9 @@ module.exports = env => {
       devtoolModuleFilenameTemplate: info =>
         path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
     },
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    },
+    // externals: {
+    //   react: 'React',
+    //   'react-dom': 'ReactDOM',
+    // },
   };
 };

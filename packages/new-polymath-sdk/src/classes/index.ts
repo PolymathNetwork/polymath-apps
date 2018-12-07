@@ -1,0 +1,1 @@
+export { Polymath } from './Polymath';
