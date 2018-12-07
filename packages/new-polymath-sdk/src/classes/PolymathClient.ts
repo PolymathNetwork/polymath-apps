@@ -1,11 +1,11 @@
 import Web3 from 'web3';
-import { Provider } from 'web3/providers';
+import { Provider, HttpProvider } from 'web3/providers';
 import { PolyToken } from '~/classes/PolyToken';
 import { Wallet } from './Wallet';
 import { types } from '@polymathnetwork/new-shared';
 
 interface Params {
-  provider: Provider;
+  provider: HttpProvider;
 }
 
 // FIXME @RafaelVidaurre: Should be in polymath shared, move when sure
@@ -14,9 +14,9 @@ enum NetworkIds {
   Local = 15,
 }
 
-export class PolymathBase {
+export class PolymathClient {
   public web3: Web3;
-  public provider: Provider;
+  public provider: HttpProvider;
   public networkId: number = -1;
 
   private networks: {
@@ -28,7 +28,7 @@ export class PolymathBase {
 
   constructor({ provider }: Params) {
     this.provider = provider;
-    this.web3 = new Web3(provider);
+    this.web3 = new Web3(this.provider);
   }
 
   public async connect() {
@@ -39,7 +39,7 @@ export class PolymathBase {
     // Prolly just an "connect" method or something
 
     this.networks[this.networkId] = {
-      wallet: new Wallet({ address: account }),
+      wallet: new Wallet({ address: account }, { polymath: this }),
       polyToken: new PolyToken('someAddress'),
     };
   }
@@ -54,7 +54,7 @@ export class PolymathBase {
     }
   }
 
-  private get network() {
+  public get network() {
     return this.networks[this.networkId];
   }
 
@@ -70,6 +70,3 @@ export class PolymathBase {
     return this.network.wallet;
   }
 }
-
-// Temporary Hacky way to have good typing
-export const Polymath = new PolymathBase({} as Params);

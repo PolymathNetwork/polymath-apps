@@ -1,12 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { v4 } from 'uuid';
 import { types } from '@polymathnetwork/new-shared';
-import { Polymath } from '~/classes';
+import { PolymathContext } from '~/types';
 
-interface Params {
+interface Args {
   id?: types.Id;
   address: types.Address;
-  token: types.Tokens;
 }
 
 export class Wallet implements types.Wallet {
@@ -18,10 +17,12 @@ export class Wallet implements types.Wallet {
   private allowances: {
     [spender: string]: BigNumber;
   } = {};
+  private polymath: PolymathContext['polymath'];
 
-  constructor({ id, address }: Params) {
+  constructor({ id, address }: Args, context: PolymathContext) {
     this.id = id || this.id;
     this.address = address;
+    this.polymath = context.polymath;
   }
 
   public toString() {
@@ -29,9 +30,11 @@ export class Wallet implements types.Wallet {
   }
 
   public async getBalance(token: types.Tokens) {
-    const tokenContract = Polymath.getTokenContract(token);
+    const tokenContract = this.polymath.getTokenContract(token);
     if (this.balances[token] === undefined) {
-      const updatedBalance = await Polymath.polyToken.balanceOf(this.address);
+      const updatedBalance = await this.polymath.polyToken.balanceOf(
+        this.address
+      );
       this.balances[token] = updatedBalance;
     }
 
@@ -40,7 +43,7 @@ export class Wallet implements types.Wallet {
 
   public async getAllowance(spender: types.Address | Wallet) {
     if (this.allowances[`${spender}`] === undefined) {
-      const updatedAllowance = await Polymath.polyToken.allowance(
+      const updatedAllowance = await this.polymath.polyToken.allowance(
         this.address,
         spender
       );
