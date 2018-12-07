@@ -1,49 +1,53 @@
-const breakpoints = ['42.5em', '64em', '80em'];
-// 680px, 1024px, 1280px
+interface Scale<TValue> {
+  [id: string]: TValue;
+}
 
-const fontSizes = [
-  '0.75rem', // 12px
-  '0.875rem', // 14px
-  '1rem',
-  '1.125rem', // 18px
-  '1.25rem', // 20px
-  '1.5rem', // 24px
-  '1.75rem', // 28px
-  '2rem', // 32px
-  '2.25rem', // 36px
-  '2.625rem', // 42px
-];
+export const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
+
+export const fontSizes: Scale<string> = {
+  0: '0.75rem', // 12px
+  1: '0.875rem', // 14px
+  2: '1rem', // 16px
+  3: '1.125rem', // 18px
+  4: '1.25rem', // 20px
+  5: '1.5rem', // 24px
+  6: '1.75rem', // 28px
+  7: '2rem', // 32px
+  8: '2.25rem', // 36px
+  9: '2.625rem', // 42px
+};
 
 fontSizes.baseText = fontSizes[1];
 
-const fontFamilies = {
+export const fontFamilies = {
   baseText: "'Overpass', sans-serif",
 };
 
-const lineHeights = {
+export const lineHeights = {
   none: 1,
   tight: 1.15,
   normal: 1.5,
   loose: 2,
 };
 
-const fontWeights = {
+export const fontWeights = {
   light: 300,
   normal: 400,
   bold: 600,
 };
 
-const space = [
-  '0',
-  '5px',
-  '10px',
-  '16px',
-  '23px',
-  '30px',
-  '48px',
-  '80px',
-  '120px',
-];
+export const space: Scale<string> = {
+  0: '0',
+  1: '5px',
+  2: '10px',
+  3: '16px',
+  4: '23px',
+  5: '30px',
+  6: '48px',
+  7: '80px',
+  8: '120px',
+};
+
 space.s = space[2];
 space.m = space[3];
 space.l = space[5];
@@ -51,12 +55,12 @@ space.xl = space[6];
 space.xxl = space[7];
 space.xxxl = space[8];
 
-const zIndexes = {
+export const zIndexes = {
   header: 80,
   sidebar: 100,
 };
 
-const colors = {
+export const colors = {
   baseText: '#5A6872',
   lightText: '#5A6872',
   highlightText: '#152935',
@@ -72,7 +76,8 @@ const colors = {
   green: ['#00AA5E'],
   red: ['#e0182d'],
 };
-const headings = {
+
+export const headings = {
   h1: {
     color: colors.primary,
     fontSize: fontSizes[8],
@@ -94,7 +99,8 @@ const headings = {
     fontWeight: fontWeights.normal,
   },
 };
-const transitions = {
+
+export const transitions = {
   hover: {
     ms: 150,
   },
@@ -102,35 +108,22 @@ const transitions = {
     ms: 200,
   },
 };
-const maxWidth = '1600px';
-const inputs = {
+
+export const maxWidth = '1600px';
+
+export const inputs = {
   height: '2.5rem',
   backgroundColor: colors.gray[1],
 };
-const header = {
+
+export const header = {
   height: '48px',
 };
-const sidebar = {
+
+export const sidebar = {
   width: '64px',
 };
-const footer = {
-  height: header.height,
-};
 
-export default {
-  breakpoints,
-  fontSizes,
-  fontFamilies,
-  fontWeights,
-  lineHeights,
-  space,
-  zIndexes,
-  colors,
-  headings,
-  transitions,
-  maxWidth,
-  inputs,
-  header,
-  sidebar,
-  footer,
+export const footer = {
+  height: header.height,
 };

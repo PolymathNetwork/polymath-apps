@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { themeGet } from 'styled-system';
 
 export const ellipsis = `
   white-space: nowrap;
@@ -7,8 +8,8 @@ export const ellipsis = `
 `;
 
 export const formError = css`
-  font-size: ${({ theme }) => theme.fontSizes[0]};
-  color: ${({ theme }) => theme.colors.red[0]};
+  font-size: ${themeGet('fontSizes[0]')};
+  color: ${themeGet('colors.red[0]')};
   font-weight: 400;
 `;
 
