@@ -4,6 +4,12 @@
   "main": "build/dist/index.js",
   "typings": "build/dist/index.d.ts",
   "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "passWithNoTests": true
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.1.0",

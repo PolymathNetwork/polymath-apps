@@ -4,6 +4,9 @@
   "main": "build/dist/index.js",
   "typings": "build/dist/index.d.ts",
   "private": true,
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "react": "16.5.2",
     "react-dom": "16.5.2"

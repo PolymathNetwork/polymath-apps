@@ -4,6 +4,12 @@
   "main": "build/dist/index.js",
   "typings": "build/dist/index.d.ts",
   "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "passWithNoTests": true
+  },
   "dependencies": {
     "@polymathnetwork/new-shared": "0.0.0",
     "bignumber.js": "^8.0.1",

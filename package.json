@@ -12,7 +12,7 @@
     "start:new-issuer": "lerna exec --scope=@polymathnetwork/new-issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
     "start:dev": "ttsc -b packages --watch",
-    "test": "lerna exec --stream -- yarn test --forceExit",
+    "test": "lerna exec --stream -- yarn test --forceExit --passWithNoTests",
     "test:investor": "lerna exec --stream --scope=@polymathnetwork/investor -- yarn test",
     "test:issuer": "lerna exec --stream --scope=@polymathnetwork/issuer -- yarn test",
     "test:js": "lerna exec --stream --scope=@polymathnetwork/js -- yarn test",
