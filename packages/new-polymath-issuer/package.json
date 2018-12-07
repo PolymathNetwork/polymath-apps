@@ -20,7 +20,7 @@
     "react-dom": "16.5.2",
     "redux-saga": "^0.16.2",
     "typesafe-actions": "^2.0.4",
-    "web3": "^1.0.0-beta.36"
+    "web3": "1.0.0-beta.34"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",

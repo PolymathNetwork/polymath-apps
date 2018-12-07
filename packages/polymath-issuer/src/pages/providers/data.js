@@ -124,7 +124,7 @@ const providers: Array<ServiceProvider> = [
   {
     id: 23,
     cat: 0,
-    title: 'Chain',
+    title: 'Chain Partners',
     logo: '/providers/advisory/chain-par.png',
     background: '/providers/advisory/bg/chain-par.png',
     desc:
