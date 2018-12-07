@@ -7,9 +7,6 @@
   "scripts": {
     "test": "jest"
   },
-  "jest": {
-    "passWithNoTests": true
-  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.1.0",
