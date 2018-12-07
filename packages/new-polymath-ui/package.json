@@ -6,7 +6,8 @@
   "private": true,
   "dependencies": {
     "react": "16.5.2",
-    "react-dom": "16.5.2"
+    "react-dom": "16.5.2",
+    "@polymathnetwork/new-shared": "0.0.0"
   },
   "devDependencies": {
     "@types/react": "16.7.13",
