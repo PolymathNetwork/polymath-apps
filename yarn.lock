@@ -96,7 +96,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.0.0-beta.46":
+"@babel/core@^7.0.0-beta.46", "@babel/core@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.2.0.tgz#a4dd3814901998e93340f0086e9867fefa163ada"
   dependencies:
@@ -2540,6 +2540,10 @@
   resolved "https://registry.yarnpkg.com/@types/form-data/-/form-data-2.2.1.tgz#ee2b3b8eaa11c0938289953606b745b738c54b1e"
   dependencies:
     "@types/node" "*"
+
+"@types/jest@^23.3.10":
+  version "23.3.10"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
 
 "@types/json5@^0.0.29":
   version "0.0.29"

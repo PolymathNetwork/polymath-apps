@@ -4,13 +4,21 @@
   "main": "build/dist/index.js",
   "typings": "build/dist/index.d.ts",
   "private": true,
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "@polymathnetwork/new-shared": "0.0.0",
     "bignumber.js": "^8.0.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@types/jest": "^23.3.10",
     "@types/uuid": "^3.4.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
     "reflect-metadata": "^0.1.12",
     "typescript": "^3.1.6"
   }
