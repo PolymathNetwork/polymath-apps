@@ -2,20 +2,12 @@ import { types } from '@polymathnetwork/new-shared';
 import { Wallet } from './Wallet';
 import BigNumber from 'bignumber.js';
 import { Addressable, Erc20 } from './types';
+import { blockchainStub } from '~/blockchainStub';
 
 /**
  * NOTE @RafaelVidaurre: This is temporary code while we build this
  * package together with the low-level api. This should be a
  */
-
-const blockchainStub: {
-  [address: string]: {
-    allowances: {
-      [spender: string]: BigNumber | undefined;
-    };
-    balance: BigNumber;
-  };
-} = {};
 
 export class Erc20Token implements Erc20 {
   public address: types.Address;

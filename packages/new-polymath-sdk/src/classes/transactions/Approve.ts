@@ -1,49 +1,62 @@
 import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
-import { Wallet } from '~/classes/Wallet';
+import { Wallet, Polymath } from '~/classes';
 
 /**
- * - needs wallet
- * - needs wallet's balance
- * - calls approve primitive if required
- *
+ * - Everytime a HLT is run all instances are new. They only exist
+ * - on the preparation phase
  */
 
-interface Context {
-  isTestnet: boolean;
-}
 interface Args {
   amount: BigNumber;
   spender: Wallet;
-  sender: Wallet;
+}
+
+interface TransactionPlan {
+  method: (...args: any[]) => Promise<any>;
+  args: any[];
 }
 
 class Approve {
   public transactions: any[] = [];
-  private context: Context;
   private args: Args;
 
-  constructor(context: Context, args: Args) {
-    this.context = context;
+  constructor(args: Args) {
     this.args = args;
   }
 
   public async getExecutionPlan() {
-    const { isTestnet } = this.context;
-    const { sender, amount, spender } = this.args;
-    const transactions = [];
+    const { amount, spender } = this.args;
+    const transactions: TransactionPlan[] = [];
 
-    const allowance = await spender.getAllowance(sender);
-    // const balance = await sender.getBalance(types.Tokens.Poly);
+    const allowance = await Polymath.currentWallet.getAllowance(spender);
 
-    // if (allowance) {
-    //   if (isTestnet) {
-    //     // transactions.push(PolyToken.getTokens());
-    //   }
-    // }
-    /**
-     * 1. get balance
-     * 2. get allowance
-     */
+    // No approval needed
+    if (allowance.gte(amount)) {
+      return transactions;
+    }
+
+    const balance = await Polymath.currentWallet.getBalance(types.Tokens.Poly);
+
+    if (balance.gte(amount)) {
+      this.addTransaction(Polymath.polyToken.approve)(spender, amount);
+      return;
+    }
+
+    // NOTE: Alternatively we could check for `getTokens` method
+    if (Polymath.isTestnet) {
+      this.addTransaction(Polymath.polyToken.getTokens)(
+        Polymath.currentWallet,
+        amount
+      );
+    } else {
+      throw new Error('Not enough balance');
+    }
+  }
+
+  private addTransaction(method: TransactionPlan['method']) {
+    return (...args: TransactionPlan['args']) => {
+      this.transactions.push({ method, args });
+    };
   }
 }

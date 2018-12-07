@@ -10,6 +10,7 @@
     "ordered-imports": false,
     "arrow-parens": false,
     "no-default-export": true,
+    "object-literal-sort-keys": false,
     "trailing-comma": [
       true,
       {

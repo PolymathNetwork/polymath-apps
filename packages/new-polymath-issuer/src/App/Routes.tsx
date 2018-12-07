@@ -1,6 +1,5 @@
 import React, { Component, FC } from 'react';
 import { Router, RouteComponentProps } from '@reach/router';
-import { Provider, HttpProvider } from 'web3/types';
 import { Polymath } from '@polymathnetwork/polymath-sdk';
 import Web3 from 'web3';
 

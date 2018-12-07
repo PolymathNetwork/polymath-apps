@@ -1,55 +1,52 @@
 import BigNumber from 'bignumber.js';
 import { v4 } from 'uuid';
 import { types } from '@polymathnetwork/new-shared';
-import { PolyToken } from '~/classes/PolyToken';
+import { Polymath } from '~/classes';
 
 interface Params {
-  id: types.Id;
+  id?: types.Id;
   address: types.Address;
   token: types.Tokens;
 }
 
-const TokenContracts = {
-  [types.Tokens.Poly]: PolyToken,
-};
-
 export class Wallet implements types.Wallet {
   public id: types.Id = v4();
   public address: types.Address;
-  public token: types.Tokens;
-  public balance?: BigNumber;
+  public balances: {
+    [tokenSymbol: string]: BigNumber;
+  } = {};
   private allowances: {
     [spender: string]: BigNumber;
   } = {};
 
-  constructor({ id, address, token }: Params) {
+  constructor({ id, address }: Params) {
     this.id = id || this.id;
     this.address = address;
-    this.token = token;
   }
 
   public toString() {
     return this.address;
   }
 
-  public async getBalance() {
-    // Async logic to get balance from address PolyToken.balanceOf(address); for example
-    // assign result to `this.balance = result`
-    // return this.balance;
-    let balance = this.balance;
-
-    if (!balance) {
-      balance = PolyToken.balanceOf(address);
-      this.balance = balance;
+  public async getBalance(token: types.Tokens) {
+    const tokenContract = Polymath.getTokenContract(token);
+    if (this.balances[token] === undefined) {
+      const updatedBalance = await Polymath.polyToken.balanceOf(this.address);
+      this.balances[token] = updatedBalance;
     }
 
-    return this.balance;
+    return this.balances[token];
   }
 
   public async getAllowance(spender: types.Address | Wallet) {
-    // Async logic to get allowance set from this wallet to an address PolyToken.allowance(this.address, spender)
-    // assign result to this.allowances[spender] = value
-    // Mocked FOR NOW:
-    return await PolyToken.allowance(this.address, spender);
+    if (this.allowances[`${spender}`] === undefined) {
+      const updatedAllowance = await Polymath.polyToken.allowance(
+        this.address,
+        spender
+      );
+      this.allowances[`${spender}`] = updatedAllowance;
+    }
+
+    return this.allowances[`${spender}`];
   }
 }
