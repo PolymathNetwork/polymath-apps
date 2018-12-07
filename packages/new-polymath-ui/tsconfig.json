@@ -14,5 +14,6 @@
       }
     ]
   },
+  "references": [{ "path": "../new-polymath-shared" }],
   "exclude": ["src/specsInit.ts", "build", "node_modules"]
 }
