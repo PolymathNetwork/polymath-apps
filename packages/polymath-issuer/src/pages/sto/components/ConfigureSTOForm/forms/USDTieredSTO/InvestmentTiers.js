@@ -3,7 +3,7 @@
 import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
-import { Toggle, Button } from 'carbon-components-react';
+import { Toggle, Button, Icon } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
 import BigNumber from 'bignumber.js';
 import {
@@ -67,11 +67,13 @@ type Props = {
 
 type State = {|
   isAddingTier: boolean,
+  tierData: any,
 |};
 
 class InvestmentTiers extends React.Component<Props, State> {
   state = {
     isAddingTier: false,
+    tierData: {},
   };
 
   onTiersToggle = () => {
@@ -109,11 +111,15 @@ class InvestmentTiers extends React.Component<Props, State> {
   };
 
   handleClose = () => {
-    this.setState({ isAddingTier: false });
+    this.setState({ tierData: {}, isAddingTier: false });
   };
 
-  handleAddNewTier = () => {
-    this.setState({ isAddingTier: true });
+  handleAddNewTier = (id, data) => {
+    if (typeof id === 'number') {
+      this.setState({ tierData: { id, ...data }, isAddingTier: true });
+    } else {
+      this.setState({ isAddingTier: true });
+    }
   };
 
   render() {
@@ -122,7 +128,7 @@ class InvestmentTiers extends React.Component<Props, State> {
       form: { touched, errors },
       ticker,
     } = this.props;
-    const { isAddingTier } = this.state;
+    const { isAddingTier, tierData } = this.state;
 
     const tableItems = map(compact(value.tiers), (tier, tierNum) => {
       const tokenPrice = tier.tokenPrice || new BigNumber(0);
@@ -239,6 +245,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                               {header.header}
                             </TableHeader>
                           ))}
+                          <TableHeader>...</TableHeader>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -247,6 +254,21 @@ class InvestmentTiers extends React.Component<Props, State> {
                             {row.cells.map(cell => (
                               <TableCell key={cell.id}>{cell.value}</TableCell>
                             ))}
+                            {row.id > 0 ? (
+                              <TableCell>
+                                <Icon
+                                  name="icon--edit"
+                                  onClick={() => {
+                                    this.handleAddNewTier(
+                                      row.id - 1,
+                                      value.tiers[row.id - 1]
+                                    );
+                                  }}
+                                />
+                              </TableCell>
+                            ) : (
+                              <TableCell />
+                            )}
                           </TableRow>
                         ))}
                       </TableBody>
@@ -264,14 +286,20 @@ class InvestmentTiers extends React.Component<Props, State> {
         )}
         <FieldArray
           name="investmentTiers.tiers"
-          render={({ push }) => (
+          render={({ push, replace }) => (
             <Field
               name="investmentTiers.newTier"
               ticker={ticker}
               component={AddTierModal}
-              title={`Add the Investment Tier #${value.tiers.length + 1}`}
+              title={
+                tierData
+                  ? `Edit Investment Tier`
+                  : `Add the Investment Tier #${value.tiers.length + 1}`
+              }
               isOpen={isAddingTier}
+              tierData={Object.keys(tierData).length > 0 ? tierData : {}}
               onAdd={push}
+              onUpdate={replace}
               onClose={this.handleClose}
             />
           )}

@@ -35,6 +35,18 @@ class AddTierModal extends Component {
     }
   };
 
+  handleOnEdit = () => {
+    const {
+      field: { value },
+      tierData,
+      onUpdate,
+      onClose,
+    } = this.props;
+
+    onUpdate(tierData.id, value);
+    onClose();
+  };
+
   componentDidUpdate(prevProps) {
     const {
       field: { name },
@@ -62,12 +74,12 @@ class AddTierModal extends Component {
       isOpen,
       onClose,
       title,
+      tierData,
     } = this.props;
 
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
     const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
-
     const tierNum = values.investmentTiers.tiers.length + 1;
     const tierTokensAmount = tokensAmount || new BigNumber(0);
     const tierUsdAmount = tokenPrice.times(tierTokensAmount);
@@ -76,8 +88,8 @@ class AddTierModal extends Component {
       <ActionModal
         isOpen={isOpen}
         onClose={onClose}
-        actionButtonText="Add new"
-        onSubmit={this.handleOnAdd}
+        actionButtonText={tierData.tokensAmount ? `Save` : `Add new`}
+        onSubmit={tierData.tokensAmount ? this.handleOnEdit : this.handleOnAdd}
         maxWidth={740}
       >
         <ActionModal.Header>{title}</ActionModal.Header>
@@ -105,6 +117,7 @@ class AddTierModal extends Component {
               <FormItem.Input
                 component={NumberInput}
                 placeholder="Enter amount"
+                initialValue={tierData.tokensAmount}
                 useBigNumbers
               />
               <FormItem.Error />
@@ -115,6 +128,7 @@ class AddTierModal extends Component {
                 component={NumberInput}
                 placeholder="Enter amount"
                 unit="USD"
+                initialValue={tierData.tokenPrice}
                 useBigNumbers
               />
               <FormItem.Error />
