@@ -5,8 +5,12 @@ import { connect } from 'react-redux';
 import { removeTier } from '../../../../../../actions/sto';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
-import { Toggle, Button, Icon } from 'carbon-components-react';
+import { Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
+import { withTheme } from 'styled-components';
+
+import { Icon } from '@polymathnetwork/ui';
+import DeleteIcon from '@polymathnetwork/ui/images/icons/Delete';
 import BigNumber from 'bignumber.js';
 import {
   Box,
@@ -261,7 +265,8 @@ class InvestmentTiers extends React.Component<Props, State> {
                             {row.id > 0 ? (
                               <TableCell>
                                 <Icon
-                                  name="icon--delete"
+                                  Icon={DeleteIcon}
+                                  color="#000000"
                                   onClick={() => {
                                     this.handleRemoveTier(row.id, value.tiers);
                                   }}
