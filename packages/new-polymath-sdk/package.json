@@ -1,5 +1,5 @@
 {
-  "name": "@polymathnetwork/polymath-sdk",
+  "name": "@polymathnetwork/sdk",
   "version": "0.0.0",
   "main": "build/dist/index.js",
   "typings": "build/dist/index.d.ts",

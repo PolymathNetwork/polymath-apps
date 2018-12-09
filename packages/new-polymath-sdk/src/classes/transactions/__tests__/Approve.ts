@@ -20,9 +20,6 @@ describe('Approve', () => {
         { amount: new BigNumber(1234), spender },
         { polymath }
       );
-
-      await approve.getExecutionPlan();
-      console.log(approve.transactions);
     });
   });
 });
