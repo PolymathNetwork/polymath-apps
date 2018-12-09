@@ -84,7 +84,7 @@ export class NumberInput extends Component<Props, State> {
 
   static getDerivedStateFromProps(props: Props, state: State) {
     const { oldValue } = state;
-    let { value, initialValue, useBigNumbers, min, max, name } = props;
+    let { value, useBigNumbers, min, max, name } = props;
     const propsValueChanged = oldValue !== value;
 
     if (!useBigNumbers && (min === -Infinity || max === Infinity)) {
@@ -97,12 +97,6 @@ export class NumberInput extends Component<Props, State> {
       console.warn(
         `NumberInput(${name})'s value must be a BigNumber object when useBigNumbers is set to true`
       );
-    }
-
-    if (initialValue && !propsValueChanged) {
-      return {
-        displayValue: initialValue,
-      };
     }
 
     if (propsValueChanged) {

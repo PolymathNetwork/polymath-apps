@@ -13,7 +13,7 @@ import {
   RaisedAmount,
 } from '@polymathnetwork/ui';
 
-class AddTierModal extends Component {
+class AddTierModal extends Component<Props, State> {
   handleOnAdd = () => {
     const {
       field: { name, value },
@@ -51,6 +51,7 @@ class AddTierModal extends Component {
     const {
       field: { name },
       form: { setFieldValue, setFieldTouched },
+      tierData,
     } = this.props;
 
     /**
@@ -62,7 +63,14 @@ class AddTierModal extends Component {
       // errors object for this field
       setFieldTouched(name, false);
 
-      setFieldValue(name, { tokensAmount: null, tokenPrice: null });
+      if (tierData) {
+        setFieldValue(name, {
+          tokensAmount: tierData.tokensAmount,
+          tokenPrice: tierData.tokenPrice,
+        });
+      } else {
+        setFieldValue(name, { tokensAmount: null, tokenPrice: null });
+      }
     }
   }
 
@@ -80,7 +88,9 @@ class AddTierModal extends Component {
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
     const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
-    const tierNum = values.investmentTiers.tiers.length + 1;
+    const tierNum = tierData
+      ? tierData.id + 1
+      : values.investmentTiers.tiers.length + 1;
     const tierTokensAmount = tokensAmount || new BigNumber(0);
     const tierUsdAmount = tokenPrice.times(tierTokensAmount);
 
@@ -88,8 +98,8 @@ class AddTierModal extends Component {
       <ActionModal
         isOpen={isOpen}
         onClose={onClose}
-        actionButtonText={tierData.tokensAmount ? `Save` : `Add new`}
-        onSubmit={tierData.tokensAmount ? this.handleOnEdit : this.handleOnAdd}
+        actionButtonText={tierData ? `Save` : `Add new`}
+        onSubmit={tierData ? this.handleOnEdit : this.handleOnAdd}
         maxWidth={740}
       >
         <ActionModal.Header>{title}</ActionModal.Header>
@@ -117,7 +127,6 @@ class AddTierModal extends Component {
               <FormItem.Input
                 component={NumberInput}
                 placeholder="Enter amount"
-                initialValue={tierData.tokensAmount}
                 useBigNumbers
               />
               <FormItem.Error />
@@ -128,7 +137,6 @@ class AddTierModal extends Component {
                 component={NumberInput}
                 placeholder="Enter amount"
                 unit="USD"
-                initialValue={tierData.tokenPrice}
                 useBigNumbers
               />
               <FormItem.Error />

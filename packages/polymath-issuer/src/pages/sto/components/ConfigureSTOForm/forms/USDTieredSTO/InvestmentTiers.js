@@ -73,7 +73,7 @@ type State = {|
 class InvestmentTiers extends React.Component<Props, State> {
   state = {
     isAddingTier: false,
-    tierData: {},
+    tierData: null,
   };
 
   onTiersToggle = () => {
@@ -111,10 +111,10 @@ class InvestmentTiers extends React.Component<Props, State> {
   };
 
   handleClose = () => {
-    this.setState({ tierData: {}, isAddingTier: false });
+    this.setState({ tierData: null, isAddingTier: false });
   };
 
-  handleAddNewTier = (id, data) => {
+  handleTierModal = (id, data) => {
     if (typeof id === 'number') {
       this.setState({ tierData: { id, ...data }, isAddingTier: true });
     } else {
@@ -229,7 +229,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                     <Box textAlign="right" mb={3}>
                       <Button
                         icon={iconAddSolid}
-                        onClick={this.handleAddNewTier.bind(this)}
+                        onClick={this.handleTierModal.bind(this)}
                       >
                         Add new
                       </Button>
@@ -259,7 +259,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                                 <Icon
                                   name="icon--edit"
                                   onClick={() => {
-                                    this.handleAddNewTier(
+                                    this.handleTierModal(
                                       row.id - 1,
                                       value.tiers[row.id - 1]
                                     );
@@ -297,7 +297,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                   : `Add the Investment Tier #${value.tiers.length + 1}`
               }
               isOpen={isAddingTier}
-              tierData={Object.keys(tierData).length > 0 ? tierData : {}}
+              tierData={tierData}
               onAdd={push}
               onUpdate={replace}
               onClose={this.handleClose}
