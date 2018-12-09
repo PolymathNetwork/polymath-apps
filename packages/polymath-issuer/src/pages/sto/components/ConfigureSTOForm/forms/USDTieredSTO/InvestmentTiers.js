@@ -3,8 +3,10 @@
 import React, { Fragment } from 'react';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
-import { Toggle, Button, Icon } from 'carbon-components-react';
+import { Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
+import { Icon } from '@polymathnetwork/ui';
+import EditIcon from '@polymathnetwork/ui/images/icons/Edit';
 import BigNumber from 'bignumber.js';
 import {
   Box,
@@ -257,7 +259,8 @@ class InvestmentTiers extends React.Component<Props, State> {
                             {row.id > 0 ? (
                               <TableCell>
                                 <Icon
-                                  name="icon--edit"
+                                  Icon={EditIcon}
+                                  color="#000000"
                                   onClick={() => {
                                     this.handleTierModal(
                                       row.id - 1,
