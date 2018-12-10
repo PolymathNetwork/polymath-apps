@@ -1,6 +1,6 @@
 // @flow
 
-import PolyTokenFaucetArtifact from './fixtures/contracts/PolyTokenFaucet.json';
+import PolyTokenFaucetArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolyTokenFaucet.json';
 
 export const KOVAN_NETWORK_ID = '42';
 export const MAINNET_NETWORK_ID = '1';
