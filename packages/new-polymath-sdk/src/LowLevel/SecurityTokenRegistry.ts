@@ -4,6 +4,7 @@ import { SecurityTokenRegistryAbi } from '~/LowLevel/abis/SecurityTokenRegistryA
 import { Contract } from './Contract';
 import { TransactionObject } from 'web3/eth/types';
 import { types } from '@polymathnetwork/new-shared';
+import BigNumber from 'bignumber.js';
 
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenRegistryContract {
@@ -13,6 +14,7 @@ interface SecurityTokenRegistryContract {
       ticker: string,
       tokenName: string
     ): TransactionObject<string>;
+    getTickerRegistrationFee(): TransactionObject<BigNumber>;
   };
 }
 
@@ -28,8 +30,10 @@ export class SecurityTokenRegistry extends Contract<
     ticker: string,
     tokenName: string
   ) {
-    return this.contract.methods
-      .registerTicker(owner, ticker, tokenName)
-      .call();
+    return this.contract.methods.registerTicker(owner, ticker, tokenName);
+  }
+
+  public async getTickerRegistrationFee() {
+    return this.contract.methods.getTickerRegistrationFee().call();
   }
 }

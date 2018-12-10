@@ -1,18 +1,29 @@
 import { PolymathContext } from '~/types';
 
-interface TransactionMethod {
+type PrimitiveMethod = (...args: any[]) => Promise<any>;
+
+interface TxMethod {
   args: any[];
-  method: (...args: any[]) => Promise<any>;
+  method: PrimitiveMethod | TransactionBase<any>;
 }
 
-export interface TransactionBase<P> {
-  prepareTransactions(args: P, context: PolymathContext): Promise<void>;
-  prepare(): Promise<void>;
+interface HigherLevelTransaction<Args = any> {
+  new (args: Args, context: PolymathContext): TransactionBase<Args>;
 }
+
+function isHigherLevelTransaction(
+  transaction: any
+): transaction is HigherLevelTransaction {
+  if (transaction.prepareTransactions) {
+    return true;
+  }
+  return false;
+}
+
 export class TransactionBase<P> {
   protected args: P;
   protected context: PolymathContext;
-  private transactions: TransactionMethod[] = [];
+  private transactions: TxMethod[] = [];
 
   constructor(args: P, context: PolymathContext) {
     this.args = args;
@@ -22,18 +33,31 @@ export class TransactionBase<P> {
   /**
    * Mandatory method that builds a list of transactions that will be
    * run.
-   *
-   * @param args Arguments for the transaction
-   * @param context Execution context
    */
   public async prepareTransactions(): Promise<void> {}
 
-  protected addTransaction(method: (...args: any[]) => Promise<any>) {
+  public async prepare(): Promise<TxMethod[]> {
+    await this.prepareTransactions();
+    return this.transactions;
+  }
+
+  protected addTransaction(Method: HigherLevelTransaction | PrimitiveMethod) {
     return (...args: any[]) => {
-      this.transactions.push({
-        args,
-        method,
-      });
+      let transaction: TxMethod;
+      // If method is a HLT, instanciate it with the right context and args
+      if (isHigherLevelTransaction(Method)) {
+        transaction = {
+          method: new Method(args, this.context),
+          args,
+        };
+      } else {
+        transaction = {
+          method: Method,
+          args,
+        };
+      }
+
+      this.transactions.push(transaction);
     };
   }
 }
