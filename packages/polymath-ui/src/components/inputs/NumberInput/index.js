@@ -66,7 +66,7 @@ export class NumberInput extends Component<Props, State> {
     max: Infinity,
     maxDecimals: 18, // max amount of decimals supported by solidity
     useBigNumbers: false,
-    value: '',
+    value: null,
     name: 'unnamed',
   };
 
