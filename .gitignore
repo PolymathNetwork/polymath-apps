@@ -9,4 +9,5 @@ yarn-error.log
 coverage
 reports
 temp
+current-state.md
 junit.xml

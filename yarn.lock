@@ -2630,50 +2630,6 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@machinomy/types-truffle-contract@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@machinomy/types-truffle-contract/-/types-truffle-contract-0.0.3.tgz#76442f485647382ce8d676af04ebcff35afee68f"
-  integrity sha1-dkQvSFZHOCzo1navBOvP81r+5o8=
-  dependencies:
-    "@machinomy/types-web3" "^0.0.4"
-    truffle-contract "^3.0.0"
-    web3 "^0.20.2"
-
-"@machinomy/types-truffle-contract@^0.0.x":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@machinomy/types-truffle-contract/-/types-truffle-contract-0.0.4.tgz#0d0b0cef62ccc9a300aaef5d45f0881a932d0a42"
-  integrity sha512-rmJiDOnW7Ib3TxVSqELZWWPYuifIIGkH1kqP1ce5DL70uEXtEMDY4anTH56nfFtjlpjA4jFbs825ePtKUhcPDw==
-  dependencies:
-    "@machinomy/types-web3" "^0.0.4"
-    truffle-contract "^3.0.0"
-    web3 "^0.20.2"
-
-"@machinomy/types-truffle-deployer@^0.0.x":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@machinomy/types-truffle-deployer/-/types-truffle-deployer-0.0.3.tgz#9e5883cc6932578e2ce6f6df6dcbba8cc35c43cb"
-  integrity sha1-nliDzGkyV44s5vbfbcu6jMNcQ8s=
-  dependencies:
-    "@machinomy/types-truffle-contract" "^0.0.3"
-    truffle-contract "^3.0.2"
-    truffle-deployer "^2.0.1"
-
-"@machinomy/types-truffle@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@machinomy/types-truffle/-/types-truffle-0.0.6.tgz#4da4af86b969d8990605472505190f9954f4976f"
-  integrity sha1-TaSvhrlp2JkGBUclBRkPmVT0l28=
-  dependencies:
-    "@machinomy/types-truffle-contract" "^0.0.x"
-    "@machinomy/types-truffle-deployer" "^0.0.x"
-    truffle-contract "^3.0.x"
-    truffle-deployer "^2.0.x"
-
-"@machinomy/types-web3@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@machinomy/types-web3/-/types-web3-0.0.4.tgz#aca033c0cabfc89757511410f5d5149af17fb497"
-  integrity sha1-rKAzwMq/yJdXURQQ9dUUmvF/tJc=
-  dependencies:
-    bignumber.js "^4.0.2"
-
 "@marionebl/sander@^0.6.0":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@marionebl/sander/-/sander-0.6.1.tgz#1958965874f24bc51be48875feb50d642fc41f7b"
@@ -2870,24 +2826,10 @@
     escape-string-regexp "^1.0.5"
     lodash.deburr "^4.1.0"
 
-"@types/bn.js@*":
-  version "4.11.3"
-  resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-4.11.3.tgz#0f09e53e98659b007d7019261ddab9178135df38"
-  integrity sha512-auZ3vEo3UW8tZc9NhF0MTnutKlf+YhsfC3+dwskFcil/EoqqZF60pGuJ2v2Ae1OJTUp3DJnjOJMqrpkmKB904w==
-  dependencies:
-    "@types/node" "*"
-
 "@types/caseless@*":
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.1.tgz#9794c69c8385d0192acc471a540d1f8e0d16218a"
   integrity sha512-FhlMa34NHp9K5MY1Uz8yb+ZvuX0pnvn3jScRSNAb75KHGB8d3rEU6hqMs3Z2vjuytcMfRg6c5CHMc3wtYyD2/A==
-
-"@types/ethereumjs-tx@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/ethereumjs-tx/-/ethereumjs-tx-1.0.0.tgz#ae2ce90a145cc1a6849656db38baf0e793ff7927"
-  integrity sha512-p0KlwRLui/Xn7/bXYzVhhYU9+Cv1I/JL/1CTHW1RXMz2GDFbQj0BGzohUHrv6p7QzugB6+Y/b0Z7Uh4G11RJqg==
-  dependencies:
-    "@types/node" "*"
 
 "@types/form-data@*":
   version "2.2.1"
@@ -2896,22 +2838,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/fs-extra@^5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-5.0.4.tgz#b971134d162cc0497d221adde3dbb67502225599"
-  integrity sha512-DsknoBvD8s+RFfSGjmERJ7ZOP1HI0UZRA3FSI+Zakhrc/Gy26YQsLI+m5V5DHxroHRJqCDLKJp7Hixn8zyaF7g==
-  dependencies:
-    "@types/node" "*"
-
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
-
-"@types/lodash@^4.14.118":
-  version "4.14.118"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.118.tgz#247bab39bfcc6d910d4927c6e06cbc70ec376f27"
-  integrity sha512-iiJbKLZbhSa6FYRip/9ZDX6HXhayXLDGY2Fqws9cOkEQ6XeKfaxB0sC541mowZJueYyMnVUmmG+al5/4fCDrgw==
 
 "@types/node@*", "@types/node@^10.11.7", "@types/node@^10.12.12":
   version "10.12.12"
@@ -2966,25 +2896,12 @@
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.4.tgz#821878b81bfab971b93a265a561d54ea61f9059f"
   integrity sha512-Set5ZdrAaKI/qHdFlVMgm/GsAv/wkXhSTuZFkJ+JI7HK+wIkIlOaUXSXieIvJ0+OvGIqtREFoE+NHJtEq0gtEw==
 
-"@types/underscore@*":
-  version "1.8.9"
-  resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.8.9.tgz#fef41f800cd23db1b4f262ddefe49cd952d82323"
-  integrity sha512-vfzZGgZKRFy7KEWcBGfIFk+h6B+thDCLfkD1exMBMRlUsx2icA+J6y4kAbZs/TjSTeY1duw89QUU133TSzr60Q==
-
 "@types/uuid@^3.4.4":
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.4.tgz#7af69360fa65ef0decb41fd150bf4ca5c0cefdf5"
   integrity sha512-tPIgT0GUmdJQNSHxp0X2jnpQfBSTfGxUMc/2CXBU2mnyTFVYVa2ojpoQ74w0U2yn2vw3jnC640+77lkFFpdVDw==
   dependencies:
     "@types/node" "*"
-
-"@types/web3@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@types/web3/-/web3-1.0.14.tgz#709b700b3eecf7fe9fb09771c4bf484add89912a"
-  integrity sha512-N841xEBVwg0QNin3Zu+Yf7eEKKeJ0MROMc+FvfgtX8r/fwynFhSZVj3VONVcr9QP/Wffq+aggj+4lgrvG3lnFQ==
-  dependencies:
-    "@types/bn.js" "*"
-    "@types/underscore" "*"
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
@@ -3711,7 +3628,7 @@ async-eventemitter@^0.2.2:
   dependencies:
     async "^2.4.0"
 
-"async-eventemitter@github:ahultgren/async-eventemitter#fa06e39e56786ba541c180061dbf2c0a5bbf951c":
+async-eventemitter@ahultgren/async-eventemitter#fa06e39e56786ba541c180061dbf2c0a5bbf951c:
   version "0.2.3"
   resolved "https://codeload.github.com/ahultgren/async-eventemitter/tar.gz/fa06e39e56786ba541c180061dbf2c0a5bbf951c"
   dependencies:
@@ -4880,11 +4797,6 @@ bignumber.js@8.0.1, bignumber.js@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-8.0.1.tgz#5d419191370fb558c64e3e5f70d68e5947138832"
   integrity sha512-zAySveTJXkgLYCBi0b14xzfnOs+f3G6x36I8w2a1+PFQpWk/dp0mI0F+ZZK2bu+3ELewDcSyP+Cfq++NcHX7sg==
-
-bignumber.js@^4.0.2:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-4.1.0.tgz#db6f14067c140bd46624815a7916c92d9b6c24b1"
-  integrity sha512-eJzYkFYy9L4JzXsbymsFn3p54D+llV27oTQ+ziJG7WFRheJcNZilgVXMG0LoZtlQSKBsJdWtLFqOD0u+U0jZKA==
 
 "bignumber.js@git+https://github.com/frozeman/bignumber.js-nolookahead.git":
   version "2.0.7"
@@ -20454,7 +20366,7 @@ truffle-contract-schema@^2.0.1:
     crypto-js "^3.1.9-1"
     debug "^3.1.0"
 
-truffle-contract@^3.0.0, truffle-contract@^3.0.2, truffle-contract@^3.0.4, truffle-contract@^3.0.6, truffle-contract@^3.0.x:
+truffle-contract@^3.0.4:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/truffle-contract/-/truffle-contract-3.0.6.tgz#2ef6fc32d7faafa9f4aed8e50001a9fdea342192"
   integrity sha1-Lvb8Mtf6r6n0rtjlAAGp/eo0IZI=
@@ -20465,23 +20377,10 @@ truffle-contract@^3.0.0, truffle-contract@^3.0.2, truffle-contract@^3.0.4, truff
     truffle-error "^0.0.3"
     web3 "0.20.6"
 
-truffle-deployer@^2.0.1, truffle-deployer@^2.0.x:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/truffle-deployer/-/truffle-deployer-2.0.7.tgz#5989c36540cd51d1ac3163fe1ed9b2270c045c1d"
-  integrity sha1-WYnDZUDNUdGsMWP+HtmyJwwEXB0=
-  dependencies:
-    truffle-contract "^3.0.6"
-    truffle-expect "^0.0.4"
-
 truffle-error@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/truffle-error/-/truffle-error-0.0.3.tgz#4bf55242e14deee1c7194932709182deff2c97ca"
   integrity sha1-S/VSQuFN7uHHGUkycJGC3v8sl8o=
-
-truffle-expect@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/truffle-expect/-/truffle-expect-0.0.4.tgz#d5b27adea4c552f43b70dc00877236b7b68c75c8"
-  integrity sha1-1bJ63qTFUvQ7cNwAh3I2t7aMdcg=
 
 truffle-hdwallet-provider-privkey@^0.1.0:
   version "0.1.0"
@@ -21641,7 +21540,7 @@ web3@1.0.0-beta.34:
     web3-shh "1.0.0-beta.34"
     web3-utils "1.0.0-beta.34"
 
-web3@^0.20.2, web3@^0.20.5:
+web3@^0.20.5:
   version "0.20.7"
   resolved "https://registry.yarnpkg.com/web3/-/web3-0.20.7.tgz#1605e6d81399ed6f85a471a4f3da0c8be57df2f7"
   integrity sha512-VU6/DSUX93d1fCzBz7WP/SGCQizO1rKZi4Px9j/3yRyfssHyFcZamMw2/sj4E8TlfMXONvZLoforR8B4bRoyTQ==
