@@ -10,16 +10,22 @@ export class ReserveSecurityToken extends TransactionBase<Args> {
   public async prepareTransactions() {
     const { symbol, name } = this.args;
     const { securityTokenRegistry, currentWallet } = this.context;
+
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
 
     await this.addTransaction(Approve)({
       amount: fee,
       spender: securityTokenRegistry.address,
     });
+
     await this.addTransaction(securityTokenRegistry.registerTicker)({
       owner: currentWallet.address,
       symbol,
       name,
     });
+  }
+
+  public async buildResult(results) {
+    const { symbol } = this.args;
   }
 }

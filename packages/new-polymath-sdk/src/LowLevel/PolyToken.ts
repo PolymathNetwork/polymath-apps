@@ -27,6 +27,7 @@ interface PolyTokenContract {
 
 export class PolyToken extends Contract<PolyTokenContract> {
   private isTestnet: boolean;
+
   constructor({
     address,
     web3,
@@ -40,10 +41,12 @@ export class PolyToken extends Contract<PolyTokenContract> {
     super({ address, web3, abi });
     this.isTestnet = isTestnet;
   }
-  public async getTokens(recipient: types.Address, amount: BigNumber) {
-    if (this.isTestnet) {
+
+  public getTokens(amount: BigNumber, recipient: types.Address) {
+    if (!this.isTestnet) {
+      throw new Error('Cannot call "getTokens" in mainnet');
     }
-    return this.contract.methods.getTokens(recipient, amount).send();
+    return this.contract.methods.getTokens(amount, recipient);
   }
 
   public async balanceOf(address: types.Address) {
@@ -59,6 +62,6 @@ export class PolyToken extends Contract<PolyTokenContract> {
     spender: types.Address,
     amount: BigNumber
   ) {
-    return this.contract.methods.approve(tokenOwner, spender, amount).send();
+    return this.contract.methods.approve(tokenOwner, spender, amount);
   }
 }

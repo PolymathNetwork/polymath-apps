@@ -28,6 +28,7 @@ export class PolymathClient {
   public httpProvider: HttpProvider = {} as HttpProvider;
   public networkId: number = -1;
   public isUnsupported: boolean = false;
+  public isConnected: boolean = false;
   private lowLevel: LowLevel = {} as LowLevel;
 
   private contexts: {
@@ -73,6 +74,7 @@ export class PolymathClient {
       ...baseContext,
       currentWallet,
     };
+    this.isConnected = true;
   }
 
   /**

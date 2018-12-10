@@ -30,6 +30,8 @@ export class LowLevel {
   public async initialize() {
     const isTestnet = await this.isTestnet();
 
+    console.log('isTestnet', isTestnet);
+
     this.polymathRegistry = new PolymathRegistry({
       // FIXME @RafaelVidaurre: Remove hardcoded value
       address: '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f',

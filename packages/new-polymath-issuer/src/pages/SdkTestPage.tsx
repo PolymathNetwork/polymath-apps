@@ -8,8 +8,8 @@ export class SdkTestPage extends Component<RouteComponentProps> {
       symbol: 'FOO',
       name: 'FooToken',
     });
-
-    console.log('transactions', transactions);
+    console.log('transactions[0]', transactions[0]);
+    await transactions[0].method(...transactions[0].args).send();
   }
   public render() {
     return <div>loading...</div>;
