@@ -1,11 +1,9 @@
-import { PolymathClient } from '~/classes';
-
+import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
 import { Wallet } from '~/classes/Wallet';
-import BigNumber from 'bignumber.js';
-import { PolyToken } from '~/lowLevel/PolyToken';
-import { PolymathRegistry } from '~/lowLevel/PolymathRegistry';
-import { SecurityTokenRegistry } from '~/lowLevel/SecurityTokenRegistry';
+import { PolyToken } from '~/LowLevel/PolyToken';
+import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
+import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 
 export enum TransactionTypes {
   Approve,

@@ -33,6 +33,7 @@ module.exports = env => {
     mode: 'development',
     entry: [
       require.resolve('react-dev-utils/webpackHotDevClient'),
+      '@babel/polyfill',
       path.resolve(__dirname, './src/index.tsx'),
     ],
     context: path.resolve(__dirname, '../'),

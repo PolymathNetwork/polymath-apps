@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 import { types } from '@polymathnetwork/new-shared';
-import { blockchainStub } from '~/lowLevel/blockchainStub';
+import { blockchainStub } from '~/LowLevel/blockchainStub';
 import { TransactionObject } from 'web3/eth/types';
 import { PolyTokenAbi } from './abis/PolyTokenAbi';
 import { PolyTokenFaucetAbi } from './abis/PolyTokenFaucetAbi';

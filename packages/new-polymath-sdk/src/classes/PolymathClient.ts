@@ -1,15 +1,19 @@
 import Web3 from 'web3';
-import { HttpProvider } from 'web3/providers';
+import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { types } from '@polymathnetwork/new-shared';
-import { PolyToken } from '~/lowLevel/PolyToken';
+import { PolyToken } from '~/LowLevel/PolyToken';
 import { Wallet } from './Wallet';
-import { LowLevel } from '~/lowLevel';
-import { PolymathRegistry } from '~/lowLevel/PolymathRegistry';
+import { LowLevel } from '~/LowLevel';
+import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { PolymathBaseContext, PolymathContext } from '~/types';
-import { SecurityTokenRegistry } from '~/lowLevel/SecurityTokenRegistry';
+import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 
 interface Params {
-  provider: HttpProvider;
+  httpProvider?: HttpProvider;
+  wsProvider?: WebsocketProvider;
+}
+interface EthereumProvider extends HttpProvider {
+  enable(): Promise<void>;
 }
 
 // FIXME @RafaelVidaurre: Should be in polymath shared, move when sure
@@ -19,18 +23,30 @@ enum NetworkIds {
 }
 
 export class PolymathClient {
-  public web3: Web3;
-  public provider: HttpProvider;
+  public web3: Web3 = {} as Web3;
+  public httpProvider: HttpProvider = {} as HttpProvider;
   public networkId: number = -1;
-  private lowLevel: LowLevel;
+  public isUnsupported: boolean = false;
+  private lowLevel: LowLevel = {} as LowLevel;
 
   private contexts: {
     [networkId: number]: PolymathContext;
   } = {};
 
-  constructor({ provider }: Params) {
-    this.provider = provider;
-    this.web3 = new Web3(this.provider);
+  constructor({ httpProvider }: Params = {}) {
+    if (httpProvider) {
+      this.httpProvider = httpProvider;
+    } else {
+      const browserProvider = this.getBrowserProvider();
+      if (browserProvider === null) {
+        this.isUnsupported = true;
+        return;
+      }
+
+      this.httpProvider = browserProvider;
+    }
+
+    this.web3 = new Web3(this.httpProvider);
     // FIXME @RafaelVidaurre: Temp name
     this.lowLevel = new LowLevel(this.web3);
   }
@@ -63,6 +79,30 @@ export class PolymathClient {
    */
   public reserveSecurityToken() {
     //
+  }
+
+  private getBrowserProvider() {
+    if (!window) {
+      return null;
+    }
+
+    const win = window as {
+      web3?: Web3;
+      ethereum?: EthereumProvider;
+    };
+    const isModern = !!win.ethereum;
+    const isLegacy = !isModern && !!win.web3;
+
+    if (isModern) {
+      const web3Provider = win.ethereum as EthereumProvider;
+      return web3Provider;
+    }
+    if (isLegacy) {
+      const web3Instance = win.web3 as Web3;
+      return web3Instance.currentProvider as HttpProvider;
+    }
+
+    return null;
   }
 
   private getTokenContract(token: types.Tokens) {

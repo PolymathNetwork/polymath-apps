@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { PolyToken } from '~/lowLevel/PolyToken';
+import { PolyToken } from '~/LowLevel/PolyToken';
 import { PolymathRegistry } from './PolymathRegistry';
 // NOTE @RafaelVidaurre: Temporary module to interact directly with
 // the smart contracts while we wait for the LowLevel API to be implemented

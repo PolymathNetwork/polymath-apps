@@ -4,7 +4,6 @@
     "outDir": "build/dist",
     "rootDir": "src",
     "baseUrl": "src",
-    "resolveJsonModule": true,
     "paths": {
       "~/*": ["*"]
     },
@@ -16,5 +15,5 @@
     ]
   },
   "references": [{ "path": "../new-polymath-shared" }],
-  "exclude": ["src/specsInit.ts", "build", "node_modules"]
+  "exclude": ["src/specsInit.ts", "build", "node_modules", "**/__tests__/**/*"]
 }
