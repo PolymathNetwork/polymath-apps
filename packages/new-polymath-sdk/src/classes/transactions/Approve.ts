@@ -21,12 +21,13 @@ export class Approve extends TransactionBase<Args> {
 
     const balance = await currentWallet.getBalance(types.Tokens.Poly);
 
-    if (balance.lt(amount) && isTestnet) {
-      await this.addTransaction(polyToken.getTokens)(currentWallet, amount);
-    } else {
-      throw new Error('Not enough balance');
+    if (balance.lt(amount)) {
+      if (isTestnet) {
+        await this.addTransaction(polyToken.getTokens)(currentWallet, amount);
+      } else {
+        throw new Error('Not enough balance');
+      }
     }
-
     await this.addTransaction(polyToken.approve)(spender, amount);
   }
 }

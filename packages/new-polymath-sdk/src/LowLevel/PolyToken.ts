@@ -9,8 +9,8 @@ import { Contract } from './Contract';
 interface PolyTokenContract {
   methods: {
     getTokens: (
-      recipient: types.Address,
-      amount: BigNumber
+      amount: BigNumber,
+      recipient: types.Address
     ) => TransactionObject<boolean>;
     balanceOf: (address: types.Address) => TransactionObject<BigNumber>;
     allowance: (
@@ -42,7 +42,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     this.isTestnet = isTestnet;
   }
 
-  public getTokens(amount: BigNumber, recipient: types.Address) {
+  public async getTokens(amount: BigNumber, recipient: types.Address) {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }

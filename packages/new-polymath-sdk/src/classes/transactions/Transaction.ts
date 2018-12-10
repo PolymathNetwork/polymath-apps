@@ -54,7 +54,6 @@ export class TransactionBase<P> {
 
   protected addTransaction(Method: HigherLevelTransaction | PrimitiveMethod) {
     return async (...args: any[]) => {
-      console.log(Method, 'Method');
       let transactions: TxStepConfig[];
       // If method is a HLT, instanciate it with the right context and args
       if (isHigherLevelTransaction(Method)) {

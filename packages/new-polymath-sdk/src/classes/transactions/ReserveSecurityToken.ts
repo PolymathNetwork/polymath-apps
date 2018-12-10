@@ -24,8 +24,4 @@ export class ReserveSecurityToken extends TransactionBase<Args> {
       name,
     });
   }
-
-  public async buildResult(results) {
-    const { symbol } = this.args;
-  }
 }
