@@ -78,8 +78,9 @@ export class PolymathClient {
   /**
    * Reserve a Security Token
    */
-  public reserveSecurityToken(args: { symbol: string; name: string }) {
+  public async reserveSecurityToken(args: { symbol: string; name: string }) {
     const transaction = new ReserveSecurityToken(args, this.context);
+    return await transaction.prepare();
   }
 
   private getBrowserProvider() {

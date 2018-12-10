@@ -2,28 +2,30 @@ import { PolymathContext } from '~/types';
 
 type PrimitiveMethod = (...args: any[]) => Promise<any>;
 
-interface TxMethod {
+export interface TxMethod {
   args: any[];
   method: PrimitiveMethod | TransactionBase<any>;
 }
 
-interface HigherLevelTransaction<Args = any> {
+export interface HigherLevelTransaction<Args = any> {
   new (args: Args, context: PolymathContext): TransactionBase<Args>;
 }
 
 function isHigherLevelTransaction(
   transaction: any
 ): transaction is HigherLevelTransaction {
-  if (transaction.prepareTransactions) {
+  if (transaction.type) {
     return true;
   }
   return false;
 }
 
 export class TransactionBase<P> {
+  public static type = 'HLT';
   protected args: P;
   protected context: PolymathContext;
   private transactions: TxMethod[] = [];
+  // TODO @RafaelVidaurre: Temporary for typeguarding
 
   constructor(args: P, context: PolymathContext) {
     this.args = args;
@@ -38,26 +40,31 @@ export class TransactionBase<P> {
 
   public async prepare(): Promise<TxMethod[]> {
     await this.prepareTransactions();
+    // NOTE @RafaelVidaurre: Should return some structure with listeners
+    // and other public api functionality that might be useful
+
+    // TODO @RafaelVidaurre: Mutate state cache to recursively called
+    // child txns
     return this.transactions;
   }
 
   protected addTransaction(Method: HigherLevelTransaction | PrimitiveMethod) {
-    return (...args: any[]) => {
-      let transaction: TxMethod;
+    return async (...args: any[]) => {
+      let transactions: TxMethod[];
       // If method is a HLT, instanciate it with the right context and args
       if (isHigherLevelTransaction(Method)) {
-        transaction = {
-          method: new Method(args, this.context),
-          args,
-        };
+        const method = new Method(args[0], this.context);
+        transactions = await method.prepare();
       } else {
-        transaction = {
-          method: Method,
-          args,
-        };
+        transactions = [
+          {
+            method: Method,
+            args,
+          },
+        ];
       }
 
-      this.transactions.push(transaction);
+      this.transactions = [...this.transactions, ...transactions];
     };
   }
 }

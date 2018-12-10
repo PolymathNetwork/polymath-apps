@@ -1,7 +1,7 @@
 import React, { Component, FC, Fragment } from 'react';
 import { Router, RouteComponentProps } from '@reach/router';
 import { client } from '~/lib/polymathClient';
-import { NotFoundPage } from '~/pages';
+import { NotFoundPage, SdkTestPage } from '~/pages';
 
 // TODO @RafaelVidaurre: Delete this temp component
 class InitializeTemp extends Component<RouteComponentProps> {
@@ -27,7 +27,7 @@ class InitializeTemp extends Component<RouteComponentProps> {
 export const Routes = () => (
   <Router>
     <InitializeTemp path="/">
-      <NotFoundPage default />
+      <SdkTestPage default />
     </InitializeTemp>
   </Router>
 );

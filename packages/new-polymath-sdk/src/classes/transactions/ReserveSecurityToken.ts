@@ -9,16 +9,17 @@ interface Args {
 export class ReserveSecurityToken extends TransactionBase<Args> {
   public async prepareTransactions() {
     const { symbol, name } = this.args;
-    const { securityTokenRegistry } = this.context;
-    // 1. Get fee required
-    // 2. Approve amount
-    // 3. Execute transaction
-
+    const { securityTokenRegistry, currentWallet } = this.context;
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
 
-    this.addTransaction(Approve)({
+    await this.addTransaction(Approve)({
       amount: fee,
       spender: securityTokenRegistry.address,
+    });
+    await this.addTransaction(securityTokenRegistry.registerTicker)({
+      owner: currentWallet.address,
+      symbol,
+      name,
     });
   }
 }

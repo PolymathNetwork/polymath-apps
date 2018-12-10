@@ -8,15 +8,11 @@ interface Args {
   address: types.Address;
 }
 
+// TODO @RafaelVidaurre: Implement caching strategies and deduping transactions
+
 export class Wallet implements types.Wallet {
   public id: types.Id = v4();
   public address: types.Address;
-  public balances: {
-    [tokenSymbol: string]: BigNumber;
-  } = {};
-  public allowances: {
-    [spender: string]: BigNumber;
-  } = {};
   private context: PolymathBaseContext;
 
   constructor({ id, address }: Args, context: PolymathBaseContext) {
@@ -31,22 +27,15 @@ export class Wallet implements types.Wallet {
 
   public async getBalance(token: types.Tokens) {
     const tokenContract = this.context.getTokenContract(token);
-    if (this.balances[token] === undefined) {
-      const updatedBalance = await tokenContract.balanceOf(this.address);
-      this.balances[token] = updatedBalance;
-    }
-
-    return this.balances[token];
+    const balanceRes = await tokenContract.balanceOf(this.address);
+    return new BigNumber(`${balanceRes}`);
   }
 
   public async getAllowance(spender: types.Address | Wallet) {
-    if (this.allowances[`${spender}`] === undefined) {
-      const updatedAllowance = await this.context.polyToken.allowance(
-        `${spender}`
-      );
-      this.allowances[`${spender}`] = updatedAllowance;
-    }
-
-    return this.allowances[`${spender}`];
+    const allowanceRes = await this.context.polyToken.allowance(
+      this.address,
+      `${spender}`
+    );
+    return new BigNumber(`${allowanceRes}`);
   }
 }
