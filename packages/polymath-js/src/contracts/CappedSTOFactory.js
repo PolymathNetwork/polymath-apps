@@ -1,5 +1,5 @@
 // @flow
-import artifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTOFactory.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTOFactory.json';
 
 import IModuleFactory from './IModuleFactory';
 

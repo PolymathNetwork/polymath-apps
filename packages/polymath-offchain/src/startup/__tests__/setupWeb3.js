@@ -20,7 +20,7 @@ jest.mock('../../utils', () => {
 jest.useFakeTimers();
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json',
+  '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json',
   () => {
     return {
       abi: {},
@@ -29,7 +29,7 @@ jest.mock(
 );
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json',
+  '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json',
   () => {
     return {
       abi: {},
@@ -38,7 +38,7 @@ jest.mock(
 );
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json',
+  '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityToken.json',
   () => {
     return {
       abi: {},
@@ -46,11 +46,14 @@ jest.mock(
   }
 );
 
-jest.mock('@polymathnetwork/shared/fixtures/contracts/CappedSTO.json', () => {
-  return {
-    abi: {},
-  };
-});
+jest.mock(
+  '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json',
+  () => {
+    return {
+      abi: {},
+    };
+  }
+);
 
 jest.mock('winston', () => {
   return {
