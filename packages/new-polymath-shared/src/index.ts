@@ -1,4 +1,4 @@
+import * as typeHelpers from './typing/helpers';
 import * as types from './typing/types';
-import * as entities from './entities';
 
-export { types, entities };
+export { types, typeHelpers };

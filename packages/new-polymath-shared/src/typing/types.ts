@@ -1,3 +1,11 @@
+import BigNumber from 'bignumber.js';
+
+export enum Tokens {
+  Poly = 'POLY',
+  Dai = 'DAI',
+  Ether = 'ETH',
+}
+
 export enum TransactionStatus {
   Idle = 'IDLE',
   Unapproved = 'UNAPPROVED',
@@ -20,7 +28,7 @@ export type TransactionHash = string;
 export interface Transaction {
   id: Id;
   status: TransactionStatus;
-  name: string;
+  type: string;
   hash?: TransactionHash;
   error?: {
     message: string;
@@ -44,6 +52,7 @@ export interface Wallet {
   id: Id;
   address: Address;
   identity?: Identity;
+  balances: { [key in Tokens]: BigNumber };
 }
 export interface Identity {
   id: Id;

@@ -6,10 +6,12 @@
   "private": true,
   "dependencies": {
     "@polymathnetwork/new-shared": "0.0.0",
+    "bignumber.js": "^8.0.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@types/uuid": "^3.4.4",
+    "reflect-metadata": "^0.1.12",
     "typescript": "^3.1.6"
   }
 }
