@@ -12,6 +12,11 @@ interface PolyTokenContract {
     getTokens: () => TransactionObject<boolean>;
     balanceOf: (address: types.Address) => TransactionObject<BigNumber>;
     allowance: (spender: types.Address) => TransactionObject<BigNumber>;
+    approve: (
+      tokenowner: types.Address,
+      spender: types.Address,
+      amount: BigNumber
+    ) => TransactionObject<boolean>;
   };
 }
 
@@ -33,11 +38,19 @@ export class PolyToken extends Contract<PolyTokenContract> {
     balances[types.Tokens.Poly] = balances[types.Tokens.Poly].plus(amount);
   }
 
-  public balanceOf(address: types.Address) {
+  public async balanceOf(address: types.Address) {
     return this.contract.methods.balanceOf(address).call();
   }
 
-  public allowance(spender: types.Address) {
+  public async allowance(spender: types.Address) {
     return this.contract.methods.allowance(spender).call();
+  }
+
+  public async approve(
+    tokenOwner: types.Address,
+    spender: types.Address,
+    amount: BigNumber
+  ) {
+    return this.contract.methods.approve(tokenOwner, spender, amount).call();
   }
 }

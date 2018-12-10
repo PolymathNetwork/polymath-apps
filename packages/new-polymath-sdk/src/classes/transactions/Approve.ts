@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
 import { Wallet } from '~/classes';
 import { PolymathContext } from '~/types';
+import { TransactionBase } from './Transaction';
 
 /**
  * - Everytime a HLT is run all instances are new. They only exist
@@ -12,51 +13,31 @@ interface Args {
   amount: BigNumber;
   spender: Wallet;
 }
-interface TransactionPlan {
-  method: (...args: any[]) => Promise<any>;
-  args: any[];
-}
 
-export class Approve {
-  public transactions: any[] = [];
-  private args: Args;
-  private polymath: PolymathContext['polymath'];
+export class Approve extends TransactionBase<Args> {
+  // FIXME @RafaelVidaurre: Should infer args from base type
+  public async prepareTransactions(args: Args, context: PolymathContext) {
+    const { amount, spender } = args;
+    const allowance = await context.currentWallet.getAllowance(spender);
 
-  constructor(args: Args, context: PolymathContext) {
-    this.args = args;
-    this.polymath = context.polymath;
-  }
-
-  public async getTransactions() {
-    const { amount, spender } = this.args;
-    const allowance = await this.polymath.currentWallet.getAllowance(spender);
-
-    if (allowance.gte(amount)) {
+    if (allowance.gte(args.amount)) {
       return;
     }
 
-    const balance = await this.polymath.currentWallet.getBalance(
-      types.Tokens.Poly
-    );
+    const balance = await context.currentWallet.getBalance(types.Tokens.Poly);
 
     if (balance.gte(amount)) {
-      // this.addTransaction(this.polymath.polyToken.approve)(spender, amount);
+      this.addTransaction(context.polyToken.approve)(spender, amount);
       return;
     }
 
-    if (this.polymath.isTestnet) {
-      // this.addTransaction(this.polymath.polyToken.getTokens)(
-      //   this.polymath.currentWallet,
-      //   amount
-      // );
+    if (context.isTestnet) {
+      this.addTransaction(context.polyToken.getTokens)(
+        context.currentWallet,
+        amount
+      );
     } else {
       throw new Error('Not enough balance');
     }
-  }
-
-  private addTransaction(method: TransactionPlan['method']) {
-    return (...args: TransactionPlan['args']) => {
-      this.transactions.push({ method, args });
-    };
   }
 }

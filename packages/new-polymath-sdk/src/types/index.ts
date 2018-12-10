@@ -3,15 +3,27 @@ import { PolymathClient } from '~/classes';
 import { types } from '@polymathnetwork/new-shared';
 import { Wallet } from '~/classes/Wallet';
 import BigNumber from 'bignumber.js';
+import { PolyToken } from '~/lowLevel/PolyToken';
+import { PolymathRegistry } from '~/lowLevel/PolymathRegistry';
+import { SecurityTokenRegistry } from '~/lowLevel/SecurityTokenRegistry';
 
 export enum TransactionTypes {
   Approve,
   GetTokens,
 }
 
-export interface PolymathContext {
-  polymath: PolymathClient;
+export interface PolymathBaseContext {
+  polyToken: PolyToken;
+  polymathRegistry: PolymathRegistry;
+  securityTokenRegistry: SecurityTokenRegistry;
+  isTestnet: boolean;
+  getTokenContract(token: types.Tokens): PolyToken; // FIXME @RafaelVidaurre: Use token type here
 }
+
+export interface PolymathContext extends PolymathBaseContext {
+  currentWallet: Wallet;
+}
+
 export interface TransactionObject<T> {
   call(): Promise<T>;
 }

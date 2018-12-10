@@ -5,6 +5,8 @@ import { PolyToken } from '~/lowLevel/PolyToken';
 import { Wallet } from './Wallet';
 import { LowLevel } from '~/lowLevel';
 import { PolymathRegistry } from '~/lowLevel/PolymathRegistry';
+import { PolymathBaseContext, PolymathContext } from '~/types';
+import { SecurityTokenRegistry } from '~/lowLevel/SecurityTokenRegistry';
 
 interface Params {
   provider: HttpProvider;
@@ -22,17 +24,14 @@ export class PolymathClient {
   public networkId: number = -1;
   private lowLevel: LowLevel;
 
-  private networks: {
-    [networkId: number]: {
-      wallet: Wallet;
-      polyToken: PolyToken;
-      polyTokenRegistry: PolymathRegistry;
-    };
+  private contexts: {
+    [networkId: number]: PolymathContext;
   } = {};
 
   constructor({ provider }: Params) {
     this.provider = provider;
     this.web3 = new Web3(this.provider);
+    // FIXME @RafaelVidaurre: Temp name
     this.lowLevel = new LowLevel(this.web3);
   }
 
@@ -40,19 +39,33 @@ export class PolymathClient {
     this.networkId = await this.web3.eth.net.getId();
     const [account] = await this.web3.eth.getAccounts();
 
-    // Here goes the process to get all addresses for each network
-    // Prolly just an "connect" method or something
     await this.lowLevel.initialize();
 
-    // FIXME @RafaelVidaurre: Temp name
-    this.networks[this.networkId] = {
-      wallet: new Wallet({ address: account }, { polymath: this }),
+    const baseContext: PolymathBaseContext = {
       polyToken: this.lowLevel.polyToken as PolyToken,
-      polyTokenRegistry: this.lowLevel.polymathRegistry as PolymathRegistry,
+      polymathRegistry: this.lowLevel.polymathRegistry as PolymathRegistry,
+      securityTokenRegistry: this.lowLevel
+        .polymathRegistry as SecurityTokenRegistry,
+      getTokenContract: this.getTokenContract,
+      isTestnet: this.isTestnet,
+    };
+
+    const currentWallet = new Wallet({ address: account }, baseContext);
+
+    this.contexts[this.networkId] = {
+      ...baseContext,
+      currentWallet,
     };
   }
 
-  public getTokenContract(token: types.Tokens) {
+  /**
+   * Reserve a Security Token
+   */
+  public reserveSecurityToken() {
+    //
+  }
+
+  private getTokenContract(token: types.Tokens) {
     switch (token) {
       case types.Tokens.Poly:
         return this.polyToken;
@@ -62,19 +75,17 @@ export class PolymathClient {
     }
   }
 
-  public get network() {
-    return this.networks[this.networkId];
+  private get context() {
+    return this.contexts[this.networkId];
   }
 
-  public get polyToken() {
-    return this.network.polyToken;
+  private get polyToken() {
+    return this.context.polyToken;
   }
 
   public get isTestnet() {
-    return this.networkId === NetworkIds.Kovan || NetworkIds.Local;
-  }
-
-  public get currentWallet() {
-    return this.network.wallet;
+    return (
+      this.networkId === NetworkIds.Kovan || this.networkId === NetworkIds.Local
+    );
   }
 }

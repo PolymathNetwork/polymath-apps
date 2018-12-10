@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { v4 } from 'uuid';
 import { types } from '@polymathnetwork/new-shared';
-import { PolymathContext } from '~/types';
+import { PolymathContext, PolymathBaseContext } from '~/types';
 
 interface Args {
   id?: types.Id;
@@ -17,12 +17,12 @@ export class Wallet implements types.Wallet {
   public allowances: {
     [spender: string]: BigNumber;
   } = {};
-  private polymath: PolymathContext['polymath'];
+  private context: PolymathBaseContext;
 
-  constructor({ id, address }: Args, context: PolymathContext) {
+  constructor({ id, address }: Args, context: PolymathBaseContext) {
     this.id = id || this.id;
     this.address = address;
-    this.polymath = context.polymath;
+    this.context = context;
   }
 
   public toString() {
@@ -30,7 +30,7 @@ export class Wallet implements types.Wallet {
   }
 
   public async getBalance(token: types.Tokens) {
-    const tokenContract = this.polymath.getTokenContract(token);
+    const tokenContract = this.context.getTokenContract(token);
     if (this.balances[token] === undefined) {
       const updatedBalance = await tokenContract.balanceOf(this.address);
       this.balances[token] = updatedBalance;
@@ -41,7 +41,7 @@ export class Wallet implements types.Wallet {
 
   public async getAllowance(spender: types.Address | Wallet) {
     if (this.allowances[`${spender}`] === undefined) {
-      const updatedAllowance = await this.polymath.polyToken.allowance(
+      const updatedAllowance = await this.context.polyToken.allowance(
         `${spender}`
       );
       this.allowances[`${spender}`] = updatedAllowance;

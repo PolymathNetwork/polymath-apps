@@ -12,6 +12,7 @@
     "no-default-export": true,
     "object-literal-sort-keys": false,
     "no-empty": false,
+    "max-classes-per-file": false,
     "trailing-comma": [
       true,
       {
