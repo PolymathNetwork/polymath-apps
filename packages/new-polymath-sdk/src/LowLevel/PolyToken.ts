@@ -2,15 +2,17 @@ import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 import { types } from '@polymathnetwork/new-shared';
 import { blockchainStub } from '~/lowLevel/blockchainStub';
-import { TransactionObject } from '~/types';
+import { TransactionObject } from 'web3/eth/types';
 import { PolyTokenAbi } from './abis/PolyTokenAbi';
 import { PolyTokenFaucetAbi } from './abis/PolyTokenFaucetAbi';
 import { Contract } from './Contract';
 
 interface PolyTokenContract {
-  getTokens: () => Promise<void>;
-  balanceOf: (address: types.Address) => TransactionObject<BigNumber>;
-  allowance: (spender: types.Address) => TransactionObject<BigNumber>;
+  methods: {
+    getTokens: () => TransactionObject<boolean>;
+    balanceOf: (address: types.Address) => TransactionObject<BigNumber>;
+    allowance: (spender: types.Address) => TransactionObject<BigNumber>;
+  };
 }
 
 export class PolyToken extends Contract<PolyTokenContract> {
@@ -32,10 +34,10 @@ export class PolyToken extends Contract<PolyTokenContract> {
   }
 
   public balanceOf(address: types.Address) {
-    return this.contract.balanceOf(address).call();
+    return this.contract.methods.balanceOf(address).call();
   }
 
   public allowance(spender: types.Address) {
-    return this.contract.allowance(spender).call();
+    return this.contract.methods.allowance(spender).call();
   }
 }

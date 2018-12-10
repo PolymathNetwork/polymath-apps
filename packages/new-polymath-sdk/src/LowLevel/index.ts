@@ -34,7 +34,9 @@ export class LowLevel {
       web3: this.web3,
     });
 
-    const polyTokenAddress = this.polymathRegistry.getAddress('PolyToken');
+    const polyTokenAddress = await this.polymathRegistry.getAddress(
+      'PolyToken'
+    );
 
     this.polyToken = new PolyToken({
       address: polyTokenAddress,
