@@ -1,7 +1,8 @@
 import React, { Component, FC } from 'react';
 import { Router, RouteComponentProps } from '@reach/router';
-import { Polymath } from '@polymathnetwork/polymath-sdk';
+import { Polymath } from '@polymathnetwork/sdk';
 import Web3 from 'web3';
+import { HttpProvider, Provider } from 'web3/providers';
 
 interface Ethereum extends HttpProvider {
   enable(): Promise<void>;
@@ -40,7 +41,7 @@ class InitializeTemp extends Component<RouteComponentProps> {
     }
     const accounts = await web3.eth.getAccounts();
 
-    Polymath.config(web3);
+    // Polymath.config(web3);
   }
 
   public render() {

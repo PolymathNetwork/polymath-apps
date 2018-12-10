@@ -14,7 +14,7 @@ export class Wallet implements types.Wallet {
   public balances: {
     [tokenSymbol: string]: BigNumber;
   } = {};
-  private allowances: {
+  public allowances: {
     [spender: string]: BigNumber;
   } = {};
   private polymath: PolymathContext['polymath'];
@@ -44,8 +44,7 @@ export class Wallet implements types.Wallet {
   public async getAllowance(spender: types.Address | Wallet) {
     if (this.allowances[`${spender}`] === undefined) {
       const updatedAllowance = await this.polymath.polyToken.allowance(
-        this.address,
-        spender
+        `${spender}`
       );
       this.allowances[`${spender}`] = updatedAllowance;
     }

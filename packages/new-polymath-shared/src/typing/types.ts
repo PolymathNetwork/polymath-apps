@@ -4,6 +4,7 @@ export enum Tokens {
   Poly = 'POLY',
   Dai = 'DAI',
   Ether = 'ETH',
+  Erc20 = 'ERC20',
 }
 
 export enum TransactionStatus {

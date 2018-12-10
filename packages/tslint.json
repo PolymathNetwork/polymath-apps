@@ -11,6 +11,7 @@
     "arrow-parens": false,
     "no-default-export": true,
     "object-literal-sort-keys": false,
+    "no-empty": false,
     "trailing-comma": [
       true,
       {

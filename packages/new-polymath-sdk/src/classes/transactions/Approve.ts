@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { types } from '@polymathnetwork/new-shared';
 import { Wallet } from '~/classes';
 import { PolymathContext } from '~/types';
-import { types } from '@polymathnetwork/new-shared';
 
 /**
  * - Everytime a HLT is run all instances are new. They only exist
@@ -27,14 +27,12 @@ export class Approve {
     this.polymath = context.polymath;
   }
 
-  public async getExecutionPlan() {
+  public async getTransactions() {
     const { amount, spender } = this.args;
-    const transactions: TransactionPlan[] = [];
-
     const allowance = await this.polymath.currentWallet.getAllowance(spender);
 
     if (allowance.gte(amount)) {
-      return transactions;
+      return;
     }
 
     const balance = await this.polymath.currentWallet.getBalance(
@@ -42,17 +40,15 @@ export class Approve {
     );
 
     if (balance.gte(amount)) {
-      this.addTransaction(this.polymath.polyToken.approve)(spender, amount);
+      // this.addTransaction(this.polymath.polyToken.approve)(spender, amount);
       return;
     }
 
-    // NOTE: Alternatively we could check for `getTokens` method
-
     if (this.polymath.isTestnet) {
-      this.addTransaction(this.polymath.polyToken.getTokens)(
-        this.polymath.currentWallet,
-        amount
-      );
+      // this.addTransaction(this.polymath.polyToken.getTokens)(
+      //   this.polymath.currentWallet,
+      //   amount
+      // );
     } else {
       throw new Error('Not enough balance');
     }

@@ -3,8 +3,8 @@ import { BigNumber } from 'bignumber.js';
 export const blockchainStub: {
   [address: string]: {
     allowances: {
-      [spender: string]: BigNumber | undefined;
+      [token: string]: { [spender: string]: BigNumber | undefined };
     };
-    balance: BigNumber;
+    balances: { [token: string]: BigNumber };
   };
 } = {};

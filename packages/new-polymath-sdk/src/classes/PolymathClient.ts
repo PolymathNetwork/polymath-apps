@@ -1,8 +1,10 @@
 import Web3 from 'web3';
 import { Provider, HttpProvider } from 'web3/providers';
-import { PolyToken } from '~/classes/PolyToken';
-import { Wallet } from './Wallet';
 import { types } from '@polymathnetwork/new-shared';
+import { PolyToken } from '~/lowLevel/PolyToken';
+import { Wallet } from './Wallet';
+import { LowLevel } from '~/lowLevel';
+import { PolymathRegistry } from '~/lowLevel/PolymathRegistry';
 
 interface Params {
   provider: HttpProvider;
@@ -18,17 +20,20 @@ export class PolymathClient {
   public web3: Web3;
   public provider: HttpProvider;
   public networkId: number = -1;
+  private lowLevel: LowLevel;
 
   private networks: {
     [networkId: number]: {
       wallet: Wallet;
       polyToken: PolyToken;
+      polyTokenRegistry: PolymathRegistry;
     };
   } = {};
 
   constructor({ provider }: Params) {
     this.provider = provider;
     this.web3 = new Web3(this.provider);
+    this.lowLevel = new LowLevel(this.web3);
   }
 
   public async connect() {
@@ -37,10 +42,13 @@ export class PolymathClient {
 
     // Here goes the process to get all addresses for each network
     // Prolly just an "connect" method or something
+    await this.lowLevel.initialize();
 
+    // FIXME @RafaelVidaurre: Temp name
     this.networks[this.networkId] = {
       wallet: new Wallet({ address: account }, { polymath: this }),
-      polyToken: new PolyToken('someAddress'),
+      polyToken: this.lowLevel.polyToken as PolyToken,
+      polyTokenRegistry: this.lowLevel.polymathRegistry as PolymathRegistry,
     };
   }
 
