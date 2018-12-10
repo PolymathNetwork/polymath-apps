@@ -8,7 +8,6 @@ import { types } from '@polymathnetwork/new-shared';
 export abstract class Contract<T> {
   public address: types.Address;
   protected contract: T;
-  private initialized = false;
 
   constructor({
     address,

@@ -10,8 +10,8 @@ export interface TransactionBase<P> {
   prepare(): Promise<void>;
 }
 export class TransactionBase<P> {
-  private args: P;
-  private context: PolymathContext;
+  protected args: P;
+  protected context: PolymathContext;
   private transactions: TransactionMethod[] = [];
 
   constructor(args: P, context: PolymathContext) {
@@ -26,14 +26,7 @@ export class TransactionBase<P> {
    * @param args Arguments for the transaction
    * @param context Execution context
    */
-  public async prepareTransactions(
-    args: P,
-    context: PolymathContext
-  ): Promise<void> {}
-
-  public async prepare() {
-    await this.prepareTransactions(this.args, this.context);
-  }
+  public async prepareTransactions(): Promise<void> {}
 
   protected addTransaction(method: (...args: any[]) => Promise<any>) {
     return (...args: any[]) => {

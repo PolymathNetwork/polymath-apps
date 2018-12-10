@@ -3,11 +3,12 @@ import { PolymathContext } from '~/types';
 
 interface Args {
   symbol: string;
+  name: string;
 }
 
 export class ReserveSecurityToken extends TransactionBase<Args> {
-  public async prepareTransactions(args: Args, context: PolymathContext) {
-    const { symbol } = args;
-    // const reservationCost = await context.securityTokenRegistry.reservationCost();
+  public async prepareTransactions() {
+    const { symbol, name } = this.args;
+    //
   }
 }

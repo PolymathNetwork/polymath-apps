@@ -1,3 +1,4 @@
+// tslint:disable
 export const PolyTokenAbi = {
   "contractName": "PolyToken",
   "abi": [

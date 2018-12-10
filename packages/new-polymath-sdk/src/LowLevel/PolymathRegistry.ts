@@ -1,5 +1,4 @@
 import Web3 from 'web3';
-import Eth from 'web3/eth';
 import { TransactionObject } from 'web3/eth/types';
 import { PolymathRegistryAbi } from '~/LowLevel/abis/PolymathRegistryAbi';
 import { Contract } from './Contract';

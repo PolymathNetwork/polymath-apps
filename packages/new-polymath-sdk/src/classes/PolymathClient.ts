@@ -7,6 +7,7 @@ import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { PolymathBaseContext, PolymathContext } from '~/types';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
+import { ReserveSecurityToken } from './transactions/ReserveSecurityToken';
 
 interface Params {
   httpProvider?: HttpProvider;
@@ -61,7 +62,7 @@ export class PolymathClient {
       polyToken: this.lowLevel.polyToken as PolyToken,
       polymathRegistry: this.lowLevel.polymathRegistry as PolymathRegistry,
       securityTokenRegistry: this.lowLevel
-        .polymathRegistry as SecurityTokenRegistry,
+        .securityTokenRegistry as SecurityTokenRegistry,
       getTokenContract: this.getTokenContract,
       isTestnet: this.isTestnet,
     };
@@ -77,8 +78,8 @@ export class PolymathClient {
   /**
    * Reserve a Security Token
    */
-  public reserveSecurityToken() {
-    //
+  public reserveSecurityToken(args: { symbol: string; name: string }) {
+    const transaction = new ReserveSecurityToken(args, this.context);
   }
 
   private getBrowserProvider() {
