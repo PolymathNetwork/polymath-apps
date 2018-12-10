@@ -32,9 +32,7 @@ export class Wallet implements types.Wallet {
   public async getBalance(token: types.Tokens) {
     const tokenContract = this.polymath.getTokenContract(token);
     if (this.balances[token] === undefined) {
-      const updatedBalance = await this.polymath.polyToken.balanceOf(
-        this.address
-      );
+      const updatedBalance = await tokenContract.balanceOf(this.address);
       this.balances[token] = updatedBalance;
     }
 

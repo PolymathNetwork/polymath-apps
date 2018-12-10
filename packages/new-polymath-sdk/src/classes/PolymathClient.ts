@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { Provider, HttpProvider } from 'web3/providers';
+import { HttpProvider } from 'web3/providers';
 import { types } from '@polymathnetwork/new-shared';
 import { PolyToken } from '~/lowLevel/PolyToken';
 import { Wallet } from './Wallet';
