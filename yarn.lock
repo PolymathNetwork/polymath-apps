@@ -7327,7 +7327,7 @@ docz-theme-default@^0.11.2:
     react-sizes "^1.0.4"
     webfontloader "^1.6.28"
 
-docz-theme-default@^0.12.15:
+docz-theme-default@^0.12.13, docz-theme-default@^0.12.15:
   version "0.12.15"
   resolved "https://registry.yarnpkg.com/docz-theme-default/-/docz-theme-default-0.12.15.tgz#e40ebbd04ed5cd0583bb7afdd9cb149203378f1d"
   integrity sha512-THBxyIYmduvLAWkjCkIRIBlcU5SJKSHLeKi5x9EJrvzN5amNZXJ2HYry07vGNebDEHQNtx+7E8OVY3EzMTKY0Q==
@@ -7407,7 +7407,7 @@ docz@^0.11.2:
     react-router-hash-link "^1.2.0"
     yargs "^12.0.1"
 
-docz@^0.12.15:
+docz@^0.12.13, docz@^0.12.15:
   version "0.12.15"
   resolved "https://registry.yarnpkg.com/docz/-/docz-0.12.15.tgz#cf92f7d8ed30ac64a0f6a11bf36708ae369d84f5"
   integrity sha512-cXNW/76Yu/G/cuO8LyG0VFLlyBMUmGLm2bmTyVPPHtmITGRbk79c6WUial4+vq5aEY1HwDHIZ1CSJ+u2tBvkqg==
