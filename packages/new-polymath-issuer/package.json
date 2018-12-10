@@ -9,7 +9,8 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "start": "concurrently --kill-others -n devServer,types \"webpack-dev-server\" \"ttsc -b ../ --watch\""
+    "start": "concurrently --kill-others -n devServer,types \"webpack-dev-server\" \"ttsc -b ../ --watch\"",
+    "test": "jest"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
