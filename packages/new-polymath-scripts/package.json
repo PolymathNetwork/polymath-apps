@@ -7,7 +7,8 @@
     "local-blockchain:prepare": "rm -rf ./build && mkdir build && cp -r ./src/fixtures ./build/fixtures",
     "local-blockchain:start": "node ./src/startLocalBlockchain",
     "local-blockchain:generate-fixtures": "node ./src/generateLocalBlockchain",
-    "build:contract-docs": "node ./src/generateContractDocs"
+    "build:contract-docs": "node ./src/generateContractDocs",
+    "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this package\""
   },
   "dependencies": {
     "ethereumjs-tx": "^1.3.7",
