@@ -2,7 +2,6 @@ import React from 'react';
 import * as reachRouter from '@reach/router';
 import 'jest-dom/extend-expect';
 import { cleanup } from 'react-testing-library';
-import { utils } from '@polymathnetwork/new-shared';
 import { Routes } from '~/App/Routes';
 import { render } from '~/testUtils/helpers';
 
