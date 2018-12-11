@@ -4,6 +4,10 @@
   "main": "build/dist/index.js",
   "typings": "build/dist/index.d.ts",
   "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.1.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",

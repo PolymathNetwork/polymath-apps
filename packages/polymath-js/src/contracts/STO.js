@@ -1,6 +1,6 @@
 // @flow
 
-import artifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';

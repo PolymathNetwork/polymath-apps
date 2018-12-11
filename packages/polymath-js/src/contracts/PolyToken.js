@@ -1,7 +1,7 @@
 // @flow
 
-import artifact from '@polymathnetwork/shared/fixtures/contracts/PolyToken.json';
-import artifactTestnet from '@polymathnetwork/shared/fixtures/contracts/PolyTokenFaucet.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolyToken.json';
+import artifactTestnet from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolyTokenFaucet.json';
 import { MAINNET_NETWORK_ID } from '@polymathnetwork/shared/constants';
 import BigNumber from 'bignumber.js';
 
