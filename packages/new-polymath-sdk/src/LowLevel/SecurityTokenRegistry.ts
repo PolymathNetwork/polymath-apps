@@ -25,7 +25,7 @@ export class SecurityTokenRegistry extends Contract<
     super({ address, abi: SecurityTokenRegistryAbi.abi, web3 });
   }
 
-  public async registerTicker(
+  public registerTicker(
     owner: types.Address,
     ticker: string,
     tokenName: string

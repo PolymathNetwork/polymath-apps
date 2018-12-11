@@ -18,7 +18,6 @@ interface PolyTokenContract {
       spender: types.Address
     ) => TransactionObject<BigNumber>;
     approve: (
-      tokenowner: types.Address,
       spender: types.Address,
       amount: BigNumber
     ) => TransactionObject<boolean>;
@@ -42,7 +41,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     this.isTestnet = isTestnet;
   }
 
-  public async getTokens(amount: BigNumber, recipient: types.Address) {
+  public getTokens(amount: BigNumber, recipient: types.Address) {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
@@ -57,11 +56,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     return this.contract.methods.allowance(tokenOwner, spender).call();
   }
 
-  public async approve(
-    tokenOwner: types.Address,
-    spender: types.Address,
-    amount: BigNumber
-  ) {
-    return this.contract.methods.approve(tokenOwner, spender, amount);
+  public approve(spender: types.Address, amount: BigNumber) {
+    return this.contract.methods.approve(spender, amount);
   }
 }

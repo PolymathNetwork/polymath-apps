@@ -22,10 +22,6 @@ export interface PolymathContext extends PolymathBaseContext {
   currentWallet: Wallet;
 }
 
-export interface TransactionObject<T> {
-  call(): Promise<T>;
-}
-
 export type Addressable = Wallet | types.Address;
 export interface Erc20 {
   address: types.Address;
