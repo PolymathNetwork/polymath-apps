@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { v4 } from 'uuid';
-import Web3 from 'web3';
 import { types } from '@polymathnetwork/new-shared';
-import { PolymathBaseContext } from '~/types';
+import { PolymathBaseContext } from '~/classes/PolymathClient';
 
 interface Args {
   id?: types.Id;

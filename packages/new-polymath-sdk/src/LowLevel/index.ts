@@ -2,15 +2,11 @@ import Web3 from 'web3';
 import { PolyToken } from './PolyToken';
 import { PolymathRegistry } from './PolymathRegistry';
 import { SecurityTokenRegistry } from './SecurityTokenRegistry';
-import { PolymathContext } from '~/types';
-// NOTE @RafaelVidaurre: Temporary module to interact directly with
-// the smart contracts while we wait for the LowLevel API to be implemented
 
 /**
- * 1. Has initialization method
- * 2. Holds contract instances
+ * Temporary module to interact directly with
+ * the smart contracts while we wait for the LowLevel API to be implemented
  */
-
 export class LowLevel {
   public web3: Web3;
   public polymathRegistry?: PolymathRegistry;

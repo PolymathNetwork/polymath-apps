@@ -1,5 +1,4 @@
 import { TxConfig, PrimitiveMethod } from './transactions/Transaction';
-import { types } from '@polymathnetwork/new-shared';
 
 export class TransactionBlueprint {
   public method: ReturnType<PrimitiveMethod>;

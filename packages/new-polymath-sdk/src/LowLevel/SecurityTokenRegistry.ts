@@ -1,10 +1,8 @@
 import Web3 from 'web3';
-import Eth from 'web3/eth';
+import { TransactionObject } from 'web3/eth/types';
+import BigNumber from 'bignumber.js';
 import { SecurityTokenRegistryAbi } from '~/LowLevel/abis/SecurityTokenRegistryAbi';
 import { Contract } from './Contract';
-import { TransactionObject } from 'web3/eth/types';
-import { types } from '@polymathnetwork/new-shared';
-import BigNumber from 'bignumber.js';
 
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenRegistryContract {

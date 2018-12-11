@@ -2,12 +2,23 @@ import Web3 from 'web3';
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { types, constants } from '@polymathnetwork/new-shared';
 import { PolyToken } from '~/LowLevel/PolyToken';
-import { Wallet } from './Wallet';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
-import { PolymathBaseContext, PolymathContext } from '~/types';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
+import { Wallet } from './Wallet';
 import { ReserveSecurityToken } from './transactions/ReserveSecurityToken';
+
+export interface PolymathBaseContext {
+  polyToken: PolyToken;
+  polymathRegistry: PolymathRegistry;
+  securityTokenRegistry: SecurityTokenRegistry;
+  isTestnet: boolean;
+  getTokenContract(token: types.Tokens): PolyToken; // FIXME @RafaelVidaurre: Use token type here
+}
+
+export interface PolymathContext extends PolymathBaseContext {
+  currentWallet: Wallet;
+}
 
 interface Params {
   httpProvider?: HttpProvider;

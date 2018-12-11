@@ -9,5 +9,7 @@
   },
   "flow.enabled": false,
   "eslint.enable": false,
-  "tslint.enable": true
+  "tslint.enable": true,
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }

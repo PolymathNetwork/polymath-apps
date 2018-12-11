@@ -1,9 +1,8 @@
-import { PolymathContext } from '~/types';
-import { Contract } from '~/LowLevel/Contract';
-import { TransactionBlueprint } from '../TransactionBlueprint';
-import { types } from '@polymathnetwork/new-shared';
 import { TransactionObject } from 'web3/eth/types';
-import { TransactionGroup } from '../TransactionGroup';
+import { Contract } from '~/LowLevel/Contract';
+import { TransactionBlueprint } from '~/classes/TransactionBlueprint';
+import { TransactionGroup } from '~/classes/TransactionGroup';
+import { PolymathContext } from '~/classes/PolymathClient';
 
 export type PrimitiveMethod = (...args: any[]) => TransactionObject<any>;
 
