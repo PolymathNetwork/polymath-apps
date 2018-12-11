@@ -220,7 +220,13 @@ export const confirmEmail = (pin: string) => async (
     return;
   }
 
-  await offchain.confirmEmail(pin);
+  let confirmed;
+
+  try {
+    confirmed = !!(await offchain.confirmEmail(pin));
+  } catch (err) {
+    confirmed = false;
+  }
 
   if (global.FS) {
     const { email, name } = getState().pui.account;
@@ -231,7 +237,9 @@ export const confirmEmail = (pin: string) => async (
       email,
       name,
     });
+  }
 
+  if (confirmed) {
     return dispatch({ type: ENTER_PIN_SUCCESS });
   } else {
     throw dispatch({ type: ENTER_PIN_ERROR });
