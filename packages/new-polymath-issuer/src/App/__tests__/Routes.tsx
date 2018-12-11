@@ -1,17 +1,10 @@
 import React from 'react';
-import { navigate } from '@reach/router';
+import * as reachRouter from '@reach/router';
 import 'jest-dom/extend-expect';
 import { cleanup } from 'react-testing-library';
+import { utils } from '@polymathnetwork/new-shared';
 import { Routes } from '~/App/Routes';
 import { render } from '~/testUtils/helpers';
-
-jest.mock('@reach/router', () => {
-  const original = require.requireActual('@reach/router');
-  return {
-    ...original,
-    navigate: jest.fn((...args) => original.navigate(...args)),
-  };
-});
 
 describe('Routes', () => {
   afterEach(() => {
@@ -24,7 +17,7 @@ describe('Routes', () => {
     describe('State: Anonymous', () => {
       describe('Route: /', () => {
         beforeEach(() => {
-          navigate('/');
+          reachRouter.navigate('/');
         });
 
         test('renders the home page', () => {
@@ -34,22 +27,23 @@ describe('Routes', () => {
 
       describe('Route: /login', () => {
         beforeEach(() => {
-          navigate('/login');
+          reachRouter.navigate('/login');
         });
 
         test('renders the login page', () => {
-          render(<Routes />).getByTestId('LoginPage');
+          render(<Routes />);
         });
       });
 
       describe('Route: *', () => {
         beforeEach(() => {
-          navigate('/some-route-that-doesnt-exist');
+          reachRouter.navigate('/some-route-that-doesnt-exist');
         });
 
         test('redirects to "/"', async () => {
+          const spy = spyOn(reachRouter, 'navigate');
           render(<Routes />);
-          expect(navigate).toBeCalledWith('/');
+          expect(spy).toHaveBeenCalledWith('/');
         });
       });
     });
