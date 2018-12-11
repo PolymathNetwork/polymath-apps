@@ -16,7 +16,8 @@
   },
   "references": [
     { "path": "../new-polymath-ui" },
-    { "path": "../new-polymath-sdk" }
+    { "path": "../new-polymath-sdk" },
+    { "path": "../new-polymath-shared" }
   ],
-  "exclude": ["src/specsInit.ts", "build", "node_modules"]
+  "exclude": ["build", "node_modules"]
 }
