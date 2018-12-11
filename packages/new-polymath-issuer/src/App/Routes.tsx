@@ -1,4 +1,11 @@
-import React, { Component, Fragment } from 'react';
-import { Router, RouteComponentProps } from '@reach/router';
+import React, { Component, Fragment, FC } from 'react';
+import { Router, RouteComponentProps, Redirect } from '@reach/router';
+import { HomePage, LoginPage, RedirectionPage } from '~/pages';
 
-export const Routes = () => <Router />;
+export const Routes = () => (
+  <Router>
+    <HomePage path="/" />
+    <LoginPage path="/login" />
+    <RedirectionPage default />
+  </Router>
+);

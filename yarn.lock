@@ -6392,7 +6392,7 @@ css-what@2.1, css-what@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/css-what/-/css-what-2.1.2.tgz#c0876d9d0480927d7d4920dcd72af3595649554d"
 
-css@^2.2.4:
+css@^2.2.3, css@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/css/-/css-2.2.4.tgz#c646755c73971f2bba6a601e2cf2fd71b1298929"
   dependencies:
@@ -11176,6 +11176,18 @@ jest-docblock@^23.2.0:
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-23.2.0.tgz#f085e1f18548d99fdd69b20207e6fd55d91383a7"
   dependencies:
     detect-newline "^2.1.0"
+
+jest-dom@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/jest-dom/-/jest-dom-3.0.0.tgz#d669f6e335ed5eaf0773889bd221eb3d6bce78a9"
+  dependencies:
+    chalk "^2.4.1"
+    css "^2.2.3"
+    jest-diff "^23.6.0"
+    jest-matcher-utils "^23.6.0"
+    lodash "^4.17.11"
+    pretty-format "^23.6.0"
+    redent "^2.0.0"
 
 jest-each@^23.6.0:
   version "23.6.0"

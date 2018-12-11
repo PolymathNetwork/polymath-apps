@@ -1,5 +1,3 @@
-import '@babel/polyfill';
-
 import React, { Fragment } from 'react';
 import { render } from 'react-testing-library';
 import configureMockStore from 'redux-mock-store';
