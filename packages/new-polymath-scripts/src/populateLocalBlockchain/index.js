@@ -1,5 +1,6 @@
 const { sendTransaction, web3 } = require('../utils');
 const { BLOCKCHAIN_NETWORK_ID, STATE_DOCUMENT_PATH } = require('../constants');
+const wallets = require('./wallets.json');
 const fs = require('fs');
 const _ = require('lodash');
 
@@ -9,7 +10,8 @@ function consoleOutput(data) {
   _.forEach(data, (account, index) => {
     let mintedBalances = '';
 
-    const { mintedTokens, tokens: issuedTokens, address } = account;
+    const { mintedTokens, tokens: issuedTokens, walletId } = account;
+    const { address } = wallets[walletId];
     _.forEach(mintedTokens, minted => {
       mintedBalances = `${mintedBalances}
     - ${minted.symbol}: ${minted.amount}`;
@@ -26,7 +28,7 @@ function consoleOutput(data) {
 
     output = `${output}
     
-Account ${index + 1} (${address}):
+Account ${walletId} (${address}):
   ** Balances **
     - POLY: ${account.polyBalance}${mintedBalances}
 `;
@@ -47,7 +49,8 @@ function markdownOutput(data) {
   _.forEach(data, (account, index) => {
     let mintedBalances = '';
 
-    const { mintedTokens, tokens: issuedTokens, address } = account;
+    const { mintedTokens, tokens: issuedTokens, walletId } = account;
+    const { address } = wallets[walletId];
     _.forEach(mintedTokens, minted => {
       mintedBalances = `${mintedBalances}
   - ${minted.symbol}: ${minted.amount}`;
@@ -119,14 +122,14 @@ async function seedData(dataFile) {
   console.log('Generating seed data...');
   for (let i = 0; i < accounts.length; ++i) {
     const account = accounts[i];
+    const wallet = wallets[account.walletId];
+    const { address, privateKey } = wallet;
 
-    const userAccount = await web3.eth.accounts.privateKeyToAccount(
-      account.privateKey
-    );
+    const userAccount = await web3.eth.accounts.privateKeyToAccount(privateKey);
 
     const getPoly = PolyTokenFaucet.methods.getTokens(
       web3.utils.toWei(String(account.polyBalance)),
-      account.address
+      address
     );
 
     await sendTransaction(userAccount, getPoly, polyTokenAddress);
@@ -156,7 +159,7 @@ async function seedData(dataFile) {
       await sendTransaction(userAccount, approveSpend, polyTokenAddress);
 
       const registerTicker = SecurityTokenRegistry.methods.registerTicker(
-        account.address,
+        address,
         symbol,
         name
       );
@@ -203,14 +206,16 @@ async function seedData(dataFile) {
 
       for (let k = 0; k < minted.length; ++k) {
         const mint = minted[k];
-        const { amount, shareholderAddress } = mint;
+        const { amount, shareholderId } = mint;
+        const shareholderWallet = wallets[shareholderId];
+        const { address: shareholderAddress } = shareholderWallet;
 
         addressesToMint.push(web3.utils.toChecksumAddress(shareholderAddress));
         amountsToMint.push(web3.utils.toWei(String(amount)));
 
         const accountOutput = _.find(
           outputData,
-          outputAcc => shareholderAddress === outputAcc.address
+          outputAcc => shareholderId === outputAcc.walletId
         );
         accountOutput.mintedTokens = accountOutput.mintedTokens || [];
         accountOutput.mintedTokens.push({
@@ -237,7 +242,6 @@ async function seedData(dataFile) {
 
         await sendTransaction(userAccount, modifyWhitelist, gtmAddress);
       }
-
       const mintMulti = SecurityToken.methods.mintMulti(
         addressesToMint,
         amountsToMint
