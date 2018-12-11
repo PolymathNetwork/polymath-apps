@@ -1,0 +1,21 @@
+---
+name: LabeledItem
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { LabeledItem, LabeledItemDocz } from './';
+import { Paragraph } from '../Paragraph';
+
+# FormItem
+
+<PropsTable of={LabeledItemDocz} />
+
+## Basic usage
+
+<Playground>
+  <LabeledItem>
+    <LabeledItem.Label>The label</LabeledItem.Label>
+    <Paragraph>The item</Paragraph>
+  </LabeledItem>
+</Playground>
