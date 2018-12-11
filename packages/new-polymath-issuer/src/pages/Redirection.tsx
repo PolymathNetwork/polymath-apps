@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RouteComponentProps, Redirect, navigate } from '@reach/router';
+import { RouteComponentProps, navigate } from '@reach/router';
 
 interface Props extends RouteComponentProps {
   to: string;
