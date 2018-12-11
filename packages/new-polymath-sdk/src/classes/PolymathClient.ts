@@ -1,26 +1,36 @@
 import Web3 from 'web3';
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
-import { types } from '@polymathnetwork/new-shared';
+import { types, constants } from '@polymathnetwork/new-shared';
 import { PolyToken } from '~/LowLevel/PolyToken';
-import { Wallet } from './Wallet';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
-import { PolymathBaseContext, PolymathContext } from '~/types';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
+import { Wallet } from './Wallet';
 import { ReserveSecurityToken } from './transactions/ReserveSecurityToken';
+
+export interface PolymathBaseContext {
+  polyToken: PolyToken;
+  polymathRegistry: PolymathRegistry;
+  securityTokenRegistry: SecurityTokenRegistry;
+  isTestnet: boolean;
+  getTokenContract(token: types.Tokens): PolyToken; // FIXME @RafaelVidaurre: Use token type here
+}
+
+export interface PolymathContext extends PolymathBaseContext {
+  currentWallet: Wallet;
+}
 
 interface Params {
   httpProvider?: HttpProvider;
   wsProvider?: WebsocketProvider;
+  addresses: {
+    [networkId: number]: {
+      polymathRegistryAddress: string;
+    };
+  };
 }
 interface EthereumProvider extends HttpProvider {
   enable(): Promise<void>;
-}
-
-// FIXME @RafaelVidaurre: Should be in polymath shared, move when sure
-enum NetworkIds {
-  Kovan = 42,
-  Local = 15,
 }
 
 export class PolymathClient {
@@ -29,15 +39,22 @@ export class PolymathClient {
   public networkId: number = -1;
   public isUnsupported: boolean = false;
   public isConnected: boolean = false;
+  public addresses: {
+    [networkId: number]: {
+      polymathRegistryAddress: string;
+    };
+  } = {};
   private lowLevel: LowLevel = {} as LowLevel;
 
   private contexts: {
     [networkId: number]: PolymathContext;
   } = {};
 
-  constructor({ httpProvider }: Params = {}) {
-    if (httpProvider) {
-      this.httpProvider = httpProvider;
+  constructor(params: Params) {
+    this.addresses = params.addresses;
+
+    if (params.httpProvider) {
+      this.httpProvider = params.httpProvider;
     } else {
       const browserProvider = this.getBrowserProvider();
       if (browserProvider === null) {
@@ -49,15 +66,21 @@ export class PolymathClient {
     }
 
     this.web3 = new Web3(this.httpProvider);
-    // FIXME @RafaelVidaurre: Temp name
     this.lowLevel = new LowLevel(this.web3);
   }
 
   public async connect() {
     this.networkId = await this.web3.eth.net.getId();
     const [account] = await this.web3.eth.getAccounts();
-
-    await this.lowLevel.initialize();
+    const networkAddresses = this.addresses[this.networkId];
+    if (!networkAddresses) {
+      throw new Error(
+        `Addresses for networkId "${this.networkId}" were not found`
+      );
+    }
+    const polymathRegistryAddress = this.addresses[this.networkId]
+      .polymathRegistryAddress;
+    await this.lowLevel.initialize({ polymathRegistryAddress });
 
     const baseContext: PolymathBaseContext = {
       polyToken: this.lowLevel.polyToken as PolyToken,
@@ -129,7 +152,8 @@ export class PolymathClient {
 
   public get isTestnet() {
     return (
-      this.networkId === NetworkIds.Kovan || this.networkId === NetworkIds.Local
+      this.networkId === constants.NetworkIds.Kovan ||
+      this.networkId === constants.NetworkIds.Local
     );
   }
 }

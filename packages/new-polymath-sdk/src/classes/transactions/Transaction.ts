@@ -1,10 +1,16 @@
-import { PolymathContext } from '~/types';
+import { TransactionObject } from 'web3/eth/types';
+import { Contract } from '~/LowLevel/Contract';
+import { TransactionBlueprint } from '~/classes/TransactionBlueprint';
+import { TransactionGroup } from '~/classes/TransactionGroup';
+import { PolymathContext } from '~/classes/PolymathClient';
 
-type PrimitiveMethod = (...args: any[]) => Promise<any>;
+export type PrimitiveMethod = (...args: any[]) => TransactionObject<any>;
 
-export interface TxStepConfig {
+export interface TxConfig {
   args: any[];
   method: PrimitiveMethod;
+  contract: Contract<any>;
+  from: string;
 }
 
 export interface HigherLevelTransaction<Args = any> {
@@ -24,7 +30,7 @@ export class TransactionBase<P> {
   public static type = 'HLT';
   protected args: P;
   protected context: PolymathContext;
-  private transactions: TxStepConfig[] = [];
+  private transactions: TransactionBlueprint[] = [];
   // TODO @RafaelVidaurre: Temporary for typeguarding
 
   constructor(args: P, context: PolymathContext) {
@@ -38,41 +44,37 @@ export class TransactionBase<P> {
    */
   public async prepareTransactions(): Promise<void> {}
 
-  public async prepare(): Promise<TxStepConfig[]> {
+  public async prepare(): Promise<TransactionGroup> {
     await this.prepareTransactions();
-    // NOTE @RafaelVidaurre: Should return some structure with listeners
-    // and other public api functionality that might be useful
 
     // TODO @RafaelVidaurre: add a preparation state cache to avoid repeated
     // transactions and bad validations
 
-    // const wrappedTransactions = this.transactions.map(this.wrapTransaction);
-
-    return this.transactions;
-    // return wrappedTransactions;
+    return new TransactionGroup(this.transactions);
   }
 
-  protected addTransaction(Method: HigherLevelTransaction | PrimitiveMethod) {
+  protected addTransaction(
+    Base: HigherLevelTransaction | Contract<any>,
+    method?: PrimitiveMethod
+  ) {
     return async (...args: any[]) => {
-      let transactions: TxStepConfig[];
       // If method is a HLT, instanciate it with the right context and args
-      if (isHigherLevelTransaction(Method)) {
-        const method = new Method(args[0], this.context);
-        transactions = await method.prepare();
-      } else {
-        transactions = [
-          {
-            method: Method,
-            args,
-          },
-        ];
+      if (isHigherLevelTransaction(Base)) {
+        const hlt = new Base(args[0], this.context);
+        await hlt.prepareTransactions();
+        const transactions = hlt.transactions;
+        this.transactions = [...this.transactions, ...transactions];
+        return;
       }
 
-      this.transactions = [...this.transactions, ...transactions];
+      const transaction = new TransactionBlueprint({
+        contract: Base,
+        method: method as PrimitiveMethod,
+        args,
+        from: this.context.currentWallet.address,
+      });
+
+      this.transactions.push(transaction);
     };
   }
-
-  // private wrapTransaction(transaction: TxStepConfig) {
-  //   new TransactionPromivent();
-  // }
 }

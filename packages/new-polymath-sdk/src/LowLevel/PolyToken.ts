@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
-import { types } from '@polymathnetwork/new-shared';
 import { TransactionObject } from 'web3/eth/types';
 import { PolyTokenAbi } from './abis/PolyTokenAbi';
 import { PolyTokenFaucetAbi } from './abis/PolyTokenFaucetAbi';
@@ -10,18 +9,14 @@ interface PolyTokenContract {
   methods: {
     getTokens: (
       amount: BigNumber,
-      recipient: types.Address
+      recipient: string
     ) => TransactionObject<boolean>;
-    balanceOf: (address: types.Address) => TransactionObject<BigNumber>;
+    balanceOf: (address: string) => TransactionObject<string>;
     allowance: (
-      tokenOwner: types.Address,
-      spender: types.Address
-    ) => TransactionObject<BigNumber>;
-    approve: (
-      tokenowner: types.Address,
-      spender: types.Address,
-      amount: BigNumber
-    ) => TransactionObject<boolean>;
+      tokenOwner: string,
+      spender: string
+    ) => TransactionObject<string>;
+    approve: (spender: string, amount: BigNumber) => TransactionObject<boolean>;
   };
 }
 
@@ -33,7 +28,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     web3,
     isTestnet,
   }: {
-    address: types.Address;
+    address: string;
     web3: Web3;
     isTestnet: boolean;
   }) {
@@ -42,26 +37,22 @@ export class PolyToken extends Contract<PolyTokenContract> {
     this.isTestnet = isTestnet;
   }
 
-  public async getTokens(amount: BigNumber, recipient: types.Address) {
+  public getTokens(amount: BigNumber, recipient: string) {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
     return this.contract.methods.getTokens(amount, recipient);
   }
 
-  public async balanceOf(address: types.Address) {
+  public async balanceOf(address: string) {
     return this.contract.methods.balanceOf(address).call();
   }
 
-  public async allowance(tokenOwner: types.Address, spender: types.Address) {
+  public async allowance(tokenOwner: string, spender: string) {
     return this.contract.methods.allowance(tokenOwner, spender).call();
   }
 
-  public async approve(
-    tokenOwner: types.Address,
-    spender: types.Address,
-    amount: BigNumber
-  ) {
-    return this.contract.methods.approve(tokenOwner, spender, amount);
+  public approve(spender: string, amount: BigNumber) {
+    return this.contract.methods.approve(spender, amount);
   }
 }

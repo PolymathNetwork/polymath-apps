@@ -1,20 +1,17 @@
 import Web3 from 'web3';
-import Eth from 'web3/eth';
+import { TransactionObject } from 'web3/eth/types';
+import BigNumber from 'bignumber.js';
 import { SecurityTokenRegistryAbi } from '~/LowLevel/abis/SecurityTokenRegistryAbi';
 import { Contract } from './Contract';
-import { TransactionObject } from 'web3/eth/types';
-import { types } from '@polymathnetwork/new-shared';
-import BigNumber from 'bignumber.js';
 
-// This type should be obtained from a library (must match ABI)
 interface SecurityTokenRegistryContract {
   methods: {
     registerTicker(
-      owner: types.Address,
+      owner: string,
       ticker: string,
       tokenName: string
     ): TransactionObject<string>;
-    getTickerRegistrationFee(): TransactionObject<BigNumber>;
+    getTickerRegistrationFee(): TransactionObject<string>;
   };
 }
 
@@ -25,15 +22,14 @@ export class SecurityTokenRegistry extends Contract<
     super({ address, abi: SecurityTokenRegistryAbi.abi, web3 });
   }
 
-  public async registerTicker(
-    owner: types.Address,
-    ticker: string,
-    tokenName: string
-  ) {
+  public registerTicker(owner: string, ticker: string, tokenName: string) {
     return this.contract.methods.registerTicker(owner, ticker, tokenName);
   }
 
   public async getTickerRegistrationFee() {
-    return this.contract.methods.getTickerRegistrationFee().call();
+    const feeRes = await this.contract.methods
+      .getTickerRegistrationFee()
+      .call();
+    return new BigNumber(feeRes);
   }
 }

@@ -4,7 +4,7 @@ import { TransactionBase } from './Transaction';
 
 interface Args {
   amount: BigNumber;
-  spender: types.Address;
+  spender: string;
 }
 
 export class Approve extends TransactionBase<Args> {
@@ -23,11 +23,14 @@ export class Approve extends TransactionBase<Args> {
 
     if (balance.lt(amount)) {
       if (isTestnet) {
-        await this.addTransaction(polyToken.getTokens)(currentWallet, amount);
+        await this.addTransaction(polyToken, polyToken.getTokens)(
+          currentWallet,
+          amount
+        );
       } else {
         throw new Error('Not enough balance');
       }
     }
-    await this.addTransaction(polyToken.approve)(spender, amount);
+    await this.addTransaction(polyToken, polyToken.approve)(spender, amount);
   }
 }

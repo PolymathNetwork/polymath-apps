@@ -2,14 +2,11 @@ import Web3 from 'web3';
 import { PolyToken } from './PolyToken';
 import { PolymathRegistry } from './PolymathRegistry';
 import { SecurityTokenRegistry } from './SecurityTokenRegistry';
-// NOTE @RafaelVidaurre: Temporary module to interact directly with
-// the smart contracts while we wait for the LowLevel API to be implemented
 
 /**
- * 1. Has initialization method
- * 2. Holds contract instances
+ * Temporary module to interact directly with
+ * the smart contracts while we wait for the LowLevel API to be implemented
  */
-
 export class LowLevel {
   public web3: Web3;
   public polymathRegistry?: PolymathRegistry;
@@ -27,12 +24,16 @@ export class LowLevel {
     return networkId !== 1;
   }
 
-  public async initialize() {
+  public async initialize({
+    polymathRegistryAddress,
+  }: {
+    polymathRegistryAddress: string;
+  }) {
     const isTestnet = await this.isTestnet();
 
     this.polymathRegistry = new PolymathRegistry({
       // FIXME @RafaelVidaurre: Remove hardcoded value
-      address: '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f',
+      address: polymathRegistryAddress,
       web3: this.web3,
     });
 

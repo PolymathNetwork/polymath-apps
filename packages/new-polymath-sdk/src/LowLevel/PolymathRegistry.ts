@@ -3,7 +3,6 @@ import { TransactionObject } from 'web3/eth/types';
 import { PolymathRegistryAbi } from '~/LowLevel/abis/PolymathRegistryAbi';
 import { Contract } from './Contract';
 
-// This type should be obtained from a library (must match ABI)
 interface PolymathRegistryContract {
   methods: {
     getAddress(contractName: string): TransactionObject<string>;
