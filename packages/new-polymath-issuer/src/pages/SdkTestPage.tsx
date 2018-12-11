@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { client } from '~/lib/polymathClient';
+import { polyClient } from '~/lib/polyClient';
 import { RouteComponentProps } from '@reach/router';
 
 export class SdkTestPage extends Component<RouteComponentProps> {
   public async componentDidMount() {
-    const transactionGroup = await client.reserveSecurityToken({
+    const transactionGroup = await polyClient.reserveSecurityToken({
       symbol: 'adwd',
       name: 'dwdw',
     });

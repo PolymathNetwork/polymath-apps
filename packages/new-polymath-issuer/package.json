@@ -12,6 +12,31 @@
     "start": "concurrently --kill-others -n devServer,types \"webpack-dev-server\" \"ttsc -b ../ --watch\"",
     "test": "jest"
   },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.(ts|js)"
+    ],
+    "testPathIgnorePatterns": [
+      "build"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "../../config/babelJestWrapper.js"
+    },
+    "moduleNameMapper": {
+      "~/(.*)": "<rootDir>/src/$1"
+    },
+    "setupFiles": [
+      "<rootDir>/src/testUtils/setupTests.ts"
+    ]
+  },
   "dependencies": {
     "@babel/runtime": "7.0.0",
     "@polymathnetwork/new-ui": "0.0.0",

@@ -15,4 +15,4 @@ const params = {
     },
   },
 };
-export const client = new PolymathClient(params);
+export const polyClient = new PolymathClient(params);
