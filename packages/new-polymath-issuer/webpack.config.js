@@ -99,7 +99,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin(envVars),
+    new webpack.EnvironmentPlugin(Object.keys(envVars)),
 
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

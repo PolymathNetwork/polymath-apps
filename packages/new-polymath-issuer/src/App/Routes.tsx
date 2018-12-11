@@ -1,5 +1,7 @@
 import React, { Component, FC, Fragment } from 'react';
 import { Router, RouteComponentProps } from '@reach/router';
+import { constants } from '@polymathnetwork/new-shared';
+import { POLYMATH_REGISTRY_ADDRESS_LOCAL } from '~/constants';
 import { client } from '~/lib/polymathClient';
 import { NotFoundPage, SdkTestPage } from '~/pages';
 

@@ -28,12 +28,16 @@ export class LowLevel {
     return networkId !== 1;
   }
 
-  public async initialize() {
+  public async initialize({
+    polymathRegistryAddress,
+  }: {
+    polymathRegistryAddress: string;
+  }) {
     const isTestnet = await this.isTestnet();
 
     this.polymathRegistry = new PolymathRegistry({
       // FIXME @RafaelVidaurre: Remove hardcoded value
-      address: '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f',
+      address: polymathRegistryAddress,
       web3: this.web3,
     });
 

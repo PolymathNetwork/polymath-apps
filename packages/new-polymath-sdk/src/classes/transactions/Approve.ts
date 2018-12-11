@@ -4,7 +4,7 @@ import { TransactionBase } from './Transaction';
 
 interface Args {
   amount: BigNumber;
-  spender: types.Address;
+  spender: string;
 }
 
 export class Approve extends TransactionBase<Args> {

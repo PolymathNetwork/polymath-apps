@@ -10,7 +10,7 @@ import BigNumber from 'bignumber.js';
 interface SecurityTokenRegistryContract {
   methods: {
     registerTicker(
-      owner: types.Address,
+      owner: string,
       ticker: string,
       tokenName: string
     ): TransactionObject<string>;
@@ -25,11 +25,7 @@ export class SecurityTokenRegistry extends Contract<
     super({ address, abi: SecurityTokenRegistryAbi.abi, web3 });
   }
 
-  public registerTicker(
-    owner: types.Address,
-    ticker: string,
-    tokenName: string
-  ) {
+  public registerTicker(owner: string, ticker: string, tokenName: string) {
     return this.contract.methods.registerTicker(owner, ticker, tokenName);
   }
 

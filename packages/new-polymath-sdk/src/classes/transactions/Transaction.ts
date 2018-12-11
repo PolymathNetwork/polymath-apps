@@ -11,7 +11,7 @@ export interface TxConfig {
   args: any[];
   method: PrimitiveMethod;
   contract: Contract<any>;
-  from: types.Address;
+  from: string;
 }
 
 export interface HigherLevelTransaction<Args = any> {

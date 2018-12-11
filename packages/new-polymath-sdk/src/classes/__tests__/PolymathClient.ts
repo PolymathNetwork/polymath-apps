@@ -1,4 +1,4 @@
-import { PolymathClient } from '~/classes';
+import { PolymathClient } from '../PolymathClient';
 import Web3 from 'web3';
 import { HttpProvider } from 'web3/providers';
 import { Wallet } from '../Wallet';
@@ -20,7 +20,7 @@ describe('PolymathClient', () => {
   describe('#connect', () => {
     test('initializes correctly after connecting', async () => {
       const client = new PolymathClient({ provider });
-      await client.connect();
+      await client.connect({});
       expect(client.networkId).toBeDefined();
       expect(client.network).toBeDefined();
       expect(client.currentWallet).toBeInstanceOf(Wallet);

@@ -22,14 +22,14 @@ export interface PolymathContext extends PolymathBaseContext {
   currentWallet: Wallet;
 }
 
-export type Addressable = Wallet | types.Address;
+export type Addressable = Wallet | string;
 export interface Erc20 {
-  address: types.Address;
-  approve(spender: types.Address, amount: BigNumber): Promise<boolean>;
+  address: string;
+  approve(spender: string, amount: BigNumber): Promise<boolean>;
   allowance(
-    tokenOwner: types.Address,
-    spender: types.Address
+    tokenOwner: string,
+    spender: string
   ): Promise<BigNumber>;
-  balanceOf(address: types.Address): Promise<BigNumber>;
-  transfer(to: types.Address, amount: BigNumber): Promise<boolean>;
+  balanceOf(address: string): Promise<BigNumber>;
+  transfer(to: string, amount: BigNumber): Promise<boolean>;
 }

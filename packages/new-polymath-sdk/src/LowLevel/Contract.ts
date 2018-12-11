@@ -1,12 +1,11 @@
 import Web3 from 'web3';
-import { types } from '@polymathnetwork/new-shared';
 
 /**
  * Represents a smart contract, addresses should be retrieved before
  * instanciating a class.
  */
 export abstract class Contract<T> {
-  public address: types.Address;
+  public address: string;
   protected contract: T;
 
   constructor({
@@ -14,7 +13,7 @@ export abstract class Contract<T> {
     web3,
     abi,
   }: {
-    address: types.Address;
+    address: string;
     web3: Web3;
     abi: any[];
   }) {

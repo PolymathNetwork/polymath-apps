@@ -10,17 +10,14 @@ interface PolyTokenContract {
   methods: {
     getTokens: (
       amount: BigNumber,
-      recipient: types.Address
+      recipient: string
     ) => TransactionObject<boolean>;
-    balanceOf: (address: types.Address) => TransactionObject<string>;
+    balanceOf: (address: string) => TransactionObject<string>;
     allowance: (
-      tokenOwner: types.Address,
-      spender: types.Address
+      tokenOwner: string,
+      spender: string
     ) => TransactionObject<string>;
-    approve: (
-      spender: types.Address,
-      amount: BigNumber
-    ) => TransactionObject<boolean>;
+    approve: (spender: string, amount: BigNumber) => TransactionObject<boolean>;
   };
 }
 
@@ -32,7 +29,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     web3,
     isTestnet,
   }: {
-    address: types.Address;
+    address: string;
     web3: Web3;
     isTestnet: boolean;
   }) {
@@ -41,22 +38,22 @@ export class PolyToken extends Contract<PolyTokenContract> {
     this.isTestnet = isTestnet;
   }
 
-  public getTokens(amount: BigNumber, recipient: types.Address) {
+  public getTokens(amount: BigNumber, recipient: string) {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
     return this.contract.methods.getTokens(amount, recipient);
   }
 
-  public async balanceOf(address: types.Address) {
+  public async balanceOf(address: string) {
     return this.contract.methods.balanceOf(address).call();
   }
 
-  public async allowance(tokenOwner: types.Address, spender: types.Address) {
+  public async allowance(tokenOwner: string, spender: string) {
     return this.contract.methods.allowance(tokenOwner, spender).call();
   }
 
-  public approve(spender: types.Address, amount: BigNumber) {
+  public approve(spender: string, amount: BigNumber) {
     return this.contract.methods.approve(spender, amount);
   }
 }
