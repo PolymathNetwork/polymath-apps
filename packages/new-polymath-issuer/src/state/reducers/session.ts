@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { Wallet, Identity } from '~/types';
+import { SessionRoles, Wallet, Identity } from '~/types';
 import { SessionActions } from '~/state/actions/types';
 import * as actions from '~/state/actions/session';
 
