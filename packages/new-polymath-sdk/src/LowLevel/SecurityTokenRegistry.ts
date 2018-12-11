@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { SecurityTokenRegistryAbi } from '~/LowLevel/abis/SecurityTokenRegistryAbi';
 import { Contract } from './Contract';
 
-// This type should be obtained from a library (must match ABI)
 interface SecurityTokenRegistryContract {
   methods: {
     registerTicker(
