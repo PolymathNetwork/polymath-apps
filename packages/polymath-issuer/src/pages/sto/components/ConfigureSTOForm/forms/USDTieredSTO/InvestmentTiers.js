@@ -1,13 +1,10 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { removeTier } from '../../../../../../actions/sto';
 import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
-import { withTheme } from 'styled-components';
 
 import { Icon } from '@polymathnetwork/ui';
 import DeleteIcon from '@polymathnetwork/ui/images/icons/Delete';
@@ -24,6 +21,7 @@ import {
 import { format } from '@polymathnetwork/shared/utils';
 
 import AddTierModal from './AddTierModal';
+import RemoveTierModal from './RemoveTierModal';
 
 const {
   Table,
@@ -75,7 +73,7 @@ type State = {|
   isAddingTier: boolean,
 |};
 
-class InvestmentTiers extends React.Component<Props, State> {
+export default class InvestmentTiers extends React.Component<Props, State> {
   state = {
     isAddingTier: false,
   };
@@ -114,7 +112,7 @@ class InvestmentTiers extends React.Component<Props, State> {
     setFieldValue(name, newValue);
   };
 
-  handleClose = () => {
+  handleCloseAddTier = () => {
     this.setState({ isAddingTier: false });
   };
 
@@ -122,13 +120,17 @@ class InvestmentTiers extends React.Component<Props, State> {
     this.setState({ isAddingTier: true });
   };
 
-  handleRemoveTier = async (id, tiers) => {
-    const {
-      field: { value, name },
-      form: { setFieldValue },
-    } = this.props;
-    this.props.handleRemove(id, tiers, setFieldValue);
+  handleRemoveTier = index => {
+    this.setState({
+      removingTierIndex: index,
+    });
   };
+
+  handleCloseRemoveTier() {
+    this.setState({
+      removingTierIndex: null,
+    });
+  }
 
   render() {
     const {
@@ -257,7 +259,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {rows.map(row => (
+                        {rows.map((row, index) => (
                           <TableRow key={row.id}>
                             {row.cells.map(cell => (
                               <TableCell key={cell.id}>{cell.value}</TableCell>
@@ -268,7 +270,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                                   Icon={DeleteIcon}
                                   color="#000000"
                                   onClick={() => {
-                                    this.handleRemoveTier(row.id, value.tiers);
+                                    this.handleRemoveTier(index);
                                   }}
                                 />
                               </TableCell>
@@ -292,28 +294,26 @@ class InvestmentTiers extends React.Component<Props, State> {
         )}
         <FieldArray
           name="investmentTiers.tiers"
-          render={({ push }) => (
-            <Field
-              name="investmentTiers.newTier"
-              ticker={ticker}
-              component={AddTierModal}
-              title={`Add the Investment Tier #${value.tiers.length + 1}`}
-              isOpen={isAddingTier}
-              onAdd={push}
-              onClose={this.handleClose}
-            />
+          render={({ push, remove }) => (
+            <Fragment>
+              <Field
+                name="investmentTiers.newTier"
+                ticker={ticker}
+                component={AddTierModal}
+                title={`Add the Investment Tier #${value.tiers.length + 1}`}
+                isOpen={isAddingTier}
+                onAdd={push}
+                onClose={this.handleCloseAddTier}
+              />
+              <RemoveTierModal
+                tierIndex={this.state.removingTierIndex}
+                onRemove={remove}
+                onClose={this.handleCloseRemoveTier}
+              />
+            </Fragment>
           )}
         />
       </Fragment>
     );
   }
 }
-
-const mapDispatchToProps = dispatch => ({
-  handleRemove: (id, tiers, setFieldValue) =>
-    dispatch(removeTier(id, tiers, setFieldValue)),
-});
-export default connect(
-  null,
-  mapDispatchToProps
-)(InvestmentTiers);
