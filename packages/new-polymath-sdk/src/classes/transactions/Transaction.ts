@@ -51,8 +51,6 @@ export class TransactionBase<P> {
     // TODO @RafaelVidaurre: add a preparation state cache to avoid repeated
     // transactions and bad validations
 
-    // const wrappedTransactions = this.transactions.map(this.wrapTransaction);
-
     return new TransactionGroup(this.transactions);
   }
 

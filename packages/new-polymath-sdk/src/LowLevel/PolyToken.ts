@@ -12,11 +12,11 @@ interface PolyTokenContract {
       amount: BigNumber,
       recipient: types.Address
     ) => TransactionObject<boolean>;
-    balanceOf: (address: types.Address) => TransactionObject<BigNumber>;
+    balanceOf: (address: types.Address) => TransactionObject<string>;
     allowance: (
       tokenOwner: types.Address,
       spender: types.Address
-    ) => TransactionObject<BigNumber>;
+    ) => TransactionObject<string>;
     approve: (
       spender: types.Address,
       amount: BigNumber

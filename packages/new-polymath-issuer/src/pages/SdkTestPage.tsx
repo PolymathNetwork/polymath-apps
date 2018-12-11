@@ -8,7 +8,6 @@ export class SdkTestPage extends Component<RouteComponentProps> {
       symbol: 'adwd',
       name: 'dwdw',
     });
-    console.log('transactionGroup', transactionGroup);
 
     await transactionGroup.run();
   }

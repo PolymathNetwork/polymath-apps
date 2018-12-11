@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { v4 } from 'uuid';
+import Web3 from 'web3';
 import { types } from '@polymathnetwork/new-shared';
 import { PolymathBaseContext } from '~/types';
 
@@ -28,7 +29,7 @@ export class Wallet implements types.Wallet {
   public async getBalance(token: types.Tokens) {
     const tokenContract = this.context.getTokenContract(token);
     const balanceRes = await tokenContract.balanceOf(this.address);
-    return new BigNumber(`${balanceRes}`);
+    return new BigNumber(balanceRes);
   }
 
   public async getAllowance(spender: types.Address | Wallet) {
@@ -36,6 +37,6 @@ export class Wallet implements types.Wallet {
       this.address,
       `${spender}`
     );
-    return new BigNumber(`${allowanceRes}`);
+    return new BigNumber(allowanceRes);
   }
 }

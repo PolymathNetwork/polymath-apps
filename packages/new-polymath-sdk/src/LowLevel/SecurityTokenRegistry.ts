@@ -14,7 +14,7 @@ interface SecurityTokenRegistryContract {
       ticker: string,
       tokenName: string
     ): TransactionObject<string>;
-    getTickerRegistrationFee(): TransactionObject<BigNumber>;
+    getTickerRegistrationFee(): TransactionObject<string>;
   };
 }
 
@@ -34,6 +34,9 @@ export class SecurityTokenRegistry extends Contract<
   }
 
   public async getTickerRegistrationFee() {
-    return this.contract.methods.getTickerRegistrationFee().call();
+    const feeRes = await this.contract.methods
+      .getTickerRegistrationFee()
+      .call();
+    return new BigNumber(feeRes);
   }
 }
