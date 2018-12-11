@@ -26,9 +26,11 @@ export class Wallet implements types.Wallet {
     return this.address;
   }
 
+  // FIXME @RafaelVidaurre:Balance is wrong
   public async getBalance(token: types.Tokens) {
     const tokenContract = this.context.getTokenContract(token);
     const balanceRes = await tokenContract.balanceOf(this.address);
+    console.log('balanceRes', balanceRes);
     return new BigNumber(balanceRes);
   }
 

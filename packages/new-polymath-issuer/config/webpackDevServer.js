@@ -10,7 +10,6 @@ module.exports = function() {
     watchContentBase: true,
     hot: true,
     publicPath: '/',
-
     port: process.env.PORT,
     overlay: false,
     historyApiFallback: {

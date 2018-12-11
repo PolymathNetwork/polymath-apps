@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const DeclarationBundlerPlugin = require('declaration-bundler-webpack-plugin');
@@ -12,12 +12,6 @@ const webpackDevServer = require('./config/webpackDevServer');
 // TODO @RafaelVidaurre: use => const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 envVars = getEnvVars();
-process.env = {
-  ...process.env,
-  envVars,
-};
-
-console.log(envVars);
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -106,14 +100,15 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin(envVars),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: __dirname + '/public/index.html',
-    }),
 
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: __dirname + '/public/index.html',
+    }),
+    new InterpolateHtmlPlugin(envVars),
     // new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     // new ForkTsCheckerWebpackPlugin({
     //   async: false,

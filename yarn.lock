@@ -9942,6 +9942,12 @@ internal-ip@^3.0.1:
     default-gateway "^2.6.0"
     ipaddr.js "^1.5.2"
 
+interpolate-html-plugin@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/interpolate-html-plugin/-/interpolate-html-plugin-3.0.0.tgz#5cef4352f1fe7af40eae5389644b30e6bd58f6dd"
+  dependencies:
+    escape-string-regexp "^1.0.5"
+
 interpret@^1.0.0, interpret@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"

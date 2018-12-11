@@ -20,9 +20,7 @@ export class Approve extends TransactionBase<Args> {
     }
 
     const balance = await currentWallet.getBalance(types.Tokens.Poly);
-    console.log('balance', balance.toString());
-    console.log('amount', amount.toString());
-
+    console.log('balance.lt(amount)', balance.lt(amount));
     if (balance.lt(amount)) {
       if (isTestnet) {
         await this.addTransaction(polyToken, polyToken.getTokens)(
