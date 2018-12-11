@@ -5,8 +5,8 @@ import { DEPLOYMENT_STAGE, NETWORKS } from '../constants';
 import Web3 from 'web3';
 import { User, Provider } from '../models';
 import { sendProviderApplicationEmail, verifySignature } from '../utils';
-import PolymathRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json';
-import SecurityTokenRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
+import PolymathRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json';
+import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
 
 import type { Context } from 'koa';
 

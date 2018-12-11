@@ -1,6 +1,6 @@
 // @flow
-import USDTieredSTOFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTOFactory.json';
-import CappedSTOFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/CappedSTOFactory.json';
+import USDTieredSTOFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTOFactory.json';
+import CappedSTOFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTOFactory.json';
 
 import type { BigNumber } from 'bignumber.js';
 

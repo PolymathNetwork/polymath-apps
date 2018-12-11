@@ -14,8 +14,8 @@ import Contract, {
 } from '@polymathnetwork/js';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import IModuleFactoryArtifacts from '@polymathnetwork/shared/fixtures/contracts/IModuleFactory.json';
-import ISTOArtifacts from '@polymathnetwork/shared/fixtures/contracts/ISTO.json';
+import IModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/IModuleFactory.json';
+import ISTOArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISTO.json';
 
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../../constants';
 import USDTieredSTO from './USDTieredSTO';

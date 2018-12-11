@@ -6,7 +6,7 @@ import { keys, range, compact } from 'lodash';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 import Contract from '@polymathnetwork/js';
-import USDTieredSTOArtifacts from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTO.json';
+import USDTieredSTOArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
 import { FUND_RAISE_TYPES, EVENT_TYPES } from '../../constants';
 import { toWei } from './index';
 
