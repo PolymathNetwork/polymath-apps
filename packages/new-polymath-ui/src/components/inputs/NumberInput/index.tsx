@@ -1,31 +1,27 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import {
-  MIN_SAFE_NUMBER,
-  MAX_SAFE_NUMBER,
-} from '@polymathnetwork/shared/constants';
+import { constants } from '@polymathnetwork/new-shared';
 
 import { formikProxy } from '../formikProxy';
 import { BaseInput } from '../BaseInput';
+import { InputProps } from '../types';
 
-import type { BigNumber as BigNumberType } from 'bignumber.js';
-
-type Props = {
-  name: string,
-  max: number | BigNumberType,
-  min: number | BigNumberType,
-  value?: number | BigNumberType,
-  maxDecimals: number,
-  onChange?: (value: any) => void,
-  useBigNumbers: boolean,
-  onBlur?: () => void,
-};
+export interface Props extends InputProps {
+  name: string;
+  max: number | BigNumber;
+  min: number | BigNumber;
+  value?: number | BigNumber;
+  maxDecimals: number;
+  useBigNumbers: boolean;
+}
 
 type State = {
-  oldValue: null,
-  displayValue: string,
+  oldValue: null;
+  displayValue: string;
 };
+
+const { MIN_SAFE_NUMBER, MAX_SAFE_NUMBER } = constants;
 
 // Any state which is valid for displaying in the input. If the new value of
 // the input doesn't match this, it will rollback to a previous state
@@ -69,11 +65,11 @@ class NumberInputComponent extends Component<Props, State> {
     name: 'unnamed',
   };
 
-  static getDisplayValue(value?: number | BigNumberType, props: Props) {
+  static getDisplayValue(value?: number | BigNumber, props: Props) {
     if (value === null) {
       return '';
     }
-    const parsedValue = NumberInput.toBigNumber(value, props);
+    const parsedValue = NumberInputComponent.toBigNumber(value, props);
     return parsedValue.toFormat();
   }
 
@@ -92,7 +88,11 @@ class NumberInputComponent extends Component<Props, State> {
       );
     }
 
-    if (useBigNumbers && value !== null && !NumberInput.isBigNumber(value)) {
+    if (
+      useBigNumbers &&
+      value !== null &&
+      !NumberInputComponent.isBigNumber(value)
+    ) {
       console.warn(
         `NumberInput(${name})'s value must be a BigNumber object when useBigNumbers is set to true`
       );
@@ -100,7 +100,7 @@ class NumberInputComponent extends Component<Props, State> {
 
     if (propsValueChanged) {
       return {
-        displayValue: NumberInput.getDisplayValue(value, props),
+        displayValue: NumberInputComponent.getDisplayValue(value, props),
         oldValue: value,
       };
     }
@@ -113,7 +113,7 @@ class NumberInputComponent extends Component<Props, State> {
    * numeric restrictions
    */
   static toBigNumber(
-    v: number | string | BigNumberType,
+    v: number | string | BigNumber,
     { min, max, useBigNumbers, maxDecimals }: Props
   ) {
     let value = v;
@@ -183,7 +183,7 @@ class NumberInputComponent extends Component<Props, State> {
    */
   sanitizeDisplayValue = (nextDisplayValue?: string): string => {
     const displayValue = this.state.displayValue;
-    const isValid = NumberInput.isValidDisplayValue(
+    const isValid = NumberInputComponent.isValidDisplayValue(
       nextDisplayValue,
       this.props.maxDecimals
     );
@@ -197,19 +197,22 @@ class NumberInputComponent extends Component<Props, State> {
     }
 
     const startsWithDot = startsWithDotRegex.test(nextDisplayValue);
-    const inIntermediateState = NumberInput.isInIntermediateState(
+    const inIntermediateState = NumberInputComponent.isInIntermediateState(
       nextDisplayValue
     );
     const canBeCorrected = startsWithDot || !inIntermediateState;
 
     if (canBeCorrected) {
-      return NumberInput.toBigNumber(nextDisplayValue, this.props).toFormat();
+      return NumberInputComponent.toBigNumber(
+        nextDisplayValue,
+        this.props
+      ).toFormat();
     }
 
     return nextDisplayValue;
   };
 
-  handleChange = event => {
+  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const { onChange, useBigNumbers } = this.props;
     const { value } = event.target;
 
@@ -217,13 +220,16 @@ class NumberInputComponent extends Component<Props, State> {
 
     this.setState({ displayValue });
 
-    if (!NumberInput.isInIntermediateState(displayValue)) {
+    if (onChange && !NumberInputComponent.isInIntermediateState(displayValue)) {
       if (displayValue.replace(/\s/g, '') === '') {
         onChange(null);
         return;
       }
 
-      const parsedValue = NumberInput.toBigNumber(displayValue, this.props);
+      const parsedValue = NumberInputComponent.toBigNumber(
+        displayValue,
+        this.props
+      );
 
       if (useBigNumbers) {
         onChange(parsedValue);

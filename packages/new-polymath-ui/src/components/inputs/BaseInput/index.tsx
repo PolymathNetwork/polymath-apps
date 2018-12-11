@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-export interface BaseInputProps {
-  unit: boolean;
+import { InputProps } from '../types';
+
+export interface BaseInputProps extends InputProps {
+  unit?: boolean;
 }
 
 const Container = styled.div<BaseInputProps>`
