@@ -3,6 +3,7 @@ import { Contract } from '~/LowLevel/Contract';
 import { TransactionBlueprint } from '../TransactionBlueprint';
 import { types } from '@polymathnetwork/new-shared';
 import { TransactionObject } from 'web3/eth/types';
+import { TransactionGroup } from '../TransactionGroup';
 
 export type PrimitiveMethod = (...args: any[]) => TransactionObject<any>;
 
@@ -44,17 +45,15 @@ export class TransactionBase<P> {
    */
   public async prepareTransactions(): Promise<void> {}
 
-  public async prepare(): Promise<TransactionBlueprint[]> {
+  public async prepare(): Promise<TransactionGroup> {
     await this.prepareTransactions();
-    // NOTE @RafaelVidaurre: Should return some structure with listeners
-    // and other public api functionality that might be useful
 
     // TODO @RafaelVidaurre: add a preparation state cache to avoid repeated
     // transactions and bad validations
 
     // const wrappedTransactions = this.transactions.map(this.wrapTransaction);
 
-    return this.transactions;
+    return new TransactionGroup(this.transactions);
   }
 
   protected addTransaction(
@@ -65,7 +64,8 @@ export class TransactionBase<P> {
       // If method is a HLT, instanciate it with the right context and args
       if (isHigherLevelTransaction(Base)) {
         const hlt = new Base(args[0], this.context);
-        const transactions = await hlt.prepare();
+        await hlt.prepareTransactions();
+        const transactions = hlt.transactions;
         this.transactions = [...this.transactions, ...transactions];
         return;
       }

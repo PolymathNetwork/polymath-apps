@@ -4,13 +4,13 @@ import { RouteComponentProps } from '@reach/router';
 
 export class SdkTestPage extends Component<RouteComponentProps> {
   public async componentDidMount() {
-    const transactions = await client.reserveSecurityToken({
-      symbol: 'FOO',
-      name: 'FooToken',
+    const transactionGroup = await client.reserveSecurityToken({
+      symbol: 'adwd',
+      name: 'dwdw',
     });
+    console.log('transactionGroup', transactionGroup);
 
-    console.log('transactions[0]', transactions[0]);
-    await transactions[0].execute();
+    await transactionGroup.run();
   }
   public render() {
     return <div>loading...</div>;
