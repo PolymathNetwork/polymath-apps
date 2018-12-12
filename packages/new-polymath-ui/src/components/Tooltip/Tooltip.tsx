@@ -1,10 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { ComponentType, Fragment } from 'react';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 
 import { Icon } from '../Icon';
 
 import InfoIcon from '../../images/icons/Info';
+
+export interface TooltipProps {
+  triggerText: string;
+  children: ComponentType;
+  id?: string;
+}
 
 const StyledContainer = styled.div`
   .__react_component_tooltip {
@@ -53,7 +59,7 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-export const Tooltip = ({ triggerText, children, id }) => (
+export const Tooltip = ({ triggerText, children, id }: TooltipProps) => (
   <Fragment>
     <StyledText>{triggerText}</StyledText>
     <StyledIcon

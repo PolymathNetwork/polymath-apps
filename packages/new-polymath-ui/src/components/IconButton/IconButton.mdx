@@ -1,21 +1,20 @@
 ---
-name: Icon
+name: IconButton
 menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
 
-import { Icon, IconDocz } from './';
+import { IconButton } from './';
 import NetworkIcon from '../../images/icons/Network';
 import polyIcon from '../../images/icons/Poly';
 
-# FormItem
+# IconButton
 
-<PropsTable of={IconDocz} />
+<PropsTable of={IconButton} />
 
 ## Basic usage
 
 <Playground>
-  <Icon Svg={NetworkIcon} />
-  <Icon Svg={polyIcon} />
+  <IconButton Asset={NetworkIcon} />
 </Playground>

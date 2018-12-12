@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment } from 'react';
+import React, { ComponentType, Fragment } from 'react';
 import styled from 'styled-components';
 import DocumentTitle from 'react-document-title';
 
@@ -6,7 +6,7 @@ import { PageWrap } from '../PageWrap';
 
 export interface PageProps {
   title: string;
-  children: ReactNode;
+  children: ComponentType;
 }
 
 const Container = styled(PageWrap)`

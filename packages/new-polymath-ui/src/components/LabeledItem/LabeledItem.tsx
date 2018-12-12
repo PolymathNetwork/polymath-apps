@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { Paragraph } from '../Paragraph';
 import { Box, BoxProps } from '../Box';
 
-export const LabeledItem = styled(Box)`
+export interface LabeledItemProps extends BoxProps {}
+
+export const LabeledItem = styled(Box)<LabeledItemProps>`
   & + & {
     margin-top: ${({ theme }) => theme.space[4]};
   }
@@ -15,6 +17,6 @@ export const LabeledItem = styled(Box)`
 `;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
-export const LabeledItemDocz = (props: BoxProps) => {
+export const LabeledItemDocz = (props: LabeledItemProps) => {
   return <LabeledItem {...props} />;
 };
