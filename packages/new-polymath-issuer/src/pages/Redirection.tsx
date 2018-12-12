@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { RouteComponentProps, navigate } from '@reach/router';
+import { RouteComponentProps, navigate, Redirect } from '@reach/router';
 
 interface Props extends RouteComponentProps {
   to: string;
 }
 
 export class RedirectionPage extends Component<Props> {
-  public componentDidMount() {
-    navigate(this.props.to);
-  }
+  public static defaultProps = {
+    to: '/',
+  };
   public render() {
-    return <span data-testid="redirection" />;
+    const { to } = this.props;
+    return <Redirect to={to} noThrow />;
   }
 }
