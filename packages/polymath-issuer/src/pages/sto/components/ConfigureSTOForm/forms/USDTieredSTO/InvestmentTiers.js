@@ -6,7 +6,7 @@ import { Field, FieldArray } from 'formik';
 import { Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
 
-import { Icon } from '@polymathnetwork/ui';
+import { IconButton } from '@polymathnetwork/ui';
 import DeleteIcon from '@polymathnetwork/ui/images/icons/Delete';
 import BigNumber from 'bignumber.js';
 import {
@@ -71,11 +71,15 @@ type Props = {
 
 type State = {|
   isAddingTier: boolean,
+  isRemovingTier: boolean,
+  removingTierIndex: any,
 |};
 
 export default class InvestmentTiers extends React.Component<Props, State> {
   state = {
     isAddingTier: false,
+    isRemovingTier: false,
+    removingTierIndex: null,
   };
 
   onTiersToggle = () => {
@@ -122,15 +126,17 @@ export default class InvestmentTiers extends React.Component<Props, State> {
 
   handleRemoveTier = index => {
     this.setState({
+      isRemovingTier: true,
       removingTierIndex: index,
     });
   };
 
-  handleCloseRemoveTier() {
+  handleCloseRemoveTier = () => {
     this.setState({
+      isRemovingTier: false,
       removingTierIndex: null,
     });
-  }
+  };
 
   render() {
     const {
@@ -138,7 +144,7 @@ export default class InvestmentTiers extends React.Component<Props, State> {
       form: { touched, errors },
       ticker,
     } = this.props;
-    const { isAddingTier } = this.state;
+    const { isAddingTier, isRemovingTier, removingTierIndex } = this.state;
 
     const tableItems = map(compact(value.tiers), (tier, tierNum) => {
       const tokenPrice = tier.tokenPrice || new BigNumber(0);
@@ -266,7 +272,7 @@ export default class InvestmentTiers extends React.Component<Props, State> {
                             ))}
                             {row.id > 0 ? (
                               <TableCell>
-                                <Icon
+                                <IconButton
                                   Icon={DeleteIcon}
                                   color="#000000"
                                   onClick={() => {
@@ -306,7 +312,8 @@ export default class InvestmentTiers extends React.Component<Props, State> {
                 onClose={this.handleCloseAddTier}
               />
               <RemoveTierModal
-                tierIndex={this.state.removingTierIndex}
+                isOpen={isRemovingTier}
+                tierIndex={removingTierIndex}
                 onRemove={remove}
                 onClose={this.handleCloseRemoveTier}
               />
