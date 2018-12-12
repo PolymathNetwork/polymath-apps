@@ -1,7 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import { ActionModal } from '@polymathnetwork/ui';
+import { ActionModal, IconText, Icon } from '@polymathnetwork/ui';
+import WarningIcon from '@polymathnetwork/ui/images/icons/Warning';
 
 class RemoveTierModal extends Component {
   handleOnRemove = () => {
@@ -21,8 +22,11 @@ class RemoveTierModal extends Component {
         onSubmit={this.handleOnRemove}
         maxWidth={500}
       >
-        <ActionModal.Header>
-          Are You Sure You Want To Delete This Tier?
+        <ActionModal.Header status="warning" label="Confirmation Required">
+          <IconText>
+            <Icon Icon={WarningIcon} status="warning" />{' '}
+            <span>Are You Sure You Want To Delete This Tier?</span>
+          </IconText>
         </ActionModal.Header>
         <ActionModal.Body>
           Please confirm that you would like to delete this tier.
