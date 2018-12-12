@@ -1,0 +1,11 @@
+export const KOVAN_NETWORK_ID = '42';
+export const MAINNET_NETWORK_ID = '1';
+export const LOCAL_NETWORK_ID = '15';
+export const LOCALVM_NETWORK_ID = '16';
+export const ROPSTEN_NETWORK_ID = '3';
+export const RINKEBY_NETWORK_ID = '4';
+
+export const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
+
+export const MAX_SAFE_NUMBER = 99999999999999;
+export const MIN_SAFE_NUMBER = -99999999999999;
