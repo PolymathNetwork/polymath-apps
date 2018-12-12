@@ -2694,6 +2694,12 @@
     "@svgr/plugin-svgo" "^4.0.3"
     loader-utils "^1.1.0"
 
+"@types/bn.js@*":
+  version "4.11.3"
+  resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-4.11.3.tgz#0f09e53e98659b007d7019261ddab9178135df38"
+  dependencies:
+    "@types/node" "*"
+
 "@types/caseless@*":
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.1.tgz#9794c69c8385d0192acc471a540d1f8e0d16218a"
@@ -2808,11 +2814,22 @@
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.4.tgz#821878b81bfab971b93a265a561d54ea61f9059f"
 
+"@types/underscore@*":
+  version "1.8.9"
+  resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.8.9.tgz#fef41f800cd23db1b4f262ddefe49cd952d82323"
+
 "@types/uuid@^3.4.4":
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.4.tgz#7af69360fa65ef0decb41fd150bf4ca5c0cefdf5"
   dependencies:
     "@types/node" "*"
+
+"@types/web3@^1.0.14":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@types/web3/-/web3-1.0.14.tgz#709b700b3eecf7fe9fb09771c4bf484add89912a"
+  dependencies:
+    "@types/bn.js" "*"
+    "@types/underscore" "*"
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
