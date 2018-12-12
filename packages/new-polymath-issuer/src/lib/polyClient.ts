@@ -66,6 +66,6 @@ class MockPolymathClient {
   }
 }
 
-const networkId = getNetwork();
+const networkId = getNetworkId();
 
 export const polyClient = new MockPolymathClient(networkParams[networkId]);
