@@ -18,6 +18,7 @@ const Container = styled.div<BaseInputProps>`
 const Input = styled.input<BaseInputProps>`
   display: block;
   width: 100%;
+  box-sizing: border-box;
   height: 2.5rem;
   min-width: 18.75rem;
   padding: 0 1rem;
