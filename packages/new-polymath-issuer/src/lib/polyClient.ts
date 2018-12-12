@@ -1,4 +1,4 @@
-// import { PolymathClient } from '@polymathnetwork/sdk';
+import { getNetworkId } from '@polymathnetwork/sdk';
 import { constants } from '@polymathnetwork/new-shared';
 import {
   POLYMATH_REGISTRY_ADDRESS_LOCAL,
@@ -12,6 +12,7 @@ if (POLYMATH_REGISTRY_ADDRESS_KOVAN) {
   kovanConfig = {
     [constants.NetworkIds.Kovan]: {
       polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
+      wsProviderUrl: 'dawhodawd',
     },
   };
 }
@@ -24,18 +25,15 @@ if (POLYMATH_REGISTRY_ADDRESS_LOCAL) {
   };
 }
 
-const params = {
-  addresses: {
-    ...localConfig,
-    ...kovanConfig,
-  },
+const networkParams = {
+  ...kovanConfig,
+  ...localConfig,
 };
 
 // NOTE @RafaelVidaurre: Temporarily using a mock until this is implemented
 // export const polyClient = new PolymathClient(params);
 
 // MOCK Poly Client class
-
 interface MockParams {
   addresses: {
     [networkId: string]: string;
@@ -47,7 +45,7 @@ class MockPolymathClient {
   private loggedIn = false;
   private wallet?: { id: string; address: string };
 
-  constructor(param: MockParams) {
+  constructor(params: MockParams) {
     this.params = params;
   }
 
@@ -68,4 +66,6 @@ class MockPolymathClient {
   }
 }
 
-export const polyClient = new MockPolymathClient(params);
+const networkId = getNetwork();
+
+export const polyClient = new MockPolymathClient(networkParams[networkId]);
