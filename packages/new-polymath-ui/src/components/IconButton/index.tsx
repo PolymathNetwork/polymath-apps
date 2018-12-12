@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Box } from '../Box';
-import { Icon } from '../Icon';
+import { Icon, IconProps } from '../Icon';
 
-const Button = styled(Box)`
+export interface IconButtonProps extends IconProps {}
+
+const Button = styled.button`
   appearance: none;
   border: none;
   padding: 0;
@@ -19,7 +20,7 @@ const StyledIcon = styled(Icon)`
 `;
 
 export const IconButton = ({ Asset, ...props }) => (
-  <Button as="button" {...props}>
+  <Button {...props}>
     <StyledIcon Asset={Asset} />
   </Button>
 );
