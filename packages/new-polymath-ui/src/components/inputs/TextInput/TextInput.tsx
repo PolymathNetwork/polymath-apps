@@ -10,7 +10,6 @@ export const TextInput = (props: InputProps) => {
     field: { value, ...fieldProps },
     form,
     label,
-    className,
     ...otherProps
   } = props;
 
