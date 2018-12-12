@@ -4,12 +4,11 @@ export type InputProps = {
   onChange?: (value: any) => void;
   onBlur?: () => void;
   value?: any;
+  name: string;
 };
 
 export type FieldProps = {
-  field: InputProps & {
-    name: string;
-  };
+  field: InputProps;
   form: {
     setFieldValue: (name: string, value: any) => void;
     errors: {

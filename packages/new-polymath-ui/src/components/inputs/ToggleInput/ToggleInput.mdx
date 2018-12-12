@@ -1,16 +1,16 @@
 ---
-name: NumberInput
+name: ToggleInput
 menu: Inputs
 ---
 
 import { Playground, PropsTable } from 'docz';
 import { Formik, Field } from 'formik';
 
-import { NumberInput, NumberInputPrimitive } from './';
+import { ToggleInput } from './';
 
-# NumberInput
+# ToggleInput
 
-<PropsTable of={NumberInput} />
+<PropsTable of={ToggleInput} />
 
 ## Basic usage
 
@@ -20,12 +20,8 @@ import { NumberInput, NumberInputPrimitive } from './';
       <form>
         <pre>{JSON.stringify(values, null, 2)}</pre>
         <br />
-        <Field name="myText" placeholder="foo" component={NumberInput} />
+        <Field name="myToggle" component={ToggleInput} defaultToggled />
       </form>
     )}
   />
 </Playground>
-
-# NumberInput Primitive
-
-<NumberInputPrimitive name="name" value={1234.5} />

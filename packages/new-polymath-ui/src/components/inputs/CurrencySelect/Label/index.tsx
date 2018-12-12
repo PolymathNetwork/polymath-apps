@@ -24,7 +24,7 @@ const Text = styled.span`
 
 export const Label = ({ Asset, text }) => (
   <Container>
-    <Icon Asset={Asset} alt={text} />
+    <Icon Asset={Asset} width="25" height="25" />
     <Text>{text}</Text>
   </Container>
 );

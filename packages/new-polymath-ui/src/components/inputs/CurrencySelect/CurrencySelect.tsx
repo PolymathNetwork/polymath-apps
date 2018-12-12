@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
-import { formikProxy } from '../formikProxy';
 import { Input } from './Input';
+
+import { formikProxy } from '../formikProxy';
 
 // TODO @RafaelVidaurre: Add uncontrolled input support for primitives
 
-class CurrencySelect extends Component {
+class CurrencySelectComponent extends Component {
   static defaultProps = {
     onChange: () => {},
     onBlur: () => {},
@@ -36,4 +37,4 @@ class CurrencySelect extends Component {
   }
 }
 
-export const FormikCurrencySelect = formikProxy(CurrencySelect);
+export const CurrencySelect = formikProxy(CurrencySelectComponent);

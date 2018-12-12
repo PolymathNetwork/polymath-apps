@@ -52,7 +52,7 @@ const StyledBaseInput = styled(BaseInput)`
 // FIXME @monitz87: right now if the user inputs ".0" it gets changed back to "0".
 // It should support consecutive zeroes after the decimal point until the user inputs another
 // number
-class NumberInputComponent extends Component<Props, State> {
+export class NumberInputPrimitive extends Component<Props, State> {
   state = { displayValue: '', oldValue: null };
   static defaultProps = {
     onChange: () => {},
@@ -257,4 +257,4 @@ class NumberInputComponent extends Component<Props, State> {
   }
 }
 
-export const NumberInput = formikProxy(NumberInputComponent);
+export const NumberInput = formikProxy(NumberInputPrimitive);
