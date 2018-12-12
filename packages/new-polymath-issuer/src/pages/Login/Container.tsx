@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { login } from '~/state/actions/session';
 import { Presenter } from './Presenter';
 
-interface Props extends RouteComponentProps {
+export interface Props extends RouteComponentProps {
   dispatch: Dispatch<any>;
 }
 
