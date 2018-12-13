@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-enum BrowserSupport {
+export enum BrowserSupport {
   None = 'NONE',
   Legacy = 'LEGACY',
   Modern = 'MODERN',
