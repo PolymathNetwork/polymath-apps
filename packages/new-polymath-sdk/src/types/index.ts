@@ -18,3 +18,8 @@ export enum ModuleTypes {
 }
 
 export type Addressable = Wallet | string;
+
+export enum ErrorCodes {
+  IncompatibleBrowser,
+  UserDeniedAccess,
+}
