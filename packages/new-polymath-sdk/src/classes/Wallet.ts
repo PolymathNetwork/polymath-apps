@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { v4 } from 'uuid';
 import { types } from '@polymathnetwork/new-shared';
-import { PolymathBaseContext } from '~/classes/PolymathClient';
+import { Context } from './Context';
 
 interface Args {
   id?: types.Id;
@@ -13,9 +13,9 @@ interface Args {
 export class Wallet implements types.Wallet {
   public id: types.Id = v4();
   public address: string;
-  private context: PolymathBaseContext;
+  private context: Context;
 
-  constructor({ id, address }: Args, context: PolymathBaseContext) {
+  constructor({ id, address }: Args, context: Context) {
     this.id = id || this.id;
     this.address = address;
     this.context = context;

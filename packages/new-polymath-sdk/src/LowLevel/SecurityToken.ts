@@ -18,29 +18,29 @@ interface SecurityTokenContract {
 }
 
 export class SecurityToken extends Contract<SecurityTokenContract> {
-  constructor({ address, web3 }: { address: string; web3: Web3 }) {
-    super({ address, abi: SecurityTokenAbi.abi, web3 });
+  constructor({ address }: { address: string }) {
+    super({ address, abi: SecurityTokenAbi.abi });
   }
 
   public async createCheckpoint() {
     return this.contract.methods.createCheckpoint();
   }
 
-  public async addDividendsModule(type: 'POLY' | 'ETH') {
-    const factoryMappings = {
-      POLY: 'ERC20DividendCheckpointFactory',
-      ETH: 'EthDividendCheckpointFactory',
-    };
-    const { toHex } = Web3.utils;
-    const factoryAddress = await this.contract.toHex(factoryMappings[type]);
-    switch (type) {
-      case 'POLY':
-        factoryName = toHex('ERC20DividendCheckpointFactory');
-        break;
-      case 'ETH':
-        factoryName = toHex('');
-    }
+  // public async addDividendsModule(type: 'POLY' | 'ETH') {
+  //   const factoryMappings = {
+  //     POLY: 'ERC20DividendCheckpointFactory',
+  //     ETH: 'EthDividendCheckpointFactory',
+  //   };
+  //   const { toHex } = Web3.utils;
+  //   const factoryAddress = await this.contract.toHex(factoryMappings[type]);
+  //   switch (type) {
+  //     case 'POLY':
+  //       factoryName = toHex('ERC20DividendCheckpointFactory');
+  //       break;
+  //     case 'ETH':
+  //       factoryName = toHex('');
+  //   }
 
-    return this.contract.methods.addModule(address, data, maxCost, budget);
-  }
+  //   return this.contract.methods.addModule(address, data, maxCost, budget);
+  // }
 }

@@ -9,4 +9,12 @@ export enum TransactionTypes {
   GetTokens,
 }
 
+export enum ModuleTypes {
+  Permission = 1,
+  Transfer,
+  Sto,
+  Dividends,
+  Burn,
+}
+
 export type Addressable = Wallet | string;

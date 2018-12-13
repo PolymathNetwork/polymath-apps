@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import Web3 from 'web3';
 import { TransactionObject } from 'web3/eth/types';
 import { PolyTokenAbi } from './abis/PolyTokenAbi';
 import { PolyTokenFaucetAbi } from './abis/PolyTokenFaucetAbi';
@@ -23,17 +22,9 @@ interface PolyTokenContract {
 export class PolyToken extends Contract<PolyTokenContract> {
   private isTestnet: boolean;
 
-  constructor({
-    address,
-    web3,
-    isTestnet,
-  }: {
-    address: string;
-    web3: Web3;
-    isTestnet: boolean;
-  }) {
+  constructor({ address, isTestnet }: { address: string; isTestnet: boolean }) {
     const abi = isTestnet ? PolyTokenFaucetAbi.abi : PolyTokenAbi.abi;
-    super({ address, web3, abi });
+    super({ address, abi });
     this.isTestnet = isTestnet;
   }
 
