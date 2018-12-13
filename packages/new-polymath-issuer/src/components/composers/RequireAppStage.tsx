@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
-import { Loading } from '~/components/__temporary';
 import { connect } from 'react-redux';
+import { Loading } from '~/components/__temporary';
 import { RootState } from '~/state/store';
 
 interface Props {

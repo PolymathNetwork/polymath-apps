@@ -13,11 +13,6 @@ export interface Identity {
   confirmed?: boolean;
 }
 
-export enum AppStages {
-  Initialized,
-  Connected,
-}
-
 export enum SessionRoles {
   Anonymous,
   LoggedIn,
