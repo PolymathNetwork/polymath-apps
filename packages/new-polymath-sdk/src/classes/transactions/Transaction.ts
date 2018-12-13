@@ -1,48 +1,80 @@
-import BigNumber from 'bignumber.js';
-import { types } from '@polymathnetwork/new-shared';
-import { PrimitiveTransaction } from './PrimitiveTransaction';
+import { TransactionObject } from 'web3/eth/types';
+import { Contract } from '~/LowLevel/Contract';
+import { TransactionBlueprint } from '~/classes/TransactionBlueprint';
+import { TransactionGroup } from '~/classes/TransactionGroup';
+import { Context } from '~/classes/Context';
 
-/**
- * - needs wallet
- * - needs wallet's balance
- * - calls approve primitive if required
- *
- */
+export type PrimitiveMethod = (...args: any[]) => TransactionObject<any>;
 
-interface Context {
-  isTestnet: boolean;
-}
-interface Args {
-  amount: BigNumber;
-  spender: types.Address;
-  sender: types.Address;
-  balance: BigNumber;
+export interface TxConfig {
+  args: any[];
+  method: PrimitiveMethod;
+  contract: Contract<any>;
+  from: string;
 }
 
-class Approve {
-  public transactions: PrimitiveTransaction[] = [];
-  private context: Context;
-  private args: Args;
+export interface HigherLevelTransaction<Args = any> {
+  new (args: Args, context: Context): TransactionBase<Args>;
+}
 
-  constructor(context: Context, args: Args) {
-    this.context = context;
+function isHigherLevelTransaction(
+  transaction: any
+): transaction is HigherLevelTransaction {
+  if (transaction.type) {
+    return true;
+  }
+  return false;
+}
+
+export class TransactionBase<P> {
+  public static type = 'HLT';
+  protected args: P;
+  protected context: Context;
+  private transactions: TransactionBlueprint[] = [];
+  // TODO @RafaelVidaurre: Temporary for typeguarding
+
+  constructor(args: P, context: Context) {
     this.args = args;
+    this.context = context;
   }
 
-  public getExecutionPlan() {
-    const { isTestnet } = this.context;
-    const { amount, balance } = this.args;
-    const transactions = [];
-    const hasEnoughBalance = balance.lt(amount);
+  /**
+   * Mandatory method that builds a list of transactions that will be
+   * run.
+   */
+  public async prepareTransactions(): Promise<void> {}
 
-    if (hasEnoughBalance) {
-      if (isTestnet) {
-        // transactions.push(PolyToken.getTokens());
+  public async prepare(): Promise<TransactionGroup> {
+    await this.prepareTransactions();
+
+    // TODO @RafaelVidaurre: add a preparation state cache to avoid repeated
+    // transactions and bad validations
+
+    return new TransactionGroup(this.transactions);
+  }
+
+  protected addTransaction(
+    Base: HigherLevelTransaction | Contract<any>,
+    method?: PrimitiveMethod
+  ) {
+    return async (...args: any[]) => {
+      // If method is a HLT, instanciate it with the right context and args
+      if (isHigherLevelTransaction(Base)) {
+        const hlt = new Base(args[0], this.context);
+        await hlt.prepareTransactions();
+        const transactions = hlt.transactions;
+        this.transactions = [...this.transactions, ...transactions];
+        return;
       }
-    }
-    /**
-     * 1. get balance
-     * 2. get allowance
-     */
+
+      const transaction = new TransactionBlueprint({
+        contract: Base,
+        method: method as PrimitiveMethod,
+        args,
+        from: this.context.currentWallet.address,
+      });
+
+      this.transactions.push(transaction);
+    };
   }
 }

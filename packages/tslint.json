@@ -1,6 +1,7 @@
 {
-  "extends": "tslint:recommended",
+  "extends": ["tslint:recommended", "tslint-react"],
   "rules": {
+    "jsx-boolean-value": false,
     "quotemark": [true, "single", "jsx-double", "avoid-escape"],
     "no-redundant-jsdoc": true,
     "interface-name": false,
@@ -9,6 +10,11 @@
     "no-unused-expression": true,
     "ordered-imports": false,
     "arrow-parens": false,
+    "no-default-export": true,
+    "object-literal-sort-keys": false,
+    "no-empty": false,
+    "max-classes-per-file": false,
+    "semicolon": false,
     "trailing-comma": [
       true,
       {
