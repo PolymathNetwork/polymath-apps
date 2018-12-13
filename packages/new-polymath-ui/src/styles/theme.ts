@@ -100,6 +100,35 @@ export const headings = {
   },
 };
 
+export const buttons = {
+  primary: {
+    backgroundColor: colors.secondary,
+    borderColor: 'transparent',
+    color: '#fff',
+    '&:hover, &:focus': {
+      backgroundColor: '#30588c',
+    },
+  },
+  secondary: {
+    backgroundColor: 'transparent',
+    borderColor: colors.secondary,
+    color: colors.secondary,
+    '&:hover, &:focus': {
+      color: '#fff',
+      backgroundColor: colors.secondary,
+    },
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    color: colors.secondary,
+    '&:hover, &:focus': {
+      color: '#fff',
+      backgroundColor: colors.secondary,
+    },
+  },
+};
+
 export const transitions = {
   hover: {
     ms: 150,
