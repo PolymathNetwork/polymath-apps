@@ -108,6 +108,7 @@ export { default as icoPaperPlane } from './images/svg/paper-plane';
 export { default as icoHandshake } from './images/svg/handshake';
 export { default as icoHelp } from './images/svg/help';
 export { default as icoWhitelist } from './images/svg/whitelist';
+export { default as icoDividends } from './images/svg/dividends';
 
 /**
  * Flow types
