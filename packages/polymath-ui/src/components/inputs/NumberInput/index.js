@@ -84,7 +84,7 @@ export class NumberInput extends Component<Props, State> {
 
   static getDerivedStateFromProps(props: Props, state: State) {
     const { oldValue } = state;
-    let { value, useBigNumbers, min, max, name } = props;
+    const { value, useBigNumbers, min, max, name } = props;
     const propsValueChanged = oldValue !== value;
 
     if (!useBigNumbers && (min === -Infinity || max === Infinity)) {

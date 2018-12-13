@@ -13,7 +13,7 @@ import {
   RaisedAmount,
 } from '@polymathnetwork/ui';
 
-class AddTierModal extends Component<Props, State> {
+class TierModal extends Component<Props, State> {
   handleOnAdd = () => {
     const {
       field: { name, value },
@@ -37,14 +37,24 @@ class AddTierModal extends Component<Props, State> {
 
   handleOnEdit = () => {
     const {
-      field: { value },
+      field: { name, value },
+      form: { errors, setFieldValue, setFieldTouched },
       tierData,
       onUpdate,
       onClose,
     } = this.props;
 
-    onUpdate(tierData.id, value);
-    onClose();
+    const isValid = !get(errors, name);
+
+    if (isValid) {
+      setFieldValue(name, null);
+      onUpdate(tierData.id, value);
+      setFieldTouched(name, false);
+      onClose();
+    } else {
+      setFieldTouched(`${name}.tokensAmount`, true);
+      setFieldTouched(`${name}.tokenPrice`, true);
+    }
   };
 
   componentDidUpdate(prevProps) {
@@ -81,7 +91,6 @@ class AddTierModal extends Component<Props, State> {
       ticker,
       isOpen,
       onClose,
-      title,
       tierData,
     } = this.props;
 
@@ -102,7 +111,11 @@ class AddTierModal extends Component<Props, State> {
         onSubmit={tierData ? this.handleOnEdit : this.handleOnAdd}
         maxWidth={740}
       >
-        <ActionModal.Header>{title}</ActionModal.Header>
+        <ActionModal.Header>
+          {tierData
+            ? `Edit Investment Tier`
+            : `Add the Investment Tier #${tierNum}`}
+        </ActionModal.Header>
         <ActionModal.Body>
           <Paragraph>
             Each tier includes a fixed number of tokens and a fixed price per
@@ -159,4 +172,4 @@ class AddTierModal extends Component<Props, State> {
   }
 }
 
-export default AddTierModal;
+export default TierModal;

@@ -5,7 +5,7 @@ import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
-import { Icon } from '@polymathnetwork/ui';
+import { IconButton } from '@polymathnetwork/ui';
 import EditIcon from '@polymathnetwork/ui/images/icons/Edit';
 import BigNumber from 'bignumber.js';
 import {
@@ -19,7 +19,7 @@ import {
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
 
-import AddTierModal from './AddTierModal';
+import TierModal from './TierModal';
 
 const {
   Table,
@@ -258,7 +258,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                             ))}
                             {row.id > 0 ? (
                               <TableCell>
-                                <Icon
+                                <IconButton
                                   Icon={EditIcon}
                                   color="#000000"
                                   onClick={() => {
@@ -293,12 +293,7 @@ class InvestmentTiers extends React.Component<Props, State> {
             <Field
               name="investmentTiers.newTier"
               ticker={ticker}
-              component={AddTierModal}
-              title={
-                tierData
-                  ? `Edit Investment Tier`
-                  : `Add the Investment Tier #${value.tiers.length + 1}`
-              }
+              component={TierModal}
               isOpen={isAddingTier}
               tierData={tierData}
               onAdd={push}
