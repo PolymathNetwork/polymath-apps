@@ -1,0 +1,23 @@
+---
+name: IconText
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { IconText } from './';
+import NetworkIcon from '../../images/icons/Network';
+
+# IconText
+
+A component to display text with an icon next to it.
+
+<PropsTable of={IconText} />
+
+## Basic usage
+
+<Playground>
+  <IconText>
+    <Icon Asset={NetworkIcon} /> <span>Text with icon</span>
+  </IconText>
+</Playground>
