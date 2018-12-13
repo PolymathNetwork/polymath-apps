@@ -1,4 +1,4 @@
-import Web3 from 'web3';
+import { web3 } from './web3Client';
 
 /**
  * Represents a smart contract, addresses should be retrieved before
@@ -8,15 +8,7 @@ export abstract class Contract<T> {
   public address: string;
   protected contract: T;
 
-  constructor({
-    address,
-    web3,
-    abi,
-  }: {
-    address: string;
-    web3: Web3;
-    abi: any[];
-  }) {
+  constructor({ address, abi }: { address: string; abi: any[] }) {
     this.address = address;
     this.contract = (new web3.eth.Contract(abi, address) as unknown) as T;
   }

@@ -2,7 +2,7 @@ import { TransactionObject } from 'web3/eth/types';
 import { Contract } from '~/LowLevel/Contract';
 import { TransactionBlueprint } from '~/classes/TransactionBlueprint';
 import { TransactionGroup } from '~/classes/TransactionGroup';
-import { PolymathContext } from '~/classes/PolymathClient';
+import { Context } from '~/classes/Context';
 
 export type PrimitiveMethod = (...args: any[]) => TransactionObject<any>;
 
@@ -14,7 +14,7 @@ export interface TxConfig {
 }
 
 export interface HigherLevelTransaction<Args = any> {
-  new (args: Args, context: PolymathContext): TransactionBase<Args>;
+  new (args: Args, context: Context): TransactionBase<Args>;
 }
 
 function isHigherLevelTransaction(
@@ -29,11 +29,11 @@ function isHigherLevelTransaction(
 export class TransactionBase<P> {
   public static type = 'HLT';
   protected args: P;
-  protected context: PolymathContext;
+  protected context: Context;
   private transactions: TransactionBlueprint[] = [];
   // TODO @RafaelVidaurre: Temporary for typeguarding
 
-  constructor(args: P, context: PolymathContext) {
+  constructor(args: P, context: Context) {
     this.args = args;
     this.context = context;
   }

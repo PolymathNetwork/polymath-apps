@@ -2,7 +2,8 @@ import Web3 from 'web3';
 import { ModuleRegistryAbi } from '~/LowLevel/abis/ModuleRegistryAbi';
 import { Contract } from './Contract';
 import { TransactionObject } from 'web3/eth/types';
-import { MODULE_TYPES } from './constants';
+import { ModuleFactory } from '~/LowLevel/ModuleFactory';
+import { ModuleTypes } from '~/types';
 import BigNumber from 'bignumber.js';
 
 // This type should be obtained from a library (must match ABI)
@@ -15,19 +16,17 @@ interface ModuleRegistryContract {
   };
 }
 
-type ModuleType = keyof typeof MODULE_TYPES;
-
 export class ModuleRegistry extends Contract<ModuleRegistryContract> {
-  constructor({ address, web3 }: { address: string; web3: Web3 }) {
-    super({ address, abi: ModuleRegistryAbi.abi, web3 });
+  constructor({ address }: { address: string }) {
+    super({ address, abi: ModuleRegistryAbi.abi });
   }
 
   public async getModulesByTypeAndToken(
-    moduleType: ModuleType,
+    moduleType: ModuleTypes,
     tokenAddress: string
   ) {
     return this.contract.methods
-      .getModulesByTypeAndToken(MODULE_TYPES[moduleType], tokenAddress)
+      .getModulesByTypeAndToken(moduleType, tokenAddress)
       .call();
   }
 
@@ -36,28 +35,41 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
     tokenAddress: string
   ) {
     const availableModules = await this.getModulesByTypeAndToken(
-      'DIVIDENDS',
+      ModuleTypes.Dividends,
       tokenAddress
     );
 
     availableModules.forEach(moduleAddress => {});
   }
 
-  public async addDividendsModule(type: 'POLY' | 'ETH') {
-    const factoryMappings = {
-      POLY: 'ERC20DividendCheckpointFactory',
-      ETH: 'EthDividendCheckpointFactory',
-    };
-    const { toHex } = Web3.utils;
-    const factoryAddress = await this.contract.toHex(factoryMappings[type]);
-    switch (type) {
-      case 'POLY':
-        factoryName = toHex('ERC20DividendCheckpointFactory');
-        break;
-      case 'ETH':
-        factoryName = toHex('');
+  /**
+   * Retrieve a compatible module's factory address for a given
+   * security token
+   *
+   * @throws an error if there is no compatible module with that name
+   */
+  public async getModuleFactoryAddress(
+    moduleName: string,
+    moduleType: ModuleTypes,
+    tokenAddress: string
+  ) {
+    const availableModules = await this.getModulesByTypeAndToken(
+      moduleType,
+      tokenAddress
+    );
+
+    for (const moduleAddress of availableModules) {
+      const moduleFactory = new ModuleFactory({
+        address: moduleAddress,
+      });
+
+      const name = Web3.utils.toAscii(await moduleFactory.name());
+
+      if (name === moduleName) {
+        return moduleAddress;
+      }
     }
 
-    return this.contract.methods.addModule(address, data, maxCost, budget);
+    throw new Error(`Module factory for "${moduleName}" was not found.`);
   }
 }

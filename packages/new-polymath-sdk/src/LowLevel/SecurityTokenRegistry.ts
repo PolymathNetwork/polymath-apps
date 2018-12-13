@@ -1,4 +1,3 @@
-import Web3 from 'web3';
 import { TransactionObject } from 'web3/eth/types';
 import BigNumber from 'bignumber.js';
 import { SecurityTokenRegistryAbi } from '~/LowLevel/abis/SecurityTokenRegistryAbi';
@@ -18,8 +17,8 @@ interface SecurityTokenRegistryContract {
 export class SecurityTokenRegistry extends Contract<
   SecurityTokenRegistryContract
 > {
-  constructor({ address, web3 }: { address: string; web3: Web3 }) {
-    super({ address, abi: SecurityTokenRegistryAbi.abi, web3 });
+  constructor({ address }: { address: string }) {
+    super({ address, abi: SecurityTokenRegistryAbi.abi });
   }
 
   public registerTicker(owner: string, ticker: string, tokenName: string) {
