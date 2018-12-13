@@ -1,3 +1,4 @@
+import path from 'path';
 import { css } from 'docz-plugin-css';
 
 export default {
@@ -14,4 +15,12 @@ export default {
       preprocessor: 'sass',
     }),
   ],
+  // Hack to get Docz to compile monorepo package
+  modifyBundlerConfig: config => {
+    config.module.rules[1].include.push(
+      path.join(__dirname, '..', 'new-polymath-shared')
+    );
+
+    return config;
+  },
 };
