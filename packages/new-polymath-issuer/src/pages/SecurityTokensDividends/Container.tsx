@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { RouteComponentProps } from '@reach/router';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 
-export interface Props extends RouteComponentProps {
+export interface Props {
   dispatch: Dispatch<any>;
 }
 

@@ -5,14 +5,22 @@ import {
   POLYMATH_REGISTRY_ADDRESS_KOVAN,
 } from '~/constants';
 
-let kovanConfig = {};
-let localConfig = {};
+interface NetworkParams {
+  polymathRegistryAddress: string;
+  wsProviderUrl: string;
+}
+interface NetworkConfig {
+  [networkId: string]: NetworkParams;
+}
+
+let kovanConfig: NetworkConfig = {};
+let localConfig: NetworkConfig = {};
 
 if (POLYMATH_REGISTRY_ADDRESS_KOVAN) {
   kovanConfig = {
     [constants.NetworkIds.Kovan]: {
       polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
-      wsProviderUrl: 'dawhodawd',
+      wsProviderUrl: 'bar',
     },
   };
 }
@@ -21,6 +29,7 @@ if (POLYMATH_REGISTRY_ADDRESS_LOCAL) {
   localConfig = {
     [constants.NetworkIds.Local]: {
       polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
+      wsProviderUrl: 'foo',
     },
   };
 }
@@ -34,19 +43,24 @@ const networkParams = {
 // export const polyClient = new PolymathClient(params);
 
 // MOCK Poly Client class
-interface MockParams {
-  addresses: {
-    [networkId: string]: string;
-  };
-}
 
 class MockPolymathClient {
-  private params: MockParams;
+  private params: NetworkParams;
   private loggedIn = false;
+  private initialized = false;
   private wallet?: { id: string; address: string };
 
-  constructor(params: MockParams) {
+  constructor(params: NetworkParams) {
     this.params = params;
+  }
+
+  public async initialize() {
+    this.initialized = true;
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
   }
 
   public isLoggedIn() {

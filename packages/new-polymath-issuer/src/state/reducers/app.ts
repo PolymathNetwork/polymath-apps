@@ -22,6 +22,12 @@ export const reducer: Reducer<AppState, AppActions> = (
         activeTransactionGroup: action.payload,
       };
     }
+    case getType(actions.initializePolyClientSuccess): {
+      return {
+        ...state,
+        polyClientInitialized: true,
+      };
+    }
     default: {
       return state;
     }
