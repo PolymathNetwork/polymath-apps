@@ -1,10 +1,11 @@
-import React, { Component, ReactChildren, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { getBrowserSupport, BrowserSupport } from '@polymathnetwork/sdk';
 import { Redirect } from '@reach/router';
 
 interface Props {
   redirectTo: string;
-  render: () => ReactNode;
+  render?: () => ReactNode;
+  children?: ReactNode;
 }
 
 export class RequireEthereumSupport extends Component<Props> {
@@ -13,11 +14,11 @@ export class RequireEthereumSupport extends Component<Props> {
   };
 
   public render() {
-    const { redirectTo } = this.props;
+    const { redirectTo, render, children } = this.props;
     if (getBrowserSupport() === BrowserSupport.None) {
       return <Redirect to={redirectTo} noThrow />;
     }
 
-    return this.props.render();
+    return render || children || null;
   }
 }

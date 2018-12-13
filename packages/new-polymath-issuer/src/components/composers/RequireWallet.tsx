@@ -6,7 +6,8 @@ import { Wallet } from '~/types';
 import { RequireEthereumSupport } from './RequireEthereumSupport';
 
 interface Props {
-  render: () => ReactNode;
+  render?: () => ReactNode;
+  children?: ReactNode;
   redirectTo: string;
   wallet?: Wallet;
 }
@@ -16,19 +17,18 @@ export class RequireWalletBase extends Component<Props> {
     redirectTo: '/login',
   };
 
+  public renderChildren() {
+    const { children, render } = this.props;
+    return render || children || null;
+  }
+
   public render() {
-    const { children, redirectTo, wallet } = this.props;
+    const { redirectTo, wallet } = this.props;
 
     return (
-      <RequireEthereumSupport
-        render={() => {
-          if (wallet) {
-            return children;
-          }
-
-          return <Redirect to={redirectTo} noThrow />;
-        }}
-      />
+      <RequireEthereumSupport>
+        {wallet ? this.renderChildren() : <Redirect to={redirectTo} noThrow />}
+      </RequireEthereumSupport>
     );
   }
 }

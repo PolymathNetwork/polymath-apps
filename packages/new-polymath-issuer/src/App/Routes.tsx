@@ -10,9 +10,9 @@ import {
 } from '~/pages';
 import { DashboardLayout } from '~/layouts';
 
-const RoutesGroup: FC<RouteComponentProps> = ({ children }) => (
-  <React.Fragment>{children}</React.Fragment>
-);
+// const RoutesGroup: FC<RouteComponentProps> = ({ children }) => (
+//   <React.Fragment>{children}</React.Fragment>
+// );
 
 export const Routes = () => (
   <Router>
