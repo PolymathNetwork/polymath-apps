@@ -1,1 +1,2 @@
-export * from './Transaction';
+export { PolymathClient } from './PolymathClient';
+export { Wallet } from './Wallet';

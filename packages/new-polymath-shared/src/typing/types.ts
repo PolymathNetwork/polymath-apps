@@ -4,6 +4,7 @@ export enum Tokens {
   Poly = 'POLY',
   Dai = 'DAI',
   Ether = 'ETH',
+  Erc20 = 'ERC20',
 }
 
 export enum TransactionStatus {
@@ -52,7 +53,7 @@ export interface Wallet {
   id: Id;
   address: Address;
   identity?: Identity;
-  balances: { [key in Tokens]: BigNumber };
+  balance?: BigNumber;
 }
 export interface Identity {
   id: Id;

@@ -1,11 +1,10 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { Id } from '~/types';
 import * as actions from '~/state/actions/app';
 import { AppActions } from '~/state/actions/types';
 
 export interface AppState {
-  activeTransactionGroup?: Id;
+  activeTransactionGroup?: string;
 }
 const initialState: AppState = {};
 

@@ -1,6 +1,5 @@
 const instrumentForCodeCoverage = process.env.COVERAGE === 'true';
 const moduleResolver = require('./config/moduleResolver');
-
 /**
  * Used by e2e tests. Instruments the code to expose coverage
  * info to the browser

@@ -9,7 +9,6 @@
     "composite": true,
     "esModuleInterop": true,
     "emitDeclarationOnly": true,
-    "jsx": "react",
-    "experimentalDecorators": true
+    "jsx": "react"
   }
 }

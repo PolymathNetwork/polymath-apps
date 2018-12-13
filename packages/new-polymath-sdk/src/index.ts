@@ -1,3 +1,2 @@
-import 'reflect-metadata';
-
 export * from './classes';
+export * from './helpers';

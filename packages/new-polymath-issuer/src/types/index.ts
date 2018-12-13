@@ -1,13 +1,26 @@
-export * from './entities';
-
-export enum NetworkStatus {
-  NotInitialized = 'NOT_INITIALIZED',
-  Initialized = 'INITIALIZED',
-  Connected = 'CONNECTED',
+export interface Transaction {
+  id: string;
+  txHash: string;
 }
 
-export enum NetworkClientSupport {
-  None = 'NONE',
-  Legacy = 'LEGACY',
-  Modern = 'MODERN',
+export interface Wallet {
+  address: string;
+}
+
+export interface Identity {
+  wallet: string;
+  email: string;
+  confirmed?: boolean;
+}
+
+export enum AppStages {
+  Initialized,
+  Connected,
+}
+
+export enum SessionRoles {
+  Anonymous,
+  LoggedIn,
+  UnconfirmedUser,
+  ConfirmedUser,
 }
