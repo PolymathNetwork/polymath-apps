@@ -18,7 +18,7 @@ class RemoveTierModal extends Component {
       <ActionModal
         isOpen={isOpen}
         onClose={onClose}
-        actionButtonText="Confirm Remove"
+        actionButtonText="Confirm"
         onSubmit={this.handleOnRemove}
         maxWidth={500}
       >
