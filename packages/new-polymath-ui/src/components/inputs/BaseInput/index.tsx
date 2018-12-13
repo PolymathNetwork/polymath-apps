@@ -1,10 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { InputProps } from '../types';
-
-export interface BaseInputProps extends InputProps {
-  unit?: boolean;
+export interface BaseInputProps {
+  unit?: string;
 }
 
 const Container = styled.div<BaseInputProps>`
@@ -35,6 +33,18 @@ const Input = styled.input<BaseInputProps>`
   :focus {
     background-color: ${({ theme }) => theme.colors.gray[0]};
   }
+
+  /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
+  /* Only on desktop */
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+    -moz-appearance: textfield;
+
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  }
 `;
 
 const Unit = styled.span`
@@ -46,6 +56,8 @@ const Unit = styled.span`
   justify-content: center;
   flex-direction: column;
   color: ${({ theme }) => theme.colors.placeholder};
+  font-size: ${({ theme }) => theme.fontSizes.baseText};
+  font-family: ${({ theme }) => theme.fontFamilies.baseText};
 `;
 
 export const BaseInput = ({ unit, ...props }: BaseInputProps) => {

@@ -35,7 +35,7 @@ export default class PercentageInputPrimitive extends PureComponent<Props> {
 
   render() {
     const { name, value, ...otherProps } = this.props;
-    const formattedValue = PercentageInput.formatValue(value);
+    const formattedValue = PercentageInputPrimitive.formatValue(value);
 
     return (
       <BaseInput

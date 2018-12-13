@@ -4,14 +4,11 @@ import BigNumber from 'bignumber.js';
 import { constants } from '@polymathnetwork/new-shared';
 
 import { formikProxy } from '../formikProxy';
-import { BaseInput } from '../BaseInput';
-import { InputProps } from '../types';
+import { BaseInput, BaseInputProps } from '../BaseInput';
 
-export interface Props extends InputProps {
-  name: string;
+export interface NumberInputProps extends BaseInputProps {
   max: number | BigNumber;
   min: number | BigNumber;
-  value?: number | BigNumber;
   maxDecimals: number;
   useBigNumbers: boolean;
 }
@@ -32,27 +29,13 @@ const pendingDotRegex = /^[\d,]*\.$/;
 // States that can be auto-corrected
 const startsWithDotRegex = /^\.\d+$/;
 
-const StyledBaseInput = styled(BaseInput)`
-  /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
-  /* Only on desktop */
-
-  @media screen and (min-width: 768px) {
-    -moz-appearance: textfield;
-
-    ::-webkit-inner-spin-button,
-    ::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-    }
-  }
-`;
-
 // TODO @RafaelVidaurre: Change max/min behavior to prevent a change instead of
 // changing the value to the max/min allowed
 
 // FIXME @monitz87: right now if the user inputs ".0" it gets changed back to "0".
 // It should support consecutive zeroes after the decimal point until the user inputs another
 // number
-export class NumberInputPrimitive extends Component<Props, State> {
+export class NumberInputPrimitive extends Component<NumberInputProps, State> {
   state = { displayValue: '', oldValue: null };
   static defaultProps = {
     onChange: () => {},
@@ -65,11 +48,11 @@ export class NumberInputPrimitive extends Component<Props, State> {
     name: 'unnamed',
   };
 
-  static getDisplayValue(value?: number | BigNumber, props: Props) {
+  static getDisplayValue(value?: number | BigNumber, props: NumberInputProps) {
     if (value === null) {
       return '';
     }
-    const parsedValue = NumberInputComponent.toBigNumber(value, props);
+    const parsedValue = NumberInputPrimitive.toBigNumber(value, props);
     return parsedValue.toFormat();
   }
 
@@ -77,7 +60,7 @@ export class NumberInputPrimitive extends Component<Props, State> {
     return value.isBigNumber || value._isBigNumber;
   }
 
-  static getDerivedStateFromProps(props: Props, state: State) {
+  static getDerivedStateFromProps(props: NumberInputProps, state: State) {
     const { oldValue } = state;
     const { value, useBigNumbers, min, max, name } = props;
     const propsValueChanged = oldValue !== value;
@@ -91,7 +74,7 @@ export class NumberInputPrimitive extends Component<Props, State> {
     if (
       useBigNumbers &&
       value !== null &&
-      !NumberInputComponent.isBigNumber(value)
+      !NumberInputPrimitive.isBigNumber(value)
     ) {
       console.warn(
         `NumberInput(${name})'s value must be a BigNumber object when useBigNumbers is set to true`
@@ -100,7 +83,7 @@ export class NumberInputPrimitive extends Component<Props, State> {
 
     if (propsValueChanged) {
       return {
-        displayValue: NumberInputComponent.getDisplayValue(value, props),
+        displayValue: NumberInputPrimitive.getDisplayValue(value, props),
         oldValue: value,
       };
     }
@@ -114,7 +97,7 @@ export class NumberInputPrimitive extends Component<Props, State> {
    */
   static toBigNumber(
     v: number | string | BigNumber,
-    { min, max, useBigNumbers, maxDecimals }: Props
+    { min, max, useBigNumbers, maxDecimals }: NumberInputProps
   ) {
     let value = v;
     if (typeof value === 'string') {
@@ -183,7 +166,7 @@ export class NumberInputPrimitive extends Component<Props, State> {
    */
   sanitizeDisplayValue = (nextDisplayValue?: string): string => {
     const displayValue = this.state.displayValue;
-    const isValid = NumberInputComponent.isValidDisplayValue(
+    const isValid = NumberInputPrimitive.isValidDisplayValue(
       nextDisplayValue,
       this.props.maxDecimals
     );
@@ -197,13 +180,13 @@ export class NumberInputPrimitive extends Component<Props, State> {
     }
 
     const startsWithDot = startsWithDotRegex.test(nextDisplayValue);
-    const inIntermediateState = NumberInputComponent.isInIntermediateState(
+    const inIntermediateState = NumberInputPrimitive.isInIntermediateState(
       nextDisplayValue
     );
     const canBeCorrected = startsWithDot || !inIntermediateState;
 
     if (canBeCorrected) {
-      return NumberInputComponent.toBigNumber(
+      return NumberInputPrimitive.toBigNumber(
         nextDisplayValue,
         this.props
       ).toFormat();
@@ -220,13 +203,13 @@ export class NumberInputPrimitive extends Component<Props, State> {
 
     this.setState({ displayValue });
 
-    if (onChange && !NumberInputComponent.isInIntermediateState(displayValue)) {
+    if (onChange && !NumberInputPrimitive.isInIntermediateState(displayValue)) {
       if (displayValue.replace(/\s/g, '') === '') {
         onChange(null);
         return;
       }
 
-      const parsedValue = NumberInputComponent.toBigNumber(
+      const parsedValue = NumberInputPrimitive.toBigNumber(
         displayValue,
         this.props
       );
@@ -245,9 +228,10 @@ export class NumberInputPrimitive extends Component<Props, State> {
     const { displayValue } = this.state;
 
     return (
-      <StyledBaseInput
+      <BaseInput
         type="text"
         id={name}
+        name={name}
         {...inputProps}
         value={displayValue}
         onBlur={onBlur}
