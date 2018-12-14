@@ -114,6 +114,7 @@ export async function getCurrentAddress() {
         }
       }
     }
+    await win.ethereum.enable();
   } else if (isLegacy(win)) {
     return await (web3 as InjectedWeb3).eth.getAccounts();
   } else if (support === BrowserSupport.None) {
@@ -135,7 +136,7 @@ export async function getCurrentAddress() {
  * Runs the callback anytime the wallet address changes in the browser
  */
 export function onAddressChange(
-  cb: (newAddress: string, lastAddress?: string) => any
+  cb: (newAddress: string, previousAddress?: string) => any
 ) {
   if (support === BrowserSupport.None) {
     // tslint:disable-next-line no-console
@@ -145,14 +146,14 @@ export function onAddressChange(
     return () => {};
   }
 
-  let lastAddress = web3.eth.accounts[0];
+  let previousAddress = web3.eth.accounts[0];
 
   const interval = setInterval(async () => {
     const newAddress = (await web3.eth.getAccounts())[0];
 
-    if (lastAddress !== newAddress) {
-      lastAddress = newAddress;
-      cb(newAddress, lastAddress);
+    if (previousAddress !== newAddress) {
+      previousAddress = newAddress;
+      cb(newAddress, previousAddress);
     }
   }, 1000);
 
