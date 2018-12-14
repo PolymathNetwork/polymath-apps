@@ -15,3 +15,7 @@ export const initializePolyClientSuccess = createStandardAction(
 export const initializePolyClientFailure = createStandardAction(
   'APP/INITIALIZE_POLY_CLIENT_FAILURE'
 )<Error>();
+
+export const setChangingRoute = createStandardAction('APP/SET_CHANGING_ROUTE')<
+  boolean
+>();

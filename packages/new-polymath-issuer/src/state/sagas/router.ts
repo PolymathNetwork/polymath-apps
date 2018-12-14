@@ -1,5 +1,10 @@
-import { LOCATION_CHANGED, LocationChangedAction } from 'redux-little-router';
-import { takeLatest, call } from 'redux-saga/effects';
+import {
+  LOCATION_CHANGED,
+  LocationChangedAction,
+  push,
+} from 'redux-little-router';
+import { takeLatest, call, put } from 'redux-saga/effects';
+import { setChangingRoute } from '~/state/actions/app';
 import { requireAppConnected, requireAnonymous } from './accessControl';
 
 export function* handleDashboardRoute() {
@@ -10,10 +15,19 @@ export function* handleLoginRoute() {
 }
 
 export function* processRouteChange(action: LocationChangedAction) {
+  yield put(setChangingRoute(true));
+
+  const result = action.payload.result;
+  if (!result || !result.Page) {
+    yield put(push('/notFound'));
+    yield put(setChangingRoute(false));
+    return;
+  }
   const routeSaga = (action.payload.result as any).handler;
   if (routeSaga) {
     yield call(routeSaga);
   }
+  yield put(setChangingRoute(false));
 }
 
 export function* routerWatcher() {

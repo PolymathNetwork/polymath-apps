@@ -6,9 +6,11 @@ import { AppActions } from '~/state/actions/types';
 export interface AppState {
   activeTransactionGroup?: string;
   polyClientInitialized: boolean;
+  changingRoute: boolean;
 }
 const initialState: AppState = {
   polyClientInitialized: false,
+  changingRoute: false,
 };
 
 export const reducer: Reducer<AppState, AppActions> = (
@@ -26,6 +28,12 @@ export const reducer: Reducer<AppState, AppActions> = (
       return {
         ...state,
         polyClientInitialized: true,
+      };
+    }
+    case getType(actions.setChangingRoute): {
+      return {
+        ...state,
+        changingRoute: action.payload,
       };
     }
     default: {

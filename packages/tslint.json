@@ -17,6 +17,7 @@
     "no-empty": false,
     "max-classes-per-file": false,
     "semicolon": false,
+    "no-empty-interface": false,
     "trailing-comma": [
       true,
       {
