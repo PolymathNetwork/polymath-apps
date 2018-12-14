@@ -1,84 +1,16 @@
-import {
-  LOCATION_CHANGED,
-  LocationChangedAction,
-  push,
-} from 'redux-little-router';
-import { getCurrentAddress } from '@polymathnetwork/sdk';
-import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { ErrorCodes as PolymathErrorCodes } from '@polymathnetwork/sdk';
-import { RootState } from '~/state/store';
-import {
-  initializePolyClientStart,
-  initializePolyClientFailure,
-  initializePolyClientSuccess,
-} from '~/state/actions/app';
-import { polyClient } from '~/lib/polyClient';
-import { setWallet } from '~/state/actions/session';
+import { LOCATION_CHANGED, LocationChangedAction } from 'redux-little-router';
+import { takeLatest, call } from 'redux-saga/effects';
+import { requireAppConnected, requireAnonymous } from './accessControl';
 
-const routeSagas: {
-  [route: string]: () => IterableIterator<any>;
-} = {
-  '/dashboard': dashboardRouteSaga,
-};
-
-export function* initializePolyClient() {
-  yield put(initializePolyClientStart());
-  yield requireWallet();
-  try {
-    yield call(polyClient.initialize.bind(polyClient));
-    yield put(initializePolyClientSuccess());
-  } catch (error) {
-    yield put(initializePolyClientFailure(error.message));
-    throw error;
-  }
-}
-
-export function* requireAppConnected() {
-  const polyClientInitialized = yield select<RootState>(
-    ({ app }) => app.polyClientInitialized
-  );
-
-  if (!polyClientInitialized) {
-    yield initializePolyClient();
-  }
-}
-
-export function* requireWallet() {
-  let address: string;
-  try {
-    address = yield call(getCurrentAddress);
-    yield put(setWallet({ address }));
-  } catch (error) {
-    // tslint:disable-next-line
-    const code = error.code as PolymathErrorCodes;
-
-    switch (code) {
-      case PolymathErrorCodes.UserDeniedAccess: {
-        yield put(push('/login'));
-        break;
-      }
-      case PolymathErrorCodes.IncompatibleBrowser: {
-        yield put(push('/metamask/get'));
-        break;
-      }
-      case PolymathErrorCodes.WalletIsLocked: {
-        yield put(push('/metamask/locked'));
-        break;
-      }
-      default: {
-        throw error;
-      }
-    }
-  }
-}
-
-export function* dashboardRouteSaga() {
+export function* handleDashboardRoute() {
   yield call(requireAppConnected);
+}
+export function* handleLoginRoute() {
+  yield call(requireAnonymous);
 }
 
 export function* processRouteChange(action: LocationChangedAction) {
-  const route = action.payload.pathname as string;
-  const routeSaga = routeSagas[route];
+  const routeSaga = (action.payload.result as any).handler;
   if (routeSaga) {
     yield call(routeSaga);
   }

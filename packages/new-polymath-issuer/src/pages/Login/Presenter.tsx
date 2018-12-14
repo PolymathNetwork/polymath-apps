@@ -13,6 +13,10 @@ export class Presenter extends Component<Props> {
   };
 
   public render() {
-    return <div>[LoginPage]</div>;
+    return (
+      <div>
+        [LoginPage]<button onClick={this.handleLogin}>Login</button>
+      </div>
+    );
   }
 }

@@ -163,3 +163,11 @@ export function onAddressChange(
 
   return unsubscribe;
 }
+
+export async function enableWallet() {
+  if (support !== BrowserSupport.Modern) {
+    throw new Error("Called login on a browser that doesn't support Ethereum");
+  }
+
+  return (win.ethereum as Ethereum).enable();
+}

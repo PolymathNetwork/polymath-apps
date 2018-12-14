@@ -7,15 +7,19 @@ import {
   HomePage,
 } from '~/pages';
 
+import { handleDashboardRoute, handleLoginRoute } from '~/state/sagas/router';
+
 export const routes = {
   '/': {
     Page: HomePage,
   },
   '/dashboard': {
     Page: SecurityTokensIndexPage,
+    handler: handleDashboardRoute,
   },
   '/login': {
     Page: LoginPage,
+    handler: handleLoginRoute,
   },
   '/securityTokens': {
     '/': {

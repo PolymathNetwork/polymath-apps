@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { login } from '~/state/actions/session';
+import { loginStart } from '~/state/actions/session';
 import { Presenter } from './Presenter';
 
 export interface Props {
@@ -10,7 +10,7 @@ export interface Props {
 
 export class ContainerBase extends Component<Props> {
   public login = () => {
-    this.props.dispatch(login());
+    this.props.dispatch(loginStart());
   };
 
   public render() {
