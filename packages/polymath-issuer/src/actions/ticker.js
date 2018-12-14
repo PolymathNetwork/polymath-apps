@@ -33,6 +33,14 @@ export const reserve = (details: Object) => async (
   const { isEmailConfirmed } = getState().pui.account;
   const fee = await SecurityTokenRegistry.registrationFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
+
+  const allowance = await PolyToken.allowance(
+    SecurityTokenRegistry.account,
+    SecurityTokenRegistry.address
+  );
+
+  const isApproved = allowance > fee;
+
   dispatch(
     ui.confirm(
       <div>
@@ -40,14 +48,21 @@ export const reserve = (details: Object) => async (
           Completion of your token symbol reservation will require two wallet
           transactions.
         </p>
+        {!isApproved ? (
+          <div>
+            <p>
+              • The first transaction will be used to pay for the token symbol
+              reservation cost of:
+            </p>
+            <div className="bx--details poly-cost">{feeView} POLY</div>
+          </div>
+        ) : (
+          ''
+        )}
         <p>
-          • The first transaction will be used to pay for the token symbol
-          reservation cost of:
-        </p>
-        <div className="bx--details poly-cost">{feeView} POLY</div>
-        <p>
-          • The second transaction will be used to pay the mining fee (aka gas
-          fee) to complete the reservation of your token symbol.
+          • {!isApproved ? 'The second' : 'This'} transaction will be used to
+          pay the mining fee (aka gas fee) to complete the reservation of your
+          token symbol.
           <br />
         </p>
         <p>
@@ -70,13 +85,9 @@ export const reserve = (details: Object) => async (
           return;
         }
 
-        const allowance = await PolyToken.allowance(
-          SecurityTokenRegistry.account,
-          SecurityTokenRegistry.address
-        );
         //Skip approve transaction if transfer is already allowed
         let title = ['Reserving Token Symbol'];
-        if (allowance == 0) {
+        if (!isApproved) {
           title.unshift('Approving POLY Spend');
         }
 

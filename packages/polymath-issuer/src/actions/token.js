@@ -187,26 +187,42 @@ export const issue = (values: Object) => async (
   const fee = await SecurityTokenRegistry.launchFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
 
+  const allowance = await PolyToken.allowance(
+    SecurityTokenRegistry.account,
+    SecurityTokenRegistry.address
+  );
+
+  const isApproved = allowance > fee;
+
   dispatch(
     ui.confirm(
       <div>
         <p>
           Completion of your token creation will require{' '}
-          {limitInvestors ? 'three' : 'two'} wallet transactions.
+          {limitInvestors ? 'three' : !isApproved ? 'two' : 'one'} wallet
+          transaction(s).
         </p>
+        {!isApproved ? (
+          <div>
+            <p>
+              • The first transaction will be used to prepare for the payment of
+              the token creation cost of:
+            </p>
+            <div className="bx--details poly-cost">{feeView} POLY</div>
+          </div>
+        ) : (
+          ''
+        )}
         <p>
-          • The first transaction will be used to prepare for the payment of the
-          token creation cost of:
-        </p>
-        <div className="bx--details poly-cost">{feeView} POLY</div>
-        <p>
-          • The second transaction will be used to pay for the token creation
-          cost (POLY + mining fee) to complete the creation of your token.
+          • {!isApproved ? 'The second' : 'This'} transaction will be used to
+          pay for the token creation cost (POLY + mining fee) to complete the
+          creation of your token.
         </p>
         {limitInvestors && (
           <p>
-            • The third transaction will be used to pay the mining fee (aka gas
-            fee) to limit the number of investors who can hold your token.
+            • The {!isApproved ? 'third' : 'second'} transaction will be used to
+            pay the mining fee (aka gas fee) to limit the number of investors
+            who can hold your token.
             <br />
           </p>
         )}
@@ -230,15 +246,15 @@ export const issue = (values: Object) => async (
           return;
         }
 
-        const allowance = await PolyToken.allowance(
-          SecurityTokenRegistry.account,
-          SecurityTokenRegistry.address
-        );
+        // const allowance = await PolyToken.allowance(
+        //   SecurityTokenRegistry.account,
+        //   SecurityTokenRegistry.address
+        // );
 
         //Skip approve transaction if transfer is already allowed
         let title = ['Creating Security Token'];
 
-        if (allowance < fee) {
+        if (!isApproved) {
           title.unshift('Approving POLY Spend');
         }
 
