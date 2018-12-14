@@ -2,6 +2,10 @@ import { reducer } from '../app';
 import * as actions from '~/state/actions/app';
 
 describe('Reducer: app', () => {
+  test('initialState', () => {
+    expect(reducer(undefined, {} as any)).toMatchSnapshot();
+  });
+
   test('setActiveTransactionGroup sets activeTransactionGroup', () => {
     const id = 'someId';
     const result = reducer(undefined, actions.setActiveTransactionGroup(id));

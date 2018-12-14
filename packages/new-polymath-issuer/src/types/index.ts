@@ -8,9 +8,9 @@ export interface Wallet {
 }
 
 export interface Identity {
-  wallet: string;
   email: string;
   confirmed?: boolean;
+  fullName: string;
 }
 
 export enum SessionRoles {
