@@ -12,10 +12,21 @@ export enum BrowserSupport {
 
 interface Ethereum extends HttpProvider {
   networkversion: string;
+  _metamask?: {
+    isApproved: () => Promise<boolean>;
+  };
   enable(): Promise<any>;
 }
+
+type Web3Eth = Web3['eth'];
+type Web3Accounts = Web3['eth']['accounts'];
+interface Accounts extends Web3Accounts, Array<string> {}
+interface Eth extends Web3Eth {
+  accounts: Accounts;
+}
+
 interface InjectedWeb3 extends Web3 {
-  getAccounts: () => Promise<string[]>;
+  eth: Eth;
 }
 
 interface ExtendedWindow extends Window {
@@ -28,6 +39,17 @@ interface WindowWithEthereum extends ExtendedWindow {
 }
 interface WindowWithWeb3 extends ExtendedWindow {
   web3: InjectedWeb3;
+}
+
+// Initialize a Web3 instance for internal use
+const win = (window as any) as ExtendedWindow;
+let web3: InjectedWeb3;
+const support = getBrowserSupport();
+
+if (isModern(win)) {
+  web3 = new Web3(win.ethereum as HttpProvider) as InjectedWeb3;
+} else if (isLegacy(win)) {
+  web3 = new Web3(win.web3.currentProvider) as InjectedWeb3;
 }
 
 function isModern(obj: ExtendedWindow): obj is WindowWithEthereum {
@@ -43,8 +65,6 @@ function isLegacy(obj: ExtendedWindow): obj is WindowWithWeb3 {
   }
   return false;
 }
-
-const win = (window as any) as ExtendedWindow;
 
 /**
  * Returns the browser support for Ethereum
@@ -67,8 +87,6 @@ export function getBrowserSupport() {
  * Returns the current networkId provided by the browser
  */
 export function getNetworkId() {
-  const support = getBrowserSupport();
-
   if (support === BrowserSupport.None) {
     return null;
   }
@@ -83,21 +101,64 @@ export function getNetworkId() {
 }
 
 export async function getCurrentAddress() {
-  const support = getBrowserSupport();
-
-  let web3: Web3 = {} as Web3;
+  let accounts: string[] = [];
 
   if (isModern(win)) {
-    await win.ethereum.enable();
-    web3 = new Web3(win.ethereum as HttpProvider);
+    // Special check for Metamask to know if it is locked or not
+    if (win.ethereum._metamask) {
+      const isApproved = await win.ethereum._metamask.isApproved();
+      if (isApproved) {
+        accounts = await web3.eth.getAccounts();
+        if (!accounts.length) {
+          throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
+        }
+      }
+    }
   } else if (isLegacy(win)) {
-    web3 = new Web3(win.web3.currentProvider);
-    return await (web3 as InjectedWeb3).getAccounts();
+    return await (web3 as InjectedWeb3).eth.getAccounts();
   } else if (support === BrowserSupport.None) {
     throw new PolymathError({ code: ErrorCodes.IncompatibleBrowser });
   }
 
-  const accounts = await web3.eth.getAccounts();
+  if (!accounts.length) {
+    accounts = await web3.eth.getAccounts();
+  }
+
+  if (!accounts.length) {
+    throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
+  }
 
   return accounts[0];
+}
+
+/**
+ * Runs the callback anytime the wallet address changes in the browser
+ */
+export function onAddressChange(
+  cb: (newAddress: string, lastAddress?: string) => any
+) {
+  if (support === BrowserSupport.None) {
+    // tslint:disable-next-line no-console
+    console.warn(
+      '"onAddressChange" Was called, but the current browser does not support Ethereum.'
+    );
+    return () => {};
+  }
+
+  let lastAddress = web3.eth.accounts[0];
+
+  const interval = setInterval(async () => {
+    const newAddress = (await web3.eth.getAccounts())[0];
+
+    if (lastAddress !== newAddress) {
+      lastAddress = newAddress;
+      cb(newAddress, lastAddress);
+    }
+  }, 1000);
+
+  const unsubscribe = () => {
+    clearInterval(interval);
+  };
+
+  return unsubscribe;
 }

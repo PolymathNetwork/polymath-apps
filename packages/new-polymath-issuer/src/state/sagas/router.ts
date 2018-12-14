@@ -5,6 +5,7 @@ import {
 } from 'redux-little-router';
 import { getCurrentAddress } from '@polymathnetwork/sdk';
 import { takeLatest, call, select, put } from 'redux-saga/effects';
+import { ErrorCodes as PolymathErrorCodes } from '@polymathnetwork/sdk';
 import { RootState } from '~/state/store';
 import {
   initializePolyClientStart,
@@ -12,7 +13,7 @@ import {
   initializePolyClientSuccess,
 } from '~/state/actions/app';
 import { polyClient } from '~/lib/polyClient';
-import { ErrorCodes as PolymathErrorCodes } from '@polymathnetwork/sdk';
+import { setWallet } from '~/state/actions/session';
 
 const routeSagas: {
   [route: string]: () => IterableIterator<any>;
@@ -21,8 +22,8 @@ const routeSagas: {
 };
 
 export function* initializePolyClient() {
-  yield requireWallet();
   yield put(initializePolyClientStart());
+  yield requireWallet();
   try {
     yield call(polyClient.initialize.bind(polyClient));
     yield put(initializePolyClientSuccess());
@@ -46,17 +47,27 @@ export function* requireWallet() {
   let address: string;
   try {
     address = yield call(getCurrentAddress);
+    yield put(setWallet({ address }));
   } catch (error) {
-    console.log(error);
+    // tslint:disable-next-line
     const code = error.code as PolymathErrorCodes;
-    if (code === PolymathErrorCodes.UserDeniedAccess) {
-      console.log('LOGIN REQUIRED');
-      yield put(push('/login'));
-    } else if (code === PolymathErrorCodes.IncompatibleBrowser) {
-      console.log('METAMASK REQUIRED');
-      yield put(push('/metamask'));
-    } else {
-      throw error;
+
+    switch (code) {
+      case PolymathErrorCodes.UserDeniedAccess: {
+        yield put(push('/login'));
+        break;
+      }
+      case PolymathErrorCodes.IncompatibleBrowser: {
+        yield put(push('/metamask/get'));
+        break;
+      }
+      case PolymathErrorCodes.WalletIsLocked: {
+        yield put(push('/metamask/locked'));
+        break;
+      }
+      default: {
+        throw error;
+      }
     }
   }
 }

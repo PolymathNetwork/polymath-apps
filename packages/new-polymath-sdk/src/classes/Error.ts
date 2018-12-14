@@ -4,7 +4,9 @@ export const ErrorMessagesPerCode: {
   [errorCode: number]: string;
 } = {
   [ErrorCodes.IncompatibleBrowser]:
-    'You are using a browser that is not compatible with Ethereum',
+    'The browser bring used is not compatible with Ethereum',
+  [ErrorCodes.WalletIsLocked]:
+    'The wallet is locked, if Metamask extension is being used, the user needs to unlock it first',
 };
 
 export class PolymathError extends Error {
