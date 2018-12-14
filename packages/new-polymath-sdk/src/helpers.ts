@@ -82,7 +82,7 @@ export function getNetworkId() {
   }
 }
 
-export async function getCurrentWallet() {
+export async function getCurrentAddress() {
   const support = getBrowserSupport();
 
   let web3: Web3 = {} as Web3;
@@ -91,8 +91,8 @@ export async function getCurrentWallet() {
     await win.ethereum.enable();
     web3 = new Web3(win.ethereum as HttpProvider);
   } else if (isLegacy(win)) {
-    return await win.web3.getAccounts();
-    web3 = new Web3();
+    web3 = new Web3(win.web3.currentProvider);
+    return await (web3 as InjectedWeb3).getAccounts();
   } else if (support === BrowserSupport.None) {
     throw new PolymathError({ code: ErrorCodes.IncompatibleBrowser });
   }
