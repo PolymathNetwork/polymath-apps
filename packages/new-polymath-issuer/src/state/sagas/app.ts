@@ -1,4 +1,4 @@
-import { takeLatest, call, select, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import {
   initializePolyClientStart,
   initializePolyClientFailure,

@@ -49,6 +49,7 @@ export function* requireWallet(
 export function* requireAnonymous() {
   yield call(requireWallet, { redirect: false });
   const wallet = yield select<RootState>(({ session }) => session.wallet);
+
   if (wallet) {
     yield put(push('/'));
   }
