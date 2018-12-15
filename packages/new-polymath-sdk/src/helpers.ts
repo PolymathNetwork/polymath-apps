@@ -1,7 +1,6 @@
 import Web3 from 'web3';
-import { PolymathError } from '~/classes/Error';
+import { PolymathError } from '~/classes/PolymathError';
 import { ErrorCodes } from '~/types';
-import { Provider } from 'react';
 import { HttpProvider } from 'web3/providers';
 
 export enum BrowserSupport {
@@ -41,15 +40,20 @@ interface WindowWithWeb3 extends ExtendedWindow {
   web3: InjectedWeb3;
 }
 
-// Initialize a Web3 instance for internal use
-const win = (window as any) as ExtendedWindow;
-let web3: InjectedWeb3;
-const support = getBrowserSupport();
+export function getWeb3() {
+  // Initialize a Web3 instance for internal use
+  const win = (window as any) as ExtendedWindow;
+  let web3: InjectedWeb3;
 
-if (isModern(win)) {
-  web3 = new Web3(win.ethereum as HttpProvider) as InjectedWeb3;
-} else if (isLegacy(win)) {
-  web3 = new Web3(win.web3.currentProvider) as InjectedWeb3;
+  if (isModern(win)) {
+    web3 = new Web3(win.ethereum as HttpProvider) as InjectedWeb3;
+  } else if (isLegacy(win)) {
+    web3 = new Web3(win.web3.currentProvider) as InjectedWeb3;
+  } else {
+    return new Web3();
+  }
+
+  return web3;
 }
 
 function isModern(obj: ExtendedWindow): obj is WindowWithEthereum {
@@ -70,6 +74,7 @@ function isLegacy(obj: ExtendedWindow): obj is WindowWithWeb3 {
  * Returns the browser support for Ethereum
  */
 export function getBrowserSupport() {
+  const win = window as ExtendedWindow;
   if (!win) {
     return BrowserSupport.None;
   }
@@ -87,6 +92,8 @@ export function getBrowserSupport() {
  * Returns the current networkId provided by the browser
  */
 export function getNetworkId() {
+  const win = window as ExtendedWindow;
+  const support = getBrowserSupport();
   if (support === BrowserSupport.None) {
     return null;
   }
@@ -101,7 +108,10 @@ export function getNetworkId() {
 }
 
 export async function getCurrentAddress() {
+  const win = window as ExtendedWindow;
+  const web3 = getWeb3();
   let accounts: string[] = [];
+  const support = getBrowserSupport();
 
   if (isModern(win)) {
     // Special check for Metamask to know if it is locked or not
@@ -114,7 +124,7 @@ export async function getCurrentAddress() {
         }
       }
     }
-    await win.ethereum.enable();
+    await enableWallet();
   } else if (isLegacy(win)) {
     return await (web3 as InjectedWeb3).eth.getAccounts();
   } else if (support === BrowserSupport.None) {
@@ -138,6 +148,8 @@ export async function getCurrentAddress() {
 export function onAddressChange(
   cb: (newAddress: string, previousAddress?: string) => any
 ) {
+  const web3 = getWeb3() as InjectedWeb3;
+  const support = getBrowserSupport();
   if (support === BrowserSupport.None) {
     // tslint:disable-next-line no-console
     console.warn(
@@ -165,9 +177,15 @@ export function onAddressChange(
 }
 
 export async function enableWallet() {
+  const support = getBrowserSupport();
+  const win = window as ExtendedWindow;
   if (support !== BrowserSupport.Modern) {
     throw new Error("Called login on a browser that doesn't support Ethereum");
   }
 
-  return (win.ethereum as Ethereum).enable();
+  try {
+    await (win.ethereum as Ethereum).enable();
+  } catch (err) {
+    throw new PolymathError({ code: ErrorCodes.UserDeniedAccess });
+  }
 }

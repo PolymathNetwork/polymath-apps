@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { Action } from 'redux';
 import { RootState, rootReducer } from '~/state/store';
 import { set } from 'lodash';
+import Web3FakeProvider from 'web3-fake-provider';
 
 const middlewares: any[] = [];
 
@@ -52,4 +53,8 @@ export class MockedStore {
     set(newState, path, value);
     this.state = newState;
   };
+}
+
+export class MockEthereumProvider extends Web3FakeProvider {
+  public async enable() {}
 }
