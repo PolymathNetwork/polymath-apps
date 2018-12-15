@@ -37,7 +37,7 @@ export const reducer: Reducer<AppState, AppActions> = (
       };
     }
     default: {
-      return state;
+      return { ...state };
     }
   }
 };

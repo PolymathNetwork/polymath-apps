@@ -2,8 +2,9 @@ import React, { Fragment } from 'react';
 import { render } from 'react-testing-library';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { RootState, rootReducer } from '~/state/store';
 import { Action } from 'redux';
+import { RootState, rootReducer } from '~/state/store';
+import { set } from 'lodash';
 
 const middlewares: any[] = [];
 
@@ -35,18 +36,20 @@ export class MockedStore {
   }
 
   public dispatch = (action: Action) => {
-    this.state = rootReducer(this.state, action);
+    this.state = rootReducer(this.getState(), action);
     this.dispatched.push(action);
   };
 
   public getState = () => {
-    return this.state;
+    // console.log('calling get state', this.state.session);
+    return { ...this.state };
   };
 
-  public setState = (state: any) => {
-    this.state = {
+  public setState = (path: string, value: any) => {
+    const newState = {
       ...this.state,
-      ...state,
     };
+    set(newState, path, value);
+    this.state = newState;
   };
 }

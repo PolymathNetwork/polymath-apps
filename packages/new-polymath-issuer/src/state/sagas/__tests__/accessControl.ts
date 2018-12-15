@@ -1,7 +1,7 @@
 import { runSaga } from 'redux-saga';
 import * as sagas from '~/state/sagas/accessControl';
-import { rootReducer, RootState } from '~/state/store';
 import { MockedStore } from '~/testUtils/helpers';
+import { RootState } from '~/state/store';
 
 jest.mock('~/lib/polyClient', () => ({
   polyClient: {
@@ -27,7 +27,7 @@ describe('accessControl sagas', () => {
   });
 
   describe('requireWallet', () => {
-    test.skip('redirects to "/login" if user denied address', () => {});
+    test('redirects to "/login" if user denied access', () => {});
 
     test.skip('redirects to "/metamask/get" if browser is incompatible with Ethereum', () => {});
 
@@ -36,17 +36,7 @@ describe('accessControl sagas', () => {
 
   describe('requireAnonymous', () => {
     test('redirects to "/" if wallet already exists', async () => {
-      const state = store.getState();
-      store.setState({
-        session: {
-          ...state.session.wallet,
-          wallet: { address: '0x1234' },
-        },
-        router: {
-          ...state.router,
-          pathname: '/someroute',
-        },
-      });
+      store.setState('session.wallet', { address: '0x1234' });
 
       await runSaga(store, sagas.requireAnonymous);
 
@@ -57,6 +47,7 @@ describe('accessControl sagas', () => {
 
     test('does not redirect if anonymous', async () => {
       await runSaga(store, sagas.requireAnonymous);
+
       expect(
         store.dispatched.find(({ type }) => type === 'ROUTER_PUSH')
       ).toBeUndefined();
