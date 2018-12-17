@@ -1,16 +1,18 @@
 import { TransactionObject } from 'web3/eth/types';
-import { PolymathRegistryAbi } from '~/LowLevel/abis/PolymathRegistryAbi';
+import { PolymathRegistryAbi } from './abis/PolymathRegistryAbi';
 import { Contract } from './Contract';
+import { Context } from './LowLevel';
+import { GenericContract } from '~/LowLevel/types';
 
-interface PolymathRegistryContract {
+interface PolymathRegistryContract extends GenericContract {
   methods: {
     getAddress(contractName: string): TransactionObject<string>;
   };
 }
 
 export class PolymathRegistry extends Contract<PolymathRegistryContract> {
-  constructor({ address }: { address: string }) {
-    super({ address, abi: PolymathRegistryAbi.abi });
+  constructor({ address, context }: { address: string; context: Context }) {
+    super({ address, abi: PolymathRegistryAbi.abi, context });
   }
   public async getAddress(contractName: string): Promise<string> {
     return this.contract.methods.getAddress(contractName).call();

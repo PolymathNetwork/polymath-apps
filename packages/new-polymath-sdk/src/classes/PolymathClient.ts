@@ -1,6 +1,7 @@
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { types, constants } from '@polymathnetwork/new-shared';
 import { PolyToken } from '~/LowLevel/PolyToken';
+import { Erc20 } from '~/LowLevel/Erc20';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
@@ -8,6 +9,12 @@ import { Wallet } from './Wallet';
 import { ReserveSecurityToken } from './transactions/ReserveSecurityToken';
 import { Context } from './Context';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
+import { EnableDividendModules } from './transactions/EnableDividendModules';
+import { CreateCheckpoint } from './transactions/CreateCheckpoint';
+import { CreateErc20DividendDistribution } from './transactions/CreateErc20DividendDistribution';
+import { CreateEtherDividendDistribution } from '~/classes/transactions/CreateEtherDividendDistribution';
+import { TaxWithholding } from '~/types';
+import { Dividend } from '~/LowLevel/types';
 
 interface Params {
   httpProvider?: HttpProvider;
@@ -73,6 +80,8 @@ export class PolymathClient {
     });
 
     this.isConnected = true;
+
+    return this;
   }
 
   /**
@@ -83,17 +92,116 @@ export class PolymathClient {
     return await transaction.prepare();
   }
 
-  private getTokenContract(token: types.Tokens) {
-    switch (token) {
-      case types.Tokens.Poly:
-        return this.polyToken;
-      default: {
-        throw new Error(`No contract for token: "${token}"`);
-      }
-    }
+  /**
+   * Enable ERC20 and ETH dividend modules
+   */
+  public async enableDividendModules(args: { symbol: string }) {
+    const transaction = new EnableDividendModules(args, this.context);
+    return await transaction.prepare();
   }
 
-  private get polyToken() {
-    return this.context.polyToken;
+  /**
+   * Create investor supply checkpoint at the current date
+   */
+  public async createCheckpoint(args: { symbol: string }) {
+    const transaction = new CreateCheckpoint(args, this.context);
+    return await transaction.prepare();
+  }
+
+  /**
+   * Distribute dividends in POLY
+   */
+  public async distributePolyDividends(args: {
+    symbol: string;
+    maturityDate: Date;
+    expiryDate: Date;
+    amount: number;
+    checkpointId: number;
+    name: string;
+    excludedAddresses?: string[];
+    taxWithholdings?: TaxWithholding[];
+  }) {
+    const polyAddress = this.context.polyToken.address;
+    const transaction = new CreateErc20DividendDistribution(
+      {
+        erc20Address: polyAddress,
+        ...args,
+      },
+      this.context
+    );
+    return await transaction.prepare();
+  }
+
+  /**
+   * Distribute dividends in a specified ERC20 token
+   */
+  public async distributeErc20Dividends(args: {
+    symbol: string;
+    maturityDate: Date;
+    expiryDate: Date;
+    erc20Address: string;
+    amount: number;
+    checkpointId: number;
+    name: string;
+    excludedAddresses?: string[];
+    taxWithholdings?: TaxWithholding[];
+  }) {
+    const transaction = new CreateErc20DividendDistribution(args, this.context);
+    return await transaction.prepare();
+  }
+
+  /**
+   * Distribute dividends in ETH
+   */
+  public async distributeEtherDividends(args: {
+    symbol: string;
+    maturityDate: Date;
+    expiryDate: Date;
+    erc20Address: string;
+    amount: number;
+    checkpointId: number;
+    name: string;
+    excludedAddresses?: string[];
+    taxWithholdings?: TaxWithholding[];
+  }) {
+    const transaction = new CreateEtherDividendDistribution(args, this.context);
+    return await transaction.prepare();
+  }
+
+  /**
+   * Retrieve list of checkpoints and their corresponding dividends
+   */
+  public async getCheckpoints(args: { symbol: string }) {
+    const { securityTokenRegistry } = this.context;
+    const { symbol } = args;
+
+    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+
+    const erc20Module = await securityToken.getErc20DividendModule();
+    const etherModule = await securityToken.getEtherDividendModule();
+
+    let erc20Dividends: Dividend[] = [];
+    let etherDividends: Dividend[] = [];
+
+    if (erc20Module) {
+      erc20Dividends = await erc20Module.getDividends();
+    }
+
+    if (etherModule) {
+      etherDividends = await etherModule.getDividends();
+    }
+
+    const checkpoints = await securityToken.getCheckpoints();
+
+    return checkpoints.map(checkpoint => {
+      const checkpointDividends = [...erc20Dividends, ...etherDividends].filter(
+        dividend => dividend.checkpointId === checkpoint.id
+      );
+
+      return {
+        ...checkpoint,
+        dividends: checkpointDividends,
+      };
+    });
   }
 }

@@ -1,13 +1,14 @@
 import Web3 from 'web3';
-import { ModuleRegistryAbi } from '~/LowLevel/abis/ModuleRegistryAbi';
+import { ModuleRegistryAbi } from './abis/ModuleRegistryAbi';
 import { Contract } from './Contract';
+import { Context } from './LowLevel';
 import { TransactionObject } from 'web3/eth/types';
-import { ModuleFactory } from '~/LowLevel/ModuleFactory';
+import { ModuleFactory } from './ModuleFactory';
 import { ModuleTypes } from '~/types';
-import BigNumber from 'bignumber.js';
+import { GenericContract } from '~/LowLevel/types';
 
 // This type should be obtained from a library (must match ABI)
-interface ModuleRegistryContract {
+interface ModuleRegistryContract extends GenericContract {
   methods: {
     getModulesByTypeAndToken(
       moduleType: number,
@@ -17,8 +18,8 @@ interface ModuleRegistryContract {
 }
 
 export class ModuleRegistry extends Contract<ModuleRegistryContract> {
-  constructor({ address }: { address: string }) {
-    super({ address, abi: ModuleRegistryAbi.abi });
+  constructor({ address, context }: { address: string; context: Context }) {
+    super({ address, abi: ModuleRegistryAbi.abi, context });
   }
 
   public async getModulesByTypeAndToken(
@@ -28,18 +29,6 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
     return this.contract.methods
       .getModulesByTypeAndToken(moduleType, tokenAddress)
       .call();
-  }
-
-  public async getDividendFactoryAddress(
-    type: 'POLY' | 'ETH',
-    tokenAddress: string
-  ) {
-    const availableModules = await this.getModulesByTypeAndToken(
-      ModuleTypes.Dividends,
-      tokenAddress
-    );
-
-    availableModules.forEach(moduleAddress => {});
   }
 
   /**
@@ -61,6 +50,7 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
     for (const moduleAddress of availableModules) {
       const moduleFactory = new ModuleFactory({
         address: moduleAddress,
+        context: this.context,
       });
 
       const name = Web3.utils.toAscii(await moduleFactory.name());
