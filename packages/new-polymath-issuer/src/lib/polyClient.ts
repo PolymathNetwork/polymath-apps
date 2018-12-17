@@ -40,7 +40,7 @@ interface MockParams {
   };
 }
 
-class MockPolymathClient {
+export class MockPolymathClient {
   private params: MockParams;
   private loggedIn = false;
   private wallet?: { id: string; address: string };
