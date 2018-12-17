@@ -41,9 +41,10 @@
     "@babel/runtime": "7.0.0",
     "@polymathnetwork/new-ui": "0.0.0",
     "@polymathnetwork/sdk": "0.0.0",
-    "@reach/router": "^1.2.1",
+    "lodash": "^4.17.11",
     "react": "16.5.2",
     "react-dom": "16.5.2",
+    "redux-little-router": "^15.1.2",
     "redux-saga": "^0.16.2",
     "typesafe-actions": "^2.0.4",
     "web3": "1.0.0-beta.30"
@@ -57,8 +58,8 @@
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "7.0.0",
+    "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.12",
-    "@types/reach__router": "^1.2.2",
     "@types/react": "16.7.13",
     "@types/react-dom": "^16.0.11",
     "@types/react-redux": "^6.0.10",
@@ -87,6 +88,7 @@
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.11.0",
     "typescript": "^3.2.1",
+    "web3-fake-provider": "^0.1.0",
     "webpack": "^4.26.1",
     "webpack-dev-server": "^3.1.10"
   }

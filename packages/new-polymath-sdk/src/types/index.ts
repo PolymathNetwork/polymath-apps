@@ -4,7 +4,6 @@ export interface TaxWithholding {
   address: string;
   percentage: number;
 }
-
 export enum TransactionTypes {
   Approve,
   GetTokens,
@@ -19,3 +18,9 @@ export enum ModuleTypes {
 }
 
 export type Addressable = Wallet | string;
+
+export enum ErrorCodes {
+  IncompatibleBrowser,
+  UserDeniedAccess,
+  WalletIsLocked,
+}

@@ -8,14 +8,9 @@ export interface Wallet {
 }
 
 export interface Identity {
-  wallet: string;
   email: string;
   confirmed?: boolean;
-}
-
-export enum AppStages {
-  Initialized,
-  Connected,
+  fullName: string;
 }
 
 export enum SessionRoles {
