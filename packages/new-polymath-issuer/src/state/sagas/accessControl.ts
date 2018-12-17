@@ -2,7 +2,7 @@ import { push } from 'redux-little-router';
 import { put, call, select } from 'redux-saga/effects';
 import { getCurrentAddress, ErrorCodes } from '@polymathnetwork/sdk';
 import { setWallet } from '~/state/actions/session';
-import { RootState } from '../store';
+import { RootState } from '~/state/store';
 import { initializePolyClient } from './app';
 
 export function* requireWallet(

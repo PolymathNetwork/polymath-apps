@@ -23,7 +23,9 @@ export function* processRouteChange(action: LocationChangedAction) {
     yield put(setChangingRoute(false));
     return;
   }
+
   const routeSaga = (action.payload.result as any).handler;
+
   if (routeSaga) {
     yield call(routeSaga);
   }

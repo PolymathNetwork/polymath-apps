@@ -58,3 +58,13 @@ export class MockedStore {
 export class MockEthereumProvider extends Web3FakeProvider {
   public async enable() {}
 }
+
+export function getGeneratorOutputs(gen: IterableIterator<any>) {
+  const results = [];
+  let next = gen.next();
+  while (!next.done) {
+    results.push(next.value);
+    next = gen.next();
+  }
+  return results;
+}
