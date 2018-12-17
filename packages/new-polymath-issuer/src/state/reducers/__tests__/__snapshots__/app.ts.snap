@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reducer: app initialState 1`] = `
+Object {
+  "changingRoute": false,
+  "polyClientInitialized": false,
+}
+`;

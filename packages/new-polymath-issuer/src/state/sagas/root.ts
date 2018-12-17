@@ -1,11 +1,9 @@
-// import { takeEvery } from 'redux-saga';
+import { all } from 'redux-saga/effects';
 
-// Temporary...
-export function* watchSession() {
-  yield;
-}
+import { routerWatcher } from './router';
+import { walletWatcher } from './wallet';
+import { sessionWatcher } from './session';
 
 export function* rootSaga() {
-  // Root saga here
-  yield;
+  yield all([routerWatcher(), walletWatcher(), sessionWatcher()]);
 }
