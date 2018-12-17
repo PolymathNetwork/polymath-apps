@@ -1,9 +1,5 @@
 import { runSaga } from 'redux-saga';
-import {
-  PolymathError,
-  getCurrentAddress,
-  ErrorCodes,
-} from '@polymathnetwork/sdk';
+import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import * as sagas from '~/state/sagas/accessControl';
 import { MockedStore, MockEthereumProvider } from '~/testUtils/helpers';
 
@@ -17,12 +13,13 @@ jest.mock('@polymathnetwork/sdk', () => {
   const original = require.requireActual('@polymathnetwork/sdk');
   return {
     ...original,
-    onAddressChange() {
-      return () => {};
+    browserUtils: {
+      getCurrentAddress: jest.fn(),
+      onAddressChange() {
+        return () => {};
+      },
+      enableWallet: jest.fn(),
     },
-    getCurrentAddress: jest.fn(),
-
-    enableWallet: jest.fn(),
   };
 });
 
@@ -37,7 +34,7 @@ describe('accessControl sagas', () => {
 
   describe('requireWallet', () => {
     test('redirects to "/login" if user denied access', async () => {
-      (getCurrentAddress as any).mockImplementationOnce(() => {
+      (browserUtils.getCurrentAddress as any).mockImplementationOnce(() => {
         throw new PolymathError({ code: ErrorCodes.UserDeniedAccess });
       });
 
@@ -61,7 +58,7 @@ describe('accessControl sagas', () => {
     });
 
     test('redirects to "/metamask/get" if browser is incompatible with Ethereum', async () => {
-      (getCurrentAddress as any).mockImplementationOnce(() => {
+      (browserUtils.getCurrentAddress as any).mockImplementationOnce(() => {
         throw new PolymathError({ code: ErrorCodes.IncompatibleBrowser });
       });
 
@@ -74,7 +71,7 @@ describe('accessControl sagas', () => {
     });
 
     test('redirects to "/metamask/locked" if metamask is locked', async () => {
-      (getCurrentAddress as any).mockImplementationOnce(() => {
+      (browserUtils.getCurrentAddress as any).mockImplementationOnce(() => {
         throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
       });
 
@@ -101,7 +98,7 @@ describe('accessControl sagas', () => {
     test('does not redirect if anonymous', async () => {
       store.setState('session.wallet', undefined);
 
-      (getCurrentAddress as any).mockImplementationOnce(() => {
+      (browserUtils.getCurrentAddress as any).mockImplementationOnce(() => {
         return undefined;
       });
 

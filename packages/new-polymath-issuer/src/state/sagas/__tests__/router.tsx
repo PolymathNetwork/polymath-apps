@@ -6,8 +6,10 @@ import { put, call } from 'redux-saga/effects';
 import { getGeneratorOutputs } from '~/testUtils/helpers';
 
 jest.mock('@polymathnetwork/sdk', () => ({
-  onAddressChange: jest.fn(() => () => {}),
-  getNetworkId: jest.fn(() => '15'),
+  browserUtils: {
+    onAddressChange: jest.fn(() => () => {}),
+    getNetworkId: jest.fn(() => '15'),
+  },
 }));
 
 class SamplePage extends Component {

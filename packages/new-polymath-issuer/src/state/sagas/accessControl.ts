@@ -1,6 +1,6 @@
 import { push } from 'redux-little-router';
 import { put, call, select } from 'redux-saga/effects';
-import { getCurrentAddress, ErrorCodes } from '@polymathnetwork/sdk';
+import { browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import { setWallet } from '~/state/actions/session';
 import { RootState } from '~/state/store';
 import { initializePolyClient } from './app';
@@ -14,7 +14,7 @@ export function* requireWallet(
     return;
   }
   try {
-    address = yield call(getCurrentAddress);
+    address = yield call(browserUtils.getCurrentAddress);
     if (address) {
       yield put(setWallet({ address }));
     }
