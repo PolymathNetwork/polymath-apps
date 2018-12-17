@@ -10,5 +10,5 @@ export function* processAddressChange(newAddress: string) {
 }
 
 export function* walletWatcher() {
-  yield all([takeEvery(listenToAddressChange, processAddressChange)]);
+  yield all([takeLatest(listenToAddressChange, processAddressChange)]);
 }

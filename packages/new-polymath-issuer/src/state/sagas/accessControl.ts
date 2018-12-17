@@ -14,7 +14,7 @@ export function* requireWallet(
     return;
   }
   try {
-    address = yield getCurrentAddress();
+    address = yield call(getCurrentAddress);
     if (address) {
       yield put(setWallet({ address }));
     }
