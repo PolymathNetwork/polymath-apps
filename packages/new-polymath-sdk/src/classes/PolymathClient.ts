@@ -14,6 +14,7 @@ import {
   CreateEtherDividendDistribution,
 } from './transactions';
 import { Context } from './Context';
+import BigNumber from 'bignumber.js';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
 import { TaxWithholding } from '~/types';
 import { Dividend } from '~/LowLevel/types';

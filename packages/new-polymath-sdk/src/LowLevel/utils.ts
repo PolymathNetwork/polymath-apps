@@ -10,7 +10,7 @@ export function fromUnixTimestamp(timestamp: number) {
 }
 
 export function fromWei(value: number) {
-  return parseInt(Web3.utils.fromWei(String(value)), 10);
+  return new BigNumber(Web3.utils.fromWei(String(value)));
 }
 
 export function toWei(value: number) {

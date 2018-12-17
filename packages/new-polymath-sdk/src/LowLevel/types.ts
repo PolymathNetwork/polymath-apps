@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 export type BlockType = 'latest' | 'pending' | 'genesis' | number;
 
 export interface Event<T> {
@@ -48,12 +50,12 @@ export interface Dividend {
   created: Date;
   maturity: Date;
   expiry: Date;
-  amount: number;
-  claimedAmount: number;
-  totalSupply: number;
+  amount: BigNumber;
+  claimedAmount: BigNumber;
+  totalSupply: BigNumber;
   reclaimed: boolean;
-  dividendWithheld: number;
-  dividendWithheldReclaimed: number;
+  dividendWithheld: BigNumber;
+  dividendWithheldReclaimed: BigNumber;
   name: string;
   currency: string | null;
 }

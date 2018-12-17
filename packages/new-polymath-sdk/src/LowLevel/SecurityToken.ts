@@ -12,13 +12,13 @@ import { EtherDividendCheckpoint } from './EtherDividendCheckpoint';
 
 export interface InvestorBalance {
   address: string;
-  balance: number;
+  balance: BigNumber;
 }
 
 export interface Checkpoint {
   id: number;
   investorBalances: InvestorBalance[];
-  totalSupply: number;
+  totalSupply: BigNumber;
   createdAt: Date;
 }
 

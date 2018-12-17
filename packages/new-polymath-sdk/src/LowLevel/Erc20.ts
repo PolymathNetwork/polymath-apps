@@ -16,6 +16,13 @@ export class Erc20 extends Contract<Erc20Contract> {
   }
 
   public async symbol() {
-    return this.contract.methods.symbol().call();
+    let symbol = null;
+    try {
+      symbol = await this.contract.methods.symbol().call();
+    } catch (err) {
+      // do nothing
+    }
+
+    return symbol;
   }
 }
