@@ -1,5 +1,9 @@
 import { Wallet } from '~/classes/Wallet';
 
+export interface TaxWithholding {
+  address: string;
+  percentage: number;
+}
 export enum TransactionTypes {
   Approve,
   GetTokens,

@@ -3,9 +3,9 @@ import { TransactionReceipt } from 'web3/types';
 import PromiEvent from 'web3/promiEvent';
 
 export class TransactionGroup {
-  private queue: TransactionBlueprint[] = [];
-  private receipts: TransactionReceipt[] = [];
-  private transactions: TransactionBlueprint[] = [];
+  public queue: TransactionBlueprint[] = [];
+  public receipts: TransactionReceipt[] = [];
+  public transactions: TransactionBlueprint[] = [];
 
   constructor(transactions: TransactionBlueprint[]) {
     this.transactions = transactions;

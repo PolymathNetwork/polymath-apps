@@ -3,8 +3,10 @@ import { TransactionObject } from 'web3/eth/types';
 import { PolyTokenAbi } from './abis/PolyTokenAbi';
 import { PolyTokenFaucetAbi } from './abis/PolyTokenFaucetAbi';
 import { Contract } from './Contract';
+import { Context } from './LowLevel';
+import { GenericContract } from '~/LowLevel/types';
 
-interface PolyTokenContract {
+interface PolyTokenContract extends GenericContract {
   methods: {
     getTokens: (
       amount: BigNumber,
@@ -22,17 +24,18 @@ interface PolyTokenContract {
 export class PolyToken extends Contract<PolyTokenContract> {
   private isTestnet: boolean;
 
-  constructor({ address, isTestnet }: { address: string; isTestnet: boolean }) {
+  constructor({ address, context }: { address: string; context: Context }) {
+    const isTestnet = context.isTestnet();
     const abi = isTestnet ? PolyTokenFaucetAbi.abi : PolyTokenAbi.abi;
-    super({ address, abi });
+    super({ address, abi, context });
     this.isTestnet = isTestnet;
   }
 
-  public getTokens(amount: BigNumber, recipient: string) {
+  public async getTokens(amount: BigNumber, recipient: string) {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
-    return this.contract.methods.getTokens(amount, recipient);
+    return this.contract.methods.getTokens(amount, recipient).send();
   }
 
   public async balanceOf(address: string) {
@@ -43,7 +46,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     return this.contract.methods.allowance(tokenOwner, spender).call();
   }
 
-  public approve(spender: string, amount: BigNumber) {
-    return this.contract.methods.approve(spender, amount);
+  public async approve(spender: string, amount: BigNumber) {
+    return this.contract.methods.approve(spender, amount).send();
   }
 }
