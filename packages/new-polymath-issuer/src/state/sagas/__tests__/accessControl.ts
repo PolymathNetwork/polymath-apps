@@ -1,8 +1,6 @@
 import { runSaga } from 'redux-saga';
 import {
   PolymathError,
-  getBrowserSupport,
-  BrowserSupport,
   getCurrentAddress,
   ErrorCodes,
 } from '@polymathnetwork/sdk';
@@ -75,7 +73,18 @@ describe('accessControl sagas', () => {
       });
     });
 
-    test.skip('redirects to "/metamask/locked" if metamask is locked', () => {});
+    test('redirects to "/metamask/locked" if metamask is locked', async () => {
+      (getCurrentAddress as any).mockImplementationOnce(() => {
+        throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
+      });
+
+      await runSaga(store, sagas.requireWallet);
+
+      expect(store.dispatched).toContainEqual({
+        type: 'ROUTER_PUSH',
+        payload: expect.objectContaining({ pathname: '/metamask/locked' }),
+      });
+    });
   });
 
   describe('requireAnonymous', () => {
