@@ -1,4 +1,4 @@
-import { all, put, takeEvery, call } from 'redux-saga/effects';
+import { all, put, takeLatest, call } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import { onAddressChange } from '@polymathnetwork/sdk';
 import { setWallet } from '~/state/actions/session';

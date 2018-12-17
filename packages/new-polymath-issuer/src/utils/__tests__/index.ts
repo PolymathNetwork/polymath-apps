@@ -18,7 +18,7 @@ describe('Utils', () => {
         getSessionStage({
           wallet: { address: 'somewallet' },
           identity: {
-            wallet: 'somewallet',
+            fullName: 'Foo bar',
             email: 'foo@bar.com',
             confirmed: false,
           },
@@ -31,7 +31,7 @@ describe('Utils', () => {
         getSessionStage({
           wallet: { address: 'somewallet' },
           identity: {
-            wallet: 'somewallet',
+            fullName: 'Foo bar',
             email: 'foo@bar.com',
             confirmed: true,
           },
