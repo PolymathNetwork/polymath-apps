@@ -3,9 +3,9 @@ import { render } from 'react-testing-library';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Action } from 'redux';
-import { RootState, rootReducer } from '~/state/store';
 import { set } from 'lodash';
 import Web3FakeProvider from 'web3-fake-provider';
+import { RootState, rootReducer } from '~/state/store';
 
 const middlewares: any[] = [];
 

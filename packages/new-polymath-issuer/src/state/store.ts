@@ -41,6 +41,7 @@ const enhancer = composeEnhancers(
 export const store = createStore(rootReducer, enhancer);
 
 sagaMiddleware.run(rootSaga);
+
 // Initialize location state in router
 const initialRouterState = store.getState().router;
 store.dispatch(initializeCurrentLocation(initialRouterState));

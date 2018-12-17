@@ -17,7 +17,7 @@ class SamplePage extends Component {
 }
 
 describe('router sagas', () => {
-  describe.only('processRouteChange', () => {
+  describe('processRouteChange', () => {
     test('changingRoute correctly gets updated', async () => {
       const action = {
         type: LOCATION_CHANGED,
