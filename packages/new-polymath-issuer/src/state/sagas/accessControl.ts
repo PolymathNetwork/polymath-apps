@@ -19,7 +19,6 @@ export function* requireWallet(
       yield put(setWallet({ address }));
     }
   } catch (error) {
-    // tslint:disable-next-line
     const code = error.code as ErrorCodes;
 
     switch (code) {
