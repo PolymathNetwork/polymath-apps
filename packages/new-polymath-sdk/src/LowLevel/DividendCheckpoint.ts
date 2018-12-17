@@ -36,9 +36,9 @@ interface DividendCheckpointContract<T extends GenericContract> {
   getPastEvents: T['getPastEvents'];
 }
 
-export class DividendCheckpoint<T extends GenericContract> extends Module<
-  DividendCheckpointContract<T>
-> {
+export class DividendCheckpoint<
+  T extends GenericContract = GenericContract
+> extends Module<DividendCheckpointContract<T>> {
   constructor({
     address,
     abi,

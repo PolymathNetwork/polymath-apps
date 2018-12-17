@@ -38,7 +38,7 @@ export interface Erc20DividendDepositedEvent {
   _name: string;
 }
 
-export const enum DividendModuleTypes {
+export enum DividendModuleTypes {
   Erc20,
   Eth,
 }

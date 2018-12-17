@@ -52,7 +52,7 @@ export class TransactionBase<P> {
     return new TransactionGroup(this.transactions);
   }
 
-  protected addTransaction(
+  public addTransaction(
     Base: HigherLevelTransaction | Contract<any>,
     method?: PrimitiveMethod
   ) {

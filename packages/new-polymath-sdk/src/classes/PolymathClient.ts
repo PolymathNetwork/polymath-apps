@@ -6,13 +6,15 @@ import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 import { Wallet } from './Wallet';
-import { ReserveSecurityToken } from './transactions/ReserveSecurityToken';
+import {
+  ReserveSecurityToken,
+  EnableDividendModules,
+  CreateCheckpoint,
+  CreateErc20DividendDistribution,
+  CreateEtherDividendDistribution,
+} from './transactions';
 import { Context } from './Context';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { EnableDividendModules } from './transactions/EnableDividendModules';
-import { CreateCheckpoint } from './transactions/CreateCheckpoint';
-import { CreateErc20DividendDistribution } from './transactions/CreateErc20DividendDistribution';
-import { CreateEtherDividendDistribution } from '~/classes/transactions/CreateEtherDividendDistribution';
 import { TaxWithholding } from '~/types';
 import { Dividend } from '~/LowLevel/types';
 
