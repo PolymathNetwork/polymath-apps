@@ -44,7 +44,7 @@ const networkParams = {
 
 // MOCK Poly Client class
 
-class MockPolymathClient {
+export class MockPolymathClient {
   private params: NetworkParams;
   private loggedIn = false;
   private initialized = false;
