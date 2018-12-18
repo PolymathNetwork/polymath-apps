@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 export type InputProps = {
-  onChange?: (value: any) => void;
-  onBlur?: () => void;
-  value?: any;
+  onChange: (e: any) => void;
+  onBlur: (e: any) => void;
+  value: any;
   name: string;
+  error?: string;
 };
 
 export type FieldProps = {

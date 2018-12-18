@@ -60,11 +60,13 @@ const Unit = styled.span`
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
 `;
 
-export const BaseInput = ({ unit, ...props }: BaseInputProps) => {
-  return (
-    <Container unit={unit}>
-      <Input data-testid="base-input" unit={unit} {...props} />
-      {unit && <Unit>{unit}</Unit>}
-    </Container>
-  );
-};
+export const BaseInput = React.forwardRef(
+  ({ unit, ...props }: BaseInputProps, ref) => {
+    return (
+      <Container unit={unit}>
+        <Input ref={ref} {...props} />
+        {unit && <Unit>{unit}</Unit>}
+      </Container>
+    );
+  }
+);

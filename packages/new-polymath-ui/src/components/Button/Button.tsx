@@ -1,13 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 export interface ButtonProps {
+  /**
+   * Specify the content of your Button
+   */
   children: React.ComponentType;
+  /**
+   * Specify the kind of Button you want to create
+   */
   kind?: string;
   small?: boolean;
+  /**
+   * Optional prop to specify the tabIndex of the Button
+   */
   tabIndex?: number;
+  /**
+   * Optional prop to specify the type of the Button
+   */
   type?: string;
+  /**
+   * Optionally specify an href for your Button to become an <a> element
+   */
   href?: string;
 }
 
@@ -79,33 +93,6 @@ export const Button = ({
       {children}
     </StyledButton>
   );
-};
-
-Button.propTypes = {
-  /**
-   * Specify the content of your Button
-   */
-  children: PropTypes.node,
-
-  /**
-   * Specify the kind of Button you want to create
-   */
-  // kind: ButtonTypes.buttonKind.isRequired,
-
-  /**
-   * Optionally specify an href for your Button to become an <a> element
-   */
-  href: PropTypes.string,
-
-  /**
-   * Optional prop to specify the tabIndex of the Button
-   */
-  tabIndex: PropTypes.number,
-
-  /**
-   * Optional prop to specify the type of the Button
-   */
-  type: PropTypes.oneOf(['button', 'reset', 'submit']),
 };
 
 Button.defaultProps = {

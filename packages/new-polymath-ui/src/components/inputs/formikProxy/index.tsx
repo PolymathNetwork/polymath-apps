@@ -18,7 +18,7 @@ export const formikProxy = <TOriginalProps extends {}>(
   > {
     static displayName = `formikProxy(${getDisplayName(WrappedComponent)})`;
 
-    handleChange = (newValue: React.ChangeEvent) => {
+    handleChange = (newValue: any) => {
       const { setFieldValue } = this.props.form;
       const { name } = this.props.field;
 
