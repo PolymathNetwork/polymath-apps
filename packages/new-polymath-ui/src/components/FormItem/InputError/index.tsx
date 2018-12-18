@@ -1,12 +1,10 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, ErrorMessageProps } from 'formik';
 import { FormItemContext } from '~/components/FormItem';
 import { formError } from '~/styles/utils';
 
-export interface Props {
-  children?: (() => ReactNode);
-}
+export interface Props extends ErrorMessageProps {}
 
 const StyledError = styled.span`
   ${formError};
