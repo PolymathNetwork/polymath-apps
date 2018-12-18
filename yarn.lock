@@ -2726,6 +2726,10 @@
   version "10.12.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.12.tgz#e15a9d034d9210f00320ef718a50c4a799417c47"
 
+"@types/numeral@^0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@types/numeral/-/numeral-0.0.25.tgz#b6f55062827a4787fe4ab151cf3412a468e65271"
+
 "@types/prettier@^1.13.2":
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-1.15.2.tgz#91594ea7cb6f3b1f7ea69f32621246654c7cc231"

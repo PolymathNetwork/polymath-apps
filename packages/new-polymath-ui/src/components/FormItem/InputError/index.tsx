@@ -4,7 +4,7 @@ import { ErrorMessage } from 'formik';
 import { FormItemContext } from '~/components/FormItem';
 import { formError } from '~/styles/utils';
 
-interface Props {
+export interface Props {
   children?: (() => ReactNode);
 }
 

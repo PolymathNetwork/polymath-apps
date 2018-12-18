@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-
 import { FormItemContext } from '..';
 
 const InputLabel = styled.label`
@@ -17,7 +16,7 @@ const InputLabel = styled.label`
   }
 `;
 
-export const Label = ({ children }) => (
+export const Label: FC = ({ children }) => (
   <FormItemContext.Consumer>
     {({ name }) => <InputLabel htmlFor={name}>{children}</InputLabel>}
   </FormItemContext.Consumer>

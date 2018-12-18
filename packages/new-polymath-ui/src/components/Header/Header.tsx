@@ -2,13 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { Link } from 'react-router-dom';
-
+import { formatters } from '@polymathnetwork/new-shared';
 import { PageWrap } from '../PageWrap';
 import { Flex } from '../Flex';
 import { Block } from '../Block';
-
-import { thousandsDelimiter, addressShortifier } from '../../helpers';
-
 import polyLogo from '../../images/logo.svg';
 import networkIcon from '../../images/icons/network.svg';
 import polyIcon from '../../images/icons/poly.svg';
@@ -90,15 +87,21 @@ export const Header = (props: HeaderProps) => {
                 {network}
               </li>
               <li>
+                {/*
+                  NOTE @RafaelVidaurre: According to the typing this should be:
+
+                  <PolyIcon alt="Your POLY balance" />
+                */}
                 <img src={polyIcon} alt="Your POLY balance" />
                 {balance
-                  ? thousandsDelimiter(new BigNumber(balance).integerValue()) +
-                    ' POLY'
+                  ? formatters.thousandsDelimiter(
+                      new BigNumber(balance).integerValue()
+                    ) + ' POLY'
                   : '...'}
               </li>
               <li>
                 <img src={accountIcon} alt="Account" />
-                {addressShortifier(account)}
+                {formatters.toShortAddress(account)}
               </li>
               {ticker ? (
                 <li>
