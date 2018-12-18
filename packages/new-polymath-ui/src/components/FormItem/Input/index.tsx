@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC, ComponentClass } from 'react';
 import { FastField } from 'formik';
 
 import { FormItemContext } from '..';
 
-export const Input = ({ FormikComponent, ...props }) => {
+export interface Props {
+  FormikComponent: ComponentClass<{ name: string }>;
+}
+
+export const Input: FC<Props> = ({ FormikComponent, ...props }) => {
   return (
     <FormItemContext.Consumer>
       {({ name }) => <FormikComponent name={name} {...props} />}

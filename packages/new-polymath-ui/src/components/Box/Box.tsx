@@ -12,7 +12,7 @@ import {
 } from 'styled-system';
 
 export type BoxProps = {
-  as: React.ComponentType;
+  as?: React.ComponentType;
 } & MaxWidthProps &
   HeightProps &
   SpaceProps &

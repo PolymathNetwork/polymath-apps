@@ -9,7 +9,7 @@ export interface ButtonProps {
   /**
    * Specify the kind of Button you want to create
    */
-  kind?: string;
+  kind: string;
   small?: boolean;
   /**
    * Optional prop to specify the tabIndex of the Button

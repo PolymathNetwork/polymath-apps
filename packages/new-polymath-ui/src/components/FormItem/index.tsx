@@ -5,12 +5,14 @@ import { InputError } from './InputError';
 import { Label } from './Label';
 import { Input } from './Input';
 
-type Props = {
+interface Props {
   name: string;
   children?: React.ComponentType;
-};
+}
 
-export const FormItemContext = React.createContext();
+export const FormItemContext = React.createContext<{ name: string }>({
+  name: 'unnamedField',
+});
 
 const Container = styled.div`
   padding-bottom: 1.3rem;
@@ -28,9 +30,6 @@ export const FormItem = ({ name, children, ...props }: Props) => {
     </FormItemContext.Provider>
   );
 };
-
-Object.assign(FormItem, {
-  Error: InputError,
-  Label: Label,
-  Input: Input,
-});
+FormItem.Error = InputError;
+FormItem.Label = Label;
+FormItem.Input = Input;
