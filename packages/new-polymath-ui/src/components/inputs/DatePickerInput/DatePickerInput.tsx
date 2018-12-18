@@ -8,6 +8,8 @@ import { InputProps } from '../types';
 import { formikProxy } from '../formikProxy';
 import { GlobalStyles } from './styles';
 
+import { ReactComponent as CalendarSvg } from '../../../images/icons/calendar.svg';
+
 type PickerValue = [Date, string];
 
 export interface DatePickerInputProps {
@@ -151,7 +153,7 @@ export class DatePickerInputComponent extends Component<
     this.props.onChange(date);
   };
 
-  handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+  handleInputChange = (e: Event) => {
     if (
       e.target.value === '' &&
       this.cal &&
@@ -204,6 +206,7 @@ export class DatePickerInputComponent extends Component<
 
     return (
       <Fragment>
+        <CalendarSvg />
         <BaseInput
           id={`${name}-input`}
           name={name}
