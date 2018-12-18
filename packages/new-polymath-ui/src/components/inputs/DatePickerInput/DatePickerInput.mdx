@@ -6,11 +6,13 @@ menu: Inputs
 import { Playground, PropsTable } from 'docz';
 import { Formik, Field } from 'formik';
 
-import { DatePickerInput } from './';
+import { DatePickerInput, DatePickerInputComponent } from './';
 
 # DatePickerInput
 
-<PropsTable of={DatePickerInput} />
+A React wrapper of [Flatpickr](https://flatpickr.js.org/).
+
+<PropsTable of={DatePickerInputComponent} />
 
 ## Basic usage
 
@@ -24,4 +26,10 @@ import { DatePickerInput } from './';
       </form>
     )}
   />
+</Playground>
+
+## Primitive
+
+<Playground>
+  <DatePickerInputComponent onChange={value => console.log(value)} />
 </Playground>
