@@ -11,9 +11,7 @@ import {
   TextAlignProps,
 } from 'styled-system';
 
-export type BoxProps = {
-  as?: React.ComponentType;
-} & MaxWidthProps &
+export type BoxProps = MaxWidthProps &
   HeightProps &
   SpaceProps &
   TextAlignProps;

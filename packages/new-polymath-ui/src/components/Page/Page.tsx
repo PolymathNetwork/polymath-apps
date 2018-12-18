@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
-import styled from 'styled-components';
+import React, { Fragment, FC } from 'react';
+import styled, { StyledProps } from 'styled-components';
 import DocumentTitle from 'react-document-title';
-
 import { PageWrap } from '../PageWrap';
 
-export interface PageProps {
+export interface Props extends StyledProps<any> {
   title: string;
-  children: React.ComponentType;
+  // TODO @RafaelVidaurre: I'd use an enum type here with the global size types
+  py: string;
 }
 
 const Container = styled(PageWrap)`
@@ -16,7 +16,7 @@ const Container = styled(PageWrap)`
   );
 `;
 
-export const Page = ({ children, title = 'Polymath', ...props }: PageProps) => (
+export const Page: FC<Props> = ({ children, title = 'Polymath', ...props }) => (
   <Container {...props}>
     <DocumentTitle title={title}>
       <Fragment>{children}</Fragment>

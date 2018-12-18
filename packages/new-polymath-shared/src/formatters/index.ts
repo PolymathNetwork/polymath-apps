@@ -19,20 +19,17 @@ function isBigNumber(value: any) {
  * @param decimals amount of decimals to display
  */
 export const toUSD = (
-  value?: number | BigNumber,
-  { decimals = 2 }: { decimals: number}
+  value: number | BigNumber,
+  { decimals = 2 }: { decimals: number }
 ) => {
   const isValid = value !== null && (isNumber(value) || isBigNumber(value));
   if (!isValid) {
     return `- USD`;
   }
-  const number = new BigNumber(value);
-  return `${number.toFormat(decimals)} USD`;
+  const num = new BigNumber(value);
+  return `${num.toFormat(decimals)} USD`;
 };
 
-interface ToPercentOpts = {
-  decimals: number;
-};
 /**
  * Converts a number into a percentage
  *
@@ -41,7 +38,7 @@ interface ToPercentOpts = {
  */
 export const toPercent = (
   value: number | BigNumber,
-  { decimals = 0 }: ToPercentOpts = {}
+  { decimals = 0 }: { decimals: number }
 ) => {
   let decimalsFormat = '';
   const isValid = value !== null && (isNumber(value) || isBigNumber(value));
