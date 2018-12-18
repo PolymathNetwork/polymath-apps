@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 import { ErrorMessage } from 'formik';
+import { FormItemContext } from '~/components/FormItem';
+import { formError } from '~/styles/utils';
 
-import { FormItemContext } from '..';
-
-import { formError } from '../../../styles/utils';
+interface Props {
+  children?: (() => ReactNode);
+}
 
 const StyledError = styled.span`
   ${formError};
@@ -17,7 +19,7 @@ const StyledError = styled.span`
   }
 `;
 
-export const InputError = props => (
+export const InputError: FC<Props> = props => (
   <FormItemContext.Consumer>
     {({ name }) => (
       <ErrorMessage component={StyledError} name={name} {...props} />
