@@ -1,7 +1,24 @@
 import createSagaMiddleware from 'redux-saga';
-import { applyMiddleware, compose, createStore, Middleware } from 'redux';
-import { rootReducer } from '~/state/reducers/root';
+import { initializeCurrentLocation } from 'redux-little-router';
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore,
+  Middleware,
+} from 'redux';
 import { rootSaga } from '~/state/sagas/root';
+import { reducer as entitiesReducer } from '~/state/reducers/entities';
+import { reducer as sessionReducer } from '~/state/reducers/session';
+import { reducer as appReducer } from '~/state/reducers/app';
+import { routerEnhancer, routerMiddleware, routerReducer } from '~/routing';
+
+export const rootReducer = combineReducers({
+  entities: entitiesReducer,
+  session: sessionReducer,
+  app: appReducer,
+  router: routerReducer,
+});
 
 const windowObj = window as any;
 
@@ -16,8 +33,17 @@ const composeEnhancers = hasReduxDevtools
   ? windowObj.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
   : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(...middleware));
+const enhancer = composeEnhancers(
+  routerEnhancer,
+  applyMiddleware(...middleware, routerMiddleware)
+);
 
 export const store = createStore(rootReducer, enhancer);
 
 sagaMiddleware.run(rootSaga);
+
+// Initialize location state in router
+const initialRouterState = store.getState().router;
+store.dispatch(initializeCurrentLocation(initialRouterState));
+
+export type RootState = ReturnType<typeof store.getState>;
