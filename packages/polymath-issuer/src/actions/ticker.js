@@ -39,7 +39,7 @@ export const reserve = (details: Object) => async (
     SecurityTokenRegistry.address
   );
 
-  const isApproved = allowance > fee;
+  const isApproved = allowance >= fee;
 
   dispatch(
     ui.confirm(
