@@ -1,10 +1,9 @@
-import { TransactionObject } from 'web3/eth/types';
 import { Contract } from '~/LowLevel/Contract';
 import { TransactionBlueprint } from '~/classes/TransactionBlueprint';
 import { TransactionGroup } from '~/classes/TransactionGroup';
 import { Context } from '~/classes/Context';
 
-export type PrimitiveMethod = (...args: any[]) => TransactionObject<any>;
+export type PrimitiveMethod = (...args: any[]) => Promise<any>;
 
 export interface TxConfig {
   args: any[];
@@ -20,7 +19,7 @@ export interface HigherLevelTransaction<Args = any> {
 function isHigherLevelTransaction(
   transaction: any
 ): transaction is HigherLevelTransaction {
-  if (transaction.type) {
+  if (transaction.type === 'HLT') {
     return true;
   }
   return false;
@@ -53,7 +52,7 @@ export class TransactionBase<P> {
     return new TransactionGroup(this.transactions);
   }
 
-  protected addTransaction(
+  public addTransaction(
     Base: HigherLevelTransaction | Contract<any>,
     method?: PrimitiveMethod
   ) {

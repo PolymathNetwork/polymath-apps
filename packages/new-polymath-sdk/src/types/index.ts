@@ -1,9 +1,9 @@
-import { types } from '@polymathnetwork/new-shared';
 import { Wallet } from '~/classes/Wallet';
-import { PolyToken } from '~/LowLevel/PolyToken';
-import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
-import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 
+export interface TaxWithholding {
+  address: string;
+  percentage: number;
+}
 export enum TransactionTypes {
   Approve,
   GetTokens,
@@ -18,3 +18,9 @@ export enum ModuleTypes {
 }
 
 export type Addressable = Wallet | string;
+
+export enum ErrorCodes {
+  IncompatibleBrowser,
+  UserDeniedAccess,
+  WalletIsLocked,
+}

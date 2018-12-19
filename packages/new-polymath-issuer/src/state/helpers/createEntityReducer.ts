@@ -34,7 +34,7 @@ export const createEntityReducer = <T>(entityType: string) => {
         };
       }
       default: {
-        return state;
+        return { ...state };
       }
     }
   };

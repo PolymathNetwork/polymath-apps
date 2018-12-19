@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reducer: entities initialState 1`] = `
+Object {
+  "transactions": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+}
+`;

@@ -14,10 +14,8 @@ export class Presenter extends Component<Props> {
 
   public render() {
     return (
-      <div data-testid="LoginPage">
-        <h1>Login page</h1>
-        <p>This is temporary markup....</p>
-        <button onClick={this.handleLogin}>Login</button>
+      <div>
+        [LoginPage]<button onClick={this.handleLogin}>Login</button>
       </div>
     );
   }

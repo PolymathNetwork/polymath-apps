@@ -28,7 +28,7 @@ export const reducer: Reducer<SessionState, SessionActions> = (
       };
     }
     default: {
-      return state;
+      return { ...state };
     }
   }
 };
