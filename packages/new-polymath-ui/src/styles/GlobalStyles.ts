@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-
 import fontFaceDefinition from 'typeface-overpass';
+
+import { createGlobalStyle } from '~/styles';
 
 export const GlobalStyles = createGlobalStyle`
   ${fontFaceDefinition};

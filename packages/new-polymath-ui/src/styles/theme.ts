@@ -2,6 +2,25 @@ interface Scale<TValue> {
   [id: string]: TValue;
 }
 
+export interface ThemeInterface {
+  breakpoints: [string];
+  fontSizes: Scale<string>;
+  fontFamilies: any;
+  lineHeights: any;
+  fontWeights: any;
+  space: Scale<string>;
+  zIndexes: any;
+  colors: any;
+  headings: any;
+  buttons: any;
+  transitions: any;
+  maxWidth: string;
+  inputs: any;
+  header: any;
+  footer: any;
+  sidebar: any;
+}
+
 export const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
 
 export const fontSizes: Scale<string> = {
@@ -62,7 +81,6 @@ export const zIndexes = {
 
 export const colors = {
   baseText: '#5A6872',
-  lightText: '#5A6872',
   highlightText: '#152935',
   primary: '#252D6B',
   secondary: '#3D70B2',
