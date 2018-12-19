@@ -1,11 +1,13 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, StyledProps } from 'styled-components';
 
-export interface BaseInputProps {
+import { InputProps } from '../types';
+
+export interface BaseInputProps extends InputProps {
   unit?: string;
 }
 
-const Container = styled.div<BaseInputProps>`
+const Container = styled.div<BaseInputProps & StyledProps<any>>`
   ${({ unit }) =>
     unit &&
     css`
@@ -13,7 +15,7 @@ const Container = styled.div<BaseInputProps>`
     `};
 `;
 
-const Input = styled.input<BaseInputProps>`
+const Input = styled.input<BaseInputProps & StyledProps<any>>`
   display: block;
   width: 100%;
   box-sizing: border-box;

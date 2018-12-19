@@ -66,7 +66,7 @@ l10n.en.weekdays.shorthand.forEach((day, index) => {
 export class DatePickerInputComponent extends Component<
   DatePickerInputProps & InputProps
 > {
-  inputField: React.RefObject<HTMLInputElement>;
+  inputField: React.RefObject<HTMLInputElement> = React.createRef();
   cal: any;
 
   static defaultProps = {
@@ -76,12 +76,6 @@ export class DatePickerInputComponent extends Component<
     minDate: moment().format('MM / DD / YYYY'),
     onInputChange: () => {},
   };
-
-  constructor(props: DatePickerInputProps) {
-    super(props);
-
-    this.inputField = React.createRef();
-  }
 
   componentDidUpdate(nextProps: DatePickerInputProps) {
     if (nextProps.value !== this.props.value) {

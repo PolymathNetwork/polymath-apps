@@ -1,37 +1,35 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
 import Select, { components } from 'react-select';
 import { intersectionWith } from 'lodash';
 
-import { Box } from '../../../Box';
-import { Icon } from '../../../Icon';
+import styled, { withTheme, ThemeInterface } from '~/styles';
+import { Box } from '~/components/Box';
+import { Icon } from '~/components/Icon';
 
 import CaretDownIcon from '../../../../images/icons/CaretDown';
 import CloseIcon from '../../../../images/icons/Close';
 
 import { currencyOptions } from '../data';
 import { Value } from '../Value';
+import { InputProps as _InputProps } from '../../types';
 
 type Option = {
   value: string;
   label: Node;
 };
 
-export interface InputProps {
+export interface InputProps extends _InputProps {
   value: [string];
-  onChange: Function;
-  name: string;
-  theme: any;
+  theme: ThemeInterface;
   options?: [Option];
-  onBlur?: Function;
 }
 
-const getStyles = theme => ({
-  container: styles => ({
+const getStyles = (theme: ThemeInterface) => ({
+  container: (styles: any) => ({
     ...styles,
     borderRadius: 0,
   }),
-  control: (styles, state) => {
+  control: (styles: any) => {
     return {
       ...styles,
       backgroundColor: theme.inputs.backgroundColor,
@@ -49,11 +47,11 @@ const getStyles = theme => ({
     zIndex: -1,
     pointerEvents: 'none',
   }),
-  indicatorsContainer: styles => ({
+  indicatorsContainer: (styles: any) => ({
     ...styles,
     flexGrow: 1,
   }),
-  dropdownIndicator: styles => ({
+  dropdownIndicator: (styles: any) => ({
     ...styles,
     color: theme.colors.baseText,
     fontSize: theme.fontSizes[1],
@@ -62,7 +60,7 @@ const getStyles = theme => ({
     alignItems: 'center',
     paddingRight: theme.space[3],
   }),
-  clearIndicator: styles => ({
+  clearIndicator: (styles: any) => ({
     ...styles,
     color: 'white',
     backgroundColor: theme.colors.primary,

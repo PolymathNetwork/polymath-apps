@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { constants } from '@polymathnetwork/new-shared';
 
@@ -48,7 +47,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     name: 'unnamed',
   };
 
-  static getDisplayValue(value?: number | BigNumber, props: NumberInputProps) {
+  static getDisplayValue(value: number | BigNumber, props: NumberInputProps) {
     if (value === null) {
       return '';
     }
@@ -56,7 +55,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     return parsedValue.toFormat();
   }
 
-  static isBigNumber(value) {
+  static isBigNumber(value: any) {
     return value.isBigNumber || value._isBigNumber;
   }
 

@@ -5,11 +5,11 @@ import numeral from 'numeral';
 import { formikProxy } from '../formikProxy';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 
-export interface Props extends BaseInputProps {
-  onChange?: (value: any) => void;
-}
+export interface PercentageInputProps extends BaseInputProps {}
 
-export default class PercentageInputPrimitive extends PureComponent<Props> {
+export class PercentageInputPrimitive extends PureComponent<
+  PercentageInputProps
+> {
   handleChange = event => {
     const { onChange } = this.props;
     const normalizedValue = parseFloat(event.target.value) / 100;

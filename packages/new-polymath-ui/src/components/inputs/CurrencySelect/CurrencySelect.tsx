@@ -24,12 +24,9 @@ class CurrencySelectComponent extends Component {
   };
 
   render() {
-    const { name, value, ...otherProps } = this.props;
     return (
       <Input
-        {...otherProps}
-        name={name}
-        value={value}
+        {...this.props}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
       />

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { StyledProps } from 'styled-components';
 import {
   maxWidth,
   MaxWidthProps,
@@ -11,7 +11,8 @@ import {
   TextAlignProps,
 } from 'styled-system';
 
-export type BoxProps = MaxWidthProps &
+export type BoxProps = StyledProps<any> &
+  MaxWidthProps &
   HeightProps &
   SpaceProps &
   TextAlignProps;
