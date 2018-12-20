@@ -2,6 +2,7 @@ import { Contract } from '~/LowLevel/Contract';
 import { TransactionSpec } from '~/types';
 import { Sequence } from '~/entities/Sequence';
 import { Context } from '~/Context';
+import { PostTransactionResolver } from '~/PostTransactionResolver';
 
 function isProcedure(value: any): value is ProcedureType<any> {
   if (value.type === 'Procedure') {
@@ -40,7 +41,8 @@ export class Procedure<Args> {
 
   public addTransaction<A extends any[]>(
     Base: ProcedureType | Contract<any>,
-    method?: (...args: A) => Promise<any>
+    method?: (...args: A) => Promise<any>,
+    resolver: () => Promise<any> = async () => {}
   ) {
     return async (...args: A) => {
       // If method is a HLT, instanciate it with the right context and args
@@ -56,13 +58,18 @@ export class Procedure<Args> {
         throw new Error('a method must be passed');
       }
 
+      const postTransactionResolver = new PostTransactionResolver(resolver);
+
       const transaction = {
         contract: Base,
         method,
         args,
+        postTransactionResolver,
       };
 
       this.transactions.push(transaction);
+
+      return postTransactionResolver;
     };
   }
 }

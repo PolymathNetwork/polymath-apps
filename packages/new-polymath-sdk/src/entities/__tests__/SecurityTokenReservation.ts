@@ -23,12 +23,20 @@ describe('SecurityTokenReservation', () => {
     });
   });
 
+  // TODO @RafaelVidaurre: Create a test helper for this common pattern
   describe('#reserve', async () => {
-    (polyClient.reserveSecurityToken as any).mockImplementationOnce(() => {});
+    test('forwards args to the global function', async () => {
+      (polyClient.reserveSecurityToken as any).mockImplementationOnce(() => {});
 
-    const reservation = new SecurityTokenReservation(params, polyClient);
-    const sequence = await reservation.reserve({});
+      const reservation = new SecurityTokenReservation(params, polyClient);
+      await reservation.reserve({});
 
-    expect(polyClient.reserveSecurityToken).toHaveBeenCalled();
+      expect(polyClient.reserveSecurityToken).toHaveBeenCalledWith(
+        expect.objectContaining({
+          symbol: reservation.symbol,
+          name: reservation.name,
+        })
+      );
+    });
   });
 });
