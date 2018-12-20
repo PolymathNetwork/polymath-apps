@@ -4,7 +4,7 @@ import { formatters } from '@polymathnetwork/new-shared';
 
 import { Paragraph } from '../Paragraph';
 
-const Container = styled.div`
+const Wrapper = styled.div`
   padding: 10px 15px;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.colors.gray[1]};
@@ -26,7 +26,7 @@ export const RaisedAmount: FC<RaisedAmountProps> = ({
   tokenAmount,
   tokenUnit,
 }) => (
-  <Container>
+  <Wrapper>
     <Paragraph as="h4" fontSize={1} color="highlightText" mb={1}>
       {title}
     </Paragraph>
@@ -34,5 +34,5 @@ export const RaisedAmount: FC<RaisedAmountProps> = ({
       {`${formatters.thousandsDelimiter(primaryAmount)} ${primaryUnit}`}
     </Paragraph>
     {`${formatters.thousandsDelimiter(tokenAmount)} ${tokenUnit}`}
-  </Container>
+  </Wrapper>
 );

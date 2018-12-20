@@ -14,7 +14,7 @@ export const FormItemContext = React.createContext<{ name: string }>({
   name: 'unnamedField',
 });
 
-const Container = styled.div`
+const Wrapper = styled.div`
   padding-bottom: 1.3rem;
   margin-right: 0.5rem;
 
@@ -26,7 +26,7 @@ const Container = styled.div`
 export const FormItem = ({ name, children, ...props }: Props) => {
   return (
     <FormItemContext.Provider value={{ name }}>
-      <Container {...props}>{children}</Container>
+      <Wrapper {...props}>{children}</Wrapper>
     </FormItemContext.Provider>
   );
 };

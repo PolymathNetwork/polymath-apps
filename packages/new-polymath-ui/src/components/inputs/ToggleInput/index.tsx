@@ -1,19 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { formikProxy } from '../formikProxy';
 import { InputProps } from '../types';
+import { render } from 'react-dom';
 
 export interface ToggleInputProps extends InputProps {
   /**
    * Specify whether the toggle should be on by default
    */
   defaultToggled?: boolean;
-
-  /**
-   * Provide an id that unique represents the underlying <input>
-   */
-  id: string;
 
   /**
    * Specify whether the control is toggled
@@ -44,7 +40,7 @@ const Input = styled.input`
   white-space: nowrap;
 `;
 
-const Container = styled.label`
+const Wrapper = styled.label`
   position: relative;
   display: flex;
   align-items: center;
@@ -86,7 +82,7 @@ const Toggle = styled.span`
     border-radius: 50%;
   }
 
-  ${Input}:checked + ${Container} & {
+  ${Input}:checked + ${Wrapper} & {
     &:after {
       transform: translateX(24px);
       background-color: #3d70b2;
@@ -96,48 +92,50 @@ const Toggle = styled.span`
   }
 `;
 
-export const ToggleInputPrimitive = ({
-  name,
-  defaultToggled,
-  toggled,
-  onChange,
-  id,
-  labelA,
-  labelB,
-  ...other
-}: ToggleInputProps) => {
-  let input;
-  const checkedProps = {};
+export class ToggleInputPrimitive extends Component<ToggleInputProps> {
+  inputRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-  if (typeof toggled !== 'undefined') {
-    checkedProps.checked = toggled;
-  } else {
-    checkedProps.defaultChecked = defaultToggled;
+  render() {
+    const {
+      name,
+      defaultToggled,
+      toggled,
+      onChange,
+      labelA,
+      labelB,
+      ...other
+    } = this.props;
+    const checkedProps = {};
+
+    if (typeof toggled !== 'undefined') {
+      checkedProps.checked = toggled;
+    } else {
+      checkedProps.defaultChecked = defaultToggled;
+    }
+
+    return (
+      <div>
+        <Input
+          {...other}
+          {...checkedProps}
+          type="checkbox"
+          id={name}
+          name={name}
+          onChange={() => {
+            if (this.inputRef.current) {
+              onChange(this.inputRef.current.checked);
+            }
+          }}
+        />
+        <Wrapper htmlFor={name}>
+          <Label>{labelA}</Label>
+          <Toggle />
+          <Label>{labelB}</Label>
+        </Wrapper>
+      </div>
+    );
   }
-
-  return (
-    <div>
-      <Input
-        {...other}
-        {...checkedProps}
-        type="checkbox"
-        id={name}
-        name={name}
-        onChange={evt => {
-          onChange(input.checked);
-        }}
-        ref={el => {
-          input = el;
-        }}
-      />
-      <Container htmlFor={name}>
-        <Label>{labelA}</Label>
-        <Toggle />
-        <Label>{labelB}</Label>
-      </Container>
-    </div>
-  );
-};
+}
 
 export const ToggleInput = formikProxy(ToggleInputPrimitive);
 

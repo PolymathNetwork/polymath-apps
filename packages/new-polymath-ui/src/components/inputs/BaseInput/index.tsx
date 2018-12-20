@@ -7,7 +7,7 @@ export interface BaseInputProps extends InputProps {
   unit?: string;
 }
 
-const Container = styled.div<BaseInputProps & StyledProps<any>>`
+const Wrapper = styled.div<BaseInputProps & StyledProps<any>>`
   ${({ unit }) =>
     unit &&
     css`
@@ -65,10 +65,10 @@ const Unit = styled.span`
 export const BaseInput = React.forwardRef(
   ({ unit, ...props }: BaseInputProps, ref) => {
     return (
-      <Container unit={unit}>
+      <Wrapper unit={unit}>
         <Input ref={ref} {...props} />
         {unit && <Unit>{unit}</Unit>}
-      </Container>
+      </Wrapper>
     );
   }
 );

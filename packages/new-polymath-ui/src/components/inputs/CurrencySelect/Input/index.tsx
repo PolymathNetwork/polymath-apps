@@ -74,7 +74,7 @@ const getStyles = (theme: ThemeInterface) => ({
   }),
 });
 
-const SelectContainer = styled(Box)`
+const SelectWrapper = styled(Box)`
   display: inline-block;
   vertical-align: middle;
   min-width: 200px;
@@ -150,7 +150,7 @@ class InputComponent extends React.Component<InputProps> {
 
     return (
       <div>
-        <SelectContainer>
+        <SelectWrapper>
           <Select
             closeMenuOnSelect={false}
             noOptionsMessage={() => null}
@@ -168,7 +168,7 @@ class InputComponent extends React.Component<InputProps> {
             onMenuClose={onBlur}
             {...props}
           />
-        </SelectContainer>
+        </SelectWrapper>
         {arrayValue.map(value => {
           const option = filteredOptions.find(option => option.value === value);
           return option ? (
