@@ -1,0 +1,90 @@
+import React, { Component } from 'react';
+import { MaxWidthProps } from 'styled-system';
+import ReactModal from 'react-modal';
+
+import styled, { withTheme, ThemeInterface } from '~/styles';
+
+import * as S from './styles';
+import SvgClose from '../../images/icons/Close';
+
+export interface ModalProps {
+  children: Node;
+  className: string;
+  isOpen: boolean;
+  onClose: Function;
+  isCloseable: boolean;
+  status: 'loading' | 'idle' | 'warning' | 'alert' | 'success';
+  theme: ThemeInterface;
+  maxWidth: MaxWidthProps;
+}
+
+type State = {
+  forceClose: boolean;
+  isOpen: boolean;
+};
+
+class _Modal extends Component<ModalProps, State> {
+  static defaultProps = {
+    idle: 'idle',
+    isOpen: false,
+    isCloseable: true,
+    onClose: null,
+  };
+
+  state = {
+    forceClose: false,
+    isOpen: false,
+  };
+
+  handleCloseRequest = () => {
+    if (!this.props.isCloseable) {
+      return;
+    }
+
+    if (this.props.onClose === null) {
+      this.setState({ forceClose: true });
+    } else {
+      this.props.onClose();
+    }
+  };
+
+  static getDerivedStateFromProps(nextProps: any, prevState: State) {
+    return {
+      isOpen: !prevState.forceClose && nextProps.isOpen,
+    };
+  }
+
+  render() {
+    const { children, className, isCloseable, theme, status } = this.props;
+    const { isOpen } = this.state;
+
+    return (
+      <ReactModal
+        isOpen={isOpen}
+        contentLabel="Modal"
+        closeTimeoutMS={theme.transitions.modal.ms}
+        className={{
+          base: 'pui-modal',
+          afterOpen: 'pui-modal--after-open',
+          beforeClose: 'pui-modal--before-close',
+        }}
+        overlayClassName={{
+          base: `pui-modal__overlay ${className}`,
+          afterOpen: 'pui-modal__overlay--after-open',
+          beforeClose: 'pui-modal__overlay--before-close',
+        }}
+        onRequestClose={this.handleCloseRequest}
+      >
+        {status && <S.StatusBar status={status} />}
+        {isCloseable && (
+          <S.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
+        )}
+        <S.Inner>{children}</S.Inner>
+      </ReactModal>
+    );
+  }
+}
+
+export const Modal = styled(withTheme(_Modal))`
+  ${S.modalStyle};
+`;
