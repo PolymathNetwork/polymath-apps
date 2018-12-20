@@ -28,9 +28,6 @@ class RemoveTierModal extends Component {
             <span>Are You Sure You Want To Delete This Tier?</span>
           </IconText>
         </ActionModal.Header>
-        <ActionModal.Body>
-          Please confirm that you would like to delete this tier.
-        </ActionModal.Body>
       </ActionModal>
     );
   }
