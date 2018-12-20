@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  space,
-  SpaceProps,
   color,
   ColorProps,
   fontFamily,
@@ -15,28 +13,25 @@ import {
   LetterSpacingProps,
   fontSize,
   FontSizeProps,
-  textAlign,
-  TextAlignProps,
 } from 'styled-system';
 
-export type ParagraphProps = { bold: boolean } & SpaceProps &
+import { Box, BoxProps } from '../Box';
+
+export type ParagraphProps = { bold: boolean } & BoxProps &
   ColorProps &
   FontFamilyProps &
   FontWeightProps &
   FontSizeProps &
   LineHeightProps &
-  LetterSpacingProps &
-  TextAlignProps;
+  LetterSpacingProps;
 
-export const Paragraph = styled.p<ParagraphProps>(
-  space,
+export const Paragraph = styled(Box)<ParagraphProps>(
   color,
   fontFamily,
   fontWeight,
   lineHeight,
   letterSpacing,
   fontSize,
-  textAlign,
   props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })
 );
 
@@ -48,4 +43,5 @@ Paragraph.defaultProps = {
   mt: 0,
   mb: 'm',
   fontSize: 'baseText',
+  as: 'p',
 };

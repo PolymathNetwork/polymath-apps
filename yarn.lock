@@ -2784,6 +2784,13 @@
     "@types/react-dom" "*"
     "@types/react-transition-group" "*"
 
+"@types/react-tooltip@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@types/react-tooltip/-/react-tooltip-3.9.0.tgz#99246c208df53194db1fc96bb5345f0f66e63e52"
+  integrity sha512-jZSQovTbcskRIzHTCcGrnG633AaN6WfnMw6LlkmNO7JR3GlWHqzVI7/rI5t4pkyIaUQPGpwKN9A77pIRRe8MQw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@*":
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-2.0.14.tgz#afd0cd785a97f070b55765e9f9d76ff568269001"

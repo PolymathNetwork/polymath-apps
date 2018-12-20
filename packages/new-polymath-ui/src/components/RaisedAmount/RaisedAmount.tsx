@@ -1,15 +1,9 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import { formatters } from '@polymathnetwork/new-shared';
 
-import { Paragraph } from '../Paragraph';
+import * as S from './styles';
 
-const Wrapper = styled.div`
-  padding: 10px 15px;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.colors.gray[1]};
-  min-width: 250px;
-`;
+import { Paragraph } from '../Paragraph';
 
 interface RaisedAmountProps {
   title: string;
@@ -26,7 +20,7 @@ export const RaisedAmount: FC<RaisedAmountProps> = ({
   tokenAmount,
   tokenUnit,
 }) => (
-  <Wrapper>
+  <S.Wrapper>
     <Paragraph as="h4" fontSize={1} color="highlightText" mb={1}>
       {title}
     </Paragraph>
@@ -34,5 +28,5 @@ export const RaisedAmount: FC<RaisedAmountProps> = ({
       {`${formatters.thousandsDelimiter(primaryAmount)} ${primaryUnit}`}
     </Paragraph>
     {`${formatters.thousandsDelimiter(tokenAmount)} ${tokenUnit}`}
-  </Wrapper>
+  </S.Wrapper>
 );

@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { StyledProps } from 'styled-components';
 
-export interface IconProps {
-  Asset: React.ComponentType;
+export interface IconProps extends StyledProps<any> {
+  Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
 }
 
 export const Icon = styled(({ Asset, ...props }: IconProps) => (

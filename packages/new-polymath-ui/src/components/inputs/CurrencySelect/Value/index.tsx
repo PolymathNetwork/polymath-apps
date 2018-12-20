@@ -6,7 +6,7 @@ import { IconButton } from '../../../IconButton';
 
 import SvgClose from '../../../../images/icons/Close';
 
-const Container = styled(Box)`
+const Wrapper = styled(Box)`
   display: inline-flex;
   background-color: ${({ theme }) => theme.inputs.backgroundColor};
   border-radius: 50px;
@@ -17,7 +17,7 @@ const Container = styled(Box)`
   margin-top: 7px;
 `;
 
-const LabelContainer = styled(Box)`
+const LabelWrapper = styled(Box)`
   display: flex;
   margin-left: -${({ theme }) => theme.space[1]};
   margin-right: ${({ theme }) => theme.space[3]};
@@ -44,10 +44,10 @@ export class Value extends React.Component {
 
   render() {
     return (
-      <Container>
-        <LabelContainer>{this.props.label}</LabelContainer>
+      <Wrapper>
+        <LabelWrapper>{this.props.label}</LabelWrapper>
         <StyledIconButton Asset={SvgClose} onClick={this.onRemove} />
-      </Container>
+      </Wrapper>
     );
   }
 }

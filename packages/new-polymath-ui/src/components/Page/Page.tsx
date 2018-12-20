@@ -1,29 +1,22 @@
 import React, { Fragment, FC } from 'react';
-import styled, { StyledProps } from 'styled-components';
 import DocumentTitle from 'react-document-title';
-import { PageWrap } from '../PageWrap';
 
-export interface Props extends StyledProps<any> {
+import * as S from './styles';
+import { PageWrapProps } from '../PageWrap';
+
+export interface PageProps extends PageWrapProps {
   title: string;
-  // TODO @RafaelVidaurre: I'd use an enum type here with the global size types
-  py: string;
+  children: React.ComponentType;
 }
 
-const Container = styled(PageWrap)`
-  min-height: calc(
-    100vh -
-      (${({ theme }) => `${theme.header.height} + ${theme.footer.height}`})
-  );
-`;
-
-export const Page: FC<Props> = ({ children, title = 'Polymath', ...props }) => (
-  <Container {...props}>
+export const Page: FC<PageProps> = ({
+  children,
+  title = 'Polymath',
+  ...props
+}) => (
+  <S.Wrapper py="xl" {...props}>
     <DocumentTitle title={title}>
       <Fragment>{children}</Fragment>
     </DocumentTitle>
-  </Container>
+  </S.Wrapper>
 );
-
-Page.defaultProps = {
-  py: 'xl',
-};

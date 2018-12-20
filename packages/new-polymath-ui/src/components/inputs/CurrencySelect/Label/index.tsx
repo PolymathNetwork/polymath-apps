@@ -10,7 +10,7 @@ export interface LabelProps {
   text: React.ComponentType;
 }
 
-const Container = styled(Box)`
+const Wrapper = styled(Box)`
   display: flex;
   align-items: center;
   max-width: 100%;
@@ -23,8 +23,8 @@ const Text = styled.span`
 `;
 
 export const Label = ({ Asset, text }) => (
-  <Container>
+  <Wrapper>
     <Icon Asset={Asset} width="25" height="25" />
     <Text>{text}</Text>
-  </Container>
+  </Wrapper>
 );

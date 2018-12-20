@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { Icon, IconProps } from '../Icon';
@@ -19,7 +19,7 @@ const StyledIcon = styled(Icon)`
   height: 100%;
 `;
 
-export const IconButton = ({ Asset, ...props }) => (
+export const IconButton: FC<IconButtonProps> = ({ Asset, ...props }) => (
   <Button {...props}>
     <StyledIcon Asset={Asset} />
   </Button>

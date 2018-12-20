@@ -6,13 +6,19 @@ menu: Inputs
 import { Playground, PropsTable } from 'docz';
 import { Formik, Field } from 'formik';
 
-import { PercentageInput } from './';
+import { PercentageInputPrimitive, PercentageInput } from './';
 
 # PercentageInput
 
-<PropsTable of={PercentageInput} />
+<PropsTable of={PercentageInputPrimitive} />
 
 ## Basic usage
+
+<Playground>
+  <PercentageInputPrimitive name="myText" placeholder="Your percentage" />
+</Playground>
+
+## As form field
 
 <Playground>
   <Formik

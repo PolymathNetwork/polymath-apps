@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Page, Props as PageProps } from '../Page';
+import { Page, PageProps } from '../Page';
 import { Grid } from '../Grid';
 
 export interface PageCenteredProps extends PageProps {}
