@@ -1,6 +1,5 @@
 import { Procedure } from './Procedure';
 import { TaxWithholding } from '~/types';
-import { EnableDividendModules } from './EnableDividendModules';
 
 interface Args {
   symbol: string;
