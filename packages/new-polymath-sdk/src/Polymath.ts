@@ -1,25 +1,24 @@
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
-import { types, constants } from '@polymathnetwork/new-shared';
 import { PolyToken } from '~/LowLevel/PolyToken';
-import { Erc20 } from '~/LowLevel/Erc20';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
-import { Wallet } from './Wallet';
+import { Context } from '~/Context';
+import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
+import { TaxWithholding } from '~/types';
+import { Dividend } from '~/LowLevel/types';
+import { SecurityToken } from '~/entities';
 import {
   ReserveSecurityToken,
   EnableDividendModules,
   CreateCheckpoint,
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
-} from './transactions';
-import { Context } from './Context';
-import BigNumber from 'bignumber.js';
-import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { TaxWithholding } from '~/types';
-import { Dividend } from '~/LowLevel/types';
+} from './operations';
 
-interface Params {
+export type EntityClasses = typeof SecurityToken;
+
+export interface Params {
   httpProvider?: HttpProvider;
   httpProviderUrl?: string;
   wsProvider?: WebsocketProvider;
@@ -27,7 +26,24 @@ interface Params {
   polymathRegistryAddress: string;
 }
 
-export class PolymathClient {
+const createContextualizedEntity = (
+  ClassToContextualize: EntityClasses,
+  polyClient: Polymath
+) => {
+  class ContextualizedEntity extends ClassToContextualize {
+    constructor(params: any) {
+      super(params, polyClient);
+    }
+  }
+  return ContextualizedEntity;
+};
+
+// TODO @RafaelVidaurre: Fix typing here
+interface ContextualizedEntityClasses {
+  SecurityToken: any;
+}
+
+export class Polymath {
   public httpProvider: HttpProvider = {} as HttpProvider;
   public httpProviderUrl: string = '';
   public networkId: number = -1;
@@ -35,8 +51,8 @@ export class PolymathClient {
   public isConnected: boolean = false;
   public polymathRegistryAddress: string = '';
   private lowLevel: LowLevel = {} as LowLevel;
-
   private context: Context = {} as Context;
+  private entityClasses: ContextualizedEntityClasses = {} as ContextualizedEntityClasses;
 
   constructor(params: Params) {
     const { polymathRegistryAddress, httpProvider, httpProviderUrl } = params;
@@ -83,6 +99,10 @@ export class PolymathClient {
     });
 
     this.isConnected = true;
+
+    this.entityClasses = {
+      SecurityToken: createContextualizedEntity(SecurityToken, this),
+    };
 
     return this;
   }
@@ -188,7 +208,6 @@ export class PolymathClient {
     if (erc20Module) {
       erc20Dividends = await erc20Module.getDividends();
     }
-
     if (etherModule) {
       etherDividends = await etherModule.getDividends();
     }
@@ -205,5 +224,9 @@ export class PolymathClient {
         dividends: checkpointDividends,
       };
     });
+  }
+
+  public get SecurityToken() {
+    return this.entityClasses.SecurityToken;
   }
 }

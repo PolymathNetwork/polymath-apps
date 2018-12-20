@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { PolymathError } from '~/classes/PolymathError';
+import { PolymathError } from '~/PolymathError';
 import { ErrorCodes } from '~/types';
 import { HttpProvider } from 'web3/providers';
 

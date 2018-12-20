@@ -1,7 +1,7 @@
 import { Contract } from '~/LowLevel/Contract';
-import { TransactionBlueprint } from '~/classes/TransactionBlueprint';
-import { TransactionGroup } from '~/classes/TransactionGroup';
-import { Context } from '~/classes/Context';
+import { TransactionSpec } from '~/types';
+import { Sequence } from '~/entities/Sequence';
+import { Context } from '~/Context';
 
 export type PrimitiveMethod = (...args: any[]) => Promise<any>;
 
@@ -29,7 +29,7 @@ export class TransactionBase<P> {
   public static type = 'HLT';
   protected args: P;
   protected context: Context;
-  private transactions: TransactionBlueprint[] = [];
+  private transactions: TransactionSpec[] = [];
   // TODO @RafaelVidaurre: Temporary for typeguarding
 
   constructor(args: P, context: Context) {
@@ -43,13 +43,13 @@ export class TransactionBase<P> {
    */
   public async prepareTransactions(): Promise<void> {}
 
-  public async prepare(): Promise<TransactionGroup> {
+  public async prepare(): Promise<Sequence> {
     await this.prepareTransactions();
 
     // TODO @RafaelVidaurre: add a preparation state cache to avoid repeated
     // transactions and bad validations
 
-    return new TransactionGroup(this.transactions);
+    return new Sequence(this.transactions);
   }
 
   public addTransaction(
@@ -66,12 +66,12 @@ export class TransactionBase<P> {
         return;
       }
 
-      const transaction = new TransactionBlueprint({
+      const transaction = {
         contract: Base,
         method: method as PrimitiveMethod,
         args,
         from: this.context.currentWallet.address,
-      });
+      };
 
       this.transactions.push(transaction);
     };

@@ -1,12 +1,12 @@
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 import { Approve } from './Approve';
 
-interface Args {
+interface Argos {
   symbol: string;
   name: string;
 }
 
-export class ReserveSecurityToken extends TransactionBase<Args> {
+export class ReserveSecurityToken extends Procedure<Argos> {
   public async prepareTransactions() {
     const { symbol, name } = this.args;
     const { securityTokenRegistry, currentWallet } = this.context;

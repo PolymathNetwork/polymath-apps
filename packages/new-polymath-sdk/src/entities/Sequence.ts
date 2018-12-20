@@ -1,7 +1,7 @@
-import { TransactionSpec } from './TransactionSpec';
+import { TransactionSpec } from '~/types';
 import PromiEvent from 'web3/promiEvent';
 
-export class TransactionSequence {
+export class Sequence {
   public queue: TransactionSpec[] = [];
   public receipts: any[] = [];
   public transactions: TransactionSpec[] = [];

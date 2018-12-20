@@ -1,22 +1,17 @@
 import BigNumber from 'bignumber.js';
-import { v4 } from 'uuid';
 import { types } from '@polymathnetwork/new-shared';
-import { Context } from './Context';
+import { Context } from '~/Context';
 
 interface Args {
-  id?: types.Id;
   address: string;
 }
 
-// TODO @RafaelVidaurre: Implement caching strategies and deduping transactions
-
-export class Wallet implements types.Wallet {
-  public id: types.Id = v4();
+// TODO @RafaelVidaurre: Implement caching strategies and dedupe-ing transactions
+export class Wallet {
   public address: string;
   private context: Context;
 
-  constructor({ id, address }: Args, context: Context) {
-    this.id = id || this.id;
+  constructor({ address }: Args, context: Context) {
     this.address = address;
     this.context = context;
   }
@@ -25,7 +20,6 @@ export class Wallet implements types.Wallet {
     return this.address;
   }
 
-  // FIXME @RafaelVidaurre:Balance is wrong
   public async getBalance(token: types.Tokens) {
     const tokenContract = this.context.getTokenContract(token);
     const balanceRes = await tokenContract.balanceOf(this.address);

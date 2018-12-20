@@ -3,7 +3,7 @@ import { PolyToken } from '~/LowLevel/PolyToken';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { Wallet } from './Wallet';
+import { Wallet } from '~/entities/Wallet';
 
 interface Params {
   polyToken: PolyToken;

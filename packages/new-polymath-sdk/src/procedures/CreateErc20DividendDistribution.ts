@@ -1,4 +1,4 @@
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 import { TaxWithholding } from '~/types';
 import { EnableDividendModules } from './EnableDividendModules';
 
@@ -14,7 +14,7 @@ interface Args {
   taxWithholdings?: TaxWithholding[];
 }
 
-export class CreateErc20DividendDistribution extends TransactionBase<Args> {
+export class CreateErc20DividendDistribution extends Procedure<Args> {
   public async prepareTransactions() {
     const {
       symbol,

@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 
 interface Args {
   amount: BigNumber;
   spender: string;
 }
 
-export class Approve extends TransactionBase<Args> {
+export class Approve extends Procedure<Args> {
   public async prepareTransactions() {
     const { amount, spender } = this.args;
     const { currentWallet, polyToken, isTestnet } = this.context;

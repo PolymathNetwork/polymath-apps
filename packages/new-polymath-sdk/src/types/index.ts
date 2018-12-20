@@ -1,12 +1,6 @@
-import { Wallet } from '~/classes/Wallet';
-
 export interface TaxWithholding {
   address: string;
   percentage: number;
-}
-export enum TransactionTypes {
-  Approve,
-  GetTokens,
 }
 
 export enum ModuleTypes {
@@ -17,10 +11,13 @@ export enum ModuleTypes {
   Burn,
 }
 
-export type Addressable = Wallet | string;
-
 export enum ErrorCodes {
   IncompatibleBrowser,
   UserDeniedAccess,
   WalletIsLocked,
+}
+
+export interface TransactionSpec<Args = any> {
+  method: (...args: any[]) => Promise<any>;
+  args: Args;
 }
