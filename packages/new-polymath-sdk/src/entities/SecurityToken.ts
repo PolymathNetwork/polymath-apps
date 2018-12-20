@@ -6,15 +6,11 @@ interface PartialSecurityToken {
   name: string;
 }
 
-type NonFunctionPropertyNames<T> = {
-  [K in keyof T]: T[K] extends Function ? never : K
-}[keyof T];
-
 type ArgsWithoutEntityProps<
   Procedure extends (...args: any[]) => any
 > = typeHelpers.Omit<
   typeHelpers.ArgumentsType<Procedure>[0],
-  NonFunctionPropertyNames<SecurityToken>
+  typeHelpers.FilterPropNamesByType<SecurityToken, Function>
 >;
 
 export class SecurityToken {

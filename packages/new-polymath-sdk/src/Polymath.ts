@@ -1,4 +1,5 @@
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
+import { BigNumber } from 'bignumber.js';
 import { PolyToken } from '~/LowLevel/PolyToken';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
@@ -14,7 +15,7 @@ import {
   CreateCheckpoint,
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
-} from './operations';
+} from './procedures';
 
 export type EntityClasses = typeof SecurityToken;
 

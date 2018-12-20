@@ -1,5 +1,4 @@
 import { TransactionSpec } from '~/types';
-import PromiEvent from 'web3/promiEvent';
 
 export class Sequence {
   public queue: TransactionSpec[] = [];
@@ -23,7 +22,7 @@ export class Sequence {
       return;
     }
 
-    const promievent = nextTransaction.run() as PromiEvent<any>;
+    const promievent = nextTransaction.method(nextTransaction.args);
 
     await promievent;
 
