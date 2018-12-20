@@ -1,7 +1,7 @@
 import React, { FC, ComponentClass } from 'react';
 import { FastField } from 'formik';
 
-import { FormItemContext } from '..';
+import { Context } from '../Context';
 
 export interface Props {
   FormikComponent: ComponentClass<{ name: string }>;
@@ -9,9 +9,9 @@ export interface Props {
 
 export const Input: FC<Props> = ({ FormikComponent, ...props }) => {
   return (
-    <FormItemContext.Consumer>
+    <Context.Consumer>
       {({ name }) => <FormikComponent name={name} {...props} />}
-    </FormItemContext.Consumer>
+    </Context.Consumer>
   );
 };
 

@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { ErrorMessage, ErrorMessageProps } from 'formik';
 
-import { FormItemContext } from '~/components/FormItem';
 import { formError } from '~/styles/utils';
+import { Context } from '../Context';
 
 export interface Props extends ErrorMessageProps {}
 
@@ -19,9 +19,9 @@ const StyledError = styled.span`
 `;
 
 export const InputError: FC<Props> = props => (
-  <FormItemContext.Consumer>
+  <Context.Consumer>
     {({ name }) => (
       <ErrorMessage component={StyledError} name={name} {...props} />
     )}
-  </FormItemContext.Consumer>
+  </Context.Consumer>
 );

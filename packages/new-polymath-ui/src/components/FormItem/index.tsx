@@ -1,18 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { InputError } from './InputError';
 import { Label } from './Label';
 import { Input } from './Input';
+import { Context } from './Context';
 
 interface Props {
   name: string;
   children?: React.ComponentType;
 }
-
-export const FormItemContext = React.createContext<{ name: string }>({
-  name: 'unnamedField',
-});
 
 const Wrapper = styled.div`
   padding-bottom: 1.3rem;
@@ -25,9 +22,9 @@ const Wrapper = styled.div`
 
 export const FormItem = ({ name, children, ...props }: Props) => {
   return (
-    <FormItemContext.Provider value={{ name }}>
+    <Context.Provider value={{ name }}>
       <Wrapper {...props}>{children}</Wrapper>
-    </FormItemContext.Provider>
+    </Context.Provider>
   );
 };
 FormItem.Error = InputError;
