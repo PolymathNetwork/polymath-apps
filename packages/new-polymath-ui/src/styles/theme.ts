@@ -93,6 +93,10 @@ export const colors = {
   blue: ['#5596E6', '#3D70B2', '#252D6B'],
   green: ['#00AA5E'],
   red: ['#e0182d'],
+  eth: '#EED3FE',
+  dai: '#FFEFC4',
+  poly: '#C1E6FE',
+  erc20: '#A7FAE6',
 };
 
 export const headings = {
