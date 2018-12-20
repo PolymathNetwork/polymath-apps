@@ -179,7 +179,6 @@ export class PolymathClient {
     const { symbol } = args;
 
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
-
     const erc20Module = await securityToken.getErc20DividendModule();
     const etherModule = await securityToken.getEtherDividendModule();
 

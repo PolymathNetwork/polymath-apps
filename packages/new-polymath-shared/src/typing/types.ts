@@ -10,7 +10,7 @@ export enum Tokens {
 export enum TransactionStatus {
   Idle = 'IDLE',
   Unapproved = 'UNAPPROVED',
-  Approved = 'APPROVED',
+  Running = 'RUNNING',
   Rejected = 'REJECTED',
   Succeeded = 'SUCCEEDED',
   Failed = 'FAILED',
