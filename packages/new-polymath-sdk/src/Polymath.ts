@@ -16,6 +16,7 @@ import {
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
 } from './procedures';
+import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 
 export type EntityClasses = typeof SecurityToken;
 
@@ -106,6 +107,16 @@ export class Polymath {
     };
 
     return this;
+  }
+
+  public async createSecurityToken(args: {
+    symbol: string;
+    name: string;
+    detailsUrl?: string;
+    divisible: boolean;
+  }) {
+    const transaction = new CreateSecurityToken(args, this.context);
+    return await transaction.prepare();
   }
 
   /**

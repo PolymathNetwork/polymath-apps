@@ -1,7 +1,8 @@
 import { Polymath } from '~/Polymath';
 import { typeHelpers } from '@polymathnetwork/new-shared';
+import { Entity } from '~/entities/Entity';
 
-interface PartialSecurityToken {
+interface Params {
   symbol: string;
   name: string;
 }
@@ -13,34 +14,15 @@ type ArgsWithoutEntityProps<
   typeHelpers.FilterPropNamesByType<SecurityToken, Function>
 >;
 
-export class SecurityToken {
+export class SecurityToken extends Entity {
   public symbol: string;
   public name: string;
-  private polyClient: Polymath;
 
-  constructor(
-    params: PartialSecurityToken,
-    polyClient: Polymath = {} as Polymath
-  ) {
-    if (!polyClient) {
-      throw new Error(
-        'SecurityToken entity class should always be initialized through the Polymath client'
-      );
-    }
+  constructor(params: Params, polyClient?: Polymath) {
+    super(polyClient);
 
     this.symbol = params.symbol;
     this.name = params.name;
-    this.polyClient = polyClient || ({} as Polymath);
-  }
-
-  public reserve(
-    args: ArgsWithoutEntityProps<Polymath['reserveSecurityToken']>
-  ) {
-    return this.polyClient.reserveSecurityToken({
-      ...args,
-      symbol: this.symbol,
-      name: this.name,
-    });
   }
 
   public enableDividendModules(

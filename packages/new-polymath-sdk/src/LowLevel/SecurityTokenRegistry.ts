@@ -12,9 +12,15 @@ interface SecurityTokenRegistryContract extends GenericContract {
       owner: string,
       ticker: string,
       tokenName: string
-    ): TransactionObject<string>;
+    ): TransactionObject<any>;
     getTickerRegistrationFee(): TransactionObject<string>;
     getSecurityTokenAddress(ticker: string): TransactionObject<string>;
+    generateSecurityToken(
+      name: string,
+      ticker: string,
+      tokenDetails: string,
+      divisible: boolean
+    ): TransactionObject<any>;
   };
 }
 
@@ -32,6 +38,17 @@ export class SecurityTokenRegistry extends Contract<
   ) {
     return this.contract.methods
       .registerTicker(owner, ticker, tokenName)
+      .send();
+  }
+
+  public async generateSecurityToken(
+    tokenName: string,
+    ticker: string,
+    tokenDetails: string,
+    divisible: boolean
+  ) {
+    return this.contract.methods
+      .generateSecurityToken(tokenName, ticker, tokenDetails, divisible)
       .send();
   }
 
