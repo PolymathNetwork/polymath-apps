@@ -1,12 +1,12 @@
 import { SecurityToken } from '../SecurityToken';
-import { Polymath } from '../../Polymath';
+import { Polymath } from '~/Polymath';
 
 const params = {
   symbol: 'TEST',
   name: 'Test Token',
 };
 
-const polyClient = {};
+const polyClient = {} as Polymath;
 
 describe('SecurityToken', () => {
   describe('.constructor', () => {

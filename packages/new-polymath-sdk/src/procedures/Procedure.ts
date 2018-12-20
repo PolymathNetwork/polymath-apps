@@ -38,8 +38,11 @@ export class Procedure<Args> {
     return new Sequence(this.transactions);
   }
 
-  public addTransaction(Base: ProcedureType | Contract<any>, method?: any) {
-    return async (...args: any[]) => {
+  public addTransaction<A extends any[]>(
+    Base: ProcedureType | Contract<any>,
+    method?: (...args: A) => Promise<any>
+  ) {
+    return async (...args: A) => {
       // If method is a HLT, instanciate it with the right context and args
       if (isProcedure(Base)) {
         const operation = new Base(args[0], this.context);
@@ -49,11 +52,14 @@ export class Procedure<Args> {
         return;
       }
 
+      if (!method) {
+        throw new Error('a method must be passed');
+      }
+
       const transaction = {
         contract: Base,
         method,
         args,
-        from: this.context.currentWallet.address,
       };
 
       this.transactions.push(transaction);

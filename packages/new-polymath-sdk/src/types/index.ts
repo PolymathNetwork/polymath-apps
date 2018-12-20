@@ -1,3 +1,5 @@
+import { Contract } from '~/LowLevel/Contract';
+
 export interface TaxWithholding {
   address: string;
   percentage: number;
@@ -17,7 +19,8 @@ export enum ErrorCodes {
   WalletIsLocked,
 }
 
-export interface TransactionSpec<Args = any> {
-  method: (...args: any[]) => Promise<any>;
+export interface TransactionSpec<Args extends any[]> {
+  method: (...args: Args) => Promise<any>;
   args: Args;
+  contract: Contract<any>;
 }

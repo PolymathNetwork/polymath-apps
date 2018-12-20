@@ -1,12 +1,12 @@
 import { Procedure } from './Procedure';
 import { Approve } from './Approve';
 
-interface Argos {
+interface Args {
   symbol: string;
   name: string;
 }
 
-export class ReserveSecurityToken extends Procedure<Argos> {
+export class ReserveSecurityToken extends Procedure<Args> {
   public async prepareTransactions() {
     const { symbol, name } = this.args;
     const { securityTokenRegistry, currentWallet } = this.context;

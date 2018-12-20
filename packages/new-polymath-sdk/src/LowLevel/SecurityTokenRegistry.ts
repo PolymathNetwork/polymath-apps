@@ -14,6 +14,7 @@ interface SecurityTokenRegistryContract extends GenericContract {
       tokenName: string
     ): TransactionObject<any>;
     getTickerRegistrationFee(): TransactionObject<string>;
+    getSecurityTokenLaunchFee(): TransactionObject<string>;
     getSecurityTokenAddress(ticker: string): TransactionObject<string>;
     generateSecurityToken(
       name: string,
@@ -56,6 +57,14 @@ export class SecurityTokenRegistry extends Contract<
     const feeRes = await this.contract.methods
       .getTickerRegistrationFee()
       .call();
+    return new BigNumber(feeRes);
+  }
+
+  public async getSecurityTokenLaunchFee() {
+    const feeRes = await this.contract.methods
+      .getSecurityTokenLaunchFee()
+      .call();
+
     return new BigNumber(feeRes);
   }
 

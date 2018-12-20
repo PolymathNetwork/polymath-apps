@@ -1,4 +1,5 @@
 import { Procedure } from './Procedure';
+import { Approve } from '~/procedures/Approve';
 
 interface Args {
   name: string;
@@ -11,14 +12,16 @@ export class CreateSecurityToken extends Procedure<Args> {
   public async prepareTransactions() {
     const { name, symbol, detailsUrl = '', divisible } = this.args;
     const { securityTokenRegistry } = this.context;
+    const fee = await securityTokenRegistry.getSecurityTokenLaunchFee();
 
-    const securityToken = await securityTokenRegistry.generateSecurityToken(
-      name,
-      symbol,
-      detailsUrl,
-      divisible
-    );
+    await this.addTransaction(Approve)({
+      amount: fee,
+      spender: securityTokenRegistry.address,
+    });
 
-    await this.addTransaction(securityToken, securityToken.createCheckpoint)();
+    await this.addTransaction(
+      securityTokenRegistry,
+      securityTokenRegistry.generateSecurityToken
+    )(name, symbol, detailsUrl, divisible);
   }
 }
