@@ -38,7 +38,14 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
       );
     }
 
-    await this.addTransaction(erc20Module, erc20Module.createDividend)(
+    const dividendId = await this.addTransaction(
+      erc20Module,
+      erc20Module.createDividend,
+      async () => {
+        // TODO @RafaelVidaurre: fetch here dividend's id
+        return 'foo';
+      }
+    )(
       maturityDate,
       expiryDate,
       erc20Address,
