@@ -1,0 +1,23 @@
+---
+name: Label
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { Label, LabelDocz } from './';
+
+import { constants } from '@polymathnetwork/new-shared';
+
+# Label
+
+<PropsTable of={LabelDocz} />
+
+## Basic usage
+
+<Playground>
+  <Label color="eth">Issued in ETH</Label>
+  <Label color="dai">Issued in DAI</Label>
+  <Label color="poly">Issued in POLY</Label>
+  <Label color="erc20">Issued in ERC20</Label>
+</Playground>
