@@ -35,14 +35,15 @@ const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
   white-space: nowrap;
   line-height: 16px;
   border: 2px solid transparent;
-  outline: 2px solid transparent;
+  outline: none;
   height: ${({ small }) => (small ? '2rem' : '2.5rem')};
   padding: ${({ small }) => (small ? '0 0.5rem' : '0 1rem')};
   transition-duration: ${({ theme }) => theme.transitions.hover.ms}ms;
-  transition-property: background, color, outline;
+  transition-property: background, color, border-color;
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -57,7 +58,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
 
   &:focus {
-    outline-color: ${({ theme }) => theme.colors.primary};
+    border-color: #f4f7fb;
   }
 
   &:disabled {
@@ -71,29 +72,25 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button = ({
-  children,
-  href,
-  tabIndex,
-  type,
-  ...other
-}: ButtonProps) => {
-  let props = {};
+export const Button = styled(
+  ({ children, href, tabIndex, type, ...other }: ButtonProps) => {
+    let props = {};
 
-  if (href) {
-    props = {
-      role: 'button',
-    };
-  } else {
-    props = { type };
+    if (href) {
+      props = {
+        role: 'button',
+      };
+    } else {
+      props = { type };
+    }
+
+    return (
+      <StyledButton {...props} {...other}>
+        {children}
+      </StyledButton>
+    );
   }
-
-  return (
-    <StyledButton {...props} {...other}>
-      {children}
-    </StyledButton>
-  );
-};
+)``;
 
 Button.defaultProps = {
   tabIndex: 0,

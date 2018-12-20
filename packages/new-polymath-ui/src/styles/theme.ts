@@ -1,3 +1,5 @@
+import { transparentize } from 'polished';
+
 interface Scale<TValue> {
   [id: string]: TValue;
 }
@@ -124,20 +126,20 @@ export const headings = {
 
 export const buttons = {
   primary: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
     borderColor: 'transparent',
     color: '#fff',
     '&:hover, &:focus': {
-      backgroundColor: '#30588c',
+      backgroundColor: transparentize(0.2, colors.primary),
     },
   },
   secondary: {
     backgroundColor: 'transparent',
-    borderColor: colors.secondary,
-    color: colors.secondary,
+    borderColor: colors.primary,
+    color: colors.primary,
     '&:hover, &:focus': {
       color: '#fff',
-      backgroundColor: colors.secondary,
+      backgroundColor: colors.primary,
     },
   },
   ghost: {
