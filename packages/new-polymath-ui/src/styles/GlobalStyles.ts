@@ -1,8 +1,11 @@
+import { normalize } from 'polished';
 import fontFaceDefinition from 'typeface-overpass';
 
 import { createGlobalStyle } from '~/styles';
 
 export const GlobalStyles = createGlobalStyle`
+  ${normalize()}
+
   ${fontFaceDefinition};
 
   *:focus:not(:focus-visible) {
