@@ -318,8 +318,9 @@ export const removeTier = (id, tiers, setFieldValue) => async (
         <p>Please confirm that you want to delete this tier</p>
       </div>,
       async () => {
-        tiers.splice(id - 1, 1);
-        setFieldValue('investmentTiers.tiers', tiers);
+        const newTiers = { ...tiers };
+        newTiers.splice(id - 1, 1);
+        setFieldValue('investmentTiers.tiers', newTiers);
       }
     )
   );
