@@ -1,5 +1,5 @@
-import { Polymath } from '~/Polymath';
 import { typeHelpers } from '@polymathnetwork/new-shared';
+import { Polymath } from '~/Polymath';
 import { Entity } from '~/entities/Entity';
 
 interface Params {
@@ -7,6 +7,7 @@ interface Params {
   name: string;
 }
 
+// TODO @RafaelVidaurre: type as undefined if object inferred has no props
 type ArgsWithoutEntityProps<
   Procedure extends (...args: any[]) => any
 > = typeHelpers.Omit<
@@ -35,7 +36,13 @@ export class SecurityTokenReservation extends Entity {
     });
   }
 
-  public createSecurityToken() {
-    return this.polyClient.createSecurityToken();
+  public createSecurityToken(
+    args: ArgsWithoutEntityProps<Polymath['createSecurityToken']>
+  ) {
+    return this.polyClient.createSecurityToken({
+      ...args,
+      symbol: this.symbol,
+      name: this.name,
+    });
   }
 }
