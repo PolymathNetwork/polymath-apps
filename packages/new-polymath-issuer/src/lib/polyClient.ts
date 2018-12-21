@@ -1,4 +1,4 @@
-import { browserUtils } from '@polymathnetwork/sdk';
+import { browserUtils, PolymathClient } from '@polymathnetwork/sdk';
 import { constants } from '@polymathnetwork/new-shared';
 import {
   POLYMATH_REGISTRY_ADDRESS_LOCAL,
@@ -82,4 +82,4 @@ export class MockPolymathClient {
 
 const networkId = browserUtils.getNetworkId();
 
-export const polyClient = new MockPolymathClient(networkParams[networkId]);
+export const polyClient = new PolymathClient(networkParams[networkId]);
