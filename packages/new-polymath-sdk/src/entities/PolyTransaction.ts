@@ -23,12 +23,16 @@ export class PolyTransaction<Type> extends Promise<Type> {
   private transaction: TransactionSpec<any>;
 
   constructor(transaction: TransactionSpec<any>) {
-    super((resolve, reject) => {
-      this.resolve = resolve;
-      this.reject = reject;
+    let resolve: () => void = () => {};
+    let reject: () => void = () => {};
+
+    super((res, rej) => {
+      resolve = res;
+      reject = rej;
     });
-    this.resolve = (this as any).resolve;
-    this.resolve = (this as any).reject;
+
+    this.resolve = resolve;
+    this.reject = reject;
     this.transaction = transaction;
   }
 
