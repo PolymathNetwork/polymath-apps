@@ -116,12 +116,12 @@ class InvestmentTiers extends React.Component<Props, State> {
     this.setState({ tierData: null, isAddingTier: false });
   };
 
-  handleTierModal = (id, data) => {
-    if (typeof id === 'number') {
-      this.setState({ tierData: { id, ...data }, isAddingTier: true });
-    } else {
-      this.setState({ isAddingTier: true });
-    }
+  handleAddTierModal = () => {
+    this.setState({ isAddingTier: true });
+  };
+
+  handleEditTierModal = (id, data) => {
+    this.setState({ tierData: { id, ...data }, isAddingTier: true });
   };
 
   render() {
@@ -231,7 +231,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                     <Box textAlign="right" mb={3}>
                       <Button
                         icon={iconAddSolid}
-                        onClick={this.handleTierModal.bind(this)}
+                        onClick={this.handleAddTierModal.bind(this)}
                       >
                         Add new
                       </Button>
@@ -262,7 +262,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                                   Icon={EditIcon}
                                   color="#000000"
                                   onClick={() => {
-                                    this.handleTierModal(
+                                    this.handleEditTierModal(
                                       row.id - 1,
                                       value.tiers[row.id - 1]
                                     );
