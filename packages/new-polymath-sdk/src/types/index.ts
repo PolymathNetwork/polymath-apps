@@ -24,5 +24,5 @@ export interface TransactionSpec<Args extends any[]> {
   method: (...args: Args) => Promise<any>;
   args: Args;
   contract: Contract<any>;
-  postTransactionResolver?: PostTransactionResolver<any>;
+  postTransactionResolver: PostTransactionResolver<any>;
 }

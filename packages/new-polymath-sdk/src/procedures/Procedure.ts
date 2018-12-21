@@ -45,7 +45,7 @@ export class Procedure<Args> {
     resolver?: () => Promise<R>
   ) {
     return async (...args: A) => {
-      // If method is a HLT, instanciate it with the right context and args
+      // If method is a Procedure, get its Transactions
       if (isProcedure(Base)) {
         const operation = new Base(args[0], this.context);
         await operation.prepareTransactions();
@@ -58,7 +58,9 @@ export class Procedure<Args> {
         throw new Error('a method must be passed');
       }
 
-      let postTransactionResolver: PostTransactionResolver<R> | undefined;
+      let postTransactionResolver: PostTransactionResolver<R | void> = new PostTransactionResolver(
+        async () => {}
+      );
 
       if (resolver) {
         postTransactionResolver = new PostTransactionResolver(resolver);
@@ -73,7 +75,7 @@ export class Procedure<Args> {
 
       this.transactions.push(transaction);
 
-      return postTransactionResolver as PostTransactionResolver<R>;
+      return postTransactionResolver;
     };
   }
 }
