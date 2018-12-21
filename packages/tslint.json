@@ -10,6 +10,7 @@
     "no-floating-promises": true,
     "no-unused-variable": true,
     "no-unused-expression": true,
+    "variable-name": false,
     "ordered-imports": false,
     "arrow-parens": false,
     "no-default-export": true,
