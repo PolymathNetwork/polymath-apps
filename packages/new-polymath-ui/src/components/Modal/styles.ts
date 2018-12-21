@@ -2,6 +2,7 @@ import { maxWidth, MaxWidthProps } from 'styled-system';
 
 import styled, { css, ThemeInterface } from '~/styles';
 
+import { ModalStatus } from './Modal';
 import { IconButton } from '../IconButton';
 
 const statusBarHeight = '5px';
@@ -136,8 +137,8 @@ export const StatusBar = styled.div`
   right: 0;
   width: 100%;
   height: ${statusBarHeight};
-  ${({ status, theme }: { status: string; theme: ThemeInterface }) =>
-    status === 'loading'
+  ${({ status, theme }: { status: ModalStatus; theme: ThemeInterface }) =>
+    status === ModalStatus.loading
       ? loadingStyles
       : `background: ${theme.colors[status]}`};
 

@@ -1,0 +1,25 @@
+---
+name: ModalTx
+menu: Modals
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { ModalTx } from './';
+
+# ModalTx
+
+<PropsTable of={ModalTx} />
+
+## Basic usage
+
+<Playground>
+  <ModalTx
+    isOpen
+    status={1}
+    transactions={[
+      { title: 'First transaction', status: 0 },
+      { title: 'Second transaction', status: 2 },
+    ]}
+  />
+</Playground>

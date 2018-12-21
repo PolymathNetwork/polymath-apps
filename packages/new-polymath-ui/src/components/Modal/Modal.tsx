@@ -7,13 +7,21 @@ import styled, { withTheme, ThemeInterface } from '~/styles';
 import * as S from './styles';
 import SvgClose from '../../images/icons/Close';
 
+export enum ModalStatus {
+  'loading',
+  'idle',
+  'warning',
+  'alert',
+  'success',
+}
+
 export interface ModalProps {
   children: Node;
   className: string;
   isOpen: boolean;
   onClose: Function;
   isCloseable: boolean;
-  status: 'loading' | 'idle' | 'warning' | 'alert' | 'success';
+  status: ModalStatus;
   theme: ThemeInterface;
   maxWidth: MaxWidthProps;
 }
@@ -25,7 +33,7 @@ type State = {
 
 class _Modal extends Component<ModalProps, State> {
   static defaultProps = {
-    idle: 'idle',
+    status: ModalStatus.idle,
     isOpen: false,
     isCloseable: true,
     onClose: null,
@@ -75,7 +83,7 @@ class _Modal extends Component<ModalProps, State> {
         }}
         onRequestClose={this.handleCloseRequest}
       >
-        {status && <S.StatusBar status={status} />}
+        {status !== ModalStatus.idle && <S.StatusBar status={status} />}
         {isCloseable && (
           <S.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
         )}
