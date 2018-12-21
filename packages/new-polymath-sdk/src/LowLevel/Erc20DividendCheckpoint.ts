@@ -67,7 +67,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
           excludedAddresses,
           nameInBytes
         )
-        .send();
+        .send({ from: this.context.account });
     }
 
     return this.contract.methods
@@ -79,7 +79,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
         checkpointId,
         nameInBytes
       )
-      .send();
+      .send({ from: this.context.account });
   }
 
   public async getDividends() {

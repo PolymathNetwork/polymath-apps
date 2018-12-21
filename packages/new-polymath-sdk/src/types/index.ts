@@ -19,7 +19,6 @@ export enum ErrorCodes {
   UserDeniedAccess,
   WalletIsLocked,
 }
-
 export interface TransactionSpec<Args extends any[]> {
   method: (...args: Args) => Promise<any>;
   args: Args;

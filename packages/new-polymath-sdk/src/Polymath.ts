@@ -84,7 +84,8 @@ export class Polymath {
 
     if (!account) {
       throw new Error(
-        'No account found. Did you forget to pass the private key?'
+        "No account found. If you are using node, make sure you've not" +
+          ' forgotten to add a private key. If you are using Metamask make sure ethereum.enable() was called first'
       );
     }
 

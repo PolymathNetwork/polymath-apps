@@ -50,7 +50,9 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   }
 
   public async createCheckpoint() {
-    return this.contract.methods.createCheckpoint().send();
+    return this.contract.methods
+      .createCheckpoint()
+      .send({ from: this.context.account });
   }
 
   public async currentCheckpointId() {
@@ -75,7 +77,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
         new BigNumber(0),
         new BigNumber(0)
       )
-      .send();
+      .send({ from: this.context.account });
   }
 
   public async getErc20DividendModule() {

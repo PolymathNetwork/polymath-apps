@@ -11,12 +11,12 @@ import { Location } from 'redux-little-router';
 
 export { HomePage } from './Home';
 export { LoginPage } from './Login';
-export { MetamaskGetPage } from './MetamaskGetPage';
-export { MetamaskLockedPage } from './MetamaskLockedPage';
+export { MetamaskGetPage } from './MetamaskGet';
+export { MetamaskLockedPage } from './MetamaskLocked';
 export { SecurityTokensIndexPage } from './SecurityTokensIndex';
 export { SecurityTokensReservePage } from './SecurityTokensReserve';
 export { SecurityTokensDividendsPage } from './SecurityTokensDividends';
-export { NotFoundPage } from './NotFoundPage';
+export { NotFoundPage } from './NotFound';
 
 interface StateProps {
   router: RootState['router'];

@@ -39,7 +39,7 @@ export class SecurityTokenRegistry extends Contract<
   ) {
     return this.contract.methods
       .registerTicker(owner, ticker, tokenName)
-      .send();
+      .send({ from: this.context.account });
   }
 
   public async generateSecurityToken(
@@ -50,7 +50,7 @@ export class SecurityTokenRegistry extends Contract<
   ) {
     return this.contract.methods
       .generateSecurityToken(tokenName, ticker, tokenDetails, divisible)
-      .send();
+      .send({ from: this.context.account });
   }
 
   public async getTickerRegistrationFee() {

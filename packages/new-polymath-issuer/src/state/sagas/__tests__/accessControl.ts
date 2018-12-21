@@ -3,7 +3,7 @@ import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import * as sagas from '~/state/sagas/accessControl';
 import { MockedStore, MockEthereumProvider } from '~/testUtils/helpers';
 
-jest.mock('~/lib/polyClient', () => ({
+jest.mock('~/lib/polymath', () => ({
   polyClient: {
     initialize: () => {},
   },

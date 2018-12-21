@@ -11,7 +11,10 @@ export class ReserveSecurityToken extends Procedure<Args> {
     const { symbol, name } = this.args;
     const { securityTokenRegistry, currentWallet } = this.context;
 
+    // TODO @RafaelVidaurre: See if ticker is not already registered
+
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
+    console.log('fee', fee);
 
     await this.addTransaction(Approve)({
       amount: fee,

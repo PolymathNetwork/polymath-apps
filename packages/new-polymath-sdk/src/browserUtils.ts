@@ -99,12 +99,14 @@ export function getNetworkId() {
   }
 
   if (support === BrowserSupport.Modern) {
-    return Number((win as any).ethereum.networkVersion);
+    return parseInt((win as any).ethereum.networkVersion, 10);
   }
 
   if (support === BrowserSupport.Legacy) {
-    return (win as any).web3.version.network;
+    return parseInt((win as any).web3.version.networkId, 10);
   }
+
+  throw new Error('Assertion Error');
 }
 
 export async function getCurrentAddress() {
