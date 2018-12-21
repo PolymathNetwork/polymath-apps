@@ -1,14 +1,14 @@
 import Web3 from 'web3';
-import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
-import { Contract } from './Contract';
 import { TransactionObject } from 'web3/eth/types';
 import BigNumber from 'bignumber.js';
+import { ModuleTypes } from '~/types';
 import { DividendModuleTypes, GenericContract } from './types';
 import { Context } from './LowLevel';
-import { ModuleTypes } from '~/types';
 import { fromUnixTimestamp, fromWei } from './utils';
 import { Erc20DividendCheckpoint } from './Erc20DividendCheckpoint';
 import { EtherDividendCheckpoint } from './EtherDividendCheckpoint';
+import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
+import { Contract } from './Contract';
 
 export interface InvestorBalance {
   address: string;
