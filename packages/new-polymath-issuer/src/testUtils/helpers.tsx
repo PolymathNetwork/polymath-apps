@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Action } from 'redux';
 import { set } from 'lodash';
 import Web3FakeProvider from 'web3-fake-provider';
-import { RootState, reducer as rootReducer } from '~/state/reducers/root';
+import { RootState } from '~/state/reducers/root';
 
 const middlewares: any[] = [];
 
@@ -32,11 +32,13 @@ export class MockedStore {
   public dispatched: Action[] = [];
 
   constructor() {
+    const { reducer: rootReducer } = require('~/state/reducers/root');
     this.state = rootReducer(undefined, {} as any);
     this.dispatched = [];
   }
 
   public dispatch = (action: Action) => {
+    const { reducer: rootReducer } = require('~/state/reducers/root');
     this.state = rootReducer(this.getState(), action);
     this.dispatched.push(action);
   };
