@@ -72,25 +72,23 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button = styled(
-  ({ children, href, tabIndex, type, ...other }: ButtonProps) => {
-    let props = {};
+export const Button = styled(({ children, href, tabIndex, type, ...other }) => {
+  let props = {};
 
-    if (href) {
-      props = {
-        role: 'button',
-      };
-    } else {
-      props = { type };
-    }
-
-    return (
-      <StyledButton {...props} {...other}>
-        {children}
-      </StyledButton>
-    );
+  if (href) {
+    props = {
+      role: 'button',
+    };
+  } else {
+    props = { type };
   }
-)``;
+
+  return (
+    <StyledButton {...props} {...other}>
+      {children}
+    </StyledButton>
+  );
+})<ButtonProps>``;
 
 Button.defaultProps = {
   tabIndex: 0,
