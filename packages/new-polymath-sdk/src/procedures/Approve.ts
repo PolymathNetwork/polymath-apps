@@ -13,16 +13,14 @@ export class Approve extends Procedure<Args> {
     const { currentWallet, polyToken, isTestnet } = this.context;
 
     const allowance = await currentWallet.getAllowance(spender);
-    console.log('allowance', allowance);
     const hasEnoughAllowance = allowance.gte(amount);
-    console.log('hasEnoughAllowance', hasEnoughAllowance);
 
     if (hasEnoughAllowance) {
       return;
     }
 
     const balance = await currentWallet.getBalance(types.Tokens.Poly);
-    console.log('balance', balance);
+
     if (balance.lt(amount)) {
       if (isTestnet) {
         await this.addTransaction(polyToken, polyToken.getTokens)(

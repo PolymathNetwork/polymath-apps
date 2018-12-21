@@ -14,7 +14,6 @@ export class ReserveSecurityToken extends Procedure<Args> {
     // TODO @RafaelVidaurre: See if ticker is not already registered
 
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
-    console.log('fee', fee);
 
     await this.addTransaction(Approve)({
       amount: fee,
