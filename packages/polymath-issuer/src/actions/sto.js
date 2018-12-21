@@ -308,6 +308,24 @@ export const configureSTO = (config: STOConfig, type: string) => async (
   );
 };
 
+export const removeTier = (id, tiers, setFieldValue) => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    ui.confirm(
+      <div>
+        <p>Please confirm that you want to delete this tier</p>
+      </div>,
+      async () => {
+        const newTiers = { ...tiers };
+        newTiers.splice(id - 1, 1);
+        setFieldValue('investmentTiers.tiers', newTiers);
+      }
+    )
+  );
+};
+
 export const fetchPurchases = () => async (
   dispatch: Function,
   getState: GetState
