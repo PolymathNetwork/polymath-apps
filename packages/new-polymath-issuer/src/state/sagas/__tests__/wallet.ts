@@ -17,15 +17,13 @@ jest.mock('@polymathnetwork/sdk', () => {
 });
 
 describe('wallet sagas', () => {
-  let store;
-
-  beforeEach(() => {
-    store = new MockedStore();
-  });
-
-  describe('on address changes', () => {
-    test.skip('calls setWallet action when wallet address is changed', () => {
-      (browserUtils.onAddressChange as any).mockImplementation(() => {});
-    });
-  });
+  // let store;
+  // beforeEach(() => {
+  //   store = new MockedStore();
+  // });
+  // describe('on address changes', () => {
+  //   test.skip('calls setWallet action when wallet address is changed', () => {
+  //     (browserUtils.onAddressChange as any).mockImplementation(() => {});
+  //   });
+  // });
 });

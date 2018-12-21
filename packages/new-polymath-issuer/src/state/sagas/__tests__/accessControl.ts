@@ -5,7 +5,7 @@ import { MockedStore, MockEthereumProvider } from '~/testUtils/helpers';
 
 jest.mock('~/lib/polyClient', () => ({
   polyClient: {
-    initialize: () => {},
+    connect: () => {},
   },
 }));
 

@@ -16,7 +16,7 @@ export class PolymathError extends Error {
     super(
       message || ErrorMessagesPerCode[code] || 'Unknown error, code: ' + code
     );
-    // // tslint:disable-next-line
+    // tslint:disable-next-line
     // // https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md#extending-built-ins-like-error-array-and-map-may-no-longer-work
     // Object.setPrototypeOf(this, PolymathError);
 

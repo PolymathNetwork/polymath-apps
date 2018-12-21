@@ -10,6 +10,9 @@ jest.mock('@polymathnetwork/sdk', () => ({
     onAddressChange: jest.fn(() => () => {}),
     getNetworkId: jest.fn(() => '15'),
   },
+  PolymathClient: jest.fn(() => ({
+    connect: () => {},
+  })),
 }));
 
 class SamplePage extends Component {
