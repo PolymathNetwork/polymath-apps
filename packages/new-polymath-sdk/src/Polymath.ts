@@ -20,7 +20,7 @@ import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 
 export type EntityClasses = typeof SecurityToken;
 
-export interface Params {
+export interface PolymathNetworkParams {
   httpProvider?: HttpProvider;
   httpProviderUrl?: string;
   wsProvider?: WebsocketProvider;
@@ -56,16 +56,15 @@ export class Polymath {
   private context: Context = {} as Context;
   private entityClasses: ContextualizedEntityClasses = {} as ContextualizedEntityClasses;
 
-  constructor(params: Params) {
+  constructor(params: PolymathNetworkParams) {
     const { polymathRegistryAddress, httpProvider, httpProviderUrl } = params;
     this.polymathRegistryAddress = polymathRegistryAddress;
 
     if (httpProvider) {
-      this.lowLevel = new LowLevel({ provider: httpProvider });
-    } else if (httpProviderUrl) {
-      this.lowLevel = new LowLevel({ provider: httpProviderUrl });
-    } else {
-      this.lowLevel = new LowLevel();
+      this.httpProvider = httpProvider;
+    }
+    if (httpProviderUrl) {
+      this.httpProviderUrl = httpProviderUrl;
     }
   }
 
@@ -73,6 +72,14 @@ export class Polymath {
     const { lowLevel, polymathRegistryAddress } = this;
     this.networkId = await lowLevel.getNetworkId();
     const account = await lowLevel.getAccount();
+
+    if (this.httpProvider) {
+      this.lowLevel = new LowLevel({ provider: this.httpProvider });
+    } else if (this.httpProviderUrl) {
+      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
+    } else {
+      this.lowLevel = new LowLevel();
+    }
 
     if (!polymathRegistryAddress) {
       throw new Error(

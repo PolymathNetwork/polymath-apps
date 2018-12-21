@@ -6,4 +6,8 @@ describe('PolymathClient', () => {
   describe('#connect', () => {
     test('initializes correctly after connecting', async () => {});
   });
+
+  describe('Full flows', () => {
+    describe('Reserving and deploying a Security Token', () => {});
+  });
 });

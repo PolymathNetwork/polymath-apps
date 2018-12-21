@@ -1,16 +1,18 @@
-import { browserUtils, Polymath } from '@polymathnetwork/sdk';
+import {
+  browserUtils,
+  Polymath,
+  PolymathNetworkParams,
+} from '@polymathnetwork/sdk';
 import { constants } from '@polymathnetwork/new-shared';
 import {
   POLYMATH_REGISTRY_ADDRESS_LOCAL,
   POLYMATH_REGISTRY_ADDRESS_KOVAN,
+  NETWORK_WS_PROVIDER_LOCAL,
+  NETWORK_WS_PROVIDER_KOVAN,
 } from '~/constants';
 
-interface NetworkParams {
-  polymathRegistryAddress: string;
-  wsProviderUrl: string;
-}
 interface NetworkConfig {
-  [networkId: string]: NetworkParams;
+  [networkId: string]: PolymathNetworkParams;
 }
 
 let kovanConfig: NetworkConfig = {};
@@ -20,7 +22,7 @@ if (POLYMATH_REGISTRY_ADDRESS_KOVAN) {
   kovanConfig = {
     [constants.NetworkIds.Kovan]: {
       polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN,
-      wsProviderUrl: 'bar',
+      wsProviderUrl: NETWORK_WS_PROVIDER_KOVAN,
     },
   };
 }
@@ -29,7 +31,7 @@ if (POLYMATH_REGISTRY_ADDRESS_LOCAL) {
   localConfig = {
     [constants.NetworkIds.Local]: {
       polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_LOCAL,
-      wsProviderUrl: 'foo',
+      wsProviderUrl: NETWORK_WS_PROVIDER_LOCAL,
     },
   };
 }
