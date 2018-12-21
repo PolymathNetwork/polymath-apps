@@ -11,10 +11,12 @@ import { rootSaga } from '~/state/sagas/root';
 import { reducer as entitiesReducer } from '~/state/reducers/entities';
 import { reducer as sessionReducer } from '~/state/reducers/session';
 import { reducer as appReducer } from '~/state/reducers/app';
+import { reducer as dataRequestsReducer } from '~/state/reducers/dataRequests';
 import { routerEnhancer, routerMiddleware, routerReducer } from '~/routing';
 
 export const rootReducer = combineReducers({
   entities: entitiesReducer,
+  dataRequests: dataRequestsReducer,
   session: sessionReducer,
   app: appReducer,
   router: routerReducer,
@@ -46,4 +48,4 @@ sagaMiddleware.run(rootSaga);
 const initialRouterState = store.getState().router;
 store.dispatch(initializeCurrentLocation(initialRouterState));
 
-export type RootState = ReturnType<typeof store.getState>;
+export interface RootState extends ReturnType<typeof store.getState> {}
