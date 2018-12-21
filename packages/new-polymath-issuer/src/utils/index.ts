@@ -1,5 +1,6 @@
 import { SessionState } from '~/state/reducers/session';
-import { SessionRoles } from '~/types';
+import { SessionRoles, Pojo } from '~/types';
+import _ from 'lodash';
 
 /**
  * Returns a session stage based on a given state
@@ -18,4 +19,15 @@ export function getSessionStage(state: SessionState): SessionRoles {
   }
 
   return SessionRoles.ConfirmedUser;
+}
+
+/**
+ * Returns a string hash of a POJO for comparison
+ *
+ * @param args arguments to hash
+ */
+export function hashObj(args: Pojo) {
+  const sortedKeyArray = _.keys(args).sort();
+
+  return _.join(_.map(sortedKeyArray, key => `${key}:${args[key]}`), ',');
 }
