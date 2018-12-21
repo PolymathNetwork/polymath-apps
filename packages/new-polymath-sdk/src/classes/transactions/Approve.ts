@@ -24,8 +24,8 @@ export class Approve extends TransactionBase<Args> {
     if (balance.lt(amount)) {
       if (isTestnet) {
         await this.addTransaction(polyToken, polyToken.getTokens)(
-          currentWallet,
-          amount
+          amount,
+          currentWallet.address
         );
       } else {
         throw new Error('Not enough balance');

@@ -52,11 +52,11 @@ export class TransactionBase<P> {
     return new TransactionGroup(this.transactions);
   }
 
-  public addTransaction(
+  public addTransaction<T extends any[]>(
     Base: HigherLevelTransaction | Contract<any>,
-    method?: PrimitiveMethod
+    method?: (...args: T) => Promise<any>
   ) {
-    return async (...args: any[]) => {
+    return async (...args: T) => {
       // If method is a HLT, instanciate it with the right context and args
       if (isHigherLevelTransaction(Base)) {
         const hlt = new Base(args[0], this.context);
@@ -64,6 +64,12 @@ export class TransactionBase<P> {
         const transactions = hlt.transactions;
         this.transactions = [...this.transactions, ...transactions];
         return;
+      }
+
+      if (!method) {
+        throw new Error(
+          'Must supply a method if the first argument is a contract'
+        );
       }
 
       const transaction = new TransactionBlueprint({

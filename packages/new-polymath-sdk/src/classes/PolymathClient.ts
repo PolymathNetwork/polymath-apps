@@ -16,8 +16,7 @@ import {
 import { Context } from './Context';
 import BigNumber from 'bignumber.js';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { TaxWithholding } from '~/types';
-import { Dividend } from '~/LowLevel/types';
+import { TaxWithholding, Checkpoint, Dividend } from '~/types';
 
 interface Params {
   httpProvider?: HttpProvider;
@@ -174,7 +173,7 @@ export class PolymathClient {
   /**
    * Retrieve list of checkpoints and their corresponding dividends
    */
-  public async getCheckpoints(args: { symbol: string }) {
+  public async getCheckpoints(args: { symbol: string }): Promise<Checkpoint[]> {
     const { securityTokenRegistry } = this.context;
     const { symbol } = args;
 

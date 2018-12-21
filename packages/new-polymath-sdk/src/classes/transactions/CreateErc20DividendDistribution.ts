@@ -1,6 +1,5 @@
 import { TransactionBase } from './Transaction';
 import { TaxWithholding } from '~/types';
-import { EnableDividendModules } from './EnableDividendModules';
 
 interface Args {
   symbol: string;
