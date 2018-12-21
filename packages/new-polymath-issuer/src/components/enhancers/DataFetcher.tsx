@@ -11,7 +11,6 @@ import React from 'react';
 import _ from 'lodash';
 
 interface OwnProps {
-  dispatch: Dispatch<any>;
   fetchers: Fetcher[];
   render(props: FetchedData): ReactNode;
 }
@@ -22,7 +21,11 @@ interface StateProps {
   loading: boolean;
 }
 
-type Props = OwnProps & StateProps;
+interface DispatchProps {
+  dispatch: Dispatch<any>;
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
 
 const mapStateToProps = () => {
   const entitiesSelector = createGetEntitiesFromCache();
