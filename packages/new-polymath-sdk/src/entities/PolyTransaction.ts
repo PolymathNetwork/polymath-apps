@@ -9,6 +9,9 @@ function isPostTransactionResolver(
   return val instanceof Promise && (val as any).run;
 }
 
+// TODO @RafaelVidaurre: Fix typing
+// TODO @RafaelVidaurre: Add support for arrays
+// TODO @RafaelVidaurre: Cleanup code
 const mapValuesDeep = (
   obj: { [key: string]: any },
   fn: (...args: any[]) => any

@@ -17,8 +17,9 @@ import {
   CreateEtherDividendDistribution,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
+import * as entities from '~/entities';
 
-export type EntityClasses = typeof SecurityToken;
+export type EntityClasses = typeof entities;
 
 export interface PolymathNetworkParams {
   httpProvider?: HttpProvider;

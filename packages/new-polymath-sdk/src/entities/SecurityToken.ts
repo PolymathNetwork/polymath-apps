@@ -1,5 +1,5 @@
-import { Polymath } from '~/Polymath';
 import { typeHelpers } from '@polymathnetwork/new-shared';
+import { Polymath } from '~/Polymath';
 import { Entity } from '~/entities/Entity';
 
 interface Params {

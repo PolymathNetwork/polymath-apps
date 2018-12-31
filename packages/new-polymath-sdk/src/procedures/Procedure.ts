@@ -39,31 +39,34 @@ export class Procedure<Args> {
     return new Sequence(this.transactions);
   }
 
+  // TODO @RafaelVidaurre: Support Post-Transaction resolvers for Procedures
+  // TODO @RafaelVidaurre: Correct Post-Transaction resolver return typing
+  // TODO @RafaelVidaurre: Improve typing for returned function args so that
+  // they can be wrapped in PostTransactionResolvers
   public addTransaction<A extends any[], R extends any>(
     Base: ProcedureType | Contract<any>,
     method?: (...args: A) => Promise<any>,
     resolver?: () => Promise<R>
   ) {
     return async (...args: A) => {
+      let postTransactionResolver: PostTransactionResolver<R | void> = new PostTransactionResolver(
+        async () => {}
+      );
+
+      if (!method) {
+        throw new Error('a method must be passed');
+      }
+      if (resolver) {
+        postTransactionResolver = new PostTransactionResolver(resolver);
+      }
+
       // If method is a Procedure, get its Transactions
       if (isProcedure(Base)) {
         const operation = new Base(args[0], this.context);
         await operation.prepareTransactions();
         const transactions = operation.transactions;
         this.transactions = [...this.transactions, ...transactions];
-        return;
-      }
-
-      if (!method) {
-        throw new Error('a method must be passed');
-      }
-
-      let postTransactionResolver: PostTransactionResolver<R | void> = new PostTransactionResolver(
-        async () => {}
-      );
-
-      if (resolver) {
-        postTransactionResolver = new PostTransactionResolver(resolver);
+        return postTransactionResolver;
       }
 
       const transaction = {
