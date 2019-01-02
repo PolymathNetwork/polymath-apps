@@ -7,14 +7,6 @@ interface Params {
   name: string;
 }
 
-// TODO @RafaelVidaurre: type as undefined if object inferred has no props
-type ArgsWithoutEntityProps<
-  Procedure extends (...args: any[]) => any
-> = typeHelpers.Omit<
-  typeHelpers.ArgumentsType<Procedure>[0],
-  typeHelpers.FilterPropNamesByType<SecurityTokenReservation, Function>
->;
-
 export class SecurityTokenReservation extends Entity {
   public symbol: string;
   public name: string;
@@ -27,7 +19,10 @@ export class SecurityTokenReservation extends Entity {
   }
 
   public reserve(
-    args: ArgsWithoutEntityProps<Polymath['reserveSecurityToken']>
+    args: typeHelpers.ArgsWithoutEntityProps<
+      Polymath['reserveSecurityToken'],
+      SecurityTokenReservation
+    >
   ) {
     return this.polyClient.reserveSecurityToken({
       ...args,
@@ -37,7 +32,10 @@ export class SecurityTokenReservation extends Entity {
   }
 
   public createSecurityToken(
-    args: ArgsWithoutEntityProps<Polymath['createSecurityToken']>
+    args: typeHelpers.ArgsWithoutEntityProps<
+      Polymath['createSecurityToken'],
+      SecurityTokenReservation
+    >
   ) {
     return this.polyClient.createSecurityToken({
       ...args,

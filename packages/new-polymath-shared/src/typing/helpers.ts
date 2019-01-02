@@ -6,3 +6,8 @@ export type SecondArgumentType<T> = T extends (arg1: any, arg2: infer A) => any
 export type FilterPropNamesByType<T, U> = {
   [K in keyof T]: T[K] extends U ? never : K
 }[keyof T];
+
+export type ArgsWithoutEntityProps<
+  Procedure extends (...args: any[]) => any,
+  T
+> = Omit<ArgumentsType<Procedure>[0], FilterPropNamesByType<T, Function>>;

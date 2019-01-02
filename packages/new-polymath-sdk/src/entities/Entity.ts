@@ -1,6 +1,6 @@
 import { Polymath } from '~/Polymath';
 
-export abstract class Entity {
+export class Entity {
   protected polyClient: Polymath;
 
   constructor(polyClient?: Polymath) {

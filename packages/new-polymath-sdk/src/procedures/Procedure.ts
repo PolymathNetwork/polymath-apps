@@ -53,9 +53,6 @@ export class Procedure<Args> {
         async () => {}
       );
 
-      if (!method) {
-        throw new Error('a method must be passed');
-      }
       if (resolver) {
         postTransactionResolver = new PostTransactionResolver(resolver);
       }
@@ -67,6 +64,10 @@ export class Procedure<Args> {
         const transactions = operation.transactions;
         this.transactions = [...this.transactions, ...transactions];
         return postTransactionResolver;
+      }
+
+      if (!method) {
+        throw new Error('a method must be passed');
       }
 
       const transaction = {

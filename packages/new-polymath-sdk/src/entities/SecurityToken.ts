@@ -7,13 +7,6 @@ interface Params {
   name: string;
 }
 
-type ArgsWithoutEntityProps<
-  Procedure extends (...args: any[]) => any
-> = typeHelpers.Omit<
-  typeHelpers.ArgumentsType<Procedure>[0],
-  typeHelpers.FilterPropNamesByType<SecurityToken, Function>
->;
-
 export class SecurityToken extends Entity {
   public symbol: string;
   public name: string;
@@ -26,7 +19,10 @@ export class SecurityToken extends Entity {
   }
 
   public enableDividendModules(
-    args: ArgsWithoutEntityProps<Polymath['enableDividendModules']>
+    args: typeHelpers.ArgsWithoutEntityProps<
+      Polymath['enableDividendModules'],
+      SecurityToken
+    >
   ) {
     return this.polyClient.enableDividendModules({
       ...args,
@@ -35,13 +31,19 @@ export class SecurityToken extends Entity {
   }
 
   public createCheckpoint(
-    args: ArgsWithoutEntityProps<Polymath['createCheckpoint']>
+    args: typeHelpers.ArgsWithoutEntityProps<
+      Polymath['createCheckpoint'],
+      SecurityToken
+    >
   ) {
     return this.polyClient.createCheckpoint({ ...args, symbol: this.symbol });
   }
 
   public distributePolyDividends(
-    args: ArgsWithoutEntityProps<Polymath['distributePolyDividends']>
+    args: typeHelpers.ArgsWithoutEntityProps<
+      Polymath['distributePolyDividends'],
+      SecurityToken
+    >
   ) {
     return this.polyClient.distributePolyDividends({
       ...args,

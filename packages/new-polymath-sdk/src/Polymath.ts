@@ -1,5 +1,5 @@
-import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { BigNumber } from 'bignumber.js';
+import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { PolyToken } from '~/LowLevel/PolyToken';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
@@ -8,7 +8,6 @@ import { Context } from '~/Context';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
 import { TaxWithholding } from '~/types';
 import { Dividend } from '~/LowLevel/types';
-import { SecurityToken } from '~/entities';
 
 import {
   ReserveSecurityToken,
@@ -56,9 +55,6 @@ export class Polymath {
   public polymathRegistryAddress: string = '';
   private lowLevel: LowLevel = {} as LowLevel;
   private context: Context = {} as Context;
-  private entityClasses: {
-    SecurityToken?: SecurityToken;
-  } = {};
 
   constructor(params: PolymathNetworkParams) {
     const { polymathRegistryAddress, httpProvider, httpProviderUrl } = params;
@@ -113,10 +109,6 @@ export class Polymath {
     });
 
     this.isConnected = true;
-
-    this.entityClasses = {
-      SecurityToken: createContextualizedEntity(SecurityToken, this),
-    };
 
     return this;
   }
@@ -248,9 +240,5 @@ export class Polymath {
         dividends: checkpointDividends,
       };
     });
-  }
-
-  public get SecurityToken() {
-    return this.entityClasses.SecurityToken;
   }
 }
