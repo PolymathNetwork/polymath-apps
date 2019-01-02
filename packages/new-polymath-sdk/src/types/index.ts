@@ -1,13 +1,11 @@
-import { Wallet } from '~/classes/Wallet';
 import BigNumber from 'bignumber.js';
+import { Contract } from '~/LowLevel/Contract';
+import { PostTransactionResolver } from '~/PostTransactionResolver';
+import { Dividend } from '~/LowLevel/types';
 
 export interface TaxWithholding {
   address: string;
   percentage: number;
-}
-export enum TransactionTypes {
-  Approve,
-  GetTokens,
 }
 
 export enum ModuleTypes {
@@ -18,27 +16,10 @@ export enum ModuleTypes {
   Burn,
 }
 
-export type Addressable = Wallet | string;
-
 export enum ErrorCodes {
   IncompatibleBrowser,
   UserDeniedAccess,
   WalletIsLocked,
-}
-
-export interface Dividend {
-  checkpointId: number;
-  created: Date;
-  maturity: Date;
-  expiry: Date;
-  amount: BigNumber;
-  claimedAmount: BigNumber;
-  totalSupply: BigNumber;
-  reclaimed: boolean;
-  dividendWithheld: BigNumber;
-  dividendWithheldReclaimed: BigNumber;
-  name: string;
-  currency: string | null;
 }
 
 export interface InvestorBalance {
@@ -52,4 +33,11 @@ export interface Checkpoint {
   investorBalances: InvestorBalance[];
   totalSupply: BigNumber;
   createdAt: Date;
+}
+
+export interface TransactionSpec<Args extends any[]> {
+  method: (...args: Args) => Promise<any>;
+  args: Args;
+  contract: Contract<any>;
+  postTransactionResolver: PostTransactionResolver<any>;
 }

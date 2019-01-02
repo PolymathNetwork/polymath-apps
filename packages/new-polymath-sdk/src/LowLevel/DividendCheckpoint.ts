@@ -120,14 +120,18 @@ export class DividendCheckpoint<
     const percentagesInWei = percentages.map(toWei);
     return this.contract.methods
       .setWithholding(investors, percentagesInWei)
-      .send();
+      .send({ from: this.context.account });
   }
 
   public async reclaimDividend(dividendIndex: number) {
-    return this.contract.methods.reclaimDividend(dividendIndex).send();
+    return this.contract.methods
+      .reclaimDividend(dividendIndex)
+      .send({ from: this.context.account });
   }
 
   public async withdrawWithholding(dividendIndex: number) {
-    return this.contract.methods.withdrawWithholding(dividendIndex).send();
+    return this.contract.methods
+      .withdrawWithholding(dividendIndex)
+      .send({ from: this.context.account });
   }
 }

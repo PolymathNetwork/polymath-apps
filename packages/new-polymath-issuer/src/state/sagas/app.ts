@@ -4,7 +4,7 @@ import {
   initializePolyClientFailure,
   initializePolyClientSuccess,
 } from '~/state/actions/app';
-import { polyClient } from '~/lib/polyClient';
+import { polyClient } from '~/lib/polymath';
 import { requireWallet } from './accessControl';
 
 export function* initializePolyClient() {

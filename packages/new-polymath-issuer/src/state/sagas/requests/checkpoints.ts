@@ -1,4 +1,4 @@
-import { polyClient } from '~/lib/polyClient';
+import { polyClient } from '~/lib/polymath';
 import {
   fetchCheckpoints as fetch,
   fetchCheckpointsSuccess,

@@ -1,26 +1,9 @@
 import createSagaMiddleware from 'redux-saga';
 import { initializeCurrentLocation } from 'redux-little-router';
-import {
-  applyMiddleware,
-  combineReducers,
-  compose,
-  createStore,
-  Middleware,
-} from 'redux';
+import { applyMiddleware, compose, createStore, Middleware } from 'redux';
 import { rootSaga } from '~/state/sagas/root';
-import { reducer as entitiesReducer } from '~/state/reducers/entities';
-import { reducer as sessionReducer } from '~/state/reducers/session';
-import { reducer as appReducer } from '~/state/reducers/app';
-import { reducer as dataRequestsReducer } from '~/state/reducers/dataRequests';
-import { routerEnhancer, routerMiddleware, routerReducer } from '~/routing';
-
-export const rootReducer = combineReducers({
-  entities: entitiesReducer,
-  dataRequests: dataRequestsReducer,
-  session: sessionReducer,
-  app: appReducer,
-  router: routerReducer,
-});
+import { reducer as rootReducer } from '~/state/reducers/root';
+import { routerEnhancer, routerMiddleware } from '~/routing';
 
 const windowObj = window as any;
 
