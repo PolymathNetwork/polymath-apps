@@ -21,7 +21,7 @@ interface SecurityTokenRegistryContract extends GenericContract {
       ticker: string,
       tokenDetails: string,
       divisible: boolean
-    ): TransactionObject<any>;
+    ): TransactionObject<void>;
   };
 }
 
