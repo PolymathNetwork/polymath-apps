@@ -9,6 +9,7 @@ import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
 import { TaxWithholding } from '~/types';
 import { Dividend } from '~/LowLevel/types';
 import { SecurityToken } from '~/entities';
+
 import {
   ReserveSecurityToken,
   EnableDividendModules,
@@ -17,9 +18,6 @@ import {
   CreateEtherDividendDistribution,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
-import * as entities from '~/entities';
-
-export type EntityClasses = typeof entities;
 
 export interface PolymathNetworkParams {
   httpProvider?: HttpProvider;
@@ -29,22 +27,25 @@ export interface PolymathNetworkParams {
   polymathRegistryAddress: string;
 }
 
-const createContextualizedEntity = (
-  ClassToContextualize: EntityClasses,
+type EntityConstructor<T> = new (
+  params: { [key: string]: any },
   polyClient: Polymath
-) => {
-  class ContextualizedEntity extends ClassToContextualize {
-    constructor(params: any) {
+) => T;
+
+// TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
+// version of T
+const createContextualizedEntity = <T extends EntityConstructor<T>>(
+  ClassToContextualize: T,
+  polyClient: Polymath
+): EntityConstructor<T> => {
+  class ContextualizedEntity extends (ClassToContextualize as any) {
+    constructor(params: { [key: string]: any }) {
       super(params, polyClient);
     }
   }
-  return ContextualizedEntity;
-};
 
-// TODO @RafaelVidaurre: Fix typing here
-interface ContextualizedEntityClasses {
-  SecurityToken: any;
-}
+  return (ContextualizedEntity as any) as T;
+};
 
 export class Polymath {
   public httpProvider: HttpProvider = {} as HttpProvider;
@@ -55,7 +56,9 @@ export class Polymath {
   public polymathRegistryAddress: string = '';
   private lowLevel: LowLevel = {} as LowLevel;
   private context: Context = {} as Context;
-  private entityClasses: ContextualizedEntityClasses = {} as ContextualizedEntityClasses;
+  private entityClasses: {
+    SecurityToken?: SecurityToken;
+  } = {};
 
   constructor(params: PolymathNetworkParams) {
     const { polymathRegistryAddress, httpProvider, httpProviderUrl } = params;

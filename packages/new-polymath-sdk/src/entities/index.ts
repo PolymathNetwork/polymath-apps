@@ -1,2 +1,6 @@
-export { SecurityToken } from './SecurityToken';
-export { SecurityTokenReservation } from './SecurityTokenReservation';
+import { SecurityTokenReservation } from '~/entities/SecurityTokenReservation';
+import { SecurityToken } from './SecurityToken';
+
+// export type Entity = typeof SecurityTokenReservation | typeof SecurityToken;
+
+export { SecurityToken, SecurityTokenReservation };
