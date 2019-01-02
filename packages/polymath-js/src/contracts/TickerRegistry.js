@@ -1,7 +1,7 @@
 // @flow
 
 import BigNumber from 'bignumber.js';
-import artifact from '@polymathnetwork/shared/fixtures/contracts/TickerRegistry.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/TickerRegistry.json';
 
 import Contract from './Contract';
 import PolyToken from './PolyToken';

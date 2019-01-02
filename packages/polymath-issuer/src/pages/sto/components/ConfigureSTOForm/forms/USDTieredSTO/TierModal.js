@@ -13,7 +13,7 @@ import {
   RaisedAmount,
 } from '@polymathnetwork/ui';
 
-class TierModal extends Component<Props, State> {
+class TierModal extends Component {
   handleOnAdd = () => {
     const {
       field: { name, value },
@@ -21,9 +21,7 @@ class TierModal extends Component<Props, State> {
       onAdd,
       onClose,
     } = this.props;
-
     const isValid = !get(errors, name);
-
     if (isValid) {
       setFieldValue(name, null);
       onAdd(value);
@@ -63,7 +61,6 @@ class TierModal extends Component<Props, State> {
       form: { setFieldValue, setFieldTouched },
       tierData,
     } = this.props;
-
     /**
      * NOTE @monitz87: If opening the modal, we repopulate the newTier
      * object to have intial values in the modal form for validation.
@@ -72,7 +69,6 @@ class TierModal extends Component<Props, State> {
       // NOTE @RafaelVidaurre: Hack to fix bug with Formik not recreating the
       // errors object for this field
       setFieldTouched(name, false);
-
       if (tierData) {
         setFieldValue(name, {
           tokensAmount: tierData.tokensAmount,
@@ -93,7 +89,6 @@ class TierModal extends Component<Props, State> {
       onClose,
       tierData,
     } = this.props;
-
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
     const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
@@ -171,5 +166,4 @@ class TierModal extends Component<Props, State> {
     );
   }
 }
-
 export default TierModal;

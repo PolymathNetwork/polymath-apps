@@ -84,18 +84,6 @@ const providers: Array<ServiceProvider> = [
       'and foster its growth and adoption in every aspect of life.',
   },
   {
-    id: 2,
-    cat: 0,
-    title: 'Matador',
-    logo: '/providers/advisory/matador.png',
-    background: '/providers/advisory/bg/img-matador.png',
-    desc:
-      'We started as investment bankers and private equity partners. Historically, private markets provide' +
-      ' minimal liquidity and going public carries high costs. Working at Polymath, we saw that the blockchain could' +
-      ' solve many of these problems from legacy capital markets.',
-    disclosure: 'Matador is a Polymath company',
-  },
-  {
     id: 3,
     cat: 0,
     title: 'Pegasus',
@@ -124,7 +112,7 @@ const providers: Array<ServiceProvider> = [
   {
     id: 23,
     cat: 0,
-    title: 'Chain',
+    title: 'Chain Partners',
     logo: '/providers/advisory/chain-par.png',
     background: '/providers/advisory/bg/chain-par.png',
     desc:

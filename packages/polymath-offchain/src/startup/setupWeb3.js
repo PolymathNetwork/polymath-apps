@@ -10,11 +10,11 @@ import {
 import logger from 'winston';
 import Web3 from 'web3';
 import { User } from '../models';
-import PolymathRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json';
-import SecurityTokenRegistryArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json';
-import SecurityTokenArtifact from '@polymathnetwork/shared/fixtures/contracts/SecurityToken.json';
-import CappedSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/CappedSTO.json';
-import USDTieredSTOArtifact from '@polymathnetwork/shared/fixtures/contracts/USDTieredSTO.json';
+import PolymathRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json';
+import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
+import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityToken.json';
+import CappedSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
+import USDTieredSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
 
 // TODO @monitz87: remake this when we rework polymath-js
 const web3Clients = {};

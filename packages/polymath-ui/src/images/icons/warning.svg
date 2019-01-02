@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="25px" viewBox="0 0 28 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>09E1C252-001B-44AB-A34C-FAA6FD698A2F</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="6.1-STO-issuer-side" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="STO-config-peg-to-usd-tiers-3-delete" transform="translate(-518.000000, -202.000000)" fill="#EFC100" fill-rule="nonzero">
+            <g id="modal+overlay">
+                <g id="Modal/Transactional/Label" transform="translate(470.000000, 130.000000)">
+                    <g id="icn-warning" transform="translate(48.000000, 72.395543)">
+                        <path d="M14.2857143,0.0668523677 L0.571428571,24.0668524 L28,24.0668524 L14.2857143,0.0668523677 Z M12.9142857,8.63828094 L15.4857143,8.63828094 L15.4857143,11.0382809 L14.8,17.2097095 L13.4285714,17.2097095 L12.7428571,11.0382809 L12.7428571,8.63828094 L12.9142857,8.63828094 Z M14.2857143,22.3525667 C13.2571429,22.3525667 12.5714286,21.6668524 12.5714286,20.6382809 C12.5714286,19.6097095 13.2571429,18.9239952 14.2857143,18.9239952 C15.3142857,18.9239952 16,19.6097095 16,20.6382809 C16,21.6668524 15.3142857,22.3525667 14.2857143,22.3525667 Z" id="warning--glyph"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
