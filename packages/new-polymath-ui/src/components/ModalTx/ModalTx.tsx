@@ -10,13 +10,6 @@ import { Modal, ModalProps, ModalStatus } from '../Modal';
 // import { etherscanTx } from '../../helpers';
 import polyIcon from '../../images/icons/Poly';
 
-enum TransactionSequenceStatus {
-  'Idle',
-  'Running',
-  'Successful',
-  'Failed',
-}
-
 enum TransactionStatus {
   'Idle',
   'Unnapproved',
@@ -26,14 +19,17 @@ enum TransactionStatus {
   'Successful',
 }
 
-type TransactionSequence = {
-  status: TransactionSequenceStatus;
-  transactions: Transaction[];
-};
-
 type Transaction = {
   status: TransactionStatus;
   title: string;
+};
+
+const labelText = {
+  [ModalStatus.loading]: 'Processing',
+  [ModalStatus.idle]: 'Processing',
+  [ModalStatus.warning]: 'Failed',
+  [ModalStatus.alert]: 'Failed',
+  [ModalStatus.success]: 'Completed',
 };
 
 export interface ModalTxProps extends ModalProps {
@@ -73,15 +69,12 @@ export class ModalTx extends Component<ModalTxProps> {
 
     const currentTransactionIndex = transactions.indexOf(currentTransaction);
 
-    const label = {
-      [ModalStatus.loading]: 'Processing',
-      [ModalStatus.alert]: 'Failed',
-      [ModalStatus.success]: 'Completed',
-    };
-
     return (
       <Modal isOpen={isOpen} isCloseable={false} status={status} maxWidth={500}>
-        <Modal.Header status={status} label={'Transaction ' + label}>
+        <Modal.Header
+          status={status}
+          label={'Transaction ' + labelText[status]}
+        >
           {status === ModalStatus.loading
             ? 'Sign Transaction' + (transactions.length > 1 ? 's' : '')
             : currentTransaction.title}

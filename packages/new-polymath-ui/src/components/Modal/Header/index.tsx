@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 import { Paragraph } from '~/components/Paragraph';
 import { Heading } from '~/components/Heading';
 
-import { ModalStatus } from '../';
+import { ModalStatus } from '../types';
 
-interface HeaderProps {
+export interface HeaderProps {
   label?: string;
   status: ModalStatus;
   children: React.ReactNode;
