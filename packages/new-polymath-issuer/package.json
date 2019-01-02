@@ -41,7 +41,8 @@
     ],
     "coverageReporters": [
       "lcov",
-      "cobertura"
+      "cobertura",
+      "text"
     ],
     "coverageDirectory": "<rootDir>/reports",
     "reporters": [
