@@ -13,7 +13,7 @@ import {
   RaisedAmount,
 } from '@polymathnetwork/ui';
 
-class AddTierModal extends Component {
+class TierModal extends Component {
   handleOnAdd = () => {
     const {
       field: { name, value },
@@ -33,10 +33,33 @@ class AddTierModal extends Component {
     }
   };
 
+  handleOnEdit = () => {
+    const {
+      field: { name, value },
+      form: { errors, setFieldValue, setFieldTouched },
+      tierData,
+      onUpdate,
+      onClose,
+    } = this.props;
+
+    const isValid = !get(errors, name);
+
+    if (isValid) {
+      setFieldValue(name, null);
+      onUpdate(tierData.id, value);
+      setFieldTouched(name, false);
+      onClose();
+    } else {
+      setFieldTouched(`${name}.tokensAmount`, true);
+      setFieldTouched(`${name}.tokenPrice`, true);
+    }
+  };
+
   componentDidUpdate(prevProps) {
     const {
       field: { name },
       form: { setFieldValue, setFieldTouched },
+      tierData,
     } = this.props;
     /**
      * NOTE @monitz87: If opening the modal, we repopulate the newTier
@@ -46,7 +69,14 @@ class AddTierModal extends Component {
       // NOTE @RafaelVidaurre: Hack to fix bug with Formik not recreating the
       // errors object for this field
       setFieldTouched(name, false);
-      setFieldValue(name, { tokensAmount: null, tokenPrice: null });
+      if (tierData) {
+        setFieldValue(name, {
+          tokensAmount: tierData.tokensAmount,
+          tokenPrice: tierData.tokenPrice,
+        });
+      } else {
+        setFieldValue(name, { tokensAmount: null, tokenPrice: null });
+      }
     }
   }
 
@@ -57,12 +87,14 @@ class AddTierModal extends Component {
       ticker,
       isOpen,
       onClose,
-      title,
+      tierData,
     } = this.props;
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
     const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
-    const tierNum = values.investmentTiers.tiers.length + 1;
+    const tierNum = tierData
+      ? tierData.id + 1
+      : values.investmentTiers.tiers.length + 1;
     const tierTokensAmount = tokensAmount || new BigNumber(0);
     const tierUsdAmount = tokenPrice.times(tierTokensAmount);
 
@@ -70,11 +102,15 @@ class AddTierModal extends Component {
       <ActionModal
         isOpen={isOpen}
         onClose={onClose}
-        actionButtonText="Add new"
-        onSubmit={this.handleOnAdd}
+        actionButtonText={tierData ? `Save` : `Add new`}
+        onSubmit={tierData ? this.handleOnEdit : this.handleOnAdd}
         maxWidth={740}
       >
-        <ActionModal.Header>{title}</ActionModal.Header>
+        <ActionModal.Header>
+          {tierData
+            ? `Edit Investment Tier`
+            : `Add the Investment Tier #${tierNum}`}
+        </ActionModal.Header>
         <ActionModal.Body>
           <Paragraph>
             Each tier includes a fixed number of tokens and a fixed price per
@@ -130,4 +166,4 @@ class AddTierModal extends Component {
     );
   }
 }
-export default AddTierModal;
+export default TierModal;
