@@ -12,7 +12,7 @@ interface SecurityTokenRegistryContract extends GenericContract {
       owner: string,
       ticker: string,
       tokenName: string
-    ): TransactionObject<any>;
+    ): TransactionObject<void>;
     getTickerRegistrationFee(): TransactionObject<string>;
     getSecurityTokenLaunchFee(): TransactionObject<string>;
     getSecurityTokenAddress(ticker: string): TransactionObject<string>;
