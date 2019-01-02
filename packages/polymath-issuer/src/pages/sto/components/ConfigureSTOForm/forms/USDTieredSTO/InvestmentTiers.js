@@ -153,7 +153,7 @@ export default class InvestmentTiers extends React.Component<Props, State> {
 
       return {
         ...tier,
-        tokensAmount: format.toTokens(tokensAmount, { decimals: 0 }),
+        tokensAmount: format.toTokens(tokensAmount, { decimals: 2 }),
         tokenPrice: format.toUSD(tokenPrice),
         totalRaise: format.toUSD(tokenPrice.times(tokensAmount)),
         tier: tierNo,
