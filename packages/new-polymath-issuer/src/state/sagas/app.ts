@@ -4,14 +4,14 @@ import {
   initializePolyClientFailure,
   initializePolyClientSuccess,
 } from '~/state/actions/app';
-import { polyClient } from '~/lib/polyClient';
+import { polyClient } from '~/lib/polymath';
 import { requireWallet } from './accessControl';
 
 export function* initializePolyClient() {
   yield put(initializePolyClientStart());
   yield requireWallet();
   try {
-    yield call(polyClient.initialize.bind(polyClient));
+    yield call(polyClient.connect.bind(polyClient));
     yield put(initializePolyClientSuccess());
   } catch (error) {
     yield put(initializePolyClientFailure(error.message));

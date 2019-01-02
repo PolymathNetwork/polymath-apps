@@ -1,4 +1,4 @@
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
 
@@ -8,7 +8,7 @@ interface Args {
   dividendType: DividendModuleTypes;
 }
 
-export class ReclaimFunds extends TransactionBase<Args> {
+export class ReclaimFunds extends Procedure<Args> {
   public async prepareTransactions() {
     const { symbol, dividendIndex, dividendType } = this.args;
     const { securityTokenRegistry } = this.context;

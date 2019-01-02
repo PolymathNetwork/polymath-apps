@@ -1,4 +1,4 @@
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 import { Approve } from './Approve';
 
 interface Args {
@@ -6,10 +6,12 @@ interface Args {
   name: string;
 }
 
-export class ReserveSecurityToken extends TransactionBase<Args> {
+export class ReserveSecurityToken extends Procedure<Args> {
   public async prepareTransactions() {
     const { symbol, name } = this.args;
     const { securityTokenRegistry, currentWallet } = this.context;
+
+    // TODO @RafaelVidaurre: See if ticker is not already registered
 
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
 

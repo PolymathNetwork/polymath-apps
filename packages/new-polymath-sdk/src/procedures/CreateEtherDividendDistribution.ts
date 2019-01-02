@@ -1,4 +1,4 @@
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 import { TaxWithholding } from '~/types';
 
 interface Args {
@@ -12,7 +12,7 @@ interface Args {
   taxWithholdings?: TaxWithholding[];
 }
 
-export class CreateEtherDividendDistribution extends TransactionBase<Args> {
+export class CreateEtherDividendDistribution extends Procedure<Args> {
   public async prepareTransactions() {
     const {
       symbol,

@@ -1,11 +1,15 @@
 import { runSaga } from 'redux-saga';
 import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import * as sagas from '~/state/sagas/accessControl';
-import { MockedStore, MockEthereumProvider } from '~/testUtils/helpers';
+import {
+  MockedStore,
+  MockEthereumProvider,
+  mockEthereumBrowser,
+} from '~/testUtils/helpers';
 
-jest.mock('~/lib/polyClient', () => ({
+jest.mock('~/lib/polymath', () => ({
   polyClient: {
-    initialize: () => {},
+    connect: () => {},
   },
 }));
 
@@ -28,8 +32,7 @@ describe('accessControl sagas', () => {
 
   beforeEach(() => {
     store = new MockedStore();
-    const ethereum = new MockEthereumProvider();
-    (global as any).window.ethereum = ethereum;
+    mockEthereumBrowser();
   });
 
   describe('requireWallet', () => {

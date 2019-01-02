@@ -1,6 +1,5 @@
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 import { TaxWithholding } from '~/types';
-import { EnableDividendModules } from './EnableDividendModules';
 
 interface Args {
   symbol: string;
@@ -14,7 +13,7 @@ interface Args {
   taxWithholdings?: TaxWithholding[];
 }
 
-export class CreateErc20DividendDistribution extends TransactionBase<Args> {
+export class CreateErc20DividendDistribution extends Procedure<Args> {
   public async prepareTransactions() {
     const {
       symbol,
@@ -39,7 +38,14 @@ export class CreateErc20DividendDistribution extends TransactionBase<Args> {
       );
     }
 
-    await this.addTransaction(erc20Module, erc20Module.createDividend)(
+    const dividendId = await this.addTransaction(
+      erc20Module,
+      erc20Module.createDividend,
+      async () => {
+        // TODO @RafaelVidaurre: fetch here dividend's id
+        return 'foo';
+      }
+    )(
       maturityDate,
       expiryDate,
       erc20Address,

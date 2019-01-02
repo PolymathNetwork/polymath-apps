@@ -1,25 +1,24 @@
+import { BigNumber } from 'bignumber.js';
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
-import { types, constants } from '@polymathnetwork/new-shared';
 import { PolyToken } from '~/LowLevel/PolyToken';
-import { Erc20 } from '~/LowLevel/Erc20';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
-import { Wallet } from './Wallet';
+import { Context } from '~/Context';
+import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
+import { TaxWithholding } from '~/types';
+import { Dividend } from '~/LowLevel/types';
+
 import {
   ReserveSecurityToken,
   EnableDividendModules,
   CreateCheckpoint,
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
-} from './transactions';
-import { Context } from './Context';
-import BigNumber from 'bignumber.js';
-import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { TaxWithholding } from '~/types';
-import { Dividend } from '~/LowLevel/types';
+} from './procedures';
+import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 
-interface Params {
+export interface PolymathNetworkParams {
   httpProvider?: HttpProvider;
   httpProviderUrl?: string;
   wsProvider?: WebsocketProvider;
@@ -27,7 +26,27 @@ interface Params {
   polymathRegistryAddress: string;
 }
 
-export class PolymathClient {
+type EntityConstructor<T> = new (
+  params: { [key: string]: any },
+  polyClient: Polymath
+) => T;
+
+// TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
+// version of T
+const createContextualizedEntity = <T extends EntityConstructor<T>>(
+  ClassToContextualize: T,
+  polyClient: Polymath
+): EntityConstructor<T> => {
+  class ContextualizedEntity extends (ClassToContextualize as any) {
+    constructor(params: { [key: string]: any }) {
+      super(params, polyClient);
+    }
+  }
+
+  return (ContextualizedEntity as any) as T;
+};
+
+export class Polymath {
   public httpProvider: HttpProvider = {} as HttpProvider;
   public httpProviderUrl: string = '';
   public networkId: number = -1;
@@ -35,19 +54,17 @@ export class PolymathClient {
   public isConnected: boolean = false;
   public polymathRegistryAddress: string = '';
   private lowLevel: LowLevel = {} as LowLevel;
-
   private context: Context = {} as Context;
 
-  constructor(params: Params) {
+  constructor(params: PolymathNetworkParams) {
     const { polymathRegistryAddress, httpProvider, httpProviderUrl } = params;
     this.polymathRegistryAddress = polymathRegistryAddress;
 
     if (httpProvider) {
-      this.lowLevel = new LowLevel({ provider: httpProvider });
-    } else if (httpProviderUrl) {
-      this.lowLevel = new LowLevel({ provider: httpProviderUrl });
-    } else {
-      this.lowLevel = new LowLevel();
+      this.httpProvider = httpProvider;
+    }
+    if (httpProviderUrl) {
+      this.httpProviderUrl = httpProviderUrl;
     }
   }
 
@@ -55,6 +72,14 @@ export class PolymathClient {
     const { lowLevel, polymathRegistryAddress } = this;
     this.networkId = await lowLevel.getNetworkId();
     const account = await lowLevel.getAccount();
+
+    if (this.httpProvider) {
+      this.lowLevel = new LowLevel({ provider: this.httpProvider });
+    } else if (this.httpProviderUrl) {
+      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
+    } else {
+      this.lowLevel = new LowLevel();
+    }
 
     if (!polymathRegistryAddress) {
       throw new Error(
@@ -66,7 +91,8 @@ export class PolymathClient {
 
     if (!account) {
       throw new Error(
-        'No account found. Did you forget to pass the private key?'
+        "No account found. If you are using node, make sure you've not" +
+          ' forgotten to add a private key. If you are using Metamask make sure ethereum.enable() was called first'
       );
     }
 
@@ -85,6 +111,16 @@ export class PolymathClient {
     this.isConnected = true;
 
     return this;
+  }
+
+  public async createSecurityToken(args: {
+    symbol: string;
+    name: string;
+    detailsUrl?: string;
+    divisible: boolean;
+  }) {
+    const transaction = new CreateSecurityToken(args, this.context);
+    return await transaction.prepare();
   }
 
   /**
@@ -179,7 +215,6 @@ export class PolymathClient {
     const { symbol } = args;
 
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
-
     const erc20Module = await securityToken.getErc20DividendModule();
     const etherModule = await securityToken.getEtherDividendModule();
 
@@ -189,7 +224,6 @@ export class PolymathClient {
     if (erc20Module) {
       erc20Dividends = await erc20Module.getDividends();
     }
-
     if (etherModule) {
       etherDividends = await etherModule.getDividends();
     }

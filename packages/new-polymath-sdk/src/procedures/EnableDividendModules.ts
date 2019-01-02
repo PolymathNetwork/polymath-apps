@@ -1,4 +1,4 @@
-import { TransactionBase } from './Transaction';
+import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 
 interface Args {
@@ -6,7 +6,7 @@ interface Args {
   types?: DividendModuleTypes[];
 }
 
-export class EnableDividendModules extends TransactionBase<Args> {
+export class EnableDividendModules extends Procedure<Args> {
   public async prepareTransactions() {
     const {
       symbol,
