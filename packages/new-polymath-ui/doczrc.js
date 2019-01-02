@@ -1,5 +1,6 @@
 import path from 'path';
 import { css } from 'docz-plugin-css';
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 export default {
   title: 'PolymathUI',
@@ -20,6 +21,10 @@ export default {
     config.module.rules[1].include.push(
       path.join(__dirname, '..', 'new-polymath-shared')
     );
+
+    config.resolve.plugins = [
+      new TsconfigPathsPlugin({ configFile: './tsconfig.json' }),
+    ];
 
     return config;
   },
