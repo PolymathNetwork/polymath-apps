@@ -21,9 +21,7 @@ class AddTierModal extends Component {
       onAdd,
       onClose,
     } = this.props;
-
     const isValid = !get(errors, name);
-
     if (isValid) {
       setFieldValue(name, null);
       onAdd(value);
@@ -40,7 +38,6 @@ class AddTierModal extends Component {
       field: { name },
       form: { setFieldValue, setFieldTouched },
     } = this.props;
-
     /**
      * NOTE @monitz87: If opening the modal, we repopulate the newTier
      * object to have intial values in the modal form for validation.
@@ -49,7 +46,6 @@ class AddTierModal extends Component {
       // NOTE @RafaelVidaurre: Hack to fix bug with Formik not recreating the
       // errors object for this field
       setFieldTouched(name, false);
-
       setFieldValue(name, { tokensAmount: null, tokenPrice: null });
     }
   }
@@ -63,11 +59,9 @@ class AddTierModal extends Component {
       onClose,
       title,
     } = this.props;
-
     const thisTier = value || {};
     const tokenPrice = thisTier.tokenPrice || new BigNumber(0);
     const tokensAmount = thisTier.tokensAmount || new BigNumber(0);
-
     const tierNum = values.investmentTiers.tiers.length + 1;
     const tierTokensAmount = tokensAmount || new BigNumber(0);
     const tierUsdAmount = tokenPrice.times(tierTokensAmount);
@@ -136,5 +130,4 @@ class AddTierModal extends Component {
     );
   }
 }
-
 export default AddTierModal;
