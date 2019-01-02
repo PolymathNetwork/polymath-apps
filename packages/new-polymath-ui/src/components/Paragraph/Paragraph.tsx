@@ -25,15 +25,19 @@ export type ParagraphProps = { bold: boolean } & BoxProps &
   LineHeightProps &
   LetterSpacingProps;
 
-export const Paragraph = styled(Box)<ParagraphProps>(
-  color,
-  fontFamily,
-  fontWeight,
-  lineHeight,
-  letterSpacing,
-  fontSize,
-  props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })
-);
+export const Paragraph = styled(Box)<ParagraphProps>`
+  ${color};
+  ${fontFamily};
+  ${fontWeight};
+  ${lineHeight};
+  ${letterSpacing};
+  ${fontSize};
+  ${props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })};
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
 
 export const ParagraphDocz = (props: ParagraphProps) => {
   return <Paragraph {...props} />;
