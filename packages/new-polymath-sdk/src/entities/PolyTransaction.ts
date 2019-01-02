@@ -1,12 +1,11 @@
 import _ from 'lodash';
-import { Contract } from '~/LowLevel/Contract';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { TransactionSpec } from '~/types';
 
 function isPostTransactionResolver(
   val: any
 ): val is PostTransactionResolver<any> {
-  return val instanceof Promise && (val as any).run;
+  return val instanceof PostTransactionResolver;
 }
 
 // TODO @RafaelVidaurre: Fix typing
