@@ -1,22 +1,11 @@
-import { maxWidth, MaxWidthProps } from 'styled-system';
+import styled from '~/styles';
 
-import styled, { css, ThemeInterface } from '~/styles';
+import { Flex } from '~/components/Flex';
+console.log(Flex);
+export const Wrapper = styled(Flex)`
+  opacity: ${({ isActive }) => (isActive ? 1 : 0.5)};
+`;
 
-import { ModalStatus } from './Modal';
-import { IconButton } from '../IconButton';
-
-export const CloseButton = styled(IconButton)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: ${({ theme }) => theme.colors.gray[2]};
-  height: 44px;
-  width: 44px;
-  padding: 17px;
-  overflow: hidden;
-  cursor: pointer;
-
-  :hover {
-    color: ${({ theme }) => theme.colors.gray[3]};
-  }
+export const TxInfo = styled.div`
+  flex-grow: 1;
 `;

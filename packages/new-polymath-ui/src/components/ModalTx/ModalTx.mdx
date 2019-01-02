@@ -16,10 +16,10 @@ import { ModalTx } from './';
 <Playground>
   <ModalTx
     isOpen
-    status={1}
+    status={0}
     transactions={[
-      { title: 'First transaction', status: 0 },
-      { title: 'Second transaction', status: 2 },
+      { id: 0, type: 'First transaction', status: 'UNAPPROVED' },
+      { id: 1, type: 'Second transaction', status: 'IDLE' },
     ]}
   />
 </Playground>

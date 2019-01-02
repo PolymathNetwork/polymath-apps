@@ -2,7 +2,7 @@ import { maxWidth, MaxWidthProps } from 'styled-system';
 
 import styled, { css, ThemeInterface } from '~/styles';
 
-import { ModalStatus } from './Modal';
+import { ModalStatus } from './';
 import { IconButton } from '../IconButton';
 
 const statusBarHeight = '5px';

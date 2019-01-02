@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
+import { types } from '@polymathnetwork/new-shared';
 
-import { Loading } from '../Loading';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
-import { Heading } from '../Heading';
 import { Paragraph } from '../Paragraph';
 import { Modal, ModalProps, ModalStatus } from '../Modal';
 
-// import { etherscanTx } from '../../helpers';
+import { ItemTx } from './ItemTx';
+import * as S from './styles';
 import polyIcon from '../../images/icons/Poly';
 
-enum TransactionStatus {
-  'Idle',
-  'Unnapproved',
-  'Running',
-  'Rejected',
-  'Failed',
-  'Successful',
-}
-
-type Transaction = {
-  status: TransactionStatus;
-  title: string;
-};
+const { TransactionStatus } = types;
 
 const labelText = {
   [ModalStatus.loading]: 'Processing',
@@ -34,7 +22,7 @@ const labelText = {
 
 export interface ModalTxProps extends ModalProps {
   title: string;
-  transactions: Transaction[];
+  transactions: types.Transaction[];
   withEmail: boolean;
   continueButtonText: string;
 }
@@ -60,7 +48,7 @@ export class ModalTx extends Component<ModalTxProps> {
     } = this.props;
 
     const currentTransaction = transactions.find(
-      transaction => transaction.status === TransactionStatus.Idle
+      transaction => transaction.status === types.TransactionStatus.Idle
     );
 
     if (!currentTransaction) {
@@ -77,39 +65,15 @@ export class ModalTx extends Component<ModalTxProps> {
         >
           {status === ModalStatus.loading
             ? 'Sign Transaction' + (transactions.length > 1 ? 's' : '')
-            : currentTransaction.title}
+            : currentTransaction.type}
         </Modal.Header>
 
-        {transactions.map((transaction, i) => (
-          <div
-            key={transaction.title}
-            className={
-              'pui-tx-row' + (i > currentTransactionIndex ? ' pui-tx-next' : '')
-            }
-          >
-            <div className="pui-tx-icon">
-              {currentTransaction === transaction ? (
-                currentTransaction.status === TransactionStatus.Rejected ? (
-                  <Icon name="close" fill="#E71D32" width="32" height="32" />
-                ) : (
-                  <Loading small />
-                )
-              ) : i < currentTransactionIndex ? (
-                <Icon name="checkmark" fill="#00AA5E" width="32" height="24" />
-              ) : (
-                ''
-              )}
-            </div>
-            <div className="pui-tx-info">
-              <Heading as="h3" variant="h3" mb="s">
-                {currentTransaction.title}
-              </Heading>
-              <div className="pui-tx-details">
-                Transaction details on Etherscan:&nbsp;
-                {/* {hashes[i] ? etherscanTx(hashes[i]) : '...'} */}
-              </div>
-            </div>
-          </div>
+        {transactions.map(transaction => (
+          <ItemTx
+            key={transaction.id}
+            transaction={transaction}
+            isActive={currentTransaction === transaction}
+          />
         ))}
 
         {currentTransactionIndex === transactions.length && withEmail && (
