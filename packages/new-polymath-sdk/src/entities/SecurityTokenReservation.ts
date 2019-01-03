@@ -1,6 +1,7 @@
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Polymath } from '~/Polymath';
-import { Entity } from '~/entities/Entity';
+import { Entity } from './Entity';
+import { serialize } from '~/utils';
 
 interface Params {
   symbol: string;
@@ -8,6 +9,7 @@ interface Params {
 }
 
 export class SecurityTokenReservation extends Entity {
+  public entityType = 'securityTokenReservation';
   public symbol: string;
   public name: string;
 
@@ -41,6 +43,14 @@ export class SecurityTokenReservation extends Entity {
       ...args,
       symbol: this.symbol,
       name: this.name,
+    });
+  }
+
+  protected generateId() {
+    const { symbol, entityType } = this;
+
+    return serialize(entityType, {
+      symbol,
     });
   }
 }

@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Contract } from '~/LowLevel/Contract';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { Dividend } from '~/LowLevel/types';
 
 export interface TaxWithholding {
   address: string;
@@ -25,14 +24,6 @@ export enum ErrorCodes {
 export interface InvestorBalance {
   address: string;
   balance: BigNumber;
-}
-
-export interface Checkpoint {
-  dividends: Dividend[];
-  id: number;
-  investorBalances: InvestorBalance[];
-  totalSupply: BigNumber;
-  createdAt: Date;
 }
 
 export interface TransactionSpec<Args extends any[]> {

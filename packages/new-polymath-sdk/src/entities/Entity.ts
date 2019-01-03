@@ -1,6 +1,10 @@
 import { Polymath } from '~/Polymath';
+import { types } from '@polymathnetwork/new-shared';
+import v4 from 'uuid/v4';
 
-export class Entity {
+export abstract class Entity {
+  public abstract entityType: string;
+  public uid: string;
   protected polyClient: Polymath;
 
   constructor(polyClient?: Polymath) {
@@ -11,5 +15,30 @@ export class Entity {
     }
 
     this.polyClient = polyClient;
+    this.uid = this.generateId();
+  }
+
+  public toPojo(): types.Pojo {
+    const publicProps = Object.getOwnPropertyNames(this);
+
+    const result: types.Pojo = {};
+
+    publicProps.forEach(prop => {
+      const val = (this as any)[prop];
+
+      if (val instanceof Entity) {
+        result[prop] = val.toPojo();
+      } else if (typeof val !== 'function') {
+        result[prop] = val;
+      }
+    });
+
+    result.uid = this.generateId();
+
+    return result;
+  }
+
+  protected generateId() {
+    return v4();
   }
 }

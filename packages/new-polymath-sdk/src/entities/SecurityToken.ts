@@ -1,21 +1,26 @@
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Polymath } from '~/Polymath';
 import { Entity } from '~/entities/Entity';
+import { serialize } from '~/utils';
 
 interface Params {
   symbol: string;
   name: string;
+  address: string;
 }
 
 export class SecurityToken extends Entity {
+  public entityType: string = 'securityToken';
   public symbol: string;
   public name: string;
+  public address: string;
 
   constructor(params: Params, polyClient?: Polymath) {
     super(polyClient);
 
     this.symbol = params.symbol;
     this.name = params.name;
+    this.address = params.address;
   }
 
   public enableDividendModules(
@@ -49,6 +54,13 @@ export class SecurityToken extends Entity {
       ...args,
       symbol: this.symbol,
       name: this.name,
+    });
+  }
+
+  protected generateId() {
+    const { entityType, address } = this;
+    return serialize(entityType, {
+      address,
     });
   }
 }
