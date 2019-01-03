@@ -1,4 +1,3 @@
-import { BigNumber } from 'bignumber.js';
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { PolyToken } from '~/LowLevel/PolyToken';
 import { LowLevel } from '~/LowLevel';
@@ -6,8 +5,9 @@ import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 import { Context } from '~/Context';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { TaxWithholding, Checkpoint } from '~/types';
-import { Dividend } from '~/LowLevel/types';
+import { TaxWithholding } from '~/types';
+import { Dividend as LowLevelDividend } from '~/LowLevel/types';
+import { Dividend, Checkpoint } from '~/entities';
 
 import {
   ReserveSecurityToken,
@@ -17,6 +17,8 @@ import {
   CreateEtherDividendDistribution,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
+import { Entity } from '~/entities/Entity';
+import { SecurityToken } from '~/entities';
 
 export interface PolymathNetworkParams {
   httpProvider?: HttpProvider;
@@ -33,10 +35,10 @@ type EntityConstructor<T> = new (
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
-const createContextualizedEntity = <T extends EntityConstructor<T>>(
+const createContextualizedEntity = <T extends Entity>(
   ClassToContextualize: T,
   polyClient: Polymath
-): EntityConstructor<T> => {
+): T => {
   class ContextualizedEntity extends (ClassToContextualize as any) {
     constructor(params: { [key: string]: any }) {
       super(params, polyClient);
@@ -45,6 +47,10 @@ const createContextualizedEntity = <T extends EntityConstructor<T>>(
 
   return (ContextualizedEntity as any) as T;
 };
+
+interface ContextualizedEntities {
+  SecurityToken: SecurityToken;
+}
 
 export class Polymath {
   public httpProvider: HttpProvider = {} as HttpProvider;
@@ -55,6 +61,7 @@ export class Polymath {
   public polymathRegistryAddress: string = '';
   private lowLevel: LowLevel = {} as LowLevel;
   private context: Context = {} as Context;
+  private entities: ContextualizedEntities;
 
   constructor(params: PolymathNetworkParams) {
     const { polymathRegistryAddress, httpProvider, httpProviderUrl } = params;
@@ -66,6 +73,14 @@ export class Polymath {
     if (httpProviderUrl) {
       this.httpProviderUrl = httpProviderUrl;
     }
+
+    // TODO @RafaelVidaurre: type this correctly
+    this.entities = {
+      SecurityToken: createContextualizedEntity<SecurityToken>(
+        SecurityToken as any,
+        this
+      ),
+    };
   }
 
   public async connect() {
@@ -212,14 +227,16 @@ export class Polymath {
    */
   public async getCheckpoints(args: { symbol: string }): Promise<Checkpoint[]> {
     const { securityTokenRegistry } = this.context;
-    const { symbol } = args;
+    const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+    const securityToken = await securityTokenRegistry.getSecurityToken(
+      securityTokenSymbol
+    );
     const erc20Module = await securityToken.getErc20DividendModule();
     const etherModule = await securityToken.getEtherDividendModule();
 
-    let erc20Dividends: Dividend[] = [];
-    let etherDividends: Dividend[] = [];
+    let erc20Dividends: LowLevelDividend[] = [];
+    let etherDividends: LowLevelDividend[] = [];
 
     if (erc20Module) {
       erc20Dividends = await erc20Module.getDividends();
@@ -228,8 +245,6 @@ export class Polymath {
       etherDividends = await etherModule.getDividends();
     }
 
-    //
-
     const checkpoints = await securityToken.getCheckpoints();
 
     return checkpoints.map(checkpoint => {
@@ -237,10 +252,19 @@ export class Polymath {
         dividend => dividend.checkpointId === checkpoint.id
       );
 
-      return {
+      const dividends = checkpointDividends.map(
+        dividend => new Dividend({ ...dividend, securityTokenSymbol })
+      );
+
+      return new Checkpoint({
         ...checkpoint,
-        dividends: checkpointDividends,
-      };
+        securityTokenSymbol,
+        dividends,
+      });
     });
+  }
+
+  get SecurityToken() {
+    return this.entities.SecurityToken;
   }
 }
