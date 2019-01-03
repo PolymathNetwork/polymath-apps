@@ -15,6 +15,9 @@ import {
   mintTokens,
   mintResetUploaded,
 } from '../../../actions/token';
+import { fetch } from '../../../actions/sto';
+
+import { STAGE_OVERVIEW } from '../../../reducers/sto';
 
 import type { RootState } from '../../../redux/reducer';
 import type { InvestorCSVRow } from '../../../actions/token';
@@ -29,6 +32,7 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
+  fetch: () => any,
   uploadCSV: (file: Object) => any,
   mintTokens: () => any,
   mintResetUploaded: () => any,
@@ -42,9 +46,11 @@ const mapStateToProps = (state: RootState): StateProps => ({
   criticals: state.token.mint.criticals,
   token: state.token,
   pui: state.pui,
+  stage: state.sto.stage,
 });
 
 const mapDispatchToProps = {
+  fetch,
   uploadCSV,
   mintTokens,
   mintResetUploaded,
@@ -54,6 +60,10 @@ const mapDispatchToProps = {
 type Props = {||} & StateProps & DispatchProps;
 
 class MintTokens extends Component<Props> {
+  componentDidMount() {
+    this.props.fetch();
+  }
+
   handleReset = (withState = true) => {
     // TODO @bshevchenko: maybe there is a better way to reset FileUploader $FlowFixMe
     const node = this.fileUploader.nodes[0];
@@ -168,10 +178,11 @@ class MintTokens extends Component<Props> {
     this.props.confirm(
       <div>
         <p>
-          All tokens sold during the offering will be minted as soon as the
-          funds are received by the smart contract and according to the rate you
-          will define when scheduling your STO. Your Token&apos;s total supply
-          will therefore be:
+          Note that manual minting will no longer be available once you schedule
+          an offering (STO) for this token. All tokens sold during the offering
+          will be minted as soon as the funds are received by the smart contract
+          and according to the rate you will define when scheduling your STO.
+          Your Token&apos;s total supply will therefore be:
         </p>
         <p>
           • Total number of tokens minted manually + total number of tokens sold
@@ -204,7 +215,8 @@ class MintTokens extends Component<Props> {
   };
 
   render() {
-    const { isTooMany, isReady, isInvalid } = this.props;
+    const { isTooMany, isReady, isInvalid, stage } = this.props;
+    const stoInProgress = stage === STAGE_OVERVIEW;
     return (
       <div className="mint-tokens-wrapper">
         <div className="pui-page-box">
@@ -260,6 +272,16 @@ class MintTokens extends Component<Props> {
             </a>
             &nbsp;&nbsp;file and edit it.
           </h5>
+          {stoInProgress ? (
+            <InlineNotification
+              hideCloseButton
+              title="Minting is disabled"
+              subtitle="Sorry but you cannot mint tokens while STO is in progress."
+              kind="error"
+            />
+          ) : (
+            ''
+          )}
           <FileUploader
             iconDescription="Cancel"
             buttonLabel="Upload File"
@@ -290,7 +312,7 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            disabled={!isReady}
+            disabled={!isReady || stoInProgress}
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"
@@ -301,6 +323,7 @@ class MintTokens extends Component<Props> {
           <Button
             type="submit"
             kind="secondary"
+            disabled={stoInProgress}
             onClick={this.handleSkip}
             style={{ marginTop: '10px', marginLeft: '15px' }}
             className="skip-minting-btn"

@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node -r ./babel.register.js src/server.js",
-    "test": "jest",
+    "test": "echo \"Offchain tests disabled until the repo is moved to Typescript\"",
     "start:dist": "node ./build/server.js",
     "build": "yarn build:shared && yarn build:artifacts && babel --root-mode upward --ignore /node_modules/ src --out-dir build",
     "build:shared": "rm -rf ../polymath-shared/build && babel --root-mode upward --ignore /node_modules/  ../polymath-shared/src --out-dir ../polymath-shared/build --copy-files",
