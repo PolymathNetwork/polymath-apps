@@ -1,7 +1,7 @@
 import { reducer } from '../dataRequests';
 import * as actions from '~/state/actions/dataRequests';
 import { RequestKeys } from '~/types';
-import { hashObj } from '~/utils';
+import { utils } from '@polymathnetwork/new-shared';
 
 describe('Reducer: dataRequests', () => {
   test('initialState', () => {
@@ -13,7 +13,7 @@ describe('Reducer: dataRequests', () => {
     bar: 'Bar',
   };
   const fetchedIds = ['0', '1', '2'];
-  const argsHash = hashObj(args);
+  const argsHash = utils.hashObj(args);
 
   const state = {
     [RequestKeys.GetCheckpointsBySymbol]: {

@@ -3,7 +3,7 @@ import { getType } from 'typesafe-actions';
 import * as actions from '~/state/actions/dataRequests';
 import { DataRequestsActions } from '~/state/actions/types';
 import { RequestKeys } from '~/types';
-import { hashObj } from '~/utils';
+import { utils } from '@polymathnetwork/new-shared';
 
 export interface DataRequestResults {
   [argsHash: string]: string[] | undefined;
@@ -30,7 +30,7 @@ export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (
       } = action;
 
       if (args) {
-        const argsHash = hashObj(args);
+        const argsHash = utils.hashObj(args);
         const {
           [requestKey]: { [argsHash]: invalidData, ...validData },
           ...rest
@@ -56,7 +56,7 @@ export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (
         payload: { requestKey, args, fetchedIds },
       } = action;
 
-      const argsHash = hashObj(args);
+      const argsHash = utils.hashObj(args);
 
       const {
         [requestKey]: { [argsHash]: invalidData, ...validData },

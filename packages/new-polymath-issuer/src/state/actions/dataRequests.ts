@@ -1,24 +1,31 @@
 import { createStandardAction } from 'typesafe-actions';
-import { RequestKeys, Pojo } from '~/types';
+import { RequestKeys } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 const invalidateRequest = createStandardAction('DATA_REQUESTS/INVALIDATE')<{
   requestKey: RequestKeys;
-  args?: Pojo;
+  args?: types.Pojo;
 }>();
 
 const cacheData = createStandardAction('DATA_REQUESTS/CACHE')<{
   requestKey: RequestKeys;
-  args: Pojo;
+  args: types.Pojo;
   fetchedIds: string[];
 }>();
 
 const fetchData = createStandardAction('DATA_REQUESTS/FETCH')<{
   requestKey: RequestKeys;
-  args: Pojo;
+  args: types.Pojo;
 }>();
 
-const fetchDataError = createStandardAction('DATA_REQUESTS/FETCH_ERROR')<
-  Error
->();
+const fetchDataFail = createStandardAction('DATA_REQUESTS/FETCH_FAIL')<Error>();
 
-export { invalidateRequest, cacheData, fetchData, fetchDataError };
+const fetchDataSuccess = createStandardAction('DATA_REQUESTS/FETCH_SUCCESS')();
+
+export {
+  invalidateRequest,
+  cacheData,
+  fetchData,
+  fetchDataFail,
+  fetchDataSuccess,
+};

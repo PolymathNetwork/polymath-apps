@@ -1,8 +1,8 @@
 import { RootState } from '~/state/store';
 import { createSelector } from 'reselect';
-import { hashObj } from '~/utils';
 import _ from 'lodash';
-import { Fetcher, Pojo, RequestKeys, FetchedData, CacheStatus } from '~/types';
+import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
+import { types, utils } from '@polymathnetwork/new-shared';
 
 const appSelector = (state: RootState) => state.app;
 const entitiesSelector = (state: RootState) => state.entities;
@@ -17,7 +17,7 @@ interface CachedResults {
   cachedIds: string[] | undefined;
   key: string;
   requestKey: RequestKeys;
-  args: Pojo;
+  args: types.Pojo;
 }
 
 const entityStoresPerFetcherSelector = (
@@ -32,7 +32,7 @@ const cachedResultsPerFetcherSelector = (
   _.map<Fetcher, CachedResults>(fetchers, fetcher => {
     const { args, propKey, entity, requestKey } = fetcher;
 
-    const argsHash = hashObj(args);
+    const argsHash = utils.hashObj(args);
     const cachedIds = state.dataRequests[requestKey][argsHash];
     const key = propKey || entity;
 
@@ -62,7 +62,7 @@ const checkFetchersForDuplicates = (
   _.forEach(fetchers, fetcher => {
     const { propKey, entity, requestKey } = fetcher;
 
-    const hashedRequest = hashObj({
+    const hashedRequest = utils.hashObj({
       requestKey,
       ...fetcher.args,
     });

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { types } from '@polymathnetwork/new-shared';
 
 export type Entity = TransactionEntity | DividendEntity | CheckpointEntity;
 
@@ -68,11 +69,7 @@ export interface Fetcher {
   propKey?: string;
   entity: Entities;
   requestKey: RequestKeys;
-  args: Pojo;
-}
-
-export interface Pojo {
-  [key: string]: string | number | boolean;
+  args: types.Pojo;
 }
 
 export interface FetchedData {
@@ -80,7 +77,7 @@ export interface FetchedData {
 }
 
 export interface CacheStatus {
-  args: Pojo;
+  args: types.Pojo;
   requestKey: RequestKeys;
   mustBeFetched: boolean;
 }

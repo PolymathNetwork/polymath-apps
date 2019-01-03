@@ -9,10 +9,10 @@ import {
 } from '../selectors';
 import { RootState } from '~/state/store';
 import BigNumber from 'bignumber.js';
-import { RequestKeys, Entities, Pojo, Fetcher } from '~/types';
-import { hashObj } from '~/utils';
+import { RequestKeys, Entities, Fetcher } from '~/types';
+import { types, utils } from '@polymathnetwork/new-shared';
 
-const requestArgs: Pojo[] = [
+const requestArgs: types.Pojo[] = [
   { foo: 'Foo', bar: 'Bar' },
   { baz: 'baz' },
   { boris: 'sucks' },
@@ -84,9 +84,9 @@ const entitiesState = {
 
 const dataRequestsState = {
   [RequestKeys.GetCheckpointsBySymbol]: {
-    [hashObj(requestArgs[0])]: ['c0'],
-    [hashObj(requestArgs[1])]: ['c1'],
-    [hashObj(requestArgs[2])]: ['c0', 'c1'],
+    [utils.hashObj(requestArgs[0])]: ['c0'],
+    [utils.hashObj(requestArgs[1])]: ['c1'],
+    [utils.hashObj(requestArgs[2])]: ['c0', 'c1'],
   },
   [RequestKeys.GetSecurityTokenBySymbol]: {},
 };
