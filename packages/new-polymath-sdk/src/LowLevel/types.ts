@@ -46,6 +46,7 @@ export enum DividendModuleTypes {
 }
 
 export interface Dividend {
+  id: number;
   checkpointId: number;
   created: Date;
   maturity: Date;
