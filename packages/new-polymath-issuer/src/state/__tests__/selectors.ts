@@ -88,6 +88,7 @@ const dataRequestsState = {
     [hashObj(requestArgs[1])]: ['c1'],
     [hashObj(requestArgs[2])]: ['c0', 'c1'],
   },
+  [RequestKeys.GetSecurityTokenBySymbol]: {},
 };
 
 const mockState: RootState = {

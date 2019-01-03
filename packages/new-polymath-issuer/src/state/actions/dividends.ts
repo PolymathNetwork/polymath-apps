@@ -1,8 +1,8 @@
-import { CheckpointEntity } from '~/types';
+import { DividendEntity } from '~/types';
 import { createEntityActions } from '~/state/helpers/createEntityActions';
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  CheckpointEntity
->('CHECKPOINTS');
+  DividendEntity
+>('DIVIDENDS');
 
 export { createAction, updateAction, deleteAction };

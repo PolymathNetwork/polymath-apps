@@ -1,14 +1,24 @@
 import { createStandardAction } from 'typesafe-actions';
+import { RequestKeys, Pojo } from '~/types';
 
 const invalidateRequest = createStandardAction('DATA_REQUESTS/INVALIDATE')<{
-  requestKey: string;
-  args?: any[];
+  requestKey: RequestKeys;
+  args?: Pojo;
 }>();
 
-const cacheResponse = createStandardAction('DATA_REQUESTS/CACHE')<{
-  requestKey: string;
-  args: any[];
-  fetchedData: any[];
+const cacheData = createStandardAction('DATA_REQUESTS/CACHE')<{
+  requestKey: RequestKeys;
+  args: Pojo;
+  fetchedIds: string[];
 }>();
 
-export { invalidateRequest, cacheResponse };
+const fetchData = createStandardAction('DATA_REQUESTS/FETCH')<{
+  requestKey: RequestKeys;
+  args: Pojo;
+}>();
+
+const fetchDataError = createStandardAction('DATA_REQUESTS/FETCH_ERROR')<
+  Error
+>();
+
+export { invalidateRequest, cacheData, fetchData, fetchDataError };
