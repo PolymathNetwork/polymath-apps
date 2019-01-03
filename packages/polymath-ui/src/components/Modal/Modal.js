@@ -71,6 +71,7 @@ class Modal extends Component<Props, State> {
 
     return (
       <ReactModal
+        ariaHideApp={false}
         isOpen={isOpen}
         contentLabel="Modal"
         closeTimeoutMS={theme.transitions.modal.ms}
