@@ -61,6 +61,7 @@ export enum Entities {
 
 export enum RequestKeys {
   GetCheckpointsBySymbol = 'getCheckpointsBySymbol',
+  GetSecurityTokenBySymbol = 'getSecurityTokenBySymbol',
 }
 
 export interface Fetcher {
