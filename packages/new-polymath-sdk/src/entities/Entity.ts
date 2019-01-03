@@ -1,6 +1,7 @@
 import { Polymath } from '~/Polymath';
 import { types } from '@polymathnetwork/new-shared';
 import v4 from 'uuid/v4';
+import { serialize } from '~/utils';
 
 export abstract class Entity {
   public abstract entityType: string;
@@ -39,6 +40,10 @@ export abstract class Entity {
   }
 
   protected generateId() {
-    return v4();
+    const { entityType } = this;
+
+    return serialize(entityType, {
+      random: v4(),
+    });
   }
 }
