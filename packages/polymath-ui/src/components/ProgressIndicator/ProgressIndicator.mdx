@@ -1,0 +1,21 @@
+---
+name: ProgressIndicator
+---
+
+import { Playground, PropsTable } from 'docz';
+import ProgressIndicator from './';
+
+# ProgressIndicator
+
+<PropsTable of={ProgressIndicator} />
+
+## Basic usage
+
+<Playground>
+  <ProgressIndicator currentIndex={2}>
+    <ProgressIndicator.Step label="Label 1" />
+    <ProgressIndicator.Step label="Label 2" />
+    <ProgressIndicator.Step label="Label 3" />
+    <ProgressIndicator.Step label="Label 4" />
+  </ProgressIndicator>
+</Playground>

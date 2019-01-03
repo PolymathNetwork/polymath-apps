@@ -40,35 +40,28 @@ export const ConfigureSTOComponent = ({
   goBack,
 }: ComponentProps) => (
   <Page title={`Configure ${token.ticker} STO – Polymath`}>
-    <div>
-      <div className="bx--row">
-        <div className="bx--col-xs-12">
-          <Button
-            kind="ghost"
-            onClick={goBack}
-            className="pui-go-back"
-            icon="arrow--left"
-          >
-            Go back
-          </Button>
-          <h1 className="pui-h1">Security Token Offering Configuration</h1>
-          <br />
-          <Grid gridTemplateColumns={['', '', '', '1.5fr minmax(400px, 1fr)']}>
-            <div className="pui-page-box">
-              <h2 className="pui-h2">{stoModule.title}</h2>
-              <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
-                Provide the financial details and timing for your offering
-                below.
-              </h4>
-              <ConfigureSTOForm stoModule={stoModule} />
-            </div>
-            <Grid.Item>
-              <STOTemplate stoModule={stoModule} />
-            </Grid.Item>
-          </Grid>
-        </div>
+    <Button
+      kind="ghost"
+      onClick={goBack}
+      className="pui-go-back"
+      icon="arrow--left"
+    >
+      Go back
+    </Button>
+    <h1 className="pui-h1">Security Token Offering Configuration</h1>
+    <br />
+    <Grid gridTemplateColumns={['', '', '', '1.5fr minmax(400px, 1fr)']}>
+      <div className="pui-page-box">
+        <h2 className="pui-h2">{stoModule.title}</h2>
+        <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
+          Provide the financial details and timing for your offering below.
+        </h4>
+        <ConfigureSTOForm stoModule={stoModule} />
       </div>
-    </div>
+      <Grid.Item>
+        <STOTemplate stoModule={stoModule} />
+      </Grid.Item>
+    </Grid>
   </Page>
 );
 

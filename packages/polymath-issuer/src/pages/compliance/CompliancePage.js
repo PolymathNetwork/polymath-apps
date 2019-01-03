@@ -611,8 +611,8 @@ class CompliancePage extends Component<Props, State> {
           <h1 className="pui-h1">Token Whitelist</h1>
           <h3 className="pui-h3">
             Whitelisted addresses may hold, buy, or sell the security token and
-            may participate into the STO. Security token buy/sell operations may
-            be subject to restrictions.
+            may participate into the STO. <br /> Security token buy/sell
+            operations may be subject to restrictions.
           </h3>
           <br />
 

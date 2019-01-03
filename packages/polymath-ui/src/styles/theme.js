@@ -38,7 +38,7 @@ const space = [
   '5px',
   '10px',
   '16px',
-  '23px',
+  '24px',
   '30px',
   '48px',
   '80px',

@@ -52,11 +52,9 @@ const Container = styled.div`
     li {
       display: inline-flex;
       align-items: center;
-      color: $poly-gray-dark;
       font-size: 14px;
       line-height: 22px;
       margin-left: 30px;
-      font-weight: 300;
 
       svg,
       img {
