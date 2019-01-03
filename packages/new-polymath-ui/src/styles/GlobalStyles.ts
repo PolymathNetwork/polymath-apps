@@ -8,6 +8,10 @@ export const GlobalStyles = createGlobalStyle`
 
   ${fontFaceDefinition};
 
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
   *:focus:not(:focus-visible) {
     outline: none;
   }
