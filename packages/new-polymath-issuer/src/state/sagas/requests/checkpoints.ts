@@ -1,5 +1,5 @@
 import { polyClient } from '~/lib/polymath';
-import { cacheData, fetchDataError } from '~/state/actions/dataRequests';
+import { cacheData, fetchDataFail } from '~/state/actions/dataRequests';
 import { createAction as createCheckpoint } from '~/state/actions/checkpoints';
 import { createAction as createDividend } from '~/state/actions/dividends';
 import { takeLatest } from 'redux-saga';
@@ -11,12 +11,14 @@ import { RequestKeys } from '~/types';
 
 export function* fetchCheckpoints(args: { symbol: string }) {
   try {
+    const { symbol } = args;
     // const checkpoints: Checkpoint[] = yield call(polyClient.getCheckpoints, {
     //   symbol,
     // });
     const checkpoints: Checkpoint[] = [
-      {
+      new Checkpoint({
         id: 1,
+        securityTokenSymbol: symbol,
         dividends: [],
         totalSupply: new BigNumber('2000'),
         createdAt: new Date(),
@@ -26,7 +28,7 @@ export function* fetchCheckpoints(args: { symbol: string }) {
             balance: new BigNumber('1000'),
           },
         ],
-      },
+      }),
     ];
 
     // yield put(cacheData({
@@ -35,6 +37,6 @@ export function* fetchCheckpoints(args: { symbol: string }) {
     //   fetchedIds: ['1']
     // }));
   } catch (err) {
-    yield put(fetchDataError(err));
+    yield put(fetchDataFail(err));
   }
 }
