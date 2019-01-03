@@ -8,6 +8,9 @@ export default {
   files: '**/*.{md,mdx}',
   typescript: true,
   wrapper: 'src/docz/DoczWrapper',
+  themeConfig: {
+    showPlaygroundEditor: true,
+  },
   plugins: [
     css({
       preprocessor: 'postcss',
