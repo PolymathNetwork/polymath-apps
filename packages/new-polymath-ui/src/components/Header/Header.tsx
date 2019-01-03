@@ -57,11 +57,7 @@ export const Header = (props: HeaderProps) => {
                   <PolyIcon alt="Your POLY balance" />
                 */}
                 <img src={polyIcon} alt="Your POLY balance" />
-                {balance
-                  ? formatters.thousandsDelimiter(
-                      new BigNumber(balance).integerValue()
-                    ) + ' POLY'
-                  : '...'}
+                {balance ? formatters.toTokens(balance) + ' POLY' : '...'}
               </li>
               <li>
                 <img src={accountIcon} alt="Account" />

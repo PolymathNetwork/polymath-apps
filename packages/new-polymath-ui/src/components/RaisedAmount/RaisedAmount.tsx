@@ -8,7 +8,6 @@ import { Paragraph } from '../Paragraph';
 interface RaisedAmountProps {
   title: string;
   primaryAmount: number;
-  primaryUnit: string;
   tokenAmount: number;
   tokenUnit: string;
 }
@@ -16,7 +15,6 @@ interface RaisedAmountProps {
 export const RaisedAmount: FC<RaisedAmountProps> = ({
   title,
   primaryAmount,
-  primaryUnit,
   tokenAmount,
   tokenUnit,
 }) => (
@@ -25,8 +23,8 @@ export const RaisedAmount: FC<RaisedAmountProps> = ({
       {title}
     </Paragraph>
     <Paragraph fontSize={5} color="highlightText" mb={1}>
-      {`${formatters.thousandsDelimiter(primaryAmount)} ${primaryUnit}`}
+      {formatters.toUSD(primaryAmount)}
     </Paragraph>
-    {`${formatters.thousandsDelimiter(tokenAmount)} ${tokenUnit}`}
+    {`${formatters.toTokens(tokenAmount)} ${tokenUnit}`}
   </S.Wrapper>
 );
