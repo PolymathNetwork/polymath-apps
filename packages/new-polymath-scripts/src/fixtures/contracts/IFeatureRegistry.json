@@ -1,0 +1,285 @@
+{
+  "contractName": "IFeatureRegistry",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_nameKey",
+          "type": "string"
+        }
+      ],
+      "name": "getFeatureStatus",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for managing polymath feature switches\n */\ninterface IFeatureRegistry {\n\n    /**\n     * @notice Get the status of a feature\n     * @param _nameKey is the key for the feature status mapping\n     * @return bool\n     */\n    function getFeatureStatus(string _nameKey) external view returns(bool);\n\n}\n",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
+  "ast": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
+    "exportedSymbols": {
+      "IFeatureRegistry": [
+        10739
+      ]
+    },
+    "id": 10740,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10731,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:12"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title Interface for managing polymath feature switches",
+        "fullyImplemented": false,
+        "id": 10739,
+        "linearizedBaseContracts": [
+          10739
+        ],
+        "name": "IFeatureRegistry",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@notice Get the status of a feature\n@param _nameKey is the key for the feature status mapping\n@return bool",
+            "id": 10738,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getFeatureStatus",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10734,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10733,
+                  "name": "_nameKey",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10738,
+                  "src": "297:15:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_calldata_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10732,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "297:6:12",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "296:17:12"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10737,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10736,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10738,
+                  "src": "336:4:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10735,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "336:4:12",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "335:6:12"
+            },
+            "scope": 10739,
+            "src": "271:71:12",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 10740,
+        "src": "93:252:12"
+      }
+    ],
+    "src": "0:346:12"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
+    "exportedSymbols": {
+      "IFeatureRegistry": [
+        10739
+      ]
+    },
+    "id": 10740,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10731,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:12"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title Interface for managing polymath feature switches",
+        "fullyImplemented": false,
+        "id": 10739,
+        "linearizedBaseContracts": [
+          10739
+        ],
+        "name": "IFeatureRegistry",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@notice Get the status of a feature\n@param _nameKey is the key for the feature status mapping\n@return bool",
+            "id": 10738,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getFeatureStatus",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10734,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10733,
+                  "name": "_nameKey",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10738,
+                  "src": "297:15:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_calldata_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10732,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "297:6:12",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "296:17:12"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10737,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10736,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10738,
+                  "src": "336:4:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10735,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "336:4:12",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "335:6:12"
+            },
+            "scope": 10739,
+            "src": "271:71:12",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 10740,
+        "src": "93:252:12"
+      }
+    ],
+    "src": "0:346:12"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-12-10T19:10:22.891Z"
+}

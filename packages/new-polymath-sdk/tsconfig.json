@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "build/dist",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "paths": {
+      "~/*": ["*"]
+    },
+    "plugins": [
+      {
+        "transform": "../../config/absoluteToRelative.ts",
+        "afterDeclarations": true
+      }
+    ]
+  },
+  "references": [{ "path": "../new-polymath-shared" }],
+  "exclude": ["src/specsInit.ts", "build", "node_modules"]
+}

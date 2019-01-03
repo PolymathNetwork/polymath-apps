@@ -5,6 +5,10 @@ import { map, compact } from 'lodash';
 import { Field, FieldArray } from 'formik';
 import { Toggle, Button } from 'carbon-components-react';
 import { iconAddSolid } from 'carbon-icons';
+
+import { IconButton } from '@polymathnetwork/ui';
+import DeleteIcon from '@polymathnetwork/ui/images/icons/Delete';
+import EditIcon from '@polymathnetwork/ui/images/icons/Edit';
 import BigNumber from 'bignumber.js';
 import {
   Box,
@@ -17,7 +21,8 @@ import {
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
 
-import AddTierModal from './AddTierModal';
+import TierModal from './TierModal';
+import RemoveTierModal from './RemoveTierModal';
 
 const {
   Table,
@@ -67,11 +72,17 @@ type Props = {
 
 type State = {|
   isAddingTier: boolean,
+  isRemovingTier: boolean,
+  removingTierIndex: any,
+  tierData: any,
 |};
 
-class InvestmentTiers extends React.Component<Props, State> {
+export default class InvestmentTiers extends React.Component<Props, State> {
   state = {
     isAddingTier: false,
+    isRemovingTier: false,
+    removingTierIndex: null,
+    tierData: null,
   };
 
   onTiersToggle = () => {
@@ -108,12 +119,30 @@ class InvestmentTiers extends React.Component<Props, State> {
     setFieldValue(name, newValue);
   };
 
-  handleClose = () => {
-    this.setState({ isAddingTier: false });
+  handleCloseTier = () => {
+    this.setState({ tierData: null, isAddingTier: false });
   };
 
-  handleAddNewTier = () => {
+  handleAddTierModal = () => {
     this.setState({ isAddingTier: true });
+  };
+
+  handleEditTierModal = (id, data) => {
+    this.setState({ tierData: { id, ...data }, isAddingTier: true });
+  };
+
+  handleRemoveTier = index => {
+    this.setState({
+      isRemovingTier: true,
+      removingTierIndex: index,
+    });
+  };
+
+  handleCloseRemoveTier = () => {
+    this.setState({
+      isRemovingTier: false,
+      removingTierIndex: null,
+    });
   };
 
   render() {
@@ -122,7 +151,12 @@ class InvestmentTiers extends React.Component<Props, State> {
       form: { touched, errors },
       ticker,
     } = this.props;
-    const { isAddingTier } = this.state;
+    const {
+      isAddingTier,
+      isRemovingTier,
+      removingTierIndex,
+      tierData,
+    } = this.state;
 
     const tableItems = map(compact(value.tiers), (tier, tierNum) => {
       const tokenPrice = tier.tokenPrice || new BigNumber(0);
@@ -131,7 +165,7 @@ class InvestmentTiers extends React.Component<Props, State> {
 
       return {
         ...tier,
-        tokensAmount: format.toTokens(tokensAmount, { decimals: 0 }),
+        tokensAmount: format.toTokens(tokensAmount, { decimals: 2 }),
         tokenPrice: format.toUSD(tokenPrice),
         totalRaise: format.toUSD(tokenPrice.times(tokensAmount)),
         tier: tierNo,
@@ -223,7 +257,7 @@ class InvestmentTiers extends React.Component<Props, State> {
                     <Box textAlign="right" mb={3}>
                       <Button
                         icon={iconAddSolid}
-                        onClick={this.handleAddNewTier.bind(this)}
+                        onClick={this.handleAddTierModal.bind(this)}
                       >
                         Add new
                       </Button>
@@ -239,14 +273,46 @@ class InvestmentTiers extends React.Component<Props, State> {
                               {header.header}
                             </TableHeader>
                           ))}
+                          <TableHeader>...</TableHeader>
+                          <TableHeader>...</TableHeader>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {rows.map(row => (
+                        {rows.map((row, index) => (
                           <TableRow key={row.id}>
                             {row.cells.map(cell => (
                               <TableCell key={cell.id}>{cell.value}</TableCell>
                             ))}
+                            {row.id > 0 ? (
+                              <Fragment>
+                                <TableCell>
+                                  <IconButton
+                                    Icon={EditIcon}
+                                    color="#000000"
+                                    onClick={() => {
+                                      this.handleEditTierModal(
+                                        row.id - 1,
+                                        value.tiers[row.id - 1]
+                                      );
+                                    }}
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <IconButton
+                                    Icon={DeleteIcon}
+                                    color="#000000"
+                                    onClick={() => {
+                                      this.handleRemoveTier(index);
+                                    }}
+                                  />
+                                </TableCell>
+                              </Fragment>
+                            ) : (
+                              <Fragment>
+                                <TableCell />
+                                <TableCell />
+                              </Fragment>
+                            )}
                           </TableRow>
                         ))}
                       </TableBody>
@@ -264,21 +330,28 @@ class InvestmentTiers extends React.Component<Props, State> {
         )}
         <FieldArray
           name="investmentTiers.tiers"
-          render={({ push }) => (
-            <Field
-              name="investmentTiers.newTier"
-              ticker={ticker}
-              component={AddTierModal}
-              title={`Add the Investment Tier #${value.tiers.length + 1}`}
-              isOpen={isAddingTier}
-              onAdd={push}
-              onClose={this.handleClose}
-            />
+          render={({ push, replace, remove }) => (
+            <Fragment>
+              <Field
+                name="investmentTiers.newTier"
+                ticker={ticker}
+                component={TierModal}
+                isOpen={isAddingTier}
+                tierData={tierData}
+                onAdd={push}
+                onUpdate={replace}
+                onClose={this.handleCloseTier}
+              />
+              <RemoveTierModal
+                isOpen={isRemovingTier}
+                tierIndex={removingTierIndex}
+                onRemove={remove}
+                onClose={this.handleCloseRemoveTier}
+              />
+            </Fragment>
           )}
         />
       </Fragment>
     );
   }
 }
-
-export default InvestmentTiers;

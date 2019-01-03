@@ -11,6 +11,7 @@ import {
   icoInbox,
   icoHandshake,
   icoWhitelist,
+  icoDividends,
   NotFoundPage,
 } from '@polymathnetwork/ui';
 import type { SecurityToken, Address } from '@polymathnetwork/js/types';
@@ -137,6 +138,14 @@ class Dashboard extends Component<Props> {
         icon: icoWhitelist,
         to: `${tokenUrl}/compliance`,
         isActive: location.slice(-11) === '/compliance',
+        isDisabled: !token || !token.address,
+      },
+      {
+        title: 'Dividends',
+        id: 'dividends-nav-link',
+        icon: icoDividends,
+        to: `${tokenUrl}/dividends`,
+        isActive: location.slice(-10) === '/dividends',
         isDisabled: !token || !token.address,
       },
     ];

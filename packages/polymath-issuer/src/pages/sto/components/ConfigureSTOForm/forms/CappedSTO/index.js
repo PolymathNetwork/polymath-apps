@@ -185,7 +185,7 @@ export const CappedSTOFormComponent = ({
           <FormItem.Input
             component={NumberInput}
             placeholder="Enter amount"
-            maxDecimals={0}
+            maxDecimals={2}
             useBigNumbers
           />
           <FormItem.Error />
