@@ -4,12 +4,15 @@ import { color, ColorProps } from 'styled-system';
 
 export interface IconProps extends StyledProps<any> {
   color: ColorProps;
-  Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
+  Asset: React.ComponentType<React.SVGAttributes<SVGElement>> | string;
 }
 
-export const Icon = styled(({ Asset, color, ...props }: IconProps) => (
-  <Asset {...props} />
-))`
+export const Icon = styled(({ Asset, color, ...props }: IconProps) => {
+  if (typeof Asset === 'string') {
+    return <img {...props} src={Asset} />;
+  }
+  return <Asset {...props} />;
+})`
   vertical-align: middle;
   ${color};
 `;

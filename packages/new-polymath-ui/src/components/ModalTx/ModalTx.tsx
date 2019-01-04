@@ -8,7 +8,7 @@ import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { Modal, ModalProps, ModalStatus } from '../Modal';
 
-import { SvgPaperplane } from '~/images/icons/Paperplane';
+import { SvgPaperplane } from '~/images/icons/Paperplane.svg';
 
 import { ItemTx } from './ItemTx';
 

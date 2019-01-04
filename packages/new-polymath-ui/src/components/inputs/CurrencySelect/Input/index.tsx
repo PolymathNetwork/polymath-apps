@@ -6,8 +6,8 @@ import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 
-import { SvgCaretDown } from '../../../../images/icons/CaretDown';
-import { SvgClose } from '../../../../images/icons/Close';
+import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
+import { ReactComponent as SvgClose } from '~/images/icons/Close.svg';
 
 import { currencyOptions } from '../data';
 import { Value } from '../Value';
