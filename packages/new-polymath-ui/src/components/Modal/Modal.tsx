@@ -96,5 +96,5 @@ class _Modal extends Component<ModalProps, State> {
 }
 
 export const Modal = styled(withTheme(_Modal))`
-  ${S.modalStyle};
+  ${sc.modalStyle};
 `;
