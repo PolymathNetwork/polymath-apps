@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { Label } from './Label';
-
-import { ReactComponent as SvgEth } from '../../../images/icons/Eth.svg';
-import { ReactComponent as SvgPoly2 } from '../../../images/icons/Poly2.svg';
-import { ReactComponent as SvgDai } from '../../../images/icons/Dai.svg';
+import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
+import { ReactComponent as SvgPolyB } from '~/images/icons/poly-b.svg';
+import { ReactComponent as SvgDai } from '~/images/icons/dai.svg';
 
 export const currencyOptions = [
   {
@@ -13,7 +11,7 @@ export const currencyOptions = [
   },
   {
     value: 'POLY',
-    label: <Label text="Polymath (POLY)" Asset={SvgPoly2} />,
+    label: <Label text="Polymath (POLY)" Asset={SvgPolyB} />,
   },
   {
     value: 'DAI',

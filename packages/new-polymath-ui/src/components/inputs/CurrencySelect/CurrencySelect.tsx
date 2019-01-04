@@ -5,7 +5,6 @@ import { Input } from './Input';
 import { formikProxy } from '../formikProxy';
 
 // TODO @RafaelVidaurre: Add uncontrolled input support for primitives
-
 class CurrencySelectComponent extends Component {
   static defaultProps = {
     onChange: () => {},

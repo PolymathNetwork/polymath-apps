@@ -6,7 +6,7 @@ import { Icon } from '../../../Icon';
 import { ellipsis } from '../../../../styles/utils';
 
 export interface LabelProps {
-  Asset: React.ComponentType;
+  Asset: React.ComponentType | string;
   text: React.ComponentType;
 }
 

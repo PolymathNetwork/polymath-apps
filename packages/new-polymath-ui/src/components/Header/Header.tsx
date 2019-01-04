@@ -9,11 +9,11 @@ import { PageWrap } from '../PageWrap';
 import { Flex } from '../Flex';
 import { Block } from '../Block';
 
-import polyLogo from '../../images/Logo.svg';
-import networkIcon from '../../images/icons/Network.svg';
-import polyIcon from '../../images/icons/Poly.svg';
-import accountIcon from '../../images/icons/Account.svg';
-import tokenIcon from '../../images/icons/Token.svg';
+import polyLogo from '../../images/logo.svg';
+import networkIcon from '../../images/icons/network.svg';
+import polyIcon from '../../images/icons/poly.svg';
+import accountIcon from '../../images/icons/account.svg';
+import tokenIcon from '../../images/icons/token.svg';
 
 export interface HeaderProps {
   network: string;

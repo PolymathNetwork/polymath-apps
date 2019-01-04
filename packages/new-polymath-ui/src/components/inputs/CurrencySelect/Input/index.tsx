@@ -7,7 +7,7 @@ import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 
 import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
-import { ReactComponent as SvgClose } from '~/images/icons/Close.svg';
+import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 
 import { currencyOptions } from '../data';
 import { Value } from '../Value';
