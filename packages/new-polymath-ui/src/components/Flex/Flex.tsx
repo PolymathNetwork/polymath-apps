@@ -34,5 +34,4 @@ export const FlexDocz = (props: FlexProps) => {
 
 Flex.defaultProps = {
   alignItems: 'center',
-  flexWrap: 'wrap',
 };
