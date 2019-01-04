@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { Link } from 'react-router-dom';
 import { formatters } from '@polymathnetwork/new-shared';
 
-import * as S from './styles';
+import * as sc from './styles';
 
 import { PageWrap } from '../PageWrap';
 import { Flex } from '../Flex';
@@ -28,9 +28,9 @@ export interface HeaderProps {
 export const Header = (props: HeaderProps) => {
   const { balance, account, network, ticker, logo, variant } = props;
   return (
-    <S.Wrapper className="pui-header" variant={variant}>
+    <sc.Wrapper className="pui-header" variant={variant}>
       <PageWrap>
-        <S.Inner>
+        <sc.Inner>
           <Link to="/">
             {logo ? (
               <Block as="img" src={logo} alt="Company Logo" width="188" />
@@ -73,9 +73,9 @@ export const Header = (props: HeaderProps) => {
               )}
             </Flex>
           ) : null}
-        </S.Inner>
+        </sc.Inner>
       </PageWrap>
-    </S.Wrapper>
+    </sc.Wrapper>
   );
 };
 

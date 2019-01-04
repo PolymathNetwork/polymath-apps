@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { formatters } from '@polymathnetwork/new-shared';
 
-import * as S from './styles';
+import * as sc from './styles';
 
 import { Paragraph } from '../Paragraph';
 
@@ -18,7 +18,7 @@ export const RaisedAmount: FC<RaisedAmountProps> = ({
   tokenAmount,
   tokenUnit,
 }) => (
-  <S.Wrapper>
+  <sc.Wrapper>
     <Paragraph as="h4" fontSize={1} color="highlightText" mb={1}>
       {title}
     </Paragraph>
@@ -26,5 +26,5 @@ export const RaisedAmount: FC<RaisedAmountProps> = ({
       {formatters.toUSD(primaryAmount)}
     </Paragraph>
     {`${formatters.toTokens(tokenAmount)} ${tokenUnit}`}
-  </S.Wrapper>
+  </sc.Wrapper>
 );

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { types } from '@polymathnetwork/new-shared';
 
 import { Box } from '~/components/Box';
@@ -7,11 +8,10 @@ import { Loading } from '~/components/Loading';
 import { Heading } from '~/components/Heading';
 import { CardPrimary } from '~/components/CardPrimary';
 import { Paragraph } from '~/components/Paragraph';
-
 import { SvgClose } from '~/images/icons/Close';
 import { SvgCheckmark } from '~/images/icons/Checkmark';
 
-import * as S from '../styles';
+import * as scc from '../styles';
 
 const { TransactionStatus } = types;
 
@@ -34,11 +34,11 @@ const getIcon = (transaction: types.Transaction) => {
 };
 
 export const ItemTx = ({ transaction }: ItemTxProps) => (
-  <S.Wrapper isDisabled={transaction.status === TransactionStatus.Idle}>
+  <sc.Wrapper isDisabled={transaction.status === TransactionStatus.Idle}>
     <Box minWidth={50} mt={1}>
       {getIcon(transaction)}
     </Box>
-    <S.TxInfo>
+    <sc.TxInfo>
       <Heading as="h3" variant="h3" fontSize={0} lineHeight="tight" mb={1}>
         {transaction.type}
       </Heading>
@@ -47,6 +47,6 @@ export const ItemTx = ({ transaction }: ItemTxProps) => (
           Transaction details on Etherscan: {transaction.hash}
         </Paragraph>
       </CardPrimary>
-    </S.TxInfo>
-  </S.Wrapper>
+    </sc.TxInfo>
+  </sc.Wrapper>
 );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as S from './styles';
+import * as sc from './styles';
 
 export interface LoadingProps {
   small?: boolean;
@@ -8,9 +8,9 @@ export interface LoadingProps {
 
 export const Loading = (props: LoadingProps) => {
   return (
-    <S.Wrapper {...props}>
+    <sc.Wrapper {...props}>
       <span />
       <span />
-    </S.Wrapper>
+    </sc.Wrapper>
   );
 };

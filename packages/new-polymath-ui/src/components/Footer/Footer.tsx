@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as S from './styles';
+import * as sc from './styles';
 
 import { PageWrap } from '../PageWrap';
 
@@ -13,13 +13,13 @@ export interface FooterProps {
 
 export const Footer = (props: FooterProps) => {
   return (
-    <S.Wrapper className="pui-footer" variant={props.variant}>
+    <sc.Wrapper className="pui-footer" variant={props.variant}>
       <PageWrap>
-        <S.Inner>
+        <sc.Inner>
           <span className="pui-footer-text">
             &copy; {new Date().getFullYear()} {props.title || 'Polymath'}
           </span>
-          <S.Links className="pui-footer-links" variant={props.variant}>
+          <sc.Links className="pui-footer-links" variant={props.variant}>
             <li>
               <a
                 href={
@@ -44,10 +44,10 @@ export const Footer = (props: FooterProps) => {
                 Privacy Policy
               </a>
             </li>
-          </S.Links>
-        </S.Inner>
+          </sc.Links>
+        </sc.Inner>
       </PageWrap>
-    </S.Wrapper>
+    </sc.Wrapper>
   );
 };
 

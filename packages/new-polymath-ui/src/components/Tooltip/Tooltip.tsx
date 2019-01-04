@@ -1,7 +1,7 @@
 import React, { ComponentType, Fragment } from 'react';
 import ReactTooltip from 'react-tooltip';
 
-import * as S from './styles';
+import * as sc from './styles';
 
 import { SvgInfo } from '../../images/icons/Info';
 
@@ -13,8 +13,8 @@ export interface TooltipProps {
 
 export const Tooltip = ({ triggerText, children, id }: TooltipProps) => (
   <Fragment>
-    <S.Label>{triggerText}</S.Label>
-    <S.Icon
+    <sc.Label>{triggerText}</sc.Label>
+    <sc.Icon
       data-tip
       data-for={id || triggerText}
       aria-describedby={id || triggerText}
@@ -22,7 +22,7 @@ export const Tooltip = ({ triggerText, children, id }: TooltipProps) => (
       width="16"
       height="16"
     />
-    <S.Container role="tooltip">
+    <sc.Container role="tooltip">
       <ReactTooltip
         id={id || triggerText}
         delayShow={200}
@@ -33,6 +33,6 @@ export const Tooltip = ({ triggerText, children, id }: TooltipProps) => (
       >
         {children}
       </ReactTooltip>
-    </S.Container>
+    </sc.Container>
   </Fragment>
 );

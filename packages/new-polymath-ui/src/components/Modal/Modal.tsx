@@ -7,7 +7,7 @@ import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Header } from './Header';
 import { Body } from './Body';
 import { Footer } from './Footer';
-import * as S from './styles';
+import * as sc from './styles';
 import { ModalStatus } from './types';
 import { SvgClose } from '../../images/icons/Close';
 
@@ -85,11 +85,11 @@ class _Modal extends Component<ModalProps, State> {
         }}
         onRequestClose={this.handleCloseRequest}
       >
-        {status !== ModalStatus.idle && <S.StatusBar status={status} />}
+        {status !== ModalStatus.idle && <sc.StatusBar status={status} />}
         {isCloseable && (
-          <S.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
+          <sc.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
         )}
-        <S.Inner>{children}</S.Inner>
+        <sc.Inner>{children}</sc.Inner>
       </ReactModal>
     );
   }
