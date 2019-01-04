@@ -19,6 +19,7 @@ export const modalStyle = css`
     padding: 3%;
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
     outline: none;
+    margin-top: ${({ isCentered }) => (isCentered ? '0' : '20vh')};
 
     @media (min-width: 600px) {
       height: auto;
@@ -85,7 +86,7 @@ export const modalStyle = css`
     left: 0;
     z-index: -1;
     display: flex;
-    align-items: center;
+    align-items: ${({ isCentered }) => (isCentered ? 'center' : 'flex-start')};
     justify-content: center;
     opacity: 0;
     background-color: rgba(223, 227, 230, 0.5);
