@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Box } from '../../../Box';
-import { Icon } from '../../../Icon';
-import { ellipsis } from '../../../../styles/utils';
+import { Box } from '~/components/Box';
+import { Icon } from '~/components/Icon';
+import { ellipsis } from '~/components/../styles/utils';
 
 export interface LabelProps {
   Asset: React.ComponentType | string;

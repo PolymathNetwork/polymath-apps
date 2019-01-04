@@ -8,10 +8,28 @@ import { Icon } from '~/components/Icon';
 
 import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
 import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
+import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
+import { ReactComponent as SvgPolyB } from '~/images/icons/poly-b.svg';
+import { ReactComponent as SvgDai } from '~/images/icons/dai.svg';
+import { Label } from './Label';
 
-import { currencyOptions } from '../data';
-import { Value } from '../Value';
-import { InputProps as _InputProps } from '../../types';
+import { Value } from './Value';
+import { InputProps as _InputProps } from '../types';
+
+export const currencyOptions = [
+  {
+    value: 'ETH',
+    label: <Label text="Ethereum (ETH)" Asset={SvgEth} />,
+  },
+  {
+    value: 'POLY',
+    label: <Label text="Polymath (POLY)" Asset={SvgPolyB} />,
+  },
+  {
+    value: 'DAI',
+    label: <Label text="Dai (DAI)" Asset={SvgDai} />,
+  },
+];
 
 type Option = {
   value: string;

@@ -12,7 +12,6 @@ export const Icon = styled(({ Asset, color, ...props }: IconProps) => {
     return <img {...props} src={Asset} />;
   }
 
-  console.log('Asset', Asset);
   return <Asset {...props} />;
 })`
   vertical-align: middle;
