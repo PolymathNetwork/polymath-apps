@@ -24,7 +24,7 @@
     "react-select": "^2.1.2",
     "react-tooltip": "^3.9.0",
     "styled-components": "^4.1.2",
-    "styled-system": "^3.1.11",
+    "styled-system": "^3.2.0",
     "typeface-overpass": "^0.0.54"
   },
   "devDependencies": {
