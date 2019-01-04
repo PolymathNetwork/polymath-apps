@@ -9,7 +9,7 @@ import { InputProps } from '../types';
 import { formikProxy } from '../formikProxy';
 import { GlobalStyles } from './styles';
 
-import { SvgCalendar } from '../../../images/icons/Calendar.svg';
+import { ReactComponent as SvgCalendar } from '../../../images/icons/Calendar.svg';
 
 type PickerValue = [Date, string];
 

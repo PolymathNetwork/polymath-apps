@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 
 import * as sc from './styles';
 
-import { SvgInfo } from '../../images/icons/Info.svg';
+import { ReactComponent as SvgInfo } from '../../images/icons/Info.svg';
 
 export interface TooltipProps {
   triggerText: string;

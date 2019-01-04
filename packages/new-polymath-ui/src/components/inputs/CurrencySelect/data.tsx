@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Label } from './Label';
 
-import { SvgEth } from '../../../images/icons/Eth.svg';
-import { SvgPoly2 } from '../../../images/icons/Poly2.svg';
-import { SvgDai } from '../../../images/icons/Dai.svg';
+import { ReactComponent as SvgEth } from '../../../images/icons/Eth.svg';
+import { ReactComponent as SvgPoly2 } from '../../../images/icons/Poly2.svg';
+import { ReactComponent as SvgDai } from '../../../images/icons/Dai.svg';
 
 export const currencyOptions = [
   {
