@@ -47,5 +47,5 @@ export const GridDocz = (props: GridProps) => {
 };
 
 Grid.defaultProps = {
-  gridGap: 4,
+  gridGap: 'gridGap',
 };

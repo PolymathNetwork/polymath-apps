@@ -76,6 +76,8 @@ space.xl = space[6];
 space.xxl = space[7];
 space.xxxl = space[8];
 
+space.gridGap = space[4];
+
 export const zIndexes = {
   header: 80,
   sidebar: 100,
