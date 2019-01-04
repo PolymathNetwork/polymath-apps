@@ -6,6 +6,7 @@ menu: Modals
 import { Playground, PropsTable } from 'docz';
 
 import { ModalTx } from './';
+import { ModalDemo } from './ModalDemo';
 
 # ModalTx
 
@@ -14,12 +15,5 @@ import { ModalTx } from './';
 ## Basic usage
 
 <Playground>
-  <ModalTx
-    isOpen
-    status={0}
-    transactions={[
-      { id: 0, type: 'First transaction', status: 'UNAPPROVED' },
-      { id: 1, type: 'Second transaction', status: 'IDLE' },
-    ]}
-  />
+  <ModalDemo />
 </Playground>

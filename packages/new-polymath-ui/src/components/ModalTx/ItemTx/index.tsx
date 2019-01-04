@@ -34,10 +34,7 @@ const getIcon = (transaction: types.Transaction) => {
 };
 
 export const ItemTx = ({ transaction }: ItemTxProps) => (
-  <S.Wrapper
-    alignItems="top"
-    isDisabled={transaction.status === TransactionStatus.Idle}
-  >
+  <S.Wrapper isDisabled={transaction.status === TransactionStatus.Idle}>
     <Box minWidth={50} mt={1}>
       {getIcon(transaction)}
     </Box>

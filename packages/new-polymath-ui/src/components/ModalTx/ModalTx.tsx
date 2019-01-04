@@ -4,7 +4,7 @@ import { types } from '@polymathnetwork/new-shared';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
 import { Paragraph } from '../Paragraph';
-import { Grid } from '../Grid';
+import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { Modal, ModalProps, ModalStatus } from '../Modal';
 
@@ -83,24 +83,22 @@ export class ModalTx extends Component<ModalTxProps> {
         ))}
 
         {currentTransactionIndex === transactions.length - 1 && withEmail && (
-          <Grid gridTemplateColumns="35px 1fr" mt="gridGap">
-            <Box mt={1}>
+          <Flex mt="gridGap">
+            <Box minWidth={50} mt={1}>
               <Icon Asset={SvgPaperplane} width="30" height="30" />
             </Box>
             <Paragraph fontSize={2}>
               We just sent you an email with the transaction details for your
               records. Check your inbox.
             </Paragraph>
-          </Grid>
+          </Flex>
         )}
 
-        <Paragraph textAlign="center">
-          {currentTransactionIndex === transactions.length - 1 ||
-            (currentTransaction.status === TransactionStatus.Rejected && (
-              <Button onClick={this.handleContinue}>
-                {continueButtonText}
-              </Button>
-            ))}
+        <Paragraph textAlign="center" mt="gridGap">
+          {(currentTransactionIndex === transactions.length - 1 ||
+            currentTransaction.status === TransactionStatus.Rejected) && (
+            <Button onClick={this.handleContinue}>{continueButtonText}</Button>
+          )}
         </Paragraph>
       </Modal>
     );
