@@ -4,11 +4,13 @@ import { types } from '@polymathnetwork/new-shared';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
 import { Paragraph } from '../Paragraph';
+import { Grid } from '../Grid';
+import { Box } from '../Box';
 import { Modal, ModalProps, ModalStatus } from '../Modal';
 
+import { SvgPaperplane } from '~/images/icons/Paperplane';
+
 import { ItemTx } from './ItemTx';
-import * as S from './styles';
-import polyIcon from '../../images/icons/Poly';
 
 const { TransactionStatus } = types;
 
@@ -48,7 +50,9 @@ export class ModalTx extends Component<ModalTxProps> {
     } = this.props;
 
     const currentTransaction = transactions.find(
-      transaction => transaction.status === types.TransactionStatus.Idle
+      transaction =>
+        transaction.status !== types.TransactionStatus.Idle &&
+        transaction.status !== types.TransactionStatus.Succeeded
     );
 
     if (!currentTransaction) {
@@ -58,7 +62,13 @@ export class ModalTx extends Component<ModalTxProps> {
     const currentTransactionIndex = transactions.indexOf(currentTransaction);
 
     return (
-      <Modal isOpen={isOpen} isCloseable={false} status={status} maxWidth={500}>
+      <Modal
+        isOpen={isOpen}
+        isCloseable={false}
+        status={status}
+        maxWidth={500}
+        isCentered={false}
+      >
         <Modal.Header
           status={status}
           label={'Transaction ' + labelText[status]}
@@ -69,25 +79,23 @@ export class ModalTx extends Component<ModalTxProps> {
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <ItemTx
-            key={transaction.id}
-            transaction={transaction}
-            isActive={currentTransaction === transaction}
-          />
+          <ItemTx key={transaction.id} transaction={transaction} />
         ))}
 
-        {currentTransactionIndex === transactions.length && withEmail && (
-          <div className="pui-tx-row pui-tx-email">
-            <Icon Asset={polyIcon} />
+        {currentTransactionIndex === transactions.length - 1 && withEmail && (
+          <Grid gridTemplateColumns="35px 1fr" mt="gridGap">
+            <Box mt={1}>
+              <Icon Asset={SvgPaperplane} width="30" height="30" />
+            </Box>
             <Paragraph fontSize={2}>
               We just sent you an email with the transaction details for your
               records. Check your inbox.
             </Paragraph>
-          </div>
+          </Grid>
         )}
 
         <Paragraph textAlign="center">
-          {currentTransactionIndex === transactions.length ||
+          {currentTransactionIndex === transactions.length - 1 ||
             (currentTransaction.status === TransactionStatus.Rejected && (
               <Button onClick={this.handleContinue}>
                 {continueButtonText}

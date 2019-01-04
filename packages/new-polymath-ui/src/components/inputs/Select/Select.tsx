@@ -3,7 +3,7 @@ import ReactSelect, { components } from 'react-select';
 
 import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Icon } from '../../Icon';
-import CaretDownIcon from '../../../images/icons/CaretDown';
+import { SvgCaretDown } from '../../../images/icons/CaretDown';
 import { formikProxy } from '../formikProxy';
 import { InputProps } from '../types';
 
@@ -44,7 +44,7 @@ const DropdownIndicator = (props: any) => {
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
-        <Caret Asset={CaretDownIcon} width="10" height="10" />
+        <Caret Asset={SvgCaretDown} width="10" height="10" />
       </components.DropdownIndicator>
     )
   );

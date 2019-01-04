@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 
 import * as S from './styles';
 
-import InfoIcon from '../../images/icons/Info';
+import { SvgInfo } from '../../images/icons/Info';
 
 export interface TooltipProps {
   triggerText: string;
@@ -18,7 +18,7 @@ export const Tooltip = ({ triggerText, children, id }: TooltipProps) => (
       data-tip
       data-for={id || triggerText}
       aria-describedby={id || triggerText}
-      Asset={InfoIcon}
+      Asset={SvgInfo}
       width="16"
       height="16"
     />

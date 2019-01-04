@@ -9,7 +9,7 @@ import { Body } from './Body';
 import { Footer } from './Footer';
 import * as S from './styles';
 import { ModalStatus } from './types';
-import SvgClose from '../../images/icons/Close';
+import { SvgClose } from '../../images/icons/Close';
 
 export interface ModalProps {
   children: Node;
@@ -20,6 +20,7 @@ export interface ModalProps {
   status: ModalStatus;
   theme: ThemeInterface;
   maxWidth: MaxWidthProps;
+  isCentered: boolean;
 }
 
 type State = {
@@ -37,6 +38,7 @@ class _Modal extends Component<ModalProps, State> {
     isOpen: false,
     isCloseable: true,
     onClose: null,
+    isCentered: true,
   };
 
   state = {

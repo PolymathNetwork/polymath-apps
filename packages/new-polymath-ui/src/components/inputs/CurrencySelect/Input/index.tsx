@@ -6,8 +6,8 @@ import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 
-import CaretDownIcon from '../../../../images/icons/CaretDown';
-import CloseIcon from '../../../../images/icons/Close';
+import { SvgCaretDown } from '../../../../images/icons/CaretDown';
+import { SvgClose } from '../../../../images/icons/Close';
 
 import { currencyOptions } from '../data';
 import { Value } from '../Value';
@@ -90,7 +90,7 @@ const DropdownIndicator = props => {
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
         {props.selectProps.placeholder}
-        <Caret Asset={CaretDownIcon} width="10" height="10" />
+        <Caret Asset={SvgCaretDown} width="10" height="10" />
       </components.DropdownIndicator>
     )
   );
@@ -101,7 +101,7 @@ const ClearIndicator = props => {
     components.ClearIndicator && (
       <components.ClearIndicator {...props}>
         {props.selectProps.value.length}
-        <Icon Asset={CloseIcon} width="8" height="10" />
+        <Icon Asset={SvgClose} width="8" height="10" />
       </components.ClearIndicator>
     )
   );

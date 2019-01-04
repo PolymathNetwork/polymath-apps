@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Box } from '../../../Box';
-import { IconButton } from '../../../IconButton';
+import { Box } from '~/components/Box';
+import { IconButton } from '~/components/IconButton';
 
-import SvgClose from '../../../../images/icons/Close';
+import { SvgClose } from '~/images/icons/Close';
 
 const Wrapper = styled(Box)`
   display: inline-flex;
