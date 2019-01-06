@@ -13,14 +13,13 @@ import {
   TextAlignProps,
 } from 'styled-system';
 
-export type BoxProps = StyledProps<any> &
-  MinWidthProps &
+export type BoxProps = MinWidthProps &
   MaxWidthProps &
   HeightProps &
   SpaceProps &
   TextAlignProps;
 
-export const Box = styled.div<BoxProps>`
+export const Box: React.FC<BoxProps> = styled.div<BoxProps>`
   box-sizing: border-box;
   ${minWidth};
   ${maxWidth};
@@ -29,7 +28,7 @@ export const Box = styled.div<BoxProps>`
   ${space};
 `;
 
-// TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
-export const BoxDocz = (props: BoxProps) => {
-  return <Box {...props} />;
-};
+// // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
+// export const BoxDocz = (props: BoxProps) => {
+//   return <Box {...props} />;
+// };

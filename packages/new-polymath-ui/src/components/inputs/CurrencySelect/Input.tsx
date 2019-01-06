@@ -31,10 +31,10 @@ export const currencyOptions = [
   },
 ];
 
-type Option = {
+interface Option {
   value: string;
   label: Node;
-};
+}
 
 export interface InputProps extends _InputProps {
   value: [string];

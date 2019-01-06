@@ -7,13 +7,15 @@ export interface IconProps extends StyledProps<any> {
   Asset: React.ComponentType<React.SVGAttributes<SVGElement>> | string;
 }
 
-export const Icon = styled(({ Asset, color, ...props }: IconProps) => {
-  if (typeof Asset === 'string') {
-    return <img {...props} src={Asset} />;
-  }
+export const Icon = styled(
+  ({ Asset, color: colorProp, ...props }: IconProps) => {
+    if (typeof Asset === 'string') {
+      return <img {...props} src={Asset} />;
+    }
 
-  return <Asset {...props} />;
-})`
+    return <Asset {...props} />;
+  }
+)`
   vertical-align: middle;
   ${color};
 `;
