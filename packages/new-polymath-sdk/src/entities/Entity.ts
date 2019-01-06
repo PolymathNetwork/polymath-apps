@@ -4,6 +4,16 @@ import v4 from 'uuid/v4';
 import { serialize } from '~/utils';
 
 export abstract class Entity {
+  private static unwrap(value: any): any {
+    if (value instanceof Entity) {
+      return value.toPojo();
+    } else if (Array.isArray(value)) {
+      return value.map(Entity.unwrap).filter(val => !!val);
+    } else if (typeof value !== 'function') {
+      return value;
+    }
+  }
+
   public abstract entityType: string;
   public uid: string;
   protected polyClient: Polymath;
@@ -27,14 +37,12 @@ export abstract class Entity {
     publicProps.forEach(prop => {
       const val = (this as any)[prop];
 
-      if (val instanceof Entity) {
-        result[prop] = val.toPojo();
-      } else if (typeof val !== 'function') {
-        result[prop] = val;
+      const unwrappedVal = Entity.unwrap(val);
+
+      if (unwrappedVal) {
+        result[prop] = unwrappedVal;
       }
     });
-
-    result.uid = this.generateId();
 
     return result;
   }
