@@ -12,11 +12,13 @@ export interface DataRequestResults {
 export interface DataRequestsState {
   [RequestKeys.GetCheckpointsBySymbol]: DataRequestResults;
   [RequestKeys.GetSecurityTokenBySymbol]: DataRequestResults;
+  [RequestKeys.GetDividendsByCheckpoint]: DataRequestResults;
 }
 
 const initialState: DataRequestsState = {
   [RequestKeys.GetCheckpointsBySymbol]: {},
   [RequestKeys.GetSecurityTokenBySymbol]: {},
+  [RequestKeys.GetDividendsByCheckpoint]: {},
 };
 
 export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (

@@ -20,6 +20,7 @@ describe('Reducer: dataRequests', () => {
       [argsHash]: fetchedIds,
     },
     [RequestKeys.GetSecurityTokenBySymbol]: {},
+    [RequestKeys.GetDividendsByCheckpoint]: {},
   };
 
   test('invalidateRequest invalidates cache for all requests of a certain type', () => {
