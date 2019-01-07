@@ -6,7 +6,9 @@ import { call, put } from 'redux-saga/effects';
 import { Checkpoint } from '@polymathnetwork/sdk';
 import { RequestKeys } from '~/types';
 
-export function* fetchCheckpoints(args: { securityTokenSymbol: string }) {
+export function* fetchCheckpointsBySymbol(args: {
+  securityTokenSymbol: string;
+}) {
   try {
     const { securityTokenSymbol } = args;
     const checkpoints: Checkpoint[] = yield call(polyClient.getCheckpoints, {
