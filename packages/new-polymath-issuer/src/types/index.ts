@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
-import { Erc20DividendsModule } from '@polymathnetwork/sdk';
 
 export type Entity =
   | TransactionEntity
@@ -76,6 +75,7 @@ export enum Entities {
   Checkpoints = 'checkpoints',
   Transactions = 'transactions',
   Dividends = 'dividends',
+  Erc20DividendsModules = 'erc20DividendsModules',
 }
 
 export enum RequestKeys {
