@@ -23,3 +23,15 @@ export const createDividendsByCheckpointFetcher = (
     args,
   };
 };
+
+export const createErc20DividendsModuleBySymbolFetcher = (
+  args: { securityTokenSymbol: string },
+  opts: { propKey?: string } = {}
+): Fetcher => {
+  return {
+    propKey: opts.propKey,
+    entity: Entities.Erc20DividendsModules,
+    requestKey: RequestKeys.GetErc20DividendsModuleBySymbol,
+    args,
+  };
+};
