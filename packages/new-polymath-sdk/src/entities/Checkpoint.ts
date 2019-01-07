@@ -4,7 +4,6 @@ import { serialize } from '~/utils';
 import { Dividend } from './Dividend';
 import { InvestorBalance } from '~/types';
 import BigNumber from 'bignumber.js';
-import { Pojo } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 interface Params {
   dividends: Dividend[];
@@ -61,11 +60,6 @@ export class Checkpoint extends Entity {
       totalSupply,
       createdAt,
     } = this;
-
-    const balances = investorBalances as Array<{
-      address: string;
-      balance: BigNumber;
-    }>;
 
     return {
       uid,
