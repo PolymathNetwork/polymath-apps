@@ -69,6 +69,46 @@ export enum RequestKeys {
   GetDividendsByCheckpoint = 'getDividendsByCheckpoint',
 }
 
+export interface GetCheckpointsBySymbolArgs {
+  securityTokenSymbol: string;
+}
+
+export interface GetSecurityTokenBySymbolArgs {
+  securityTokenSymbol: string;
+}
+
+export interface GetDividendsByCheckpointArgs {
+  securityTokenSymbol: string;
+  checkpointIndex: number;
+}
+
+export function isGetCheckpointsBySymbolArgs(
+  args: any
+): args is GetCheckpointsBySymbolArgs {
+  const { securityTokenSymbol } = args;
+
+  return typeof securityTokenSymbol === 'string';
+}
+
+export function isGetSecurityTokenBySymbolArgs(
+  args: any
+): args is GetSecurityTokenBySymbolArgs {
+  const { securityTokenSymbol } = args;
+
+  return typeof securityTokenSymbol === 'string';
+}
+
+export function isGetDividendsByCheckpointArgs(
+  args: any
+): args is GetDividendsByCheckpointArgs {
+  const { securityTokenSymbol, checkpointIndex } = args;
+
+  return (
+    typeof securityTokenSymbol === 'string' &&
+    typeof checkpointIndex === 'number'
+  );
+}
+
 export interface Fetcher {
   propKey?: string;
   entity: Entities;

@@ -1,8 +1,13 @@
 import { call, takeLatest } from 'redux-saga/effects';
 import { fetchData } from '~/state/actions/dataRequests';
 import { getType, ActionType } from 'typesafe-actions';
-import { RequestKeys } from '~/types';
-import { fetchCheckpoints } from '~/state/sagas/requests/checkpoints';
+import {
+  RequestKeys,
+  isGetCheckpointsBySymbolArgs,
+  isGetDividendsByCheckpointArgs,
+} from '~/types';
+import { fetchCheckpoints } from './checkpoints';
+import { fetchDividends } from './dividends';
 
 export function* requestData(action: ActionType<typeof fetchData>) {
   const {
@@ -11,12 +16,17 @@ export function* requestData(action: ActionType<typeof fetchData>) {
 
   switch (requestKey) {
     case RequestKeys.GetCheckpointsBySymbol: {
-      if (typeof args.symbol === 'string') {
-        yield call(fetchCheckpoints, args as { symbol: string });
+      if (isGetCheckpointsBySymbolArgs(args)) {
+        yield call(fetchCheckpoints, args);
       } else {
-        throw new Error(
-          'Invalid arguments passed for fetching checkpoints. Missing token symbol.'
-        );
+        throw new Error('Invalid arguments passed for fetching checkpoints.');
+      }
+    }
+    case RequestKeys.GetDividendsByCheckpoint: {
+      if (isGetDividendsByCheckpointArgs(args)) {
+        yield call(fetchDividends, args);
+      } else {
+        throw new Error('Invalid arguments passed for fetching dividends.');
       }
     }
     default:
