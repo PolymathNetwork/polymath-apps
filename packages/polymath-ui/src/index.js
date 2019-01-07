@@ -58,6 +58,7 @@ export { default as RaisedAmount } from './components/RaisedAmount';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as TierStatus } from './components/TierStatus';
 export { default as StickyTop } from './components/StickyTop';
+export { default as ButtonTooltip } from './components/ButtonTooltip';
 export { default as Tooltip } from './components/Tooltip';
 
 /**

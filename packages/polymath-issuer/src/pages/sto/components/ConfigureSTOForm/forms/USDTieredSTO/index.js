@@ -27,6 +27,7 @@ import {
   validateEndTime,
   validateTodayOrAfter,
   validateStartTime,
+  maxLenArray,
   REQUIRED_MESSAGE,
   MIN_MESSAGE,
   MORE_THAN_MESSAGE,
@@ -130,6 +131,8 @@ const formSchema = validator.object().shape({
     isMultipleTiers: validator.boolean(),
     tiers: validator
       .array()
+      // .test('maxArray', maxLenArray)
+      .max(1, 'No more than 5 tiers allowed')
       .of(investmentTierSchema)
       .isRequired('You must add at least one tier.'),
     newTier: investmentTierSchema.nullable(),
