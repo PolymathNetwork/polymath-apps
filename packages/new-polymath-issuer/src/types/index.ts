@@ -1,7 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
+import { Erc20DividendsModule } from '@polymathnetwork/sdk';
 
-export type Entity = TransactionEntity | DividendEntity | CheckpointEntity;
+export type Entity =
+  | TransactionEntity
+  | DividendEntity
+  | CheckpointEntity
+  | Erc20DividendsModuleEntity;
 
 export interface TransactionEntity {
   uid: string;
@@ -40,6 +45,16 @@ export interface CheckpointEntity {
   createdAt: Date;
 }
 
+export interface Erc20DividendsModuleEntity {
+  uid: string;
+  /**
+   * if undefined, it means the module is not attached
+   */
+  address?: string;
+  securityTokenSymbol: string;
+  securityTokenId: string;
+}
+
 export interface Wallet {
   address: string;
 }
@@ -67,6 +82,7 @@ export enum RequestKeys {
   GetCheckpointsBySymbol = 'getCheckpointsBySymbol',
   GetSecurityTokenBySymbol = 'getSecurityTokenBySymbol',
   GetDividendsByCheckpoint = 'getDividendsByCheckpoint',
+  GetErc20DividendsModuleBySymbol = 'getErc20DividendsModuleBySymbol',
 }
 
 export interface GetCheckpointsBySymbolArgs {
@@ -80,6 +96,10 @@ export interface GetSecurityTokenBySymbolArgs {
 export interface GetDividendsByCheckpointArgs {
   securityTokenSymbol: string;
   checkpointIndex: number;
+}
+
+export interface GetErc20DividendsModuleBySymbolArgs {
+  securityTokenSymbol: string;
 }
 
 export function isGetCheckpointsBySymbolArgs(
@@ -107,6 +127,14 @@ export function isGetDividendsByCheckpointArgs(
     typeof securityTokenSymbol === 'string' &&
     typeof checkpointIndex === 'number'
   );
+}
+
+export function isGetErc20DividendsModuleBySymbolArgs(
+  args: any
+): args is GetCheckpointsBySymbolArgs {
+  const { securityTokenSymbol } = args;
+
+  return typeof securityTokenSymbol === 'string';
 }
 
 export interface Fetcher {

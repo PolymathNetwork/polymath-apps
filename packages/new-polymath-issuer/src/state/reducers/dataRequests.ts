@@ -13,12 +13,14 @@ export interface DataRequestsState {
   [RequestKeys.GetCheckpointsBySymbol]: DataRequestResults;
   [RequestKeys.GetSecurityTokenBySymbol]: DataRequestResults;
   [RequestKeys.GetDividendsByCheckpoint]: DataRequestResults;
+  [RequestKeys.GetErc20DividendsModuleBySymbol]: DataRequestResults;
 }
 
 const initialState: DataRequestsState = {
   [RequestKeys.GetCheckpointsBySymbol]: {},
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
+  [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
 };
 
 export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (

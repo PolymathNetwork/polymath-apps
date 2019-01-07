@@ -94,6 +94,7 @@ const dataRequestsState = {
   },
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
+  [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
 };
 
 const mockState: RootState = {
