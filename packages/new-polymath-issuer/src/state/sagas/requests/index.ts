@@ -5,9 +5,11 @@ import {
   RequestKeys,
   isGetCheckpointsBySymbolArgs,
   isGetDividendsByCheckpointArgs,
+  isGetErc20DividendsModuleBySymbolArgs,
 } from '~/types';
-import { fetchCheckpoints } from './checkpoints';
-import { fetchDividends } from './dividends';
+import { fetchCheckpointsBySymbol } from './checkpoints';
+import { fetchDividendsByCheckpoint } from './dividends';
+import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
 
 export function* requestData(action: ActionType<typeof fetchData>) {
   const {
@@ -17,16 +19,25 @@ export function* requestData(action: ActionType<typeof fetchData>) {
   switch (requestKey) {
     case RequestKeys.GetCheckpointsBySymbol: {
       if (isGetCheckpointsBySymbolArgs(args)) {
-        yield call(fetchCheckpoints, args);
+        yield call(fetchCheckpointsBySymbol, args);
       } else {
         throw new Error('Invalid arguments passed for fetching checkpoints.');
       }
     }
     case RequestKeys.GetDividendsByCheckpoint: {
       if (isGetDividendsByCheckpointArgs(args)) {
-        yield call(fetchDividends, args);
+        yield call(fetchDividendsByCheckpoint, args);
       } else {
         throw new Error('Invalid arguments passed for fetching dividends.');
+      }
+    }
+    case RequestKeys.GetErc20DividendsModuleBySymbol: {
+      if (isGetErc20DividendsModuleBySymbolArgs(args)) {
+        yield call(fetchErc20DividendsModuleBySymbol, args);
+      } else {
+        throw new Error(
+          'Invalid arguments passed for fetching dividends module.'
+        );
       }
     }
     default:

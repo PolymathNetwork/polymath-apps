@@ -5,7 +5,7 @@ import { call, put } from 'redux-saga/effects';
 import { Dividend } from '@polymathnetwork/sdk';
 import { RequestKeys } from '~/types';
 
-export function* fetchDividends(args: {
+export function* fetchDividendsByCheckpoint(args: {
   securityTokenSymbol: string;
   checkpointIndex: number;
 }) {
