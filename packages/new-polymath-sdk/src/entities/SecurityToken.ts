@@ -10,6 +10,7 @@ interface Params {
 }
 
 export class SecurityToken extends Entity {
+  public uid: string;
   public entityType: string = 'securityToken';
   public symbol: string;
   public name: string;
@@ -18,9 +19,12 @@ export class SecurityToken extends Entity {
   constructor(params: Params, polyClient?: Polymath) {
     super(polyClient);
 
-    this.symbol = params.symbol;
-    this.name = params.name;
-    this.address = params.address;
+    const { symbol, name, address } = params;
+
+    this.symbol = symbol;
+    this.name = name;
+    this.address = address;
+    this.uid = this.generateId();
   }
 
   public enableDividendModules(
@@ -55,6 +59,12 @@ export class SecurityToken extends Entity {
       symbol: this.symbol,
       name: this.name,
     });
+  }
+
+  public toPojo() {
+    const { uid, symbol, name, address } = this;
+
+    return { uid, symbol, name, address };
   }
 
   protected generateId() {

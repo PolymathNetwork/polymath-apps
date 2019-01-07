@@ -9,6 +9,7 @@ interface Params {
 }
 
 export class SecurityTokenReservation extends Entity {
+  public uid: string;
   public entityType = 'securityTokenReservation';
   public symbol: string;
   public name: string;
@@ -16,8 +17,11 @@ export class SecurityTokenReservation extends Entity {
   constructor(params: Params, polyClient?: Polymath) {
     super(polyClient);
 
-    this.symbol = params.symbol;
-    this.name = params.name;
+    const { symbol, name } = params;
+
+    this.symbol = symbol;
+    this.name = name;
+    this.uid = this.generateId();
   }
 
   public reserve(
@@ -44,6 +48,12 @@ export class SecurityTokenReservation extends Entity {
       symbol: this.symbol,
       name: this.name,
     });
+  }
+
+  public toPojo() {
+    const { uid, symbol, name } = this;
+
+    return { uid, symbol, name };
   }
 
   protected generateId() {

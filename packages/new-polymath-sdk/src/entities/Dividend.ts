@@ -4,9 +4,10 @@ import { serialize } from '~/utils';
 import BigNumber from 'bignumber.js';
 
 interface Params {
-  id: number;
-  checkpointId: number;
+  index: number;
+  checkpointId: string;
   securityTokenSymbol: string;
+  securityTokenId: string;
   created: Date;
   maturity: Date;
   expiry: Date;
@@ -21,10 +22,12 @@ interface Params {
 }
 
 export class Dividend extends Entity {
+  public uid: string;
   public entityType: string = 'dividend';
-  public id: number;
-  public checkpointId: number;
+  public index: number;
+  public checkpointId: string;
   public securityTokenSymbol: string;
+  public securityTokenId: string;
   public created: Date;
   public maturity: Date;
   public expiry: Date;
@@ -41,9 +44,10 @@ export class Dividend extends Entity {
     super(polyClient);
 
     const {
-      id,
+      index,
       checkpointId,
       securityTokenSymbol,
+      securityTokenId,
       created,
       maturity,
       expiry,
@@ -57,9 +61,10 @@ export class Dividend extends Entity {
       currency,
     } = params;
 
-    this.id = id;
+    this.index = index;
     this.checkpointId = checkpointId;
     this.securityTokenSymbol = securityTokenSymbol;
+    this.securityTokenId = securityTokenId;
     this.created = created;
     this.maturity = maturity;
     this.expiry = expiry;
@@ -71,15 +76,56 @@ export class Dividend extends Entity {
     this.dividendWithheldReclaimed = dividendWithheldReclaimed;
     this.name = name;
     this.currency = currency;
+    this.uid = this.generateId();
+  }
+
+  public toPojo() {
+    const {
+      uid,
+      index,
+      checkpointId,
+      securityTokenSymbol,
+      securityTokenId,
+      created,
+      maturity,
+      expiry,
+      amount,
+      claimedAmount,
+      totalSupply,
+      reclaimed,
+      dividendWithheld,
+      dividendWithheldReclaimed,
+      name,
+      currency,
+    } = this;
+
+    return {
+      uid,
+      index,
+      checkpointId,
+      securityTokenSymbol,
+      securityTokenId,
+      created,
+      maturity,
+      expiry,
+      amount,
+      claimedAmount,
+      totalSupply,
+      reclaimed,
+      dividendWithheld,
+      dividendWithheldReclaimed,
+      name,
+      currency,
+    };
   }
 
   protected generateId() {
-    const { securityTokenSymbol, checkpointId, id, entityType } = this;
+    const { securityTokenSymbol, checkpointId, index, entityType } = this;
 
     return serialize(entityType, {
       securityTokenSymbol,
       checkpointId,
-      id,
+      index,
     });
   }
 }

@@ -5,6 +5,10 @@ describe('Entity', () => {
     expect(() => {
       class ConcreteEntity extends Entity {
         public entityType = 'concrete';
+        public uid = this.generateId();
+        public toPojo() {
+          return {};
+        }
       }
 
       const st = new ConcreteEntity();

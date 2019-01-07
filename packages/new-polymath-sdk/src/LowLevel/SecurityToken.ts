@@ -2,25 +2,18 @@ import Web3 from 'web3';
 import { TransactionObject } from 'web3/eth/types';
 import BigNumber from 'bignumber.js';
 import { ModuleTypes } from '~/types';
-import { DividendModuleTypes, GenericContract } from './types';
+import {
+  DividendModuleTypes,
+  GenericContract,
+  Checkpoint,
+  InvestorBalance,
+} from './types';
 import { Context } from './LowLevel';
 import { fromUnixTimestamp, fromWei } from './utils';
 import { Erc20DividendCheckpoint } from './Erc20DividendCheckpoint';
 import { EtherDividendCheckpoint } from './EtherDividendCheckpoint';
 import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
 import { Contract } from './Contract';
-
-export interface InvestorBalance {
-  address: string;
-  balance: BigNumber;
-}
-
-export interface Checkpoint {
-  id: number;
-  investorBalances: InvestorBalance[];
-  totalSupply: BigNumber;
-  createdAt: Date;
-}
 
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenContract extends GenericContract {
@@ -41,6 +34,7 @@ interface SecurityTokenContract extends GenericContract {
       budget: BigNumber
     ): TransactionObject<void>;
     getModulesByName(name: string): TransactionObject<string[]>;
+    name(): TransactionObject<string>;
   };
 }
 
@@ -129,7 +123,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       }
 
       checkpoints.push({
-        id: checkpointId,
+        index: checkpointId,
         totalSupply: fromWei(totalSupplyInWei),
         investorBalances,
         createdAt: fromUnixTimestamp(timestamp),
@@ -137,6 +131,10 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     }
 
     return checkpoints;
+  }
+
+  public async name() {
+    return this.contract.methods.name().call();
   }
 
   private async getModuleAddress(name: string) {

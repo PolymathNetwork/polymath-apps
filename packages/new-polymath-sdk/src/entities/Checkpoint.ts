@@ -4,21 +4,25 @@ import { serialize } from '~/utils';
 import { Dividend } from './Dividend';
 import { InvestorBalance } from '~/types';
 import BigNumber from 'bignumber.js';
+import { Pojo } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 interface Params {
   dividends: Dividend[];
   securityTokenSymbol: string;
-  id: number;
+  securityTokenId: string;
+  index: number;
   investorBalances: InvestorBalance[];
   totalSupply: BigNumber;
   createdAt: Date;
 }
 
 export class Checkpoint extends Entity {
+  public uid: string;
   public entityType: string = 'checkpoint';
   public dividends: Dividend[];
   public securityTokenSymbol: string;
-  public id: number;
+  public securityTokenId: string;
+  public index: number;
   public investorBalances: InvestorBalance[];
   public totalSupply: BigNumber;
   public createdAt: Date;
@@ -29,7 +33,8 @@ export class Checkpoint extends Entity {
     const {
       dividends,
       securityTokenSymbol,
-      id,
+      securityTokenId,
+      index,
       investorBalances,
       totalSupply,
       createdAt,
@@ -37,17 +42,48 @@ export class Checkpoint extends Entity {
 
     this.dividends = dividends;
     this.securityTokenSymbol = securityTokenSymbol;
-    this.id = id;
+    this.securityTokenId = securityTokenId;
+    this.index = index;
     this.investorBalances = investorBalances;
     this.totalSupply = totalSupply;
     this.createdAt = createdAt;
+    this.uid = this.generateId();
+  }
+
+  public toPojo() {
+    const {
+      uid,
+      dividends,
+      securityTokenSymbol,
+      securityTokenId,
+      index,
+      investorBalances,
+      totalSupply,
+      createdAt,
+    } = this;
+
+    const balances = investorBalances as Array<{
+      address: string;
+      balance: BigNumber;
+    }>;
+
+    return {
+      uid,
+      dividends: dividends.map(dividend => dividend.toPojo()),
+      securityTokenSymbol,
+      securityTokenId,
+      index,
+      investorBalances,
+      totalSupply,
+      createdAt,
+    };
   }
 
   protected generateId() {
-    const { securityTokenSymbol, id, entityType } = this;
+    const { securityTokenSymbol, index, entityType } = this;
     return serialize(entityType, {
       securityTokenSymbol,
-      id,
+      index,
     });
   }
 }

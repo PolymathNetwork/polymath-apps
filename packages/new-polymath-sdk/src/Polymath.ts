@@ -6,7 +6,10 @@ import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 import { Context } from '~/Context';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
 import { TaxWithholding } from '~/types';
-import { Dividend as LowLevelDividend } from '~/LowLevel/types';
+import {
+  Dividend as LowLevelDividend,
+  Checkpoint as LowLevelCheckpoint,
+} from '~/LowLevel/types';
 import { Dividend, Checkpoint } from '~/entities';
 
 import {
@@ -245,22 +248,42 @@ export class Polymath {
       etherDividends = await etherModule.getDividends();
     }
 
-    const checkpoints = await securityToken.getCheckpoints();
+    const checkpoints: LowLevelCheckpoint[] = await securityToken.getCheckpoints();
+
+    const address = securityToken.address;
+    const name = await securityToken.name();
+    const stEntity = new SecurityToken({
+      symbol: securityTokenSymbol,
+      name,
+      address,
+    });
+    const securityTokenId = stEntity.uid;
 
     return checkpoints.map(checkpoint => {
       const checkpointDividends = [...erc20Dividends, ...etherDividends].filter(
-        dividend => dividend.checkpointId === checkpoint.id
+        dividend => dividend.checkpointId === checkpoint.index
       );
+
+      const emptyCheckpoint = new Checkpoint({
+        ...checkpoint,
+        securityTokenId,
+        securityTokenSymbol,
+        dividends: [],
+      });
 
       const dividends = checkpointDividends.map(
-        dividend => new Dividend({ ...dividend, securityTokenSymbol })
+        dividend =>
+          new Dividend({
+            ...dividend,
+            checkpointId: emptyCheckpoint.uid,
+            securityTokenSymbol,
+            securityTokenId,
+          })
       );
 
-      return new Checkpoint({
-        ...checkpoint,
-        securityTokenSymbol,
-        dividends,
-      });
+      emptyCheckpoint.dividends = dividends;
+
+      return emptyCheckpoint;
     });
   }
 

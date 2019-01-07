@@ -46,7 +46,7 @@ export enum DividendModuleTypes {
 }
 
 export interface Dividend {
-  id: number;
+  index: number;
   checkpointId: number;
   created: Date;
   maturity: Date;
@@ -59,4 +59,16 @@ export interface Dividend {
   dividendWithheldReclaimed: BigNumber;
   name: string;
   currency: string | null;
+}
+
+export interface InvestorBalance {
+  address: string;
+  balance: BigNumber;
+}
+
+export interface Checkpoint {
+  index: number;
+  investorBalances: InvestorBalance[];
+  totalSupply: BigNumber;
+  createdAt: Date;
 }
