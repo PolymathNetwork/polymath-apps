@@ -4,13 +4,12 @@ import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createCheckpointsBySymbolFetcher } from '~/state/fetchers';
+import { CheckpointEntity } from '~/types';
 
 export interface Props {
   dispatch: Dispatch<any>;
   symbol: string;
 }
-
-const mapStateToProps = () => {};
 
 export class ContainerBase extends Component<Props> {
   public render() {
@@ -22,10 +21,9 @@ export class ContainerBase extends Component<Props> {
             securityTokenSymbol: symbol,
           }),
         ]}
-        render={data => {
+        render={(data: { checkpoints: CheckpointEntity[] }) => {
           const { checkpoints } = data;
-          console.log(data);
-
+          // TODO @monitz87: pass the actual props to the presenter when it is implemented
           return <Presenter />;
         }}
       />
