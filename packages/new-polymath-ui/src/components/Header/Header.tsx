@@ -5,15 +5,15 @@ import { formatters } from '@polymathnetwork/new-shared';
 
 import * as sc from './styles';
 
-import { PageWrap } from '../PageWrap';
-import { Flex } from '../Flex';
-import { Block } from '../Block';
+import { PageWrap } from '~/components/PageWrap';
+import { Flex } from '~/components/Flex';
+import { Block } from '~/components/Block';
 
-import polyLogo from '../../images/logo.svg';
-import networkIcon from '../../images/icons/network.svg';
-import polyIcon from '../../images/icons/poly.svg';
-import accountIcon from '../../images/icons/account.svg';
-import tokenIcon from '../../images/icons/token.svg';
+import polyLogo from '~/images/logo.svg';
+import networkIcon from '~/images/icons/network.svg';
+import polyIcon from '~/images/icons/poly.svg';
+import accountIcon from '~/images/icons/account.svg';
+import tokenIcon from '~/images/icons/token.svg';
 
 export interface HeaderProps {
   network: string;

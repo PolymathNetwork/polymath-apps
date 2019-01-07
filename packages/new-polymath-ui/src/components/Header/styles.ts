@@ -1,7 +1,7 @@
 import styled, { css } from '~/styles';
 import { Flex } from '../Flex';
 
-import { HeaderProps } from './';
+import { HeaderProps } from './Header';
 
 const variants = {
   default: css`
@@ -11,7 +11,7 @@ const variants = {
   transparent: ``,
 };
 
-export const Wrapper = styled.div<HeaderProps>`
+export const Wrapper = styled.div<{ variant: HeaderProps['variant'] }>`
   width: 100%;
   height: ${({ theme }) => theme.header.height};
   ${({ variant }) => variants[variant]};

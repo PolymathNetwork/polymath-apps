@@ -19,7 +19,7 @@ export type BoxProps = MinWidthProps &
   SpaceProps &
   TextAlignProps;
 
-export const Box = styled('div')<BoxProps>`
+export const Box = styled.div<BoxProps>`
   box-sizing: border-box;
   ${minWidth};
   ${maxWidth};

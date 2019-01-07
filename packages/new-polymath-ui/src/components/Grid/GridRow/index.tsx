@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { Grid, GridProps } from '../Grid';
+import { Grid } from '../Grid';
 
-export const GridRow = styled(Grid)<GridProps>`
+export const GridRow = styled(Grid)`
   grid-template-columns: repeat(12, 1fr);
 `;
