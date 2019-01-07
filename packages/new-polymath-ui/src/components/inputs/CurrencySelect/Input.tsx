@@ -1,22 +1,20 @@
 import React, { FC, Fragment, ReactNode } from 'react';
 import Select, { components } from 'react-select';
-import { IndicatorComponentType } from 'react-select/lib/components';
+import { IndicatorProps } from 'react-select/lib/components/indicators';
+import { Styles } from 'react-select/lib/styles';
 import { intersectionWith, filter, includes } from 'lodash';
+import { types } from '@polymathnetwork/new-shared';
 import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
 import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
 import { ReactComponent as SvgPolyB } from '~/images/icons/poly-b.svg';
 import { ReactComponent as SvgDai } from '~/images/icons/dai.svg';
-// import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
-// import { ReactComponent as SvgPolyB } from '~/images/icons/poly-b.svg';
-// import { ReactComponent as SvgDai } from '~/images/icons/dai.svg';
-import { IndicatorProps } from 'react-select/lib/components/indicators';
 import styled, { withTheme, ThemeInterface } from '~/styles';
-import { Label } from './Label';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 import { InputProps } from '~/components/inputs/types';
-import { types } from '@polymathnetwork/new-shared';
+import { Label } from './Label';
+import * as sc from './styles';
 
 interface OptionType {
   value: types.Tokens;
@@ -42,14 +40,16 @@ interface SelectProps extends InputProps {
   options: types.Tokens[];
   theme: ThemeInterface;
   value: types.Tokens | types.Tokens[];
+  // Override because ReactSelect does not provide the event
+  onBlur: () => void;
 }
 
-const getStyles = (theme: ThemeInterface) => ({
-  container: (styles: any) => ({
+const getStyles = (theme: ThemeInterface): Styles => ({
+  container: styles => ({
     ...styles,
     borderRadius: 0,
   }),
-  control: (styles: any) => {
+  control: styles => {
     return {
       ...styles,
       backgroundColor: theme.inputs.backgroundColor,
@@ -67,11 +67,11 @@ const getStyles = (theme: ThemeInterface) => ({
     zIndex: -1,
     pointerEvents: 'none',
   }),
-  indicatorsContainer: (styles: any) => ({
+  indicatorsContainer: styles => ({
     ...styles,
     flexGrow: 1,
   }),
-  dropdownIndicator: (styles: any) => ({
+  dropdownIndicator: styles => ({
     ...styles,
     color: theme.colors.baseText,
     fontSize: theme.fontSizes[1],
@@ -80,7 +80,7 @@ const getStyles = (theme: ThemeInterface) => ({
     alignItems: 'center',
     paddingRight: theme.space[3],
   }),
-  clearIndicator: (styles: any) => ({
+  clearIndicator: styles => ({
     ...styles,
     color: 'white',
     backgroundColor: theme.colors.primary,
@@ -108,6 +108,7 @@ const Caret = styled(Icon)`
 interface CustomIndicatorProps extends IndicatorProps<OptionType> {
   selectProps: SelectProps;
 }
+
 const DropdownIndicator: FC<CustomIndicatorProps> = props => {
   return (
     components.DropdownIndicator && (
@@ -134,6 +135,27 @@ const ClearIndicator: FC<CustomIndicatorProps> = props => {
   );
 };
 
+interface SelectValueProps {
+  label: ReactNode;
+  value: types.Tokens;
+  onRemove: (value: types.Tokens) => void;
+}
+
+class SelectValue extends React.Component<SelectValueProps> {
+  public handleRemove = () => {
+    this.props.onRemove(this.props.value);
+  };
+
+  public render() {
+    return (
+      <sc.ValueWrapper>
+        <sc.ValueLabel>{this.props.label}</sc.ValueLabel>
+        <sc.ValueRemoveButton Asset={SvgClose} onClick={this.handleRemove} />
+      </sc.ValueWrapper>
+    );
+  }
+}
+
 class InputComponent extends React.Component<SelectProps> {
   public static defaultProps = {
     options: CURRENCY_OPTIONS.map(option => option.value),
@@ -148,16 +170,28 @@ class InputComponent extends React.Component<SelectProps> {
     onChange(newValue);
   };
 
-  public handleChange = (value: OptionType | OptionType[]) => {
+  public handleChange = (value?: OptionType | OptionType[] | null) => {
     const { onChange } = this.props;
 
-    return onChange(
-      Array.isArray(value) ? value.map(option => option.value) : value.value
-    );
+    if (!value) {
+      return;
+    }
+
+    const result = Array.isArray(value)
+      ? value.map(option => option.value)
+      : value.value;
+
+    return onChange(result);
+  };
+
+  public handleBlur = () => {
+    const { onBlur } = this.props;
+
+    onBlur();
   };
 
   public render() {
-    const { value, options, onChange, onBlur, theme, ...props } = this.props;
+    const { value, options, onChange, onBlur, theme, ...rest } = this.props;
 
     const filteredOptions = intersectionWith(
       CURRENCY_OPTIONS,
@@ -186,7 +220,6 @@ class InputComponent extends React.Component<SelectProps> {
           <Select
             closeMenuOnSelect={false}
             noOptionsMessage={() => null}
-            // TODO @RafaelVidaurre: Confirm isClearable should be used in this way
             isClearable={valueIsArray}
             isMulti={valueIsArray}
             styles={getStyles(theme)}
@@ -199,15 +232,17 @@ class InputComponent extends React.Component<SelectProps> {
             value={selectedValues}
             onChange={this.handleChange}
             onMenuClose={onBlur}
-            {...props}
+            {...rest}
           />
         </SelectWrapper>
-        {arrayValue.map(value => {
-          const option = filteredOptions.find(option => option.value === value);
+        {arrayValue.map(val => {
+          const option = filteredOptions.find(
+            ({ value: currencyType }) => currencyType === val
+          );
           return option ? (
-            <Value
+            <SelectValue
               value={option.value}
-              key={value}
+              key={val}
               label={option.label}
               onRemove={this.handleRemove}
             />
