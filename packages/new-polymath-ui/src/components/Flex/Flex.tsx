@@ -11,9 +11,10 @@ import {
   FlexWrapProps,
 } from 'styled-system';
 
-import { Box } from '../Box';
+import { Box, BoxProps } from '~/components/Box';
 
-export type FlexProps = AlignItemsProps &
+export type FlexProps = BoxProps &
+  AlignItemsProps &
   JustifyContentProps &
   CSSFlexProps &
   FlexWrapProps;
