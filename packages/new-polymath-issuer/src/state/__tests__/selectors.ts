@@ -30,17 +30,19 @@ const routerState = {};
 const checkpoints = {
   byId: {
     c0: {
-      id: 'c0',
+      uid: 'c0',
       index: 0,
       securityTokenId: 's0',
+      securityTokenSymbol: 'S',
       investorBalances: [],
       totalSupply: new BigNumber('1000000'),
       createdAt: new Date(),
     },
     c1: {
-      id: 'c1',
+      uid: 'c1',
       index: 2,
       securityTokenId: 's0',
+      securityTokenSymbol: 'S',
       investorBalances: [],
       totalSupply: new BigNumber('2000000'),
       createdAt: new Date(),
@@ -52,9 +54,11 @@ const checkpoints = {
 const dividends = {
   byId: {
     d0: {
-      id: 'd0',
+      uid: 'd0',
       index: 0,
       created: new Date(),
+      securityTokenId: 's0',
+      securityTokenSymbol: 'S',
       checkpointId: 'c0',
       maturity: new Date(),
       expiry: new Date(),

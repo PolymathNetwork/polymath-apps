@@ -118,7 +118,7 @@ const createGetEntitiesFromCache = () =>
         const { cachedIds, key, store } = data;
 
         results[key] = _.filter(store.byId, entity =>
-          _.includes(cachedIds, entity.id)
+          _.includes(cachedIds, entity.uid)
         );
       });
 

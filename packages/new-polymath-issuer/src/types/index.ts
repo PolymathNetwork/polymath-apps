@@ -4,13 +4,15 @@ import { types } from '@polymathnetwork/new-shared';
 export type Entity = TransactionEntity | DividendEntity | CheckpointEntity;
 
 export interface TransactionEntity {
-  id: string;
+  uid: string;
   txHash: string;
 }
 
 export interface DividendEntity {
-  id: string;
+  uid: string;
   index: number;
+  securityTokenSymbol: string;
+  securityTokenId: string;
   checkpointId: string;
   created: Date;
   maturity: Date;
@@ -22,12 +24,13 @@ export interface DividendEntity {
   dividendWithheld: BigNumber;
   dividendWithheldReclaimed: BigNumber;
   name: string;
-  currency: string;
+  currency: string | null;
 }
 
 export interface CheckpointEntity {
-  id: string;
+  uid: string;
   index: number;
+  securityTokenSymbol: string;
   securityTokenId: string;
   investorBalances: Array<{
     address: string;
