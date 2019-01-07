@@ -21,6 +21,7 @@ export default {
   ],
   // Hack to get Docz to compile monorepo package
   modifyBundlerConfig: config => {
+    // TODO @RafaelVidaurre: Remove this by overriding babel's rootMode
     config.module.rules[1].include.push(
       path.join(__dirname, '..', 'new-polymath-shared')
     );

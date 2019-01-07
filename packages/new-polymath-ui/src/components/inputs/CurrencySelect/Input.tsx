@@ -6,17 +6,35 @@ import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 
-import { SvgCaretDown } from '../../../../images/icons/CaretDown';
-import { SvgClose } from '../../../../images/icons/Close';
+import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
+import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
+import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
+import { ReactComponent as SvgPolyB } from '~/images/icons/poly-b.svg';
+import { ReactComponent as SvgDai } from '~/images/icons/dai.svg';
+import { Label } from './Label';
 
-import { currencyOptions } from '../data';
-import { Value } from '../Value';
-import { InputProps as _InputProps } from '../../types';
+import { Value } from './Value';
+import { InputProps as _InputProps } from '../types';
 
-type Option = {
+export const currencyOptions = [
+  {
+    value: 'ETH',
+    label: <Label text="Ethereum (ETH)" Asset={SvgEth} />,
+  },
+  {
+    value: 'POLY',
+    label: <Label text="Polymath (POLY)" Asset={SvgPolyB} />,
+  },
+  {
+    value: 'DAI',
+    label: <Label text="Dai (DAI)" Asset={SvgDai} />,
+  },
+];
+
+interface Option {
   value: string;
   label: Node;
-};
+}
 
 export interface InputProps extends _InputProps {
   value: [string];

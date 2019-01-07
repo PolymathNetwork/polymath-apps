@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { bgColor, BgColorProps } from 'styled-system';
 
-import { Icon, IconProps } from '~/components/icon';
+import { Icon, IconProps } from '~/components/Icon';
 
 export interface IconCircledProps extends IconProps {
   bgColor: BgColorProps;

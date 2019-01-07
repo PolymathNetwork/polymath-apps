@@ -13,12 +13,18 @@ export interface IconProps extends StyledProps<any> {
   color: ColorProps;
   width: WidthProps;
   height: HeightProps;
-  Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
+  Asset: React.ComponentType<React.SVGAttributes<SVGElement>> | string;
 }
 
-export const Icon = styled(({ Asset, color, ...props }: IconProps) => (
-  <Asset {...props} />
-))`
+export const Icon = styled(
+  ({ Asset, color: colorProp, ...props }: IconProps) => {
+    if (typeof Asset === 'string') {
+      return <img {...props} src={Asset} />;
+    }
+
+    return <Asset {...props} />;
+  }
+)`
   vertical-align: middle;
   ${color};
   ${width};

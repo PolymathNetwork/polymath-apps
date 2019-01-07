@@ -8,8 +8,8 @@ import { Loading } from '~/components/Loading';
 import { Heading } from '~/components/Heading';
 import { CardPrimary } from '~/components/CardPrimary';
 import { Paragraph } from '~/components/Paragraph';
-import { SvgClose } from '~/images/icons/Close';
-import { SvgCheckmark } from '~/images/icons/Checkmark';
+import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
+import { ReactComponent as SvgCheckmark } from '~/images/icons/Checkmark.svg';
 
 import * as scc from '../styles';
 

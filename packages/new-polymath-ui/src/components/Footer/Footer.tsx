@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { PageWrap } from '~/components/PageWrap';
 import * as sc from './styles';
-
-import { PageWrap } from '../PageWrap';
 
 export interface FooterProps {
   title?: string;

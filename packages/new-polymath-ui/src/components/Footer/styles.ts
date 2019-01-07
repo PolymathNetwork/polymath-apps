@@ -2,7 +2,7 @@ import styled, { css } from '~/styles';
 import { textLinkInverted } from '~/styles/utils';
 import { Flex } from '~/components/Flex';
 
-import { FooterProps } from './';
+import { FooterProps } from './Footer';
 
 const variants = {
   default: {
@@ -43,7 +43,7 @@ export const Inner = styled(Flex)`
   height: ${({ theme }) => theme.footer.height};
 `;
 
-export const Links = styled.ul<FooterProps>`
+export const Links = styled('ul')<FooterProps>`
   margin-left: auto;
   display: inline-flex;
   ${({ variant }) => variants[variant].Links};

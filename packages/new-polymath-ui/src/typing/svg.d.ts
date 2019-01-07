@@ -1,7 +1,5 @@
-interface ReactComponent
-  extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
-
 declare module '*.svg' {
-  const value: ReactComponent;
-  export default value;
+  const url: string;
+  export const ReactComponent: React.StatelessComponent<React.SVGAttributes<SVGElement>> {};
+  export default url;
 }

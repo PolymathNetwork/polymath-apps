@@ -9,7 +9,7 @@ import { Body } from './Body';
 import { Footer } from './Footer';
 import * as sc from './styles';
 import { ModalStatus } from './types';
-import { SvgClose } from '../../images/icons/Close';
+import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 
 export interface ModalProps {
   children: Node;

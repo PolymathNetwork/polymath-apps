@@ -10,7 +10,7 @@ import { Flex } from '../Flex';
 import { Block } from '../Block';
 
 import polyLogo from '../../images/logo.svg';
-import networkIcon from '../../images/icons/network.svg';
+import dotIcon from '../../images/icons/dot.svg';
 import polyIcon from '../../images/icons/poly.svg';
 import accountIcon from '../../images/icons/account.svg';
 import tokenIcon from '../../images/icons/token.svg';
@@ -42,7 +42,7 @@ export const Header = (props: HeaderProps) => {
             <Flex as="ul" ml="auto" className="pui-header-menu">
               <li>
                 <img
-                  src={networkIcon}
+                  src={dotIcon}
                   alt="Active network"
                   style={{
                     marginRight: '2px',

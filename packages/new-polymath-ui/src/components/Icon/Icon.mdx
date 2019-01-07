@@ -6,8 +6,8 @@ menu: Components
 import { Playground, PropsTable } from 'docz';
 
 import { Icon, IconDocz } from './';
-import { SvgNetwork } from '../../images/icons/Network';
-import { SvgPoly } from '../../images/icons/Poly';
+import dotUrl from '~/images/icons/dot.svg';
+import { ReactComponent as SvgPoly } from '~/images/icons/poly.svg';
 
 # FormItem
 
@@ -16,6 +16,6 @@ import { SvgPoly } from '../../images/icons/Poly';
 ## Basic usage
 
 <Playground>
-  <Icon Asset={SvgNetwork} />
+  <Icon Asset={dotUrl} />
   <Icon Asset={SvgPoly} />
 </Playground>

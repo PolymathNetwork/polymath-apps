@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
+import { string } from 'prop-types';
+
+type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export interface ButtonProps {
-  /**
-   * Specify the content of your Button
-   */
-  children: React.ComponentType;
   /**
    * Specify the kind of Button you want to create
    */
@@ -14,18 +13,44 @@ export interface ButtonProps {
   /**
    * Optional prop to specify the tabIndex of the Button
    */
-  tabIndex?: number;
+  tabIndex: HtmlButtonProps['tabIndex'];
   /**
    * Optional prop to specify the type of the Button
    */
-  type?: string;
+  type: HtmlButtonProps['type'];
   /**
    * Optionally specify an href for your Button to become an <a> element
    */
   href?: string;
+  disabled: HtmlButtonProps['disabled'];
 }
 
-const StyledButton = styled.button<ButtonProps>`
+export const ButtonPrimitive: FC<ButtonProps> = ({
+  href,
+  type,
+  tabIndex,
+  children,
+  ...rest
+}) => {
+  const passedProps: {
+    role?: string;
+    type?: string;
+  } = {};
+
+  if (href) {
+    passedProps.role = 'button';
+  } else {
+    passedProps.type = type;
+  }
+
+  return (
+    <button {...passedProps} {...rest}>
+      {children}
+    </button>
+  );
+};
+
+export const Button: FC<ButtonProps> = styled(ButtonPrimitive)<ButtonProps>`
   display: inline-block;
   align-items: center;
   justify-content: center;
@@ -71,24 +96,6 @@ const StyledButton = styled.button<ButtonProps>`
     }
   }
 `;
-
-export const Button = styled(({ children, href, tabIndex, type, ...other }) => {
-  let props = {};
-
-  if (href) {
-    props = {
-      role: 'button',
-    };
-  } else {
-    props = { type };
-  }
-
-  return (
-    <StyledButton {...props} {...other}>
-      {children}
-    </StyledButton>
-  );
-})<ButtonProps>``;
 
 Button.defaultProps = {
   tabIndex: 0,

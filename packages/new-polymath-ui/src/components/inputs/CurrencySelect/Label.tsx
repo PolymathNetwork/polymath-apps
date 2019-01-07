@@ -3,12 +3,12 @@ import { get } from 'lodash';
 import { darken } from 'polished';
 
 import styled, { withTheme, ThemeInterface } from '~/styles';
-import { Box } from '../../../Box';
-import { IconCircled } from '../../../IconCircled';
-import { ellipsis } from '../../../../styles/utils';
+import { Box } from '~/components/Box';
+import { IconCircled } from '~/components/IconCircled';
+import { ellipsis } from '~/components/../styles/utils';
 
 export interface LabelProps {
-  Asset: React.ComponentType;
+  Asset: React.ComponentType | string;
   text: React.ComponentType;
   color: string;
   theme: ThemeInterface;
