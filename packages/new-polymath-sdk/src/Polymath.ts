@@ -22,6 +22,7 @@ import {
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
 import { SecurityToken } from '~/entities';
+import { Erc20DividendsModule } from '~/entities';
 
 export interface PolymathNetworkParams {
   httpProvider?: HttpProvider;
@@ -38,7 +39,7 @@ type EntityConstructor<T> = new (
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
-const createContextualizedEntity = <T extends Entity>(
+const createContextualizedEntity = <T extends typeof Entity>(
   ClassToContextualize: T,
   polyClient: Polymath
 ): T => {
@@ -52,7 +53,8 @@ const createContextualizedEntity = <T extends Entity>(
 };
 
 interface ContextualizedEntities {
-  SecurityToken: SecurityToken;
+  SecurityToken: typeof SecurityToken;
+  Erc20DividendsModule: typeof Erc20DividendsModule;
 }
 
 export class Polymath {
@@ -79,8 +81,9 @@ export class Polymath {
 
     // TODO @RafaelVidaurre: type this correctly
     this.entities = {
-      SecurityToken: createContextualizedEntity<SecurityToken>(
-        SecurityToken as any,
+      SecurityToken: createContextualizedEntity(SecurityToken as any, this),
+      Erc20DividendsModule: createContextualizedEntity(
+        Erc20DividendsModule as any,
         this
       ),
     };
@@ -304,7 +307,46 @@ export class Polymath {
     return [];
   }
 
+  public async getErc20DividendsModule(args: { symbol: string }) {
+    const { securityTokenRegistry } = this.context;
+    const { symbol: securityTokenSymbol } = args;
+
+    const securityToken = await securityTokenRegistry.getSecurityToken(
+      securityTokenSymbol
+    );
+    const erc20Module = await securityToken.getErc20DividendModule();
+
+    const name = await securityToken.name();
+
+    const securityTokenEntity = new this.SecurityToken({
+      address: securityToken.address,
+      symbol: securityTokenSymbol,
+      name,
+    });
+
+    const constructorData = {
+      securityTokenSymbol,
+      securityTokenId: securityTokenEntity.uid,
+    };
+
+    if (erc20Module) {
+      return new Erc20DividendsModule({
+        address: erc20Module.address,
+        ...constructorData,
+      });
+    }
+
+    // if the module isn't attached yet, we return an instance without address
+    return new Erc20DividendsModule({
+      ...constructorData,
+    });
+  }
+
   get SecurityToken() {
     return this.entities.SecurityToken;
+  }
+
+  get Erc20DividendsModule() {
+    return this.entities.Erc20DividendsModule;
   }
 }
