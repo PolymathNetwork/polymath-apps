@@ -238,6 +238,8 @@ export default class InvestmentTiers extends React.Component<Props, State> {
                 <FormItem.Input
                   FormikComponent={Field}
                   component={NumberInput}
+                  min={1}
+                  maxDecimals={3}
                   placeholder="Enter amount"
                   unit="USD"
                   useBigNumbers
