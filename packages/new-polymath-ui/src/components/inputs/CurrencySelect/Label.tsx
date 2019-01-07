@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
-import { ellipsis } from '~/components/../styles/utils';
+import { ellipsis } from '~/styles/utils';
 
 export interface LabelProps {
   Asset: React.ComponentType | string;

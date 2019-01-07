@@ -157,9 +157,11 @@ class SelectValue extends React.Component<SelectValueProps> {
   }
 }
 
-class CurrencySelectPrimitive extends React.Component<SelectProps> {
+export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   public static defaultProps = {
     options: CURRENCY_OPTIONS.map(option => option.value),
+    onBlur: () => {},
+    onChange: () => {},
   };
 
   public handleRemove = (removedValue: string) => {
@@ -255,4 +257,5 @@ class CurrencySelectPrimitive extends React.Component<SelectProps> {
   }
 }
 
-export const CurrencySelect = formikProxy(withTheme(CurrencySelectPrimitive));
+export const CurrencySelectPrimitive = withTheme(CurrencySelectPrimitiveBase);
+export const CurrencySelect = formikProxy(CurrencySelectPrimitive);
