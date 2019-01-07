@@ -16,11 +16,6 @@ const IconPrimitive: FC<IconProps> = ({
     return <img {...props} src={Asset} />;
   }
 
-  // TODO @RafaelVidaurre: Remove this, only for manual testing
-  if (!Asset) {
-    return <img src="img" />;
-  }
-
   return <Asset {...props} />;
 };
 
