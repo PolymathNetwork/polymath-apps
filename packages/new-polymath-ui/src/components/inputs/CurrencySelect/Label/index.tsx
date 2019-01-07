@@ -1,13 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import { get } from 'lodash';
+import { darken } from 'polished';
 
+import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Box } from '../../../Box';
-import { Icon } from '../../../Icon';
+import { IconCircled } from '../../../IconCircled';
 import { ellipsis } from '../../../../styles/utils';
 
 export interface LabelProps {
   Asset: React.ComponentType;
   text: React.ComponentType;
+  color: string;
+  theme: ThemeInterface;
 }
 
 const Wrapper = styled(Box)`
@@ -22,9 +26,15 @@ const Text = styled.span`
   ${ellipsis};
 `;
 
-export const Label = ({ Asset, text }) => (
+export const Label = withTheme(({ Asset, text, id, theme }: LabelProps) => (
   <Wrapper>
-    <Icon Asset={Asset} width="25" height="25" />
+    <IconCircled
+      Asset={Asset}
+      color={theme.cryptoCurrencies[id].color}
+      bg={theme.cryptoCurrencies[id].backgroundColor}
+      width="25"
+      height="25"
+    />
     <Text>{text}</Text>
   </Wrapper>
-);
+));

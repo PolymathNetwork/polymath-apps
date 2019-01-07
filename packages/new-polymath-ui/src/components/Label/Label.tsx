@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { color } from 'styled-system';
+import { lighten } from 'polished';
 
 export interface LabelProps {
   color: string;
+  bg: string;
 }
 
 export const Label = styled.span<LabelProps>`
@@ -12,8 +14,8 @@ export const Label = styled.span<LabelProps>`
   border-radius: 1rem;
   line-height: ${({ theme }) => theme.lineHeights.none};
   font-size: ${({ theme }) => theme.fontSizes[0]};
-  background-color: ${({ color, theme }) => theme.colors[color]};
-  color: ${({ color, theme }) => darken(0.6, theme.colors[color])};
+  background-color: ${({ color, bg }) => bg || lighten(0.4, color)};
+  ${color};
 `;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved

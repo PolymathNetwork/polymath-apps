@@ -21,6 +21,7 @@ export interface ThemeInterface {
   header: any;
   footer: any;
   sidebar: any;
+  cryptoCurrencies: any;
 }
 
 export const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
@@ -97,10 +98,6 @@ export const colors = {
   alert: '#e0182d',
   warning: '#EFC100',
   success: '#00AA5E',
-  eth: '#EED3FE',
-  dai: '#FFEFC4',
-  poly: '#C1E6FE',
-  erc20: '#A7FAE6',
 };
 
 export const headings = {
@@ -181,4 +178,23 @@ export const sidebar = {
 
 export const footer = {
   height: header.height,
+};
+
+export const cryptoCurrencies = {
+  eth: {
+    color: '#724396',
+    backgroundColor: '#EED3FE',
+  },
+  dai: {
+    color: '#FEBE44',
+    backgroundColor: '#FFEFC4',
+  },
+  poly: {
+    color: '#3C6586',
+    backgroundColor: '#C1E6FE',
+  },
+  erc20: {
+    color: '#007B66',
+    backgroundColor: '#A7FAE6',
+  },
 };
