@@ -2,18 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
+import { DataFetcher } from '~/components/enhancers/DataFetcher';
+import { createCheckpointsBySymbolFetcher } from '~/state/fetchers';
 
 export interface Props {
   dispatch: Dispatch<any>;
   symbol: string;
 }
 
+const mapStateToProps = () => {};
+
 export class ContainerBase extends Component<Props> {
-  public componentDidMount() {
-    const { dispatch, symbol } = this.props;
-  }
   public render() {
-    return <Presenter />;
+    const { symbol } = this.props;
+    return (
+      <DataFetcher
+        fetchers={[
+          createCheckpointsBySymbolFetcher({
+            securityTokenSymbol: symbol,
+          }),
+        ]}
+        render={data => {
+          const { checkpoints } = data;
+          console.log(data);
+
+          return <Presenter />;
+        }}
+      />
+    );
   }
 }
 
