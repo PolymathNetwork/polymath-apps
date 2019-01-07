@@ -27,6 +27,18 @@ export class SecurityToken extends Entity {
     this.uid = this.generateId();
   }
 
+  public getErc20DividendsModule(
+    args: typeHelpers.ArgsWithoutEntityProps<
+      Polymath['getErc20DividendsModule'],
+      SecurityToken
+    >
+  ) {
+    return this.polyClient.getErc20DividendsModule({
+      ...args,
+      symbol: this.symbol,
+    });
+  }
+
   public enableDividendModules(
     args: typeHelpers.ArgsWithoutEntityProps<
       Polymath['enableDividendModules'],
