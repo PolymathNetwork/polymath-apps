@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-export type InputProps = {
+export interface InputProps {
   onChange: (e: any) => void;
   onBlur: (e: any) => void;
   value: any;
   name: string;
   error?: string;
-};
+}
 
-export type FieldProps = {
+export interface FieldProps {
   field: InputProps;
   form: {
     setFieldValue: (name: string, value: any) => void;
@@ -23,4 +23,4 @@ export type FieldProps = {
   label: React.ComponentType;
   className?: string;
   placeholder: string;
-};
+}

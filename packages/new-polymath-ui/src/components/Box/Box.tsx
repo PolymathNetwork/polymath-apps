@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { StyledProps } from 'styled-components';
+import styled from 'styled-components';
 import {
   minWidth,
   MinWidthProps,
@@ -29,6 +29,6 @@ export const Box = styled.div<BoxProps>`
 `;
 
 // // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
-// export const BoxDocz = (props: BoxProps) => {
-//   return <Box {...props} />;
-// };
+export const BoxDocz = (props: BoxProps) => {
+  return <Box {...props} />;
+};

@@ -1,21 +1,24 @@
-import React from 'react';
-import styled, { StyledProps } from 'styled-components';
+import React, { FC } from 'react';
+import styled from 'styled-components';
 import { color, ColorProps } from 'styled-system';
 
-export interface IconProps extends StyledProps<any> {
-  color: ColorProps;
+export type IconProps = {
   Asset: React.ComponentType<React.SVGAttributes<SVGElement>> | string;
-}
+} & ColorProps;
 
-export const Icon = styled(
-  ({ Asset, color: colorProp, ...props }: IconProps) => {
-    if (typeof Asset === 'string') {
-      return <img {...props} src={Asset} />;
-    }
-
-    return <Asset {...props} />;
+const IconPrimitive: FC<IconProps> = ({
+  Asset,
+  color: colorProp,
+  ...props
+}) => {
+  if (typeof Asset === 'string') {
+    return <img {...props} src={Asset} />;
   }
-)`
+
+  return <Asset {...props} />;
+};
+
+export const Icon = styled(IconPrimitive)`
   vertical-align: middle;
   ${color};
 `;

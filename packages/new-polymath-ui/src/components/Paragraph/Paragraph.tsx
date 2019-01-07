@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { FC } from 'react';
+import styled, { StyledComponentProps } from 'styled-components';
 import {
   color,
   ColorProps,
@@ -14,8 +14,7 @@ import {
   fontSize,
   FontSizeProps,
 } from 'styled-system';
-
-import { Box, BoxProps } from '../Box';
+import { Box, BoxProps } from '~/components/Box';
 
 export type ParagraphProps = { bold: boolean } & BoxProps &
   ColorProps &
@@ -37,9 +36,9 @@ export const Paragraph = styled(Box)<ParagraphProps>`
   &:last-child {
     margin-bottom: 0;
   }
-`;
+`.withComponent('p');
 
-export const ParagraphDocz = (props: ParagraphProps) => {
+export const ParagraphDocz: FC<ParagraphProps> = (props: any) => {
   return <Paragraph {...props} />;
 };
 
@@ -47,5 +46,4 @@ Paragraph.defaultProps = {
   mt: 0,
   mb: 'm',
   fontSize: 'baseText',
-  as: 'p',
 };
