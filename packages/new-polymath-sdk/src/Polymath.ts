@@ -287,6 +287,23 @@ export class Polymath {
     });
   }
 
+  public async getDividends(args: { symbol: string; checkpointIndex: number }) {
+    const { symbol: securityTokenSymbol, checkpointIndex } = args;
+    const checkpoints = await this.getCheckpoints({
+      symbol: securityTokenSymbol,
+    });
+
+    const thisCheckpoint = checkpoints.find(
+      checkpoint => checkpoint.index === checkpointIndex
+    );
+
+    if (thisCheckpoint) {
+      return thisCheckpoint.dividends;
+    }
+
+    return [];
+  }
+
   get SecurityToken() {
     return this.entities.SecurityToken;
   }
