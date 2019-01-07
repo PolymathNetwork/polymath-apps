@@ -74,5 +74,13 @@ export function isPojo(pojo: any): pojo is Pojo {
 }
 
 export interface Pojo {
-  [key: string]: string | number | boolean | null | Pojo;
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | null
+    | Pojo
+    | BigNumber
+    | Date
+    | Array<string | number | boolean | null | Pojo | BigNumber | Date>;
 }
