@@ -80,10 +80,16 @@ const transactions = {
   allIds: [],
 };
 
+const erc20DividendsModules = {
+  byId: {},
+  allIds: [],
+};
+
 const entitiesState = {
   checkpoints,
   dividends,
   transactions,
+  erc20DividendsModules,
 };
 
 const dataRequestsState = {
