@@ -8,17 +8,8 @@ import {
   Middleware,
 } from 'redux';
 import { rootSaga } from '~/state/sagas/root';
-import { reducer as entitiesReducer } from '~/state/reducers/entities';
-import { reducer as sessionReducer } from '~/state/reducers/session';
-import { reducer as appReducer } from '~/state/reducers/app';
-import { routerEnhancer, routerMiddleware, routerReducer } from '~/routing';
-
-export const rootReducer = combineReducers({
-  entities: entitiesReducer,
-  session: sessionReducer,
-  app: appReducer,
-  router: routerReducer,
-});
+import { reducer as rootReducer } from '~/state/reducers/root';
+import { routerEnhancer, routerMiddleware } from '~/routing';
 
 const windowObj = window as any;
 

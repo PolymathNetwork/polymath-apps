@@ -1,14 +1,14 @@
 import Web3 from 'web3';
-import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
-import { Contract } from './Contract';
 import { TransactionObject } from 'web3/eth/types';
 import BigNumber from 'bignumber.js';
+import { ModuleTypes } from '~/types';
 import { DividendModuleTypes, GenericContract } from './types';
 import { Context } from './LowLevel';
-import { ModuleTypes } from '~/types';
 import { fromUnixTimestamp, fromWei } from './utils';
 import { Erc20DividendCheckpoint } from './Erc20DividendCheckpoint';
 import { EtherDividendCheckpoint } from './EtherDividendCheckpoint';
+import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
+import { Contract } from './Contract';
 
 export interface InvestorBalance {
   address: string;
@@ -50,7 +50,9 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   }
 
   public async createCheckpoint() {
-    return this.contract.methods.createCheckpoint().send();
+    return this.contract.methods
+      .createCheckpoint()
+      .send({ from: this.context.account });
   }
 
   public async currentCheckpointId() {
@@ -75,7 +77,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
         new BigNumber(0),
         new BigNumber(0)
       )
-      .send();
+      .send({ from: this.context.account });
   }
 
   public async getErc20DividendModule() {

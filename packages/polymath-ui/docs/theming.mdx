@@ -1,0 +1,24 @@
+---
+name: Theming
+order: 3
+---
+
+import { Playground } from 'docz';
+
+import Box from '../src/components/Box';
+
+import * as theme from '../src/styles/theme';
+
+# Theming
+
+Polymath UI is using [Styled Components theming capabilities](https://www.styled-components.com/docs/advanced#theming).
+
+Every spacing and typography styles should follow the scales provided in the theme.
+
+## Default theme
+
+Components are designed based on the following theme:
+
+<Playground>
+  <pre>{JSON.stringify(theme.default, null, 4)}</pre>
+</Playground>

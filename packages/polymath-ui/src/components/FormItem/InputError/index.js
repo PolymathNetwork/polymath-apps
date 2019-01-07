@@ -8,8 +8,8 @@ import { formError } from '../../../styles/utils';
 
 const StyledError = styled.span`
   ${formError};
-  margin-top: 0.25rem;
-  float: left;
+  display: inline-block;
+  margin-top: 0.5rem;
   margin-right: 0.5rem;
 
   &:last-child {

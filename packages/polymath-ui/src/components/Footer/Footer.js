@@ -24,7 +24,6 @@ const Container = styled.div`
     display: inline-flex;
     font-size: 14px;
     line-height: 22px;
-    font-weight: 300;
   }
 `;
 
@@ -43,7 +42,6 @@ const Links = styled.ul`
     font-size: 14px;
     line-height: 22px;
     margin-left: 30px;
-    font-weight: 300;
 
     a {
       ${textLinkInverted};

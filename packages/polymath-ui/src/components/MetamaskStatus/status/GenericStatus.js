@@ -4,6 +4,8 @@ import React from 'react';
 
 import metamask from '../../../images/metamask.png';
 
+import Heading from '../../Heading';
+
 type Props = {|
   id: string,
   title: string,
@@ -15,8 +17,13 @@ const GenericStatus = ({ id, title, description }: Props) => (
     <div className="pui-single-box-metamask">
       <img src={metamask} alt="Metamask" />
     </div>
-    <h1 className="pui-h1">{title}</h1>
-    <h3 className="pui-h3">{description}</h3>
+
+    <Heading variant="h1" mr={190}>
+      {title}
+    </Heading>
+    <Heading variant="h4" mr={190}>
+      {description}
+    </Heading>
   </div>
 );
 
