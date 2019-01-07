@@ -9,6 +9,7 @@ import {
 import { Loading } from '~/components/__temporary';
 import React from 'react';
 import _ from 'lodash';
+import { fetchData } from '~/state/actions/dataRequests';
 
 interface OwnProps {
   fetchers: Fetcher[];
@@ -49,23 +50,18 @@ const mapStateToProps = () => {
   };
 };
 
-interface InternalState {
-  loading: boolean;
-}
-
-class DataFetcherBase extends Component<Props, InternalState> {
-  public state = {
-    loading: false,
-  };
-
+class DataFetcherBase extends Component<Props> {
   public getData() {
     const { dispatch, cache } = this.props;
+
     _.forEach(cache, cacheStatus => {
-      /**
-       * TODO @monitz87: dispatch the action that starts fetching.
-       * This action should trigger a saga that delegates the actual request
-       * to other sagas depending on the requestKey
-       */
+      const { args, requestKey } = cacheStatus;
+      dispatch(
+        fetchData({
+          requestKey,
+          args,
+        })
+      );
     });
   }
 
