@@ -6,24 +6,36 @@ import { call, put } from 'redux-saga/effects';
 import { Checkpoint } from '@polymathnetwork/sdk';
 import { RequestKeys } from '~/types';
 
-export function* fetchCheckpoints(args: { symbol: string }) {
+export function* fetchCheckpoints(args: { securityTokenSymbol: string }) {
   try {
-    const { symbol } = args;
+    const { securityTokenSymbol } = args;
     const checkpoints: Checkpoint[] = yield call(polyClient.getCheckpoints, {
-      symbol,
+      symbol: securityTokenSymbol,
     });
 
-    const fetchedIds: string[] = [];
+    const fetchedCheckpointIds: string[] = [];
 
     const checkpointPojos = checkpoints.map(checkpoint => checkpoint.toPojo());
     for (const checkpoint of checkpointPojos) {
       const { dividends, ...rest } = checkpoint;
 
-      fetchedIds.push(checkpoint.uid);
+      fetchedCheckpointIds.push(checkpoint.uid);
+
+      const fetchedDividendIds: string[] = [];
 
       for (const dividend of dividends) {
+        fetchedDividendIds.push(dividend.uid);
+
         yield put(createDividend(dividend));
       }
+
+      yield put(
+        cacheData({
+          requestKey: RequestKeys.GetDividendsByCheckpoint,
+          args: { securityTokenSymbol, checkpointIndex: checkpoint.index },
+          fetchedIds: fetchedDividendIds,
+        })
+      );
 
       yield put(createCheckpoint(rest));
     }
@@ -32,7 +44,7 @@ export function* fetchCheckpoints(args: { symbol: string }) {
       cacheData({
         requestKey: RequestKeys.GetCheckpointsBySymbol,
         args,
-        fetchedIds,
+        fetchedIds: fetchedCheckpointIds,
       })
     );
   } catch (err) {
