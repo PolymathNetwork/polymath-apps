@@ -4,6 +4,7 @@ import { IndicatorProps } from 'react-select/lib/components/indicators';
 import { Styles } from 'react-select/lib/styles';
 import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
+import { formikProxy } from '~/components/inputs/formikProxy';
 import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
 import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
@@ -156,22 +157,23 @@ class SelectValue extends React.Component<SelectValueProps> {
   }
 }
 
-class InputComponent extends React.Component<SelectProps> {
+class CurrencySelectPrimitive extends React.Component<SelectProps> {
   public static defaultProps = {
     options: CURRENCY_OPTIONS.map(option => option.value),
   };
 
   public handleRemove = (removedValue: string) => {
-    const { value, onChange } = this.props;
+    const { value, onChange, onBlur } = this.props;
     const newValue = Array.isArray(value)
       ? value.filter(val => val !== removedValue)
       : null;
 
     onChange(newValue);
+    onBlur();
   };
 
   public handleChange = (value?: OptionType | OptionType[] | null) => {
-    const { onChange } = this.props;
+    const { onChange, onBlur } = this.props;
 
     if (!value) {
       return;
@@ -181,12 +183,12 @@ class InputComponent extends React.Component<SelectProps> {
       ? value.map(option => option.value)
       : value.value;
 
-    return onChange(result);
+    onChange(result);
+    onBlur();
   };
 
   public handleBlur = () => {
     const { onBlur } = this.props;
-
     onBlur();
   };
 
@@ -253,4 +255,4 @@ class InputComponent extends React.Component<SelectProps> {
   }
 }
 
-export const Input = withTheme(InputComponent);
+export const CurrencySelect = formikProxy(withTheme(CurrencySelectPrimitive));
