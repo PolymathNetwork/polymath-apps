@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 import { SelectPrimitive, SelectProps } from '../Select';
-import { formikProxy } from '../formikProxy';
-import { InputProps } from '../types';
+import { formikProxy } from '~/components/inputs/formikProxy';
 
 export interface TimePickerSelectProps extends SelectProps {
   format: string;
@@ -16,15 +15,15 @@ const timeIntervals = range(0, minutesInADay, 30);
 export class TimePickerSelectPrimitive extends Component<
   TimePickerSelectProps
 > {
-  static defaultProps = {
+  public static defaultProps = {
     format: 'h:mm A',
   };
 
-  handleChange = ({ value }: { label: string; value: number }) => {
+  public handleChange = ({ value }: { label: string; value: number }) => {
     this.props.onChange(value);
   };
 
-  render() {
+  public render() {
     const { format, onChange, value, ...props } = this.props;
     const timeOptions = timeIntervals.map(minutes => {
       const time = moment(0)
@@ -47,13 +46,13 @@ export class TimePickerSelectPrimitive extends Component<
   }
 }
 
-class _TimePickerSelect extends Component<TimePickerSelectProps> {
+class TimePickerSelectBase extends Component<TimePickerSelectProps> {
   // We trigger an onBlur event when menu closes to trigger Formik validation
-  handleMenuClose = (e: Event) => {
+  public handleMenuClose = (e: Event) => {
     this.props.onBlur(e);
   };
 
-  render() {
+  public render() {
     return (
       <TimePickerSelectPrimitive
         onMenuClose={this.handleMenuClose}
@@ -63,4 +62,4 @@ class _TimePickerSelect extends Component<TimePickerSelectProps> {
   }
 }
 
-export const TimePickerSelect = formikProxy(_TimePickerSelect);
+export const TimePickerSelect = formikProxy(TimePickerSelectBase);

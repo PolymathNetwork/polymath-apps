@@ -6,6 +6,7 @@ export interface InputProps {
   value: any;
   name: string;
   error?: string;
+  placeholder: string;
 }
 
 export interface FieldProps {

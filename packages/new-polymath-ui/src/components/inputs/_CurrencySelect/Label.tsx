@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { Box } from '~/components/Box';
@@ -7,7 +7,7 @@ import { ellipsis } from '~/components/../styles/utils';
 
 export interface LabelProps {
   Asset: React.ComponentType | string;
-  text: string;
+  text: React.ComponentType;
 }
 
 const Wrapper = styled(Box)`
@@ -22,9 +22,9 @@ const Text = styled.span`
   ${ellipsis};
 `;
 
-export const Label: FC<LabelProps> = ({ Asset, text }) => (
+export const Label = ({ Asset, text }) => (
   <Wrapper>
-    <Icon Asset={Asset} width={25} height={25} />
+    <Icon Asset={Asset} width="25" height="25" />
     <Text>{text}</Text>
   </Wrapper>
 );

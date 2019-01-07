@@ -1,47 +1,38 @@
-import React, { FC, Fragment, ReactNode } from 'react';
+import React from 'react';
 import Select, { components } from 'react-select';
-import { IndicatorComponentType } from 'react-select/lib/components';
-import { intersectionWith, filter, includes } from 'lodash';
+import { intersectionWith } from 'lodash';
+
+import styled, { withTheme, ThemeInterface } from '~/styles';
+import { Box } from '~/components/Box';
+import { Icon } from '~/components/Icon';
+
 import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
 import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
 import { ReactComponent as SvgPolyB } from '~/images/icons/poly-b.svg';
 import { ReactComponent as SvgDai } from '~/images/icons/dai.svg';
-// import { ReactComponent as SvgEth } from '~/images/icons/eth.svg';
-// import { ReactComponent as SvgPolyB } from '~/images/icons/poly-b.svg';
-// import { ReactComponent as SvgDai } from '~/images/icons/dai.svg';
-import { IndicatorProps } from 'react-select/lib/components/indicators';
-import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Label } from './Label';
-import { Box } from '~/components/Box';
-import { Icon } from '~/components/Icon';
-import { InputProps } from '~/components/inputs/types';
-import { types } from '@polymathnetwork/new-shared';
+import { Value } from './Value';
+import { InputProps as SharedInputProps } from '../types';
 
-interface OptionType {
-  value: types.Tokens;
-  label: ReactNode;
-}
-
-export const CURRENCY_OPTIONS: OptionType[] = [
+export const currencyOptions = [
   {
-    value: types.Tokens.Ether,
+    value: 'ETH',
     label: <Label text="Ethereum (ETH)" Asset={SvgEth} />,
   },
   {
-    value: types.Tokens.Poly,
+    value: 'POLY',
     label: <Label text="Polymath (POLY)" Asset={SvgPolyB} />,
   },
   {
-    value: types.Tokens.Dai,
+    value: 'DAI',
     label: <Label text="Dai (DAI)" Asset={SvgDai} />,
   },
 ];
 
-interface SelectProps extends InputProps {
-  options: types.Tokens[];
-  theme: ThemeInterface;
-  value: types.Tokens | types.Tokens[];
+interface Option {
+  value: string;
+  label: Node;
 }
 
 const getStyles = (theme: ThemeInterface) => ({
@@ -105,38 +96,31 @@ const Caret = styled(Icon)`
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
-interface CustomIndicatorProps extends IndicatorProps<OptionType> {
-  selectProps: SelectProps;
-}
-const DropdownIndicator: FC<CustomIndicatorProps> = props => {
+const DropdownIndicator = props => {
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
-        <Fragment>
-          {props.selectProps.placeholder}
-          <Caret Asset={SvgCaretDown} width={10} height={10} />
-        </Fragment>
+        {props.selectProps.placeholder}
+        <Caret Asset={SvgCaretDown} width={10} height={10} />
       </components.DropdownIndicator>
     )
   );
 };
 
-const ClearIndicator: FC<CustomIndicatorProps> = props => {
+const ClearIndicator = props => {
   return (
     components.ClearIndicator && (
       <components.ClearIndicator {...props}>
-        <Fragment>
-          {props.selectProps.value.length}
-          <Icon Asset={SvgClose} width={8} height={10} />
-        </Fragment>
+        {props.selectProps.value.length}
+        <Icon Asset={SvgClose} width={8} height={10} />
       </components.ClearIndicator>
     )
   );
 };
 
-class InputComponent extends React.Component<SelectProps> {
+class InputComponent extends React.Component<InputProps> {
   public static defaultProps = {
-    options: CURRENCY_OPTIONS.map(option => option.value),
+    options: currencyOptions.map(option => option.value),
   };
 
   public handleRemove = (removedValue: string) => {
@@ -145,14 +129,15 @@ class InputComponent extends React.Component<SelectProps> {
       ? value.filter(val => val !== removedValue)
       : null;
 
-    onChange(newValue);
+    onChange(newValue, 'remove-value'); // 2nd param is from React-Select "actions" https://react-select.com/props
   };
 
-  public handleChange = (value: OptionType | OptionType[]) => {
+  public handleChange = (value: [Option], action: string) => {
     const { onChange } = this.props;
 
     return onChange(
-      Array.isArray(value) ? value.map(option => option.value) : value.value
+      Array.isArray(value) ? value.map(option => option.value) : value.value,
+      action
     );
   };
 
@@ -160,7 +145,7 @@ class InputComponent extends React.Component<SelectProps> {
     const { value, options, onChange, onBlur, theme, ...props } = this.props;
 
     const filteredOptions = intersectionWith(
-      CURRENCY_OPTIONS,
+      currencyOptions,
       options,
       (currency, symbol) => {
         return currency.value === symbol;
@@ -168,16 +153,10 @@ class InputComponent extends React.Component<SelectProps> {
     );
 
     const valueIsArray = Array.isArray(value);
-    let arrayValue: types.Tokens[];
+    const arrayValue = valueIsArray ? value : [value];
 
-    if (!Array.isArray(value)) {
-      arrayValue = [value];
-    } else {
-      arrayValue = value;
-    }
-
-    const selectedValues = filter(filteredOptions, ({ value: currencyType }) =>
-      includes(arrayValue, currencyType)
+    const selectedValue = arrayValue.map(
+      _value => filteredOptions.find(option => option.value === _value) || {}
     );
 
     return (
@@ -196,7 +175,7 @@ class InputComponent extends React.Component<SelectProps> {
               IndicatorSeparator: null,
             }}
             options={filteredOptions}
-            value={selectedValues}
+            value={selectedValue}
             onChange={this.handleChange}
             onMenuClose={onBlur}
             {...props}

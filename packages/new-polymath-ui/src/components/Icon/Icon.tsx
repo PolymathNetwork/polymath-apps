@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { color, ColorProps } from 'styled-system';
 
 export type IconProps = {
-  Asset: React.ComponentType<React.SVGAttributes<SVGElement>> | string;
+  Asset: React.ComponentType<{ [key: string]: any }> | string;
+  [key: string]: any;
 } & ColorProps;
 
 const IconPrimitive: FC<IconProps> = ({
@@ -13,6 +14,11 @@ const IconPrimitive: FC<IconProps> = ({
 }) => {
   if (typeof Asset === 'string') {
     return <img {...props} src={Asset} />;
+  }
+
+  // TODO @RafaelVidaurre: Remove this, only for manual testing
+  if (!Asset) {
+    return <img src="img" />;
   }
 
   return <Asset {...props} />;
