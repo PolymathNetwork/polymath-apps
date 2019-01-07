@@ -3,6 +3,8 @@
 exports[`Reducer: dataRequests initialState 1`] = `
 Object {
   "getCheckpointsBySymbol": Object {},
+  "getDividendsByCheckpoint": Object {},
+  "getErc20DividendsModuleBySymbol": Object {},
   "getSecurityTokenBySymbol": Object {},
 }
 `;
