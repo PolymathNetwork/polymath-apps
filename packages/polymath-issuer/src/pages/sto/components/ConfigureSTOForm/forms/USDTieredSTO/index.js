@@ -254,6 +254,7 @@ export const USDTieredSTOFormComponent = ({
             <FormItem.Input
               component={NumberInput}
               min={0}
+              maxDecimals={3}
               placeholder="Enter amount"
               unit="USD"
               useBigNumbers
@@ -281,6 +282,8 @@ export const USDTieredSTOFormComponent = ({
             </FormItem.Label>
             <FormItem.Input
               component={NumberInput}
+              min={1}
+              maxDecimals={3}
               placeholder="Enter amount"
               unit="USD"
               useBigNumbers
