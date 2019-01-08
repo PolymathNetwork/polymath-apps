@@ -1,5 +1,7 @@
 import { SessionState } from '~/state/reducers/session';
 import { SessionRoles } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
+import _ from 'lodash';
 
 /**
  * Returns a session stage based on a given state

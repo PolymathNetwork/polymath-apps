@@ -54,11 +54,13 @@
     "@babel/runtime": "7.0.0",
     "@polymathnetwork/new-ui": "0.0.0",
     "@polymathnetwork/sdk": "0.0.0",
+    "bignumber.js": "8.0.1",
     "lodash": "^4.17.11",
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "redux-little-router": "^15.1.2",
     "redux-saga": "^0.16.2",
+    "reselect": "^4.0.0",
     "typesafe-actions": "^2.0.4",
     "web3": "1.0.0-beta.30"
   },

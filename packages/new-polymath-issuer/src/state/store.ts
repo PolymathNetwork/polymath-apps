@@ -1,12 +1,6 @@
 import createSagaMiddleware from 'redux-saga';
 import { initializeCurrentLocation } from 'redux-little-router';
-import {
-  applyMiddleware,
-  combineReducers,
-  compose,
-  createStore,
-  Middleware,
-} from 'redux';
+import { applyMiddleware, compose, createStore, Middleware } from 'redux';
 import { rootSaga } from '~/state/sagas/root';
 import { reducer as rootReducer } from '~/state/reducers/root';
 import { routerEnhancer, routerMiddleware } from '~/routing';
@@ -37,4 +31,4 @@ sagaMiddleware.run(rootSaga);
 const initialRouterState = store.getState().router;
 store.dispatch(initializeCurrentLocation(initialRouterState));
 
-export type RootState = ReturnType<typeof store.getState>;
+export interface RootState extends ReturnType<typeof store.getState> {}

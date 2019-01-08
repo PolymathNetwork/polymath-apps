@@ -2,10 +2,11 @@ import { TransactionSpec } from '~/types';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 
 export class Sequence {
-  public transactions: PolyTransaction<any>[] = [];
-  private queue: PolyTransaction<any>[] = [];
+  public entityType: string = 'sequence';
+  public transactions: Array<PolyTransaction<any>> = [];
+  private queue: Array<PolyTransaction<any>> = [];
 
-  constructor(transactions: TransactionSpec<any>[]) {
+  constructor(transactions: Array<TransactionSpec<any>>) {
     this.transactions = transactions.map(transaction => {
       return new PolyTransaction(transaction);
     });

@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { Contract } from '~/LowLevel/Contract';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
@@ -19,6 +20,12 @@ export enum ErrorCodes {
   UserDeniedAccess,
   WalletIsLocked,
 }
+
+export interface InvestorBalance {
+  address: string;
+  balance: BigNumber;
+}
+
 export interface TransactionSpec<Args extends any[]> {
   method: (...args: Args) => Promise<any>;
   args: Args;

@@ -1,8 +1,8 @@
+import { DividendEntity } from '~/types';
 import { createEntityActions } from '~/state/helpers/createEntityActions';
-import { TransactionEntity } from '~/types';
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  TransactionEntity
->('TRANSACTIONS');
+  DividendEntity
+>('DIVIDENDS');
 
 export { createAction, updateAction, deleteAction };

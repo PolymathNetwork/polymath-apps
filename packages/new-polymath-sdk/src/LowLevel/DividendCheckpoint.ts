@@ -76,7 +76,10 @@ export class DividendCheckpoint<
           .dividends(dividendIndex)
           .call();
 
-        dividends.push(dividend);
+        dividends.push({
+          index: dividendIndex,
+          ...dividend,
+        });
       }
     }
 
@@ -85,6 +88,7 @@ export class DividendCheckpoint<
     return dividends.map(
       (dividend): Dividend => {
         const {
+          index,
           checkpointId,
           created,
           maturity,
@@ -99,6 +103,7 @@ export class DividendCheckpoint<
         } = dividend;
 
         return {
+          index,
           checkpointId,
           created: fromUnixTimestamp(created),
           maturity: fromUnixTimestamp(maturity),

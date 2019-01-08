@@ -1,6 +1,7 @@
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Polymath } from '~/Polymath';
-import { Entity } from '~/entities/Entity';
+import { Entity } from './Entity';
+import { serialize } from '~/utils';
 
 interface Params {
   symbol: string;
@@ -8,14 +9,19 @@ interface Params {
 }
 
 export class SecurityTokenReservation extends Entity {
+  public uid: string;
+  public entityType = 'securityTokenReservation';
   public symbol: string;
   public name: string;
 
   constructor(params: Params, polyClient?: Polymath) {
     super(polyClient);
 
-    this.symbol = params.symbol;
-    this.name = params.name;
+    const { symbol, name } = params;
+
+    this.symbol = symbol;
+    this.name = name;
+    this.uid = this.generateId();
   }
 
   public reserve(
@@ -41,6 +47,20 @@ export class SecurityTokenReservation extends Entity {
       ...args,
       symbol: this.symbol,
       name: this.name,
+    });
+  }
+
+  public toPojo() {
+    const { uid, symbol, name } = this;
+
+    return { uid, symbol, name };
+  }
+
+  protected generateId() {
+    const { symbol, entityType } = this;
+
+    return serialize(entityType, {
+      symbol,
     });
   }
 }

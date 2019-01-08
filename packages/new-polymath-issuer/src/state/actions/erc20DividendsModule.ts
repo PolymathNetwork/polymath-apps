@@ -1,8 +1,8 @@
+import { Erc20DividendsModuleEntity } from '~/types';
 import { createEntityActions } from '~/state/helpers/createEntityActions';
-import { TransactionEntity } from '~/types';
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  TransactionEntity
->('TRANSACTIONS');
+  Erc20DividendsModuleEntity
+>('ERC20_DIVIDENDS_MODULES');
 
 export { createAction, updateAction, deleteAction };

@@ -16,10 +16,6 @@ export class Wallet {
     this.context = context;
   }
 
-  public toString() {
-    return this.address;
-  }
-
   public async getBalance(token: types.Tokens) {
     const tokenContract = this.context.getTokenContract(token);
     const balanceRes = await tokenContract.balanceOf(this.address);
