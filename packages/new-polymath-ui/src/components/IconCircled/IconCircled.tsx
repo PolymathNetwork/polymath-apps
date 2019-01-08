@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { bgColor, BgColorProps } from 'styled-system';
+import { color, ColorProps } from 'styled-system';
 
 import { Icon, IconProps } from '~/components/Icon';
 
 export interface IconCircledProps extends IconProps {
-  bgColor: BgColorProps;
+  color: ColorProps;
 }
 
 export const IconCircled = styled(Icon)`
-  ${bgColor};
+  ${color};
   border-radius: 50%;
   padding: 0.25rem;
 `;

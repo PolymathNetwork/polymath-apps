@@ -1,36 +1,23 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled, { StyledProps } from 'styled-components';
-import {
-  color,
-  ColorProps,
-  width,
-  WidthProps,
-  height,
-  HeightProps,
-} from 'styled-system';
+import { color, ColorProps } from 'styled-system';
 
 export interface IconProps extends StyledProps<any> {
   color: ColorProps;
-  Asset: React.ComponentType<React.SVGAttributes<SVGElement>> | string;
+  Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
 }
 
 const IconPrimitive: FC<IconProps> = ({
   Asset,
-  color: colorProp,
+  color: colorProps,
   ...props
 }) => {
-  if (typeof Asset === 'string') {
-    return <img {...props} src={Asset} />;
-  }
-
   return <Asset {...props} />;
 };
 
 export const Icon = styled(IconPrimitive)`
   vertical-align: middle;
   ${color};
-  ${width};
-  ${height};
 `;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
