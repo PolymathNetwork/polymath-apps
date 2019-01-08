@@ -19,7 +19,7 @@ export class Procedure<Args> {
   public static type = 'Procedure';
   protected args: Args;
   protected context: Context;
-  private transactions: TransactionSpec<any>[] = [];
+  private transactions: Array<TransactionSpec<any>> = [];
 
   constructor(args: Args, context: Context) {
     this.args = args;
