@@ -12,11 +12,11 @@ import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
 
 import { ItemTx } from './ItemTx';
 
-const { TransactionStatus, HigherLevelTransactionStatus } = types;
+const { HigherLevelTransactionStatus } = types;
 
 const getModalStatus = (status: types.HigherLevelTransactionStatus) =>
   ({
-    [HigherLevelTransactionStatus.Idle]: ModalStatus.idle,
+    [HigherLevelTransactionStatus.Idle]: ModalStatus.loading,
     [HigherLevelTransactionStatus.Running]: ModalStatus.loading,
     [HigherLevelTransactionStatus.Succeeded]: ModalStatus.success,
     [HigherLevelTransactionStatus.Failed]: ModalStatus.alert,
@@ -45,6 +45,7 @@ export interface ModalTxProps extends ModalProps {
   sequence: types.HigherLevelTransaction;
   withEmail: boolean;
   continueButtonText: string;
+  onContinue: () => void;
 }
 
 export class ModalTx extends Component<ModalTxProps> {
@@ -52,13 +53,14 @@ export class ModalTx extends Component<ModalTxProps> {
     continueButtonText: 'Continue',
   };
 
-  handleContinue = () => {
-    this.props.txContinue();
-  };
-
-  // eslint-disable-next-line
-  render() {
-    const { sequence, withEmail, isOpen, continueButtonText } = this.props;
+  public render() {
+    const {
+      sequence,
+      withEmail,
+      isOpen,
+      continueButtonText,
+      onContinue,
+    } = this.props;
     const { transactions } = sequence;
     const status = getModalStatus(sequence.status);
     const isSuccess =
@@ -98,7 +100,7 @@ export class ModalTx extends Component<ModalTxProps> {
 
         {(isSuccess || isRejected) && (
           <Paragraph textAlign="center" mt="gridGap">
-            <Button onClick={this.handleContinue}>{continueButtonText}</Button>
+            <Button onClick={onContinue}>{continueButtonText}</Button>
           </Paragraph>
         )}
       </Modal>

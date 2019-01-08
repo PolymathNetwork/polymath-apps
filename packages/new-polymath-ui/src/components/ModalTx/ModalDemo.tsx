@@ -4,22 +4,18 @@ import { types } from '@polymathnetwork/new-shared';
 import { ModalTx } from './';
 
 export class ModalDemo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isModalOpen: false,
-      sequence: {
-        id: 111,
-        name: 'Dividend Configuration',
-        status: types.HigherLevelTransactionStatus.Idle,
-        transactions: [
-          { id: 0, type: 'First transaction', status: 'UNAPPROVED' },
-          { id: 1, type: 'Second transaction', status: 'IDLE' },
-        ],
-      },
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
+  state = {
+    isModalOpen: false,
+    sequence: {
+      id: '111',
+      name: 'Dividend Configuration',
+      status: types.HigherLevelTransactionStatus.Idle,
+      transactions: [
+        { id: '0', type: 'First transaction', status: 'UNAPPROVED' },
+        { id: '1', type: 'Second transaction', status: 'IDLE' },
+      ],
+    },
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.isModalOpen && this.state.isModalOpen) {
@@ -29,8 +25,8 @@ export class ModalDemo extends React.Component {
             ...this.state.sequence,
             status: types.HigherLevelTransactionStatus.Running,
             transactions: [
-              { id: 0, type: 'First transaction', status: 'APPROVED' },
-              { id: 1, type: 'Second transaction', status: 'IDLE' },
+              { id: '0', type: 'First transaction', status: 'APPROVED' },
+              { id: '1', type: 'Second transaction', status: 'IDLE' },
             ],
           },
         });
@@ -42,12 +38,12 @@ export class ModalDemo extends React.Component {
             ...this.state.sequence,
             transactions: [
               {
-                id: 0,
+                id: '0',
                 type: 'First transaction',
                 status: 'SUCCEEDED',
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
               },
-              { id: 1, type: 'Second transaction', status: 'UNAPPROVED' },
+              { id: '1', type: 'Second transaction', status: 'UNAPPROVED' },
             ],
           },
         });
@@ -59,12 +55,12 @@ export class ModalDemo extends React.Component {
             ...this.state.sequence,
             transactions: [
               {
-                id: 0,
+                id: '0',
                 type: 'First transaction',
                 status: 'SUCCEEDED',
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
               },
-              { id: 1, type: 'Second transaction', status: 'APPROVED' },
+              { id: '1', type: 'Second transaction', status: 'APPROVED' },
             ],
           },
         });
@@ -77,13 +73,13 @@ export class ModalDemo extends React.Component {
             status: types.HigherLevelTransactionStatus.Succeeded,
             transactions: [
               {
-                id: 0,
+                id: '0',
                 type: 'First transaction',
                 status: 'SUCCEEDED',
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
               },
               {
-                id: 1,
+                id: '1',
                 type: 'Second transaction',
                 status: 'SUCCEEDED',
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
@@ -95,17 +91,23 @@ export class ModalDemo extends React.Component {
     }
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({
       isModalOpen: true,
     });
-  }
+  };
 
-  handleModalClose() {
+  handleModalClose = () => {
     this.setState({
       isModalOpen: false,
     });
-  }
+  };
+
+  handleContinue = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  };
 
   render() {
     return (
@@ -117,6 +119,7 @@ export class ModalDemo extends React.Component {
           isOpen={this.state.isModalOpen}
           sequence={this.state.sequence}
           withEmail
+          onContinue={this.handleContinue}
         />
       </Fragment>
     );

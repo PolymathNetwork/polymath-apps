@@ -141,7 +141,7 @@ export const StatusBar = styled.div`
   ${({ status, theme }: { status: ModalStatus; theme: ThemeInterface }) =>
     status === ModalStatus.loading
       ? loadingStyles
-      : `background: ${theme.colors[status]}`};
+      : `background: ${theme.colors[ModalStatus[status]]}`};
 
   @keyframes AnimatedGradient {
     0% {
