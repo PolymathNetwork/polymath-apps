@@ -12,6 +12,11 @@ const IconPrimitive: FC<IconProps> = ({
   color: colorProps,
   ...props
 }) => {
+  // TODO @grsmto: remove this once Webpack SVGR loader is fixed
+  if (typeof Asset === 'string') {
+    return <img {...props} src={Asset} />;
+  }
+
   return <Asset {...props} />;
 };
 
