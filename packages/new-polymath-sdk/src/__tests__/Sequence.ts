@@ -36,10 +36,9 @@ describe('Sequence', () => {
 
   describe('constructor', () => {
     test('initializes properly', () => {
-      const transaction = getMockTransactionSpec(
-        testContract.fakeTxOne,
-        'someString'
-      );
+      const transaction = getMockTransactionSpec(testContract.fakeTxOne, [
+        'someString',
+      ]);
       const sequence = new Sequence([transaction]);
       expect(sequence).toBeInstanceOf(Sequence);
       expect(sequence.run()).toBeInstanceOf(Promise);
@@ -48,16 +47,16 @@ describe('Sequence', () => {
 
   describe('execution', () => {
     test('resolves when it is finished', async () => {
-      const txOne = getMockTransactionSpec(
-        testContract.fakeTxOne,
-        'someString'
-      );
-      const txTwo = getMockTransactionSpec(
-        testContract.fakeTxOne,
-        'someString'
-      );
+      const txOne = getMockTransactionSpec(testContract.fakeTxOne, [
+        'stringOne',
+      ]);
+      const txTwo = getMockTransactionSpec(testContract.fakeTxOne, [
+        'stringTwo',
+      ]);
       const sequence = new Sequence([txOne, txTwo]);
-      const result = sequence.run();
+      sequence.run();
+      await sequence;
+      // expect something to have been called
     });
   });
 });

@@ -40,9 +40,7 @@ export class PolyTransaction {
     const unwrappedArgs = this.unwrapArgs(this.transaction.args);
 
     try {
-      await this.transaction.method.bind(this.transaction.contract)(
-        ...unwrappedArgs
-      );
+      await this.transaction.method(...unwrappedArgs);
     } catch (err) {
       if (err.message.indexOf('User denied transaction signature') > -1) {
         // Here we mark as rejected
