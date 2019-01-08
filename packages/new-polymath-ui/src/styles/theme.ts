@@ -1,5 +1,5 @@
 import { types } from '@polymathnetwork/new-shared';
-import { transparentize } from 'polished';
+import { transparentize, darken } from 'polished';
 
 interface Scale<TValue> {
   [id: string]: TValue;
@@ -19,6 +19,7 @@ export interface ThemeInterface {
   transitions: any;
   maxWidth: string;
   inputs: any;
+  links: any;
   header: any;
   footer: any;
   sidebar: any;
@@ -150,6 +151,13 @@ export const buttons = {
       color: '#fff',
       backgroundColor: colors.secondary,
     },
+  },
+};
+
+export const links = {
+  color: colors.secondary,
+  '&:hover, &:focus': {
+    color: darken(0.2, colors.secondary),
   },
 };
 
