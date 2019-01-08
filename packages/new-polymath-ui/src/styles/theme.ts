@@ -1,3 +1,4 @@
+import { types } from '@polymathnetwork/new-shared';
 import { transparentize } from 'polished';
 
 interface Scale<TValue> {
@@ -21,7 +22,7 @@ export interface ThemeInterface {
   header: any;
   footer: any;
   sidebar: any;
-  cryptoCurrencies: any;
+  tokens: any;
 }
 
 export const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
@@ -180,20 +181,20 @@ export const footer = {
   height: header.height,
 };
 
-export const cryptoCurrencies = {
-  eth: {
+export const tokens = {
+  [types.Tokens.Ether]: {
     color: '#724396',
     backgroundColor: '#EED3FE',
   },
-  dai: {
+  [types.Tokens.Dai]: {
     color: '#FEBE44',
     backgroundColor: '#FFEFC4',
   },
-  poly: {
+  [types.Tokens.Poly]: {
     color: '#3C6586',
     backgroundColor: '#C1E6FE',
   },
-  erc20: {
+  [types.Tokens.Erc20]: {
     color: '#007B66',
     backgroundColor: '#A7FAE6',
   },

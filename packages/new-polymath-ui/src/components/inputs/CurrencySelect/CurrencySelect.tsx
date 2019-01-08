@@ -25,15 +25,23 @@ interface OptionType {
 export const CURRENCY_OPTIONS: OptionType[] = [
   {
     value: types.Tokens.Ether,
-    label: <Label text="Ethereum (ETH)" Asset={SvgEth} />,
+    label: (
+      <Label text="Ethereum (ETH)" Asset={SvgEth} token={types.Tokens.Ether} />
+    ),
   },
   {
     value: types.Tokens.Poly,
-    label: <Label text="Polymath (POLY)" Asset={SvgPolyB} />,
+    label: (
+      <Label
+        text="Polymath (POLY)"
+        Asset={SvgPolyB}
+        token={types.Tokens.Poly}
+      />
+    ),
   },
   {
     value: types.Tokens.Dai,
-    label: <Label text="Dai (DAI)" Asset={SvgDai} />,
+    label: <Label text="Dai (DAI)" Asset={SvgDai} token={types.Tokens.Dai} />,
   },
 ];
 

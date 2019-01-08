@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-
+import { types } from '@polymathnetwork/new-shared';
 import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Box } from '~/components/Box';
 import { IconCircled } from '~/components/IconCircled';
@@ -9,7 +9,7 @@ export interface LabelProps {
   Asset: React.ComponentType | string;
   text: string;
   theme: ThemeInterface;
-  id: any;
+  token: types.Tokens;
 }
 
 const Wrapper = styled(Box)`
@@ -24,12 +24,12 @@ const Text = styled.span`
   ${ellipsis};
 `;
 
-const LabelPrimitive: FC<LabelProps> = ({ Asset, text, theme, id }) => (
+const LabelPrimitive: FC<LabelProps> = ({ Asset, text, theme, token }) => (
   <Wrapper>
     <IconCircled
       Asset={Asset}
-      color={theme.cryptoCurrencies[id].color}
-      bg={theme.cryptoCurrencies[id].backgroundColor}
+      color={theme.tokens[token].color}
+      bg={theme.tokens[token].backgroundColor}
       width={25}
       height={25}
     />
