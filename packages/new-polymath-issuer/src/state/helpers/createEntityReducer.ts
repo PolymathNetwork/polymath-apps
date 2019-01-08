@@ -13,7 +13,10 @@ export const createEntityReducer = <T>(entityType: string) => {
     allIds: [],
   };
 
-  const reducer: Reducer<EntityState<T>> = (state = initialState, action) => {
+  const reducer: Reducer<EntityState<T>> = (
+    state = initialState,
+    action
+  ): EntityState<T> => {
     switch (action.type) {
       case `${entityType}/CREATE`: {
         const {
