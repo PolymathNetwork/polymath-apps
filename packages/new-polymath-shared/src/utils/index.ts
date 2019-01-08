@@ -5,3 +5,8 @@ export const delay = async (amount: number) => {
     }, amount);
   });
 };
+
+export const toEtherscanUrl = (
+  value: string,
+  { network, type = 'tx' }: { network?: string; type?: string } = {}
+) => `https://${network ? network + '.' : ''}etherscan.io/${type}/${value}`;
