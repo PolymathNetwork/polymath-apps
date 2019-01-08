@@ -1,32 +1,39 @@
 import { TransactionSpec } from '~/types';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 
-export class Sequence extends Promise<any> {
+export class Sequence {
   public static readonly entityType: string = 'sequence';
-  public transactions: PolyTransaction<any>[];
-  protected resolve: (val?: any) => void;
-  protected reject: (reason?: any) => void;
+  public transactions: PolyTransaction[];
+  private promise: Promise<any>;
+  private queue: PolyTransaction[] = [];
 
   constructor(transactions: TransactionSpec<any>[]) {
-    let resolve: () => void = () => {};
-    let reject: () => void = () => {};
-
-    super((res, rej) => {
-      resolve = res;
-      reject = rej;
+    this.promise = new Promise((res, rej) => {
+      this.resolve = res;
+      this.reject = rej;
     });
 
-    this.resolve = resolve;
-    this.reject = reject;
     this.transactions = transactions.map(transaction => {
       return new PolyTransaction(transaction);
     });
   }
 
+  public then(resolve: () => any, reject: () => any) {
+    return this.promise.then(resolve, reject);
+  }
+
   public async run() {
     this.queue = [...this.transactions];
-    await this.executeTransactionQueue();
+    try {
+      const res = await this.executeTransactionQueue();
+      this.resolve(res);
+    } catch (err) {
+      this.reject(err);
+    }
   }
+
+  protected resolve: (val?: any) => void = () => {};
+  protected reject: (reason?: any) => void = () => {};
 
   private async executeTransactionQueue() {
     const nextTransaction = this.queue.shift();
@@ -37,7 +44,6 @@ export class Sequence extends Promise<any> {
     }
 
     await nextTransaction.run();
-
     await this.executeTransactionQueue();
   }
 

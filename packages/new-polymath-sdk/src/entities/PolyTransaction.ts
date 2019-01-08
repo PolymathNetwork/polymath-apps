@@ -19,16 +19,21 @@ const mapValuesDeep = (
     _.isPlainObject(val) ? mapValuesDeep(val, fn) : fn(val, key, obj)
   );
 
-export class PolyTransaction<Type> extends Promise<Type> {
+export class PolyTransaction {
   protected transaction: TransactionSpec<any>;
+  private promise: Promise<any>;
 
   constructor(transaction: TransactionSpec<any>) {
-    super((res, rej) => {
+    this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
     });
 
     this.transaction = transaction;
+  }
+
+  public then(resolve: () => any, reject: () => any) {
+    return this.promise.then(resolve, reject);
   }
 
   public async run() {
