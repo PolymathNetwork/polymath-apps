@@ -1,4 +1,4 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, takeEvery, all } from 'redux-saga/effects';
 import { fetchData } from '~/state/actions/dataRequests';
 import { getType, ActionType } from 'typesafe-actions';
 import {
@@ -46,5 +46,5 @@ export function* requestData(action: ActionType<typeof fetchData>) {
 }
 
 export function* requestWatcher() {
-  yield takeLatest(getType(fetchData), requestData);
+  yield takeEvery(getType(fetchData), requestData);
 }
