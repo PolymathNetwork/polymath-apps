@@ -1,5 +1,6 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
+import { get } from 'lodash';
 
 type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -7,21 +8,22 @@ export interface ButtonProps {
   /**
    * Specify the kind of Button you want to create
    */
-  kind: string;
+  kind?: string;
   small?: boolean;
   /**
    * Optional prop to specify the tabIndex of the Button
    */
-  tabIndex: HtmlButtonProps['tabIndex'];
+  tabIndex?: HtmlButtonProps['tabIndex'];
   /**
    * Optional prop to specify the type of the Button
    */
-  type: HtmlButtonProps['type'];
+  type?: HtmlButtonProps['type'];
   /**
    * Optionally specify an href for your Button to become an <a> element
    */
   href?: string;
-  disabled: HtmlButtonProps['disabled'];
+  disabled?: HtmlButtonProps['disabled'];
+  onClick: () => void;
 }
 
 export const ButtonPrimitive: FC<ButtonProps> = ({
@@ -69,7 +71,7 @@ export const Button: FC<ButtonProps> = styled(ButtonPrimitive)<ButtonProps>`
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  ${({ kind, theme }) => theme.buttons[kind]};
+  ${({ kind, theme }) => get(theme, `buttons.${kind}`)};
 
   &button,
   &input[type='button'],
@@ -86,7 +88,7 @@ export const Button: FC<ButtonProps> = styled(ButtonPrimitive)<ButtonProps>`
   &:disabled {
     &:hover {
       background-color: ${({ kind, theme }) =>
-        theme.buttons[kind].backgroundColor};
+        get(theme, `buttons.${kind}.backgroundColor`)};
     }
   }
 `;
