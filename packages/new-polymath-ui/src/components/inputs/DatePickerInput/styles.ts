@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from '~/styles';
 
 export const GlobalStyles = createGlobalStyle`
   .flatpickr-calendar {
@@ -44,7 +44,6 @@ export const GlobalStyles = createGlobalStyle`
       margin-top: 1px;
 
       &.animate {
-        cubic-bezier(0.23, 1, 0.32, 1);
         animation: fpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
       }
     }
