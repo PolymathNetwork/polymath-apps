@@ -1,12 +1,23 @@
 import { TransactionSpec } from '~/types';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 
-export class Sequence {
+export class Sequence extends Promise<any> {
   public static readonly entityType: string = 'sequence';
-  public transactions: PolyTransaction<any>[] = [];
-  private queue: PolyTransaction<any>[] = [];
+  public transactions: PolyTransaction<any>[];
+  protected resolve: (val?: any) => void;
+  protected reject: (reason?: any) => void;
 
   constructor(transactions: TransactionSpec<any>[]) {
+    let resolve: () => void = () => {};
+    let reject: () => void = () => {};
+
+    super((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
+
+    this.resolve = resolve;
+    this.reject = reject;
     this.transactions = transactions.map(transaction => {
       return new PolyTransaction(transaction);
     });
@@ -32,5 +43,3 @@ export class Sequence {
 
   private async finish() {}
 }
-
-const sequence = new Sequence([]);

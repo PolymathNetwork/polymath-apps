@@ -20,21 +20,14 @@ const mapValuesDeep = (
   );
 
 export class PolyTransaction<Type> extends Promise<Type> {
-  private resolve: (val?: any) => void;
-  private reject: (reason?: any) => void;
-  private transaction: TransactionSpec<any>;
+  protected transaction: TransactionSpec<any>;
 
   constructor(transaction: TransactionSpec<any>) {
-    let resolve: () => void = () => {};
-    let reject: () => void = () => {};
-
     super((res, rej) => {
-      resolve = res;
-      reject = rej;
+      this.resolve = res;
+      this.reject = rej;
     });
 
-    this.resolve = resolve;
-    this.reject = reject;
     this.transaction = transaction;
   }
 
@@ -57,6 +50,9 @@ export class PolyTransaction<Type> extends Promise<Type> {
     await this.transaction.postTransactionResolver.run();
     this.resolve();
   }
+
+  protected resolve: (val?: any) => void = () => {};
+  protected reject: (reason?: any) => void = () => {};
 
   private unwrapArg(arg: PostTransactionResolver<any>) {
     if (isPostTransactionResolver(arg)) {
