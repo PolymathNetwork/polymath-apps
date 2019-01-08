@@ -1,6 +1,5 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { string } from 'prop-types';
 
 type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -57,11 +56,9 @@ export const Button: FC<ButtonProps> = styled(ButtonPrimitive)<ButtonProps>`
   flex-shrink: 0;
   height: 2.5rem;
   padding: 0 1rem;
-  cursor: pointer;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  white-space: nowrap;
   line-height: 16px;
   border: 2px solid transparent;
   outline: none;
@@ -87,9 +84,6 @@ export const Button: FC<ButtonProps> = styled(ButtonPrimitive)<ButtonProps>`
   }
 
   &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-
     &:hover {
       background-color: ${({ kind, theme }) =>
         theme.buttons[kind].backgroundColor};

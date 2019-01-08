@@ -21,4 +21,18 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.colors.baseText};
     font-family: ${({ theme }) => theme.fontFamilies.baseText};
   }
+
+  button,
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'],
+  input[type='file'] {
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
 `;
