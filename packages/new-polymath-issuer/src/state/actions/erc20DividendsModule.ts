@@ -6,8 +6,8 @@ const { createAction, updateAction, deleteAction } = createEntityActions<
   Erc20DividendsModuleEntity
 >('ERC20_DIVIDENDS_MODULES');
 
-const enableErc20DividendsModule = createStandardAction('ERC20_DIVIDENDS_MODULES/ENABLE')<{
+const enableModule = createStandardAction('ERC20_DIVIDENDS_MODULES/ENABLE')<{
   securityTokenSymbol: string;
 }>();
 
-export { createAction, updateAction, deleteAction, enableErc20DividendsModule };
+export { createAction, updateAction, deleteAction, enableModule };
