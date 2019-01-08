@@ -9,6 +9,7 @@ import { TaxWithholding } from '~/types';
 import {
   Dividend as LowLevelDividend,
   Checkpoint as LowLevelCheckpoint,
+  DividendModuleTypes,
 } from '~/LowLevel/types';
 import { Dividend, Checkpoint } from '~/entities';
 
@@ -153,9 +154,14 @@ export class Polymath {
   }
 
   /**
-   * Enable ERC20 and ETH dividend modules
+   * Enable dividend modules (ERC20, ETH or both)
+   *
+   * @param types array containing the types of dividend modules to enable (will enable all if not present)
    */
-  public async enableDividendModules(args: { symbol: string }) {
+  public async enableDividendModules(args: {
+    symbol: string;
+    types?: DividendModuleTypes[];
+  }) {
     const transaction = new EnableDividendModules(args, this.context);
     return await transaction.prepare();
   }
