@@ -1,6 +1,6 @@
 import { Contract } from '~/LowLevel/Contract';
 import { TransactionSpec } from '~/types';
-import { Sequence } from '~/entities/Sequence';
+import { Sequence } from '~/Sequence';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
