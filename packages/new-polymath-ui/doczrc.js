@@ -3,6 +3,7 @@ import { css } from 'docz-plugin-css';
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 export default {
+  port: 3001,
   title: 'PolymathUI',
   description: 'Polymath design system and React components library',
   files: '**/*.{md,mdx}',
