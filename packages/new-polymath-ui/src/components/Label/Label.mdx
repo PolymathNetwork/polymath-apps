@@ -8,7 +8,7 @@ import { Playground, PropsTable } from 'docz';
 import * as theme from '../../styles/theme';
 import { Label, LabelDocz } from './';
 
-import { constants } from '@polymathnetwork/new-shared';
+import { constants, types } from '@polymathnetwork/new-shared';
 
 # Label
 
@@ -17,13 +17,13 @@ import { constants } from '@polymathnetwork/new-shared';
 ## Basic usage
 
 <Playground>
-  <Label color={theme.cryptoCurrencies.eth.color}>Issued in ETH</Label>
+  <Label color={theme.tokens[types.Tokens.Ether].color}>Issued in ETH</Label>
   <Label
-    color={theme.cryptoCurrencies.dai.color}
-    bg={theme.cryptoCurrencies.dai.backgroundColor}
+    color={theme.tokens[types.Tokens.Dai].color}
+    bg={theme.tokens[types.Tokens.Dai].backgroundColor}
   >
     Issued in DAI
   </Label>
-  <Label color={theme.cryptoCurrencies.poly.color}>Issued in POLY</Label>
-  <Label color={theme.cryptoCurrencies.erc20.color}>Issued in ERC20</Label>
+  <Label color={theme.tokens[types.Tokens.Poly].color}>Issued in POLY</Label>
+  <Label color={theme.tokens[types.Tokens.Erc20].color}>Issued in ERC20</Label>
 </Playground>
