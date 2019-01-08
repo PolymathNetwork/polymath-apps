@@ -1,12 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
-
 import { Box } from '~/components/Box';
 import { IconButton } from '~/components/IconButton';
 
-import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
-
-const Wrapper = styled(Box)`
+export const ValueWrapper = styled(Box)`
   display: inline-flex;
   background-color: ${({ theme }) => theme.inputs.backgroundColor};
   border-radius: 50px;
@@ -17,13 +13,13 @@ const Wrapper = styled(Box)`
   margin-top: 7px;
 `;
 
-const LabelWrapper = styled(Box)`
+export const ValueLabel = styled(Box)`
   display: flex;
   margin-left: -${({ theme }) => theme.space[1]};
   margin-right: ${({ theme }) => theme.space[3]};
 `;
 
-const StyledIconButton = styled(IconButton)`
+export const ValueRemoveButton = styled(IconButton)`
   background-color: ${({ theme }) => theme.colors.gray[2]};
   color: ${({ theme }) => theme.inputs.backgroundColor};
   box-sizing: border-box;
@@ -36,18 +32,3 @@ const StyledIconButton = styled(IconButton)`
     background-color: ${({ theme }) => theme.colors.gray[3]};
   }
 `;
-
-export class Value extends React.Component {
-  onRemove = () => {
-    this.props.onRemove(this.props.value);
-  };
-
-  render() {
-    return (
-      <Wrapper>
-        <LabelWrapper>{this.props.label}</LabelWrapper>
-        <StyledIconButton Asset={SvgClose} onClick={this.onRemove} />
-      </Wrapper>
-    );
-  }
-}

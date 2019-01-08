@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import ReactSelect, { components } from 'react-select';
 
 import styled, { withTheme, ThemeInterface } from '~/styles';
-import { Icon } from '../../Icon';
-import { ReactComponent as SvgCaretDown } from '../../../images/icons/caret-down.svg';
+import { Icon } from '~/components/Icon';
+import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
 import { formikProxy } from '../formikProxy';
 import { InputProps } from '../types';
 
-export interface SelectProps extends InputProps {
+export interface SelectProps extends InputProps, ReactSelect<any> {
   theme: ThemeInterface;
+}
+
+export interface CaretProps {
+  width: number;
+  height: number;
 }
 
 const getStyles = (theme: ThemeInterface) => ({
@@ -36,7 +41,7 @@ const getStyles = (theme: ThemeInterface) => ({
   }),
 });
 
-const Caret = styled(Icon)`
+const Caret = styled(Icon)<CaretProps>`
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
@@ -44,14 +49,14 @@ const DropdownIndicator = (props: any) => {
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
-        <Caret Asset={SvgCaretDown} width="10" height="10" />
+        <Caret Asset={SvgCaretDown} width={10} height={10} />
       </components.DropdownIndicator>
     )
   );
 };
 
-class _SelectPrimitive extends Component<SelectProps> {
-  render() {
+class SelectPrimitiveBase extends Component<SelectProps> {
+  public render() {
     const { theme, name, value, ...props } = this.props;
 
     return (
@@ -71,5 +76,5 @@ class _SelectPrimitive extends Component<SelectProps> {
   }
 }
 
-export const SelectPrimitive = withTheme(_SelectPrimitive);
+export const SelectPrimitive = withTheme(SelectPrimitiveBase);
 export const Select = formikProxy(SelectPrimitive);

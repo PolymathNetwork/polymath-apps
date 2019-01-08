@@ -11,20 +11,22 @@ import {
 
 export interface IconProps extends StyledProps<any> {
   color: ColorProps;
-  width: WidthProps;
-  height: HeightProps;
   Asset: React.ComponentType<React.SVGAttributes<SVGElement>> | string;
 }
 
-export const Icon = styled(
-  ({ Asset, color: colorProp, ...props }: IconProps) => {
-    if (typeof Asset === 'string') {
-      return <img {...props} src={Asset} />;
-    }
-
-    return <Asset {...props} />;
+const IconPrimitive: FC<IconProps> = ({
+  Asset,
+  color: colorProp,
+  ...props
+}) => {
+  if (typeof Asset === 'string') {
+    return <img {...props} src={Asset} />;
   }
-)`
+
+  return <Asset {...props} />;
+};
+
+export const Icon = styled(IconPrimitive)`
   vertical-align: middle;
   ${color};
   ${width};

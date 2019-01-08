@@ -26,7 +26,7 @@ const variants = {
   },
 };
 
-export const Wrapper = styled.div<FooterProps>`
+export const Wrapper = styled.div<{ variant: FooterProps['variant'] }>`
   width: 100%;
   height: ${({ theme }) => theme.footer.height};
   ${({ variant }) => variants[variant].Wrapper};

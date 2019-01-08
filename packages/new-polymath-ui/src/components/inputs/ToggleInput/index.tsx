@@ -3,28 +3,25 @@ import styled from 'styled-components';
 
 import { formikProxy } from '../formikProxy';
 import { InputProps } from '../types';
-import { render } from 'react-dom';
 
 export interface ToggleInputProps extends InputProps {
   /**
    * Specify whether the toggle should be on by default
    */
   defaultToggled?: boolean;
-
   /**
    * Specify whether the control is toggled
    */
   toggled?: boolean;
-
   /**
    * Specify the label for the "off" position
    */
   labelA: string;
-
   /**
    * Specify the label for the "on" position
    */
   labelB: string;
+  checked: boolean;
 }
 
 const Input = styled.input`
@@ -93,9 +90,15 @@ const Toggle = styled.span`
 `;
 
 export class ToggleInputPrimitive extends Component<ToggleInputProps> {
-  inputRef: React.RefObject<HTMLInputElement> = React.createRef();
+  public static defaultProps = {
+    defaultToggled: false,
+    labelA: 'Off',
+    labelB: 'On',
+  };
 
-  render() {
+  public inputRef: React.RefObject<HTMLInputElement> = React.createRef();
+
+  public render() {
     const {
       name,
       defaultToggled,
@@ -105,12 +108,12 @@ export class ToggleInputPrimitive extends Component<ToggleInputProps> {
       labelB,
       ...other
     } = this.props;
-    const checkedProps = {};
+    let checkedProps;
 
     if (typeof toggled !== 'undefined') {
-      checkedProps.checked = toggled;
+      checkedProps = { checked: toggled };
     } else {
-      checkedProps.defaultChecked = defaultToggled;
+      checkedProps = { defaultChecked: defaultToggled };
     }
 
     return (
@@ -138,9 +141,3 @@ export class ToggleInputPrimitive extends Component<ToggleInputProps> {
 }
 
 export const ToggleInput = formikProxy(ToggleInputPrimitive);
-
-ToggleInputPrimitive.defaultProps = {
-  defaultToggled: false,
-  labelA: 'Off',
-  labelB: 'On',
-};

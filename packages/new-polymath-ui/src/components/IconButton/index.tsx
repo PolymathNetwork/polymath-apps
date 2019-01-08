@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 import { Icon, IconProps } from '../Icon';
 
-export interface IconButtonProps extends IconProps {}
+export interface IconButtonProps extends IconProps {
+  color?: string;
+}
 
 const Button = styled.button`
   appearance: none;

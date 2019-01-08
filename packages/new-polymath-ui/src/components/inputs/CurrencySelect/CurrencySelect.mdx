@@ -6,8 +6,8 @@ menu: Inputs
 import { PropsTable, Playground } from 'docz';
 import { Formik, Field } from 'formik';
 
-import { CurrencySelect } from './CurrencySelect';
-import { Input } from './Input';
+import { CurrencySelect } from './index';
+import { CurrencySelectPrimitive } from './CurrencySelect';
 import { FormItem } from '../../FormItem';
 
 # CurrencySelect
@@ -21,7 +21,7 @@ import { FormItem } from '../../FormItem';
     const values = ['ETH', 'DAI'];
 
     return (
-      <Input
+      <CurrencySelectPrimitive
         placeholder="Raise in"
         value={values}
         onChange={(values) => { console.log(values); }}

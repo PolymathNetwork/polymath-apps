@@ -18,7 +18,7 @@ import {
   AlignItemsProps,
 } from 'styled-system';
 
-import { Box } from '../Box';
+import { Box } from '~/components/Box';
 
 export type GridProps = GridGapProps &
   GridAutoFlowProps &
