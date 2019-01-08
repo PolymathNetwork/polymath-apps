@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 import { Icon, IconProps } from '../Icon';
 
-export interface IconButtonProps extends IconProps {
-  color?: string;
-}
+export interface IconButtonProps extends IconProps {}
 
 const Button = styled.button`
   appearance: none;
@@ -21,7 +19,7 @@ const StyledIcon = styled(Icon)`
   height: 100%;
 `;
 
-export const IconButton: FC<IconButtonProps> = ({ Asset, ...props }) => (
+export const IconButton: FC<IconButtonProps> = ({ Asset, color, ...props }) => (
   <Button {...props}>
     <StyledIcon Asset={Asset} />
   </Button>
