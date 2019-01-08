@@ -6,10 +6,10 @@ describe('Reducer: app', () => {
     expect(reducer(undefined, {} as any)).toMatchSnapshot();
   });
 
-  test('setActiveTransactionGroup sets activeTransactionGroup', () => {
+  test('setActiveSequence sets activeSequence', () => {
     const id = 'someId';
-    const result = reducer(undefined, actions.setActiveTransactionGroup(id));
-    expect(result.activeTransactionGroup).toEqual(id);
+    const result = reducer(undefined, actions.setActiveSequence(id));
+    expect(result.activeSequence).toEqual(id);
   });
 
   test('initializePolyClient actions correctly update state', () => {
