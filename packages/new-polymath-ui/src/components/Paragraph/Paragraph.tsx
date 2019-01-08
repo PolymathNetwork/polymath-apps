@@ -36,13 +36,14 @@ export const Paragraph = styled(Box)<ParagraphProps>`
   &:last-child {
     margin-bottom: 0;
   }
-`.withComponent('p');
+`;
 
 export const ParagraphDocz: FC<ParagraphProps> = (props: any) => {
   return <Paragraph {...props} />;
 };
 
 Paragraph.defaultProps = {
+  as: 'p',
   mt: 0,
   mb: 'm',
   fontSize: 'baseText',

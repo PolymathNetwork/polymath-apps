@@ -14,7 +14,7 @@ export interface HeadingProps extends ParagraphProps {
 
 export const Heading = styled(Paragraph)<HeadingProps>`
   ${headingStyle};
-`.withComponent('h2');
+`;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
 export const HeadingDocz: FC<HeadingProps> = (props: any) => {
@@ -22,6 +22,7 @@ export const HeadingDocz: FC<HeadingProps> = (props: any) => {
 };
 
 Heading.defaultProps = {
+  as: 'h2',
   variant: 'h3',
   lineHeight: 'normal',
   mt: 0,
