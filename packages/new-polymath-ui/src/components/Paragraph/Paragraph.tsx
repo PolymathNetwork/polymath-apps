@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { StyledComponentProps } from 'styled-components';
+import styled from 'styled-components';
 import {
   color,
   ColorProps,
@@ -16,7 +16,7 @@ import {
 } from 'styled-system';
 import { Box, BoxProps } from '~/components/Box';
 
-export type ParagraphProps = { bold: boolean } & BoxProps &
+export type ParagraphProps = { bold?: boolean } & BoxProps &
   ColorProps &
   FontFamilyProps &
   FontWeightProps &
