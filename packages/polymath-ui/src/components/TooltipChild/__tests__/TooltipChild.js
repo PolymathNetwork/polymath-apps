@@ -1,13 +1,13 @@
 import React from 'react';
 import { render } from '../../../../testUtils';
 
-import ButtonTooltip from '../ButtonTooltip';
+import TooltipChild from '../TooltipChild';
 
 test('renders without crashing', () => {
   const { container } = render(
-    <ButtonTooltip triggerText="Hover the button!">
+    <TooltipChild tooltipContent="Hover the item!">
       This is a Tooltip.
-    </ButtonTooltip>
+    </TooltipChild>
   );
 
   expect(container.firstChild).toMatchSnapshot();

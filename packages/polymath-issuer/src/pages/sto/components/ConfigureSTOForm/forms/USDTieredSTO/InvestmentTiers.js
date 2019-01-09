@@ -17,7 +17,7 @@ import {
   FormItem,
   FormItemGroup,
   Tooltip,
-  ButtonTooltip,
+  TooltipChild,
   NumberInput,
 } from '@polymathnetwork/ui';
 import { format } from '@polymathnetwork/shared/utils';
@@ -256,8 +256,8 @@ export default class InvestmentTiers extends React.Component<Props, State> {
                 render={({ rows, headers, getHeaderProps }) => (
                   <TableContainer>
                     <Box textAlign="right" mb={3}>
-                      <ButtonTooltip
-                        triggerText="Sorry, STO can only have up to 5 tiers"
+                      <TooltipChild
+                        tooltipContent="Sorry, STO can only have up to 5 tiers"
                         showTooltip={tableItems.length >= 5}
                       >
                         <Button
@@ -267,7 +267,7 @@ export default class InvestmentTiers extends React.Component<Props, State> {
                         >
                           Add new
                         </Button>
-                      </ButtonTooltip>
+                      </TooltipChild>
                     </Box>
                     <Table>
                       <TableHead>
