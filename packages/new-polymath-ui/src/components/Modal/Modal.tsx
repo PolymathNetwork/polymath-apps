@@ -19,7 +19,7 @@ export interface ModalProps {
   isCloseable: boolean;
   status: ModalStatus;
   theme: ThemeInterface;
-  maxWidth: MaxWidthProps;
+  maxWidth?: MaxWidthProps;
   isCentered: boolean;
 }
 

@@ -1,24 +1,31 @@
 import React, { Fragment } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 
-import { ModalTx } from './';
+import { ModalTx } from './ModalTx';
+
+const sequence = {
+  id: '111',
+  name: 'Dividend Configuration',
+  status: types.HigherLevelTransactionStatus.Idle,
+  transactions: [
+    { id: '0', type: 'First transaction', status: 'UNAPPROVED' },
+    { id: '1', type: 'Second transaction', status: 'IDLE' },
+  ],
+};
 
 export class ModalDemo extends React.Component {
   state = {
     isModalOpen: false,
-    sequence: {
-      id: '111',
-      name: 'Dividend Configuration',
-      status: types.HigherLevelTransactionStatus.Idle,
-      transactions: [
-        { id: '0', type: 'First transaction', status: 'UNAPPROVED' },
-        { id: '1', type: 'Second transaction', status: 'IDLE' },
-      ],
-    },
+    sequence,
   };
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.isModalOpen && this.state.isModalOpen) {
+      // Reset Modal state
+      this.setState({
+        sequence,
+      });
+
       setTimeout(() => {
         this.setState({
           sequence: {

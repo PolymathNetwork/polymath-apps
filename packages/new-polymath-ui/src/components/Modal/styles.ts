@@ -5,7 +5,7 @@ import styled, { css, ThemeInterface } from '~/styles';
 import { ModalStatus } from './';
 import { IconButton } from '../IconButton';
 
-const statusBarHeight = '5px';
+const statusBarHeight = '8px';
 
 export const modalStyle = css`
   .pui-modal {
@@ -31,7 +31,7 @@ export const modalStyle = css`
     }
 
     @media (min-width: 1024px) {
-      ${(props: { maxWidth: MaxWidthProps }) =>
+      ${(props: { maxWidth: MaxWidthProps; isCentered: boolean }) =>
         props.maxWidth ? maxWidth(props) : 'max-width: 50%'};
       max-height: 80%;
     }

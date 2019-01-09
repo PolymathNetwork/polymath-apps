@@ -1,9 +1,8 @@
 import styled from '~/styles';
 
-import { TextEllipsis } from '~/components/TextEllipsis';
 import { Flex } from '~/components/Flex';
 
-export const Wrapper = styled(Flex)`
+export const Wrapper = styled(Flex)<{ isDisabled: boolean }>`
   opacity: ${({ isDisabled }) => (isDisabled ? 0.5 : 1)};
 
   & + & {
