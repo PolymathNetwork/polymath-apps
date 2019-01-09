@@ -1,19 +1,16 @@
 import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
+import { Omit } from '@polymathnetwork/new-shared/build/dist/typing/helpers';
 
-export type Entity =
-  | TransactionEntity
-  | DividendEntity
-  | CheckpointEntity
-  | Erc20DividendsModuleEntity;
-
-export interface TransactionEntity {
+export interface Entity {
   uid: string;
+}
+
+export interface TransactionEntity extends Entity {
   txHash: string;
 }
 
-export interface DividendEntity {
-  uid: string;
+export interface DividendEntity extends Entity {
   index: number;
   securityTokenSymbol: string;
   securityTokenId: string;
@@ -31,8 +28,7 @@ export interface DividendEntity {
   currency: string | null;
 }
 
-export interface CheckpointEntity {
-  uid: string;
+export interface CheckpointEntity extends Entity {
   index: number;
   securityTokenSymbol: string;
   securityTokenId: string;
@@ -44,8 +40,7 @@ export interface CheckpointEntity {
   createdAt: Date;
 }
 
-export interface Erc20DividendsModuleEntity {
-  uid: string;
+export interface Erc20DividendsModuleEntity extends Entity {
   /**
    * if undefined, it means the module is not attached
    */
@@ -53,6 +48,8 @@ export interface Erc20DividendsModuleEntity {
   securityTokenSymbol: string;
   securityTokenId: string;
 }
+
+export interface SequenceEntity extends Entity {}
 
 export interface Wallet {
   address: string;
@@ -76,6 +73,7 @@ export enum Entities {
   Transactions = 'transactions',
   Dividends = 'dividends',
   Erc20DividendsModules = 'erc20DividendsModules',
+  Sequences = 'sequences',
 }
 
 export enum RequestKeys {
@@ -153,3 +151,7 @@ export interface CacheStatus {
   requestKey: RequestKeys;
   mustBeFetched: boolean;
 }
+
+export type PartialWithId<T extends Entity> = Partial<Omit<T, 'uid'>> & {
+  uid: string;
+};
