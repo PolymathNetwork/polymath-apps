@@ -16,13 +16,12 @@ const initialState: AppState = {
 export const reducer: Reducer<AppState, AppActions> = (
   state = initialState,
   action
-) => {
+): AppState => {
   switch (action.type) {
     case getType(actions.setActiveSequence): {
       return {
         ...state,
-        hola: 'chao',
-        activeTransactionGroup: action.payload,
+        activeSequence: action.payload,
       };
     }
     case getType(actions.initializePolyClientSuccess): {
