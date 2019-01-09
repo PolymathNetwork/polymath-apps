@@ -3,7 +3,7 @@ import ReactSelect, { components } from 'react-select';
 
 import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Icon } from '~/components/Icon';
-import { ReactComponent as SvgCaretDown } from '~/images/icons/caret-down.svg';
+import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { formikProxy } from '../formikProxy';
 import { InputProps } from '../types';
 

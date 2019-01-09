@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import _ from 'lodash';
 
 export enum Tokens {
   Poly = 'POLY',
@@ -10,7 +11,7 @@ export enum Tokens {
 export enum TransactionStatus {
   Idle = 'IDLE',
   Unapproved = 'UNAPPROVED',
-  Approved = 'APPROVED',
+  Running = 'RUNNING',
   Rejected = 'REJECTED',
   Succeeded = 'SUCCEEDED',
   Failed = 'FAILED',
@@ -60,4 +61,26 @@ export interface Identity {
   name: string;
   email: string;
   confirmed?: boolean;
+}
+
+export function isPojo(pojo: any): pojo is Pojo {
+  const props = Object.getOwnPropertyNames(pojo);
+
+  return (
+    _.every(props, prop => {
+      return typeof pojo[prop] !== 'function';
+    }) && _.isPlainObject(pojo)
+  );
+}
+
+export interface Pojo {
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | null
+    | Pojo
+    | BigNumber
+    | Date
+    | Array<string | number | boolean | null | Pojo | BigNumber | Date>;
 }

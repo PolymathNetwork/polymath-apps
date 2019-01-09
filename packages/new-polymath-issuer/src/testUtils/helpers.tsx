@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Action } from 'redux';
 import { set } from 'lodash';
 import Web3FakeProvider from 'web3-fake-provider';
-import { RootState, rootReducer } from '~/state/store';
+import { RootState } from '~/state/reducers/root';
 
 const middlewares: any[] = [];
 
@@ -32,11 +32,13 @@ export class MockedStore {
   public dispatched: Action[] = [];
 
   constructor() {
+    const { reducer: rootReducer } = require('~/state/reducers/root');
     this.state = rootReducer(undefined, {} as any);
     this.dispatched = [];
   }
 
   public dispatch = (action: Action) => {
+    const { reducer: rootReducer } = require('~/state/reducers/root');
     this.state = rootReducer(this.getState(), action);
     this.dispatched.push(action);
   };
@@ -56,6 +58,7 @@ export class MockedStore {
 }
 
 export class MockEthereumProvider extends Web3FakeProvider {
+  public networkVersion = '15';
   public async enable() {}
 }
 
@@ -67,4 +70,9 @@ export function getGeneratorOutputs(gen: IterableIterator<any>) {
     next = gen.next();
   }
   return results;
+}
+
+export function mockEthereumBrowser() {
+  const ethereum = new MockEthereumProvider();
+  (global as any).ethereum = ethereum;
 }

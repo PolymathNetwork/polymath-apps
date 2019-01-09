@@ -1,4 +1,7 @@
-import { createGlobalStyle } from '~/styles';
+import styled, { createGlobalStyle } from '~/styles';
+
+import { BaseInput } from '~/components/inputs/BaseInput';
+import { Icon } from '~/components/Icon';
 
 export const GlobalStyles = createGlobalStyle`
   .flatpickr-calendar {
@@ -356,4 +359,21 @@ export const GlobalStyles = createGlobalStyle`
       margin-bottom: 0.25rem;
     }
   }
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+
+  input {
+    padding-left: 2.5rem;
+  }
+`;
+
+export const CalendarIcon = styled(Icon)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1rem;
+  margin: auto;
+  pointer-events: none;
 `;

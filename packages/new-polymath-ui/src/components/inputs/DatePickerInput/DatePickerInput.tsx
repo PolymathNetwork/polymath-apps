@@ -3,13 +3,12 @@ import moment from 'moment-timezone';
 import flatpickr from 'flatpickr';
 import l10n from 'flatpickr/dist/l10n/index';
 
-import { Icon } from '~/components/Icon';
 import { BaseInput } from '../BaseInput';
 import { InputProps } from '../types';
 import { formikProxy } from '../formikProxy';
-import { GlobalStyles } from './styles';
+import * as sc from './styles';
 
-import { ReactComponent as SvgCalendar } from '~/images/icons/calendar.svg';
+import { SvgCalendar } from '~/images/icons/Calendar';
 
 type PickerValue = [Date, string];
 
@@ -200,8 +199,8 @@ export class DatePickerInputComponent extends Component<
     } = this.props;
 
     return (
-      <Fragment>
-        <Icon Asset={SvgCalendar} />
+      <sc.Wrapper>
+        <sc.CalendarIcon Asset={SvgCalendar} />
         <BaseInput
           id={`${name}-input`}
           name={name}
@@ -210,8 +209,8 @@ export class DatePickerInputComponent extends Component<
           onChange={onInputChange}
           {...otherProps}
         />
-        <GlobalStyles />
-      </Fragment>
+        <sc.GlobalStyles />
+      </sc.Wrapper>
     );
   }
 }

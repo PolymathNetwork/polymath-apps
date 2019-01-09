@@ -2,16 +2,23 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import FormItem from '../FormItem';
 import GroupError from './GroupError';
 
-const FormItemGroup = styled.div`
-  padding-bottom: 1.3rem;
-`;
+const FormItemGroup = styled.div``;
 
 FormItemGroup.Items = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: -0.5rem;
+
+  ${FormItem} {
+    padding-bottom: 0;
+    margin-right: 0.5rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 `;
 
 FormItemGroup.Error = GroupError;

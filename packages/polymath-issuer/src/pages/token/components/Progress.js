@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ProgressIndicator, ProgressStep } from 'carbon-components-react';
+import { ProgressIndicator, PageWrap, Box } from '@polymathnetwork/ui';
 import type { SecurityToken } from '@polymathnetwork/js/types';
 
 import { isProvidersPassed } from '../../providers/data';
@@ -38,17 +38,17 @@ class Progress extends Component<Props> {
       index = 1;
     }
     return (
-      <div className="bx--row">
-        <div className="bx--col-xs-12">
+      <PageWrap>
+        <Box mb="xl">
           <ProgressIndicator currentIndex={index}>
-            <ProgressStep label="Reserve Token Symbol" />
-            <ProgressStep label="Choose Your Providers" />
-            <ProgressStep label="Create Token" />
-            <ProgressStep label="Set Up Offering Details" />
-            <ProgressStep label="Whitelist Investors" />
+            <ProgressIndicator.Step label="Reserve Token Symbol" />
+            <ProgressIndicator.Step label="Choose Your Providers" />
+            <ProgressIndicator.Step label="Create Token" />
+            <ProgressIndicator.Step label="Set Up Offering Details" />
+            <ProgressIndicator.Step label="Whitelist Investors" />
           </ProgressIndicator>
-        </div>
-      </div>
+        </Box>
+      </PageWrap>
     );
   }
 }
