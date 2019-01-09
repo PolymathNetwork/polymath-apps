@@ -58,7 +58,7 @@ interface ContextualizedEntities {
 }
 
 export class Polymath {
-  public httpProvider: HttpProvider = {} as HttpProvider;
+  public httpProvider: HttpProvider = (null as any) as HttpProvider;
   public httpProviderUrl: string = '';
   public networkId: number = -1;
   public isUnsupported: boolean = false;
@@ -79,6 +79,14 @@ export class Polymath {
       this.httpProviderUrl = httpProviderUrl;
     }
 
+    if (this.httpProvider) {
+      this.lowLevel = new LowLevel({ provider: this.httpProvider });
+    } else if (this.httpProviderUrl) {
+      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
+    } else {
+      this.lowLevel = new LowLevel();
+    }
+
     // TODO @RafaelVidaurre: type this correctly
     this.entities = {
       SecurityToken: createContextualizedEntity(SecurityToken as any, this),
@@ -91,16 +99,9 @@ export class Polymath {
 
   public async connect() {
     const { lowLevel, polymathRegistryAddress } = this;
+
     this.networkId = await lowLevel.getNetworkId();
     const account = await lowLevel.getAccount();
-
-    if (this.httpProvider) {
-      this.lowLevel = new LowLevel({ provider: this.httpProvider });
-    } else if (this.httpProviderUrl) {
-      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
-    } else {
-      this.lowLevel = new LowLevel();
-    }
 
     if (!polymathRegistryAddress) {
       throw new Error(
