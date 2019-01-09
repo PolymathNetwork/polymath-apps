@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 import BigNumber from 'bignumber.js';
 import moment from 'moment';
-import { Form, Button, Tooltip } from 'carbon-components-react';
+import { Form, Button } from 'carbon-components-react';
 import {
   Box,
   Grid,
@@ -17,6 +17,7 @@ import {
   CurrencySelect,
   Remark,
   RaisedAmount,
+  Tooltip,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 import {
@@ -103,7 +104,6 @@ export const CappedSTOFormComponent = ({
   return (
     <Form onSubmit={handleSubmit}>
       <Heading variant="h3">STO Schedule</Heading>
-
       <FormItemGroup>
         <FormItemGroup.Items>
           <FormItem name="date.startDate">
@@ -136,85 +136,80 @@ export const CappedSTOFormComponent = ({
         </FormItemGroup.Items>
         <FormItemGroup.Error name="date" errors={errors} touched={touched} />
       </FormItemGroup>
-
       <Heading variant="h3" mt={5}>
         STO Financing Details & Terms
       </Heading>
 
-      <FormItem name="currency">
-        <FormItem.Input
-          component={CurrencySelect}
-          placeholder="Raise in"
-          options={['ETH', 'POLY']}
-        />
-        <FormItem.Error />
-      </FormItem>
-
-      <FormItem name="cap">
-        <FormItem.Label>
-          <Tooltip triggerText="Hard Cap (in Tokens)">
-            <p>
-              <strong>Hard Cap (in Tokens)</strong>
-            </p>
-            <p>
-              Hard Cap is the maximum number of tokens available through this
-              offering. e.g. if you want the total aggregate of your investors
-              in this offering to own 10 million tokens, enter 10000000.
-            </p>
-          </Tooltip>
-        </FormItem.Label>
-        <FormItem.Input
-          component={NumberInput}
-          placeholder="Enter amount"
-          useBigNumbers
-        />
-        <FormItem.Error />
-      </FormItem>
-
-      <FormItem name="rate">
-        <FormItem.Label>
-          <Tooltip triggerText="Rate">
-            <p>
-              <strong>Rate</strong>
-            </p>
-            <p>
-              Conversion rate between the currency you chose and your Security
-              Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000 Security
-              Tokens.
-            </p>
-          </Tooltip>
-        </FormItem.Label>
-        <FormItem.Input
-          component={NumberInput}
-          placeholder="Enter amount"
-          maxDecimals={2}
-          useBigNumbers
-        />
-        <FormItem.Error />
-      </FormItem>
-
-      <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-        <Grid.Item gridColumn="span 1 / 3">
-          <RaisedAmount
-            title="Amount Of Funds the STO Will Raise"
-            primaryAmount={totalRaiseAmount}
-            primaryUnit={currency}
-            tokenAmount={totalTokensAmount}
-            tokenUnit={ticker.toUpperCase()}
+      <Grid>
+        <FormItem name="currency">
+          <FormItem.Input
+            component={CurrencySelect}
+            placeholder="Raise in"
+            options={['ETH', 'POLY']}
           />
-        </Grid.Item>
+          <FormItem.Error />
+        </FormItem>
+        <FormItem name="cap">
+          <FormItem.Label>
+            <Tooltip triggerText="Hard Cap (in Tokens)">
+              <p>
+                <strong>Hard Cap (in Tokens)</strong>
+              </p>
+              <p>
+                Hard Cap is the maximum number of tokens available through this
+                offering. e.g. if you want the total aggregate of your investors
+                in this offering to own 10 million tokens, enter 10000000.
+              </p>
+            </Tooltip>
+          </FormItem.Label>
+          <FormItem.Input
+            component={NumberInput}
+            placeholder="Enter amount"
+            useBigNumbers
+          />
+          <FormItem.Error />
+        </FormItem>
+        <FormItem name="rate">
+          <FormItem.Label>
+            <Tooltip triggerText="Rate">
+              <p>
+                <strong>Rate</strong>
+              </p>
+              <p>
+                Conversion rate between the currency you chose and your Security
+                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
+                Security Tokens.
+              </p>
+            </Tooltip>
+          </FormItem.Label>
+          <FormItem.Input
+            component={NumberInput}
+            placeholder="Enter amount"
+            maxDecimals={2}
+            useBigNumbers
+          />
+          <FormItem.Error />
+        </FormItem>
+        <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+          <Grid.Item gridColumn="span 1 / 3">
+            <RaisedAmount
+              title="Amount Of Funds the STO Will Raise"
+              primaryAmount={totalRaiseAmount}
+              primaryUnit={currency}
+              tokenAmount={totalTokensAmount}
+              tokenUnit={ticker.toUpperCase()}
+            />
+          </Grid.Item>
+        </Grid>
       </Grid>
-
       <Heading variant="h3" mt={5}>
         ETH Addresses
       </Heading>
-
       <Remark title="Note">
         Before we write this address to the blockchain, we recommend that you
         test sending to and retrieving funds from it to make sure it corresponds
         to the wallet you would like to use.
       </Remark>
-
       <FormItem name="receiverAddress">
         <FormItem.Label>
           <Tooltip triggerText="ETH Address to receive the funds raised during the STO">
@@ -234,7 +229,6 @@ export const CappedSTOFormComponent = ({
         />
         <FormItem.Error />
       </FormItem>
-
       <Button type="submit">Confirm & launch STO</Button>
     </Form>
   );

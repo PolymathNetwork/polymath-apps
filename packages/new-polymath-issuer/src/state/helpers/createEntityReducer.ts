@@ -16,20 +16,27 @@ export const createEntityReducer = <T>(entityType: string) => {
   const reducer: Reducer<EntityState<T>> = (state = initialState, action) => {
     switch (action.type) {
       case `${entityType}/CREATE`: {
-        const { id } = action.payload;
+        const {
+          payload: { id },
+          payload,
+        } = action;
         const alreadyExists = !!state.byId[id];
 
         if (alreadyExists) {
-          throw new Error(
-            `An entity of type "${action.type}" and id "${id}" already exists.`
-          );
+          return {
+            ...state,
+            byId: {
+              ...state.byId,
+              [id]: payload,
+            },
+          };
         }
 
         return {
-          ...state,
+          allIds: [...state.allIds, id],
           byId: {
             ...state.byId,
-            [action.payload.id]: action.payload,
+            [id]: payload,
           },
         };
       }

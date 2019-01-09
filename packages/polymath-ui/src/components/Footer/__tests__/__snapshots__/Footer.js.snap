@@ -24,7 +24,6 @@ exports[`renders without crashing 1`] = `
   display: inline-flex;
   font-size: 14px;
   line-height: 22px;
-  font-weight: 300;
 }
 
 .c2 {
@@ -67,7 +66,6 @@ exports[`renders without crashing 1`] = `
   font-size: 14px;
   line-height: 22px;
   margin-left: 30px;
-  font-weight: 300;
 }
 
 .c3 li a {
@@ -94,7 +92,7 @@ exports[`renders without crashing 1`] = `
         class="pui-footer-text"
       >
         © 
-        2018
+        2019
          
         Polymath
       </span>

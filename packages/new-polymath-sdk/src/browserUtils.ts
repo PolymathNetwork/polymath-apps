@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { PolymathError } from '~/classes/PolymathError';
+import { PolymathError } from '~/PolymathError';
 import { ErrorCodes } from '~/types';
 import { HttpProvider } from 'web3/providers';
 
@@ -99,12 +99,14 @@ export function getNetworkId() {
   }
 
   if (support === BrowserSupport.Modern) {
-    return Number((win as any).ethereum.networkVersion);
+    return parseInt((win as any).ethereum.networkVersion, 10);
   }
 
   if (support === BrowserSupport.Legacy) {
-    return (win as any).web3.version.network;
+    return parseInt((win as any).web3.version.networkId, 10);
   }
+
+  throw new Error('Assertion Error');
 }
 
 export async function getCurrentAddress() {

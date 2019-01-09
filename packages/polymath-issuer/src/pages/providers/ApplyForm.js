@@ -2,7 +2,13 @@ import React from 'react';
 import { Form, Button } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-import { Tooltip, FormItem, TextInput, TextArea } from '@polymathnetwork/ui';
+import {
+  Grid,
+  Tooltip,
+  FormItem,
+  TextInput,
+  TextArea,
+} from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 
 import { applyProviders } from '../../actions/providers';
@@ -62,71 +68,73 @@ const linkTooltip = (title: string) => (
 export const ApplyFormComponent = ({ handleSubmit, onClose }) => {
   return (
     <Form onSubmit={handleSubmit}>
-      <FormItem name="companyName">
-        <FormItem.Label>Company Name</FormItem.Label>
-        <FormItem.Input
-          component={TextInput}
-          placeholder="Enter company name"
-        />
-        <FormItem.Error />
-      </FormItem>
+      <Grid>
+        <FormItem name="companyName">
+          <FormItem.Label>Company Name</FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter company name"
+          />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="companyDesc">
-        <FormItem.Label>Company Description</FormItem.Label>
-        <FormItem.Input
-          component={TextArea}
-          placeholder="Enter company description"
-        />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="companyDesc">
+          <FormItem.Label>Company Description</FormItem.Label>
+          <FormItem.Input
+            component={TextArea}
+            placeholder="Enter company description"
+          />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="operatedIn">
-        <FormItem.Label>Jurisdiction of Operation</FormItem.Label>
-        <FormItem.Input
-          component={TextInput}
-          placeholder="Enter jurisdiction of operation"
-        />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="operatedIn">
+          <FormItem.Label>Jurisdiction of Operation</FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter jurisdiction of operation"
+          />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="incorporatedIn">
-        <FormItem.Label>Jurisdiction of Incorporation</FormItem.Label>
-        <FormItem.Input
-          component={TextInput}
-          placeholder="Enter jurisdiction of incorporation"
-        />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="incorporatedIn">
+          <FormItem.Label>Jurisdiction of Incorporation</FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter jurisdiction of incorporation"
+          />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="projectURL">
-        <FormItem.Label>
-          {linkTooltip('Corporate/Project Presentation')}
-        </FormItem.Label>
-        <FormItem.Input component={TextInput} placeholder="Paste link here" />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="projectURL">
+          <FormItem.Label>
+            {linkTooltip('Corporate/Project Presentation')}
+          </FormItem.Label>
+          <FormItem.Input component={TextInput} placeholder="Paste link here" />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="profilesURL">
-        <FormItem.Label>
-          {linkTooltip('Management and Board Member Profiles')}
-        </FormItem.Label>
-        <FormItem.Input component={TextInput} placeholder="Paste link here" />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="profilesURL">
+          <FormItem.Label>
+            {linkTooltip('Management and Board Member Profiles')}
+          </FormItem.Label>
+          <FormItem.Input component={TextInput} placeholder="Paste link here" />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="structureURL">
-        <FormItem.Label>
-          {linkTooltip('Corporate or Project Structure/Organization')}
-        </FormItem.Label>
-        <FormItem.Input component={TextInput} placeholder="Paste link here" />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="structureURL">
+          <FormItem.Label>
+            {linkTooltip('Corporate or Project Structure/Organization')}
+          </FormItem.Label>
+          <FormItem.Input component={TextInput} placeholder="Paste link here" />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="otherDetails">
-        <FormItem.Label>Other Details</FormItem.Label>
-        <FormItem.Input component={TextArea} placeholder="Start text here" />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="otherDetails">
+          <FormItem.Label>Other Details</FormItem.Label>
+          <FormItem.Input component={TextArea} placeholder="Start text here" />
+          <FormItem.Error />
+        </FormItem>
+      </Grid>
 
       <p align="right">
         <Button kind="secondary" onClick={onClose}>

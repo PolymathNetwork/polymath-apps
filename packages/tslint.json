@@ -1,6 +1,8 @@
 {
   "extends": ["tslint:recommended", "tslint-react"],
   "rules": {
+    "ban-types": [true, ["Object"]],
+    "array-type": [true, "array-simple"],
     "jsx-boolean-value": false,
     "jsx-no-lambda": false,
     "jsx-no-multiline-js": false,
@@ -10,6 +12,7 @@
     "no-floating-promises": true,
     "no-unused-variable": true,
     "no-unused-expression": true,
+    "variable-name": false,
     "ordered-imports": false,
     "arrow-parens": false,
     "no-default-export": true,

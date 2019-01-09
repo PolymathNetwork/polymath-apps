@@ -1,5 +1,7 @@
 import * as browserUtils from './browserUtils';
 
-export * from './classes';
+export { Polymath, PolymathNetworkParams } from './Polymath';
+export { PolymathError } from './PolymathError';
 export * from './types';
+export * from './entities';
 export { browserUtils };

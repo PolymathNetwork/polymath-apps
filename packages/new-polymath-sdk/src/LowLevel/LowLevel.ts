@@ -31,6 +31,7 @@ export interface Context extends LowLevel {
   securityTokenRegistry: SecurityTokenRegistry;
   moduleRegistry: ModuleRegistry;
   isTestnet: () => boolean;
+  account: string;
 }
 
 /**
@@ -42,6 +43,7 @@ export class LowLevel {
   public polyToken?: PolyToken;
   public securityTokenRegistry?: SecurityTokenRegistry;
   public moduleRegistry?: ModuleRegistry;
+  public account?: string;
   private networkId: constants.NetworkIds = -1;
 
   constructor(params: Params = {}) {
@@ -86,6 +88,8 @@ export class LowLevel {
   }: {
     polymathRegistryAddress: string;
   }) {
+    this.account = await this.getAccount();
+
     const context = this as Context;
 
     this.polymathRegistry = new PolymathRegistry({

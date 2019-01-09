@@ -35,7 +35,9 @@ export class PolyToken extends Contract<PolyTokenContract> {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
-    return this.contract.methods.getTokens(amount, recipient).send();
+    return this.contract.methods
+      .getTokens(amount, recipient)
+      .send({ from: this.context.account });
   }
 
   public async balanceOf(address: string) {
@@ -47,6 +49,8 @@ export class PolyToken extends Contract<PolyTokenContract> {
   }
 
   public async approve(spender: string, amount: BigNumber) {
-    return this.contract.methods.approve(spender, amount).send();
+    return this.contract.methods
+      .approve(spender, amount)
+      .send({ from: this.context.account });
   }
 }

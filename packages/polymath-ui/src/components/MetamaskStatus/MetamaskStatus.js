@@ -97,7 +97,11 @@ const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
         onRequestAuth={onRequestAuth}
       />
       <Accordion className="pui-metamask-accordion">
-        <AccordionItem title="What software do you need to issue your Security Token?">
+        <AccordionItem
+          title={
+            <h5>What software do you need to issue your Security Token?</h5>
+          }
+        >
           <p>
             To issue your Security Token, you need to have MetaMask installed in
             your browser.
@@ -106,7 +110,7 @@ const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
             ETH and POLY.
           </p>
         </AccordionItem>
-        <AccordionItem title="Why is MetaMask locked?">
+        <AccordionItem title={<h5>Why is MetaMask locked?</h5>}>
           <p>
             MetaMask periodically locks itself for security reasons.
             <br />

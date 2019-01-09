@@ -1,8 +1,8 @@
 import { createEntityActions } from '~/state/helpers/createEntityActions';
-import { Transaction } from '~/types';
+import { TransactionEntity } from '~/types';
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  Transaction
+  TransactionEntity
 >('TRANSACTIONS');
 
 export { createAction, updateAction, deleteAction };

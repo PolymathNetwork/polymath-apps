@@ -37,7 +37,6 @@ import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
 import { configureSTO } from '../../../../../../actions/sto';
 
-import type { Dispatch } from 'redux';
 import type { RootState } from '../../../../../../redux/reducer';
 import type { FundRaiseType } from '../../../../../../constants';
 
@@ -230,135 +229,141 @@ export const USDTieredSTOFormComponent = ({
         STO Financing Details & Terms
       </Heading>
 
-      <FormItem name="currencies">
-        <FormItem.Input component={CurrencySelect} placeholder="Raise in" />
-        <FormItem.Error />
-      </FormItem>
-
-      <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-        <FormItem name="minimumInvestment">
-          <FormItem.Label>
-            <br />
-            <Tooltip triggerText="Minimum investment for All investors">
-              <p>
-                <strong>Minimum investment for All investors</strong>
-              </p>
-              <p>
-                Any investment below this value, regardless of their origin
-                (accredited or non-accredited investor) will be rejected and the
-                funds sent back to their Investor minus the processing (gas) fee
-              </p>
-            </Tooltip>
-          </FormItem.Label>
-          <FormItem.Input
-            component={NumberInput}
-            min={0}
-            placeholder="Enter amount"
-            unit="USD"
-            useBigNumbers
-          />
+      <Grid>
+        <FormItem name="currencies">
+          <FormItem.Input component={CurrencySelect} placeholder="Raise in" />
           <FormItem.Error />
         </FormItem>
 
-        <FormItem name="nonAccreditedMax">
-          <FormItem.Label>
-            <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
-              <p>
-                <strong>
-                  Maximum Investment for Non-Accredited Investors by Default
-                </strong>
-              </p>
-              <p>
-                By default, Investors are assumed to be non-accredited (i.e.
-                Retail Investors) unless they are explicitly marked as
-                Accredited in the whitelist. All Non-Accredited investors are
-                subject to this maximum investment limit by default, unless
-                their wallet address is added to the whitelist with an
-                associated limit.
-              </p>
-            </Tooltip>
-          </FormItem.Label>
-          <FormItem.Input
-            component={NumberInput}
-            placeholder="Enter amount"
-            unit="USD"
-            useBigNumbers
-          />
-          <FormItem.Error />
-        </FormItem>
-      </Grid>
+        <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+          <FormItem name="minimumInvestment">
+            <FormItem.Label>
+              <br />
+              <Tooltip triggerText="Minimum investment for All investors">
+                <p>
+                  <strong>Minimum investment for All investors</strong>
+                </p>
+                <p>
+                  Any investment below this value, regardless of their origin
+                  (accredited or non-accredited investor) will be rejected and
+                  the funds sent back to their Investor minus the processing
+                  (gas) fee
+                </p>
+              </Tooltip>
+            </FormItem.Label>
+            <FormItem.Input
+              component={NumberInput}
+              min={0}
+              maxDecimals={3}
+              placeholder="Enter amount"
+              unit="USD"
+              useBigNumbers
+            />
+            <FormItem.Error />
+          </FormItem>
 
-      <div>
+          <FormItem name="nonAccreditedMax">
+            <FormItem.Label>
+              <Tooltip triggerText="Maximum Investment for Non-Accredited Investors by Default">
+                <p>
+                  <strong>
+                    Maximum Investment for Non-Accredited Investors by Default
+                  </strong>
+                </p>
+                <p>
+                  By default, Investors are assumed to be non-accredited (i.e.
+                  Retail Investors) unless they are explicitly marked as
+                  Accredited in the whitelist. All Non-Accredited investors are
+                  subject to this maximum investment limit by default, unless
+                  their wallet address is added to the whitelist with an
+                  associated limit.
+                </p>
+              </Tooltip>
+            </FormItem.Label>
+            <FormItem.Input
+              component={NumberInput}
+              min={1}
+              maxDecimals={3}
+              placeholder="Enter amount"
+              unit="USD"
+              useBigNumbers
+            />
+            <FormItem.Error />
+          </FormItem>
+        </Grid>
+
         <FastField
           name="investmentTiers"
           ticker={ticker}
           component={InvestmentTiers}
         />
-      </div>
 
-      <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-        <Grid.Item gridColumn="span 1 / 3">
-          <RaisedAmount
-            title="Amount Of Funds the STO Will Raise"
-            primaryAmount={totalUsdAmount}
-            primaryUnit="USD"
-            tokenAmount={totalTokensAmount}
-            tokenUnit={ticker.toUpperCase()}
-          />
-        </Grid.Item>
+        <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+          <Grid.Item gridColumn="span 1 / 3">
+            <RaisedAmount
+              title="Amount Of Funds the STO Will Raise"
+              primaryAmount={totalUsdAmount}
+              primaryUnit="USD"
+              tokenAmount={totalTokensAmount}
+              tokenUnit={ticker.toUpperCase()}
+            />
+          </Grid.Item>
+        </Grid>
       </Grid>
 
       <Heading variant="h3" mt={5}>
         ETH Addresses
       </Heading>
 
-      <Remark title="Note">
-        Before we write these addresses to the blockchain, we recommend that you
-        test sending to and retrieving funds from them to make sure they
-        correspond to the wallets you would like to use.
-      </Remark>
+      <Grid>
+        <Remark title="Note">
+          Before we write these addresses to the blockchain, we recommend that
+          you test sending to and retrieving funds from them to make sure they
+          correspond to the wallets you would like to use.
+        </Remark>
 
-      <FormItem name="receiverAddress">
-        <FormItem.Label>
-          <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
-            <p>
-              <strong>
-                ETH Address to Receive the Funds Raised During the STO
-              </strong>
-            </p>
-            <p>
-              This wallet address will receive the funds raised during the STO.
-              This address may be self-custodied or that of a fully custodied
-              wallet.
-            </p>
-          </Tooltip>
-        </FormItem.Label>
-        <FormItem.Input
-          component={TextInput}
-          placeholder="Enter your current ETH address"
-        />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="receiverAddress">
+          <FormItem.Label>
+            <Tooltip triggerText="ETH Address to Receive the Funds Raised During the STO">
+              <p>
+                <strong>
+                  ETH Address to Receive the Funds Raised During the STO
+                </strong>
+              </p>
+              <p>
+                This wallet address will receive the funds raised during the
+                STO. This address may be self-custodied or that of a fully
+                custodied wallet.
+              </p>
+            </Tooltip>
+          </FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter your current ETH address"
+          />
+          <FormItem.Error />
+        </FormItem>
 
-      <FormItem name="unsoldTokensAddress">
-        <FormItem.Label>
-          <Tooltip triggerText="ETH Address for Unsold Tokens">
-            <p>
-              <strong>ETH Address for Unsold Tokens</strong>
-            </p>
-            <p>
-              This wallet address will receive all tokens not sold across all
-              tiers defined in the STO, by the time the STO reaches its end
-              date/time or is manually stopped.
-            </p>
-          </Tooltip>
-        </FormItem.Label>
-        <FormItem.Input
-          component={TextInput}
-          placeholder="Enter your current ETH address"
-        />
-        <FormItem.Error />
-      </FormItem>
+        <FormItem name="unsoldTokensAddress">
+          <FormItem.Label>
+            <Tooltip triggerText="ETH Address for Unsold Tokens">
+              <p>
+                <strong>ETH Address for Unsold Tokens</strong>
+              </p>
+              <p>
+                This wallet address will receive all tokens not sold across all
+                tiers defined in the STO, by the time the STO reaches its end
+                date/time or is manually stopped.
+              </p>
+            </Tooltip>
+          </FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter your current ETH address"
+          />
+          <FormItem.Error />
+        </FormItem>
+      </Grid>
 
       <Button type="submit">Confirm & launch STO</Button>
     </Form>
