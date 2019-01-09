@@ -31,9 +31,8 @@ export class WithdrawTaxes extends Procedure<Args> {
       );
     }
 
-    await this.addTransaction(
-      dividendModule,
-      dividendModule.withdrawWithholding
-    )(dividendIndex);
+    await this.addTransaction(dividendModule.withdrawWithholding)(
+      dividendIndex
+    );
   }
 }

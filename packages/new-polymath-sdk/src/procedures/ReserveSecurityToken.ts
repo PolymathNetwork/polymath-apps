@@ -20,9 +20,10 @@ export class ReserveSecurityToken extends Procedure<Args> {
       spender: securityTokenRegistry.address,
     });
 
-    await this.addTransaction(
-      securityTokenRegistry,
-      securityTokenRegistry.registerTicker
-    )(currentWallet.address, symbol, name);
+    await this.addTransaction(securityTokenRegistry.registerTicker)(
+      currentWallet.address,
+      symbol,
+      name
+    );
   }
 }

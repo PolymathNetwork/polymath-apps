@@ -19,9 +19,11 @@ export class CreateSecurityToken extends Procedure<Args> {
       spender: securityTokenRegistry.address,
     });
 
-    await this.addTransaction(
-      securityTokenRegistry,
-      securityTokenRegistry.generateSecurityToken
-    )(name, symbol, detailsUrl, divisible);
+    await this.addTransaction(securityTokenRegistry.generateSecurityToken)(
+      name,
+      symbol,
+      detailsUrl,
+      divisible
+    );
   }
 }

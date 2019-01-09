@@ -24,6 +24,7 @@ export class Sequence {
 
   public async run() {
     this.queue = [...this.transactions];
+    console.log('this.queue', this.queue);
     try {
       const res = await this.executeTransactionQueue();
       this.resolve(res);

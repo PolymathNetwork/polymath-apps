@@ -17,10 +17,7 @@ export class EnableDividendModules extends Procedure<Args> {
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
 
     for (const type of types) {
-      await this.addTransaction(
-        securityToken,
-        securityToken.addDividendsModule
-      )(type);
+      await this.addTransaction(securityToken.addDividendsModule)(type);
     }
   }
 }

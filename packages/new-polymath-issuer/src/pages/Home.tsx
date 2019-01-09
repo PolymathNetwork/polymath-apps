@@ -5,6 +5,7 @@ import { browserUtils } from '@polymathnetwork/sdk';
 class Container extends Component {
   public async componentDidMount() {
     await browserUtils.getCurrentAddress();
+
     await polyClient.connect();
 
     const sequence = await polyClient.reserveSecurityToken({

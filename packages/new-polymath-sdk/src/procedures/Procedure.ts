@@ -1,10 +1,11 @@
-import { Contract } from '~/LowLevel/Contract';
 import { TransactionSpec } from '~/types';
 import { Sequence } from '~/Sequence';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
-function isProcedure(value: any): value is ProcedureType<any> {
+function isProcedure<T extends any[]>(
+  value: any
+): value is ProcedureType<T[0]> {
   if (value.type === 'Procedure') {
     return true;
   }
@@ -14,6 +15,11 @@ function isProcedure(value: any): value is ProcedureType<any> {
 export interface ProcedureType<Args = any> {
   new (args: Args, context: Context): Procedure<Args>;
 }
+
+type LowLevelMethod<A extends any[]> = (...args: A) => Promise<any>;
+type MethodOrProcedure<A extends any[]> =
+  | LowLevelMethod<A>
+  | ProcedureType<A[0]>;
 
 export class Procedure<Args> {
   public static type = 'Procedure';
@@ -34,7 +40,7 @@ export class Procedure<Args> {
 
   public async prepare(): Promise<Sequence> {
     await this.prepareTransactions();
-    // TODO @RafaelVidaurre: add a preparation state cache to avoid repeated
+    // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated
     // transactions and bad validations
     return new Sequence(this.transactions);
   }
@@ -44,35 +50,31 @@ export class Procedure<Args> {
   // TODO @RafaelVidaurre: Improve typing for returned function args so that
   // they can be wrapped in PostTransactionResolvers
   public addTransaction<A extends any[], R extends any>(
-    Base: ProcedureType | Contract<any>,
-    method?: (...args: A) => Promise<any>,
+    ThingToRun: MethodOrProcedure<A>,
     resolver?: () => Promise<R>
   ) {
     return async (...args: A) => {
-      let postTransactionResolver: PostTransactionResolver<R | void> = new PostTransactionResolver(
-        async () => {}
-      );
+      let postTransactionResolver: PostTransactionResolver<R>;
 
       if (resolver) {
         postTransactionResolver = new PostTransactionResolver(resolver);
+      } else {
+        // Force resolver return type
+        postTransactionResolver = new PostTransactionResolver(
+          async () => (undefined as any) as R
+        );
       }
-
-      // If method is a Procedure, get its Transactions
-      if (isProcedure(Base)) {
-        const operation = new Base(args[0], this.context);
+      // If method is a Procedure, get its Transactions and push those
+      if (isProcedure<A>(ThingToRun)) {
+        const operation = new ThingToRun(args[0], this.context);
         await operation.prepareTransactions();
         const transactions = operation.transactions;
         this.transactions = [...this.transactions, ...transactions];
         return postTransactionResolver;
       }
 
-      if (!method) {
-        throw new Error('a method must be passed');
-      }
-
       const transaction = {
-        contract: Base,
-        method,
+        method: ThingToRun,
         args,
         postTransactionResolver,
       };

@@ -31,8 +31,6 @@ export class ReclaimFunds extends Procedure<Args> {
       );
     }
 
-    await this.addTransaction(dividendModule, dividendModule.reclaimDividend)(
-      dividendIndex
-    );
+    await this.addTransaction(dividendModule.reclaimDividend)(dividendIndex);
   }
 }

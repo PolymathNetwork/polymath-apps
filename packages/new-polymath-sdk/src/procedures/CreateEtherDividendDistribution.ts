@@ -36,7 +36,7 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
       );
     }
 
-    await this.addTransaction(etherModule, etherModule.createDividend)(
+    await this.addTransaction(etherModule.createDividend)(
       maturityDate,
       expiryDate,
       amount,
@@ -54,7 +54,7 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
         percentages.push(percentage);
       });
 
-      await this.addTransaction(etherModule, etherModule.setWithholding)(
+      await this.addTransaction(etherModule.setWithholding)(
         investorAddresses,
         percentages
       );

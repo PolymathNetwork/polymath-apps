@@ -20,6 +20,13 @@ const mapValuesDeep = (
     _.isPlainObject(val) ? mapValuesDeep(val, fn) : fn(val, key, obj)
   );
 
+/**
+ *  TODOS:
+ *  1. Set a unique type for the PolyTransaction
+ *  2. Set a UID
+ *  3. Update status based on web3 responses
+ *  4. Reject with standard errors
+ */
 export class PolyTransaction {
   public readonly status: types.TransactionStatus =
     types.TransactionStatus.Idle;
