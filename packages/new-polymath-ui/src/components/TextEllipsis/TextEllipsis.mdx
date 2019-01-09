@@ -1,0 +1,24 @@
+---
+name: TextEllipsis
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { Block } from '~/components/Block';
+import { TextEllipsis } from './TextEllipsis';
+
+# TextEllipsis
+
+<PropsTable of={TextEllipsis} />
+
+## Basic usage
+
+<Playground>
+  <Block maxWidth="201px">
+    <TextEllipsis ellipsedChars={4}>This text is too looooooooong</TextEllipsis>
+  </Block>
+  <Block>
+    <TextEllipsis ellipsedChars={4}>This text is not too long</TextEllipsis>
+  </Block>
+</Playground>

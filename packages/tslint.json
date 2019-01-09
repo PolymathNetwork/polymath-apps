@@ -17,6 +17,8 @@
     "arrow-parens": false,
     "no-default-export": true,
     "object-literal-sort-keys": false,
+    "object-literal-key-quotes": false,
+    "array-type": false,
     "no-empty": false,
     "max-classes-per-file": false,
     "semicolon": false,
