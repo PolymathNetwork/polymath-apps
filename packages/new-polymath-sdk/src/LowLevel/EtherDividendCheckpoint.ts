@@ -32,14 +32,14 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
     super({ address, abi: EtherDividendCheckpointAbi.abi, context });
   }
 
-  public async createDividend(
+  public createDividend = async (
     maturityDate: Date,
     expiryDate: Date,
     amount: number,
     checkpointId: number,
     name: string,
     excludedAddresses?: string[]
-  ) {
+  ) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const amountInWei = toWei(amount).valueOf();
     const nameInBytes = Web3.utils.asciiToHex(name);
@@ -59,7 +59,7 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
     return await this.contract.methods
       .createDividendWithCheckpoint(maturity, expiry, checkpointId, nameInBytes)
       .send({ value: amountInWei });
-  }
+  };
 
   public async getDividends() {
     const dividends = await super.getDividends();

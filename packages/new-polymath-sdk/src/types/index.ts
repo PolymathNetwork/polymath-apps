@@ -15,9 +15,13 @@ export enum ModuleTypes {
 }
 
 export enum ErrorCodes {
-  IncompatibleBrowser,
-  UserDeniedAccess,
-  WalletIsLocked,
+  IncompatibleBrowser = 'IncompatibleBrowser',
+  UserDeniedAccess = 'UserDeniedAccess',
+  WalletIsLocked = 'WalletIsLocked',
+  ProcedureValidationError = 'ProcedureValidationError',
+  TransactionRejectedByUser = 'TransactionRejectedByUser',
+  TransactionReverted = 'TransactionReverted',
+  FatalError = 'FatalError',
 }
 
 export interface InvestorBalance {

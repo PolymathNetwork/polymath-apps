@@ -29,6 +29,8 @@ export class PolyToken extends Contract<PolyTokenContract> {
     const abi = isTestnet ? PolyTokenFaucetAbi.abi : PolyTokenAbi.abi;
     super({ address, abi, context });
     this.isTestnet = isTestnet;
+    this.getTokens = this.getTokens.bind(this);
+    this.approve = this.approve.bind(this);
   }
 
   public async getTokens(amount: BigNumber, recipient: string) {
@@ -48,7 +50,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     return this.contract.methods.allowance(tokenOwner, spender).call();
   }
 
-  public async approve(spender: string, amount: BigNumber) {
+  public approve(spender: string, amount: BigNumber) {
     return this.contract.methods
       .approve(spender, amount)
       .send({ from: this.context.account });

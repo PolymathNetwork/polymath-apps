@@ -2,7 +2,7 @@
   "extends": ["tslint:recommended", "tslint-react"],
   "rules": {
     "ban-types": [true, ["Object"]],
-    "array-type": [true, "array"],
+    "array-type": false,
     "jsx-boolean-value": false,
     "jsx-no-lambda": false,
     "jsx-no-multiline-js": false,

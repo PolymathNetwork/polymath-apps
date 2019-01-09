@@ -1,7 +1,13 @@
 import _ from 'lodash';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { TransactionSpec } from '~/types';
+import { TransactionSpec, ErrorCodes } from '~/types';
 import { types } from '@polymathnetwork/new-shared';
+import { EventEmitter } from 'events';
+import { PolymathError } from '~/PolymathError';
+
+enum Events {
+  StatusChange = 'StatusChange',
+}
 
 function isPostTransactionResolver(
   val: any
@@ -28,10 +34,11 @@ const mapValuesDeep = (
  *  4. Reject with standard errors
  */
 export class PolyTransaction {
-  public readonly status: types.TransactionStatus =
-    types.TransactionStatus.Idle;
+  public status: types.TransactionStatus = types.TransactionStatus.Idle;
+  public promise: Promise<any>;
+  public error?: PolymathError;
   protected transaction: TransactionSpec<any>;
-  private promise: Promise<any>;
+  private emitter = new EventEmitter();
 
   constructor(transaction: TransactionSpec<any>) {
     this.promise = new Promise((res, rej) => {
@@ -42,29 +49,68 @@ export class PolyTransaction {
     this.transaction = transaction;
   }
 
-  public then(resolve: () => any, reject: () => any) {
-    return this.promise.then(resolve, reject);
-  }
-
   public async run() {
-    const unwrappedArgs = this.unwrapArgs(this.transaction.args);
-
     try {
-      await this.transaction.method(...unwrappedArgs);
+      const res = await this.internalRun();
+      this.resolve(res);
     } catch (err) {
-      if (err.message.indexOf('User denied transaction signature') > -1) {
-        if (this.reject) {
-          this.reject('Transaction was rejected by the user');
-        }
-      }
+      this.reject(err);
     }
-
-    await this.transaction.postTransactionResolver.run();
-    this.resolve();
+    return this.promise;
   }
+
+  public onStatusChange = (listener: (transaction: this) => void) => {
+    this.emitter.on(Events.StatusChange, listener);
+  };
 
   protected resolve: (val?: any) => void = () => {};
   protected reject: (reason?: any) => void = () => {};
+
+  private async internalRun() {
+    const unwrappedArgs = this.unwrapArgs(this.transaction.args);
+
+    let res;
+
+    try {
+      res = await this.transaction.method(...unwrappedArgs);
+    } catch (err) {
+      // Wrap with PolymathError
+      if (err.message.indexOf('MetaMask Tx Signature') > -1) {
+        this.error = new PolymathError({
+          code: ErrorCodes.TransactionRejectedByUser,
+        });
+      } else {
+        this.error = new PolymathError({
+          code: ErrorCodes.FatalError,
+          message: err.message,
+        });
+      }
+
+      this.updateStatus(types.TransactionStatus.Rejected);
+      throw this.error;
+    }
+
+    await this.transaction.postTransactionResolver.run();
+
+    this.resolve(res);
+  }
+
+  private updateStatus = (status: types.TransactionStatus) => {
+    this.status = status;
+
+    switch (status) {
+      case types.TransactionStatus.Running: {
+        this.emitter.emit(Events.StatusChange, this);
+        return;
+      }
+      case types.TransactionStatus.Succeeded: {
+        this.emitter.emit(Events.StatusChange, this);
+      }
+      case types.TransactionStatus.Failed: {
+        this.emitter.emit(Events.StatusChange, this, this.error);
+      }
+    }
+  };
 
   private unwrapArg(arg: PostTransactionResolver<any>) {
     if (isPostTransactionResolver(arg)) {

@@ -19,7 +19,24 @@ class Container extends Component {
 
     console.log('About to run');
 
-    await sequence.run();
+    sequence.onStatusChange(({ status }) => {
+      console.log('Status updated for sequence:', status);
+    });
+
+    sequence.onTransactionStatusChange(({ status }, seq) => {
+      console.log(
+        'Status updated for transaction:',
+        status,
+        ' sequence is: ',
+        seq.status
+      );
+    });
+
+    try {
+      await sequence.run();
+    } catch (err) {
+      console.log('Aug', err.code);
+    }
 
     console.log('Finished fetch');
   }

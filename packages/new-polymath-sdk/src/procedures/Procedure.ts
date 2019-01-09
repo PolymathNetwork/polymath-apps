@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { TransactionSpec, ProcedureTypes } from '~/types';
+import { TransactionSpec, ProcedureTypes, ErrorCodes } from '~/types';
 import { Sequence } from '~/Sequence';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
@@ -7,10 +7,7 @@ import { PostTransactionResolver } from '~/PostTransactionResolver';
 function isProcedure<T extends any[]>(
   value: any
 ): value is ProcedureType<T[0]> {
-  if (_.includes(ProcedureTypes, value.type)) {
-    return true;
-  }
-  return false;
+  return value.isProcedure;
 }
 
 export interface ProcedureType<Args = any> {
@@ -25,6 +22,7 @@ type MethodOrProcedure<A extends any[]> =
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args> {
   public static type: ProcedureTypes;
+  public static readonly isProcedure = true;
   protected args: Args;
   protected context: Context;
   private transactions: TransactionSpec<any>[] = [];
@@ -41,7 +39,9 @@ export abstract class Procedure<Args> {
 
   public prepare = async () => {
     const procedureType = (this.constructor as typeof Procedure).type;
+
     await this.prepareTransactions();
+
     const sequence = new Sequence(this.transactions, procedureType);
 
     return sequence;
@@ -72,10 +72,20 @@ export abstract class Procedure<Args> {
           async () => (undefined as any) as R
         );
       }
+
       // If method is a Procedure, get its Transactions and push those
       if (isProcedure<A>(ThingToRun)) {
         const operation = new ThingToRun(args[0], this.context);
-        await operation.prepareTransactions();
+
+        try {
+          await operation.prepareTransactions();
+        } catch (err) {
+          // Only throw if this is a validation error, otherwise it will have
+          // already propagated on the outside
+          if (err.code === ErrorCodes.ProcedureValidationError) {
+            throw err;
+          }
+        }
         const transactions = operation.transactions;
         this.transactions = [...this.transactions, ...transactions];
         return postTransactionResolver;

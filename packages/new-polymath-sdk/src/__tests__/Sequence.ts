@@ -54,8 +54,8 @@ describe('Sequence', () => {
         'stringTwo',
       ]);
       const sequence = new Sequence([txOne, txTwo]);
-      sequence.run();
-      await sequence;
+      await sequence.run();
+
       // expect something to have been called
     });
   });

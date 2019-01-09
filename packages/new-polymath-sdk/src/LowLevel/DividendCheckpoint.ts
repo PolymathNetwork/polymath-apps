@@ -121,22 +121,22 @@ export class DividendCheckpoint<
     );
   }
 
-  public setWithholding(investors: string[], percentages: number[]) {
+  public setWithholding = (investors: string[], percentages: number[]) => {
     const percentagesInWei = percentages.map(toWei);
     return this.contract.methods
       .setWithholding(investors, percentagesInWei)
       .send({ from: this.context.account });
-  }
+  };
 
-  public async reclaimDividend(dividendIndex: number) {
+  public reclaimDividend = async (dividendIndex: number) => {
     return this.contract.methods
       .reclaimDividend(dividendIndex)
       .send({ from: this.context.account });
-  }
+  };
 
-  public async withdrawWithholding(dividendIndex: number) {
+  public withdrawWithholding = async (dividendIndex: number) => {
     return this.contract.methods
       .withdrawWithholding(dividendIndex)
       .send({ from: this.context.account });
-  }
+  };
 }
