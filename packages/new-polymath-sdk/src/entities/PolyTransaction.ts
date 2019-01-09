@@ -4,6 +4,7 @@ import { TransactionSpec, ErrorCodes } from '~/types';
 import { types } from '@polymathnetwork/new-shared';
 import { EventEmitter } from 'events';
 import { PolymathError } from '~/PolymathError';
+import { TransactionReceipt } from 'web3/types';
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -37,10 +38,12 @@ export class PolyTransaction {
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
   public promise: Promise<any>;
   public error?: PolymathError;
+  public receipt?: TransactionReceipt;
   protected transaction: TransactionSpec<any>;
-  private emitter = new EventEmitter();
+  private emitter: EventEmitter;
 
   constructor(transaction: TransactionSpec<any>) {
+    this.emitter = new EventEmitter();
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -55,8 +58,10 @@ export class PolyTransaction {
       this.resolve(res);
     } catch (err) {
       this.reject(err);
+      this.updateStatus(types.TransactionStatus.Rejected);
     }
-    return this.promise;
+
+    await this.promise;
   }
 
   public onStatusChange = (listener: (transaction: this) => void) => {
@@ -67,12 +72,20 @@ export class PolyTransaction {
   protected reject: (reason?: any) => void = () => {};
 
   private async internalRun() {
+    this.updateStatus(types.TransactionStatus.Unapproved);
     const unwrappedArgs = this.unwrapArgs(this.transaction.args);
 
-    let res;
+    const promiEvent = this.transaction.method(...unwrappedArgs);
 
+    // Set the Transaction as Running once it is approved by the user
+    promiEvent.on('confirmation', (_receiptNumber, receipt) => {
+      this.receipt = receipt;
+      this.updateStatus(types.TransactionStatus.Running);
+    });
+
+    let result;
     try {
-      res = await this.transaction.method(...unwrappedArgs);
+      result = await promiEvent;
     } catch (err) {
       // Wrap with PolymathError
       if (err.message.indexOf('MetaMask Tx Signature') > -1) {
@@ -86,28 +99,33 @@ export class PolyTransaction {
         });
       }
 
-      this.updateStatus(types.TransactionStatus.Rejected);
       throw this.error;
     }
 
     await this.transaction.postTransactionResolver.run();
 
-    this.resolve(res);
+    return result;
   }
 
   private updateStatus = (status: types.TransactionStatus) => {
     this.status = status;
 
     switch (status) {
+      case types.TransactionStatus.Unapproved: {
+        this.emitter.emit(Events.StatusChange, this);
+        return;
+      }
       case types.TransactionStatus.Running: {
         this.emitter.emit(Events.StatusChange, this);
         return;
       }
       case types.TransactionStatus.Succeeded: {
         this.emitter.emit(Events.StatusChange, this);
+        return;
       }
       case types.TransactionStatus.Failed: {
         this.emitter.emit(Events.StatusChange, this, this.error);
+        return;
       }
     }
   };

@@ -10,15 +10,16 @@ enum Events {
 
 export class Sequence<T extends ProcedureTypes> {
   public static readonly entityType: string = 'sequence';
-  public transactions: PolyTransaction[];
   public readonly procedureType: ProcedureTypes;
+  public transactions: PolyTransaction[];
   public promise: Promise<any>;
   public status: types.SequenceStatus = types.SequenceStatus.Idle;
   public error?: Error;
   private queue: PolyTransaction[] = [];
-  private emitter: EventEmitter = new EventEmitter();
+  private emitter: EventEmitter;
 
   constructor(transactions: TransactionSpec<any>[], procedureType?: T) {
+    this.emitter = new EventEmitter();
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -83,9 +84,11 @@ export class Sequence<T extends ProcedureTypes> {
       }
       case types.SequenceStatus.Succeeded: {
         this.emitter.emit(Events.StatusChange, this);
+        return;
       }
       case types.SequenceStatus.Failed: {
         this.emitter.emit(Events.StatusChange, this, this.error);
+        return;
       }
     }
   };

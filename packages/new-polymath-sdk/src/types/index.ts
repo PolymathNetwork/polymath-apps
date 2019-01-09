@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
+import PromiEvent from 'web3/promiEvent';
 
 export interface TaxWithholding {
   address: string;
@@ -30,7 +31,7 @@ export interface InvestorBalance {
 }
 
 export interface TransactionSpec<Args extends any[]> {
-  method: (...args: Args) => Promise<any>;
+  method: (...args: Args) => PromiEvent<any>;
   args: Args;
   postTransactionResolver: PostTransactionResolver<any>;
 }

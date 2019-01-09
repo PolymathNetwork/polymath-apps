@@ -12,6 +12,7 @@
     "no-floating-promises": true,
     "no-unused-variable": true,
     "no-unused-expression": true,
+    "no-switch-case-fall-through": true,
     "variable-name": false,
     "ordered-imports": false,
     "arrow-parens": false,
