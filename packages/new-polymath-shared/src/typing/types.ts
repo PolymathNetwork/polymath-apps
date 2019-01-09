@@ -28,7 +28,7 @@ export type Address = string;
 export type TransactionHash = string;
 
 export interface Transaction {
-  id: Id;
+  uid: Id;
   status: TransactionStatus;
   type: string;
   hash?: TransactionHash;
@@ -37,7 +37,7 @@ export interface Transaction {
   };
 }
 export interface HigherLevelTransaction {
-  id: Id;
+  uid: Id;
   status: HigherLevelTransactionStatus;
   name: string;
   transactions: Transaction[];
