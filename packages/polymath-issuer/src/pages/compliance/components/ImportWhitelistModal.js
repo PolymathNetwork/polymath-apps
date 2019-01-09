@@ -145,6 +145,13 @@ class ImportWhitelistModal extends Component<Props> {
             subtitle="Please check instructions above and try again."
             kind="error"
           />
+        ) : isInvalid && isReady ? (
+          <InlineNotification
+            hideCloseButton
+            title="The file you uploaded is not valid"
+            subtitle="Please check instructions above and try again."
+            kind="error"
+          />
         ) : isTooMany ? (
           <InlineNotification
             hideCloseButton
@@ -168,7 +175,11 @@ class ImportWhitelistModal extends Component<Props> {
           >
             Cancel
           </Button>
-          <Button type="submit" disabled={!isReady} onClick={this.handleSubmit}>
+          <Button
+            type="submit"
+            disabled={!isReady || isInvalid}
+            onClick={this.handleSubmit}
+          >
             Import Whitelist
           </Button>
         </p>

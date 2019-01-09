@@ -72,6 +72,7 @@ export function parseWhitelistCsv(file: string) {
   const data = csvParse(file, {
     skip_empty_lines: true,
     trim: true,
+    relax_column_count: true,
     cast: (rawValue, context) => {
       const value = rawValue;
 
@@ -105,6 +106,8 @@ export function parseWhitelistCsv(file: string) {
       if (numericalRegex.test(value)) {
         return new BigNumber(value);
       }
+
+      console.log(context);
 
       return value;
     },
