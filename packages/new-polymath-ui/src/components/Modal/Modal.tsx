@@ -12,15 +12,15 @@ import { ModalStatus } from './types';
 import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 
 export interface ModalProps {
-  children: Node;
-  className: string;
   isOpen: boolean;
-  onClose: Function;
-  isCloseable: boolean;
-  status: ModalStatus;
-  theme: ThemeInterface;
+  onClose?: () => void;
+  children?: Node;
+  className?: string;
+  isCloseable?: boolean;
+  status?: ModalStatus;
   maxWidth?: MaxWidthProps;
-  isCentered: boolean;
+  isCentered?: boolean;
+  theme?: ThemeInterface;
 }
 
 type State = {

@@ -1,15 +1,23 @@
 import React, { Fragment } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 
-import { ModalTx } from './ModalTx';
+import { ModalSequence } from './ModalSequence';
 
 const sequence = {
   id: '111',
   name: 'Dividend Configuration',
   status: types.HigherLevelTransactionStatus.Idle,
   transactions: [
-    { id: '0', type: 'First transaction', status: 'UNAPPROVED' },
-    { id: '1', type: 'Second transaction', status: 'IDLE' },
+    {
+      id: '0',
+      type: 'First transaction',
+      status: types.TransactionStatus.Unapproved,
+    },
+    {
+      id: '1',
+      type: 'Second transaction',
+      status: types.TransactionStatus.Idle,
+    },
   ],
 };
 
@@ -32,8 +40,16 @@ export class ModalDemo extends React.Component {
             ...this.state.sequence,
             status: types.HigherLevelTransactionStatus.Running,
             transactions: [
-              { id: '0', type: 'First transaction', status: 'APPROVED' },
-              { id: '1', type: 'Second transaction', status: 'IDLE' },
+              {
+                id: '0',
+                type: 'First transaction',
+                status: types.TransactionStatus.Running,
+              },
+              {
+                id: '1',
+                type: 'Second transaction',
+                status: types.TransactionStatus.Idle,
+              },
             ],
           },
         });
@@ -47,10 +63,14 @@ export class ModalDemo extends React.Component {
               {
                 id: '0',
                 type: 'First transaction',
-                status: 'SUCCEEDED',
+                status: types.TransactionStatus.Succeeded,
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
               },
-              { id: '1', type: 'Second transaction', status: 'UNAPPROVED' },
+              {
+                id: '1',
+                type: 'Second transaction',
+                status: types.TransactionStatus.Unapproved,
+              },
             ],
           },
         });
@@ -64,10 +84,14 @@ export class ModalDemo extends React.Component {
               {
                 id: '0',
                 type: 'First transaction',
-                status: 'SUCCEEDED',
+                status: types.TransactionStatus.Succeeded,
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
               },
-              { id: '1', type: 'Second transaction', status: 'APPROVED' },
+              {
+                id: '1',
+                type: 'Second transaction',
+                status: types.TransactionStatus.Running,
+              },
             ],
           },
         });
@@ -82,13 +106,13 @@ export class ModalDemo extends React.Component {
               {
                 id: '0',
                 type: 'First transaction',
-                status: 'SUCCEEDED',
+                status: types.TransactionStatus.Succeeded,
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
               },
               {
                 id: '1',
                 type: 'Second transaction',
-                status: 'SUCCEEDED',
+                status: types.TransactionStatus.Succeeded,
                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
               },
             ],
@@ -122,7 +146,7 @@ export class ModalDemo extends React.Component {
         <button className="btn" onClick={this.handleClick}>
           Start transaction
         </button>
-        <ModalTx
+        <ModalSequence
           isOpen={this.state.isModalOpen}
           sequence={this.state.sequence}
           withEmail

@@ -10,7 +10,7 @@ import { Modal, ModalProps, ModalStatus } from '../Modal';
 
 import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
 
-import { ItemTx } from './ItemTx';
+import { SequenceItem } from './SequenceItem';
 
 const { HigherLevelTransactionStatus } = types;
 
@@ -40,15 +40,14 @@ const getTitleText = (status: ModalStatus, title: string) =>
     [ModalStatus.success]: `Your ${title} was successfully submitted`,
   }[status]);
 
-export interface ModalTxProps extends ModalProps {
-  title: string;
+export interface ModalSequenceProps extends ModalProps {
   sequence: types.HigherLevelTransaction;
-  withEmail: boolean;
-  continueButtonText: string;
   onContinue: () => void;
+  withEmail?: boolean;
+  continueButtonText?: string;
 }
 
-export class ModalTx extends Component<ModalTxProps> {
+export class ModalSequence extends Component<ModalSequenceProps> {
   static defaultProps = {
     continueButtonText: 'Continue',
   };
@@ -83,7 +82,7 @@ export class ModalTx extends Component<ModalTxProps> {
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <ItemTx key={transaction.id} transaction={transaction} />
+          <SequenceItem key={transaction.id} transaction={transaction} />
         ))}
 
         {isSuccess && withEmail && (

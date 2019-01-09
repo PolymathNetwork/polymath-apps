@@ -14,6 +14,6 @@ export const Label = styled.span`
   flex-shrink: 0;
 `;
 
-export const TxInfo = styled.div`
+export const Info = styled.div`
   flex-grow: 1;
 `;
