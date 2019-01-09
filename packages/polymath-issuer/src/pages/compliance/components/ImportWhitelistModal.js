@@ -9,7 +9,7 @@ import {
   Button,
   InlineNotification,
 } from 'carbon-components-react';
-import { Modal, Remark } from '@polymathnetwork/ui';
+import { Modal, Remark, Paragraph } from '@polymathnetwork/ui';
 import { uploadCSV } from '../../../actions/compliance';
 
 import type { RootState } from '../../../redux/reducer';
@@ -158,7 +158,7 @@ class ImportWhitelistModal extends Component<Props> {
         )}
 
         <Modal.Footer>
-          <p align="right">
+          <Paragraph textAlign="right">
             <Button
               className="cancel-btn"
               kind="secondary"
@@ -173,7 +173,7 @@ class ImportWhitelistModal extends Component<Props> {
             >
               Import Whitelist
             </Button>
-          </p>
+          </Paragraph>
         </Modal.Footer>
       </Modal>
     );
