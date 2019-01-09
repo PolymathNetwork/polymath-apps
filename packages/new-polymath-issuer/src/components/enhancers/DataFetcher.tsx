@@ -10,6 +10,7 @@ import { Loading } from '~/components/__temporary';
 import React from 'react';
 import _ from 'lodash';
 import { fetchData } from '~/state/actions/dataRequests';
+import { ActionType } from 'typesafe-actions';
 
 interface OwnProps {
   fetchers: Fetcher[];
@@ -23,7 +24,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch<ActionType<typeof fetchData>>;
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
