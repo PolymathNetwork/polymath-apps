@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { TransactionSpec } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 function isPostTransactionResolver(
   val: any
@@ -20,6 +21,8 @@ const mapValuesDeep = (
   );
 
 export class PolyTransaction {
+  public readonly status: types.TransactionStatus =
+    types.TransactionStatus.Idle;
   protected transaction: TransactionSpec<any>;
   private promise: Promise<any>;
 
@@ -43,7 +46,6 @@ export class PolyTransaction {
       await this.transaction.method(...unwrappedArgs);
     } catch (err) {
       if (err.message.indexOf('User denied transaction signature') > -1) {
-        // Here we mark as rejected
         if (this.reject) {
           this.reject('Transaction was rejected by the user');
         }

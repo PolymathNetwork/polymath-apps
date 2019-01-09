@@ -1,3 +1,4 @@
+import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
@@ -11,6 +12,16 @@ describe('PolyTransaction', () => {
       };
       const polyTransaction = new PolyTransaction(transaction);
       expect(polyTransaction).toBeInstanceOf(PolyTransaction);
+    });
+
+    test('starts as Idle', () => {
+      const transaction = {
+        method: jest.fn(),
+        args: ['argA'],
+        postTransactionResolver: new PostTransactionResolver(async () => {}),
+      };
+      const polyTransaction = new PolyTransaction(transaction);
+      expect(polyTransaction.status).toEqual(types.TransactionStatus.Idle);
     });
   });
 
