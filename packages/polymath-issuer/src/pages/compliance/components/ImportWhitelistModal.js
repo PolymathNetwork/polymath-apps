@@ -152,21 +152,9 @@ class ImportWhitelistModal extends Component<Props> {
             kind="error"
           />
         ) : (
-          <div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <Remark title="Reminder">
-              Investors must be approved before they are added to the whitelist.
-            </Remark>
-          </div>
+          <Remark title="Reminder">
+            Investors must be approved before they are added to the whitelist.
+          </Remark>
         )}
 
         <Modal.Footer>
