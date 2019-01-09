@@ -1,33 +1,31 @@
-import { TransactionSpec } from '~/types';
+import { TransactionSpec, ProcedureTypes } from '~/types';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 
-export class Sequence {
+export class Sequence<T extends ProcedureTypes> {
   public static readonly entityType: string = 'sequence';
   public transactions: PolyTransaction[];
-  private promise: Promise<any>;
+  public readonly procedureType: ProcedureTypes;
+  public promise: Promise<any>;
   private queue: PolyTransaction[] = [];
 
-  constructor(transactions: TransactionSpec<any>[]) {
+  constructor(transactions: TransactionSpec<any>[], procedureType?: T) {
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
     });
-
+    this.procedureType = procedureType || ProcedureTypes.Unnamed;
     this.transactions = transactions.map(transaction => {
       return new PolyTransaction(transaction);
     });
   }
 
-  public then(resolve: () => any, reject: () => any) {
-    return this.promise.then(resolve, reject);
-  }
-
   public async run() {
     this.queue = [...this.transactions];
-    console.log('this.queue', this.queue);
+
     try {
       const res = await this.executeTransactionQueue();
       this.resolve(res);
+      return res;
     } catch (err) {
       this.reject(err);
     }
@@ -48,5 +46,7 @@ export class Sequence {
     await this.executeTransactionQueue();
   }
 
-  private async finish() {}
+  private async finish() {
+    this.resolve();
+  }
 }

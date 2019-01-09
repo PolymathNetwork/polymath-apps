@@ -141,32 +141,33 @@ export class Polymath {
     detailsUrl?: string;
     divisible: boolean;
   }) {
-    const transaction = new CreateSecurityToken(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateSecurityToken(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
    * Reserve a Security Token
    */
   public async reserveSecurityToken(args: { symbol: string; name: string }) {
-    const transaction = new ReserveSecurityToken(args, this.context);
-    return await transaction.prepare();
+    const procedure = new ReserveSecurityToken(args, this.context);
+    const sequence = await procedure.prepare();
+    return sequence;
   }
 
   /**
    * Enable ERC20 and ETH dividend modules
    */
   public async enableDividendModules(args: { symbol: string }) {
-    const transaction = new EnableDividendModules(args, this.context);
-    return await transaction.prepare();
+    const procedure = new EnableDividendModules(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
    * Create investor supply checkpoint at the current date
    */
   public async createCheckpoint(args: { symbol: string }) {
-    const transaction = new CreateCheckpoint(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateCheckpoint(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
@@ -183,14 +184,14 @@ export class Polymath {
     taxWithholdings?: TaxWithholding[];
   }) {
     const polyAddress = this.context.polyToken.address;
-    const transaction = new CreateErc20DividendDistribution(
+    const procedure = new CreateErc20DividendDistribution(
       {
         erc20Address: polyAddress,
         ...args,
       },
       this.context
     );
-    return await transaction.prepare();
+    return await procedure.prepare();
   }
 
   /**
@@ -207,8 +208,8 @@ export class Polymath {
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
   }) {
-    const transaction = new CreateErc20DividendDistribution(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateErc20DividendDistribution(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
@@ -225,8 +226,8 @@ export class Polymath {
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
   }) {
-    const transaction = new CreateEtherDividendDistribution(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateEtherDividendDistribution(args, this.context);
+    return await procedure.prepare();
   }
 
   /**

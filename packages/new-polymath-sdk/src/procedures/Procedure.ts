@@ -1,4 +1,5 @@
-import { TransactionSpec } from '~/types';
+import _ from 'lodash';
+import { TransactionSpec, ProcedureTypes } from '~/types';
 import { Sequence } from '~/Sequence';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
@@ -6,7 +7,7 @@ import { PostTransactionResolver } from '~/PostTransactionResolver';
 function isProcedure<T extends any[]>(
   value: any
 ): value is ProcedureType<T[0]> {
-  if (value.type === 'Procedure') {
+  if (_.includes(ProcedureTypes, value.type)) {
     return true;
   }
   return false;
@@ -21,8 +22,9 @@ type MethodOrProcedure<A extends any[]> =
   | LowLevelMethod<A>
   | ProcedureType<A[0]>;
 
-export class Procedure<Args> {
-  public static type = 'Procedure';
+// NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
+export abstract class Procedure<Args> {
+  public static type: ProcedureTypes;
   protected args: Args;
   protected context: Context;
   private transactions: TransactionSpec<any>[] = [];
@@ -36,23 +38,29 @@ export class Procedure<Args> {
    * Mandatory method that builds a list of transactions that will be
    * run.
    */
-  public async prepareTransactions(): Promise<void> {}
 
-  public async prepare(): Promise<Sequence> {
+  public prepare = async () => {
+    const procedureType = (this.constructor as typeof Procedure).type;
     await this.prepareTransactions();
-    // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated
-    // transactions and bad validations
-    return new Sequence(this.transactions);
-  }
+    const sequence = new Sequence(this.transactions, procedureType);
 
-  // TODO @RafaelVidaurre: Support Post-Transaction resolvers for Procedures
-  // TODO @RafaelVidaurre: Correct Post-Transaction resolver return typing
-  // TODO @RafaelVidaurre: Improve typing for returned function args so that
-  // they can be wrapped in PostTransactionResolvers
+    return sequence;
+  };
+
+  /**
+   * Appends a Procedure or method into the Sequence's queue. This defines
+   * what will be run by the Sequence when it is started.
+   *
+   * @param ThingToRun A Procedure or method that will be run in the Procedure's Sequence
+   * @param resolver An asynchronous callback used to provide runtime data after
+   * the transaction added has finished successfully
+   */
   public addTransaction<A extends any[], R extends any>(
     ThingToRun: MethodOrProcedure<A>,
     resolver?: () => Promise<R>
   ) {
+    // TODO @RafaelVidaurre: Improve typing for returned function args so that
+    // they can be wrapped in PostTransactionResolvers
     return async (...args: A) => {
       let postTransactionResolver: PostTransactionResolver<R>;
 
@@ -84,4 +92,5 @@ export class Procedure<Args> {
       return postTransactionResolver;
     };
   }
+  protected abstract prepareTransactions(): Promise<void>;
 }
