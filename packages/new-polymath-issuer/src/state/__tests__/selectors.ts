@@ -85,11 +85,17 @@ const erc20DividendsModules = {
   allIds: [],
 };
 
+const sequences = {
+  byId: {},
+  allIds: [],
+};
+
 const entitiesState = {
   checkpoints,
   dividends,
   transactions,
   erc20DividendsModules,
+  sequences,
 };
 
 const dataRequestsState = {
