@@ -5,11 +5,11 @@ import { Styles } from 'react-select/lib/styles';
 import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import { formikProxy } from '~/components/inputs/formikProxy';
-import SvgCaretDown from '~/images/icons/caret-down.svg';
-import SvgClose from '~/images/icons/close.svg';
-import SvgEth from '~/images/icons/eth.svg';
-import SvgPolyB from '~/images/icons/poly-b.svg';
-import SvgDai from '~/images/icons/dai.svg';
+import { SvgCaretDown } from '~/images/icons/CaretDown';
+import { SvgClose } from '~/images/icons/Close';
+import { SvgEth } from '~/images/icons/Eth';
+import { SvgPoly } from '~/images/icons/Poly';
+import { SvgDai } from '~/images/icons/Dai';
 import styled, { withTheme, ThemeInterface } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
@@ -32,11 +32,7 @@ export const CURRENCY_OPTIONS: OptionType[] = [
   {
     value: types.Tokens.Poly,
     label: (
-      <Label
-        text="Polymath (POLY)"
-        Asset={SvgPolyB}
-        token={types.Tokens.Poly}
-      />
+      <Label text="Polymath (POLY)" Asset={SvgPoly} token={types.Tokens.Poly} />
     ),
   },
   {

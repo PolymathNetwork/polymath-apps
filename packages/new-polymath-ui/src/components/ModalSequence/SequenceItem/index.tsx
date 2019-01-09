@@ -11,9 +11,9 @@ import { Paragraph } from '~/components/Paragraph';
 import { Flex } from '~/components/Flex';
 import { TextEllipsis } from '~/components/TextEllipsis';
 import { Link } from '~/components/Link';
-import SvgClose from '~/images/icons/close.svg';
-import SvgCheckmark from '~/images/icons/checkmark.svg';
-import SvgPending from '~/images/icons/pending.svg';
+import { SvgClose } from '~/images/icons/Close';
+import { SvgCheckmark } from '~/images/icons/Checkmark';
+import { SvgPending } from '~/images/icons/Pending';
 
 import * as sc from './styles';
 
