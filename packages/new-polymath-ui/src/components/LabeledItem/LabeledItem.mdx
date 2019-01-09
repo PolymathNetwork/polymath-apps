@@ -1,0 +1,24 @@
+---
+name: LabeledItem
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { LabeledItem, LabeledItemDocz } from './';
+import { Paragraph } from '../Paragraph';
+
+# FormItem
+
+Very simple component used to show a label with its corresponding value underneath.
+
+## Basic usage
+
+<Playground>
+  <LabeledItem>
+    <LabeledItem.Label>The label</LabeledItem.Label>
+    <Paragraph>The item</Paragraph>
+  </LabeledItem>
+</Playground>
+
+<PropsTable of={LabeledItemDocz} />

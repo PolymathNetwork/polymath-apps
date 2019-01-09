@@ -1,5 +1,29 @@
+import { types } from '@polymathnetwork/new-shared';
+import { transparentize, darken } from 'polished';
+
 interface Scale<TValue> {
   [id: string]: TValue;
+}
+
+export interface ThemeInterface {
+  breakpoints: [string];
+  fontSizes: Scale<string>;
+  fontFamilies: any;
+  lineHeights: any;
+  fontWeights: any;
+  space: Scale<string>;
+  zIndexes: any;
+  colors: any;
+  headings: any;
+  buttons: any;
+  transitions: any;
+  maxWidth: string;
+  inputs: any;
+  links: any;
+  header: any;
+  footer: any;
+  sidebar: any;
+  tokens: any;
 }
 
 export const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
@@ -55,6 +79,8 @@ space.xl = space[6];
 space.xxl = space[7];
 space.xxxl = space[8];
 
+space.gridGap = space[4];
+
 export const zIndexes = {
   header: 80,
   sidebar: 100,
@@ -62,19 +88,18 @@ export const zIndexes = {
 
 export const colors = {
   baseText: '#5A6872',
-  lightText: '#5A6872',
   highlightText: '#152935',
   primary: '#252D6B',
   secondary: '#3D70B2',
   placeholder: '#5A6872',
-  idle: '#3D70B2',
-  alert: '#e0182d',
-  warning: '#EFC100',
-  success: '#00AA5E',
   gray: ['#F5F7FA', '#EBF0F7', '#8C9BA5', '#5A6872'],
   blue: ['#5596E6', '#3D70B2', '#252D6B'],
   green: ['#00AA5E'],
   red: ['#e0182d'],
+  idle: '#3D70B2',
+  alert: '#e0182d',
+  warning: '#EFC100',
+  success: '#00AA5E',
 };
 
 export const headings = {
@@ -97,6 +122,42 @@ export const headings = {
     color: colors.baseText,
     fontSize: fontSizes[4],
     fontWeight: fontWeights.normal,
+  },
+};
+
+export const buttons = {
+  primary: {
+    backgroundColor: colors.primary,
+    borderColor: 'transparent',
+    color: '#fff',
+    '&:hover, &:focus': {
+      backgroundColor: transparentize(0.2, colors.primary),
+    },
+  },
+  secondary: {
+    backgroundColor: 'transparent',
+    borderColor: colors.primary,
+    color: colors.primary,
+    '&:hover, &:focus': {
+      color: '#fff',
+      backgroundColor: colors.primary,
+    },
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    color: colors.secondary,
+    '&:hover, &:focus': {
+      color: '#fff',
+      backgroundColor: colors.secondary,
+    },
+  },
+};
+
+export const links = {
+  color: colors.secondary,
+  '&:hover, &:focus': {
+    color: darken(0.2, colors.secondary),
   },
 };
 
@@ -126,4 +187,23 @@ export const sidebar = {
 
 export const footer = {
   height: header.height,
+};
+
+export const tokens = {
+  [types.Tokens.Ether]: {
+    color: '#724396',
+    backgroundColor: '#EED3FE',
+  },
+  [types.Tokens.Dai]: {
+    color: '#FEBE44',
+    backgroundColor: '#FFEFC4',
+  },
+  [types.Tokens.Poly]: {
+    color: '#3C6586',
+    backgroundColor: '#C1E6FE',
+  },
+  [types.Tokens.Erc20]: {
+    color: '#007B66',
+    backgroundColor: '#A7FAE6',
+  },
 };

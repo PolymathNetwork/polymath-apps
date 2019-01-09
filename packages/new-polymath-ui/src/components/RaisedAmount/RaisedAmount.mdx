@@ -1,0 +1,23 @@
+---
+name: RaisedAmount
+menu: Components
+---
+
+import { PropsTable, Playground } from 'docz';
+
+import { RaisedAmount } from './';
+
+# RaisedAmount
+
+<PropsTable of={RaisedAmount} />
+
+## Basic usage
+
+<Playground>
+  <RaisedAmount
+    title="Amount Of Funds the STO Will Raise"
+    primaryAmount={10000}
+    tokenAmount={10000}
+    tokenUnit="POLY"
+  />
+</Playground>

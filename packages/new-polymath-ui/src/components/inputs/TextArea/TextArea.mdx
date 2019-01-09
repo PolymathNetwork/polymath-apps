@@ -1,0 +1,29 @@
+---
+name: TextArea
+menu: Inputs
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field } from 'formik';
+
+import { TextArea } from './';
+
+# TextArea
+
+<PropsTable of={TextArea} />
+
+## Basic usage
+
+<Playground>
+  <Formik
+    render={values => (
+      <form>
+        <Field
+          name="myTextarea"
+          placeholder="Your textarea"
+          component={TextArea}
+        />
+      </form>
+    )}
+  />
+</Playground>

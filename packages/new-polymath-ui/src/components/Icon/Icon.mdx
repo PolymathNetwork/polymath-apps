@@ -1,0 +1,21 @@
+---
+name: Icon
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { Icon, IconDocz } from './';
+import { ReactComponent as dotUrl } from '~/images/icons/dot.svg';
+import { ReactComponent as SvgPoly } from '~/images/icons/poly.svg';
+
+# FormItem
+
+<PropsTable of={IconDocz} />
+
+## Basic usage
+
+<Playground>
+  <Icon Asset={dotUrl} />
+  <Icon Asset={SvgPoly} />
+</Playground>
