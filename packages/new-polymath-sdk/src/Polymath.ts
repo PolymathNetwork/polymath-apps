@@ -26,11 +26,6 @@ import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
 import { PolymathNetworkParams } from '~/types';
 
-type EntityConstructor<T> = new (
-  params: { [key: string]: any },
-  polyClient: Polymath
-) => T;
-
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
 const createContextualizedEntity = <T extends typeof Entity>(
