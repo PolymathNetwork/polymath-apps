@@ -13,40 +13,44 @@ import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 
 export interface ModalProps {
   isOpen: boolean;
-  onClose?: () => void;
-  children?: Node;
+  onClose: () => void;
   className?: string;
   isCloseable?: boolean;
-  status?: ModalStatus;
+  status: ModalStatus;
   maxWidth?: MaxWidthProps;
   isCentered?: boolean;
-  theme?: ThemeInterface;
+  theme: ThemeInterface;
 }
 
-type State = {
+interface State {
   forceClose: boolean;
   isOpen: boolean;
-};
+}
 
-class _Modal extends Component<ModalProps, State> {
+class ModalBase extends Component<ModalProps, State> {
   public static Header = Header;
   public static Body = Body;
   public static Footer = Footer;
 
-  static defaultProps = {
-    status: ModalStatus.idle,
+  public static defaultProps = {
     isOpen: false,
     isCloseable: true,
-    onClose: null,
+    onClose: () => {},
     isCentered: true,
   };
 
-  state = {
+  public static getDerivedStateFromProps(nextProps: any, prevState: State) {
+    return {
+      isOpen: !prevState.forceClose && nextProps.isOpen,
+    };
+  }
+
+  public state = {
     forceClose: false,
     isOpen: false,
   };
 
-  handleCloseRequest = () => {
+  public handleCloseRequest = () => {
     if (!this.props.isCloseable) {
       return;
     }
@@ -58,13 +62,7 @@ class _Modal extends Component<ModalProps, State> {
     }
   };
 
-  static getDerivedStateFromProps(nextProps: any, prevState: State) {
-    return {
-      isOpen: !prevState.forceClose && nextProps.isOpen,
-    };
-  }
-
-  render() {
+  public render() {
     const { children, className, isCloseable, theme, status } = this.props;
     const { isOpen } = this.state;
 
@@ -95,6 +93,6 @@ class _Modal extends Component<ModalProps, State> {
   }
 }
 
-export const Modal = styled(withTheme(_Modal))`
+export const Modal = styled(withTheme(ModalBase))`
   ${sc.modalStyle};
 `;

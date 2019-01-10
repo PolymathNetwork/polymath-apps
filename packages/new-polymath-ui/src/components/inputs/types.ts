@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export interface InputProps {
   id?: string;
+  type: string;
   autoComplete?: 'on' | 'off';
   onChange: (e: any) => void;
   onBlur: (e: any) => void;

@@ -6,7 +6,7 @@ import { ModalSequence } from './ModalSequence';
 const sequence = {
   uid: '111',
   name: 'Dividend Configuration',
-  status: types.HigherLevelTransactionStatus.Idle,
+  status: types.TransactionQueueStatus.Idle,
   transactions: [
     {
       uid: '0',
@@ -43,7 +43,7 @@ export class ModalDemo extends React.Component<{}, DemoState> {
         this.setState({
           sequence: {
             ...this.state.sequence,
-            status: types.HigherLevelTransactionStatus.Running,
+            status: types.TransactionQueueStatus.Running,
             transactions: [
               {
                 uid: '0',
@@ -106,7 +106,7 @@ export class ModalDemo extends React.Component<{}, DemoState> {
         this.setState({
           sequence: {
             ...this.state.sequence,
-            status: types.HigherLevelTransactionStatus.Succeeded,
+            status: types.SequenceStatus.Succeeded,
             transactions: [
               {
                 uid: '0',

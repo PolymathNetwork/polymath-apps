@@ -1,9 +1,14 @@
 import React, { Fragment } from 'react';
 
 import { Modal } from './';
+import { ModalProps } from '~/components/Modal/Modal';
 
-export class ModalDemo extends React.Component {
-  constructor(props) {
+interface State {
+  isModalOpen: boolean;
+}
+
+export class ModalDemo extends React.Component<ModalProps, State> {
+  constructor(props: ModalProps) {
     super(props);
     this.state = {
       isModalOpen: false,
@@ -11,19 +16,19 @@ export class ModalDemo extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  public handleClick = () => {
     this.setState({
       isModalOpen: true,
     });
-  }
+  };
 
-  handleModalClose() {
+  public handleModalClose = () => {
     this.setState({
       isModalOpen: false,
     });
-  }
+  };
 
-  render() {
+  public render() {
     return (
       <Fragment>
         <button className="btn" onClick={this.handleClick}>
@@ -31,8 +36,7 @@ export class ModalDemo extends React.Component {
         </button>
         <Modal
           isOpen={this.state.isModalOpen}
-          title="Modal test"
-          onClose={this.handleModalClose.bind(this)}
+          onClose={this.handleModalClose}
           {...this.props}
         >
           Some content.

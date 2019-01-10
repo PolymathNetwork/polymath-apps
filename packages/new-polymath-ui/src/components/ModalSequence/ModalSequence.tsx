@@ -11,15 +11,16 @@ import { Modal, ModalProps, ModalStatus } from '../Modal';
 import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
 
 import { SequenceItem } from './SequenceItem';
+import { maxWidth } from 'styled-system';
 
-const { HigherLevelTransactionStatus } = types;
+const { SequenceStatus } = types;
 
-const getModalStatus = (status: types.HigherLevelTransactionStatus) =>
+const getModalStatus = (status: types.SequenceStatus) =>
   ({
-    [HigherLevelTransactionStatus.Idle]: ModalStatus.loading,
-    [HigherLevelTransactionStatus.Running]: ModalStatus.loading,
-    [HigherLevelTransactionStatus.Succeeded]: ModalStatus.success,
-    [HigherLevelTransactionStatus.Failed]: ModalStatus.alert,
+    [SequenceStatus.Idle]: ModalStatus.loading,
+    [SequenceStatus.Running]: ModalStatus.loading,
+    [SequenceStatus.Succeeded]: ModalStatus.success,
+    [SequenceStatus.Failed]: ModalStatus.alert,
   }[status]);
 
 const getLabelText = (status: ModalStatus) =>
@@ -40,8 +41,12 @@ const getTitleText = (status: ModalStatus, title: string) =>
     [ModalStatus.success]: `Your ${title} was successfully submitted`,
   }[status]);
 
-export interface ModalSequenceProps extends ModalProps {
-  sequence: types.HigherLevelTransaction;
+export interface ModalSequenceProps
+  extends Pick<
+    ModalProps,
+    'isOpen' | 'isCloseable' | 'status' | 'maxWidth' | 'isCentered'
+  > {
+  sequence: Sequence;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
@@ -62,16 +67,15 @@ export class ModalSequence extends Component<ModalSequenceProps> {
     } = this.props;
     const { transactions } = sequence;
     const status = getModalStatus(sequence.status);
-    const isSuccess =
-      sequence.status === HigherLevelTransactionStatus.Succeeded;
-    const isRejected = sequence.status === HigherLevelTransactionStatus.Failed;
+    const isSuccess = sequence.status === SequenceStatus.Succeeded;
+    const isRejected = sequence.status === SequenceStatus.Failed;
 
     return (
       <Modal
         isOpen={isOpen}
         isCloseable={false}
         status={status}
-        maxWidth={500}
+        maxWidth={maxWidth('500')}
         isCentered={false}
       >
         <Modal.Header
