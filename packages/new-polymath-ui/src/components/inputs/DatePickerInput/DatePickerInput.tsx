@@ -9,8 +9,7 @@ import { formikProxy } from '../formikProxy';
 import * as sc from './styles';
 
 import { SvgCalendar } from '~/images/icons/Calendar';
-
-type PickerValue = [Date, string];
+import { key as LocaleKey } from 'flatpickr/dist/types/locale';
 
 export interface DatePickerInputProps {
   /**
@@ -21,7 +20,7 @@ export interface DatePickerInputProps {
    *  The language locale used to format the days of the week, months, and numbers.
    *  See https://flatpickr.js.org/localization/
    */
-  locale: string;
+  locale: LocaleKey;
   /**
    * The value of the date value provided to flatpickr, could
    * be a date, a date number, a date string, an array of dates.
@@ -30,15 +29,15 @@ export interface DatePickerInputProps {
   /**
    * The DOM element or selector the Flatpicker should be inserted into. `<body>` by default.
    */
-  appendTo: string | object;
+  appendTo: string | HTMLElement;
   /**
    * The `change` event handler.
    */
-  onChange: Function;
+  onChange: (e: Event) => void;
   /**
    * The underlying input `change` event handler.
    */
-  onInputChange: Function;
+  onInputChange: (e: Event) => void;
   /**
    * The minimum date that a user can start picking from.
    */
@@ -50,11 +49,11 @@ export interface DatePickerInputProps {
   /**
    * See https://flatpickr.js.org/options/
    */
-  datePickerType: string;
+  datePickerType: 'single' | 'multiple' | 'range';
 }
 
 // Weekdays shorthand for english locale
-l10n.en.weekdays.shorthand.forEach((day, index) => {
+l10n.en.weekdays.shorthand.forEach((_day, index) => {
   const currentDay = l10n.en.weekdays.shorthand;
   if (currentDay[index] === 'Thu' || currentDay[index] === 'Th') {
     currentDay[index] = 'Th';
@@ -63,21 +62,27 @@ l10n.en.weekdays.shorthand.forEach((day, index) => {
   }
 });
 
+const now = moment().format('MM / DD / YYYY');
+
 export class DatePickerInputComponent extends Component<
   DatePickerInputProps & InputProps
 > {
-  inputField: React.RefObject<HTMLInputElement> = React.createRef();
-  cal: any;
-
-  static defaultProps = {
+  public static defaultProps: DatePickerInputProps = {
     dateFormat: 'm / d / Y',
     locale: 'en',
     datePickerType: 'single',
-    minDate: moment().format('MM / DD / YYYY'),
+    minDate: now,
+    maxDate: now,
     onInputChange: () => {},
+    onChange: () => {},
+    value: now,
+    appendTo: 'body',
   };
 
-  componentDidUpdate(nextProps: DatePickerInputProps) {
+  public inputField: React.RefObject<HTMLInputElement> = React.createRef();
+  public cal: any;
+
+  public componentDidUpdate(nextProps: DatePickerInputProps) {
     if (nextProps.value !== this.props.value) {
       if (this.cal) {
         this.cal.setDate(nextProps.value);
@@ -85,7 +90,7 @@ export class DatePickerInputComponent extends Component<
     }
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const {
       datePickerType,
       dateFormat,
@@ -98,30 +103,30 @@ export class DatePickerInputComponent extends Component<
 
     const appendToNode =
       typeof appendTo === 'string'
-        ? document.querySelector(appendTo)
+        ? (document.querySelector(appendTo) as HTMLElement) || undefined
         : appendTo;
 
     // inputField ref might not be set in enzyme tests
     if (this.inputField.current) {
-      this.cal = new flatpickr(this.inputField.current, {
+      this.cal = flatpickr(this.inputField.current, {
         defaultDate: value,
         appendTo: appendToNode,
         mode: datePickerType,
         allowInput: true,
-        dateFormat: dateFormat,
+        dateFormat,
         locale: l10n[locale],
-        minDate: minDate,
-        maxDate: maxDate,
+        minDate,
+        maxDate,
         clickOpens: true,
         nextArrow: this.rightArrowHTML(),
-        leftArrow: this.leftArrowHTML(),
+        prevArrow: this.leftArrowHTML(),
         onChange: this.handleChange,
       });
       this.addKeyboardEvents(this.cal);
     }
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     if (this.cal) {
       this.cal.destroy();
     }
@@ -134,30 +139,32 @@ export class DatePickerInputComponent extends Component<
     }
   }
 
-  handleChange = (pickerValue: PickerValue, stringValue: string) => {
+  public handleChange = (_pickerValue: Date[], stringValue: string) => {
     const [month, day, year] = stringValue.split(' / ');
     const date = moment({
-      year,
+      year: parseInt(year, 10),
       month: parseInt(month, 10) - 1,
-      day,
+      day: parseInt(day, 10),
     })
       .startOf('day')
       .toDate();
-    // console.log(stringValue);
     this.props.onChange(date);
   };
 
-  handleInputChange = (e: Event) => {
-    if (
-      e.target.value === '' &&
-      this.cal &&
-      this.cal.selectedDates.length > 0
-    ) {
-      this.cal.clear();
+  public handleInputChange = (e: Event) => {
+    const { target } = e;
+    if (target instanceof HTMLInputElement) {
+      if (
+        target.value === '' &&
+        this.cal &&
+        this.cal.selectedDates.length > 0
+      ) {
+        this.cal.clear();
+      }
     }
   };
 
-  addKeyboardEvents = (cal: any) => {
+  public addKeyboardEvents = (cal: any) => {
     if (this.inputField.current) {
       this.inputField.current.addEventListener('keydown', e => {
         if (e.which === 40) {
@@ -171,21 +178,21 @@ export class DatePickerInputComponent extends Component<
     }
   };
 
-  rightArrowHTML() {
+  public rightArrowHTML() {
     return `
       <svg height="12" width="7" viewBox="0 0 7 12">
         <path d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z"></path>
       </svg>`;
   }
 
-  leftArrowHTML() {
+  public leftArrowHTML() {
     return `
       <svg width="7" height="12" viewBox="0 0 7 12" fill-rule="evenodd">
         <path d="M1.45 6.002L7 11.27l-.685.726L0 6.003 6.315 0 7 .726z"></path>
       </svg>`;
   }
 
-  render() {
+  public render() {
     const {
       name,
       minDate,

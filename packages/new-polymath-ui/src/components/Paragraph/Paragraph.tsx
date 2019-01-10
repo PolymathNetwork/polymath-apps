@@ -16,7 +16,8 @@ import {
 } from 'styled-system';
 import { Box, BoxProps } from '~/components/Box';
 
-export type ParagraphProps = { bold?: boolean } & BoxProps &
+// TODO @monitz87: figure out whether the 'as' prop should be declared here
+export type ParagraphProps = { bold?: boolean; as?: string } & BoxProps &
   ColorProps &
   FontFamilyProps &
   FontWeightProps &
