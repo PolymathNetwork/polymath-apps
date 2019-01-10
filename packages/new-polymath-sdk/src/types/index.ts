@@ -56,10 +56,14 @@ export enum ProcedureTypes {
 export enum PolyTransactionTags {
   Any = 'Any',
   Approve = 'Approve',
+  ReserveSecurityToken = 'ReserveSecurityToken',
   CreateSecurityToken = 'CreateSecurityToken',
   CreateCheckpoint = 'CreateCheckpoint',
   CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
   CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
   SetErc20TaxWithholding = 'SetErc20TaxWithholding',
   SetEtherTaxWithholding = 'SetEtherTaxWithholding',
+  EnableDividends = 'EnableDividends',
+  ReclaimDividendFunds = 'ReclaimDividendFunds',
+  WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
 }
