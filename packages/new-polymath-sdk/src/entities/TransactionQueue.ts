@@ -32,7 +32,7 @@ export class TransactionQueue<T extends ProcedureTypes> extends Entity {
 
     this.procedureType = procedureType || ProcedureTypes.Unnamed;
     this.transactions = transactions.map(transaction => {
-      const txn = new PolyTransaction(transaction);
+      const txn = new PolyTransaction(transaction, this);
 
       txn.onStatusChange(updatedTransaction => {
         this.emitter.emit(

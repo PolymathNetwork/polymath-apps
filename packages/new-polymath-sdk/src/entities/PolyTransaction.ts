@@ -6,6 +6,7 @@ import { EventEmitter } from 'events';
 import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
+import { TransactionQueue } from '~/entities/TransactionQueue';
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -29,9 +30,10 @@ const mapValuesDeep = (
   );
 
 export class PolyTransaction extends Entity {
-  public entityType = 'polyTransaction';
+  public entityType = 'transaction';
   public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
+  public transactionQueue: TransactionQueue<any>;
   public promise: Promise<any>;
   public error?: PolymathError;
   public receipt?: TransactionReceipt;
@@ -43,7 +45,10 @@ export class PolyTransaction extends Entity {
   > = new PostTransactionResolver(async () => {});
   private emitter: EventEmitter;
 
-  constructor(transaction: TransactionSpec<any>) {
+  constructor(
+    transaction: TransactionSpec<any>,
+    transactionQueue: TransactionQueue<any>
+  ) {
     super(undefined, false);
 
     if (transaction.postTransactionResolver) {
@@ -54,6 +59,7 @@ export class PolyTransaction extends Entity {
     this.tag = transaction.tag || PolyTransactionTags.Any;
     this.method = transaction.method;
     this.args = transaction.args;
+    this.transactionQueue = transactionQueue;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -66,6 +72,7 @@ export class PolyTransaction extends Entity {
 
     return {
       uid,
+      transactionQueueUid: this.transactionQueue.uid,
       status,
       tag,
       receipt,
