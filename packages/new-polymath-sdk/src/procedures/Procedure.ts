@@ -6,7 +6,7 @@ import {
   ErrorCodes,
   PolyTransactionTags,
 } from '~/types';
-import { Sequence } from '~/entities/Sequence';
+import { TransactionQueue } from '~/entities/TransactionQueue';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
@@ -47,16 +47,19 @@ export abstract class Procedure<Args> {
 
     await this.prepareTransactions();
 
-    const sequence = new Sequence(this.transactions, procedureType);
+    const transactionQueue = new TransactionQueue(
+      this.transactions,
+      procedureType
+    );
 
-    return sequence;
+    return transactionQueue;
   };
 
   /**
-   * Appends a Procedure or method into the Sequence's queue. This defines
-   * what will be run by the Sequence when it is started.
+   * Appends a Procedure or method into the TransactionQueue's queue. This defines
+   * what will be run by the TransactionQueue when it is started.
    *
-   * @param Enqueueable A Procedure or method that will be run in the Procedure's Sequence
+   * @param Enqueueable A Procedure or method that will be run in the Procedure's TransactionQueue
    * @param option.tag An optional tag for SDK users to identify this transaction, this
    * can be used for doing things such as mapping descriptions to tags in the UI
    * @param options.resolver An asynchronous callback used to provide runtime data after

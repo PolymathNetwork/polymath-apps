@@ -150,8 +150,8 @@ export class Polymath {
    */
   public async reserveSecurityToken(args: { symbol: string; name: string }) {
     const procedure = new ReserveSecurityToken(args, this.context);
-    const sequence = await procedure.prepare();
-    return sequence;
+    const transactionQueue = await procedure.prepare();
+    return transactionQueue;
   }
 
   /**

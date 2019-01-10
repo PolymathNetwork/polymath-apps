@@ -10,25 +10,25 @@ class Container extends Component {
     await polyClient.connect();
 
     console.log('Connected');
-    const sequence = await polyClient.reserveSecurityToken({
+    const transactionQueue = await polyClient.reserveSecurityToken({
       name: 'FOOKEN',
       symbol: 'FOOKEN',
     });
 
-    console.log('sequence', sequence);
+    console.log('transactionQueue', transactionQueue);
 
     console.log('About to run');
 
-    sequence.onStatusChange(({ status }) => {
-      console.log('Status updated for sequence:', status);
+    transactionQueue.onStatusChange(({ status }) => {
+      console.log('Status updated for transactionQueue:', status);
     });
 
-    sequence.onTransactionStatusChange(({ status, tag }, seq) => {
+    transactionQueue.onTransactionStatusChange(({ status, tag }, seq) => {
       console.log(`Transaction[${tag}]: Status update => ${status}`);
     });
 
     try {
-      await sequence.run();
+      await transactionQueue.run();
     } catch (err) {
       console.log('Aug', err.code);
     }

@@ -3,4 +3,4 @@ export { SecurityToken } from './SecurityToken';
 export { Erc20DividendsModule } from './Erc20DividendsModule';
 export { Dividend } from './Dividend';
 export { Checkpoint } from './Checkpoint';
-export { Sequence } from './Sequence';
+export { TransactionQueue } from './TransactionQueue';

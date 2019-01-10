@@ -16,7 +16,7 @@ export enum TransactionStatus {
   Succeeded = 'SUCCEEDED',
   Failed = 'FAILED',
 }
-export enum SequenceStatus {
+export enum TransactionQueueStatus {
   Idle = 'IDLE',
   Running = 'RUNNING',
   Failed = 'FAILED',
