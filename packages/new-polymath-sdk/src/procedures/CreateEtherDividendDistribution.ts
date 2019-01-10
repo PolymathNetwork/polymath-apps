@@ -1,5 +1,5 @@
 import { Procedure } from './Procedure';
-import { TaxWithholding } from '~/types';
+import { TaxWithholding, PolyTransactionTags } from '~/types';
 
 interface Args {
   symbol: string;
@@ -27,7 +27,6 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
     const { securityTokenRegistry } = this.context;
 
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
-
     const etherModule = await securityToken.getEtherDividendModule();
 
     if (!etherModule) {
@@ -36,14 +35,9 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
       );
     }
 
-    await this.addTransaction(etherModule, etherModule.createDividend)(
-      maturityDate,
-      expiryDate,
-      amount,
-      checkpointId,
-      name,
-      excludedAddresses
-    );
+    await this.addTransaction(etherModule.createDividend, {
+      tag: PolyTransactionTags.CreateEtherDividendDistribution,
+    })(maturityDate, expiryDate, amount, checkpointId, name, excludedAddresses);
 
     if (taxWithholdings.length > 0) {
       const investorAddresses: string[] = [];
@@ -54,10 +48,9 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
         percentages.push(percentage);
       });
 
-      await this.addTransaction(etherModule, etherModule.setWithholding)(
-        investorAddresses,
-        percentages
-      );
+      await this.addTransaction(etherModule.setWithholding, {
+        tag: PolyTransactionTags.SetEtherTaxWithholding,
+      })(investorAddresses, percentages);
     }
   }
 }

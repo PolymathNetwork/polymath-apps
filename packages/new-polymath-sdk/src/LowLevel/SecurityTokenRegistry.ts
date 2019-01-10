@@ -32,26 +32,28 @@ export class SecurityTokenRegistry extends Contract<
     super({ address, abi: SecurityTokenRegistryAbi.abi, context });
   }
 
-  public async registerTicker(
+  public registerTicker = async (
     owner: string,
     ticker: string,
     tokenName: string
-  ) {
-    return this.contract.methods
-      .registerTicker(owner, ticker, tokenName)
-      .send({ from: this.context.account });
-  }
+  ) => {
+    return () =>
+      this.contract.methods
+        .registerTicker(owner, ticker, tokenName)
+        .send({ from: this.context.account });
+  };
 
-  public async generateSecurityToken(
+  public generateSecurityToken = async (
     tokenName: string,
     ticker: string,
     tokenDetails: string,
     divisible: boolean
-  ) {
-    return this.contract.methods
-      .generateSecurityToken(tokenName, ticker, tokenDetails, divisible)
-      .send({ from: this.context.account });
-  }
+  ) => {
+    return () =>
+      this.contract.methods
+        .generateSecurityToken(tokenName, ticker, tokenDetails, divisible)
+        .send({ from: this.context.account });
+  };
 
   public async getTickerRegistrationFee() {
     const feeRes = await this.contract.methods

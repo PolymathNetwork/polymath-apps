@@ -1,27 +1,3 @@
-import { polyClient } from '~/lib/polymath';
-import React, { Component } from 'react';
-import { browserUtils } from '@polymathnetwork/sdk';
+import React, { FC } from 'react';
 
-class Container extends Component {
-  public async componentDidMount() {
-    await browserUtils.getCurrentAddress();
-    await polyClient.connect();
-
-    const sequence = await polyClient.reserveSecurityToken({
-      name: 'FOOKEN',
-      symbol: 'FOOKEN',
-    });
-
-    await sequence.run();
-  }
-
-  public render() {
-    return <div>hi</div>;
-  }
-}
-
-export const HomePage = () => (
-  <div>
-    <Container />
-  </div>
-);
+export const HomePage: FC = () => <div>Home page</div>;

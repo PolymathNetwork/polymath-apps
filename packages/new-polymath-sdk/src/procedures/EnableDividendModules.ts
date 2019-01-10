@@ -1,5 +1,6 @@
 import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
+import { PolyTransactionTags } from '~/types';
 
 interface Args {
   symbol: string;
@@ -17,10 +18,9 @@ export class EnableDividendModules extends Procedure<Args> {
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
 
     for (const type of types) {
-      await this.addTransaction(
-        securityToken,
-        securityToken.addDividendsModule
-      )(type);
+      await this.addTransaction(securityToken.addDividendsModule, {
+        tag: PolyTransactionTags.EnableDividends,
+      })(type);
     }
   }
 }

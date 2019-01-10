@@ -1,4 +1,4 @@
-import { HttpProvider, WebsocketProvider } from 'web3/providers';
+import { HttpProvider } from 'web3/providers';
 import { PolyToken } from '~/LowLevel/PolyToken';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
@@ -23,19 +23,7 @@ import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
 import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
-
-export interface PolymathNetworkParams {
-  httpProvider?: HttpProvider;
-  httpProviderUrl?: string;
-  wsProvider?: WebsocketProvider;
-  wsProviderUrl?: string;
-  polymathRegistryAddress: string;
-}
-
-type EntityConstructor<T> = new (
-  params: { [key: string]: any },
-  polyClient: Polymath
-) => T;
+import { PolymathNetworkParams } from '~/types';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -58,7 +46,7 @@ interface ContextualizedEntities {
 }
 
 export class Polymath {
-  public httpProvider: HttpProvider = {} as HttpProvider;
+  public httpProvider: HttpProvider = (null as any) as HttpProvider;
   public httpProviderUrl: string = '';
   public networkId: number = -1;
   public isUnsupported: boolean = false;
@@ -79,6 +67,14 @@ export class Polymath {
       this.httpProviderUrl = httpProviderUrl;
     }
 
+    if (this.httpProvider) {
+      this.lowLevel = new LowLevel({ provider: this.httpProvider });
+    } else if (this.httpProviderUrl) {
+      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
+    } else {
+      this.lowLevel = new LowLevel();
+    }
+
     // TODO @RafaelVidaurre: type this correctly
     this.entities = {
       SecurityToken: createContextualizedEntity(SecurityToken as any, this),
@@ -91,16 +87,9 @@ export class Polymath {
 
   public async connect() {
     const { lowLevel, polymathRegistryAddress } = this;
+
     this.networkId = await lowLevel.getNetworkId();
     const account = await lowLevel.getAccount();
-
-    if (this.httpProvider) {
-      this.lowLevel = new LowLevel({ provider: this.httpProvider });
-    } else if (this.httpProviderUrl) {
-      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
-    } else {
-      this.lowLevel = new LowLevel();
-    }
 
     if (!polymathRegistryAddress) {
       throw new Error(
@@ -140,32 +129,33 @@ export class Polymath {
     detailsUrl?: string;
     divisible: boolean;
   }) {
-    const transaction = new CreateSecurityToken(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateSecurityToken(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
    * Reserve a Security Token
    */
   public async reserveSecurityToken(args: { symbol: string; name: string }) {
-    const transaction = new ReserveSecurityToken(args, this.context);
-    return await transaction.prepare();
+    const procedure = new ReserveSecurityToken(args, this.context);
+    const transactionQueue = await procedure.prepare();
+    return transactionQueue;
   }
 
   /**
    * Enable ERC20 and ETH dividend modules
    */
   public async enableDividendModules(args: { symbol: string }) {
-    const transaction = new EnableDividendModules(args, this.context);
-    return await transaction.prepare();
+    const procedure = new EnableDividendModules(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
    * Create investor supply checkpoint at the current date
    */
   public async createCheckpoint(args: { symbol: string }) {
-    const transaction = new CreateCheckpoint(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateCheckpoint(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
@@ -182,14 +172,14 @@ export class Polymath {
     taxWithholdings?: TaxWithholding[];
   }) {
     const polyAddress = this.context.polyToken.address;
-    const transaction = new CreateErc20DividendDistribution(
+    const procedure = new CreateErc20DividendDistribution(
       {
         erc20Address: polyAddress,
         ...args,
       },
       this.context
     );
-    return await transaction.prepare();
+    return await procedure.prepare();
   }
 
   /**
@@ -206,8 +196,8 @@ export class Polymath {
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
   }) {
-    const transaction = new CreateErc20DividendDistribution(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateErc20DividendDistribution(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
@@ -224,8 +214,8 @@ export class Polymath {
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
   }) {
-    const transaction = new CreateEtherDividendDistribution(args, this.context);
-    return await transaction.prepare();
+    const procedure = new CreateEtherDividendDistribution(args, this.context);
+    return await procedure.prepare();
   }
 
   /**
