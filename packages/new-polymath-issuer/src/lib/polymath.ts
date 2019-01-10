@@ -12,7 +12,7 @@ import {
 } from '~/constants';
 
 interface NetworkConfig {
-  [networkId: string]: PolymathNetworkParams;
+  [networkId: number]: PolymathNetworkParams;
 }
 
 let kovanConfig: NetworkConfig = {};
