@@ -9,7 +9,7 @@ import { Body } from './Body';
 import { Footer } from './Footer';
 import * as sc from './styles';
 import { ModalStatus } from './types';
-import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
+import { SvgClose } from '~/images/icons/Close';
 
 export interface ModalProps {
   isOpen: boolean;
