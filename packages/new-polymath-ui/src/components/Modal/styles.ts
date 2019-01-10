@@ -128,7 +128,7 @@ export const CloseButton = styled(IconButton)`
 const loadingStyles = `
   background: linear-gradient(60deg, #252e6a, #5495e5, #5495e5, #5495e5, #252e6a);
   background-size: 300% 300%;
-  animation: AnimatedGradient 3s infinite;  
+  animation: AnimatedGradient 3s infinite;
 `;
 
 export const StatusBar = styled.div`
