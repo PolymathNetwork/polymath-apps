@@ -118,9 +118,8 @@ export class NumberInput extends Component<Props, State> {
     { min, max, useBigNumbers, maxDecimals }: Props
   ) {
     let value = v;
-    console.log(typeof value);
     if (typeof value === 'string') {
-      value = value.replace(/[^0-9]+/g, '');
+      value = value.replace(/[^0-9\.]+/g, '');
     } else if (typeof value === 'number') {
       value = String(value);
     }
