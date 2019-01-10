@@ -6,7 +6,7 @@ import {
   ErrorCodes,
   PolyTransactionTags,
 } from '~/types';
-import { Sequence } from '~/Sequence';
+import { Sequence } from '~/entities/Sequence';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 

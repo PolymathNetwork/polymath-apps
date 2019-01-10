@@ -1,16 +1,18 @@
 import { TransactionSpec, ProcedureTypes, ErrorCodes } from '~/types';
-import { PolyTransaction } from '~/entities/PolyTransaction';
 import { EventEmitter } from 'events';
 import { types } from '@polymathnetwork/new-shared';
+import { Entity } from './Entity';
+import { PolyTransaction } from './PolyTransaction';
 
 enum Events {
   StatusChange = 'StatusChange',
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class Sequence<T extends ProcedureTypes> {
-  public static readonly entityType: string = 'sequence';
+export class Sequence<T extends ProcedureTypes> extends Entity {
+  public readonly entityType: string = 'sequence';
   public readonly procedureType: ProcedureTypes;
+  public uid: string;
   public transactions: PolyTransaction[];
   public promise: Promise<any>;
   public status: types.SequenceStatus = types.SequenceStatus.Idle;
@@ -19,6 +21,8 @@ export class Sequence<T extends ProcedureTypes> {
   private emitter: EventEmitter;
 
   constructor(transactions: TransactionSpec<any>[], procedureType?: T) {
+    super(undefined, false);
+
     this.emitter = new EventEmitter();
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
@@ -26,7 +30,6 @@ export class Sequence<T extends ProcedureTypes> {
     });
 
     this.procedureType = procedureType || ProcedureTypes.Unnamed;
-
     this.transactions = transactions.map(transaction => {
       const txn = new PolyTransaction(transaction);
 
@@ -41,7 +44,19 @@ export class Sequence<T extends ProcedureTypes> {
       return txn;
     });
 
+    this.uid = this.generateId();
     this.updateStatus(types.SequenceStatus.Running);
+  }
+
+  public toPojo() {
+    const { uid, transactions, status, procedureType } = this;
+
+    return {
+      uid,
+      transactions: transactions.map(transaction => transaction.toPojo()),
+      status,
+      procedureType,
+    };
   }
 
   public async run() {

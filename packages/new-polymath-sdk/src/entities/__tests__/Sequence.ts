@@ -1,7 +1,7 @@
 import { GenericContract } from '~/LowLevel/types';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 import { MockedContract as MockedContractClass } from '~/__mocks__/LowLevel/Contract';
-import { Sequence } from '../Sequence';
+import { Sequence } from '../entities/Sequence';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
 class TestContract<T extends GenericContract> {

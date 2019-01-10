@@ -5,6 +5,7 @@ import { types } from '@polymathnetwork/new-shared';
 import { EventEmitter } from 'events';
 import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
+import { Entity } from '~/entities/Entity';
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -27,7 +28,9 @@ const mapValuesDeep = (
     _.isPlainObject(val) ? mapValuesDeep(val, fn) : fn(val, key, obj)
   );
 
-export class PolyTransaction {
+export class PolyTransaction extends Entity {
+  public entityType = 'polyTransaction';
+  public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
   public promise: Promise<any>;
   public error?: PolymathError;
@@ -41,6 +44,12 @@ export class PolyTransaction {
   private emitter: EventEmitter;
 
   constructor(transaction: TransactionSpec<any>) {
+    super(undefined, false);
+
+    if (transaction.postTransactionResolver) {
+      this.postResolver = transaction.postTransactionResolver;
+    }
+
     this.emitter = new EventEmitter();
     this.tag = transaction.tag || PolyTransactionTags.Any;
     this.method = transaction.method;
@@ -49,10 +58,20 @@ export class PolyTransaction {
       this.resolve = res;
       this.reject = rej;
     });
+    this.uid = this.generateId();
+  }
 
-    if (transaction.postTransactionResolver) {
-      this.postResolver = transaction.postTransactionResolver;
-    }
+  public toPojo() {
+    const { uid, status, tag, receipt, error, args } = this;
+
+    return {
+      uid,
+      status,
+      tag,
+      receipt,
+      error,
+      args,
+    };
   }
 
   public async run() {

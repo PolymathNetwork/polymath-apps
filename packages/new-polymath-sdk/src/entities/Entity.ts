@@ -5,10 +5,10 @@ import { serialize } from '~/utils';
 export abstract class Entity {
   public abstract entityType: string;
   public abstract uid: string;
-  protected polyClient: Polymath;
+  protected polyClient?: Polymath;
 
-  constructor(polyClient?: Polymath) {
-    if (!polyClient) {
+  constructor(polyClient?: Polymath, requiresPolyClient = true) {
+    if (requiresPolyClient && !polyClient) {
       throw new Error(
         'Entity class should always be initialized through the Polymath client'
       );
