@@ -1,7 +1,7 @@
 import { ErrorCodes } from '~/types';
 
 export const ErrorMessagesPerCode: {
-  [errorCode: number]: string;
+  [errorCode: string]: string;
 } = {
   [ErrorCodes.IncompatibleBrowser]:
     'The browser bring used is not compatible with Ethereum',

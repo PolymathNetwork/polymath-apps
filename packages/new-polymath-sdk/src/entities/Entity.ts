@@ -5,7 +5,7 @@ import { serialize } from '~/utils';
 export abstract class Entity {
   public abstract entityType: string;
   public abstract uid: string;
-  protected polyClient?: Polymath;
+  protected polyClient: Polymath;
 
   constructor(polyClient?: Polymath, requiresPolyClient = true) {
     if (requiresPolyClient && !polyClient) {
@@ -14,7 +14,8 @@ export abstract class Entity {
       );
     }
 
-    this.polyClient = polyClient;
+    // Force typing to simplify external usage
+    this.polyClient = polyClient as Polymath;
   }
 
   public abstract toPojo(): any;

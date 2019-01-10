@@ -5,11 +5,7 @@ import { browserUtils } from '@polymathnetwork/sdk';
 class Container extends Component {
   public async componentDidMount() {
     await browserUtils.getCurrentAddress();
-
-    console.log('Connecting');
     await polyClient.connect();
-
-    console.log('Connected');
     const transactionQueue = await polyClient.reserveSecurityToken({
       name: 'FOOKEN',
       symbol: 'FOOKEN',
@@ -17,23 +13,19 @@ class Container extends Component {
 
     console.log('transactionQueue', transactionQueue);
 
-    console.log('About to run');
-
     transactionQueue.onStatusChange(({ status }) => {
-      console.log('Status updated for transactionQueue:', status);
+      console.debug('Status updated for transactionQueue:', status);
     });
 
     transactionQueue.onTransactionStatusChange(({ status, tag }, seq) => {
-      console.log(`Transaction[${tag}]: Status update => ${status}`);
+      console.debug(`Transaction[${tag}]: Status update => ${status}`);
     });
 
     try {
       await transactionQueue.run();
     } catch (err) {
-      console.log('Aug', err.code);
+      console.debug('Error', err.code);
     }
-
-    console.log('Finished fetch');
   }
 
   public render() {

@@ -1,8 +1,8 @@
 import _ from 'lodash';
+import { EventEmitter } from 'events';
+import { types } from '@polymathnetwork/new-shared';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { TransactionSpec, ErrorCodes, PolyTransactionTags } from '~/types';
-import { types } from '@polymathnetwork/new-shared';
-import { EventEmitter } from 'events';
 import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
@@ -18,8 +18,6 @@ function isPostTransactionResolver(
   return val instanceof PostTransactionResolver;
 }
 
-// TODO @RafaelVidaurre: Fix typing
-// TODO @RafaelVidaurre: Add support for arrays
 // TODO @RafaelVidaurre: Cleanup code
 const mapValuesDeep = (
   obj: { [key: string]: any },
@@ -33,7 +31,7 @@ export class PolyTransaction extends Entity {
   public entityType = 'transaction';
   public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
-  public transactionQueue: TransactionQueue<any>;
+  public transactionQueue?: TransactionQueue<any>;
   public promise: Promise<any>;
   public error?: PolymathError;
   public receipt?: TransactionReceipt;
@@ -47,7 +45,7 @@ export class PolyTransaction extends Entity {
 
   constructor(
     transaction: TransactionSpec<any>,
-    transactionQueue: TransactionQueue<any>
+    transactionQueue?: TransactionQueue<any>
   ) {
     super(undefined, false);
 
@@ -69,10 +67,12 @@ export class PolyTransaction extends Entity {
 
   public toPojo() {
     const { uid, status, tag, receipt, error, args } = this;
+    const transactionQueueUid =
+      this.transactionQueue && this.transactionQueue.uid;
 
     return {
       uid,
-      transactionQueueUid: this.transactionQueue.uid,
+      transactionQueueUid,
       status,
       tag,
       receipt,
@@ -113,6 +113,7 @@ export class PolyTransaction extends Entity {
     });
 
     let result;
+
     try {
       result = await promiEvent;
     } catch (err) {

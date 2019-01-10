@@ -1,6 +1,4 @@
 import { GenericContract } from '~/LowLevel/types';
-import { PolyTransaction } from '~/entities/PolyTransaction';
-import { MockedContract as MockedContractClass } from '~/__mocks__/LowLevel/Contract';
 import { TransactionQueue } from '../TransactionQueue';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
@@ -54,6 +52,7 @@ describe('TransactionQueue', () => {
         'stringTwo',
       ]);
       const transactionQueue = new TransactionQueue([txOne, txTwo]);
+
       await transactionQueue.run();
 
       // expect something to have been called

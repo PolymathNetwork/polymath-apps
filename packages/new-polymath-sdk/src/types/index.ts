@@ -41,18 +41,6 @@ export interface TransactionSpec<Args extends any[]> {
   tag?: PolyTransactionTags;
 }
 
-export enum ProcedureTypes {
-  Unnamed = 'Unnamed',
-  Approve = 'Approve',
-  CreateErc20DividendCheckpoint = 'CreateErc20DividendCheckpoint',
-  CreateEtherDividendCheckpoint = 'CreateEtherDividendCheckpoint',
-  CreateSecurityToken = 'CreateSecurityToken',
-  EnableDividendModules = 'EnableDividendModules',
-  ReclaimFunds = 'ReclaimFunds',
-  ReserveSecurityToken = 'ReserveSecurityToken',
-  WithdrawTaxes = 'WithdrawTaxes',
-}
-
 export enum PolyTransactionTags {
   Any = 'Any',
   Approve = 'Approve',

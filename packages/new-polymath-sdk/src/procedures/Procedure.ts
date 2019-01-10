@@ -2,7 +2,6 @@ import _ from 'lodash';
 import {
   TransactionSpec,
   LowLevelMethod,
-  ProcedureTypes,
   ErrorCodes,
   PolyTransactionTags,
 } from '~/types';
@@ -26,7 +25,6 @@ type MethodOrProcedure<A extends any[]> =
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args> {
-  public static type: ProcedureTypes;
   public static readonly isProcedure = true;
   protected args: Args;
   protected context: Context;
@@ -43,14 +41,10 @@ export abstract class Procedure<Args> {
    */
 
   public prepare = async () => {
-    const procedureType = (this.constructor as typeof Procedure).type;
-
     await this.prepareTransactions();
 
-    const transactionQueue = new TransactionQueue(
-      this.transactions,
-      procedureType
-    );
+    const name = this.constructor.name;
+    const transactionQueue = new TransactionQueue(this.transactions, name);
 
     return transactionQueue;
   };

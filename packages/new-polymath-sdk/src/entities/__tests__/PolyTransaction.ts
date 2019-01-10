@@ -1,3 +1,4 @@
+import PromiEvent from 'web3/promiEvent';
 import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
@@ -39,18 +40,26 @@ describe('PolyTransaction', () => {
 
   test('does not need binding between the method and the contract', async () => {
     class TestContract {
-      public method = jest.fn(() => {
-        expect(this.val.foo).toBeDefined();
-      });
       private val = {
         foo: 'bar',
+      };
+      public method = () => {
+        expect(this.val.foo).toBeDefined();
+        return jest.fn(() => {
+          return {
+            once: jest.fn(),
+            on: jest.fn(),
+            then: jest.fn(),
+            catch: jest.fn(),
+          };
+        });
       };
     }
 
     const test = new TestContract();
 
     const transaction = {
-      method: test.method,
+      method: test.method as any,
       args: ['argA'],
     };
 

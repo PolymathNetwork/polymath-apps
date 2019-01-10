@@ -33,7 +33,7 @@ export class WithdrawTaxes extends Procedure<Args> {
     }
 
     await this.addTransaction(dividendModule.withdrawWithholding, {
-      tag: PolyTransactionTags.WithdrawTaxWithholding,
+      tag: PolyTransactionTags.WithdrawTaxWithholdings,
     })(dividendIndex);
   }
 }

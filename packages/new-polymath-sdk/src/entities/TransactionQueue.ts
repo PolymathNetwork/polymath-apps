@@ -1,17 +1,18 @@
-import { TransactionSpec, ProcedureTypes, ErrorCodes } from '~/types';
 import { EventEmitter } from 'events';
 import { types } from '@polymathnetwork/new-shared';
+import { TransactionSpec } from '~/types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
+import { Procedure } from '~/procedures/Procedure';
 
 enum Events {
   StatusChange = 'StatusChange',
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class TransactionQueue<T extends ProcedureTypes> extends Entity {
+export class TransactionQueue<T extends Procedure<any>> extends Entity {
   public readonly entityType: string = 'transactionQueue';
-  public readonly procedureType: ProcedureTypes;
+  public procedureType: string;
   public uid: string;
   public transactions: PolyTransaction[];
   public promise: Promise<any>;
@@ -21,16 +22,19 @@ export class TransactionQueue<T extends ProcedureTypes> extends Entity {
   private queue: PolyTransaction[] = [];
   private emitter: EventEmitter;
 
-  constructor(transactions: TransactionSpec<any>[], procedureType?: T) {
+  constructor(
+    transactions: TransactionSpec<any>[],
+    procedureType: string = 'UnnamedProcedure'
+  ) {
     super(undefined, false);
 
     this.emitter = new EventEmitter();
+    this.procedureType = procedureType;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
     });
 
-    this.procedureType = procedureType || ProcedureTypes.Unnamed;
     this.transactions = transactions.map(transaction => {
       const txn = new PolyTransaction(transaction, this);
 
