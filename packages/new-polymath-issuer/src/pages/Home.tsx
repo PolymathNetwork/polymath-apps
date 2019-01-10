@@ -23,13 +23,8 @@ class Container extends Component {
       console.log('Status updated for sequence:', status);
     });
 
-    sequence.onTransactionStatusChange(({ status }, seq) => {
-      console.log(
-        'Status updated for transaction:',
-        status,
-        ' sequence is: ',
-        seq.status
-      );
+    sequence.onTransactionStatusChange(({ status, tag }, seq) => {
+      console.log(`Transaction[${tag}]: Status update => ${status}`);
     });
 
     try {

@@ -56,6 +56,7 @@ export enum ProcedureTypes {
 export enum PolyTransactionTags {
   Any = 'Any',
   Approve = 'Approve',
+  GetTokens = 'GetTokens',
   ReserveSecurityToken = 'ReserveSecurityToken',
   CreateSecurityToken = 'CreateSecurityToken',
   CreateCheckpoint = 'CreateCheckpoint',
