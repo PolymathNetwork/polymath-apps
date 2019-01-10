@@ -1,4 +1,3 @@
-import PromiEvent from 'web3/promiEvent';
 import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
@@ -68,5 +67,11 @@ describe('PolyTransaction', () => {
     await polyTransaction.run();
 
     expect(transaction.method).toHaveBeenCalledWith('argA');
+  });
+
+  describe('onStatusChange', () => {
+    test("calls the listener with the transaction everytime the transaction's staus changed", () => {
+      const transaction = {};
+    });
   });
 });
