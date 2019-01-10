@@ -23,6 +23,7 @@ export function* requestData(action: ActionType<typeof fetchData>) {
       } else {
         throw new Error('Invalid arguments passed for fetching checkpoints.');
       }
+      break;
     }
     case RequestKeys.GetDividendsByCheckpoint: {
       if (isGetDividendsByCheckpointArgs(args)) {
@@ -30,6 +31,7 @@ export function* requestData(action: ActionType<typeof fetchData>) {
       } else {
         throw new Error('Invalid arguments passed for fetching dividends.');
       }
+      break;
     }
     case RequestKeys.GetErc20DividendsModuleBySymbol: {
       if (isGetErc20DividendsModuleBySymbolArgs(args)) {
@@ -39,9 +41,10 @@ export function* requestData(action: ActionType<typeof fetchData>) {
           'Invalid arguments passed for fetching dividends module.'
         );
       }
+      break;
     }
     default:
-      return;
+      break;
   }
 }
 

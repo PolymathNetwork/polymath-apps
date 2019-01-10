@@ -1,5 +1,6 @@
 import { Procedure } from './Procedure';
-import { TaxWithholding, PolyTransactionTags } from '~/types';
+import { TaxWithholding } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 interface Args {
   symbol: string;
@@ -38,7 +39,7 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
     }
 
     const dividendId = await this.addTransaction(erc20Module.createDividend, {
-      tag: PolyTransactionTags.CreateErc20DividendDistribution,
+      tag: types.PolyTransactionTags.CreateErc20DividendDistribution,
       resolver: async () => {
         // TODO @RafaelVidaurre: fetch here dividend's id
         return 'foo';
@@ -63,7 +64,7 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
       });
 
       await this.addTransaction(erc20Module.setWithholding, {
-        tag: PolyTransactionTags.SetErc20TaxWithholding,
+        tag: types.PolyTransactionTags.SetErc20TaxWithholding,
       })(investorAddresses, percentages);
     }
   }

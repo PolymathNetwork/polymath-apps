@@ -1,6 +1,6 @@
 import { Procedure } from './Procedure';
 import { Approve } from './Approve';
-import { PolyTransactionTags } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 interface Args {
   symbol: string;
@@ -22,7 +22,7 @@ export class ReserveSecurityToken extends Procedure<Args> {
     });
 
     await this.addTransaction(securityTokenRegistry.registerTicker, {
-      tag: PolyTransactionTags.ReserveSecurityToken,
+      tag: types.PolyTransactionTags.ReserveSecurityToken,
     })(currentWallet.address, symbol, name);
   }
 }

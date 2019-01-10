@@ -1,19 +1,47 @@
-import { put } from 'redux-saga/effects';
-import { createAction, newTransaction } from '~/state/actions/transactions';
-import { TransactionEntity } from '~/types';
-import { takeEvery } from 'redux-saga';
+import { put, take } from 'redux-saga/effects';
+import {
+  createAction,
+  updateAction,
+  newTransaction,
+} from '~/state/actions/transactions';
+import { types } from '@polymathnetwork/new-shared';
+import { takeEvery, eventChannel, END } from 'redux-saga';
 import { getType, ActionType } from 'typesafe-actions';
+import { PolyTransaction } from '@polymathnetwork/sdk';
+import { TransactionStatus } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 export function* watchTransaction({
   payload: transaction,
 }: ActionType<typeof newTransaction>) {
-  // TODO @monitz87: transform transaction into plain object with toPojo
-  const transactionEntity: TransactionEntity = {} as TransactionEntity;
+  const transactionEntity: types.TransactionEntity = transaction.toPojo();
 
   yield put(createAction(transactionEntity));
 
-  // TODO @monitz87: set listeners on the transaction to dispatch the different actions
-  // to the store
+  /**
+   * Channel that emits a transaction every time its status changes
+   */
+  const statusChangeChannel = eventChannel<PolyTransaction>(emit => {
+    return transaction.onStatusChange(changedTransaction => {
+      emit(changedTransaction);
+    });
+  });
+
+  while (true) {
+    const changedTransaction: PolyTransaction = yield take(statusChangeChannel);
+
+    yield put(updateAction(changedTransaction.toPojo()));
+
+    const transactionIsFinished = [
+      TransactionStatus.Failed,
+      TransactionStatus.Rejected,
+      TransactionStatus.Succeeded,
+    ].find(status => status === changedTransaction.status);
+
+    if (transactionIsFinished) {
+      statusChangeChannel.close();
+      return;
+    }
+  }
 }
 
 export function* transactionWatcher() {

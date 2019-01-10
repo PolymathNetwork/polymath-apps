@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { EventEmitter } from 'events';
 import { types } from '@polymathnetwork/new-shared';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { TransactionSpec, ErrorCodes, PolyTransactionTags } from '~/types';
+import { TransactionSpec, ErrorCodes } from '~/types';
 import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
@@ -31,21 +31,21 @@ export class PolyTransaction extends Entity {
   public entityType = 'transaction';
   public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
-  public transactionQueue?: TransactionQueue<any>;
+  public transactionQueue: TransactionQueue;
   public promise: Promise<any>;
   public error?: PolymathError;
   public receipt?: TransactionReceipt;
-  public tag: PolyTransactionTags;
-  protected method: TransactionSpec<any>['method'];
-  protected args: TransactionSpec<any>['args'];
+  public tag: types.PolyTransactionTags;
+  protected method: TransactionSpec['method'];
+  protected args: TransactionSpec['args'];
   private postResolver: PostTransactionResolver<
     any
   > = new PostTransactionResolver(async () => {});
   private emitter: EventEmitter;
 
   constructor(
-    transaction: TransactionSpec<any>,
-    transactionQueue?: TransactionQueue<any>
+    transaction: TransactionSpec,
+    transactionQueue: TransactionQueue
   ) {
     super(undefined, false);
 
@@ -54,7 +54,7 @@ export class PolyTransaction extends Entity {
     }
 
     this.emitter = new EventEmitter();
-    this.tag = transaction.tag || PolyTransactionTags.Any;
+    this.tag = transaction.tag || types.PolyTransactionTags.Any;
     this.method = transaction.method;
     this.args = transaction.args;
     this.transactionQueue = transactionQueue;
@@ -66,9 +66,8 @@ export class PolyTransaction extends Entity {
   }
 
   public toPojo() {
-    const { uid, status, tag, receipt, error, args } = this;
-    const transactionQueueUid =
-      this.transactionQueue && this.transactionQueue.uid;
+    const { uid, status, tag, receipt, error, args, transactionQueue } = this;
+    const transactionQueueUid = transactionQueue.uid;
 
     return {
       uid,
@@ -95,6 +94,10 @@ export class PolyTransaction extends Entity {
 
   public onStatusChange = (listener: (transaction: this) => void) => {
     this.emitter.on(Events.StatusChange, listener);
+
+    return () => {
+      this.emitter.removeListener(Events.StatusChange, listener);
+    };
   };
 
   protected resolve: (val?: any) => void = () => {};

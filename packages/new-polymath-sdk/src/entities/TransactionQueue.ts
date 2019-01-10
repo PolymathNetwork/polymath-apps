@@ -3,14 +3,13 @@ import { types } from '@polymathnetwork/new-shared';
 import { TransactionSpec } from '~/types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
-import { Procedure } from '~/procedures/Procedure';
 
 enum Events {
   StatusChange = 'StatusChange',
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class TransactionQueue<T extends Procedure<any>> extends Entity {
+export class TransactionQueue extends Entity {
   public readonly entityType: string = 'transactionQueue';
   public procedureType: string;
   public uid: string;
@@ -23,7 +22,7 @@ export class TransactionQueue<T extends Procedure<any>> extends Entity {
   private emitter: EventEmitter;
 
   constructor(
-    transactions: TransactionSpec<any>[],
+    transactions: TransactionSpec[],
     procedureType: string = 'UnnamedProcedure'
   ) {
     super(undefined, false);
@@ -83,12 +82,20 @@ export class TransactionQueue<T extends Procedure<any>> extends Entity {
 
   public onStatusChange(listener: (transactionQueue: this) => void) {
     this.emitter.on(Events.StatusChange, listener);
+
+    return () => {
+      this.emitter.removeListener(Events.StatusChange, listener);
+    };
   }
 
   public onTransactionStatusChange(
     listener: (transaction: PolyTransaction, transactionQueue: this) => void
   ) {
     this.emitter.on(Events.TransactionStatusChange, listener);
+
+    return () => {
+      this.emitter.removeListener(Events.TransactionStatusChange, listener);
+    };
   }
 
   protected resolve: (val?: any) => void = () => {};

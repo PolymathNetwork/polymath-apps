@@ -4,11 +4,11 @@ import {
   ErrorCodes,
   LowLevelMethod,
   MapMaybeResolver,
-  PolyTransactionTags,
 } from '~/types';
 import { TransactionQueue } from '~/entities/TransactionQueue';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
+import { types } from '@polymathnetwork/new-shared';
 
 function isProcedure<T extends any[]>(
   value: any
@@ -29,7 +29,7 @@ export abstract class Procedure<Args> {
   public static readonly isProcedure = true;
   protected args: Args;
   protected context: Context;
-  private transactions: Array<TransactionSpec<any>> = [];
+  private transactions: TransactionSpec[] = [];
 
   constructor(args: Args, context: Context) {
     this.args = args;
@@ -66,12 +66,10 @@ export abstract class Procedure<Args> {
       tag,
       resolver = (() => {}) as () => Promise<R>,
     }: {
-      tag?: PolyTransactionTags;
+      tag?: types.PolyTransactionTags;
       resolver?: () => Promise<R>;
     } = {}
   ) {
-    // TODO @RafaelVidaurre: Improve typing for returned function args so that
-    // they can be wrapped in PostTransactionResolvers
     return async (...args: MapMaybeResolver<A>) => {
       const postTransactionResolver = new PostTransactionResolver(resolver);
 

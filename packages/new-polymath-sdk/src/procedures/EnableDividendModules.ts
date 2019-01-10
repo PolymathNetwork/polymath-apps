@@ -1,6 +1,6 @@
 import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
-import { PolyTransactionTags } from '~/types';
+import { types as sharedTypes } from '@polymathnetwork/new-shared';
 
 interface Args {
   symbol: string;
@@ -19,7 +19,7 @@ export class EnableDividendModules extends Procedure<Args> {
 
     for (const type of types) {
       await this.addTransaction(securityToken.addDividendsModule, {
-        tag: PolyTransactionTags.EnableDividends,
+        tag: sharedTypes.PolyTransactionTags.EnableDividends,
       })(type);
     }
   }

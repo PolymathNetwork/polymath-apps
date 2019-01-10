@@ -1,7 +1,7 @@
 import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { PolyTransactionTags } from '~/types';
+import { TransactionQueue } from '~/entities/TransactionQueue';
 
 describe('PolyTransaction', () => {
   describe('constructor', () => {
@@ -11,7 +11,10 @@ describe('PolyTransaction', () => {
         args: ['argA'],
         postTransactionResolver: new PostTransactionResolver(async () => {}),
       };
-      const polyTransaction = new PolyTransaction(transaction);
+      const polyTransaction = new PolyTransaction(
+        transaction,
+        {} as TransactionQueue
+      );
       expect(polyTransaction).toBeInstanceOf(PolyTransaction);
     });
 
@@ -21,9 +24,15 @@ describe('PolyTransaction', () => {
         args: ['argA'],
       };
 
-      const polyTransaction = new PolyTransaction(transaction);
+      const polyTransaction = new PolyTransaction(
+        transaction,
+        {} as TransactionQueue
+      );
 
-      expect(polyTransaction).toHaveProperty('tag', PolyTransactionTags.Any);
+      expect(polyTransaction).toHaveProperty(
+        'tag',
+        types.PolyTransactionTags.Any
+      );
     });
 
     test('starts as Idle', () => {
@@ -32,7 +41,10 @@ describe('PolyTransaction', () => {
         args: ['argA'],
         postTransactionResolver: new PostTransactionResolver(async () => {}),
       };
-      const polyTransaction = new PolyTransaction(transaction);
+      const polyTransaction = new PolyTransaction(
+        transaction,
+        {} as TransactionQueue
+      );
       expect(polyTransaction.status).toEqual(types.TransactionStatus.Idle);
     });
   });
@@ -62,7 +74,10 @@ describe('PolyTransaction', () => {
       args: ['argA'],
     };
 
-    const polyTransaction = new PolyTransaction(transaction);
+    const polyTransaction = new PolyTransaction(
+      transaction,
+      {} as TransactionQueue
+    );
 
     await polyTransaction.run();
 

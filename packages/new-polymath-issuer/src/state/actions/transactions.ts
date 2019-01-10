@@ -1,14 +1,14 @@
 import { createEntityActions } from '~/state/helpers/createEntityActions';
-import { TransactionEntity } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
+import { PolyTransaction } from '@polymathnetwork/sdk';
 import { createStandardAction } from 'typesafe-actions';
-import { PolyTransaction } from '@polymathnetwork/sdk/build/dist/entities/PolyTransaction';
 
 const newTransaction = createStandardAction('TRANSACTIONS/NEW')<
-  PolyTransaction<any>
+  PolyTransaction
 >();
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  TransactionEntity
+  types.TransactionEntity
 >('TRANSACTIONS');
 
 export { createAction, updateAction, deleteAction, newTransaction };

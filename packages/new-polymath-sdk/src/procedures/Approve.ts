@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { types } from '@polymathnetwork/new-shared';
 import { Procedure } from './Procedure';
-import { PolyTransactionTags } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 interface Args {
   amount: BigNumber;
@@ -25,14 +24,14 @@ export class Approve extends Procedure<Args> {
     if (balance.lt(amount)) {
       if (isTestnet) {
         await this.addTransaction(polyToken.getTokens, {
-          tag: PolyTransactionTags.GetTokens,
+          tag: types.PolyTransactionTags.GetTokens,
         })(amount, currentWallet.address);
       } else {
         throw new Error('Not enough balance');
       }
     }
     await this.addTransaction(polyToken.approve, {
-      tag: PolyTransactionTags.Approve,
+      tag: types.PolyTransactionTags.Approve,
     })(spender, amount);
   }
 }
