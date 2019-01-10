@@ -19,20 +19,19 @@ import * as sc from './styles';
 
 const { TransactionStatus } = types;
 
-interface SequenceItemProps {
+interface TransactionItemProps {
   transaction: types.Transaction;
 }
 
 const getIcon = (transaction: types.Transaction) => {
-  console.log(transaction.status);
   if (transaction.status === TransactionStatus.Rejected) {
     return <Icon Asset={SvgClose} fill="#E71D32" width="32" height="32" />;
   }
+
   if (
     transaction.status === TransactionStatus.Unapproved ||
     transaction.status === TransactionStatus.Approved
   ) {
-    console.log('here');
     return <Loading small />;
   }
 
@@ -43,7 +42,7 @@ const getIcon = (transaction: types.Transaction) => {
   return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
 };
 
-export const SequenceItem = ({ transaction }: SequenceItemProps) => (
+export const TransactionItem = ({ transaction }: TransactionItemProps) => (
   <sc.Wrapper isDisabled={transaction.status === TransactionStatus.Idle}>
     <Box minWidth={50} mt={1}>
       {getIcon(transaction)}
