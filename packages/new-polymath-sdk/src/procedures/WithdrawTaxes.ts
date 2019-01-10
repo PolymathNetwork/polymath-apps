@@ -1,6 +1,7 @@
 import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
+import { PolyTransactionTags } from '~/types';
 
 interface Args {
   symbol: string;
@@ -31,8 +32,8 @@ export class WithdrawTaxes extends Procedure<Args> {
       );
     }
 
-    await this.addTransaction(dividendModule.withdrawWithholding)(
-      dividendIndex
-    );
+    await this.addTransaction(dividendModule.withdrawWithholding, {
+      tag: PolyTransactionTags.WithdrawTaxWithholdings,
+    })(dividendIndex);
   }
 }

@@ -1,10 +1,12 @@
 import _ from 'lodash';
-import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { TransactionSpec, ErrorCodes } from '~/types';
-import { types } from '@polymathnetwork/new-shared';
 import { EventEmitter } from 'events';
+import { types } from '@polymathnetwork/new-shared';
+import { PostTransactionResolver } from '~/PostTransactionResolver';
+import { TransactionSpec, ErrorCodes, PolyTransactionTags } from '~/types';
 import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
+import { Entity } from '~/entities/Entity';
+import { TransactionQueue } from '~/entities/TransactionQueue';
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -16,8 +18,6 @@ function isPostTransactionResolver(
   return val instanceof PostTransactionResolver;
 }
 
-// TODO @RafaelVidaurre: Fix typing
-// TODO @RafaelVidaurre: Add support for arrays
 // TODO @RafaelVidaurre: Cleanup code
 const mapValuesDeep = (
   obj: { [key: string]: any },
@@ -27,29 +27,58 @@ const mapValuesDeep = (
     _.isPlainObject(val) ? mapValuesDeep(val, fn) : fn(val, key, obj)
   );
 
-/**
- *  TODOS:
- *  1. Set a unique type for the PolyTransaction
- *  2. Set a UID
- *  3. Update status based on web3 responses
- *  4. Reject with standard errors
- */
-export class PolyTransaction {
+export class PolyTransaction extends Entity {
+  public entityType = 'transaction';
+  public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
+  public transactionQueue?: TransactionQueue<any>;
   public promise: Promise<any>;
   public error?: PolymathError;
   public receipt?: TransactionReceipt;
-  protected transaction: TransactionSpec<any>;
+  public tag: PolyTransactionTags;
+  protected method: TransactionSpec<any>['method'];
+  protected args: TransactionSpec<any>['args'];
+  private postResolver: PostTransactionResolver<
+    any
+  > = new PostTransactionResolver(async () => {});
   private emitter: EventEmitter;
 
-  constructor(transaction: TransactionSpec<any>) {
+  constructor(
+    transaction: TransactionSpec<any>,
+    transactionQueue?: TransactionQueue<any>
+  ) {
+    super(undefined, false);
+
+    if (transaction.postTransactionResolver) {
+      this.postResolver = transaction.postTransactionResolver;
+    }
+
     this.emitter = new EventEmitter();
+    this.tag = transaction.tag || PolyTransactionTags.Any;
+    this.method = transaction.method;
+    this.args = transaction.args;
+    this.transactionQueue = transactionQueue;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
     });
+    this.uid = this.generateId();
+  }
 
-    this.transaction = transaction;
+  public toPojo() {
+    const { uid, status, tag, receipt, error, args } = this;
+    const transactionQueueUid =
+      this.transactionQueue && this.transactionQueue.uid;
+
+    return {
+      uid,
+      transactionQueueUid,
+      status,
+      tag,
+      receipt,
+      error,
+      args,
+    };
   }
 
   public async run() {
@@ -73,9 +102,9 @@ export class PolyTransaction {
 
   private async internalRun() {
     this.updateStatus(types.TransactionStatus.Unapproved);
-    const unwrappedArgs = this.unwrapArgs(this.transaction.args);
 
-    const promiEvent = this.transaction.method(...unwrappedArgs);
+    const unwrappedArgs = this.unwrapArgs(this.args);
+    const promiEvent = (await this.method(...unwrappedArgs))();
 
     // Set the Transaction as Running once it is approved by the user
     promiEvent.on('confirmation', (_receiptNumber, receipt) => {
@@ -84,6 +113,7 @@ export class PolyTransaction {
     });
 
     let result;
+
     try {
       result = await promiEvent;
     } catch (err) {
@@ -102,7 +132,7 @@ export class PolyTransaction {
       throw this.error;
     }
 
-    await this.transaction.postTransactionResolver.run();
+    await this.postResolver.run();
 
     return result;
   }

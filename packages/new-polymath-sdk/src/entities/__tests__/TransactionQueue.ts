@@ -1,7 +1,5 @@
 import { GenericContract } from '~/LowLevel/types';
-import { PolyTransaction } from '~/entities/PolyTransaction';
-import { MockedContract as MockedContractClass } from '~/__mocks__/LowLevel/Contract';
-import { Sequence } from '../Sequence';
+import { TransactionQueue } from '../TransactionQueue';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
 class TestContract<T extends GenericContract> {
@@ -27,7 +25,7 @@ const getMockTransactionSpec = (
   postTransactionResolver: new PostTransactionResolver(resolver),
 });
 
-describe('Sequence', () => {
+describe('TransactionQueue', () => {
   let testContract: TestContract<any>;
 
   beforeEach(() => {
@@ -39,9 +37,9 @@ describe('Sequence', () => {
       const transaction = getMockTransactionSpec(testContract.fakeTxOne, [
         'someString',
       ]);
-      const sequence = new Sequence([transaction]);
-      expect(sequence).toBeInstanceOf(Sequence);
-      expect(sequence.run()).toBeInstanceOf(Promise);
+      const transactionQueue = new TransactionQueue([transaction]);
+      expect(transactionQueue).toBeInstanceOf(TransactionQueue);
+      expect(transactionQueue.run()).toBeInstanceOf(Promise);
     });
   });
 
@@ -53,8 +51,9 @@ describe('Sequence', () => {
       const txTwo = getMockTransactionSpec(testContract.fakeTxOne, [
         'stringTwo',
       ]);
-      const sequence = new Sequence([txOne, txTwo]);
-      await sequence.run();
+      const transactionQueue = new TransactionQueue([txOne, txTwo]);
+
+      await transactionQueue.run();
 
       // expect something to have been called
     });

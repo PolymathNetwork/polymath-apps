@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import {
   TransactionSpec,
-  ProcedureTypes,
   ErrorCodes,
   LowLevelMethod,
   MapMaybeResolver,
+  PolyTransactionTags,
 } from '~/types';
-import { Sequence } from '~/Sequence';
+import { TransactionQueue } from '~/entities/TransactionQueue';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 
@@ -26,7 +26,6 @@ type MethodOrProcedure<A extends any[]> =
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args> {
-  public static type: ProcedureTypes;
   public static readonly isProcedure = true;
   protected args: Args;
   protected context: Context;
@@ -43,44 +42,42 @@ export abstract class Procedure<Args> {
    */
 
   public prepare = async () => {
-    const procedureType = (this.constructor as typeof Procedure).type;
-
     await this.prepareTransactions();
 
-    const sequence = new Sequence(this.transactions, procedureType);
+    const name = this.constructor.name;
+    const transactionQueue = new TransactionQueue(this.transactions, name);
 
-    return sequence;
+    return transactionQueue;
   };
 
   /**
-   * Appends a Procedure or method into the Sequence's queue. This defines
-   * what will be run by the Sequence when it is started.
+   * Appends a Procedure or method into the TransactionQueue's queue. This defines
+   * what will be run by the TransactionQueue when it is started.
    *
-   * @param ThingToRun A Procedure or method that will be run in the Procedure's Sequence
-   * @param resolver An asynchronous callback used to provide runtime data after
+   * @param Enqueueable A Procedure or method that will be run in the Procedure's TransactionQueue
+   * @param option.tag An optional tag for SDK users to identify this transaction, this
+   * can be used for doing things such as mapping descriptions to tags in the UI
+   * @param options.resolver An asynchronous callback used to provide runtime data after
    * the transaction added has finished successfully
    */
   public addTransaction<A extends any[], R extends any>(
-    ThingToRun: MethodOrProcedure<A>,
-    resolver?: () => Promise<R>
+    Enqueueable: MethodOrProcedure<A>,
+    {
+      tag,
+      resolver = (() => {}) as () => Promise<R>,
+    }: {
+      tag?: PolyTransactionTags;
+      resolver?: () => Promise<R>;
+    } = {}
   ) {
     // TODO @RafaelVidaurre: Improve typing for returned function args so that
     // they can be wrapped in PostTransactionResolvers
     return async (...args: MapMaybeResolver<A>) => {
-      let postTransactionResolver: PostTransactionResolver<R>;
-
-      if (resolver) {
-        postTransactionResolver = new PostTransactionResolver(resolver);
-      } else {
-        // Force resolver return type
-        postTransactionResolver = new PostTransactionResolver(
-          async () => (undefined as any) as R
-        );
-      }
+      const postTransactionResolver = new PostTransactionResolver(resolver);
 
       // If method is a Procedure, get its Transactions and push those
-      if (isProcedure<A>(ThingToRun)) {
-        const operation = new ThingToRun(args[0], this.context);
+      if (isProcedure<A>(Enqueueable)) {
+        const operation = new Enqueueable(args[0], this.context);
 
         try {
           await operation.prepareTransactions();
@@ -97,9 +94,10 @@ export abstract class Procedure<Args> {
       }
 
       const transaction = {
-        method: ThingToRun,
+        method: Enqueueable,
         args,
         postTransactionResolver,
+        tag,
       };
 
       this.transactions.push(transaction);

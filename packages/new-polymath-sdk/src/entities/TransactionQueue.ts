@@ -1,34 +1,42 @@
-import { TransactionSpec, ProcedureTypes, ErrorCodes } from '~/types';
-import { PolyTransaction } from '~/entities/PolyTransaction';
 import { EventEmitter } from 'events';
 import { types } from '@polymathnetwork/new-shared';
+import { TransactionSpec } from '~/types';
+import { Entity } from './Entity';
+import { PolyTransaction } from './PolyTransaction';
+import { Procedure } from '~/procedures/Procedure';
 
 enum Events {
   StatusChange = 'StatusChange',
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class Sequence<T extends ProcedureTypes> {
-  public static readonly entityType: string = 'sequence';
-  public readonly procedureType: ProcedureTypes;
+export class TransactionQueue<T extends Procedure<any>> extends Entity {
+  public readonly entityType: string = 'transactionQueue';
+  public procedureType: string;
+  public uid: string;
   public transactions: PolyTransaction[];
   public promise: Promise<any>;
-  public status: types.SequenceStatus = types.SequenceStatus.Idle;
+  public status: types.TransactionQueueStatus =
+    types.TransactionQueueStatus.Idle;
   public error?: Error;
   private queue: PolyTransaction[] = [];
   private emitter: EventEmitter;
 
-  constructor(transactions: TransactionSpec<any>[], procedureType?: T) {
+  constructor(
+    transactions: TransactionSpec<any>[],
+    procedureType: string = 'UnnamedProcedure'
+  ) {
+    super(undefined, false);
+
     this.emitter = new EventEmitter();
+    this.procedureType = procedureType;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
     });
 
-    this.procedureType = procedureType || ProcedureTypes.Unnamed;
-
     this.transactions = transactions.map(transaction => {
-      const txn = new PolyTransaction(transaction);
+      const txn = new PolyTransaction(transaction, this);
 
       txn.onStatusChange(updatedTransaction => {
         this.emitter.emit(
@@ -41,32 +49,44 @@ export class Sequence<T extends ProcedureTypes> {
       return txn;
     });
 
-    this.updateStatus(types.SequenceStatus.Running);
+    this.uid = this.generateId();
+    this.updateStatus(types.TransactionQueueStatus.Running);
+  }
+
+  public toPojo() {
+    const { uid, transactions, status, procedureType } = this;
+
+    return {
+      uid,
+      transactions: transactions.map(transaction => transaction.toPojo()),
+      status,
+      procedureType,
+    };
   }
 
   public async run() {
     this.queue = [...this.transactions];
-    this.updateStatus(types.SequenceStatus.Running);
+    this.updateStatus(types.TransactionQueueStatus.Running);
 
     try {
       const res = await this.executeTransactionQueue();
-      this.updateStatus(types.SequenceStatus.Succeeded);
+      this.updateStatus(types.TransactionQueueStatus.Succeeded);
       this.resolve(res);
     } catch (err) {
       this.error = err;
-      this.updateStatus(types.SequenceStatus.Failed);
+      this.updateStatus(types.TransactionQueueStatus.Failed);
       this.reject(err);
     }
 
     await this.promise;
   }
 
-  public onStatusChange(listener: (sequence: this) => void) {
+  public onStatusChange(listener: (transactionQueue: this) => void) {
     this.emitter.on(Events.StatusChange, listener);
   }
 
   public onTransactionStatusChange(
-    listener: (transaction: PolyTransaction, sequence: this) => void
+    listener: (transaction: PolyTransaction, transactionQueue: this) => void
   ) {
     this.emitter.on(Events.TransactionStatusChange, listener);
   }
@@ -74,19 +94,19 @@ export class Sequence<T extends ProcedureTypes> {
   protected resolve: (val?: any) => void = () => {};
   protected reject: (reason?: any) => void = () => {};
 
-  private updateStatus = (status: types.SequenceStatus) => {
+  private updateStatus = (status: types.TransactionQueueStatus) => {
     this.status = status;
 
     switch (status) {
-      case types.SequenceStatus.Running: {
+      case types.TransactionQueueStatus.Running: {
         this.emitter.emit(Events.StatusChange, this);
         return;
       }
-      case types.SequenceStatus.Succeeded: {
+      case types.TransactionQueueStatus.Succeeded: {
         this.emitter.emit(Events.StatusChange, this);
         return;
       }
-      case types.SequenceStatus.Failed: {
+      case types.TransactionQueueStatus.Failed: {
         this.emitter.emit(Events.StatusChange, this, this.error);
         return;
       }
@@ -107,7 +127,7 @@ export class Sequence<T extends ProcedureTypes> {
   }
 
   private finish() {
-    this.status = types.SequenceStatus.Succeeded;
+    this.status = types.TransactionQueueStatus.Succeeded;
     this.resolve();
   }
 }
