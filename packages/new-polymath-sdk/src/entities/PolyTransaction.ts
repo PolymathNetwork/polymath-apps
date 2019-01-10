@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { TransactionSpec, ErrorCodes } from '~/types';
+import { TransactionSpec, ErrorCodes, PolyTransactionTags } from '~/types';
 import { types } from '@polymathnetwork/new-shared';
 import { EventEmitter } from 'events';
 import { PolymathError } from '~/PolymathError';
@@ -27,29 +27,32 @@ const mapValuesDeep = (
     _.isPlainObject(val) ? mapValuesDeep(val, fn) : fn(val, key, obj)
   );
 
-/**
- *  TODOS:
- *  1. Set a unique type for the PolyTransaction
- *  2. Set a UID
- *  3. Update status based on web3 responses
- *  4. Reject with standard errors
- */
 export class PolyTransaction {
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
   public promise: Promise<any>;
   public error?: PolymathError;
   public receipt?: TransactionReceipt;
-  protected transaction: TransactionSpec<any>;
+  public tag: PolyTransactionTags;
+  protected method: TransactionSpec<any>['method'];
+  protected args: TransactionSpec<any>['args'];
+  private postResolver: PostTransactionResolver<
+    any
+  > = new PostTransactionResolver(async () => {});
   private emitter: EventEmitter;
 
   constructor(transaction: TransactionSpec<any>) {
     this.emitter = new EventEmitter();
+    this.tag = transaction.tag || PolyTransactionTags.Any;
+    this.method = transaction.method;
+    this.args = transaction.args;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
     });
 
-    this.transaction = transaction;
+    if (transaction.postTransactionResolver) {
+      this.postResolver = transaction.postTransactionResolver;
+    }
   }
 
   public async run() {
@@ -73,9 +76,9 @@ export class PolyTransaction {
 
   private async internalRun() {
     this.updateStatus(types.TransactionStatus.Unapproved);
-    const unwrappedArgs = this.unwrapArgs(this.transaction.args);
 
-    const promiEvent = this.transaction.method(...unwrappedArgs);
+    const unwrappedArgs = this.unwrapArgs(this.args);
+    const promiEvent = (await this.method(...unwrappedArgs))();
 
     // Set the Transaction as Running once it is approved by the user
     promiEvent.on('confirmation', (_receiptNumber, receipt) => {
@@ -102,7 +105,7 @@ export class PolyTransaction {
       throw this.error;
     }
 
-    await this.transaction.postTransactionResolver.run();
+    await this.postResolver.run();
 
     return result;
   }

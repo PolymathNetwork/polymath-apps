@@ -43,10 +43,11 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     super({ address, abi: SecurityTokenAbi.abi, context });
   }
 
-  public createCheckpoint = () => {
-    return this.contract.methods
-      .createCheckpoint()
-      .send({ from: this.context.account });
+  public createCheckpoint = async () => {
+    return () =>
+      this.contract.methods
+        .createCheckpoint()
+        .send({ from: this.context.account });
   };
 
   public async currentCheckpointId() {
@@ -64,14 +65,15 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       this.address
     );
 
-    return this.contract.methods
-      .addModule(
-        factoryAddress,
-        Web3.utils.asciiToHex(''), // Dividends modules require no configuration data so we send '0x00'
-        new BigNumber(0),
-        new BigNumber(0)
-      )
-      .send({ from: this.context.account });
+    return () =>
+      this.contract.methods
+        .addModule(
+          factoryAddress,
+          Web3.utils.asciiToHex(''), // Dividends modules require no configuration data so we send '0x00'
+          new BigNumber(0),
+          new BigNumber(0)
+        )
+        .send({ from: this.context.account });
   };
 
   public async getErc20DividendModule() {

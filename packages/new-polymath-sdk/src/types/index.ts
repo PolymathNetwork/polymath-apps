@@ -30,10 +30,15 @@ export interface InvestorBalance {
   balance: BigNumber;
 }
 
+export type LowLevelMethod<A extends any[]> = (
+  ...args: A
+) => Promise<() => PromiEvent<any>>;
+
 export interface TransactionSpec<Args extends any[]> {
-  method: (...args: Args) => PromiEvent<any>;
+  method: LowLevelMethod<Args>;
   args: Args;
-  postTransactionResolver: PostTransactionResolver<any>;
+  postTransactionResolver?: PostTransactionResolver<any>;
+  tag?: PolyTransactionTags;
 }
 
 export enum ProcedureTypes {
@@ -46,4 +51,15 @@ export enum ProcedureTypes {
   ReclaimFunds = 'ReclaimFunds',
   ReserveSecurityToken = 'ReserveSecurityToken',
   WithdrawTaxes = 'WithdrawTaxes',
+}
+
+export enum PolyTransactionTags {
+  Any = 'Any',
+  Approve = 'Approve',
+  CreateSecurityToken = 'CreateSecurityToken',
+  CreateCheckpoint = 'CreateCheckpoint',
+  CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
+  CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
+  SetErc20TaxWithholding = 'SetErc20TaxWithholding',
+  SetEtherTaxWithholding = 'SetEtherTaxWithholding',
 }

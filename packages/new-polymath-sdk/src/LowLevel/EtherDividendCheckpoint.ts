@@ -45,20 +45,27 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
     const nameInBytes = Web3.utils.asciiToHex(name);
 
     if (excludedAddresses) {
-      return await this.contract.methods
-        .createDividendWithCheckpointAndExclusions(
+      return () =>
+        this.contract.methods
+          .createDividendWithCheckpointAndExclusions(
+            maturity,
+            expiry,
+            checkpointId,
+            excludedAddresses,
+            nameInBytes
+          )
+          .send({ value: amountInWei });
+    }
+
+    return () =>
+      this.contract.methods
+        .createDividendWithCheckpoint(
           maturity,
           expiry,
           checkpointId,
-          excludedAddresses,
           nameInBytes
         )
         .send({ value: amountInWei });
-    }
-
-    return await this.contract.methods
-      .createDividendWithCheckpoint(maturity, expiry, checkpointId, nameInBytes)
-      .send({ value: amountInWei });
   };
 
   public async getDividends() {

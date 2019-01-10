@@ -1,6 +1,7 @@
 import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '~/entities/PolyTransaction';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
+import { PolyTransactionTags } from '~/types';
 
 describe('PolyTransaction', () => {
   describe('constructor', () => {
@@ -12,6 +13,17 @@ describe('PolyTransaction', () => {
       };
       const polyTransaction = new PolyTransaction(transaction);
       expect(polyTransaction).toBeInstanceOf(PolyTransaction);
+    });
+
+    test('has a default tag', () => {
+      const transaction = {
+        method: jest.fn(),
+        args: ['argA'],
+      };
+
+      const polyTransaction = new PolyTransaction(transaction);
+
+      expect(polyTransaction).toHaveProperty('tag', PolyTransactionTags.Any);
     });
 
     test('starts as Idle', () => {
@@ -40,7 +52,6 @@ describe('PolyTransaction', () => {
     const transaction = {
       method: test.method,
       args: ['argA'],
-      postTransactionResolver: new PostTransactionResolver(async () => {}),
     };
 
     const polyTransaction = new PolyTransaction(transaction);
