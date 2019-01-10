@@ -1,4 +1,4 @@
-import { HttpProvider, WebsocketProvider } from 'web3/providers';
+import { HttpProvider } from 'web3/providers';
 import { PolyToken } from '~/LowLevel/PolyToken';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
@@ -23,14 +23,7 @@ import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
 import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
-
-export interface PolymathNetworkParams {
-  httpProvider?: HttpProvider;
-  httpProviderUrl?: string;
-  wsProvider?: WebsocketProvider;
-  wsProviderUrl?: string;
-  polymathRegistryAddress: string;
-}
+import { PolymathNetworkParams } from '~/types';
 
 type EntityConstructor<T> = new (
   params: { [key: string]: any },

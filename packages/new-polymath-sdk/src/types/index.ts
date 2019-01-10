@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import PromiEvent from 'web3/promiEvent';
 
@@ -55,4 +56,12 @@ export enum PolyTransactionTags {
   EnableDividends = 'EnableDividends',
   ReclaimDividendFunds = 'ReclaimDividendFunds',
   WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
+}
+
+export interface PolymathNetworkParams {
+  httpProvider?: HttpProvider;
+  httpProviderUrl?: string;
+  wsProvider?: WebsocketProvider;
+  wsProviderUrl?: string;
+  polymathRegistryAddress: string;
 }
