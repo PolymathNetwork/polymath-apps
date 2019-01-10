@@ -1,5 +1,11 @@
 import _ from 'lodash';
-import { TransactionSpec, ProcedureTypes, ErrorCodes } from '~/types';
+import {
+  TransactionSpec,
+  ProcedureTypes,
+  ErrorCodes,
+  LowLevelMethod,
+  MapMaybeResolver,
+} from '~/types';
 import { Sequence } from '~/Sequence';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
@@ -14,7 +20,6 @@ export interface ProcedureType<Args = any> {
   new (args: Args, context: Context): Procedure<Args>;
 }
 
-type LowLevelMethod<A extends any[]> = (...args: A) => Promise<any>;
 type MethodOrProcedure<A extends any[]> =
   | LowLevelMethod<A>
   | ProcedureType<A[0]>;
@@ -61,7 +66,7 @@ export abstract class Procedure<Args> {
   ) {
     // TODO @RafaelVidaurre: Improve typing for returned function args so that
     // they can be wrapped in PostTransactionResolvers
-    return async (...args: A) => {
+    return async (...args: MapMaybeResolver<A>) => {
       let postTransactionResolver: PostTransactionResolver<R>;
 
       if (resolver) {

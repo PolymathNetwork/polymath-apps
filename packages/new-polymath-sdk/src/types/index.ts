@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import PromiEvent from 'web3/promiEvent';
 
 export interface TaxWithholding {
   address: string;
@@ -31,8 +30,8 @@ export interface InvestorBalance {
 }
 
 export interface TransactionSpec<Args extends any[]> {
-  method: (...args: Args) => PromiEvent<any>;
-  args: Args;
+  method: LowLevelMethod<Args>;
+  args: MapMaybeResolver<Args>;
   postTransactionResolver: PostTransactionResolver<any>;
 }
 
@@ -47,3 +46,9 @@ export enum ProcedureTypes {
   ReserveSecurityToken = 'ReserveSecurityToken',
   WithdrawTaxes = 'WithdrawTaxes',
 }
+
+export type LowLevelMethod<A extends any[]> = (...args: A) => Promise<any>;
+
+export type MapMaybeResolver<T extends any[]> = {
+  [K in keyof T]: PostTransactionResolver<T[K]> | T[K]
+};
