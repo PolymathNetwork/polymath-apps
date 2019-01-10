@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { Contract } from '~/LowLevel/Contract';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
+import PromiEvent from 'web3/promiEvent';
 
 export interface TaxWithholding {
   address: string;
@@ -16,9 +16,13 @@ export enum ModuleTypes {
 }
 
 export enum ErrorCodes {
-  IncompatibleBrowser,
-  UserDeniedAccess,
-  WalletIsLocked,
+  IncompatibleBrowser = 'IncompatibleBrowser',
+  UserDeniedAccess = 'UserDeniedAccess',
+  WalletIsLocked = 'WalletIsLocked',
+  ProcedureValidationError = 'ProcedureValidationError',
+  TransactionRejectedByUser = 'TransactionRejectedByUser',
+  TransactionReverted = 'TransactionReverted',
+  FatalError = 'FatalError',
 }
 
 export interface InvestorBalance {
@@ -27,8 +31,19 @@ export interface InvestorBalance {
 }
 
 export interface TransactionSpec<Args extends any[]> {
-  method: (...args: Args) => Promise<any>;
+  method: (...args: Args) => PromiEvent<any>;
   args: Args;
-  contract: Contract<any>;
   postTransactionResolver: PostTransactionResolver<any>;
+}
+
+export enum ProcedureTypes {
+  Unnamed = 'Unnamed',
+  Approve = 'Approve',
+  CreateErc20DividendCheckpoint = 'CreateErc20DividendCheckpoint',
+  CreateEtherDividendCheckpoint = 'CreateEtherDividendCheckpoint',
+  CreateSecurityToken = 'CreateSecurityToken',
+  EnableDividendModules = 'EnableDividendModules',
+  ReclaimFunds = 'ReclaimFunds',
+  ReserveSecurityToken = 'ReserveSecurityToken',
+  WithdrawTaxes = 'WithdrawTaxes',
 }

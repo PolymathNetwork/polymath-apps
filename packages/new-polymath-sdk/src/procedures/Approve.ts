@@ -23,7 +23,7 @@ export class Approve extends Procedure<Args> {
 
     if (balance.lt(amount)) {
       if (isTestnet) {
-        await this.addTransaction(polyToken, polyToken.getTokens)(
+        await this.addTransaction(polyToken.getTokens)(
           amount,
           currentWallet.address
         );
@@ -31,6 +31,6 @@ export class Approve extends Procedure<Args> {
         throw new Error('Not enough balance');
       }
     }
-    await this.addTransaction(polyToken, polyToken.approve)(spender, amount);
+    await this.addTransaction(polyToken.approve)(spender, amount);
   }
 }

@@ -42,7 +42,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
     super({ address, abi: ERC20DividendCheckpointAbi.abi, context });
   }
 
-  public createDividend(
+  public createDividend = (
     maturityDate: Date,
     expiryDate: Date,
     tokenAddress: string,
@@ -50,7 +50,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
     checkpointId: number,
     name: string,
     excludedAddresses?: string[]
-  ) {
+  ) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const { asciiToHex } = Web3.utils;
     const amountInWei = toWei(amount);
@@ -80,7 +80,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
         nameInBytes
       )
       .send({ from: this.context.account });
-  }
+  };
 
   public async getDividends() {
     const dividends = await super.getDividends();

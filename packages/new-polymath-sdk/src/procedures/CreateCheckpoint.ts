@@ -11,6 +11,6 @@ export class CreateCheckpoint extends Procedure<Args> {
 
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
 
-    await this.addTransaction(securityToken, securityToken.createCheckpoint)();
+    await this.addTransaction(securityToken.createCheckpoint)();
   }
 }

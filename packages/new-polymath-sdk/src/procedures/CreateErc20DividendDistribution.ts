@@ -29,7 +29,6 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
     const { securityTokenRegistry } = this.context;
 
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
-
     const erc20Module = await securityToken.getErc20DividendModule();
 
     if (!erc20Module) {
@@ -39,7 +38,6 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
     }
 
     const dividendId = await this.addTransaction(
-      erc20Module,
       erc20Module.createDividend,
       async () => {
         // TODO @RafaelVidaurre: fetch here dividend's id
@@ -55,6 +53,9 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
       excludedAddresses
     );
 
+    // tslint:disable-next-line
+    console.log('This will be dividendId:', dividendId);
+
     if (taxWithholdings.length > 0) {
       const investorAddresses: string[] = [];
       const percentages: number[] = [];
@@ -64,7 +65,7 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
         percentages.push(percentage);
       });
 
-      await this.addTransaction(erc20Module, erc20Module.setWithholding)(
+      await this.addTransaction(erc20Module.setWithholding)(
         investorAddresses,
         percentages
       );

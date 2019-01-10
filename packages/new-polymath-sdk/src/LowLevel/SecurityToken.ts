@@ -43,17 +43,17 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     super({ address, abi: SecurityTokenAbi.abi, context });
   }
 
-  public async createCheckpoint() {
+  public createCheckpoint = () => {
     return this.contract.methods
       .createCheckpoint()
       .send({ from: this.context.account });
-  }
+  };
 
   public async currentCheckpointId() {
     return this.contract.methods.currentCheckpointId().call();
   }
 
-  public async addDividendsModule(type: DividendModuleTypes) {
+  public addDividendsModule = async (type: DividendModuleTypes) => {
     const factoryMappings = [];
     factoryMappings[DividendModuleTypes.Erc20] = 'ERC20DividendCheckpoint';
     factoryMappings[DividendModuleTypes.Eth] = 'EtherDividendCheckpoint';
@@ -72,7 +72,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
         new BigNumber(0)
       )
       .send({ from: this.context.account });
-  }
+  };
 
   public async getErc20DividendModule() {
     const address = await this.getModuleAddress('ERC20DividendCheckPoint');

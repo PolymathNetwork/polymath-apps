@@ -16,7 +16,7 @@ export enum TransactionStatus {
   Succeeded = 'SUCCEEDED',
   Failed = 'FAILED',
 }
-export enum HigherLevelTransactionStatus {
+export enum SequenceStatus {
   Idle = 'IDLE',
   Running = 'RUNNING',
   Failed = 'FAILED',
@@ -32,15 +32,6 @@ export interface Transaction {
   status: TransactionStatus;
   type: string;
   hash?: TransactionHash;
-  error?: {
-    message: string;
-  };
-}
-export interface HigherLevelTransaction {
-  uid: Id;
-  status: HigherLevelTransactionStatus;
-  name: string;
-  transactions: Transaction[];
   error?: {
     message: string;
   };
