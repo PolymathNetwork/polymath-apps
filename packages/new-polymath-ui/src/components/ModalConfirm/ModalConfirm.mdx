@@ -5,7 +5,8 @@ menu: Modals
 
 import { Playground, PropsTable } from 'docz';
 
-import ModalConfirm from './';
+import { ModalConfirm } from './ModalConfirm';
+import { ModalDemo } from './ModalDemo';
 
 # ModalConfirm
 
@@ -14,12 +15,5 @@ import ModalConfirm from './';
 ## Basic usage
 
 <Playground>
-  <ModalConfirm
-    isOpen
-    actionButtonText="Button Text"
-    onSubmit={() => console.log('submit')}
-  >
-    <ModalConfirm.Header>A title</ModalConfirm.Header>
-    Some content.
-  </ModalConfirm>
+  <ModalDemo />
 </Playground>

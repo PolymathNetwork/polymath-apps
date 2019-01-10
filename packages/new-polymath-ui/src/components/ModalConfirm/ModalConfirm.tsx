@@ -1,16 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 
+import { Modal, ModalProps } from '~/components/Modal';
 import { Button } from '~/components/Button';
-import { Modal } from '~/components/Modal';
 
-export interface ModalConfirmProps {
-  children: Node;
+export interface ModalConfirmProps extends ModalProps {
   isActionDisabled: boolean;
   actionButtonText: string;
   cancelButtonText: string;
-  onClose: () => void;
   onSubmit: () => void;
-  isOpen: boolean;
+  onClose: () => void;
 }
 
 export const ModalConfirm = (props: ModalConfirmProps) => {
@@ -44,9 +42,11 @@ export const ModalConfirm = (props: ModalConfirmProps) => {
   );
 };
 
+ModalConfirm.Header = Modal.Header;
+ModalConfirm.Body = Modal.Body;
+
 ModalConfirm.defaultProps = {
   isActionDisabled: false,
   actionButtonText: 'Confirm',
   cancelButtonText: 'Cancel',
-  onClose: null,
 };
