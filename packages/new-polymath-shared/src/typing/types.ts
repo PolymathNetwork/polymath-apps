@@ -123,6 +123,8 @@ export interface Transaction {
   status: TransactionStatus;
   type: string;
   hash?: TransactionHash;
+  description: string;
+  tag: PolyTransactionTags;
   error?: {
     message: string;
   };

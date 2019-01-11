@@ -9,8 +9,6 @@ import {
   FontWeightProps,
   lineHeight,
   LineHeightProps,
-  letterSpacing,
-  LetterSpacingProps,
   fontSize,
   FontSizeProps,
 } from 'styled-system';
@@ -22,15 +20,13 @@ export type ParagraphProps = { bold?: boolean; as?: string } & BoxProps &
   FontFamilyProps &
   FontWeightProps &
   FontSizeProps &
-  LineHeightProps &
-  LetterSpacingProps;
+  LineHeightProps;
 
 export const Paragraph = styled(Box)<ParagraphProps>`
   ${color};
   ${fontFamily};
   ${fontWeight};
   ${lineHeight};
-  ${letterSpacing};
   ${fontSize};
   ${props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })};
 

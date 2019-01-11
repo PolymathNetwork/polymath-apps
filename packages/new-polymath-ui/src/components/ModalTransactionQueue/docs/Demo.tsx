@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { types } from '@polymathnetwork/new-shared';
+import { ModalConfirm } from '~/components/ModalConfirm';
+import { ModalTransactionQueue } from '../ModalTransactionQueue';
 
-import { ModalSequence } from './ModalSequence';
-
-const sequence = {
-  uid: '111',
+const transactionQueue = {
+  id: '111',
   name: 'Dividend Configuration',
   status: types.TransactionQueueStatus.Idle,
   transactions: [
@@ -23,26 +23,26 @@ const sequence = {
 
 interface DemoState {
   isModalOpen: boolean;
-  sequence: types.HigherLevelTransaction;
+  transactionQueue: types.TransactionQueueEntity;
 }
 
 export class ModalDemo extends React.Component<{}, DemoState> {
   public state = {
     isModalOpen: false,
-    sequence,
+    transactionQueue,
   };
 
   public componentDidUpdate(_prevProps: any, prevState: DemoState) {
     if (!prevState.isModalOpen && this.state.isModalOpen) {
       // Reset Modal state
       this.setState({
-        sequence,
+        transactionQueue,
       });
 
       setTimeout(() => {
         this.setState({
-          sequence: {
-            ...this.state.sequence,
+          transactionQueue: {
+            ...this.state.transactionQueue,
             status: types.TransactionQueueStatus.Running,
             transactions: [
               {
@@ -62,8 +62,8 @@ export class ModalDemo extends React.Component<{}, DemoState> {
 
       setTimeout(() => {
         this.setState({
-          sequence: {
-            ...this.state.sequence,
+          transactionQueue: {
+            ...this.state.transactionQueue,
             transactions: [
               {
                 uid: '0',
@@ -83,8 +83,8 @@ export class ModalDemo extends React.Component<{}, DemoState> {
 
       setTimeout(() => {
         this.setState({
-          sequence: {
-            ...this.state.sequence,
+          transactionQueue: {
+            ...this.state.transactionQueue,
             transactions: [
               {
                 uid: '0',
@@ -104,9 +104,9 @@ export class ModalDemo extends React.Component<{}, DemoState> {
 
       setTimeout(() => {
         this.setState({
-          sequence: {
-            ...this.state.sequence,
-            status: types.SequenceStatus.Succeeded,
+          transactionQueue: {
+            ...this.state.transactionQueue,
+            status: types.TransactionQueueStatus.Succeeded,
             transactions: [
               {
                 uid: '0',
@@ -151,9 +151,32 @@ export class ModalDemo extends React.Component<{}, DemoState> {
         <button className="btn" onClick={this.handleClick}>
           Start transaction
         </button>
-        <ModalSequence
+
+        <ModalConfirm
           isOpen={this.state.isModalOpen}
-          sequence={this.state.sequence}
+          onSubmit={this.handleSubmit}
+          onClose={this.handleModalClose}
+          {...this.props}
+        >
+          <ModalConfirm.Header>
+            Proceed with Your {getTransactionQueueTitle(transactionQueue)}
+          </ModalConfirm.Header>
+          <Paragraph>{getTransactionQueueDesc(transactionQueue)}</Paragraph>
+          <div>
+            {transactionQueue.transactions.map(transaction => (
+              <TransactionItem
+                key={transaction.id}
+                icon={getTransactionIcon(transaction)}
+                title={getTransactionTitle(transaction)}
+                description={getTransactionDesc(transaction)}
+              />
+            ))}
+          </div>
+        </ModalConfirm>
+
+        <ModalTransactionQueue
+          isOpen={this.state.isModalOpen}
+          transactionQueue={this.state.transactionQueue}
           withEmail
           onContinue={this.handleContinue}
         />

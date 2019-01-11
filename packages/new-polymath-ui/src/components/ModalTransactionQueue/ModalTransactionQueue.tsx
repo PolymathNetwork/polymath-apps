@@ -10,7 +10,7 @@ import { Modal, ModalProps, ModalStatus } from '../Modal';
 
 import { SvgPaperplane } from '~/images/icons/Paperplane';
 
-import { SequenceItem } from './SequenceItem';
+import { TransactionItem } from './TransactionItem';
 
 const { TransactionQueueStatus } = types;
 
@@ -40,21 +40,17 @@ const getTitleText = (status: ModalStatus, title: string) =>
     [ModalStatus.success]: `${title} was successfully submitted`,
   }[status]);
 
-export interface ModalSequenceProps
-  extends Pick<
-    ModalProps,
-    'isOpen' | 'isCloseable' | 'status' | 'maxWidth' | 'isCentered'
-  > {
-  transactionQueue: types.TransactionQueueEntity & {
-    transactions: types.TransactionEntity[];
-  };
+export interface ModalTransactionQueueProps extends ModalProps {
+  transactionQueue: types.HigherLevelTransaction;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
 }
 
-export class ModalSequence extends Component<ModalSequenceProps> {
-  public static defaultProps = {
+export class ModalTransactionQueue extends Component<
+  ModalTransactionQueueProps
+> {
+  static defaultProps = {
     continueButtonText: 'Continue',
   };
 
@@ -89,11 +85,11 @@ export class ModalSequence extends Component<ModalSequenceProps> {
           status={status}
           label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(modalStatus, description)}
+          {getTitleText(status, transactionQueue.name)}
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <SequenceItem key={transaction.uid} transaction={transaction} />
+          <TransactionItem key={transaction.id} transaction={transaction} />
         ))}
 
         {isSuccess && withEmail && (
