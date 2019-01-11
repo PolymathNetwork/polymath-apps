@@ -11,7 +11,6 @@ import { Modal, ModalProps, ModalStatus } from '../Modal';
 // import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
 
 import { SequenceItem } from './SequenceItem';
-import { maxWidth } from 'styled-system';
 
 const { TransactionQueueStatus } = types;
 
@@ -83,7 +82,7 @@ export class ModalSequence extends Component<ModalSequenceProps> {
         isOpen={isOpen}
         isCloseable={false}
         status={modalStatus}
-        maxWidth={maxWidth('500')}
+        maxWidth={500}
         isCentered={false}
       >
         <Modal.Header

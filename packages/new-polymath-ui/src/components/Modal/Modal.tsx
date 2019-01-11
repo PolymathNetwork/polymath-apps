@@ -13,11 +13,11 @@ import { ModalStatus } from './types';
 
 export interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  status: ModalStatus;
+  onClose?: () => void;
   className?: string;
   isCloseable?: boolean;
-  status: ModalStatus;
-  maxWidth?: MaxWidthProps;
+  maxWidth?: number | string;
   isCentered?: boolean;
   theme: ThemeInterface;
 }
