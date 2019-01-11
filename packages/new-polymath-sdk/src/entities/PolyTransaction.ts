@@ -83,6 +83,7 @@ export class PolyTransaction extends Entity {
   public async run() {
     try {
       const res = await this.internalRun();
+      this.updateStatus(types.TransactionStatus.Succeeded);
       this.resolve(res);
     } catch (err) {
       this.reject(err);

@@ -63,7 +63,7 @@ export class TransactionQueue extends Entity {
     };
   }
 
-  public async run() {
+  public run = async () => {
     this.queue = [...this.transactions];
     this.updateStatus(types.TransactionQueueStatus.Running);
 
@@ -78,7 +78,7 @@ export class TransactionQueue extends Entity {
     }
 
     await this.promise;
-  }
+  };
 
   public onStatusChange(listener: (transactionQueue: this) => void) {
     this.emitter.on(Events.StatusChange, listener);

@@ -52,10 +52,10 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
         address: moduleAddress,
         context: this.context,
       });
+      const byteName = await moduleFactory.name();
+      const name = Web3.utils.toAscii(byteName);
 
-      const name = Web3.utils.toAscii(await moduleFactory.name());
-
-      if (name === moduleName) {
+      if (moduleName.localeCompare(name) === 0) {
         return moduleAddress;
       }
     }

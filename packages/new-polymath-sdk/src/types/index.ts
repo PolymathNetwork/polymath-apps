@@ -4,6 +4,8 @@ import { PostTransactionResolver } from '~/PostTransactionResolver';
 import PromiEvent from 'web3/promiEvent';
 import { types } from '@polymathnetwork/new-shared';
 
+export { DividendModuleTypes } from '~/LowLevel/types';
+
 export interface TaxWithholding {
   address: string;
   percentage: number;
