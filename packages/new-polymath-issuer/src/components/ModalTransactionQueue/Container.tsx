@@ -1,7 +1,7 @@
 import React, { Component, Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { types } from '@polymathnetwork/new-shared';
-import { ModalSequence } from '@polymathnetwork/new-ui';
+import { ModalTransactionQueue } from '@polymathnetwork/new-ui';
 import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { RootState } from '~/state/store';
 import { ActionType } from 'typesafe-actions';
@@ -37,7 +37,7 @@ export class ContainerBase extends Component<Props> {
     const { transactionQueue } = this.props;
 
     return (
-      <ModalSequence
+      <ModalTransactionQueue
         isOpen={!!transactionQueue}
         transactionQueue={transactionQueue}
         onContinue={this.onContinue}
