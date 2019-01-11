@@ -13,7 +13,7 @@ import { types } from '@polymathnetwork/new-shared';
 function isProcedure<T extends any[]>(
   value: any
 ): value is ProcedureType<T[0]> {
-  return value.isProcedure;
+  return value instanceof Procedure;
 }
 
 export interface ProcedureType<Args = any> {
@@ -26,7 +26,6 @@ type MethodOrProcedure<A extends any[]> =
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args> {
-  public static readonly isProcedure = true;
   protected args: Args;
   protected context: Context;
   private transactions: TransactionSpec[] = [];
