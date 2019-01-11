@@ -2,14 +2,14 @@ import React from 'react';
 import { color, ColorProps } from 'styled-system';
 import styled from '~/styles';
 
-export type LinkProps = {
+export interface LinkProps {
   href?: string;
   to?: string;
-} & ColorProps;
+}
 
 export const Link = styled(({ href, to, ...rest }: LinkProps) => {
   const isExternal = !!href;
-  let Tag = href ? 'a' : 'a'; // `Link from react-router for ex`
+  const Tag = href ? 'a' : 'a';
   let linkProps = {};
 
   if (isExternal) {

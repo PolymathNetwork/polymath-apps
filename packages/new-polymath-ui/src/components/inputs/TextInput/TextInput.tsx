@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 
 import { BaseInput } from '../BaseInput';
 
-import { InputProps } from '../types';
 import { formikProxy } from '~/components/inputs/formikProxy';
 
 interface Props {

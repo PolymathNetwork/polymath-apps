@@ -17,9 +17,10 @@ export class TimePickerSelectPrimitive extends Component<
 > {
   public static defaultProps = {
     format: 'h:mm A',
+    onBlur: () => {},
   };
 
-  public handleChange = ({ value }: { label: string; value: number }) => {
+  public handleChange = (value: number) => {
     this.props.onChange(value);
   };
 
@@ -48,8 +49,8 @@ export class TimePickerSelectPrimitive extends Component<
 
 class TimePickerSelectBase extends Component<TimePickerSelectProps> {
   // We trigger an onBlur event when menu closes to trigger Formik validation
-  public handleMenuClose = (e: Event) => {
-    this.props.onBlur(e);
+  public handleMenuClose = () => {
+    this.props.onBlur();
   };
 
   public render() {
