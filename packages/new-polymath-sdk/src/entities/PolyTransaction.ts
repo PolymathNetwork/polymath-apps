@@ -36,6 +36,7 @@ export class PolyTransaction extends Entity {
   public error?: PolymathError;
   public receipt?: TransactionReceipt;
   public tag: types.PolyTransactionTags;
+  public txHash?: string;
   protected method: TransactionSpec['method'];
   protected args: TransactionSpec['args'];
   private postResolver: PostTransactionResolver<
@@ -66,7 +67,16 @@ export class PolyTransaction extends Entity {
   }
 
   public toPojo() {
-    const { uid, status, tag, receipt, error, args, transactionQueue } = this;
+    const {
+      uid,
+      status,
+      tag,
+      receipt,
+      error,
+      args,
+      txHash,
+      transactionQueue,
+    } = this;
     const transactionQueueUid = transactionQueue.uid;
 
     return {
@@ -74,6 +84,7 @@ export class PolyTransaction extends Entity {
       transactionQueueUid,
       status,
       tag,
+      txHash,
       receipt,
       error,
       args,
@@ -82,9 +93,11 @@ export class PolyTransaction extends Entity {
 
   public async run() {
     try {
-      const res = await this.internalRun();
+      const receipt = await this.internalRun();
+      this.receipt = receipt;
+
       this.updateStatus(types.TransactionStatus.Succeeded);
-      this.resolve(res);
+      this.resolve(receipt);
     } catch (err) {
       if (err.code === ErrorCodes.TransactionRejectedByUser) {
         this.updateStatus(types.TransactionStatus.Rejected);
@@ -115,11 +128,10 @@ export class PolyTransaction extends Entity {
     const promiEvent = (await this.method(...unwrappedArgs))();
 
     // Set the Transaction as Running once it is approved by the user
-    promiEvent.on('confirmation', (_receiptNumber, receipt) => {
-      this.receipt = receipt;
+    promiEvent.on('transactionHash', txHash => {
+      this.txHash = txHash;
       this.updateStatus(types.TransactionStatus.Running);
     });
-
     let result;
 
     try {
