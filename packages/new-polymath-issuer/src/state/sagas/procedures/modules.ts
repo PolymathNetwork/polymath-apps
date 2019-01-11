@@ -18,5 +18,11 @@ export function* enableErc20DividendsModule(
     }
   );
 
-  yield call(runTransactionQueue, transactionQueueToRun);
+  try {
+    yield call(runTransactionQueue, transactionQueueToRun);
+  } catch (err) {
+    if (!err.code) {
+      throw err;
+    }
+  }
 }

@@ -1,9 +1,15 @@
-import { polyClient } from '~/lib/polymath';
+import { connect } from 'react-redux';
 import React, { Component, Fragment, Dispatch } from 'react';
 import { browserUtils } from '@polymathnetwork/sdk';
+import { polyClient } from '~/lib/polymath';
 import { ModalTransactionQueue } from '~/components';
-import { connect } from 'react-redux';
-import { ThemeProvider, GlobalStyles, theme } from '@polymathnetwork/new-ui';
+import {
+  ThemeProvider,
+  GlobalStyles,
+  theme,
+  Button,
+  Loading,
+} from '@polymathnetwork/new-ui';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
 
@@ -14,12 +20,16 @@ interface DispatchProps {
 type Props = DispatchProps;
 
 class ContainerBase extends Component<Props> {
+  public state = {
+    ready: false,
+  };
   public async componentDidMount() {
     const { dispatch } = this.props;
     await browserUtils.getCurrentAddress();
     await polyClient.connect();
 
-    dispatch(enableErc20DividendsModuleStart({ securityTokenSymbol: 'A0T0' }));
+    this.setState({ ready: true });
+    console.log('Logged in.');
 
     // const transactionQueue = await polyClient.reserveSecurityToken({
     //   name: 'FOOKEN',
@@ -43,6 +53,12 @@ class ContainerBase extends Component<Props> {
     // }
   }
 
+  public startEnableDividends = () => {
+    this.props.dispatch(
+      enableErc20DividendsModuleStart({ securityTokenSymbol: 'DIVTEST2' })
+    );
+  };
+
   public render() {
     return (
       <div>
@@ -50,6 +66,13 @@ class ContainerBase extends Component<Props> {
           <Fragment>
             <GlobalStyles />
             <ModalTransactionQueue />
+            {this.state.ready ? (
+              <Button onClick={this.startEnableDividends}>
+                Enable Dividends (Test)
+              </Button>
+            ) : (
+              <Loading />
+            )}
           </Fragment>
         </ThemeProvider>
       </div>

@@ -86,8 +86,12 @@ export class PolyTransaction extends Entity {
       this.updateStatus(types.TransactionStatus.Succeeded);
       this.resolve(res);
     } catch (err) {
+      if (err.code === ErrorCodes.TransactionRejectedByUser) {
+        this.updateStatus(types.TransactionStatus.Rejected);
+      } else {
+        this.updateStatus(types.TransactionStatus.Failed);
+      }
       this.reject(err);
-      this.updateStatus(types.TransactionStatus.Rejected);
     }
 
     await this.promise;
@@ -160,6 +164,9 @@ export class PolyTransaction extends Entity {
       case types.TransactionStatus.Failed: {
         this.emitter.emit(Events.StatusChange, this, this.error);
         return;
+      }
+      case types.TransactionStatus.Rejected: {
+        this.emitter.emit(Events.StatusChange, this);
       }
     }
   };
