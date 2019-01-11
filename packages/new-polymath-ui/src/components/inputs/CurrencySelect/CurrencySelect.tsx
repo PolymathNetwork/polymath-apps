@@ -261,5 +261,5 @@ export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   }
 }
 
-export const CurrencySelectPrimitive = withTheme(CurrencySelectPrimitiveBase);
-export const CurrencySelect = formikProxy(CurrencySelectPrimitive);
+export const CurrencySelectPrimitive = formikProxy(CurrencySelectPrimitiveBase);
+export const CurrencySelect = withTheme(CurrencySelectPrimitive);

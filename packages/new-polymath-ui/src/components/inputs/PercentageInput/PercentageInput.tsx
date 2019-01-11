@@ -1,23 +1,18 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { isNumber } from 'lodash';
 import numeral from 'numeral';
 
 import { formikProxy } from '../formikProxy';
-import { BaseInput, BaseInputProps } from '../BaseInput';
+import { BaseInput } from '../BaseInput';
 
-export interface PercentageInputProps extends BaseInputProps {}
+export interface PercentageInputProps {
+  onChange: (value: number) => void;
+  name: string;
+  value: number;
+}
 
-export class PercentageInputPrimitive extends PureComponent<
-  PercentageInputProps
-> {
-  handleChange = event => {
-    const { onChange } = this.props;
-    const normalizedValue = parseFloat(event.target.value) / 100;
-
-    onChange(normalizedValue);
-  };
-
-  static formatValue = (value: any) => {
+export class PercentageInputPrimitive extends Component<PercentageInputProps> {
+  public static formatValue = (value: any) => {
     if (!isNumber(value) || isNaN(value)) {
       return '';
     }
@@ -33,7 +28,17 @@ export class PercentageInputPrimitive extends PureComponent<
     );
   };
 
-  render() {
+  public handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { onChange } = this.props;
+    const { target } = event;
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
+    const normalizedValue = parseFloat(target.value) / 100;
+    onChange(normalizedValue);
+  };
+
+  public render() {
     const { name, value, ...otherProps } = this.props;
     const formattedValue = PercentageInputPrimitive.formatValue(value);
 

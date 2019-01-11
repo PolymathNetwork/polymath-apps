@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled, { css, StyledProps } from 'styled-components';
 
-import { InputProps } from '../types';
-
-export interface BaseInputProps extends InputProps {
+export interface BaseInputProps extends InputHTMLAttributes<HTMLInputElement> {
   unit?: string;
 }
 

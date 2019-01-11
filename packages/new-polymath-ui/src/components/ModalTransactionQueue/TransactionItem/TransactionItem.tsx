@@ -20,10 +20,10 @@ import * as sc from './styles';
 const { TransactionStatus } = types;
 
 interface TransactionItemProps {
-  transaction: types.Transaction;
+  transaction: types.TransactionEntity;
 }
 
-const getIcon = (transaction: types.Transaction) => {
+const getIcon = (transaction: types.TransactionEntity) => {
   if (transaction.status === TransactionStatus.Rejected) {
     return <Icon Asset={SvgClose} fill="#E71D32" width="32" height="32" />;
   }

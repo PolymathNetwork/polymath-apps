@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { MaxWidthProps } from 'styled-system';
 import ReactModal from 'react-modal';
 
 import styled, { withTheme, ThemeInterface } from '~/styles';
@@ -11,7 +10,9 @@ import * as sc from './styles';
 import { ModalStatus } from './types';
 import { SvgClose } from '~/images/icons/Close';
 
-export interface ModalProps {
+export type ModalProps = JSX.LibraryManagedAttributes<typeof ModalBase, Props>;
+
+interface Props {
   isOpen: boolean;
   status: ModalStatus;
   onClose?: () => void;
@@ -27,7 +28,7 @@ interface State {
   isOpen: boolean;
 }
 
-class ModalBase extends Component<ModalProps, State> {
+class ModalBase extends Component<Props, State> {
   public static Header = Header;
   public static Body = Body;
   public static Footer = Footer;

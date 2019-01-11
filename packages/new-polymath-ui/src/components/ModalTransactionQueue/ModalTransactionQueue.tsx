@@ -41,7 +41,7 @@ const getTitleText = (status: ModalStatus, title: string) =>
   }[status]);
 
 export interface ModalTransactionQueueProps extends ModalProps {
-  transactionQueue: types.HigherLevelTransaction;
+  transactionQueue: types.TransactionQueueEntity;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
@@ -50,7 +50,7 @@ export interface ModalTransactionQueueProps extends ModalProps {
 export class ModalTransactionQueue extends Component<
   ModalTransactionQueueProps
 > {
-  static defaultProps = {
+  public static defaultProps = {
     continueButtonText: 'Continue',
   };
 
@@ -82,14 +82,14 @@ export class ModalTransactionQueue extends Component<
         isCentered={false}
       >
         <Modal.Header
-          status={status}
+          status={modalStatus}
           label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(status, transactionQueue.name)}
+          {getTitleText(modalStatus, transactionQueue.description)}
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <TransactionItem key={transaction.id} transaction={transaction} />
+          <TransactionItem key={transaction.uid} transaction={transaction} />
         ))}
 
         {isSuccess && withEmail && (

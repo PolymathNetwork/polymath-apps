@@ -116,36 +116,44 @@ export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
   procedureType: string;
   description: string;
+  transactions: TransactionEntity[];
 }
 
-export interface Transaction {
-  uid: Id;
-  status: TransactionStatus;
-  type: string;
-  hash?: TransactionHash;
-  description: string;
-  tag: PolyTransactionTags;
-  error?: {
-    message: string;
-  };
-}
-export interface SecurityToken {
-  id: Id;
-  address: Address;
-  symbol: string;
-}
-export interface Wallet {
-  id: Id;
-  address: Address;
-  identity?: Identity;
-  balance?: BigNumber;
-}
-export interface Identity {
-  id: Id;
-  name: string;
-  email: string;
-  confirmed?: boolean;
-}
+// export interface Transaction {
+//   uid: Id;
+//   transactionQueueUid: string;
+//   status: TransactionStatus;
+//   hash?: TransactionHash;
+//   description: string;
+//   tag: PolyTransactionTags;
+//   error?: {
+//     message: string;
+//   };
+// }
+
+// export interface TransactionQueue {
+//   status: TransactionQueueStatus;
+//   procedureType: string;
+//   description: string;
+//   transactions: Transaction[];
+// }
+// export interface SecurityToken {
+//   id: Id;
+//   address: Address;
+//   symbol: string;
+// }
+// export interface Wallet {
+//   id: Id;
+//   address: Address;
+//   identity?: Identity;
+//   balance?: BigNumber;
+// }
+// export interface Identity {
+//   id: Id;
+//   name: string;
+//   email: string;
+//   confirmed?: boolean;
+// }
 
 export function isPojo(pojo: any): pojo is Pojo {
   const props = Object.getOwnPropertyNames(pojo);

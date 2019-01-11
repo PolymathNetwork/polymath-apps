@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Modal, ModalProps } from '~/components/Modal';
 import { Button } from '~/components/Button';
 
-export interface ModalConfirmProps extends ModalProps {
+export interface Props extends ModalProps {
   isActionDisabled: boolean;
   actionButtonText: string;
   cancelButtonText: string;
@@ -11,7 +11,12 @@ export interface ModalConfirmProps extends ModalProps {
   onClose: () => void;
 }
 
-const ModalConfirmBase: FC<ModalConfirmProps> = props => {
+export type ModalConfirmProps = JSX.LibraryManagedAttributes<
+  typeof ModalConfirmBase,
+  Props
+>;
+
+const ModalConfirmBase: FC<Props> = props => {
   const {
     isOpen,
     onClose,

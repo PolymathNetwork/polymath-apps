@@ -1,45 +1,47 @@
-import React, { Fragment } from 'react';
+// import React, { Fragment } from 'react';
 
-import { Button } from '~/components/Button';
-import { ModalConfirm } from './ModalConfirm';
+// import { Button } from '~/components/Button';
+// import { ModalConfirm } from './ModalConfirm';
 
-export class ModalDemo extends React.Component {
-  state = {
-    isModalOpen: false,
-  };
+// export class ModalDemo extends React.Component {
+//   public state = {
+//     isModalOpen: false,
+//   };
 
-  handleClick() {
-    this.setState({
-      isModalOpen: true,
-    });
-  }
+//   public handleClick() {
+//     this.setState({
+//       isModalOpen: true,
+//     });
+//   }
 
-  handleModalClose = () => {
-    this.setState({
-      isModalOpen: false,
-    });
-  };
+//   public handleModalClose = () => {
+//     this.setState({
+//       isModalOpen: false,
+//     });
+//   };
 
-  handleSubmit = () => {
-    this.setState({
-      isModalOpen: false,
-    });
-  };
+//   public handleSubmit = () => {
+//     this.setState({
+//       isModalOpen: false,
+//     });
+//   };
 
-  render() {
-    return (
-      <Fragment>
-        <Button onClick={this.handleClick}>Open modal</Button>
+//   public render() {
+//     return (
+//       <Fragment>
+//         <Button onClick={this.handleClick}>Open modal</Button>
 
-        <ModalConfirm
-          isOpen={this.state.isModalOpen}
-          onSubmit={this.handleSubmit}
-          onClose={this.handleModalClose}
-          {...this.props}
-        >
-          Some content
-        </ModalConfirm>
-      </Fragment>
-    );
-  }
-}
+//         <ModalConfirm
+//           isOpen={this.state.isModalOpen}
+//           onSubmit={this.handleSubmit}
+//           onClose={this.handleModalClose}
+//           {...this.props}
+//         >
+//           Some content
+//         </ModalConfirm>
+//       </Fragment>
+//     );
+//   }
+// }
+
+export const DemoModal = () => null;
