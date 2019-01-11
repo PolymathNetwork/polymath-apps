@@ -1,7 +1,12 @@
 import { normalize } from 'polished';
 import fontFaceDefinition from 'typeface-overpass';
+import * as styledComponents from 'styled-components';
+import { ThemedStyledComponentsModule } from 'styled-components';
+import { ThemeInterface } from './types';
 
-import { createGlobalStyle } from '~/styles';
+const { createGlobalStyle } = styledComponents as ThemedStyledComponentsModule<
+  ThemeInterface
+>;
 
 export const GlobalStyles = createGlobalStyle`
   ${normalize()}
