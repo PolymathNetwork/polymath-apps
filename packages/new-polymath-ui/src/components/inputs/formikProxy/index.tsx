@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { FieldProps } from 'formik';
-// type GetProps<C> = C extends React.ComponentType<infer P> ? P : never;
 
 interface InjectedProps {
   value: any | any[];

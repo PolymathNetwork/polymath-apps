@@ -3,13 +3,19 @@ import BigNumber from 'bignumber.js';
 import { constants } from '@polymathnetwork/new-shared';
 
 import { formikProxy } from '../formikProxy';
-import { BaseInput, BaseInputProps } from '../BaseInput';
+import { BaseInput } from '../BaseInput';
 
-export interface NumberInputProps extends BaseInputProps {
+type Value = number | BigNumber | null;
+
+export interface NumberInputProps {
   max: number | BigNumber;
   min: number | BigNumber;
   maxDecimals: number;
   useBigNumbers: boolean;
+  value: Value;
+  name: string;
+  onChange: (value: Value) => void;
+  onBlur: () => void;
 }
 
 interface State {
@@ -46,10 +52,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     name: 'unnamed',
   };
 
-  public static getDisplayValue(
-    value: number | BigNumber,
-    props: NumberInputProps
-  ) {
+  public static getDisplayValue(value: Value, props: NumberInputProps) {
     if (value === null) {
       return '';
     }
@@ -106,14 +109,14 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     v: number | string | BigNumber,
     { min, max, useBigNumbers, maxDecimals }: NumberInputProps
   ) {
-    let value = v;
+    let value: number | string | BigNumber = v;
     if (typeof value === 'string') {
       value = value.replace(/,/g, '');
     } else if (typeof value === 'number') {
       value = String(value);
     }
 
-    value = new BigNumber(value).decimalPlaces(
+    const bnValue = new BigNumber(value).decimalPlaces(
       maxDecimals,
       BigNumber.ROUND_FLOOR
     );
@@ -122,12 +125,16 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     let maximum = max;
 
     if (!useBigNumbers) {
-      minimum = min < MIN_SAFE_NUMBER ? MIN_SAFE_NUMBER : min;
-      maximum = max > MAX_SAFE_NUMBER ? MAX_SAFE_NUMBER : max;
+      if (min !== null) {
+        minimum = min < MIN_SAFE_NUMBER ? MIN_SAFE_NUMBER : min;
+      }
+      if (max !== null) {
+        maximum = max > MAX_SAFE_NUMBER ? MAX_SAFE_NUMBER : max;
+      }
     }
 
-    value = BigNumber.max(minimum, value);
-    value = BigNumber.min(maximum, value);
+    value = BigNumber.max(minimum, bnValue);
+    value = BigNumber.min(maximum, bnValue);
 
     return value;
   }
@@ -256,4 +263,8 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
   }
 }
 
-export const NumberInput = formikProxy(NumberInputPrimitive);
+const EnhancedNumberInput = formikProxy(NumberInputPrimitive);
+
+export const NumberInput = Object.assign(EnhancedNumberInput, {
+  defaultProps: NumberInputPrimitive.defaultProps,
+});

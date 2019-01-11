@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { BaseInput } from '../BaseInput';
 
 import { InputProps } from '../types';
+import { formikProxy } from '~/components/inputs/formikProxy';
 
-export const TextInput = (props: InputProps) => {
-  const {
-    field,
-    field: { value, ...fieldProps },
-    form,
-    label,
-    ...otherProps
-  } = props;
+interface Props {
+  name: string;
+  value: string;
+}
 
-  return (
-    <BaseInput
-      id={field.name}
-      value={value || ''}
-      {...otherProps}
-      {...fieldProps}
-    />
-  );
+export type TextInputProps = JSX.LibraryManagedAttributes<
+  typeof TextInput,
+  Props
+>;
+
+export const TextInputPrimitive: FC<Props> = props => {
+  const { name, ...otherProps } = props;
+
+  return <BaseInput type="text" {...otherProps} id={name} />;
 };
+
+TextInputPrimitive.defaultProps = {
+  value: '',
+};
+
+const EnhancedTextInput = formikProxy(TextInputPrimitive);
+export const TextInput = Object.assign(EnhancedTextInput, {
+  defaultProps: TextInputPrimitive.defaultProps,
+});
