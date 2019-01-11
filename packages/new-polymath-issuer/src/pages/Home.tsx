@@ -6,7 +6,6 @@ import { ModalTransactionQueue } from '~/components';
 import {
   ThemeProvider,
   GlobalStyles,
-  theme,
   Button,
   Loading,
 } from '@polymathnetwork/new-ui';
@@ -62,7 +61,7 @@ class ContainerBase extends Component<Props> {
   public render() {
     return (
       <div>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <Fragment>
             <GlobalStyles />
             <ModalTransactionQueue />
