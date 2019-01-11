@@ -4,9 +4,10 @@ menu: Modals
 ---
 
 import { Playground, PropsTable } from 'docz';
+import { types } from '@polymathnetwork/new-shared';
 
 import { ModalConfirm } from './ModalConfirm';
-import { ModalDemo } from './ModalDemo';
+import { Demo } from './Demo';
 
 # ModalConfirm
 
@@ -15,5 +16,23 @@ import { ModalDemo } from './ModalDemo';
 ## Basic usage
 
 <Playground>
-  <ModalDemo />
+  <Demo
+    transactionQueue={{
+      id: '111',
+      name: 'Dividend Configuration',
+      status: types.HigherLevelTransactionStatus.Idle,
+      transactions: [
+        {
+          id: '0',
+          type: 'First transaction',
+          status: types.TransactionStatus.Unapproved,
+        },
+        {
+          id: '1',
+          type: 'Second transaction',
+          status: types.TransactionStatus.Idle,
+        },
+      ],
+    }}
+  />
 </Playground>

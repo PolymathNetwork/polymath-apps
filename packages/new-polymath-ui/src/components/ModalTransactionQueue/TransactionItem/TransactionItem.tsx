@@ -43,12 +43,15 @@ const getIcon = (transaction: types.Transaction) => {
 };
 
 export const TransactionItem = ({ transaction }: TransactionItemProps) => (
-  <sc.Wrapper isDisabled={transaction.status === TransactionStatus.Idle}>
+  <sc.Wrapper
+    alignItems="flex-start"
+    isDisabled={transaction.status === TransactionStatus.Idle}
+  >
     <Box minWidth={50} mt={1}>
       {getIcon(transaction)}
     </Box>
     <sc.Info>
-      <Heading as="h3" variant="h3" fontSize={0} lineHeight="tight" mb={1}>
+      <Heading as="h3" variant="h3" lineHeight="tight" mb="s">
         {transaction.type}
       </Heading>
       <CardPrimary>
