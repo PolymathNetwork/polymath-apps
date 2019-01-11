@@ -5,6 +5,12 @@ import * as sagas from '~/state/sagas/router';
 import { setChangingRoute } from '~/state/actions/app';
 import { getGeneratorOutputs, mockEthereumBrowser } from '~/testUtils/helpers';
 
+jest.mock('~/lib/polymath', () => ({
+  polyClient: {
+    connect: () => {},
+  },
+}));
+
 jest.mock('@polymathnetwork/sdk', () => ({
   browserUtils: {
     onAddressChange: jest.fn(() => () => {}),
