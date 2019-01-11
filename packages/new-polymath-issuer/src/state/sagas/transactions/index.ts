@@ -5,10 +5,9 @@ import {
   newTransaction,
 } from '~/state/actions/transactions';
 import { types } from '@polymathnetwork/new-shared';
-import { takeEvery, eventChannel, END } from 'redux-saga';
+import { takeEvery, eventChannel } from 'redux-saga';
 import { getType, ActionType } from 'typesafe-actions';
 import { PolyTransaction } from '@polymathnetwork/sdk';
-import { TransactionStatus } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 export function* watchTransaction({
   payload: transaction,
@@ -32,9 +31,9 @@ export function* watchTransaction({
     yield put(updateAction(changedTransaction.toPojo()));
 
     const transactionIsFinished = [
-      TransactionStatus.Failed,
-      TransactionStatus.Rejected,
-      TransactionStatus.Succeeded,
+      types.TransactionStatus.Failed,
+      types.TransactionStatus.Rejected,
+      types.TransactionStatus.Succeeded,
     ].find(status => status === changedTransaction.status);
 
     if (transactionIsFinished) {
@@ -45,5 +44,5 @@ export function* watchTransaction({
 }
 
 export function* transactionWatcher() {
-  return takeEvery(getType(newTransaction), watchTransaction);
+  yield takeEvery(getType(newTransaction), watchTransaction);
 }
