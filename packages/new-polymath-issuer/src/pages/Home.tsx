@@ -1,37 +1,61 @@
 import { polyClient } from '~/lib/polymath';
-import React, { Component } from 'react';
+import React, { Component, Dispatch } from 'react';
 import { browserUtils } from '@polymathnetwork/sdk';
+import { ModalTransactionQueue } from '~/components';
+import { connect } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '@polymathnetwork/new-ui';
+import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
+import { ActionType } from 'typesafe-actions';
 
-class Container extends Component {
+interface DispatchProps {
+  dispatch: Dispatch<ActionType<typeof enableErc20DividendsModuleStart>>;
+}
+
+type Props = DispatchProps;
+
+class ContainerBase extends Component<Props> {
   public async componentDidMount() {
+    const { dispatch } = this.props;
     await browserUtils.getCurrentAddress();
     await polyClient.connect();
-    const transactionQueue = await polyClient.reserveSecurityToken({
-      name: 'FOOKEN',
-      symbol: 'FOOKEN',
-    });
 
-    console.log('transactionQueue', transactionQueue);
+    dispatch(enableErc20DividendsModuleStart({ securityTokenSymbol: 'A0T0' }));
 
-    transactionQueue.onStatusChange(({ status }) => {
-      console.debug('Status updated for transactionQueue:', status);
-    });
+    // const transactionQueue = await polyClient.reserveSecurityToken({
+    //   name: 'FOOKEN',
+    //   symbol: 'FOOKEN',
+    // });
 
-    transactionQueue.onTransactionStatusChange(({ status, tag }, seq) => {
-      console.debug(`Transaction[${tag}]: Status update => ${status}`);
-    });
+    // console.log('transactionQueue', transactionQueue);
 
-    try {
-      await transactionQueue.run();
-    } catch (err) {
-      console.debug('Error', err.code);
-    }
+    // transactionQueue.onStatusChange(({ status }) => {
+    //   console.debug('Status updated for transactionQueue:', status);
+    // });
+
+    // transactionQueue.onTransactionStatusChange(({ status, tag }, seq) => {
+    //   console.debug(`Transaction[${tag}]: Status update => ${status}`);
+    // });
+
+    // try {
+    //   await transactionQueue.run();
+    // } catch (err) {
+    //   console.debug('Error', err.code);
+    // }
   }
 
   public render() {
-    return <div>hi</div>;
+    return (
+      <div>
+        <ThemeProvider theme={theme}>
+          <ModalTransactionQueue />
+        </ThemeProvider>
+      </div>
+    );
   }
 }
+
+const Container = connect()(ContainerBase);
 
 export const HomePage = () => (
   <div>
