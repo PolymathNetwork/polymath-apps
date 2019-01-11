@@ -10,70 +10,23 @@ interface InjectedProps {
   onBlur: () => void;
 }
 
-export interface OwnProps extends FieldProps {}
-
-// function getDisplayName(WrappedComponent: ComponentType<any>) {
-//   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-// }
-
-// /**
-//  * Props proxy that adapts input primitives for Formik
-//  */
-// export const formikProxy = <C extends ComponentType<GetProps<C>>>(
-//   WrappedComponent: ComponentType<GetProps<C>>
-// ): React.ComponentType<JSX.LibraryManagedAttributes<C, GetProps<C>>> => {
-//   const enhancer = class FormikProxy extends Component<GetProps<C> & HocProps> {
-//     public static displayName = `formikProxy(${getDisplayName(
-//       WrappedComponent
-//     )})`;
-
-//     public handleChange = (newValue: any) => {
-//       const { setFieldValue } = this.props.form;
-//       const { name } = this.props.field;
-
-//       setFieldValue(name, newValue);
-//     };
-
-//     public handleBlur = () => {
-//       const { setFieldTouched } = this.props.form;
-//       const { name } = this.props.field;
-
-//       setFieldTouched(name, true);
-//     };
-
-//     public render() {
-//       const { field, form, ...otherProps } = this.props as any;
-
-//       return (
-//         <WrappedComponent
-//           {...otherProps}
-//           value={field.value}
-//           name={field.name}
-//           onChange={this.handleChange}
-//           onBlur={this.handleBlur}
-//         />
-//       );
-//     }
-//   };
-
-//   return enhancer;
-// };
+export type OwnProps = FieldProps;
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 type GetProps<C> = C extends React.ComponentType<infer P> ? P : never;
 
-export type BetterShared<Ipsx, DecorationTargetProps> = {
+export type SharedProps<InjectedP, DecorationTargetProps> = {
   [P in Extract<
-    keyof Ipsx,
+    keyof InjectedP,
     keyof DecorationTargetProps
-  >]?: Ipsx[P] extends DecorationTargetProps[P] ? P : never
-}[Extract<keyof Ipsx, keyof DecorationTargetProps>];
+  >]?: InjectedP[P] extends DecorationTargetProps[P] ? P : never
+}[Extract<keyof InjectedP, keyof DecorationTargetProps>];
 
-export type Matching<Ips, DecorationTargetProps> = {
-  [P in keyof DecorationTargetProps]: P extends keyof Ips
-    ? Ips[P] extends DecorationTargetProps[P]
+export type Matching<InjectedP, DecorationTargetProps> = {
+  [P in keyof DecorationTargetProps]: P extends keyof InjectedP
+    ? InjectedP[P] extends DecorationTargetProps[P]
       ? DecorationTargetProps[P]
-      : Ips[P]
+      : InjectedP[P]
     : DecorationTargetProps[P]
 };
 
@@ -84,10 +37,10 @@ export const formikProxy = <
 ): React.ComponentType<
   JSX.LibraryManagedAttributes<
     C,
-    Omit<GetProps<C>, keyof BetterShared<InjectedProps, GetProps<C>>> & OwnProps
+    Omit<GetProps<C>, keyof SharedProps<InjectedProps, GetProps<C>>> & OwnProps
   >
 > => {
-  return class FormikProxy extends Component<any> {
+  class FormikProxy extends Component<any> {
     public handleChange = (newValue: any) => {
       const { setFieldValue } = this.props.form;
       const { name } = this.props.field;
@@ -115,5 +68,9 @@ export const formikProxy = <
         />
       );
     }
-  };
+  }
+
+  return Object.assign(FormikProxy, {
+    defaultProps: WrappedComponent.defaultProps,
+  });
 };

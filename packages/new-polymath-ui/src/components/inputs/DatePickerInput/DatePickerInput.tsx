@@ -1,17 +1,18 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 import moment from 'moment-timezone';
 import flatpickr from 'flatpickr';
 import l10n from 'flatpickr/dist/l10n/index';
 
 import { BaseInput } from '../BaseInput';
-import { InputProps } from '../types';
 import { formikProxy } from '../formikProxy';
 import * as sc from './styles';
 
 import { SvgCalendar } from '~/images/icons/Calendar';
-import { key as LocaleKey } from 'flatpickr/dist/types/locale';
+import { BaseOptions } from 'flatpickr/dist/types/options';
 
-export interface DatePickerInputProps {
+// TODO @RafaelVidaurre: This component could definitely get some love
+
+export interface Props {
   /**
    * The date format.
    */
@@ -20,12 +21,11 @@ export interface DatePickerInputProps {
    *  The language locale used to format the days of the week, months, and numbers.
    *  See https://flatpickr.js.org/localization/
    */
-  locale: LocaleKey;
+  locale: BaseOptions['locale'];
   /**
-   * The value of the date value provided to flatpickr, could
-   * be a date, a date number, a date string, an array of dates.
+   * The value of the date value provided to flatpickr
    */
-  value: string | object | number | [string | number | object];
+  value?: Date | Date[];
   /**
    * The DOM element or selector the Flatpicker should be inserted into. `<body>` by default.
    */
@@ -33,11 +33,12 @@ export interface DatePickerInputProps {
   /**
    * The `change` event handler.
    */
-  onChange: (e: Event) => void;
+  onChange: (value: Date) => void;
+  onBlur: () => void;
   /**
    * The underlying input `change` event handler.
    */
-  onInputChange: (e: Event) => void;
+  onInputChange: (e: ChangeEvent) => void;
   /**
    * The minimum date that a user can start picking from.
    */
@@ -49,8 +50,14 @@ export interface DatePickerInputProps {
   /**
    * See https://flatpickr.js.org/options/
    */
-  datePickerType: 'single' | 'multiple' | 'range';
+  datePickerType?: BaseOptions['mode'];
+  name: string;
 }
+
+export type DatePickerInputProps = JSX.LibraryManagedAttributes<
+  typeof DatePickerInputComponent,
+  Props
+>;
 
 // Weekdays shorthand for english locale
 l10n.en.weekdays.shorthand.forEach((_day, index) => {
@@ -62,27 +69,20 @@ l10n.en.weekdays.shorthand.forEach((_day, index) => {
   }
 });
 
-const now = moment().format('MM / DD / YYYY');
-
-export class DatePickerInputComponent extends Component<
-  DatePickerInputProps & InputProps
-> {
-  public static defaultProps: DatePickerInputProps = {
+export class DatePickerInputComponent extends Component<Props> {
+  public static defaultProps = {
     dateFormat: 'm / d / Y',
-    locale: 'en',
-    datePickerType: 'single',
-    minDate: now,
-    maxDate: now,
+    locale: 'en' as BaseOptions['locale'],
+    datePickerType: 'single' as BaseOptions['mode'],
     onInputChange: () => {},
     onChange: () => {},
-    value: now,
     appendTo: 'body',
+    now: Date(),
   };
-
   public inputField: React.RefObject<HTMLInputElement> = React.createRef();
   public cal: any;
 
-  public componentDidUpdate(nextProps: DatePickerInputProps) {
+  public componentDidUpdate(nextProps: Props) {
     if (nextProps.value !== this.props.value) {
       if (this.cal) {
         this.cal.setDate(nextProps.value);
@@ -101,20 +101,23 @@ export class DatePickerInputComponent extends Component<
       value,
     } = this.props;
 
+    // FIXME @RafaelVidaurre: This doesn't feel right. Hopefulyy we don't have
+    // to rely on flatPickr just injecting an element like this.
     const appendToNode =
       typeof appendTo === 'string'
         ? (document.querySelector(appendTo) as HTMLElement) || undefined
         : appendTo;
 
     // inputField ref might not be set in enzyme tests
+    // TODO @RafaelVidaurre: What does the above mean?
     if (this.inputField.current) {
       this.cal = flatpickr(this.inputField.current, {
-        defaultDate: value,
+        defaultDate: value || Date.now(),
         appendTo: appendToNode,
         mode: datePickerType,
         allowInput: true,
         dateFormat,
-        locale: l10n[locale],
+        locale,
         minDate,
         maxDate,
         clickOpens: true,
@@ -139,7 +142,10 @@ export class DatePickerInputComponent extends Component<
     }
   }
 
-  public handleChange = (_pickerValue: Date[], stringValue: string) => {
+  public handleChange: flatpickr.Options.Hook = (
+    _selectedDates,
+    stringValue
+  ) => {
     const [month, day, year] = stringValue.split(' / ');
     const date = moment({
       year: parseInt(year, 10),
@@ -213,8 +219,8 @@ export class DatePickerInputComponent extends Component<
           name={name}
           autoComplete={'off'}
           ref={this.inputField}
-          onChange={onInputChange}
           {...otherProps}
+          onChange={onInputChange}
         />
         <sc.GlobalStyles />
       </sc.Wrapper>
@@ -222,4 +228,8 @@ export class DatePickerInputComponent extends Component<
   }
 }
 
-export const DatePickerInput = formikProxy(DatePickerInputComponent);
+export const EnhancedDatePickerInput = formikProxy(DatePickerInputComponent);
+
+export const DatePickerInput = Object.assign(EnhancedDatePickerInput, {
+  defaultProps: DatePickerInputComponent.defaultProps,
+});
