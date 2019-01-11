@@ -1,10 +1,9 @@
 import { polyClient } from '~/lib/polymath';
-import React, { Component, Dispatch } from 'react';
+import React, { Component, Fragment, Dispatch } from 'react';
 import { browserUtils } from '@polymathnetwork/sdk';
 import { ModalTransactionQueue } from '~/components';
 import { connect } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
-import { theme } from '@polymathnetwork/new-ui';
+import { ThemeProvider, GlobalStyles, theme } from '@polymathnetwork/new-ui';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
 
@@ -48,7 +47,10 @@ class ContainerBase extends Component<Props> {
     return (
       <div>
         <ThemeProvider theme={theme}>
-          <ModalTransactionQueue />
+          <Fragment>
+            <GlobalStyles />
+            <ModalTransactionQueue />
+          </Fragment>
         </ThemeProvider>
       </div>
     );
