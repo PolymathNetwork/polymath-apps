@@ -28,10 +28,10 @@ const getIcon = (transaction: types.TransactionEntity) => {
   if (status === TransactionStatus.Rejected) {
     return <Icon Asset={SvgClose} fill="#E71D32" width="32" height="32" />;
   }
-  if (
-    status === TransactionStatus.Unapproved ||
-    status === TransactionStatus.Running
-  ) {
+  if (status === TransactionStatus.Unapproved) {
+    return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
+  }
+  if (status === TransactionStatus.Running) {
     return <Loading small />;
   }
 
