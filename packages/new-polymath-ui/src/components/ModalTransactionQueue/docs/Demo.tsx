@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 
-import { ModalTransactionQueue } from './ModalTransactionQueue';
+import { ModalTransactionQueue } from '../ModalTransactionQueue';
 
 const transactionQueue = {
   id: '111',
   name: 'Dividend Configuration',
-  status: types.HigherLevelTransactionStatus.Idle,
+  status: types.TransactionQueueStatus.Idle,
   transactions: [
     {
       id: '0',
@@ -38,7 +38,7 @@ export class ModalDemo extends React.Component {
         this.setState({
           transactionQueue: {
             ...this.state.transactionQueue,
-            status: types.HigherLevelTransactionStatus.Running,
+            status: types.TransactionQueueStatus.Running,
             transactions: [
               {
                 id: '0',
@@ -101,7 +101,7 @@ export class ModalDemo extends React.Component {
         this.setState({
           transactionQueue: {
             ...this.state.transactionQueue,
-            status: types.HigherLevelTransactionStatus.Succeeded,
+            status: types.TransactionQueueStatus.Succeeded,
             transactions: [
               {
                 id: '0',

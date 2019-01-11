@@ -13,7 +13,7 @@ import { Modal } from '~/components/Modal';
 const transactionQueue = {
   id: '111',
   name: 'Dividend Configuration',
-  status: types.HigherLevelTransactionStatus.Idle,
+  status: types.TransactionQueueStatus.Idle,
   transactions: [
     {
       id: '0',
@@ -49,7 +49,7 @@ export class Demo extends React.Component {
         this.setState({
           transactionQueue: {
             ...this.state.transactionQueue,
-            status: types.HigherLevelTransactionStatus.Running,
+            status: types.TransactionQueueStatus.Running,
             transactions: [
               {
                 id: '0',
@@ -112,7 +112,7 @@ export class Demo extends React.Component {
         this.setState({
           transactionQueue: {
             ...this.state.transactionQueue,
-            status: types.HigherLevelTransactionStatus.Succeeded,
+            status: types.TransactionQueueStatus.Succeeded,
             transactions: [
               {
                 id: '0',

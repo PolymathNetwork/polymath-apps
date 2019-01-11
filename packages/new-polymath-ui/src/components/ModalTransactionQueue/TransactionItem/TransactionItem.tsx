@@ -30,7 +30,7 @@ const getIcon = (transaction: types.Transaction) => {
 
   if (
     transaction.status === TransactionStatus.Unapproved ||
-    transaction.status === TransactionStatus.Approved
+    transaction.status === TransactionStatus.Running
   ) {
     return <Loading small />;
   }

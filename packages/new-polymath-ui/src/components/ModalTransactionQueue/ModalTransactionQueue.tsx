@@ -12,14 +12,14 @@ import { SvgPaperplane } from '~/images/icons/Paperplane';
 
 import { TransactionItem } from './TransactionItem';
 
-const { HigherLevelTransactionStatus } = types;
+const { TransactionQueueStatus } = types;
 
-const getModalStatus = (status: types.HigherLevelTransactionStatus) =>
+const getModalStatus = (status: types.TransactionQueueStatus) =>
   ({
-    [HigherLevelTransactionStatus.Idle]: ModalStatus.loading,
-    [HigherLevelTransactionStatus.Running]: ModalStatus.loading,
-    [HigherLevelTransactionStatus.Succeeded]: ModalStatus.success,
-    [HigherLevelTransactionStatus.Failed]: ModalStatus.alert,
+    [TransactionQueueStatus.Idle]: ModalStatus.loading,
+    [TransactionQueueStatus.Running]: ModalStatus.loading,
+    [TransactionQueueStatus.Succeeded]: ModalStatus.success,
+    [TransactionQueueStatus.Failed]: ModalStatus.alert,
   }[status]);
 
 const getLabelText = (status: ModalStatus) =>
@@ -65,9 +65,9 @@ export class ModalTransactionQueue extends Component<
     const { transactions } = transactionQueue;
     const status = getModalStatus(transactionQueue.status);
     const isSuccess =
-      transactionQueue.status === HigherLevelTransactionStatus.Succeeded;
+      transactionQueue.status === TransactionQueueStatus.Succeeded;
     const isRejected =
-      transactionQueue.status === HigherLevelTransactionStatus.Failed;
+      transactionQueue.status === TransactionQueueStatus.Failed;
 
     return (
       <Modal
