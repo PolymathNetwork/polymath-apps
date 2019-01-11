@@ -1,6 +1,5 @@
 import { types } from '@polymathnetwork/new-shared';
 import { typeHelpers } from '@polymathnetwork/new-shared';
-import { Entity } from '@polymathnetwork/sdk/build/dist/entities/Entity';
 
 export interface Wallet {
   address: string;
@@ -24,7 +23,7 @@ export enum Entities {
   Transactions = 'transactions',
   Dividends = 'dividends',
   Erc20DividendsModules = 'erc20DividendsModules',
-  Sequences = 'sequences',
+  TransactionQueues = 'transactionQueues',
 }
 
 export enum RequestKeys {
@@ -94,7 +93,7 @@ export interface Fetcher {
 }
 
 export interface FetchedData {
-  [key: string]: Entity[] | null | undefined;
+  [key: string]: types.Entity[] | null | undefined;
 }
 
 export interface CacheStatus {
@@ -103,7 +102,7 @@ export interface CacheStatus {
   mustBeFetched: boolean;
 }
 
-export type PartialWithId<T extends Entity> = Partial<
+export type PartialWithId<T extends types.Entity> = Partial<
   typeHelpers.Omit<T, 'uid'>
 > & {
   uid: string;
