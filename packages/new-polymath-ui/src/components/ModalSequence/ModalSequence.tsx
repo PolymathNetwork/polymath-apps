@@ -8,7 +8,7 @@ import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { Modal, ModalProps, ModalStatus } from '../Modal';
 
-// import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
+import { SvgPaperplane } from '~/images/icons/Paperplane';
 
 import { SequenceItem } from './SequenceItem';
 
@@ -99,9 +99,7 @@ export class ModalSequence extends Component<ModalSequenceProps> {
         {isSuccess && withEmail && (
           <Flex mt="gridGap">
             <Box minWidth={50} mt={1}>
-              {/* // FIXME @grsmto: svgs aren't compiling properly */}
-              {/* <Icon Asset={SvgPaperplane} width="30" height="30" /> */}
-              <Icon Asset={null} width="30" height="30" />
+              <Icon Asset={SvgPaperplane} width="30" height="30" />
             </Box>
             <Paragraph fontSize={2}>
               We just sent you an email with the transaction details for your

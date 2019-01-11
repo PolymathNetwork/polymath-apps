@@ -1,9 +1,9 @@
-import { ModalSequence } from '@polymathnetwork/new-ui';
 import React, { Component, Dispatch } from 'react';
 import { connect } from 'react-redux';
+import { types } from '@polymathnetwork/new-shared';
+import { ModalSequence } from '@polymathnetwork/new-ui';
 import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { RootState } from '~/state/store';
-import { types } from '@polymathnetwork/new-shared';
 import { ActionType } from 'typesafe-actions';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
 
