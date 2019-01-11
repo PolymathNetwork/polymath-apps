@@ -1,18 +1,19 @@
 import { call, put, take } from 'redux-saga/effects';
 import { TransactionQueue } from '@polymathnetwork/sdk';
-import { setActiveSequence } from '~/state/actions/app';
+import { setActiveTransactionQueue } from '~/state/actions/app';
 import { newTransaction } from '~/state/actions/transactions';
 import { getType } from 'typesafe-actions';
 import {
-  confirmSequence,
+  confirmTransactionQueue,
   updateAction as updateTransactionQueue,
   createAction as createTransactionQueue,
 } from '~/state/actions/transactionQueues';
 
-export function* runSequence(transactionQueueToRun: TransactionQueue) {
+export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
   const { transactions, ...transactionQueue } = transactionQueueToRun.toPojo();
 
   const transactionsToRun = transactionQueueToRun.transactions;
+
   for (const transaction of transactionsToRun) {
     yield put(newTransaction(transaction));
   }
@@ -20,9 +21,10 @@ export function* runSequence(transactionQueueToRun: TransactionQueue) {
   const { uid } = transactionQueue;
 
   yield put(createTransactionQueue(transactionQueue));
-  yield put(setActiveSequence(uid));
+  yield put(setActiveTransactionQueue(uid));
 
-  yield take(getType(confirmSequence));
+  // NOTE @monitz87: uncomment after demo
+  // yield take(getType(confirmTransactionQueue));
 
   yield call(transactionQueueToRun.run);
 

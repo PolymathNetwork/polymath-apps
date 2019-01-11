@@ -1,15 +1,18 @@
 import { Reducer } from 'redux';
-import { Entity, PartialWithId } from '~/types';
+import { PartialWithId } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 import { PayloadAction } from 'typesafe-actions/dist/types';
 
-export interface EntityState<T extends Entity> {
+export interface EntityState<T extends types.Entity> {
   byId: {
-    [key: string]: T;
+    [key: string]: T | undefined;
   };
   allIds: string[];
 }
 
-export const createEntityReducer = <T extends Entity>(entityType: string) => {
+export const createEntityReducer = <T extends types.Entity>(
+  entityType: string
+) => {
   const initialState: EntityState<T> = {
     byId: {},
     allIds: [],

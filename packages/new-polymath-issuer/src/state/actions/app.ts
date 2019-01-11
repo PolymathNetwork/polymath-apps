@@ -1,8 +1,12 @@
 import { createStandardAction } from 'typesafe-actions';
 
-export const setActiveSequence = createStandardAction(
-  'APP/SET_ACTIVE_SEQUENCE'
+export const setActiveTransactionQueue = createStandardAction(
+  'APP/SET_ACTIVE_TRANSACTION_QUEUE'
 )<string>();
+
+export const unsetActiveTransactionQueue = createStandardAction(
+  'APP/UNSET_ACIVE_TRANSACTION_QUEUE'
+)();
 
 export const initializePolyClientStart = createStandardAction(
   'APP/INITIALIZE_POLY_CLIENT_START'

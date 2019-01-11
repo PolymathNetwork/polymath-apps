@@ -4,7 +4,7 @@ import * as actions from '~/state/actions/app';
 import { AppActions } from '~/state/actions/types';
 
 export interface AppState {
-  activeSequence?: string;
+  activeTransactionQueue?: string;
   polyClientInitialized: boolean;
   changingRoute: boolean;
 }
@@ -18,10 +18,16 @@ export const reducer: Reducer<AppState, AppActions> = (
   action
 ): AppState => {
   switch (action.type) {
-    case getType(actions.setActiveSequence): {
+    case getType(actions.setActiveTransactionQueue): {
       return {
         ...state,
-        activeSequence: action.payload,
+        activeTransactionQueue: action.payload,
+      };
+    }
+    case getType(actions.unsetActiveTransactionQueue): {
+      return {
+        ...state,
+        activeTransactionQueue: undefined,
       };
     }
     case getType(actions.initializePolyClientSuccess): {

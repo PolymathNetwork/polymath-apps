@@ -1,16 +1,16 @@
 import { polyClient } from '~/lib/polymath';
 import { call } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
-import { DividendModuleTypes } from '@polymathnetwork/sdk/build/dist/LowLevel/types';
-import { Sequence as PolymathSequence } from '@polymathnetwork/sdk/build/dist/entities/Sequence';
+import { DividendModuleTypes } from '@polymathnetwork/sdk';
+import { TransactionQueue } from '@polymathnetwork/sdk';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
-import { runSequence } from '~/state/sagas/sequences';
+import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 
 export function* enableErc20DividendsModule(
   action: ActionType<typeof enableErc20DividendsModuleStart>
 ) {
   const { securityTokenSymbol } = action.payload;
-  const sequenceToRun: PolymathSequence = yield call(
+  const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.enableDividendModules,
     {
       symbol: securityTokenSymbol,
@@ -18,5 +18,5 @@ export function* enableErc20DividendsModule(
     }
   );
 
-  yield call(runSequence, sequenceToRun);
+  yield call(runTransactionQueue, transactionQueueToRun);
 }
