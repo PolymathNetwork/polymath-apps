@@ -64,7 +64,7 @@ export interface Entity {
 
 export interface TransactionEntity extends Entity {
   txHash?: string;
-  transactionQueueUid?: string;
+  transactionQueueUid: string;
   status: TransactionStatus;
   tag: PolyTransactionTags;
   receipt?: TransactionReceipt;
