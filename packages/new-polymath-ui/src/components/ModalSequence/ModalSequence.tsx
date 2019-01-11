@@ -8,19 +8,19 @@ import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { Modal, ModalProps, ModalStatus } from '../Modal';
 
-import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
+// import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
 
 import { SequenceItem } from './SequenceItem';
 import { maxWidth } from 'styled-system';
 
-const { SequenceStatus } = types;
+const { TransactionQueueStatus } = types;
 
-const getModalStatus = (status: types.SequenceStatus) =>
+const getModalStatus = (status: types.TransactionQueueStatus) =>
   ({
-    [SequenceStatus.Idle]: ModalStatus.loading,
-    [SequenceStatus.Running]: ModalStatus.loading,
-    [SequenceStatus.Succeeded]: ModalStatus.success,
-    [SequenceStatus.Failed]: ModalStatus.alert,
+    [TransactionQueueStatus.Idle]: ModalStatus.loading,
+    [TransactionQueueStatus.Running]: ModalStatus.loading,
+    [TransactionQueueStatus.Succeeded]: ModalStatus.success,
+    [TransactionQueueStatus.Failed]: ModalStatus.alert,
   }[status]);
 
 const getLabelText = (status: ModalStatus) =>
@@ -46,53 +46,63 @@ export interface ModalSequenceProps
     ModalProps,
     'isOpen' | 'isCloseable' | 'status' | 'maxWidth' | 'isCentered'
   > {
-  sequence: Sequence;
+  transactionQueue: types.TransactionQueueEntity & {
+    transactions: types.TransactionEntity[];
+  };
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
 }
 
 export class ModalSequence extends Component<ModalSequenceProps> {
-  static defaultProps = {
+  public static defaultProps = {
     continueButtonText: 'Continue',
   };
 
   public render() {
     const {
-      sequence,
+      transactionQueue,
       withEmail,
       isOpen,
       continueButtonText,
       onContinue,
     } = this.props;
-    const { transactions } = sequence;
-    const status = getModalStatus(sequence.status);
-    const isSuccess = sequence.status === SequenceStatus.Succeeded;
-    const isRejected = sequence.status === SequenceStatus.Failed;
+    // FIXME @grsmto: make this not crash if transactionQueue is null but still
+    // render the modal
+    if (!transactionQueue) {
+      return null;
+    }
+
+    const { transactions, status, procedureType } = transactionQueue;
+    const modalStatus = getModalStatus(status);
+    const isSuccess = status === TransactionQueueStatus.Succeeded;
+    const isRejected = status === TransactionQueueStatus.Failed;
 
     return (
       <Modal
         isOpen={isOpen}
         isCloseable={false}
-        status={status}
+        status={modalStatus}
         maxWidth={maxWidth('500')}
         isCentered={false}
       >
         <Modal.Header
           status={status}
-          label={'Transaction ' + getLabelText(status)}
+          label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(status, sequence.name)}
+          {getTitleText(modalStatus, procedureType)}
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <SequenceItem key={transaction.id} transaction={transaction} />
+          <SequenceItem key={transaction.uid} transaction={transaction} />
         ))}
 
         {isSuccess && withEmail && (
           <Flex mt="gridGap">
             <Box minWidth={50} mt={1}>
-              <Icon Asset={SvgPaperplane} width="30" height="30" />
+              {/* // FIXME @grsmto: svgs aren't compiling properly */}
+              {/* <Icon Asset={SvgPaperplane} width="30" height="30" /> */}
+              <Icon Asset={null} width="30" height="30" />
             </Box>
             <Paragraph fontSize={2}>
               We just sent you an email with the transaction details for your

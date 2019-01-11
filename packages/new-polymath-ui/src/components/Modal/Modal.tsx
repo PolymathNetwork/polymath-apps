@@ -9,7 +9,7 @@ import { Body } from './Body';
 import { Footer } from './Footer';
 import * as sc from './styles';
 import { ModalStatus } from './types';
-import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
+// import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -85,7 +85,9 @@ class ModalBase extends Component<ModalProps, State> {
       >
         {status !== ModalStatus.idle && <sc.StatusBar status={status} />}
         {isCloseable && (
-          <sc.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
+          // FIXME @grsmto: svgs aren't compiling properly
+          // <sc.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
+          <sc.CloseButton Asset={null} onClick={this.handleCloseRequest} />
         )}
         <sc.Inner>{children}</sc.Inner>
       </ReactModal>

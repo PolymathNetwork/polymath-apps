@@ -20,45 +20,47 @@ import * as sc from './styles';
 const { TransactionStatus } = types;
 
 interface SequenceItemProps {
-  transaction: types.Transaction;
+  transaction: types.TransactionEntity;
 }
 
-const getIcon = (transaction: types.Transaction) => {
-  console.log(transaction.status);
-  if (transaction.status === TransactionStatus.Rejected) {
+const getIcon = (transaction: types.TransactionEntity) => {
+  const { status } = transaction;
+  if (status === TransactionStatus.Rejected) {
     return <Icon Asset={SvgClose} fill="#E71D32" width="32" height="32" />;
   }
   if (
-    transaction.status === TransactionStatus.Unapproved ||
-    transaction.status === TransactionStatus.Approved
+    status === TransactionStatus.Unapproved ||
+    status === TransactionStatus.Running
   ) {
-    console.log('here');
     return <Loading small />;
   }
 
-  if (transaction.status === TransactionStatus.Succeeded) {
+  if (status === TransactionStatus.Succeeded) {
     return <Icon Asset={SvgCheckmark} color="success" width="32" height="24" />;
   }
 
   return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
 };
 
-export const SequenceItem = ({ transaction }: SequenceItemProps) => (
-  <sc.Wrapper isDisabled={transaction.status === TransactionStatus.Idle}>
+export const SequenceItem = ({
+  transaction: { status, tag, txHash },
+  transaction,
+}: SequenceItemProps) => (
+  <sc.Wrapper isDisabled={status === TransactionStatus.Idle}>
     <Box minWidth={50} mt={1}>
       {getIcon(transaction)}
     </Box>
     <sc.Info>
       <Heading as="h3" variant="h3" fontSize={0} lineHeight="tight" mb={1}>
-        {transaction.type}
+        {tag}
       </Heading>
       <CardPrimary>
         <Paragraph as={Flex} fontSize={0}>
           <sc.Label>Transaction details on Etherscan: </sc.Label>
           &nbsp;
-          {transaction.hash && (
-            <Link href={utils.toEtherscanUrl(transaction.hash)}>
-              <TextEllipsis size={28}>{transaction.hash}</TextEllipsis>
+          {txHash && (
+            <Link href={utils.toEtherscanUrl(txHash)}>
+              <TextEllipsis size={28}>{txHash}</TextEllipsis>
             </Link>
           )}
         </Paragraph>
