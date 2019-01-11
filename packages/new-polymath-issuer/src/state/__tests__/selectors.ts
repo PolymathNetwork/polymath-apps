@@ -3,6 +3,10 @@ import {
   entitiesSelector,
   dataRequestsSelector,
   sessionSelector,
+  activeTransactionQueueIdSelector,
+  transactionQueuesSelector,
+  transactionsSelector,
+  createGetActiveTransactionQueue,
   createGetEntitiesFromCache,
   createGetCacheStatus,
   checkFetchersForDuplicates,
@@ -11,6 +15,9 @@ import { RootState } from '~/state/store';
 import BigNumber from 'bignumber.js';
 import { RequestKeys, Entities, Fetcher } from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
+import { AppState } from '~/state/reducers/app';
+import { SessionState } from '~/state/reducers/session';
+import { EntitiesState } from '~/state/reducers/entities';
 
 const requestArgs: types.Pojo[] = [
   { foo: 'Foo', bar: 'Bar' },
@@ -18,12 +25,13 @@ const requestArgs: types.Pojo[] = [
   { boris: 'sucks' },
 ];
 
-const appState = {
+const appState: AppState = {
   polyClientInitialized: true,
   changingRoute: false,
+  activeTransactionQueue: 'tq0',
 };
 
-const sessionState = {};
+const sessionState: SessionState = {};
 
 const routerState = {};
 
@@ -76,8 +84,30 @@ const dividends = {
 };
 
 const transactions = {
-  byId: {},
-  allIds: [],
+  byId: {
+    t0: {
+      uid: 't0',
+      transactionQueueUid: 'tq0',
+      status: types.TransactionStatus.Idle,
+      tag: types.PolyTransactionTags.Approve,
+      args: [],
+    },
+    t1: {
+      uid: 't1',
+      transactionQueueUid: 'tq0',
+      status: types.TransactionStatus.Idle,
+      tag: types.PolyTransactionTags.CreateCheckpoint,
+      args: [1, 2, 3],
+    },
+    t2: {
+      uid: 't2',
+      transactionQueueUid: 'tq1',
+      status: types.TransactionStatus.Idle,
+      tag: types.PolyTransactionTags.Approve,
+      args: [1, 2, 3],
+    },
+  },
+  allIds: ['t0', 't1', 't2'],
 };
 
 const erc20DividendsModules = {
@@ -85,17 +115,28 @@ const erc20DividendsModules = {
   allIds: [],
 };
 
-const sequences = {
-  byId: {},
-  allIds: [],
+const transactionQueues = {
+  byId: {
+    tq0: {
+      uid: 'tq0',
+      status: types.TransactionQueueStatus.Idle,
+      procedureType: 'someProcedure',
+    },
+    tq1: {
+      uid: 'tq1',
+      status: types.TransactionQueueStatus.Idle,
+      procedureType: 'anotherProcedure',
+    },
+  },
+  allIds: ['tq0', 'tq1'],
 };
 
-const entitiesState = {
+const entitiesState: EntitiesState = {
   checkpoints,
   dividends,
   transactions,
   erc20DividendsModules,
-  sequences,
+  transactionQueues,
 };
 
 const dataRequestsState = {
@@ -132,6 +173,85 @@ describe('Selectors', () => {
 
   test('sessionSelector should return the session state', () => {
     expect(sessionSelector(mockState)).toEqual(sessionState);
+  });
+
+  test('activeTransactionQueueIdSelector should return the active transaction queue id', () => {
+    expect(activeTransactionQueueIdSelector(mockState)).toBe(
+      appState.activeTransactionQueue
+    );
+  });
+
+  test('transactionQueuesSelector should return the transaction queue entities', () => {
+    expect(transactionQueuesSelector(mockState)).toEqual(
+      entitiesState.transactionQueues
+    );
+  });
+
+  test('transactionsSelector should return the transaction entities', () => {
+    expect(transactionsSelector(mockState)).toEqual(entitiesState.transactions);
+  });
+
+  describe('selector creator: createGetActiveTransactionQueue', () => {
+    test('should return the active transaction queue and transactions', () => {
+      const expectedQueue = {
+        ...transactionQueues.byId.tq0,
+        transactions: [transactions.byId.t0, transactions.byId.t1],
+      };
+
+      expect(createGetActiveTransactionQueue()(mockState)).toEqual(
+        expectedQueue
+      );
+    });
+
+    test('should throw an error if the state is invalid', () => {
+      let invalidState: RootState = {
+        ...mockState,
+        entities: {
+          ...entitiesState,
+          transactionQueues: {
+            byId: {},
+            allIds: [],
+          },
+        },
+      };
+
+      let expectedErrorMessage =
+        'Invalid state. There is an active transaction queue id but no corresponding transaction queue entity.';
+
+      expect(() =>
+        createGetActiveTransactionQueue()(invalidState)
+      ).toThrowError(expectedErrorMessage);
+
+      invalidState = {
+        ...mockState,
+        entities: {
+          ...entitiesState,
+          transactions: {
+            byId: {},
+            allIds: [],
+          },
+        },
+      };
+
+      expectedErrorMessage =
+        'Invalid state. There is an active transaction queue but no corresponding transaction entities.';
+
+      expect(() =>
+        createGetActiveTransactionQueue()(invalidState)
+      ).toThrowError(expectedErrorMessage);
+    });
+
+    test('should return null if there is no active transaction queue', () => {
+      const noActiveQueue: RootState = {
+        ...mockState,
+        app: {
+          ...appState,
+          activeTransactionQueue: undefined,
+        },
+      };
+
+      expect(createGetActiveTransactionQueue()(noActiveQueue)).toBe(null);
+    });
   });
 
   const fetcher1: Fetcher = {

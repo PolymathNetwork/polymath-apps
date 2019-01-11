@@ -1,6 +1,6 @@
 import { RootState } from '~/state/store';
 import { createSelector } from 'reselect';
-import _ from 'lodash';
+import { filter, zipWith, forEach, includes } from 'lodash';
 import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
 
@@ -8,6 +8,21 @@ const appSelector = (state: RootState) => state.app;
 const entitiesSelector = (state: RootState) => state.entities;
 const dataRequestsSelector = (state: RootState) => state.dataRequests;
 const sessionSelector = (state: RootState) => state.session;
+
+const activeTransactionQueueIdSelector = createSelector(
+  appSelector,
+  app => app.activeTransactionQueue
+);
+
+const transactionQueuesSelector = createSelector(
+  entitiesSelector,
+  entities => entities.transactionQueues
+);
+
+const transactionsSelector = createSelector(
+  entitiesSelector,
+  entities => entities.transactions
+);
 
 interface FetcherProps {
   fetchers: Fetcher[];
@@ -23,13 +38,13 @@ interface CachedResults {
 const entityStoresPerFetcherSelector = (
   state: RootState,
   { fetchers }: FetcherProps
-) => _.map(fetchers, fetcher => state.entities[fetcher.entity]);
+) => fetchers.map(fetcher => state.entities[fetcher.entity]);
 
 const cachedResultsPerFetcherSelector = (
   state: RootState,
   { fetchers }: FetcherProps
 ) =>
-  _.map<Fetcher, CachedResults>(fetchers, fetcher => {
+  fetchers.map<CachedResults>(fetcher => {
     const { args, propKey, entity, requestKey } = fetcher;
 
     const argsHash = utils.hashObj(args);
@@ -59,7 +74,7 @@ const checkFetchersForDuplicates = (
   const usedRequests: {
     [key: string]: boolean | undefined;
   } = {};
-  _.forEach(fetchers, fetcher => {
+  fetchers.forEach(fetcher => {
     const { propKey, entity, requestKey } = fetcher;
 
     const hashedRequest = utils.hashObj({
@@ -103,7 +118,7 @@ const createGetEntitiesFromCache = () =>
       checkFetchersForDuplicates,
     ],
     (entityStores, cachedResults) => {
-      const storesWithIds = _.zipWith(
+      const storesWithIds = zipWith(
         entityStores,
         cachedResults,
         (store, result) => {
@@ -114,12 +129,14 @@ const createGetEntitiesFromCache = () =>
 
       const results: FetchedData = {};
 
-      _.forEach(storesWithIds, data => {
+      forEach(storesWithIds, data => {
         const { cachedIds, key, store } = data;
 
-        results[key] = _.filter(store.byId, entity =>
-          _.includes(cachedIds, entity.uid)
-        );
+        // NOTE @monitz87: this double type assertion is required because
+        // of typescript limitations with the index signature
+        results[key] = filter(store.byId, entity =>
+          includes(cachedIds, entity!.uid)
+        ) as types.Entity[];
       });
 
       return results;
@@ -135,7 +152,7 @@ const createGetCacheStatus = () =>
   createSelector(
     [cachedResultsPerFetcherSelector, checkFetchersForDuplicates],
     cachedResults =>
-      _.map<CachedResults, CacheStatus>(cachedResults, result => {
+      cachedResults.map<CacheStatus>(result => {
         const { requestKey, args, cachedIds } = result;
 
         return {
@@ -146,12 +163,61 @@ const createGetCacheStatus = () =>
       })
   );
 
+/**
+ * Creates a selector that retrieves the active transaction queue and
+ * all of its associated transactions
+ */
+const createGetActiveTransactionQueue = () =>
+  createSelector(
+    [
+      transactionQueuesSelector,
+      transactionsSelector,
+      activeTransactionQueueIdSelector,
+    ],
+    (transactionQueues, transactions, activeTransactionQueueId) => {
+      if (!activeTransactionQueueId) {
+        return null;
+      }
+
+      const {
+        byId: { [activeTransactionQueueId]: activeTransactionQueue },
+      } = transactionQueues;
+
+      if (!activeTransactionQueue) {
+        throw new Error(
+          'Invalid state. There is an active transaction queue id but no corresponding transaction queue entity.'
+        );
+      }
+
+      const activeTransactions = filter(
+        transactions.byId,
+        transaction =>
+          transaction!.transactionQueueUid === activeTransactionQueueId
+      ) as types.TransactionEntity[];
+
+      if (activeTransactions.length === 0) {
+        throw new Error(
+          'Invalid state. There is an active transaction queue but no corresponding transaction entities.'
+        );
+      }
+
+      return {
+        ...activeTransactionQueue,
+        transactions: [...activeTransactions],
+      };
+    }
+  );
+
 export {
   appSelector,
   entitiesSelector,
   dataRequestsSelector,
   sessionSelector,
+  activeTransactionQueueIdSelector,
+  transactionsSelector,
+  transactionQueuesSelector,
   createGetEntitiesFromCache,
   createGetCacheStatus,
+  createGetActiveTransactionQueue,
   checkFetchersForDuplicates,
 };
