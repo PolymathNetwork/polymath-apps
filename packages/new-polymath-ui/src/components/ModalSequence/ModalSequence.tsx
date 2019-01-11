@@ -33,11 +33,11 @@ const getLabelText = (status: ModalStatus) =>
 
 const getTitleText = (status: ModalStatus, title: string) =>
   ({
-    [ModalStatus.idle]: `Processing with Your ${title}`,
-    [ModalStatus.loading]: `Processing with Your ${title}`,
-    [ModalStatus.warning]: `An error occured with Your ${title}`,
-    [ModalStatus.alert]: `An error occured with Your ${title}`,
-    [ModalStatus.success]: `Your ${title} was successfully submitted`,
+    [ModalStatus.idle]: `Proceed with ${title}`,
+    [ModalStatus.loading]: `Proceed with ${title}`,
+    [ModalStatus.warning]: `An error occured with ${title}`,
+    [ModalStatus.alert]: `An error occured with ${title}`,
+    [ModalStatus.success]: `${title} was successfully submitted`,
   }[status]);
 
 export interface ModalSequenceProps
@@ -72,7 +72,7 @@ export class ModalSequence extends Component<ModalSequenceProps> {
       return null;
     }
 
-    const { transactions, status, procedureType } = transactionQueue;
+    const { transactions, status, description } = transactionQueue;
     const modalStatus = getModalStatus(status);
     const isSuccess = status === TransactionQueueStatus.Succeeded;
     const isRejected = status === TransactionQueueStatus.Failed;
@@ -89,7 +89,7 @@ export class ModalSequence extends Component<ModalSequenceProps> {
           status={status}
           label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(modalStatus, procedureType)}
+          {getTitleText(modalStatus, description)}
         </Modal.Header>
 
         {transactions.map(transaction => (

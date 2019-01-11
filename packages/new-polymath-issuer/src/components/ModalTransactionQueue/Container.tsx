@@ -23,6 +23,8 @@ const mapStateToProps = () => {
   return (state: RootState): StateProps => {
     const transactionQueue = queueSelector(state);
 
+    console.log('transactionQueue', transactionQueue);
+
     return { transactionQueue };
   };
 };

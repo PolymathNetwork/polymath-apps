@@ -43,7 +43,7 @@ const getIcon = (transaction: types.TransactionEntity) => {
 };
 
 export const SequenceItem = ({
-  transaction: { status, tag, txHash },
+  transaction: { status, tag, description, txHash },
   transaction,
 }: SequenceItemProps) => (
   <sc.Wrapper isDisabled={status === TransactionStatus.Idle}>
@@ -52,7 +52,7 @@ export const SequenceItem = ({
     </Box>
     <sc.Info>
       <Heading as="h3" variant="h3" fontSize={0} lineHeight="tight" mb={1}>
-        {tag}
+        {description || tag}
       </Heading>
       <CardPrimary>
         <Paragraph as={Flex} fontSize={0}>

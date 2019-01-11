@@ -4,15 +4,17 @@ import {
   updateAction,
   newTransaction,
 } from '~/state/actions/transactions';
-import { types } from '@polymathnetwork/new-shared';
 import { takeEvery, eventChannel } from 'redux-saga';
 import { getType, ActionType } from 'typesafe-actions';
+import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '@polymathnetwork/sdk';
 
 export function* watchTransaction({
   payload: transaction,
 }: ActionType<typeof newTransaction>) {
-  const transactionEntity: types.TransactionEntity = transaction.toPojo();
+  const transactionEntity: types.TransactionEntity = {
+    ...transaction.toPojo(),
+  };
 
   yield put(createAction(transactionEntity));
 

@@ -67,6 +67,7 @@ export interface TransactionEntity extends Entity {
   transactionQueueUid: string;
   status: TransactionStatus;
   tag: PolyTransactionTags;
+  description: string;
   receipt?: TransactionReceipt;
   error?: PolymathError;
   args: any[];
@@ -114,6 +115,7 @@ export interface Erc20DividendsModuleEntity extends Entity {
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
   procedureType: string;
+  description: string;
 }
 
 export interface Transaction {

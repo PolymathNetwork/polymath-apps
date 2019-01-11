@@ -8,6 +8,14 @@ import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
 import { TransactionQueue } from '~/entities/TransactionQueue';
 
+// @TODO RafaelVidaurre: Decide where this should go
+const descriptionsByTag: {
+  [key: string]: string;
+} = {
+  [types.PolyTransactionTags.EnableDividends]:
+    'Enabling the distribution of dividends in ERC20 tokens, including POLY and Stablecoins',
+};
+
 enum Events {
   StatusChange = 'StatusChange',
 }
@@ -37,6 +45,7 @@ export class PolyTransaction extends Entity {
   public receipt?: TransactionReceipt;
   public tag: types.PolyTransactionTags;
   public txHash?: string;
+  public description: string;
   protected method: TransactionSpec['method'];
   protected args: TransactionSpec['args'];
   private postResolver: PostTransactionResolver<
@@ -59,6 +68,7 @@ export class PolyTransaction extends Entity {
     this.method = transaction.method;
     this.args = transaction.args;
     this.transactionQueue = transactionQueue;
+    this.description = descriptionsByTag[this.tag] || this.tag;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -74,6 +84,7 @@ export class PolyTransaction extends Entity {
       receipt,
       error,
       args,
+      description,
       txHash,
       transactionQueue,
     } = this;
@@ -84,6 +95,7 @@ export class PolyTransaction extends Entity {
       transactionQueueUid,
       status,
       tag,
+      description,
       txHash,
       receipt,
       error,
