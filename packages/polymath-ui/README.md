@@ -57,8 +57,8 @@ To run tests:
 
 ## Add new SVG icons
 
-- Export your SVG in black `#000000` (or replace the hex value in the following command by the color of your SVG)
+- Export your SVG in black `#000` (or replace the hex value in the following command by the color of your SVG)
 - Add the SVG files to `images/{folder}`
-- `npx @svgr/cli --icon --replace-attr-values "#000000=currentColor" -d ./src/images/{folder} ./src/images/{folder}`
+- `npx @svgr/cli --icon --replace-attr-values "#000=currentColor" -d ./src/images/{folder} ./src/images/{folder}`
 
-ex: `npx @svgr/cli --icon --replace-attr-values "#000000=currentColor" -d ./src/images/icons ./src/images/icons`
+ex: `npx @svgr/cli --icon --replace-attr-values "#000=currentColor" -d ./src/images/icons ./src/images/icons`

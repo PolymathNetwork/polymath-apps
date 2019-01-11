@@ -15,6 +15,7 @@ export const modalStyle = css`
     background-color: white;
     min-width: 100%;
     max-height: 100%;
+    min-height: 350px;
     height: 100%;
     padding: 3%;
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
@@ -107,6 +108,7 @@ export const Inner = styled.div`
   display: flex;
   overflow-y: auto;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 export const CloseButton = styled(IconButton)`

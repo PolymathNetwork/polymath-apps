@@ -9,7 +9,7 @@ import { Body } from './Body';
 import { Footer } from './Footer';
 import * as sc from './styles';
 import { ModalStatus } from './types';
-import { ReactComponent as SvgClose } from '~/images/icons/close.svg';
+import { SvgClose } from '~/images/icons/Close';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -33,14 +33,6 @@ class _Modal extends Component<ModalProps, State> {
   public static Body = Body;
   public static Footer = Footer;
 
-  static defaultProps = {
-    status: ModalStatus.idle,
-    isOpen: false,
-    isCloseable: true,
-    onClose: null,
-    isCentered: true,
-  };
-
   state = {
     forceClose: false,
     isOpen: false,
@@ -51,10 +43,10 @@ class _Modal extends Component<ModalProps, State> {
       return;
     }
 
-    if (this.props.onClose === null) {
-      this.setState({ forceClose: true });
-    } else {
+    if (this.props.onClose) {
       this.props.onClose();
+    } else {
+      this.setState({ forceClose: true });
     }
   };
 
@@ -98,3 +90,10 @@ class _Modal extends Component<ModalProps, State> {
 export const Modal = styled(withTheme(_Modal))`
   ${sc.modalStyle};
 `;
+
+Modal.defaultProps = {
+  status: ModalStatus.idle,
+  isOpen: false,
+  isCloseable: true,
+  isCentered: true,
+};

@@ -8,18 +8,18 @@ import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { Modal, ModalProps, ModalStatus } from '../Modal';
 
-import { ReactComponent as SvgPaperplane } from '~/images/icons/paperplane.svg';
+import { SvgPaperplane } from '~/images/icons/Paperplane';
 
-import { SequenceItem } from './SequenceItem';
+import { TransactionItem } from './TransactionItem';
 
-const { HigherLevelTransactionStatus } = types;
+const { TransactionQueueStatus } = types;
 
-const getModalStatus = (status: types.HigherLevelTransactionStatus) =>
+const getModalStatus = (status: types.TransactionQueueStatus) =>
   ({
-    [HigherLevelTransactionStatus.Idle]: ModalStatus.loading,
-    [HigherLevelTransactionStatus.Running]: ModalStatus.loading,
-    [HigherLevelTransactionStatus.Succeeded]: ModalStatus.success,
-    [HigherLevelTransactionStatus.Failed]: ModalStatus.alert,
+    [TransactionQueueStatus.Idle]: ModalStatus.loading,
+    [TransactionQueueStatus.Running]: ModalStatus.loading,
+    [TransactionQueueStatus.Succeeded]: ModalStatus.success,
+    [TransactionQueueStatus.Failed]: ModalStatus.alert,
   }[status]);
 
 const getLabelText = (status: ModalStatus) =>
@@ -40,31 +40,34 @@ const getTitleText = (status: ModalStatus, title: string) =>
     [ModalStatus.success]: `Your ${title} was successfully submitted`,
   }[status]);
 
-export interface ModalSequenceProps extends ModalProps {
-  sequence: types.HigherLevelTransaction;
+export interface ModalTransactionQueueProps extends ModalProps {
+  transactionQueue: types.HigherLevelTransaction;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
 }
 
-export class ModalSequence extends Component<ModalSequenceProps> {
+export class ModalTransactionQueue extends Component<
+  ModalTransactionQueueProps
+> {
   static defaultProps = {
     continueButtonText: 'Continue',
   };
 
   public render() {
     const {
-      sequence,
+      transactionQueue,
       withEmail,
       isOpen,
       continueButtonText,
       onContinue,
     } = this.props;
-    const { transactions } = sequence;
-    const status = getModalStatus(sequence.status);
+    const { transactions } = transactionQueue;
+    const status = getModalStatus(transactionQueue.status);
     const isSuccess =
-      sequence.status === HigherLevelTransactionStatus.Succeeded;
-    const isRejected = sequence.status === HigherLevelTransactionStatus.Failed;
+      transactionQueue.status === TransactionQueueStatus.Succeeded;
+    const isRejected =
+      transactionQueue.status === TransactionQueueStatus.Failed;
 
     return (
       <Modal
@@ -78,11 +81,11 @@ export class ModalSequence extends Component<ModalSequenceProps> {
           status={status}
           label={'Transaction ' + getLabelText(status)}
         >
-          {getTitleText(status, sequence.name)}
+          {getTitleText(status, transactionQueue.name)}
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <SequenceItem key={transaction.id} transaction={transaction} />
+          <TransactionItem key={transaction.id} transaction={transaction} />
         ))}
 
         {isSuccess && withEmail && (
