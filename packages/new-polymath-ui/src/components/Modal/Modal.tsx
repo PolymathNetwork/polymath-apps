@@ -33,14 +33,6 @@ class _Modal extends Component<ModalProps, State> {
   public static Body = Body;
   public static Footer = Footer;
 
-  static defaultProps = {
-    status: ModalStatus.idle,
-    isOpen: false,
-    isCloseable: true,
-    onClose: null,
-    isCentered: true,
-  };
-
   state = {
     forceClose: false,
     isOpen: false,
@@ -51,10 +43,10 @@ class _Modal extends Component<ModalProps, State> {
       return;
     }
 
-    if (this.props.onClose === null) {
-      this.setState({ forceClose: true });
-    } else {
+    if (this.props.onClose) {
       this.props.onClose();
+    } else {
+      this.setState({ forceClose: true });
     }
   };
 
@@ -98,3 +90,10 @@ class _Modal extends Component<ModalProps, State> {
 export const Modal = styled(withTheme(_Modal))`
   ${sc.modalStyle};
 `;
+
+Modal.defaultProps = {
+  status: ModalStatus.idle,
+  isOpen: false,
+  isCloseable: true,
+  isCentered: true,
+};
