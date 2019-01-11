@@ -4,23 +4,23 @@ import { Button } from '~/components/Button';
 import { ModalConfirmTransactionQueue } from './ModalConfirmTransactionQueue';
 
 export class ModalDemo extends React.Component {
-  state = {
+  public state = {
     isModalOpen: false,
   };
 
-  handleClick = () => {
+  public handleClick = () => {
     this.setState({
       isModalOpen: true,
     });
   };
 
-  handleModalClose = () => {
+  public handleModalClose = () => {
     this.setState({
       isModalOpen: false,
     });
   };
 
-  render() {
+  public render() {
     return (
       <Fragment>
         <Button onClick={this.handleClick}>Open modal</Button>

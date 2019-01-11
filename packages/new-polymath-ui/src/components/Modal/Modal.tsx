@@ -31,8 +31,14 @@ class ModalBase extends Component<ModalProps, State> {
   public static Header = Header;
   public static Body = Body;
   public static Footer = Footer;
+  public static defaultProps = {
+    status: ModalStatus.idle,
+    isOpen: false,
+    isCloseable: true,
+    isCentered: true,
+  };
 
-  state = {
+  public state = {
     forceClose: false,
     isOpen: false,
   };
@@ -82,13 +88,13 @@ class ModalBase extends Component<ModalProps, State> {
   }
 }
 
-export const Modal = styled(withTheme(ModalBase))`
+const EnhacedModal = styled(withTheme(ModalBase))`
   ${sc.modalStyle};
 `;
 
-Modal.defaultProps = {
-  status: ModalStatus.idle,
-  isOpen: false,
-  isCloseable: true,
-  isCentered: true,
-};
+export const Modal = Object.assign(EnhacedModal, {
+  Header,
+  Body,
+  Footer,
+  defaultProps: ModalBase.defaultProps,
+});

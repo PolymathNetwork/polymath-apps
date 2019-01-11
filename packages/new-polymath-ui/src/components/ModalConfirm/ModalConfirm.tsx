@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { Modal, ModalProps } from '~/components/Modal';
 import { Button } from '~/components/Button';
@@ -11,7 +11,7 @@ export interface ModalConfirmProps extends ModalProps {
   onClose: () => void;
 }
 
-export const ModalConfirm = (props: ModalConfirmProps) => {
+const ModalConfirmBase: FC<ModalConfirmProps> = props => {
   const {
     isOpen,
     onClose,
@@ -23,12 +23,7 @@ export const ModalConfirm = (props: ModalConfirmProps) => {
     ...otherProps
   } = props;
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      onSubmit={onSubmit}
-      {...otherProps}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} {...otherProps}>
       {children}
       <Modal.Footer>
         <Button kind="secondary" onClick={onClose}>
@@ -42,11 +37,12 @@ export const ModalConfirm = (props: ModalConfirmProps) => {
   );
 };
 
-ModalConfirm.Header = Modal.Header;
-ModalConfirm.Body = Modal.Body;
-
-ModalConfirm.defaultProps = {
-  isActionDisabled: false,
-  actionButtonText: 'Confirm',
-  cancelButtonText: 'Cancel',
-};
+export const ModalConfirm = Object.assign(ModalConfirmBase, {
+  Header: Modal.Header,
+  Body: Modal.Body,
+  defaultProps: {
+    isActionDisabled: false,
+    actionButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
+  },
+});
