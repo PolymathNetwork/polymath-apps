@@ -43,17 +43,18 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     super({ address, abi: SecurityTokenAbi.abi, context });
   }
 
-  public async createCheckpoint() {
-    return this.contract.methods
-      .createCheckpoint()
-      .send({ from: this.context.account });
-  }
+  public createCheckpoint = async () => {
+    return () =>
+      this.contract.methods
+        .createCheckpoint()
+        .send({ from: this.context.account });
+  };
 
   public async currentCheckpointId() {
     return this.contract.methods.currentCheckpointId().call();
   }
 
-  public async addDividendsModule(type: DividendModuleTypes) {
+  public addDividendsModule = async (type: DividendModuleTypes) => {
     const factoryMappings = [];
     factoryMappings[DividendModuleTypes.Erc20] = 'ERC20DividendCheckpoint';
     factoryMappings[DividendModuleTypes.Eth] = 'EtherDividendCheckpoint';
@@ -64,15 +65,16 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       this.address
     );
 
-    return this.contract.methods
-      .addModule(
-        factoryAddress,
-        Web3.utils.asciiToHex(''), // Dividends modules require no configuration data so we send '0x00'
-        new BigNumber(0),
-        new BigNumber(0)
-      )
-      .send({ from: this.context.account });
-  }
+    return () =>
+      this.contract.methods
+        .addModule(
+          factoryAddress,
+          Web3.utils.asciiToHex(''), // Dividends modules require no configuration data so we send '0x00'
+          new BigNumber(0),
+          new BigNumber(0)
+        )
+        .send({ from: this.context.account });
+  };
 
   public async getErc20DividendModule() {
     const address = await this.getModuleAddress('ERC20DividendCheckPoint');

@@ -48,6 +48,7 @@ export class LowLevel {
 
   constructor(params: Params = {}) {
     const { provider, privateKey } = params;
+
     let auxProvider: HttpProvider | null;
     if (!provider) {
       auxProvider = this.getBrowserProvider();

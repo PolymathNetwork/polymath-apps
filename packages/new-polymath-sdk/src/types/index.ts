@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { Contract } from '~/LowLevel/Contract';
+import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
+import PromiEvent from 'web3/promiEvent';
 
 export interface TaxWithholding {
   address: string;
@@ -16,9 +17,13 @@ export enum ModuleTypes {
 }
 
 export enum ErrorCodes {
-  IncompatibleBrowser,
-  UserDeniedAccess,
-  WalletIsLocked,
+  IncompatibleBrowser = 'IncompatibleBrowser',
+  UserDeniedAccess = 'UserDeniedAccess',
+  WalletIsLocked = 'WalletIsLocked',
+  ProcedureValidationError = 'ProcedureValidationError',
+  TransactionRejectedByUser = 'TransactionRejectedByUser',
+  TransactionReverted = 'TransactionReverted',
+  FatalError = 'FatalError',
 }
 
 export interface InvestorBalance {
@@ -26,9 +31,37 @@ export interface InvestorBalance {
   balance: BigNumber;
 }
 
+export type LowLevelMethod<A extends any[]> = (
+  ...args: A
+) => Promise<() => PromiEvent<any>>;
+
 export interface TransactionSpec<Args extends any[]> {
-  method: (...args: Args) => Promise<any>;
+  method: LowLevelMethod<Args>;
   args: Args;
-  contract: Contract<any>;
-  postTransactionResolver: PostTransactionResolver<any>;
+  postTransactionResolver?: PostTransactionResolver<any>;
+  tag?: PolyTransactionTags;
+}
+
+export enum PolyTransactionTags {
+  Any = 'Any',
+  Approve = 'Approve',
+  GetTokens = 'GetTokens',
+  ReserveSecurityToken = 'ReserveSecurityToken',
+  CreateSecurityToken = 'CreateSecurityToken',
+  CreateCheckpoint = 'CreateCheckpoint',
+  CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
+  CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
+  SetErc20TaxWithholding = 'SetErc20TaxWithholding',
+  SetEtherTaxWithholding = 'SetEtherTaxWithholding',
+  EnableDividends = 'EnableDividends',
+  ReclaimDividendFunds = 'ReclaimDividendFunds',
+  WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
+}
+
+export interface PolymathNetworkParams {
+  httpProvider?: HttpProvider;
+  httpProviderUrl?: string;
+  wsProvider?: WebsocketProvider;
+  wsProviderUrl?: string;
+  polymathRegistryAddress: string;
 }

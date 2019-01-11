@@ -29,15 +29,18 @@ export class PolyToken extends Contract<PolyTokenContract> {
     const abi = isTestnet ? PolyTokenFaucetAbi.abi : PolyTokenAbi.abi;
     super({ address, abi, context });
     this.isTestnet = isTestnet;
+    this.getTokens = this.getTokens.bind(this);
+    this.approve = this.approve.bind(this);
   }
 
   public async getTokens(amount: BigNumber, recipient: string) {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
-    return this.contract.methods
-      .getTokens(amount, recipient)
-      .send({ from: this.context.account });
+    return () =>
+      this.contract.methods
+        .getTokens(amount, recipient)
+        .send({ from: this.context.account });
   }
 
   public async balanceOf(address: string) {
@@ -49,8 +52,9 @@ export class PolyToken extends Contract<PolyTokenContract> {
   }
 
   public async approve(spender: string, amount: BigNumber) {
-    return this.contract.methods
-      .approve(spender, amount)
-      .send({ from: this.context.account });
+    return () =>
+      this.contract.methods
+        .approve(spender, amount)
+        .send({ from: this.context.account });
   }
 }
