@@ -7,7 +7,11 @@ import { IconButton } from '../IconButton';
 
 const statusBarHeight = '8px';
 
-export const modalStyle = css`
+export interface StyleProps {
+  isCentered?: boolean;
+}
+
+export const modalStyle = css<StyleProps>`
   .pui-modal {
     position: relative;
     display: flex;
