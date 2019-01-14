@@ -1,14 +1,14 @@
 import React, { Component, Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { types } from '@polymathnetwork/new-shared';
 import { ModalTransactionQueue } from '@polymathnetwork/new-ui';
 import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { RootState } from '~/state/store';
 import { ActionType } from 'typesafe-actions';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
+import { types } from '@polymathnetwork/new-shared';
 
 export interface StateProps {
-  transactionQueue: types.TransactionQueueEntity | null;
+  transactionQueue: types.TransactionQueueEntity;
 }
 
 export interface DispatchProps {

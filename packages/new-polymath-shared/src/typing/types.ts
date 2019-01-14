@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import _ from 'lodash';
 import { TransactionReceipt } from 'web3/types';
-import { typeHelpers } from '~/index';
 
 export enum Tokens {
   Poly = 'POLY',
