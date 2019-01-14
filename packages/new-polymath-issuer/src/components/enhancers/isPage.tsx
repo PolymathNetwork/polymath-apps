@@ -1,7 +1,7 @@
 import React, { ReactNode, Component } from 'react';
 import { connect } from 'react-redux';
+import { Loading } from '@polymathnetwork/new-ui';
 import { RootState } from '~/state/store';
-import { Loading } from '~/components/__temporary';
 
 interface Props {
   changingRoute: boolean;
