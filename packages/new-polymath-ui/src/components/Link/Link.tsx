@@ -1,32 +1,25 @@
 import React from 'react';
-import { color, ColorProps } from 'styled-system';
+import { color } from 'styled-system';
 import styled from '~/styles';
 
+const urlRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+
 export interface LinkProps {
-  href?: string;
-  to?: string;
+  href: string;
 }
 
-export const Link = styled(({ href, to, ...rest }: LinkProps) => {
-  const isExternal = !!href;
-  const Tag = href ? 'a' : 'a';
+export const Link = styled(({ href, ...rest }: LinkProps) => {
+  const isExternal = href.match(urlRegex);
   let linkProps = {};
 
   if (isExternal) {
     linkProps = {
-      ...linkProps,
-      href,
       target: '_blank',
       rel: 'noopener noreferrer',
     };
-  } else {
-    linkProps = {
-      ...linkProps,
-      to,
-    };
   }
 
-  return <Tag {...linkProps} {...rest} />;
+  return <a href={href} {...linkProps} {...rest} />;
 })`
   text-decoration: underline;
   ${({ theme }) => theme.links};
