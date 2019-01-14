@@ -88,6 +88,7 @@ export default (state: WhitelistState = defaultState, action: Object) => {
         uploaded: [],
         criticals: [],
         isTooMany: false,
+        parseError: '',
       };
     case a.FREEZE_STATUS:
       return {
