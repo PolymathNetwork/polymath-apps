@@ -36,6 +36,10 @@ export class ContainerBase extends Component<Props> {
   public render() {
     const { transactionQueue } = this.props;
 
+    if (!transactionQueue) {
+      return null;
+    }
+
     return (
       <ModalTransactionQueue
         isOpen={!!transactionQueue}

@@ -10,8 +10,6 @@ import * as sc from './styles';
 import { ModalStatus } from './types';
 import { SvgClose } from '~/images/icons/Close';
 
-export type ModalProps = JSX.LibraryManagedAttributes<typeof ModalBase, Props>;
-
 interface Props {
   isOpen: boolean;
   status: ModalStatus;

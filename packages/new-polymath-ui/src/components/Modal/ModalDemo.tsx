@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 
 import { Modal } from './';
-import { ModalProps } from '~/components/Modal/Modal';
+import { GetProps } from '~/typing';
 
+type ModalProps = GetProps<typeof Modal>;
 interface State {
   isModalOpen: boolean;
 }

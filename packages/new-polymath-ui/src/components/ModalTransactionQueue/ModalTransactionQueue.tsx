@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { types } from '@polymathnetwork/new-shared';
-
+import { types, typeHelpers } from '@polymathnetwork/new-shared';
+import { SvgPaperplane } from '~/images/icons/Paperplane';
+import { GetProps } from '~/typing';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
 import { Paragraph } from '../Paragraph';
 import { Flex } from '../Flex';
 import { Box } from '../Box';
-import { Modal, ModalProps, ModalStatus } from '../Modal';
-
-import { SvgPaperplane } from '~/images/icons/Paperplane';
-
+import { Modal, ModalStatus } from '../Modal';
 import { TransactionItem } from './TransactionItem';
+
+type ModalProps = typeHelpers.Omit<GetProps<typeof Modal>, 'status'>;
 
 const { TransactionQueueStatus } = types;
 
@@ -41,7 +41,7 @@ const getTitleText = (status: ModalStatus, title: string) =>
   }[status]);
 
 export interface ModalTransactionQueueProps extends ModalProps {
-  transactionQueue: types.TransactionQueueEntity | null;
+  transactionQueue: types.TransactionQueueEntity;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
@@ -62,11 +62,6 @@ export class ModalTransactionQueue extends Component<
       continueButtonText,
       onContinue,
     } = this.props;
-    // FIXME @grsmto: make this not crash if transactionQueue is null but still
-    // render the modal
-    if (!transactionQueue) {
-      return null;
-    }
 
     const { transactions, status, description } = transactionQueue;
     const modalStatus = getModalStatus(status);
@@ -85,7 +80,7 @@ export class ModalTransactionQueue extends Component<
           status={modalStatus}
           label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(modalStatus, transactionQueue.description)}
+          {getTitleText(modalStatus, description)}
         </Modal.Header>
 
         {transactions.map(transaction => (

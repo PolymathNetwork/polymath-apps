@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import { FieldProps } from 'formik';
+import { GetProps } from '~/typing';
 
 interface InjectedProps {
   value: any | any[];
@@ -12,7 +12,6 @@ interface InjectedProps {
 export type OwnProps = FieldProps;
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-type GetProps<C> = C extends React.ComponentType<infer P> ? P : never;
 
 export type SharedProps<InjectedP, DecorationTargetProps> = {
   [P in Extract<

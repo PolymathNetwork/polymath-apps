@@ -2,13 +2,14 @@ import { maxWidth } from 'styled-system';
 
 import styled, { css, ThemeInterface } from '~/styles';
 
-import { ModalStatus, ModalProps } from './';
+import { ModalStatus } from './types';
 import { IconButton } from '../IconButton';
 
 const statusBarHeight = '8px';
 
 export interface StyleProps {
   isCentered?: boolean;
+  maxWidth?: number;
 }
 
 export const modalStyle = css<StyleProps>`
@@ -36,8 +37,7 @@ export const modalStyle = css<StyleProps>`
     }
 
     @media (min-width: 1024px) {
-      ${(props: ModalProps) =>
-        props.maxWidth ? maxWidth(props) : 'max-width: 50%'};
+      ${props => (props.maxWidth ? maxWidth(props) : 'max-width: 50%')};
       max-height: 80%;
     }
 

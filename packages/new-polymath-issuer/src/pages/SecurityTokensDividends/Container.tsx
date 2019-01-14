@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { types } from '@polymathnetwork/new-shared';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createErc20DividendsModuleBySymbolFetcher } from '~/state/fetchers';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
-import { Erc20DividendsModuleEntity } from '~/types';
 import { ActionType } from 'typesafe-actions/dist/types';
 
 export interface Props {
@@ -28,7 +28,7 @@ export class ContainerBase extends Component<Props> {
           createErc20DividendsModuleBySymbolFetcher({ securityTokenSymbol }),
         ]}
         render={(data: {
-          erc20DividendsModules: Erc20DividendsModuleEntity[];
+          erc20DividendsModules: types.Erc20DividendsModuleEntity[];
         }) => {
           const {
             erc20DividendsModules: [erc20DividendsModule],

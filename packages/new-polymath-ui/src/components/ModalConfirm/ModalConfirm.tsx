@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 
-import { Modal, ModalProps } from '~/components/Modal';
+import { Modal } from '~/components/Modal';
 import { Button } from '~/components/Button';
+import { GetProps } from '~/typing';
+
+type ModalProps = GetProps<typeof Modal>;
 
 export interface Props extends ModalProps {
   isActionDisabled: boolean;
