@@ -16,6 +16,7 @@ import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|
   isTooMany: boolean,
+  parseError: String,
   isReady: boolean,
   isInvalid: boolean,
 |};
@@ -33,6 +34,7 @@ type Props = {|
 
 const mapStateToProps = (state: RootState) => ({
   isTooMany: state.whitelist.isTooMany,
+  parseError: state.whitelist.parseError,
   isReady: state.whitelist.uploaded.length > 0,
   isInvalid: state.whitelist.criticals.length > 0,
 });
@@ -72,7 +74,7 @@ class ImportWhitelistModal extends Component<Props> {
   };
 
   render() {
-    const { isOpen, isTooMany, isReady, isInvalid } = this.props;
+    const { isOpen, isTooMany, parseError, isReady, isInvalid } = this.props;
     return (
       <Modal
         open={isOpen}
@@ -138,7 +140,14 @@ class ImportWhitelistModal extends Component<Props> {
           filenameStatus="edit"
           ref={this.fileUploaderRef}
         />
-        {isInvalid && !isReady ? (
+        {parseError.length > 0 ? (
+          <InlineNotification
+            hideCloseButton
+            title={parseError}
+            subtitle="Please check instructions above and try again."
+            kind="error"
+          />
+        ) : isInvalid && !isReady ? (
           <InlineNotification
             hideCloseButton
             title="The file you uploaded does not contain any valid values"
@@ -168,7 +177,11 @@ class ImportWhitelistModal extends Component<Props> {
           >
             Cancel
           </Button>
-          <Button type="submit" disabled={!isReady} onClick={this.handleSubmit}>
+          <Button
+            type="submit"
+            disabled={!isReady || isInvalid}
+            onClick={this.handleSubmit}
+          >
             Import Whitelist
           </Button>
         </p>
