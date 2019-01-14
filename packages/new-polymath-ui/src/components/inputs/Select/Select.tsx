@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactSelect, { components } from 'react-select';
 import { Props as ReactSelectProps } from 'react-select/lib/Select';
 import { typeHelpers } from '@polymathnetwork/new-shared';
-import styled, { withTheme, ThemeInterface } from '~/styles';
+import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Icon } from '~/components/Icon';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { formikProxy } from '../formikProxy';

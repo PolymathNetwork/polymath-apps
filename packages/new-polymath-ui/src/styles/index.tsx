@@ -3,7 +3,7 @@ import * as styledComponents from 'styled-components';
 import { ThemedStyledComponentsModule } from 'styled-components';
 import { ThemeInterface } from './types';
 import { GlobalStyles } from './GlobalStyles';
-import * as theme from './theme';
+import { theme } from './theme';
 
 const {
   default: styled,
@@ -28,5 +28,5 @@ export {
   ThemeProvider,
   withTheme,
   ThemeInterface,
+  styled,
 };
-export default styled;

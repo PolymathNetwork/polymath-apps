@@ -8,7 +8,7 @@ import { unsetActiveTransactionQueue } from '~/state/actions/app';
 import { types } from '@polymathnetwork/new-shared';
 
 export interface StateProps {
-  transactionQueue: types.TransactionQueueEntity;
+  transactionQueue: types.TransactionQueuePojo | null;
 }
 
 export interface DispatchProps {

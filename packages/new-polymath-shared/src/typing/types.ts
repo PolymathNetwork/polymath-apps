@@ -73,6 +73,8 @@ export interface TransactionEntity extends Entity {
   args: any[];
 }
 
+export interface TransactionPojo extends TransactionEntity {}
+
 export interface DividendEntity extends Entity {
   index: number;
   securityTokenSymbol: string;
@@ -91,6 +93,8 @@ export interface DividendEntity extends Entity {
   currency: string | null;
 }
 
+export interface DividendPojo extends DividendEntity {}
+
 export interface CheckpointEntity extends Entity {
   index: number;
   securityTokenSymbol: string;
@@ -103,6 +107,10 @@ export interface CheckpointEntity extends Entity {
   createdAt: Date;
 }
 
+export interface CheckpointPojo extends CheckpointEntity {
+  dividends: DividendPojo[];
+}
+
 export interface Erc20DividendsModuleEntity extends Entity {
   /**
    * if undefined, it means the module is not attached
@@ -112,10 +120,16 @@ export interface Erc20DividendsModuleEntity extends Entity {
   securityTokenId: string;
 }
 
+export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
+
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
   procedureType: string;
   description: string;
+}
+
+export interface TransactionQueuePojo extends TransactionQueueEntity {
+  transactions: TransactionPojo[];
 }
 
 export function isPojo(pojo: any): pojo is Pojo {
