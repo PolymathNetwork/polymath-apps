@@ -94,8 +94,8 @@ class SelectPrimitiveBase extends Component<SelectProps> {
 }
 
 export const SelectPrimitive = withTheme(SelectPrimitiveBase);
-const EnahncedSelect = formikProxy(SelectPrimitive);
+const EnhancedSelect = formikProxy(SelectPrimitive);
 
-export const Select = Object.assign(EnahncedSelect, {
+export const Select = Object.assign(EnhancedSelect, {
   defaultProps: SelectPrimitive.defaultProps,
 });
