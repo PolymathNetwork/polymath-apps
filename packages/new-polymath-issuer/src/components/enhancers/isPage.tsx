@@ -1,8 +1,7 @@
 import React, { ReactNode, Component } from 'react';
-import { render } from 'react-testing-library';
 import { connect } from 'react-redux';
 import { RootState } from '~/state/store';
-import { Loading } from '../__temporary';
+import { Loading } from '~/components/__temporary';
 
 interface Props {
   changingRoute: boolean;

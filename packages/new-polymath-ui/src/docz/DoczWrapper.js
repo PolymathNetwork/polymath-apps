@@ -1,11 +1,8 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-
-import * as theme from '../styles/theme';
-import { GlobalStyles } from '../styles/GlobalStyles';
+import { ThemeProvider, GlobalStyles } from '~/styles';
 
 const Wrapper = ({ children }) => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider>
     <div>
       {children}
       <GlobalStyles />

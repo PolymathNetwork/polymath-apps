@@ -1,5 +1,6 @@
 import { Procedure } from './Procedure';
 import { Approve } from '~/procedures/Approve';
+import { PolyTransactionTags } from '~/types';
 
 interface Args {
   name: string;
@@ -19,9 +20,8 @@ export class CreateSecurityToken extends Procedure<Args> {
       spender: securityTokenRegistry.address,
     });
 
-    await this.addTransaction(
-      securityTokenRegistry,
-      securityTokenRegistry.generateSecurityToken
-    )(name, symbol, detailsUrl, divisible);
+    await this.addTransaction(securityTokenRegistry.generateSecurityToken, {
+      tag: PolyTransactionTags.CreateSecurityToken,
+    })(name, symbol, detailsUrl, divisible);
   }
 }

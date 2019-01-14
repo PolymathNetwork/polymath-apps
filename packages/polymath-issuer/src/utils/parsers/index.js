@@ -68,59 +68,81 @@ export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
   return invalidRows;
 }
 
+const checkColumnCount = data => {
+  // Split the input into lines
+  let rows = data.split('\n');
+  const header_row = rows[0].split(',');
+  let errorMsg;
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rows[i].split(',');
+    if (cells.length !== header_row.length) {
+      errorMsg = 'The number of columns is incorrect on row ' + i;
+      break;
+    }
+  }
+  return errorMsg;
+};
+
 export function parseWhitelistCsv(file: string) {
-  const data = csvParse(file, {
-    skip_empty_lines: true,
-    trim: true,
-    cast: (rawValue, context) => {
-      const value = rawValue;
+  let data;
+  let parseError = '';
+  try {
+    data = csvParse(file, {
+      skip_empty_lines: true,
+      trim: true,
+      cast: (rawValue, context) => {
+        const value = rawValue;
 
-      if (value === '' || (typeof value === 'string' && !value.length)) {
-        if (
-          context.column === 'buyLockupDate' ||
-          context.column === 'sellLockupDate'
-        ) {
-          return new Date(PERMANENT_LOCKUP_TS);
+        if (value === '' || (typeof value === 'string' && !value.length)) {
+          if (
+            context.column === 'buyLockupDate' ||
+            context.column === 'sellLockupDate'
+          ) {
+            return new Date(PERMANENT_LOCKUP_TS);
+          }
+          return null;
         }
-        return null;
-      }
-      if (value.toLowerCase() === 'true') {
-        return true;
-      }
-      if (value.toLowerCase() === 'false') {
-        return false;
-      }
-      if (value.split('/').length === 3) {
-        const [rawMonth, day, rawYear] = value.split('/');
-        // Months are 0-based
-        const month = parseInt(rawMonth, 10) - 1;
-        let year = parseInt(rawYear, 10);
-
-        // Support for incomplete years
-        if (year < 2000) {
-          year += 2000;
+        if (value.toLowerCase() === 'true') {
+          return true;
         }
-        return moment({ month, day, year }).toDate();
-      }
-      if (numericalRegex.test(value)) {
-        return new BigNumber(value);
-      }
+        if (value.toLowerCase() === 'false') {
+          return false;
+        }
+        if (value.split('/').length === 3) {
+          const [rawMonth, day, rawYear] = value.split('/');
+          // Months are 0-based
+          const month = parseInt(rawMonth, 10) - 1;
+          let year = parseInt(rawYear, 10);
 
-      return value;
-    },
-    columns: line => {
-      return [
-        'address',
-        'sellLockupDate',
-        'buyLockupDate',
-        'kycAmlExpiryDate',
-        'canBuyFromSto',
-        'bypassesOwnershipRestriction',
-        'accredited',
-        'nonAccreditedLimit',
-      ];
-    },
-  });
+          // Support for incomplete years
+          if (year < 2000) {
+            year += 2000;
+          }
+          return moment({ month, day, year }).toDate();
+        }
+        if (numericalRegex.test(value)) {
+          return new BigNumber(value);
+        }
+
+        return value;
+      },
+      columns: line => {
+        return [
+          'address',
+          'sellLockupDate',
+          'buyLockupDate',
+          'kycAmlExpiryDate',
+          'canBuyFromSto',
+          'bypassesOwnershipRestriction',
+          'accredited',
+          'nonAccreditedLimit',
+        ];
+      },
+    });
+  } catch (error) {
+    //Generate our own error message since this error is too much to output in a notification
+    parseError = checkColumnCount(file);
+  }
 
   const invalidRows = validateWhitelistCsv(data);
 
@@ -138,5 +160,5 @@ export function parseWhitelistCsv(file: string) {
     );
   });
 
-  return { invalidRows, data: sanitizedData };
+  return { invalidRows, data: sanitizedData, parseError };
 }

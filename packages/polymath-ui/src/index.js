@@ -59,6 +59,7 @@ export { default as ProgressBar } from './components/ProgressBar';
 export { default as ProgressIndicator } from './components/ProgressIndicator';
 export { default as TierStatus } from './components/TierStatus';
 export { default as StickyTop } from './components/StickyTop';
+export { default as TooltipChild } from './components/TooltipChild';
 export { default as Tooltip } from './components/Tooltip';
 
 /**

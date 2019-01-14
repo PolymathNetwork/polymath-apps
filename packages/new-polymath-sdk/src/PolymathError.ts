@@ -1,13 +1,14 @@
 import { ErrorCodes } from '~/types';
 
 export const ErrorMessagesPerCode: {
-  [errorCode: number]: string;
+  [errorCode: string]: string;
 } = {
   [ErrorCodes.IncompatibleBrowser]:
     'The browser bring used is not compatible with Ethereum',
   [ErrorCodes.WalletIsLocked]:
     'The wallet is locked, if Metamask extension is being used, the user needs to unlock it first',
   [ErrorCodes.UserDeniedAccess]: 'The user denied access',
+  [ErrorCodes.TransactionRejectedByUser]: 'The user rejected the transaction',
 };
 
 export class PolymathError extends Error {

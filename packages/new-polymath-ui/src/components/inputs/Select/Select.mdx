@@ -1,0 +1,42 @@
+---
+name: Select
+menu: Inputs
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field } from 'formik';
+
+import { SelectPrimitive, Select } from './Select';
+import { exampleOptions } from './data';
+
+# Select
+
+<PropsTable of={SelectPrimitive} />
+
+## Basic usage
+
+<Playground>
+  <SelectPrimitive
+    onChange={value => console.log(value)}
+    options={exampleOptions}
+  />
+</Playground>
+
+## As form field
+
+<Playground>
+  <Formik
+    render={values => (
+      <form>
+        <pre>{JSON.stringify(values, null, 2)}</pre>
+        <br />
+        <Field
+          name="mySelect"
+          placeholder="select"
+          component={Select}
+          options={exampleOptions}
+        />
+      </form>
+    )}
+  />
+</Playground>

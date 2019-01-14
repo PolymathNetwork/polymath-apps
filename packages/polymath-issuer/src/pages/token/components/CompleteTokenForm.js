@@ -21,9 +21,9 @@ const urlMessage = 'Invalid URL (example: http(s)://www.example.com).';
 const formSchema = validator.object().shape({
   isDivisible: validator.string().isRequired(requiredMessage),
   limitInvestors: validator.boolean().isRequired(requiredMessage),
-  investorsNumber: validator.bigNumber().when(
-    'limitInvestors',
-    (limitInvestors, schema) =>
+  investorsNumber: validator
+    .bigNumber()
+    .when('limitInvestors', (limitInvestors, schema) =>
       limitInvestors
         ? schema.isRequired(requiredMessage).moreThan(
             0,
@@ -31,7 +31,7 @@ const formSchema = validator.object().shape({
             'Must be higher than ${more}.'
           )
         : schema
-  ),
+    ),
   // eslint-disable-next-line no-template-curly-in-string
   details: validator
     .string()
