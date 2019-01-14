@@ -10,7 +10,7 @@ import {
   InlineNotification,
 } from 'carbon-components-react';
 import { Remark } from '@polymathnetwork/ui';
-import { uploadCSV } from '../../../actions/compliance';
+import { uploadCSV, resetUploaded } from '../../../actions/compliance';
 
 import type { RootState } from '../../../redux/reducer';
 
@@ -22,6 +22,7 @@ type StateProps = {|
 
 type DispatchProps = {|
   uploadCSV: (file: Object) => any,
+  resetUploaded: () => any,
 |};
 
 type Props = {|
@@ -39,6 +40,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = {
   uploadCSV,
+  resetUploaded,
 };
 
 class ImportWhitelistModal extends Component<Props> {
@@ -59,10 +61,22 @@ class ImportWhitelistModal extends Component<Props> {
     this.props.onSubmit();
   };
 
-  handleUploaded = (event: Object) => {
+  handleUploaded = async (event: Object) => {
     const file = event.target.files[0];
     if (file.type.match(/csv.*/) || file.name.match(/.*\.csv$/i)) {
-      this.props.uploadCSV(file);
+      await this.props.uploadCSV(file);
+      //NOTE @sajclarke: This hack is necessary to add an eventlistener to the dynamic filename container from FileUploader
+      const node = this.fileUploader.nodes[0];
+      if (node) {
+        const el = Array.from(node.getElementsByClassName('bx--file-close'))[0];
+        el.addEventListener(
+          'click',
+          e => {
+            this.props.resetUploaded();
+          },
+          false
+        );
+      }
     }
   };
 
