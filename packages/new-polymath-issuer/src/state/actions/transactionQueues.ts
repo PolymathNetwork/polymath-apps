@@ -7,7 +7,7 @@ const confirmTransactionQueue = createStandardAction(
 )();
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  types.TransactionQueueNormalized
+  types.TransactionQueueEntity
 >('TRANSACTION_QUEUES');
 
 export { createAction, updateAction, deleteAction, confirmTransactionQueue };

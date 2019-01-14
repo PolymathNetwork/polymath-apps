@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FieldProps } from 'formik';
-import { GetProps } from '~/typing';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
 interface InjectedProps {
   value: any | any[];
@@ -29,13 +29,19 @@ export type Matching<InjectedP, DecorationTargetProps> = {
 };
 
 export const formikProxy = <
-  C extends React.ComponentType<Matching<InjectedProps, GetProps<C>>>
+  C extends React.ComponentType<
+    Matching<InjectedProps, typeHelpers.GetProps<C>>
+  >
 >(
   WrappedComponent: C
 ): React.ComponentType<
   JSX.LibraryManagedAttributes<
     C,
-    Omit<GetProps<C>, keyof SharedProps<InjectedProps, GetProps<C>>> & OwnProps
+    Omit<
+      typeHelpers.GetProps<C>,
+      keyof SharedProps<InjectedProps, typeHelpers.GetProps<C>>
+    > &
+      OwnProps
   >
 > => {
   class FormikProxy extends Component<any> {
