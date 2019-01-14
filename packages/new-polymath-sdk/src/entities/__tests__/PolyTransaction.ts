@@ -1,15 +1,14 @@
-import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '~/entities/PolyTransaction';
-import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { TransactionQueue } from '~/entities/TransactionQueue';
+import { types } from '@polymathnetwork/new-shared';
+import { MockedContract, getMockTransactionSpec } from '~/testUtils';
 
 describe('PolyTransaction', () => {
-  describe('constructor', () => {
+  describe('.constructor', () => {
     test('initialzes properly', () => {
       const transaction = {
         method: jest.fn(),
         args: ['argA'],
-        postTransactionResolver: new PostTransactionResolver(async () => {}),
       };
       const polyTransaction = new PolyTransaction(
         transaction,
@@ -39,7 +38,6 @@ describe('PolyTransaction', () => {
       const transaction = {
         method: jest.fn(),
         args: ['argA'],
-        postTransactionResolver: new PostTransactionResolver(async () => {}),
       };
       const polyTransaction = new PolyTransaction(
         transaction,
@@ -50,43 +48,37 @@ describe('PolyTransaction', () => {
   });
 
   test('does not need binding between the method and the contract', async () => {
-    class TestContract {
-      private val = {
-        foo: 'bar',
-      };
-      public method = () => {
-        expect(this.val.foo).toBeDefined();
-        return jest.fn(() => {
-          return {
-            once: jest.fn(),
-            on: jest.fn(),
-            then: jest.fn(),
-            catch: jest.fn(),
-          };
-        });
-      };
-    }
+    const testContract = new MockedContract();
 
-    const test = new TestContract();
+    const transaction = getMockTransactionSpec(testContract.fakeTxOne, [
+      'argA',
+    ]);
 
-    const transaction = {
-      method: test.method as any,
-      args: ['argA'],
-    };
-
-    const polyTransaction = new PolyTransaction(
-      transaction,
-      {} as TransactionQueue
-    );
+    const polyTransaction = new PolyTransaction(transaction, {
+      uid: 'txqid0',
+    } as TransactionQueue);
 
     await polyTransaction.run();
 
     expect(transaction.method).toHaveBeenCalledWith('argA');
   });
 
-  describe('onStatusChange', () => {
+  describe('#onStatusChange', () => {
     test("calls the listener with the transaction everytime the transaction's staus changed", () => {
       const transaction = {};
+    });
+  });
+
+  describe('#toPojo', () => {
+    test('returns a plain object representing the entity', () => {
+      const testContract = new MockedContract();
+      const transaction = getMockTransactionSpec(testContract.fakeTxOne, []);
+
+      const polyTransaction = new PolyTransaction(transaction, {
+        uid: 'tqid0',
+      } as TransactionQueue);
+
+      expect(types.isPojo(polyTransaction.toPojo())).toBeTruthy();
     });
   });
 });

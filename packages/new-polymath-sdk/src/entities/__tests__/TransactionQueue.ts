@@ -1,35 +1,11 @@
-import { GenericContract } from '~/LowLevel/types';
+import { MockedContract, getMockTransactionSpec } from '~/testUtils';
 import { TransactionQueue } from '../TransactionQueue';
-import { PostTransactionResolver } from '~/PostTransactionResolver';
-
-class TestContract<T extends GenericContract> {
-  public methods = {
-    txTwo: (argA: string) => {},
-    txOne: (argA: string) => {},
-  };
-  public fakeTxOne = async (argA: string) => {
-    this.methods.txOne(argA);
-  };
-  public fakeTxTwo = async (argA: string) => {
-    this.methods.txTwo(argA);
-  };
-}
-
-const getMockTransactionSpec = (
-  method: (...args: any[]) => Promise<any>,
-  args: any,
-  resolver = async () => {}
-) => ({
-  method,
-  args,
-  postTransactionResolver: new PostTransactionResolver(resolver),
-});
 
 describe('TransactionQueue', () => {
-  let testContract: TestContract<any>;
+  let testContract: MockedContract<any>;
 
   beforeEach(() => {
-    testContract = new TestContract();
+    testContract = new MockedContract();
   });
 
   describe('constructor', () => {
@@ -48,14 +24,15 @@ describe('TransactionQueue', () => {
       const txOne = getMockTransactionSpec(testContract.fakeTxOne, [
         'stringOne',
       ]);
-      const txTwo = getMockTransactionSpec(testContract.fakeTxOne, [
+      const txTwo = getMockTransactionSpec(testContract.fakeTxTwo, [
         'stringTwo',
       ]);
       const transactionQueue = new TransactionQueue([txOne, txTwo]);
 
       await transactionQueue.run();
 
-      // expect something to have been called
+      expect(testContract.fakeTxOne).toHaveBeenCalled();
+      expect(testContract.fakeTxTwo).toHaveBeenCalled();
     });
   });
 });
