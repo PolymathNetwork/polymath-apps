@@ -41,7 +41,7 @@ const getTitleText = (status: ModalStatus, title: string) =>
   }[status]);
 
 export interface ModalTransactionQueueProps extends ModalProps {
-  transactionQueue: types.TransactionQueueEntity;
+  transactionQueue: types.TransactionQueueEntity | null;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
