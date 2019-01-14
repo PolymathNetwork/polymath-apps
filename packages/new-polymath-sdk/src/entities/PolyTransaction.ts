@@ -103,7 +103,7 @@ export class PolyTransaction extends Entity {
     };
   }
 
-  public async run() {
+  public run = async () => {
     try {
       const receipt = await this.internalRun();
       this.receipt = receipt;
@@ -120,7 +120,7 @@ export class PolyTransaction extends Entity {
     }
 
     await this.promise;
-  }
+  };
 
   public onStatusChange = (listener: (transaction: this) => void) => {
     this.emitter.on(Events.StatusChange, listener);
@@ -133,17 +133,17 @@ export class PolyTransaction extends Entity {
   protected resolve: (val?: any) => void = () => {};
   protected reject: (reason?: any) => void = () => {};
 
-  private async internalRun() {
+  private internalRun = async () => {
     this.updateStatus(types.TransactionStatus.Unapproved);
 
     const unwrappedArgs = this.unwrapArgs(this.args);
     const promiEvent = (await this.method(...unwrappedArgs))();
-
     // Set the Transaction as Running once it is approved by the user
     promiEvent.on('transactionHash', txHash => {
       this.txHash = txHash;
       this.updateStatus(types.TransactionStatus.Running);
     });
+
     let result;
 
     try {
@@ -167,7 +167,7 @@ export class PolyTransaction extends Entity {
     await this.postResolver.run();
 
     return result;
-  }
+  };
 
   private updateStatus = (status: types.TransactionStatus) => {
     this.status = status;
