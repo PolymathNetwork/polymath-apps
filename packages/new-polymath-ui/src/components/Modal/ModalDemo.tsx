@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
 import { Modal } from './';
-import { GetProps } from '~/typing';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
-type ModalProps = GetProps<typeof Modal>;
+type ModalProps = typeHelpers.GetProps<typeof Modal>;
 interface State {
   isModalOpen: boolean;
 }
