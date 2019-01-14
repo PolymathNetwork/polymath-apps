@@ -30,13 +30,6 @@ export const Wrapper = styled.div<{ variant: FooterProps['variant'] }>`
   width: 100%;
   height: ${({ theme }) => theme.footer.height};
   ${({ variant }) => variants[variant].Wrapper};
-
-  .pui-footer-text {
-    display: inline-flex;
-    font-size: 14px;
-    line-height: 22px;
-    font-weight: 300;
-  }
 `;
 
 export const Inner = styled(Flex)`

@@ -1,6 +1,5 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { Link } from 'react-router-dom';
 import { formatters } from '@polymathnetwork/new-shared';
 
 import * as sc from './styles';
@@ -8,12 +7,15 @@ import * as sc from './styles';
 import { PageWrap } from '~/components/PageWrap';
 import { Flex } from '~/components/Flex';
 import { Block } from '~/components/Block';
+import { Icon } from '~/components/Icon';
+import { IconCircled } from '~/components/IconCircled';
+import { Link } from '~/components/Link';
 
-import polyLogo from '../../images/logo.svg';
-import dotIcon from '../../images/icons/dot.svg';
-import polyIcon from '../../images/icons/poly.svg';
-import accountIcon from '../../images/icons/account.svg';
-import tokenIcon from '../../images/icons/token.svg';
+import polyLogo from '~/images/logo.svg';
+import { SvgDot } from '~/images/icons/Dot';
+import { SvgPoly } from '~/images/icons/Poly';
+import { SvgAccount } from '~/images/icons/Account';
+import { SvgToken } from '~/images/icons/Token';
 
 export interface HeaderProps {
   network: string;
@@ -23,15 +25,24 @@ export interface HeaderProps {
   variant: 'default' | 'transparent';
   ticker?: string;
   logo?: string;
+  RouterLink: React.ComponentType;
 }
 
 export const Header = (props: HeaderProps) => {
-  const { balance, account, network, ticker, logo, variant } = props;
+  const {
+    balance,
+    account,
+    network,
+    ticker,
+    logo,
+    variant,
+    RouterLink,
+  } = props;
   return (
     <sc.Wrapper className="pui-header" variant={variant}>
       <PageWrap>
         <sc.Inner>
-          <Link to="/">
+          <Link as={RouterLink} href="/">
             {logo ? (
               <Block as="img" src={logo} alt="Company Logo" width="188" />
             ) : (
@@ -41,31 +52,20 @@ export const Header = (props: HeaderProps) => {
           {account ? (
             <Flex as="ul" ml="auto" className="pui-header-menu">
               <li>
-                <img
-                  src={dotIcon}
-                  alt="Active network"
-                  style={{
-                    marginRight: '2px',
-                  }}
-                />
+                <Icon Asset={SvgDot} alt="Active network" />
                 {network}
               </li>
               <li>
-                {/*
-                  NOTE @RafaelVidaurre: According to the typing this should be:
-
-                  <PolyIcon alt="Your POLY balance" />
-                */}
-                <img src={polyIcon} alt="Your POLY balance" />
+                <IconCircled Asset={SvgPoly} alt="Your POLY balance" />
                 {balance ? formatters.toTokens(balance) + ' POLY' : '...'}
               </li>
               <li>
-                <img src={accountIcon} alt="Account" />
+                <Icon Asset={SvgAccount} alt="Account" />
                 {formatters.toShortAddress(account)}
               </li>
               {ticker ? (
                 <li>
-                  <img src={tokenIcon} alt="Token" />
+                  <Icon Asset={SvgToken} alt="Token" />
                   {ticker}
                 </li>
               ) : (
