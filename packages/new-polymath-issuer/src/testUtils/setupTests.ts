@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import { mockEthereumBrowser } from './helpers';
 
 import dotenv from 'dotenv';
 
@@ -9,3 +10,5 @@ process.env = {
   ...process.env,
   ...res.parsed,
 };
+
+mockEthereumBrowser();
