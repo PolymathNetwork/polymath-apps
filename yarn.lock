@@ -1708,16 +1708,9 @@
   version "0.0.1-alpha.12"
   resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-0.0.1-alpha.12.tgz#a68658d040a970c92e53566b8cdf4ce7a4f59ea2"
 
-"@carbon/icon-helpers@0.0.1-alpha.25":
-  version "0.0.1-alpha.25"
-  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-0.0.1-alpha.25.tgz#979d33e4ace14b14a1d9c693510fecef6a306c43"
-
 "@carbon/icons-react@^0.0.1-alpha.20":
   version "0.0.1-alpha.25"
   resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-0.0.1-alpha.25.tgz#898742d10bc8e5a098f5d592c7fb3ab9abd9c660"
-  dependencies:
-    "@carbon/icon-helpers" "0.0.1-alpha.25"
-    prop-types "^15.6.2"
 
 "@commitlint/cli@^7.1.2":
   version "7.2.1"
@@ -1903,7 +1896,7 @@
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.6.6.tgz#62266c5f0eac6941fece302abad69f2ee7e25e44"
 
-"@emotion/is-prop-valid@^0.6.1", "@emotion/is-prop-valid@^0.6.8":
+"@emotion/is-prop-valid@^0.6.1":
   version "0.6.8"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.6.8.tgz#68ad02831da41213a2089d2cab4e8ac8b30cbd85"
   dependencies:
@@ -17534,7 +17527,6 @@ reselect@^3.0.1:
 reselect@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.0.0.tgz#f2529830e5d3d0e021408b246a206ef4ea4437f7"
-  integrity sha512-qUgANli03jjAyGlnbYVAV5vvnOmJnODyABz51RdBN7M4WaVu8mecZWgyQNkG8Yqe3KRGRt0l4K4B3XVEULC4CA==
 
 reserved-words@^0.1.2:
   version "0.1.2"
@@ -18847,22 +18839,7 @@ style-loader@^0.23.0, style-loader@^0.23.1:
     loader-utils "^1.1.0"
     schema-utils "^1.0.0"
 
-styled-components@^4.0.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-4.1.2.tgz#f8a685e3b2bcd03c5beac7f2c02bb6ad237da9b3"
-  dependencies:
-    "@emotion/is-prop-valid" "^0.6.8"
-    "@emotion/unitless" "^0.7.0"
-    babel-plugin-styled-components ">= 1"
-    css-to-react-native "^2.2.2"
-    memoize-one "^4.0.0"
-    prop-types "^15.5.4"
-    react-is "^16.6.0"
-    stylis "^3.5.0"
-    stylis-rule-sheet "^0.0.10"
-    supports-color "^5.5.0"
-
-styled-components@^4.1.3:
+styled-components@4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-4.1.3.tgz#4472447208e618b57e84deaaeb6acd34a5e0fe9b"
   dependencies:
