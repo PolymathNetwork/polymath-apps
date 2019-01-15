@@ -37,7 +37,7 @@
       "<rootDir>/src/testUtils/setupTests.ts"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
+      "src/**/*.{ts,tsx,mjs}"
     ],
     "coverageReporters": [
       "lcov",
