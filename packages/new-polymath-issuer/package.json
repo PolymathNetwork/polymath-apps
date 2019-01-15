@@ -28,7 +28,8 @@
       "build"
     ],
     "transform": {
-      "^.+\\.tsx?$": "../../config/babelJestWrapper.js"
+      "^.+\\.tsx?$": "../../config/babelJestWrapper.js",
+      "^.+\\.css$": "<rootDir>/config/transformStyles.js"
     },
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
