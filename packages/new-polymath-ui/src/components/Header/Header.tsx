@@ -19,7 +19,7 @@ import { SvgToken } from '~/images/icons/Token';
 
 export interface HeaderProps {
   network: string;
-  accountAddress: string;
+  walletAddress: string;
   balance?: BigNumber;
   variant: 'default' | 'transparent';
   symbol?: string;
@@ -30,7 +30,7 @@ export interface HeaderProps {
 export const Header = (props: HeaderProps) => {
   const {
     balance,
-    accountAddress,
+    walletAddress,
     network,
     symbol,
     logo,
@@ -48,7 +48,7 @@ export const Header = (props: HeaderProps) => {
               <Block as="img" src={polyLogo} alt="Polymath" width="188" />
             )}
           </Link>
-          {accountAddress ? (
+          {walletAddress ? (
             <Flex as="ul" ml="auto" className="pui-header-menu">
               <li>
                 <Icon Asset={SvgDot} alt="Active network" />
@@ -59,8 +59,8 @@ export const Header = (props: HeaderProps) => {
                 {balance ? formatters.toTokens(balance) + ' POLY' : '...'}
               </li>
               <li>
-                <Icon Asset={SvgAccount} alt="Account address" />
-                {formatters.toShortAddress(accountAddress)}
+                <Icon Asset={SvgAccount} alt="Wallet address" />
+                {formatters.toShortAddress(walletAddress)}
               </li>
               {symbol ? (
                 <li>
