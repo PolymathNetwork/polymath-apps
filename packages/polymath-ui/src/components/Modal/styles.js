@@ -104,9 +104,7 @@ export const modalStyle = css`
 `;
 
 export const StyledInner = styled.div`
-  display: flex;
-  overflow-y: auto
-  flex-direction: column;
+  overflow-y: auto;
 `;
 
 export const StyledIconButton = styled(IconButton)`
