@@ -21,6 +21,7 @@ export type WhitelistState = {|
   uploaded: Array<Investor>,
   criticals: Array<InvestorCSVRow>,
   isTooMany: boolean,
+  parseError: String,
   listLength: number,
   freezeStatus: ?boolean,
   isFrozenModalOpen: ?boolean,
@@ -37,6 +38,7 @@ const defaultState: WhitelistState = {
   uploaded: [],
   criticals: [],
   isTooMany: false,
+  parseError: '',
   listLength: 10,
   freezeStatus: null,
   isFrozenModalOpen: null,
@@ -78,6 +80,7 @@ export default (state: WhitelistState = defaultState, action: Object) => {
         uploaded: action.investors,
         criticals: action.criticals,
         isTooMany: action.isTooMany,
+        parseError: action.parseError,
       };
     case a.RESET_UPLOADED:
       return {
@@ -85,6 +88,7 @@ export default (state: WhitelistState = defaultState, action: Object) => {
         uploaded: [],
         criticals: [],
         isTooMany: false,
+        parseError: '',
       };
     case a.FREEZE_STATUS:
       return {

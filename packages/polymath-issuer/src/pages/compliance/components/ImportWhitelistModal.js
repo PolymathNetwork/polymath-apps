@@ -10,18 +10,20 @@ import {
   InlineNotification,
 } from 'carbon-components-react';
 import { Remark } from '@polymathnetwork/ui';
-import { uploadCSV } from '../../../actions/compliance';
+import { uploadCSV, resetUploaded } from '../../../actions/compliance';
 
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|
   isTooMany: boolean,
+  parseError: String,
   isReady: boolean,
   isInvalid: boolean,
 |};
 
 type DispatchProps = {|
   uploadCSV: (file: Object) => any,
+  resetUploaded: () => any,
 |};
 
 type Props = {|
@@ -33,12 +35,14 @@ type Props = {|
 
 const mapStateToProps = (state: RootState) => ({
   isTooMany: state.whitelist.isTooMany,
+  parseError: state.whitelist.parseError,
   isReady: state.whitelist.uploaded.length > 0,
   isInvalid: state.whitelist.criticals.length > 0,
 });
 
 const mapDispatchToProps = {
   uploadCSV,
+  resetUploaded,
 };
 
 class ImportWhitelistModal extends Component<Props> {
@@ -59,10 +63,22 @@ class ImportWhitelistModal extends Component<Props> {
     this.props.onSubmit();
   };
 
-  handleUploaded = (event: Object) => {
+  handleUploaded = async (event: Object) => {
     const file = event.target.files[0];
     if (file.type.match(/csv.*/) || file.name.match(/.*\.csv$/i)) {
-      this.props.uploadCSV(file);
+      await this.props.uploadCSV(file);
+      //NOTE @sajclarke: This hack is necessary to add an eventlistener to the dynamic filename container from FileUploader
+      const node = this.fileUploader.nodes[0];
+      if (node) {
+        const el = Array.from(node.getElementsByClassName('bx--file-close'))[0];
+        el.addEventListener(
+          'click',
+          e => {
+            this.props.resetUploaded();
+          },
+          false
+        );
+      }
     }
   };
 
@@ -72,7 +88,7 @@ class ImportWhitelistModal extends Component<Props> {
   };
 
   render() {
-    const { isOpen, isTooMany, isReady, isInvalid } = this.props;
+    const { isOpen, isTooMany, parseError, isReady, isInvalid } = this.props;
     return (
       <Modal
         open={isOpen}
@@ -138,7 +154,14 @@ class ImportWhitelistModal extends Component<Props> {
           filenameStatus="edit"
           ref={this.fileUploaderRef}
         />
-        {isInvalid && !isReady ? (
+        {parseError.length > 0 ? (
+          <InlineNotification
+            hideCloseButton
+            title={parseError}
+            subtitle="Please check instructions above and try again."
+            kind="error"
+          />
+        ) : isInvalid && !isReady ? (
           <InlineNotification
             hideCloseButton
             title="The file you uploaded does not contain any valid values"
@@ -168,7 +191,11 @@ class ImportWhitelistModal extends Component<Props> {
           >
             Cancel
           </Button>
-          <Button type="submit" disabled={!isReady} onClick={this.handleSubmit}>
+          <Button
+            type="submit"
+            disabled={!isReady || isInvalid}
+            onClick={this.handleSubmit}
+          >
             Import Whitelist
           </Button>
         </p>
