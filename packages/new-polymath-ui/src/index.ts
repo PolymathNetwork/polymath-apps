@@ -1,4 +1,4 @@
-import * as theme from './styles/theme';
+import { theme } from './styles/theme';
 
 // Styles
 export * from './styles';

@@ -1,4 +1,4 @@
-import styled from '~/styles';
+import { styled } from '~/styles';
 
 export const Wrapper = styled.div`
   padding: 10px 15px;

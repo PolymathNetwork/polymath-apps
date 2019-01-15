@@ -1,6 +1,6 @@
 import { maxWidth } from 'styled-system';
 
-import styled, { css, ThemeInterface } from '~/styles';
+import { css, ThemeInterface, styled } from '~/styles';
 
 import { ModalStatus } from './types';
 import { IconButton } from '../IconButton';

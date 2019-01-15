@@ -1,6 +1,6 @@
-export type Scale<TValue> = {
+export interface Scale<TValue> {
   [id: string]: TValue;
-};
+}
 
 export interface ThemeInterface {
   breakpoints: [string];
