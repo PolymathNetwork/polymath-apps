@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { types, typeHelpers } from '@polymathnetwork/new-shared';
 import { SvgPaperplane } from '~/images/icons/Paperplane';
-import { GetProps } from '~/typing';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
 import { Paragraph } from '../Paragraph';
@@ -10,7 +9,10 @@ import { Box } from '../Box';
 import { Modal, ModalStatus } from '../Modal';
 import { TransactionItem } from './TransactionItem';
 
-type ModalProps = typeHelpers.Omit<GetProps<typeof Modal>, 'status'>;
+type ModalProps = typeHelpers.Omit<
+  typeHelpers.GetProps<typeof Modal>,
+  'status'
+>;
 
 const { TransactionQueueStatus } = types;
 

@@ -1,4 +1,4 @@
-import styled, { css } from '~/styles';
+import { css, styled } from '~/styles';
 import { textLinkInverted } from '~/styles/utils';
 import { Flex } from '~/components/Flex';
 

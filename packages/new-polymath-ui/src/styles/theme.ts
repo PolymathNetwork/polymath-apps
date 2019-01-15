@@ -1,10 +1,10 @@
-import { types } from '@polymathnetwork/new-shared';
 import { transparentize, darken } from 'polished';
+import { types } from '@polymathnetwork/new-shared';
 import { Scale } from './types';
 
-export const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
+const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
 
-export const fontSizes: Scale<string> = {
+const fontSizes: Scale<string> = {
   0: '0.75rem', // 12px
   1: '0.875rem', // 14px
   2: '1rem', // 16px
@@ -19,24 +19,24 @@ export const fontSizes: Scale<string> = {
 
 fontSizes.baseText = fontSizes[1];
 
-export const fontFamilies = {
+const fontFamilies = {
   baseText: "'Overpass', sans-serif",
 };
 
-export const lineHeights = {
+const lineHeights = {
   none: 1,
   tight: 1.15,
   normal: 1.5,
   loose: 2,
 };
 
-export const fontWeights = {
+const fontWeights = {
   light: 300,
   normal: 400,
   bold: 600,
 };
 
-export const space: Scale<string> = {
+const space: Scale<string> = {
   0: '0',
   1: '5px',
   2: '10px',
@@ -57,12 +57,12 @@ space.xxxl = space[8];
 
 space.gridGap = space[4];
 
-export const zIndexes = {
+const zIndexes = {
   header: 80,
   sidebar: 100,
 };
 
-export const colors = {
+const colors = {
   baseText: '#5A6872',
   highlightText: '#152935',
   primary: '#252D6B',
@@ -78,7 +78,7 @@ export const colors = {
   success: '#00AA5E',
 };
 
-export const headings = {
+const headings = {
   h1: {
     color: colors.primary,
     fontSize: fontSizes[8],
@@ -101,7 +101,7 @@ export const headings = {
   },
 };
 
-export const buttons = {
+const buttons = {
   primary: {
     backgroundColor: colors.primary,
     borderColor: 'transparent',
@@ -130,14 +130,14 @@ export const buttons = {
   },
 };
 
-export const links = {
+const links = {
   color: colors.secondary,
   '&:hover, &:focus': {
     color: darken(0.2, colors.secondary),
   },
 };
 
-export const transitions = {
+const transitions = {
   hover: {
     ms: 150,
   },
@@ -146,26 +146,32 @@ export const transitions = {
   },
 };
 
-export const maxWidth = '1600px';
+const maxWidth = '1600px';
 
-export const inputs = {
+const inputs = {
   height: '2.5rem',
   backgroundColor: colors.gray[1],
 };
 
-export const header = {
+const header = {
   height: '48px',
 };
 
-export const sidebar = {
+const sidebar = {
   width: '64px',
 };
 
-export const footer = {
+const footer = {
   height: header.height,
 };
 
-export const tokens = {
+// NOTE @monitz87: this export is useless but it is needed because the typescript
+// compiler doesn't include the "types" import in the declaration file otherwise. Apparently
+// it doesn't recognize the use of "types.Token" in the "tokens" definition as an actual
+// use of the imported types, and thus ignores it
+export type Entity = types.Entity;
+
+const tokens = {
   [types.Tokens.Ether]: {
     color: '#724396',
     backgroundColor: '#EED3FE',
@@ -182,4 +188,25 @@ export const tokens = {
     color: '#007B66',
     backgroundColor: '#A7FAE6',
   },
+};
+
+export const theme = {
+  breakpoints,
+  fontSizes,
+  fontFamilies,
+  lineHeights,
+  fontWeights,
+  space,
+  zIndexes,
+  colors,
+  headings,
+  buttons,
+  links,
+  transitions,
+  maxWidth,
+  inputs,
+  header,
+  sidebar,
+  footer,
+  tokens,
 };

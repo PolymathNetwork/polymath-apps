@@ -1,4 +1,4 @@
-import styled, { css } from '~/styles';
+import { css, styled } from '~/styles';
 import { Flex } from '../Flex';
 
 import { HeaderProps } from './Header';

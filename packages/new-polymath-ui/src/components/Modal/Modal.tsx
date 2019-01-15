@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 
-import styled, { withTheme, ThemeInterface } from '~/styles';
+import { withTheme, ThemeInterface, styled } from '~/styles';
 
 import { Header } from './Header';
 import { Body } from './Body';
@@ -77,9 +77,7 @@ class ModalBase extends Component<Props, State> {
       >
         {status !== ModalStatus.idle && <sc.StatusBar status={status} />}
         {isCloseable && (
-          // FIXME @grsmto: svgs aren't compiling properly
-          // <sc.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
-          <sc.CloseButton Asset={null} onClick={this.handleCloseRequest} />
+          <sc.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
         )}
         <sc.Inner>{children}</sc.Inner>
       </ReactModal>
@@ -87,11 +85,11 @@ class ModalBase extends Component<Props, State> {
   }
 }
 
-const EnhacedModal = styled(withTheme(ModalBase))`
+const EnhancedModal = styled(withTheme(ModalBase))`
   ${sc.modalStyle};
 `;
 
-export const Modal = Object.assign(EnhacedModal, {
+export const Modal = Object.assign(EnhancedModal, {
   Header,
   Body,
   Footer,

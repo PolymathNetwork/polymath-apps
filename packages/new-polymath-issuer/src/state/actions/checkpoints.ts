@@ -1,8 +1,8 @@
-import { CheckpointEntity } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 import { createEntityActions } from '~/state/helpers/createEntityActions';
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  CheckpointEntity
+  types.CheckpointEntity
 >('CHECKPOINTS');
 
 export { createAction, updateAction, deleteAction };

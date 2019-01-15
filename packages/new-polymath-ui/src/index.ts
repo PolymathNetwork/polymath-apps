@@ -1,4 +1,4 @@
-import * as theme from './styles/theme';
+import { theme } from './styles/theme';
 import { SvgAccount } from './images/icons/Account';
 import { SvgCalendar } from './images/icons/Calendar';
 import { SvgCaretDown } from './images/icons/CaretDown';

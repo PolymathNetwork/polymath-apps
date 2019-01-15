@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 
 import { Modal } from '~/components/Modal';
 import { Button } from '~/components/Button';
-import { GetProps } from '~/typing';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
-type ModalProps = GetProps<typeof Modal>;
+type ModalProps = typeHelpers.GetProps<typeof Modal>;
 
 export interface Props extends ModalProps {
   isActionDisabled: boolean;

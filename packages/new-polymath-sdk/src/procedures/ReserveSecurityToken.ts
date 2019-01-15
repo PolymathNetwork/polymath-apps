@@ -10,16 +10,15 @@ interface Args {
 export class ReserveSecurityToken extends Procedure<Args> {
   public async prepareTransactions() {
     const { symbol, name } = this.args;
-    const { securityTokenRegistry, currentWallet } = this.context;
+    const { securityTokenRegistry, currentWallet, polyToken } = this.context;
 
     // TODO @RafaelVidaurre: See if ticker is not already registered
 
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
 
-    await this.addTransaction(Approve)({
-      amount: fee,
-      spender: securityTokenRegistry.address,
-    });
+    await this.addTransaction(polyToken.approve, {
+      tag: types.PolyTransactionTags.Approve,
+    })(securityTokenRegistry.address, fee);
 
     await this.addTransaction(securityTokenRegistry.registerTicker, {
       tag: types.PolyTransactionTags.ReserveSecurityToken,

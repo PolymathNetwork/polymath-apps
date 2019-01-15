@@ -1,6 +1,6 @@
 import React from 'react';
 import { color } from 'styled-system';
-import styled from '~/styles';
+import { styled } from '~/styles';
 
 const urlRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 
