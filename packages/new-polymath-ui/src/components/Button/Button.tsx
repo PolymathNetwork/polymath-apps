@@ -51,7 +51,7 @@ export const ButtonPrimitive: FC<ButtonProps> = ({
   );
 };
 
-export const Button: FC<ButtonProps> = styled(ButtonPrimitive)<ButtonProps>`
+export const Button = styled(ButtonPrimitive)<ButtonProps>`
   display: inline-block;
   align-items: center;
   justify-content: center;

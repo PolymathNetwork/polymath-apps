@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { types } from '@polymathnetwork/new-shared';
-
+import { types, typeHelpers } from '@polymathnetwork/new-shared';
+import { SvgPaperplane } from '~/images/icons/Paperplane';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
 import { Paragraph } from '../Paragraph';
 import { Flex } from '../Flex';
 import { Box } from '../Box';
-import { Modal, ModalProps, ModalStatus } from '../Modal';
-
-import { SvgPaperplane } from '~/images/icons/Paperplane';
-
+import { Modal, ModalStatus } from '../Modal';
 import { TransactionItem } from './TransactionItem';
+
+type ModalProps = typeHelpers.Omit<
+  typeHelpers.GetProps<typeof Modal>,
+  'status'
+>;
 
 const { TransactionQueueStatus } = types;
 
@@ -33,15 +35,19 @@ const getLabelText = (status: ModalStatus) =>
 
 const getTitleText = (status: ModalStatus, title: string) =>
   ({
-    [ModalStatus.idle]: `Processing with Your ${title}`,
-    [ModalStatus.loading]: `Processing with Your ${title}`,
-    [ModalStatus.warning]: `An error occured with Your ${title}`,
-    [ModalStatus.alert]: `An error occured with Your ${title}`,
-    [ModalStatus.success]: `Your ${title} was successfully submitted`,
+    [ModalStatus.idle]: `Proceed with ${title}`,
+    [ModalStatus.loading]: `Proceed with ${title}`,
+    [ModalStatus.warning]: `An error occured with ${title}`,
+    [ModalStatus.alert]: `An error occured with ${title}`,
+    [ModalStatus.success]: `${title} was successfully submitted`,
   }[status]);
 
+interface TransactionQueue extends types.TransactionQueueEntity {
+  transactions: types.TransactionEntity[];
+}
+
 export interface ModalTransactionQueueProps extends ModalProps {
-  transactionQueue: types.HigherLevelTransaction;
+  transactionQueue: TransactionQueue;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
@@ -50,7 +56,7 @@ export interface ModalTransactionQueueProps extends ModalProps {
 export class ModalTransactionQueue extends Component<
   ModalTransactionQueueProps
 > {
-  static defaultProps = {
+  public static defaultProps = {
     continueButtonText: 'Continue',
   };
 
@@ -62,30 +68,29 @@ export class ModalTransactionQueue extends Component<
       continueButtonText,
       onContinue,
     } = this.props;
-    const { transactions } = transactionQueue;
-    const status = getModalStatus(transactionQueue.status);
-    const isSuccess =
-      transactionQueue.status === TransactionQueueStatus.Succeeded;
-    const isRejected =
-      transactionQueue.status === TransactionQueueStatus.Failed;
+
+    const { transactions, status, description } = transactionQueue;
+    const modalStatus = getModalStatus(status);
+    const isSuccess = status === TransactionQueueStatus.Succeeded;
+    const isRejected = status === TransactionQueueStatus.Failed;
 
     return (
       <Modal
         isOpen={isOpen}
         isCloseable={false}
-        status={status}
+        status={modalStatus}
         maxWidth={500}
         isCentered={false}
       >
         <Modal.Header
-          status={status}
-          label={'Transaction ' + getLabelText(status)}
+          status={modalStatus}
+          label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(status, transactionQueue.name)}
+          {getTitleText(modalStatus, description)}
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <TransactionItem key={transaction.id} transaction={transaction} />
+          <TransactionItem key={transaction.uid} transaction={transaction} />
         ))}
 
         {isSuccess && withEmail && (

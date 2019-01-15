@@ -12,7 +12,7 @@ import {
   FontSizeProps,
 } from 'styled-system';
 
-import { Box, BoxProps } from '~/components/Box';
+import { Box } from '~/components/Box';
 
 const headingStyle = variant({
   key: 'headings',
@@ -25,7 +25,7 @@ export type HeadingProps = {
   FontSizeProps &
   LineHeightProps;
 
-export const Heading = styled(Box)<HeadingProps>`
+const StyledHeading = styled(Box)<HeadingProps>`
   ${headingStyle};
   ${color};
   ${fontWeight};
@@ -38,10 +38,12 @@ export const HeadingDocz: FC<HeadingProps> = (props: any) => {
   return <Heading {...props} />;
 };
 
-Heading.defaultProps = {
-  as: 'h2',
-  variant: 'h3',
-  lineHeight: 'normal',
-  mt: 0,
-  mb: 'm',
-};
+export const Heading = Object.assign(StyledHeading, {
+  defaultProps: {
+    as: 'h2',
+    variant: 'h3',
+    lineHeight: 'normal',
+    mt: 0,
+    mb: 'm',
+  },
+});

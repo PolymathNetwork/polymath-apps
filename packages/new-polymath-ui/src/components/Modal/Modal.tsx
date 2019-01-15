@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { MaxWidthProps } from 'styled-system';
 import ReactModal from 'react-modal';
 
-import styled, { withTheme, ThemeInterface } from '~/styles';
+import { withTheme, ThemeInterface, styled } from '~/styles';
 
 import { Header } from './Header';
 import { Body } from './Body';
@@ -11,34 +10,39 @@ import * as sc from './styles';
 import { ModalStatus } from './types';
 import { SvgClose } from '~/images/icons/Close';
 
-export interface ModalProps {
+interface Props {
   isOpen: boolean;
+  status: ModalStatus;
   onClose?: () => void;
-  children?: Node;
   className?: string;
   isCloseable?: boolean;
-  status?: ModalStatus;
-  maxWidth?: MaxWidthProps;
+  maxWidth?: number | string;
   isCentered?: boolean;
-  theme?: ThemeInterface;
+  theme: ThemeInterface;
 }
 
-type State = {
+interface State {
   forceClose: boolean;
   isOpen: boolean;
-};
+}
 
-class _Modal extends Component<ModalProps, State> {
+class ModalBase extends Component<Props, State> {
   public static Header = Header;
   public static Body = Body;
   public static Footer = Footer;
+  public static defaultProps = {
+    status: ModalStatus.idle,
+    isOpen: false,
+    isCloseable: true,
+    isCentered: true,
+  };
 
-  state = {
+  public state = {
     forceClose: false,
     isOpen: false,
   };
 
-  handleCloseRequest = () => {
+  public handleCloseRequest = () => {
     if (!this.props.isCloseable) {
       return;
     }
@@ -50,13 +54,7 @@ class _Modal extends Component<ModalProps, State> {
     }
   };
 
-  static getDerivedStateFromProps(nextProps: any, prevState: State) {
-    return {
-      isOpen: !prevState.forceClose && nextProps.isOpen,
-    };
-  }
-
-  render() {
+  public render() {
     const { children, className, isCloseable, theme, status } = this.props;
     const { isOpen } = this.state;
 
@@ -87,13 +85,13 @@ class _Modal extends Component<ModalProps, State> {
   }
 }
 
-export const Modal = styled(withTheme(_Modal))`
+const EnhancedModal = styled(withTheme(ModalBase))`
   ${sc.modalStyle};
 `;
 
-Modal.defaultProps = {
-  status: ModalStatus.idle,
-  isOpen: false,
-  isCloseable: true,
-  isCentered: true,
-};
+export const Modal = Object.assign(EnhancedModal, {
+  Header,
+  Body,
+  Footer,
+  defaultProps: ModalBase.defaultProps,
+});

@@ -26,7 +26,7 @@ const initialState: DataRequestsState = {
 export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (
   state = initialState,
   action
-) => {
+): DataRequestsState => {
   switch (action.type) {
     case getType(actions.invalidateRequest): {
       const {

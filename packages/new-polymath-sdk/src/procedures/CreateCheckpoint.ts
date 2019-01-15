@@ -1,5 +1,5 @@
 import { Procedure } from './Procedure';
-import { PolyTransactionTags } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 interface Args {
   symbol: string;
@@ -13,7 +13,7 @@ export class CreateCheckpoint extends Procedure<Args> {
     const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
 
     await this.addTransaction(securityToken.createCheckpoint, {
-      tag: PolyTransactionTags.CreateCheckpoint,
+      tag: types.PolyTransactionTags.CreateCheckpoint,
     })();
   }
 }

@@ -11,3 +11,8 @@ export type ArgsWithoutEntityProps<
   Procedure extends (...args: any[]) => any,
   T
 > = Omit<ArgumentsType<Procedure>[0], FilterPropNamesByType<T, Function>>;
+
+export type GetProps<C> = C extends React.ComponentType<infer P> ? P : never;
+export type GetSelectorReturnType<
+  Selector extends (...args: any[]) => (...args: any[]) => any
+> = ReturnType<ReturnType<Selector>>;

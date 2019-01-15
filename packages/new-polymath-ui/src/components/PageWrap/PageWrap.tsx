@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from '~/styles';
+import { styled } from '~/styles';
 import { Box, BoxProps } from '~/components/Box';
 
 export interface PageWrapProps extends BoxProps {}

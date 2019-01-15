@@ -13,7 +13,7 @@ const initialState: SessionState = {};
 export const reducer: Reducer<SessionState, SessionActions> = (
   state = initialState,
   action
-) => {
+): SessionState => {
   switch (action.type) {
     case getType(actions.setIdentity): {
       return {

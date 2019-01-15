@@ -10,7 +10,7 @@ import { SvgClose } from '~/images/icons/Close';
 import { SvgEth } from '~/images/icons/Eth';
 import { SvgPoly } from '~/images/icons/Poly';
 import { SvgDai } from '~/images/icons/Dai';
-import styled, { withTheme, ThemeInterface } from '~/styles';
+import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 import { InputProps } from '~/components/inputs/types';
@@ -261,5 +261,5 @@ export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   }
 }
 
-export const CurrencySelectPrimitive = withTheme(CurrencySelectPrimitiveBase);
-export const CurrencySelect = formikProxy(CurrencySelectPrimitive);
+export const CurrencySelectPrimitive = formikProxy(CurrencySelectPrimitiveBase);
+export const CurrencySelect = withTheme(CurrencySelectPrimitive);

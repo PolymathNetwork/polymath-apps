@@ -2,6 +2,9 @@ import BigNumber from 'bignumber.js';
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import PromiEvent from 'web3/promiEvent';
+import { types } from '@polymathnetwork/new-shared';
+
+export { DividendModuleTypes } from '~/LowLevel/types';
 
 export interface TaxWithholding {
   address: string;
@@ -35,27 +38,11 @@ export type LowLevelMethod<A extends any[]> = (
   ...args: A
 ) => Promise<() => PromiEvent<any>>;
 
-export interface TransactionSpec<Args extends any[]> {
-  method: LowLevelMethod<Args>;
-  args: Args;
+export interface TransactionSpec {
+  method: LowLevelMethod<any>;
+  args: MapMaybeResolver<any[]>;
   postTransactionResolver?: PostTransactionResolver<any>;
-  tag?: PolyTransactionTags;
-}
-
-export enum PolyTransactionTags {
-  Any = 'Any',
-  Approve = 'Approve',
-  GetTokens = 'GetTokens',
-  ReserveSecurityToken = 'ReserveSecurityToken',
-  CreateSecurityToken = 'CreateSecurityToken',
-  CreateCheckpoint = 'CreateCheckpoint',
-  CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
-  CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
-  SetErc20TaxWithholding = 'SetErc20TaxWithholding',
-  SetEtherTaxWithholding = 'SetEtherTaxWithholding',
-  EnableDividends = 'EnableDividends',
-  ReclaimDividendFunds = 'ReclaimDividendFunds',
-  WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
+  tag?: types.PolyTransactionTags;
 }
 
 export interface PolymathNetworkParams {
@@ -65,3 +52,7 @@ export interface PolymathNetworkParams {
   wsProviderUrl?: string;
   polymathRegistryAddress: string;
 }
+
+export type MapMaybeResolver<T extends any[]> = {
+  [K in keyof T]: PostTransactionResolver<T[K]> | T[K]
+};

@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { types } from '@polymathnetwork/new-shared';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createErc20DividendsModuleBySymbolFetcher } from '~/state/fetchers';
-import { Erc20DividendsModuleEntity } from '~/types';
+import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
+import { ActionType } from 'typesafe-actions/dist/types';
 
 export interface Props {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch<ActionType<typeof enableErc20DividendsModuleStart>>;
   securityTokenSymbol: string;
 }
 
 export class ContainerBase extends Component<Props> {
-  public enableErc20DividendsModule() {}
+  public enableErc20DividendsModule() {
+    const { dispatch, securityTokenSymbol } = this.props;
+
+    dispatch(enableErc20DividendsModuleStart({ securityTokenSymbol }));
+  }
   public createCheckpoint() {}
   public render() {
     const { securityTokenSymbol } = this.props;
@@ -22,7 +28,7 @@ export class ContainerBase extends Component<Props> {
           createErc20DividendsModuleBySymbolFetcher({ securityTokenSymbol }),
         ]}
         render={(data: {
-          erc20DividendsModules: Erc20DividendsModuleEntity[];
+          erc20DividendsModules: types.Erc20DividendsModuleEntity[];
         }) => {
           const {
             erc20DividendsModules: [erc20DividendsModule],

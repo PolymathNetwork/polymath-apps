@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react';
 
-import { Modal } from './';
+import { Modal } from '../';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
-export class ModalDemo extends React.Component {
-  constructor(props) {
+type ModalProps = typeHelpers.GetProps<typeof Modal>;
+interface State {
+  isModalOpen: boolean;
+}
+
+export class Demo extends React.Component<ModalProps, State> {
+  constructor(props: ModalProps) {
     super(props);
     this.state = {
       isModalOpen: false,
@@ -11,19 +17,19 @@ export class ModalDemo extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  public handleClick = () => {
     this.setState({
       isModalOpen: true,
     });
-  }
+  };
 
-  handleModalClose() {
+  public handleModalClose = () => {
     this.setState({
       isModalOpen: false,
     });
-  }
+  };
 
-  render() {
+  public render() {
     return (
       <Fragment>
         <button className="btn" onClick={this.handleClick}>
@@ -31,8 +37,7 @@ export class ModalDemo extends React.Component {
         </button>
         <Modal
           isOpen={this.state.isModalOpen}
-          title="Modal test"
-          onClose={this.handleModalClose.bind(this)}
+          onClose={this.handleModalClose}
           {...this.props}
         >
           Some content.

@@ -2,8 +2,19 @@ import * as React from 'react';
 
 import { ModalConfirm, ModalConfirmProps } from '~/components/ModalConfirm';
 
-export const ModalConfirmTransactionQueue = (props: ModalConfirmProps) => {
+type Props = ModalConfirmProps;
+export type ModalConfirmTransactionProps = JSX.LibraryManagedAttributes<
+  typeof ModalConfirmTransactionQueue,
+  Props
+>;
+
+const ModalConfirmTransactionQueueBase = (props: Props) => {
   return <ModalConfirm maxWidth={500} {...props} />;
 };
 
-ModalConfirmTransactionQueue.Header = ModalConfirm.Header;
+export const ModalConfirmTransactionQueue = Object.assign(
+  ModalConfirmTransactionQueueBase,
+  {
+    Header: ModalConfirm.Header,
+  }
+);

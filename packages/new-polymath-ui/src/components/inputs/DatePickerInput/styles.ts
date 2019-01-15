@@ -1,6 +1,4 @@
-import styled, { createGlobalStyle } from '~/styles';
-
-import { BaseInput } from '~/components/inputs/BaseInput';
+import { createGlobalStyle, styled } from '~/styles';
 import { Icon } from '~/components/Icon';
 
 export const GlobalStyles = createGlobalStyle`
@@ -69,7 +67,7 @@ export const GlobalStyles = createGlobalStyle`
       margin-bottom: 0.25rem;
     }
 
-    .flatpickr-prev-month, 
+    .flatpickr-prev-month,
     .flatpickr-next-month {
       box-sizing: border-box;
       text-decoration: none;
@@ -87,12 +85,12 @@ export const GlobalStyles = createGlobalStyle`
       }
     }
 
-    .flatpickr-prev-month.flatpickr-prev-month, 
+    .flatpickr-prev-month.flatpickr-prev-month,
     .flatpickr-next-month.flatpickr-prev-month {
       left: 0;
     }
 
-    .flatpickr-prev-month.flatpickr-next-month, 
+    .flatpickr-prev-month.flatpickr-next-month,
     .flatpickr-next-month.flatpickr-next-month {
       right: 0;
     }
@@ -332,7 +330,7 @@ export const GlobalStyles = createGlobalStyle`
       padding: 0;
     }
 
-    .flatpickr-prev-month svg, 
+    .flatpickr-prev-month svg,
     .flatpickr-next-month svg {
       width: 14px;
     }

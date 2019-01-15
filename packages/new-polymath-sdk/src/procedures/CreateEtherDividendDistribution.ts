@@ -1,5 +1,6 @@
 import { Procedure } from './Procedure';
-import { TaxWithholding, PolyTransactionTags } from '~/types';
+import { TaxWithholding } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 interface Args {
   symbol: string;
@@ -36,7 +37,7 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
     }
 
     await this.addTransaction(etherModule.createDividend, {
-      tag: PolyTransactionTags.CreateEtherDividendDistribution,
+      tag: types.PolyTransactionTags.CreateEtherDividendDistribution,
     })(maturityDate, expiryDate, amount, checkpointId, name, excludedAddresses);
 
     if (taxWithholdings.length > 0) {
@@ -49,7 +50,7 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
       });
 
       await this.addTransaction(etherModule.setWithholding, {
-        tag: PolyTransactionTags.SetEtherTaxWithholding,
+        tag: types.PolyTransactionTags.SetEtherTaxWithholding,
       })(investorAddresses, percentages);
     }
   }

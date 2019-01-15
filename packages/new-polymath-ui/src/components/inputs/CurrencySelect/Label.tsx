@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { types } from '@polymathnetwork/new-shared';
-import styled, { withTheme, ThemeInterface } from '~/styles';
+import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Box } from '~/components/Box';
 import { IconCircled } from '~/components/IconCircled';
 import { ellipsis } from '~/components/../styles/utils';

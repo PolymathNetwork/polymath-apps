@@ -1,58 +1,5 @@
-import BigNumber from 'bignumber.js';
 import { types } from '@polymathnetwork/new-shared';
-
-export type Entity =
-  | TransactionEntity
-  | DividendEntity
-  | CheckpointEntity
-  | Erc20DividendsModuleEntity;
-
-export interface TransactionEntity {
-  uid: string;
-  txHash: string;
-}
-
-export interface DividendEntity {
-  uid: string;
-  index: number;
-  securityTokenSymbol: string;
-  securityTokenId: string;
-  checkpointId: string;
-  created: Date;
-  maturity: Date;
-  expiry: Date;
-  amount: BigNumber;
-  claimedAmount: BigNumber;
-  totalSupply: BigNumber;
-  reclaimed: boolean;
-  dividendWithheld: BigNumber;
-  dividendWithheldReclaimed: BigNumber;
-  name: string;
-  currency: string | null;
-}
-
-export interface CheckpointEntity {
-  uid: string;
-  index: number;
-  securityTokenSymbol: string;
-  securityTokenId: string;
-  investorBalances: Array<{
-    address: string;
-    balance: BigNumber;
-  }>;
-  totalSupply: BigNumber;
-  createdAt: Date;
-}
-
-export interface Erc20DividendsModuleEntity {
-  uid: string;
-  /**
-   * if undefined, it means the module is not attached
-   */
-  address?: string;
-  securityTokenSymbol: string;
-  securityTokenId: string;
-}
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
 export interface Wallet {
   address: string;
@@ -76,6 +23,7 @@ export enum Entities {
   Transactions = 'transactions',
   Dividends = 'dividends',
   Erc20DividendsModules = 'erc20DividendsModules',
+  TransactionQueues = 'transactionQueues',
 }
 
 export enum RequestKeys {
@@ -145,7 +93,7 @@ export interface Fetcher {
 }
 
 export interface FetchedData {
-  [key: string]: Entity[] | null | undefined;
+  [key: string]: types.Entity[] | null | undefined;
 }
 
 export interface CacheStatus {
@@ -153,3 +101,9 @@ export interface CacheStatus {
   requestKey: RequestKeys;
   mustBeFetched: boolean;
 }
+
+export type PartialWithId<T extends types.Entity> = Partial<
+  typeHelpers.Omit<T, 'uid'>
+> & {
+  uid: string;
+};
