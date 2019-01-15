@@ -28,7 +28,8 @@
       "build"
     ],
     "transform": {
-      "^.+\\.tsx?$": "../../config/babelJestWrapper.js"
+      "^.+\\.tsx?$": "../../config/babelJestWrapper.js",
+      "^.+\\.css$": "<rootDir>/config/transformStyles.js"
     },
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
@@ -37,7 +38,7 @@
       "<rootDir>/src/testUtils/setupTests.ts"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
+      "src/**/*.{ts,tsx,mjs}"
     ],
     "coverageReporters": [
       "lcov",

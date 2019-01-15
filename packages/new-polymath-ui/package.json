@@ -10,6 +10,8 @@
     "test": "jest --env=jsdom"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.2.0",
     "@polymathnetwork/new-shared": "0.0.0",
     "@sentry/browser": "^4.4.1",
     "bignumber.js": "^8.0.1",
@@ -23,8 +25,7 @@
     "react-modal": "^3.6.1",
     "react-select": "2.2.0",
     "react-tooltip": "^3.9.0",
-    "reakit": "^0.15.13",
-    "styled-components": "^4.1.3",
+    "styled-components": "4.1.3",
     "styled-system": "^3.2.0",
     "typeface-overpass": "^0.0.54"
   },
@@ -37,6 +38,7 @@
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.0.0",
     "@svgr/webpack": "^4.1.0",
+    "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.119",
     "@types/moment": "^2.13.0",
     "@types/moment-timezone": "^0.5.10",
@@ -55,7 +57,47 @@
     "docz": "^0.12.13",
     "docz-plugin-css": "^0.11.0",
     "docz-theme-default": "^0.12.13",
+    "jest": "^23.6.0",
     "typescript": "^3.2.1",
     "yup": "^0.26.6"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.(ts|tsx|js)"
+    ],
+    "testURL": "http://localhost",
+    "testPathIgnorePatterns": [
+      "build"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "../../config/babelJestWrapper.js"
+    },
+    "moduleNameMapper": {
+      "~/(.*)": "<rootDir>/src/$1"
+    },
+    "setupFiles": [
+      "<rootDir>/src/testUtils/setupTests.ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx,mjs}"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "cobertura",
+      "text"
+    ],
+    "coverageDirectory": "<rootDir>/reports",
+    "reporters": [
+      "jest-junit",
+      "default"
+    ]
   }
 }
