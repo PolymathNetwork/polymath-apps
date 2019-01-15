@@ -21,6 +21,7 @@ export { Icon } from './components/Icon';
 export { IconCircled } from './components/IconCircled';
 export { Sidebar } from './components/Sidebar';
 export { Link } from './components/Link';
+export { List } from './components/List';
 
 // Icons
 export const icons = {

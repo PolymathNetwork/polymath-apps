@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { List } from 'reakit';
-import styled from '~/styles';
+import { styled } from '~/styles';
+import { List } from '~/components/List';
 import { Item } from './Item';
 
 const Container = styled.nav`
