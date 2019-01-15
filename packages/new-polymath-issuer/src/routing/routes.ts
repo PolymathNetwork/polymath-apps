@@ -10,11 +10,12 @@ import {
 } from '~/pages';
 
 import { handleDashboardRoute, handleLoginRoute } from '~/state/sagas/router';
-import { DashboardLayout } from '~/layouts';
+import { DashboardLayout, HomeLayout } from '~/layouts';
 
 export const routes = {
   '/': {
     Page: HomePage,
+    Layout: HomeLayout,
     '/dashboard': {
       Page: SecurityTokensIndexPage,
       Layout: DashboardLayout,

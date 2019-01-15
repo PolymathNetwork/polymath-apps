@@ -3,12 +3,12 @@ import { Link } from 'redux-little-router';
 import { Footer, StickyTop } from '@polymathnetwork/new-ui';
 import { Header } from '~/components';
 
-export const DefaultLayout: FC = ({ children }) => (
+export const HomeLayout: FC = ({ children }) => (
   <Fragment>
     <StickyTop zIndex={'header'}>
-      <Header RouterLink={Link} />
+      <Header RouterLink={Link} variant="transparent" />
     </StickyTop>
     {children}
-    <Footer />
+    <Footer variant="transparent" />
   </Fragment>
 );
