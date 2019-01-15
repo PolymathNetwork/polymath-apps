@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Fragment } from 'react';
 import { Provider } from 'react-redux';
 import {
   ThemeProvider,
@@ -11,10 +11,12 @@ import { Pages } from '~/pages';
 export const App = () => (
   <Provider store={store}>
     <ThemeProvider>
-      <ErrorBoundary>
+      <Fragment>
         <GlobalStyles />
-        <Pages />
-      </ErrorBoundary>
+        <ErrorBoundary>
+          <Pages />
+        </ErrorBoundary>
+      </Fragment>
     </ThemeProvider>
   </Provider>
 );
