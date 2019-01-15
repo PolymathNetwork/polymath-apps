@@ -1,6 +1,10 @@
 import '@babel/polyfill';
+import { mockEthereumBrowser } from './helpers';
 
 import dotenv from 'dotenv';
+
+// Avoid breaking tests trying to import third party css
+jest.mock('typeface-overpass', () => ({}));
 
 const res = dotenv.config({ path: './config/.env.tests' });
 
@@ -9,3 +13,5 @@ process.env = {
   ...process.env,
   ...res.parsed,
 };
+
+mockEthereumBrowser();
