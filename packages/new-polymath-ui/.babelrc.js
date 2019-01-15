@@ -1,5 +1,5 @@
 module.exports = {
-  presets: ['@babel/typescript', '@babel/react'],
+  presets: ['@babel/env', '@babel/typescript', '@babel/react'],
   plugins: [
     [
       require.resolve('babel-plugin-named-asset-import'),
