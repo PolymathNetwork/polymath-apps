@@ -61,7 +61,6 @@ export class TransactionQueue extends Entity {
     });
 
     this.uid = this.generateId();
-    this.updateStatus(types.TransactionQueueStatus.Running);
   }
 
   public toPojo() {
