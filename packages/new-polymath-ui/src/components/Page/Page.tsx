@@ -6,17 +6,17 @@ import * as sc from './styles';
 import { PageWrapProps } from '../PageWrap';
 
 export interface PageProps extends PageWrapProps {
-  title: string;
+  title?: string;
   children: React.ComponentType;
 }
 
 export const Page: FC<PageProps & StyledProps<any>> = ({
   children,
-  title = 'Polymath',
+  title,
   ...props
 }) => (
   <sc.Wrapper py="xl" {...props}>
-    <DocumentTitle title={title}>
+    <DocumentTitle title={title ? `${title} | Polymath` : 'Polymath'}>
       <Fragment>{children}</Fragment>
     </DocumentTitle>
   </sc.Wrapper>

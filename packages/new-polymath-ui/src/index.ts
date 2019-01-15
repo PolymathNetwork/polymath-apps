@@ -1,4 +1,7 @@
 import * as theme from './styles/theme';
+import { SvgAccount } from './images/icons/Account';
+import { SvgCalendar } from './images/icons/Calendar';
+import { SvgCaretDown } from './images/icons/CaretDown';
 
 // Styles
 export * from './styles';
@@ -16,3 +19,12 @@ export { Page } from './components/Page';
 export { StickyTop } from './components/StickyTop';
 export { Icon } from './components/Icon';
 export { IconCircled } from './components/IconCircled';
+export { Sidebar } from './components/Sidebar';
+export { Link } from './components/Link';
+
+// Icons
+export const icons = {
+  SvgAccount,
+  SvgCalendar,
+  SvgCaretDown,
+};
