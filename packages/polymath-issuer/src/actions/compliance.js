@@ -96,10 +96,10 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
   dispatch({ type: UPLOAD_START });
 
   reader.readAsText(file);
+
   reader.onload = () => {
     dispatch({ type: UPLOAD_ONLOAD });
-    const { invalidRows, data } = parseWhitelistCsv(reader.result);
-
+    const { invalidRows, data, parseError } = parseWhitelistCsv(reader.result);
     const isTooMany = data.length > maxRows;
 
     // FIXME @RafaelVidaurre: This should be using an action creator, not a POJO
@@ -108,6 +108,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
       investors: data,
       criticals: invalidRows,
       isTooMany,
+      parseError,
     });
   };
 };
