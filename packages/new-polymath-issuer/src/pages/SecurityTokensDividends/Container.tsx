@@ -5,11 +5,19 @@ import { types } from '@polymathnetwork/new-shared';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createErc20DividendsModuleBySymbolFetcher } from '~/state/fetchers';
-import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
+import {
+  enableErc20DividendsModuleStart,
+  createCheckpointStart,
+} from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions/dist/types';
 
+const actions = {
+  enableErc20DividendsModuleStart,
+  createCheckpointStart,
+};
+
 export interface Props {
-  dispatch: Dispatch<ActionType<typeof enableErc20DividendsModuleStart>>;
+  dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
 }
 
@@ -19,7 +27,11 @@ export class ContainerBase extends Component<Props> {
 
     dispatch(enableErc20DividendsModuleStart({ securityTokenSymbol }));
   }
-  public createCheckpoint() {}
+  public createCheckpoint() {
+    const { dispatch, securityTokenSymbol } = this.props;
+
+    dispatch(createCheckpointStart({ securityTokenSymbol }));
+  }
   public render() {
     const { securityTokenSymbol } = this.props;
     return (

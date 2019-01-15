@@ -6,4 +6,10 @@ const enableErc20DividendsModuleStart = createStandardAction(
   securityTokenSymbol: string;
 }>();
 
-export { enableErc20DividendsModuleStart };
+const createCheckpointStart = createStandardAction(
+  'PROCEDURES/CREATE_CHECKPOINT_START'
+)<{
+  securityTokenSymbol: string;
+}>();
+
+export { enableErc20DividendsModuleStart, createCheckpointStart };
