@@ -89,7 +89,7 @@ describe('TransactionQueue', () => {
       await Promise.all([t1Promise, t2Promise]);
     });
 
-    test("updates the queue's status correctly", () => {
+    test("updates the queue's status correctly", async () => {
       const contract = new MockedContract({ autoResolve: false });
       const txOne = getMockTransactionSpec(contract.fakeTxOne, ['stringOne']);
       const txTwo = getMockTransactionSpec(contract.fakeTxTwo, ['stringTwo']);
@@ -104,13 +104,34 @@ describe('TransactionQueue', () => {
         types.TransactionQueueStatus.Running
       );
       contract.fakeTxOnePromiEvent.resolve();
+      await transactionQueue.transactions[0].promise;
       expect(transactionQueue.status).toEqual(
         types.TransactionQueueStatus.Running
       );
-      contract.fakeTxOnePromiEvent.resolve();
+      contract.fakeTxTwoPromiEvent.resolve();
+      await transactionQueue.transactions[1].promise;
+
       expect(transactionQueue.status).toEqual(
         types.TransactionQueueStatus.Running
+      );
+
+      await transactionQueue.promise;
+
+      expect(transactionQueue.status).toEqual(
+        types.TransactionQueueStatus.Succeeded
       );
     });
+  });
+
+  test('sets error and status as failed if any transaction fails', async () => {
+    const contract = new MockedContract({ autoResolve: false });
+    const failureTx = getMockTransactionSpec(contract.failureTx, []);
+    const transactionQueue = new TransactionQueue([failureTx]);
+
+    await expect(transactionQueue.run()).rejects.toEqual(expect.any(Error));
+
+    expect(transactionQueue.status).toEqual(
+      types.TransactionQueueStatus.Failed
+    );
   });
 });
