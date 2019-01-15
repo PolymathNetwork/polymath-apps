@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { Modal } from './';
+import { Modal } from '../';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 
 type ModalProps = typeHelpers.GetProps<typeof Modal>;
@@ -8,7 +8,7 @@ interface State {
   isModalOpen: boolean;
 }
 
-export class ModalDemo extends React.Component<ModalProps, State> {
+export class Demo extends React.Component<ModalProps, State> {
   constructor(props: ModalProps) {
     super(props);
     this.state = {
