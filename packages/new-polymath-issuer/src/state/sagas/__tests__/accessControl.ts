@@ -1,11 +1,7 @@
 import { runSaga } from 'redux-saga';
 import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import * as sagas from '~/state/sagas/accessControl';
-import {
-  MockedStore,
-  MockEthereumProvider,
-  mockEthereumBrowser,
-} from '~/testUtils/helpers';
+import { MockedStore, mockEthereumBrowser } from '~/testUtils/helpers';
 
 jest.mock('~/lib/polymath', () => ({
   polyClient: {
