@@ -19,6 +19,7 @@ describe('Reducer: dataRequests', () => {
     [RequestKeys.GetCheckpointsBySymbol]: {
       [argsHash]: fetchedIds,
     },
+    [RequestKeys.GetCheckpointBySymbolAndId]: {},
     [RequestKeys.GetSecurityTokenBySymbol]: {},
     [RequestKeys.GetDividendsByCheckpoint]: {},
     [RequestKeys.GetErc20DividendsModuleBySymbol]: {},

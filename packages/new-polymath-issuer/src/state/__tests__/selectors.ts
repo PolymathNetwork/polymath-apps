@@ -150,6 +150,7 @@ const dataRequestsState = {
     [utils.hashObj(requestArgs[1])]: ['c1'],
     [utils.hashObj(requestArgs[2])]: ['c0', 'c1'],
   },
+  [RequestKeys.GetCheckpointBySymbolAndId]: {},
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},

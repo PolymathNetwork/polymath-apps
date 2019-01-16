@@ -11,6 +11,7 @@ export interface DataRequestResults {
 
 export interface DataRequestsState {
   [RequestKeys.GetCheckpointsBySymbol]: DataRequestResults;
+  [RequestKeys.GetCheckpointBySymbolAndId]: DataRequestResults;
   [RequestKeys.GetSecurityTokenBySymbol]: DataRequestResults;
   [RequestKeys.GetDividendsByCheckpoint]: DataRequestResults;
   [RequestKeys.GetErc20DividendsModuleBySymbol]: DataRequestResults;
@@ -18,6 +19,7 @@ export interface DataRequestsState {
 
 const initialState: DataRequestsState = {
   [RequestKeys.GetCheckpointsBySymbol]: {},
+  [RequestKeys.GetCheckpointBySymbolAndId]: {},
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
