@@ -5,9 +5,6 @@ import { IconCircled } from '~/components/IconCircled';
 import { Heading } from '~/components/Heading';
 import { CardPrimary } from '~/components/CardPrimary';
 import { Paragraph } from '~/components/Paragraph';
-import { SvgClose } from '~/images/icons/Close';
-import { SvgCheckmark } from '~/images/icons/Checkmark';
-import { SvgPending } from '~/images/icons/Pending';
 
 import * as sc from './styles';
 
