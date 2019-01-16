@@ -72,10 +72,16 @@ const colors = {
   blue: ['#5596E6', '#3D70B2', '#252D6B'],
   green: ['#00AA5E'],
   red: ['#e0182d'],
+  inactive: '#8F9BA4',
   idle: '#3D70B2',
   alert: '#e0182d',
   warning: '#EFC100',
   success: '#00AA5E',
+};
+
+const shadows = {
+  0: '0 2px 6px 0 rgba(0, 0, 0, 0.1)',
+  1: '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
 };
 
 const headings = {
@@ -199,6 +205,7 @@ export const theme = {
   space,
   zIndexes,
   colors,
+  shadows,
   headings,
   buttons,
   links,
