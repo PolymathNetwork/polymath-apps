@@ -1,11 +1,9 @@
 import * as React from 'react';
 export const SvgToken = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
-    <g fill="none" fillRule="evenodd">
-      <path
-        d="M12 0c6.627 0 12 5.373 12 12 0 6.628-5.373 12-12 12S0 18.628 0 12C0 5.373 5.373 0 12 0zm7.333 10.2V8.25H4.667v1.95h14.666zM10 5c-.736 0-1.333.582-1.333 1.3v1.3H10v-.975c0-.18.15-.325.333-.325h3.334a.33.33 0 0 1 .333.325V7.6h1.333V6.3c0-.718-.597-1.3-1.333-1.3h-4zm10 6.5H4L5.333 18h13.334L20 11.5z"
-        fill="#5596E6"
-      />
-    </g>
+  <svg width="1em" height="1em" viewBox="0 0 16 13" {...props}>
+    <path
+      d="M15.333 5.2V3.25H.667V5.2h14.666zM6 0c-.736 0-1.333.582-1.333 1.3v1.3H6v-.975c0-.18.15-.325.333-.325h3.334a.33.33 0 0 1 .333.325V2.6h1.333V1.3C11.333.582 10.736 0 10 0H6zm10 6.5H0L1.333 13h13.334L16 6.5z"
+      fill="currentColor"
+    />
   </svg>
 );
