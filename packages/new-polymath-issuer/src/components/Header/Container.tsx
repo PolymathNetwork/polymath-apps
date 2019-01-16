@@ -16,7 +16,7 @@ const mapStateToProps = (state: RootState): Props => ({
 });
 
 const ContainerBase: SFC<Props> = ({ walletAddress, ...otherProps }) => {
-  return <Header walletAddress={walletAddress} {...otherProps} />;
+  return <Header walletAddress={walletAddress} symbol="TORO" {...otherProps} />;
 };
 
 export const Container = connect(mapStateToProps)(ContainerBase);

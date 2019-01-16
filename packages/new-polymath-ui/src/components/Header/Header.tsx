@@ -5,11 +5,14 @@ import { formatters } from '@polymathnetwork/new-shared';
 import * as sc from './styles';
 
 import { PageWrap } from '~/components/PageWrap';
-import { Flex } from '~/components/Flex';
+import { Box } from '~/components/Box';
 import { Block } from '~/components/Block';
 import { Icon } from '~/components/Icon';
 import { IconCircled } from '~/components/IconCircled';
 import { Link } from '~/components/Link';
+import { List } from '~/components/List';
+import { IconText } from '~/components/IconText';
+import { InlineFlex } from '~/components/InlineFlex';
 
 import polyLogo from '~/images/logo.svg';
 import { SvgDot } from '~/images/icons/Dot';
@@ -49,28 +52,62 @@ export const Header = (props: HeaderProps) => {
             )}
           </Link>
           {walletAddress ? (
-            <Flex as="ul" ml="auto" className="pui-header-menu">
-              <li>
-                <Icon Asset={SvgDot} alt="Active network" />
-                {network}
-              </li>
-              <li>
-                <IconCircled Asset={SvgPoly} alt="Your POLY balance" />
-                {balance ? formatters.toTokens(balance) + ' POLY' : '...'}
-              </li>
-              <li>
-                <Icon Asset={SvgAccount} alt="Wallet address" />
-                {formatters.toShortAddress(walletAddress)}
-              </li>
-              {symbol ? (
-                <li>
-                  <Icon Asset={SvgToken} alt="Token" />
-                  {symbol}
-                </li>
-              ) : (
-                ''
-              )}
-            </Flex>
+            <Box ml="auto">
+              <List className="pui-header-menu">
+                <IconText>
+                  <Icon
+                    Asset={SvgDot}
+                    aria-label="Active network"
+                    color="success"
+                    width={26}
+                    height={26}
+                  />
+                  <InlineFlex ml="s">{network}</InlineFlex>
+                </IconText>
+                <IconText>
+                  <IconCircled
+                    Asset={SvgPoly}
+                    aria-label="Your POLY balance"
+                    bg="blue.0"
+                    color="white"
+                    width={26}
+                    height={26}
+                  />
+                  <InlineFlex ml="s">
+                    {balance ? formatters.toTokens(balance) + ' POLY' : '...'}
+                  </InlineFlex>
+                </IconText>
+                <IconText>
+                  <IconCircled
+                    Asset={SvgAccount}
+                    aria-label="Wallet address"
+                    bg="blue.0"
+                    color="white"
+                    width={26}
+                    height={26}
+                  />
+                  <InlineFlex ml="s">
+                    {formatters.toShortAddress(walletAddress)}
+                  </InlineFlex>
+                </IconText>
+                {symbol ? (
+                  <IconText>
+                    <IconCircled
+                      Asset={SvgToken}
+                      aria-label="Token"
+                      bg="blue.0"
+                      color="white"
+                      width={26}
+                      height={26}
+                      scale={0.95}
+                    />
+                    <InlineFlex ml="s">{symbol}</InlineFlex>
+                  </IconText>
+                ) : (
+                  ''
+                )}
+              </List>
+            </Box>
           ) : null}
         </sc.Inner>
       </PageWrap>
