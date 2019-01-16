@@ -7,8 +7,8 @@ import * as sc from './styles';
 
 export interface FooterProps {
   title?: string;
-  termsOfService?: string;
-  privacyPolicy?: string;
+  termsOfServiceUrl?: string;
+  privacyPolicyUrl?: string;
   variant: 'default' | 'transparent';
 }
 
@@ -24,7 +24,7 @@ export const Footer = (props: FooterProps) => {
             <li>
               <Link
                 href={
-                  props.termsOfService ||
+                  props.termsOfServiceUrl ||
                   'https://polymath.network/termsofservice.html'
                 }
               >
@@ -34,7 +34,7 @@ export const Footer = (props: FooterProps) => {
             <li>
               <Link
                 href={
-                  props.privacyPolicy ||
+                  props.privacyPolicyUrl ||
                   'https://polymath.network/privacypolicy.html'
                 }
               >
