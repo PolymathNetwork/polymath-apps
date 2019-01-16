@@ -7,9 +7,9 @@ import { typeHelpers } from '@polymathnetwork/new-shared';
 type ModalProps = typeHelpers.GetProps<typeof Modal>;
 
 export interface Props extends ModalProps {
-  isActionDisabled: boolean;
-  actionButtonText: string;
-  cancelButtonText: string;
+  isActionDisabled?: boolean;
+  actionButtonText?: string;
+  cancelButtonText?: string;
   onSubmit: () => void;
   onClose: () => void;
 }
