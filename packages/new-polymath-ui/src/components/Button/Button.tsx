@@ -9,7 +9,6 @@ export interface ButtonProps {
    * Specify the kind of Button you want to create
    */
   kind?: string;
-  small?: boolean;
   /**
    * Optional prop to specify the tabIndex of the Button
    */
@@ -64,8 +63,8 @@ export const Button = styled(ButtonPrimitive)<ButtonProps>`
   line-height: 16px;
   border: 2px solid transparent;
   outline: none;
-  height: ${({ small }) => (small ? '2rem' : '2.5rem')};
-  padding: ${({ small }) => (small ? '0 0.5rem' : '0 1rem')};
+  height: 2.5rem;
+  padding: 0 1rem;
   transition-duration: ${({ theme }) => theme.transitions.hover.ms}ms;
   transition-property: background, color, border-color;
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
