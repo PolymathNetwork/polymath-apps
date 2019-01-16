@@ -13,9 +13,6 @@ export interface Props {
 }
 
 export class ContainerBase extends Component<Props> {
-  public openDividendModal() {
-
-  }
   public render() {
     const { symbol, checkpointIndex } = this.props;
     return (
