@@ -1,7 +1,7 @@
 import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
-import { PolyTransactionTags } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 
 interface Args {
   symbol: string;
@@ -33,7 +33,7 @@ export class ReclaimFunds extends Procedure<Args> {
     }
 
     await this.addTransaction(dividendModule.reclaimDividend, {
-      tag: PolyTransactionTags.ReclaimDividendFunds,
+      tag: types.PolyTransactionTags.ReclaimDividendFunds,
     })(dividendIndex);
   }
 }

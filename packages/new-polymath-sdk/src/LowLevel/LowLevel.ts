@@ -61,8 +61,8 @@ export class LowLevel {
     if (auxProvider === null) {
       throw new Error(
         `No provider or provider URL was passed to the constructor and there is \
-        no provider injected into the browser. If this instance is running in \
-        a browser, make sure you have MetaMask installed and enabled.`
+no provider injected into the browser. If this instance is running in \
+a browser, make sure you have MetaMask installed and enabled.`
       );
     }
 

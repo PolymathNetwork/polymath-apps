@@ -419,3 +419,8 @@ $css--body: false;
   color: $poly-red;
   content: '*';
 }
+
+.bx--file-container{
+  margin-bottom:24px;
+  .bx--file-filename { margin-bottom: 0 };
+}

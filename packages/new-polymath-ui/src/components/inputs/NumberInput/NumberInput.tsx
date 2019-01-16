@@ -3,19 +3,25 @@ import BigNumber from 'bignumber.js';
 import { constants } from '@polymathnetwork/new-shared';
 
 import { formikProxy } from '../formikProxy';
-import { BaseInput, BaseInputProps } from '../BaseInput';
+import { BaseInput } from '../BaseInput';
 
-export interface NumberInputProps extends BaseInputProps {
+type Value = number | BigNumber | null;
+
+export interface NumberInputProps {
   max: number | BigNumber;
   min: number | BigNumber;
   maxDecimals: number;
   useBigNumbers: boolean;
+  value: Value;
+  name: string;
+  onChange: (value: Value) => void;
+  onBlur: () => void;
 }
 
-type State = {
+interface State {
   oldValue: null;
   displayValue: string;
-};
+}
 
 const { MIN_SAFE_NUMBER, MAX_SAFE_NUMBER } = constants;
 
@@ -35,8 +41,7 @@ const startsWithDotRegex = /^\.\d+$/;
 // It should support consecutive zeroes after the decimal point until the user inputs another
 // number
 export class NumberInputPrimitive extends Component<NumberInputProps, State> {
-  state = { displayValue: '', oldValue: null };
-  static defaultProps = {
+  public static defaultProps = {
     onChange: () => {},
     onBlur: () => {},
     min: -Infinity,
@@ -47,7 +52,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     name: 'unnamed',
   };
 
-  static getDisplayValue(value: number | BigNumber, props: NumberInputProps) {
+  public static getDisplayValue(value: Value, props: NumberInputProps) {
     if (value === null) {
       return '';
     }
@@ -55,18 +60,23 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     return parsedValue.toFormat();
   }
 
-  static isBigNumber(value: any) {
+  public static isBigNumber(value: any) {
     return value.isBigNumber || value._isBigNumber;
   }
 
-  static getDerivedStateFromProps(props: NumberInputProps, state: State) {
+  public static getDerivedStateFromProps(
+    props: NumberInputProps,
+    state: State
+  ) {
     const { oldValue } = state;
     const { value, useBigNumbers, min, max, name } = props;
     const propsValueChanged = oldValue !== value;
 
     if (!useBigNumbers && (min === -Infinity || max === Infinity)) {
+      // tslint:disable-next-line:no-console
       console.warn(
-        `NumberInput(${name})'s min and max should be set when useBigNumbers is disabled. They have been defaulted to the biggest supported values for safety`
+        `NumberInput(${name})'s min and max should be set when useBigNumbers is disabled. \
+        They have been defaulted to the biggest supported values for safety`
       );
     }
 
@@ -75,6 +85,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
       value !== null &&
       !NumberInputPrimitive.isBigNumber(value)
     ) {
+      // tslint:disable-next-line:no-console
       console.warn(
         `NumberInput(${name})'s value must be a BigNumber object when useBigNumbers is set to true`
       );
@@ -94,18 +105,18 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
    * Transforms a value into a BigNumber instance while enforcing
    * numeric restrictions
    */
-  static toBigNumber(
+  public static toBigNumber(
     v: number | string | BigNumber,
     { min, max, useBigNumbers, maxDecimals }: NumberInputProps
   ) {
-    let value = v;
+    let value: number | string | BigNumber = v;
     if (typeof value === 'string') {
       value = value.replace(/,/g, '');
     } else if (typeof value === 'number') {
       value = String(value);
     }
 
-    value = new BigNumber(value).decimalPlaces(
+    const bnValue = new BigNumber(value).decimalPlaces(
       maxDecimals,
       BigNumber.ROUND_FLOOR
     );
@@ -114,12 +125,16 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     let maximum = max;
 
     if (!useBigNumbers) {
-      minimum = min < MIN_SAFE_NUMBER ? MIN_SAFE_NUMBER : min;
-      maximum = max > MAX_SAFE_NUMBER ? MAX_SAFE_NUMBER : max;
+      if (min !== null) {
+        minimum = min < MIN_SAFE_NUMBER ? MIN_SAFE_NUMBER : min;
+      }
+      if (max !== null) {
+        maximum = max > MAX_SAFE_NUMBER ? MAX_SAFE_NUMBER : max;
+      }
     }
 
-    value = BigNumber.max(minimum, value);
-    value = BigNumber.min(maximum, value);
+    value = BigNumber.max(minimum, bnValue);
+    value = BigNumber.min(maximum, bnValue);
 
     return value;
   }
@@ -131,7 +146,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
    *
    * @param displayValue The value in the input that the user sees
    */
-  static isInIntermediateState(displayValue: string) {
+  public static isInIntermediateState(displayValue: string) {
     const endsWithZeroInDecimals = endsWithZeroInDecimalsRegex.test(
       displayValue
     );
@@ -146,7 +161,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
    *
    * @returns boolean
    */
-  static isValidDisplayValue(value: string, maxDecimals: number) {
+  public static isValidDisplayValue(value: string, maxDecimals: number) {
     if (value === '') {
       return true;
     }
@@ -158,12 +173,14 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     return displayValueRegex.test(value);
   }
 
+  public state = { displayValue: '', oldValue: null };
+
   /**
    * Cleans up and formats the display value shown in the UI
    *
    * @param nextDisplayValue the value to sanitize
    */
-  sanitizeDisplayValue = (nextDisplayValue?: string): string => {
+  public sanitizeDisplayValue = (nextDisplayValue: string): string => {
     const displayValue = this.state.displayValue;
     const isValid = NumberInputPrimitive.isValidDisplayValue(
       nextDisplayValue,
@@ -194,35 +211,41 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     return nextDisplayValue;
   };
 
-  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  public handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const { onChange, useBigNumbers } = this.props;
-    const { value } = event.target;
+    const { target } = event;
 
-    const displayValue = this.sanitizeDisplayValue(value);
+    if (target instanceof HTMLInputElement) {
+      const { value } = target;
+      const displayValue = this.sanitizeDisplayValue(value);
 
-    this.setState({ displayValue });
+      this.setState({ displayValue });
 
-    if (onChange && !NumberInputPrimitive.isInIntermediateState(displayValue)) {
-      if (displayValue.replace(/\s/g, '') === '') {
-        onChange(null);
-        return;
+      if (
+        onChange &&
+        !NumberInputPrimitive.isInIntermediateState(displayValue)
+      ) {
+        if (displayValue.replace(/\s/g, '') === '') {
+          onChange(null);
+          return;
+        }
+
+        const parsedValue = NumberInputPrimitive.toBigNumber(
+          displayValue,
+          this.props
+        );
+
+        if (useBigNumbers) {
+          onChange(parsedValue);
+          return;
+        }
+
+        onChange(parsedValue.toNumber());
       }
-
-      const parsedValue = NumberInputPrimitive.toBigNumber(
-        displayValue,
-        this.props
-      );
-
-      if (useBigNumbers) {
-        onChange(parsedValue);
-        return;
-      }
-
-      onChange(parsedValue.toNumber());
     }
   };
 
-  render() {
+  public render() {
     const { name, value, onBlur, min, max, ...inputProps } = this.props;
     const { displayValue } = this.state;
 
@@ -240,4 +263,8 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
   }
 }
 
-export const NumberInput = formikProxy(NumberInputPrimitive);
+const EnhancedNumberInput = formikProxy(NumberInputPrimitive);
+
+export const NumberInput = Object.assign(EnhancedNumberInput, {
+  defaultProps: NumberInputPrimitive.defaultProps,
+});

@@ -20,51 +20,56 @@ import * as sc from './styles';
 const { TransactionStatus } = types;
 
 interface TransactionItemProps {
-  transaction: types.Transaction;
+  transaction: types.TransactionEntity;
 }
 
-const getIcon = (transaction: types.Transaction) => {
+const getIcon = (transaction: types.TransactionEntity) => {
   if (transaction.status === TransactionStatus.Rejected) {
     return <Icon Asset={SvgClose} fill="#E71D32" width="32" height="32" />;
   }
 
-  if (
-    transaction.status === TransactionStatus.Unapproved ||
-    transaction.status === TransactionStatus.Running
-  ) {
+  if (transaction.status === TransactionStatus.Unapproved) {
+    return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
+  }
+
+  if (transaction.status === TransactionStatus.Running) {
     return <Loading small />;
   }
 
-  if (transaction.status === TransactionStatus.Succeeded) {
+  if (status === TransactionStatus.Succeeded) {
     return <Icon Asset={SvgCheckmark} color="success" width="32" height="24" />;
   }
 
   return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
 };
 
-export const TransactionItem = ({ transaction }: TransactionItemProps) => (
-  <sc.Wrapper
-    alignItems="flex-start"
-    isDisabled={transaction.status === TransactionStatus.Idle}
-  >
-    <Box minWidth={50} mt={1}>
-      {getIcon(transaction)}
-    </Box>
-    <sc.Info>
-      <Heading as="h3" variant="h3" lineHeight="tight" mb="s">
-        {transaction.type}
-      </Heading>
-      <CardPrimary>
-        <Paragraph as={Flex} fontSize={0}>
-          <sc.Label>Transaction details on Etherscan: </sc.Label>
-          &nbsp;
-          {transaction.hash && (
-            <Link href={utils.toEtherscanUrl(transaction.hash)}>
-              <TextEllipsis size={28}>{transaction.hash}</TextEllipsis>
-            </Link>
-          )}
-        </Paragraph>
-      </CardPrimary>
-    </sc.Info>
-  </sc.Wrapper>
-);
+export const TransactionItem = ({ transaction }: TransactionItemProps) => {
+  const { description, tag, txHash } = transaction;
+
+  return (
+    <sc.Wrapper
+      alignItems="flex-start"
+      isDisabled={transaction.status === TransactionStatus.Idle}
+    >
+      <Box minWidth={50} mt={1}>
+        {getIcon(transaction)}
+      </Box>
+      <sc.Info>
+        <Heading as="h3" variant="h3" lineHeight="tight" mb="s">
+          {description || tag}
+        </Heading>
+        <CardPrimary>
+          <Paragraph as={Flex} fontSize={0}>
+            <sc.Label>Transaction details on Etherscan: </sc.Label>
+            &nbsp;
+            {txHash && (
+              <Link href={utils.toEtherscanUrl(txHash)}>
+                <TextEllipsis size={28}>{txHash}</TextEllipsis>
+              </Link>
+            )}
+          </Paragraph>
+        </CardPrimary>
+      </sc.Info>
+    </sc.Wrapper>
+  );
+};

@@ -4,15 +4,27 @@ menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
+import { Link as ReactLink } from 'redux-little-router';
+import { Provider } from 'react-redux';
+import { constants, types } from '@polymathnetwork/new-shared';
 
+import { Demo } from './Demo';
 import { Link } from '../';
 
 # Link
+
+This can be an internal or external link. To create an internal link, use the `as` prop and pass the `Link` component of your router.
 
 <PropsTable of={Link} />
 
 ## Basic usage
 
 <Playground>
-  <Link href="http://www.google.com">google.com</Link>
+  <Demo>
+    <Link as={ReactLink} href="/">
+      Internal link
+    </Link>
+  </Demo>
+  <br />
+  <Link href="https://google.com">External link</Link>
 </Playground>

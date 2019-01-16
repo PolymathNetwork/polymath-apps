@@ -3,16 +3,25 @@ import { types } from '@polymathnetwork/new-shared';
 import { TransactionSpec } from '~/types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
-import { Procedure } from '~/procedures/Procedure';
+import * as procedures from '~/procedures';
+
+// TODO @RafaelVidaurre: Decide where this should go
+const descriptionsByProcedureType: {
+  [key: string]: string;
+} = {
+  [procedures.EnableDividendModules.name]:
+    'Enabling the Ability to Distribute Dividends',
+};
 
 enum Events {
   StatusChange = 'StatusChange',
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class TransactionQueue<T extends Procedure<any>> extends Entity {
+export class TransactionQueue extends Entity {
   public readonly entityType: string = 'transactionQueue';
   public procedureType: string;
+  public description: string;
   public uid: string;
   public transactions: PolyTransaction[];
   public promise: Promise<any>;
@@ -23,13 +32,15 @@ export class TransactionQueue<T extends Procedure<any>> extends Entity {
   private emitter: EventEmitter;
 
   constructor(
-    transactions: TransactionSpec<any>[],
+    transactions: TransactionSpec[],
     procedureType: string = 'UnnamedProcedure'
   ) {
     super(undefined, false);
 
     this.emitter = new EventEmitter();
     this.procedureType = procedureType;
+    this.description =
+      descriptionsByProcedureType[procedureType] || procedureType;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -50,21 +61,21 @@ export class TransactionQueue<T extends Procedure<any>> extends Entity {
     });
 
     this.uid = this.generateId();
-    this.updateStatus(types.TransactionQueueStatus.Running);
   }
 
   public toPojo() {
-    const { uid, transactions, status, procedureType } = this;
+    const { uid, transactions, status, procedureType, description } = this;
 
     return {
       uid,
+      description,
       transactions: transactions.map(transaction => transaction.toPojo()),
       status,
       procedureType,
     };
   }
 
-  public async run() {
+  public run = async () => {
     this.queue = [...this.transactions];
     this.updateStatus(types.TransactionQueueStatus.Running);
 
@@ -79,16 +90,24 @@ export class TransactionQueue<T extends Procedure<any>> extends Entity {
     }
 
     await this.promise;
-  }
+  };
 
   public onStatusChange(listener: (transactionQueue: this) => void) {
     this.emitter.on(Events.StatusChange, listener);
+
+    return () => {
+      this.emitter.removeListener(Events.StatusChange, listener);
+    };
   }
 
   public onTransactionStatusChange(
     listener: (transaction: PolyTransaction, transactionQueue: this) => void
   ) {
     this.emitter.on(Events.TransactionStatusChange, listener);
+
+    return () => {
+      this.emitter.removeListener(Events.TransactionStatusChange, listener);
+    };
   }
 
   protected resolve: (val?: any) => void = () => {};

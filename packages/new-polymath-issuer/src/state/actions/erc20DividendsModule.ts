@@ -1,8 +1,8 @@
-import { Erc20DividendsModuleEntity } from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 import { createEntityActions } from '~/state/helpers/createEntityActions';
 
 const { createAction, updateAction, deleteAction } = createEntityActions<
-  Erc20DividendsModuleEntity
+  types.Erc20DividendsModuleEntity
 >('ERC20_DIVIDENDS_MODULES');
 
 export { createAction, updateAction, deleteAction };

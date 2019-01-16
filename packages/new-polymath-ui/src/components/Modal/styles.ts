@@ -1,13 +1,18 @@
 import { maxWidth } from 'styled-system';
 
-import styled, { css, ThemeInterface } from '~/styles';
+import { css, ThemeInterface, styled } from '~/styles';
 
-import { ModalStatus, ModalProps } from './';
+import { ModalStatus } from './types';
 import { IconButton } from '../IconButton';
 
 const statusBarHeight = '8px';
 
-export const modalStyle = css`
+export interface StyleProps {
+  isCentered?: boolean;
+  maxWidth?: number;
+}
+
+export const modalStyle = css<StyleProps>`
   .pui-modal {
     position: relative;
     display: flex;
@@ -32,8 +37,7 @@ export const modalStyle = css`
     }
 
     @media (min-width: 1024px) {
-      ${(props: ModalProps) =>
-        props.maxWidth ? maxWidth(props) : 'max-width: 50%'};
+      ${props => (props.maxWidth ? maxWidth(props) : 'max-width: 50%')};
       max-height: 80%;
     }
 
@@ -130,7 +134,7 @@ export const CloseButton = styled(IconButton)`
 const loadingStyles = `
   background: linear-gradient(60deg, #252e6a, #5495e5, #5495e5, #5495e5, #252e6a);
   background-size: 300% 300%;
-  animation: AnimatedGradient 3s infinite;  
+  animation: AnimatedGradient 3s infinite;
 `;
 
 export const StatusBar = styled.div`

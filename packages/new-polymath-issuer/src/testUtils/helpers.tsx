@@ -44,7 +44,6 @@ export class MockedStore {
   };
 
   public getState = () => {
-    // console.log('calling get state', this.state.session);
     return { ...this.state };
   };
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+// tslint:disable max-line-length
 export const SvgCalendar = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width="1em" height="1em" fillRule="evenodd" {...props}>
     <path

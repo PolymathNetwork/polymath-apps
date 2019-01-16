@@ -9,6 +9,7 @@ import { TaxWithholding } from '~/types';
 import {
   Dividend as LowLevelDividend,
   Checkpoint as LowLevelCheckpoint,
+  DividendModuleTypes,
 } from '~/LowLevel/types';
 import { Dividend, Checkpoint } from '~/entities';
 
@@ -85,7 +86,7 @@ export class Polymath {
     };
   }
 
-  public async connect() {
+  public connect = async () => {
     const { lowLevel, polymathRegistryAddress } = this;
 
     this.networkId = await lowLevel.getNetworkId();
@@ -121,47 +122,55 @@ export class Polymath {
     this.isConnected = true;
 
     return this;
-  }
+  };
 
-  public async createSecurityToken(args: {
+  public createSecurityToken = async (args: {
     symbol: string;
     name: string;
     detailsUrl?: string;
     divisible: boolean;
-  }) {
+  }) => {
     const procedure = new CreateSecurityToken(args, this.context);
     return await procedure.prepare();
-  }
+  };
 
   /**
    * Reserve a Security Token
    */
-  public async reserveSecurityToken(args: { symbol: string; name: string }) {
+  public reserveSecurityToken = async (args: {
+    symbol: string;
+    name: string;
+  }) => {
     const procedure = new ReserveSecurityToken(args, this.context);
     const transactionQueue = await procedure.prepare();
     return transactionQueue;
-  }
+  };
 
   /**
-   * Enable ERC20 and ETH dividend modules
+   * Enable dividend modules (ERC20, ETH or both)
+   *
+   * @param types array containing the types of dividend modules to enable (will enable all if not present)
    */
-  public async enableDividendModules(args: { symbol: string }) {
+  public enableDividendModules = async (args: {
+    symbol: string;
+    types?: DividendModuleTypes[];
+  }) => {
     const procedure = new EnableDividendModules(args, this.context);
     return await procedure.prepare();
-  }
+  };
 
   /**
    * Create investor supply checkpoint at the current date
    */
-  public async createCheckpoint(args: { symbol: string }) {
+  public createCheckpoint = async (args: { symbol: string }) => {
     const procedure = new CreateCheckpoint(args, this.context);
     return await procedure.prepare();
-  }
+  };
 
   /**
    * Distribute dividends in POLY
    */
-  public async distributePolyDividends(args: {
+  public distributePolyDividends = async (args: {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
@@ -170,7 +179,7 @@ export class Polymath {
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
-  }) {
+  }) => {
     const polyAddress = this.context.polyToken.address;
     const procedure = new CreateErc20DividendDistribution(
       {
@@ -180,12 +189,12 @@ export class Polymath {
       this.context
     );
     return await procedure.prepare();
-  }
+  };
 
   /**
    * Distribute dividends in a specified ERC20 token
    */
-  public async distributeErc20Dividends(args: {
+  public distributeErc20Dividends = async (args: {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
@@ -195,15 +204,15 @@ export class Polymath {
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
-  }) {
+  }) => {
     const procedure = new CreateErc20DividendDistribution(args, this.context);
     return await procedure.prepare();
-  }
+  };
 
   /**
    * Distribute dividends in ETH
    */
-  public async distributeEtherDividends(args: {
+  public distributeEtherDividends = async (args: {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
@@ -213,15 +222,17 @@ export class Polymath {
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
-  }) {
+  }) => {
     const procedure = new CreateEtherDividendDistribution(args, this.context);
     return await procedure.prepare();
-  }
+  };
 
   /**
    * Retrieve list of checkpoints and their corresponding dividends
    */
-  public async getCheckpoints(args: { symbol: string }): Promise<Checkpoint[]> {
+  public getCheckpoints = async (args: {
+    symbol: string;
+  }): Promise<Checkpoint[]> => {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
@@ -278,9 +289,12 @@ export class Polymath {
 
       return emptyCheckpoint;
     });
-  }
+  };
 
-  public async getDividends(args: { symbol: string; checkpointIndex: number }) {
+  public getDividends = async (args: {
+    symbol: string;
+    checkpointIndex: number;
+  }) => {
     const { symbol: securityTokenSymbol, checkpointIndex } = args;
     const checkpoints = await this.getCheckpoints({
       symbol: securityTokenSymbol,
@@ -295,9 +309,9 @@ export class Polymath {
     }
 
     return [];
-  }
+  };
 
-  public async getErc20DividendsModule(args: { symbol: string }) {
+  public getErc20DividendsModule = async (args: { symbol: string }) => {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
@@ -330,7 +344,7 @@ export class Polymath {
     return new Erc20DividendsModule({
       ...constructorData,
     });
-  }
+  };
 
   get SecurityToken() {
     return this.entities.SecurityToken;

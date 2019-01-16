@@ -2,26 +2,25 @@ import {
   createEntityReducer,
   EntityState,
 } from '~/state/helpers/createEntityReducer';
-import {
-  TransactionEntity,
-  DividendEntity,
-  CheckpointEntity,
-  Erc20DividendsModuleEntity,
-} from '~/types';
+import { types } from '@polymathnetwork/new-shared';
 import { combineReducers } from 'redux';
 
 export interface EntitiesState {
-  transactions: EntityState<TransactionEntity>;
-  checkpoints: EntityState<CheckpointEntity>;
-  dividends: EntityState<DividendEntity>;
-  erc20DividendsModules: EntityState<Erc20DividendsModuleEntity>;
+  transactions: EntityState<types.TransactionEntity>;
+  checkpoints: EntityState<types.CheckpointEntity>;
+  dividends: EntityState<types.DividendEntity>;
+  erc20DividendsModules: EntityState<types.Erc20DividendsModuleEntity>;
+  transactionQueues: EntityState<types.TransactionQueueEntity>;
 }
 
 export const reducer = combineReducers<EntitiesState>({
-  transactions: createEntityReducer<TransactionEntity>('TRANSACTIONS'),
-  checkpoints: createEntityReducer<CheckpointEntity>('CHECKPOINTS'),
-  dividends: createEntityReducer<DividendEntity>('DIVIDENDS'),
-  erc20DividendsModules: createEntityReducer<Erc20DividendsModuleEntity>(
+  transactions: createEntityReducer<types.TransactionEntity>('TRANSACTIONS'),
+  checkpoints: createEntityReducer<types.CheckpointEntity>('CHECKPOINTS'),
+  dividends: createEntityReducer<types.DividendEntity>('DIVIDENDS'),
+  erc20DividendsModules: createEntityReducer<types.Erc20DividendsModuleEntity>(
     'ERC20_DIVIDENDS_MODULES'
+  ),
+  transactionQueues: createEntityReducer<types.TransactionQueueEntity>(
+    'TRANSACTION_QUEUES'
   ),
 });
