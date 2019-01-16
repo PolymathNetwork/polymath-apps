@@ -3,13 +3,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Modal,
   Icon,
   FileUploader,
   Button,
   InlineNotification,
 } from 'carbon-components-react';
-import { Remark } from '@polymathnetwork/ui';
+import { Modal, Remark, Paragraph } from '@polymathnetwork/ui';
 import { uploadCSV, resetUploaded } from '../../../actions/compliance';
 
 import type { RootState } from '../../../redux/reducer';
@@ -91,12 +90,11 @@ class ImportWhitelistModal extends Component<Props> {
     const { isOpen, isTooMany, parseError, isReady, isInvalid } = this.props;
     return (
       <Modal
-        open={isOpen}
-        onRequestClose={this.handleClose}
-        modalHeading="Import Whitelist"
-        passiveModal
+        isOpen={isOpen}
+        onClose={this.handleClose}
         className="whitelist-import-modal"
       >
+        <Modal.Header>Import Whitelist</Modal.Header>
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
           .CSV file. The format should be as follows:
@@ -176,29 +174,29 @@ class ImportWhitelistModal extends Component<Props> {
             kind="error"
           />
         ) : (
-          <div>
-            <br />
-            <Remark title="Reminder">
-              Investors must be approved before they are added to the whitelist.
-            </Remark>
-          </div>
+          <Remark title="Reminder">
+            Investors must be approved before they are added to the whitelist.
+          </Remark>
         )}
-        <p align="right">
-          <Button
-            className="cancel-btn"
-            kind="secondary"
-            onClick={this.handleClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            disabled={!isReady || isInvalid}
-            onClick={this.handleSubmit}
-          >
-            Import Whitelist
-          </Button>
-        </p>
+        <Modal.Footer>
+          <Paragraph align="right">
+            <Button
+              className="cancel-btn"
+              kind="secondary"
+              onClick={this.handleClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              kind="primary"
+              disabled={!isReady || isInvalid}
+              onClick={this.handleSubmit}
+            >
+              Import Whitelist
+            </Button>
+          </Paragraph>
+        </Modal.Footer>
       </Modal>
     );
   }
