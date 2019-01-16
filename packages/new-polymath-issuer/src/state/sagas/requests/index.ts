@@ -6,8 +6,12 @@ import {
   isGetCheckpointsBySymbolArgs,
   isGetDividendsByCheckpointArgs,
   isGetErc20DividendsModuleBySymbolArgs,
+  isGetCheckpointBySymbolAndIdArgs,
 } from '~/types';
-import { fetchCheckpointsBySymbol } from './checkpoints';
+import {
+  fetchCheckpointsBySymbol,
+  fetchCheckpointBySymbolAndId,
+} from './checkpoints';
 import { fetchDividendsByCheckpoint } from './dividends';
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
 
@@ -22,6 +26,14 @@ export function* requestData(action: ActionType<typeof fetchData>) {
         yield call(fetchCheckpointsBySymbol, args);
       } else {
         throw new Error('Invalid arguments passed for fetching checkpoints.');
+      }
+      break;
+    }
+    case RequestKeys.GetCheckpointBySymbolAndId: {
+      if (isGetCheckpointBySymbolAndIdArgs(args)) {
+        yield call(fetchCheckpointBySymbolAndId, args);
+      } else {
+        throw new Error('Invalid arguments passed for fetching checkpoint.');
       }
       break;
     }
