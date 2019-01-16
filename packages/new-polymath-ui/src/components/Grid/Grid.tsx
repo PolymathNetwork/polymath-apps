@@ -9,6 +9,8 @@ import {
   gridAutoColumns,
   gridAutoRows,
   alignItems,
+  // @ts-ignore
+  justifyItems,
   justifyContent,
   GridAutoFlowProps,
   GridTemplatesColumnsProps,
@@ -16,6 +18,8 @@ import {
   GridAutoColumnsProps,
   GridAutoRowsProps,
   AlignItemsProps,
+  JustifyItemsProps,
+  JustifyContentProps,
 } from 'styled-system';
 
 import { Box } from '~/components/Box';
@@ -27,7 +31,9 @@ export type GridProps = GridGapProps &
   GridTemplatesAreasProps &
   GridAutoColumnsProps &
   GridAutoRowsProps &
-  AlignItemsProps;
+  AlignItemsProps &
+  JustifyItemsProps &
+  JustifyContentProps;
 
 export const Grid = styled(Box)<GridProps>`
   display: grid;
@@ -39,6 +45,7 @@ export const Grid = styled(Box)<GridProps>`
   ${gridAutoRows};
   ${alignItems};
   ${justifyContent};
+  ${justifyItems};
 `;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
