@@ -7,10 +7,13 @@ export type FilterPropNamesByType<T, U> = {
   [K in keyof T]: T[K] extends U ? never : K
 }[keyof T];
 
-export type ArgsWithoutEntityProps<
+export type OmitFromProcedureArgs<
   Procedure extends (...args: any[]) => any,
   T
-> = Omit<ArgumentsType<Procedure>[0], FilterPropNamesByType<T, Function>>;
+> = Omit<
+  ArgumentsType<Procedure>[0],
+  keyof T
+>;
 
 export type GetProps<C> = C extends React.ComponentType<infer P> ? P : never;
 export type GetSelectorReturnType<

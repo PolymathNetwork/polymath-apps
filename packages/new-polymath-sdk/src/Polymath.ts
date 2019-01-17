@@ -291,18 +291,32 @@ export class Polymath {
     });
   };
 
-  public getDividends = async (args: {
+  public getCheckpoint = async (args: {
     symbol: string;
     checkpointIndex: number;
   }) => {
-    const { symbol: securityTokenSymbol, checkpointIndex } = args;
+    const { symbol, checkpointIndex } = args;
     const checkpoints = await this.getCheckpoints({
-      symbol: securityTokenSymbol,
+      symbol,
     });
 
     const thisCheckpoint = checkpoints.find(
       checkpoint => checkpoint.index === checkpointIndex
     );
+
+    return thisCheckpoint || null;
+  };
+
+  public getDividends = async (args: {
+    symbol: string;
+    checkpointIndex: number;
+  }) => {
+    const { symbol, checkpointIndex } = args;
+
+    const thisCheckpoint = await this.getCheckpoint({
+      symbol,
+      checkpointIndex,
+    });
 
     if (thisCheckpoint) {
       return thisCheckpoint.dividends;
