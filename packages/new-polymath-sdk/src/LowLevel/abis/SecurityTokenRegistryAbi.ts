@@ -1,895 +1,952 @@
 // tslint:disable
 export const SecurityTokenRegistryAbi = {
-  contractName: "SecurityTokenRegistry",
+  contractName: 'SecurityTokenRegistry',
   abi: [
     {
       constant: true,
       inputs: [
         {
-          name: "_variable",
-          type: "bytes32"
-        }
+          name: '_variable',
+          type: 'bytes32',
+        },
       ],
-      name: "getBoolValues",
+      name: 'getBytes32Value',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bytes32',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_variable",
-          type: "bytes32"
-        }
+          name: '_variable',
+          type: 'bytes32',
+        },
       ],
-      name: "getUintValues",
+      name: 'getBytesValue',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'bytes',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_variable",
-          type: "bytes32"
-        }
+          name: '_variable',
+          type: 'bytes32',
+        },
       ],
-      name: "getStringValues",
+      name: 'getAddressValue',
       outputs: [
         {
-          name: "",
-          type: "string"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_variable",
-          type: "bytes32"
-        }
+          name: '_key',
+          type: 'bytes32',
+        },
       ],
-      name: "getBytes32Values",
+      name: 'getArrayAddress',
       outputs: [
         {
-          name: "",
-          type: "bytes32"
-        }
+          name: '',
+          type: 'address[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_variable",
-          type: "bytes32"
-        }
+          name: '_variable',
+          type: 'bytes32',
+        },
       ],
-      name: "getAddressValues",
+      name: 'getBoolValue',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_variable",
-          type: "bytes32"
-        }
+          name: '_variable',
+          type: 'bytes32',
+        },
       ],
-      name: "getBytesValues",
+      name: 'getStringValue',
       outputs: [
         {
-          name: "",
-          type: "bytes"
-        }
+          name: '',
+          type: 'string',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_key',
+          type: 'bytes32',
+        },
+      ],
+      name: 'getArrayBytes32',
+      outputs: [
+        {
+          name: '',
+          type: 'bytes32[]',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_variable',
+          type: 'bytes32',
+        },
+      ],
+      name: 'getUintValue',
+      outputs: [
+        {
+          name: '',
+          type: 'uint256',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_key',
+          type: 'bytes32',
+        },
+      ],
+      name: 'getArrayUint',
+      outputs: [
+        {
+          name: '',
+          type: 'uint256[]',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_timestammp",
-          type: "uint256"
-        }
+          name: '_timestammp',
+          type: 'uint256',
+        },
       ],
-      name: "Pause",
-      type: "event"
+      name: 'Pause',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
+          name: '_timestamp',
+          type: 'uint256',
+        },
       ],
-      name: "Unpause",
-      type: "event"
+      name: 'Unpause',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_ticker",
-          type: "string"
+          name: '_ticker',
+          type: 'string',
         },
         {
           indexed: false,
-          name: "_removedAt",
-          type: "uint256"
+          name: '_removedAt',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_removedBy",
-          type: "address"
-        }
+          name: '_removedBy',
+          type: 'address',
+        },
       ],
-      name: "TickerRemoved",
-      type: "event"
+      name: 'TickerRemoved',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_oldExpiry",
-          type: "uint256"
+          name: '_oldExpiry',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_newExpiry",
-          type: "uint256"
-        }
+          name: '_newExpiry',
+          type: 'uint256',
+        },
       ],
-      name: "ChangeExpiryLimit",
-      type: "event"
+      name: 'ChangeExpiryLimit',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_oldFee",
-          type: "uint256"
+          name: '_oldFee',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_newFee",
-          type: "uint256"
-        }
+          name: '_newFee',
+          type: 'uint256',
+        },
       ],
-      name: "ChangeSecurityLaunchFee",
-      type: "event"
+      name: 'ChangeSecurityLaunchFee',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_oldFee",
-          type: "uint256"
+          name: '_oldFee',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_newFee",
-          type: "uint256"
-        }
+          name: '_newFee',
+          type: 'uint256',
+        },
       ],
-      name: "ChangeTickerRegistrationFee",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "previousOwner",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
-        }
-      ],
-      name: "OwnershipTransferred",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          name: "_ticker",
-          type: "string"
-        },
-        {
-          indexed: true,
-          name: "_oldOwner",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "_newOwner",
-          type: "address"
-        }
-      ],
-      name: "ChangeTickerOwnership",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          name: "_ticker",
-          type: "string"
-        },
-        {
-          indexed: false,
-          name: "_name",
-          type: "string"
-        },
-        {
-          indexed: true,
-          name: "_securityTokenAddress",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "_owner",
-          type: "address"
-        },
-        {
-          indexed: false,
-          name: "_addedAt",
-          type: "uint256"
-        },
-        {
-          indexed: false,
-          name: "_registrant",
-          type: "address"
-        },
-        {
-          indexed: false,
-          name: "_fromAdmin",
-          type: "bool"
-        },
-        {
-          indexed: false,
-          name: "_registrationFee",
-          type: "uint256"
-        }
-      ],
-      name: "NewSecurityToken",
-      type: "event"
+      name: 'ChangeTickerRegistrationFee',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: true,
-          name: "_owner",
-          type: "address"
-        },
-        {
-          indexed: false,
-          name: "_ticker",
-          type: "string"
-        },
-        {
-          indexed: false,
-          name: "_name",
-          type: "string"
+          name: 'previousOwner',
+          type: 'address',
         },
         {
           indexed: true,
-          name: "_registrationDate",
-          type: "uint256"
+          name: 'newOwner',
+          type: 'address',
         },
-        {
-          indexed: true,
-          name: "_expiryDate",
-          type: "uint256"
-        },
-        {
-          indexed: false,
-          name: "_fromAdmin",
-          type: "bool"
-        },
-        {
-          indexed: false,
-          name: "_registrationFee",
-          type: "uint256"
-        }
       ],
-      name: "RegisterTicker",
-      type: "event"
+      name: 'OwnershipTransferred',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          name: '_ticker',
+          type: 'string',
+        },
+        {
+          indexed: true,
+          name: '_oldOwner',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: '_newOwner',
+          type: 'address',
+        },
+      ],
+      name: 'ChangeTickerOwnership',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          name: '_ticker',
+          type: 'string',
+        },
+        {
+          indexed: false,
+          name: '_name',
+          type: 'string',
+        },
+        {
+          indexed: true,
+          name: '_securityTokenAddress',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: '_owner',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: '_addedAt',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          name: '_registrant',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: '_fromAdmin',
+          type: 'bool',
+        },
+        {
+          indexed: false,
+          name: '_registrationFee',
+          type: 'uint256',
+        },
+      ],
+      name: 'NewSecurityToken',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: '_owner',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: '_ticker',
+          type: 'string',
+        },
+        {
+          indexed: false,
+          name: '_name',
+          type: 'string',
+        },
+        {
+          indexed: true,
+          name: '_registrationDate',
+          type: 'uint256',
+        },
+        {
+          indexed: true,
+          name: '_expiryDate',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          name: '_fromAdmin',
+          type: 'bool',
+        },
+        {
+          indexed: false,
+          name: '_registrationFee',
+          type: 'uint256',
+        },
+      ],
+      name: 'RegisterTicker',
+      type: 'event',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_polymathRegistry",
-          type: "address"
+          name: '_polymathRegistry',
+          type: 'address',
         },
         {
-          name: "_STFactory",
-          type: "address"
+          name: '_STFactory',
+          type: 'address',
         },
         {
-          name: "_stLaunchFee",
-          type: "uint256"
+          name: '_stLaunchFee',
+          type: 'uint256',
         },
         {
-          name: "_tickerRegFee",
-          type: "uint256"
+          name: '_tickerRegFee',
+          type: 'uint256',
         },
         {
-          name: "_polyToken",
-          type: "address"
+          name: '_polyToken',
+          type: 'address',
         },
         {
-          name: "_owner",
-          type: "address"
-        }
+          name: '_owner',
+          type: 'address',
+        },
       ],
-      name: "initialize",
+      name: 'initialize',
       outputs: [],
       payable: true,
-      stateMutability: "payable",
-      type: "function"
+      stateMutability: 'payable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_owner",
-          type: "address"
+          name: '_owner',
+          type: 'address',
         },
         {
-          name: "_ticker",
-          type: "string"
+          name: '_ticker',
+          type: 'string',
         },
         {
-          name: "_tokenName",
-          type: "string"
-        }
+          name: '_tokenName',
+          type: 'string',
+        },
       ],
-      name: "registerTicker",
+      name: 'registerTicker',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_owner",
-          type: "address"
+          name: '_owner',
+          type: 'address',
         },
         {
-          name: "_ticker",
-          type: "string"
+          name: '_ticker',
+          type: 'string',
         },
         {
-          name: "_tokenName",
-          type: "string"
+          name: '_tokenName',
+          type: 'string',
         },
         {
-          name: "_registrationDate",
-          type: "uint256"
+          name: '_registrationDate',
+          type: 'uint256',
         },
         {
-          name: "_expiryDate",
-          type: "uint256"
+          name: '_expiryDate',
+          type: 'uint256',
         },
         {
-          name: "_status",
-          type: "bool"
-        }
+          name: '_status',
+          type: 'bool',
+        },
       ],
-      name: "modifyTicker",
+      name: 'modifyTicker',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_ticker",
-          type: "string"
-        }
+          name: '_ticker',
+          type: 'string',
+        },
       ],
-      name: "removeTicker",
+      name: 'removeTicker',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_newOwner",
-          type: "address"
+          name: '_newOwner',
+          type: 'address',
         },
         {
-          name: "_ticker",
-          type: "string"
-        }
+          name: '_ticker',
+          type: 'string',
+        },
       ],
-      name: "transferTickerOwnership",
+      name: 'transferTickerOwnership',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_newExpiry",
-          type: "uint256"
-        }
+          name: '_newExpiry',
+          type: 'uint256',
+        },
       ],
-      name: "changeExpiryLimit",
+      name: 'changeExpiryLimit',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_owner",
-          type: "address"
-        }
+          name: '_owner',
+          type: 'address',
+        },
       ],
-      name: "getTickersByOwner",
+      name: 'getTickersByOwner',
       outputs: [
         {
-          name: "",
-          type: "bytes32[]"
-        }
+          name: '',
+          type: 'bytes32[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_owner",
-          type: "address"
-        }
+          name: '_owner',
+          type: 'address',
+        },
       ],
-      name: "getTokensByOwner",
+      name: 'getTokensByOwner',
       outputs: [
         {
-          name: "",
-          type: "address[]"
-        }
+          name: '',
+          type: 'address[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_ticker",
-          type: "string"
-        }
+          name: '_ticker',
+          type: 'string',
+        },
       ],
-      name: "getTickerDetails",
+      name: 'getTickerDetails',
       outputs: [
         {
-          name: "",
-          type: "address"
+          name: '',
+          type: 'address',
         },
         {
-          name: "",
-          type: "uint256"
+          name: '',
+          type: 'uint256',
         },
         {
-          name: "",
-          type: "uint256"
+          name: '',
+          type: 'uint256',
         },
         {
-          name: "",
-          type: "string"
+          name: '',
+          type: 'string',
         },
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_name",
-          type: "string"
+          name: '_name',
+          type: 'string',
         },
         {
-          name: "_ticker",
-          type: "string"
+          name: '_ticker',
+          type: 'string',
         },
         {
-          name: "_tokenDetails",
-          type: "string"
+          name: '_tokenDetails',
+          type: 'string',
         },
         {
-          name: "_divisible",
-          type: "bool"
-        }
+          name: '_divisible',
+          type: 'bool',
+        },
       ],
-      name: "generateSecurityToken",
+      name: 'generateSecurityToken',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_name",
-          type: "string"
+          name: '_name',
+          type: 'string',
         },
         {
-          name: "_ticker",
-          type: "string"
+          name: '_ticker',
+          type: 'string',
         },
         {
-          name: "_owner",
-          type: "address"
+          name: '_owner',
+          type: 'address',
         },
         {
-          name: "_securityToken",
-          type: "address"
+          name: '_securityToken',
+          type: 'address',
         },
         {
-          name: "_tokenDetails",
-          type: "string"
+          name: '_tokenDetails',
+          type: 'string',
         },
         {
-          name: "_deployedAt",
-          type: "uint256"
-        }
+          name: '_deployedAt',
+          type: 'uint256',
+        },
       ],
-      name: "modifySecurityToken",
+      name: 'modifySecurityToken',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_securityToken",
-          type: "address"
-        }
+          name: '_securityToken',
+          type: 'address',
+        },
       ],
-      name: "isSecurityToken",
+      name: 'isSecurityToken',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_ticker",
-          type: "string"
-        }
+          name: '_ticker',
+          type: 'string',
+        },
       ],
-      name: "getSecurityTokenAddress",
+      name: 'getSecurityTokenAddress',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_securityToken",
-          type: "address"
-        }
+          name: '_securityToken',
+          type: 'address',
+        },
       ],
-      name: "getSecurityTokenData",
+      name: 'getSecurityTokenData',
       outputs: [
         {
-          name: "",
-          type: "string"
+          name: '',
+          type: 'string',
         },
         {
-          name: "",
-          type: "address"
+          name: '',
+          type: 'address',
         },
         {
-          name: "",
-          type: "string"
+          name: '',
+          type: 'string',
         },
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_newOwner",
-          type: "address"
-        }
+          name: '_newOwner',
+          type: 'address',
+        },
       ],
-      name: "transferOwnership",
+      name: 'transferOwnership',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [],
-      name: "pause",
+      name: 'pause',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [],
-      name: "unpause",
+      name: 'unpause',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_tickerRegFee",
-          type: "uint256"
-        }
+          name: '_tickerRegFee',
+          type: 'uint256',
+        },
       ],
-      name: "changeTickerRegistrationFee",
+      name: 'changeTickerRegistrationFee',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_stLaunchFee",
-          type: "uint256"
-        }
+          name: '_stLaunchFee',
+          type: 'uint256',
+        },
       ],
-      name: "changeSecurityLaunchFee",
+      name: 'changeSecurityLaunchFee',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_tokenContract",
-          type: "address"
-        }
+          name: '_tokenContract',
+          type: 'address',
+        },
       ],
-      name: "reclaimERC20",
+      name: 'reclaimERC20',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_STFactoryAddress",
-          type: "address"
+          name: '_STFactoryAddress',
+          type: 'address',
         },
         {
-          name: "_major",
-          type: "uint8"
+          name: '_major',
+          type: 'uint8',
         },
         {
-          name: "_minor",
-          type: "uint8"
+          name: '_minor',
+          type: 'uint8',
         },
         {
-          name: "_patch",
-          type: "uint8"
-        }
+          name: '_patch',
+          type: 'uint8',
+        },
       ],
-      name: "setProtocolVersion",
+      name: 'setProtocolVersion',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "getSTFactoryAddress",
+      name: 'getSTFactoryAddress',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "getProtocolVersion",
+      name: 'getProtocolVersion',
       outputs: [
         {
-          name: "",
-          type: "uint8[]"
-        }
+          name: '',
+          type: 'uint8[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_newAddress",
-          type: "address"
-        }
+          name: '_newAddress',
+          type: 'address',
+        },
       ],
-      name: "updatePolyTokenAddress",
+      name: 'updatePolyTokenAddress',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "getSecurityTokenLaunchFee",
+      name: 'getSecurityTokenLaunchFee',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "getTickerRegistrationFee",
+      name: 'getTickerRegistrationFee',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "getExpiryLimit",
+      name: 'getExpiryLimit',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "isPaused",
+      name: 'isPaused',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "owner",
+      name: 'owner',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
-    }
+      stateMutability: 'view',
+      type: 'function',
+    },
   ],
-}
+};

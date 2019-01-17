@@ -55,17 +55,17 @@ export const PolyTokenFaucetAbi = {
       inputs: [
         {
           indexed: true,
-          name: '_from',
+          name: 'from',
           type: 'address',
         },
         {
           indexed: true,
-          name: '_to',
+          name: 'to',
           type: 'address',
         },
         {
           indexed: false,
-          name: '_value',
+          name: 'value',
           type: 'uint256',
         },
       ],
@@ -77,17 +77,17 @@ export const PolyTokenFaucetAbi = {
       inputs: [
         {
           indexed: true,
-          name: '_owner',
+          name: 'owner',
           type: 'address',
         },
         {
           indexed: true,
-          name: '_spender',
+          name: 'spender',
           type: 'address',
         },
         {
           indexed: false,
-          name: '_value',
+          name: 'value',
           type: 'uint256',
         },
       ],

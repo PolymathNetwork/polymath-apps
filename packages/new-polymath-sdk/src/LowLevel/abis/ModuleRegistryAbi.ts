@@ -10,7 +10,83 @@ export const ModuleRegistryAbi = {
           type: 'bytes32',
         },
       ],
-      name: 'getBoolValues',
+      name: 'getBytes32Value',
+      outputs: [
+        {
+          name: '',
+          type: 'bytes32',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_variable',
+          type: 'bytes32',
+        },
+      ],
+      name: 'getBytesValue',
+      outputs: [
+        {
+          name: '',
+          type: 'bytes',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_variable',
+          type: 'bytes32',
+        },
+      ],
+      name: 'getAddressValue',
+      outputs: [
+        {
+          name: '',
+          type: 'address',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_key',
+          type: 'bytes32',
+        },
+      ],
+      name: 'getArrayAddress',
+      outputs: [
+        {
+          name: '',
+          type: 'address[]',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_variable',
+          type: 'bytes32',
+        },
+      ],
+      name: 'getBoolValue',
       outputs: [
         {
           name: '',
@@ -29,26 +105,7 @@ export const ModuleRegistryAbi = {
           type: 'bytes32',
         },
       ],
-      name: 'getUintValues',
-      outputs: [
-        {
-          name: '',
-          type: 'uint256',
-        },
-      ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [
-        {
-          name: '_variable',
-          type: 'bytes32',
-        },
-      ],
-      name: 'getStringValues',
+      name: 'getStringValue',
       outputs: [
         {
           name: '',
@@ -63,15 +120,15 @@ export const ModuleRegistryAbi = {
       constant: true,
       inputs: [
         {
-          name: '_variable',
+          name: '_key',
           type: 'bytes32',
         },
       ],
-      name: 'getBytes32Values',
+      name: 'getArrayBytes32',
       outputs: [
         {
           name: '',
-          type: 'bytes32',
+          type: 'bytes32[]',
         },
       ],
       payable: false,
@@ -86,11 +143,11 @@ export const ModuleRegistryAbi = {
           type: 'bytes32',
         },
       ],
-      name: 'getAddressValues',
+      name: 'getUintValue',
       outputs: [
         {
           name: '',
-          type: 'address',
+          type: 'uint256',
         },
       ],
       payable: false,
@@ -101,15 +158,15 @@ export const ModuleRegistryAbi = {
       constant: true,
       inputs: [
         {
-          name: '_variable',
+          name: '_key',
           type: 'bytes32',
         },
       ],
-      name: 'getBytesValues',
+      name: 'getArrayUint',
       outputs: [
         {
           name: '',
-          type: 'bytes',
+          type: 'uint256[]',
         },
       ],
       payable: false,
@@ -212,6 +269,23 @@ export const ModuleRegistryAbi = {
         },
       ],
       name: 'ModuleRemoved',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: 'previousOwner',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: 'newOwner',
+          type: 'address',
+        },
+      ],
+      name: 'OwnershipTransferred',
       type: 'event',
     },
     {
@@ -439,6 +513,20 @@ export const ModuleRegistryAbi = {
       constant: false,
       inputs: [],
       name: 'updateFromRegistry',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_newOwner',
+          type: 'address',
+        },
+      ],
+      name: 'transferOwnership',
       outputs: [],
       payable: false,
       stateMutability: 'nonpayable',
