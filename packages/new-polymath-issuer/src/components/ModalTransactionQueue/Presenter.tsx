@@ -6,7 +6,7 @@ import {
 import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
-  transactionQueue: types.TransactionQueuePojo | null;
+  transactionQueue: types.TransactionQueuePojo;
   onContinue: () => void;
 }
 
@@ -34,6 +34,7 @@ export class Presenter extends Component<Props> {
         <ModalConfirmTransactionQueue
           onSubmit={this.handleConfirm}
           transactionQueue={transactionQueue}
+          isOpen={!!transactionQueue && !isConfirmed}
         />
         <ModalTransactionQueue
           isOpen={!!transactionQueue && isConfirmed}
