@@ -7,6 +7,8 @@ import {
   networkReducer as network,
 } from '@polymathnetwork/ui';
 import type { PUIState, NetworkState } from '@polymathnetwork/ui';
+import { reducer as entities } from '@polymathnetwork/new-issuer/state/reducers/entities';
+import { reducer as dataRequests } from '@polymathnetwork/new-issuer/state/reducers/dataRequests';
 
 import providers from '../reducers/providers';
 import token from '../reducers/token';
@@ -35,6 +37,8 @@ export default combineReducers({
   pui,
   ui,
   whitelist,
+  entities,
+  dataRequests,
 });
 
 export type RootState = {
