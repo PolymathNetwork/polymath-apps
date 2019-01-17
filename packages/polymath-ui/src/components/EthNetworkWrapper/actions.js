@@ -5,6 +5,7 @@
  */
 
 import Web3 from 'web3';
+import { polyClient } from '@polymathnetwork/new-issuer/lib/polymath';
 
 import { getNetworkInfo } from './networks';
 import {
@@ -70,6 +71,7 @@ const initPolymathJs = async (params: {
 
   // initialize polymath-js contracts with addresses from the polymath registry
   await setupContracts(polymathRegistryAddress);
+  await polyClient.connect();
 };
 
 export const init = (networks: Array<string>) => async (dispatch: Function) => {
