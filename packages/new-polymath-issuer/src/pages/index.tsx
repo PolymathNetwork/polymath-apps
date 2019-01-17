@@ -8,6 +8,7 @@ import React, {
 import { connect } from 'react-redux';
 import { RootState } from '~/state/store';
 import { Location } from 'redux-little-router';
+import { DefaultLayout } from '../layouts';
 
 export { HomePage } from './Home';
 export { LoginPage } from './Login';
@@ -42,7 +43,7 @@ function getLayout(
     }
   }
 
-  return EmptyLayout;
+  return DefaultLayout;
 }
 
 /**

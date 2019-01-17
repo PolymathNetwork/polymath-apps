@@ -1,12 +1,14 @@
 import React from 'react';
 
 import { PageWrap } from '~/components/PageWrap';
+import { Link } from '~/components/Link';
+import { Paragraph } from '~/components/Paragraph';
 import * as sc from './styles';
 
 export interface FooterProps {
   title?: string;
-  termsOfService?: string;
-  privacyPolicy?: string;
+  termsOfServiceUrl?: string;
+  privacyPolicyUrl?: string;
   variant: 'default' | 'transparent';
 }
 
@@ -15,33 +17,29 @@ export const Footer = (props: FooterProps) => {
     <sc.Wrapper className="pui-footer" variant={props.variant}>
       <PageWrap>
         <sc.Inner>
-          <span className="pui-footer-text">
+          <Paragraph as="span" mb={0}>
             &copy; {new Date().getFullYear()} {props.title || 'Polymath'}
-          </span>
-          <sc.Links className="pui-footer-links" variant={props.variant}>
+          </Paragraph>
+          <sc.Links variant={props.variant}>
             <li>
-              <a
+              <Link
                 href={
-                  props.termsOfService ||
+                  props.termsOfServiceUrl ||
                   'https://polymath.network/termsofservice.html'
                 }
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 Terms Of Service
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href={
-                  props.privacyPolicy ||
+                  props.privacyPolicyUrl ||
                   'https://polymath.network/privacypolicy.html'
                 }
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </li>
           </sc.Links>
         </sc.Inner>

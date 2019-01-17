@@ -14,6 +14,7 @@ const variants = {
 export const Wrapper = styled.div<{ variant: HeaderProps['variant'] }>`
   width: 100%;
   height: ${({ theme }) => theme.header.height};
+  font-size: ${({ theme }) => theme.fontSizes[1]};
   ${({ variant }) => variants[variant]};
 
   > a {

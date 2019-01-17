@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
+import { Page } from '@polymathnetwork/new-ui';
 
 export const SecurityTokensIndexPage: FC = () => (
-  <div>[SecurityTokensIndexPage]</div>
+  <Page title="Home">[SecurityTokensIndexPage]</Page>
 );
