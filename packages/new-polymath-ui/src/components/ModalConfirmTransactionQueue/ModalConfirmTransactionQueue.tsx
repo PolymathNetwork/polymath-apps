@@ -3,6 +3,7 @@ import { types, typeHelpers } from '@polymathnetwork/new-shared';
 import { ModalConfirm } from '~/components/ModalConfirm';
 import { Paragraph } from '~/components/Paragraph';
 import { TransactionItem } from '~/components/TransactionItem';
+import { ModalStatus } from '~/components/Modal/types';
 import { getTransactionText } from './contentMappings';
 
 type ModalConfirmProps = typeHelpers.GetProps<typeof ModalConfirm>;
@@ -20,7 +21,13 @@ export const ModalConfirmTransactionQueue: FC<Props> = ({
   ...props
 }) => {
   return (
-    <ModalConfirm maxWidth={500} isOpen={!!transactionQueue} {...props}>
+    <ModalConfirm
+      isOpen={!!transactionQueue}
+      maxWidth={500}
+      status={ModalStatus.Idle}
+      isCentered={false}
+      {...props}
+    >
       <ModalConfirm.Header>
         {transactionQueue.procedureType}
       </ModalConfirm.Header>

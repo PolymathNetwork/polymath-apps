@@ -18,28 +18,28 @@ const { TransactionQueueStatus } = types;
 
 const getModalStatus = (status: types.TransactionQueueStatus) =>
   ({
-    [TransactionQueueStatus.Idle]: ModalStatus.loading,
-    [TransactionQueueStatus.Running]: ModalStatus.loading,
-    [TransactionQueueStatus.Succeeded]: ModalStatus.success,
-    [TransactionQueueStatus.Failed]: ModalStatus.alert,
+    [TransactionQueueStatus.Idle]: ModalStatus.Loading,
+    [TransactionQueueStatus.Running]: ModalStatus.Loading,
+    [TransactionQueueStatus.Succeeded]: ModalStatus.Success,
+    [TransactionQueueStatus.Failed]: ModalStatus.Alert,
   }[status]);
 
 const getLabelText = (status: ModalStatus) =>
   ({
-    [ModalStatus.loading]: 'Processing',
-    [ModalStatus.idle]: 'Processing',
-    [ModalStatus.warning]: 'Failed',
-    [ModalStatus.alert]: 'Failed',
-    [ModalStatus.success]: 'Completed',
+    [ModalStatus.Loading]: 'Processing',
+    [ModalStatus.Idle]: 'Processing',
+    [ModalStatus.Warning]: 'Failed',
+    [ModalStatus.Alert]: 'Failed',
+    [ModalStatus.Success]: 'Completed',
   }[status]);
 
 const getTitleText = (status: ModalStatus, title: string) =>
   ({
-    [ModalStatus.idle]: `Proceed with ${title}`,
-    [ModalStatus.loading]: `Proceed with ${title}`,
-    [ModalStatus.warning]: `An error occured with ${title}`,
-    [ModalStatus.alert]: `An error occured with ${title}`,
-    [ModalStatus.success]: `${title} was successfully submitted`,
+    [ModalStatus.Idle]: `Proceed with ${title}`,
+    [ModalStatus.Loading]: `Proceed with ${title}`,
+    [ModalStatus.Warning]: `An error occured with ${title}`,
+    [ModalStatus.Alert]: `An error occured with ${title}`,
+    [ModalStatus.Success]: `${title} was successfully submitted`,
   }[status]);
 
 interface TransactionQueue extends types.TransactionQueueEntity {

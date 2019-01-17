@@ -12,15 +12,15 @@ export interface HeaderProps {
 }
 
 const color = {
-  [ModalStatus.loading]: 'idle',
-  [ModalStatus.idle]: 'idle',
-  [ModalStatus.warning]: 'warning',
-  [ModalStatus.alert]: 'alert',
-  [ModalStatus.success]: 'success',
+  [ModalStatus.Loading]: 'idle',
+  [ModalStatus.Idle]: 'idle',
+  [ModalStatus.Warning]: 'warning',
+  [ModalStatus.Alert]: 'alert',
+  [ModalStatus.Success]: 'success',
 };
 
 export const Header: FC<HeaderProps> = ({
-  status = ModalStatus.idle,
+  status = ModalStatus.Idle,
   children,
   label,
 }) => {
@@ -39,5 +39,5 @@ export const Header: FC<HeaderProps> = ({
 };
 
 Header.defaultProps = {
-  status: ModalStatus.idle,
+  status: ModalStatus.Idle,
 };
