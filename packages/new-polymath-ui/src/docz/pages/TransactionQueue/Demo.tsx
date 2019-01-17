@@ -19,8 +19,8 @@ export class Demo extends React.Component<State> {
 
   componentDidUpdate(prevProps: any, prevState: State) {
     if (
-      prevState.isConfirmed &&
-      !this.state.isConfirmed &&
+      !prevState.isConfirmed &&
+      this.state.isConfirmed &&
       this.state.transactionQueue
     ) {
       setTimeout(() => {
@@ -61,7 +61,7 @@ export class Demo extends React.Component<State> {
                 uid: '0',
                 type: 'First transaction',
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
                 description: 'desc',
@@ -90,7 +90,7 @@ export class Demo extends React.Component<State> {
                 uid: '0',
                 type: 'First transaction',
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
                 description: 'desc',
@@ -120,7 +120,7 @@ export class Demo extends React.Component<State> {
                 uid: '0',
                 type: 'First transaction',
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
                 description: 'desc',
@@ -130,7 +130,7 @@ export class Demo extends React.Component<State> {
                 uid: '1',
                 type: 'Second transaction',
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
                 description: 'desc',
@@ -151,7 +151,7 @@ export class Demo extends React.Component<State> {
 
   public handleConfirm = () => {
     this.setState({
-      isConfirmed: false,
+      isConfirmed: true,
     });
   };
 
@@ -182,6 +182,12 @@ export class Demo extends React.Component<State> {
               isOpen={!!transactionQueue && !isConfirmed}
               onSubmit={this.handleConfirm}
               onClose={this.handleCancel}
+            />
+            <ModalTransactionQueue
+              transactionQueue={transactionQueue}
+              isOpen={!!transactionQueue && isConfirmed}
+              withEmail
+              onContinue={this.handleContinue}
             />
           </Fragment>
         )}
