@@ -77,6 +77,16 @@ function getClientEnvironment(publicUrl) {
         PUBLIC_URL: publicUrl,
       }
     );
+
+  // Overrides for rearchitecture compatibility
+  Object.assign(raw, {
+    NETWORK_WS_PROVIDER_LOCAL: raw.REACT_APP_NETWORK_LOCAL_WS,
+    POLYMATH_OFFCHAIN_ADDRESS: raw.REACT_APP_POLYMATH_OFFCHAIN_ADDRESS,
+    POLYMATH_REGISTRY_ADDRESS_LOCAL:
+      raw.REACT_APP_POLYMATH_REGISTRY_ADDRESS_LOCAL,
+    DEPLOYMENT_STAGE: raw.REACT_APP_DEPLOYMENT_STAGE,
+  });
+
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
     'process.env': Object.keys(raw).reduce((env, key) => {
