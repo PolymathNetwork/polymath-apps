@@ -213,4 +213,4 @@ export const mockTransactionQueue = {
 //   }
 // }
 
-export const DemoModal = () => null;
+export const Demo = () => null;

@@ -2,13 +2,9 @@ import React, { Fragment } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 
 import { Button } from '~/components/Button';
-import { Paragraph } from '~/components/Paragraph';
-import { TransactionItem } from '~/components/TransactionItem';
 import { ModalTransactionQueue } from '~/components/ModalTransactionQueue';
 import { ModalConfirmTransactionQueue } from '~/components/ModalConfirmTransactionQueue';
 import { mockTransactionQueue } from '~/components/ModalTransactionQueue/docs/Demo';
-
-import { SvgErc20 } from '~/images/icons/Erc20';
 
 interface State {
   isTransactionQueueStarted: boolean;
