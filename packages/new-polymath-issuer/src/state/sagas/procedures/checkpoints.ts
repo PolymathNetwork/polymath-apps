@@ -1,9 +1,11 @@
 import { polyClient } from '~/lib/polymath';
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { TransactionQueue } from '@polymathnetwork/sdk';
 import { createCheckpointStart } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
+import { invalidateRequest } from '~/state/actions/dataRequests';
+import { RequestKeys } from '~/types';
 
 export function* createCheckpoint(
   action: ActionType<typeof createCheckpointStart>
@@ -18,6 +20,16 @@ export function* createCheckpoint(
 
   try {
     yield call(runTransactionQueue, transactionQueueToRun);
+
+    // invalidate cache
+    yield put(
+      invalidateRequest({
+        requestKey: RequestKeys.GetCheckpointsBySymbol,
+        args: {
+          securityTokenSymbol,
+        },
+      })
+    );
   } catch (err) {
     if (!err.code) {
       throw err;
