@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import { web3 } from './web3Client';
 import { TransactionObject } from 'web3/eth/types';
 import BigNumber from 'bignumber.js';
 import { ModuleTypes } from '~/types';
@@ -13,6 +14,7 @@ import { fromUnixTimestamp, fromWei } from './utils';
 import { Erc20DividendCheckpoint } from './Erc20DividendCheckpoint';
 import { EtherDividendCheckpoint } from './EtherDividendCheckpoint';
 import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
+import { DividendCheckpointAbi } from './abis/DividendCheckpointAbi';
 import { Contract } from './Contract';
 
 // This type should be obtained from a library (must match ABI)
@@ -54,7 +56,10 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     return this.contract.methods.currentCheckpointId().call();
   }
 
-  public addDividendsModule = async (type: DividendModuleTypes) => {
+  public addDividendsModule = async (
+    type: DividendModuleTypes,
+    wallet: string
+  ) => {
     const factoryMappings = [];
     factoryMappings[DividendModuleTypes.Erc20] = 'ERC20DividendCheckpoint';
     factoryMappings[DividendModuleTypes.Eth] = 'EtherDividendCheckpoint';
@@ -65,11 +70,25 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       this.address
     );
 
+    const configFunctionAbi = DividendCheckpointAbi.abi.find(
+      prop => prop.name === 'configure' && prop.type === 'function'
+    );
+
+    if (!configFunctionAbi) {
+      throw new Error(
+        'Corrupt DividendCheckpoint ABI. No "configure" function found.'
+      );
+    }
+
+    const configData = web3.eth.abi.encodeFunctionCall(configFunctionAbi, [
+      wallet,
+    ]);
+
     return () =>
       this.contract.methods
         .addModule(
           factoryAddress,
-          Web3.utils.asciiToHex(''), // Dividends modules require no configuration data so we send '0x00'
+          configData,
           new BigNumber(0),
           new BigNumber(0)
         )

@@ -149,10 +149,12 @@ export class Polymath {
   /**
    * Enable dividend modules (ERC20, ETH or both)
    *
+   * @param storageWalletAddress wallet that will receive reclaimed dividends and withheld taxes
    * @param types array containing the types of dividend modules to enable (will enable all if not present)
    */
   public enableDividendModules = async (args: {
     symbol: string;
+    storageWalletAddress: string;
     types?: DividendModuleTypes[];
   }) => {
     const procedure = new EnableDividendModules(args, this.context);
