@@ -30,7 +30,7 @@
     "transform": {
       "^.+\\.tsx?$": "../../config/babelJestWrapper.js",
       "^.+\\.css$": "<rootDir>/config/transformStyles.js",
-      "^.+\\.svg$": "<rootDir>/config/transformFiles.js"
+      "^(?!.*\\.(js|ts|tsx|jsx|mjs|css|json|graphql)$)": "<rootDir>/config/transformFiles.js"
     },
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
