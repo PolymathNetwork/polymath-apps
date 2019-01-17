@@ -6,6 +6,7 @@ import { Card, CardProps } from '../Card';
 export interface CardPrimaryProps extends CardProps {}
 
 export const CardPrimary = styled(Card)<CardPrimaryProps>`
+  color: ${({ theme }) => theme.colors.highlightText};
   background-color: ${({ theme }) => theme.colors.gray[1]};
   padding: ${({ theme }) => theme.space[1]} ${({ theme }) => theme.space[2]};
 `;

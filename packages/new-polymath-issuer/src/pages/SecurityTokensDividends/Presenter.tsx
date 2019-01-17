@@ -3,11 +3,14 @@ import { utils, formatters } from '@polymathnetwork/new-shared';
 import {
   Page,
   Heading,
+  Paragraph,
   Grid,
   Link,
   ButtonLarge,
   CardFeatureState,
   CardPrimary,
+  IconCircled,
+  InlineFlex,
   icons,
 } from '@polymathnetwork/new-ui';
 import { ModalTransactionQueue } from '~/components';
@@ -45,27 +48,39 @@ export class Presenter extends Component<Props> {
           <Grid.Col gridSpan={[12, 12, 5]}>
             <CardFeatureState
               status={dividendsModule ? 'idle' : 'inactive'}
-              IconAsset={icons.SvgDividends}
+              IconAsset={icons.SvgDividendsOutline}
             >
               <Heading color="primary" mt={2}>
                 Ability to distribute Dividends
               </Heading>
               {dividendsModule ? (
                 <Fragment>
-                  <ButtonLarge kind="ghost" disabled>
-                    Enabled
-                  </ButtonLarge>
+                  <Paragraph color="inactive">
+                    <ButtonLarge kind="ghost" disabled>
+                      <IconCircled
+                        Asset={icons.SvgCheckmark}
+                        width={16}
+                        height={16}
+                        bg="inactive"
+                        color="white"
+                        scale={0.9}
+                      />
+                      <InlineFlex ml="s">Enabled</InlineFlex>
+                    </ButtonLarge>
+                  </Paragraph>
                   <CardPrimary>
-                    Dividends contract address:
-                    <Link
-                      href={utils.toEtherscanUrl(
-                        dividendsModule.contractAddress
-                      )}
-                    >
-                      {formatters.toShortAddress(
-                        dividendsModule.contractAddress
-                      )}
-                    </Link>
+                    <Paragraph fontSize={0}>
+                      Dividends contract address:
+                      <Link
+                        href={utils.toEtherscanUrl(
+                          dividendsModule.contractAddress
+                        )}
+                      >
+                        {formatters.toShortAddress(
+                          dividendsModule.contractAddress
+                        )}
+                      </Link>
+                    </Paragraph>
                   </CardPrimary>
                 </Fragment>
               ) : (

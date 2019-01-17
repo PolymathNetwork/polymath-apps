@@ -88,7 +88,12 @@ export const Button = styled(ButtonPrimitive)<ButtonProps>`
     &:hover {
       background-color: ${({ kind, theme }) =>
         get(theme, `buttons.${kind}.backgroundColor`)};
+      color: ${({ kind, theme }) => get(theme, `buttons.${kind}.color`)};
     }
+  }
+
+  > * {
+    vertical-align: middle;
   }
 `;
 
