@@ -39,7 +39,12 @@ export class ContainerBase extends Component<Props> {
     //     }}
     //   />
     // );
-    return <Presenter />;
+    return (
+      <Presenter
+        onEnableDividends={this.enableErc20DividendsModule}
+        dividendsModule={{ contractAddress: '' }}
+      />
+    );
   }
 }
 

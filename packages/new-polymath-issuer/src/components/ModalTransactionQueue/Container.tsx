@@ -42,6 +42,11 @@ export class ContainerBase extends Component<Props> {
   public onContinue = () => {
     const { dispatch } = this.props;
 
+    this.setState({
+      isConfirming: false,
+      isConfirmed: false,
+    });
+
     dispatch(unsetActiveTransactionQueue());
   };
 

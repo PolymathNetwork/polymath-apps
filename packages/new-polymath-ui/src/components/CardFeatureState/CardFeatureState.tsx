@@ -25,7 +25,7 @@ export const CardFeatureState = ({
       p={0}
     >
       <Box p="l">
-        <Icon Asset={IconAsset} width={70} height={70} color="inactive" />
+        <Icon Asset={IconAsset} width={70} height={70} color={status} />
         {children}
       </Box>
     </sc.Wrapper>
