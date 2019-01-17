@@ -7,27 +7,22 @@ import { ModalConfirmTransactionQueue } from '~/components/ModalConfirmTransacti
 import { mockTransactionQueue } from '~/components/ModalTransactionQueue/docs/Demo';
 
 interface State {
-  isTransactionQueueStarted: boolean;
-  isConfirming: boolean;
+  transactionQueue: types.TransactionQueueEntity;
+  isConfirmed: boolean;
 }
 
 export class Demo extends React.Component<State> {
   state = {
-    isTransactionQueueStarted: false,
-    isConfirming: false,
-    transactionQueue: mockTransactionQueue,
+    transactionQueue: null,
+    isConfirmed: false,
   };
 
   componentDidUpdate(prevProps: any, prevState: State) {
     if (
-      !prevState.isTransactionQueueStarted &&
-      this.state.isTransactionQueueStarted
+      prevState.isConfirmed &&
+      !this.state.isConfirmed &&
+      this.state.transactionQueue
     ) {
-      // Reset Modal state
-      this.setState({
-        transactionQueue: mockTransactionQueue,
-      });
-
       setTimeout(() => {
         this.setState({
           transactionQueue: {
@@ -150,49 +145,46 @@ export class Demo extends React.Component<State> {
 
   public handleStart = () => {
     this.setState({
-      isConfirming: true,
+      transactionQueue: mockTransactionQueue,
     });
   };
 
   public handleConfirm = () => {
     this.setState({
-      isConfirming: false,
-      isTransactionQueueStarted: true,
+      isConfirmed: false,
     });
-    transactionQueue = { transactionQueue };
   };
 
   public handleCancel = () => {
     this.setState({
-      isConfirming: false,
+      isConfirmed: false,
     });
   };
 
   public handleContinue = () => {
     this.setState({
-      isTransactionQueueStarted: false,
+      transactionQueue: null,
+      isConfirmed: false,
     });
   };
 
   public render() {
-    const { transactionQueue } = this.state;
+    const { transactionQueue, isConfirmed } = this.state;
 
     return (
       <Fragment>
         <Button onClick={this.handleStart}>Start transaction</Button>
 
-        <ModalConfirmTransactionQueue
-          transactionQueue={transactionQueue}
-          isOpen={this.state.isConfirming}
-          onSubmit={this.handleConfirm}
-          onClose={this.handleCancel}
-        />
-        <ModalTransactionQueue
-          isOpen={this.state.isTransactionQueueStarted}
-          transactionQueue={transactionQueue}
-          withEmail
-          onContinue={this.handleContinue}
-        />
+        {transactionQueue && (
+          <Fragment>
+            <ModalConfirmTransactionQueue
+              transactionQueue={transactionQueue}
+              isOpen={!!transactionQueue && !isConfirmed}
+              onSubmit={this.handleConfirm}
+              onClose={this.handleCancel}
+            />
+          </Fragment>
+        )}
       </Fragment>
     );
   }
