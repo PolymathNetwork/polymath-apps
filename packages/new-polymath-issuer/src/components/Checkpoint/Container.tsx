@@ -13,6 +13,10 @@ export interface Props {
 }
 
 export class ContainerBase extends Component<Props> {
+  public downloadOwnershipList() {
+    // TODO @monitz87: implement when we define how to handle file downloads
+  }
+
   public render() {
     const { symbol, checkpointIndex } = this.props;
     return (
