@@ -30,11 +30,17 @@ export enum RequestKeys {
   GetCheckpointsBySymbol = 'getCheckpointsBySymbol',
   GetSecurityTokenBySymbol = 'getSecurityTokenBySymbol',
   GetDividendsByCheckpoint = 'getDividendsByCheckpoint',
+  GetCheckpointBySymbolAndId = 'getCheckpointBySymbolAndId',
   GetErc20DividendsModuleBySymbol = 'getErc20DividendsModuleBySymbol',
 }
 
 export interface GetCheckpointsBySymbolArgs {
   securityTokenSymbol: string;
+}
+
+export interface GetCheckpointBySymbolAndIdArgs {
+  securityTokenSymbol: string;
+  checkpointIndex: number;
 }
 
 export interface GetSecurityTokenBySymbolArgs {
@@ -56,6 +62,17 @@ export function isGetCheckpointsBySymbolArgs(
   const { securityTokenSymbol } = args;
 
   return typeof securityTokenSymbol === 'string';
+}
+
+export function isGetCheckpointBySymbolAndIdArgs(
+  args: any
+): args is GetCheckpointBySymbolAndIdArgs {
+  const { securityTokenSymbol, checkpointIndex } = args;
+
+  return (
+    typeof securityTokenSymbol === 'string' &&
+    typeof checkpointIndex === 'number'
+  );
 }
 
 export function isGetSecurityTokenBySymbolArgs(
