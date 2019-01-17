@@ -42,6 +42,12 @@ class ModalBase extends Component<Props, State> {
     isOpen: false,
   };
 
+  public static getDerivedStateFromProps(nextProps: any, prevState: State) {
+    return {
+      isOpen: !prevState.forceClose && nextProps.isOpen,
+    };
+  }
+
   public handleCloseRequest = () => {
     if (!this.props.isCloseable) {
       return;
