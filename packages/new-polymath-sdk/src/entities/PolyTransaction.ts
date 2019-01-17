@@ -138,12 +138,12 @@ export class PolyTransaction extends Entity {
 
     const unwrappedArgs = this.unwrapArgs(this.args);
     const promiEvent = (await this.method(...unwrappedArgs))();
-
     // Set the Transaction as Running once it is approved by the user
     promiEvent.on('transactionHash', txHash => {
       this.txHash = txHash;
       this.updateStatus(types.TransactionStatus.Running);
     });
+
     let result;
 
     try {
