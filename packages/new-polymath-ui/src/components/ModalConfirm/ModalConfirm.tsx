@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-
+import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Modal } from '~/components/Modal';
 import { Button } from '~/components/Button';
-import { typeHelpers } from '@polymathnetwork/new-shared';
 
 type ModalProps = typeHelpers.GetProps<typeof Modal>;
 

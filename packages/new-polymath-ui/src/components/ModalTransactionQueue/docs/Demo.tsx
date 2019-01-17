@@ -1,7 +1,35 @@
-// import React, { Fragment } from 'react';
-// import { types } from '@polymathnetwork/new-shared';
-// import { ModalConfirm } from '~/components/ModalConfirm';
-// import { ModalTransactionQueue } from '../ModalTransactionQueue';
+import React, { Fragment } from 'react';
+import { types } from '@polymathnetwork/new-shared';
+import { ModalConfirm } from '~/components/ModalConfirm';
+import { ModalTransactionQueue } from '../ModalTransactionQueue';
+
+export const mockTransactionQueue = {
+  uid: '111',
+  name: 'Dividend Configuration',
+  status: types.TransactionQueueStatus.Idle,
+  procedureType: 'typeA',
+  description: 'desc',
+  transactions: [
+    {
+      uid: '0',
+      type: 'First transaction',
+      status: types.TransactionStatus.Unapproved,
+      transactionQueueUid: '111',
+      tag: types.PolyTransactionTags.Any,
+      description: 'desc',
+      args: [],
+    },
+    {
+      uid: '1',
+      type: 'Second transaction',
+      status: types.TransactionStatus.Idle,
+      transactionQueueUid: '111',
+      tag: types.PolyTransactionTags.Any,
+      description: 'desc',
+      args: [],
+    },
+  ],
+};
 
 // const transactionQueue = {
 //   id: '111',
