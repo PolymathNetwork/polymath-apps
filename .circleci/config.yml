@@ -1,9 +1,6 @@
 version: 2
 jobs:
   test:
-    branches:
-      only:
-        - feature/implement-circle-ci-deployments
     docker:
       - image: 'circleci/node:8.9.4'
     steps:
@@ -14,4 +11,7 @@ workflows:
   version: 2
   run_tests:
     jobs:
-      - test
+      - test:
+        filters:
+          branches:
+            only: feature/implement-circle-ci-deployments
