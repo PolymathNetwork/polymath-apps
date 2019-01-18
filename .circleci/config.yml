@@ -12,5 +12,6 @@ workflows:
   test_packages:
     jobs:
       - test:
-        branches:
-          only: feature/implement-circleci-ci-deployment
+          filters:
+            branches:
+              only: 'feature/implement-circleci-ci-deployment'
