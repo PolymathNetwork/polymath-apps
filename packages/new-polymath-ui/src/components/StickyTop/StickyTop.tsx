@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { style } from 'styled-system';
 
+export interface StickyTopProps {
+  zindex?: number;
+}
+
 const zIndex = style({
   // React prop name
   prop: 'zIndex',
@@ -10,7 +14,7 @@ const zIndex = style({
   key: 'zIndexes',
 });
 
-export const StickyTop = styled.div`
+export const StickyTop = styled.div<StickyTopProps>`
   position: sticky;
   top: 0;
   bottom: auto;
