@@ -2,11 +2,12 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Remark, addressShortifier, confirm } from '@polymathnetwork/ui';
+import classNames from 'classnames';
+import { Remark, aderaddressShortifier, confirm } from '@polymathnetwork/ui';
 import {
   Icon,
-  FileUploader,
   InlineNotification,
+  FileUploader,
   Button,
 } from 'carbon-components-react';
 
@@ -26,6 +27,7 @@ type StateProps = {|
   isTooMany: boolean,
   isReady: boolean,
   isInvalid: boolean,
+  isTransfersPaused: Boolean,
   criticals: Array<InvestorCSVRow>,
   token: Object,
   pui: Object,
@@ -43,6 +45,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isTooMany: state.token.mint.isTooMany,
   isReady: state.token.mint.uploaded.length > 0,
   isInvalid: state.token.mint.criticals.length > 0,
+  isTransfersPaused: state.whitelist.freezeStatus,
   criticals: state.token.mint.criticals,
   token: state.token,
   pui: state.pui,
@@ -215,8 +218,15 @@ class MintTokens extends Component<Props> {
   };
 
   render() {
-    const { isTooMany, isReady, isInvalid, stage } = this.props;
+    const {
+      isTooMany,
+      isReady,
+      isInvalid,
+      isTransfersPaused,
+      stage,
+    } = this.props;
     const stoInProgress = stage === STAGE_OVERVIEW;
+
     return (
       <div className="mint-tokens-wrapper">
         <div className="pui-page-box">
@@ -272,11 +282,15 @@ class MintTokens extends Component<Props> {
             </a>
             &nbsp;&nbsp;file and edit it.
           </h5>
-          {stoInProgress ? (
+          {stoInProgress || isTransfersPaused ? (
             <InlineNotification
               hideCloseButton
               title="Minting is disabled"
-              subtitle="Sorry but you cannot mint tokens while STO is in progress."
+              subtitle={`Sorry but you cannot mint tokens while ${
+                isTransfersPaused
+                  ? 'transfers are paused'
+                  : 'STO is in progress'
+              }.`}
               kind="error"
             />
           ) : (
@@ -287,11 +301,14 @@ class MintTokens extends Component<Props> {
             buttonLabel="Upload File"
             onChange={this.handleUploaded}
             onClick={this.handleClick}
-            className="file-uploader"
+            className={classNames('file-uploader', {
+              disabled: stoInProgress || isTransfersPaused,
+            })}
             accept={['.csv']}
             buttonKind="secondary"
             filenameStatus="edit"
             ref={this.fileUploaderRef}
+            disabled={isTransfersPaused}
           />
           {isInvalid && !isReady ? (
             <InlineNotification
