@@ -37,7 +37,3 @@ export const Header: FC<HeaderProps> = ({
     </React.Fragment>
   );
 };
-
-Header.defaultProps = {
-  status: ModalStatus.Idle,
-};
