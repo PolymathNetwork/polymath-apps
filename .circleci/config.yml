@@ -14,4 +14,4 @@ workflows:
       - test:
           filters:
             branches:
-              only: 'feature/implement-circleci-ci-deployment'
+              only: feature/implement-circle-ci-deployments
