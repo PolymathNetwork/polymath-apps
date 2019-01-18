@@ -4,7 +4,7 @@ import {
   Page,
   Heading,
   Paragraph,
-  Grid,
+  GridRow,
   Link,
   ButtonLarge,
   CardFeatureState,
@@ -33,8 +33,8 @@ export class Presenter extends Component<Props> {
         <Heading variant="h1" as="h1">
           Dividends
         </Heading>
-        <Grid.Row>
-          <Grid.Col gridSpan={[12, 12, 7]}>
+        <GridRow>
+          <GridRow.Col gridSpan={{ sm: 12, lg: 7 }}>
             <Heading variant="h4">
               Enable the Dividends module to distribute dividends to all token
               holders. Distribution events can be added, modified, enabled or
@@ -44,8 +44,8 @@ export class Presenter extends Component<Props> {
               per wallet address. This percentage will be used to calculate the
               amount of dividends owed to each wallet address.
             </Heading>
-          </Grid.Col>
-          <Grid.Col gridSpan={[12, 12, 5]}>
+          </GridRow.Col>
+          <GridRow.Col gridSpan={{ sm: 12, lg: 5 }}>
             <CardFeatureState
               status={dividendsModule ? 'idle' : 'inactive'}
               IconAsset={icons.SvgDividendsOutline}
@@ -92,8 +92,8 @@ export class Presenter extends Component<Props> {
                 </ButtonLarge>
               )}
             </CardFeatureState>
-          </Grid.Col>
-        </Grid.Row>
+          </GridRow.Col>
+        </GridRow>
         <ModalTransactionQueue />
       </Page>
     );

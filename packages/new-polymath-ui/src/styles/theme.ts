@@ -2,7 +2,12 @@ import { transparentize, darken } from 'polished';
 import { types } from '@polymathnetwork/new-shared';
 import { Scale } from './types';
 
-const breakpoints = ['42.5em', '64em', '80em']; // 680px, 1024px, 1280px
+const breakpoints = {
+  sm: 0,
+  md: '42.5em', // 680px
+  lg: '64em', // 1024px
+  xl: '80em', // 1280px
+};
 
 const fontSizes: Scale<string> = {
   0: '0.75rem', // 12px

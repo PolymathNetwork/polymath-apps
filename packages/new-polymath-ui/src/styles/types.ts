@@ -3,7 +3,12 @@ export interface Scale<TValue> {
 }
 
 export interface ThemeInterface {
-  breakpoints: [string];
+  breakpoints: {
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+  };
   fontSizes: Scale<string>;
   fontFamilies: any;
   lineHeights: any;
