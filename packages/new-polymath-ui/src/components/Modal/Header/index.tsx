@@ -7,7 +7,7 @@ import { ModalStatus } from '../types';
 
 export interface HeaderProps {
   label?: string;
-  status?: ModalStatus;
+  status: ModalStatus;
   children: React.ReactNode;
 }
 
@@ -19,11 +19,7 @@ const color = {
   [ModalStatus.Success]: 'success',
 };
 
-export const Header: FC<HeaderProps> = ({
-  status = ModalStatus.Idle,
-  children,
-  label,
-}) => {
+const HeaderBase: FC<HeaderProps> = ({ status, children, label }) => {
   return (
     <React.Fragment>
       {label && (
@@ -37,3 +33,11 @@ export const Header: FC<HeaderProps> = ({
     </React.Fragment>
   );
 };
+
+HeaderBase.defaultProps = {
+  status: ModalStatus.Idle,
+};
+
+export const Header = Object.assign(HeaderBase, {
+  defaultProps: HeaderBase.defaultProps,
+});

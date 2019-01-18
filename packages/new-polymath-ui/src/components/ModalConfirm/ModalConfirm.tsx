@@ -14,11 +14,6 @@ export interface Props extends ModalProps {
   onClose: () => void;
 }
 
-export type ModalConfirmProps = JSX.LibraryManagedAttributes<
-  typeof ModalConfirmBase,
-  Props
->;
-
 const ModalConfirmBase: FC<Props> = props => {
   const {
     isOpen,

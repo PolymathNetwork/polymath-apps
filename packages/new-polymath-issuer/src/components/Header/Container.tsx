@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 import { typeHelpers } from '@polymathnetwork/new-shared';
@@ -11,11 +11,11 @@ export interface Props extends HeaderProps {
   walletAddress: string;
 }
 
-const mapStateToProps = (state: RootState): Props => ({
+const mapStateToProps = (state: RootState) => ({
   walletAddress: get(state, 'session.wallet.address'),
 });
 
-const ContainerBase: SFC<Props> = ({ walletAddress, ...otherProps }) => {
+const ContainerBase: FC<Props> = ({ walletAddress, ...otherProps }) => {
   return <Header walletAddress={walletAddress} symbol="TORO" {...otherProps} />;
 };
 

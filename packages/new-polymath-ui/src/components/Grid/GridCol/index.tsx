@@ -16,8 +16,3 @@ export interface GridColProps {
 export const GridCol = styled(GridItem)<GridColProps>`
   ${gridSpan};
 `;
-
-// @ts-ignore
-GridCol.propTypes = {
-  ...gridSpan.propTypes,
-};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import BigNumber from 'bignumber.js';
 import { formatters } from '@polymathnetwork/new-shared';
 
@@ -30,7 +30,7 @@ export interface HeaderProps {
   RouterLink: React.ComponentType;
 }
 
-export const Header = (props: HeaderProps) => {
+export const Header: FC<HeaderProps> = props => {
   const {
     balance,
     walletAddress,

@@ -25,7 +25,7 @@ export interface ButtonProps {
   onClick: () => void;
 }
 
-export const ButtonPrimitive: FC<ButtonProps> = ({
+export const ButtonBase: FC<ButtonProps> = ({
   href,
   type,
   tabIndex,
@@ -50,7 +50,14 @@ export const ButtonPrimitive: FC<ButtonProps> = ({
   );
 };
 
-export const Button = styled(ButtonPrimitive)<ButtonProps>`
+ButtonBase.defaultProps = {
+  tabIndex: 0,
+  type: 'button',
+  disabled: false,
+  kind: 'primary',
+};
+
+const EnhancedButton = styled(ButtonBase)<ButtonProps>`
   display: inline-block;
   align-items: center;
   justify-content: center;
@@ -97,9 +104,6 @@ export const Button = styled(ButtonPrimitive)<ButtonProps>`
   }
 `;
 
-Button.defaultProps = {
-  tabIndex: 0,
-  type: 'button',
-  disabled: false,
-  kind: 'primary',
-};
+export const Button = Object.assign(EnhancedButton, {
+  defaultProps: ButtonBase.defaultProps,
+});

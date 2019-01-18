@@ -36,16 +36,16 @@ class ModalBase extends Component<Props, State> {
     isCentered: true,
   };
 
-  public state = {
-    forceClose: false,
-    isOpen: false,
-  };
-
   public static getDerivedStateFromProps(nextProps: any, prevState: State) {
     return {
       isOpen: !prevState.forceClose && nextProps.isOpen,
     };
   }
+
+  public state = {
+    forceClose: false,
+    isOpen: false,
+  };
 
   public handleCloseRequest = () => {
     if (!this.props.isCloseable) {
@@ -95,8 +95,8 @@ const EnhancedModal = styled(withTheme(ModalBase))`
 `;
 
 export const Modal = Object.assign(EnhancedModal, {
+  defaultProps: ModalBase.defaultProps,
   Header,
   Body,
   Footer,
-  defaultProps: ModalBase.defaultProps,
 });
