@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: 'circleci/node:8.9.4'
+    steps:
+      - checkout
+      - run: echo HEY IM CI
+      - run: yarn test
+workflows:
+  version: 2
+  run_tests:
+    jobs:
+      - test
