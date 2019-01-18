@@ -15,7 +15,6 @@ import { TYPED_NAME } from '../constants';
  * TODO @monitz87:
  *   - annotate and document this file. Right now use as-is
  *     since I'm not terribly familiar with the ETH standard.
- *   - ask Pablo if the recoverNormal part is really needed (since we're only signing structured data apparently)
  *   - return sigUtil error messages when we start using HTTP codes in the responses
  */
 
@@ -35,8 +34,6 @@ const isValidSig = (value: string, sig: string, address: string) => {
     data: bufferToHex(new Buffer(value, 'utf8')),
     sig,
   });
-
-  console.log('recoveredAddress', recoveredAddress);
 
   const fallbackRecovery =
     recoveredAddress.toLowerCase() === address.toLowerCase();
