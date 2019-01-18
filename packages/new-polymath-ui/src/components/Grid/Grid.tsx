@@ -21,11 +21,8 @@ import {
   JustifyItemsProps,
   JustifyContentProps,
 } from 'styled-system';
-
 import { Box } from '~/components/Box';
-import { GridCol } from '~/components/Grid/GridCol';
-import { GridRow } from './GridRow';
-import { typeHelpers } from '@polymathnetwork/new-shared';
+import { GridItem } from './GridItem';
 
 export type GridProps = GridGapProps &
   GridAutoFlowProps &
@@ -38,19 +35,7 @@ export type GridProps = GridGapProps &
   JustifyItemsProps &
   JustifyContentProps;
 
-class GridBase extends Component<GridProps> {
-  public static defaultProps = {
-    gridGap: 'gridGap',
-  };
-  public static Col = GridCol;
-  public static Row = GridRow;
-
-  public render() {
-    return <Box {...this.props} />;
-  }
-}
-
-const EnhancedGrid = styled(GridBase)<GridProps>`
+const GridBase = styled(Box)<GridProps>`
   display: grid;
   ${gridGap};
   ${gridAutoFlow};
@@ -68,11 +53,10 @@ export const GridDocz: FC<GridProps> = props => {
   return <Grid {...props} />;
 };
 
-const TempGridRow: FC<any> = () => <div />;
-
-export const Grid = Object.assign(EnhancedGrid, {
-  defaultProps: EnhancedGrid.defaultProps,
-  // FIXME @RafaelVidaurre: Temporary component for row, Add the real one when it doesn't depend on its parent
-  Row: TempGridRow,
-  Col: GridCol,
+export const Grid = Object.assign(GridBase, {
+  Item: GridItem,
 });
+
+Grid.defaultProps = {
+  gridGap: 'gridGap',
+};

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { style, SpaceProps } from 'styled-system';
-
-import { GridItem } from '../GridItem';
+import { style, ResponsiveValue } from 'styled-system';
+import { Grid } from '~/components/Grid';
 
 const gridSpan = style({
   prop: 'gridSpan',
@@ -10,9 +9,9 @@ const gridSpan = style({
 });
 
 export interface GridColProps {
-  gridSpan?: SpaceProps;
+  gridSpan?: number | ResponsiveValue<number>;
 }
 
-export const GridCol = styled(GridItem)<GridColProps>`
+export const GridCol = styled(Grid.Item)<GridColProps>`
   ${gridSpan};
 `;
