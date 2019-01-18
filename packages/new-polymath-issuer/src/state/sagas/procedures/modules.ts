@@ -9,11 +9,12 @@ import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 export function* enableErc20DividendsModule(
   action: ActionType<typeof enableErc20DividendsModuleStart>
 ) {
-  const { securityTokenSymbol } = action.payload;
+  const { securityTokenSymbol, storageWalletAddress } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.enableDividendModules,
     {
       symbol: securityTokenSymbol,
+      storageWalletAddress,
       types: [DividendModuleTypes.Erc20],
     }
   );

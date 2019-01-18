@@ -4,6 +4,7 @@ const enableErc20DividendsModuleStart = createStandardAction(
   'PROCEDURES/ENABLE_ERC20_DIVIDENDS_MODULE_START'
 )<{
   securityTokenSymbol: string;
+  storageWalletAddress: string;
 }>();
 
 const createCheckpointStart = createStandardAction(

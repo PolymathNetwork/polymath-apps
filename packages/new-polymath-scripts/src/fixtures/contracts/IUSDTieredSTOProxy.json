@@ -58,14 +58,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
     "exportedSymbols": {
       "IUSDTieredSTOProxy": [
-        11658
+        11746
       ]
     },
-    "id": 11659,
+    "id": 11747,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 11639,
+        "id": 11727,
         "literals": [
           "solidity",
           "^",
@@ -73,7 +73,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:22"
+        "src": "0:24:23"
       },
       {
         "baseContracts": [],
@@ -81,9 +81,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface for security token proxy deployment",
         "fullyImplemented": false,
-        "id": 11658,
+        "id": 11746,
         "linearizedBaseContracts": [
-          11658
+          11746
         ],
         "name": "IUSDTieredSTOProxy",
         "nodeType": "ContractDefinition",
@@ -91,7 +91,7 @@
           {
             "body": null,
             "documentation": "@notice Deploys the STO.\n@param _securityToken Contract address of the securityToken\n@param _polyAddress Contract address of the PolyToken\n@param _factoryAddress Contract address of the factory \n@return address Address of the deployed STO",
-            "id": 11650,
+            "id": 11738,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -99,16 +99,16 @@
             "name": "deploySTO",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11646,
+              "id": 11734,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11641,
+                  "id": 11729,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "434:22:22",
+                  "scope": 11738,
+                  "src": "434:22:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -116,10 +116,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11640,
+                    "id": 11728,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "434:7:22",
+                    "src": "434:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -130,11 +130,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11643,
+                  "id": 11731,
                   "name": "_polyAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "458:20:22",
+                  "scope": 11738,
+                  "src": "458:20:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -142,10 +142,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11642,
+                    "id": 11730,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "458:7:22",
+                    "src": "458:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -156,11 +156,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11645,
+                  "id": 11733,
                   "name": "_factoryAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "480:23:22",
+                  "scope": 11738,
+                  "src": "480:23:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -168,10 +168,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11644,
+                    "id": 11732,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "480:7:22",
+                    "src": "480:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -181,20 +181,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "433:71:22"
+              "src": "433:71:23"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11649,
+              "id": 11737,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11648,
+                  "id": 11736,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "523:7:22",
+                  "scope": 11738,
+                  "src": "523:7:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -202,10 +202,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11647,
+                    "id": 11735,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "523:7:22",
+                    "src": "523:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -215,10 +215,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "522:9:22"
+              "src": "522:9:23"
             },
-            "scope": 11658,
-            "src": "415:117:22",
+            "scope": 11746,
+            "src": "415:117:23",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -226,7 +226,7 @@
           {
             "body": null,
             "documentation": "@notice Used to get the init function signature\n@param _contractAddress Address of the STO contract\n@return bytes4",
-            "id": 11657,
+            "id": 11745,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -234,16 +234,16 @@
             "name": "getInitFunction",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11653,
+              "id": 11741,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11652,
+                  "id": 11740,
                   "name": "_contractAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11657,
-                  "src": "720:24:22",
+                  "scope": 11745,
+                  "src": "720:24:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -251,10 +251,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11651,
+                    "id": 11739,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "720:7:22",
+                    "src": "720:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -264,20 +264,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "719:26:22"
+              "src": "719:26:23"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11656,
+              "id": 11744,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11655,
+                  "id": 11743,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11657,
-                  "src": "764:6:22",
+                  "scope": 11745,
+                  "src": "764:6:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -285,10 +285,10 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 11654,
+                    "id": 11742,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
-                    "src": "764:6:22",
+                    "src": "764:6:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes4",
                       "typeString": "bytes4"
@@ -298,33 +298,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "763:8:22"
+              "src": "763:8:23"
             },
-            "scope": 11658,
-            "src": "695:77:22",
+            "scope": 11746,
+            "src": "695:77:23",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11659,
-        "src": "90:685:22"
+        "scope": 11747,
+        "src": "90:685:23"
       }
     ],
-    "src": "0:775:22"
+    "src": "0:775:23"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IUSDTieredSTOProxy.sol",
     "exportedSymbols": {
       "IUSDTieredSTOProxy": [
-        11658
+        11746
       ]
     },
-    "id": 11659,
+    "id": 11747,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 11639,
+        "id": 11727,
         "literals": [
           "solidity",
           "^",
@@ -332,7 +332,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:22"
+        "src": "0:24:23"
       },
       {
         "baseContracts": [],
@@ -340,9 +340,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface for security token proxy deployment",
         "fullyImplemented": false,
-        "id": 11658,
+        "id": 11746,
         "linearizedBaseContracts": [
-          11658
+          11746
         ],
         "name": "IUSDTieredSTOProxy",
         "nodeType": "ContractDefinition",
@@ -350,7 +350,7 @@
           {
             "body": null,
             "documentation": "@notice Deploys the STO.\n@param _securityToken Contract address of the securityToken\n@param _polyAddress Contract address of the PolyToken\n@param _factoryAddress Contract address of the factory \n@return address Address of the deployed STO",
-            "id": 11650,
+            "id": 11738,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -358,16 +358,16 @@
             "name": "deploySTO",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11646,
+              "id": 11734,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11641,
+                  "id": 11729,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "434:22:22",
+                  "scope": 11738,
+                  "src": "434:22:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -375,10 +375,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11640,
+                    "id": 11728,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "434:7:22",
+                    "src": "434:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -389,11 +389,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11643,
+                  "id": 11731,
                   "name": "_polyAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "458:20:22",
+                  "scope": 11738,
+                  "src": "458:20:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -401,10 +401,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11642,
+                    "id": 11730,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "458:7:22",
+                    "src": "458:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -415,11 +415,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11645,
+                  "id": 11733,
                   "name": "_factoryAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "480:23:22",
+                  "scope": 11738,
+                  "src": "480:23:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -427,10 +427,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11644,
+                    "id": 11732,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "480:7:22",
+                    "src": "480:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -440,20 +440,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "433:71:22"
+              "src": "433:71:23"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11649,
+              "id": 11737,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11648,
+                  "id": 11736,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11650,
-                  "src": "523:7:22",
+                  "scope": 11738,
+                  "src": "523:7:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -461,10 +461,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11647,
+                    "id": 11735,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "523:7:22",
+                    "src": "523:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -474,10 +474,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "522:9:22"
+              "src": "522:9:23"
             },
-            "scope": 11658,
-            "src": "415:117:22",
+            "scope": 11746,
+            "src": "415:117:23",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -485,7 +485,7 @@
           {
             "body": null,
             "documentation": "@notice Used to get the init function signature\n@param _contractAddress Address of the STO contract\n@return bytes4",
-            "id": 11657,
+            "id": 11745,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -493,16 +493,16 @@
             "name": "getInitFunction",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11653,
+              "id": 11741,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11652,
+                  "id": 11740,
                   "name": "_contractAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11657,
-                  "src": "720:24:22",
+                  "scope": 11745,
+                  "src": "720:24:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -510,10 +510,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11651,
+                    "id": 11739,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "720:7:22",
+                    "src": "720:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -523,20 +523,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "719:26:22"
+              "src": "719:26:23"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11656,
+              "id": 11744,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11655,
+                  "id": 11743,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11657,
-                  "src": "764:6:22",
+                  "scope": 11745,
+                  "src": "764:6:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -544,10 +544,10 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 11654,
+                    "id": 11742,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
-                    "src": "764:6:22",
+                    "src": "764:6:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes4",
                       "typeString": "bytes4"
@@ -557,20 +557,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "763:8:22"
+              "src": "763:8:23"
             },
-            "scope": 11658,
-            "src": "695:77:22",
+            "scope": 11746,
+            "src": "695:77:23",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11659,
-        "src": "90:685:22"
+        "scope": 11747,
+        "src": "90:685:23"
       }
     ],
-    "src": "0:775:22"
+    "src": "0:775:23"
   },
   "compiler": {
     "name": "solc",
@@ -578,5 +578,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-10T19:10:22.901Z"
+  "updatedAt": "2019-01-17T19:56:09.530Z"
 }

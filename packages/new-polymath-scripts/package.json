@@ -10,6 +10,9 @@
     "build:contract-docs": "node ./src/generateContractDocs",
     "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this package\""
   },
+  "devDependencies": {
+    "polymath-core": "PolymathNetwork/polymath-core#83f0afa32699b6945e66efd0d1b0bcbb51a009a8"
+  },
   "dependencies": {
     "ethereumjs-tx": "^1.3.7",
     "fs-extra": "^7.0.0",
