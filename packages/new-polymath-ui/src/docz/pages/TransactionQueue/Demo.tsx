@@ -7,26 +7,24 @@ import { ModalConfirmTransactionQueue } from '~/components/ModalConfirmTransacti
 import { mockTransactionQueue } from '~/components/ModalTransactionQueue/docs/Demo';
 
 interface State {
-  transactionQueue: types.TransactionQueueEntity;
+  transactionQueue: types.TransactionQueuePojo | null;
   isConfirmed: boolean;
 }
 
-export class Demo extends React.Component<State> {
-  state = {
+export class Demo extends React.Component<{}, State> {
+  public state: State = {
     transactionQueue: null,
     isConfirmed: false,
   };
 
-  componentDidUpdate(prevProps: any, prevState: State) {
-    if (
-      !prevState.isConfirmed &&
-      this.state.isConfirmed &&
-      this.state.transactionQueue
-    ) {
+  public componentDidUpdate(prevProps: any, prevState: State) {
+    const { transactionQueue } = this.state;
+
+    if (!prevState.isConfirmed && this.state.isConfirmed && transactionQueue) {
       setTimeout(() => {
         this.setState({
           transactionQueue: {
-            ...this.state.transactionQueue,
+            ...transactionQueue,
             status: types.TransactionQueueStatus.Running,
             transactions: [
               {
@@ -55,7 +53,7 @@ export class Demo extends React.Component<State> {
       setTimeout(() => {
         this.setState({
           transactionQueue: {
-            ...this.state.transactionQueue,
+            ...transactionQueue,
             transactions: [
               {
                 uid: '0',
@@ -84,7 +82,7 @@ export class Demo extends React.Component<State> {
       setTimeout(() => {
         this.setState({
           transactionQueue: {
-            ...this.state.transactionQueue,
+            ...transactionQueue,
             transactions: [
               {
                 uid: '0',
@@ -113,7 +111,7 @@ export class Demo extends React.Component<State> {
       setTimeout(() => {
         this.setState({
           transactionQueue: {
-            ...this.state.transactionQueue,
+            ...transactionQueue,
             status: types.TransactionQueueStatus.Succeeded,
             transactions: [
               {
