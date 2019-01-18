@@ -84,6 +84,11 @@ export default class STOTemplateComponent extends Component<Props> {
                 Raise Funds in POLY
               </span>
               <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
+              {stoModule.type === 'USDTieredSTO' ? (
+                <span className="bx--tag bx--tag--private">
+                  Raise Funds in Stablecoin
+                </span>
+              ) : null}
             </Fragment>
           ) : null}
         </h2>
