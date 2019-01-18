@@ -5,6 +5,7 @@ import {
   fromRpcSig,
   hashPersonalMessage,
   publicToAddress,
+  bufferToHex,
 } from 'ethereumjs-util';
 import sigUtil from 'eth-sig-util';
 import { AuthCode } from '../models';
@@ -30,9 +31,16 @@ const recoverNormal = (message, sig) => {
 };
 const isValidSig = (value: string, sig: string, address: string) => {
   const typed = [{ type: 'string', name: TYPED_NAME, value }];
-  let recoveredAddress;
+  let recoveredAddress = sigUtil.recoverPersonalSignature({
+    data: bufferToHex(new Buffer(value, 'utf8')),
+    sig,
+  });
+
+  console.log('recoveredAddress', recoveredAddress);
+
   const fallbackRecovery =
-    recoverNormal(value, sig).toLowerCase() === address.toLowerCase();
+    recoveredAddress.toLowerCase() === address.toLowerCase();
+
   try {
     recoveredAddress = sigUtil
       .recoverTypedSignature({ data: typed, sig })
@@ -62,6 +70,7 @@ export const verifySignature = async (
     code,
     address: address.toLowerCase(),
   });
+
   if (!authCode) {
     return {
       status: 'error',

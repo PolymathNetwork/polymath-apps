@@ -3,6 +3,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import sigUtil from 'eth-sig-util';
+import { bufferToHex } from 'ethereumjs-util';
 import { PolyToken } from '@polymathnetwork/js';
 // TODO @grsmto: This file shouldn't contain any React components as this is just triggering Redux actions. Consider moving them as separated component files.
 import {
@@ -147,15 +148,21 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
 };
 
 const signData = async (web3, normal, typed, address) => {
-  if (!web3.currentProvider.sendAsync) {
-    return web3.eth.sign(normal, address);
-  }
+  // if (!web3.currentProvider.sendAsync) {
+  // return web3.eth.sign(normal, address);
+  // }
+
+  // web3.personal.sign(normal, account)
 
   const result = await new Promise((resolve, reject) => {
+    const msg = bufferToHex(Buffer.from(data, 'utf8'));
+
+    // const res = web3.personal.sign(msg, account);
+
     web3.currentProvider.sendAsync(
       {
         method: 'eth_signTypedData',
-        params: [typed, address],
+        params: [normal, address],
         from: address,
       },
       (err, result) => (err ? reject(err) : resolve(result))
