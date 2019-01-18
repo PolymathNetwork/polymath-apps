@@ -21,7 +21,6 @@ class STOTemplate extends Component<Props> {
     dispatch(useFactory(stoModule));
   };
   render() {
-    console.log(this.props.stoModule);
     const { stoModule, pickingEnabled } = this.props;
     return (
       <STOTemplateComponent
