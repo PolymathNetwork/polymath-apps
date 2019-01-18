@@ -3,7 +3,7 @@ version: 2.1
 references:
   container_config: &container_config
     docker:
-      - image: 'circleci/node:8.9.4'
+      - image: 'circleci/node:9'
   restore_yarn_cache: &restore_yarn_cache
     restore_cache:
       name: Restore Yarn Package Cache
