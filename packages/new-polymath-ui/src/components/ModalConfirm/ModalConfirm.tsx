@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-
+import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Modal } from '~/components/Modal';
 import { Button } from '~/components/Button';
-import { typeHelpers } from '@polymathnetwork/new-shared';
+import { ButtonLarge } from '~/components/ButtonLarge';
 
 type ModalProps = typeHelpers.GetProps<typeof Modal>;
 
@@ -37,9 +37,9 @@ const ModalConfirmBase: FC<Props> = props => {
         <Button kind="secondary" onClick={onClose}>
           {cancelButtonText}
         </Button>
-        <Button onClick={onSubmit} disabled={isActionDisabled}>
+        <ButtonLarge onClick={onSubmit} disabled={isActionDisabled}>
           {actionButtonText}
-        </Button>
+        </ButtonLarge>
       </Modal.Footer>
     </Modal>
   );

@@ -25,11 +25,11 @@ interface TransactionItemProps {
 
 const getIcon = (transaction: types.TransactionEntity) => {
   if (transaction.status === TransactionStatus.Rejected) {
-    return <Icon Asset={SvgClose} fill="#E71D32" width="32" height="32" />;
+    return <Icon Asset={SvgClose} fill="#E71D32" width={32} height={32} />;
   }
 
   if (transaction.status === TransactionStatus.Unapproved) {
-    return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
+    return <Icon Asset={SvgPending} color="#DFE3E6" width={32} height={24} />;
   }
 
   if (transaction.status === TransactionStatus.Running) {
@@ -37,10 +37,10 @@ const getIcon = (transaction: types.TransactionEntity) => {
   }
 
   if (status === TransactionStatus.Succeeded) {
-    return <Icon Asset={SvgCheckmark} color="success" width="32" height="24" />;
+    return <Icon Asset={SvgCheckmark} color="success" width={32} height={24} />;
   }
 
-  return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
+  return <Icon Asset={SvgPending} color="#DFE3E6" width={32} height={24} />;
 };
 
 export const TransactionItem = ({ transaction }: TransactionItemProps) => {

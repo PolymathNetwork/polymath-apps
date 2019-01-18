@@ -66,14 +66,14 @@ const colors = {
   baseText: '#5A6872',
   highlightText: '#152935',
   primary: '#252D6B',
-  secondary: '#3D70B2',
+  secondary: '#5596E6',
   placeholder: '#5A6872',
   gray: ['#F5F7FA', '#EBF0F7', '#8C9BA5', '#5A6872'],
   blue: ['#5596E6', '#3D70B2', '#252D6B'],
   green: ['#00AA5E'],
   red: ['#e0182d'],
   inactive: '#8F9BA4',
-  idle: '#3D70B2',
+  idle: '#5596E6',
   alert: '#e0182d',
   warning: '#EFC100',
   success: '#00AA5E',
@@ -81,7 +81,7 @@ const colors = {
 
 const shadows = {
   0: '0 2px 6px 0 rgba(0, 0, 0, 0.1)',
-  1: '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
+  1: '0 8px 24px 0 rgba(0, 0, 0, 0.1)',
 };
 
 const headings = {
@@ -128,10 +128,13 @@ const buttons = {
   ghost: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
-    color: colors.secondary,
+    color: 'currentColor',
     '&:hover, &:focus': {
       color: '#fff',
       backgroundColor: colors.secondary,
+    },
+    '&:disabled': {
+      opacity: 1,
     },
   },
 };

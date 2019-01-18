@@ -4,6 +4,8 @@ import { SvgCalendar } from './images/icons/Calendar';
 import { SvgCaretDown } from './images/icons/CaretDown';
 import { SvgErc20 } from './images/icons/Erc20';
 import { SvgDividends } from './images/icons/Dividends';
+import { SvgDividendsOutline } from './images/icons/DividendsOutline';
+import { SvgCheckmark } from './images/icons/Checkmark';
 
 // Styles
 export * from './styles';
@@ -55,4 +57,6 @@ export const icons = {
   SvgCaretDown,
   SvgErc20,
   SvgDividends,
+  SvgDividendsOutline,
+  SvgCheckmark,
 };

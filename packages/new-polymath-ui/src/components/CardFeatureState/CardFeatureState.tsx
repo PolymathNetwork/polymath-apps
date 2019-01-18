@@ -24,8 +24,8 @@ export const CardFeatureState = ({
       ml="auto"
       p={0}
     >
-      <Box p="l">
-        <Icon Asset={IconAsset} width={70} height={70} color={status} />
+      <Box p={4}>
+        <Icon Asset={IconAsset} width={64} height={64} color={status} />
         {children}
       </Box>
     </sc.Wrapper>

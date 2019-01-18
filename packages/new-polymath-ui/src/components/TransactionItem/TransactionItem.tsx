@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box } from '~/components/Box';
 import { IconCircled } from '~/components/IconCircled';
 import { Heading } from '~/components/Heading';
@@ -24,7 +23,7 @@ export const TransactionItem = ({
       <IconCircled
         Asset={Asset}
         color="white"
-        bg="blue.0"
+        bg="secondary"
         width={32}
         height={32}
       />

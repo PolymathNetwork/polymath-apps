@@ -133,6 +133,10 @@ export interface TransactionQueuePojo extends TransactionQueueEntity {
 }
 
 export function isPojo(pojo: any): pojo is Pojo {
+  if (!pojo) {
+    return false;
+  }
+
   const props = Object.getOwnPropertyNames(pojo);
 
   return (

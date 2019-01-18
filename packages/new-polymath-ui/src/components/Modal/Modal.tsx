@@ -12,7 +12,7 @@ import { SvgClose } from '~/images/icons/Close';
 
 interface Props {
   isOpen: boolean;
-  status: ModalStatus;
+  status?: ModalStatus;
   onClose?: () => void;
   className?: string;
   isCloseable?: boolean;
@@ -31,7 +31,6 @@ class ModalBase extends Component<Props, State> {
   public static Body = Body;
   public static Footer = Footer;
   public static defaultProps = {
-    status: ModalStatus.idle,
     isOpen: false,
     isCloseable: true,
     isCentered: true,
@@ -41,6 +40,12 @@ class ModalBase extends Component<Props, State> {
     forceClose: false,
     isOpen: false,
   };
+
+  public static getDerivedStateFromProps(nextProps: any, prevState: State) {
+    return {
+      isOpen: !prevState.forceClose && nextProps.isOpen,
+    };
+  }
 
   public handleCloseRequest = () => {
     if (!this.props.isCloseable) {
@@ -75,7 +80,7 @@ class ModalBase extends Component<Props, State> {
         }}
         onRequestClose={this.handleCloseRequest}
       >
-        {status !== ModalStatus.idle && <sc.StatusBar status={status} />}
+        {!!status && <sc.StatusBar status={status} />}
         {isCloseable && (
           <sc.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
         )}

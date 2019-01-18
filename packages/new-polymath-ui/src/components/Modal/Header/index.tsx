@@ -7,33 +7,37 @@ import { ModalStatus } from '../types';
 
 export interface HeaderProps {
   label?: string;
-  status: ModalStatus;
+  status?: ModalStatus;
   children: React.ReactNode;
 }
 
 const color = {
-  [ModalStatus.loading]: 'idle',
-  [ModalStatus.idle]: 'idle',
-  [ModalStatus.warning]: 'warning',
-  [ModalStatus.alert]: 'alert',
-  [ModalStatus.success]: 'success',
+  [ModalStatus.Loading]: 'idle',
+  [ModalStatus.Idle]: 'idle',
+  [ModalStatus.Warning]: 'warning',
+  [ModalStatus.Alert]: 'alert',
+  [ModalStatus.Success]: 'success',
 };
 
-export const Header: FC<HeaderProps> = props => {
+export const Header: FC<HeaderProps> = ({
+  status = ModalStatus.Idle,
+  children,
+  label,
+}) => {
   return (
     <React.Fragment>
-      {props.label && (
-        <Paragraph color={color[props.status]} fontSize={1} bold mb={1}>
-          {props.label}
+      {label && (
+        <Paragraph color={color[status]} fontSize={1} bold mb={1}>
+          {label}
         </Paragraph>
       )}
       <Heading as="h1" variant="h2" mb="m">
-        {props.children}
+        {children}
       </Heading>
     </React.Fragment>
   );
 };
 
 Header.defaultProps = {
-  status: ModalStatus.idle,
+  status: ModalStatus.Idle,
 };
