@@ -1,1586 +1,1586 @@
 // tslint:disable
 export const SecurityTokenAbi = {
-  contractName: "SecurityToken",
+  contractName: 'SecurityToken',
   abi: [
     {
       constant: true,
       inputs: [],
-      name: "name",
+      name: 'name',
       outputs: [
         {
-          name: "",
-          type: "string"
-        }
+          name: '',
+          type: 'string',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_spender",
-          type: "address"
+          name: '_spender',
+          type: 'address',
         },
         {
-          name: "_value",
-          type: "uint256"
-        }
+          name: '_value',
+          type: 'uint256',
+        },
       ],
-      name: "approve",
+      name: 'approve',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "totalSupply",
+      name: 'totalSupply',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "decimals",
+      name: 'decimals',
       outputs: [
         {
-          name: "",
-          type: "uint8"
-        }
+          name: '',
+          type: 'uint8',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "currentCheckpointId",
+      name: 'currentCheckpointId',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "granularity",
+      name: 'granularity',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_spender",
-          type: "address"
+          name: '_spender',
+          type: 'address',
         },
         {
-          name: "_subtractedValue",
-          type: "uint256"
-        }
+          name: '_subtractedValue',
+          type: 'uint256',
+        },
       ],
-      name: "decreaseApproval",
+      name: 'decreaseApproval',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "polyToken",
+      name: 'polyToken',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_owner",
-          type: "address"
-        }
+          name: '_owner',
+          type: 'address',
+        },
       ],
-      name: "balanceOf",
+      name: 'balanceOf',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [],
-      name: "renounceOwnership",
+      name: 'renounceOwnership',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "polymathRegistry",
+      name: 'polymathRegistry',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "controllerDisabled",
+      name: 'controllerDisabled',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "owner",
+      name: 'owner',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "symbol",
+      name: 'symbol',
       outputs: [
         {
-          name: "",
-          type: "string"
-        }
+          name: '',
+          type: 'string',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "mintingFrozen",
+      name: 'mintingFrozen',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "moduleRegistry",
+      name: 'moduleRegistry',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "featureRegistry",
+      name: 'featureRegistry',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "securityTokenRegistry",
+      name: 'securityTokenRegistry',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "tokenDetails",
+      name: 'tokenDetails',
       outputs: [
         {
-          name: "",
-          type: "string"
-        }
+          name: '',
+          type: 'string',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_spender",
-          type: "address"
+          name: '_spender',
+          type: 'address',
         },
         {
-          name: "_addedValue",
-          type: "uint256"
-        }
+          name: '_addedValue',
+          type: 'uint256',
+        },
       ],
-      name: "increaseApproval",
+      name: 'increaseApproval',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_owner",
-          type: "address"
+          name: '_owner',
+          type: 'address',
         },
         {
-          name: "_spender",
-          type: "address"
-        }
+          name: '_spender',
+          type: 'address',
+        },
       ],
-      name: "allowance",
+      name: 'allowance',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "transfersFrozen",
+      name: 'transfersFrozen',
       outputs: [
         {
-          name: "",
-          type: "bool"
-        }
+          name: '',
+          type: 'bool',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_newOwner",
-          type: "address"
-        }
+          name: '_newOwner',
+          type: 'address',
+        },
       ],
-      name: "transferOwnership",
+      name: 'transferOwnership',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [],
-      name: "updateFromRegistry",
+      name: 'updateFromRegistry',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "controller",
+      name: 'controller',
       outputs: [
         {
-          name: "",
-          type: "address"
-        }
+          name: '',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       inputs: [
         {
-          name: "_name",
-          type: "string"
+          name: '_name',
+          type: 'string',
         },
         {
-          name: "_symbol",
-          type: "string"
+          name: '_symbol',
+          type: 'string',
         },
         {
-          name: "_decimals",
-          type: "uint8"
+          name: '_decimals',
+          type: 'uint8',
         },
         {
-          name: "_granularity",
-          type: "uint256"
+          name: '_granularity',
+          type: 'uint256',
         },
         {
-          name: "_tokenDetails",
-          type: "string"
+          name: '_tokenDetails',
+          type: 'string',
         },
         {
-          name: "_polymathRegistry",
-          type: "address"
-        }
+          name: '_polymathRegistry',
+          type: 'address',
+        },
       ],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "constructor"
+      stateMutability: 'nonpayable',
+      type: 'constructor',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_types",
-          type: "uint8[]"
+          name: '_types',
+          type: 'uint8[]',
         },
         {
           indexed: false,
-          name: "_name",
-          type: "bytes32"
+          name: '_name',
+          type: 'bytes32',
         },
         {
           indexed: false,
-          name: "_moduleFactory",
-          type: "address"
+          name: '_moduleFactory',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "_module",
-          type: "address"
+          name: '_module',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "_moduleCost",
-          type: "uint256"
+          name: '_moduleCost',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_budget",
-          type: "uint256"
+          name: '_budget',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
+          name: '_timestamp',
+          type: 'uint256',
+        },
       ],
-      name: "ModuleAdded",
-      type: "event"
+      name: 'ModuleAdded',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_oldDetails",
-          type: "string"
+          name: '_oldDetails',
+          type: 'string',
         },
         {
           indexed: false,
-          name: "_newDetails",
-          type: "string"
-        }
+          name: '_newDetails',
+          type: 'string',
+        },
       ],
-      name: "UpdateTokenDetails",
-      type: "event"
+      name: 'UpdateTokenDetails',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_oldGranularity",
-          type: "uint256"
+          name: '_oldGranularity',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_newGranularity",
-          type: "uint256"
-        }
+          name: '_newGranularity',
+          type: 'uint256',
+        },
       ],
-      name: "GranularityChanged",
-      type: "event"
+      name: 'GranularityChanged',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_types",
-          type: "uint8[]"
+          name: '_types',
+          type: 'uint8[]',
         },
         {
           indexed: false,
-          name: "_module",
-          type: "address"
+          name: '_module',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
+          name: '_timestamp',
+          type: 'uint256',
+        },
       ],
-      name: "ModuleArchived",
-      type: "event"
+      name: 'ModuleArchived',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_types",
-          type: "uint8[]"
+          name: '_types',
+          type: 'uint8[]',
         },
         {
           indexed: false,
-          name: "_module",
-          type: "address"
+          name: '_module',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
+          name: '_timestamp',
+          type: 'uint256',
+        },
       ],
-      name: "ModuleUnarchived",
-      type: "event"
+      name: 'ModuleUnarchived',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_types",
-          type: "uint8[]"
+          name: '_types',
+          type: 'uint8[]',
         },
         {
           indexed: false,
-          name: "_module",
-          type: "address"
+          name: '_module',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
+          name: '_timestamp',
+          type: 'uint256',
+        },
       ],
-      name: "ModuleRemoved",
-      type: "event"
+      name: 'ModuleRemoved',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_moduleTypes",
-          type: "uint8[]"
+          name: '_moduleTypes',
+          type: 'uint8[]',
         },
         {
           indexed: false,
-          name: "_module",
-          type: "address"
+          name: '_module',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "_oldBudget",
-          type: "uint256"
+          name: '_oldBudget',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_budget",
-          type: "uint256"
-        }
+          name: '_budget',
+          type: 'uint256',
+        },
       ],
-      name: "ModuleBudgetChanged",
-      type: "event"
+      name: 'ModuleBudgetChanged',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_status",
-          type: "bool"
+          name: '_status',
+          type: 'bool',
         },
         {
           indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
-      ],
-      name: "FreezeTransfers",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "_checkpointId",
-          type: "uint256"
+          name: '_timestamp',
+          type: 'uint256',
         },
-        {
-          indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
       ],
-      name: "CheckpointCreated",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
-      ],
-      name: "FreezeMinting",
-      type: "event"
+      name: 'FreezeTransfers',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: true,
-          name: "_to",
-          type: "address"
+          name: '_checkpointId',
+          type: 'uint256',
         },
         {
           indexed: false,
-          name: "_value",
-          type: "uint256"
-        }
+          name: '_timestamp',
+          type: 'uint256',
+        },
       ],
-      name: "Minted",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "_from",
-          type: "address"
-        },
-        {
-          indexed: false,
-          name: "_value",
-          type: "uint256"
-        }
-      ],
-      name: "Burnt",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "_oldController",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "_newController",
-          type: "address"
-        }
-      ],
-      name: "SetController",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "_controller",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "_from",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "_to",
-          type: "address"
-        },
-        {
-          indexed: false,
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          indexed: false,
-          name: "_verifyTransfer",
-          type: "bool"
-        },
-        {
-          indexed: false,
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "ForceTransfer",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "_controller",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "_from",
-          type: "address"
-        },
-        {
-          indexed: false,
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          indexed: false,
-          name: "_verifyTransfer",
-          type: "bool"
-        },
-        {
-          indexed: false,
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "ForceBurn",
-      type: "event"
+      name: 'CheckpointCreated',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: false,
-          name: "_timestamp",
-          type: "uint256"
-        }
-      ],
-      name: "DisableController",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "previousOwner",
-          type: "address"
-        }
-      ],
-      name: "OwnershipRenounced",
-      type: "event"
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: "previousOwner",
-          type: "address"
+          name: '_timestamp',
+          type: 'uint256',
         },
-        {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
-        }
       ],
-      name: "OwnershipTransferred",
-      type: "event"
+      name: 'FreezeMinting',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: true,
-          name: "owner",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "spender",
-          type: "address"
+          name: '_to',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "value",
-          type: "uint256"
-        }
+          name: '_value',
+          type: 'uint256',
+        },
       ],
-      name: "Approval",
-      type: "event"
+      name: 'Minted',
+      type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
           indexed: true,
-          name: "from",
-          type: "address"
-        },
-        {
-          indexed: true,
-          name: "to",
-          type: "address"
+          name: '_from',
+          type: 'address',
         },
         {
           indexed: false,
-          name: "value",
-          type: "uint256"
-        }
+          name: '_value',
+          type: 'uint256',
+        },
       ],
-      name: "Transfer",
-      type: "event"
+      name: 'Burnt',
+      type: 'event',
     },
     {
-      constant: false,
+      anonymous: false,
       inputs: [
         {
-          name: "_moduleFactory",
-          type: "address"
+          indexed: true,
+          name: '_oldController',
+          type: 'address',
         },
         {
-          name: "_data",
-          type: "bytes"
+          indexed: true,
+          name: '_newController',
+          type: 'address',
+        },
+      ],
+      name: 'SetController',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: '_controller',
+          type: 'address',
         },
         {
-          name: "_maxCost",
-          type: "uint256"
+          indexed: true,
+          name: '_from',
+          type: 'address',
         },
         {
-          name: "_budget",
-          type: "uint256"
-        }
+          indexed: true,
+          name: '_to',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          name: '_verifyTransfer',
+          type: 'bool',
+        },
+        {
+          indexed: false,
+          name: '_data',
+          type: 'bytes',
+        },
       ],
-      name: "addModule",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      name: 'ForceTransfer',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: '_controller',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: '_from',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          name: '_verifyTransfer',
+          type: 'bool',
+        },
+        {
+          indexed: false,
+          name: '_data',
+          type: 'bytes',
+        },
+      ],
+      name: 'ForceBurn',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          name: '_timestamp',
+          type: 'uint256',
+        },
+      ],
+      name: 'DisableController',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: 'previousOwner',
+          type: 'address',
+        },
+      ],
+      name: 'OwnershipRenounced',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: 'previousOwner',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: 'newOwner',
+          type: 'address',
+        },
+      ],
+      name: 'OwnershipTransferred',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: 'owner',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: 'spender',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: 'value',
+          type: 'uint256',
+        },
+      ],
+      name: 'Approval',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: 'from',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: 'to',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: 'value',
+          type: 'uint256',
+        },
+      ],
+      name: 'Transfer',
+      type: 'event',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_module",
-          type: "address"
-        }
+          name: '_moduleFactory',
+          type: 'address',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+        {
+          name: '_maxCost',
+          type: 'uint256',
+        },
+        {
+          name: '_budget',
+          type: 'uint256',
+        },
       ],
-      name: "archiveModule",
+      name: 'addModule',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_module",
-          type: "address"
-        }
+          name: '_module',
+          type: 'address',
+        },
       ],
-      name: "unarchiveModule",
+      name: 'archiveModule',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_module",
-          type: "address"
-        }
+          name: '_module',
+          type: 'address',
+        },
       ],
-      name: "removeModule",
+      name: 'unarchiveModule',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_module',
+          type: 'address',
+        },
+      ],
+      name: 'removeModule',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_module",
-          type: "address"
-        }
+          name: '_module',
+          type: 'address',
+        },
       ],
-      name: "getModule",
+      name: 'getModule',
       outputs: [
         {
-          name: "",
-          type: "bytes32"
+          name: '',
+          type: 'bytes32',
         },
         {
-          name: "",
-          type: "address"
+          name: '',
+          type: 'address',
         },
         {
-          name: "",
-          type: "address"
+          name: '',
+          type: 'address',
         },
         {
-          name: "",
-          type: "bool"
+          name: '',
+          type: 'bool',
         },
         {
-          name: "",
-          type: "uint8[]"
-        }
+          name: '',
+          type: 'uint8[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_name",
-          type: "bytes32"
-        }
+          name: '_name',
+          type: 'bytes32',
+        },
       ],
-      name: "getModulesByName",
+      name: 'getModulesByName',
       outputs: [
         {
-          name: "",
-          type: "address[]"
-        }
+          name: '',
+          type: 'address[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_type",
-          type: "uint8"
-        }
+          name: '_type',
+          type: 'uint8',
+        },
       ],
-      name: "getModulesByType",
+      name: 'getModulesByType',
       outputs: [
         {
-          name: "",
-          type: "address[]"
-        }
+          name: '',
+          type: 'address[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_tokenContract",
-          type: "address"
+          name: '_tokenContract',
+          type: 'address',
         },
         {
-          name: "_value",
-          type: "uint256"
-        }
+          name: '_value',
+          type: 'uint256',
+        },
       ],
-      name: "withdrawERC20",
+      name: 'withdrawERC20',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_module",
-          type: "address"
+          name: '_module',
+          type: 'address',
         },
         {
-          name: "_change",
-          type: "uint256"
+          name: '_change',
+          type: 'uint256',
         },
         {
-          name: "_increase",
-          type: "bool"
-        }
+          name: '_increase',
+          type: 'bool',
+        },
       ],
-      name: "changeModuleBudget",
+      name: 'changeModuleBudget',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_newTokenDetails",
-          type: "string"
-        }
+          name: '_newTokenDetails',
+          type: 'string',
+        },
       ],
-      name: "updateTokenDetails",
+      name: 'updateTokenDetails',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: false,
       inputs: [
         {
-          name: "_granularity",
-          type: "uint256"
-        }
+          name: '_granularity',
+          type: 'uint256',
+        },
       ],
-      name: "changeGranularity",
+      name: 'changeGranularity',
       outputs: [],
       payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: "getInvestors",
-      outputs: [
-        {
-          name: "",
-          type: "address[]"
-        }
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
-    },
-    {
-      constant: true,
-      inputs: [
-        {
-          name: "_checkpointId",
-          type: "uint256"
-        }
-      ],
-      name: "getInvestorsAt",
-      outputs: [
-        {
-          name: "",
-          type: "address[]"
-        }
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
-    },
-    {
-      constant: true,
-      inputs: [
-        {
-          name: "_start",
-          type: "uint256"
-        },
-        {
-          name: "_end",
-          type: "uint256"
-        }
-      ],
-      name: "iterateInvestors",
-      outputs: [
-        {
-          name: "",
-          type: "address[]"
-        }
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: "getInvestorCount",
-      outputs: [
-        {
-          name: "",
-          type: "uint256"
-        }
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [],
-      name: "freezeTransfers",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [],
-      name: "unfreezeTransfers",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_to",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        }
-      ],
-      name: "transfer",
-      outputs: [
-        {
-          name: "success",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_to",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "transferWithData",
-      outputs: [
-        {
-          name: "success",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_from",
-          type: "address"
-        },
-        {
-          name: "_to",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        }
-      ],
-      name: "transferFrom",
-      outputs: [
-        {
-          name: "",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_from",
-          type: "address"
-        },
-        {
-          name: "_to",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "transferFromWithData",
-      outputs: [
-        {
-          name: "",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_from",
-          type: "address"
-        },
-        {
-          name: "_to",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "verifyTransfer",
-      outputs: [
-        {
-          name: "",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [],
-      name: "freezeMinting",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_investor",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        }
-      ],
-      name: "mint",
-      outputs: [
-        {
-          name: "success",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_investor",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "mintWithData",
-      outputs: [
-        {
-          name: "success",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_investors",
-          type: "address[]"
-        },
-        {
-          name: "_values",
-          type: "uint256[]"
-        }
-      ],
-      name: "mintMulti",
-      outputs: [
-        {
-          name: "success",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: true,
-      inputs: [
-        {
-          name: "_delegate",
-          type: "address"
-        },
-        {
-          name: "_module",
-          type: "address"
-        },
-        {
-          name: "_perm",
-          type: "bytes32"
-        }
-      ],
-      name: "checkPermission",
-      outputs: [
-        {
-          name: "",
-          type: "bool"
-        }
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "burnWithData",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_from",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        }
-      ],
-      name: "burnFromWithData",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [],
-      name: "createCheckpoint",
-      outputs: [
-        {
-          name: "",
-          type: "uint256"
-        }
-      ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "getCheckpointTimes",
+      name: 'getInvestors',
       outputs: [
         {
-          name: "",
-          type: "uint256[]"
-        }
+          name: '',
+          type: 'address[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_checkpointId",
-          type: "uint256"
-        }
+          name: '_checkpointId',
+          type: 'uint256',
+        },
       ],
-      name: "totalSupplyAt",
+      name: 'getInvestorsAt',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'address[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [
         {
-          name: "_investor",
-          type: "address"
+          name: '_start',
+          type: 'uint256',
         },
         {
-          name: "_checkpointId",
-          type: "uint256"
-        }
+          name: '_end',
+          type: 'uint256',
+        },
       ],
-      name: "balanceOfAt",
+      name: 'iterateInvestors',
       outputs: [
         {
-          name: "",
-          type: "uint256"
-        }
+          name: '',
+          type: 'address[]',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_controller",
-          type: "address"
-        }
-      ],
-      name: "setController",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [],
-      name: "disableController",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_from",
-          type: "address"
-        },
-        {
-          name: "_to",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        },
-        {
-          name: "_log",
-          type: "bytes"
-        }
-      ],
-      name: "forceTransfer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_from",
-          type: "address"
-        },
-        {
-          name: "_value",
-          type: "uint256"
-        },
-        {
-          name: "_data",
-          type: "bytes"
-        },
-        {
-          name: "_log",
-          type: "bytes"
-        }
-      ],
-      name: "forceBurn",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      stateMutability: 'view',
+      type: 'function',
     },
     {
       constant: true,
       inputs: [],
-      name: "getVersion",
+      name: 'getInvestorCount',
       outputs: [
         {
-          name: "",
-          type: "uint8[]"
-        }
+          name: '',
+          type: 'uint256',
+        },
       ],
       payable: false,
-      stateMutability: "view",
-      type: "function"
-    }
-  ]
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [],
+      name: 'freezeTransfers',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [],
+      name: 'unfreezeTransfers',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_to',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+      ],
+      name: 'transfer',
+      outputs: [
+        {
+          name: 'success',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_to',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+      ],
+      name: 'transferWithData',
+      outputs: [
+        {
+          name: 'success',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_from',
+          type: 'address',
+        },
+        {
+          name: '_to',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+      ],
+      name: 'transferFrom',
+      outputs: [
+        {
+          name: '',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_from',
+          type: 'address',
+        },
+        {
+          name: '_to',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+      ],
+      name: 'transferFromWithData',
+      outputs: [
+        {
+          name: '',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_from',
+          type: 'address',
+        },
+        {
+          name: '_to',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+      ],
+      name: 'verifyTransfer',
+      outputs: [
+        {
+          name: '',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [],
+      name: 'freezeMinting',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_investor',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+      ],
+      name: 'mint',
+      outputs: [
+        {
+          name: 'success',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_investor',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+      ],
+      name: 'mintWithData',
+      outputs: [
+        {
+          name: 'success',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_investors',
+          type: 'address[]',
+        },
+        {
+          name: '_values',
+          type: 'uint256[]',
+        },
+      ],
+      name: 'mintMulti',
+      outputs: [
+        {
+          name: 'success',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_delegate',
+          type: 'address',
+        },
+        {
+          name: '_module',
+          type: 'address',
+        },
+        {
+          name: '_perm',
+          type: 'bytes32',
+        },
+      ],
+      name: 'checkPermission',
+      outputs: [
+        {
+          name: '',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+      ],
+      name: 'burnWithData',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_from',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+      ],
+      name: 'burnFromWithData',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [],
+      name: 'createCheckpoint',
+      outputs: [
+        {
+          name: '',
+          type: 'uint256',
+        },
+      ],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: 'getCheckpointTimes',
+      outputs: [
+        {
+          name: '',
+          type: 'uint256[]',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_checkpointId',
+          type: 'uint256',
+        },
+      ],
+      name: 'totalSupplyAt',
+      outputs: [
+        {
+          name: '',
+          type: 'uint256',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_investor',
+          type: 'address',
+        },
+        {
+          name: '_checkpointId',
+          type: 'uint256',
+        },
+      ],
+      name: 'balanceOfAt',
+      outputs: [
+        {
+          name: '',
+          type: 'uint256',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_controller',
+          type: 'address',
+        },
+      ],
+      name: 'setController',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [],
+      name: 'disableController',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_from',
+          type: 'address',
+        },
+        {
+          name: '_to',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+        {
+          name: '_log',
+          type: 'bytes',
+        },
+      ],
+      name: 'forceTransfer',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_from',
+          type: 'address',
+        },
+        {
+          name: '_value',
+          type: 'uint256',
+        },
+        {
+          name: '_data',
+          type: 'bytes',
+        },
+        {
+          name: '_log',
+          type: 'bytes',
+        },
+      ],
+      name: 'forceBurn',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: 'getVersion',
+      outputs: [
+        {
+          name: '',
+          type: 'uint8[]',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+  ],
 };

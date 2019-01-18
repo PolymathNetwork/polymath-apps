@@ -25,7 +25,13 @@ export class ContainerBase extends Component<Props> {
   public enableErc20DividendsModule() {
     const { dispatch, securityTokenSymbol } = this.props;
 
-    dispatch(enableErc20DividendsModuleStart({ securityTokenSymbol }));
+    // TODO @monitz87: change the wallet address to the one supplied by the user when we implement the form
+    dispatch(
+      enableErc20DividendsModuleStart({
+        securityTokenSymbol,
+        storageWalletAddress: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
+      })
+    );
   }
   public createCheckpoint() {
     const { dispatch, securityTokenSymbol } = this.props;

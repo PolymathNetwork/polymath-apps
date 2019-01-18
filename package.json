@@ -1,9 +1,14 @@
 {
   "name": "polymath-apps",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "@polymathnetwork/polymath-scripts/polymath-core"
+    ]
+  },
   "scripts": {
     "commit": "commit",
     "typecheck": "lerna run --parallel typecheck ",

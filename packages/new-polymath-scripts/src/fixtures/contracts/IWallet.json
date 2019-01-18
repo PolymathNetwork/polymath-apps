@@ -1,0 +1,819 @@
+{
+  "contractName": "IWallet",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInitFunction",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "takeFee",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "polyToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "securityToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPermissions",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "factory",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "FEE_ADMIN",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_timestammp",
+          "type": "uint256"
+        }
+      ],
+      "name": "Pause",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "Unpause",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"../../../Pausable.sol\";\nimport \"../../Module.sol\";\n\n/**\n * @title Interface to be implemented by all Wallet modules\n * @dev abstract contract\n */\ncontract IWallet is Module, Pausable {\n\n    function unpause() public onlyOwner {\n        super._unpause();\n    }\n\n    function pause() public onlyOwner {\n        super._pause();\n    }\n}\n",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Experimental/Wallet/IWallet.sol",
+  "ast": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Experimental/Wallet/IWallet.sol",
+    "exportedSymbols": {
+      "IWallet": [
+        23390
+      ]
+    },
+    "id": 23391,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 23361,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:59"
+      },
+      {
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/Pausable.sol",
+        "file": "../../../Pausable.sol",
+        "id": 23362,
+        "nodeType": "ImportDirective",
+        "scope": 23391,
+        "sourceUnit": 1565,
+        "src": "26:31:59",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Module.sol",
+        "file": "../../Module.sol",
+        "id": 23363,
+        "nodeType": "ImportDirective",
+        "scope": 23391,
+        "sourceUnit": 25674,
+        "src": "58:26:59",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 23364,
+              "name": "Module",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 25673,
+              "src": "200:6:59",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Module_$25673",
+                "typeString": "contract Module"
+              }
+            },
+            "id": 23365,
+            "nodeType": "InheritanceSpecifier",
+            "src": "200:6:59"
+          },
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 23366,
+              "name": "Pausable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1564,
+              "src": "208:8:59",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Pausable_$1564",
+                "typeString": "contract Pausable"
+              }
+            },
+            "id": 23367,
+            "nodeType": "InheritanceSpecifier",
+            "src": "208:8:59"
+          }
+        ],
+        "contractDependencies": [
+          1564,
+          10848,
+          25673,
+          26069
+        ],
+        "contractKind": "contract",
+        "documentation": "@title Interface to be implemented by all Wallet modules\n@dev abstract contract",
+        "fullyImplemented": false,
+        "id": 23390,
+        "linearizedBaseContracts": [
+          23390,
+          1564,
+          25673,
+          26069,
+          10848
+        ],
+        "name": "IWallet",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 23377,
+              "nodeType": "Block",
+              "src": "260:33:59",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 23372,
+                        "name": "super",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 44940,
+                        "src": "270:5:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_super$_IWallet_$23390",
+                          "typeString": "contract super IWallet"
+                        }
+                      },
+                      "id": 23374,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "_unpause",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1563,
+                      "src": "270:14:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
+                        "typeString": "function ()"
+                      }
+                    },
+                    "id": 23375,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "270:16:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 23376,
+                  "nodeType": "ExpressionStatement",
+                  "src": "270:16:59"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 23378,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 23370,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 23369,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 25594,
+                  "src": "250:9:59",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "250:9:59"
+              }
+            ],
+            "name": "unpause",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 23368,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "240:2:59"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 23371,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "260:0:59"
+            },
+            "scope": 23390,
+            "src": "224:69:59",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 23388,
+              "nodeType": "Block",
+              "src": "333:31:59",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 23383,
+                        "name": "super",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 44940,
+                        "src": "343:5:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_super$_IWallet_$23390",
+                          "typeString": "contract super IWallet"
+                        }
+                      },
+                      "id": 23385,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "_pause",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1549,
+                      "src": "343:12:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
+                        "typeString": "function ()"
+                      }
+                    },
+                    "id": 23386,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "343:14:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 23387,
+                  "nodeType": "ExpressionStatement",
+                  "src": "343:14:59"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 23389,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 23381,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 23380,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 25594,
+                  "src": "323:9:59",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "323:9:59"
+              }
+            ],
+            "name": "pause",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 23379,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "313:2:59"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 23382,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "333:0:59"
+            },
+            "scope": 23390,
+            "src": "299:65:59",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 23391,
+        "src": "180:186:59"
+      }
+    ],
+    "src": "0:367:59"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Experimental/Wallet/IWallet.sol",
+    "exportedSymbols": {
+      "IWallet": [
+        23390
+      ]
+    },
+    "id": 23391,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 23361,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:59"
+      },
+      {
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/Pausable.sol",
+        "file": "../../../Pausable.sol",
+        "id": 23362,
+        "nodeType": "ImportDirective",
+        "scope": 23391,
+        "sourceUnit": 1565,
+        "src": "26:31:59",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Module.sol",
+        "file": "../../Module.sol",
+        "id": 23363,
+        "nodeType": "ImportDirective",
+        "scope": 23391,
+        "sourceUnit": 25674,
+        "src": "58:26:59",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 23364,
+              "name": "Module",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 25673,
+              "src": "200:6:59",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Module_$25673",
+                "typeString": "contract Module"
+              }
+            },
+            "id": 23365,
+            "nodeType": "InheritanceSpecifier",
+            "src": "200:6:59"
+          },
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 23366,
+              "name": "Pausable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1564,
+              "src": "208:8:59",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Pausable_$1564",
+                "typeString": "contract Pausable"
+              }
+            },
+            "id": 23367,
+            "nodeType": "InheritanceSpecifier",
+            "src": "208:8:59"
+          }
+        ],
+        "contractDependencies": [
+          1564,
+          10848,
+          25673,
+          26069
+        ],
+        "contractKind": "contract",
+        "documentation": "@title Interface to be implemented by all Wallet modules\n@dev abstract contract",
+        "fullyImplemented": false,
+        "id": 23390,
+        "linearizedBaseContracts": [
+          23390,
+          1564,
+          25673,
+          26069,
+          10848
+        ],
+        "name": "IWallet",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 23377,
+              "nodeType": "Block",
+              "src": "260:33:59",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 23372,
+                        "name": "super",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 44940,
+                        "src": "270:5:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_super$_IWallet_$23390",
+                          "typeString": "contract super IWallet"
+                        }
+                      },
+                      "id": 23374,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "_unpause",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1563,
+                      "src": "270:14:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
+                        "typeString": "function ()"
+                      }
+                    },
+                    "id": 23375,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "270:16:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 23376,
+                  "nodeType": "ExpressionStatement",
+                  "src": "270:16:59"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 23378,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 23370,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 23369,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 25594,
+                  "src": "250:9:59",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "250:9:59"
+              }
+            ],
+            "name": "unpause",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 23368,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "240:2:59"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 23371,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "260:0:59"
+            },
+            "scope": 23390,
+            "src": "224:69:59",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 23388,
+              "nodeType": "Block",
+              "src": "333:31:59",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 23383,
+                        "name": "super",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 44940,
+                        "src": "343:5:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_super$_IWallet_$23390",
+                          "typeString": "contract super IWallet"
+                        }
+                      },
+                      "id": 23385,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "_pause",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1549,
+                      "src": "343:12:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
+                        "typeString": "function ()"
+                      }
+                    },
+                    "id": 23386,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "343:14:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 23387,
+                  "nodeType": "ExpressionStatement",
+                  "src": "343:14:59"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 23389,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 23381,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 23380,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 25594,
+                  "src": "323:9:59",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "323:9:59"
+              }
+            ],
+            "name": "pause",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 23379,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "313:2:59"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 23382,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "333:0:59"
+            },
+            "scope": 23390,
+            "src": "299:65:59",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 23391,
+        "src": "180:186:59"
+      }
+    ],
+    "src": "0:367:59"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2019-01-17T19:56:09.685Z"
+}

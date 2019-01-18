@@ -5,7 +5,7 @@ import { MockedStore, mockEthereumBrowser } from '~/testUtils/helpers';
 
 jest.mock('~/lib/polymath', () => ({
   polyClient: {
-    connect: () => {},
+    connect: () => { },
   },
 }));
 
@@ -16,7 +16,7 @@ jest.mock('@polymathnetwork/sdk', () => {
     browserUtils: {
       getCurrentAddress: jest.fn(),
       onAddressChange() {
-        return () => {};
+        return () => { };
       },
       enableWallet: jest.fn(),
     },
