@@ -9,9 +9,8 @@ jobs:
       - run: yarn test
 workflows:
   version: 2
-  run_tests:
+  test_packages:
     jobs:
       - test:
-        filters:
-          branches:
-            only: feature/implement-circle-ci-deployments
+        branches:
+          only: feature/implement-circleci-ci-deployment
