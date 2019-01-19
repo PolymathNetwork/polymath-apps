@@ -85,7 +85,7 @@ export default class STOTemplateComponent extends Component<Props> {
               </span>
               <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
               {stoModule.type === 'USDTieredSTO' ? (
-                <span className="bx--tag bx--tag--private">
+                <span className="bx--tag bx--tag--thirdparty">
                   Raise Funds in Stablecoin
                 </span>
               ) : null}
