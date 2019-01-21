@@ -112,10 +112,7 @@ export interface CheckpointPojo extends CheckpointEntity {
 }
 
 export interface Erc20DividendsModuleEntity extends Entity {
-  /**
-   * if undefined, it means the module is not attached
-   */
-  address?: string;
+  address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
 }
