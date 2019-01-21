@@ -16,6 +16,7 @@ export { Block } from './components/Block';
 export { Box } from './components/Box';
 export { Flex } from './components/Flex';
 export { Grid } from './components/Grid';
+export { GridRow } from './components/GridRow';
 export { Heading } from './components/Heading';
 export { InlineFlex } from './components/InlineFlex';
 export { Paragraph } from './components/Paragraph';
