@@ -1,4 +1,4 @@
-import React, { Fragment, Component, Dispatch } from 'react';
+import React, { Component, Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { RootState } from '~/state/store';
