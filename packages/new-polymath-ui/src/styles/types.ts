@@ -3,10 +3,10 @@ export interface Scale<TValue> {
 }
 
 export interface Breakpoints<T> {
-  sm: T;
-  md: T;
-  lg: T;
-  xl: T;
+  sm?: T;
+  md?: T;
+  lg?: T;
+  xl?: T;
 }
 
 export type ResponsiveValue<T> = T | Array<T | null> | Breakpoints<T>;
