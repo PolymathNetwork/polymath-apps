@@ -141,6 +141,9 @@ export const importWhitelist = () => async (
       buyLockupDate,
       kycAmlExpiryDate,
       canBuyFromSto,
+      bypassesOwnershipRestriction,
+      accredited,
+      nonAccreditedLimit,
     }) => {
       return {
         address,
@@ -148,10 +151,14 @@ export const importWhitelist = () => async (
         to: buyLockupDate,
         expiry: kycAmlExpiryDate,
         canBuyFromSTO: canBuyFromSto,
+        bypassesOwnershipRestriction: bypassesOwnershipRestriction,
+        accredited: accredited,
+        nonAccreditedLimit: nonAccreditedLimit,
       };
     }
   );
 
+  console.log(whitelistItems);
   const titles = ['Submitting approved investors'];
 
   if (!isPercentageDisabled) {
@@ -220,6 +227,7 @@ export const exportWhitelist = () => async (
         transferManager,
         percentageTM: { contract: percentageTM },
       },
+      sto,
     } = getState();
 
     const investors = await transferManager.getWhitelist();
@@ -228,6 +236,7 @@ export const exportWhitelist = () => async (
       const percentages = await percentageTM.getWhitelist();
       for (let i = 0; i < investors.length; i++) {
         for (let percentage: Investor of percentages) {
+          console.log(percentage);
           if (investors[i].address === percentage.address) {
             investors[i].isPercentage = percentage.isPercentage;
           }
@@ -235,9 +244,16 @@ export const exportWhitelist = () => async (
       }
     }
 
+    console.log(getState(), investors, percentageTM);
+
     // eslint-disable-next-line max-len
     let csvContent =
       'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
+
+    if (sto.stage === STAGE_OVERVIEW) {
+      // if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
+      csvContent += ',Is Accredited,Non-Accredited Limit';
+    }
 
     investors.forEach((investor: Investor) => {
       csvContent +=
@@ -252,7 +268,12 @@ export const exportWhitelist = () => async (
             : moment(investor.to).format('MM/DD/YYYY'),
           moment(investor.expiry).format('MM/DD/YYYY'),
           investor.canBuyFromSTO ? 'true' : '',
-          investor.isPercentage ? 'true' : '',
+          // investor.isPercentage ? 'true' : '',
+          investor.bypassesOwnershipRestriction ? 'true' : '',
+          investor.accredited,
+          investor.nonAccreditedLimit
+            ? investor.nonAccreditedLimit.toNumber()
+            : '',
         ].join(',');
     });
 
