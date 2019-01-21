@@ -6,6 +6,7 @@ import { SvgErc20 } from './images/icons/Erc20';
 import { SvgDividends } from './images/icons/Dividends';
 import { SvgDividendsOutline } from './images/icons/DividendsOutline';
 import { SvgCheckmark } from './images/icons/Checkmark';
+import { SvgChecklist } from './images/icons/Checklist';
 
 // Styles
 export * from './styles';
@@ -60,4 +61,5 @@ export const icons = {
   SvgDividends,
   SvgDividendsOutline,
   SvgCheckmark,
+  SvgChecklist,
 };
