@@ -11,6 +11,9 @@ import {
 import { Modal, Remark, Paragraph } from '@polymathnetwork/ui';
 import { uploadCSV, resetUploaded } from '../../../actions/compliance';
 
+import { fetch } from '../../../actions/sto';
+import { STAGE_OVERVIEW } from '../../../reducers/sto';
+
 import type { RootState } from '../../../redux/reducer';
 
 type StateProps = {|
@@ -21,6 +24,7 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
+  fetch: () => any,
   uploadCSV: (file: Object) => any,
   resetUploaded: () => any,
 |};
@@ -37,14 +41,20 @@ const mapStateToProps = (state: RootState) => ({
   parseError: state.whitelist.parseError,
   isReady: state.whitelist.uploaded.length > 0,
   isInvalid: state.whitelist.criticals.length > 0,
+  sto: state.sto,
 });
 
 const mapDispatchToProps = {
+  fetch,
   uploadCSV,
   resetUploaded,
 };
 
 class ImportWhitelistModal extends Component<Props> {
+  componentDidMount() {
+    this.props.fetch();
+  }
+
   handleClose = () => {
     this.fileUploader.clearFiles();
     this.props.onClose();
@@ -80,7 +90,14 @@ class ImportWhitelistModal extends Component<Props> {
   };
 
   render() {
-    const { isOpen, isTooMany, parseError, isReady, isInvalid } = this.props;
+    const {
+      isOpen,
+      sto,
+      isTooMany,
+      parseError,
+      isReady,
+      isInvalid,
+    } = this.props;
     return (
       <Modal
         isOpen={isOpen}
@@ -105,26 +122,31 @@ class ImportWhitelistModal extends Component<Props> {
           empty cell to disable;
           <br />
           <br />
-          If you have scheduled a USD Tiered STO, please include the additional
-          fields:
-          <br />• Is Accredited: Set to <strong>"TRUE"</strong> to mark the
-          address as that of an accredited investor OR leave empty to mark the
-          address as that of a non-accredited investor
-          <br />• Non Accredited Limit: Set a maximum investment limit for that
-          non-accredited investor's address or leave empty to use the default
-          limit programmed in the STO
-          <br />
-          <br />
-          Important:
-          <br />
-          Is Accredited and Non Accredited Limit will be ignored if you have not
-          yet scheduled your USD Tiered STO. If you have scheduled your STO, all
-          accredited/non-accredited investor information will be imported
-          adequately. If you have not, you will be required to re-upload this
-          information.
-          <br />
-          <br /> Maximum numbers of investors per transaction is{' '}
-          <strong>75</strong>.
+          {sto.stage === STAGE_OVERVIEW &&
+          sto.details.type === 'USDTieredSTO' ? (
+            <p>
+              If you have scheduled a USD Tiered STO, please include the
+              additional fields:
+              <br />• Is Accredited: Set to <strong>"TRUE"</strong> to mark the
+              address as that of an accredited investor OR leave empty to mark
+              the address as that of a non-accredited investor
+              <br />• Non Accredited Limit: Set a maximum investment limit for
+              that non-accredited investor's address or leave empty to use the
+              default limit programmed in the STO
+              <br />
+              <br />
+              Important:
+              <br />
+              Is Accredited and Non Accredited Limit will be ignored if you have
+              not yet scheduled your USD Tiered STO. If you have scheduled your
+              STO, all accredited/non-accredited investor information will be
+              imported adequately. If you have not, you will be required to
+              re-upload this information.
+              <br />
+              <br /> Maximum numbers of investors per transaction is{' '}
+              <strong>75</strong>.
+            </p>
+          ) : null}
         </h4>
         <h5 className="pui-h5">
           You can&nbsp;&nbsp;&nbsp;
