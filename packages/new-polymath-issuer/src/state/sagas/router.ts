@@ -13,6 +13,12 @@ export function* handleDashboardRoute() {
 export function* handleLoginRoute() {
   yield call(requireAnonymous);
 }
+export function* handleSecurityTokensRoute() {
+  yield call(requireAppConnected);
+}
+export function* handleDividendsRoute() {
+  yield call(requireAppConnected);
+}
 
 export function* processRouteChange(action: LocationChangedAction) {
   yield put(setChangingRoute(true));

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { RootState } from '~/state/store';
 import { Location } from 'redux-little-router';
 import { DefaultLayout } from '../layouts';
+import { PageLoader } from '~/components/enhancers/isPage';
 
 export { HomePage } from './Home';
 export { LoginPage } from './Login';
@@ -66,12 +67,20 @@ export class PagesBase extends Component<Props> {
   public render() {
     const { router } = this.props;
     const LayoutComponent = getLayout(router.result);
+    // TODO @monitz87: refine typing for this so that we can know if a page isn't getting
+    // all its props from the router
     const PageComponent = (router.result as any).Page || EmptyPage;
+    const params = router.params;
+    console.log('YUP');
 
     return (
-      <LayoutComponent>
-        <PageComponent />
-      </LayoutComponent>
+      <PageLoader
+        render={() => (
+          <LayoutComponent>
+            <PageComponent {...params} />
+          </LayoutComponent>
+        )}
+      />
     );
   }
 }

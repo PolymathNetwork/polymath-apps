@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { utils, formatters } from '@polymathnetwork/new-shared';
+import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import {
   Page,
   Heading,
@@ -13,11 +13,10 @@ import {
   InlineFlex,
   icons,
 } from '@polymathnetwork/new-ui';
-import { ModalTransactionQueue } from '~/components';
 
 export interface Props {
   onEnableDividends: () => void;
-  dividendsModule?: { contractAddress: string };
+  dividendsModule?: types.Erc20DividendsModuleEntity;
 }
 
 export class Presenter extends Component<Props> {
@@ -72,13 +71,9 @@ export class Presenter extends Component<Props> {
                     <Paragraph fontSize={0}>
                       Dividends contract address:
                       <Link
-                        href={utils.toEtherscanUrl(
-                          dividendsModule.contractAddress
-                        )}
+                        href={utils.toEtherscanUrl(dividendsModule.address)}
                       >
-                        {formatters.toShortAddress(
-                          dividendsModule.contractAddress
-                        )}
+                        {formatters.toShortAddress(dividendsModule.address)}
                       </Link>
                     </Paragraph>
                   </CardPrimary>
@@ -94,7 +89,6 @@ export class Presenter extends Component<Props> {
             </CardFeatureState>
           </GridRow.Col>
         </GridRow>
-        <ModalTransactionQueue />
       </Page>
     );
   }

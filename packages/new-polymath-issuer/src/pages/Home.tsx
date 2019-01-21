@@ -50,7 +50,7 @@ export class ContainerBase extends Component<Props> {
   public startEnableDividends = () => {
     this.props.dispatch(
       enableErc20DividendsModuleStart({
-        securityTokenSymbol: 'DIVTEST2',
+        securityTokenSymbol: 'A0T0',
         storageWalletAddress: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
       })
     );

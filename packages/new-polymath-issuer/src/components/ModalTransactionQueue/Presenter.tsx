@@ -27,6 +27,7 @@ export class Presenter extends Component<Props> {
 
   public render() {
     const { transactionQueue, onClose } = this.props;
+    console.log('TRANSACTION QUEUE', transactionQueue);
     const { isConfirmed } = this.state;
 
     if (!transactionQueue) {
