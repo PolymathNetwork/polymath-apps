@@ -12,7 +12,6 @@ export const mockTransactionQueue = {
   transactions: [
     {
       uid: '0',
-      type: 'First transaction',
       status: types.TransactionStatus.Unapproved,
       transactionQueueUid: '111',
       tag: types.PolyTransactionTags.Any,
@@ -21,7 +20,6 @@ export const mockTransactionQueue = {
     },
     {
       uid: '1',
-      type: 'Second transaction',
       status: types.TransactionStatus.Idle,
       transactionQueueUid: '111',
       tag: types.PolyTransactionTags.Any,

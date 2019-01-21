@@ -17,7 +17,7 @@ export class Demo extends React.Component<{}, State> {
     isConfirmed: false,
   };
 
-  public componentDidUpdate(prevProps: any, prevState: State) {
+  public componentDidUpdate(_prevProps: any, prevState: State) {
     const { transactionQueue } = this.state;
 
     if (!prevState.isConfirmed && this.state.isConfirmed && transactionQueue) {
@@ -29,7 +29,6 @@ export class Demo extends React.Component<{}, State> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
                 status: types.TransactionStatus.Running,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
@@ -38,7 +37,6 @@ export class Demo extends React.Component<{}, State> {
               },
               {
                 uid: '1',
-                type: 'Second transaction',
                 status: types.TransactionStatus.Idle,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
@@ -57,7 +55,6 @@ export class Demo extends React.Component<{}, State> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
                 status: types.TransactionStatus.Succeeded,
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
@@ -67,7 +64,6 @@ export class Demo extends React.Component<{}, State> {
               },
               {
                 uid: '1',
-                type: 'Second transaction',
                 status: types.TransactionStatus.Unapproved,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
@@ -86,7 +82,6 @@ export class Demo extends React.Component<{}, State> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
                 status: types.TransactionStatus.Succeeded,
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
@@ -96,7 +91,6 @@ export class Demo extends React.Component<{}, State> {
               },
               {
                 uid: '1',
-                type: 'Second transaction',
                 status: types.TransactionStatus.Running,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
@@ -116,7 +110,6 @@ export class Demo extends React.Component<{}, State> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
                 status: types.TransactionStatus.Succeeded,
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
@@ -126,7 +119,6 @@ export class Demo extends React.Component<{}, State> {
               },
               {
                 uid: '1',
-                type: 'Second transaction',
                 status: types.TransactionStatus.Succeeded,
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',

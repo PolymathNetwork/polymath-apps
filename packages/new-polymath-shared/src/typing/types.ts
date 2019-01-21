@@ -73,9 +73,7 @@ export interface TransactionEntity extends Entity {
   args: any[];
 }
 
-export interface TransactionPojo extends TransactionEntity {
-  type: string;
-}
+export interface TransactionPojo extends TransactionEntity {}
 
 export interface DividendEntity extends Entity {
   index: number;
