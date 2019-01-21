@@ -65,6 +65,8 @@ export type AccountInnerData = {|
   email: string,
 |};
 
+// NOTE @RafaelVidaurre: Leaving this here as reference of what was being used
+// before rolling back to personalSign to support hardwar wallets
 const signTypedData = ({ web3, normal, typed, address }) => {
   return new Promise((resolve, reject) => {
     web3.currentProvider.sendAsync(
