@@ -8,10 +8,12 @@ import { types } from '@polymathnetwork/new-shared';
 export interface Props {
   transactionQueue: types.TransactionQueuePojo;
   onContinue: () => void;
+  onConfirm: () => void;
+  onClose: () => void;
 }
 
 export class Presenter extends Component<Props> {
-  state = {
+  public state = {
     isConfirmed: false,
   };
 
@@ -19,10 +21,12 @@ export class Presenter extends Component<Props> {
     this.setState({
       isConfirmed: true,
     });
+
+    this.props.onConfirm();
   };
 
   public render() {
-    const { transactionQueue } = this.props;
+    const { transactionQueue, onClose } = this.props;
     const { isConfirmed } = this.state;
 
     if (!transactionQueue) {
@@ -35,6 +39,7 @@ export class Presenter extends Component<Props> {
           onSubmit={this.handleConfirm}
           transactionQueue={transactionQueue}
           isOpen={!!transactionQueue && !isConfirmed}
+          onClose={onClose}
         />
         <ModalTransactionQueue
           isOpen={!!transactionQueue && isConfirmed}
