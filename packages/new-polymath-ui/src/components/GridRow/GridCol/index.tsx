@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { style, ResponsiveValue } from 'styled-system';
+import { style } from 'styled-system';
+import { ResponsiveValue } from '~/styles/types';
 import { Grid } from '~/components/Grid';
 
 const gridSpan = style({
