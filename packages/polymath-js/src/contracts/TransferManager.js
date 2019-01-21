@@ -70,8 +70,6 @@ export default class TransferManager extends Contract {
       }
     );
 
-    console.log('whitelist', events);
-
     for (let event of events) {
       logs.push({
         address: event.returnValues._investor,
@@ -81,10 +79,6 @@ export default class TransferManager extends Contract {
         to: this._toDate(event.returnValues._toTime),
         expiry: this._toDate(event.returnValues._expiryTime),
         canBuyFromSTO: event.returnValues._canBuyFromSTO,
-        bypassesOwnershipRestriction:
-          event.returnValues._bypassesOwnershipRestriction,
-        accredited: event.returnValues._accredited,
-        nonAccreditedLimit: event.returnValues._nonAccreditedLimit,
       });
     }
 
