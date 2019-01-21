@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { color } from 'styled-system';
+import { color as colorProp } from 'styled-system';
 import { lighten } from 'polished';
 
 export interface LabelProps {
@@ -15,7 +15,7 @@ export const Label = styled.span<LabelProps>`
   line-height: ${({ theme }) => theme.lineHeights.none};
   font-size: ${({ theme }) => theme.fontSizes[0]};
   background-color: ${({ color, bg }) => bg || lighten(0.4, color)};
-  ${color};
+  ${colorProp};
 `;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved

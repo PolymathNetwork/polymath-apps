@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { style } from 'styled-system';
 
 export interface StickyTopProps {
-  zindex?: number;
+  zIndex: string;
 }
 
 const zIndex = style({

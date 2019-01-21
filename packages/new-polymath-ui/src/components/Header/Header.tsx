@@ -27,7 +27,7 @@ export interface HeaderProps {
   variant: 'default' | 'transparent';
   symbol?: string;
   logo?: string;
-  RouterLink: React.ComponentType;
+  RouterLink: React.ReactNode;
 }
 
 export const Header: FC<HeaderProps> = props => {
@@ -44,7 +44,7 @@ export const Header: FC<HeaderProps> = props => {
     <sc.Wrapper className="pui-header" variant={variant}>
       <PageWrap>
         <sc.Inner>
-          <Link as={RouterLink} href="/">
+          <Link as={RouterLink as 'a'} href="/">
             {logo ? (
               <Block as="img" src={logo} alt="Company Logo" width="188" />
             ) : (
