@@ -1,5 +1,6 @@
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { styled } from '~/styles';
+import { ulReset } from '~/styles/utils';
 import { Flex } from '~/components/Flex';
 
 type FlexProps = typeHelpers.GetProps<typeof Flex>;
@@ -9,9 +10,7 @@ export interface Props extends FlexProps {
 }
 
 export const List = styled(Flex)<Props>`
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  ${ulReset}
   flex-direction: ${({ vertical }) => (vertical ? 'column' : 'row')};
 
   > * + * {
