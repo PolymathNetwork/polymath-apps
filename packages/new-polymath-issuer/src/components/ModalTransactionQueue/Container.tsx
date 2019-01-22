@@ -4,13 +4,17 @@ import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { RootState } from '~/state/store';
 import { ActionType } from 'typesafe-actions';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
-import { confirmTransactionQueue } from '~/state/actions/transactionQueues';
+import {
+  confirmTransactionQueue,
+  cancelTransactionQueue,
+} from '~/state/actions/transactionQueues';
 import { types } from '@polymathnetwork/new-shared';
 import { Presenter } from './Presenter';
 
 const actions = {
   unsetActiveTransactionQueue,
   confirmTransactionQueue,
+  cancelTransactionQueue,
 };
 
 export interface StateProps {
@@ -40,6 +44,14 @@ export class ContainerBase extends Component<Props> {
     dispatch(unsetActiveTransactionQueue());
   };
 
+  public onClose = () => {
+    const { dispatch } = this.props;
+
+    this.onFinish();
+
+    dispatch(cancelTransactionQueue());
+  };
+
   public onConfirm = () => {
     const { dispatch } = this.props;
 
@@ -48,7 +60,7 @@ export class ContainerBase extends Component<Props> {
 
   public render() {
     const { transactionQueue } = this.props;
-    const { onFinish, onConfirm } = this;
+    const { onFinish, onConfirm, onClose } = this;
 
     if (!transactionQueue) {
       return null;
@@ -58,7 +70,7 @@ export class ContainerBase extends Component<Props> {
       <Presenter
         transactionQueue={transactionQueue}
         onContinue={onFinish}
-        onClose={onFinish}
+        onClose={onClose}
         onConfirm={onConfirm}
       />
     );

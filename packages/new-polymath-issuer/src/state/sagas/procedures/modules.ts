@@ -22,9 +22,17 @@ export function* enableErc20DividendsModule(
   );
 
   try {
-    yield call(runTransactionQueue, transactionQueueToRun);
+    const success: boolean = yield call(
+      runTransactionQueue,
+      transactionQueueToRun
+    );
 
-    // invalidate cache
+    // Queue was canceled
+    if (!success) {
+      return;
+    }
+
+    // Invalidate cache
     yield put(
       invalidateRequest({
         requestKey: RequestKeys.GetErc20DividendsModuleBySymbol,
