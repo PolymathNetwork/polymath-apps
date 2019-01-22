@@ -5,7 +5,11 @@ export const getTransactionQueueText = (
   transactionQueue: types.TransactionQueueEntity
 ) =>
   ({
-    [types.ProcedureTypes.EnableDividends]: {
+    [types.ProcedureTypes.UnnamedProcedure]: {
+      title: 'Enable the Unnamed Procedure',
+      description: 'Enabling the Unnamed Procedure is great.',
+    },
+    [types.ProcedureTypes.EnableDividendModules]: {
       title: 'Enable the Ability to Distribute Dividends',
       description:
         'Enabling the distribution of dividends in ERC20 Tokens, including POLY and Stablecoins.',
