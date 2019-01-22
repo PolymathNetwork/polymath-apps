@@ -346,8 +346,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         !isNaN(to) &&
         !isNaN(expiry) &&
         !isInvalidExpiry &&
-        Number.isInteger(tokensVal) &&
-        tokensVal > 0
+        parseFloat(tokensVal) > 0
       ) {
         if (investors.length === 75) {
           isTooMany = true;
