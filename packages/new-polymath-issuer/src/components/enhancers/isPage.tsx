@@ -27,14 +27,11 @@ class PageLoaderBase extends Component<Props, State> {
   public render() {
     const { hasRendered } = this.state;
     const { changingRoute } = this.props;
-    console.log(hasRendered);
-    console.log(changingRoute);
 
     if (!hasRendered && changingRoute) {
-      console.log('LOADING???');
       return <Loading />;
     }
-    console.log('NOT LOADING');
+
     return this.props.render();
   }
 }

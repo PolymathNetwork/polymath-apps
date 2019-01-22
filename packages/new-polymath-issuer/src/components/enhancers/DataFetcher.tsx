@@ -6,10 +6,10 @@ import { Loading } from '@polymathnetwork/new-ui';
 import { RootState } from '~/state/store';
 import {
   createGetEntitiesFromCache,
-  createGetCacheStatus,
+  createGetLoadingStatus,
 } from '~/state/selectors';
-import { fetchData } from '~/state/actions/dataRequests';
-import { Fetcher, CacheStatus, FetchedData } from '~/types';
+import { requestData } from '~/state/actions/dataRequests';
+import { Fetcher, FetchedData } from '~/types';
 
 interface OwnProps {
   fetchers: Fetcher[];
@@ -18,36 +18,26 @@ interface OwnProps {
 
 interface StateProps {
   fetchedData: FetchedData;
-  cache: CacheStatus[];
   loading: boolean;
 }
 
 interface DispatchProps {
-  dispatch: Dispatch<ActionType<typeof fetchData>>;
+  dispatch: Dispatch<ActionType<typeof requestData>>;
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
 
 const mapStateToProps = () => {
   const entitiesSelector = createGetEntitiesFromCache();
-  const cacheSelector = createGetCacheStatus();
+  const loadingSelector = createGetLoadingStatus();
 
   return (state: RootState, props: OwnProps): StateProps => {
     const fetchedData = entitiesSelector(state, props);
-    const unfilteredCache = cacheSelector(state, props);
 
-    const cache = unfilteredCache.filter(
-      cacheStatus => cacheStatus.mustBeFetched
-    );
-
-    console.log(cache);
-    const loading = !!cache.length;
-
-    console.log('LOADING', loading);
+    const loading = loadingSelector(state, props);
 
     return {
       fetchedData,
-      cache,
       loading,
     };
   };
@@ -55,26 +45,22 @@ const mapStateToProps = () => {
 
 class DataFetcherBase extends Component<Props> {
   public getData() {
-    const { dispatch, cache } = this.props;
+    const { dispatch, fetchers } = this.props;
 
-    cache.forEach(cacheStatus => {
-      const { args, requestKey } = cacheStatus;
+    fetchers.forEach(fetcher => {
       dispatch(
-        fetchData({
-          requestKey,
-          args,
+        requestData({
+          fetcher,
         })
       );
     });
   }
 
   public componentDidMount() {
-    console.log('DID MOUNT');
     this.getData();
   }
 
-  public componentWillUpdate() {
-    console.log('WILL UPDATE');
+  public componentDidUpdate() {
     this.getData();
   }
 
@@ -85,29 +71,25 @@ class DataFetcherBase extends Component<Props> {
     nextProps: Readonly<Props>,
     _nextState: Readonly<{}>
   ) {
-    const { fetchers, loading, fetchedData, cache } = this.props;
+    const { fetchers, loading, fetchedData } = this.props;
     const {
       fetchers: newFetchers,
       loading: newLoading,
       fetchedData: newFetchedData,
-      cache: newCache,
     } = nextProps;
 
-    return loading !== newLoading;
+    if (loading !== newLoading) {
+      return true;
+    }
 
     const fetcherIntersection = intersectionWith(
       fetchers,
       newFetchers,
       isEqual
     );
-    const cacheIntersection = intersectionWith(cache, newCache, isEqual);
-    console.log('OLD CACHE', cache);
-    console.log('NEW CACHE', newCache);
-    console.log('CACHE INTERSECTION', cacheIntersection);
 
     return (
       fetcherIntersection.length !== fetchers.length ||
-      cacheIntersection.length !== cache.length ||
       !isEqual(fetchedData, newFetchedData)
     );
   }
@@ -115,12 +97,8 @@ class DataFetcherBase extends Component<Props> {
     const { render, fetchedData, loading } = this.props;
 
     if (loading) {
-      console.log('STILL LOADING');
       return <Loading />;
     }
-
-    console.log(fetchedData);
-    console.log('NOT LOADING ANYMORE');
 
     return render(fetchedData);
   }

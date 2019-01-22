@@ -71,7 +71,6 @@ export class PagesBase extends Component<Props> {
     // all its props from the router
     const PageComponent = (router.result as any).Page || EmptyPage;
     const params = router.params;
-    console.log('YUP');
 
     return (
       <PageLoader

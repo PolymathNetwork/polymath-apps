@@ -33,7 +33,6 @@ export function* fetchErc20DividendsModuleBySymbol(args: {
       })
     );
   } catch (err) {
-    console.log(err);
     yield put(fetchDataFail(err));
   }
 }

@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import { filter, zipWith, forEach, includes } from 'lodash';
 import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
+import { DataRequestResults } from '~/state/reducers/dataRequests';
 
 const appSelector = (state: RootState) => state.app;
 const entitiesSelector = (state: RootState) => state.entities;
@@ -29,7 +30,7 @@ interface FetcherProps {
 }
 
 interface CachedResults {
-  cachedIds: string[] | undefined;
+  cachedData: DataRequestResults[''];
   key: string;
   requestKey: RequestKeys;
   args: types.Pojo;
@@ -48,11 +49,11 @@ const cachedResultsPerFetcherSelector = (
     const { args, propKey, entity, requestKey } = fetcher;
 
     const argsHash = utils.hashObj(args);
-    const cachedIds = state.dataRequests[requestKey][argsHash];
+    const cachedData = state.dataRequests[requestKey][argsHash];
     const key = propKey || entity;
 
     return {
-      cachedIds,
+      cachedData,
       key,
       requestKey,
       args,
@@ -122,15 +123,22 @@ const createGetEntitiesFromCache = () =>
         entityStores,
         cachedResults,
         (store, result) => {
-          const { cachedIds, key } = result;
-          return { store, cachedIds, key };
+          const { cachedData, key } = result;
+          return { store, cachedData, key };
         }
       );
 
       const results: FetchedData = {};
 
       forEach(storesWithIds, data => {
-        const { cachedIds, key, store } = data;
+        const { cachedData, key, store } = data;
+
+        if (!cachedData || cachedData.fetching) {
+          results[key] = [];
+          return;
+        }
+
+        const { fetchedIds: cachedIds } = cachedData;
 
         // NOTE @monitz87: this double type assertion is required because
         // of typescript limitations with the index signature
@@ -153,13 +161,28 @@ const createGetCacheStatus = () =>
     [cachedResultsPerFetcherSelector, checkFetchersForDuplicates],
     cachedResults =>
       cachedResults.map<CacheStatus>(result => {
-        const { requestKey, args, cachedIds } = result;
+        const { requestKey, args, cachedData } = result;
 
         return {
           requestKey,
           args,
-          mustBeFetched: !cachedIds,
+          mustBeFetched: !cachedData,
         };
+      })
+  );
+
+/**
+ * Creates a selector that calculates whether the required data (indicated by the fetchers)
+ * is still being fetched
+ */
+const createGetLoadingStatus = () =>
+  createSelector(
+    [cachedResultsPerFetcherSelector, checkFetchersForDuplicates],
+    cachedResults =>
+      cachedResults.some(result => {
+        const { cachedData } = result;
+
+        return !cachedData || cachedData.fetching;
       })
   );
 
@@ -220,4 +243,5 @@ export {
   createGetCacheStatus,
   createGetActiveTransactionQueue,
   checkFetchersForDuplicates,
+  createGetLoadingStatus,
 };

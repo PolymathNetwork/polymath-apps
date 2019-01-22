@@ -23,7 +23,6 @@ export interface Props {
 
 export class ContainerBase extends Component<Props> {
   public enableErc20DividendsModule = () => {
-    console.log(this.props);
     const { dispatch, securityTokenSymbol } = this.props;
 
     // TODO @monitz87: change the wallet address to the one supplied by the user when we implement the form
@@ -52,8 +51,6 @@ export class ContainerBase extends Component<Props> {
           const {
             erc20DividendsModules: [erc20DividendsModule],
           } = data;
-
-          console.log('HERE WE ARE');
 
           // TODO @monitz87: pass actual props to presenter when it is implemented
           return (

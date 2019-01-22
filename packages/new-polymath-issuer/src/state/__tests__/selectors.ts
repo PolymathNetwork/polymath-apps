@@ -10,6 +10,7 @@ import {
   createGetEntitiesFromCache,
   createGetCacheStatus,
   checkFetchersForDuplicates,
+  createGetLoadingStatus,
 } from '../selectors';
 import { RootState } from '~/state/store';
 import BigNumber from 'bignumber.js';
@@ -146,9 +147,12 @@ const entitiesState: EntitiesState = {
 
 const dataRequestsState = {
   [RequestKeys.GetCheckpointsBySymbol]: {
-    [utils.hashObj(requestArgs[0])]: ['c0'],
-    [utils.hashObj(requestArgs[1])]: ['c1'],
-    [utils.hashObj(requestArgs[2])]: ['c0', 'c1'],
+    [utils.hashObj(requestArgs[0])]: { fetching: false, fetchedIds: ['c0'] },
+    [utils.hashObj(requestArgs[1])]: { fetching: false, fetchedIds: ['c1'] },
+    [utils.hashObj(requestArgs[2])]: {
+      fetching: false,
+      fetchedIds: ['c0', 'c1'],
+    },
   },
   [RequestKeys.GetCheckpointBySymbolAndId]: {},
   [RequestKeys.GetSecurityTokenBySymbol]: {},
@@ -426,6 +430,40 @@ not passing two fetchers with the same `requestKey` and arguments';
           mustBeFetched: true,
         },
       ]);
+    });
+  });
+
+  describe('Selector creator: createGetLoadingStatus', () => {
+    test('should return true if data is being fetched', () => {
+      const fetchingState = {
+        ...mockState,
+        dataRequests: {
+          ...dataRequestsState,
+          [RequestKeys.GetCheckpointsBySymbol]: {
+            ...dataRequestsState[RequestKeys.GetCheckpointsBySymbol],
+            [utils.hashObj(requestArgs[0])]: {
+              fetching: true,
+              fetchedIds: ['c0'],
+            },
+          },
+        },
+      };
+
+      expect(
+        createGetLoadingStatus()(fetchingState, { fetchers: [fetcher1] })
+      ).toEqual(true);
+    });
+
+    test('should return false if no fetchers are passed', () => {
+      expect(createGetLoadingStatus()(mockState, { fetchers: [] })).toEqual(
+        false
+      );
+    });
+
+    test('should return false if all data has been loaded', () => {
+      expect(
+        createGetLoadingStatus()(mockState, { fetchers: [fetcher1] })
+      ).toEqual(false);
     });
   });
 });
