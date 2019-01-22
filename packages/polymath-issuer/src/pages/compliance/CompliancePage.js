@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
+import { BigNumber } from 'bignumber.js';
 import {
   Page,
   etherscanAddress,
@@ -598,6 +599,15 @@ class CompliancePage extends Component<Props, State> {
     </TableContainer>
   );
 
+  isPercentageValid = () => {
+    if (this.state.percentage && this.props.percentage) {
+      return (
+        new BigNumber(this.state.percentage).toNumber() ===
+        new BigNumber(this.props.percentage).toNumber()
+      );
+    }
+  };
+
   render() {
     const { token, isPercentageEnabled, isPercentagePaused } = this.props;
     if (!token || !token.address) {
@@ -696,7 +706,7 @@ class CompliancePage extends Component<Props, State> {
                     className="apply-percentage-btn"
                     onClick={this.handleApplyPercentage}
                     disabled={
-                      this.state.percentage === this.props.percentage ||
+                      this.isPercentageValid() ||
                       typeof this.state.percentage === 'undefined'
                     }
                   >
