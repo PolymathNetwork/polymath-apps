@@ -25,7 +25,7 @@ interface PolymathError {
 
 export enum ProcedureTypes {
   UnnamedProcedure = 'UnnamedProcedure',
-  EnableDividends = 'EnableDividends',
+  EnableDividendModules = 'EnableDividendModules',
 }
 
 export enum PolyTransactionTags {
@@ -72,7 +72,6 @@ export interface TransactionEntity extends Entity {
   transactionQueueUid: string;
   status: TransactionStatus;
   tag: PolyTransactionTags;
-  description: string;
   receipt?: TransactionReceipt;
   error?: PolymathError;
   args: any[];

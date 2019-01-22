@@ -92,7 +92,6 @@ const transactions = {
       status: types.TransactionStatus.Idle,
       tag: types.PolyTransactionTags.Approve,
       args: [],
-      description: 'd1',
     },
     t1: {
       uid: 't1',
@@ -100,7 +99,6 @@ const transactions = {
       status: types.TransactionStatus.Idle,
       tag: types.PolyTransactionTags.CreateCheckpoint,
       args: [1, 2, 3],
-      description: 'd2',
     },
     t2: {
       uid: 't2',
@@ -108,7 +106,6 @@ const transactions = {
       status: types.TransactionStatus.Idle,
       tag: types.PolyTransactionTags.Approve,
       args: [1, 2, 3],
-      description: 'd3',
     },
   },
   allIds: ['t0', 't1', 't2'],
@@ -125,13 +122,11 @@ const transactionQueues = {
       uid: 'tq0',
       status: types.TransactionQueueStatus.Idle,
       procedureType: 'someProcedure',
-      description: 'd0',
     },
     tq1: {
       uid: 'tq1',
       status: types.TransactionQueueStatus.Idle,
       procedureType: 'anotherProcedure',
-      description: 'd1',
     },
   },
   allIds: ['tq0', 'tq1'],
