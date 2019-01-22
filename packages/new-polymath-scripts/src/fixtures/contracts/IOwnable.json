@@ -49,14 +49,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IOwnable.sol",
     "exportedSymbols": {
       "IOwnable": [
-        11007
+        11095
       ]
     },
-    "id": 11008,
+    "id": 11096,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10993,
+        "id": 11081,
         "literals": [
           "solidity",
           "^",
@@ -64,7 +64,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:17"
+        "src": "0:24:18"
       },
       {
         "baseContracts": [],
@@ -72,9 +72,9 @@
         "contractKind": "interface",
         "documentation": "@title Ownable\n@dev The Ownable contract has an owner address, and provides basic authorization control\nfunctions, this simplifies the implementation of \"user permissions\".",
         "fullyImplemented": false,
-        "id": 11007,
+        "id": 11095,
         "linearizedBaseContracts": [
-          11007
+          11095
         ],
         "name": "IOwnable",
         "nodeType": "ContractDefinition",
@@ -82,7 +82,7 @@
           {
             "body": null,
             "documentation": "@dev Returns owner",
-            "id": 10998,
+            "id": 11086,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -90,23 +90,23 @@
             "name": "owner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10994,
+              "id": 11082,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "296:2:17"
+              "src": "296:2:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10997,
+              "id": 11085,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10996,
+                  "id": 11084,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10998,
-                  "src": "322:7:17",
+                  "scope": 11086,
+                  "src": "322:7:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -114,10 +114,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10995,
+                    "id": 11083,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "322:7:17",
+                    "src": "322:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -127,10 +127,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "321:9:17"
+              "src": "321:9:18"
             },
-            "scope": 11007,
-            "src": "282:49:17",
+            "scope": 11095,
+            "src": "282:49:18",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -138,7 +138,7 @@
           {
             "body": null,
             "documentation": "@dev Allows the current owner to relinquish control of the contract.",
-            "id": 11001,
+            "id": 11089,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -146,20 +146,20 @@
             "name": "renounceOwnership",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10999,
+              "id": 11087,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "453:2:17"
+              "src": "453:2:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11000,
+              "id": 11088,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "464:0:17"
+              "src": "464:0:18"
             },
-            "scope": 11007,
-            "src": "427:38:17",
+            "scope": 11095,
+            "src": "427:38:18",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -167,7 +167,7 @@
           {
             "body": null,
             "documentation": "@dev Allows the current owner to transfer control of the contract to a newOwner.\n@param _newOwner The address to transfer ownership to.",
-            "id": 11006,
+            "id": 11094,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -175,16 +175,16 @@
             "name": "transferOwnership",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11004,
+              "id": 11092,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11003,
+                  "id": 11091,
                   "name": "_newOwner",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11006,
-                  "src": "661:17:17",
+                  "scope": 11094,
+                  "src": "661:17:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -192,10 +192,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11002,
+                    "id": 11090,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "661:7:17",
+                    "src": "661:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -205,40 +205,40 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "660:19:17"
+              "src": "660:19:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11005,
+              "id": 11093,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "688:0:17"
+              "src": "688:0:18"
             },
-            "scope": 11007,
-            "src": "634:55:17",
+            "scope": 11095,
+            "src": "634:55:18",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11008,
-        "src": "217:475:17"
+        "scope": 11096,
+        "src": "217:475:18"
       }
     ],
-    "src": "0:693:17"
+    "src": "0:693:18"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IOwnable.sol",
     "exportedSymbols": {
       "IOwnable": [
-        11007
+        11095
       ]
     },
-    "id": 11008,
+    "id": 11096,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10993,
+        "id": 11081,
         "literals": [
           "solidity",
           "^",
@@ -246,7 +246,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:17"
+        "src": "0:24:18"
       },
       {
         "baseContracts": [],
@@ -254,9 +254,9 @@
         "contractKind": "interface",
         "documentation": "@title Ownable\n@dev The Ownable contract has an owner address, and provides basic authorization control\nfunctions, this simplifies the implementation of \"user permissions\".",
         "fullyImplemented": false,
-        "id": 11007,
+        "id": 11095,
         "linearizedBaseContracts": [
-          11007
+          11095
         ],
         "name": "IOwnable",
         "nodeType": "ContractDefinition",
@@ -264,7 +264,7 @@
           {
             "body": null,
             "documentation": "@dev Returns owner",
-            "id": 10998,
+            "id": 11086,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -272,23 +272,23 @@
             "name": "owner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10994,
+              "id": 11082,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "296:2:17"
+              "src": "296:2:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10997,
+              "id": 11085,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10996,
+                  "id": 11084,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10998,
-                  "src": "322:7:17",
+                  "scope": 11086,
+                  "src": "322:7:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -296,10 +296,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10995,
+                    "id": 11083,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "322:7:17",
+                    "src": "322:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -309,10 +309,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "321:9:17"
+              "src": "321:9:18"
             },
-            "scope": 11007,
-            "src": "282:49:17",
+            "scope": 11095,
+            "src": "282:49:18",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -320,7 +320,7 @@
           {
             "body": null,
             "documentation": "@dev Allows the current owner to relinquish control of the contract.",
-            "id": 11001,
+            "id": 11089,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -328,20 +328,20 @@
             "name": "renounceOwnership",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10999,
+              "id": 11087,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "453:2:17"
+              "src": "453:2:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11000,
+              "id": 11088,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "464:0:17"
+              "src": "464:0:18"
             },
-            "scope": 11007,
-            "src": "427:38:17",
+            "scope": 11095,
+            "src": "427:38:18",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -349,7 +349,7 @@
           {
             "body": null,
             "documentation": "@dev Allows the current owner to transfer control of the contract to a newOwner.\n@param _newOwner The address to transfer ownership to.",
-            "id": 11006,
+            "id": 11094,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -357,16 +357,16 @@
             "name": "transferOwnership",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11004,
+              "id": 11092,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11003,
+                  "id": 11091,
                   "name": "_newOwner",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11006,
-                  "src": "661:17:17",
+                  "scope": 11094,
+                  "src": "661:17:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -374,10 +374,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11002,
+                    "id": 11090,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "661:7:17",
+                    "src": "661:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -387,27 +387,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "660:19:17"
+              "src": "660:19:18"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11005,
+              "id": 11093,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "688:0:17"
+              "src": "688:0:18"
             },
-            "scope": 11007,
-            "src": "634:55:17",
+            "scope": 11095,
+            "src": "634:55:18",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11008,
-        "src": "217:475:17"
+        "scope": 11096,
+        "src": "217:475:18"
       }
     ],
-    "src": "0:693:17"
+    "src": "0:693:18"
   },
   "compiler": {
     "name": "solc",
@@ -415,5 +415,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-10T19:10:22.893Z"
+  "updatedAt": "2019-01-17T19:56:09.527Z"
 }

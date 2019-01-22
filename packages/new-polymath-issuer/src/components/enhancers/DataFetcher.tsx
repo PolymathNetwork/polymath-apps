@@ -1,16 +1,15 @@
+import React, { Component, Dispatch, ReactNode } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import { ActionType } from 'typesafe-actions';
+import { Loading } from '@polymathnetwork/new-ui';
 import { RootState } from '~/state/store';
-import { Fetcher, CacheStatus, FetchedData } from '~/types';
-import { Component, Dispatch, ReactNode } from 'react';
 import {
   createGetEntitiesFromCache,
   createGetCacheStatus,
 } from '~/state/selectors';
-import { Loading } from '~/components/__temporary';
-import React from 'react';
-import _ from 'lodash';
 import { fetchData } from '~/state/actions/dataRequests';
-import { ActionType } from 'typesafe-actions';
+import { Fetcher, CacheStatus, FetchedData } from '~/types';
 
 interface OwnProps {
   fetchers: Fetcher[];

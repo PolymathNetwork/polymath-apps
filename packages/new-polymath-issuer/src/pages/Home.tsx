@@ -1,14 +1,9 @@
 import { connect } from 'react-redux';
-import React, { Component, Fragment, Dispatch } from 'react';
+import React, { Component, Dispatch } from 'react';
 import { browserUtils } from '@polymathnetwork/sdk';
+import { Page, Button, Loading } from '@polymathnetwork/new-ui';
 import { polyClient } from '~/lib/polymath';
 import { ModalTransactionQueue } from '~/components';
-import {
-  ThemeProvider,
-  GlobalStyles,
-  Button,
-  Loading,
-} from '@polymathnetwork/new-ui';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
 
@@ -54,35 +49,27 @@ class ContainerBase extends Component<Props> {
 
   public startEnableDividends = () => {
     this.props.dispatch(
-      enableErc20DividendsModuleStart({ securityTokenSymbol: 'DIVTEST2' })
+      enableErc20DividendsModuleStart({
+        securityTokenSymbol: 'DIVTEST2',
+        storageWalletAddress: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
+      })
     );
   };
 
   public render() {
     return (
-      <div>
-        <ThemeProvider>
-          <Fragment>
-            <GlobalStyles />
-            <ModalTransactionQueue />
-            {this.state.ready ? (
-              <Button onClick={this.startEnableDividends}>
-                Enable Dividends (Test)
-              </Button>
-            ) : (
-              <Loading />
-            )}
-          </Fragment>
-        </ThemeProvider>
-      </div>
+      <Page title="Home">
+        <ModalTransactionQueue />
+        {this.state.ready ? (
+          <Button onClick={this.startEnableDividends}>
+            Enable Dividends (Test)
+          </Button>
+        ) : (
+          <Loading />
+        )}
+      </Page>
     );
   }
 }
 
-const Container = connect()(ContainerBase);
-
-export const HomePage = () => (
-  <div>
-    <Container />
-  </div>
-);
+export const HomePage = connect()(ContainerBase);

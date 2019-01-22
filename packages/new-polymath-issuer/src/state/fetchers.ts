@@ -12,6 +12,18 @@ export const createCheckpointsBySymbolFetcher = (
   };
 };
 
+export const createCheckpointBySymbolAndIdFetcher = (
+  args: { securityTokenSymbol: string; checkpointIndex: number },
+  opts: { propKey?: string } = {}
+): Fetcher => {
+  return {
+    propKey: opts.propKey,
+    entity: Entities.Checkpoints,
+    requestKey: RequestKeys.GetCheckpointBySymbolAndId,
+    args,
+  };
+};
+
 export const createDividendsByCheckpointFetcher = (
   args: { securityTokenSymbol: string; checkpointIndex: number },
   opts: { propKey?: string } = {}

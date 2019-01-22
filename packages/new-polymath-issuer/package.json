@@ -29,7 +29,8 @@
     ],
     "transform": {
       "^.+\\.tsx?$": "../../config/babelJestWrapper.js",
-      "^.+\\.css$": "<rootDir>/config/transformStyles.js"
+      "^.+\\.css$": "<rootDir>/config/transformStyles.js",
+      "^(?!.*\\.(js|ts|tsx|jsx|mjs|css|json|graphql)$)": "<rootDir>/config/transformFiles.js"
     },
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
@@ -75,6 +76,7 @@
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "7.0.0",
+    "@svgr/webpack": "^4.1.0",
     "@types/dotenv": "^6.1.0",
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.12",
@@ -86,6 +88,7 @@
     "autoprefixer": "^9.4.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "8.0.2",
+    "babel-plugin-named-asset-import": "^0.3.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "concurrently": "^4.1.0",
     "declaration-bundler-webpack-plugin": "^1.0.3",

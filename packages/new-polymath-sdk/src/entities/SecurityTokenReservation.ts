@@ -8,6 +8,10 @@ interface Params {
   name: string;
 }
 
+interface ExcludedArgs {
+  symbol: string;
+}
+
 export class SecurityTokenReservation extends Entity {
   public uid: string;
   public entityType = 'securityTokenReservation';
@@ -24,31 +28,29 @@ export class SecurityTokenReservation extends Entity {
     this.uid = this.generateId();
   }
 
-  public reserve(
-    args: typeHelpers.ArgsWithoutEntityProps<
+  public reserve = (
+    args: typeHelpers.OmitFromProcedureArgs<
       Polymath['reserveSecurityToken'],
-      SecurityTokenReservation
+      ExcludedArgs
     >
-  ) {
-    return this.polyClient.reserveSecurityToken({
+  ) =>
+    this.polyClient.reserveSecurityToken({
       ...args,
       symbol: this.symbol,
       name: this.name,
     });
-  }
 
-  public createSecurityToken(
-    args: typeHelpers.ArgsWithoutEntityProps<
+  public createSecurityToken = (
+    args: typeHelpers.OmitFromProcedureArgs<
       Polymath['createSecurityToken'],
-      SecurityTokenReservation
+      ExcludedArgs
     >
-  ) {
-    return this.polyClient.createSecurityToken({
+  ) =>
+    this.polyClient.createSecurityToken({
       ...args,
       symbol: this.symbol,
       name: this.name,
     });
-  }
 
   public toPojo() {
     const { uid, symbol, name } = this;

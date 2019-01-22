@@ -9,6 +9,7 @@ import Box from '../Box';
 import Grid from '../Grid';
 import Countdown from '../Countdown';
 import ProgressBar from '../ProgressBar';
+import RaisedAmount from '../RaisedAmount';
 
 import type { CountdownProps } from '../Countdown';
 
@@ -122,13 +123,13 @@ export default class STOStatus extends Component<Props> {
                 </div>
               </div>
               <div>
-                <div className="pui-key-value pui-countdown-raised">
-                  <div>Total Funds Raised</div>
-                  {raisedText}
-                  <div>
-                    {distTokens} {token.ticker}
-                  </div>
-                </div>
+                <RaisedAmount
+                  title="Total Funds Raised"
+                  primaryAmount={details.raised}
+                  primaryUnit={symbol}
+                  tokenAmount={distTokens}
+                  tokenUnit={token.ticker.toUpperCase()}
+                />
               </div>
             </div>
           </div>

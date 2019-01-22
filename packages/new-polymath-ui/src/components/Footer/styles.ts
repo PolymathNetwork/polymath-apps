@@ -30,20 +30,15 @@ export const Wrapper = styled.div<{ variant: FooterProps['variant'] }>`
   width: 100%;
   height: ${({ theme }) => theme.footer.height};
   ${({ variant }) => variants[variant].Wrapper};
-
-  .pui-footer-text {
-    display: inline-flex;
-    font-size: 14px;
-    line-height: 22px;
-    font-weight: 300;
-  }
 `;
 
 export const Inner = styled(Flex)`
   height: ${({ theme }) => theme.footer.height};
 `;
 
-export const Links = styled('ul')<FooterProps>`
+export const Links = styled.ul<FooterProps>`
+  list-style: none;
+  margin: 0;
   margin-left: auto;
   display: inline-flex;
   ${({ variant }) => variants[variant].Links};

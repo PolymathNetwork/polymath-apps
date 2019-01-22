@@ -323,7 +323,13 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
       const from = handleDate(sale);
       const to = handleDate(purchase);
+
       const expiry = new Date(Date.parse(expiryIn));
+      let isInvalidExpiry = false;
+      if (expiry - Date.parse(new Date()) < 0) {
+        isInvalidExpiry = true;
+      }
+
       const tokensVal = Number(tokensIn);
 
       let isDuplicatedAddress = false;
@@ -339,6 +345,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         !isNaN(from) &&
         !isNaN(to) &&
         !isNaN(expiry) &&
+        !isInvalidExpiry &&
         parseFloat(tokensVal) > 0
       ) {
         if (investors.length === 75) {

@@ -46,14 +46,7 @@ const mapDispatchToProps = {
 
 class ImportWhitelistModal extends Component<Props> {
   handleClose = () => {
-    // TODO @bshevchenko: maybe there is a better way to reset FileUploader $FlowFixMe
-    const node = this.fileUploader.nodes[0];
-    if (node) {
-      const el = Array.from(node.getElementsByClassName('bx--file-close'))[0];
-      const event = document.createEvent('Events');
-      event.initEvent('click', true, false);
-      el.dispatchEvent(event);
-    }
+    this.fileUploader.clearFiles();
     this.props.onClose();
   };
 

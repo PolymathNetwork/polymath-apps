@@ -49,6 +49,45 @@ export const ERC20DividendCheckpointAbi = {
       type: 'function',
     },
     {
+      constant: true,
+      inputs: [
+        {
+          name: '_dividendIndex',
+          type: 'uint256',
+        },
+      ],
+      name: 'getDividendData',
+      outputs: [
+        {
+          name: 'created',
+          type: 'uint256',
+        },
+        {
+          name: 'maturity',
+          type: 'uint256',
+        },
+        {
+          name: 'expiry',
+          type: 'uint256',
+        },
+        {
+          name: 'amount',
+          type: 'uint256',
+        },
+        {
+          name: 'claimedAmount',
+          type: 'uint256',
+        },
+        {
+          name: 'name',
+          type: 'bytes32',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
       constant: false,
       inputs: [
         {
@@ -77,25 +116,6 @@ export const ERC20DividendCheckpointAbi = {
       type: 'function',
     },
     {
-      constant: true,
-      inputs: [
-        {
-          name: '',
-          type: 'address',
-        },
-      ],
-      name: 'investorWithheld',
-      outputs: [
-        {
-          name: '',
-          type: 'uint256',
-        },
-      ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
       constant: false,
       inputs: [
         {
@@ -111,6 +131,43 @@ export const ERC20DividendCheckpointAbi = {
       outputs: [],
       payable: false,
       stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: 'wallet',
+      outputs: [
+        {
+          name: '',
+          type: 'address',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_investor',
+          type: 'address',
+        },
+        {
+          name: '_dividendIndex',
+          type: 'uint256',
+        },
+      ],
+      name: 'isClaimed',
+      outputs: [
+        {
+          name: '',
+          type: 'bool',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
       type: 'function',
     },
     {
@@ -207,6 +264,20 @@ export const ERC20DividendCheckpointAbi = {
       type: 'function',
     },
     {
+      constant: false,
+      inputs: [
+        {
+          name: '_wallet',
+          type: 'address',
+        },
+      ],
+      name: 'configure',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
       constant: true,
       inputs: [
         {
@@ -219,6 +290,33 @@ export const ERC20DividendCheckpointAbi = {
         {
           name: '',
           type: 'uint256',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_checkpointId',
+          type: 'uint256',
+        },
+      ],
+      name: 'getCheckpointData',
+      outputs: [
+        {
+          name: 'investors',
+          type: 'address[]',
+        },
+        {
+          name: 'balances',
+          type: 'uint256[]',
+        },
+        {
+          name: 'withholdings',
+          type: 'uint256[]',
         },
       ],
       payable: false,
@@ -282,16 +380,39 @@ export const ERC20DividendCheckpointAbi = {
           type: 'bool',
         },
         {
-          name: 'dividendWithheld',
+          name: 'totalWithheld',
           type: 'uint256',
         },
         {
-          name: 'dividendWithheldReclaimed',
+          name: 'totalWithheldWithdrawn',
           type: 'uint256',
         },
         {
           name: 'name',
           type: 'bytes32',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '_investor',
+          type: 'address',
+        },
+        {
+          name: '_dividendIndex',
+          type: 'uint256',
+        },
+      ],
+      name: 'isExcluded',
+      outputs: [
+        {
+          name: '',
+          type: 'bool',
         },
       ],
       payable: false,
@@ -329,6 +450,54 @@ export const ERC20DividendCheckpointAbi = {
         {
           name: '',
           type: 'address',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_wallet',
+          type: 'address',
+        },
+      ],
+      name: 'changeWallet',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: 'getDividendsData',
+      outputs: [
+        {
+          name: 'createds',
+          type: 'uint256[]',
+        },
+        {
+          name: 'maturitys',
+          type: 'uint256[]',
+        },
+        {
+          name: 'expirys',
+          type: 'uint256[]',
+        },
+        {
+          name: 'amounts',
+          type: 'uint256[]',
+        },
+        {
+          name: 'claimedAmounts',
+          type: 'uint256[]',
+        },
+        {
+          name: 'names',
+          type: 'bytes32[]',
         },
       ],
       payable: false,
@@ -461,6 +630,45 @@ export const ERC20DividendCheckpointAbi = {
       type: 'function',
     },
     {
+      constant: true,
+      inputs: [
+        {
+          name: '_dividendIndex',
+          type: 'uint256',
+        },
+      ],
+      name: 'getDividendProgress',
+      outputs: [
+        {
+          name: 'investors',
+          type: 'address[]',
+        },
+        {
+          name: 'resultClaimed',
+          type: 'bool[]',
+        },
+        {
+          name: 'resultExcluded',
+          type: 'bool[]',
+        },
+        {
+          name: 'resultWithheld',
+          type: 'uint256[]',
+        },
+        {
+          name: 'resultAmount',
+          type: 'uint256[]',
+        },
+        {
+          name: 'resultBalance',
+          type: 'uint256[]',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
       constant: false,
       inputs: [],
       name: 'createCheckpoint',
@@ -555,7 +763,7 @@ export const ERC20DividendCheckpointAbi = {
           type: 'address',
         },
         {
-          indexed: false,
+          indexed: true,
           name: '_dividendIndex',
           type: 'uint256',
         },
@@ -587,7 +795,7 @@ export const ERC20DividendCheckpointAbi = {
           type: 'address',
         },
         {
-          indexed: false,
+          indexed: true,
           name: '_dividendIndex',
           type: 'uint256',
         },
@@ -614,7 +822,7 @@ export const ERC20DividendCheckpointAbi = {
           type: 'address',
         },
         {
-          indexed: false,
+          indexed: true,
           name: '_dividendIndex',
           type: 'uint256',
         },
@@ -691,6 +899,28 @@ export const ERC20DividendCheckpointAbi = {
         },
       ],
       name: 'SetWithholdingFixed',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: '_oldWallet',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: '_newWallet',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          name: '_timestamp',
+          type: 'uint256',
+        },
+      ],
+      name: 'SetWallet',
       type: 'event',
     },
     {

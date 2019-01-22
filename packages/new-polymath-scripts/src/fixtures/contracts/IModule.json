@@ -59,14 +59,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IModule.sol",
     "exportedSymbols": {
       "IModule": [
-        10760
+        10848
       ]
     },
-    "id": 10761,
+    "id": 10849,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10741,
+        "id": 10829,
         "literals": [
           "solidity",
           "^",
@@ -74,7 +74,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:13"
+        "src": "0:24:14"
       },
       {
         "baseContracts": [],
@@ -82,9 +82,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface that every module contract should implement",
         "fullyImplemented": false,
-        "id": 10760,
+        "id": 10848,
         "linearizedBaseContracts": [
-          10760
+          10848
         ],
         "name": "IModule",
         "nodeType": "ContractDefinition",
@@ -92,7 +92,7 @@
           {
             "body": null,
             "documentation": "@notice This function returns the signature of configure function",
-            "id": 10746,
+            "id": 10834,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -100,23 +100,23 @@
             "name": "getInitFunction",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10742,
+              "id": 10830,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "236:2:13"
+              "src": "236:2:14"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10745,
+              "id": 10833,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10744,
+                  "id": 10832,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10746,
-                  "src": "262:6:13",
+                  "scope": 10834,
+                  "src": "262:6:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -124,10 +124,10 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 10743,
+                    "id": 10831,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
-                    "src": "262:6:13",
+                    "src": "262:6:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes4",
                       "typeString": "bytes4"
@@ -137,10 +137,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "261:8:13"
+              "src": "261:8:14"
             },
-            "scope": 10760,
-            "src": "212:58:13",
+            "scope": 10848,
+            "src": "212:58:14",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "external"
@@ -148,7 +148,7 @@
           {
             "body": null,
             "documentation": "@notice Return the permission flags that are associated with a module",
-            "id": 10752,
+            "id": 10840,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -156,23 +156,23 @@
             "name": "getPermissions",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10747,
+              "id": 10835,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "392:2:13"
+              "src": "392:2:14"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10751,
+              "id": 10839,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10750,
+                  "id": 10838,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10752,
-                  "src": "417:9:13",
+                  "scope": 10840,
+                  "src": "417:9:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -181,19 +181,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 10748,
+                      "id": 10836,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "417:7:13",
+                      "src": "417:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 10749,
+                    "id": 10837,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "417:9:13",
+                    "src": "417:9:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -203,18 +203,18 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "416:11:13"
+              "src": "416:11:14"
             },
-            "scope": 10760,
-            "src": "369:59:13",
+            "scope": 10848,
+            "src": "369:59:14",
             "stateMutability": "view",
-            "superFunction": 21420,
+            "superFunction": 27077,
             "visibility": "external"
           },
           {
             "body": null,
             "documentation": "@notice Used to withdraw the fee by the factory owner",
-            "id": 10759,
+            "id": 10847,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -222,16 +222,16 @@
             "name": "takeFee",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10755,
+              "id": 10843,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10754,
+                  "id": 10842,
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10759,
-                  "src": "528:15:13",
+                  "scope": 10847,
+                  "src": "528:15:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -239,10 +239,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10753,
+                    "id": 10841,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "528:7:13",
+                    "src": "528:7:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -252,20 +252,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "527:17:13"
+              "src": "527:17:14"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10758,
+              "id": 10846,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10757,
+                  "id": 10845,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10759,
-                  "src": "562:4:13",
+                  "scope": 10847,
+                  "src": "562:4:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -273,10 +273,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 10756,
+                    "id": 10844,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "562:4:13",
+                    "src": "562:4:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -286,33 +286,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "561:6:13"
+              "src": "561:6:14"
             },
-            "scope": 10760,
-            "src": "511:57:13",
+            "scope": 10848,
+            "src": "511:57:14",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 10761,
-        "src": "98:473:13"
+        "scope": 10849,
+        "src": "98:473:14"
       }
     ],
-    "src": "0:572:13"
+    "src": "0:572:14"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IModule.sol",
     "exportedSymbols": {
       "IModule": [
-        10760
+        10848
       ]
     },
-    "id": 10761,
+    "id": 10849,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10741,
+        "id": 10829,
         "literals": [
           "solidity",
           "^",
@@ -320,7 +320,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:13"
+        "src": "0:24:14"
       },
       {
         "baseContracts": [],
@@ -328,9 +328,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface that every module contract should implement",
         "fullyImplemented": false,
-        "id": 10760,
+        "id": 10848,
         "linearizedBaseContracts": [
-          10760
+          10848
         ],
         "name": "IModule",
         "nodeType": "ContractDefinition",
@@ -338,7 +338,7 @@
           {
             "body": null,
             "documentation": "@notice This function returns the signature of configure function",
-            "id": 10746,
+            "id": 10834,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -346,23 +346,23 @@
             "name": "getInitFunction",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10742,
+              "id": 10830,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "236:2:13"
+              "src": "236:2:14"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10745,
+              "id": 10833,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10744,
+                  "id": 10832,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10746,
-                  "src": "262:6:13",
+                  "scope": 10834,
+                  "src": "262:6:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -370,10 +370,10 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 10743,
+                    "id": 10831,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
-                    "src": "262:6:13",
+                    "src": "262:6:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes4",
                       "typeString": "bytes4"
@@ -383,10 +383,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "261:8:13"
+              "src": "261:8:14"
             },
-            "scope": 10760,
-            "src": "212:58:13",
+            "scope": 10848,
+            "src": "212:58:14",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "external"
@@ -394,7 +394,7 @@
           {
             "body": null,
             "documentation": "@notice Return the permission flags that are associated with a module",
-            "id": 10752,
+            "id": 10840,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -402,23 +402,23 @@
             "name": "getPermissions",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10747,
+              "id": 10835,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "392:2:13"
+              "src": "392:2:14"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10751,
+              "id": 10839,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10750,
+                  "id": 10838,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10752,
-                  "src": "417:9:13",
+                  "scope": 10840,
+                  "src": "417:9:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -427,19 +427,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 10748,
+                      "id": 10836,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "417:7:13",
+                      "src": "417:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 10749,
+                    "id": 10837,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "417:9:13",
+                    "src": "417:9:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -449,18 +449,18 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "416:11:13"
+              "src": "416:11:14"
             },
-            "scope": 10760,
-            "src": "369:59:13",
+            "scope": 10848,
+            "src": "369:59:14",
             "stateMutability": "view",
-            "superFunction": 21420,
+            "superFunction": 27077,
             "visibility": "external"
           },
           {
             "body": null,
             "documentation": "@notice Used to withdraw the fee by the factory owner",
-            "id": 10759,
+            "id": 10847,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -468,16 +468,16 @@
             "name": "takeFee",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10755,
+              "id": 10843,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10754,
+                  "id": 10842,
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10759,
-                  "src": "528:15:13",
+                  "scope": 10847,
+                  "src": "528:15:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -485,10 +485,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10753,
+                    "id": 10841,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "528:7:13",
+                    "src": "528:7:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -498,20 +498,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "527:17:13"
+              "src": "527:17:14"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10758,
+              "id": 10846,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10757,
+                  "id": 10845,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10759,
-                  "src": "562:4:13",
+                  "scope": 10847,
+                  "src": "562:4:14",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -519,10 +519,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 10756,
+                    "id": 10844,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "562:4:13",
+                    "src": "562:4:14",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -532,20 +532,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "561:6:13"
+              "src": "561:6:14"
             },
-            "scope": 10760,
-            "src": "511:57:13",
+            "scope": 10848,
+            "src": "511:57:14",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 10761,
-        "src": "98:473:13"
+        "scope": 10849,
+        "src": "98:473:14"
       }
     ],
-    "src": "0:572:13"
+    "src": "0:572:14"
   },
   "compiler": {
     "name": "solc",
@@ -553,5 +553,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-10T19:10:22.868Z"
+  "updatedAt": "2019-01-17T19:56:09.527Z"
 }

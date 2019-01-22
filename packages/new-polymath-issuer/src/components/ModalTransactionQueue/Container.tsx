@@ -1,18 +1,24 @@
 import React, { Component, Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { ModalTransactionQueue } from '@polymathnetwork/new-ui';
 import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { RootState } from '~/state/store';
 import { ActionType } from 'typesafe-actions';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
+import { confirmTransactionQueue } from '~/state/actions/transactionQueues';
 import { types } from '@polymathnetwork/new-shared';
+import { Presenter } from './Presenter';
+
+const actions = {
+  unsetActiveTransactionQueue,
+  confirmTransactionQueue,
+};
 
 export interface StateProps {
   transactionQueue: types.TransactionQueuePojo | null;
 }
 
 export interface DispatchProps {
-  dispatch: Dispatch<ActionType<typeof unsetActiveTransactionQueue>>;
+  dispatch: Dispatch<ActionType<typeof actions>>;
 }
 
 export type Props = StateProps & DispatchProps;
@@ -33,20 +39,17 @@ export class ContainerBase extends Component<Props> {
 
     dispatch(unsetActiveTransactionQueue());
   };
+
+  public onConfirm = () => {
+    const { dispatch } = this.props;
+
+    dispatch(confirmTransactionQueue());
+  };
   public render() {
     const { transactionQueue } = this.props;
 
-    if (!transactionQueue) {
-      return null;
-    }
-
-    return (
-      <ModalTransactionQueue
-        isOpen={!!transactionQueue}
-        transactionQueue={transactionQueue}
-        onContinue={this.onContinue}
-      />
-    );
+    // TODO @monitz87: pass props to the presenter when it is implemented
+    return <Presenter />;
   }
 }
 

@@ -2,6 +2,7 @@
 
 exports[`Reducer: dataRequests initialState 1`] = `
 Object {
+  "getCheckpointBySymbolAndId": Object {},
   "getCheckpointsBySymbol": Object {},
   "getDividendsByCheckpoint": Object {},
   "getErc20DividendsModuleBySymbol": Object {},

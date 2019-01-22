@@ -239,6 +239,35 @@ export const ModuleFactoryAbi = {
       anonymous: false,
       inputs: [
         {
+          indexed: true,
+          name: 'previousOwner',
+          type: 'address',
+        },
+      ],
+      name: 'OwnershipRenounced',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: 'previousOwner',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          name: 'newOwner',
+          type: 'address',
+        },
+      ],
+      name: 'OwnershipTransferred',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
           indexed: false,
           name: '_oldSetupCost',
           type: 'uint256',
@@ -326,6 +355,11 @@ export const ModuleFactoryAbi = {
         },
         {
           indexed: false,
+          name: '_setupCost',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
           name: '_timestamp',
           type: 'uint256',
         },
@@ -358,72 +392,6 @@ export const ModuleFactoryAbi = {
         },
       ],
       name: 'ChangeSTVersionBound',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: 'previousOwner',
-          type: 'address',
-        },
-      ],
-      name: 'OwnershipRenounced',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          name: 'previousOwner',
-          type: 'address',
-        },
-        {
-          indexed: true,
-          name: 'newOwner',
-          type: 'address',
-        },
-      ],
-      name: 'OwnershipTransferred',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          name: '_module',
-          type: 'address',
-        },
-        {
-          indexed: true,
-          name: '_moduleName',
-          type: 'bytes32',
-        },
-        {
-          indexed: true,
-          name: '_moduleFactory',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          name: '_creator',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          name: '_setupCost',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          name: '_timestamp',
-          type: 'uint256',
-        },
-      ],
-      name: 'GenerateModuleFromFactory',
       type: 'event',
     },
     {

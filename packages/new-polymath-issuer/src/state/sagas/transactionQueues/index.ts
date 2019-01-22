@@ -23,7 +23,6 @@ export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
   yield put(createTransactionQueue(transactionQueue));
   yield put(setActiveTransactionQueue(uid));
 
-  // NOTE @monitz87: uncomment after demo
   yield take(getType(confirmTransactionQueue));
 
   yield call(transactionQueueToRun.run);
