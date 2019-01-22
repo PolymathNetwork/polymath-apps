@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { types, utils } from '@polymathnetwork/new-shared';
-
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 import { Loading } from '~/components/Loading';
@@ -14,6 +12,7 @@ import { Link } from '~/components/Link';
 import { SvgClose } from '~/images/icons/Close';
 import { SvgCheckmark } from '~/images/icons/Checkmark';
 import { SvgPending } from '~/images/icons/Pending';
+import { getTransactionText } from '~/components/utils/contentMappings';
 
 import * as sc from './styles';
 
@@ -32,22 +31,23 @@ const getIcon = (transaction: types.TransactionEntity) => {
   }
 
   if (transaction.status === TransactionStatus.Unapproved) {
-    return <Icon Asset={SvgPending} color="inactive" width={32} height={24} />;
+    return <Icon Asset={SvgPending} color="gray.1" width={32} height={24} />;
   }
 
   if (transaction.status === TransactionStatus.Running) {
     return <Loading small />;
   }
 
-  if (status === TransactionStatus.Succeeded) {
+  if (transaction.status === TransactionStatus.Succeeded) {
     return <Icon Asset={SvgCheckmark} color="success" width={32} height={24} />;
   }
 
-  return <Icon Asset={SvgPending} color="inactive" width={32} height={24} />;
+  return null;
 };
 
 export const TransactionItem = ({ transaction }: TransactionItemProps) => {
-  const { description, tag, txHash } = transaction;
+  const { title } = getTransactionText(transaction);
+  const { txHash } = transaction;
 
   return (
     <sc.Wrapper
@@ -59,7 +59,7 @@ export const TransactionItem = ({ transaction }: TransactionItemProps) => {
       </Box>
       <sc.Info>
         <Heading as="h3" variant="h3" lineHeight="tight" mb="s">
-          {description || tag}
+          {title}
         </Heading>
         <CardPrimary>
           <Paragraph as={Flex} fontSize={0}>
