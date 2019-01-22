@@ -3,6 +3,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import sigUtil from 'eth-sig-util';
+import { bufferToHex } from 'ethereumjs-util';
 import { PolyToken } from '@polymathnetwork/js';
 // TODO @grsmto: This file shouldn't contain any React components as this is just triggering Redux actions. Consider moving them as separated component files.
 import {
@@ -63,6 +64,61 @@ export type AccountInnerData = {|
   name: string,
   email: string,
 |};
+
+// NOTE @RafaelVidaurre: Leaving this here as reference of what was being used
+// before rolling back to personalSign to support hardwar wallets
+const signTypedData = ({ web3, normal, typed, address }) => {
+  return new Promise((resolve, reject) => {
+    web3.currentProvider.sendAsync(
+      {
+        method: 'eth_signTypedData',
+        params: [typed, address],
+        from: address,
+      },
+      (err, response) => {
+        const error = err || response.error;
+
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        // NOTE: Not sure why we need to verify this in the client, confirm we need this
+        const recovered = sigUtil.recoverTypedSignature({
+          data: typed,
+          sig: response.result,
+        });
+        if (recovered.toLowerCase() !== address.toLowerCase()) {
+          throw new Error('Failed to verify signer, got: ' + response);
+        }
+
+        return response;
+      }
+    );
+  });
+};
+
+const signPersonal = ({ web3, normal, address }) => {
+  const message = bufferToHex(new Buffer(normal, 'utf8'));
+
+  return new Promise((resolve, reject) => {
+    web3.currentProvider.sendAsync(
+      {
+        method: 'personal_sign',
+        params: [message, address],
+        from: address,
+      },
+      (err, response) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve(response);
+      }
+    );
+  });
+};
 
 export const fetchBalance = () => async (dispatch: Function) => {
   const balance = await PolyToken.myBalance();
@@ -147,35 +203,17 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
 };
 
 const signData = async (web3, normal, typed, address) => {
-  if (!web3.currentProvider.sendAsync) {
-    return web3.eth.sign(normal, address);
+  let response;
+
+  try {
+    // TODO @RafaelVidaurre: Move to SignTypedData in new dApp if we can detect
+    // if web3 provider uses a hardware wallet
+    response = await signPersonal({ web3, normal, address });
+  } catch (err) {
+    throw err;
   }
 
-  const result = await new Promise((resolve, reject) => {
-    web3.currentProvider.sendAsync(
-      {
-        method: 'eth_signTypedData',
-        params: [typed, address],
-        from: address,
-      },
-      (err, result) => (err ? reject(err) : resolve(result))
-    );
-  });
-
-  if (result.error) {
-    throw result.error;
-  }
-
-  const recovered = sigUtil.recoverTypedSignature({
-    data: typed,
-    sig: result.result,
-  });
-
-  if (recovered.toLowerCase() !== address.toLowerCase()) {
-    throw new Error('Failed to verify signer, got: ' + result);
-  }
-
-  return result.result;
+  return response.result;
 };
 
 export const signUp = () => async (dispatch: Function, getState: GetState) => {
