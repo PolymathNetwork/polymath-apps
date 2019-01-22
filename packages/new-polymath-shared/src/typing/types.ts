@@ -23,6 +23,11 @@ interface PolymathError {
   code: ErrorCodes;
 }
 
+export enum ProcedureTypes {
+  UnnamedProcedure = 'UnnamedProcedure',
+  EnableDividends = 'EnableDividends',
+}
+
 export enum PolyTransactionTags {
   Any = 'Any',
   Approve = 'Approve',
@@ -121,8 +126,7 @@ export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
 
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
-  procedureType: string;
-  description: string;
+  procedureType: ProcedureTypes;
 }
 
 export interface TransactionQueuePojo extends TransactionQueueEntity {
