@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Step } from './Step';
+import * as sc from './styles';
 
 interface Props {
   /**
@@ -16,38 +16,20 @@ interface Props {
   ordered: boolean;
 }
 
-const Container = styled.ul<{ vertical: boolean }>`
-  display: flex;
-  list-style: none;
-
-  ${({ vertical }) =>
-    vertical
-      ? `
-      flex-direction: column;
-      height: 100%;
-      justify-content: space-between;
-      `
-      : `
-      flex-direction: row;
-      height: auto;
-    `};
-`;
-
 export class ProgressIndicator extends React.Component<Props> {
   public static Step = Step;
 
   public renderSteps = () => {
     const { vertical, ordered } = this.props;
-    const childProps = {
-      vertical,
-      ordered,
-      index: 0,
-      isCurrent: false,
-      isComplete: false,
-    };
 
     return React.Children.map(this.props.children, (child, index) => {
-      childProps.index = index;
+      const childProps = {
+        index,
+        isVertical: vertical,
+        isOrdered: ordered,
+        isCurrent: false,
+        isComplete: false,
+      };
 
       if (!React.isValidElement(child)) {
         return null;
@@ -64,6 +46,6 @@ export class ProgressIndicator extends React.Component<Props> {
 
   public render() {
     const { currentIndex, ...otherProps } = this.props;
-    return <Container {...otherProps}>{this.renderSteps()}</Container>;
+    return <sc.Container {...otherProps}>{this.renderSteps()}</sc.Container>;
   }
 }

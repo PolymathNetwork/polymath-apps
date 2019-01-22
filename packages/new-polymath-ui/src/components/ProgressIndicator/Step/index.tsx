@@ -1,10 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-
 import { Paragraph } from '~/components/Paragraph';
-import { Icon } from '~/components/Icon';
-
-import { SvgChecklist } from '~/images/icons/Checklist';
+import { SvgCheckmark } from '~/images/icons/Checkmark';
+import * as sc from './styles';
+import { iconsSize } from './styles';
 
 export interface StepProps {
   /**
@@ -19,132 +17,74 @@ export interface StepProps {
    * Provide the label for the <ProgressStep>
    */
   label?: string;
-  vertical?: boolean;
-  ordered?: boolean;
+  isVertical?: boolean;
+  isOrdered?: boolean;
   index: number;
 }
 
-const iconsSize = '1em';
+export const Step = ({
+  label,
+  index,
+  isCurrent,
+  isComplete,
+  isVertical,
+  isOrdered,
+}: StepProps) => {
+  const NumberedSvg = () => (
+    <Paragraph as="span" fontWeight="bold" fontSize="inherit">
+      {index}
+    </Paragraph>
+  );
 
-const Container = styled.li<StepProps>`
-  position: relative;
-  text-align: center;
-  min-width: 7rem;
-  transition: 250ms all cubic-bezier(0.5, 0, 0.1, 1);
-  overflow: visible;
-  color: ${({ theme, isComplete, isCurrent }) =>
-    (!isCurrent && !isComplete && theme.colors.gray[2]) ||
-    theme.colors.primary};
-  flex: 1 1;
-
-  ${({ vertical }) =>
-    vertical
-      ? `
-      display: flex;
-      align-items: flex-end;
-
-      &:first-child {
-        flex: none;
-      }
-
-      ${ProgressLine} {
-        left: calc(${iconsSize} / 2);
-        top: 0;
-        width: 2px;
-        height: calc(100% - ${iconsSize});
-      }
-
-      ${Inner} {
-        display: flex;
-        align-items: center;
-      }
-      `
-      : `
-      ${ProgressLine} {
-        top: calc(${iconsSize} / 2);
-        right: calc(50% + (${iconsSize} / 2));
-        height: 2px;
-        width: calc(100% - ${iconsSize});
-      }
-
-      ${StyledIcon} {
-        margin: auto;
-      }
-    `};
-`;
-
-const ProgressLine = styled.span`
-  position: absolute;
-  background-color: currentColor;
-
-  ${Container}:first-child & {
-    display: none;
-  }
-`;
-
-const StyledIcon = styled(Icon)`
-  display: block;
-`;
-
-const Label = styled(Paragraph)`
-  line-height: ${iconsSize};
-  color: currentColor;
-`;
-
-const Inner = styled.div``;
-
-export const Step = ({ label, isCurrent, isComplete, vertical }: StepProps) => {
-  const CompleteSvg = isComplete && SvgChecklist;
+  const CompleteSvg = isComplete && SvgCheckmark;
 
   const CurrentSvg =
     isCurrent &&
-    ((props: React.SVGAttributes<SVGElement>) => (
-      <svg role="img" viewBox="0 0 24 24" {...props}>
-        <path
-          fill="currentColor"
-          d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm0-2C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0z"
-        />
-        <circle fill="currentColor" cx="12" cy="12" r="6" />
-        <title>Current step</title>
-      </svg>
-    ));
+    (isOrdered
+      ? NumberedSvg
+      : (props: React.SVGAttributes<SVGElement>) => (
+          <svg role="img" viewBox="0 0 24 24" {...props}>
+            <title>Current step</title>
+            <circle fill="currentColor" cx="12" cy="12" r="8" />
+          </svg>
+        ));
 
   const IncompleteSvg =
-    !isComplete &&
-    ((props: React.SVGAttributes<SVGElement>) => (
-      <svg role="img" viewBox="0 0 24 24" {...props}>
-        <title>Incomplete step</title>
-        <path
-          fill="currentColor"
-          d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm0-2C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0z"
-        />
-      </svg>
-    ));
+    !isComplete && isOrdered
+      ? NumberedSvg
+      : (props: React.SVGAttributes<SVGElement>) => (
+          <svg role="img" viewBox="0 0 24 24" {...props}>
+            <title>Incomplete step</title>
+            <circle fill="currentColor" cx="12" cy="12" r="8" />
+          </svg>
+        );
 
   return (
-    <Container
+    <sc.Container
       isCurrent={isCurrent}
       isComplete={isComplete}
-      vertical={vertical}
+      isVertical={isVertical}
     >
-      <Inner>
-        <StyledIcon
+      <sc.Inner>
+        <sc.Icon
           Asset={CurrentSvg || CompleteSvg || IncompleteSvg}
           width={iconsSize}
           height={iconsSize}
+          scale={0.9}
         />
         {!!label && (
-          <Label
+          <sc.Label
             mb={0}
-            mt={vertical ? 0 : `calc(${iconsSize} / 2)`}
-            ml={vertical ? `calc(${iconsSize} / 2)` : 0}
+            mt={isVertical ? 0 : `calc(${iconsSize} / 2)`}
+            ml={isVertical ? `calc(${iconsSize} / 2)` : 0}
             fontWeight="bold"
+            fontSize="inherit"
           >
             {label}
-          </Label>
+          </sc.Label>
         )}
-      </Inner>
-      <ProgressLine />
-    </Container>
+      </sc.Inner>
+      <sc.ProgressLine />
+    </sc.Container>
   );
 };
