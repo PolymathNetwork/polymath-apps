@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Paragraph } from '~/components/Paragraph';
@@ -25,7 +24,7 @@ export interface StepProps {
   index: number;
 }
 
-const iconsSize = 24;
+const iconsSize = '1em';
 
 const Container = styled.li<StepProps>`
   position: relative;
@@ -33,41 +32,66 @@ const Container = styled.li<StepProps>`
   min-width: 7rem;
   transition: 250ms all cubic-bezier(0.5, 0, 0.1, 1);
   overflow: visible;
-  flex: 1 1;
   color: ${({ theme, isComplete, isCurrent }) =>
     (!isCurrent && !isComplete && theme.colors.gray[2]) ||
     theme.colors.primary};
-  display: ${({ vertical }) => (vertical ? 'flex' : 'block')};
-`;
-
-const ProgressLine = styled.span<{ vertical?: boolean }>`
-  position: absolute;
-  background-color: currentColor;
+  flex: 1 1;
 
   ${({ vertical }) =>
     vertical
       ? `
-      left: ${iconsSize / 2}px;
-      bottom: 100%;
-      right: calc(50% + ${iconsSize / 2}px);
-      width: 2px;
-      height: calc(100% - ${iconsSize}px);
-    `
+      display: flex;
+      align-items: flex-end;
+
+      &:first-child {
+        flex: none;
+      }
+
+      ${ProgressLine} {
+        left: calc(${iconsSize} / 2);
+        top: 0;
+        width: 2px;
+        height: calc(100% - ${iconsSize});
+      }
+
+      ${Inner} {
+        display: flex;
+        align-items: center;
+      }
+      `
       : `
-      top: ${iconsSize / 2 + 1}px;
-      right: calc(50% + ${iconsSize / 2}px);
-      height: 2px;
-      width: calc(100% - ${iconsSize}px);
+      ${ProgressLine} {
+        top: calc(${iconsSize} / 2);
+        right: calc(50% + (${iconsSize} / 2));
+        height: 2px;
+        width: calc(100% - ${iconsSize});
+      }
+
+      ${StyledIcon} {
+        margin: auto;
+      }
     `};
+`;
+
+const ProgressLine = styled.span`
+  position: absolute;
+  background-color: currentColor;
 
   ${Container}:first-child & {
     display: none;
   }
 `;
 
+const StyledIcon = styled(Icon)`
+  display: block;
+`;
+
 const Label = styled(Paragraph)`
+  line-height: ${iconsSize};
   color: currentColor;
 `;
+
+const Inner = styled.div``;
 
 export const Step = ({ label, isCurrent, isComplete, vertical }: StepProps) => {
   const CompleteSvg = isComplete && SvgChecklist;
@@ -75,7 +99,7 @@ export const Step = ({ label, isCurrent, isComplete, vertical }: StepProps) => {
   const CurrentSvg =
     isCurrent &&
     ((props: React.SVGAttributes<SVGElement>) => (
-      <svg role="img" {...props}>
+      <svg role="img" viewBox="0 0 24 24" {...props}>
         <path
           fill="currentColor"
           d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm0-2C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0z"
@@ -88,7 +112,7 @@ export const Step = ({ label, isCurrent, isComplete, vertical }: StepProps) => {
   const IncompleteSvg =
     !isComplete &&
     ((props: React.SVGAttributes<SVGElement>) => (
-      <svg role="img" {...props}>
+      <svg role="img" viewBox="0 0 24 24" {...props}>
         <title>Incomplete step</title>
         <path
           fill="currentColor"
@@ -103,17 +127,24 @@ export const Step = ({ label, isCurrent, isComplete, vertical }: StepProps) => {
       isComplete={isComplete}
       vertical={vertical}
     >
-      <Icon
-        Asset={CurrentSvg || CompleteSvg || IncompleteSvg}
-        width={iconsSize}
-        height={iconsSize}
-      />
-      {!!label && (
-        <Label mb={0} mt={1} fontWeight="bold">
-          {label}
-        </Label>
-      )}
-      <ProgressLine vertical={vertical} />
+      <Inner>
+        <StyledIcon
+          Asset={CurrentSvg || CompleteSvg || IncompleteSvg}
+          width={iconsSize}
+          height={iconsSize}
+        />
+        {!!label && (
+          <Label
+            mb={0}
+            mt={vertical ? 0 : `calc(${iconsSize} / 2)`}
+            ml={vertical ? `calc(${iconsSize} / 2)` : 0}
+            fontWeight="bold"
+          >
+            {label}
+          </Label>
+        )}
+      </Inner>
+      <ProgressLine />
     </Container>
   );
 };
