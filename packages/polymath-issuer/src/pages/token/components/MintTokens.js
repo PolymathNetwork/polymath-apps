@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { Remark, aderaddressShortifier, confirm } from '@polymathnetwork/ui';
+import { Remark, addressShortifier, confirm } from '@polymathnetwork/ui';
 import {
   Icon,
   InlineNotification,
