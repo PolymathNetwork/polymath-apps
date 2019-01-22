@@ -344,8 +344,6 @@ export class Polymath {
     );
     const erc20Module = await securityToken.getErc20DividendModule();
 
-    console.log('ERC20 MODULE', erc20Module);
-
     const name = await securityToken.name();
 
     const securityTokenEntity = new this.SecurityToken({
