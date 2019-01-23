@@ -128,16 +128,7 @@ export function parseWhitelistCsv(file: string) {
             return false;
           }
           if (value.split('/').length === 3) {
-            const [rawMonth, day, rawYear] = value.split('/');
-            // Months are 0-based
-            const month = parseInt(rawMonth, 10) - 1;
-            let year = parseInt(rawYear, 10);
-
-            // Support for incomplete years
-            if (year < 2000) {
-              year += 2000;
-            }
-            return moment({ month, day, year }).toDate();
+            return moment(value, ['MM/DD/YY', 'MM/DD/YYYY']).toDate();
           }
           if (numericalRegex.test(value)) {
             return new BigNumber(value);
