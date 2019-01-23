@@ -8,6 +8,7 @@ import { Flex } from '../Flex';
 import { Box } from '../Box';
 import { Modal, ModalStatus } from '../Modal';
 import { TransactionItem } from './TransactionItem';
+import { getTransactionQueueText } from '~/components/utils/contentMappings';
 
 type ModalProps = typeHelpers.Omit<
   typeHelpers.GetProps<typeof Modal>,
@@ -69,7 +70,7 @@ export class ModalTransactionQueue extends Component<
       onContinue,
     } = this.props;
 
-    const { transactions, status, description } = transactionQueue;
+    const { transactions, status } = transactionQueue;
     const modalStatus = getModalStatus(status);
     const isSuccess = status === TransactionQueueStatus.Succeeded;
     const isRejected = status === TransactionQueueStatus.Failed;
@@ -86,7 +87,7 @@ export class ModalTransactionQueue extends Component<
           status={modalStatus}
           label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(modalStatus, description)}
+          {getTitleText(modalStatus, getTransactionQueueText(transactionQueue).title)}
         </Modal.Header>
 
         {transactions.map(transaction => (
