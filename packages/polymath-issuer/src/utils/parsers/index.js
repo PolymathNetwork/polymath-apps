@@ -156,7 +156,6 @@ export function parseWhitelistCsv(file: string) {
   }
 
   const invalidRows = validateWhitelistCsv(data);
-  console.log(data);
 
   // Sanitization post-parsing.
   // Sometimes empty strings pass through for some reason
