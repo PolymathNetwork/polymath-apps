@@ -121,12 +121,12 @@ const transactionQueues = {
     tq0: {
       uid: 'tq0',
       status: types.TransactionQueueStatus.Idle,
-      procedureType: 'someProcedure',
+      procedureType: types.ProcedureTypes.UnnamedProcedure,
     },
     tq1: {
       uid: 'tq1',
       status: types.TransactionQueueStatus.Idle,
-      procedureType: 'anotherProcedure',
+      procedureType: types.ProcedureTypes.UnnamedProcedure,
     },
   },
   allIds: ['tq0', 'tq1'],
