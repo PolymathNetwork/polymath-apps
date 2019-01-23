@@ -14,6 +14,7 @@ interface Args {
 }
 
 export class CreateEtherDividendDistribution extends Procedure<Args> {
+  public type = types.ProcedureTypes.CreateEtherDividendDistribution;
   public async prepareTransactions() {
     const {
       symbol,
