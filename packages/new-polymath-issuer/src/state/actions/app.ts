@@ -5,7 +5,7 @@ export const setActiveTransactionQueue = createStandardAction(
 )<string>();
 
 export const unsetActiveTransactionQueue = createStandardAction(
-  'APP/UNSET_ACIVE_TRANSACTION_QUEUE'
+  'APP/UNSET_ACTIVE_TRANSACTION_QUEUE'
 )();
 
 export const initializePolyClientStart = createStandardAction(

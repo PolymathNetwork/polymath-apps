@@ -96,7 +96,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public async getErc20DividendModule() {
-    const address = await this.getModuleAddress('ERC20DividendCheckPoint');
+    const address = await this.getModuleAddress('ERC20DividendCheckpoint');
 
     if (!address) {
       return null;

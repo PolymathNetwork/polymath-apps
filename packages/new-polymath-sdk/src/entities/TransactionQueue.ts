@@ -3,15 +3,6 @@ import { types } from '@polymathnetwork/new-shared';
 import { TransactionSpec } from '~/types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
-import * as procedures from '~/procedures';
-
-// TODO @RafaelVidaurre: Decide where this should go
-const descriptionsByProcedureType: {
-  [key: string]: string;
-} = {
-  [procedures.EnableDividendModules.name]:
-    'Enabling the Ability to Distribute Dividends',
-};
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -20,8 +11,7 @@ enum Events {
 
 export class TransactionQueue extends Entity {
   public readonly entityType: string = 'transactionQueue';
-  public procedureType: string;
-  public description: string;
+  public procedureType: types.ProcedureTypes;
   public uid: string;
   public transactions: PolyTransaction[];
   public promise: Promise<any>;
@@ -33,14 +23,12 @@ export class TransactionQueue extends Entity {
 
   constructor(
     transactions: TransactionSpec[],
-    procedureType: string = 'UnnamedProcedure'
+    procedureType: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure
   ) {
     super(undefined, false);
 
     this.emitter = new EventEmitter();
     this.procedureType = procedureType;
-    this.description =
-      descriptionsByProcedureType[procedureType] || procedureType;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -64,11 +52,10 @@ export class TransactionQueue extends Entity {
   }
 
   public toPojo() {
-    const { uid, transactions, status, procedureType, description } = this;
+    const { uid, transactions, status, procedureType } = this;
 
     return {
       uid,
-      description,
       transactions: transactions.map(transaction => transaction.toPojo()),
       status,
       procedureType,

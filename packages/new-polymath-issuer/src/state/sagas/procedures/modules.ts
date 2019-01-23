@@ -1,10 +1,12 @@
 import { polyClient } from '~/lib/polymath';
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { TransactionQueue } from '@polymathnetwork/sdk';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
+import { invalidateRequest } from '~/state/actions/dataRequests';
+import { RequestKeys } from '~/types';
 
 export function* enableErc20DividendsModule(
   action: ActionType<typeof enableErc20DividendsModuleStart>
@@ -20,7 +22,25 @@ export function* enableErc20DividendsModule(
   );
 
   try {
-    yield call(runTransactionQueue, transactionQueueToRun);
+    const success: boolean = yield call(
+      runTransactionQueue,
+      transactionQueueToRun
+    );
+
+    // Queue was canceled
+    if (!success) {
+      return;
+    }
+
+    // Invalidate cache
+    yield put(
+      invalidateRequest({
+        requestKey: RequestKeys.GetErc20DividendsModuleBySymbol,
+        args: {
+          securityTokenSymbol,
+        },
+      })
+    );
   } catch (err) {
     if (!err.code) {
       throw err;

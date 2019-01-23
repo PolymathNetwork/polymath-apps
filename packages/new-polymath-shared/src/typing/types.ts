@@ -23,6 +23,11 @@ interface PolymathError {
   code: ErrorCodes;
 }
 
+export enum ProcedureTypes {
+  UnnamedProcedure = 'UnnamedProcedure',
+  EnableDividendModules = 'EnableDividendModules',
+}
+
 export enum PolyTransactionTags {
   Any = 'Any',
   Approve = 'Approve',
@@ -67,7 +72,6 @@ export interface TransactionEntity extends Entity {
   transactionQueueUid: string;
   status: TransactionStatus;
   tag: PolyTransactionTags;
-  description: string;
   receipt?: TransactionReceipt;
   error?: PolymathError;
   args: any[];
@@ -112,10 +116,7 @@ export interface CheckpointPojo extends CheckpointEntity {
 }
 
 export interface Erc20DividendsModuleEntity extends Entity {
-  /**
-   * if undefined, it means the module is not attached
-   */
-  address?: string;
+  address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
 }
@@ -124,8 +125,7 @@ export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
 
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
-  procedureType: string;
-  description: string;
+  procedureType: ProcedureTypes;
 }
 
 export interface TransactionQueuePojo extends TransactionQueueEntity {

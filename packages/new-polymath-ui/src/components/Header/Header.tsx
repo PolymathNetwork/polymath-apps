@@ -13,7 +13,6 @@ import { Link } from '~/components/Link';
 import { List } from '~/components/List';
 import { IconText } from '~/components/IconText';
 import { InlineFlex } from '~/components/InlineFlex';
-
 import polyLogo from '~/images/logo.svg';
 import { SvgDot } from '~/images/icons/Dot';
 import { SvgPoly } from '~/images/icons/Poly';
@@ -27,10 +26,12 @@ export interface HeaderProps {
   variant: 'default' | 'transparent';
   symbol?: string;
   logo?: string;
-  RouterLink: React.ReactNode;
+  RouterLink: React.ComponentType<any>;
 }
 
-export const Header: FC<HeaderProps> = props => {
+export const Header: FC<HeaderProps> & {
+  defaultProps: { variant: 'default' };
+} = props => {
   const {
     balance,
     walletAddress,
@@ -44,7 +45,7 @@ export const Header: FC<HeaderProps> = props => {
     <sc.Wrapper className="pui-header" variant={variant}>
       <PageWrap>
         <sc.Inner>
-          <Link as={RouterLink as 'a'} href="/">
+          <Link as={RouterLink} href="/">
             {logo ? (
               <Block as="img" src={logo} alt="Company Logo" width="188" />
             ) : (

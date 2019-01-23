@@ -11,7 +11,11 @@ interface State {
   isConfirmed: boolean;
 }
 
-export class Demo extends React.Component<{}, State> {
+interface Props {
+  status: 'success' | 'failed';
+}
+
+export class Demo extends React.Component<Props, State> {
   public state: State = {
     transactionQueue: null,
     isConfirmed: false,
@@ -32,7 +36,6 @@ export class Demo extends React.Component<{}, State> {
                 status: types.TransactionStatus.Running,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
               {
@@ -40,7 +43,6 @@ export class Demo extends React.Component<{}, State> {
                 status: types.TransactionStatus.Idle,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
             ],
@@ -59,7 +61,6 @@ export class Demo extends React.Component<{}, State> {
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
               {
@@ -67,7 +68,6 @@ export class Demo extends React.Component<{}, State> {
                 status: types.TransactionStatus.Unapproved,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
             ],
@@ -86,7 +86,6 @@ export class Demo extends React.Component<{}, State> {
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
               {
@@ -94,7 +93,6 @@ export class Demo extends React.Component<{}, State> {
                 status: types.TransactionStatus.Running,
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
             ],
@@ -106,7 +104,10 @@ export class Demo extends React.Component<{}, State> {
         this.setState({
           transactionQueue: {
             ...transactionQueue,
-            status: types.TransactionQueueStatus.Succeeded,
+            status:
+              this.props.status === 'success'
+                ? types.TransactionQueueStatus.Succeeded
+                : types.TransactionQueueStatus.Failed,
             transactions: [
               {
                 uid: '0',
@@ -114,7 +115,6 @@ export class Demo extends React.Component<{}, State> {
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
               {
@@ -123,7 +123,6 @@ export class Demo extends React.Component<{}, State> {
                 txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
                 transactionQueueUid: '111',
                 tag: types.PolyTransactionTags.Any,
-                description: 'desc',
                 args: [],
               },
             ],

@@ -17,15 +17,19 @@ export function* fetchErc20DividendsModuleBySymbol(args: {
       }
     );
 
-    const modulePojo = dividendsModule.toPojo();
+    const fetchedIds: string[] = [];
 
-    yield put(createErc20DividendsModule(modulePojo));
+    if (dividendsModule) {
+      const modulePojo = dividendsModule.toPojo();
+      yield put(createErc20DividendsModule(modulePojo));
+      fetchedIds.push(modulePojo.uid);
+    }
 
     yield put(
       cacheData({
-        requestKey: RequestKeys.GetDividendsByCheckpoint,
+        requestKey: RequestKeys.GetErc20DividendsModuleBySymbol,
         args,
-        fetchedIds: [modulePojo.uid],
+        fetchedIds,
       })
     );
   } catch (err) {

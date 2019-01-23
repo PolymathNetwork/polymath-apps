@@ -23,7 +23,7 @@ const HeaderBase: FC<HeaderProps> = ({ status, children, label }) => {
   return (
     <React.Fragment>
       {label && (
-        <Paragraph color={color[status]} fontSize={1} bold mb={1}>
+        <Paragraph color={color[status]} fontSize={1} bold mb={0}>
           {label}
         </Paragraph>
       )}

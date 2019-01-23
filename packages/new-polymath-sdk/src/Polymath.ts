@@ -43,6 +43,8 @@ const createContextualizedEntity = <T extends typeof Entity>(
 
 interface ContextualizedEntities {
   SecurityToken: typeof SecurityToken;
+  Dividend: typeof Dividend;
+  Checkpoint: typeof Checkpoint;
   Erc20DividendsModule: typeof Erc20DividendsModule;
 }
 
@@ -83,6 +85,8 @@ export class Polymath {
         Erc20DividendsModule as any,
         this
       ),
+      Dividend: createContextualizedEntity(Dividend as any, this),
+      Checkpoint: createContextualizedEntity(Checkpoint as any, this),
     };
   }
 
@@ -190,6 +194,7 @@ export class Polymath {
       },
       this.context
     );
+
     return await procedure.prepare();
   };
 
@@ -258,11 +263,14 @@ export class Polymath {
 
     const address = securityToken.address;
     const name = await securityToken.name();
-    const stEntity = new SecurityToken({
-      symbol: securityTokenSymbol,
-      name,
-      address,
-    });
+    const stEntity = new SecurityToken(
+      {
+        symbol: securityTokenSymbol,
+        name,
+        address,
+      },
+      this
+    );
     const securityTokenId = stEntity.uid;
 
     return checkpoints.map(checkpoint => {
@@ -270,7 +278,7 @@ export class Polymath {
         dividend => dividend.checkpointId === checkpoint.index
       );
 
-      const emptyCheckpoint = new Checkpoint({
+      const emptyCheckpoint = new this.Checkpoint({
         ...checkpoint,
         securityTokenId,
         securityTokenSymbol,
@@ -279,7 +287,7 @@ export class Polymath {
 
       const dividends = checkpointDividends.map(
         dividend =>
-          new Dividend({
+          new this.Dividend({
             ...dividend,
             checkpointId: emptyCheckpoint.uid,
             securityTokenSymbol,
@@ -350,20 +358,25 @@ export class Polymath {
     };
 
     if (erc20Module) {
-      return new Erc20DividendsModule({
+      return new this.Erc20DividendsModule({
         address: erc20Module.address,
         ...constructorData,
       });
     }
 
-    // if the module isn't attached yet, we return an instance without address
-    return new Erc20DividendsModule({
-      ...constructorData,
-    });
+    return null;
   };
 
   get SecurityToken() {
     return this.entities.SecurityToken;
+  }
+
+  get Checkpoint() {
+    return this.entities.Checkpoint;
+  }
+
+  get Dividend() {
+    return this.entities.Dividend;
   }
 
   get Erc20DividendsModule() {

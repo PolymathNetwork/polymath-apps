@@ -7,15 +7,17 @@ import { RootState } from '~/state/store';
 
 type HeaderProps = typeHelpers.GetProps<typeof Header>;
 
-export interface Props extends HeaderProps {
-  walletAddress: string;
-}
+export interface Props
+  extends Pick<HeaderProps, 'variant' | 'walletAddress' | 'RouterLink'> {}
 
 const mapStateToProps = (state: RootState) => ({
   walletAddress: get(state, 'session.wallet.address'),
 });
 
-const ContainerBase: FC<Props> = ({ walletAddress, ...otherProps }) => {
+const ContainerBase: FC<Props> & { defaultProps: { variant: 'default' } } = ({
+  walletAddress,
+  ...otherProps
+}) => {
   return (
     <Header
       walletAddress={walletAddress}
@@ -24,6 +26,10 @@ const ContainerBase: FC<Props> = ({ walletAddress, ...otherProps }) => {
       {...otherProps}
     />
   );
+};
+
+ContainerBase.defaultProps = {
+  variant: 'default',
 };
 
 export const Container = connect(mapStateToProps)(ContainerBase);

@@ -1,15 +1,15 @@
 import React, { Component, Dispatch, ReactNode } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { intersectionWith, isEqual } from 'lodash';
 import { ActionType } from 'typesafe-actions';
 import { Loading } from '@polymathnetwork/new-ui';
 import { RootState } from '~/state/store';
 import {
   createGetEntitiesFromCache,
-  createGetCacheStatus,
+  createGetLoadingStatus,
 } from '~/state/selectors';
-import { fetchData } from '~/state/actions/dataRequests';
-import { Fetcher, CacheStatus, FetchedData } from '~/types';
+import { requestData } from '~/state/actions/dataRequests';
+import { Fetcher, FetchedData } from '~/types';
 
 interface OwnProps {
   fetchers: Fetcher[];
@@ -18,33 +18,26 @@ interface OwnProps {
 
 interface StateProps {
   fetchedData: FetchedData;
-  cache: CacheStatus[];
   loading: boolean;
 }
 
 interface DispatchProps {
-  dispatch: Dispatch<ActionType<typeof fetchData>>;
+  dispatch: Dispatch<ActionType<typeof requestData>>;
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
 
 const mapStateToProps = () => {
   const entitiesSelector = createGetEntitiesFromCache();
-  const cacheSelector = createGetCacheStatus();
+  const loadingSelector = createGetLoadingStatus();
 
   return (state: RootState, props: OwnProps): StateProps => {
     const fetchedData = entitiesSelector(state, props);
-    const unfilteredCache = cacheSelector(state, props);
 
-    const cache = _.filter(
-      unfilteredCache,
-      cacheStatus => cacheStatus.mustBeFetched
-    );
-    const loading = !!cache.length;
+    const loading = loadingSelector(state, props);
 
     return {
       fetchedData,
-      cache,
       loading,
     };
   };
@@ -52,14 +45,12 @@ const mapStateToProps = () => {
 
 class DataFetcherBase extends Component<Props> {
   public getData() {
-    const { dispatch, cache } = this.props;
+    const { dispatch, fetchers } = this.props;
 
-    _.forEach(cache, cacheStatus => {
-      const { args, requestKey } = cacheStatus;
+    fetchers.forEach(fetcher => {
       dispatch(
-        fetchData({
-          requestKey,
-          args,
+        requestData({
+          fetcher,
         })
       );
     });
@@ -69,10 +60,39 @@ class DataFetcherBase extends Component<Props> {
     this.getData();
   }
 
-  public componentWillUpdate() {
+  public componentDidUpdate() {
     this.getData();
   }
 
+  /**
+   * Only update if the fetchers change
+   */
+  public shouldComponentUpdate(
+    nextProps: Readonly<Props>,
+    _nextState: Readonly<{}>
+  ) {
+    const { fetchers, loading, fetchedData } = this.props;
+    const {
+      fetchers: newFetchers,
+      loading: newLoading,
+      fetchedData: newFetchedData,
+    } = nextProps;
+
+    if (loading !== newLoading) {
+      return true;
+    }
+
+    const fetcherIntersection = intersectionWith(
+      fetchers,
+      newFetchers,
+      isEqual
+    );
+
+    return (
+      fetcherIntersection.length !== fetchers.length ||
+      !isEqual(fetchedData, newFetchedData)
+    );
+  }
   public render() {
     const { render, fetchedData, loading } = this.props;
 

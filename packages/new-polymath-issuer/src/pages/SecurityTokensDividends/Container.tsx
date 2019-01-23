@@ -22,7 +22,7 @@ export interface Props {
 }
 
 export class ContainerBase extends Component<Props> {
-  public enableErc20DividendsModule() {
+  public enableErc20DividendsModule = () => {
     const { dispatch, securityTokenSymbol } = this.props;
 
     // TODO @monitz87: change the wallet address to the one supplied by the user when we implement the form
@@ -32,37 +32,37 @@ export class ContainerBase extends Component<Props> {
         storageWalletAddress: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
       })
     );
-  }
-  public createCheckpoint() {
+  };
+  public createCheckpoint = () => {
     const { dispatch, securityTokenSymbol } = this.props;
 
     dispatch(createCheckpointStart({ securityTokenSymbol }));
-  }
+  };
   public render() {
     const { securityTokenSymbol } = this.props;
-    // return (
-    //   <DataFetcher
-    //     fetchers={[
-    //       createErc20DividendsModuleBySymbolFetcher({ securityTokenSymbol }),
-    //     ]}
-    //     render={(data: {
-    //       erc20DividendsModules: types.Erc20DividendsModuleEntity[];
-    //     }) => {
-    //       const {
-    //         erc20DividendsModules: [erc20DividendsModule],
-    //       } = data;
-
-    //       // TODO @monitz87: pass actual props to presenter when it is implemented
-    //       return <Presenter />;
-    //     }}
-    //   />
-    // );
     return (
-      <Presenter
-        onEnableDividends={this.enableErc20DividendsModule}
-        dividendsModule={{ contractAddress: '' }}
+      <DataFetcher
+        fetchers={[
+          createErc20DividendsModuleBySymbolFetcher({ securityTokenSymbol }),
+        ]}
+        render={(data: {
+          erc20DividendsModules: types.Erc20DividendsModuleEntity[];
+        }) => {
+          const {
+            erc20DividendsModules: [erc20DividendsModule],
+          } = data;
+
+          // TODO @monitz87: pass actual props to presenter when it is implemented
+          return (
+            <Presenter
+              onEnableDividends={this.enableErc20DividendsModule}
+              dividendsModule={erc20DividendsModule}
+            />
+          );
+        }}
       />
     );
+    // return <Presenter onEnableDividends={this.enableErc20DividendsModule} />;
   }
 }
 
