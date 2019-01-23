@@ -90,6 +90,7 @@ export {
   etherscanTx,
   etherscanToken,
   thousandsDelimiter,
+  formatLargeNumber,
   addressShortifier,
   hashShortifier,
   timeZoneName,
