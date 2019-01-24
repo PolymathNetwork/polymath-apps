@@ -7,6 +7,8 @@ import { SvgDividends } from './images/icons/Dividends';
 import { SvgDividendsOutline } from './images/icons/DividendsOutline';
 import { SvgCheckmark } from './images/icons/Checkmark';
 import { SvgChecklist } from './images/icons/Checklist';
+import { SvgPlus } from './images/icons/Plus';
+import { SvgPlusPlain } from './images/icons/PlusPlain';
 
 // Styles
 export * from './styles';
@@ -48,9 +50,9 @@ export {
 } from './components/ModalConfirmTransactionQueue';
 export { Page } from './components/Page';
 export { PageCentered } from './components/PageCentered';
+export { ProgressIndicator } from './components/ProgressIndicator';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
-export { TransactionItem } from './components/TransactionItem';
 
 // Icons
 export const icons = {
@@ -62,4 +64,6 @@ export const icons = {
   SvgDividendsOutline,
   SvgCheckmark,
   SvgChecklist,
+  SvgPlus,
+  SvgPlusPlain,
 };
