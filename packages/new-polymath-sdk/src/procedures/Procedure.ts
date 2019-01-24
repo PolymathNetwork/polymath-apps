@@ -26,7 +26,7 @@ type MethodOrProcedure<A extends any[]> =
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args> {
-  public abstract type: types.ProcedureTypes =
+  public type: types.ProcedureTypes =
     types.ProcedureTypes.UnnamedProcedure;
   protected args: Args;
   protected context: Context;
