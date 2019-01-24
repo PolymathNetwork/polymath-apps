@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { types, typeHelpers } from '@polymathnetwork/new-shared';
 import { SvgPaperplane } from '~/images/icons/Paperplane';
-import { Icon } from '../Icon';
-import { Button } from '../Button';
-import { Paragraph } from '../Paragraph';
-import { Flex } from '../Flex';
-import { Box } from '../Box';
-import { Modal, ModalStatus } from '../Modal';
+import { Icon } from '~/components/Icon';
+import { Button } from '~/components/Button';
+import { Paragraph } from '~/components/Paragraph';
+import { Flex } from '~/components/Flex';
+import { Box } from '~/components/Box';
+import { Modal, ModalStatus } from '~/components/Modal';
+import { getTransactionQueueText } from '~/components/utils/contentMappings';
 import { TransactionItem } from './TransactionItem';
 import { getTransactionQueueText } from '~/components/utils/contentMappings';
 
