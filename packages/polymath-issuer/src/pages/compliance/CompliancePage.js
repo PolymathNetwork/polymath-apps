@@ -419,8 +419,9 @@ class CompliancePage extends Component<Props, State> {
 
   handlePercentageChange = event => {
     let value = parseInt(Number(event.target.value), 10);
-    if (!Number.isInteger(value) || value < 0 || value > 100) {
+    if (!Number.isInteger(value) || value < 1 || value > 100) {
       event.preventDefault();
+      this.setState({ percentage: '' });
       return;
     }
     if (event.target.value === '') {
@@ -707,7 +708,8 @@ class CompliancePage extends Component<Props, State> {
                     onClick={this.handleApplyPercentage}
                     disabled={
                       this.isPercentageValid() ||
-                      typeof this.state.percentage === 'undefined'
+                      typeof this.state.percentage === 'undefined' ||
+                      this.state.percentage === ''
                     }
                   >
                     Apply
