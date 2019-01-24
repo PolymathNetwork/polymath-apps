@@ -37,6 +37,7 @@ export { FormItem } from './components/FormItem';
 export { Header } from './components/Header';
 export { Icon } from './components/Icon';
 export { IconCircled } from './components/IconCircled';
+export { IconOutlined } from './components/IconOutlined';
 export { IconButton } from './components/IconButton';
 export { IconText } from './components/IconText';
 export { Label } from './components/Label';
