@@ -1,6 +1,5 @@
 import { Procedure } from './Procedure';
 import { types } from '@polymathnetwork/new-shared';
-import { ProcedureTypes } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 interface Args {
   symbol: string;
