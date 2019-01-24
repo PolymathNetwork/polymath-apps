@@ -18,9 +18,7 @@ export function* watchTransaction({
 
   yield put(createAction(transactionEntity));
 
-  /**
-   * Channel that emits a transaction every time its status changes
-   */
+  // Channel that emits a transaction every time its status changes
   const statusChangeChannel = eventChannel<PolyTransaction>(emit => {
     return transaction.onStatusChange(changedTransaction => {
       emit(changedTransaction);
