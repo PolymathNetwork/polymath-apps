@@ -1,4 +1,4 @@
-import { call, put, take, race } from 'redux-saga/effects';
+import { call, put, take, race, all } from 'redux-saga/effects';
 import { TransactionQueue } from '@polymathnetwork/sdk';
 import { setActiveTransactionQueue } from '~/state/actions/app';
 import { newTransaction } from '~/state/actions/transactions';
@@ -9,12 +9,14 @@ import {
   createAction as createTransactionQueue,
   cancelTransactionQueue,
 } from '~/state/actions/transactionQueues';
+import { eventChannel } from 'redux-saga';
+import { types } from '@polymathnetwork/new-shared';
 
 /**
  * Populates the state with the current transactions in the queue and the queue itself,
  * waits for confirmation (or cancellation) and runs the queue
  *
- * @returns true if the queue was run, false if it was canceled
+ * @returns true if running the queue succeeded, false if it was canceled or failed
  */
 export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
   const { transactions, ...transactionQueue } = transactionQueueToRun.toPojo();
@@ -45,11 +47,54 @@ export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
     return false;
   }
 
-  yield call(transactionQueueToRun.run);
+  /**
+   * Start running the queue and watch for status changes
+   *
+   * NOTE @monitz87: the order in which the calls occur in the array is important,
+   * since we need to start listening to status changes BEFORE the queue starts to run,
+   * or we cannot catch the change from 'IDLE' to 'RUNNING'
+   */
+  let queueSucceeded: boolean;
+  [queueSucceeded] = yield all([
+    call(watchQueueStatus, transactionQueueToRun),
+    call(transactionQueueToRun.run),
+  ]);
 
-  const { status } = transactionQueueToRun;
+  return queueSucceeded;
+}
 
-  yield put(updateTransactionQueue({ uid, status }));
+/**
+ * Watches for status changes in a queue and updates the state accordingly
+ *
+ * @returns true if the queue succeeded, false if it failed
+ */
+export function* watchQueueStatus(transactionQueue: TransactionQueue) {
+  // Channel that emits the queue every time its status changes
+  const statusChangeChannel = eventChannel<TransactionQueue>(emit => {
+    return transactionQueue.onStatusChange(changedQueue => {
+      emit(changedQueue);
+    });
+  });
 
-  return true;
+  while (true) {
+    const changedQueue: TransactionQueue = yield take(statusChangeChannel);
+
+    const { transactions, ...rest } = changedQueue.toPojo();
+
+    yield put(updateTransactionQueue(rest));
+
+    const { status } = rest;
+    const failed = status === types.TransactionQueueStatus.Failed;
+    const succeeded = status === types.TransactionQueueStatus.Succeeded;
+
+    if (failed || succeeded) {
+      statusChangeChannel.close();
+
+      if (failed) {
+        return false;
+      }
+
+      return true;
+    }
+  }
 }
