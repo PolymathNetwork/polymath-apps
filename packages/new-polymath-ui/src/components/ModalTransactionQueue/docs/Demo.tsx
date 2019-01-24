@@ -44,6 +44,8 @@ export class ModalDemo extends React.Component<{}, DemoState> {
         transactionQueue: mockTransactionQueue,
       });
 
+      const { uid: transactionQueueUid } = mockTransactionQueue;
+
       setTimeout(() => {
         this.setState({
           transactionQueue: {
@@ -52,13 +54,17 @@ export class ModalDemo extends React.Component<{}, DemoState> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Running,
+                transactionQueueUid,
+                args: [],
               },
               {
                 uid: '1',
-                type: 'Second transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Idle,
+                transactionQueueUid,
+                args: [],
               },
             ],
           },
@@ -72,14 +78,18 @@ export class ModalDemo extends React.Component<{}, DemoState> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
               },
               {
                 uid: '1',
-                type: 'Second transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Unapproved,
+                transactionQueueUid,
+                args: [],
               },
             ],
           },
@@ -93,14 +103,18 @@ export class ModalDemo extends React.Component<{}, DemoState> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
               },
               {
                 uid: '1',
-                type: 'Second transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Running,
+                transactionQueueUid,
+                args: [],
               },
             ],
           },
@@ -115,15 +129,19 @@ export class ModalDemo extends React.Component<{}, DemoState> {
             transactions: [
               {
                 uid: '0',
-                type: 'First transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
               },
               {
                 uid: '1',
-                type: 'Second transaction',
+                tag: types.PolyTransactionTags.Any,
                 status: types.TransactionStatus.Succeeded,
-                hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
               },
             ],
           },

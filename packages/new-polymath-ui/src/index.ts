@@ -49,7 +49,6 @@ export { Page } from './components/Page';
 export { PageCentered } from './components/PageCentered';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
-export { TransactionItem } from './components/TransactionItem';
 
 // Icons
 export const icons = {

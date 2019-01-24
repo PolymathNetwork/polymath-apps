@@ -9,7 +9,6 @@ import { Box } from '~/components/Box';
 import { Modal, ModalStatus } from '~/components/Modal';
 import { getTransactionQueueText } from '~/components/utils/contentMappings';
 import { TransactionItem } from './TransactionItem';
-import { getTransactionQueueText } from '~/components/utils/contentMappings';
 
 type ModalProps = typeHelpers.Omit<
   typeHelpers.GetProps<typeof Modal>,
