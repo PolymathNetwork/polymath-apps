@@ -81,7 +81,9 @@ export const EtherscanURL = ({
 
   return (
     <a
-      href={`https://${networkName + '.'}etherscan.io/${type}/${hash}`}
+      href={`https://${
+        networkName !== 'mainnet' ? networkName + '.' : ''
+      }etherscan.io/${type}/${hash}`}
       target="_blank"
       rel="noopener noreferrer"
     >
