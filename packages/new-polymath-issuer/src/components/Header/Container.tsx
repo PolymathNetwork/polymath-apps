@@ -21,6 +21,7 @@ const ContainerBase: FC<Props> & { defaultProps: { variant: 'default' } } = ({
   return (
     <Header
       walletAddress={walletAddress}
+      // TODO @monitz87: replace this with actual token symbol
       symbol="TORO"
       network=""
       {...otherProps}
