@@ -53,26 +53,43 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:issuer
+  ui_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:ui
+  new_sdk_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:sdk
 
 workflows:
   version: 2
   new_issuer_jobs:
     jobs:
-      - new_issuer_test:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
-      - new_issuer_build:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
+      - new_issuer_test
+  new_ui_jobs:
+    jobs:
+      - new_ui_test
+  new_sdk_jobs:
+    jobs:
+      - new_sdk_test
+  new_shared_jobs:
+    jobs:
+      - new_shared_test
   issuer_jobs:
     jobs:
-      - issuer_test:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
-      - issuer_build:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
+      - issuer_test
+  ui_jobs:
+    jobs:
+      - ui_test
+  offchain_jobs:
+    jobs:
+      - offchain_test
