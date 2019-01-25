@@ -43,12 +43,8 @@ const getTitleText = (status: ModalStatus, title: string) =>
     [ModalStatus.Success]: `${title} was successfully submitted`,
   }[status]);
 
-interface TransactionQueue extends types.TransactionQueueEntity {
-  transactions: types.TransactionEntity[];
-}
-
 export interface ModalTransactionQueueProps extends ModalProps {
-  transactionQueue: TransactionQueue;
+  transactionQueue: types.TransactionQueuePojo;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
@@ -87,7 +83,10 @@ export class ModalTransactionQueue extends Component<
           status={modalStatus}
           label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(modalStatus, getTransactionQueueText(transactionQueue).title)}
+          {getTitleText(
+            modalStatus,
+            getTransactionQueueText(transactionQueue).title
+          )}
         </Modal.Header>
 
         {transactions.map(transaction => (
