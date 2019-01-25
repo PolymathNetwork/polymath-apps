@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "docz dev",
-    "build": "webpack --config webpack.prod.js",
+    "build": "echo \"Skipping Polymath-ui build.\"",
     "build:website": "docz build",
     "test": "jest --env=jsdom",
     "typecheck": "flow --show-all-branches",
