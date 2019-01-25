@@ -28,10 +28,10 @@ export interface DispatchProps {
 export type Props = StateProps & DispatchProps;
 
 const mapStateToProps = () => {
-  const queueSelector = createGetActiveTransactionQueue();
+  const getActiveTransactionQueue = createGetActiveTransactionQueue();
 
   return (state: RootState): StateProps => {
-    const transactionQueue = queueSelector(state);
+    const transactionQueue = getActiveTransactionQueue(state);
 
     return { transactionQueue };
   };

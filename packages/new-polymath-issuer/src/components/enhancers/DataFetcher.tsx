@@ -28,13 +28,13 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const mapStateToProps = () => {
-  const entitiesSelector = createGetEntitiesFromCache();
-  const loadingSelector = createGetLoadingStatus();
+  const getEntitiesFromCache = createGetEntitiesFromCache();
+  const getLoadingStatus = createGetLoadingStatus();
 
   return (state: RootState, props: OwnProps): StateProps => {
-    const fetchedData = entitiesSelector(state, props);
+    const fetchedData = getEntitiesFromCache(state, props);
 
-    const loading = loadingSelector(state, props);
+    const loading = getLoadingStatus(state, props);
 
     return {
       fetchedData,

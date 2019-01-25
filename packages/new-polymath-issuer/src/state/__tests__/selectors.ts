@@ -1,11 +1,11 @@
 import {
-  appSelector,
-  entitiesSelector,
-  dataRequestsSelector,
-  sessionSelector,
-  activeTransactionQueueIdSelector,
-  transactionQueuesSelector,
-  transactionsSelector,
+  getApp,
+  getEntities,
+  getDataRequests,
+  getSession,
+  getActiveTransactionQueueId,
+  getTransactionQueues,
+  getTransactions,
   createGetActiveTransactionQueue,
   createGetEntitiesFromCache,
   createGetCacheStatus,
@@ -165,35 +165,35 @@ const mockState: RootState = {
 
 describe('Selectors', () => {
   test('appSelector should return the app state', () => {
-    expect(appSelector(mockState)).toEqual(appState);
+    expect(getApp(mockState)).toEqual(appState);
   });
 
-  test('entitiesSelector should return the entities state', () => {
-    expect(entitiesSelector(mockState)).toEqual(entitiesState);
+  test('getEntities should return the entities state', () => {
+    expect(getEntities(mockState)).toEqual(entitiesState);
   });
 
-  test('dataRequestsSelector should return the data requests state', () => {
-    expect(dataRequestsSelector(mockState)).toEqual(dataRequestsState);
+  test('getDataRequests should return the data requests state', () => {
+    expect(getDataRequests(mockState)).toEqual(dataRequestsState);
   });
 
-  test('sessionSelector should return the session state', () => {
-    expect(sessionSelector(mockState)).toEqual(sessionState);
+  test('getSession should return the session state', () => {
+    expect(getSession(mockState)).toEqual(sessionState);
   });
 
-  test('activeTransactionQueueIdSelector should return the active transaction queue id', () => {
-    expect(activeTransactionQueueIdSelector(mockState)).toBe(
+  test('getActiveTransactionQueueId should return the active transaction queue id', () => {
+    expect(getActiveTransactionQueueId(mockState)).toBe(
       appState.activeTransactionQueue
     );
   });
 
-  test('transactionQueuesSelector should return the transaction queue entities', () => {
-    expect(transactionQueuesSelector(mockState)).toEqual(
+  test('getTransactionQueues should return the transaction queue entities', () => {
+    expect(getTransactionQueues(mockState)).toEqual(
       entitiesState.transactionQueues
     );
   });
 
-  test('transactionsSelector should return the transaction entities', () => {
-    expect(transactionsSelector(mockState)).toEqual(entitiesState.transactions);
+  test('getTransactions should return the transaction entities', () => {
+    expect(getTransactions(mockState)).toEqual(entitiesState.transactions);
   });
 
   describe('selector creator: createGetActiveTransactionQueue', () => {

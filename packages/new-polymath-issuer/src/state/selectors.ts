@@ -5,23 +5,23 @@ import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
 import { DataRequestResults } from '~/state/reducers/dataRequests';
 
-const appSelector = (state: RootState) => state.app;
-const entitiesSelector = (state: RootState) => state.entities;
-const dataRequestsSelector = (state: RootState) => state.dataRequests;
-const sessionSelector = (state: RootState) => state.session;
+const getApp = (state: RootState) => state.app;
+const getEntities = (state: RootState) => state.entities;
+const getDataRequests = (state: RootState) => state.dataRequests;
+const getSession = (state: RootState) => state.session;
 
-const activeTransactionQueueIdSelector = createSelector(
-  appSelector,
+const getActiveTransactionQueueId = createSelector(
+  getApp,
   app => app.activeTransactionQueue
 );
 
-const transactionQueuesSelector = createSelector(
-  entitiesSelector,
+const getTransactionQueues = createSelector(
+  getEntities,
   entities => entities.transactionQueues
 );
 
-const transactionsSelector = createSelector(
-  entitiesSelector,
+const getTransactions = createSelector(
+  getEntities,
   entities => entities.transactions
 );
 
@@ -36,12 +36,12 @@ interface CachedResults {
   args: types.Pojo;
 }
 
-const entityStoresPerFetcherSelector = (
+const getEntityStoresPerFetcher = (
   state: RootState,
   { fetchers }: FetcherProps
 ) => fetchers.map(fetcher => state.entities[fetcher.entity]);
 
-const cachedResultsPerFetcherSelector = (
+const getCachedResultsPerFetcher = (
   state: RootState,
   { fetchers }: FetcherProps
 ) =>
@@ -114,8 +114,8 @@ fetchers. You can use `propKey` to override the name of the property that will h
 const createGetEntitiesFromCache = () =>
   createSelector(
     [
-      entityStoresPerFetcherSelector,
-      cachedResultsPerFetcherSelector,
+      getEntityStoresPerFetcher,
+      getCachedResultsPerFetcher,
       checkFetchersForDuplicates,
     ],
     (entityStores, cachedResults) => {
@@ -158,7 +158,7 @@ const createGetEntitiesFromCache = () =>
  */
 const createGetCacheStatus = () =>
   createSelector(
-    [cachedResultsPerFetcherSelector, checkFetchersForDuplicates],
+    [getCachedResultsPerFetcher, checkFetchersForDuplicates],
     cachedResults =>
       cachedResults.map<CacheStatus>(result => {
         const { requestKey, args, cachedData } = result;
@@ -177,7 +177,7 @@ const createGetCacheStatus = () =>
  */
 const createGetLoadingStatus = () =>
   createSelector(
-    [cachedResultsPerFetcherSelector, checkFetchersForDuplicates],
+    [getCachedResultsPerFetcher, checkFetchersForDuplicates],
     cachedResults =>
       cachedResults.some(result => {
         const { cachedData } = result;
@@ -193,9 +193,9 @@ const createGetLoadingStatus = () =>
 const createGetActiveTransactionQueue = () =>
   createSelector(
     [
-      transactionQueuesSelector,
-      transactionsSelector,
-      activeTransactionQueueIdSelector,
+      getTransactionQueues,
+      getTransactions,
+      getActiveTransactionQueueId,
     ],
     (transactionQueues, transactions, activeTransactionQueueId) => {
       if (!activeTransactionQueueId) {
@@ -232,13 +232,13 @@ const createGetActiveTransactionQueue = () =>
   );
 
 export {
-  appSelector,
-  entitiesSelector,
-  dataRequestsSelector,
-  sessionSelector,
-  activeTransactionQueueIdSelector,
-  transactionsSelector,
-  transactionQueuesSelector,
+  getApp,
+  getEntities,
+  getDataRequests,
+  getSession,
+  getActiveTransactionQueueId,
+  getTransactions,
+  getTransactionQueues,
   createGetEntitiesFromCache,
   createGetCacheStatus,
   createGetActiveTransactionQueue,
