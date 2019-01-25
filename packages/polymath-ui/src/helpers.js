@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { BigNumber } from 'bignumber.js';
 import type { Node } from 'react';
 
 let network = '';
@@ -58,7 +59,7 @@ export const formatLargeNumber = (
   if (str.indexOf('e') !== -1) {
     return Number(data.toPrecision(precision)).toExponential(decimals);
   } else {
-    return parseFloat(data.toFixed(decimals));
+    return new BigNumber(data.toFixed(decimals));
   }
 };
 
