@@ -1,0 +1,78 @@
+version: 2.1
+
+references:
+  container_config: &container_config
+    docker:
+      - image: 'circleci/node:8-stretch'
+  restore_yarn_cache: &restore_yarn_cache
+    restore_cache:
+      name: Restore Yarn Package Cache
+      keys:
+        - yarn-packages-{{ checksum "yarn.lock" }}
+  save_cache: &save_cache
+    save_cache:
+      name: Save Yarn Package Cache
+      key: yarn-packages-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.cache/yarn
+  yarn_install: &yarn_install
+    run:
+      name: Yarn install
+      command: yarn install --frozen-lockfile
+
+jobs:
+  new_issuer_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-issuer
+  new_issuer_build:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn build:new-issuer
+  issuer_build:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn build:issuer
+  issuer_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:issuer
+
+workflows:
+  version: 2
+  new_issuer_jobs:
+    jobs:
+      - new_issuer_test:
+          filters:
+            branches:
+              only: feature/implement-circle-ci-deployments
+      - new_issuer_build:
+          filters:
+            branches:
+              only: feature/implement-circle-ci-deployments
+  issuer_jobs:
+    jobs:
+      - issuer_test:
+          filters:
+            branches:
+              only: feature/implement-circle-ci-deployments
+      - issuer_build:
+          filters:
+            branches:
+              only: feature/implement-circle-ci-deployments

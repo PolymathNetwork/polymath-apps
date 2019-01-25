@@ -52,7 +52,6 @@ export class ContainerBase extends Component<Props> {
             erc20DividendsModules: [erc20DividendsModule],
           } = data;
 
-          // TODO @monitz87: pass actual props to presenter when it is implemented
           return (
             <Presenter
               onEnableDividends={this.enableErc20DividendsModule}
@@ -62,7 +61,6 @@ export class ContainerBase extends Component<Props> {
         }}
       />
     );
-    // return <Presenter onEnableDividends={this.enableErc20DividendsModule} />;
   }
 }
 

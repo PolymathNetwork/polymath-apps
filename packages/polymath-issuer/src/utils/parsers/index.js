@@ -83,68 +83,89 @@ const checkColumnCount = data => {
   return errorMsg;
 };
 
+const checkCSVHeaders = data => {
+  // Split the input into lines
+  let rows = data.split('\n');
+  const header_row = rows[0].split(',');
+  const default_headers =
+    'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
+  let errorMsg = false;
+  const cells = default_headers.split(',');
+  for (let i = 1; i < cells.length; i++) {
+    const result = header_row.includes(cells[i]);
+    if (!result) {
+      errorMsg = 'The header row is missing fields';
+      break;
+    }
+  }
+  return errorMsg;
+};
+
 export function parseWhitelistCsv(file: string) {
   let data;
-  let parseError = '';
-  try {
-    data = csvParse(file, {
-      skip_empty_lines: true,
-      trim: true,
-      cast: (rawValue, context) => {
-        const value = rawValue;
+  let parseError = checkCSVHeaders(file);
+  if (!parseError) {
+    try {
+      data = csvParse(file, {
+        skip_empty_lines: true,
+        trim: true,
+        cast: (rawValue, context) => {
+          const value = rawValue;
 
-        if (value === '' || (typeof value === 'string' && !value.length)) {
-          if (
-            context.column === 'buyLockupDate' ||
-            context.column === 'sellLockupDate'
-          ) {
-            return new Date(PERMANENT_LOCKUP_TS);
+          if (value === '' || (typeof value === 'string' && !value.length)) {
+            if (
+              context.column === 'buyLockupDate' ||
+              context.column === 'sellLockupDate'
+            ) {
+              return new Date(PERMANENT_LOCKUP_TS);
+            }
+            return null;
           }
-          return null;
-        }
-        if (value.toLowerCase() === 'true') {
-          return true;
-        }
-        if (value.toLowerCase() === 'false') {
-          return false;
-        }
-        if (value.split('/').length === 3) {
-          const [rawMonth, day, rawYear] = value.split('/');
-          // Months are 0-based
-          const month = parseInt(rawMonth, 10) - 1;
-          let year = parseInt(rawYear, 10);
-
-          // Support for incomplete years
-          if (year < 2000) {
-            year += 2000;
+          if (value.toLowerCase() === 'true') {
+            return true;
           }
-          return moment({ month, day, year }).toDate();
-        }
-        if (numericalRegex.test(value)) {
-          return new BigNumber(value);
-        }
+          if (value.toLowerCase() === 'false') {
+            return false;
+          }
+          if (value.split('/').length === 3) {
+            const [rawMonth, day, rawYear] = value.split('/');
+            // Months are 0-based
+            const month = parseInt(rawMonth, 10) - 1;
+            let year = parseInt(rawYear, 10);
 
-        return value;
-      },
-      columns: line => {
-        return [
-          'address',
-          'sellLockupDate',
-          'buyLockupDate',
-          'kycAmlExpiryDate',
-          'canBuyFromSto',
-          'bypassesOwnershipRestriction',
-          'accredited',
-          'nonAccreditedLimit',
-        ];
-      },
-    });
-  } catch (error) {
-    //Generate our own error message since this error is too much to output in a notification
-    parseError = checkColumnCount(file);
+            // Support for incomplete years
+            if (year < 2000) {
+              year += 2000;
+            }
+            return moment({ month, day, year }).toDate();
+          }
+          if (numericalRegex.test(value)) {
+            return new BigNumber(value);
+          }
+
+          return value;
+        },
+        columns: line => {
+          return [
+            'address',
+            'sellLockupDate',
+            'buyLockupDate',
+            'kycAmlExpiryDate',
+            'canBuyFromSto',
+            'bypassesOwnershipRestriction',
+            'accredited',
+            'nonAccreditedLimit',
+          ];
+        },
+      });
+    } catch (error) {
+      //Generate our own error message since this error is too much to output in a notification
+      parseError = checkColumnCount(file);
+    }
   }
 
   const invalidRows = validateWhitelistCsv(data);
+  console.log(data);
 
   // Sanitization post-parsing.
   // Sometimes empty strings pass through for some reason
