@@ -75,7 +75,7 @@ class OverviewSTO extends Component<Props> {
               onClick={this.handleExport}
               style={{
                 float: 'left',
-                marginTop: '-89px',
+                marginTop: '-60px',
                 marginLeft: '25px',
               }}
             >
