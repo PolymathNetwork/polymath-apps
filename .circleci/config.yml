@@ -96,24 +96,12 @@ jobs:
 
 workflows:
   version: 2
-  new_issuer_jobs:
+  unit_tests:
     jobs:
       - new_issuer_test
-  new_ui_jobs:
-    jobs:
       - new_ui_test
-  new_sdk_jobs:
-    jobs:
       - new_sdk_test
-  new_shared_jobs:
-    jobs:
       - new_shared_test
-  issuer_jobs:
-    jobs:
       - issuer_test
-  ui_jobs:
-    jobs:
       - ui_test
-  offchain_jobs:
-    jobs:
       - offchain_test
