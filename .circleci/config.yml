@@ -77,6 +77,14 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:new-ui
+  new_shared_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-shared
 
 workflows:
   version: 2
