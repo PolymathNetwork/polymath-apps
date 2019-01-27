@@ -21,6 +21,13 @@ references:
       command: yarn install --frozen-lockfile
 
 jobs:
+  install_dependencies:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
   new_issuer_test:
     <<: *container_config
     steps:
@@ -98,10 +105,25 @@ workflows:
   version: 2
   unit_tests:
     jobs:
-      - new_issuer_test
-      - new_ui_test
-      - new_sdk_test
-      - new_shared_test
-      - issuer_test
-      - ui_test
-      - offchain_test
+      - install_dependencies
+      - new_issuer_test:
+          requires:
+            - install_dependencies
+      - new_ui_test:
+          requires:
+            - install_dependencies
+      - new_sdk_test:
+          requires:
+            - install_dependencies
+      - new_shared_test:
+          requires:
+            - install_dependencies
+      - issuer_test:
+          requires:
+            - install_dependencies
+      - ui_test:
+          requires:
+            - install_dependencies
+      - offchain_test:
+          requires:
+            - install_dependencies
