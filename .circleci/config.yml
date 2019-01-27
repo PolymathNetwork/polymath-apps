@@ -69,6 +69,14 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:sdk
+  new_ui_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-ui
 
 workflows:
   version: 2
