@@ -258,7 +258,7 @@ const formikEnhancer = withFormik({
         moment(values.date.startDate).unix() * 1000 + values.date.startTime,
       endsAt: moment(values.date.endDate).unix() * 1000 + values.date.endTime,
       cap: toWei(values.cap),
-      rate: values.rate.toString(),
+      rate: toWei(values.rate.toString()),
       currencies: [FUND_RAISE_TYPES[values.currency]],
       receiverAddress: values.receiverAddress,
     };
