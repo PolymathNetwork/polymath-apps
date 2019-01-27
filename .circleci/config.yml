@@ -61,6 +61,14 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:ui
+  offchain_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:offchain
   new_sdk_test:
     <<: *container_config
     steps:
