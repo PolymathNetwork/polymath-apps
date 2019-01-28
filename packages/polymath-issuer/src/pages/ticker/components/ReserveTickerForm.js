@@ -60,12 +60,6 @@ export const ReserveTickerFormComponent = ({ handleSubmit }) => (
         <FormItem.Input
           component={TextInput}
           placeholder="Up to 10 characters (example: TORO-A)"
-          onChange={e => {
-            let value = e.target.value || '';
-            value = value.toUpperCase().trim();
-            // setFieldValue(field.name, value);
-            e.target.value = value;
-          }}
         />
         <FormItem.Error />
       </FormItem>
@@ -133,7 +127,6 @@ const formikEnhancer = withFormik({
   },
   handleSubmit: (values, { props }) => {
     const { dispatch } = props;
-
     values.ticker = values.ticker.toUpperCase();
     dispatch(reserve(values));
   },
