@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { StyledProps } from 'styled-components';
 import { styled } from '~/styles';
 
 const Container = styled.li`
@@ -49,7 +50,7 @@ const Container = styled.li`
 `;
 const Inner = styled.span``;
 
-export const Item: FC = ({ children, ...props }) => (
+export const Item: FC<StyledProps<any>> = ({ children, ...props }) => (
   <Container>
     <Inner {...props}>{children}</Inner>
   </Container>

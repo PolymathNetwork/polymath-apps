@@ -1,5 +1,8 @@
-import { call, takeEvery, all } from 'redux-saga/effects';
-import { fetchData } from '~/state/actions/dataRequests';
+import { call, takeEvery, put, select } from 'redux-saga/effects';
+import {
+  requestData as requestDataAction,
+  fetchDataStart,
+} from '~/state/actions/dataRequests';
 import { getType, ActionType } from 'typesafe-actions';
 import {
   RequestKeys,
@@ -7,6 +10,7 @@ import {
   isGetDividendsByCheckpointArgs,
   isGetErc20DividendsModuleBySymbolArgs,
   isGetCheckpointBySymbolAndIdArgs,
+  CacheStatus,
 } from '~/types';
 import {
   fetchCheckpointsBySymbol,
@@ -14,11 +18,36 @@ import {
 } from './checkpoints';
 import { fetchDividendsByCheckpoint } from './dividends';
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
+import { createGetCacheStatus } from '~/state/selectors';
 
-export function* requestData(action: ActionType<typeof fetchData>) {
+/**
+ * This saga uses the cache to determine if data needs to be fetched from the blockchain
+ * If it does, it calls the corresponding saga
+ */
+export function* requestData(action: ActionType<typeof requestDataAction>) {
   const {
-    payload: { requestKey, args },
+    payload: {
+      fetcher: { requestKey, args },
+      fetcher,
+    },
   } = action;
+
+  const cacheStatus: CacheStatus[] = yield select(createGetCacheStatus(), {
+    fetchers: [fetcher],
+  });
+
+  // Ignore request if it is already fetching or the data is present
+  if (!cacheStatus[0].mustBeFetched) {
+    return;
+  }
+
+  // set fetching to true for the corresponding cache entry
+  yield put(
+    fetchDataStart({
+      requestKey,
+      args,
+    })
+  );
 
   switch (requestKey) {
     case RequestKeys.GetCheckpointsBySymbol: {
@@ -61,5 +90,5 @@ export function* requestData(action: ActionType<typeof fetchData>) {
 }
 
 export function* requestWatcher() {
-  yield takeEvery(getType(fetchData), requestData);
+  yield takeEvery(getType(requestDataAction), requestData);
 }

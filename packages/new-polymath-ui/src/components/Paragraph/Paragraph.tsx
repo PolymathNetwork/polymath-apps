@@ -44,4 +44,5 @@ Paragraph.defaultProps = {
   mt: 0,
   mb: 'm',
   fontSize: 'baseText',
+  lineHeight: 'normal',
 };

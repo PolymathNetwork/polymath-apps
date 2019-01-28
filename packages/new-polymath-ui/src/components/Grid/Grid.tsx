@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, Component } from 'react';
 import styled from 'styled-components';
 import {
   gridGap,
@@ -9,6 +9,8 @@ import {
   gridAutoColumns,
   gridAutoRows,
   alignItems,
+  // @ts-ignore
+  justifyItems,
   justifyContent,
   GridAutoFlowProps,
   GridTemplatesColumnsProps,
@@ -16,9 +18,11 @@ import {
   GridAutoColumnsProps,
   GridAutoRowsProps,
   AlignItemsProps,
+  JustifyItemsProps,
+  JustifyContentProps,
 } from 'styled-system';
-
 import { Box } from '~/components/Box';
+import { GridItem } from './GridItem';
 
 export type GridProps = GridGapProps &
   GridAutoFlowProps &
@@ -27,9 +31,11 @@ export type GridProps = GridGapProps &
   GridTemplatesAreasProps &
   GridAutoColumnsProps &
   GridAutoRowsProps &
-  AlignItemsProps;
+  AlignItemsProps &
+  JustifyItemsProps &
+  JustifyContentProps;
 
-export const Grid = styled(Box)<GridProps>`
+const GridBase = styled(Box)<GridProps>`
   display: grid;
   ${gridGap};
   ${gridAutoFlow};
@@ -39,12 +45,17 @@ export const Grid = styled(Box)<GridProps>`
   ${gridAutoRows};
   ${alignItems};
   ${justifyContent};
+  ${justifyItems};
 `;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
-export const GridDocz = (props: GridProps) => {
+export const GridDocz: FC<GridProps> = props => {
   return <Grid {...props} />;
 };
+
+export const Grid = Object.assign(GridBase, {
+  Item: GridItem,
+});
 
 Grid.defaultProps = {
   gridGap: 'gridGap',

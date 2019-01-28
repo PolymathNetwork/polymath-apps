@@ -17,7 +17,7 @@ describe('Reducer: dataRequests', () => {
 
   const state = {
     [RequestKeys.GetCheckpointsBySymbol]: {
-      [argsHash]: fetchedIds,
+      [argsHash]: { fetchedIds, fetching: false },
     },
     [RequestKeys.GetCheckpointBySymbolAndId]: {},
     [RequestKeys.GetSecurityTokenBySymbol]: {},
@@ -48,7 +48,21 @@ describe('Reducer: dataRequests', () => {
     ).toBeUndefined();
   });
 
-  test('cacheData creates a cache entry', () => {
+  test('fetchDataStart creates a cache entry with fetching set to true', () => {
+    const result = reducer(
+      undefined,
+      actions.fetchDataStart({
+        requestKey: RequestKeys.GetCheckpointsBySymbol,
+        args,
+      })
+    );
+
+    expect(result[RequestKeys.GetCheckpointsBySymbol][argsHash]).toEqual({
+      fetching: true,
+    });
+  });
+
+  test('cacheData sets cached data and fetching to false', () => {
     const result = reducer(
       undefined,
       actions.cacheData({
@@ -58,8 +72,9 @@ describe('Reducer: dataRequests', () => {
       })
     );
 
-    expect(result[RequestKeys.GetCheckpointsBySymbol][argsHash]).toEqual(
-      fetchedIds
-    );
+    expect(result[RequestKeys.GetCheckpointsBySymbol][argsHash]).toEqual({
+      fetchedIds,
+      fetching: false,
+    });
   });
 });

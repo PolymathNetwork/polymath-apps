@@ -31,6 +31,7 @@ class PageLoaderBase extends Component<Props, State> {
     if (!hasRendered && changingRoute) {
       return <Loading />;
     }
+
     return this.props.render();
   }
 }

@@ -1,15 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { boxShadow, BoxShadowProps } from 'styled-system';
 
-import { Box, BoxProps } from '../Box';
+import { Box, BoxProps } from '~/components/Box';
 
-export interface CardProps extends BoxProps {}
+export interface CardProps extends BoxProps {
+  boxShadow: BoxShadowProps;
+  rounded: boolean;
+}
 
-export const Card = styled(Box)<CardProps>`
+export const StyledCard = styled(Box)<CardProps>`
   background-color: white;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
-  padding: ${({ theme }) => theme.space[6]};
+  ${boxShadow};
+  border-radius: ${({ rounded }) => rounded && '4px'};
 `;
+
+export const Card = Object.assign(StyledCard, {
+  defaultProps: {
+    rounded: false,
+    boxShadow: 1,
+    p: 'xl',
+  },
+});
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
 export const CardDocz = (props: CardProps) => {

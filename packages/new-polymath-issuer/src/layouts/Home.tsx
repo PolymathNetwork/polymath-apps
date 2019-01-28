@@ -5,7 +5,7 @@ import { Header } from '~/components';
 
 export const HomeLayout: FC = ({ children }) => (
   <Fragment>
-    <StickyTop zIndex={'header'}>
+    <StickyTop zIndex="header">
       <Header RouterLink={Link} variant="transparent" />
     </StickyTop>
     {children}

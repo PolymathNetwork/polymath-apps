@@ -1,5 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
-import { RequestKeys } from '~/types';
+import { RequestKeys, Fetcher } from '~/types';
 import { types } from '@polymathnetwork/new-shared';
 
 const invalidateRequest = createStandardAction('DATA_REQUESTS/INVALIDATE')<{
@@ -13,19 +13,25 @@ const cacheData = createStandardAction('DATA_REQUESTS/CACHE')<{
   fetchedIds: string[];
 }>();
 
-const fetchData = createStandardAction('DATA_REQUESTS/FETCH')<{
+/**
+ * This action signals the saga in charge of fetching data from the blockchain
+ * that a component needs certain data
+ */
+const requestData = createStandardAction('DATA_REQUESTS/REQUEST')<{
+  fetcher: Fetcher;
+}>();
+
+const fetchDataStart = createStandardAction('DATA_REQUESTS/FETCH_START')<{
   requestKey: RequestKeys;
   args: types.Pojo;
 }>();
 
 const fetchDataFail = createStandardAction('DATA_REQUESTS/FETCH_FAIL')<Error>();
 
-const fetchDataSuccess = createStandardAction('DATA_REQUESTS/FETCH_SUCCESS')();
-
 export {
   invalidateRequest,
   cacheData,
-  fetchData,
+  requestData,
+  fetchDataStart,
   fetchDataFail,
-  fetchDataSuccess,
 };

@@ -6,6 +6,8 @@ menu: Components
 import { PropsTable, Playground } from 'docz';
 
 import { Grid } from '~/components/Grid';
+import { ButtonSmall } from '~/components/ButtonSmall';
+import { ButtonLarge } from '~/components/ButtonLarge';
 import { Button } from '../Button';
 
 # Button
@@ -15,11 +17,11 @@ import { Button } from '../Button';
 ## Basic usage
 
 <Playground>
-  <Grid>
+  <Grid justifyItems="center">
     <Button>Click me</Button>
     <Button kind="secondary">Click me</Button>
     <Button kind="ghost">Click me</Button>
-    <Button small>Click me</Button>
-    <Button disabled>Click me</Button>
+    <ButtonSmall>Click me</ButtonSmall>
+    <ButtonLarge disabled>Click me</ButtonLarge>
   </Grid>
 </Playground>
