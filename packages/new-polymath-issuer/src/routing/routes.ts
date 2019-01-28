@@ -9,7 +9,12 @@ import {
   NotFoundPage,
 } from '~/pages';
 
-import { handleDashboardRoute, handleLoginRoute } from '~/state/sagas/router';
+import {
+  handleDashboardRoute,
+  handleLoginRoute,
+  handleSecurityTokensRoute,
+  handleDividendsRoute,
+} from '~/state/sagas/router';
 import { DashboardLayout, HomeLayout } from '~/layouts';
 
 export const routes = {
@@ -28,11 +33,13 @@ export const routes = {
     '/securityTokens': {
       Layout: DashboardLayout,
       Page: SecurityTokensIndexPage,
-      '/:symbol': {
+      '/:securityTokenSymbol': {
         '/dividends': {
           Page: SecurityTokensDividendsPage,
+          handler: handleDividendsRoute,
         },
       },
+      handler: handleSecurityTokensRoute,
     },
     '/metamask': {
       '/locked': {

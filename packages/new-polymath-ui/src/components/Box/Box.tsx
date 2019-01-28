@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { StyledProps } from 'styled-components';
 import {
   minWidth,
   MinWidthProps,
@@ -13,7 +13,8 @@ import {
   TextAlignProps,
 } from 'styled-system';
 
-export type BoxProps = MinWidthProps &
+export type BoxProps = StyledProps<any> &
+  MinWidthProps &
   MaxWidthProps &
   HeightProps &
   SpaceProps &

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import BigNumber from 'bignumber.js';
 import { formatters } from '@polymathnetwork/new-shared';
 
@@ -13,7 +13,6 @@ import { Link } from '~/components/Link';
 import { List } from '~/components/List';
 import { IconText } from '~/components/IconText';
 import { InlineFlex } from '~/components/InlineFlex';
-
 import polyLogo from '~/images/logo.svg';
 import { SvgDot } from '~/images/icons/Dot';
 import { SvgPoly } from '~/images/icons/Poly';
@@ -27,10 +26,12 @@ export interface HeaderProps {
   variant: 'default' | 'transparent';
   symbol?: string;
   logo?: string;
-  RouterLink: React.ComponentType;
+  RouterLink: React.ComponentType<any>;
 }
 
-export const Header = (props: HeaderProps) => {
+export const Header: FC<HeaderProps> & {
+  defaultProps: { variant: 'default' };
+} = props => {
   const {
     balance,
     walletAddress,

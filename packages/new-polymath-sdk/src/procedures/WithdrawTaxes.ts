@@ -10,6 +10,7 @@ interface Args {
 }
 
 export class WithdrawTaxes extends Procedure<Args> {
+  public type = types.ProcedureTypes.WithdrawTaxes;
   public async prepareTransactions() {
     const { symbol, dividendIndex, dividendType } = this.args;
     const { securityTokenRegistry } = this.context;

@@ -7,6 +7,7 @@ import {
 } from '@polymathnetwork/new-ui';
 import { store } from '~/state/store';
 import { Pages } from '~/pages';
+import { ModalTransactionQueue } from '~/components';
 
 export const App = () => (
   <Provider store={store}>
@@ -15,6 +16,7 @@ export const App = () => (
         <GlobalStyles />
         <ErrorBoundary>
           <Pages />
+          <ModalTransactionQueue />
         </ErrorBoundary>
       </Fragment>
     </ThemeProvider>

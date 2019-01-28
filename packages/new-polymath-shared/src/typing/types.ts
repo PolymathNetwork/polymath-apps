@@ -23,6 +23,19 @@ interface PolymathError {
   code: ErrorCodes;
 }
 
+export enum ProcedureTypes {
+  UnnamedProcedure = 'UnnamedProcedure',
+  Approve = 'Approve',
+  CreateCheckpoint = 'CreateCheckpoint',
+  EnableDividendModules = 'EnableDividendModules',
+  CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
+  CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
+  CreateSecurityToken = 'CreateSecurityToken',
+  ReclaimFunds = 'ReclaimFunds',
+  ReserveSecurityToken = 'ReserveSecurityToken',
+  WithdrawTaxes = 'WithdrawTaxes',
+}
+
 export enum PolyTransactionTags {
   Any = 'Any',
   Approve = 'Approve',
@@ -67,7 +80,6 @@ export interface TransactionEntity extends Entity {
   transactionQueueUid: string;
   status: TransactionStatus;
   tag: PolyTransactionTags;
-  description: string;
   receipt?: TransactionReceipt;
   error?: PolymathError;
   args: any[];
@@ -112,10 +124,7 @@ export interface CheckpointPojo extends CheckpointEntity {
 }
 
 export interface Erc20DividendsModuleEntity extends Entity {
-  /**
-   * if undefined, it means the module is not attached
-   */
-  address?: string;
+  address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
 }
@@ -124,8 +133,7 @@ export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
 
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
-  procedureType: string;
-  description: string;
+  procedureType: ProcedureTypes;
 }
 
 export interface TransactionQueuePojo extends TransactionQueueEntity {
@@ -133,6 +141,10 @@ export interface TransactionQueuePojo extends TransactionQueueEntity {
 }
 
 export function isPojo(pojo: any): pojo is Pojo {
+  if (!pojo) {
+    return false;
+  }
+
   const props = Object.getOwnPropertyNames(pojo);
 
   return (

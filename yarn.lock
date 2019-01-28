@@ -2978,9 +2978,10 @@
     "@types/react" "*"
     csstype "^2.2.0"
 
-"@types/styled-system@^3.0.9":
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-3.0.9.tgz#a17d78b3500ed5c76570fd4f692546616eed015c"
+"@types/styled-system@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-3.1.1.tgz#ff4430f5b5fe21e6f0dee49fdbf6f7a993bdb502"
+  integrity sha512-jyUmr/I/tMDG4COSLHE4DXzGcGGRxRvSUjLGPV1Xy5jZ3+KLg+EJ+e04rOrw0AzLaKHSnZCM/P1iUwKq6b6cnQ==
   dependencies:
     csstype "^2.2.0"
 
@@ -16399,7 +16400,7 @@ react-docgen@^3.0.0-rc.1:
     node-dir "^0.1.10"
     recast "^0.16.0"
 
-react-document-title@2.0.3, react-document-title@^2.0.3:
+react-document-title@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/react-document-title/-/react-document-title-2.0.3.tgz#bbf922a0d71412fc948245e4283b2412df70f2b9"
   dependencies:

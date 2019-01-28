@@ -7,13 +7,13 @@ import { ModalTransactionQueue } from '~/components';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
 
-interface DispatchProps {
+export interface DispatchProps {
   dispatch: Dispatch<ActionType<typeof enableErc20DividendsModuleStart>>;
 }
 
 type Props = DispatchProps;
 
-class ContainerBase extends Component<Props> {
+export class ContainerBase extends Component<Props> {
   public state = {
     ready: false,
   };
@@ -50,7 +50,7 @@ class ContainerBase extends Component<Props> {
   public startEnableDividends = () => {
     this.props.dispatch(
       enableErc20DividendsModuleStart({
-        securityTokenSymbol: 'DIVTEST2',
+        securityTokenSymbol: 'A0T0',
         storageWalletAddress: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
       })
     );

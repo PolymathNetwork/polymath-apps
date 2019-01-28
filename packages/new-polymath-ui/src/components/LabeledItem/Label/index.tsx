@@ -13,6 +13,6 @@ export const Label = styled(({ children, ...props }) => (
   }
 `;
 
-export const WrappedLabel: React.SFC = props => {
+export const WrappedLabel: React.FC = props => {
   return <Label {...props} />;
 };
