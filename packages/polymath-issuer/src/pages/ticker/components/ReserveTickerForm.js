@@ -127,8 +127,8 @@ const formikEnhancer = withFormik({
   },
   handleSubmit: (values, { props }) => {
     const { dispatch } = props;
-    values.ticker = values.ticker.toUpperCase();
-    dispatch(reserve(values));
+    const formattedValues = { ...values, ticker: values.ticker.toUpperCase() };
+    dispatch(reserve(formattedValues));
   },
 });
 
