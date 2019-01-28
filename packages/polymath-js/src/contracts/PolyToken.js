@@ -86,7 +86,6 @@ export class PolyToken extends Contract {
 
     const callbackInternal = (event: Web3Event) => {
       const values = event.returnValues;
-      console.log('VALUES', values);
 
       const value = new BigNumber(values[valueKey]);
       const isSent = values[fromKey] === this.account;
