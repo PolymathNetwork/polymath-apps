@@ -67,10 +67,7 @@ class DataFetcherBase extends Component<Props> {
   /**
    * Only update if the fetchers change
    */
-  public shouldComponentUpdate(
-    nextProps: Readonly<Props>,
-    _nextState: Readonly<{}>
-  ) {
+  public shouldComponentUpdate(nextProps: Props) {
     const { fetchers, loading, fetchedData } = this.props;
     const {
       fetchers: newFetchers,
