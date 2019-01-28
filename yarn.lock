@@ -6942,8 +6942,8 @@ csv-parse@^3.1.2:
   resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-3.2.0.tgz#9043b5921e7ecd5e3110947df1ef00d290dbeca7"
 
 csv-parse@^4.2.0:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.3.1.tgz#b2b92a4068106d6713952050593b2be06ec1a577"
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.3.0.tgz#e27cc1c4c5426201a896389c9f97273a0d47dad4"
 
 csv-stringify@^4.3.1:
   version "4.3.1"
@@ -8580,8 +8580,8 @@ ethereumjs-wallet@^0.6.0:
     uuid "^3.3.2"
 
 ethers@^4.0.20:
-  version "4.0.23"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-4.0.23.tgz#930c7b1585241f61b29c262ffd8f21e82721ba30"
+  version "4.0.21"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-4.0.21.tgz#b3d88fa5f5832383de515769841fe6ad8545a71a"
   dependencies:
     "@types/node" "^10.3.2"
     aes-js "3.0.0"

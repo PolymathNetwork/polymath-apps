@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Header } from '@polymathnetwork/new-ui';
 import { RootState } from '~/state/store';
-import { sessionSelector } from '~/state/selectors';
+import { getSession } from '~/state/selectors';
 
 type HeaderProps = typeHelpers.GetProps<typeof Header>;
 
@@ -11,7 +11,7 @@ export interface Props
   extends Pick<HeaderProps, 'variant' | 'walletAddress' | 'RouterLink'> {}
 
 const mapStateToProps = (state: RootState) => {
-  const { wallet } = sessionSelector(state);
+  const { wallet } = getSession(state);
   let walletAddress;
 
   if (wallet) {
