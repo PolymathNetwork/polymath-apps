@@ -3,7 +3,7 @@ version: 2.1
 references:
   container_config: &container_config
     docker:
-      - image: 'circleci/node:9-stretch'
+      - image: 'circleci/node:8-stretch'
   restore_yarn_cache: &restore_yarn_cache
     restore_cache:
       name: Restore Yarn Package Cache
@@ -28,7 +28,7 @@ jobs:
       - *restore_yarn_cache
       - *yarn_install
       - *save_cache
-  new_issuer_test:
+  new_issuer_tests:
     <<: *container_config
     steps:
       - checkout
@@ -52,7 +52,7 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn build:issuer
-  issuer_test:
+  issuer_tests:
     <<: *container_config
     steps:
       - checkout
@@ -60,7 +60,7 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:issuer
-  ui_test:
+  ui_tests:
     <<: *container_config
     steps:
       - checkout
@@ -68,7 +68,7 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:ui
-  offchain_test:
+  offchain_tests:
     <<: *container_config
     steps:
       - checkout
@@ -76,7 +76,7 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:offchain
-  new_sdk_test:
+  new_sdk_tests:
     <<: *container_config
     steps:
       - checkout
@@ -84,7 +84,7 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:sdk
-  new_ui_test:
+  new_ui_tests:
     <<: *container_config
     steps:
       - checkout
@@ -92,7 +92,7 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:new-ui
-  new_shared_test:
+  new_shared_tests:
     <<: *container_config
     steps:
       - checkout
@@ -106,24 +106,24 @@ workflows:
   unit_tests:
     jobs:
       - install_dependencies
-      - new_issuer_test:
+      - new_issuer_tests:
           requires:
             - install_dependencies
-      - new_ui_test:
+      - new_ui_tests:
           requires:
             - install_dependencies
-      - new_sdk_test:
+      - new_sdk_tests:
           requires:
             - install_dependencies
-      - new_shared_test:
+      - new_shared_tests:
           requires:
             - install_dependencies
-      - issuer_test:
+      - issuer_tests:
           requires:
             - install_dependencies
-      - ui_test:
+      - ui_tests:
           requires:
             - install_dependencies
-      - offchain_test:
+      - offchain_tests:
           requires:
             - install_dependencies
