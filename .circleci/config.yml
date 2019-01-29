@@ -21,7 +21,14 @@ references:
       command: yarn install --frozen-lockfile
 
 jobs:
-  new_issuer_test:
+  install_dependencies:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+  new_issuer_tests:
     <<: *container_config
     steps:
       - checkout
@@ -45,7 +52,7 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn build:issuer
-  issuer_test:
+  issuer_tests:
     <<: *container_config
     steps:
       - checkout
@@ -53,26 +60,70 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:issuer
+  ui_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:ui
+  offchain_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:offchain
+  new_sdk_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:sdk
+  new_ui_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-ui
+  new_shared_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-shared
 
 workflows:
   version: 2
-  new_issuer_jobs:
+  unit_tests:
     jobs:
-      - new_issuer_test:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
-      - new_issuer_build:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
-  issuer_jobs:
-    jobs:
-      - issuer_test:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
-      - issuer_build:
-          filters:
-            branches:
-              only: feature/implement-circle-ci-deployments
+      - install_dependencies
+      - new_issuer_tests:
+          requires:
+            - install_dependencies
+      - new_ui_tests:
+          requires:
+            - install_dependencies
+      - new_sdk_tests:
+          requires:
+            - install_dependencies
+      - new_shared_tests:
+          requires:
+            - install_dependencies
+      - issuer_tests:
+          requires:
+            - install_dependencies
+      - ui_tests:
+          requires:
+            - install_dependencies
+      - offchain_tests:
+          requires:
+            - install_dependencies

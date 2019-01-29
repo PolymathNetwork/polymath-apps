@@ -10,6 +10,7 @@ interface Args {
 }
 
 export class CreateSecurityToken extends Procedure<Args> {
+  public type = types.ProcedureTypes.CreateSecurityToken;
   public async prepareTransactions() {
     const { name, symbol, detailsUrl = '', divisible } = this.args;
     const { securityTokenRegistry } = this.context;

@@ -1,188 +1,187 @@
-// import React, { Fragment } from 'react';
-// import { types } from '@polymathnetwork/new-shared';
-// import { ModalConfirm } from '~/components/ModalConfirm';
-// import { ModalTransactionQueue } from '../ModalTransactionQueue';
+import React, { Fragment } from 'react';
+import { types } from '@polymathnetwork/new-shared';
+import { ModalConfirm } from '~/components/ModalConfirm';
+import { ModalTransactionQueue } from '../ModalTransactionQueue';
 
-// const transactionQueue = {
-//   id: '111',
-//   name: 'Dividend Configuration',
-//   status: types.TransactionQueueStatus.Idle,
-//   transactions: [
-//     {
-//       uid: '0',
-//       type: 'First transaction',
-//       status: types.TransactionStatus.Unapproved,
-//     },
-//     {
-//       uid: '1',
-//       type: 'Second transaction',
-//       status: types.TransactionStatus.Idle,
-//     },
-//   ],
-// };
+export const mockTransactionQueue = {
+  uid: '111',
+  name: 'Dividend Configuration',
+  status: types.TransactionQueueStatus.Idle,
+  procedureType: types.ProcedureTypes.UnnamedProcedure,
+  transactions: [
+    {
+      uid: '0',
+      status: types.TransactionStatus.Unapproved,
+      transactionQueueUid: '111',
+      tag: types.PolyTransactionTags.Any,
+      args: [],
+    },
+    {
+      uid: '1',
+      status: types.TransactionStatus.Idle,
+      transactionQueueUid: '111',
+      tag: types.PolyTransactionTags.Any,
+      args: [],
+    },
+  ],
+};
 
-// interface DemoState {
-//   isModalOpen: boolean;
-//   transactionQueue: types.TransactionQueueEntity;
-// }
+interface DemoState {
+  isModalOpen: boolean;
+  transactionQueue: types.TransactionQueuePojo | null;
+}
 
-// export class ModalDemo extends React.Component<{}, DemoState> {
-//   public state = {
-//     isModalOpen: false,
-//     transactionQueue,
-//   };
+export class ModalDemo extends React.Component<{}, DemoState> {
+  public state = {
+    isModalOpen: false,
+    transactionQueue: mockTransactionQueue,
+  };
 
-//   public componentDidUpdate(_prevProps: any, prevState: DemoState) {
-//     if (!prevState.isModalOpen && this.state.isModalOpen) {
-//       // Reset Modal state
-//       this.setState({
-//         transactionQueue,
-//       });
+  public componentDidUpdate(_prevProps: any, prevState: DemoState) {
+    if (!prevState.isModalOpen && this.state.isModalOpen) {
+      // Reset Modal state
+      this.setState({
+        transactionQueue: mockTransactionQueue,
+      });
 
-//       setTimeout(() => {
-//         this.setState({
-//           transactionQueue: {
-//             ...this.state.transactionQueue,
-//             status: types.TransactionQueueStatus.Running,
-//             transactions: [
-//               {
-//                 uid: '0',
-//                 type: 'First transaction',
-//                 status: types.TransactionStatus.Running,
-//               },
-//               {
-//                 uid: '1',
-//                 type: 'Second transaction',
-//                 status: types.TransactionStatus.Idle,
-//               },
-//             ],
-//           },
-//         });
-//       }, 1000);
+      const { uid: transactionQueueUid } = mockTransactionQueue;
 
-//       setTimeout(() => {
-//         this.setState({
-//           transactionQueue: {
-//             ...this.state.transactionQueue,
-//             transactions: [
-//               {
-//                 uid: '0',
-//                 type: 'First transaction',
-//                 status: types.TransactionStatus.Succeeded,
-//                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
-//               },
-//               {
-//                 uid: '1',
-//                 type: 'Second transaction',
-//                 status: types.TransactionStatus.Unapproved,
-//               },
-//             ],
-//           },
-//         });
-//       }, 2000);
+      setTimeout(() => {
+        this.setState({
+          transactionQueue: {
+            ...this.state.transactionQueue,
+            status: types.TransactionQueueStatus.Running,
+            transactions: [
+              {
+                uid: '0',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Running,
+                transactionQueueUid,
+                args: [],
+              },
+              {
+                uid: '1',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Idle,
+                transactionQueueUid,
+                args: [],
+              },
+            ],
+          },
+        });
+      }, 1000);
 
-//       setTimeout(() => {
-//         this.setState({
-//           transactionQueue: {
-//             ...this.state.transactionQueue,
-//             transactions: [
-//               {
-//                 uid: '0',
-//                 type: 'First transaction',
-//                 status: types.TransactionStatus.Succeeded,
-//                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
-//               },
-//               {
-//                 uid: '1',
-//                 type: 'Second transaction',
-//                 status: types.TransactionStatus.Running,
-//               },
-//             ],
-//           },
-//         });
-//       }, 3000);
+      setTimeout(() => {
+        this.setState({
+          transactionQueue: {
+            ...this.state.transactionQueue,
+            transactions: [
+              {
+                uid: '0',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Succeeded,
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
+              },
+              {
+                uid: '1',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Unapproved,
+                transactionQueueUid,
+                args: [],
+              },
+            ],
+          },
+        });
+      }, 2000);
 
-//       setTimeout(() => {
-//         this.setState({
-//           transactionQueue: {
-//             ...this.state.transactionQueue,
-//             status: types.TransactionQueueStatus.Succeeded,
-//             transactions: [
-//               {
-//                 uid: '0',
-//                 type: 'First transaction',
-//                 status: types.TransactionStatus.Succeeded,
-//                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
-//               },
-//               {
-//                 uid: '1',
-//                 type: 'Second transaction',
-//                 status: types.TransactionStatus.Succeeded,
-//                 hash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
-//               },
-//             ],
-//           },
-//         });
-//       }, 4000);
-//     }
-//   }
+      setTimeout(() => {
+        this.setState({
+          transactionQueue: {
+            ...this.state.transactionQueue,
+            transactions: [
+              {
+                uid: '0',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Succeeded,
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
+              },
+              {
+                uid: '1',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Running,
+                transactionQueueUid,
+                args: [],
+              },
+            ],
+          },
+        });
+      }, 3000);
 
-//   public handleClick = () => {
-//     this.setState({
-//       isModalOpen: true,
-//     });
-//   };
+      setTimeout(() => {
+        this.setState({
+          transactionQueue: {
+            ...this.state.transactionQueue,
+            status: types.TransactionQueueStatus.Succeeded,
+            transactions: [
+              {
+                uid: '0',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Succeeded,
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
+              },
+              {
+                uid: '1',
+                tag: types.PolyTransactionTags.Any,
+                status: types.TransactionStatus.Succeeded,
+                txHash: '0xcEe94E5D4c424E229af969Aa1c1fD0e1a9DE9ADB',
+                transactionQueueUid,
+                args: [],
+              },
+            ],
+          },
+        });
+      }, 4000);
+    }
+  }
 
-//   public handleModalClose = () => {
-//     this.setState({
-//       isModalOpen: false,
-//     });
-//   };
+  public handleClick = () => {
+    this.setState({
+      isModalOpen: true,
+    });
+  };
 
-//   public handleContinue = () => {
-//     this.setState({
-//       isModalOpen: false,
-//     });
-//   };
+  public handleModalClose = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  };
 
-//   public render() {
-//     return (
-//       <Fragment>
-//         <button className="btn" onClick={this.handleClick}>
-//           Start transaction
-//         </button>
+  public handleContinue = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  };
 
-//         <ModalConfirm
-//           isOpen={this.state.isModalOpen}
-//           onSubmit={this.handleSubmit}
-//           onClose={this.handleModalClose}
-//           {...this.props}
-//         >
-//           <ModalConfirm.Header>
-//             Proceed with Your {getTransactionQueueTitle(transactionQueue)}
-//           </ModalConfirm.Header>
-//           <Paragraph>{getTransactionQueueDesc(transactionQueue)}</Paragraph>
-//           <div>
-//             {transactionQueue.transactions.map(transaction => (
-//               <TransactionItem
-//                 key={transaction.id}
-//                 icon={getTransactionIcon(transaction)}
-//                 title={getTransactionTitle(transaction)}
-//                 description={getTransactionDesc(transaction)}
-//               />
-//             ))}
-//           </div>
-//         </ModalConfirm>
+  public render() {
+    return (
+      <Fragment>
+        <button className="btn" onClick={this.handleClick}>
+          Start transaction
+        </button>
 
-//         <ModalTransactionQueue
-//           isOpen={this.state.isModalOpen}
-//           transactionQueue={this.state.transactionQueue}
-//           withEmail
-//           onContinue={this.handleContinue}
-//         />
-//       </Fragment>
-//     );
-//   }
-// }
-
-export const DemoModal = () => null;
+        <ModalTransactionQueue
+          isOpen={this.state.isModalOpen}
+          transactionQueue={this.state.transactionQueue}
+          withEmail
+          onContinue={this.handleContinue}
+        />
+      </Fragment>
+    );
+  }
+}

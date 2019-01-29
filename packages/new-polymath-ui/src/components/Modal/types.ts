@@ -1,7 +1,7 @@
 export enum ModalStatus {
-  'loading',
-  'idle',
-  'warning',
-  'alert',
-  'success',
+  Loading = 'loading',
+  Idle = 'idle',
+  Warning = 'warning',
+  Alert = 'alert',
+  Success = 'success',
 }

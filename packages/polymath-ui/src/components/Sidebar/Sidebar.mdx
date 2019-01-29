@@ -1,5 +1,6 @@
 ---
 name: Sidebar
+menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
@@ -13,20 +14,23 @@ import Sidebar from './Sidebar';
 <style>{`.pui-sidebar { position: static; }`}</style>
 
 <Playground>
-  <Sidebar topItems={[
-    {
-    title: 'Providers',
-    icon: icoInbox,
-    to: `/providers`,
-    isActive: true,
-    isDisabled: false
-  },
-  {
-    title: 'Token',
-    icon: icoInbox,
-    to: '/',
-    isActive: false,
-    isDisabled: true
-  }
-  ]} bottomItems={[]} />
+  <Sidebar
+    topItems={[
+      {
+        title: 'Providers',
+        icon: icoInbox,
+        to: `/providers`,
+        isActive: true,
+        isDisabled: false,
+      },
+      {
+        title: 'Token',
+        icon: icoInbox,
+        to: '/',
+        isActive: false,
+        isDisabled: true,
+      },
+    ]}
+    bottomItems={[]}
+  />
 </Playground>

@@ -11,6 +11,8 @@ interface State {
   hasRendered: boolean;
 }
 
+// FIXME @RafaelVidaurre: Correct this file name to match the exported
+// component's name
 class PageLoaderBase extends Component<Props, State> {
   public state = {
     hasRendered: false,
@@ -31,6 +33,7 @@ class PageLoaderBase extends Component<Props, State> {
     if (!hasRendered && changingRoute) {
       return <Loading />;
     }
+
     return this.props.render();
   }
 }

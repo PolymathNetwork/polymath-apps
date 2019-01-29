@@ -3,7 +3,7 @@ import { Entity } from './Entity';
 import { serialize } from '~/utils';
 
 interface Params {
-  address?: string;
+  address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
 }
@@ -11,7 +11,7 @@ interface Params {
 export class Erc20DividendsModule extends Entity {
   public uid: string;
   public entityType: string = 'erc20DividendsModule';
-  public address?: string;
+  public address: string;
   public securityTokenSymbol: string;
   public securityTokenId: string;
 

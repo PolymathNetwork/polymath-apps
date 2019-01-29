@@ -19,9 +19,17 @@ export function* createCheckpoint(
   );
 
   try {
-    yield call(runTransactionQueue, transactionQueueToRun);
+    const queueSucceeded: boolean = yield call(
+      runTransactionQueue,
+      transactionQueueToRun
+    );
 
-    // invalidate cache
+    // Queue was canceled or failed
+    if (!queueSucceeded) {
+      return;
+    }
+
+    // Invalidate cache
     yield put(
       invalidateRequest({
         requestKey: RequestKeys.GetCheckpointsBySymbol,

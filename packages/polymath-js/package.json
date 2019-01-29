@@ -22,7 +22,7 @@
   "main": "./src/index.js",
   "scripts": {
     "test": "echo \"No tests yet. Change the 'test' command to 'jest' if you want to enable tests in this repository\"",
-    "build": "webpack --config webpack.prod.js",
+    "build": "echo \"Polymath.js no longer requires being built. Skipping...\"",
     "typecheck": "flow --show-all-branches"
   },
   "homepage": "https://github.com/PolymathNetwork/polymath-apps#readme",
