@@ -1,4 +1,10 @@
-import { styled, Box, List, IconOutlined } from '@polymathnetwork/new-ui';
+import {
+  styled,
+  Box,
+  List,
+  Heading,
+  IconOutlined,
+} from '@polymathnetwork/new-ui';
 
 export const iconSize = 25;
 
@@ -6,9 +12,13 @@ export const Container = styled(List)`
   margin-top: 60px;
 `;
 
-export const Checkpoints = styled.li`
-  &:last-child {
-  }
+export const Year = styled(Heading).attrs({
+  variant: 'h2',
+})`
+  position: absolute;
+  top: ${({ theme }) => `-${theme.space[6]}`};
+  padding-left: ${({ theme }) =>
+    `calc(${theme.space.gridGap} + ${iconSize / 2}px)`};
 `;
 
 export const Dividends = styled(Box)`
@@ -23,7 +33,20 @@ export const Dividends = styled(Box)`
     background-color: ${({ theme }) => theme.colors.primary};
     left: 0;
     top: ${iconSize}px;
-    bottom: ${({ theme }) => `-${theme.space.gridGap}`};
+    bottom: ${({ theme, isLastChild }) =>
+      `-${isLastChild ? theme.space[7] : theme.space.gridGap}`};
+  }
+`;
+
+export const YearCheckpoints = styled.li``;
+
+export const Checkpoints = styled.li`
+  position: relative;
+
+  &:last-child ${YearCheckpoints}:last-child {
+    ${Dividends}:before {
+      bottom: ${({ theme }) => `-${theme.space.xl}`};
+    }
   }
 `;
 
