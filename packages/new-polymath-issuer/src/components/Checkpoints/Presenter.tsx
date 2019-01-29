@@ -58,7 +58,11 @@ export const Presenter = ({ checkpoints }: Props) => {
                           <br />
                           {formatters.toTimeFormat(checkpoint.createdAt)}
                         </Paragraph>
-                        <Paragraph color="primary" textAlign="right" mr="-1rem">
+                        <Paragraph
+                          color="primary"
+                          textAlign="right"
+                          mr="calc(-1rem - 2px)" // Button padding
+                        >
                           <Button kind="ghost">
                             Ownership list <Icon Asset={icons.SvgDownload} />
                           </Button>
