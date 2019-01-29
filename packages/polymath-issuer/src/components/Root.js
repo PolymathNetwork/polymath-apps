@@ -78,6 +78,7 @@ class Root extends Component<Props> {
               <Header variant="transparent" />
             </StickyTop>
             <HomePage />
+            <ModalTransactionQueue />
             <Footer variant="transparent" />
           </Fragment>
         ) : (

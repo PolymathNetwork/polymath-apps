@@ -1708,6 +1708,11 @@
   version "0.0.1-alpha.12"
   resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-0.0.1-alpha.12.tgz#a68658d040a970c92e53566b8cdf4ce7a4f59ea2"
 
+"@carbon/icon-helpers@0.0.1-alpha.25":
+  version "0.0.1-alpha.25"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-0.0.1-alpha.25.tgz#979d33e4ace14b14a1d9c693510fecef6a306c43"
+  integrity sha512-5HNefY823cWAjLhf3HKJP1ilySnFDroIOo2svMcdsGRMGF01A5GjVV+u2WxqmeOqLioOj36FEtzsOJlVZA5rFg==
+
 "@carbon/icons-react@^0.0.1-alpha.20":
   version "0.0.1-alpha.25"
   resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-0.0.1-alpha.25.tgz#898742d10bc8e5a098f5d592c7fb3ab9abd9c660"
