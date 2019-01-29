@@ -17,25 +17,22 @@ export const Year = styled(Heading).attrs({
 })`
   position: absolute;
   top: ${({ theme }) => `-${theme.space[6]}`};
-  padding-left: ${({ theme }) =>
-    `calc(${theme.space.gridGap} + ${iconSize / 2}px)`};
+  padding-left: ${({ theme }) => theme.space.gridGap};
 `;
 
 export const Dividends = styled(Box)`
   position: relative;
-  padding-left: ${({ theme }) =>
-    `calc(${theme.space.gridGap} + ${iconSize / 2}px)`};
+  padding-left: ${({ theme }) => theme.space.gridGap};
+`;
 
-  &:before {
-    position: absolute;
-    content: '';
-    width: 2px;
-    background-color: ${({ theme }) => theme.colors.primary};
-    left: 0;
-    top: ${iconSize}px;
-    bottom: ${({ theme, isLastChild }) =>
-      `-${isLastChild ? theme.space[7] : theme.space.gridGap}`};
-  }
+export const ProgressIndicator = styled.div<{ isLastChild: boolean }>`
+  position: absolute;
+  width: 2px;
+  background-color: ${({ theme }) => theme.colors.primary};
+  left: ${({ theme }) => `calc(-${theme.space.gridGap} / 2)`};
+  top: ${iconSize}px;
+  bottom: ${({ theme, isLastChild }) =>
+    `-${isLastChild ? theme.space[7] : theme.space.gridGap}`};
 `;
 
 export const YearCheckpoints = styled.li``;
@@ -44,7 +41,7 @@ export const Checkpoints = styled.li`
   position: relative;
 
   &:last-child ${YearCheckpoints}:last-child {
-    ${Dividends}:before {
+    ${ProgressIndicator} {
       bottom: ${({ theme }) => `-${theme.space.xl}`};
     }
   }
@@ -52,7 +49,7 @@ export const Checkpoints = styled.li`
 
 export const StepIcon = styled(IconOutlined)`
   position: absolute;
-  top: 0;
+  top: -${iconSize}px;
   left: 0;
   margin-left: -${iconSize / 2}px;
 `;
