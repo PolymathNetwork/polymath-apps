@@ -196,8 +196,8 @@ const providers: Array<ServiceProvider> = [
     id: 23,
     cat: 1,
     title: 'Petros Law',
-    logo: '/providers/legal/petroslaw.png',
-    background: '/providers/legal/bg/img-petroslaw.png',
+    logo: '/providers/legal/petros.png',
+    background: '/providers/legal/bg/img-petros.png',
     desc:
       'Petros Law Group is a fintech law firm that focuses on commercial business application of digital asset ' +
       'technologies through blockchain infrastructures, such as tokenized-securities. The Firm focuses on bringing ' +
