@@ -22,13 +22,13 @@ export function* enableErc20DividendsModule(
   );
 
   try {
-    const success: boolean = yield call(
+    const queueSucceeded: boolean = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
-    // Queue was canceled
-    if (!success) {
+    // Queue was canceled or failed
+    if (!queueSucceeded) {
       return;
     }
 

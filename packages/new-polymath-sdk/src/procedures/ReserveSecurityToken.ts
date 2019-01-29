@@ -8,6 +8,7 @@ interface Args {
 }
 
 export class ReserveSecurityToken extends Procedure<Args> {
+  public type = types.ProcedureTypes.ReserveSecurityToken;
   public async prepareTransactions() {
     const { symbol, name } = this.args;
     const { securityTokenRegistry, currentWallet, polyToken } = this.context;

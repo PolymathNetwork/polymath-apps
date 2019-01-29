@@ -21,6 +21,10 @@ $css--body: false;
   .bx--tag {
     margin-left: 8px !important;
   }
+
+  .bx--tag--third-party {
+    color:#005448 !important;
+  }
 }
 
 .pui-h0 {
@@ -420,7 +424,23 @@ $css--body: false;
   content: '*';
 }
 
-.bx--file-container{
-  margin-bottom:24px;
-  .bx--file-filename { margin-bottom: 0 };
+.bx--file-container {
+  margin-bottom: 24px;
+
+  .bx--file-filename {
+    margin-bottom: 0;
+  }
+}
+
+.file-uploader {
+  > strong,
+  .bx--label-description {
+    display: none;
+  }
+
+  &.disabled .bx--btn {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }

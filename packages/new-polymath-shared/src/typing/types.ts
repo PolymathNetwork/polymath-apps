@@ -25,7 +25,15 @@ interface PolymathError {
 
 export enum ProcedureTypes {
   UnnamedProcedure = 'UnnamedProcedure',
+  Approve = 'Approve',
+  CreateCheckpoint = 'CreateCheckpoint',
   EnableDividendModules = 'EnableDividendModules',
+  CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
+  CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
+  CreateSecurityToken = 'CreateSecurityToken',
+  ReclaimFunds = 'ReclaimFunds',
+  ReserveSecurityToken = 'ReserveSecurityToken',
+  WithdrawTaxes = 'WithdrawTaxes',
 }
 
 export enum PolyTransactionTags {

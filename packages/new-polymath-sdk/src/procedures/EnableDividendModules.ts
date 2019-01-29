@@ -9,6 +9,7 @@ interface Args {
 }
 
 export class EnableDividendModules extends Procedure<Args> {
+  public type = sharedTypes.ProcedureTypes.EnableDividendModules;
   public async prepareTransactions() {
     const {
       symbol,

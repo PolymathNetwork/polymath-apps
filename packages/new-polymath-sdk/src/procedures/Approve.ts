@@ -8,6 +8,7 @@ interface Args {
 }
 
 export class Approve extends Procedure<Args> {
+  public type = types.ProcedureTypes.Approve;
   public async prepareTransactions() {
     const { amount, spender } = this.args;
     const { currentWallet, polyToken, isTestnet } = this.context;

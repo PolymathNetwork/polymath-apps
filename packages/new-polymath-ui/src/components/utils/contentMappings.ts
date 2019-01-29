@@ -1,6 +1,8 @@
 import { types } from '@polymathnetwork/new-shared';
 import { SvgErc20 } from '~/images/icons/Erc20';
 
+// TODO @grsmto: update with the actual text and make dynamic where necessary (i.e Approve <amount> POLY)
+
 export const getTransactionQueueText = (
   transactionQueue: types.TransactionQueueEntity
 ) =>
@@ -13,6 +15,42 @@ export const getTransactionQueueText = (
       title: 'Enable the Ability to Distribute Dividends',
       description:
         'Enabling the distribution of dividends in ERC20 Tokens, including POLY and Stablecoins.',
+    },
+    [types.ProcedureTypes.Approve]: {
+      title: 'Approve',
+      description: 'Approve',
+    },
+    [types.ProcedureTypes.CreateCheckpoint]: {
+      title: 'CreateCheckpoint',
+      description: 'CreateCheckpoint',
+    },
+    [types.ProcedureTypes.CreateErc20DividendDistribution]: {
+      title: 'CreateErc20DividendDistribution',
+      description: 'CreateErc20DividendDistribution',
+    },
+    [types.ProcedureTypes.CreateEtherDividendDistribution]: {
+      title: 'CreateEtherDividendDistribution',
+      description: 'CreateEtherDividendDistribution',
+    },
+    [types.ProcedureTypes.CreateSecurityToken]: {
+      title: 'CreateSecurityToken',
+      description: 'CreateSecurityToken',
+    },
+    [types.ProcedureTypes.ReclaimFunds]: {
+      title: 'ReclaimFunds',
+      description: 'ReclaimFunds',
+    },
+    [types.ProcedureTypes.ReserveSecurityToken]: {
+      title: 'ReserveSecurityToken',
+      description: 'ReserveSecurityToken',
+    },
+    [types.ProcedureTypes.UnnamedProcedure]: {
+      title: 'UnnamedProcedure',
+      description: 'UnnamedProcedure',
+    },
+    [types.ProcedureTypes.WithdrawTaxes]: {
+      title: 'WithdrawTaxes',
+      description: 'WithdrawTaxes',
     },
   }[transactionQueue.procedureType]);
 

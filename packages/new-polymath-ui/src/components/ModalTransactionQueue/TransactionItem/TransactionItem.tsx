@@ -19,26 +19,28 @@ import * as sc from './styles';
 const { TransactionStatus } = types;
 
 interface TransactionItemProps {
-  transaction: types.TransactionEntity;
+  transaction: types.TransactionPojo;
 }
 
 const getIcon = (transaction: types.TransactionEntity) => {
+  const { status } = transaction;
+
   if (
-    transaction.status === TransactionStatus.Rejected ||
-    transaction.status === TransactionStatus.Failed
+    status === TransactionStatus.Rejected ||
+    status === TransactionStatus.Failed
   ) {
     return <Icon Asset={SvgClose} color="alert" width={32} height={32} />;
   }
 
-  if (transaction.status === TransactionStatus.Unapproved) {
+  if (status === TransactionStatus.Unapproved) {
     return <Icon Asset={SvgPending} color="gray.1" width={32} height={24} />;
   }
 
-  if (transaction.status === TransactionStatus.Running) {
+  if (status === TransactionStatus.Running) {
     return <Loading small />;
   }
 
-  if (transaction.status === TransactionStatus.Succeeded) {
+  if (status === TransactionStatus.Succeeded) {
     return <Icon Asset={SvgCheckmark} color="success" width={32} height={24} />;
   }
 

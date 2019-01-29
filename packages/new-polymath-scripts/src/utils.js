@@ -84,7 +84,13 @@ async function sendTransaction(userAccount, action, address) {
   );
 }
 
-async function startCli(db) {
+async function startCli(db, opts = {}) {
+  let { initialEther } = opts;
+
+  if (!initialEther) {
+    initialEther = INITIAL_ETHER;
+  }
+
   const ganacheArgs = [
     // Set a directory to which ganache will write the state to
     `--db="${db}"`,
@@ -93,7 +99,7 @@ async function startCli(db) {
     // Set a network id for ganache
     `-i=${BLOCKCHAIN_NETWORK_ID}`,
     // Set an initial amount of ether for all wallets
-    `-e=${INITIAL_ETHER}`,
+    `-e=${initialEther}`,
     `--mnemonic="${BLOCKCHAIN_MNEMONIC}"`,
     `--accounts=${ACCOUNT_NUMBER}`,
     // Sets deterministic mode to ensure same accounts everytime

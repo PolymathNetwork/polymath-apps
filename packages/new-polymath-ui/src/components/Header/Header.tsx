@@ -21,7 +21,7 @@ import { SvgToken } from '~/images/icons/Token';
 
 export interface HeaderProps {
   network: string;
-  walletAddress: string;
+  walletAddress?: string;
   balance?: BigNumber;
   variant: 'default' | 'transparent';
   symbol?: string;

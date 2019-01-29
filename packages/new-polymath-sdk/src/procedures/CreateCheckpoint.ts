@@ -6,6 +6,7 @@ interface Args {
 }
 
 export class CreateCheckpoint extends Procedure<Args> {
+  public type = types.ProcedureTypes.CreateCheckpoint;
   public async prepareTransactions() {
     const { symbol } = this.args;
     const { securityTokenRegistry } = this.context;

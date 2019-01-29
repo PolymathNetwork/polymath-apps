@@ -159,7 +159,7 @@ export const importWhitelist = () => async (
   }
   if (setAccreditedInvestorsData) {
     titles.push('Updating accredited investors');
-    titles.push('Updating non accredited investors limits');
+    titles.push('Updating non-accredited investors limits');
   }
 
   dispatch(
@@ -220,6 +220,7 @@ export const exportWhitelist = () => async (
         transferManager,
         percentageTM: { contract: percentageTM },
       },
+      sto,
     } = getState();
 
     const investors = await transferManager.getWhitelist();
@@ -238,6 +239,10 @@ export const exportWhitelist = () => async (
     // eslint-disable-next-line max-len
     let csvContent =
       'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
+
+    if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
+      csvContent += ',Is Accredited,Non-Accredited Limit';
+    }
 
     investors.forEach((investor: Investor) => {
       csvContent +=

@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
+import { BigNumber } from 'bignumber.js';
 import {
   Page,
   etherscanAddress,
@@ -418,8 +419,9 @@ class CompliancePage extends Component<Props, State> {
 
   handlePercentageChange = event => {
     let value = parseInt(Number(event.target.value), 10);
-    if (!Number.isInteger(value) || value < 0 || value > 100) {
+    if (!Number.isInteger(value) || value < 1 || value > 100) {
       event.preventDefault();
+      this.setState({ percentage: '' });
       return;
     }
     if (event.target.value === '') {
@@ -598,6 +600,15 @@ class CompliancePage extends Component<Props, State> {
     </TableContainer>
   );
 
+  isPercentageValid = () => {
+    if (this.state.percentage && this.props.percentage) {
+      return (
+        new BigNumber(this.state.percentage).toNumber() ===
+        new BigNumber(this.props.percentage).toNumber()
+      );
+    }
+  };
+
   render() {
     const { token, isPercentageEnabled, isPercentagePaused } = this.props;
     if (!token || !token.address) {
@@ -696,8 +707,9 @@ class CompliancePage extends Component<Props, State> {
                     className="apply-percentage-btn"
                     onClick={this.handleApplyPercentage}
                     disabled={
-                      this.state.percentage === this.props.percentage ||
-                      typeof this.state.percentage === 'undefined'
+                      this.isPercentageValid() ||
+                      typeof this.state.percentage === 'undefined' ||
+                      this.state.percentage === ''
                     }
                   >
                     Apply

@@ -3,20 +3,13 @@ import { types, typeHelpers } from '@polymathnetwork/new-shared';
 import { ModalConfirm } from '~/components/ModalConfirm';
 import { Paragraph } from '~/components/Paragraph';
 import { ModalStatus } from '~/components/Modal/types';
-import {
-  getTransactionQueueText,
-  getTransactionText,
-} from '~/components/utils/contentMappings';
+import { getTransactionQueueText } from '~/components/utils/contentMappings';
 import { TransactionItem } from './TransactionItem';
 
 type ModalConfirmProps = typeHelpers.GetProps<typeof ModalConfirm>;
 
-interface TransactionQueue extends types.TransactionQueueEntity {
-  transactions: types.TransactionEntity[];
-}
-
 interface Props extends ModalConfirmProps {
-  transactionQueue: TransactionQueue;
+  transactionQueue: types.TransactionQueuePojo;
 }
 
 export const ModalConfirmTransactionQueue: FC<Props> = ({

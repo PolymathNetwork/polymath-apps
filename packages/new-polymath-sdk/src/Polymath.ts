@@ -263,14 +263,11 @@ export class Polymath {
 
     const address = securityToken.address;
     const name = await securityToken.name();
-    const stEntity = new SecurityToken(
-      {
-        symbol: securityTokenSymbol,
-        name,
-        address,
-      },
-      this
-    );
+    const stEntity = new this.SecurityToken({
+      symbol: securityTokenSymbol,
+      name,
+      address,
+    });
     const securityTokenId = stEntity.uid;
 
     return checkpoints.map(checkpoint => {
