@@ -11,6 +11,7 @@ import {
   NETWORK_WS_PROVIDER_KOVAN,
 } from '~/constants';
 
+
 interface NetworkConfig {
   [networkId: number]: PolymathNetworkParams;
 }
