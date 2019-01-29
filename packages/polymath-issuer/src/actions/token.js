@@ -318,6 +318,10 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
     // $FlowFixMe
     for (let entry of reader.result.split(/\r\n|\n/)) {
       string++;
+      //Ignore blank rows
+      if (entry === '') {
+        continue;
+      }
       const [address, sale, purchase, expiryIn, tokensIn] = entry.split(',');
       const handleDate = (d: string) =>
         d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
