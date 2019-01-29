@@ -80,20 +80,9 @@ export class PolyToken extends Contract {
   async subscribeMyTransfers(
     callback: (toOrFrom: Address, value: BigNumber, isSent: boolean) => void
   ) {
-    /**
-     * NOTE @monitz87: this differentiation of parameter names
-     * is necessary due to https://github.com/PolymathNetwork/polymath-core/issues/412
-     */
-    const networkId = String(Contract._params.id);
-    let valueKey = 'value',
+    const valueKey = 'value',
       toKey = 'to',
       fromKey = 'from';
-
-    if (networkId !== MAINNET_NETWORK_ID) {
-      valueKey = `_${valueKey}`;
-      fromKey = `_${fromKey}`;
-      toKey = `_${toKey}`;
-    }
 
     const callbackInternal = (event: Web3Event) => {
       const values = event.returnValues;
