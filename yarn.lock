@@ -1708,6 +1708,11 @@
   version "0.0.1-alpha.12"
   resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-0.0.1-alpha.12.tgz#a68658d040a970c92e53566b8cdf4ce7a4f59ea2"
 
+"@carbon/icon-helpers@0.0.1-alpha.25":
+  version "0.0.1-alpha.25"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-0.0.1-alpha.25.tgz#979d33e4ace14b14a1d9c693510fecef6a306c43"
+  integrity sha512-5HNefY823cWAjLhf3HKJP1ilySnFDroIOo2svMcdsGRMGF01A5GjVV+u2WxqmeOqLioOj36FEtzsOJlVZA5rFg==
+
 "@carbon/icons-react@^0.0.1-alpha.20":
   version "0.0.1-alpha.25"
   resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-0.0.1-alpha.25.tgz#898742d10bc8e5a098f5d592c7fb3ab9abd9c660"
@@ -15185,7 +15190,7 @@ polished@^2.0.3, polished@^2.3.1:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
-polymath-core@2.0.0, polymath-core@PolymathNetwork/polymath-core#83f0afa32699b6945e66efd0d1b0bcbb51a009a8:
+polymath-core@2.0.0:
   version "2.0.0"
   resolved "https://codeload.github.com/PolymathNetwork/polymath-core/tar.gz/83f0afa32699b6945e66efd0d1b0bcbb51a009a8"
   dependencies:
