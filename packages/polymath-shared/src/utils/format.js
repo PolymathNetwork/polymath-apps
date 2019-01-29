@@ -87,3 +87,16 @@ export const toTokens = (
   const number = new BigNumber(value);
   return number.toFormat(decimals);
 };
+
+export const toLargeNumber = (
+  data: number,
+  precision: number,
+  decimals: number
+) => {
+  const str = data.toString();
+  if (str.indexOf('e') !== -1) {
+    return Number(data.toPrecision(precision)).toExponential(decimals);
+  } else {
+    return new BigNumber(data.toFixed(decimals));
+  }
+};

@@ -50,19 +50,6 @@ export const thousandsDelimiter = (v: number) => {
   );
 };
 
-export const formatLargeNumber = (
-  data: number,
-  precision: number,
-  decimals: number
-) => {
-  const str = data.toString();
-  if (str.indexOf('e') !== -1) {
-    return Number(data.toPrecision(precision)).toExponential(decimals);
-  } else {
-    return new BigNumber(data.toFixed(decimals));
-  }
-};
-
 export const addressShortifier = (address: string) =>
   address.substring(0, 7) + '...' + address.slice(-7);
 
