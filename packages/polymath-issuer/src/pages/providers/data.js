@@ -192,6 +192,17 @@ const providers: Array<ServiceProvider> = [
       'Messner Reeves is a national full-service business law with expertise in securities matters in the following ' +
       'jurisdictions: Colorado, Nebraska, Pennsylvania.',
   },
+  {
+    id: 23,
+    cat: 1,
+    title: 'Petros Law',
+    logo: '/providers/legal/petros.png',
+    background: '/providers/legal/bg/img-petros.png',
+    desc:
+      'Petros Law Group is a fintech law firm that focuses on commercial business application of digital asset ' +
+      'technologies through blockchain infrastructures, such as tokenized-securities. The Firm focuses on bringing ' +
+      'blockchain to commercial real estate and corporate business transactions',
+  },
 
   // KYC/AML
   {
