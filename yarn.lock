@@ -1711,6 +1711,9 @@
 "@carbon/icons-react@^0.0.1-alpha.20":
   version "0.0.1-alpha.25"
   resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-0.0.1-alpha.25.tgz#898742d10bc8e5a098f5d592c7fb3ab9abd9c660"
+  dependencies:
+    "@carbon/icon-helpers" "0.0.1-alpha.25"
+    prop-types "^15.6.2"
 
 "@commitlint/cli@7.3.1":
   version "7.3.1"
@@ -1955,9 +1958,10 @@
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
 
-"@hbetts/parse-repository-url@^2.1.1":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@hbetts/parse-repository-url/-/parse-repository-url-2.1.2.tgz#f78e6950529be9fd0b904fc90e06b078ddf4a847"
+"@hutson/parse-repository-url@^3.0.0":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@hutson/parse-repository-url/-/parse-repository-url-3.0.1.tgz#b9a7daec81cf1fa9cf5dc01576536d50cb9db899"
+  integrity sha512-gNd42W/1NDEp0o+jM3WNf9LIeQOoiPmrPwgNtHiFm/Tk52883qFrR07WCp6ezyfPvnHkz57Kwe94MbyE6J18Vg==
 
 "@koa/cors@^2.2.1":
   version "2.2.2"
@@ -9400,6 +9404,7 @@ get-own-enumerable-property-symbols@^3.0.0:
 get-pkg-repo@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/get-pkg-repo/-/get-pkg-repo-1.4.0.tgz#c73b489c06d80cc5536c2c853f9e05232056972d"
+  integrity sha1-xztInAbYDMVTbCyFP54FIyBWly0=
   dependencies:
     hosted-git-info "^2.1.4"
     meow "^3.3.0"
@@ -9410,6 +9415,7 @@ get-pkg-repo@^1.0.0:
 get-pkg-repo@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/get-pkg-repo/-/get-pkg-repo-2.0.0.tgz#afe80c3370b2576bbe69aa78aedbfb96d2d025f1"
+  integrity sha1-r+gMM3CyV2u+aap4rtv7ltLQJfE=
   dependencies:
     hosted-git-info "^2.1.4"
     meow "^3.3.0"
@@ -9418,12 +9424,13 @@ get-pkg-repo@^2.0.0:
     through2 "^2.0.0"
 
 get-pkg-repo@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/get-pkg-repo/-/get-pkg-repo-4.0.2.tgz#6cf2d71b5655b9c3a97c0057f4f04466f48971ab"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/get-pkg-repo/-/get-pkg-repo-4.1.0.tgz#bd2b109e297af8ec541ba271607aab439f9a8610"
+  integrity sha512-BHJovsEz9igoxU9Idfa9XjKr0OuAfg6/wInYegP0/M3efsdVtKo1DipPebwnTZXtL9gzaPLvJv74J/U68yiiMg==
   dependencies:
-    "@hbetts/parse-repository-url" "^2.1.1"
+    "@hutson/parse-repository-url" "^3.0.0"
     hosted-git-info "^2.1.4"
-    meow "^3.3.0"
+    meow "^5.0.0"
     through2 "^2.0.0"
 
 get-port@^3.2.0:
