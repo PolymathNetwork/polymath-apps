@@ -1,27 +1,23 @@
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { styled } from '~/styles';
 import { ulReset } from '~/styles/utils';
-import { Flex } from '~/components/Flex';
+import { Grid } from '~/components/Grid';
 
-type FlexProps = typeHelpers.GetProps<typeof Flex>;
+type FlexProps = typeHelpers.GetProps<typeof Grid>;
 
 export interface Props extends FlexProps {
   vertical?: boolean;
 }
 
-export const List = styled(Flex)<Props>`
+export const List = styled(Grid)<Props>`
   ${ulReset}
-  flex-direction: ${({ vertical }) => (vertical ? 'column' : 'row')};
-
-  > * + * {
-    ${({ vertical, theme }) =>
-      vertical
-        ? `margin-top: ${theme.space.gridGap};`
-        : `margin-left: ${theme.space.gridGap};`}
-  }
+  grid-auto-flow: ${({ vertical }) => (vertical ? 'row' : 'column')};
 `;
 
 List.defaultProps = {
+  ...Grid.defaultProps,
   as: 'ul',
   alignItems: 'center',
+  gridAutoRows: 'minmax(min-content, max-content)',
+  gridAutoColumns: 'minmax(min-content, max-content)',
 };
