@@ -2,6 +2,7 @@ const { sendTransaction, web3 } = require('../utils');
 const { BLOCKCHAIN_NETWORK_ID, STATE_DOCUMENT_PATH } = require('../constants');
 const wallets = require('./wallets.json');
 const fs = require('fs');
+const path = require('path');
 const _ = require('lodash');
 
 function consoleOutput(data) {
@@ -86,7 +87,7 @@ function markdownOutput(data) {
 async function seedData(dataFile) {
   if (fs.existsSync(STATE_DOCUMENT_PATH)) fs.unlinkSync(STATE_DOCUMENT_PATH);
 
-  const accounts = require(`./${dataFile}`).accounts;
+  const accounts = require(dataFile).accounts;
 
   const PolymathRegistryArtifact = require('../fixtures/contracts/PolymathRegistry.json');
   const SecurityTokenRegistryArtifact = require('../fixtures/contracts/SecurityTokenRegistry.json');
@@ -267,7 +268,9 @@ async function seedData(dataFile) {
       throw new Error(`No value set for option '${flag}'`);
     }
   }
-  const dataFile = arg || 'seedData.json';
+
+  const dataFile = arg || `${__dirname}/seedData.json`;
+
   console.log(`Reading seed data from "${dataFile}"`);
-  await seedData(dataFile);
+  await seedData(path.resolve(dataFile));
 })().catch(console.log);
