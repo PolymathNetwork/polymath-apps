@@ -2,7 +2,7 @@ import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { types as sharedTypes } from '@polymathnetwork/new-shared';
 
-interface Args {
+export interface Args {
   symbol: string;
   storageWalletAddress: string;
   types?: DividendModuleTypes[];

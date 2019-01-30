@@ -1,12 +1,13 @@
 import { Procedure } from './Procedure';
 import { TaxWithholding } from '~/types';
 import { types } from '@polymathnetwork/new-shared';
+import BigNumber from 'bignumber.js';
 
-interface Args {
+export interface Args {
   symbol: string;
   maturityDate: Date;
   expiryDate: Date;
-  amount: number;
+  amount: BigNumber;
   checkpointId: number;
   name: string;
   excludedAddresses?: string[];

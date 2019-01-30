@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { Procedure } from './Procedure';
 import { types } from '@polymathnetwork/new-shared';
 
-interface Args {
+export interface Args {
   amount: BigNumber;
   spender: string;
 }

@@ -2,7 +2,7 @@ import { Procedure } from './Procedure';
 import { Approve } from '~/procedures/Approve';
 import { types } from '@polymathnetwork/new-shared';
 
-interface Args {
+export interface Args {
   name: string;
   symbol: string;
   detailsUrl?: string;

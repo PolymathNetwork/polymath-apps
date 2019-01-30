@@ -3,7 +3,7 @@ import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
 import { types } from '@polymathnetwork/new-shared';
 
-interface Args {
+export interface Args {
   symbol: string;
   dividendIndex: number;
   dividendType: DividendModuleTypes;
