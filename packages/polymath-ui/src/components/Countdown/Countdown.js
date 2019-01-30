@@ -87,6 +87,9 @@ export default class Countdown extends Component<CountdownProps, State> {
       const minutes = Math.floor((time / 1000 / 60) % 60);
       const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
       const days = Math.floor(time / (1000 * 60 * 60 * 24));
+      if (days + hours + minutes + seconds === 0) {
+        window.location.reload();
+      }
       this.setState({ days, hours, minutes, seconds });
     }
   };
