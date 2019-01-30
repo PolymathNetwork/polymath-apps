@@ -2,11 +2,7 @@ import { TransactionObject } from 'web3/eth/types';
 import { PolymathRegistryAbi } from './abis/PolymathRegistryAbi';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
-import { GenericContract } from '~/LowLevel/types';
-
-export interface GetAddressArgs {
-  contractName: string;
-}
+import { GenericContract, GetAddressArgs } from './types';
 
 interface PolymathRegistryContract extends GenericContract {
   methods: {

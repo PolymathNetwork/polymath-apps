@@ -2,12 +2,14 @@ import Web3 from 'web3';
 import { web3 } from './web3Client';
 import { TransactionObject } from 'web3/eth/types';
 import BigNumber from 'bignumber.js';
-import { ModuleTypes } from '~/types';
 import {
   DividendModuleTypes,
   GenericContract,
   Checkpoint,
   InvestorBalance,
+  ModuleTypes,
+  AddDividendsModuleArgs,
+  GetModuleAddressArgs,
 } from './types';
 import { Context } from './LowLevel';
 import { fromUnixTimestamp, fromWei } from './utils';
@@ -16,15 +18,6 @@ import { EtherDividendCheckpoint } from './EtherDividendCheckpoint';
 import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
 import { DividendCheckpointAbi } from './abis/DividendCheckpointAbi';
 import { Contract } from './Contract';
-
-export interface AddDividendsModuleArgs {
-  type: DividendModuleTypes;
-  wallet: string;
-}
-
-export interface GetModuleAddressArgs {
-  name: string;
-}
 
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenContract extends GenericContract {
@@ -69,9 +62,10 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     type,
     wallet,
   }: AddDividendsModuleArgs) => {
-    const factoryMappings = [];
-    factoryMappings[DividendModuleTypes.Erc20] = 'ERC20DividendCheckpoint';
-    factoryMappings[DividendModuleTypes.Eth] = 'EtherDividendCheckpoint';
+    const factoryMappings = {
+      [DividendModuleTypes.Erc20]: 'ERC20DividendCheckpoint',
+      [DividendModuleTypes.Eth]: 'EtherDividendCheckpoint',
+    };
 
     const factoryAddress = await this.context.moduleRegistry.getModuleFactoryAddress(
       {

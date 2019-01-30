@@ -4,19 +4,11 @@ import { Contract } from './Contract';
 import { Context } from './LowLevel';
 import { TransactionObject } from 'web3/eth/types';
 import { ModuleFactory } from './ModuleFactory';
-import { ModuleTypes } from '~/types';
-import { GenericContract } from '~/LowLevel/types';
-
-export interface GetModuleFactoryAddressArgs {
-  moduleName: string;
-  moduleType: ModuleTypes;
-  tokenAddress: string;
-}
-
-export interface GetModulesByTypeAndTokenArgs {
-  moduleType: ModuleTypes;
-  tokenAddress: string;
-}
+import {
+  GenericContract,
+  GetModuleFactoryAddressArgs,
+  GetModulesByTypeAndTokenArgs,
+} from './types';
 
 // This type should be obtained from a library (must match ABI)
 interface ModuleRegistryContract extends GenericContract {

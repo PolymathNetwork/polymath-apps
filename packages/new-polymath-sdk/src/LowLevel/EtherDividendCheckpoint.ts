@@ -4,17 +4,7 @@ import { DividendCheckpoint } from './DividendCheckpoint';
 import { toUnixTimestamp, toWei } from './utils';
 import { TransactionObject } from 'web3/eth/types';
 import { Context } from './LowLevel';
-import { Dividend, GenericContract } from './types';
-import BigNumber from 'bignumber.js';
-
-export interface CreateDividendArgs {
-  maturityDate: Date;
-  expiryDate: Date;
-  amount: BigNumber;
-  checkpointId: number;
-  name: string;
-  excludedAddresses?: string[];
-}
+import { Dividend, GenericContract, CreateEtherDividendArgs } from './types';
 
 // This type should be obtained from a library (must match ABI)
 interface EtherDividendCheckpointContract extends GenericContract {
@@ -49,7 +39,7 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
     checkpointId,
     name,
     excludedAddresses,
-  }: CreateDividendArgs) => {
+  }: CreateEtherDividendArgs) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const amountInWei = toWei(amount).valueOf();
     const nameInBytes = Web3.utils.asciiToHex(name);

@@ -4,26 +4,13 @@ import { PolyTokenAbi } from './abis/PolyTokenAbi';
 import { PolyTokenFaucetAbi } from './abis/PolyTokenFaucetAbi';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
-import { GenericContract } from '~/LowLevel/types';
-
-export interface AllowanceArgs {
-  tokenOwner: string;
-  spender: string;
-}
-
-export interface GetTokensArgs {
-  amount: BigNumber;
-  recipient: string;
-}
-
-export interface BalanceOfArgs {
-  address: string;
-}
-
-export interface ApproveArgs {
-  spender: string;
-  amount: BigNumber;
-}
+import {
+  GenericContract,
+  AllowanceArgs,
+  GetTokensArgs,
+  BalanceOfArgs,
+  ApproveArgs,
+} from './types';
 
 interface PolyTokenContract extends GenericContract {
   methods: {

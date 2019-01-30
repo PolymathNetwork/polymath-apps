@@ -4,7 +4,13 @@ import { Module } from './Module';
 import { Context } from './LowLevel';
 import { TransactionObject } from 'web3/eth/types';
 import { SecurityToken } from './SecurityToken';
-import { GenericContract, Dividend } from './types';
+import {
+  GenericContract,
+  Dividend,
+  SetWithholdingArgs,
+  ReclaimDividendArgs,
+  WithdrawWithholdingArgs,
+} from './types';
 import { fromUnixTimestamp, fromWei, toWei } from './utils';
 
 interface InternalDividend {
@@ -19,19 +25,6 @@ interface InternalDividend {
   dividendWithheld: number;
   dividendWithheldReclaimed: number;
   name: string;
-}
-
-export interface SetWithholdingArgs {
-  investors: string[];
-  percentages: number[];
-}
-
-export interface ReclaimDividendArgs {
-  dividendIndex: number;
-}
-
-export interface WithdrawWithholdingArgs {
-  dividendIndex: number;
 }
 
 // This type should be obtained from a library (must match ABI)

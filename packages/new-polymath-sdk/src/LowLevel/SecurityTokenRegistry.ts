@@ -4,24 +4,12 @@ import { SecurityTokenRegistryAbi } from './abis/SecurityTokenRegistryAbi';
 import { Contract } from './Contract';
 import { SecurityToken } from './SecurityToken';
 import { Context } from './LowLevel';
-import { GenericContract } from '~/LowLevel/types';
-
-export interface RegisterTickerArgs {
-  owner: string;
-  ticker: string;
-  tokenName: string;
-}
-
-export interface GenerateSecurityTokenArgs {
-  tokenName: string;
-  ticker: string;
-  tokenDetails: string;
-  divisible: boolean;
-}
-
-export interface GetSecurityTokenArgs {
-  ticker: string;
-}
+import {
+  GenericContract,
+  RegisterTickerArgs,
+  GenerateSecurityTokenArgs,
+  GetSecurityTokenArgs,
+} from './types';
 
 interface SecurityTokenRegistryContract extends GenericContract {
   methods: {

@@ -11,14 +11,6 @@ export interface TaxWithholding {
   percentage: number;
 }
 
-export enum ModuleTypes {
-  Permission = 1,
-  Transfer,
-  Sto,
-  Dividends,
-  Burn,
-}
-
 export enum ErrorCodes {
   IncompatibleBrowser = 'IncompatibleBrowser',
   UserDeniedAccess = 'UserDeniedAccess',
