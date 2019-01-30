@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import _ from 'lodash';
 import { TransactionReceipt } from 'web3/types';
-import { Omit } from '~/typing/helpers';
 
 export enum Tokens {
   Poly = 'POLY',
@@ -83,7 +82,7 @@ export interface TransactionEntity extends Entity {
   tag: PolyTransactionTags;
   receipt?: TransactionReceipt;
   error?: PolymathError;
-  args: Pojo;
+  args: any;
 }
 
 export interface TransactionPojo extends TransactionEntity {}
@@ -135,7 +134,7 @@ export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
   procedureType: ProcedureTypes;
-  args: Pojo;
+  args: any;
 }
 
 export interface TransactionQueuePojo extends TransactionQueueEntity {
