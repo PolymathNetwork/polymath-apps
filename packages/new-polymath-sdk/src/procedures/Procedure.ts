@@ -26,8 +26,7 @@ type MethodOrProcedure<A extends any[]> =
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args> {
-  public type: types.ProcedureTypes =
-    types.ProcedureTypes.UnnamedProcedure;
+  public type: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure;
   protected args: Args;
   protected context: Context;
   private transactions: TransactionSpec[] = [];
@@ -45,7 +44,11 @@ export abstract class Procedure<Args> {
   public prepare = async () => {
     await this.prepareTransactions();
 
-    const transactionQueue = new TransactionQueue(this.transactions, this.type);
+    const transactionQueue = new TransactionQueue(
+      this.transactions,
+      this.type,
+      this.args
+    );
 
     return transactionQueue;
   };

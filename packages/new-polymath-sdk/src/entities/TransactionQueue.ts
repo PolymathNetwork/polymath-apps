@@ -9,7 +9,7 @@ enum Events {
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class TransactionQueue extends Entity {
+export class TransactionQueue<Args = any> extends Entity {
   public readonly entityType: string = 'transactionQueue';
   public procedureType: types.ProcedureTypes;
   public uid: string;
@@ -17,13 +17,15 @@ export class TransactionQueue extends Entity {
   public promise: Promise<any>;
   public status: types.TransactionQueueStatus =
     types.TransactionQueueStatus.Idle;
+  public args: Args;
   public error?: Error;
   private queue: PolyTransaction[] = [];
   private emitter: EventEmitter;
 
   constructor(
     transactions: TransactionSpec[],
-    procedureType: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure
+    procedureType: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure,
+    args: Args
   ) {
     super(undefined, false);
 
@@ -33,6 +35,7 @@ export class TransactionQueue extends Entity {
       this.resolve = res;
       this.reject = rej;
     });
+    this.args = args;
 
     this.transactions = transactions.map(transaction => {
       const txn = new PolyTransaction(transaction, this);
@@ -52,13 +55,14 @@ export class TransactionQueue extends Entity {
   }
 
   public toPojo() {
-    const { uid, transactions, status, procedureType } = this;
+    const { uid, transactions, status, procedureType, args } = this;
 
     return {
       uid,
       transactions: transactions.map(transaction => transaction.toPojo()),
       status,
       procedureType,
+      args,
     };
   }
 
