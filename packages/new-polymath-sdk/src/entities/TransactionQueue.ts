@@ -25,7 +25,7 @@ export class TransactionQueue<Args = any> extends Entity {
   constructor(
     transactions: TransactionSpec[],
     procedureType: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure,
-    args: Args
+    args: Args = {} as Args
   ) {
     super(undefined, false);
 
