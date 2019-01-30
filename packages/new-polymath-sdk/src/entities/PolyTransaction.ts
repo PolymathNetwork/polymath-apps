@@ -2,20 +2,11 @@ import _ from 'lodash';
 import { EventEmitter } from 'events';
 import { types } from '@polymathnetwork/new-shared';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { TransactionSpec, ErrorCodes, DividendModuleTypes } from '~/types';
+import { TransactionSpec, ErrorCodes } from '~/types';
 import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
 import { TransactionQueue } from '~/entities/TransactionQueue';
-import BigNumber from 'bignumber.js';
-
-// @TODO RafaelVidaurre: Decide where this should go
-const descriptionsByTag: {
-  [key: string]: string;
-} = {
-  [types.PolyTransactionTags.EnableDividends]:
-    'Enabling the distribution of dividends in ERC20 tokens, including POLY and Stablecoins',
-};
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -36,7 +27,7 @@ const mapValuesDeep = (
     _.isPlainObject(val) ? mapValuesDeep(val, fn) : fn(val, key, obj)
   );
 
-export class PolyTransaction extends Entity {
+export class PolyTransaction<Args = any, R = any> extends Entity {
   public entityType = 'transaction';
   public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
@@ -46,16 +37,15 @@ export class PolyTransaction extends Entity {
   public receipt?: TransactionReceipt;
   public tag: types.PolyTransactionTags;
   public txHash?: string;
-  public description: string;
-  protected method: TransactionSpec['method'];
-  protected args: TransactionSpec['args'];
+  public args: TransactionSpec<Args, R>['args'];
+  protected method: TransactionSpec<Args, R>['method'];
   private postResolver: PostTransactionResolver<
-    any
-  > = new PostTransactionResolver(async () => {});
+    R
+  > = new PostTransactionResolver<R>();
   private emitter: EventEmitter;
 
   constructor(
-    transaction: TransactionSpec,
+    transaction: TransactionSpec<Args, R>,
     transactionQueue: TransactionQueue
   ) {
     super(undefined, false);
@@ -69,7 +59,6 @@ export class PolyTransaction extends Entity {
     this.method = transaction.method;
     this.args = transaction.args;
     this.transactionQueue = transactionQueue;
-    this.description = descriptionsByTag[this.tag] || this.tag;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -84,9 +73,9 @@ export class PolyTransaction extends Entity {
       tag,
       receipt,
       error,
-      description,
       txHash,
       transactionQueue,
+      args,
     } = this;
     const transactionQueueUid = transactionQueue.uid;
 
@@ -95,11 +84,10 @@ export class PolyTransaction extends Entity {
       transactionQueueUid,
       status,
       tag,
-      description,
       txHash,
       receipt,
       error,
-      args: this.argsToObject(),
+      args,
     };
   }
 
@@ -195,7 +183,7 @@ export class PolyTransaction extends Entity {
     }
   };
 
-  private unwrapArg(arg: PostTransactionResolver<any>) {
+  private unwrapArg<T extends any>(arg: PostTransactionResolver<T> | T) {
     if (isPostTransactionResolver(arg)) {
       return arg.result;
     }
@@ -205,7 +193,7 @@ export class PolyTransaction extends Entity {
   /**
    * Picks all post-transaction resolvers and unwraps their values
    */
-  private unwrapArgs(args: any[]) {
+  private unwrapArgs(args: TransactionSpec<Args>['args']) {
     return _.map(args, arg => {
       return _.isPlainObject(arg)
         ? mapValuesDeep(arg as { [key: string]: any }, (val: any) => {
@@ -213,149 +201,5 @@ export class PolyTransaction extends Entity {
           })
         : this.unwrapArg(arg);
     });
-  }
-
-  /**
-   * Transforms the transaction arguments to an object depending
-   * on the transaction type
-   *
-   * NOTE @monitz87: this is done so that the transaction modal has access
-   * to named properties. This is a temporary solution. A proper solution would be to
-   * create a class for each transaction type with its own toPojo method that exposes
-   * the arguments as an object
-   */
-  private argsToObject() {
-    const { tag, args } = this;
-
-    switch (tag) {
-      case types.PolyTransactionTags.Approve: {
-        const [spender, amount] = args as [string, BigNumber];
-
-        return {
-          spender,
-          amount,
-        };
-      }
-      case types.PolyTransactionTags.CreateErc20DividendDistribution: {
-        const [
-          maturityDate,
-          expiryDate,
-          erc20Address,
-          amount,
-          checkpointId,
-          name,
-          excludedAddresses,
-        ] = args as [
-          Date,
-          Date,
-          string,
-          BigNumber,
-          number,
-          string,
-          string[] | undefined
-        ];
-
-        return {
-          maturityDate,
-          expiryDate,
-          erc20Address,
-          amount,
-          checkpointId,
-          name,
-          excludedAddresses,
-        };
-      }
-      case types.PolyTransactionTags.CreateEtherDividendDistribution: {
-        const [
-          maturityDate,
-          expiryDate,
-          amount,
-          checkpointId,
-          name,
-          excludedAddresses,
-        ] = args as [
-          Date,
-          Date,
-          BigNumber,
-          number,
-          string,
-          string[] | undefined
-        ];
-
-        return {
-          maturityDate,
-          expiryDate,
-          amount,
-          checkpointId,
-          name,
-          excludedAddresses,
-        };
-      }
-      case types.PolyTransactionTags.CreateSecurityToken: {
-        const [name, symbol, detailsUrl, divisible] = args as [
-          string,
-          string,
-          string,
-          boolean
-        ];
-
-        return {
-          name,
-          symbol,
-          detailsUrl,
-          divisible,
-        };
-      }
-      case types.PolyTransactionTags.EnableDividends: {
-        const [type, storageWalletAddress] = args as [
-          DividendModuleTypes,
-          string
-        ];
-
-        return {
-          type,
-          storageWalletAddress,
-        };
-      }
-      case types.PolyTransactionTags.GetTokens: {
-        const [amount, beneficiaryAddress] = args as [BigNumber, string];
-
-        return {
-          amount,
-          beneficiaryAddress,
-        };
-      }
-      case types.PolyTransactionTags.ReclaimDividendFunds:
-      case types.PolyTransactionTags.WithdrawTaxWithholdings: {
-        const [dividendIndex] = args as [number];
-
-        return {
-          dividendIndex,
-        };
-      }
-      case types.PolyTransactionTags.ReserveSecurityToken: {
-        const [ownerAddress, symbol, name] = args as [string, string, string];
-
-        return {
-          ownerAddress,
-          symbol,
-          name,
-        };
-      }
-      case types.PolyTransactionTags.SetErc20TaxWithholding:
-      case types.PolyTransactionTags.SetEtherTaxWithholding: {
-        const [investorAddresses, percentages] = args as [string[], number[]];
-
-        return {
-          investorAddresses,
-          percentages,
-        };
-      }
-      case types.PolyTransactionTags.CreateCheckpoint:
-      case types.PolyTransactionTags.Any:
-      default: {
-        return {};
-      }
-    }
   }
 }

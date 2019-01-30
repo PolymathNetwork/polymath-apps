@@ -38,10 +38,10 @@ export type LowLevelMethod<A extends any[]> = (
   ...args: A
 ) => Promise<() => PromiEvent<any>>;
 
-export interface TransactionSpec {
+export interface TransactionSpec<Args = any, R = any> {
   method: LowLevelMethod<any>;
-  args: MapMaybeResolver<any[]>;
-  postTransactionResolver?: PostTransactionResolver<any>;
+  args: MapMaybeResolver<Args>;
+  postTransactionResolver?: PostTransactionResolver<R>;
   tag?: types.PolyTransactionTags;
 }
 
@@ -53,6 +53,6 @@ export interface PolymathNetworkParams {
   polymathRegistryAddress: string;
 }
 
-export type MapMaybeResolver<T extends any[]> = {
+export type MapMaybeResolver<T> = {
   [K in keyof T]: PostTransactionResolver<T[K]> | T[K]
 };

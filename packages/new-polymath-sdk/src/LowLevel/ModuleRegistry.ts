@@ -7,6 +7,17 @@ import { ModuleFactory } from './ModuleFactory';
 import { ModuleTypes } from '~/types';
 import { GenericContract } from '~/LowLevel/types';
 
+export interface GetModuleFactoryAddressArgs {
+  moduleName: string;
+  moduleType: ModuleTypes;
+  tokenAddress: string;
+}
+
+export interface GetModulesByTypeAndTokenArgs {
+  moduleType: ModuleTypes;
+  tokenAddress: string;
+}
+
 // This type should be obtained from a library (must match ABI)
 interface ModuleRegistryContract extends GenericContract {
   methods: {
@@ -22,10 +33,10 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
     super({ address, abi: ModuleRegistryAbi.abi, context });
   }
 
-  public async getModulesByTypeAndToken(
-    moduleType: ModuleTypes,
-    tokenAddress: string
-  ) {
+  public async getModulesByTypeAndToken({
+    moduleType,
+    tokenAddress,
+  }: GetModulesByTypeAndTokenArgs) {
     return this.contract.methods
       .getModulesByTypeAndToken(moduleType, tokenAddress)
       .call();
@@ -37,15 +48,15 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
    *
    * @throws an error if there is no compatible module with that name
    */
-  public async getModuleFactoryAddress(
-    moduleName: string,
-    moduleType: ModuleTypes,
-    tokenAddress: string
-  ) {
-    const availableModules = await this.getModulesByTypeAndToken(
+  public async getModuleFactoryAddress({
+    moduleName,
+    moduleType,
+    tokenAddress,
+  }: GetModuleFactoryAddressArgs) {
+    const availableModules = await this.getModulesByTypeAndToken({
       moduleType,
-      tokenAddress
-    );
+      tokenAddress,
+    });
 
     for (const moduleAddress of availableModules) {
       const moduleFactory = new ModuleFactory({

@@ -9,7 +9,7 @@ enum Events {
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class TransactionQueue<Args = any> extends Entity {
+export class TransactionQueue<Args extends any = any> extends Entity {
   public readonly entityType: string = 'transactionQueue';
   public procedureType: types.ProcedureTypes;
   public uid: string;
@@ -38,7 +38,10 @@ export class TransactionQueue<Args = any> extends Entity {
     this.args = args;
 
     this.transactions = transactions.map(transaction => {
-      const txn = new PolyTransaction(transaction, this);
+      const txn = new PolyTransaction<typeof transaction.args>(
+        transaction,
+        this
+      );
 
       txn.onStatusChange(updatedTransaction => {
         this.emitter.emit(

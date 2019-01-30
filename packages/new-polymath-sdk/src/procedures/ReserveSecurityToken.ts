@@ -24,6 +24,6 @@ export class ReserveSecurityToken extends Procedure<Args> {
 
     await this.addTransaction(securityTokenRegistry.registerTicker, {
       tag: types.PolyTransactionTags.ReserveSecurityToken,
-    })(currentWallet.address, symbol, name);
+    })({ owner: currentWallet.address, ticker: symbol, tokenName: name });
   }
 }

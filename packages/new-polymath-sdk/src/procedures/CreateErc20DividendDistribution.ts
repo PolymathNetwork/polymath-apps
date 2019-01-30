@@ -31,7 +31,9 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
     } = this.args;
     const { securityTokenRegistry } = this.context;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
 
     if (!erc20Module) {
@@ -42,28 +44,28 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
 
     await this.addTransaction(erc20Module.createDividend, {
       tag: types.PolyTransactionTags.CreateErc20DividendDistribution,
-    })(
+    })({
       maturityDate,
       expiryDate,
-      erc20Address,
+      tokenAddress: erc20Address,
       amount,
       checkpointId,
       name,
-      excludedAddresses
-    );
+      excludedAddresses,
+    });
 
     if (taxWithholdings.length > 0) {
-      const investorAddresses: string[] = [];
+      const investors: string[] = [];
       const percentages: number[] = [];
 
       taxWithholdings.forEach(({ address, percentage }) => {
-        investorAddresses.push(address);
+        investors.push(address);
         percentages.push(percentage);
       });
 
       await this.addTransaction(erc20Module.setWithholding, {
         tag: types.PolyTransactionTags.SetErc20TaxWithholding,
-      })(investorAddresses, percentages);
+      })({ investors, percentages });
     }
   }
 }

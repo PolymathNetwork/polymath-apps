@@ -244,9 +244,9 @@ export class Polymath {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
     const etherModule = await securityToken.getEtherDividendModule();
 
@@ -337,9 +337,9 @@ export class Polymath {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
 
     const name = await securityToken.name();

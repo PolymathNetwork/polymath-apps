@@ -23,6 +23,11 @@ export class CreateSecurityToken extends Procedure<Args> {
 
     await this.addTransaction(securityTokenRegistry.generateSecurityToken, {
       tag: types.PolyTransactionTags.CreateSecurityToken,
-    })(name, symbol, detailsUrl, divisible);
+    })({
+      tokenName: name,
+      ticker: symbol,
+      tokenDetails: detailsUrl,
+      divisible,
+    });
   }
 }

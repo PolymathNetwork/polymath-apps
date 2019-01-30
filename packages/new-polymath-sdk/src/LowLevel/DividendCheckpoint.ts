@@ -21,6 +21,19 @@ interface InternalDividend {
   name: string;
 }
 
+export interface SetWithholdingArgs {
+  investors: string[];
+  percentages: number[];
+}
+
+export interface ReclaimDividendArgs {
+  dividendIndex: number;
+}
+
+export interface WithdrawWithholdingArgs {
+  dividendIndex: number;
+}
+
 // This type should be obtained from a library (must match ABI)
 interface DividendCheckpointContract<T extends GenericContract> {
   methods: {
@@ -121,10 +134,10 @@ export class DividendCheckpoint<
     );
   }
 
-  public setWithholding = async (
-    investors: string[],
-    percentages: number[]
-  ) => {
+  public setWithholding = async ({
+    investors,
+    percentages,
+  }: SetWithholdingArgs) => {
     const percentagesInWei = percentages.map(toWei);
 
     return () =>
@@ -133,14 +146,16 @@ export class DividendCheckpoint<
         .send({ from: this.context.account });
   };
 
-  public reclaimDividend = async (dividendIndex: number) => {
+  public reclaimDividend = async ({ dividendIndex }: ReclaimDividendArgs) => {
     return () =>
       this.contract.methods
         .reclaimDividend(dividendIndex)
         .send({ from: this.context.account });
   };
 
-  public withdrawWithholding = async (dividendIndex: number) => {
+  public withdrawWithholding = async ({
+    dividendIndex,
+  }: WithdrawWithholdingArgs) => {
     return () =>
       this.contract.methods
         .withdrawWithholding(dividendIndex)

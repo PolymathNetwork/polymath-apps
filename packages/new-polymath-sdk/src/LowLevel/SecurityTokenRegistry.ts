@@ -6,6 +6,23 @@ import { SecurityToken } from './SecurityToken';
 import { Context } from './LowLevel';
 import { GenericContract } from '~/LowLevel/types';
 
+export interface RegisterTickerArgs {
+  owner: string;
+  ticker: string;
+  tokenName: string;
+}
+
+export interface GenerateSecurityTokenArgs {
+  tokenName: string;
+  ticker: string;
+  tokenDetails: string;
+  divisible: boolean;
+}
+
+export interface GetSecurityTokenArgs {
+  ticker: string;
+}
+
 interface SecurityTokenRegistryContract extends GenericContract {
   methods: {
     registerTicker(
@@ -32,23 +49,23 @@ export class SecurityTokenRegistry extends Contract<
     super({ address, abi: SecurityTokenRegistryAbi.abi, context });
   }
 
-  public registerTicker = async (
-    owner: string,
-    ticker: string,
-    tokenName: string
-  ) => {
+  public registerTicker = async ({
+    owner,
+    ticker,
+    tokenName,
+  }: RegisterTickerArgs) => {
     return () =>
       this.contract.methods
         .registerTicker(owner, ticker, tokenName)
         .send({ from: this.context.account });
   };
 
-  public generateSecurityToken = async (
-    tokenName: string,
-    ticker: string,
-    tokenDetails: string,
-    divisible: boolean
-  ) => {
+  public generateSecurityToken = async ({
+    tokenName,
+    ticker,
+    tokenDetails,
+    divisible,
+  }: GenerateSecurityTokenArgs) => {
     return () =>
       this.contract.methods
         .generateSecurityToken(tokenName, ticker, tokenDetails, divisible)
@@ -70,7 +87,7 @@ export class SecurityTokenRegistry extends Contract<
     return new BigNumber(feeRes);
   }
 
-  public async getSecurityToken(ticker: string) {
+  public async getSecurityToken({ ticker }: GetSecurityTokenArgs) {
     const address = await this.contract.methods
       .getSecurityTokenAddress(ticker)
       .call();

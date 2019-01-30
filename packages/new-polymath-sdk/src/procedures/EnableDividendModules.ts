@@ -18,12 +18,14 @@ export class EnableDividendModules extends Procedure<Args> {
     } = this.args;
     const { securityTokenRegistry } = this.context;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
 
     for (const type of types) {
       await this.addTransaction(securityToken.addDividendsModule, {
         tag: sharedTypes.PolyTransactionTags.EnableDividends,
-      })(type, storageWalletAddress);
+      })({ type, wallet: storageWalletAddress });
     }
   }
 }

@@ -6,6 +6,25 @@ import { Contract } from './Contract';
 import { Context } from './LowLevel';
 import { GenericContract } from '~/LowLevel/types';
 
+export interface AllowanceArgs {
+  tokenOwner: string;
+  spender: string;
+}
+
+export interface GetTokensArgs {
+  amount: BigNumber;
+  recipient: string;
+}
+
+export interface BalanceOfArgs {
+  address: string;
+}
+
+export interface ApproveArgs {
+  spender: string;
+  amount: BigNumber;
+}
+
 interface PolyTokenContract extends GenericContract {
   methods: {
     getTokens: (
@@ -33,7 +52,7 @@ export class PolyToken extends Contract<PolyTokenContract> {
     this.approve = this.approve.bind(this);
   }
 
-  public async getTokens(amount: BigNumber, recipient: string) {
+  public async getTokens({ amount, recipient }: GetTokensArgs) {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
@@ -43,15 +62,15 @@ export class PolyToken extends Contract<PolyTokenContract> {
         .send({ from: this.context.account });
   }
 
-  public async balanceOf(address: string) {
+  public async balanceOf({ address }: BalanceOfArgs) {
     return this.contract.methods.balanceOf(address).call();
   }
 
-  public async allowance(tokenOwner: string, spender: string) {
+  public async allowance({ tokenOwner, spender }: AllowanceArgs) {
     return this.contract.methods.allowance(tokenOwner, spender).call();
   }
 
-  public async approve(spender: string, amount: BigNumber) {
+  public async approve({ spender, amount }: ApproveArgs) {
     return () =>
       this.contract.methods
         .approve(spender, amount)

@@ -4,6 +4,10 @@ import { Contract } from './Contract';
 import { Context } from './LowLevel';
 import { GenericContract } from '~/LowLevel/types';
 
+export interface GetAddressArgs {
+  contractName: string;
+}
+
 interface PolymathRegistryContract extends GenericContract {
   methods: {
     getAddress(contractName: string): TransactionObject<string>;
@@ -14,7 +18,7 @@ export class PolymathRegistry extends Contract<PolymathRegistryContract> {
   constructor({ address, context }: { address: string; context: Context }) {
     super({ address, abi: PolymathRegistryAbi.abi, context });
   }
-  public async getAddress(contractName: string): Promise<string> {
+  public async getAddress({ contractName }: GetAddressArgs): Promise<string> {
     return this.contract.methods.getAddress(contractName).call();
   }
 }

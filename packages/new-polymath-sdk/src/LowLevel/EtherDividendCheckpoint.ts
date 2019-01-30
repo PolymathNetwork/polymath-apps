@@ -7,6 +7,15 @@ import { Context } from './LowLevel';
 import { Dividend, GenericContract } from './types';
 import BigNumber from 'bignumber.js';
 
+export interface CreateDividendArgs {
+  maturityDate: Date;
+  expiryDate: Date;
+  amount: BigNumber;
+  checkpointId: number;
+  name: string;
+  excludedAddresses?: string[];
+}
+
 // This type should be obtained from a library (must match ABI)
 interface EtherDividendCheckpointContract extends GenericContract {
   methods: {
@@ -33,14 +42,14 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
     super({ address, abi: EtherDividendCheckpointAbi.abi, context });
   }
 
-  public createDividend = async (
-    maturityDate: Date,
-    expiryDate: Date,
-    amount: BigNumber,
-    checkpointId: number,
-    name: string,
-    excludedAddresses?: string[]
-  ) => {
+  public createDividend = async ({
+    maturityDate,
+    expiryDate,
+    amount,
+    checkpointId,
+    name,
+    excludedAddresses,
+  }: CreateDividendArgs) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const amountInWei = toWei(amount).valueOf();
     const nameInBytes = Web3.utils.asciiToHex(name);

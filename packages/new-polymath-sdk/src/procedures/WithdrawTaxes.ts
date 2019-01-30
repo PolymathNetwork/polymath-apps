@@ -15,7 +15,9 @@ export class WithdrawTaxes extends Procedure<Args> {
     const { symbol, dividendIndex, dividendType } = this.args;
     const { securityTokenRegistry } = this.context;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
 
     let dividendModule: DividendCheckpoint | null = null;
 
@@ -35,6 +37,6 @@ export class WithdrawTaxes extends Procedure<Args> {
 
     await this.addTransaction(dividendModule.withdrawWithholding, {
       tag: types.PolyTransactionTags.WithdrawTaxWithholdings,
-    })(dividendIndex);
+    })({ dividendIndex });
   }
 }

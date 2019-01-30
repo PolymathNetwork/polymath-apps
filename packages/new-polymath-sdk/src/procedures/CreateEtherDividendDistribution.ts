@@ -29,7 +29,9 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
     } = this.args;
     const { securityTokenRegistry } = this.context;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
     const etherModule = await securityToken.getEtherDividendModule();
 
     if (!etherModule) {
@@ -40,20 +42,27 @@ export class CreateEtherDividendDistribution extends Procedure<Args> {
 
     await this.addTransaction(etherModule.createDividend, {
       tag: types.PolyTransactionTags.CreateEtherDividendDistribution,
-    })(maturityDate, expiryDate, amount, checkpointId, name, excludedAddresses);
+    })({
+      maturityDate,
+      expiryDate,
+      amount,
+      checkpointId,
+      name,
+      excludedAddresses,
+    });
 
     if (taxWithholdings.length > 0) {
-      const investorAddresses: string[] = [];
+      const investors: string[] = [];
       const percentages: number[] = [];
 
       taxWithholdings.forEach(({ address, percentage }) => {
-        investorAddresses.push(address);
+        investors.push(address);
         percentages.push(percentage);
       });
 
       await this.addTransaction(etherModule.setWithholding, {
         tag: types.PolyTransactionTags.SetEtherTaxWithholding,
-      })(investorAddresses, percentages);
+      })({ investors, percentages });
     }
   }
 }

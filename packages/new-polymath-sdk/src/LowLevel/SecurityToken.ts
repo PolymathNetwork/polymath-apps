@@ -17,6 +17,15 @@ import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
 import { DividendCheckpointAbi } from './abis/DividendCheckpointAbi';
 import { Contract } from './Contract';
 
+export interface AddDividendsModuleArgs {
+  type: DividendModuleTypes;
+  wallet: string;
+}
+
+export interface GetModuleAddressArgs {
+  name: string;
+}
+
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenContract extends GenericContract {
   methods: {
@@ -56,18 +65,20 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     return this.contract.methods.currentCheckpointId().call();
   }
 
-  public addDividendsModule = async (
-    type: DividendModuleTypes,
-    wallet: string
-  ) => {
+  public addDividendsModule = async ({
+    type,
+    wallet,
+  }: AddDividendsModuleArgs) => {
     const factoryMappings = [];
     factoryMappings[DividendModuleTypes.Erc20] = 'ERC20DividendCheckpoint';
     factoryMappings[DividendModuleTypes.Eth] = 'EtherDividendCheckpoint';
 
     const factoryAddress = await this.context.moduleRegistry.getModuleFactoryAddress(
-      factoryMappings[type],
-      ModuleTypes.Dividends,
-      this.address
+      {
+        moduleName: factoryMappings[type],
+        moduleType: ModuleTypes.Dividends,
+        tokenAddress: this.address,
+      }
     );
 
     const configFunctionAbi = DividendCheckpointAbi.abi.find(
@@ -96,7 +107,9 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public async getErc20DividendModule() {
-    const address = await this.getModuleAddress('ERC20DividendCheckpoint');
+    const address = await this.getModuleAddress({
+      name: 'ERC20DividendCheckpoint',
+    });
 
     if (!address) {
       return null;
@@ -106,7 +119,9 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   }
 
   public async getEtherDividendModule() {
-    const address = await this.getModuleAddress('EtherDividendCheckpoint');
+    const address = await this.getModuleAddress({
+      name: 'EtherDividendCheckpoint',
+    });
 
     if (!address) {
       return null;
@@ -158,7 +173,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     return this.contract.methods.name().call();
   }
 
-  private async getModuleAddress(name: string) {
+  private async getModuleAddress({ name }: GetModuleAddressArgs) {
     const hexName = Web3.utils.asciiToHex(name);
     const moduleAddresses = await this.contract.methods
       .getModulesByName(hexName)

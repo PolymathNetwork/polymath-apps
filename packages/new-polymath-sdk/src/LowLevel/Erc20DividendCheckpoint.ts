@@ -12,6 +12,16 @@ import {
   Erc20DividendDepositedEvent,
 } from './types';
 
+export interface CreateDividendArgs {
+  maturityDate: Date;
+  expiryDate: Date;
+  tokenAddress: string;
+  amount: BigNumber;
+  checkpointId: number;
+  name: string;
+  excludedAddresses?: string[];
+}
+
 // This type should be obtained from a library (must match ABI)
 interface Erc20DividendCheckpointContract extends GenericContract {
   methods: {
@@ -42,15 +52,15 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
     super({ address, abi: ERC20DividendCheckpointAbi.abi, context });
   }
 
-  public createDividend = async (
-    maturityDate: Date,
-    expiryDate: Date,
-    tokenAddress: string,
-    amount: BigNumber,
-    checkpointId: number,
-    name: string,
-    excludedAddresses?: string[]
-  ) => {
+  public createDividend = async ({
+    maturityDate,
+    expiryDate,
+    tokenAddress,
+    amount,
+    checkpointId,
+    name,
+    excludedAddresses,
+  }: CreateDividendArgs) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const { asciiToHex } = Web3.utils;
     const amountInWei = toWei(amount);
