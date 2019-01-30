@@ -13,9 +13,9 @@ const { PACKAGE_ROOT_DIR } = require('../constants');
     [arg0, arg1] = [arg1, arg0];
   }
 
-  if (flag0 !== '-e') {
+  if (flag0 && flag0 !== '-e') {
     throw new Error(`Invalid flag "${flag0}", should be "-e"`);
-  } else if (isNaN(arg0)) {
+  } else if (flag0 && isNaN(arg0)) {
     throw new Error('Must supply a numerical value for "-e"');
   }
 
