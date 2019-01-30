@@ -46,7 +46,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
     maturityDate: Date,
     expiryDate: Date,
     tokenAddress: string,
-    amount: number,
+    amount: BigNumber,
     checkpointId: number,
     name: string,
     excludedAddresses?: string[]

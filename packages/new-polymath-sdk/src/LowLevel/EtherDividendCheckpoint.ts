@@ -5,6 +5,7 @@ import { toUnixTimestamp, toWei } from './utils';
 import { TransactionObject } from 'web3/eth/types';
 import { Context } from './LowLevel';
 import { Dividend, GenericContract } from './types';
+import BigNumber from 'bignumber.js';
 
 // This type should be obtained from a library (must match ABI)
 interface EtherDividendCheckpointContract extends GenericContract {
@@ -35,7 +36,7 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
   public createDividend = async (
     maturityDate: Date,
     expiryDate: Date,
-    amount: number,
+    amount: BigNumber,
     checkpointId: number,
     name: string,
     excludedAddresses?: string[]
