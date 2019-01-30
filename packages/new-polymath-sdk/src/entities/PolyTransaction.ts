@@ -87,7 +87,11 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
       txHash,
       receipt,
       error,
-      args,
+      /**
+       * NOTE @monitz87: we intentionally expose the args as any for the end user
+       * until we figure out how to type this properly
+       */
+      args: args as any,
     };
   }
 
