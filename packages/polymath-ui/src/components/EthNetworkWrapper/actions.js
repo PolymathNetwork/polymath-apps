@@ -71,7 +71,10 @@ const initPolymathJs = async (params: {
 
   // initialize polymath-js contracts with addresses from the polymath registry
   await setupContracts(polymathRegistryAddress);
-  await polyClient.connect();
+
+  // FIXME @RafaelVidaurre: Enable this once the polyClient network loading
+  // problem has been fixed.
+  // await polyClient.connect();
 };
 
 export const init = (networks: Array<string>) => async (dispatch: Function) => {

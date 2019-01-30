@@ -1,48 +1,94 @@
-// @flow
+import { find } from 'lodash';
+/**
+ * This code is here to enable the progressive migration from Legacy to Modern.
+ * There are several levels in which Modern can replace Legacy functionality
+ * for a given route:
+ * 1. App level: Runs Modern on its own, Legacy is not used for this route
+ * 2. Router level: A subtree of Legacy is replaced by a subtree imported
+ * from Modern.
+ *
+ * There are two main capabilities that this setup allows:
+ * 1. To render the Modern or Legacy dApp depending on the current route.
+ * 2. To transform routes before mounting either app.
+ *
+ * NOTE: In theory we could also have logic to resolve values required for the
+ * redirected route that might not exist yet. Though this would require, an
+ * extra initialization step that might complicate things, so if possible lets
+ * avoid it.
+ */
 
-// Import Sass styles. Order is important.
-// $FlowFixMe
-import './style.scss';
+const redirectors = [
+  {
+    pattern: /dashboard\/(.+)\/dividends/,
+    makeRoute: (params: string[]) => {
+      const [securityTokenSymbol] = params;
+      return `/securityTokens/${securityTokenSymbol}/dividends`;
+    },
+  },
+];
 
-import React, { Fragment } from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { ThemeProvider } from 'styled-components';
-import { theme, GlobalStyles } from '@polymathnetwork/ui';
-import * as Sentry from '@sentry/browser';
+/**
+ * This is a map that determines wether the Legacy or the Modern App
+ * should be mounted. If there's no match, we default to Legacy.
+ */
+const modernAppRoutePatterns = [/securityTokens\/(.+)\/dividends/];
 
-import Root from './components/Root';
-import store, { history } from './redux/store';
-import { unregister } from './registerServiceWorker';
-
-import { SENTRY_KEY } from './constants';
-import routes from './routes';
-
-unregister();
-
-if (process.env.NODE_ENV === 'production') {
-  // Init error monitoring tool
-  Sentry.init({
-    dsn: SENTRY_KEY,
-    environment: process.env.REACT_APP_DEPLOYMENT_STAGE,
-  });
+function getRoutePath() {
+  return window.location.href
+    .split('/')
+    .slice(3)
+    .join('/');
 }
 
-window.debugEnv = () => {
-  console.log(process.env);
-};
+function initializeApp() {
+  // See if there is a redirection match and get the redirection route
+  // if so.
+  const path = getRoutePath();
 
-render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <ThemeProvider theme={theme}>
-        <Fragment>
-          <GlobalStyles />
-          <Root routes={routes} history={history} />
-        </Fragment>
-      </ThemeProvider>
-    </ConnectedRouter>
-  </Provider>,
-  ((document.getElementById('root'): any): HTMLElement)
-);
+  let redirectionMatch;
+  let matchingRedirector;
+  redirectors.forEach(redirector => {
+    if (redirectionMatch) {
+      return;
+    }
+
+    redirectionMatch = path.match(redirector.pattern);
+    matchingRedirector = redirector;
+  });
+
+  // If there's no redirection we render the proper app
+  if (!redirectionMatch) {
+    mountApp();
+    return;
+  }
+
+  // Parse parameters from redirector's regex
+  const params = redirectionMatch.slice(1);
+  const getTargetRoute = matchingRedirector.makeRoute(params);
+
+  // Redirect to route defined by redirector
+  window.location = getTargetRoute;
+}
+
+// Mounts the right app depending on the current route
+function mountApp() {
+  const path = getRoutePath();
+  let match;
+  modernAppRoutePatterns.forEach(pattern => {
+    if (match) {
+      return;
+    }
+    match = path.match(pattern);
+  });
+
+  if (match) {
+    console.log('Mounting: Modern dApp');
+    require('./mountModern');
+    return;
+  }
+
+  console.log('Mounting: Legacy dApp');
+  require('./mountLegacy');
+}
+
+initializeApp();

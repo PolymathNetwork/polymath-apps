@@ -24,6 +24,7 @@ import {
   MAINNET_NETWORK_ID,
   KOVAN_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
+import { ModalTransactionQueue } from '@polymathnetwork/new-issuer/components/ModalTransactionQueue';
 
 import HomePage from '../pages/home';
 
