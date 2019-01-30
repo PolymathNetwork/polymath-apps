@@ -17,7 +17,6 @@ import {
   EnterPINModal,
   StickyTop,
 } from '@polymathnetwork/ui';
-import { ModalTransactionQueue } from '@polymathnetwork/new-issuer/components/ModalTransactionQueue';
 
 import { getMyTokens } from '../actions/ticker';
 import AuthWrapper from './AuthWrapper';
@@ -109,7 +108,6 @@ class App extends Component<Props> {
           <Header ticker={ticker} variant={ui.header.variant} />
         </StickyTop>
         <AuthWrapper onFail={this.onAuthFail}>
-          <ModalTransactionQueue />
           {renderRoutes(route.routes)}
         </AuthWrapper>
         <Footer variant={ui.footer.variant} />
