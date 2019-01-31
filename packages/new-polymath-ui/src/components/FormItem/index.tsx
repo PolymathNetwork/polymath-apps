@@ -11,14 +11,7 @@ interface Props {
   children?: React.ComponentType;
 }
 
-const Wrapper = styled.div`
-  padding-bottom: 1.3rem;
-  margin-right: 0.5rem;
-
-  &:last-child {
-    margin-right: 0;
-  }
-`;
+const Wrapper = styled.div``;
 
 export const FormItem = ({ name, children, ...props }: Props) => {
   return (
