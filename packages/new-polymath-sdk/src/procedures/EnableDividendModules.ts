@@ -1,14 +1,11 @@
 import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { types as sharedTypes } from '@polymathnetwork/new-shared';
+import { EnableDividendModulesProcedureArgs } from '~/types';
 
-export interface Args {
-  symbol: string;
-  storageWalletAddress: string;
-  types?: DividendModuleTypes[];
-}
-
-export class EnableDividendModules extends Procedure<Args> {
+export class EnableDividendModules extends Procedure<
+  EnableDividendModulesProcedureArgs
+> {
   public type = sharedTypes.ProcedureTypes.EnableDividendModules;
   public async prepareTransactions() {
     const {

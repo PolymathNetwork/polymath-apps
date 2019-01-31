@@ -2,14 +2,9 @@ import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
 import { types } from '@polymathnetwork/new-shared';
+import { WithdrawTaxesProcedureArgs } from '~/types';
 
-export interface Args {
-  symbol: string;
-  dividendIndex: number;
-  dividendType: DividendModuleTypes;
-}
-
-export class WithdrawTaxes extends Procedure<Args> {
+export class WithdrawTaxes extends Procedure<WithdrawTaxesProcedureArgs> {
   public type = types.ProcedureTypes.WithdrawTaxes;
   public async prepareTransactions() {
     const { symbol, dividendIndex, dividendType } = this.args;

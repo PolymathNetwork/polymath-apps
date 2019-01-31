@@ -1,20 +1,10 @@
 import { Procedure } from './Procedure';
-import { TaxWithholding } from '~/types';
 import { types } from '@polymathnetwork/new-shared';
-import BigNumber from 'bignumber.js';
+import { CreateEtherDividendDistributionProcedureArgs } from '~/types';
 
-export interface Args {
-  symbol: string;
-  maturityDate: Date;
-  expiryDate: Date;
-  amount: BigNumber;
-  checkpointId: number;
-  name: string;
-  excludedAddresses?: string[];
-  taxWithholdings?: TaxWithholding[];
-}
-
-export class CreateEtherDividendDistribution extends Procedure<Args> {
+export class CreateEtherDividendDistribution extends Procedure<
+  CreateEtherDividendDistributionProcedureArgs
+> {
   public type = types.ProcedureTypes.CreateEtherDividendDistribution;
   public async prepareTransactions() {
     const {

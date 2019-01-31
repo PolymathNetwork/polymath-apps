@@ -1,13 +1,8 @@
-import BigNumber from 'bignumber.js';
 import { Procedure } from './Procedure';
 import { types } from '@polymathnetwork/new-shared';
+import { ApproveProcedureArgs } from '~/types';
 
-export interface Args {
-  amount: BigNumber;
-  spender: string;
-}
-
-export class Approve extends Procedure<Args> {
+export class Approve extends Procedure<ApproveProcedureArgs> {
   public type = types.ProcedureTypes.Approve;
   public async prepareTransactions() {
     const { amount, spender } = this.args;

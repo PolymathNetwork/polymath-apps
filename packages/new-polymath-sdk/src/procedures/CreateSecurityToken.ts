@@ -1,15 +1,11 @@
 import { Procedure } from './Procedure';
 import { Approve } from '~/procedures/Approve';
 import { types } from '@polymathnetwork/new-shared';
+import { CreateSecurityTokenProcedureArgs } from '~/types';
 
-export interface Args {
-  name: string;
-  symbol: string;
-  detailsUrl?: string;
-  divisible: boolean;
-}
-
-export class CreateSecurityToken extends Procedure<Args> {
+export class CreateSecurityToken extends Procedure<
+  CreateSecurityTokenProcedureArgs
+> {
   public type = types.ProcedureTypes.CreateSecurityToken;
   public async prepareTransactions() {
     const { name, symbol, detailsUrl = '', divisible } = this.args;

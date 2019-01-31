@@ -1,11 +1,8 @@
 import { Procedure } from './Procedure';
 import { types } from '@polymathnetwork/new-shared';
+import { CreateCheckpointProcedureArgs } from '~/types';
 
-export interface Args {
-  symbol: string;
-}
-
-export class CreateCheckpoint extends Procedure<Args> {
+export class CreateCheckpoint extends Procedure<CreateCheckpointProcedureArgs> {
   public type = types.ProcedureTypes.CreateCheckpoint;
   public async prepareTransactions() {
     const { symbol } = this.args;
