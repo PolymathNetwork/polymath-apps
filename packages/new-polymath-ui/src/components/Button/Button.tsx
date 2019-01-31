@@ -1,7 +1,12 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
+import { variant } from 'styled-system';
 import { get } from 'lodash';
 import { Icon } from '~/components/Icon';
+
+const buttonVariant = variant({
+  key: 'buttons',
+});
 
 type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -9,7 +14,7 @@ export interface ButtonProps {
   /**
    * Specify the kind of Button you want to create
    */
-  kind?: string;
+  variant: 'primary' | 'secondary' | 'ghost';
   /**
    * Optional prop to specify the type of the Button
    */
@@ -51,10 +56,11 @@ export const ButtonBase: FC<ButtonProps> = ({
 ButtonBase.defaultProps = {
   type: 'button',
   disabled: false,
-  kind: 'primary',
+  variant: 'primary',
 };
 
 const EnhancedButton = styled(ButtonBase)<ButtonProps>`
+  position: relative;
   display: inline-flex;
   justify-content: center;
   flex-shrink: 0;
@@ -73,7 +79,7 @@ const EnhancedButton = styled(ButtonBase)<ButtonProps>`
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  ${({ kind, theme }) => get(theme, `buttons.${kind}`)};
+  ${buttonVariant};
 
   &button,
   &input[type='button'],
