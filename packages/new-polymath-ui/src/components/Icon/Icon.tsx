@@ -7,12 +7,15 @@ import {
   height,
   WidthProps,
   HeightProps,
+  size,
+  SizeProps,
 } from 'styled-system';
 
 export interface IconProps extends StyledProps<any> {
   color: ColorProps;
   width: WidthProps;
   height: HeightProps;
+  size: SizeProps;
   Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
 }
 
@@ -21,6 +24,7 @@ const IconPrimitive: FC<IconProps> = ({
   color,
   width,
   height,
+  size,
   className,
   alt,
   ...props
@@ -32,12 +36,13 @@ const IconPrimitive: FC<IconProps> = ({
   );
 };
 
-export const Icon = styled(IconPrimitive)`
+export const Icon = styled(IconPrimitive)<IconProps>`
   display: inline-block;
   vertical-align: middle;
   ${color};
   ${width};
   ${height};
+  ${size};
 
   svg {
     display: block;
