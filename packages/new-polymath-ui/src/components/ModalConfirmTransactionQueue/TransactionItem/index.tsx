@@ -22,9 +22,14 @@ interface TransactionItemProps {
   };
 }
 
-export const TransactionItem: FC<TransactionItemProps> & {
+interface StaticProps {
   defaultProps: { getContent: TransactionItemProps['getContent'] };
-} = ({ transaction, getContent }: TransactionItemProps) => {
+}
+
+export const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
+  transaction,
+  getContent,
+}: TransactionItemProps) => {
   const { title, description } = getContent(transaction);
   const Icon = getTransactionIcon(transaction);
   return (

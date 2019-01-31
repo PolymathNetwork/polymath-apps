@@ -48,9 +48,14 @@ const getIcon = (transaction: types.TransactionPojo) => {
   return null;
 };
 
-const TransactionItem: FC<TransactionItemProps> & {
+interface StaticProps {
   defaultProps: { getTitle: TransactionItemProps['getTitle'] };
-} = ({ transaction, getTitle }) => {
+}
+
+const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
+  transaction,
+  getTitle,
+}) => {
   const title = getTitle(transaction);
   const { txHash } = transaction;
 
