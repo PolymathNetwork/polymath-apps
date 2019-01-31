@@ -31,7 +31,7 @@ const ModalConfirmTransactionQueue: FC<Props> & {
       {...props}
     >
       <ModalConfirm.Header>{title}</ModalConfirm.Header>
-      <Paragraph fontSize={2}>{description}</Paragraph>
+      {description ? <Paragraph fontSize={2}>{description}</Paragraph> : null}
       <div>
         {transactionQueue.transactions.map(transaction => (
           <TransactionItem key={transaction.uid} transaction={transaction} />
