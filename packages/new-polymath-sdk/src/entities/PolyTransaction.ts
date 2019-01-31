@@ -12,9 +12,9 @@ enum Events {
   StatusChange = 'StatusChange',
 }
 
-function isPostTransactionResolver(
+function isPostTransactionResolver<T = any>(
   val: any
-): val is PostTransactionResolver<any> {
+): val is PostTransactionResolver<T> {
   return val instanceof PostTransactionResolver;
 }
 
@@ -133,7 +133,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
     this.updateStatus(types.TransactionStatus.Unapproved);
 
     const unwrappedArgs = this.unwrapArgs(this.args);
-    const promiEvent = (await this.method(...unwrappedArgs))();
+    const promiEvent = (await this.method(unwrappedArgs))();
     // Set the Transaction as Running once it is approved by the user
     promiEvent.on('transactionHash', txHash => {
       this.txHash = txHash;
@@ -191,8 +191,8 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
     }
   };
 
-  private unwrapArg<T extends any>(arg: PostTransactionResolver<T> | T) {
-    if (isPostTransactionResolver(arg)) {
+  private unwrapArg<T>(arg: PostTransactionResolver<T> | T) {
+    if (isPostTransactionResolver<T>(arg)) {
       return arg.result;
     }
     return arg;
@@ -201,13 +201,13 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
   /**
    * Picks all post-transaction resolvers and unwraps their values
    */
-  private unwrapArgs(args: TransactionSpec<Args>['args']) {
-    return _.map(args, arg => {
+  private unwrapArgs<T>(args: TransactionSpec<T>['args']) {
+    return _.mapValues(args, (arg: any) => {
       return _.isPlainObject(arg)
         ? mapValuesDeep(arg as { [key: string]: any }, (val: any) => {
             return this.unwrapArg(val);
           })
         : this.unwrapArg(arg);
-    });
+    }) as T;
   }
 }

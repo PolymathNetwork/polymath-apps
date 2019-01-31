@@ -39,12 +39,10 @@ export interface InvestorBalance {
   balance: BigNumber;
 }
 
-export type LowLevelMethod<A extends any[]> = (
-  ...args: A
-) => Promise<() => PromiEvent<any>>;
+export type LowLevelMethod<A> = (args: A) => Promise<() => PromiEvent<any>>;
 
 export interface TransactionSpec<Args = any, R = any> {
-  method: LowLevelMethod<any>;
+  method: LowLevelMethod<Args>;
   args: MapMaybeResolver<Args>;
   postTransactionResolver?: PostTransactionResolver<R>;
   tag?: types.PolyTransactionTags;
@@ -64,19 +62,31 @@ export type MapMaybeResolver<T> = {
 
 export interface TransactionArguments {
   [types.PolyTransactionTags.Any]: {};
-  [types.PolyTransactionTags.SetErc20TaxWithholding]: SetWithholdingArgs;
-  [types.PolyTransactionTags.SetEtherTaxWithholding]: SetWithholdingArgs;
-  [types.PolyTransactionTags.ReclaimDividendFunds]: ReclaimDividendArgs;
-  [types.PolyTransactionTags.WithdrawTaxWithholdings]: WithdrawWithholdingArgs;
-  [types.PolyTransactionTags
-    .CreateErc20DividendDistribution]: CreateErc20DividendArgs;
-  [types.PolyTransactionTags
-    .CreateEtherDividendDistribution]: CreateEtherDividendArgs;
-  [types.PolyTransactionTags.GetTokens]: GetTokensArgs;
-  [types.PolyTransactionTags.Approve]: ApproveArgs;
-  [types.PolyTransactionTags.EnableDividends]: AddDividendsModuleArgs;
-  [types.PolyTransactionTags.ReserveSecurityToken]: RegisterTickerArgs;
-  [types.PolyTransactionTags.CreateSecurityToken]: GenerateSecurityTokenArgs;
+  [types.PolyTransactionTags.SetErc20TaxWithholding]: Partial<
+    SetWithholdingArgs
+  >;
+  [types.PolyTransactionTags.SetEtherTaxWithholding]: Partial<
+    SetWithholdingArgs
+  >;
+  [types.PolyTransactionTags.ReclaimDividendFunds]: Partial<
+    ReclaimDividendArgs
+  >;
+  [types.PolyTransactionTags.WithdrawTaxWithholdings]: Partial<
+    WithdrawWithholdingArgs
+  >;
+  [types.PolyTransactionTags.CreateErc20DividendDistribution]: Partial<
+    CreateErc20DividendArgs
+  >;
+  [types.PolyTransactionTags.CreateEtherDividendDistribution]: Partial<
+    CreateEtherDividendArgs
+  >;
+  [types.PolyTransactionTags.GetTokens]: Partial<GetTokensArgs>;
+  [types.PolyTransactionTags.Approve]: Partial<ApproveArgs>;
+  [types.PolyTransactionTags.EnableDividends]: Partial<AddDividendsModuleArgs>;
+  [types.PolyTransactionTags.ReserveSecurityToken]: Partial<RegisterTickerArgs>;
+  [types.PolyTransactionTags.CreateSecurityToken]: Partial<
+    GenerateSecurityTokenArgs
+  >;
   [types.PolyTransactionTags.CreateCheckpoint]: {};
 }
 

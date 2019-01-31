@@ -10,9 +10,7 @@ import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { types } from '@polymathnetwork/new-shared';
 
-function isProcedure<T extends any[]>(
-  value: any
-): value is ProcedureType<T[0]> {
+function isProcedure<T>(value: any): value is ProcedureType<T> {
   return value instanceof Procedure;
 }
 
@@ -20,9 +18,7 @@ export interface ProcedureType<Args = any> {
   new (args: Args, context: Context): Procedure<Args>;
 }
 
-type MethodOrProcedure<A extends any[]> =
-  | LowLevelMethod<A>
-  | ProcedureType<A[0]>;
+type MethodOrProcedure<A> = LowLevelMethod<A> | ProcedureType<A>;
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args> {
@@ -63,7 +59,7 @@ export abstract class Procedure<Args> {
    * @param options.resolver An asynchronous callback used to provide runtime data after
    * the transaction added has finished successfully
    */
-  public addTransaction<A extends any[], R extends any>(
+  public addTransaction<A, R extends any>(
     Enqueueable: MethodOrProcedure<A>,
     {
       tag,
@@ -73,12 +69,13 @@ export abstract class Procedure<Args> {
       resolver?: () => Promise<R>;
     } = {}
   ) {
-    return async (...args: MapMaybeResolver<A>) => {
+    return async (args: MapMaybeResolver<A> = {} as A) => {
       const postTransactionResolver = new PostTransactionResolver(resolver);
 
       // If method is a Procedure, get its Transactions and push those
       if (isProcedure<A>(Enqueueable)) {
-        const operation = new Enqueueable(args[0], this.context);
+        // TODO @RafaelVidaurre: remove type assertion when Procedures support unwrapping resolvers
+        const operation = new Enqueueable(args as A, this.context);
 
         try {
           await operation.prepareTransactions();
