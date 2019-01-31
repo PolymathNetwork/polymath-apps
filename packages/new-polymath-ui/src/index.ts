@@ -2,6 +2,7 @@ import { theme } from './styles/theme';
 import { SvgAccount } from './images/icons/Account';
 import { SvgCalendar } from './images/icons/Calendar';
 import { SvgCaretDown } from './images/icons/CaretDown';
+import { SvgDot } from './images/icons/Dot';
 import { SvgDownload } from './images/icons/Download';
 import { SvgErc20 } from './images/icons/Erc20';
 import { SvgDividends } from './images/icons/Dividends';
@@ -10,6 +11,7 @@ import { SvgCheckmark } from './images/icons/Checkmark';
 import { SvgChecklist } from './images/icons/Checklist';
 import { SvgPlus } from './images/icons/Plus';
 import { SvgPlusPlain } from './images/icons/PlusPlain';
+import { SvgWarning } from './images/icons/Warning';
 
 // Styles
 export * from './styles';
@@ -61,6 +63,7 @@ export const icons = {
   SvgAccount,
   SvgCalendar,
   SvgCaretDown,
+  SvgDot,
   SvgDownload,
   SvgErc20,
   SvgDividends,
@@ -69,4 +72,5 @@ export const icons = {
   SvgChecklist,
   SvgPlus,
   SvgPlusPlain,
+  SvgWarning,
 };
