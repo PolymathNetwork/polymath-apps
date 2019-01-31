@@ -1,10 +1,10 @@
 ---
 name: Tooltip
+menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
 
-import { Button } from '~/components/Button';
 import { Tooltip } from '../';
 
 # Tooltip
@@ -14,8 +14,5 @@ import { Tooltip } from '../';
 ## Basic usage
 
 <Playground>
-  <Button>
-    Hover me
-    <Tooltip>This is a Tooltip.</Tooltip>
-  </Button>
+  <Tooltip triggerText="Hover the icon!">This is a Tooltip.</Tooltip>
 </Playground>
