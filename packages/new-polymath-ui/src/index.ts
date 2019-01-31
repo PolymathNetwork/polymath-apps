@@ -30,7 +30,9 @@ export { PageWrap } from './components/PageWrap';
 
 // Components
 export { Button } from './components/Button';
+export { ButtonSmall } from './components/ButtonSmall';
 export { ButtonLarge } from './components/ButtonLarge';
+export { ButtonFluid } from './components/ButtonFluid';
 export { Card } from './components/Card';
 export { CardPrimary } from './components/CardPrimary';
 export { CardFeatureState } from './components/CardFeatureState';
