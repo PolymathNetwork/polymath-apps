@@ -29,6 +29,7 @@ export const Paragraph = styled(Box)<ParagraphProps>`
   ${lineHeight};
   ${fontSize};
   ${props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })};
+  overflow-wrap: break-word;
 
   &:last-child {
     margin-bottom: 0;
