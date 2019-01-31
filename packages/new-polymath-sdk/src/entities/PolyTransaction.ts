@@ -79,6 +79,10 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
     } = this;
     const transactionQueueUid = transactionQueue.uid;
 
+    // do not expose arguments that haven't been resolved
+    // TODO @monitz87: type this correctly
+    const filteredArgs = _.pickBy(args, arg => !isPostTransactionResolver(arg));
+
     return {
       uid,
       transactionQueueUid,
@@ -91,7 +95,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
        * NOTE @monitz87: we intentionally expose the args as any for the end user
        * until we figure out how to type this properly
        */
-      args: args as any,
+      args: filteredArgs as any,
     };
   }
 
