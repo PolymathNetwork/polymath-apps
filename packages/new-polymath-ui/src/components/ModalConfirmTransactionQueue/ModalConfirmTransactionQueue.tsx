@@ -14,7 +14,7 @@ interface Props extends ModalConfirmProps {
     queue: types.TransactionQueuePojo
   ) => {
     title: string;
-    description: string;
+    description?: string;
   };
 }
 
