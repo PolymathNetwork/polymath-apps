@@ -1,9 +1,10 @@
 import {
   styled,
-  Box,
+  Flex,
   List,
   Heading,
   IconOutlined,
+  Button,
 } from '@polymathnetwork/new-ui';
 
 export const iconSize = 25;
@@ -20,7 +21,7 @@ export const Year = styled(Heading).attrs({
   padding-left: ${({ theme }) => theme.space.gridGap};
 `;
 
-export const Dividends = styled(Box)`
+export const Dividends = styled(Flex)`
   position: relative;
   padding-left: ${({ theme }) => theme.space.gridGap};
 `;
@@ -52,4 +53,9 @@ export const StepIcon = styled(IconOutlined)`
   top: -${iconSize}px;
   left: 0;
   margin-left: -${iconSize / 2}px;
+`;
+
+export const NewDividendButton = styled(Button)`
+  flex-direction: column;
+  align-items: center;
 `;
