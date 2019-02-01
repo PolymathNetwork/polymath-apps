@@ -10,7 +10,6 @@ const Button = styled.button`
   border: none;
   padding: 0;
   background-color: transparent;
-  transition: all ${({ theme }) => theme.transitions.hover.ms}ms;
 `;
 
 const StyledIcon = styled(Icon)`
@@ -19,8 +18,14 @@ const StyledIcon = styled(Icon)`
   height: 100%;
 `;
 
-export const IconButton: FC<IconButtonProps> = ({ Asset, color, ...props }) => (
+export const IconButton: FC<IconButtonProps> = ({
+  Asset,
+  color,
+  children,
+  ...props
+}) => (
   <Button {...props}>
     <StyledIcon Asset={Asset} />
+    {children}
   </Button>
 );
