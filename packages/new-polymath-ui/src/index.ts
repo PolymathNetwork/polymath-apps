@@ -59,6 +59,7 @@ export { PageCentered } from './components/PageCentered';
 export { ProgressIndicator } from './components/ProgressIndicator';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
+export { Tooltip } from './components/Tooltip';
 
 // Icons
 export const icons = {

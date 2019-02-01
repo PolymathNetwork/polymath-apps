@@ -11,7 +11,12 @@ export interface TooltipProps {
   children: ComponentType;
 }
 
-class TooltipComponent extends React.Component<TooltipProps> {
+export class TooltipComponent extends React.Component<TooltipProps> {
+  public static defaultProps = {
+    role: 'group',
+    placement: 'top',
+  };
+
   private popper?: TooltipJS;
 
   public getOptions = (): Options => {
@@ -23,6 +28,15 @@ class TooltipComponent extends React.Component<TooltipProps> {
       title: popover,
       html: true,
       boundariesElement: document.body,
+      popperOptions: {
+        modifiers: {
+          setState: {
+            enabled: true,
+            order: 800,
+            fn: this.modifier,
+          },
+        },
+      },
     };
   };
 
@@ -68,15 +82,22 @@ class TooltipComponent extends React.Component<TooltipProps> {
     return (
       <Fragment>
         <sc.GlobalStyles />
-        <div {...this.props} />
+        {<div {...this.props} />}
       </Fragment>
     );
   }
 
   private getPopover = () => findDOMNode(this) as NodeSelector & Node & Element;
+
+  private modifier = (data: PopperJS.Data) => {
+    data.arrowStyles.color = getComputedStyle(
+      this.getPopover()
+    ).backgroundColor;
+    return data;
+  };
 }
 
-export const Tooltip = styled(TooltipComponent)`
+export const Tooltip = styled(TooltipComponent)<TooltipProps>`
   user-select: auto;
   cursor: auto;
   display: none;
@@ -85,8 +106,3 @@ export const Tooltip = styled(TooltipComponent)`
     display: block;
   }
 `;
-
-Tooltip.defaultProps = {
-  role: 'group',
-  placement: 'top',
-};
