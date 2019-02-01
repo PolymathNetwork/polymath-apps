@@ -65,13 +65,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
               </Paragraph>
             </Flex>
             <Box mt="auto" minWidth="100%" textAlign="center">
-              <Tooltip
-                trigger={
-                  <ButtonFluid variant="secondary">View details</ButtonFluid>
-                }
-              >
-                The tooltip content
-              </Tooltip>
+              <ButtonFluid variant="secondary">View details</ButtonFluid>
             </Box>
           </Flex>
         </Card>

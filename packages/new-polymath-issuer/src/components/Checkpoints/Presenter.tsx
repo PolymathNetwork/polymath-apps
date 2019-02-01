@@ -9,6 +9,7 @@ import {
   Icon,
   icons,
   IconText,
+  IconOutlined,
 } from '@polymathnetwork/new-ui';
 import { Checkpoint } from '~/components/Checkpoint';
 import * as sc from './styles';
@@ -83,6 +84,17 @@ export const Presenter = ({ checkpoints }: Props) => {
                             checkpointIndex={checkpoint.index}
                             symbol="A0T0"
                           />
+                          <sc.NewDividendButton
+                            variant="ghost"
+                            iconPosition="top"
+                          >
+                            <IconOutlined
+                              Asset={icons.SvgPlus}
+                              size={25}
+                              scale={0.9}
+                            />
+                            Add new <br /> dividend <br /> distribution
+                          </sc.NewDividendButton>
                         </sc.Dividends>
                       </Grid.Item>
                     </Grid>
