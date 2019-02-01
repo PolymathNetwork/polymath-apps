@@ -82,7 +82,7 @@ export interface TransactionEntity extends Entity {
   tag: PolyTransactionTags;
   receipt?: TransactionReceipt;
   error?: PolymathError;
-  args: any[];
+  args: any;
 }
 
 export interface TransactionPojo extends TransactionEntity {}
@@ -134,6 +134,7 @@ export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
   procedureType: ProcedureTypes;
+  args: any;
 }
 
 export interface TransactionQueuePojo extends TransactionQueueEntity {

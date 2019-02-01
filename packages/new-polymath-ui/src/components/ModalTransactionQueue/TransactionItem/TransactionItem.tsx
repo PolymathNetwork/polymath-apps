@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { types, utils } from '@polymathnetwork/new-shared';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
@@ -12,17 +12,18 @@ import { Link } from '~/components/Link';
 import { SvgClose } from '~/images/icons/Close';
 import { SvgCheckmark } from '~/images/icons/Checkmark';
 import { SvgPending } from '~/images/icons/Pending';
-import { getTransactionText } from '~/components/utils/contentMappings';
 
 import * as sc from './styles';
+import { getTransactionTitle } from '~/components/utils/contentMappings';
 
 const { TransactionStatus } = types;
 
 interface TransactionItemProps {
   transaction: types.TransactionPojo;
+  getTitle: (transaction: types.TransactionPojo) => string;
 }
 
-const getIcon = (transaction: types.TransactionEntity) => {
+const getIcon = (transaction: types.TransactionPojo) => {
   const { status } = transaction;
 
   if (
@@ -47,8 +48,15 @@ const getIcon = (transaction: types.TransactionEntity) => {
   return null;
 };
 
-export const TransactionItem = ({ transaction }: TransactionItemProps) => {
-  const { title } = getTransactionText(transaction);
+interface StaticProps {
+  defaultProps: { getTitle: TransactionItemProps['getTitle'] };
+}
+
+const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
+  transaction,
+  getTitle,
+}) => {
+  const title = getTitle(transaction);
   const { txHash } = transaction;
 
   return (
@@ -78,3 +86,9 @@ export const TransactionItem = ({ transaction }: TransactionItemProps) => {
     </sc.Wrapper>
   );
 };
+
+TransactionItem.defaultProps = {
+  getTitle: getTransactionTitle,
+};
+
+export { TransactionItem };

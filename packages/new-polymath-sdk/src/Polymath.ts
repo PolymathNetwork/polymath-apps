@@ -25,6 +25,7 @@ import { Entity } from '~/entities/Entity';
 import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
 import { PolymathNetworkParams } from '~/types';
+import BigNumber from 'bignumber.js';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -180,7 +181,7 @@ export class Polymath {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
-    amount: number;
+    amount: BigNumber;
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
@@ -206,7 +207,7 @@ export class Polymath {
     maturityDate: Date;
     expiryDate: Date;
     erc20Address: string;
-    amount: number;
+    amount: BigNumber;
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
@@ -224,7 +225,7 @@ export class Polymath {
     maturityDate: Date;
     expiryDate: Date;
     erc20Address: string;
-    amount: number;
+    amount: BigNumber;
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
@@ -243,9 +244,9 @@ export class Polymath {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
     const etherModule = await securityToken.getEtherDividendModule();
 
@@ -336,9 +337,9 @@ export class Polymath {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
 
     const name = await securityToken.name();

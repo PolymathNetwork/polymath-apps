@@ -8,21 +8,13 @@ import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
 import { TransactionQueue } from '~/entities/TransactionQueue';
 
-// @TODO RafaelVidaurre: Decide where this should go
-const descriptionsByTag: {
-  [key: string]: string;
-} = {
-  [types.PolyTransactionTags.EnableDividends]:
-    'Enabling the distribution of dividends in ERC20 tokens, including POLY and Stablecoins',
-};
-
 enum Events {
   StatusChange = 'StatusChange',
 }
 
-function isPostTransactionResolver(
+function isPostTransactionResolver<T = any>(
   val: any
-): val is PostTransactionResolver<any> {
+): val is PostTransactionResolver<T> {
   return val instanceof PostTransactionResolver;
 }
 
@@ -35,7 +27,7 @@ const mapValuesDeep = (
     _.isPlainObject(val) ? mapValuesDeep(val, fn) : fn(val, key, obj)
   );
 
-export class PolyTransaction extends Entity {
+export class PolyTransaction<Args = any, R = any> extends Entity {
   public entityType = 'transaction';
   public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
@@ -45,16 +37,15 @@ export class PolyTransaction extends Entity {
   public receipt?: TransactionReceipt;
   public tag: types.PolyTransactionTags;
   public txHash?: string;
-  public description: string;
-  protected method: TransactionSpec['method'];
-  protected args: TransactionSpec['args'];
+  public args: TransactionSpec<Args, R>['args'];
+  protected method: TransactionSpec<Args, R>['method'];
   private postResolver: PostTransactionResolver<
-    any
-  > = new PostTransactionResolver(async () => {});
+    R
+  > = new PostTransactionResolver<R>();
   private emitter: EventEmitter;
 
   constructor(
-    transaction: TransactionSpec,
+    transaction: TransactionSpec<Args, R>,
     transactionQueue: TransactionQueue
   ) {
     super(undefined, false);
@@ -68,7 +59,6 @@ export class PolyTransaction extends Entity {
     this.method = transaction.method;
     this.args = transaction.args;
     this.transactionQueue = transactionQueue;
-    this.description = descriptionsByTag[this.tag] || this.tag;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
@@ -83,23 +73,29 @@ export class PolyTransaction extends Entity {
       tag,
       receipt,
       error,
-      args,
-      description,
       txHash,
       transactionQueue,
+      args,
     } = this;
     const transactionQueueUid = transactionQueue.uid;
+
+    // do not expose arguments that haven't been resolved
+    // TODO @monitz87: type this correctly
+    const filteredArgs = _.pickBy(args, arg => !isPostTransactionResolver(arg));
 
     return {
       uid,
       transactionQueueUid,
       status,
       tag,
-      description,
       txHash,
       receipt,
       error,
-      args,
+      /**
+       * NOTE @monitz87: we intentionally expose the args as any for the end user
+       * until we figure out how to type this properly
+       */
+      args: filteredArgs as any,
     };
   }
 
@@ -137,7 +133,7 @@ export class PolyTransaction extends Entity {
     this.updateStatus(types.TransactionStatus.Unapproved);
 
     const unwrappedArgs = this.unwrapArgs(this.args);
-    const promiEvent = (await this.method(...unwrappedArgs))();
+    const promiEvent = (await this.method(unwrappedArgs))();
     // Set the Transaction as Running once it is approved by the user
     promiEvent.on('transactionHash', txHash => {
       this.txHash = txHash;
@@ -195,8 +191,8 @@ export class PolyTransaction extends Entity {
     }
   };
 
-  private unwrapArg(arg: PostTransactionResolver<any>) {
-    if (isPostTransactionResolver(arg)) {
+  private unwrapArg<T>(arg: PostTransactionResolver<T> | T) {
+    if (isPostTransactionResolver<T>(arg)) {
       return arg.result;
     }
     return arg;
@@ -205,13 +201,13 @@ export class PolyTransaction extends Entity {
   /**
    * Picks all post-transaction resolvers and unwraps their values
    */
-  private unwrapArgs(args: any[]) {
-    return _.map(args, arg => {
+  private unwrapArgs<T>(args: TransactionSpec<T>['args']) {
+    return _.mapValues(args, (arg: any) => {
       return _.isPlainObject(arg)
         ? mapValuesDeep(arg as { [key: string]: any }, (val: any) => {
             return this.unwrapArg(val);
           })
         : this.unwrapArg(arg);
-    });
+    }) as T;
   }
 }
