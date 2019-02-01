@@ -3,22 +3,22 @@
   "abi": [],
   "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a7230582067c3d23668271307a4d188178ecd99334c96bea56e1960a174f18d4079dd891a0029",
   "deployedBytecode": "0x6080604052600080fd00a165627a7a7230582067c3d23668271307a4d188178ecd99334c96bea56e1960a174f18d4079dd891a0029",
-  "sourceMap": "143:20:42:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;143:20:42;;;;;;;",
-  "deployedSourceMap": "143:20:42:-;;;;;",
+  "sourceMap": "143:20:39:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;143:20:39;;;;;;;",
+  "deployedSourceMap": "143:20:39:-;;;;;",
   "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface to be implemented by all checkpoint modules\n */\n/*solium-disable-next-line no-empty-blocks*/\ninterface IBurn {\n\n}\n",
   "sourcePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Burn/IBurn.sol",
   "ast": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Burn/IBurn.sol",
     "exportedSymbols": {
       "IBurn": [
-        16103
+        14156
       ]
     },
-    "id": 16104,
+    "id": 14157,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 16102,
+        "id": 14155,
         "literals": [
           "solidity",
           "^",
@@ -26,7 +26,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:42"
+        "src": "0:24:39"
       },
       {
         "baseContracts": [],
@@ -34,31 +34,31 @@
         "contractKind": "interface",
         "documentation": "@title Interface to be implemented by all checkpoint modules",
         "fullyImplemented": true,
-        "id": 16103,
+        "id": 14156,
         "linearizedBaseContracts": [
-          16103
+          14156
         ],
         "name": "IBurn",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 16104,
-        "src": "143:20:42"
+        "scope": 14157,
+        "src": "143:20:39"
       }
     ],
-    "src": "0:164:42"
+    "src": "0:164:39"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Burn/IBurn.sol",
     "exportedSymbols": {
       "IBurn": [
-        16103
+        14156
       ]
     },
-    "id": 16104,
+    "id": 14157,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 16102,
+        "id": 14155,
         "literals": [
           "solidity",
           "^",
@@ -66,7 +66,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:42"
+        "src": "0:24:39"
       },
       {
         "baseContracts": [],
@@ -74,18 +74,18 @@
         "contractKind": "interface",
         "documentation": "@title Interface to be implemented by all checkpoint modules",
         "fullyImplemented": true,
-        "id": 16103,
+        "id": 14156,
         "linearizedBaseContracts": [
-          16103
+          14156
         ],
         "name": "IBurn",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 16104,
-        "src": "143:20:42"
+        "scope": 14157,
+        "src": "143:20:39"
       }
     ],
-    "src": "0:164:42"
+    "src": "0:164:39"
   },
   "compiler": {
     "name": "solc",
@@ -93,5 +93,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-29T19:35:51.392Z"
+  "updatedAt": "2019-02-01T15:57:13.675Z"
 }
