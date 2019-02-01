@@ -8,18 +8,19 @@
     "test": "jest --env=jsdom"
   },
   "dependencies": {
-    "bignumber.js": "^8.0.1",
+    "bignumber.js": "8.0.1",
     "lodash": "^4.17.11",
+    "luxon": "1.10.0",
     "numeral": "^2.0.6"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",
     "@babel/plugin-proposal-class-properties": "7.0.0",
     "@babel/preset-typescript": "7.0.0",
+    "@types/luxon": "^1.10.2",
     "@types/node": "^10.12.12",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "8.0.2",
-    "bignumber.js": "8.0.1",
     "typescript": "^3.2.1"
   },
   "jest": {

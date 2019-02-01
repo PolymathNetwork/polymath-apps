@@ -1,6 +1,7 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { get } from 'lodash';
+import { Icon } from '~/components/Icon';
 
 type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -10,10 +11,6 @@ export interface ButtonProps {
    */
   kind?: string;
   /**
-   * Optional prop to specify the tabIndex of the Button
-   */
-  tabIndex?: HtmlButtonProps['tabIndex'];
-  /**
    * Optional prop to specify the type of the Button
    */
   type?: HtmlButtonProps['type'];
@@ -22,13 +19,14 @@ export interface ButtonProps {
    */
   href?: string;
   disabled?: HtmlButtonProps['disabled'];
+  iconPosition?: 'left' | 'right';
   onClick: () => void;
 }
 
 export const ButtonBase: FC<ButtonProps> = ({
   href,
   type,
-  tabIndex,
+  iconPosition,
   children,
   ...rest
 }) => {
@@ -44,22 +42,20 @@ export const ButtonBase: FC<ButtonProps> = ({
   }
 
   return (
-    <button {...passedProps} {...rest}>
+    <button tabIndex={0} {...passedProps} {...rest}>
       {children}
     </button>
   );
 };
 
 ButtonBase.defaultProps = {
-  tabIndex: 0,
   type: 'button',
   disabled: false,
   kind: 'primary',
 };
 
 const EnhancedButton = styled(ButtonBase)<ButtonProps>`
-  display: inline-block;
-  align-items: center;
+  display: inline-flex;
   justify-content: center;
   flex-shrink: 0;
   height: 2.5rem;
@@ -99,8 +95,9 @@ const EnhancedButton = styled(ButtonBase)<ButtonProps>`
     }
   }
 
-  > * {
-    vertical-align: middle;
+  ${Icon} {
+    ${({ theme, iconPosition }) =>
+      `margin-${iconPosition === 'left' ? 'right' : 'left'}: ${theme.space.s}`};
   }
 `;
 

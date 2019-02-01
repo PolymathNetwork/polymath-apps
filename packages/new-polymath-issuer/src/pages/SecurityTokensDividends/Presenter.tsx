@@ -1,22 +1,23 @@
 import React, { Component, Fragment } from 'react';
-import { utils, formatters, types } from '@polymathnetwork/new-shared';
+import { utils, formatters } from '@polymathnetwork/new-shared';
 import {
-  Page,
   Heading,
   Paragraph,
   GridRow,
   Link,
+  Button,
   ButtonLarge,
   CardFeatureState,
   CardPrimary,
+  Icon,
   IconCircled,
-  InlineFlex,
   icons,
 } from '@polymathnetwork/new-ui';
+import { ModalTransactionQueue, Checkpoints } from '~/components';
 
 export interface Props {
   onEnableDividends: () => void;
-  dividendsModule?: types.Erc20DividendsModuleEntity;
+  dividendsModule?: { contractAddress: string };
 }
 
 export class Presenter extends Component<Props> {
@@ -28,13 +29,13 @@ export class Presenter extends Component<Props> {
     const { dividendsModule } = this.props;
 
     return (
-      <Page title="Dividends">
+      <Fragment>
         <Heading variant="h1" as="h1">
           Dividends
         </Heading>
         <GridRow>
           <GridRow.Col gridSpan={{ sm: 12, lg: 7 }}>
-            <Heading variant="h4">
+            <Heading variant="h4" mb="l">
               Enable the Dividends module to distribute dividends to all token
               holders. Distribution events can be added, modified, enabled or
               disabled at any time. To distribute dividends to all your token
@@ -43,6 +44,15 @@ export class Presenter extends Component<Props> {
               per wallet address. This percentage will be used to calculate the
               amount of dividends owed to each wallet address.
             </Heading>
+            <Button iconPosition="right">
+              Create dividend checkpoint
+              <Icon
+                Asset={icons.SvgPlusPlain}
+                width={16}
+                height={16}
+                color="white"
+              />
+            </Button>
           </GridRow.Col>
           <GridRow.Col gridSpan={{ sm: 12, lg: 5 }}>
             <CardFeatureState
@@ -55,7 +65,7 @@ export class Presenter extends Component<Props> {
               {dividendsModule ? (
                 <Fragment>
                   <Paragraph color="inactive">
-                    <ButtonLarge kind="ghost" disabled>
+                    <ButtonLarge kind="ghost" iconPosition="left" disabled>
                       <IconCircled
                         Asset={icons.SvgCheckmark}
                         width={16}
@@ -64,16 +74,20 @@ export class Presenter extends Component<Props> {
                         color="white"
                         scale={0.9}
                       />
-                      <InlineFlex ml="s">Enabled</InlineFlex>
+                      Enabled
                     </ButtonLarge>
                   </Paragraph>
                   <CardPrimary>
                     <Paragraph fontSize={0}>
                       Dividends contract address:
                       <Link
-                        href={utils.toEtherscanUrl(dividendsModule.address)}
+                        href={utils.toEtherscanUrl(
+                          dividendsModule.contractAddress
+                        )}
                       >
-                        {formatters.toShortAddress(dividendsModule.address)}
+                        {formatters.toShortAddress(
+                          dividendsModule.contractAddress
+                        )}
                       </Link>
                     </Paragraph>
                   </CardPrimary>
@@ -88,8 +102,12 @@ export class Presenter extends Component<Props> {
               )}
             </CardFeatureState>
           </GridRow.Col>
+          <GridRow.Col gridSpan={12}>
+            <Checkpoints symbol="A0T0" />
+          </GridRow.Col>
         </GridRow>
-      </Page>
+        <ModalTransactionQueue />
+      </Fragment>
     );
   }
 }

@@ -19,3 +19,9 @@ export const textLinkInverted = `
     text-decoration: underline;
   }
 `;
+
+export const ulReset = `
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;

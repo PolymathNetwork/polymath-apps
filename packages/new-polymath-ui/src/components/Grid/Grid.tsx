@@ -1,4 +1,4 @@
-import React, { FC, Component } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import {
   gridGap,
@@ -21,10 +21,12 @@ import {
   JustifyItemsProps,
   JustifyContentProps,
 } from 'styled-system';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Box } from '~/components/Box';
 import { GridItem } from './GridItem';
 
-export type GridProps = GridGapProps &
+export type GridProps = typeHelpers.GetProps<typeof Box> &
+  GridGapProps &
   GridAutoFlowProps &
   GridAutoFlowProps &
   GridTemplatesColumnsProps &
