@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 import {
   color,
   ColorProps,
@@ -12,16 +13,18 @@ import {
   fontSize,
   FontSizeProps,
 } from 'styled-system';
-import { Box, BoxProps } from '~/components/Box';
+import { Box } from '~/components/Box';
 
-export type TextProps = { bold?: boolean } & BoxProps &
+type BoxProps = typeHelpers.GetProps<typeof Box>;
+
+export type Props = { bold?: boolean } & BoxProps &
   ColorProps &
   FontFamilyProps &
   FontWeightProps &
   FontSizeProps &
   LineHeightProps;
 
-export const Text = styled(Box)<TextProps>`
+export const Text = styled(Box)<Props>`
   ${color};
   ${fontFamily};
   ${fontWeight};
@@ -35,7 +38,7 @@ export const Text = styled(Box)<TextProps>`
   }
 `;
 
-export const TextDocz: FC<TextProps> = (props: any) => {
+export const TextDocz: FC<Props> = (props: any) => {
   return <Text {...props} />;
 };
 
