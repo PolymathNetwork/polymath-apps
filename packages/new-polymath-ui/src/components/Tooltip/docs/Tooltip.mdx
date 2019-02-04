@@ -7,6 +7,7 @@ import { Playground, PropsTable } from 'docz';
 
 import { Box } from '~/components/Box';
 import { Button } from '~/components/Button';
+import { Paragraph } from '~/components/Paragraph';
 import { TooltipPrimary } from '~/components/TooltipPrimary';
 import { TooltipIcon } from '~/components/TooltipIcon';
 import { Tooltip } from '../';
@@ -41,6 +42,9 @@ import { Tooltip } from '../';
 
 <Playground>
   <Box height={100}>
-    <TooltipIcon>This is a TooltipIcon.</TooltipIcon>
+    <Paragraph>
+      <span>Label of an input</span>
+      <TooltipIcon>This is a TooltipIcon.</TooltipIcon>
+    </Paragraph>
   </Box>
 </Playground>

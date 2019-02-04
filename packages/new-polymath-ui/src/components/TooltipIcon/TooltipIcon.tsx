@@ -9,9 +9,7 @@ type TooltipProps = typeHelpers.GetProps<typeof Tooltip>;
 export interface TooltipIconProps extends TooltipProps {}
 
 export const TooltipIcon = ({ children }: TooltipIconProps) => (
-  <Fragment>
-    <sc.Icon Asset={SvgInfo} width={16} height={16}>
-      <sc.Tooltip>{children}</sc.Tooltip>
-    </sc.Icon>
-  </Fragment>
+  <sc.Icon Asset={SvgInfo} width={16} height={16}>
+    <sc.Tooltip>{children}</sc.Tooltip>
+  </sc.Icon>
 );
