@@ -50,6 +50,7 @@ export { LabeledItem } from './components/LabeledItem';
 export { Link } from './components/Link';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
+export { Text } from './components/Text';
 export { ModalTransactionQueue } from './components/ModalTransactionQueue';
 export {
   ModalConfirmTransactionQueue,

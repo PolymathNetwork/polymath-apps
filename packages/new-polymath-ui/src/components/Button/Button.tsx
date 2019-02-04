@@ -1,18 +1,20 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { variant } from 'styled-system';
+import { variant as variantHelper } from 'styled-system';
 import { get } from 'lodash';
 import { Icon } from '~/components/Icon';
 
-const buttonVariant = variant({
+const buttonVariant = variantHelper({
   key: 'buttons',
 });
 
 type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
+type IconPosition = 'left' | 'right' | 'top' | 'bottom';
+
 export interface ButtonProps {
   /**
-   * Specify the kind of Button you want to create
+   * Specify the variant of Button you want to create
    */
   variant: 'primary' | 'secondary' | 'ghost';
   /**
@@ -24,17 +26,28 @@ export interface ButtonProps {
    */
   href?: string;
   disabled?: HtmlButtonProps['disabled'];
-  iconPosition?: 'left' | 'right';
+  iconPosition?: IconPosition;
   onClick: () => void;
 }
 
-export const ButtonBase: FC<ButtonProps> = ({
-  href,
-  type,
-  iconPosition,
-  children,
-  ...rest
-}) => {
+const getIconStyle = (position: IconPosition) =>
+  ({
+    top: 'bottom',
+    bottom: 'top',
+    left: 'right',
+    right: 'left',
+  }[position]);
+
+const defaultProps = {
+  type: 'button',
+  disabled: false,
+  variant: 'primary',
+  iconPosition: 'right',
+};
+
+export const ButtonComponent: FC<ButtonProps> & {
+  defaultProps: { iconPosition: 'right' };
+} = ({ href, type, iconPosition, children, ...rest }) => {
   const passedProps: {
     role?: string;
     type?: string;
@@ -53,27 +66,19 @@ export const ButtonBase: FC<ButtonProps> = ({
   );
 };
 
-ButtonBase.defaultProps = {
-  type: 'button',
-  disabled: false,
-  variant: 'primary',
-};
-
-const EnhancedButton = styled(ButtonBase)<ButtonProps>`
+const EnhancedButton = styled(ButtonComponent)<ButtonProps>`
   position: relative;
   display: inline-flex;
   justify-content: center;
   flex-shrink: 0;
-  height: 2.5rem;
-  padding: 0 1rem;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   line-height: 16px;
   border: 2px solid transparent;
   outline: none;
-  height: 2.5rem;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
   transition-duration: ${({ theme }) => theme.transitions.hover.ms}ms;
   transition-property: background, color, border-color;
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
@@ -95,18 +100,18 @@ const EnhancedButton = styled(ButtonBase)<ButtonProps>`
 
   &:disabled {
     &:hover {
-      background-color: ${({ kind, theme }) =>
-        get(theme, `buttons.${kind}.backgroundColor`)};
-      color: ${({ kind, theme }) => get(theme, `buttons.${kind}.color`)};
+      background-color: ${({ variant, theme }) =>
+        get(theme, `buttons.${variant}.backgroundColor`)};
+      color: ${({ variant, theme }) => get(theme, `buttons.${variant}.color`)};
     }
   }
 
   ${Icon} {
     ${({ theme, iconPosition }) =>
-      `margin-${iconPosition === 'left' ? 'right' : 'left'}: ${theme.space.s}`};
+      `margin-${getIconStyle(iconPosition)}: ${theme.space.s}`};
   }
 `;
 
 export const Button = Object.assign(EnhancedButton, {
-  defaultProps: ButtonBase.defaultProps,
+  defaultProps: ButtonComponent.defaultProps,
 });
