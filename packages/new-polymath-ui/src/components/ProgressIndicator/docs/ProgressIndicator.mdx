@@ -1,0 +1,50 @@
+---
+name: ProgressIndicator
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Box } from '~/components/Box';
+import { ProgressIndicator } from '../ProgressIndicator';
+import { StyledProgressIndicator } from './styles';
+
+# ProgressIndicator
+
+<PropsTable of={ProgressIndicator} />
+
+## Basic usage
+
+<Playground>
+  <ProgressIndicator currentIndex={2}>
+    <ProgressIndicator.Step label="Label 1" />
+    <ProgressIndicator.Step label="Label 2" />
+    <ProgressIndicator.Step label="Label 3" />
+    <ProgressIndicator.Step label="Label 4" />
+  </ProgressIndicator>
+</Playground>
+
+## Vertical
+
+<Playground>
+  <Box height={400}>
+    <ProgressIndicator currentIndex={2} vertical ordered>
+      <ProgressIndicator.Step label="Label 1" />
+      <ProgressIndicator.Step label="Label 2" />
+      <ProgressIndicator.Step label="Label 3" />
+      <ProgressIndicator.Step label="Label 4" />
+    </ProgressIndicator>
+  </Box>
+</Playground>
+
+## Styled
+
+<Playground>
+  <Box height={400}>
+    <StyledProgressIndicator currentIndex={2} vertical ordered>
+      <ProgressIndicator.Step label="Label 1" />
+      <ProgressIndicator.Step label="Label 2" />
+      <ProgressIndicator.Step label="Label 3" />
+      <ProgressIndicator.Step label="Label 4" />
+    </StyledProgressIndicator>
+  </Box>
+</Playground>

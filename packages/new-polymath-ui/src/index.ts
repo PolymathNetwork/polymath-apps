@@ -2,10 +2,14 @@ import { theme } from './styles/theme';
 import { SvgAccount } from './images/icons/Account';
 import { SvgCalendar } from './images/icons/Calendar';
 import { SvgCaretDown } from './images/icons/CaretDown';
+import { SvgDownload } from './images/icons/Download';
 import { SvgErc20 } from './images/icons/Erc20';
 import { SvgDividends } from './images/icons/Dividends';
 import { SvgDividendsOutline } from './images/icons/DividendsOutline';
 import { SvgCheckmark } from './images/icons/Checkmark';
+import { SvgChecklist } from './images/icons/Checklist';
+import { SvgPlus } from './images/icons/Plus';
+import { SvgPlusPlain } from './images/icons/PlusPlain';
 
 // Styles
 export * from './styles';
@@ -34,6 +38,7 @@ export { FormItem } from './components/FormItem';
 export { Header } from './components/Header';
 export { Icon } from './components/Icon';
 export { IconCircled } from './components/IconCircled';
+export { IconOutlined } from './components/IconOutlined';
 export { IconButton } from './components/IconButton';
 export { IconText } from './components/IconText';
 export { Label } from './components/Label';
@@ -47,6 +52,7 @@ export {
 } from './components/ModalConfirmTransactionQueue';
 export { Page } from './components/Page';
 export { PageCentered } from './components/PageCentered';
+export { ProgressIndicator } from './components/ProgressIndicator';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
 
@@ -55,8 +61,12 @@ export const icons = {
   SvgAccount,
   SvgCalendar,
   SvgCaretDown,
+  SvgDownload,
   SvgErc20,
   SvgDividends,
   SvgDividendsOutline,
   SvgCheckmark,
+  SvgChecklist,
+  SvgPlus,
+  SvgPlusPlain,
 };
