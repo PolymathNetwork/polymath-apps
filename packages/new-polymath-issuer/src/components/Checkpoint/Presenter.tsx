@@ -28,7 +28,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
   <List>
     {dividends.map(dividend => (
       <li key={dividend.uid}>
-        <Card minWidth={300} maxWidth={300} height={370} p="gridGap">
+        <Card width={300} height={370} p="gridGap">
           <Flex flexDirection="column" height="100%" alignItems="flex-start">
             <CardPrimary p={3} width="100%">
               <Flex justifyContent="space-between">
