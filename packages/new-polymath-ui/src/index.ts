@@ -61,6 +61,8 @@ export { ProgressIndicator } from './components/ProgressIndicator';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
 export { Tooltip } from './components/Tooltip';
+export { TooltipIcon } from './components/TooltipIcon';
+export { TooltipPrimary } from './components/TooltipPrimary';
 
 // Icons
 export const icons = {
