@@ -38,16 +38,13 @@ const getIconStyle = (position: IconPosition) =>
     right: 'left',
   }[position]);
 
-const defaultProps = {
-  type: 'button',
-  disabled: false,
-  variant: 'primary',
-  iconPosition: 'right',
-};
-
-export const ButtonComponent: FC<ButtonProps> & {
-  defaultProps: { iconPosition: 'right' };
-} = ({ href, type, iconPosition, children, ...rest }) => {
+export const ButtonComponent: FC<ButtonProps> = ({
+  href,
+  type,
+  iconPosition,
+  children,
+  ...rest
+}) => {
   const passedProps: {
     role?: string;
     type?: string;
@@ -64,6 +61,13 @@ export const ButtonComponent: FC<ButtonProps> & {
       {children}
     </button>
   );
+};
+
+ButtonComponent.defaultProps = {
+  type: 'button',
+  disabled: false,
+  variant: 'primary',
+  iconPosition: 'right',
 };
 
 const EnhancedButton = styled(ButtonComponent)<ButtonProps>`
@@ -108,7 +112,7 @@ const EnhancedButton = styled(ButtonComponent)<ButtonProps>`
 
   ${Icon} {
     ${({ theme, iconPosition }) =>
-      `margin-${getIconStyle(iconPosition)}: ${theme.space.s}`};
+      `margin-${getIconStyle(iconPosition!)}: ${theme.space.s}`};
   }
 `;
 
