@@ -1,22 +1,13 @@
-import React from 'react';
-import { formatters } from '@polymathnetwork/new-shared';
+import React, { Fragment } from 'react';
 import {
-  Box,
   List,
-  Card,
-  Heading,
-  ButtonFluid,
-  CardPrimary,
-  Icon,
   icons,
-  Paragraph,
-  Text,
-  Flex,
-  Label,
-  theme,
-  IconCircled,
+  IconOutlined,
+  TooltipPrimary,
 } from '@polymathnetwork/new-ui';
 import { types } from '@polymathnetwork/new-shared';
+import { DividendCard } from '~/components/DividendCard';
+import * as sc from './styles';
 
 export interface Props {
   dividends: types.DividendPojo[];
@@ -25,56 +16,37 @@ export interface Props {
 
 export const Presenter = ({ symbol, dividends }: Props) => (
   <List>
-    {dividends.map(dividend => (
-      <li key={dividend.uid}>
-        <Card width={300} height={370} p="gridGap">
-          <Flex flexDirection="column" height="100%" alignItems="flex-start">
-            <CardPrimary p={3} width="100%">
-              <Flex justifyContent="space-between">
-                <Text fontSize={0}>
-                  <span>Dividend Amount</span>
-                </Text>
-                <Text fontSize={0} color="gray.2">
-                  <span>Not completed</span>
-                  <Icon
-                    Asset={icons.SvgDot}
-                    width={16}
-                    height={16}
-                    color="warning"
-                  />
-                </Text>
-              </Flex>
-              <Paragraph fontSize={4} color="baseText" mt="m">
-                {formatters.toTokens(dividend.amount)} {symbol}
-              </Paragraph>
-            </CardPrimary>
-            <Heading mt="m" mb={1}>
-              {dividend.name}
-            </Heading>
-            <Label color={theme.tokens[types.Tokens.Erc20].color}>
-              Issued in ERC20
-            </Label>
-            <Flex mt="m">
-              <Flex flex="0" mr="s">
-                <IconCircled
-                  Asset={icons.SvgWarning}
-                  width={26}
-                  height={26}
-                  color="white"
-                  bg="warning"
-                  scale={0.9}
-                />
-              </Flex>
-              <Paragraph fontSize={0}>
-                <strong>2</strong> Remaining transactions
-              </Paragraph>
-            </Flex>
-            <Box mt="auto" minWidth="100%" textAlign="center">
-              <ButtonFluid variant="secondary">View details</ButtonFluid>
-            </Box>
-          </Flex>
-        </Card>
-      </li>
-    ))}
+    {dividends.length ? (
+      <Fragment>
+        {dividends.map(dividend => (
+          <li key={dividend.uid}>
+            <DividendCard dividend={dividend} symbol={symbol} />
+          </li>
+        ))}
+        <sc.NewDividendButton variant="ghost" iconPosition="top">
+          <IconOutlined
+            Asset={icons.SvgPlus}
+            width={25}
+            height={25}
+            scale={0.9}
+          />
+          Add new <br /> dividend <br /> distribution
+          <TooltipPrimary>
+            You can add new dividend distribution if previous dividend has been
+            completed/expired.
+          </TooltipPrimary>
+        </sc.NewDividendButton>
+      </Fragment>
+    ) : (
+      <sc.PlaceholderButton variant="ghost" iconPosition="top">
+        <IconOutlined
+          Asset={icons.SvgPlus}
+          width={25}
+          height={25}
+          scale={0.9}
+        />
+        Add new <br /> dividend <br /> distribution
+      </sc.PlaceholderButton>
+    )}
   </List>
 );

@@ -9,8 +9,6 @@ import {
   Icon,
   icons,
   IconText,
-  IconOutlined,
-  TooltipPrimary,
 } from '@polymathnetwork/new-ui';
 import { Checkpoint } from '~/components/Checkpoint';
 import * as sc from './styles';
@@ -21,7 +19,7 @@ export interface Props {
   symbol: string;
 }
 
-export const Presenter = ({ checkpoints }: Props) => {
+export const Presenter = ({ checkpoints, symbol }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
   );
@@ -83,24 +81,8 @@ export const Presenter = ({ checkpoints }: Props) => {
                           </sc.ProgressIndicator>
                           <Checkpoint
                             checkpointIndex={checkpoint.index}
-                            symbol="A0T0"
+                            symbol={symbol}
                           />
-                          <sc.NewDividendButton
-                            variant="ghost"
-                            iconPosition="top"
-                          >
-                            <IconOutlined
-                              Asset={icons.SvgPlus}
-                              width={25}
-                              height={25}
-                              scale={0.9}
-                            />
-                            Add new <br /> dividend <br /> distribution
-                            <TooltipPrimary>
-                              You can add new dividend distribution if previous
-                              dividend has been completed/expired.
-                            </TooltipPrimary>
-                          </sc.NewDividendButton>
                         </sc.Dividends>
                       </Grid.Item>
                     </Grid>

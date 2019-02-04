@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
-import { createCheckpointBySymbolAndIdFetcher } from '~/state/fetchers';
+import {
+  createCheckpointBySymbolAndIdFetcher,
+  createDividendsByCheckpointFetcher,
+} from '~/state/fetchers';
 import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
@@ -22,11 +25,24 @@ export class ContainerBase extends Component<Props> {
             securityTokenSymbol: symbol,
             checkpointIndex,
           }),
+          createDividendsByCheckpointFetcher({
+            securityTokenSymbol: symbol,
+            checkpointIndex,
+          }),
         ]}
-        render={(data: { checkpoints: types.CheckpointEntity[] }) => {
-          const { checkpoints: [checkpoint] } = data;
-          // TODO @monitz87: pass the actual props to the presenter when it is implemented
-          return <Presenter />;
+        render={(data: {
+          checkpoints: types.CheckpointPojo[];
+          dividends: types.DividendPojo[];
+        }) => {
+          const {
+            checkpoints: [checkpoint],
+          } = data;
+          return (
+            <Presenter
+              symbol={symbol}
+              dividends={checkpoint ? checkpoint.dividends : []}
+            />
+          );
         }}
       />
     );
