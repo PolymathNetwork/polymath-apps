@@ -10,6 +10,7 @@ import {
   icons,
   IconText,
   IconOutlined,
+  TooltipPrimary,
 } from '@polymathnetwork/new-ui';
 import { Checkpoint } from '~/components/Checkpoint';
 import * as sc from './styles';
@@ -95,6 +96,10 @@ export const Presenter = ({ checkpoints }: Props) => {
                               scale={0.9}
                             />
                             Add new <br /> dividend <br /> distribution
+                            <TooltipPrimary>
+                              You can add new dividend distribution if previous
+                              dividend has been completed/expired.
+                            </TooltipPrimary>
                           </sc.NewDividendButton>
                         </sc.Dividends>
                       </Grid.Item>

@@ -15,7 +15,6 @@ import {
   Label,
   theme,
   IconCircled,
-  Tooltip,
 } from '@polymathnetwork/new-ui';
 import { types } from '@polymathnetwork/new-shared';
 
