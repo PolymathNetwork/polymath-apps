@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'redux-little-router';
 import {
   List,
   icons,
@@ -38,7 +39,12 @@ export const Presenter = ({ symbol, dividends }: Props) => (
         </sc.NewDividendButton>
       </Fragment>
     ) : (
-      <sc.PlaceholderButton variant="ghost" iconPosition="top">
+      <sc.PlaceholderButton
+        as={Link}
+        href={`/securityTokens/${symbol}/dividends`}
+        variant="ghost"
+        iconPosition="top"
+      >
         <IconOutlined
           Asset={icons.SvgPlus}
           width={25}
