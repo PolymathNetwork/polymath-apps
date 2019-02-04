@@ -93,7 +93,9 @@ Dimensions utilities parses a component's prop and converts it into a CSS width 
 Available dimensions utilities:
 
 - `height`
+- `width`
 - `maxWidth`
+- `minWidth`
 
 Example using `height`:
 
@@ -113,7 +115,7 @@ Example using `height`:
 <Box height={{ sm: 1, md: 0.5 }} />
 ```
 
-We don't currently support `width` because we want to encourage users to use flexible and fluid width elements instead of hardcoded sizes.
+You should use the `width`/`height` props sparingly and use fluid width elements instead of hardcoded sizes.
 
 ## Variants
 
