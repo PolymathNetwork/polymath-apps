@@ -4,9 +4,9 @@ import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createCheckpointBySymbolAndIdFetcher } from '~/state/fetchers';
-import { types, utils } from '@polymathnetwork/new-shared';
+import { types, utils, formatters } from '@polymathnetwork/new-shared';
+import { DateTime } from 'luxon';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
 
 export interface Props {
   dispatch: Dispatch<any>;
@@ -37,9 +37,10 @@ export class ContainerBase extends Component<Props> {
       };
     });
 
-    const fileName = `checkpoint_${symbol.toUpperCase()}_${moment(
-      createdAt
-    ).format('MM/DD/YYYY')}_${totalSupply}`;
+    const fileName = `checkpoint_${symbol.toUpperCase()}_${formatters.toDateFormat(
+      createdAt,
+      { format: DateTime.DATE_SHORT }
+    )}_${totalSupply}`;
 
     utils.downloadCsvFile(data, fileName, {
       fields: [
