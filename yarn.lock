@@ -6285,6 +6285,7 @@ conventional-commits-parser@^3.0.1:
 conventional-recommended-bump@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/conventional-recommended-bump/-/conventional-recommended-bump-4.0.4.tgz#05540584641d3da758c8863c09788fcaeb586872"
+  integrity sha512-9mY5Yoblq+ZMqJpBzgS+RpSq+SUfP2miOR3H/NR9drGf08WCrY9B6HAGJZEm6+ThsVP917VHAahSOjM6k1vhPg==
   dependencies:
     concat-stream "^1.6.0"
     conventional-changelog-preset-loader "^2.0.2"
