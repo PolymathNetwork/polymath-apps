@@ -37,7 +37,12 @@ export const Presenter = ({ symbol, dividends }: Props) => (
                 </Text>
                 <Text fontSize={0} color="gray.2">
                   <span>Not completed</span>
-                  <Icon Asset={icons.SvgDot} size={16} color="warning" />
+                  <Icon
+                    Asset={icons.SvgDot}
+                    width={16}
+                    height={16}
+                    color="warning"
+                  />
                 </Text>
               </Flex>
               <Paragraph fontSize={4} color="baseText" mt="m">
@@ -54,7 +59,8 @@ export const Presenter = ({ symbol, dividends }: Props) => (
               <Flex flex="0" mr="s">
                 <IconCircled
                   Asset={icons.SvgWarning}
-                  size={26}
+                  width={26}
+                  height={26}
                   color="white"
                   bg="warning"
                   scale={0.9}

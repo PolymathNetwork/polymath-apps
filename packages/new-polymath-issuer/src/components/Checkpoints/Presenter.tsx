@@ -90,7 +90,8 @@ export const Presenter = ({ checkpoints }: Props) => {
                           >
                             <IconOutlined
                               Asset={icons.SvgPlus}
-                              size={25}
+                              width={25}
+                              height={25}
                               scale={0.9}
                             />
                             Add new <br /> dividend <br /> distribution
