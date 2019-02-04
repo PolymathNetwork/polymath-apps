@@ -1,4 +1,4 @@
-import React, { FC, ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { variant as variantHelper } from 'styled-system';
 import { get } from 'lodash';
@@ -22,10 +22,10 @@ export interface ButtonProps {
    */
   type?: HtmlButtonProps['type'];
   /**
-   * Optionally specify an href for your Button to become an <a> element
+   * Optionally specify an href for your Button
    */
   href?: string;
-  disabled?: HtmlButtonProps['disabled'];
+  role?: string;
   iconPosition?: IconPosition;
   onClick: () => void;
 }
@@ -38,51 +38,25 @@ const getIconStyle = (position: IconPosition) =>
     right: 'left',
   }[position]);
 
-export const ButtonComponent: FC<ButtonProps> = ({
-  href,
-  type,
-  iconPosition,
-  children,
-  ...rest
-}) => {
-  const passedProps: {
-    role?: string;
-    type?: string;
-  } = {};
-
-  if (href) {
-    passedProps.role = 'button';
-  } else {
-    passedProps.type = type;
-  }
-
-  return (
-    <button tabIndex={0} {...passedProps} {...rest}>
-      {children}
-    </button>
-  );
-};
-
-ButtonComponent.defaultProps = {
-  type: 'button',
-  disabled: false,
-  variant: 'primary',
-  iconPosition: 'right',
-};
-
-const EnhancedButton = styled(ButtonComponent)<ButtonProps>`
+const EnhancedButton = styled.button.attrs<ButtonProps>({
+  tabIndex: 0,
+  role: (props: ButtonProps) => (props.href ? 'button' : undefined),
+  type: (props: ButtonProps) => (props.href ? undefined : 'button'),
+})<ButtonProps>`
   position: relative;
   display: inline-flex;
   justify-content: center;
+  align-items: center;
   flex-shrink: 0;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  line-height: 16px;
+  letter-spacing: 1px;
   border: 2px solid transparent;
   outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
+  line-height: 1;
   transition-duration: ${({ theme }) => theme.transitions.hover.ms}ms;
   transition-property: background, color, border-color;
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
@@ -116,6 +90,9 @@ const EnhancedButton = styled(ButtonComponent)<ButtonProps>`
   }
 `;
 
-export const Button = Object.assign(EnhancedButton, {
-  defaultProps: ButtonComponent.defaultProps,
-});
+EnhancedButton.defaultProps = {
+  variant: 'primary',
+  iconPosition: 'right',
+};
+
+export const Button = EnhancedButton;
