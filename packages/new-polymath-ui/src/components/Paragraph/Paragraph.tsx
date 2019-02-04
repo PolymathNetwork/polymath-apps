@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Text } from '~/components/Text';
@@ -11,6 +12,10 @@ export const Paragraph = styled(Text)<Props>`
     margin-bottom: 0;
   }
 `;
+
+export const ParagraphDocz: FC<Props> = (props: any) => {
+  return <Paragraph {...props} />;
+};
 
 Paragraph.defaultProps = {
   ...Text.defaultProps,
