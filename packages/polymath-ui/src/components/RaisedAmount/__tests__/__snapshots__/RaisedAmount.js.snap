@@ -1,25 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
+.c1 {
+  margin-bottom: 5px;
+  color: #152935;
+  font-size: 0.875rem;
+}
+
+.c2 {
+  margin-bottom: 5px;
+  color: #152935;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: #EBF0F7;
+  min-width: 250px;
+}
+
 <div
-  class="sc-bwzfXH iZACQz"
+  class="c0"
 >
   <h4
-    class="sc-bdVaJa ZKgMW"
+    class="c1"
+    color="highlightText"
     font-size="1"
   >
     a title
   </h4>
   <p
-    class="sc-bdVaJa bHdiET"
+    class="c2"
+    color="highlightText"
     font-size="5"
   >
     555 PRIM
   </p>
-  <span
-    class="sc-htpNat fPrvfr"
-  >
-    111 TOK
-  </span>
+  111 TOK
 </div>
 `;

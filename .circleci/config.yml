@@ -1,0 +1,129 @@
+version: 2.1
+
+references:
+  container_config: &container_config
+    docker:
+      - image: 'circleci/node:8-stretch'
+  restore_yarn_cache: &restore_yarn_cache
+    restore_cache:
+      name: Restore Yarn Package Cache
+      keys:
+        - yarn-packages-{{ checksum "yarn.lock" }}
+  save_cache: &save_cache
+    save_cache:
+      name: Save Yarn Package Cache
+      key: yarn-packages-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.cache/yarn
+  yarn_install: &yarn_install
+    run:
+      name: Yarn install
+      command: yarn install --frozen-lockfile
+
+jobs:
+  install_dependencies:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+  new_issuer_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-issuer
+  new_issuer_build:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn build:new-issuer
+  issuer_build:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn build:issuer
+  issuer_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:issuer
+  ui_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:ui
+  offchain_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:offchain
+  new_sdk_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:sdk
+  new_ui_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-ui
+  new_shared_tests:
+    <<: *container_config
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *yarn_install
+      - *save_cache
+      - run: yarn test:new-shared
+
+workflows:
+  version: 2
+  unit_tests:
+    jobs:
+      - install_dependencies
+      - new_issuer_tests:
+          requires:
+            - install_dependencies
+      - new_ui_tests:
+          requires:
+            - install_dependencies
+      - new_sdk_tests:
+          requires:
+            - install_dependencies
+      - new_shared_tests:
+          requires:
+            - install_dependencies
+      - issuer_tests:
+          requires:
+            - install_dependencies
+      - ui_tests:
+          requires:
+            - install_dependencies
+      - offchain_tests:
+          requires:
+            - install_dependencies

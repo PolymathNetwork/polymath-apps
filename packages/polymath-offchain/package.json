@@ -7,10 +7,11 @@
   },
   "scripts": {
     "start": "node -r ./babel.register.js src/server.js",
-    "test": "jest",
+    "test": "echo \"Offchain tests disabled until the repo is moved to Typescript\"",
     "start:dist": "node ./build/server.js",
-    "build": "yarn build:shared && babel --root-mode upward --ignore /node_modules/ src --out-dir build",
+    "build": "yarn build:shared && yarn build:artifacts && babel --root-mode upward --ignore /node_modules/ src --out-dir build",
     "build:shared": "rm -rf ../polymath-shared/build && babel --root-mode upward --ignore /node_modules/  ../polymath-shared/src --out-dir ../polymath-shared/build --copy-files",
+    "build:artifacts": "rm -rf ../new-polymath-scripts/build && babel --root-mode upward --ignore /node_modules/  ../new-polymath-scripts/src/fixtures --out-dir ../new-polymath-scripts/build/fixtures --copy-files",
     "typecheck": "flow --show-all-branches"
   },
   "dependencies": {
@@ -30,7 +31,7 @@
     "moment": "2.20.1",
     "react": "16.4.0",
     "react-dom": "16.4.0",
-    "web3": "1.0.0-beta.35",
+    "web3": "1.0.0-beta.30",
     "winston": "^3.1.0"
   },
   "devDependencies": {

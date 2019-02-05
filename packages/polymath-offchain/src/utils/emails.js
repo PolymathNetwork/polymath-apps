@@ -24,6 +24,7 @@ import type { EmailData } from '@sendgrid/mail';
  * @param {string} name name of the email receiver
  * @param {string} subject email subject
  * @param {string} body email body
+ * @param {string} copyTo email address to send a copy of the email to
  * @param {string | Object} replyTo reply address or object with a reply address and a name
  */
 export const sendEmail = async (
@@ -31,8 +32,9 @@ export const sendEmail = async (
   name: string,
   subject: string,
   body: string,
+  copyTo: string,
   replyTo: string | EmailData = {
-    email: 'tokenstudio@polymath.zendesk.com',
+    email: 'tokenstudio@polymath.network',
     name: 'Polymath Network',
   }
 ) => {
@@ -40,6 +42,7 @@ export const sendEmail = async (
     from: { email: 'noreply@polymath.network', name: 'Polymath Network' },
     replyTo,
     to: { email, name },
+    cc: copyTo,
     subject,
     html: body,
   };
@@ -104,6 +107,7 @@ export const sendProviderApplicationEmail = async (
         application={application}
       />
     ),
+    issuerEmail,
     {
       name: issuerName,
       email: issuerEmail,

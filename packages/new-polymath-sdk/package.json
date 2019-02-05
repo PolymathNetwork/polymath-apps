@@ -1,0 +1,57 @@
+{
+  "name": "@polymathnetwork/sdk",
+  "version": "0.0.0",
+  "main": "build/dist/index.js",
+  "typings": "build/dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.(ts|js)"
+    ],
+    "testPathIgnorePatterns": [
+      "build"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "../../config/babelJestWrapper.js"
+    },
+    "moduleNameMapper": {
+      "~/(.*)": "<rootDir>/src/$1"
+    },
+    "setupFiles": [
+      "<rootDir>/src/testUtils/setupTests.ts"
+    ]
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.2.0",
+    "@polymathnetwork/new-shared": "0.0.0",
+    "bignumber.js": "^8.0.1",
+    "uuid": "^3.3.2",
+    "web3": "1.0.0-beta.30"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.12",
+    "@types/uuid": "^3.4.4",
+    "@types/web3": "^1.0.14",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "reflect-metadata": "^0.1.12",
+    "regenerator-runtime": "^0.13.1",
+    "typescript": "^3.2.1",
+    "web3-core-promievent": "^1.0.0-beta.37"
+  }
+}

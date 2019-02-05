@@ -1,13 +1,15 @@
 // @flow
 
 import React, { Component } from 'react';
-import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { reduce } from 'lodash';
 import { Button } from 'carbon-components-react';
 import {
+  Page,
   Box,
+  Flex,
+  Grid,
   ProgressBar,
   Countdown,
   etherscanAddress,
@@ -117,7 +119,7 @@ const USDTieredSTOOverviewComponent = ({
   const totalTokensSold = sto.totalTokensSold;
 
   return (
-    <DocumentTitle title={`${ticker} STO Overview – Polymath`}>
+    <Page title={`${ticker} STO Overview – Polymath`}>
       <div>
         <h1 className="pui-h1">Security Token Overview</h1>
         <br />
@@ -126,67 +128,100 @@ const USDTieredSTOOverviewComponent = ({
           <p className="pui-sto-status-contract">
             Contract {etherscanAddress(sto.address)}
           </p>
-          <div
-            className={
-              'pui-sto-status-grow' + (sto.pauseStatus ? ' pui-paused' : '')
-            }
+          <Grid
+            gridTemplateAreas={[
+              `
+                "countdown"
+                "main"
+                "table"
+              `,
+              `
+                "countdown"
+                "main"
+                "table"
+              `,
+              `
+                "main countdown"
+                "table table"
+              `,
+              `
+                "main countdown"
+                "table ."
+              `,
+            ]}
           >
-            <div className="pui-sto-status-numbers">
-              <div>{totalUsdRaisedText}%</div>
-              <div className="pui-key-value">
-                <div>Cap</div>
-                {format.toUSD(totalUsdCap)}
-              </div>
-            </div>
-            <ProgressBar
-              className="pui-sto-status-progress-bar"
-              progress={totalUsdRaisedPercent / 100}
-            />
-            <div className="pui-sto-status-bottom-row">
-              <div className="pui-sto-status-dates">
-                <div className="pui-key-value">
-                  <div>Start Date</div>
-                  {dateFormat(sto.startDate)}
+            <Grid.Item gridArea="main">
+              <div
+                className={
+                  'pui-sto-status-grow' + (sto.pauseStatus ? ' pui-paused' : '')
+                }
+              >
+                <div className="pui-sto-status-numbers">
+                  <div>{totalUsdRaisedText}%</div>
+                  <div className="pui-key-value">
+                    <div>Cap</div>
+                    {format.toUSD(totalUsdCap)}
+                  </div>
                 </div>
-                <div className="pui-key-value">
-                  <div>End Date</div>
-                  {dateFormat(sto.endDate)}
-                </div>
+                <Box mb={4}>
+                  <ProgressBar progress={totalUsdRaisedPercent / 100} />
+                </Box>
+                <Grid
+                  gridTemplateColumns={['', '', '', '1fr minmax(250px, 1fr)']}
+                >
+                  <Flex alignItems="start">
+                    <Box mr={4} mb={4}>
+                      <div className="pui-key-value">
+                        <div>Start Date</div>
+                        {dateFormat(sto.startDate)}
+                      </div>
+                    </Box>
+                    <div className="pui-key-value">
+                      <div>End Date</div>
+                      {dateFormat(sto.endDate)}
+                    </div>
+                  </Flex>
+                  <Grid.Item>
+                    <RaisedAmount
+                      title="Total Funds Raised"
+                      primaryAmount={raised}
+                      primaryUnit="USD"
+                      tokenAmount={totalTokensSold}
+                      tokenUnit={ticker.toUpperCase()}
+                    />
+                  </Grid.Item>
+                </Grid>
               </div>
-              <RaisedAmount
-                title="Total Funds Raised"
-                primaryAmount={raised}
-                primaryUnit="USD"
-                tokenAmount={totalTokensSold}
-                tokenUnit={ticker.toUpperCase()}
-              />
-            </div>
-            <Box mt={4}>
-              <TiersTable sto={sto} />
-            </Box>
-            <Button
-              icon="download"
-              kind="secondary"
-              onClick={handleExportInvestors}
-            >
-              Export List Of Investors
-            </Button>
-          </div>
-          {countdownProps != null && (
-            <div className="pui-countdown-container">
-              <Countdown
-                deadline={countdownProps.deadline}
-                title={countdownProps.title}
-                buttonTitle={countdownProps.buttonTitle}
-                handleButtonClick={handlePause}
-                isPaused={sto.pauseStatus}
-              />
-            </div>
-          )}
-          <div className="pui-clearfix" />
+            </Grid.Item>
+            <Grid.Item gridArea="table">
+              <Box mt={4}>
+                <TiersTable sto={sto} />
+              </Box>
+            </Grid.Item>
+            <Grid.Item gridArea="countdown">
+              {countdownProps != null && (
+                <div className="pui-countdown-container">
+                  <Countdown
+                    deadline={countdownProps.deadline}
+                    title={countdownProps.title}
+                    buttonTitle={countdownProps.buttonTitle}
+                    handleButtonClick={handlePause}
+                    isPaused={sto.pauseStatus}
+                  />
+                </div>
+              )}
+            </Grid.Item>
+          </Grid>
+          <Button
+            icon="download"
+            kind="secondary"
+            onClick={handleExportInvestors}
+          >
+            Export List Of Investors
+          </Button>
         </div>
       </div>
-    </DocumentTitle>
+    </Page>
   );
 };
 

@@ -3,10 +3,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import '@polymathnetwork/ui/styles/globals.scss';
-import type { Node } from 'react';
 
-import './style.scss';
+import type { Node } from 'react';
 
 type StateProps = {|
   isNotice: boolean,

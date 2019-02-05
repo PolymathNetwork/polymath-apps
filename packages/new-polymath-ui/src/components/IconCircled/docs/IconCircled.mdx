@@ -1,0 +1,50 @@
+---
+name: IconCircled
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import { IconCircled, IconCircledDocz } from '../';
+import { SvgEth } from '~/images/icons/Eth';
+import { SvgPoly } from '~/images/icons/Poly';
+import { SvgAccount } from '~/images/icons/Account';
+import { SvgToken } from '~/images/icons/Token';
+
+# FormItem
+
+<PropsTable of={IconCircledDocz} />
+
+## Basic usage
+
+<Playground>
+  <IconCircled
+    Asset={SvgEth}
+    bg="secondary"
+    color="primary"
+    width={30}
+    height={30}
+  />
+  <IconCircled
+    Asset={SvgPoly}
+    bg="secondary"
+    color="primary"
+    width={30}
+    height={30}
+  />
+  <IconCircled
+    Asset={SvgAccount}
+    bg="secondary"
+    color="primary"
+    width={30}
+    height={30}
+  />
+  <IconCircled
+    Asset={SvgToken}
+    bg="secondary"
+    color="primary"
+    width={30}
+    height={30}
+    scale={0.95}
+  />
+</Playground>

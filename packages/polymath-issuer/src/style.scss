@@ -1,44 +1,28 @@
-@import '~normalize.css/normalize.css';
-@import '~@polymathnetwork/ui/src/styles/globals.scss';
-
 .splash-background {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: url('/hero.png') no-repeat right bottom !important;
+  z-index: -1;
 }
 
 .splash-background-pattern {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   right: 0;
   width: 80%;
   height: 80%;
   background: url('/hero-pattern.svg') no-repeat;
   background-size: cover;
-}
-
-.splash-logo {
-  margin-bottom: 55px;
-}
-
-.dashboard {
-  padding-left: 46px;
-  padding-bottom: 46px;
-  padding-top: 56px;
-
-  .bx--progress {
-    margin-top: 0;
-    margin-bottom: 62px;
-  }
+  z-index: -1;
 }
 
 // TODO @bshevchenko: extract into the @polymathnetwork/ui
 .ticker-field {
   background: #ebf0f7;
-  padding: 12px 48px 31px 48px;
+  padding: 12px 48px;
   margin-bottom: 1.5rem;
   margin-top: 24px;
   text-align: center;

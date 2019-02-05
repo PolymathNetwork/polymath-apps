@@ -5,8 +5,11 @@ import React, { Component } from 'react';
 import type { SecurityToken, STODetails } from '@polymathnetwork/js/types';
 
 import { etherscanAddress } from '../../helpers';
+import Box from '../Box';
+import Grid from '../Grid';
 import Countdown from '../Countdown';
 import ProgressBar from '../ProgressBar';
+import RaisedAmount from '../RaisedAmount';
 
 import type { CountdownProps } from '../Countdown';
 
@@ -83,72 +86,72 @@ export default class STOStatus extends Component<Props> {
         <p className="pui-sto-status-contract">
           Contract {etherscanAddress(details.address)}
         </p>
-        <div
-          className={
-            'pui-sto-status-grow' +
-            (this.props.isStoPaused ? ' pui-paused' : '')
-          }
-        >
-          <div className="pui-sto-status-numbers">
-            <div>{fractionComplete}%</div>
-            <div className="pui-key-value">
-              <div>Cap</div>
-              {capText}
+        <Grid gridTemplateColumns={['', '', '', '1fr minmax(250px, 1fr)']}>
+          <div
+            className={
+              'pui-sto-status-grow' +
+              (this.props.isStoPaused ? ' pui-paused' : '')
+            }
+          >
+            <div className="pui-sto-status-numbers">
+              <div>{fractionComplete}%</div>
+              <div className="pui-key-value">
+                <div>Cap</div>
+                {capText}
+              </div>
             </div>
-          </div>
-          <ProgressBar
-            className="pui-sto-status-progress-bar"
-            progress={fractionComplete / 100}
-          />
-          <div className="pui-sto-status-bottom-row">
-            <div className="pui-sto-status-dates">
-              <div className="pui-key-value">
-                <div>Start Date</div>
-                {dateFormat(details.start)}
-              </div>
-              <div className="pui-key-value">
-                <div>End Date</div>
-                {dateFormat(details.end)}
-              </div>
-              <div className="pui-key-value">
-                <div>
-                  1 {symbol}{' '}
-                  <span>
-                    = {details.rate} {token.ticker}
-                  </span>
+            <Box mb="l">
+              <ProgressBar progress={fractionComplete / 100} />
+            </Box>
+            <div className="pui-sto-status-bottom-row">
+              <div className="pui-sto-status-dates">
+                <div className="pui-key-value">
+                  <div>Start Date</div>
+                  {dateFormat(details.start)}
+                </div>
+                <div className="pui-key-value">
+                  <div>End Date</div>
+                  {dateFormat(details.end)}
+                </div>
+                <div className="pui-key-value">
+                  <div>
+                    1 {symbol}{' '}
+                    <span>
+                      = {details.rate} {token.ticker}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <div className="pui-key-value pui-countdown-raised">
-                <div>Total Funds Raised</div>
-                {raisedText}
-                <div>
-                  {distTokens} {token.ticker}
-                </div>
+              <div>
+                <RaisedAmount
+                  title="Total Funds Raised"
+                  primaryAmount={details.raised}
+                  primaryUnit={symbol}
+                  tokenAmount={distTokens}
+                  tokenUnit={token.ticker.toUpperCase()}
+                />
               </div>
             </div>
           </div>
-        </div>
-        {countdownProps != null && (
-          <div className="pui-countdown-container">
-            <Countdown
-              deadline={countdownProps.deadline}
-              title={countdownProps.title}
-              buttonTitle={
-                notPausable
-                  ? undefined
-                  : this.props.isStoPaused
+          {countdownProps != null && (
+            <div className="pui-countdown-container">
+              <Countdown
+                deadline={countdownProps.deadline}
+                title={countdownProps.title}
+                buttonTitle={
+                  notPausable
+                    ? undefined
+                    : this.props.isStoPaused
                     ? 'RESUME STO'
                     : 'PAUSE STO'
-              }
-              handleButtonClick={this.props.toggleStoPause}
-              isPaused={this.props.isStoPaused}
-              pausable={!notPausable}
-            />
-          </div>
-        )}
-        <div className="pui-clearfix" />
+                }
+                handleButtonClick={this.props.toggleStoPause}
+                isPaused={this.props.isStoPaused}
+                pausable={!notPausable}
+              />
+            </div>
+          )}
+        </Grid>
       </div>
     );
   }

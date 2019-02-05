@@ -2,20 +2,13 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  ComposedModal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Icon,
-  Button,
-} from 'carbon-components-react';
+import { Icon, Button } from 'carbon-components-react';
+
+import Modal from '../Modal';
 
 import { closeModal } from './actions';
 import type { RootState } from '../../redux/reducer';
 import type { ModalState } from './reducer';
-
-import './style.scss';
 
 type DispatchProps = {|
   closeModal: () => any,
@@ -39,32 +32,23 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
 
   render() {
     return (
-      <ComposedModal
-        open={this.props.isOpen}
+      <Modal
+        isOpen={this.props.isOpen}
         className={'pui-confirm-modal ' + this.props.className}
+        onClose={this.handleClose}
       >
-        <ModalHeader
-          label={this.props.headerLabel}
-          title={
-            // NOTE @RafaelVidaurre: Carbon components throws a warning here since it expects a string, not a Node
-            <span>
-              <Icon
-                name="warning--glyph"
-                fill="#E71D32"
-                width="24"
-                height="24"
-              />
-              &nbsp;
-              {this.props.title}
-            </span>
-          } // eslint-disable-next-line react/jsx-handler-names
-          buttonOnClick={this.handleClose}
-        />
-        <ModalBody>
+        <Modal.Header status="warning" label={this.props.headerLabel}>
+          <span>
+            <Icon name="warning--glyph" fill="#EFC100" width="24" height="24" />
+            &nbsp;
+            {this.props.title}
+          </span>
+        </Modal.Header>
+        <Modal.Body>
           <div className="bx--modal-content__text">{this.props.content}</div>
-        </ModalBody>
+        </Modal.Body>
 
-        <ModalFooter>
+        <Modal.Footer>
           {!this.props.isAlert ? (
             <Button
               className="cancel-btn"
@@ -77,8 +61,8 @@ class ConfirmModal extends Component<ModalState & DispatchProps> {
             ''
           )}
           <Button onClick={this.handleConfirm}>{this.props.buttonLabel}</Button>
-        </ModalFooter>
-      </ComposedModal>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }

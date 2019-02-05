@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders without crashing 1`] = `
-<p
-  className="sc-bdVaJa jKaQbl"
->
-  This is a box.
-</p>
-`;

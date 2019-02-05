@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reducer: entities initialState 1`] = `
+Object {
+  "checkpoints": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+  "dividends": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+  "erc20DividendsModules": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+  "transactionQueues": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+  "transactions": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+}
+`;

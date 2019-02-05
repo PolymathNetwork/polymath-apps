@@ -78,22 +78,10 @@ const providers: Array<ServiceProvider> = [
     logo: '/providers/advisory/genesisblock.png',
     background: '/providers/advisory/bg/img-genesisblock.png',
     desc:
-      'Genesis Block provides strategic business and regulatory advisory, financial services,' +
+      'Genesis Block provides strategic business and regulatory advisory, financial services, ' +
       'and technology solutions to companies seeking to leverage blockchain technology in their core ' +
       'business and capital strategy. Our mission is to realize the disruptive potential of blockchain ' +
       'and foster its growth and adoption in every aspect of life.',
-  },
-  {
-    id: 2,
-    cat: 0,
-    title: 'Matador',
-    logo: '/providers/advisory/matador.png',
-    background: '/providers/advisory/bg/img-matador.png',
-    desc:
-      'We started as investment bankers and private equity partners. Historically, private markets provide' +
-      ' minimal liquidity and going public carries high costs. Working at Polymath, we saw that the blockchain could' +
-      ' solve many of these problems from legacy capital markets.',
-    disclosure: 'Matador is a Polymath company',
   },
   {
     id: 3,
@@ -120,6 +108,16 @@ const providers: Array<ServiceProvider> = [
       'class service providers that will allow to meet regulatory requirements to issue securities by using ' +
       'a tokenized asset, traded in a token exchange.\n- Our Local affiliates will provide in-country service ' +
       'and communications while our Corporate team focuses on the interaction with our technology ecosystem.',
+  },
+  {
+    id: 23,
+    cat: 0,
+    title: 'Chain Partners',
+    logo: '/providers/advisory/chain-par.png',
+    background: '/providers/advisory/bg/chain-par.png',
+    desc:
+      'Chain Partners is a blockchain company builder based in Seoul, Korea. We are a group of technologists, ' +
+      'entrepreneurs, and engineers, building the infrastructure for a decentralized future.',
   },
 
   // LEGAL
@@ -193,6 +191,17 @@ const providers: Array<ServiceProvider> = [
     desc:
       'Messner Reeves is a national full-service business law with expertise in securities matters in the following ' +
       'jurisdictions: Colorado, Nebraska, Pennsylvania.',
+  },
+  {
+    id: 23,
+    cat: 1,
+    title: 'Petros Law',
+    logo: '/providers/legal/petros.png',
+    background: '/providers/legal/bg/img-petros.png',
+    desc:
+      'Petros Law Group is a fintech law firm that focuses on commercial business application of digital asset ' +
+      'technologies through blockchain infrastructures, such as tokenized-securities. The Firm focuses on bringing ' +
+      'blockchain to commercial real estate and corporate business transactions',
   },
 
   // KYC/AML

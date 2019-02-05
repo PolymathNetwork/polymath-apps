@@ -29,7 +29,7 @@ jest.mock('../../utils', () => {
 });
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/PolymathRegistry.json',
+  '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json',
   () => {
     return {
       abi: {},
@@ -38,7 +38,7 @@ jest.mock(
 );
 
 jest.mock(
-  '@polymathnetwork/shared/fixtures/contracts/SecurityTokenRegistry.json',
+  '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json',
   () => {
     return {
       abi: {},

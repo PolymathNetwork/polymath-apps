@@ -2,9 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Button } from 'carbon-components-react';
-import { NotFoundPage } from '@polymathnetwork/ui';
+import { Grid, Page, NotFoundPage } from '@polymathnetwork/ui';
 import { goBack } from '../../../actions/sto';
 import ConfigureSTOForm from './ConfigureSTOForm';
 import STOTemplate from './STOTemplate';
@@ -40,39 +39,30 @@ export const ConfigureSTOComponent = ({
   token,
   goBack,
 }: ComponentProps) => (
-  <DocumentTitle title={`Configure ${token.ticker} STO – Polymath`}>
-    <div>
-      <div className="bx--row">
-        <div className="bx--col-xs-12">
-          <Button
-            kind="ghost"
-            onClick={goBack}
-            className="pui-go-back"
-            icon="arrow--left"
-          >
-            Go back
-          </Button>
-          <h1 className="pui-h1">Security Token Offering Configuration</h1>
-          <br />
-          <div className="bx--row">
-            <div className="bx--col-xs-8">
-              <div className="pui-page-box">
-                <h2 className="pui-h2">{stoModule.title}</h2>
-                <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
-                  Provide the financial details and timing for your offering
-                  below.
-                </h4>
-                <ConfigureSTOForm stoModule={stoModule} />
-              </div>
-            </div>
-            <div className="bx--col-xs-4">
-              <STOTemplate stoModule={stoModule} />
-            </div>
-          </div>
-        </div>
+  <Page title={`Configure ${token.ticker} STO – Polymath`}>
+    <Button
+      kind="ghost"
+      onClick={goBack}
+      className="pui-go-back"
+      icon="arrow--left"
+    >
+      Go back
+    </Button>
+    <h1 className="pui-h1">Security Token Offering Configuration</h1>
+    <br />
+    <Grid gridTemplateColumns={['', '', '', '1.5fr minmax(400px, 1fr)']}>
+      <div className="pui-page-box">
+        <h2 className="pui-h2">{stoModule.title}</h2>
+        <h4 className="pui-h4" style={{ marginBottom: '15px' }}>
+          Provide the financial details and timing for your offering below.
+        </h4>
+        <ConfigureSTOForm stoModule={stoModule} />
       </div>
-    </div>
-  </DocumentTitle>
+      <Grid.Item>
+        <STOTemplate stoModule={stoModule} />
+      </Grid.Item>
+    </Grid>
+  </Page>
 );
 
 class ConfigureSTOContainer extends Component<Props> {

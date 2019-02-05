@@ -11,15 +11,19 @@ const path = require('path');
 const findPkg = require('find-pkg');
 const globby = require('globby');
 
-const findPkgs = (rootPath, globPatterns) => {
-  if (!globPatterns) {
+const findPkgs = (rootPath, globPatternsRoot) => {
+  if (!globPatternsRoot & !globPatternsRoot.packages) {
     return [];
   }
+
+  const globPatterns = globPatternsRoot.packages || globPatternsRoot;
+
   const globOpts = {
     cwd: rootPath,
     strict: true,
     absolute: true,
   };
+  console.log('globPatterns', globPatterns);
   return globPatterns
     .reduce(
       (pkgs, pattern) =>

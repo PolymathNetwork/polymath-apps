@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
 import type { Node } from 'react';
 
 import './style.scss';
@@ -19,6 +21,10 @@ type Props = {
   topItems: Array<MenuItem>,
   bottomItems: Array<MenuItem>,
 };
+
+const Container = styled.div`
+  z-index: ${({ theme }) => theme.zIndexes.sidebar};
+`;
 
 export default class Sidebar extends Component<Props> {
   // noinspection JSMethodCanBeStatic
@@ -48,10 +54,10 @@ export default class Sidebar extends Component<Props> {
   render() {
     const { topItems, bottomItems, ...props } = this.props;
     return (
-      <div className="pui-sidebar" {...props}>
+      <Container className="pui-sidebar" {...props}>
         {this.items(topItems)}
         {this.items(bottomItems)}
-      </div>
+      </Container>
     );
   }
 }

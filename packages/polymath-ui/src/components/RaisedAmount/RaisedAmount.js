@@ -1,18 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import Paragraph from '../Paragraph';
 import { thousandsDelimiter } from '../../helpers';
-
-import './style.scss';
 
 const Container = styled.div`
   padding: 10px 15px;
   border-radius: 4px;
-  background-color: ${({ theme }) => theme.colors.blue[0]};
-`;
-
-const LightText = styled.span`
-  color: ${({ theme }) => theme.colors.gray[2]};
+  background-color: ${({ theme }) => theme.colors.gray[1]};
+  min-width: 250px;
 `;
 
 const RaisedAmount = ({
@@ -23,13 +19,13 @@ const RaisedAmount = ({
   tokenUnit,
 }) => (
   <Container>
-    <Paragraph as="h4" fontSize={1} mb={3}>
+    <Paragraph as="h4" fontSize={1} color="highlightText" mb={1}>
       {title}
     </Paragraph>
-    <Paragraph fontSize={5} mb={2}>
+    <Paragraph fontSize={5} color="highlightText" mb={1}>
       {`${thousandsDelimiter(primaryAmount)} ${primaryUnit}`}
     </Paragraph>
-    <LightText>{`${thousandsDelimiter(tokenAmount)} ${tokenUnit}`}</LightText>
+    {`${thousandsDelimiter(tokenAmount)} ${tokenUnit}`}
   </Container>
 );
 

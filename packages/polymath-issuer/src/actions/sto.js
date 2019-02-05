@@ -11,7 +11,11 @@ import {
   EMPTY_ADDRESS,
   DAI_ADDRESSES,
 } from '@polymathnetwork/shared/constants';
-import { setupSTOModule, getTokenSTO } from '../utils/contracts';
+import {
+  setupCappedSTOModule,
+  setupUSDTieredSTOModule,
+  getTokenSTO,
+} from '../utils/contracts';
 import USDTieredSTO from '../utils/contracts/USDTieredSTO';
 import { FUND_RAISE_TYPES } from '../constants';
 
@@ -36,7 +40,7 @@ export const data = (contract: STO, details: ?STODetails) => ({
 
 const STO_TYPE = 3;
 
-const ConfigSTOConfirmContent = ({ setupCost }) => (
+const ConfigSTOConfirmContent = ({ setupCost, balance }) => (
   <div>
     <p>
       Once submitted to the blockchain, the dates for your offering cannot be
@@ -48,18 +52,25 @@ const ConfigSTOConfirmContent = ({ setupCost }) => (
     </p>
     <p>
       Completion of your STO smart contract deployment and scheduling will
-      require two wallet transactions.
+      require {balance.lt(setupCost) ? 'two' : 'one'} wallet transactions.
     </p>
+    {balance.lt(setupCost) ? (
+      <div>
+        <p>
+          • The first transaction will be used to pay for the smart contract fee
+          of:
+        </p>
+        <div className="bx--details poly-cost">
+          {`${setupCost.toString()} POLY`}
+        </div>
+      </div>
+    ) : (
+      ''
+    )}
     <p>
-      • The first transaction will be used to pay for the smart contract fee of:
-    </p>
-    <div className="bx--details poly-cost">
-      {setupCost.toString()}
-      POLY
-    </div>
-    <p>
-      • The second transaction will be used to pay the mining fee (aka gas fee)
-      to complete the scheduling of your STO.
+      • {balance.lt(setupCost) ? 'The second' : 'This'} transaction will be used
+      to pay the mining fee (aka gas fee) to complete the scheduling of your
+      STO.
     </p>
     <p>
       Hit &laquo;CANCEL&raquo; if you would like to edit the information
@@ -185,10 +196,10 @@ export const fetchFactories = () => async (
 const dateTimeFromDateAndTime = (date: Date, time: TwelveHourTime) =>
   new Date(date.valueOf() + twelveHourTimeToMinutes(time) * 60000);
 
-export const configureSTO = (
-  moduleAddress: string,
-  config: STOConfig
-) => async (dispatch: Dispatch<any>, getState: GetState) => {
+export const configureSTO = (config: STOConfig, type: string) => async (
+  dispatch: Dispatch<any>,
+  getState: GetState
+) => {
   const {
     token,
     stoModules,
@@ -217,21 +228,14 @@ export const configureSTO = (
   const { setupCost } = stoModule;
   // TODO @RafaelVidaurre: Format setup cost
 
+  const spentBalance = await PolyToken.balanceOf(token.token.address);
+
   dispatch(
     ui.confirm(
-      <ConfigSTOConfirmContent setupCost={setupCost} />,
+      <ConfigSTOConfirmContent setupCost={setupCost} balance={spentBalance} />,
       async () => {
         const balance = getState().pui.account.balance;
         const hasEnoughBalance = balance.gte(setupCost);
-
-        if (!hasEnoughBalance) {
-          dispatch(
-            ui.faucet(
-              `The launching of a STO has a fixed cost of ${setupCost} POLY.`
-            )
-          );
-          return;
-        }
 
         // NOTE @RafaelVidaurre: Legacy checks, verify if actually necessary
         const {
@@ -242,22 +246,21 @@ export const configureSTO = (
           return;
         }
 
-        const raisesInDai = includes(
-          config.data.currencies,
-          FUND_RAISE_TYPES.DAI
-        );
-        const daiTokenAddress = DAI_ADDRESSES[networkId];
-        const usdTokenAddress = raisesInDai ? daiTokenAddress : EMPTY_ADDRESS;
-
         const stoModuleConfig = {
           ...config.data,
-          usdTokenAddress,
         };
-
         const tokenBalance = await PolyToken.balanceOf(token.address);
         const titles = ['Deploying And Scheduling'];
 
         if (tokenBalance.lt(setupCost)) {
+          if (!hasEnoughBalance) {
+            dispatch(
+              ui.faucet(
+                `The launching of a STO has a fixed cost of ${setupCost} POLY.`
+              )
+            );
+            return;
+          }
           titles.unshift('Transferring POLY');
         }
 
@@ -265,7 +268,34 @@ export const configureSTO = (
           ui.tx(
             titles,
             async () => {
-              await setupSTOModule(stoModule, token.address, stoModuleConfig);
+              const tokenAddress = token.address;
+              switch (type) {
+                case 'CappedSTO': {
+                  await setupCappedSTOModule(
+                    stoModule,
+                    tokenAddress,
+                    stoModuleConfig
+                  );
+                  break;
+                }
+                case 'USDTieredSTO': {
+                  const raisesInDai = includes(
+                    config.data.currencies,
+                    FUND_RAISE_TYPES.DAI
+                  );
+                  const daiTokenAddress = DAI_ADDRESSES[String(networkId)];
+                  const usdTokenAddress = raisesInDai
+                    ? daiTokenAddress
+                    : EMPTY_ADDRESS;
+                  stoModuleConfig.usdTokenAddress = usdTokenAddress;
+                  await setupUSDTieredSTOModule(
+                    stoModule,
+                    tokenAddress,
+                    stoModuleConfig
+                  );
+                  break;
+                }
+              }
             },
             'STO Configured Successfully',
             () => {
@@ -286,85 +316,20 @@ export const configureSTO = (
   );
 };
 
-// TODO @RafaelVidaurre: Switch to new configure when CappedSTO is re-written, this is legacy now
-export const configure = values => async (
+export const removeTier = (id, tiers, setFieldValue) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const { token } = getState().token;
-  const cappedSTOFactory = await token.contract.getModuleFactory(
-    'CappedSTO',
-    STO_TYPE
-  );
-  const fee = await cappedSTOFactory.setupCost();
-  const feeView = ui.thousandsDelimiter(fee);
   dispatch(
     ui.confirm(
-      <ConfigSTOConfirmContent setupCost={feeView} />,
+      <div>
+        <p>Please confirm that you want to delete this tier</p>
+      </div>,
       async () => {
-        // $FlowFixMe
-        if (getState().pui.account.balance.lt(fee)) {
-          dispatch(
-            ui.faucet(
-              `The launching of a STO has a fixed cost of ${feeView} POLY.`
-            )
-          );
-          return;
-        }
-        const { factory } = getState().sto;
-        const { token } = getState().token;
-        if (!factory || !token || !token.contract) {
-          return;
-        }
-        const balance = await PolyToken.balanceOf(token.address);
-
-        //Skip approve transaction if transfer is already allowed
-        let title = ['Deploying And Scheduling'];
-        if (balance.lt(fee)) {
-          title.unshift('Transferring POLY');
-        }
-
-        dispatch(
-          ui.tx(
-            title,
-            async () => {
-              const contract: any = token.contract;
-              const [startDate] = values.startDate;
-              const [endDate] = values.endDate;
-              const startDateWithTime = dateTimeFromDateAndTime(
-                startDate,
-                values.startTime
-              );
-              const endDateWithTime = dateTimeFromDateAndTime(
-                endDate,
-                values.endTime
-              );
-              const isEthFundraise = values.currency === 'ETH';
-
-              await contract.setCappedSTO(
-                startDateWithTime,
-                endDateWithTime,
-                values.cap.replace(/,/g, ''),
-                values.rate.replace(/,/g, ''),
-                isEthFundraise,
-                values.fundsReceiver
-              );
-            },
-            'STO Configured Successfully',
-            () => {
-              return dispatch(fetch());
-            },
-            undefined,
-            `/dashboard/${token.ticker}/compliance`,
-            undefined,
-            false,
-            token.ticker.toUpperCase() + ' STO Creation'
-          )
-        );
-      },
-      'Before You Proceed with your Security Token Offering Deployment and Scheduling',
-      undefined,
-      'pui-large-confirm-modal'
+        const newTiers = { ...tiers };
+        newTiers.splice(id - 1, 1);
+        setFieldValue('investmentTiers.tiers', newTiers);
+      }
     )
   );
 };

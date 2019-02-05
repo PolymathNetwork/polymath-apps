@@ -3,7 +3,14 @@
 
 import React, { Component, Fragment } from 'react';
 import { Button, Icon } from 'carbon-components-react';
-import { etherscanAddress } from '@polymathnetwork/ui';
+import {
+  Box,
+  Grid,
+  LabeledItem,
+  Paragraph,
+  IconText,
+  etherscanAddress,
+} from '@polymathnetwork/ui';
 import { SECURITY_AUDIT_URL } from '../../../../constants';
 
 import type { STOModule } from '../../../../constants';
@@ -23,43 +30,48 @@ export default class STOTemplateComponent extends Component<Props> {
     const isVerified = true;
 
     const authorAddress = (
-      <div className="bx--form-item">
-        <label className="bx--label">STO Author&apos;s ETH address</label>
-        <p>{stoModule.ownerAddress}</p>
-      </div>
+      <LabeledItem>
+        <LabeledItem.Label>STO Author&apos;s ETH address</LabeledItem.Label>
+        <Paragraph>{stoModule.ownerAddress}</Paragraph>
+      </LabeledItem>
     );
     const desc = (
-      <div className="bx--form-item">
-        <label className="bx--label">Description</label>
-        <p>{stoModule.description}</p>
-      </div>
+      <LabeledItem>
+        <LabeledItem.Label>Description</LabeledItem.Label>
+        <Paragraph>{stoModule.description}</Paragraph>
+      </LabeledItem>
     );
     const verifiedOnEtherscan = (
-      <div className="bx--form-item">
-        <label className="bx--label">Verified on Etherscan</label>
+      <LabeledItem>
+        <LabeledItem.Label>Verified on Etherscan</LabeledItem.Label>
         {isVerified ? (
-          <p>
-            <Icon name="checkmark--glyph" fill="#00AA5E" />
-            &nbsp;Yes
-          </p>
+          <Paragraph>
+            <IconText>
+              <Icon name="checkmark--glyph" fill="#00AA5E" /> <span>Yes</span>
+            </IconText>
+          </Paragraph>
         ) : (
-          <p>
-            <Icon name="close--glyph" fill="red" />
-            &nbsp;No
-          </p>
+          <Paragraph>
+            <IconText>
+              <Icon name="close--glyph" fill="red" /> <span>No</span>
+            </IconText>
+          </Paragraph>
         )}
-      </div>
+      </LabeledItem>
     );
     const securityAuditLink = (
-      <div className="bx--form-item">
-        <label className="bx--label">Third Party Audit</label>
-        <p>
-          <Icon name="checkmark--glyph" fill="#00AA5E" />
-          <a href={SECURITY_AUDIT_URL} target="_blank">
-            Click here to see report
-          </a>
-        </p>
-      </div>
+      <LabeledItem>
+        <LabeledItem.Label>Third Party Audit</LabeledItem.Label>
+        <Paragraph>
+          <IconText>
+            <Icon name="checkmark--glyph" fill="#00AA5E" />
+            &nbsp;
+            <a href={SECURITY_AUDIT_URL} target="_blank">
+              Click here to see report
+            </a>
+          </IconText>
+        </Paragraph>
+      </LabeledItem>
     );
 
     return (
@@ -72,29 +84,35 @@ export default class STOTemplateComponent extends Component<Props> {
                 Raise Funds in POLY
               </span>
               <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
+              {stoModule.type === 'USDTieredSTO' ? (
+                <span className="bx--tag bx--tag--third-party">
+                  Raise Funds in Stablecoin
+                </span>
+              ) : null}
             </Fragment>
           ) : null}
         </h2>
         <br />
         <br />
         {pickingEnabled ? (
-          <div className="bx--row">
-            <div className="bx--col-xs-8">
+          <Grid.Row>
+            <Grid.Col gridSpan={[12, 8]}>
               {authorAddress}
               {desc}
-            </div>
-            <div className="bx--col-xs-2">&nbsp;</div>
-            <div className="bx--col-xs-2">
+            </Grid.Col>
+            <Grid.Col gridColumn={['1 / 13', '9 / span 4', '10 / span 3']}>
               {verifiedOnEtherscan}
               {securityAuditLink}
-            </div>
-          </div>
+            </Grid.Col>
+          </Grid.Row>
         ) : (
           <Fragment>
-            <div className="bx--row">
-              <div className="bx--col-xs-6">{verifiedOnEtherscan}</div>
-              <div className="bx--col-xs-6">{securityAuditLink}</div>
-            </div>
+            <Box mb={4}>
+              <div className="bx--row">
+                <div className="bx--col-xs-6">{verifiedOnEtherscan}</div>
+                <div className="bx--col-xs-6">{securityAuditLink}</div>
+              </div>
+            </Box>
             {authorAddress}
             {desc}
           </Fragment>

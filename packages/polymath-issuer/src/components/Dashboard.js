@@ -1,8 +1,9 @@
 // @flow
 
-import React, { Component } from 'react';
-import { renderRoutes } from 'react-router-config';
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
+
 // eslint-disable-next-line no-unused-vars
 import {
   Sidebar,
@@ -10,6 +11,7 @@ import {
   icoInbox,
   icoHandshake,
   icoWhitelist,
+  icoDividends,
   NotFoundPage,
 } from '@polymathnetwork/ui';
 import type { SecurityToken, Address } from '@polymathnetwork/js/types';
@@ -23,6 +25,7 @@ import PausedBar from './PausedBar';
 
 import type { RootState } from '../redux/reducer';
 import type { ServiceProvider } from '../pages/providers/data';
+
 import MigrateTokenPage from './MigrateTokenPage';
 
 type StateProps = {|
@@ -67,8 +70,9 @@ type Props = {|
   DispatchProps;
 
 class Dashboard extends Component<Props> {
-  componentWillMount() {
+  componentDidMount() {
     const ticker = this.props.match.params.id;
+
     this.props.fetchLegacyToken(ticker);
     this.props.fetchToken(ticker);
     this.props.fetchProviders(ticker);
@@ -146,7 +150,7 @@ class Dashboard extends Component<Props> {
       // },
     ];
     return (
-      <div className="dashboard">
+      <Fragment>
         <PausedBar />
         <Sidebar
           id="primary-nav"
@@ -154,7 +158,7 @@ class Dashboard extends Component<Props> {
           bottomItems={bottomSidebarItems}
         />
         {renderRoutes(route.routes)}
-      </div>
+      </Fragment>
     );
   }
 }

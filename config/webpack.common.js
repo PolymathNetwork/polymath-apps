@@ -2,7 +2,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js|jsx|ts|tsx$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -13,9 +13,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: {
-          loader: 'svg-inline-loader',
-        },
+        use: ['@svgr/webpack', 'url-loader'],
       },
       {
         test: /.(png|jpg|gif)$/,

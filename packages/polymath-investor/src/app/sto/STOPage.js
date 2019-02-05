@@ -1,11 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
-import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Button } from 'carbon-components-react';
 import { STO } from '@polymathnetwork/js';
-import { STOStatus } from '@polymathnetwork/ui';
+import { Page, STOStatus } from '@polymathnetwork/ui';
 import type { SecurityToken, STODetails } from '@polymathnetwork/js';
 
 import config from '../../config.json';
@@ -71,7 +70,7 @@ class STOPage extends Component<Props> {
     } // $FlowFixMe TODO @bshevchenko: props [1] is incompatible with empty [2]
     const purchaseModal = <PurchaseModal />;
     return (
-      <DocumentTitle title={`${token.ticker} STO – ` + config.title}>
+      <Page title={`${token.ticker} STO – ` + config.title}>
         <div style={{ marginTop: '100px' }}>
           <h1 className="pui-h1">{token.ticker} Token STO</h1>
           <br />
@@ -97,7 +96,7 @@ class STOPage extends Component<Props> {
           )}
           {purchaseModal}
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

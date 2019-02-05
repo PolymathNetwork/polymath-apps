@@ -2,10 +2,11 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
 import { Button, Icon } from 'carbon-components-react';
 import type { Node } from 'react';
 
+import PageCentered from '../PageCentered';
+import ContentBox from '../ContentBox';
 import { emailConfirmed } from '../../redux/account/actions';
 
 type DispatchProps = {|
@@ -33,8 +34,8 @@ class SignUpSuccessPage extends Component<Props> {
 
   render() {
     return (
-      <DocumentTitle title="Sign Up – Polymath">
-        <div id="sign-up-success" className="pui-single-box">
+      <PageCentered title="Sign Up – Polymath" id="sign-up-success">
+        <ContentBox maxWidth={735}>
           <p align="center" style={{ marginBottom: '15px', marginTop: '10px' }}>
             <Icon
               name="checkmark--outline"
@@ -55,8 +56,8 @@ class SignUpSuccessPage extends Component<Props> {
               {this.props.continueLabel}
             </Button>
           </p>
-        </div>
-      </DocumentTitle>
+        </ContentBox>
+      </PageCentered>
     );
   }
 }

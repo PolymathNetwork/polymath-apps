@@ -1,0 +1,82 @@
+{
+  "accounts": [
+    {
+      "walletId": 1,
+      "polyBalance": 1000000,
+      "tokens": [
+        {
+          "symbol": "A0T0",
+          "name": "Token 1",
+          "divisible": false,
+          "minted": [
+            {
+              "shareholderId": 3,
+              "amount": 1000000
+            },
+            {
+              "shareholderId": 4,
+              "amount": 2000000
+            }
+          ]
+        },
+        {
+          "symbol": "A0T1",
+          "name": "Token 2",
+          "divisible": true,
+          "minted": [
+            {
+              "shareholderId": 5,
+              "amount": 1000000
+            },
+            {
+              "shareholderId": 6,
+              "amount": 2000000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "walletId": 2,
+      "polyBalance": 1000000,
+      "tokens": [
+        {
+          "symbol": "A1T0",
+          "name": "Token 3",
+          "divisible": false,
+          "minted": [
+            {
+              "shareholderId": 7,
+              "amount": 1000000
+            }
+          ]
+        },
+        {
+          "symbol": "A1T1",
+          "name": "Token 4",
+          "divisible": true
+        }
+      ]
+    },
+    {
+      "walletId": 3,
+      "polyBalance": 1000000
+    },
+    {
+      "walletId": 4,
+      "polyBalance": 1000000
+    },
+    {
+      "walletId": 5,
+      "polyBalance": 1000000
+    },
+    {
+      "walletId": 6,
+      "polyBalance": 1000000
+    },
+    {
+      "walletId": 7,
+      "polyBalance": 1000000
+    }
+  ]
+}

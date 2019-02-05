@@ -4,9 +4,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
-import DocumentTitle from 'react-document-title';
-import moment from 'moment';
+import { BigNumber } from 'bignumber.js';
 import {
+  Page,
   etherscanAddress,
   addressShortifier,
   confirm,
@@ -419,8 +419,9 @@ class CompliancePage extends Component<Props, State> {
 
   handlePercentageChange = event => {
     let value = parseInt(Number(event.target.value), 10);
-    if (!Number.isInteger(value) || value < 0 || value > 100) {
+    if (!Number.isInteger(value) || value < 1 || value > 100) {
       event.preventDefault();
+      this.setState({ percentage: '' });
       return;
     }
     if (event.target.value === '') {
@@ -599,6 +600,15 @@ class CompliancePage extends Component<Props, State> {
     </TableContainer>
   );
 
+  isPercentageValid = () => {
+    if (this.state.percentage && this.props.percentage) {
+      return (
+        new BigNumber(this.state.percentage).toNumber() ===
+        new BigNumber(this.props.percentage).toNumber()
+      );
+    }
+  };
+
   render() {
     const { token, isPercentageEnabled, isPercentagePaused } = this.props;
     if (!token || !token.address) {
@@ -606,14 +616,14 @@ class CompliancePage extends Component<Props, State> {
     }
     // const paginatedRows = this.paginationRendering()
     return (
-      <DocumentTitle title="Compliance – Polymath">
+      <Page title="Compliance – Polymath">
         <div id="compliance">
           <Progress />
           <h1 className="pui-h1">Token Whitelist</h1>
           <h3 className="pui-h3">
             Whitelisted addresses may hold, buy, or sell the security token and
-            may participate into the STO. Security token buy/sell operations may
-            be subject to restrictions.
+            may participate into the STO. <br /> Security token buy/sell
+            operations may be subject to restrictions.
           </h3>
           <br />
 
@@ -697,8 +707,9 @@ class CompliancePage extends Component<Props, State> {
                     className="apply-percentage-btn"
                     onClick={this.handleApplyPercentage}
                     disabled={
-                      this.state.percentage === this.props.percentage ||
-                      typeof this.state.percentage === 'undefined'
+                      this.isPercentageValid() ||
+                      typeof this.state.percentage === 'undefined' ||
+                      this.state.percentage === ''
                     }
                   >
                     Apply
@@ -766,7 +777,7 @@ class CompliancePage extends Component<Props, State> {
             </Modal>
           */}
         </div>
-      </DocumentTitle>
+      </Page>
     );
   }
 }

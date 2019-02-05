@@ -14,7 +14,7 @@ SimpleTable.Table = styled.table`
   border-spacing: 0;
   width: 100%;
   text-align: left;
-  font-size: ${({ theme }) => theme.fontSizes[0]}px;
+  font-size: ${({ theme }) => theme.fontSizes[0]};
 
   thead {
     background-color: ${({ theme }) => theme.colors.gray[0]};
@@ -23,7 +23,7 @@ SimpleTable.Table = styled.table`
   th,
   td {
     vertical-align: middle;
-    padding-left: ${({ theme }) => theme.space[3]}px;
+    padding-left: ${({ theme }) => theme.space[3]};
   }
 
   th {

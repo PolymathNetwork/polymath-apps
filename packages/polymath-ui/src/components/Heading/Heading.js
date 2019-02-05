@@ -17,4 +17,6 @@ export default Heading;
 Heading.defaultProps = {
   variant: 'h3',
   as: 'h2',
+  lineHeight: 'normal',
+  mb: 'm',
 };

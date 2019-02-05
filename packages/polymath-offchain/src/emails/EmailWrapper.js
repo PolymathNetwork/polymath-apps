@@ -34,8 +34,8 @@ export const EmailWrapper = ({ children }: Props) => (
             <h2>
               If you have any questions, please reach out to
               <br />
-              <a href="mailto:tokenstudio@polymath.zendesk.com">
-                tokenstudio@polymath.zendesk.com
+              <a href="mailto:tokenstudio@polymath.network">
+                tokenstudio@polymath.network
               </a>
             </h2>
           </div>
@@ -81,7 +81,9 @@ export const EtherscanURL = ({
 
   return (
     <a
-      href={`https://${networkName + '.'}etherscan.io/${type}/${hash}`}
+      href={`https://${
+        networkName !== 'mainnet' ? networkName + '.' : ''
+      }etherscan.io/${type}/${hash}`}
       target="_blank"
       rel="noopener noreferrer"
     >

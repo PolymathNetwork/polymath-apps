@@ -1,26 +1,30 @@
 import styled from 'styled-components';
 import {
   space,
+  color,
   fontFamily,
   fontWeight,
-  textAlign,
   lineHeight,
   letterSpacing,
   fontSize,
+  textAlign,
 } from 'styled-system';
 
 export const Paragraph = styled.p(
   space,
+  color,
   fontFamily,
   fontWeight,
-  textAlign,
   lineHeight,
   letterSpacing,
-  fontSize
+  fontSize,
+  textAlign,
+  props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })
 );
 
 export default Paragraph;
 
 Paragraph.defaultProps = {
-  mb: 2,
+  mb: 'm',
+  fontSize: 'baseText',
 };

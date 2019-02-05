@@ -1,0 +1,10 @@
+export const POLYMATH_REGISTRY_ADDRESS_LOCAL = process.env
+  .POLYMATH_REGISTRY_ADDRESS_LOCAL as string;
+export const POLYMATH_REGISTRY_ADDRESS_KOVAN = process.env
+  .POLYMATH_REGISTRY_ADDRESS_KOVAN as string;
+export const NETWORK_WS_PROVIDER_LOCAL = process.env
+  .NETWORK_WS_PROVIDER_LOCAL as string;
+export const NETWORK_WS_PROVIDER_KOVAN = process.env
+  .NETWORK_WS_PROVIDER_LOCAL as string;
+export const NETWORK_WS_PROVIDER_MAINNET = process.env
+  .NETWORK_WS_PROVIDER_LOCAL as string;

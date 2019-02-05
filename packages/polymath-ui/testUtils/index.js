@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import theme from '../src/theme';
+import theme from '../src/styles/theme';
 
 const middlewares = [thunk];
 

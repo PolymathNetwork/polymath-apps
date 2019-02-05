@@ -316,7 +316,7 @@ exports[`Component: CappedSTOScheduled renders currency as ETH if isPolyFundrais
               Rate
             </strong>
             <p>
-              1,000
+              320,323,232,323,223
                
               SOMETICK
               /1 
@@ -330,7 +330,7 @@ exports[`Component: CappedSTOScheduled renders currency as ETH if isPolyFundrais
               Hardcap (in Tokens)
             </strong>
             <p>
-              
+              -
             </p>
           </div>
           <div
@@ -377,9 +377,9 @@ exports[`Component: CappedSTOScheduled renders currency as ETH if isPolyFundrais
             If you have any questions, please reach out to
             <br />
             <a
-              href="mailto:tokenstudio@polymath.zendesk.com"
+              href="mailto:tokenstudio@polymath.network"
             >
-              tokenstudio@polymath.zendesk.com
+              tokenstudio@polymath.network
             </a>
           </h2>
         </div>
@@ -796,9 +796,9 @@ exports[`Component: CappedSTOScheduled renders with all valid props 1`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="mailto:tokenstudio@polymath.zendesk.com"
+              href="mailto:tokenstudio@polymath.network"
             >
-              tokenstudio@polymath.zendesk.com
+              tokenstudio@polymath.network
             </a>
           </h2>
         </div>
@@ -1215,9 +1215,9 @@ exports[`Component: CappedSTOScheduled renders with all valid props 2`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="mailto:tokenstudio@polymath.zendesk.com"
+              href="mailto:tokenstudio@polymath.network"
             >
-              tokenstudio@polymath.zendesk.com
+              tokenstudio@polymath.network
             </a>
           </h2>
         </div>
@@ -1573,7 +1573,7 @@ exports[`Component: CappedSTOScheduled renders with invalid capRate 1`] = `
               Rate
             </strong>
             <p>
-              1,000
+              320,323,232,323,223
                
               SOMETICK
               /1 
@@ -1587,7 +1587,7 @@ exports[`Component: CappedSTOScheduled renders with invalid capRate 1`] = `
               Hardcap (in Tokens)
             </strong>
             <p>
-              
+              -
             </p>
           </div>
           <div
@@ -1634,9 +1634,9 @@ exports[`Component: CappedSTOScheduled renders with invalid capRate 1`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="mailto:tokenstudio@polymath.zendesk.com"
+              href="mailto:tokenstudio@polymath.network"
             >
-              tokenstudio@polymath.zendesk.com
+              tokenstudio@polymath.network
             </a>
           </h2>
         </div>
@@ -2006,7 +2006,7 @@ exports[`Component: CappedSTOScheduled renders with invalid capRate 2`] = `
               Hardcap (in Tokens)
             </strong>
             <p>
-              1,000,000
+              200,023,000,043,430
             </p>
           </div>
           <div
@@ -2053,9 +2053,9 @@ exports[`Component: CappedSTOScheduled renders with invalid capRate 2`] = `
             If you have any questions, please reach out to
             <br />
             <a
-              href="mailto:tokenstudio@polymath.zendesk.com"
+              href="mailto:tokenstudio@polymath.network"
             >
-              tokenstudio@polymath.zendesk.com
+              tokenstudio@polymath.network
             </a>
           </h2>
         </div>

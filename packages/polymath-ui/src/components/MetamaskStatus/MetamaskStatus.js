@@ -12,6 +12,9 @@ import {
 import AccessRequestedStatus from './status/AccessRequestedStatus';
 import GenericStatus from './status/GenericStatus';
 
+import PageCentered from '../PageCentered';
+import ContentBox from '../ContentBox';
+
 import logo from '../../images/logo.svg';
 
 import './style.scss';
@@ -86,16 +89,19 @@ const Status = ({ status, onRequestAuth, networks }) => {
 };
 
 const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
-  <div className="pui-metamask-status">
-    <img src={logo} alt="Logo" className="pui-metamask-logo" />
-    <div className="pui-single-box">
+  <PageCentered>
+    <ContentBox maxWidth={735}>
       <Status
         status={status}
         networks={networks}
         onRequestAuth={onRequestAuth}
       />
       <Accordion className="pui-metamask-accordion">
-        <AccordionItem title="What software do you need to issue your Security Token?">
+        <AccordionItem
+          title={
+            <h5>What software do you need to issue your Security Token?</h5>
+          }
+        >
           <p>
             To issue your Security Token, you need to have MetaMask installed in
             your browser.
@@ -104,7 +110,7 @@ const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
             ETH and POLY.
           </p>
         </AccordionItem>
-        <AccordionItem title="Why is MetaMask locked?">
+        <AccordionItem title={<h5>Why is MetaMask locked?</h5>}>
           <p>
             MetaMask periodically locks itself for security reasons.
             <br />
@@ -113,8 +119,8 @@ const MetamaskStatus = ({ networks, status, onRequestAuth }: Props) => (
           </p>
         </AccordionItem>
       </Accordion>
-    </div>
-  </div>
+    </ContentBox>
+  </PageCentered>
 );
 
 export default MetamaskStatus;

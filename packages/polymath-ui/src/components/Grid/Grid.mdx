@@ -1,5 +1,6 @@
 ---
 name: Grid
+menu: Primitives
 ---
 
 import { Playground, PropsTable } from 'docz';
@@ -11,9 +12,78 @@ import Grid from './';
 
 ## Basic usage
 
+In its normal form, `Grid` accepts basic css-grid properties.
+
 <Playground>
   <Grid gridAutoFlow="column" gridAutoColumns="1fr" alignItems="end">
-    <div>First block</div>
-    <div>Second block</div>
+    <div style={{ height: '200px', background: 'tomato' }}>First block</div>
+    <div style={{ background: 'cyan' }}>Second block</div>
   </Grid>
+</Playground>
+
+## 12-columns Grid system
+
+"Bootstrap-style" 12-columns grid is being used in the design. To achieve it you can use the `Grid.Row` component.
+The main difference with the classic Bootstrap grid is that **`Grid.Row` is a global container for your grid, not only a row** (so, then the name is not really accurate but could not find better).
+
+### Important
+
+- — You can have defined any number of rows in a `Grid.Row`, just keep adding some `Grid.Col`.
+- — `Grid.Col` and its `gridSpan` prop is just a helper for the native css-grid `grid-column` property.
+
+<br />
+
+<Playground>
+  <Grid.Row>
+    <Grid.Col gridSpan={6} style={{ background: 'cyan' }}>
+      Row 1 - First block
+    </Grid.Col>
+    <Grid.Col gridSpan={6} style={{ background: 'tomato' }}>
+      Row 1 - Second block
+    </Grid.Col>
+    <Grid.Col gridSpan={6} style={{ background: 'cyan' }}>
+      Row 2 - First block
+    </Grid.Col>
+    <Grid.Col gridSpan={6} style={{ background: 'tomato' }}>
+      Row 2 - Second block
+    </Grid.Col>
+  </Grid.Row>
+</Playground>
+
+You can see that the `grid-gap` is doing the job for you. No margin-top/bottom in the children. Your grid is consistent and your vertical flow is managed automatically.
+
+## Responsive
+
+As with every primitives, you can pass an array to the props to handle responsive (try resizing your browser):
+
+<Playground>
+  <Grid.Row>
+    <Grid.Col gridSpan={[12, 12, 7, 6]} style={{ background: 'cyan' }}>
+      Row 1 - First block
+    </Grid.Col>
+    <Grid.Col gridSpan={[12, 12, 5, 6]} style={{ background: 'tomato' }}>
+      Row 1 - Second block
+    </Grid.Col>
+    <Grid.Col gridSpan={[12, 12, 12, 6]} style={{ background: 'cyan' }}>
+      Row 2 - First block
+    </Grid.Col>
+    <Grid.Col gridSpan={[12, 12, 12, 6]} style={{ background: 'tomato' }}>
+      Row 2 - Second block
+    </Grid.Col>
+  </Grid.Row>
+</Playground>
+
+## Span
+
+To span (leave an empty space) between two columns, you use the native `grid-column` css property:
+
+<Playground>
+  <Grid.Row>
+    <Grid.Col gridSpan={6} style={{ background: 'cyan' }}>
+      Row 1 - First block
+    </Grid.Col>
+    <Grid.Col gridColumn="8 / span 5" style={{ background: 'tomato' }}>
+      Row 1 - Second block
+    </Grid.Col>
+  </Grid.Row>
 </Playground>

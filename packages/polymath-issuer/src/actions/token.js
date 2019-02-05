@@ -15,7 +15,7 @@ import FileSaver from 'file-saver';
 import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
 
-import { ethereumAddress } from '@polymathnetwork/ui/validate';
+import { ethereumAddress } from '@polymathnetwork/ui/deprecated/validate';
 import type {
   SecurityToken,
   Investor,
@@ -23,7 +23,6 @@ import type {
 } from '@polymathnetwork/js/types';
 
 // TODO @grsmto: This file shouldn't contain any React components as this is just triggering Redux actions. Consider moving them as separated component files.
-import { formName as completeFormName } from '../pages/token/components/CompleteTokenForm';
 import { fetch as fetchSTO } from './sto';
 import { PERMANENT_LOCKUP_TS } from './compliance';
 
@@ -180,34 +179,50 @@ export const fetchLegacyToken = (ticker: string) => async (
   dispatch({ type: LEGACY_TOKEN, legacyToken: null });
 };
 
-export const issue = (isLimitNI: boolean) => async (
+export const issue = (values: Object) => async (
   dispatch: Function,
   getState: GetState
 ) => {
+  const { ticker, limitInvestors } = values;
   const fee = await SecurityTokenRegistry.launchFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
-  let { token } = getState().token; // $FlowFixMe
-  const ticker = token.ticker;
+
+  const allowance = await PolyToken.allowance(
+    SecurityTokenRegistry.account,
+    SecurityTokenRegistry.address
+  );
+
+  const isApproved = allowance >= fee;
+
   dispatch(
     ui.confirm(
       <div>
         <p>
           Completion of your token creation will require{' '}
-          {isLimitNI ? 'three' : 'two'} wallet transactions.
+          {limitInvestors ? 'three' : !isApproved ? 'two' : 'one'} wallet
+          transaction(s).
         </p>
+        {!isApproved ? (
+          <div>
+            <p>
+              • The first transaction will be used to prepare for the payment of
+              the token creation cost of:
+            </p>
+            <div className="bx--details poly-cost">{feeView} POLY</div>
+          </div>
+        ) : (
+          ''
+        )}
         <p>
-          • The first transaction will be used to prepare for the payment of the
-          token creation cost of:
+          • {!isApproved ? 'The second' : 'This'} transaction will be used to
+          pay for the token creation cost (POLY + mining fee) to complete the
+          creation of your token.
         </p>
-        <div className="bx--details poly-cost">{feeView} POLY</div>
-        <p>
-          • The second transaction will be used to pay for the token creation
-          cost (POLY + mining fee) to complete the creation of your token.
-        </p>
-        {isLimitNI && (
+        {limitInvestors && (
           <p>
-            • The third transaction will be used to pay the mining fee (aka gas
-            fee) to limit the number of investors who can hold your token.
+            • The {!isApproved ? 'third' : 'second'} transaction will be used to
+            pay the mining fee (aka gas fee) to limit the number of investors
+            who can hold your token.
             <br />
           </p>
         )}
@@ -231,50 +246,41 @@ export const issue = (isLimitNI: boolean) => async (
           return;
         }
 
-        const allowance = await PolyToken.allowance(
-          SecurityTokenRegistry.account,
-          SecurityTokenRegistry.address
-        );
-        const { values } = getState().form[completeFormName];
-
-        if (isLimitNI) {
-          values.investorsNumber = parseInt(
-            values.investorsNumber.toString().replace(/,/g, ''),
-            10
-          );
-        }
+        // const allowance = await PolyToken.allowance(
+        //   SecurityTokenRegistry.account,
+        //   SecurityTokenRegistry.address
+        // );
 
         //Skip approve transaction if transfer is already allowed
         let title = ['Creating Security Token'];
 
-        if (allowance < fee) {
+        if (!isApproved) {
           title.unshift('Approving POLY Spend');
         }
 
-        title.push(...(isLimitNI ? ['Limiting Number Of Investors'] : []));
+        title.push(...(limitInvestors ? ['Limiting Number Of Investors'] : []));
+
+        let createdToken;
 
         const continueCallback = () => {
           // $FlowFixMe
-          return dispatch(fetch(ticker, isLimitNI ? token : undefined));
+          return dispatch(fetch(ticker, createdToken));
         };
 
         dispatch(
           ui.tx(
             title,
             async () => {
-              const { values } = getState().form[completeFormName];
-              token = {
-                ...getState().token.token,
-                ...values,
-              };
-              token.isDivisible = token.isDivisible !== '1';
+              await SecurityTokenRegistry.generateSecurityToken(values);
 
-              await SecurityTokenRegistry.generateSecurityToken(token);
-
-              if (isLimitNI) {
-                token = await SecurityTokenRegistry.getTokenByTicker(ticker);
+              if (limitInvestors) {
+                createdToken = await SecurityTokenRegistry.getTokenByTicker(
+                  ticker
+                );
                 try {
-                  await token.contract.setCountTM(values.investorsNumber);
+                  await createdToken.contract.setCountTM(
+                    values.investorsNumber
+                  );
                 } catch (err) {
                   throw new Error(
                     'Error limiting the number of investors. Please click on "Continue" to proceed to the next step where you can enable this limit.'
@@ -312,12 +318,22 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
     // $FlowFixMe
     for (let entry of reader.result.split(/\r\n|\n/)) {
       string++;
+      //Ignore blank rows
+      if (entry === '') {
+        continue;
+      }
       const [address, sale, purchase, expiryIn, tokensIn] = entry.split(',');
       const handleDate = (d: string) =>
         d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
       const from = handleDate(sale);
       const to = handleDate(purchase);
+
       const expiry = new Date(Date.parse(expiryIn));
+      let isInvalidExpiry = false;
+      if (expiry - Date.parse(new Date()) < 0) {
+        isInvalidExpiry = true;
+      }
+
       const tokensVal = Number(tokensIn);
 
       let isDuplicatedAddress = false;
@@ -333,8 +349,8 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         !isNaN(from) &&
         !isNaN(to) &&
         !isNaN(expiry) &&
-        Number.isInteger(tokensVal) &&
-        tokensVal > 0
+        !isInvalidExpiry &&
+        parseFloat(tokensVal) > 0
       ) {
         if (investors.length === 75) {
           isTooMany = true;

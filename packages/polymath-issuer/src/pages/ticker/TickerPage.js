@@ -1,15 +1,20 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DocumentTitle from 'react-document-title';
-import { change } from 'redux-form';
-import { Remark, bull, thousandsDelimiter } from '@polymathnetwork/ui';
+import {
+  Heading,
+  PageCentered,
+  Remark,
+  ContentBox,
+  bull,
+  thousandsDelimiter,
+} from '@polymathnetwork/ui';
 import { SecurityTokenRegistry } from '@polymathnetwork/js';
 import type { RouterHistory } from 'react-router';
 
-import TickerForm, { formName } from './components/TickerForm';
-import { reserve, expiryLimit } from '../../actions/ticker';
+import ReserveTickerForm from './components/ReserveTickerForm';
+import { expiryLimit } from '../../actions/ticker';
 import { data as tokenData } from '../../actions/token';
 
 type StateProps = {|
@@ -19,8 +24,6 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  change: (?string) => any,
-  reserve: () => any,
   tokenData: (data: any) => any,
   getExpiryLimit: () => any,
 |};
@@ -32,8 +35,6 @@ const mapStateToProps = (state): StateProps => ({
 });
 
 const mapDispatchToProps: DispatchProps = {
-  change: value => change(formName, 'owner', value, false, false),
-  reserve,
   tokenData,
   getExpiryLimit: expiryLimit,
 };
@@ -52,8 +53,7 @@ class TickerPage extends Component<Props, State> {
     tickerRegistrationFee: '-',
   };
 
-  componentWillMount() {
-    this.props.change(this.props.account);
+  componentDidMount() {
     this.props.tokenData(null);
     this.props.getExpiryLimit();
     SecurityTokenRegistry.registrationFee().then(fee => {
@@ -62,27 +62,28 @@ class TickerPage extends Component<Props, State> {
     });
   }
 
-  handleSubmit = () => {
-    this.props.reserve();
-  };
-
   render() {
     return (
-      <DocumentTitle title="Token Symbol Reservation – Polymath">
-        <div id="ticker-reservation" className="pui-single-box">
+      <PageCentered
+        title="Token Symbol Reservation – Polymath"
+        id="ticker-reservation"
+      >
+        <ContentBox maxWidth={735}>
           <div className="pui-single-box-header">
             <div className="pui-single-box-bull">
               <img src={bull} alt="Bull" />
             </div>
-            <h1 className="pui-h1">Reserve Your Token Symbol</h1>
-            <h4 className="pui-h4">
+            <Heading as="h1" variant="h1">
+              Reserve Your Token Symbol
+            </Heading>
+            <Heading as="h3" variant="h4" mr={190}>
               Your token symbol will be reserved for {this.props.expiryLimit}{' '}
               days, and is permanently yours once you create your Token. This
               reservation ensures that no other organization can create a token
               symbol identical token to yours using the Polymath platform. This
               operation carries a cost of: {this.state.tickerRegistrationFee}{' '}
               POLY.
-            </h4>
+            </Heading>
             <div className="pui-clearfix" />
             <Remark title="Note">
               If your organization has a CUSIP number, please enter the 5-letter
@@ -91,9 +92,9 @@ class TickerPage extends Component<Props, State> {
               registered trademarks.
             </Remark>
           </div>
-          <TickerForm onSubmit={this.handleSubmit} />
-        </div>
-      </DocumentTitle>
+          <ReserveTickerForm />
+        </ContentBox>
+      </PageCentered>
     );
   }
 }

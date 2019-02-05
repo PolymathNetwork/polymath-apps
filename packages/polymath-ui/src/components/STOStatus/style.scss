@@ -1,8 +1,6 @@
-@import '~@polymathnetwork/ui/src/styles/_variables.scss';
+@import '~@polymathnetwork/ui/src/deprecated/styles/_variables.scss';
 
 .pui-sto-status-contract {
-  color: $poly-gray-dark;
-  font-weight: 300;
   margin-bottom: 22px;
 
   a {
@@ -17,9 +15,6 @@
 
 .pui-sto-status-grow {
   flex-grow: 1;
-  padding-right: 40px !important;
-  width: calc(100% - 397px);
-  float: left;
 }
 
 .pui-sto-status-numbers {

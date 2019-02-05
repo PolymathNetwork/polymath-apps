@@ -8,6 +8,9 @@ Registry that holds addresses for other smart contracts
 /* == Read-Only methods == */
 // Gets the address of a contract in the registry
 function getAddress(_nameKey: String) => Address
+
+
+
 ```
 
 <details><summary>Other methods</summary>
@@ -22,6 +25,7 @@ function changeAddress(_nameKey: String, _newAddress: Address) => void
 function reclaimERC20(_tokenContract: Address) => void
 function renounceOwnership() => void
 function transferOwnership(_newOwner: Address) => void
+
 ```
 
 </details>
@@ -32,6 +36,7 @@ function transferOwnership(_newOwner: Address) => void
 event ChangeAddress(_nameKey: String, _oldAddress: Address, _newAddress: Address)
 event OwnershipRenounced(previousOwner: Address)
 event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+
 ```
 
 # ModuleRegistry
@@ -44,6 +49,9 @@ Registry contract to store registered modules
 /* == Read-Only methods == */
 // Returns the list of available Module factory addresses of a particular type for a given token
 function getModulesByTypeAndToken(_moduleType: UInt8, _securityToken: Address) => Address[]
+
+
+
 ```
 
 <details><summary>Other methods</summary>
@@ -72,6 +80,7 @@ function unpause() => void
 function updateFromRegistry() => void
 function useModule(_moduleFactory: Address) => void
 function verifyModule(_moduleFactory: Address, _verified: Boolean) => void
+
 ```
 
 </details>
@@ -85,6 +94,7 @@ event ModuleUsed(_moduleFactory: Address, _securityToken: Address)
 event ModuleVerified(_moduleFactory: Address, _verified: Boolean)
 event Pause(_timestammp: UInt256)
 event Unpause(_timestamp: UInt256)
+
 ```
 
 # PolyToken
@@ -111,6 +121,7 @@ function totalSupply() => UInt256
 function approve(_spender: Address, _value: UInt256) => Boolean
 // Transfers tokens to an address
 function transfer(_to: Address, _value: UInt256) => Boolean
+
 ```
 
 <details><summary>Other methods</summary>
@@ -124,6 +135,7 @@ function decimals() => UInt8
 function decreaseApproval(_spender: Address, _subtractedValue: UInt256) => Boolean
 function increaseApproval(_spender: Address, _addedValue: UInt256) => Boolean
 function transferFrom(_from: Address, _to: Address, _value: UInt256) => Boolean
+
 ```
 
 </details>
@@ -133,6 +145,7 @@ function transferFrom(_from: Address, _to: Address, _value: UInt256) => Boolean
 ```ts
 event Approval(owner: Address, spender: Address, value: UInt256)
 event Transfer(from: Address, to: Address, value: UInt256)
+
 ```
 
 # CappedSTOFactory
@@ -148,8 +161,10 @@ Capped STOs set a limit on the total amount of funding an STO can raise.
 function setupCost() => UInt256
 function getName() => Bytes32
 function getSetupCost() => UInt256
-function getVersion() => String
 function owner() => Address
+
+
+
 ```
 
 <details><summary>Other methods</summary>
@@ -157,11 +172,9 @@ function owner() => Address
 ```ts
 /* == Read-Only methods == */
 function description() => String
-function getDescription() => String
 function getInstructions() => String
 function getLowerSTVersionBounds() => UInt8[]
 function getTags() => Bytes32[]
-function getTitle() => String
 function getTypes() => UInt8[]
 function getUpperSTVersionBounds() => UInt8[]
 function monthlySubscriptionCost() => UInt256
@@ -183,6 +196,7 @@ function changeVersion(_newVersion: String) => void
 function deploy(_data: Bytes) => Address
 function renounceOwnership() => void
 function transferOwnership(_newOwner: Address) => void
+
 ```
 
 </details>
@@ -198,6 +212,7 @@ event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleF
 event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _timestamp: UInt256)
 event OwnershipRenounced(previousOwner: Address)
 event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+
 ```
 
 # USDTieredSTOFactory
@@ -214,8 +229,10 @@ STO.
 function setupCost() => UInt256
 function getName() => Bytes32
 function getSetupCost() => UInt256
-function getVersion() => String
 function owner() => Address
+
+
+
 ```
 
 <details><summary>Other methods</summary>
@@ -224,11 +241,9 @@ function owner() => Address
 /* == Read-Only methods == */
 function USDTieredSTOProxyAddress() => Address
 function description() => String
-function getDescription() => String
 function getInstructions() => String
 function getLowerSTVersionBounds() => UInt8[]
 function getTags() => Bytes32[]
-function getTitle() => String
 function getTypes() => UInt8[]
 function getUpperSTVersionBounds() => UInt8[]
 function monthlySubscriptionCost() => UInt256
@@ -250,6 +265,7 @@ function changeVersion(_newVersion: String) => void
 function deploy(_data: Bytes) => Address
 function renounceOwnership() => void
 function transferOwnership(_newOwner: Address) => void
+
 ```
 
 </details>
@@ -265,6 +281,7 @@ event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleF
 event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _timestamp: UInt256)
 event OwnershipRenounced(previousOwner: Address)
 event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+
 ```
 
 # USDTieredSTO
@@ -344,6 +361,7 @@ function pause() => void
 function reclaimERC20(_tokenContract: Address) => void
 function takeFee(_amount: UInt256) => Boolean
 function unpause() => void
+
 ```
 
 </details>
@@ -354,7 +372,7 @@ function unpause() => void
 event FundsReceived(_purchaser: Address, _beneficiary: Address, _usdAmount: UInt256, _fundRaiseType: UInt8, _receivedValue: UInt256, _spentValue: UInt256, _rate: UInt256)
 event FundsReceivedPOLY(_purchaser: Address, _beneficiary: Address, _usdAmount: UInt256, _receivedValue: UInt256, _spentValue: UInt256, _rate: UInt256)
 event Pause(_timestammp: UInt256)
-event ReserveTokenMint(_owner: Address, _wallet: Address, _tokens: UInt256, _tier: UInt8)
+event ReserveTokenMint(_owner: Address, _wallet: Address, _tokens: UInt256, _latestTier: UInt8)
 event SetAccredited(_investor: Address, _accredited: Boolean)
 event SetAddresses(_wallet: Address, _reserveWallet: Address, _usdToken: Address)
 event SetAllowBeneficialInvestments(_allowed: Boolean)
@@ -365,6 +383,7 @@ event SetTiers(_ratePerTier: UInt256[], _ratePerTierDiscountPoly: UInt256[], _to
 event SetTimes(_startTime: UInt256, _endTime: UInt256)
 event TokenPurchase(_purchaser: Address, _beneficiary: Address, _tokens: UInt256, _usdAmount: UInt256, _tierPrice: UInt256, _tier: UInt8)
 event Unpause(_timestamp: UInt256)
+
 ```
 
 # CountTransferManagerFactory
@@ -377,6 +396,9 @@ Factory for [CountTransferManager](#CountTransferManager)
 /* == Read-Only methods == */
 // The amount of POLY required to setup a token with this module
 function setupCost() => UInt256
+
+
+
 ```
 
 <details><summary>Other methods</summary>
@@ -384,16 +406,13 @@ function setupCost() => UInt256
 ```ts
 /* == Read-Only methods == */
 function description() => String
-function getDescription() => String
 function getInstructions() => String
 function getLowerSTVersionBounds() => UInt8[]
 function getName() => Bytes32
 function getSetupCost() => UInt256
 function getTags() => Bytes32[]
-function getTitle() => String
 function getTypes() => UInt8[]
 function getUpperSTVersionBounds() => UInt8[]
-function getVersion() => String
 function monthlySubscriptionCost() => UInt256
 function name() => Bytes32
 function owner() => Address
@@ -414,6 +433,7 @@ function changeVersion(_newVersion: String) => void
 function deploy(_data: Bytes) => Address
 function renounceOwnership() => void
 function transferOwnership(_newOwner: Address) => void
+
 ```
 
 </details>
@@ -429,6 +449,7 @@ event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleF
 event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _timestamp: UInt256)
 event OwnershipRenounced(previousOwner: Address)
 event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+
 ```
 
 # CountTransferManager
@@ -451,6 +472,7 @@ function paused() => Boolean
 function pause() => void
 // Sets the maximum amount of tokens one person can hold
 function changeHolderCount(_maxHolderCount: UInt256) => void
+
 ```
 
 <details><summary>Other methods</summary>
@@ -469,6 +491,7 @@ function configure(_maxHolderCount: UInt256) => void
 function takeFee(_amount: UInt256) => Boolean
 function unpause() => void
 function verifyTransfer(: Address, _to: Address, : UInt256, : Bytes, : Boolean) => UInt8
+
 ```
 
 </details>
@@ -479,6 +502,7 @@ function verifyTransfer(: Address, _to: Address, : UInt256, : Bytes, : Boolean) 
 event ModifyHolderCount(_oldHolderCount: UInt256, _newHolderCount: UInt256)
 event Pause(_timestammp: UInt256)
 event Unpause(_timestamp: UInt256)
+
 ```
 
 # IModuleFactory
@@ -494,16 +518,13 @@ _TODO: Add description_
 
 ```ts
 /* == Read-Only methods == */
-function getDescription() => String
 function getInstructions() => String
 function getLowerSTVersionBounds() => UInt8[]
 function getName() => Bytes32
 function getSetupCost() => UInt256
 function getTags() => Bytes32[]
-function getTitle() => String
 function getTypes() => UInt8[]
 function getUpperSTVersionBounds() => UInt8[]
-function getVersion() => String
 
 /* == Can mutate state == */
 function changeFactorySetupFee(_newSetupCost: UInt256) => void
@@ -511,6 +532,7 @@ function changeFactorySubscriptionFee(_newSubscriptionCost: UInt256) => void
 function changeFactoryUsageFee(_newUsageCost: UInt256) => void
 function changeSTVersionBounds(_boundType: String, _newVersion: UInt8[]) => void
 function deploy(_data: Bytes) => Address
+
 ```
 
 </details>
@@ -523,6 +545,7 @@ event ChangeFactorySubscriptionFee(_oldSubscriptionCost: UInt256, _newMonthlySub
 event ChangeFactoryUsageFee(_oldUsageCost: UInt256, _newUsageCost: UInt256, _moduleFactory: Address)
 event ChangeSTVersionBound(_boundType: String, _major: UInt8, _minor: UInt8, _patch: UInt8)
 event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _setupCost: UInt256, _timestamp: UInt256)
+
 ```
 
 # PercentageTransferManager
@@ -551,6 +574,7 @@ function modifyWhitelistMulti(_investors: Address[], _valids: Boolean[]) => void
 function pause() => void
 // Sets the maximum percent of the total tokens that one person can hold
 function changeHolderPercentage(_maxHolderPercentage: UInt256) => void
+
 ```
 
 <details><summary>Other methods</summary>
@@ -573,6 +597,7 @@ function setAllowPrimaryIssuance(_allowPrimaryIssuance: Boolean) => void
 function takeFee(_amount: UInt256) => Boolean
 function unpause() => void
 function verifyTransfer(_from: Address, _to: Address, _amount: UInt256, : Bytes, : Boolean) => UInt8
+
 ```
 
 </details>
@@ -585,6 +610,7 @@ event ModifyWhitelist(_investor: Address, _dateAdded: UInt256, _addedBy: Address
 event Pause(_timestammp: UInt256)
 event SetAllowPrimaryIssuance(_allowPrimaryIssuance: Boolean, _timestamp: UInt256)
 event Unpause(_timestamp: UInt256)
+
 ```
 
 # PercentageTransferManagerFactory
@@ -597,6 +623,9 @@ Factory for [PercentageTransferManager](#PercentageTransferManager)
 /* == Read-Only methods == */
 // The amount of POLY required to setup a token with this module
 function setupCost() => UInt256
+
+
+
 ```
 
 <details><summary>Other methods</summary>
@@ -604,16 +633,13 @@ function setupCost() => UInt256
 ```ts
 /* == Read-Only methods == */
 function description() => String
-function getDescription() => String
 function getInstructions() => String
 function getLowerSTVersionBounds() => UInt8[]
 function getName() => Bytes32
 function getSetupCost() => UInt256
 function getTags() => Bytes32[]
-function getTitle() => String
 function getTypes() => UInt8[]
 function getUpperSTVersionBounds() => UInt8[]
-function getVersion() => String
 function monthlySubscriptionCost() => UInt256
 function name() => Bytes32
 function owner() => Address
@@ -634,6 +660,7 @@ function changeVersion(_newVersion: String) => void
 function deploy(_data: Bytes) => Address
 function renounceOwnership() => void
 function transferOwnership(_newOwner: Address) => void
+
 ```
 
 </details>
@@ -649,6 +676,7 @@ event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleF
 event GenerateModuleFromFactory(_module: Address, _moduleName: Bytes32, _moduleFactory: Address, _creator: Address, _timestamp: UInt256)
 event OwnershipRenounced(previousOwner: Address)
 event OwnershipTransferred(previousOwner: Address, newOwner: Address)
+
 ```
 
 # SecurityToken
@@ -685,6 +713,7 @@ function freezeTransfers() => void
 function approve(_spender: Address, _value: UInt256) => Boolean
 // Transfers tokens to an address
 function transfer(_to: Address, _value: UInt256) => success: Boolean
+
 ```
 
 <details><summary>Other methods</summary>
@@ -701,11 +730,13 @@ function featureRegistry() => Address
 function getCheckpointTimes() => UInt256[]
 function getInvestorCount() => UInt256
 function getInvestors() => Address[]
+function getInvestorsAt(_checkpointId: UInt256) => Address[]
 function getModule(_module: Address) => (Bytes32, Address, Address, Boolean, UInt8[])
 function getModulesByName(_name: Bytes32) => Address[]
 function getModulesByType(_type: UInt8) => Address[]
 function getVersion() => UInt8[]
 function granularity() => UInt256
+function iterateInvestors(_start: UInt256, _end: UInt256) => Address[]
 function mintingFrozen() => Boolean
 function moduleRegistry() => Address
 function owner() => Address
@@ -722,7 +753,7 @@ function archiveModule(_module: Address) => void
 function burnFromWithData(_from: Address, _value: UInt256, _data: Bytes) => void
 function burnWithData(_value: UInt256, _data: Bytes) => void
 function changeGranularity(_granularity: UInt256) => void
-function changeModuleBudget(_module: Address, _budget: UInt256) => void
+function changeModuleBudget(_module: Address, _change: UInt256, _increase: Boolean) => void
 function createCheckpoint() => UInt256
 function decreaseApproval(_spender: Address, _subtractedValue: UInt256) => Boolean
 function disableController() => void
@@ -731,7 +762,6 @@ function forceTransfer(_from: Address, _to: Address, _value: UInt256, _data: Byt
 function freezeMinting() => void
 function increaseApproval(_spender: Address, _addedValue: UInt256) => Boolean
 function mintWithData(_investor: Address, _value: UInt256, _data: Bytes) => success: Boolean
-function pruneInvestors(_start: UInt256, _iters: UInt256) => void
 function removeModule(_module: Address) => void
 function renounceOwnership() => void
 function setController(_controller: Address) => void
@@ -744,7 +774,8 @@ function unfreezeTransfers() => void
 function updateFromRegistry() => void
 function updateTokenDetails(_newTokenDetails: String) => void
 function verifyTransfer(_from: Address, _to: Address, _value: UInt256, _data: Bytes) => Boolean
-function withdrawPoly(_value: UInt256) => void
+function withdrawERC20(_tokenContract: Address, _value: UInt256) => void
+
 ```
 
 </details>
@@ -754,7 +785,6 @@ function withdrawPoly(_value: UInt256) => void
 ```ts
 event Approval(owner: Address, spender: Address, value: UInt256)
 event Burnt(_from: Address, _value: UInt256)
-event ChangeSTRAddress(_oldAddress: Address, _newAddress: Address)
 event CheckpointCreated(_checkpointId: UInt256, _timestamp: UInt256)
 event DisableController(_timestamp: UInt256)
 event ForceBurn(_controller: Address, _from: Address, _value: UInt256, _verifyTransfer: Boolean, _data: Bytes)
@@ -773,6 +803,7 @@ event OwnershipTransferred(previousOwner: Address, newOwner: Address)
 event SetController(_oldController: Address, _newController: Address)
 event Transfer(from: Address, to: Address, value: UInt256)
 event UpdateTokenDetails(_oldDetails: String, _newDetails: String)
+
 ```
 
 # SecurityTokenRegistry
@@ -794,6 +825,7 @@ function getTickerDetails(_ticker: String) => (Address, UInt256, UInt256, String
 /* == Can mutate state == */
 // Generates a security token
 function generateSecurityToken(_name: String, _ticker: String, _tokenDetails: String, _divisible: Boolean) => void
+
 ```
 
 <details><summary>Other methods</summary>
@@ -834,6 +866,7 @@ function transferOwnership(_newOwner: Address) => void
 function transferTickerOwnership(_newOwner: Address, _ticker: String) => void
 function unpause() => void
 function updatePolyTokenAddress(_newAddress: Address) => void
+
 ```
 
 </details>
@@ -851,6 +884,7 @@ event Pause(_timestammp: UInt256)
 event RegisterTicker(_owner: Address, _ticker: String, _name: String, _registrationDate: UInt256, _expiryDate: UInt256, _fromAdmin: Boolean, _registrationFee: UInt256)
 event TickerRemoved(_ticker: String, _removedAt: UInt256, _removedBy: Address)
 event Unpause(_timestamp: UInt256)
+
 ```
 
 # GeneralTransferManager
@@ -871,6 +905,7 @@ function modifyWhitelist(_investor: Address, _fromTime: UInt256, _toTime: UInt25
 function modifyWhitelistMulti(_investors: Address[], _fromTimes: UInt256[], _toTimes: UInt256[], _expiryTimes: UInt256[], _canBuyFromSTO: Boolean[]) => void
 // Pauses the moduel
 function pause() => void
+
 ```
 
 <details><summary>Other methods</summary>
@@ -887,6 +922,7 @@ function allowAllWhitelistTransfers() => Boolean
 function factory() => Address
 function getPermissions() => Bytes32[]
 function issuanceAddress() => Address
+function nonceMap(: Address, : UInt256) => Boolean
 function polyToken() => Address
 function securityToken() => Address
 function signingAddress() => Address
@@ -899,10 +935,11 @@ function changeAllowAllWhitelistIssuances(_allowAllWhitelistIssuances: Boolean) 
 function changeAllowAllWhitelistTransfers(_allowAllWhitelistTransfers: Boolean) => void
 function changeIssuanceAddress(_issuanceAddress: Address) => void
 function changeSigningAddress(_signingAddress: Address) => void
-function modifyWhitelistSigned(_investor: Address, _fromTime: UInt256, _toTime: UInt256, _expiryTime: UInt256, _canBuyFromSTO: Boolean, _validFrom: UInt256, _validTo: UInt256, _v: UInt8, _r: Bytes32, _s: Bytes32) => void
+function modifyWhitelistSigned(_investor: Address, _fromTime: UInt256, _toTime: UInt256, _expiryTime: UInt256, _canBuyFromSTO: Boolean, _validFrom: UInt256, _validTo: UInt256, _nonce: UInt256, _v: UInt8, _r: Bytes32, _s: Bytes32) => void
 function takeFee(_amount: UInt256) => Boolean
 function unpause() => void
 function verifyTransfer(_from: Address, _to: Address, : UInt256, : Bytes, : Boolean) => UInt8
+
 ```
 
 </details>
@@ -919,6 +956,7 @@ event ChangeSigningAddress(_signingAddress: Address)
 event ModifyWhitelist(_investor: Address, _dateAdded: UInt256, _addedBy: Address, _fromTime: UInt256, _toTime: UInt256, _expiryTime: UInt256, _canBuyFromSTO: Boolean)
 event Pause(_timestammp: UInt256)
 event Unpause(_timestamp: UInt256)
+
 ```
 
 # ISTO
@@ -956,6 +994,7 @@ function pause() => void
 function reclaimERC20(_tokenContract: Address) => void
 function takeFee(_amount: UInt256) => Boolean
 function unpause() => void
+
 ```
 
 </details>
@@ -966,4 +1005,5 @@ function unpause() => void
 event Pause(_timestammp: UInt256)
 event SetFundRaiseTypes(_fundRaiseTypes: UInt8[])
 event Unpause(_timestamp: UInt256)
+
 ```

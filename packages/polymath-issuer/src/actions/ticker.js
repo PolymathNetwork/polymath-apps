@@ -5,9 +5,6 @@ import { SecurityTokenRegistry, PolyToken } from '@polymathnetwork/js';
 import * as ui from '@polymathnetwork/ui';
 import type { SymbolDetails } from '@polymathnetwork/js/types';
 
-// TODO @grsmto: Form values shouldn't be retrieved this way...fault of Redux-form
-// for encouraging bad pattern. This should be passed as props instead.
-import { formName } from '../pages/ticker/components/TickerForm';
 import type { GetState } from '../../redux/reducer';
 
 export const EXPIRY_LIMIT = 'ticker/EXPIRY_LIMIT';
@@ -29,11 +26,21 @@ export const getMyTokens = () => async (dispatch: Function) => {
   }
 };
 
-export const reserve = () => async (dispatch: Function, getState: GetState) => {
+export const reserve = (details: Object) => async (
+  dispatch: Function,
+  getState: GetState
+) => {
   const { isEmailConfirmed } = getState().pui.account;
   const fee = await SecurityTokenRegistry.registrationFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
-  const details: SymbolDetails = getState().form[formName].values;
+
+  const allowance = await PolyToken.allowance(
+    SecurityTokenRegistry.account,
+    SecurityTokenRegistry.address
+  );
+
+  const isApproved = allowance >= fee;
+
   dispatch(
     ui.confirm(
       <div>
@@ -41,14 +48,21 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
           Completion of your token symbol reservation will require two wallet
           transactions.
         </p>
+        {!isApproved ? (
+          <div>
+            <p>
+              • The first transaction will be used to pay for the token symbol
+              reservation cost of:
+            </p>
+            <div className="bx--details poly-cost">{feeView} POLY</div>
+          </div>
+        ) : (
+          ''
+        )}
         <p>
-          • The first transaction will be used to pay for the token symbol
-          reservation cost of:
-        </p>
-        <div className="bx--details poly-cost">{feeView} POLY</div>
-        <p>
-          • The second transaction will be used to pay the mining fee (aka gas
-          fee) to complete the reservation of your token symbol.
+          • {!isApproved ? 'The second' : 'This'} transaction will be used to
+          pay the mining fee (aka gas fee) to complete the reservation of your
+          token symbol.
           <br />
         </p>
         <p>
@@ -71,13 +85,9 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
           return;
         }
 
-        const allowance = await PolyToken.allowance(
-          SecurityTokenRegistry.account,
-          SecurityTokenRegistry.address
-        );
         //Skip approve transaction if transfer is already allowed
         let title = ['Reserving Token Symbol'];
-        if (allowance == 0) {
+        if (!isApproved) {
           title.unshift('Approving POLY Spend');
         }
 
@@ -109,11 +119,10 @@ export const reserve = () => async (dispatch: Function, getState: GetState) => {
   );
 };
 
-export const confirmEmail = (data: Object) => async (
+export const confirmEmail = (email: string) => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  const { email } = data;
   dispatch(ui.requestConfirmEmail(email));
 };
 

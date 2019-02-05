@@ -1,24 +1,60 @@
-// @flow
+import React from 'react';
+import { Form, Button } from 'carbon-components-react';
+import { connect } from 'react-redux';
+import { withFormik } from 'formik';
+import {
+  Grid,
+  Tooltip,
+  FormItem,
+  TextInput,
+  TextArea,
+} from '@polymathnetwork/ui';
+import validator from '@polymathnetwork/ui/validator';
 
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Form, Tooltip, Button } from 'carbon-components-react';
-import { TextInput, TextAreaInput } from '@polymathnetwork/ui/deprecated';
-import { required, maxLength, url } from '@polymathnetwork/ui/validate';
+import { applyProviders } from '../../actions/providers';
 
-export const formName = 'providers_apply';
+const requiredMessage = 'Required.';
+// eslint-disable-next-line no-template-curly-in-string
+const maxMessage = 'Must be ${max} characters or fewer.';
+const urlMessage = 'Invalid URL (example: http(s)://www.example.com).';
 
-const maxLength100 = maxLength(100);
-const maxLength300 = maxLength(300);
-
-type Props = {|
-  handleSubmit: () => void,
-  onClose: () => void,
-|};
+const formSchema = validator.object().shape({
+  companyName: validator
+    .string()
+    .isRequired(requiredMessage)
+    .max(100, maxMessage),
+  companyDesc: validator
+    .string()
+    .isRequired(requiredMessage)
+    .max(300, maxMessage),
+  operatedIn: validator
+    .string()
+    .isRequired(requiredMessage)
+    .max(100, maxMessage),
+  incorporatedIn: validator
+    .string()
+    .isRequired(requiredMessage)
+    .max(100, maxMessage),
+  projectURL: validator
+    .string()
+    .isRequired(requiredMessage)
+    .isUrl(urlMessage),
+  profilesURL: validator
+    .string()
+    .isRequired(requiredMessage)
+    .isUrl(urlMessage),
+  structureURL: validator
+    .string()
+    .isRequired(requiredMessage)
+    .isUrl(urlMessage),
+  otherDetails: validator.string().max(300, maxMessage),
+});
 
 const linkTooltip = (title: string) => (
-  <Tooltip triggerText={<p className="pui-required-star">{title}</p>}>
-    <p className="bx--tooltip__label">Links</p>
+  <Tooltip triggerText={title}>
+    <p>
+      <strong>Links</strong>
+    </p>
     <p>
       Paste links to the file/folder from your preferred file sharing service.
       <br />
@@ -29,91 +65,134 @@ const linkTooltip = (title: string) => (
   </Tooltip>
 );
 
-class ApplyForm extends Component<Props> {
-  render() {
-    return (
-      <Form onSubmit={this.props.handleSubmit}>
-        <Field
-          name="companyName"
-          component={TextInput}
-          label={<p className="pui-required-star">Company Name</p>}
-          placeholder="Enter company name"
-          validate={[required, maxLength100]}
-        />
-        <Field
-          name="companyDesc"
-          component={TextAreaInput}
-          label={<p className="pui-required-star">Company Description</p>}
-          placeholder="Enter company description"
-          validate={[required, maxLength300]}
-        />
-        <Field
-          name="operatedIn"
-          component={TextInput}
-          label={<p className="pui-required-star">Jurisdiction of Operation</p>}
-          placeholder="Enter jurisdiction of operation"
-          validate={[required, maxLength100]}
-        />
-        <Field
-          name="incorporatedIn"
-          component={TextInput}
-          label={
-            <p className="pui-required-star">Jurisdiction of Incorporation</p>
-          }
-          placeholder="Enter jurisdiction of incorporation"
-          validate={[required, maxLength100]}
-        />
-        <Field
-          name="projectURL"
-          component={TextInput}
-          label={linkTooltip('Corporate/Project Presentation')}
-          placeholder="Paste link here"
-          validate={[required, url]}
-        />
-        <Field
-          name="profilesURL"
-          component={TextInput}
-          label={linkTooltip('Management and Board Member Profiles')}
-          placeholder="Paste link here"
-          validate={[required, url]}
-        />
-        <Field
-          name="structureURL"
-          component={TextInput}
-          label={linkTooltip('Corporate or Project Structure/Organization')}
-          placeholder="Paste link here"
-          validate={[required, url]}
-        />
-        <Field
-          name="otherDetails"
-          component={TextAreaInput}
-          label="Other Details"
-          placeholder="Start text here"
-          validate={[maxLength300]}
-        />
-        <p align="right">
-          <Button kind="secondary" onClick={this.props.onClose}>
-            Cancel
-          </Button>
-          <Button type="submit" style={{ width: '154px' }}>
-            Submit
-          </Button>
-        </p>
-        <p className="pui-input-hint">
-          When you click submit, an email which contains the information entered
-          on that screen will be sent to the Advisory firm(s) you have selected.
-          None of this information is stored on Polymath servers, only your
-          browser&apos;s cache. To clear this information, simply clear your
-          browser&apos;s cache.
-        </p>
-        <br />
-      </Form>
-    );
-  }
-}
+export const ApplyFormComponent = ({ handleSubmit, onClose }) => {
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Grid>
+        <FormItem name="companyName">
+          <FormItem.Label>Company Name</FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter company name"
+          />
+          <FormItem.Error />
+        </FormItem>
 
-export default reduxForm({
-  form: formName,
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true,
-})(ApplyForm);
+        <FormItem name="companyDesc">
+          <FormItem.Label>Company Description</FormItem.Label>
+          <FormItem.Input
+            component={TextArea}
+            placeholder="Enter company description"
+          />
+          <FormItem.Error />
+        </FormItem>
+
+        <FormItem name="operatedIn">
+          <FormItem.Label>Jurisdiction of Operation</FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter jurisdiction of operation"
+          />
+          <FormItem.Error />
+        </FormItem>
+
+        <FormItem name="incorporatedIn">
+          <FormItem.Label>Jurisdiction of Incorporation</FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter jurisdiction of incorporation"
+          />
+          <FormItem.Error />
+        </FormItem>
+
+        <FormItem name="projectURL">
+          <FormItem.Label>
+            {linkTooltip('Corporate/Project Presentation')}
+          </FormItem.Label>
+          <FormItem.Input component={TextInput} placeholder="Paste link here" />
+          <FormItem.Error />
+        </FormItem>
+
+        <FormItem name="profilesURL">
+          <FormItem.Label>
+            {linkTooltip('Management and Board Member Profiles')}
+          </FormItem.Label>
+          <FormItem.Input component={TextInput} placeholder="Paste link here" />
+          <FormItem.Error />
+        </FormItem>
+
+        <FormItem name="structureURL">
+          <FormItem.Label>
+            {linkTooltip('Corporate or Project Structure/Organization')}
+          </FormItem.Label>
+          <FormItem.Input component={TextInput} placeholder="Paste link here" />
+          <FormItem.Error />
+        </FormItem>
+
+        <FormItem name="otherDetails">
+          <FormItem.Label>Other Details</FormItem.Label>
+          <FormItem.Input component={TextArea} placeholder="Start text here" />
+          <FormItem.Error />
+        </FormItem>
+      </Grid>
+
+      <p align="right">
+        <Button kind="secondary" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button type="submit" style={{ width: '154px' }}>
+          Submit
+        </Button>
+      </p>
+
+      <p className="pui-input-hint">
+        When you click submit, an email which contains the information entered
+        on that screen will be sent to the Advisory firm(s) you have selected.
+        None of this information is stored on Polymath servers, only your
+        browser&apos;s cache. To clear this information, simply clear your
+        browser&apos;s cache.
+      </p>
+      <br />
+    </Form>
+  );
+};
+
+const mapStateToProps = ({ providers: { application } }) => ({ application });
+
+const formikEnhancer = withFormik({
+  validationSchema: formSchema,
+  displayName: 'ApplyForm',
+  validatOnChange: false,
+  mapPropsToValues: ({ application }) => {
+    const {
+      companyName,
+      companyDesc,
+      operatedIn,
+      incorporatedIn,
+      projectURL,
+      profilesURL,
+      structureURL,
+      otherDetails,
+    } = application;
+
+    return {
+      companyName: companyName || '',
+      companyDesc: companyDesc || '',
+      operatedIn: operatedIn || '',
+      incorporatedIn: incorporatedIn || '',
+      projectURL: projectURL || '',
+      profilesURL: profilesURL || '',
+      structureURL: structureURL || '',
+      otherDetails: otherDetails || '',
+    };
+  },
+  handleSubmit: (values, { props }) => {
+    const { dispatch, selectedProviders, onClose } = props;
+
+    dispatch(applyProviders(selectedProviders, values));
+    onClose();
+  },
+});
+
+const FormikEnhancedForm = formikEnhancer(ApplyFormComponent);
+export default connect(mapStateToProps)(FormikEnhancedForm);

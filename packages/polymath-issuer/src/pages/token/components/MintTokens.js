@@ -2,11 +2,12 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { Remark, addressShortifier, confirm } from '@polymathnetwork/ui';
 import {
   Icon,
-  FileUploader,
   InlineNotification,
+  FileUploader,
   Button,
 } from 'carbon-components-react';
 
@@ -15,6 +16,9 @@ import {
   mintTokens,
   mintResetUploaded,
 } from '../../../actions/token';
+import { fetch } from '../../../actions/sto';
+
+import { STAGE_OVERVIEW } from '../../../reducers/sto';
 
 import type { RootState } from '../../../redux/reducer';
 import type { InvestorCSVRow } from '../../../actions/token';
@@ -23,12 +27,14 @@ type StateProps = {|
   isTooMany: boolean,
   isReady: boolean,
   isInvalid: boolean,
+  isTransfersPaused: Boolean,
   criticals: Array<InvestorCSVRow>,
   token: Object,
   pui: Object,
 |};
 
 type DispatchProps = {|
+  fetch: () => any,
   uploadCSV: (file: Object) => any,
   mintTokens: () => any,
   mintResetUploaded: () => any,
@@ -39,12 +45,15 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isTooMany: state.token.mint.isTooMany,
   isReady: state.token.mint.uploaded.length > 0,
   isInvalid: state.token.mint.criticals.length > 0,
+  isTransfersPaused: state.whitelist.freezeStatus,
   criticals: state.token.mint.criticals,
   token: state.token,
   pui: state.pui,
+  stage: state.sto.stage,
 });
 
 const mapDispatchToProps = {
+  fetch,
   uploadCSV,
   mintTokens,
   mintResetUploaded,
@@ -54,6 +63,10 @@ const mapDispatchToProps = {
 type Props = {||} & StateProps & DispatchProps;
 
 class MintTokens extends Component<Props> {
+  componentDidMount() {
+    this.props.fetch();
+  }
+
   handleReset = (withState = true) => {
     // TODO @bshevchenko: maybe there is a better way to reset FileUploader $FlowFixMe
     const node = this.fileUploader.nodes[0];
@@ -108,7 +121,7 @@ class MintTokens extends Component<Props> {
                 ' in Your .csv File'
               }
               subtitle={
-                'Please note that the entries below contains error or duplicates another entry ' +
+                'Please note that the entries below contains error, invalid expiry date, or duplicates another entry ' +
                 'that prevent their content to be committed to the blockchain.' +
                 'Entries were automatically deselected so they are not submitted ' +
                 'to the blockchain. You can also elect to cancel the operation to review the csv file offline.'
@@ -168,10 +181,11 @@ class MintTokens extends Component<Props> {
     this.props.confirm(
       <div>
         <p>
-          All tokens sold during the offering will be minted as soon as the
-          funds are received by the smart contract and according to the rate you
-          will define when scheduling your STO. Your Token&apos;s total supply
-          will therefore be:
+          Note that manual minting will no longer be available once you schedule
+          an offering (STO) for this token. All tokens sold during the offering
+          will be minted as soon as the funds are received by the smart contract
+          and according to the rate you will define when scheduling your STO.
+          Your Token&apos;s total supply will therefore be:
         </p>
         <p>
           • Total number of tokens minted manually + total number of tokens sold
@@ -204,7 +218,15 @@ class MintTokens extends Component<Props> {
   };
 
   render() {
-    const { isTooMany, isReady, isInvalid } = this.props;
+    const {
+      isTooMany,
+      isReady,
+      isInvalid,
+      isTransfersPaused,
+      stage,
+    } = this.props;
+    const stoInProgress = stage === STAGE_OVERVIEW;
+
     return (
       <div className="mint-tokens-wrapper">
         <div className="pui-page-box">
@@ -260,16 +282,33 @@ class MintTokens extends Component<Props> {
             </a>
             &nbsp;&nbsp;file and edit it.
           </h5>
+          {stoInProgress || isTransfersPaused ? (
+            <InlineNotification
+              hideCloseButton
+              title="Minting is disabled"
+              subtitle={`Sorry but you cannot mint tokens while ${
+                isTransfersPaused
+                  ? 'transfers are paused'
+                  : 'STO is in progress'
+              }.`}
+              kind="error"
+            />
+          ) : (
+            ''
+          )}
           <FileUploader
             iconDescription="Cancel"
             buttonLabel="Upload File"
             onChange={this.handleUploaded}
             onClick={this.handleClick}
-            className="file-uploader"
+            className={classNames('file-uploader', {
+              disabled: stoInProgress || isTransfersPaused,
+            })}
             accept={['.csv']}
             buttonKind="secondary"
             filenameStatus="edit"
             ref={this.fileUploaderRef}
+            disabled={isTransfersPaused}
           />
           {isInvalid && !isReady ? (
             <InlineNotification
@@ -290,7 +329,7 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            disabled={!isReady}
+            disabled={!isReady || stoInProgress}
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"
@@ -301,6 +340,7 @@ class MintTokens extends Component<Props> {
           <Button
             type="submit"
             kind="secondary"
+            disabled={stoInProgress}
             onClick={this.handleSkip}
             style={{ marginTop: '10px', marginLeft: '15px' }}
             className="skip-minting-btn"

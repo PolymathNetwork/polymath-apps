@@ -1,0 +1,32 @@
+---
+name: TimePickerSelect
+menu: Inputs
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik, Field } from 'formik';
+import { TimePickerSelectPrimitive, TimePickerSelect } from './';
+
+# TimePickerSelect
+
+<PropsTable of={TimePickerSelectPrimitive} />
+
+## Basic usage
+
+<Playground>
+  <Formik
+    render={values => (
+      <form>
+        <pre>{JSON.stringify(values, null, 2)}</pre>
+        <br />
+        <Field name="myTime" placeholder="time" component={TimePickerSelect} />
+      </form>
+    )}
+  />
+</Playground>
+
+## Primitive
+
+<Playground>
+  <TimePickerSelectPrimitive onChange={value => console.log(value)} />
+</Playground>

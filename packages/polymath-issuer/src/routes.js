@@ -9,6 +9,7 @@ import TickerPage from './pages/ticker/TickerPage';
 import ProvidersPage from './pages/providers/ProvidersPage';
 import TokenPage from './pages/token/TokenPage';
 import STOPage from './pages/sto/STOPage';
+import DividendsPage from './pages/dividends/DividendsPage';
 
 export default [
   {
@@ -41,6 +42,11 @@ export default [
           {
             path: '/dashboard/:id/compliance',
             component: WhitelistPage,
+            exact: true,
+          },
+          {
+            path: '/dashboard/:id/dividends',
+            component: DividendsPage,
             exact: true,
           },
           {

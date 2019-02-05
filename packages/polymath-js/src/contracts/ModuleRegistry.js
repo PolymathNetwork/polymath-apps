@@ -1,6 +1,6 @@
 // @flow
 
-import artifact from '@polymathnetwork/shared/fixtures/contracts/ModuleRegistry.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleRegistry.json';
 
 import Contract from './Contract';
 
