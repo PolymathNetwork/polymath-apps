@@ -195,7 +195,10 @@ export const CappedSTOFormComponent = ({
           <Grid.Item gridColumn="span 3 / 5">
             <RaisedAmount
               title="Amount Of Funds the STO Will Raise"
-              primaryAmount={format.toLargeNumber(totalRaiseAmount, 20, 6)}
+              primaryAmount={format.toTokens(totalRaiseAmount, {
+                decimals: 6,
+                precision: 20,
+              })}
               primaryUnit={currency}
               tokenAmount={totalTokensAmount}
               tokenUnit={ticker.toUpperCase()}
