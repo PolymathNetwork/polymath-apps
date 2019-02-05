@@ -24,7 +24,7 @@ type WhitelistCsvRow = {
 const numericalRegex = /^-?\d+\.?\d*$/;
 
 function isInvalidDate(value: any) {
-  return value !== null && !moment.isDate(value);
+  return value !== null && !moment(value).isValid();
 }
 
 function isInvalidNumber(value: number | null) {
