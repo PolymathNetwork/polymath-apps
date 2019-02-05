@@ -1708,6 +1708,11 @@
   version "0.0.1-alpha.12"
   resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-0.0.1-alpha.12.tgz#a68658d040a970c92e53566b8cdf4ce7a4f59ea2"
 
+"@carbon/icon-helpers@0.0.1-alpha.25":
+  version "0.0.1-alpha.25"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-0.0.1-alpha.25.tgz#979d33e4ace14b14a1d9c693510fecef6a306c43"
+  integrity sha512-5HNefY823cWAjLhf3HKJP1ilySnFDroIOo2svMcdsGRMGF01A5GjVV+u2WxqmeOqLioOj36FEtzsOJlVZA5rFg==
+
 "@carbon/icons-react@^0.0.1-alpha.20":
   version "0.0.1-alpha.25"
   resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-0.0.1-alpha.25.tgz#898742d10bc8e5a098f5d592c7fb3ab9abd9c660"
@@ -6373,6 +6378,7 @@ cosmiconfig@^5.0.0, cosmiconfig@^5.0.2, cosmiconfig@^5.0.5, cosmiconfig@^5.0.6, 
 coveralls@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/coveralls/-/coveralls-3.0.2.tgz#f5a0bcd90ca4e64e088b710fa8dda640aea4884f"
+  integrity sha512-Tv0LKe/MkBOilH2v7WBiTBdudg2ChfGbdXafc/s330djpF3zKOmuehTeRwjXWc7pzfj9FrDUTA7tEx6Div8NFw==
   dependencies:
     growl "~> 1.10.0"
     js-yaml "^3.11.0"
@@ -15185,9 +15191,9 @@ polished@^2.0.3, polished@^2.3.1:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
-polymath-core@2.0.0, polymath-core@PolymathNetwork/polymath-core#83f0afa32699b6945e66efd0d1b0bcbb51a009a8:
-  version "2.0.0"
-  resolved "https://codeload.github.com/PolymathNetwork/polymath-core/tar.gz/83f0afa32699b6945e66efd0d1b0bcbb51a009a8"
+polymath-core@PolymathNetwork/polymath-core#5c79d984c6b8fd5b4fd71b4032dd9bc86cfa4b6d:
+  version "2.1.0"
+  resolved "https://codeload.github.com/PolymathNetwork/polymath-core/tar.gz/5c79d984c6b8fd5b4fd71b4032dd9bc86cfa4b6d"
   dependencies:
     babel-polyfill "6.26.0"
     babel-preset-es2015 "6.24.1"
@@ -18255,6 +18261,7 @@ solc@0.4.24:
 solc@^0.4.2:
   version "0.4.25"
   resolved "https://registry.yarnpkg.com/solc/-/solc-0.4.25.tgz#06b8321f7112d95b4b903639b1138a4d292f5faa"
+  integrity sha512-jU1YygRVy6zatgXrLY2rRm7HW1d7a8CkkEgNJwvH2VLpWhMFsMdWcJn6kUqZwcSz/Vm+w89dy7Z/aB5p6AFTrg==
   dependencies:
     fs-extra "^0.30.0"
     memorystream "^0.3.1"
