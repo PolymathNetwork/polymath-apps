@@ -4,13 +4,17 @@ import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { RootState } from '~/state/store';
 import { ActionType } from 'typesafe-actions';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
-import { confirmTransactionQueue } from '~/state/actions/transactionQueues';
+import {
+  confirmTransactionQueue,
+  cancelTransactionQueue,
+} from '~/state/actions/transactionQueues';
 import { types } from '@polymathnetwork/new-shared';
 import { Presenter } from './Presenter';
 
 const actions = {
   unsetActiveTransactionQueue,
   confirmTransactionQueue,
+  cancelTransactionQueue,
 };
 
 export interface StateProps {
@@ -24,20 +28,28 @@ export interface DispatchProps {
 export type Props = StateProps & DispatchProps;
 
 const mapStateToProps = () => {
-  const queueSelector = createGetActiveTransactionQueue();
+  const getActiveTransactionQueue = createGetActiveTransactionQueue();
 
   return (state: RootState): StateProps => {
-    const transactionQueue = queueSelector(state);
+    const transactionQueue = getActiveTransactionQueue(state);
 
     return { transactionQueue };
   };
 };
 
 export class ContainerBase extends Component<Props> {
-  public onContinue = () => {
+  public onFinish = () => {
     const { dispatch } = this.props;
 
     dispatch(unsetActiveTransactionQueue());
+  };
+
+  public onClose = () => {
+    const { dispatch } = this.props;
+
+    this.onFinish();
+
+    dispatch(cancelTransactionQueue());
   };
 
   public onConfirm = () => {
@@ -45,11 +57,23 @@ export class ContainerBase extends Component<Props> {
 
     dispatch(confirmTransactionQueue());
   };
+
   public render() {
     const { transactionQueue } = this.props;
+    const { onFinish, onConfirm, onClose } = this;
 
-    // TODO @monitz87: pass props to the presenter when it is implemented
-    return <Presenter />;
+    if (!transactionQueue) {
+      return null;
+    }
+
+    return (
+      <Presenter
+        transactionQueue={transactionQueue}
+        onContinue={onFinish}
+        onClose={onClose}
+        onConfirm={onConfirm}
+      />
+    );
   }
 }
 

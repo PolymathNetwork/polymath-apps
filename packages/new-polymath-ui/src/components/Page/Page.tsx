@@ -1,23 +1,34 @@
-import React, { Fragment, FC } from 'react';
-import DocumentTitle from 'react-document-title';
-import { StyledProps } from 'styled-components';
+import React, { Component } from 'react';
 
 import * as sc from './styles';
 import { PageWrapProps } from '../PageWrap';
 
 export interface PageProps extends PageWrapProps {
   title?: string;
-  children: React.ComponentType;
+  children: React.ReactNode;
 }
 
-export const Page: FC<PageProps & StyledProps<any>> = ({
-  children,
-  title,
-  ...props
-}) => (
-  <sc.Wrapper py="xl" {...props}>
-    <DocumentTitle title={title ? `${title} | Polymath` : 'Polymath'}>
-      <Fragment>{children}</Fragment>
-    </DocumentTitle>
-  </sc.Wrapper>
-);
+const appTitle = 'Polymath';
+
+export class Page extends Component<PageProps> {
+  componentWillMount() {
+    this.update(this.props);
+  }
+
+  componentDidUpdate() {
+    this.update(this.props);
+  }
+
+  update(props: PageProps) {
+    document.title = props.title ? `${props.title} | ${appTitle}` : appTitle;
+  }
+
+  render() {
+    const { children, title, ...props } = this.props;
+    return (
+      <sc.Wrapper py="xl" {...props}>
+        {children}
+      </sc.Wrapper>
+    );
+  }
+}

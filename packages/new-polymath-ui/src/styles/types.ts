@@ -2,8 +2,17 @@ export interface Scale<TValue> {
   [id: string]: TValue;
 }
 
+export interface Breakpoints<T> {
+  sm?: T;
+  md?: T;
+  lg?: T;
+  xl?: T;
+}
+
+export type ResponsiveValue<T> = T | Array<T | null> | Breakpoints<T>;
+
 export interface ThemeInterface {
-  breakpoints: [string];
+  breakpoints: Breakpoints<string | number>;
   fontSizes: Scale<string>;
   fontFamilies: any;
   lineHeights: any;

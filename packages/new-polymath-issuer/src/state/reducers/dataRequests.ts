@@ -6,7 +6,12 @@ import { RequestKeys } from '~/types';
 import { utils } from '@polymathnetwork/new-shared';
 
 export interface DataRequestResults {
-  [argsHash: string]: string[] | undefined;
+  [argsHash: string]:
+    | {
+        fetching: boolean;
+        fetchedIds: string[] | undefined;
+      }
+    | undefined;
 }
 
 export interface DataRequestsState {
@@ -71,7 +76,32 @@ export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (
 
       return {
         [requestKey]: {
-          [argsHash]: fetchedIds,
+          [argsHash]: {
+            fetching: false,
+            fetchedIds,
+          },
+          ...validData,
+        },
+        ...validRequests,
+      } as DataRequestsState;
+    }
+    case getType(actions.fetchDataStart): {
+      const {
+        payload: { requestKey, args },
+      } = action;
+
+      const argsHash = utils.hashObj(args);
+
+      const {
+        [requestKey]: { [argsHash]: invalidData, ...validData },
+        ...validRequests
+      } = state;
+
+      return {
+        [requestKey]: {
+          [argsHash]: {
+            fetching: true,
+          },
           ...validData,
         },
         ...validRequests,

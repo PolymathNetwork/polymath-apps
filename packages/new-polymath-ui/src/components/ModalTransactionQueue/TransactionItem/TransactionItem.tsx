@@ -1,7 +1,5 @@
-import React from 'react';
-
+import React, { FC } from 'react';
 import { types, utils } from '@polymathnetwork/new-shared';
-
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
 import { Loading } from '~/components/Loading';
@@ -16,35 +14,50 @@ import { SvgCheckmark } from '~/images/icons/Checkmark';
 import { SvgPending } from '~/images/icons/Pending';
 
 import * as sc from './styles';
+import { getTransactionTitle } from '~/components/utils/contentMappings';
 
 const { TransactionStatus } = types;
 
 interface TransactionItemProps {
-  transaction: types.TransactionEntity;
+  transaction: types.TransactionPojo;
+  getTitle: (transaction: types.TransactionPojo) => string;
 }
 
-const getIcon = (transaction: types.TransactionEntity) => {
-  if (transaction.status === TransactionStatus.Rejected) {
-    return <Icon Asset={SvgClose} fill="#E71D32" width="32" height="32" />;
+const getIcon = (transaction: types.TransactionPojo) => {
+  const { status } = transaction;
+
+  if (
+    status === TransactionStatus.Rejected ||
+    status === TransactionStatus.Failed
+  ) {
+    return <Icon Asset={SvgClose} color="alert" width={32} height={32} />;
   }
 
-  if (transaction.status === TransactionStatus.Unapproved) {
-    return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
+  if (status === TransactionStatus.Unapproved) {
+    return <Icon Asset={SvgPending} color="gray.1" width={32} height={24} />;
   }
 
-  if (transaction.status === TransactionStatus.Running) {
+  if (status === TransactionStatus.Running) {
     return <Loading small />;
   }
 
   if (status === TransactionStatus.Succeeded) {
-    return <Icon Asset={SvgCheckmark} color="success" width="32" height="24" />;
+    return <Icon Asset={SvgCheckmark} color="success" width={32} height={24} />;
   }
 
-  return <Icon Asset={SvgPending} color="#DFE3E6" width="32" height="24" />;
+  return null;
 };
 
-export const TransactionItem = ({ transaction }: TransactionItemProps) => {
-  const { description, tag, txHash } = transaction;
+interface StaticProps {
+  defaultProps: { getTitle: TransactionItemProps['getTitle'] };
+}
+
+const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
+  transaction,
+  getTitle,
+}) => {
+  const title = getTitle(transaction);
+  const { txHash } = transaction;
 
   return (
     <sc.Wrapper
@@ -56,7 +69,7 @@ export const TransactionItem = ({ transaction }: TransactionItemProps) => {
       </Box>
       <sc.Info>
         <Heading as="h3" variant="h3" lineHeight="tight" mb="s">
-          {description || tag}
+          {title}
         </Heading>
         <CardPrimary>
           <Paragraph as={Flex} fontSize={0}>
@@ -73,3 +86,9 @@ export const TransactionItem = ({ transaction }: TransactionItemProps) => {
     </sc.Wrapper>
   );
 };
+
+TransactionItem.defaultProps = {
+  getTitle: getTransactionTitle,
+};
+
+export { TransactionItem };

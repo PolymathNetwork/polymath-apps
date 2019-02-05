@@ -4,7 +4,13 @@ import { Module } from './Module';
 import { Context } from './LowLevel';
 import { TransactionObject } from 'web3/eth/types';
 import { SecurityToken } from './SecurityToken';
-import { GenericContract, Dividend } from './types';
+import {
+  GenericContract,
+  Dividend,
+  SetWithholdingArgs,
+  ReclaimDividendArgs,
+  WithdrawWithholdingArgs,
+} from './types';
 import { fromUnixTimestamp, fromWei, toWei } from './utils';
 
 interface InternalDividend {
@@ -121,10 +127,10 @@ export class DividendCheckpoint<
     );
   }
 
-  public setWithholding = async (
-    investors: string[],
-    percentages: number[]
-  ) => {
+  public setWithholding = async ({
+    investors,
+    percentages,
+  }: SetWithholdingArgs) => {
     const percentagesInWei = percentages.map(toWei);
 
     return () =>
@@ -133,14 +139,16 @@ export class DividendCheckpoint<
         .send({ from: this.context.account });
   };
 
-  public reclaimDividend = async (dividendIndex: number) => {
+  public reclaimDividend = async ({ dividendIndex }: ReclaimDividendArgs) => {
     return () =>
       this.contract.methods
         .reclaimDividend(dividendIndex)
         .send({ from: this.context.account });
   };
 
-  public withdrawWithholding = async (dividendIndex: number) => {
+  public withdrawWithholding = async ({
+    dividendIndex,
+  }: WithdrawWithholdingArgs) => {
     return () =>
       this.contract.methods
         .withdrawWithholding(dividendIndex)

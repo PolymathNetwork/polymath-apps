@@ -1,15 +1,12 @@
 import { Procedure } from './Procedure';
 import { Approve } from '~/procedures/Approve';
 import { types } from '@polymathnetwork/new-shared';
+import { CreateSecurityTokenProcedureArgs } from '~/types';
 
-interface Args {
-  name: string;
-  symbol: string;
-  detailsUrl?: string;
-  divisible: boolean;
-}
-
-export class CreateSecurityToken extends Procedure<Args> {
+export class CreateSecurityToken extends Procedure<
+  CreateSecurityTokenProcedureArgs
+> {
+  public type = types.ProcedureTypes.CreateSecurityToken;
   public async prepareTransactions() {
     const { name, symbol, detailsUrl = '', divisible } = this.args;
     const { securityTokenRegistry } = this.context;
@@ -22,6 +19,11 @@ export class CreateSecurityToken extends Procedure<Args> {
 
     await this.addTransaction(securityTokenRegistry.generateSecurityToken, {
       tag: types.PolyTransactionTags.CreateSecurityToken,
-    })(name, symbol, detailsUrl, divisible);
+    })({
+      tokenName: name,
+      ticker: symbol,
+      tokenDetails: detailsUrl,
+      divisible,
+    });
   }
 }

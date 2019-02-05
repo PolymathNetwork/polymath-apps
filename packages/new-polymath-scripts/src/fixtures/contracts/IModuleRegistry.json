@@ -220,14 +220,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
-        11056
+        10968
       ]
     },
-    "id": 11057,
+    "id": 10969,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10970,
+        "id": 10882,
         "literals": [
           "solidity",
           "^",
@@ -235,7 +235,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:16"
+        "src": "0:24:15"
       },
       {
         "baseContracts": [],
@@ -243,9 +243,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface for the Polymath Module Registry contract",
         "fullyImplemented": false,
-        "id": 11056,
+        "id": 10968,
         "linearizedBaseContracts": [
-          11056
+          10968
         ],
         "name": "IModuleRegistry",
         "nodeType": "ContractDefinition",
@@ -253,7 +253,7 @@
           {
             "body": null,
             "documentation": "@notice Called by a security token to notify the registry it is using a module\n@param _moduleFactory is the address of the relevant module factory",
-            "id": 10975,
+            "id": 10887,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -261,16 +261,16 @@
             "name": "useModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10973,
+              "id": 10885,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10972,
+                  "id": 10884,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10975,
-                  "src": "325:22:16",
+                  "scope": 10887,
+                  "src": "325:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -278,10 +278,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10971,
+                    "id": 10883,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "325:7:16",
+                    "src": "325:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -291,17 +291,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "324:24:16"
+              "src": "324:24:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10974,
+              "id": 10886,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "357:0:16"
+              "src": "357:0:15"
             },
-            "scope": 11056,
-            "src": "306:52:16",
+            "scope": 10968,
+            "src": "306:52:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -309,7 +309,7 @@
           {
             "body": null,
             "documentation": "@notice Called by the ModuleFactory owner to register new modules for SecurityToken to use\n@param _moduleFactory is the address of the module factory to be registered",
-            "id": 10980,
+            "id": 10892,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -317,16 +317,16 @@
             "name": "registerModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10978,
+              "id": 10890,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10977,
+                  "id": 10889,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10980,
-                  "src": "585:22:16",
+                  "scope": 10892,
+                  "src": "585:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -334,10 +334,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10976,
+                    "id": 10888,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "585:7:16",
+                    "src": "585:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -347,17 +347,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "584:24:16"
+              "src": "584:24:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10979,
+              "id": 10891,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "617:0:16"
+              "src": "617:0:15"
             },
-            "scope": 11056,
-            "src": "561:57:16",
+            "scope": 10968,
+            "src": "561:57:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -365,7 +365,7 @@
           {
             "body": null,
             "documentation": "@notice Called by the ModuleFactory owner or registry curator to delete a ModuleFactory\n@param _moduleFactory is the address of the module factory to be deleted",
-            "id": 10985,
+            "id": 10897,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -373,16 +373,16 @@
             "name": "removeModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10983,
+              "id": 10895,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10982,
+                  "id": 10894,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10985,
-                  "src": "837:22:16",
+                  "scope": 10897,
+                  "src": "837:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -390,10 +390,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10981,
+                    "id": 10893,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "837:7:16",
+                    "src": "837:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -403,17 +403,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "836:24:16"
+              "src": "836:24:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10984,
+              "id": 10896,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "869:0:16"
+              "src": "869:0:15"
             },
-            "scope": 11056,
-            "src": "815:55:16",
+            "scope": 10968,
+            "src": "815:55:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -421,7 +421,7 @@
           {
             "body": null,
             "documentation": "@notice Called by Polymath to verify modules for SecurityToken to use.\n@notice A module can not be used by an ST unless first approved/verified by Polymath\n@notice (The only exception to this is that the author of the module is the owner of the ST - Only if enabled by the FeatureRegistry)\n@param _moduleFactory is the address of the module factory to be registered",
-            "id": 10992,
+            "id": 10904,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -429,16 +429,16 @@
             "name": "verifyModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10990,
+              "id": 10902,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10987,
+                  "id": 10899,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10992,
-                  "src": "1303:22:16",
+                  "scope": 10904,
+                  "src": "1303:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -446,10 +446,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10986,
+                    "id": 10898,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1303:7:16",
+                    "src": "1303:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -460,11 +460,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 10989,
+                  "id": 10901,
                   "name": "_verified",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10992,
-                  "src": "1327:14:16",
+                  "scope": 10904,
+                  "src": "1327:14:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -472,10 +472,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 10988,
+                    "id": 10900,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1327:4:16",
+                    "src": "1327:4:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -485,17 +485,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1302:40:16"
+              "src": "1302:40:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10991,
+              "id": 10903,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1351:0:16"
+              "src": "1351:0:15"
             },
-            "scope": 11056,
-            "src": "1281:71:16",
+            "scope": 10968,
+            "src": "1281:71:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -503,7 +503,7 @@
           {
             "body": null,
             "documentation": "@notice Used to get the reputation of a Module Factory\n@param _factoryAddress address of the Module Factory\n@return address array which has the list of securityToken's uses that module factory",
-            "id": 11000,
+            "id": 10912,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -511,16 +511,16 @@
             "name": "getReputationByFactory",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10995,
+              "id": 10907,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10994,
+                  "id": 10906,
                   "name": "_factoryAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11000,
-                  "src": "1620:23:16",
+                  "scope": 10912,
+                  "src": "1620:23:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -528,10 +528,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10993,
+                    "id": 10905,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1620:7:16",
+                    "src": "1620:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -541,20 +541,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1619:25:16"
+              "src": "1619:25:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10999,
+              "id": 10911,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10998,
+                  "id": 10910,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11000,
-                  "src": "1667:9:16",
+                  "scope": 10912,
+                  "src": "1667:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -563,19 +563,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 10996,
+                      "id": 10908,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "1667:7:16",
+                      "src": "1667:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 10997,
+                    "id": 10909,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "1667:9:16",
+                    "src": "1667:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -585,10 +585,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1666:11:16"
+              "src": "1666:11:15"
             },
-            "scope": 11056,
-            "src": "1588:90:16",
+            "scope": 10968,
+            "src": "1588:90:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -596,7 +596,7 @@
           {
             "body": null,
             "documentation": "@notice Returns all the tags related to the a module type which are valid for the given token\n@param _moduleType is the module type\n@param _securityToken is the token\n@return list of tags\n@return corresponding list of module factories",
-            "id": 11013,
+            "id": 10925,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -604,16 +604,16 @@
             "name": "getTagsByTypeAndToken",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11005,
+              "id": 10917,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11002,
+                  "id": 10914,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2001:17:16",
+                  "scope": 10925,
+                  "src": "2001:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -621,10 +621,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11001,
+                    "id": 10913,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2001:5:16",
+                    "src": "2001:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -635,11 +635,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11004,
+                  "id": 10916,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2020:22:16",
+                  "scope": 10925,
+                  "src": "2020:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -647,10 +647,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11003,
+                    "id": 10915,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2020:7:16",
+                    "src": "2020:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -660,20 +660,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2000:43:16"
+              "src": "2000:43:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11012,
+              "id": 10924,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11008,
+                  "id": 10920,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2066:9:16",
+                  "scope": 10925,
+                  "src": "2066:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -682,19 +682,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11006,
+                      "id": 10918,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2066:7:16",
+                      "src": "2066:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 11007,
+                    "id": 10919,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2066:9:16",
+                    "src": "2066:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -705,11 +705,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11011,
+                  "id": 10923,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2077:9:16",
+                  "scope": 10925,
+                  "src": "2077:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -718,19 +718,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11009,
+                      "id": 10921,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2077:7:16",
+                      "src": "2077:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11010,
+                    "id": 10922,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2077:9:16",
+                    "src": "2077:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -740,10 +740,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2065:22:16"
+              "src": "2065:22:15"
             },
-            "scope": 11056,
-            "src": "1970:118:16",
+            "scope": 10968,
+            "src": "1970:118:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -751,7 +751,7 @@
           {
             "body": null,
             "documentation": "@notice Returns all the tags related to the a module type which are valid for the given token\n@param _moduleType is the module type\n@return list of tags\n@return corresponding list of module factories",
-            "id": 11024,
+            "id": 10936,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -759,16 +759,16 @@
             "name": "getTagsByType",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11016,
+              "id": 10928,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11015,
+                  "id": 10927,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11024,
-                  "src": "2361:17:16",
+                  "scope": 10936,
+                  "src": "2361:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -776,10 +776,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11014,
+                    "id": 10926,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2361:5:16",
+                    "src": "2361:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -789,20 +789,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2360:19:16"
+              "src": "2360:19:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11023,
+              "id": 10935,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11019,
+                  "id": 10931,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11024,
-                  "src": "2402:9:16",
+                  "scope": 10936,
+                  "src": "2402:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -811,19 +811,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11017,
+                      "id": 10929,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2402:7:16",
+                      "src": "2402:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 11018,
+                    "id": 10930,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2402:9:16",
+                    "src": "2402:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -834,11 +834,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11022,
+                  "id": 10934,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11024,
-                  "src": "2413:9:16",
+                  "scope": 10936,
+                  "src": "2413:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -847,19 +847,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11020,
+                      "id": 10932,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2413:7:16",
+                      "src": "2413:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11021,
+                    "id": 10933,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2413:9:16",
+                    "src": "2413:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -869,10 +869,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2401:22:16"
+              "src": "2401:22:15"
             },
-            "scope": 11056,
-            "src": "2338:86:16",
+            "scope": 10968,
+            "src": "2338:86:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -880,7 +880,7 @@
           {
             "body": null,
             "documentation": "@notice Returns the list of addresses of Module Factory of a particular type\n@param _moduleType Type of Module\n@return address array that contains the list of addresses of module factory contracts.",
-            "id": 11032,
+            "id": 10944,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -888,16 +888,16 @@
             "name": "getModulesByType",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11027,
+              "id": 10939,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11026,
+                  "id": 10938,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11032,
-                  "src": "2691:17:16",
+                  "scope": 10944,
+                  "src": "2691:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -905,10 +905,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11025,
+                    "id": 10937,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2691:5:16",
+                    "src": "2691:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -918,20 +918,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2690:19:16"
+              "src": "2690:19:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11031,
+              "id": 10943,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11030,
+                  "id": 10942,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11032,
-                  "src": "2732:9:16",
+                  "scope": 10944,
+                  "src": "2732:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -940,19 +940,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11028,
+                      "id": 10940,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2732:7:16",
+                      "src": "2732:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11029,
+                    "id": 10941,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2732:9:16",
+                    "src": "2732:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -962,10 +962,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2731:11:16"
+              "src": "2731:11:15"
             },
-            "scope": 11056,
-            "src": "2665:78:16",
+            "scope": 10968,
+            "src": "2665:78:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -973,7 +973,7 @@
           {
             "body": null,
             "documentation": "@notice Returns the list of available Module factory addresses of a particular type for a given token.\n@param _moduleType is the module type to look for\n@param _securityToken is the address of SecurityToken\n@return address array that contains the list of available addresses of module factory contracts.",
-            "id": 11042,
+            "id": 10954,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -981,16 +981,16 @@
             "name": "getModulesByTypeAndToken",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11037,
+              "id": 10949,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11034,
+                  "id": 10946,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11042,
-                  "src": "3131:17:16",
+                  "scope": 10954,
+                  "src": "3131:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -998,10 +998,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11033,
+                    "id": 10945,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3131:5:16",
+                    "src": "3131:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -1012,11 +1012,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11036,
+                  "id": 10948,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11042,
-                  "src": "3150:22:16",
+                  "scope": 10954,
+                  "src": "3150:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1024,10 +1024,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11035,
+                    "id": 10947,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3150:7:16",
+                    "src": "3150:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1037,20 +1037,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3130:43:16"
+              "src": "3130:43:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11041,
+              "id": 10953,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11040,
+                  "id": 10952,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11042,
-                  "src": "3197:9:16",
+                  "scope": 10954,
+                  "src": "3197:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1059,19 +1059,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11038,
+                      "id": 10950,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "3197:7:16",
+                      "src": "3197:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11039,
+                    "id": 10951,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "3197:9:16",
+                    "src": "3197:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -1081,10 +1081,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3196:11:16"
+              "src": "3196:11:15"
             },
-            "scope": 11056,
-            "src": "3097:111:16",
+            "scope": 10968,
+            "src": "3097:111:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1092,7 +1092,7 @@
           {
             "body": null,
             "documentation": "@notice Use to get the latest contract address of the regstries",
-            "id": 11045,
+            "id": 10957,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1100,20 +1100,20 @@
             "name": "updateFromRegistry",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11043,
+              "id": 10955,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3328:2:16"
+              "src": "3328:2:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11044,
+              "id": 10956,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3339:0:16"
+              "src": "3339:0:15"
             },
-            "scope": 11056,
-            "src": "3301:39:16",
+            "scope": 10968,
+            "src": "3301:39:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -1121,7 +1121,7 @@
           {
             "body": null,
             "documentation": "@notice Get the owner of the contract\n@return address owner",
-            "id": 11050,
+            "id": 10962,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1129,23 +1129,23 @@
             "name": "owner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11046,
+              "id": 10958,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3450:2:16"
+              "src": "3450:2:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11049,
+              "id": 10961,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11048,
+                  "id": 10960,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11050,
-                  "src": "3475:7:16",
+                  "scope": 10962,
+                  "src": "3475:7:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1153,10 +1153,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11047,
+                    "id": 10959,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3475:7:16",
+                    "src": "3475:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1166,10 +1166,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3474:9:16"
+              "src": "3474:9:15"
             },
-            "scope": 11056,
-            "src": "3436:48:16",
+            "scope": 10968,
+            "src": "3436:48:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1177,7 +1177,7 @@
           {
             "body": null,
             "documentation": "@notice Check whether the contract operations is paused or not\n@return bool ",
-            "id": 11055,
+            "id": 10967,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1185,23 +1185,23 @@
             "name": "isPaused",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11051,
+              "id": 10963,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3614:2:16"
+              "src": "3614:2:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11054,
+              "id": 10966,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11053,
+                  "id": 10965,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11055,
-                  "src": "3639:4:16",
+                  "scope": 10967,
+                  "src": "3639:4:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1209,10 +1209,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 11052,
+                    "id": 10964,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3639:4:16",
+                    "src": "3639:4:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1222,33 +1222,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3638:6:16"
+              "src": "3638:6:15"
             },
-            "scope": 11056,
-            "src": "3597:48:16",
+            "scope": 10968,
+            "src": "3597:48:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11057,
-        "src": "96:3552:16"
+        "scope": 10969,
+        "src": "96:3552:15"
       }
     ],
-    "src": "0:3649:16"
+    "src": "0:3649:15"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IModuleRegistry.sol",
     "exportedSymbols": {
       "IModuleRegistry": [
-        11056
+        10968
       ]
     },
-    "id": 11057,
+    "id": 10969,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10970,
+        "id": 10882,
         "literals": [
           "solidity",
           "^",
@@ -1256,7 +1256,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:16"
+        "src": "0:24:15"
       },
       {
         "baseContracts": [],
@@ -1264,9 +1264,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface for the Polymath Module Registry contract",
         "fullyImplemented": false,
-        "id": 11056,
+        "id": 10968,
         "linearizedBaseContracts": [
-          11056
+          10968
         ],
         "name": "IModuleRegistry",
         "nodeType": "ContractDefinition",
@@ -1274,7 +1274,7 @@
           {
             "body": null,
             "documentation": "@notice Called by a security token to notify the registry it is using a module\n@param _moduleFactory is the address of the relevant module factory",
-            "id": 10975,
+            "id": 10887,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1282,16 +1282,16 @@
             "name": "useModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10973,
+              "id": 10885,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10972,
+                  "id": 10884,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10975,
-                  "src": "325:22:16",
+                  "scope": 10887,
+                  "src": "325:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1299,10 +1299,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10971,
+                    "id": 10883,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "325:7:16",
+                    "src": "325:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1312,17 +1312,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "324:24:16"
+              "src": "324:24:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10974,
+              "id": 10886,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "357:0:16"
+              "src": "357:0:15"
             },
-            "scope": 11056,
-            "src": "306:52:16",
+            "scope": 10968,
+            "src": "306:52:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -1330,7 +1330,7 @@
           {
             "body": null,
             "documentation": "@notice Called by the ModuleFactory owner to register new modules for SecurityToken to use\n@param _moduleFactory is the address of the module factory to be registered",
-            "id": 10980,
+            "id": 10892,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1338,16 +1338,16 @@
             "name": "registerModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10978,
+              "id": 10890,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10977,
+                  "id": 10889,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10980,
-                  "src": "585:22:16",
+                  "scope": 10892,
+                  "src": "585:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1355,10 +1355,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10976,
+                    "id": 10888,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "585:7:16",
+                    "src": "585:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1368,17 +1368,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "584:24:16"
+              "src": "584:24:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10979,
+              "id": 10891,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "617:0:16"
+              "src": "617:0:15"
             },
-            "scope": 11056,
-            "src": "561:57:16",
+            "scope": 10968,
+            "src": "561:57:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -1386,7 +1386,7 @@
           {
             "body": null,
             "documentation": "@notice Called by the ModuleFactory owner or registry curator to delete a ModuleFactory\n@param _moduleFactory is the address of the module factory to be deleted",
-            "id": 10985,
+            "id": 10897,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1394,16 +1394,16 @@
             "name": "removeModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10983,
+              "id": 10895,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10982,
+                  "id": 10894,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10985,
-                  "src": "837:22:16",
+                  "scope": 10897,
+                  "src": "837:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1411,10 +1411,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10981,
+                    "id": 10893,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "837:7:16",
+                    "src": "837:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1424,17 +1424,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "836:24:16"
+              "src": "836:24:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10984,
+              "id": 10896,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "869:0:16"
+              "src": "869:0:15"
             },
-            "scope": 11056,
-            "src": "815:55:16",
+            "scope": 10968,
+            "src": "815:55:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -1442,7 +1442,7 @@
           {
             "body": null,
             "documentation": "@notice Called by Polymath to verify modules for SecurityToken to use.\n@notice A module can not be used by an ST unless first approved/verified by Polymath\n@notice (The only exception to this is that the author of the module is the owner of the ST - Only if enabled by the FeatureRegistry)\n@param _moduleFactory is the address of the module factory to be registered",
-            "id": 10992,
+            "id": 10904,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1450,16 +1450,16 @@
             "name": "verifyModule",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10990,
+              "id": 10902,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10987,
+                  "id": 10899,
                   "name": "_moduleFactory",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10992,
-                  "src": "1303:22:16",
+                  "scope": 10904,
+                  "src": "1303:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1467,10 +1467,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10986,
+                    "id": 10898,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1303:7:16",
+                    "src": "1303:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1481,11 +1481,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 10989,
+                  "id": 10901,
                   "name": "_verified",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10992,
-                  "src": "1327:14:16",
+                  "scope": 10904,
+                  "src": "1327:14:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1493,10 +1493,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 10988,
+                    "id": 10900,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1327:4:16",
+                    "src": "1327:4:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1506,17 +1506,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1302:40:16"
+              "src": "1302:40:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10991,
+              "id": 10903,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1351:0:16"
+              "src": "1351:0:15"
             },
-            "scope": 11056,
-            "src": "1281:71:16",
+            "scope": 10968,
+            "src": "1281:71:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -1524,7 +1524,7 @@
           {
             "body": null,
             "documentation": "@notice Used to get the reputation of a Module Factory\n@param _factoryAddress address of the Module Factory\n@return address array which has the list of securityToken's uses that module factory",
-            "id": 11000,
+            "id": 10912,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1532,16 +1532,16 @@
             "name": "getReputationByFactory",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10995,
+              "id": 10907,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10994,
+                  "id": 10906,
                   "name": "_factoryAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11000,
-                  "src": "1620:23:16",
+                  "scope": 10912,
+                  "src": "1620:23:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1549,10 +1549,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 10993,
+                    "id": 10905,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1620:7:16",
+                    "src": "1620:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1562,20 +1562,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1619:25:16"
+              "src": "1619:25:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10999,
+              "id": 10911,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10998,
+                  "id": 10910,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11000,
-                  "src": "1667:9:16",
+                  "scope": 10912,
+                  "src": "1667:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1584,19 +1584,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 10996,
+                      "id": 10908,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "1667:7:16",
+                      "src": "1667:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 10997,
+                    "id": 10909,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "1667:9:16",
+                    "src": "1667:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -1606,10 +1606,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1666:11:16"
+              "src": "1666:11:15"
             },
-            "scope": 11056,
-            "src": "1588:90:16",
+            "scope": 10968,
+            "src": "1588:90:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1617,7 +1617,7 @@
           {
             "body": null,
             "documentation": "@notice Returns all the tags related to the a module type which are valid for the given token\n@param _moduleType is the module type\n@param _securityToken is the token\n@return list of tags\n@return corresponding list of module factories",
-            "id": 11013,
+            "id": 10925,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1625,16 +1625,16 @@
             "name": "getTagsByTypeAndToken",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11005,
+              "id": 10917,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11002,
+                  "id": 10914,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2001:17:16",
+                  "scope": 10925,
+                  "src": "2001:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1642,10 +1642,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11001,
+                    "id": 10913,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2001:5:16",
+                    "src": "2001:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -1656,11 +1656,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11004,
+                  "id": 10916,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2020:22:16",
+                  "scope": 10925,
+                  "src": "2020:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1668,10 +1668,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11003,
+                    "id": 10915,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2020:7:16",
+                    "src": "2020:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1681,20 +1681,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2000:43:16"
+              "src": "2000:43:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11012,
+              "id": 10924,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11008,
+                  "id": 10920,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2066:9:16",
+                  "scope": 10925,
+                  "src": "2066:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1703,19 +1703,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11006,
+                      "id": 10918,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2066:7:16",
+                      "src": "2066:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 11007,
+                    "id": 10919,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2066:9:16",
+                    "src": "2066:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -1726,11 +1726,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11011,
+                  "id": 10923,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11013,
-                  "src": "2077:9:16",
+                  "scope": 10925,
+                  "src": "2077:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1739,19 +1739,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11009,
+                      "id": 10921,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2077:7:16",
+                      "src": "2077:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11010,
+                    "id": 10922,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2077:9:16",
+                    "src": "2077:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -1761,10 +1761,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2065:22:16"
+              "src": "2065:22:15"
             },
-            "scope": 11056,
-            "src": "1970:118:16",
+            "scope": 10968,
+            "src": "1970:118:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1772,7 +1772,7 @@
           {
             "body": null,
             "documentation": "@notice Returns all the tags related to the a module type which are valid for the given token\n@param _moduleType is the module type\n@return list of tags\n@return corresponding list of module factories",
-            "id": 11024,
+            "id": 10936,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1780,16 +1780,16 @@
             "name": "getTagsByType",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11016,
+              "id": 10928,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11015,
+                  "id": 10927,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11024,
-                  "src": "2361:17:16",
+                  "scope": 10936,
+                  "src": "2361:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1797,10 +1797,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11014,
+                    "id": 10926,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2361:5:16",
+                    "src": "2361:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -1810,20 +1810,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2360:19:16"
+              "src": "2360:19:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11023,
+              "id": 10935,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11019,
+                  "id": 10931,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11024,
-                  "src": "2402:9:16",
+                  "scope": 10936,
+                  "src": "2402:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1832,19 +1832,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11017,
+                      "id": 10929,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2402:7:16",
+                      "src": "2402:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 11018,
+                    "id": 10930,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2402:9:16",
+                    "src": "2402:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -1855,11 +1855,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11022,
+                  "id": 10934,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11024,
-                  "src": "2413:9:16",
+                  "scope": 10936,
+                  "src": "2413:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1868,19 +1868,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11020,
+                      "id": 10932,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2413:7:16",
+                      "src": "2413:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11021,
+                    "id": 10933,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2413:9:16",
+                    "src": "2413:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -1890,10 +1890,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2401:22:16"
+              "src": "2401:22:15"
             },
-            "scope": 11056,
-            "src": "2338:86:16",
+            "scope": 10968,
+            "src": "2338:86:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1901,7 +1901,7 @@
           {
             "body": null,
             "documentation": "@notice Returns the list of addresses of Module Factory of a particular type\n@param _moduleType Type of Module\n@return address array that contains the list of addresses of module factory contracts.",
-            "id": 11032,
+            "id": 10944,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1909,16 +1909,16 @@
             "name": "getModulesByType",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11027,
+              "id": 10939,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11026,
+                  "id": 10938,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11032,
-                  "src": "2691:17:16",
+                  "scope": 10944,
+                  "src": "2691:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1926,10 +1926,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11025,
+                    "id": 10937,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2691:5:16",
+                    "src": "2691:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -1939,20 +1939,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2690:19:16"
+              "src": "2690:19:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11031,
+              "id": 10943,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11030,
+                  "id": 10942,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11032,
-                  "src": "2732:9:16",
+                  "scope": 10944,
+                  "src": "2732:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1961,19 +1961,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11028,
+                      "id": 10940,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "2732:7:16",
+                      "src": "2732:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11029,
+                    "id": 10941,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "2732:9:16",
+                    "src": "2732:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -1983,10 +1983,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2731:11:16"
+              "src": "2731:11:15"
             },
-            "scope": 11056,
-            "src": "2665:78:16",
+            "scope": 10968,
+            "src": "2665:78:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1994,7 +1994,7 @@
           {
             "body": null,
             "documentation": "@notice Returns the list of available Module factory addresses of a particular type for a given token.\n@param _moduleType is the module type to look for\n@param _securityToken is the address of SecurityToken\n@return address array that contains the list of available addresses of module factory contracts.",
-            "id": 11042,
+            "id": 10954,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2002,16 +2002,16 @@
             "name": "getModulesByTypeAndToken",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11037,
+              "id": 10949,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11034,
+                  "id": 10946,
                   "name": "_moduleType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11042,
-                  "src": "3131:17:16",
+                  "scope": 10954,
+                  "src": "3131:17:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2019,10 +2019,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 11033,
+                    "id": 10945,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3131:5:16",
+                    "src": "3131:5:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -2033,11 +2033,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 11036,
+                  "id": 10948,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11042,
-                  "src": "3150:22:16",
+                  "scope": 10954,
+                  "src": "3150:22:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2045,10 +2045,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11035,
+                    "id": 10947,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3150:7:16",
+                    "src": "3150:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -2058,20 +2058,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3130:43:16"
+              "src": "3130:43:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11041,
+              "id": 10953,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11040,
+                  "id": 10952,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11042,
-                  "src": "3197:9:16",
+                  "scope": 10954,
+                  "src": "3197:9:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2080,19 +2080,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 11038,
+                      "id": 10950,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "3197:7:16",
+                      "src": "3197:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 11039,
+                    "id": 10951,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "3197:9:16",
+                    "src": "3197:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -2102,10 +2102,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3196:11:16"
+              "src": "3196:11:15"
             },
-            "scope": 11056,
-            "src": "3097:111:16",
+            "scope": 10968,
+            "src": "3097:111:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -2113,7 +2113,7 @@
           {
             "body": null,
             "documentation": "@notice Use to get the latest contract address of the regstries",
-            "id": 11045,
+            "id": 10957,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -2121,20 +2121,20 @@
             "name": "updateFromRegistry",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11043,
+              "id": 10955,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3328:2:16"
+              "src": "3328:2:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11044,
+              "id": 10956,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3339:0:16"
+              "src": "3339:0:15"
             },
-            "scope": 11056,
-            "src": "3301:39:16",
+            "scope": 10968,
+            "src": "3301:39:15",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
@@ -2142,7 +2142,7 @@
           {
             "body": null,
             "documentation": "@notice Get the owner of the contract\n@return address owner",
-            "id": 11050,
+            "id": 10962,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2150,23 +2150,23 @@
             "name": "owner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11046,
+              "id": 10958,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3450:2:16"
+              "src": "3450:2:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11049,
+              "id": 10961,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11048,
+                  "id": 10960,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11050,
-                  "src": "3475:7:16",
+                  "scope": 10962,
+                  "src": "3475:7:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2174,10 +2174,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11047,
+                    "id": 10959,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3475:7:16",
+                    "src": "3475:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -2187,10 +2187,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3474:9:16"
+              "src": "3474:9:15"
             },
-            "scope": 11056,
-            "src": "3436:48:16",
+            "scope": 10968,
+            "src": "3436:48:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -2198,7 +2198,7 @@
           {
             "body": null,
             "documentation": "@notice Check whether the contract operations is paused or not\n@return bool ",
-            "id": 11055,
+            "id": 10967,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2206,23 +2206,23 @@
             "name": "isPaused",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11051,
+              "id": 10963,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "3614:2:16"
+              "src": "3614:2:15"
             },
             "payable": false,
             "returnParameters": {
-              "id": 11054,
+              "id": 10966,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11053,
+                  "id": 10965,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11055,
-                  "src": "3639:4:16",
+                  "scope": 10967,
+                  "src": "3639:4:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2230,10 +2230,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 11052,
+                    "id": 10964,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3639:4:16",
+                    "src": "3639:4:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2243,20 +2243,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3638:6:16"
+              "src": "3638:6:15"
             },
-            "scope": 11056,
-            "src": "3597:48:16",
+            "scope": 10968,
+            "src": "3597:48:15",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 11057,
-        "src": "96:3552:16"
+        "scope": 10969,
+        "src": "96:3552:15"
       }
     ],
-    "src": "0:3649:16"
+    "src": "0:3649:15"
   },
   "compiler": {
     "name": "solc",
@@ -2264,5 +2264,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.529Z"
+  "updatedAt": "2019-02-01T18:23:33.146Z"
 }

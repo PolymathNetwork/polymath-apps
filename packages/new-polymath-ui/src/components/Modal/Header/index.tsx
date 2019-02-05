@@ -12,28 +12,32 @@ export interface HeaderProps {
 }
 
 const color = {
-  [ModalStatus.loading]: 'idle',
-  [ModalStatus.idle]: 'idle',
-  [ModalStatus.warning]: 'warning',
-  [ModalStatus.alert]: 'alert',
-  [ModalStatus.success]: 'success',
+  [ModalStatus.Loading]: 'idle',
+  [ModalStatus.Idle]: 'idle',
+  [ModalStatus.Warning]: 'warning',
+  [ModalStatus.Alert]: 'alert',
+  [ModalStatus.Success]: 'success',
 };
 
-export const Header: FC<HeaderProps> = props => {
+const HeaderBase: FC<HeaderProps> = ({ status, children, label }) => {
   return (
     <React.Fragment>
-      {props.label && (
-        <Paragraph color={color[props.status]} fontSize={1} bold mb={1}>
-          {props.label}
+      {label && (
+        <Paragraph color={color[status]} fontSize={1} bold mb={0}>
+          {label}
         </Paragraph>
       )}
       <Heading as="h1" variant="h2" mb="m">
-        {props.children}
+        {children}
       </Heading>
     </React.Fragment>
   );
 };
 
-Header.defaultProps = {
-  status: ModalStatus.idle,
+HeaderBase.defaultProps = {
+  status: ModalStatus.Idle,
 };
+
+export const Header = Object.assign(HeaderBase, {
+  defaultProps: HeaderBase.defaultProps,
+});

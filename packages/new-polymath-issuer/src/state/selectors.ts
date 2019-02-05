@@ -3,24 +3,25 @@ import { createSelector } from 'reselect';
 import { filter, zipWith, forEach, includes } from 'lodash';
 import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
+import { DataRequestResults } from '~/state/reducers/dataRequests';
 
-const appSelector = (state: RootState) => state.app;
-const entitiesSelector = (state: RootState) => state.entities;
-const dataRequestsSelector = (state: RootState) => state.dataRequests;
-const sessionSelector = (state: RootState) => state.session;
+const getApp = (state: RootState) => state.app;
+const getEntities = (state: RootState) => state.entities;
+const getDataRequests = (state: RootState) => state.dataRequests;
+const getSession = (state: RootState) => state.session;
 
-const activeTransactionQueueIdSelector = createSelector(
-  appSelector,
+const getActiveTransactionQueueId = createSelector(
+  getApp,
   app => app.activeTransactionQueue
 );
 
-const transactionQueuesSelector = createSelector(
-  entitiesSelector,
+const getTransactionQueues = createSelector(
+  getEntities,
   entities => entities.transactionQueues
 );
 
-const transactionsSelector = createSelector(
-  entitiesSelector,
+const getTransactions = createSelector(
+  getEntities,
   entities => entities.transactions
 );
 
@@ -29,18 +30,18 @@ interface FetcherProps {
 }
 
 interface CachedResults {
-  cachedIds: string[] | undefined;
+  cachedData: DataRequestResults[''];
   key: string;
   requestKey: RequestKeys;
   args: types.Pojo;
 }
 
-const entityStoresPerFetcherSelector = (
+const getEntityStoresPerFetcher = (
   state: RootState,
   { fetchers }: FetcherProps
 ) => fetchers.map(fetcher => state.entities[fetcher.entity]);
 
-const cachedResultsPerFetcherSelector = (
+const getCachedResultsPerFetcher = (
   state: RootState,
   { fetchers }: FetcherProps
 ) =>
@@ -48,11 +49,11 @@ const cachedResultsPerFetcherSelector = (
     const { args, propKey, entity, requestKey } = fetcher;
 
     const argsHash = utils.hashObj(args);
-    const cachedIds = state.dataRequests[requestKey][argsHash];
+    const cachedData = state.dataRequests[requestKey][argsHash];
     const key = propKey || entity;
 
     return {
-      cachedIds,
+      cachedData,
       key,
       requestKey,
       args,
@@ -113,8 +114,8 @@ fetchers. You can use `propKey` to override the name of the property that will h
 const createGetEntitiesFromCache = () =>
   createSelector(
     [
-      entityStoresPerFetcherSelector,
-      cachedResultsPerFetcherSelector,
+      getEntityStoresPerFetcher,
+      getCachedResultsPerFetcher,
       checkFetchersForDuplicates,
     ],
     (entityStores, cachedResults) => {
@@ -122,15 +123,22 @@ const createGetEntitiesFromCache = () =>
         entityStores,
         cachedResults,
         (store, result) => {
-          const { cachedIds, key } = result;
-          return { store, cachedIds, key };
+          const { cachedData, key } = result;
+          return { store, cachedData, key };
         }
       );
 
       const results: FetchedData = {};
 
       forEach(storesWithIds, data => {
-        const { cachedIds, key, store } = data;
+        const { cachedData, key, store } = data;
+
+        if (!cachedData || cachedData.fetching) {
+          results[key] = [];
+          return;
+        }
+
+        const { fetchedIds: cachedIds } = cachedData;
 
         // NOTE @monitz87: this double type assertion is required because
         // of typescript limitations with the index signature
@@ -150,16 +158,31 @@ const createGetEntitiesFromCache = () =>
  */
 const createGetCacheStatus = () =>
   createSelector(
-    [cachedResultsPerFetcherSelector, checkFetchersForDuplicates],
+    [getCachedResultsPerFetcher, checkFetchersForDuplicates],
     cachedResults =>
       cachedResults.map<CacheStatus>(result => {
-        const { requestKey, args, cachedIds } = result;
+        const { requestKey, args, cachedData } = result;
 
         return {
           requestKey,
           args,
-          mustBeFetched: !cachedIds,
+          mustBeFetched: !cachedData,
         };
+      })
+  );
+
+/**
+ * Creates a selector that calculates whether the required data (indicated by the fetchers)
+ * is still being fetched
+ */
+const createGetLoadingStatus = () =>
+  createSelector(
+    [getCachedResultsPerFetcher, checkFetchersForDuplicates],
+    cachedResults =>
+      cachedResults.some(result => {
+        const { cachedData } = result;
+
+        return !cachedData || cachedData.fetching;
       })
   );
 
@@ -170,9 +193,9 @@ const createGetCacheStatus = () =>
 const createGetActiveTransactionQueue = () =>
   createSelector(
     [
-      transactionQueuesSelector,
-      transactionsSelector,
-      activeTransactionQueueIdSelector,
+      getTransactionQueues,
+      getTransactions,
+      getActiveTransactionQueueId,
     ],
     (transactionQueues, transactions, activeTransactionQueueId) => {
       if (!activeTransactionQueueId) {
@@ -209,15 +232,16 @@ const createGetActiveTransactionQueue = () =>
   );
 
 export {
-  appSelector,
-  entitiesSelector,
-  dataRequestsSelector,
-  sessionSelector,
-  activeTransactionQueueIdSelector,
-  transactionsSelector,
-  transactionQueuesSelector,
+  getApp,
+  getEntities,
+  getDataRequests,
+  getSession,
+  getActiveTransactionQueueId,
+  getTransactions,
+  getTransactionQueues,
   createGetEntitiesFromCache,
   createGetCacheStatus,
   createGetActiveTransactionQueue,
   checkFetchersForDuplicates,
+  createGetLoadingStatus,
 };

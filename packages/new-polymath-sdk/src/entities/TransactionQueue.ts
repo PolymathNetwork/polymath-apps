@@ -3,51 +3,45 @@ import { types } from '@polymathnetwork/new-shared';
 import { TransactionSpec } from '~/types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
-import * as procedures from '~/procedures';
-
-// TODO @RafaelVidaurre: Decide where this should go
-const descriptionsByProcedureType: {
-  [key: string]: string;
-} = {
-  [procedures.EnableDividendModules.name]:
-    'Enabling the Ability to Distribute Dividends',
-};
 
 enum Events {
   StatusChange = 'StatusChange',
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class TransactionQueue extends Entity {
+export class TransactionQueue<Args extends any = any> extends Entity {
   public readonly entityType: string = 'transactionQueue';
-  public procedureType: string;
-  public description: string;
+  public procedureType: types.ProcedureTypes;
   public uid: string;
   public transactions: PolyTransaction[];
   public promise: Promise<any>;
   public status: types.TransactionQueueStatus =
     types.TransactionQueueStatus.Idle;
+  public args: Args;
   public error?: Error;
   private queue: PolyTransaction[] = [];
   private emitter: EventEmitter;
 
   constructor(
     transactions: TransactionSpec[],
-    procedureType: string = 'UnnamedProcedure'
+    procedureType: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure,
+    args: Args = {} as Args
   ) {
     super(undefined, false);
 
     this.emitter = new EventEmitter();
     this.procedureType = procedureType;
-    this.description =
-      descriptionsByProcedureType[procedureType] || procedureType;
     this.promise = new Promise((res, rej) => {
       this.resolve = res;
       this.reject = rej;
     });
+    this.args = args;
 
     this.transactions = transactions.map(transaction => {
-      const txn = new PolyTransaction(transaction, this);
+      const txn = new PolyTransaction<typeof transaction.args>(
+        transaction,
+        this
+      );
 
       txn.onStatusChange(updatedTransaction => {
         this.emitter.emit(
@@ -64,14 +58,14 @@ export class TransactionQueue extends Entity {
   }
 
   public toPojo() {
-    const { uid, transactions, status, procedureType, description } = this;
+    const { uid, transactions, status, procedureType, args } = this;
 
     return {
       uid,
-      description,
       transactions: transactions.map(transaction => transaction.toPojo()),
       status,
       procedureType,
+      args,
     };
   }
 

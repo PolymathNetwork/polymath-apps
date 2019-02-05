@@ -25,6 +25,7 @@ import { Entity } from '~/entities/Entity';
 import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
 import { PolymathNetworkParams } from '~/types';
+import BigNumber from 'bignumber.js';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -43,6 +44,8 @@ const createContextualizedEntity = <T extends typeof Entity>(
 
 interface ContextualizedEntities {
   SecurityToken: typeof SecurityToken;
+  Dividend: typeof Dividend;
+  Checkpoint: typeof Checkpoint;
   Erc20DividendsModule: typeof Erc20DividendsModule;
 }
 
@@ -83,6 +86,8 @@ export class Polymath {
         Erc20DividendsModule as any,
         this
       ),
+      Dividend: createContextualizedEntity(Dividend as any, this),
+      Checkpoint: createContextualizedEntity(Checkpoint as any, this),
     };
   }
 
@@ -176,7 +181,7 @@ export class Polymath {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
-    amount: number;
+    amount: BigNumber;
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
@@ -190,6 +195,7 @@ export class Polymath {
       },
       this.context
     );
+
     return await procedure.prepare();
   };
 
@@ -201,7 +207,7 @@ export class Polymath {
     maturityDate: Date;
     expiryDate: Date;
     erc20Address: string;
-    amount: number;
+    amount: BigNumber;
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
@@ -219,7 +225,7 @@ export class Polymath {
     maturityDate: Date;
     expiryDate: Date;
     erc20Address: string;
-    amount: number;
+    amount: BigNumber;
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
@@ -238,9 +244,9 @@ export class Polymath {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
     const etherModule = await securityToken.getEtherDividendModule();
 
@@ -258,7 +264,7 @@ export class Polymath {
 
     const address = securityToken.address;
     const name = await securityToken.name();
-    const stEntity = new SecurityToken({
+    const stEntity = new this.SecurityToken({
       symbol: securityTokenSymbol,
       name,
       address,
@@ -270,7 +276,7 @@ export class Polymath {
         dividend => dividend.checkpointId === checkpoint.index
       );
 
-      const emptyCheckpoint = new Checkpoint({
+      const emptyCheckpoint = new this.Checkpoint({
         ...checkpoint,
         securityTokenId,
         securityTokenSymbol,
@@ -279,7 +285,7 @@ export class Polymath {
 
       const dividends = checkpointDividends.map(
         dividend =>
-          new Dividend({
+          new this.Dividend({
             ...dividend,
             checkpointId: emptyCheckpoint.uid,
             securityTokenSymbol,
@@ -331,9 +337,9 @@ export class Polymath {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
 
     const name = await securityToken.name();
@@ -350,20 +356,25 @@ export class Polymath {
     };
 
     if (erc20Module) {
-      return new Erc20DividendsModule({
+      return new this.Erc20DividendsModule({
         address: erc20Module.address,
         ...constructorData,
       });
     }
 
-    // if the module isn't attached yet, we return an instance without address
-    return new Erc20DividendsModule({
-      ...constructorData,
-    });
+    return null;
   };
 
   get SecurityToken() {
     return this.entities.SecurityToken;
+  }
+
+  get Checkpoint() {
+    return this.entities.Checkpoint;
+  }
+
+  get Dividend() {
+    return this.entities.Dividend;
   }
 
   get Erc20DividendsModule() {

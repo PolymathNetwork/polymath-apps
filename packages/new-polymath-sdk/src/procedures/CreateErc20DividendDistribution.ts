@@ -1,20 +1,11 @@
 import { Procedure } from './Procedure';
-import { TaxWithholding } from '~/types';
 import { types } from '@polymathnetwork/new-shared';
+import { CreateErc20DividendDistributionProcedureArgs } from '~/types';
 
-interface Args {
-  symbol: string;
-  maturityDate: Date;
-  expiryDate: Date;
-  erc20Address: string;
-  amount: number;
-  checkpointId: number;
-  name: string;
-  excludedAddresses?: string[];
-  taxWithholdings?: TaxWithholding[];
-}
-
-export class CreateErc20DividendDistribution extends Procedure<Args> {
+export class CreateErc20DividendDistribution extends Procedure<
+  CreateErc20DividendDistributionProcedureArgs
+> {
+  public type = types.ProcedureTypes.CreateErc20DividendDistribution;
   public async prepareTransactions() {
     const {
       symbol,
@@ -29,7 +20,9 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
     } = this.args;
     const { securityTokenRegistry } = this.context;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
     const erc20Module = await securityToken.getErc20DividendModule();
 
     if (!erc20Module) {
@@ -38,34 +31,30 @@ export class CreateErc20DividendDistribution extends Procedure<Args> {
       );
     }
 
-    const dividendId = await this.addTransaction(erc20Module.createDividend, {
+    await this.addTransaction(erc20Module.createDividend, {
       tag: types.PolyTransactionTags.CreateErc20DividendDistribution,
-      resolver: async () => {
-        // TODO @RafaelVidaurre: fetch here dividend's id
-        return 'foo';
-      },
-    })(
+    })({
       maturityDate,
       expiryDate,
-      erc20Address,
+      tokenAddress: erc20Address,
       amount,
       checkpointId,
       name,
-      excludedAddresses
-    );
+      excludedAddresses,
+    });
 
     if (taxWithholdings.length > 0) {
-      const investorAddresses: string[] = [];
+      const investors: string[] = [];
       const percentages: number[] = [];
 
       taxWithholdings.forEach(({ address, percentage }) => {
-        investorAddresses.push(address);
+        investors.push(address);
         percentages.push(percentage);
       });
 
       await this.addTransaction(erc20Module.setWithholding, {
         tag: types.PolyTransactionTags.SetErc20TaxWithholding,
-      })(investorAddresses, percentages);
+      })({ investors, percentages });
     }
   }
 }

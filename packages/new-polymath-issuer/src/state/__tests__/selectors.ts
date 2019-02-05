@@ -1,15 +1,16 @@
 import {
-  appSelector,
-  entitiesSelector,
-  dataRequestsSelector,
-  sessionSelector,
-  activeTransactionQueueIdSelector,
-  transactionQueuesSelector,
-  transactionsSelector,
+  getApp,
+  getEntities,
+  getDataRequests,
+  getSession,
+  getActiveTransactionQueueId,
+  getTransactionQueues,
+  getTransactions,
   createGetActiveTransactionQueue,
   createGetEntitiesFromCache,
   createGetCacheStatus,
   checkFetchersForDuplicates,
+  createGetLoadingStatus,
 } from '../selectors';
 import { RootState } from '~/state/store';
 import BigNumber from 'bignumber.js';
@@ -90,24 +91,29 @@ const transactions = {
       transactionQueueUid: 'tq0',
       status: types.TransactionStatus.Idle,
       tag: types.PolyTransactionTags.Approve,
-      args: [],
-      description: 'd1',
+      args: {},
     },
     t1: {
       uid: 't1',
       transactionQueueUid: 'tq0',
       status: types.TransactionStatus.Idle,
       tag: types.PolyTransactionTags.CreateCheckpoint,
-      args: [1, 2, 3],
-      description: 'd2',
+      args: {
+        a: 1,
+        b: 2,
+        c: 3,
+      },
     },
     t2: {
       uid: 't2',
       transactionQueueUid: 'tq1',
       status: types.TransactionStatus.Idle,
       tag: types.PolyTransactionTags.Approve,
-      args: [1, 2, 3],
-      description: 'd3',
+      args: {
+        a: 1,
+        b: 2,
+        c: 3,
+      },
     },
   },
   allIds: ['t0', 't1', 't2'],
@@ -123,14 +129,14 @@ const transactionQueues = {
     tq0: {
       uid: 'tq0',
       status: types.TransactionQueueStatus.Idle,
-      procedureType: 'someProcedure',
-      description: 'd0',
+      procedureType: types.ProcedureTypes.UnnamedProcedure,
+      args: {},
     },
     tq1: {
       uid: 'tq1',
       status: types.TransactionQueueStatus.Idle,
-      procedureType: 'anotherProcedure',
-      description: 'd1',
+      procedureType: types.ProcedureTypes.UnnamedProcedure,
+      args: {},
     },
   },
   allIds: ['tq0', 'tq1'],
@@ -146,9 +152,12 @@ const entitiesState: EntitiesState = {
 
 const dataRequestsState = {
   [RequestKeys.GetCheckpointsBySymbol]: {
-    [utils.hashObj(requestArgs[0])]: ['c0'],
-    [utils.hashObj(requestArgs[1])]: ['c1'],
-    [utils.hashObj(requestArgs[2])]: ['c0', 'c1'],
+    [utils.hashObj(requestArgs[0])]: { fetching: false, fetchedIds: ['c0'] },
+    [utils.hashObj(requestArgs[1])]: { fetching: false, fetchedIds: ['c1'] },
+    [utils.hashObj(requestArgs[2])]: {
+      fetching: false,
+      fetchedIds: ['c0', 'c1'],
+    },
   },
   [RequestKeys.GetCheckpointBySymbolAndId]: {},
   [RequestKeys.GetSecurityTokenBySymbol]: {},
@@ -166,35 +175,35 @@ const mockState: RootState = {
 
 describe('Selectors', () => {
   test('appSelector should return the app state', () => {
-    expect(appSelector(mockState)).toEqual(appState);
+    expect(getApp(mockState)).toEqual(appState);
   });
 
-  test('entitiesSelector should return the entities state', () => {
-    expect(entitiesSelector(mockState)).toEqual(entitiesState);
+  test('getEntities should return the entities state', () => {
+    expect(getEntities(mockState)).toEqual(entitiesState);
   });
 
-  test('dataRequestsSelector should return the data requests state', () => {
-    expect(dataRequestsSelector(mockState)).toEqual(dataRequestsState);
+  test('getDataRequests should return the data requests state', () => {
+    expect(getDataRequests(mockState)).toEqual(dataRequestsState);
   });
 
-  test('sessionSelector should return the session state', () => {
-    expect(sessionSelector(mockState)).toEqual(sessionState);
+  test('getSession should return the session state', () => {
+    expect(getSession(mockState)).toEqual(sessionState);
   });
 
-  test('activeTransactionQueueIdSelector should return the active transaction queue id', () => {
-    expect(activeTransactionQueueIdSelector(mockState)).toBe(
+  test('getActiveTransactionQueueId should return the active transaction queue id', () => {
+    expect(getActiveTransactionQueueId(mockState)).toBe(
       appState.activeTransactionQueue
     );
   });
 
-  test('transactionQueuesSelector should return the transaction queue entities', () => {
-    expect(transactionQueuesSelector(mockState)).toEqual(
+  test('getTransactionQueues should return the transaction queue entities', () => {
+    expect(getTransactionQueues(mockState)).toEqual(
       entitiesState.transactionQueues
     );
   });
 
-  test('transactionsSelector should return the transaction entities', () => {
-    expect(transactionsSelector(mockState)).toEqual(entitiesState.transactions);
+  test('getTransactions should return the transaction entities', () => {
+    expect(getTransactions(mockState)).toEqual(entitiesState.transactions);
   });
 
   describe('selector creator: createGetActiveTransactionQueue', () => {
@@ -426,6 +435,40 @@ not passing two fetchers with the same `requestKey` and arguments';
           mustBeFetched: true,
         },
       ]);
+    });
+  });
+
+  describe('Selector creator: createGetLoadingStatus', () => {
+    test('should return true if data is being fetched', () => {
+      const fetchingState = {
+        ...mockState,
+        dataRequests: {
+          ...dataRequestsState,
+          [RequestKeys.GetCheckpointsBySymbol]: {
+            ...dataRequestsState[RequestKeys.GetCheckpointsBySymbol],
+            [utils.hashObj(requestArgs[0])]: {
+              fetching: true,
+              fetchedIds: ['c0'],
+            },
+          },
+        },
+      };
+
+      expect(
+        createGetLoadingStatus()(fetchingState, { fetchers: [fetcher1] })
+      ).toEqual(true);
+    });
+
+    test('should return false if no fetchers are passed', () => {
+      expect(createGetLoadingStatus()(mockState, { fetchers: [] })).toEqual(
+        false
+      );
+    });
+
+    test('should return false if all data has been loaded', () => {
+      expect(
+        createGetLoadingStatus()(mockState, { fetchers: [fetcher1] })
+      ).toEqual(false);
     });
   });
 });

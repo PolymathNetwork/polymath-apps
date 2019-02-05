@@ -159,7 +159,7 @@ export const importWhitelist = () => async (
   }
   if (setAccreditedInvestorsData) {
     titles.push('Updating accredited investors');
-    titles.push('Updating non accredited investors limits');
+    titles.push('Updating non-accredited investors limits');
   }
 
   dispatch(
