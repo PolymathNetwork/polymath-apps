@@ -40,10 +40,8 @@ export const Presenter = ({ symbol, dividends }: Props) => (
       </Fragment>
     ) : (
       <sc.PlaceholderButton
-        as={Link}
+        RouterLink={Link}
         href={`/securityTokens/${symbol}/dividends`}
-        variant="ghost"
-        iconPosition="top"
       >
         <IconOutlined
           Asset={icons.SvgPlus}

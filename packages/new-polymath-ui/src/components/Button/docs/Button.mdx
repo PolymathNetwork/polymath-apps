@@ -8,6 +8,10 @@ import { PropsTable, Playground } from 'docz';
 import { Grid } from '~/components/Grid';
 import { ButtonSmall } from '~/components/ButtonSmall';
 import { ButtonLarge } from '~/components/ButtonLarge';
+import { ButtonLink } from '~/components/ButtonLink';
+import { Link } from '~/components/Link';
+import { Icon } from '~/components/Icon';
+import { SvgPlus } from '~/images/icons/Plus';
 import { Button } from '../Button';
 
 # Button
@@ -23,8 +27,15 @@ import { Button } from '../Button';
     <Button variant="ghost">Click me</Button>
     <ButtonSmall>Click me</ButtonSmall>
     <ButtonLarge disabled>Click me</ButtonLarge>
-    <Button as="a" href="http://www.google.com">
+    <Button variant="ghost" iconPosition="left">
+      <Icon Asset={SvgPlus} />
+      Click me
+    </Button>
+    <Button as="a" href="http://www.google.com" variant="ghost">
       As link
     </Button>
+    <ButtonLink RouterLink={Link} href="http://www.google.com" variant="ghost">
+      As Link
+    </ButtonLink>
   </Grid>
 </Playground>

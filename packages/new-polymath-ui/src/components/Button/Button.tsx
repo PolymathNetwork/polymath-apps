@@ -38,11 +38,11 @@ const getIconStyle = (position: IconPosition) =>
     right: 'left',
   }[position]);
 
-const EnhancedButton = styled.button.attrs<ButtonProps>({
+const EnhancedButton = styled.button.attrs<ButtonProps>(({ href }) => ({
   tabIndex: 0,
-  role: (props: ButtonProps) => (props.href ? 'button' : undefined),
-  type: (props: ButtonProps) => (props.href ? undefined : 'button'),
-})<ButtonProps>`
+  role: href ? 'button' : undefined,
+  type: href ? undefined : 'button',
+}))<ButtonProps>`
   position: relative;
   display: inline-flex;
   justify-content: center;
@@ -56,7 +56,7 @@ const EnhancedButton = styled.button.attrs<ButtonProps>({
   outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
-  line-height: 1;
+  line-height: ${({ theme }) => theme.lineHeights.tight};
   transition-duration: ${({ theme }) => theme.transitions.hover.ms}ms;
   transition-property: background, color, border-color;
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
