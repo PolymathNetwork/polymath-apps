@@ -25,6 +25,7 @@ import { Entity } from '~/entities/Entity';
 import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
 import { PolymathNetworkParams } from '~/types';
+import { constants } from '@polymathnetwork/new-shared';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -59,25 +60,7 @@ export class Polymath {
   private context: Context = {} as Context;
   private entities: ContextualizedEntities;
 
-  constructor(params: PolymathNetworkParams) {
-    const { polymathRegistryAddress, httpProvider, httpProviderUrl } = params;
-    this.polymathRegistryAddress = polymathRegistryAddress;
-
-    if (httpProvider) {
-      this.httpProvider = httpProvider;
-    }
-    if (httpProviderUrl) {
-      this.httpProviderUrl = httpProviderUrl;
-    }
-
-    if (this.httpProvider) {
-      this.lowLevel = new LowLevel({ provider: this.httpProvider });
-    } else if (this.httpProviderUrl) {
-      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
-    } else {
-      this.lowLevel = new LowLevel();
-    }
-
+  constructor() {
     // TODO @RafaelVidaurre: type this correctly
     this.entities = {
       SecurityToken: createContextualizedEntity(SecurityToken as any, this),
@@ -90,11 +73,27 @@ export class Polymath {
     };
   }
 
-  public connect = async () => {
-    const { lowLevel, polymathRegistryAddress } = this;
+  public connect = async ({
+    polymathRegistryAddress,
+    httpProvider,
+    httpProviderUrl,
+  }: PolymathNetworkParams) => {
+    this.polymathRegistryAddress = polymathRegistryAddress;
 
-    this.networkId = await lowLevel.getNetworkId();
-    const account = await lowLevel.getAccount();
+    if (httpProvider) {
+      this.httpProvider = httpProvider;
+      this.lowLevel = new LowLevel({ provider: this.httpProvider });
+    } else if (httpProviderUrl) {
+      this.httpProviderUrl = httpProviderUrl;
+      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
+    } else {
+      this.lowLevel = new LowLevel();
+    }
+
+    this.polymathRegistryAddress = polymathRegistryAddress;
+
+    this.networkId = await this.lowLevel.getNetworkId();
+    const account = await this.lowLevel.getAccount();
 
     if (!polymathRegistryAddress) {
       throw new Error(
@@ -119,7 +118,7 @@ export class Polymath {
       securityTokenRegistry: this.lowLevel
         .securityTokenRegistry as SecurityTokenRegistry,
       moduleRegistry: this.lowLevel.moduleRegistry as ModuleRegistry,
-      isTestnet: lowLevel.isTestnet(),
+      isTestnet: this.lowLevel.isTestnet(),
       accountAddress: account,
     });
 

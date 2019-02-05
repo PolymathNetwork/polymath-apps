@@ -3,9 +3,9 @@ import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import * as sagas from '~/state/sagas/accessControl';
 import { MockedStore, mockEthereumBrowser } from '~/testUtils/helpers';
 
-jest.mock('~/lib/polymath', () => ({
+jest.mock('~/lib/polyClient', () => ({
   polyClient: {
-    connect: () => { },
+    connect: () => {},
   },
 }));
 
@@ -16,7 +16,7 @@ jest.mock('@polymathnetwork/sdk', () => {
     browserUtils: {
       getCurrentAddress: jest.fn(),
       onAddressChange() {
-        return () => { };
+        return () => {};
       },
       enableWallet: jest.fn(),
     },

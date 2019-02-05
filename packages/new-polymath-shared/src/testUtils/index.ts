@@ -38,7 +38,7 @@ export function mockEthereumBrowser({
   if (support === 'modern') {
     window = (Object.assign(window, {
       ethereum: {
-        networkVersion: loaded ? `${networkId}` : 'loading',
+        networkVersion: loaded ? `${networkId}` : undefined,
       },
     }) as any) as WindowWithEthereum;
   }
