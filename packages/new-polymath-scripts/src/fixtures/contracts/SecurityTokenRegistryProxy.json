@@ -318,14 +318,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/SecurityTokenRegistryProxy.sol",
     "exportedSymbols": {
       "SecurityTokenRegistryProxy": [
-        40513
+        40525
       ]
     },
-    "id": 40514,
+    "id": 40526,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40506,
+        "id": 40518,
         "literals": [
           "solidity",
           "^",
@@ -338,10 +338,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/EternalStorage.sol",
         "file": "../storage/EternalStorage.sol",
-        "id": 40507,
+        "id": 40519,
         "nodeType": "ImportDirective",
-        "scope": 40514,
-        "sourceUnit": 41332,
+        "scope": 40526,
+        "sourceUnit": 41344,
         "src": "26:39:98",
         "symbolAliases": [],
         "unitAlias": ""
@@ -349,10 +349,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedUpgradeabilityProxy.sol",
         "file": "./OwnedUpgradeabilityProxy.sol",
-        "id": 40508,
+        "id": 40520,
         "nodeType": "ImportDirective",
-        "scope": 40514,
-        "sourceUnit": 40474,
+        "scope": 40526,
+        "sourceUnit": 40486,
         "src": "66:40:98",
         "symbolAliases": [],
         "unitAlias": ""
@@ -363,17 +363,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40509,
+              "id": 40521,
               "name": "EternalStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41331,
+              "referencedDeclaration": 41343,
               "src": "537:14:98",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_EternalStorage_$41331",
+                "typeIdentifier": "t_contract$_EternalStorage_$41343",
                 "typeString": "contract EternalStorage"
               }
             },
-            "id": 40510,
+            "id": 40522,
             "nodeType": "InheritanceSpecifier",
             "src": "537:14:98"
           },
@@ -381,42 +381,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40511,
+              "id": 40523,
               "name": "OwnedUpgradeabilityProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40473,
+              "referencedDeclaration": 40485,
               "src": "553:24:98",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40473",
+                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40485",
                 "typeString": "contract OwnedUpgradeabilityProxy"
               }
             },
-            "id": 40512,
+            "id": 40524,
             "nodeType": "InheritanceSpecifier",
             "src": "553:24:98"
           }
         ],
         "contractDependencies": [
-          40473,
-          40504,
-          40647,
-          41331
+          40485,
+          40516,
+          40659,
+          41343
         ],
         "contractKind": "contract",
         "documentation": "@title SecurityTokenRegistryProxy\n@dev This proxy holds the storage of the SecurityTokenRegistry contract and delegates every call to the current implementation set.\nBesides, it allows to upgrade the SecurityTokenRegistry's behaviour towards further implementations, and provides basic\nauthorization control functionalities",
         "fullyImplemented": true,
-        "id": 40513,
+        "id": 40525,
         "linearizedBaseContracts": [
-          40513,
-          40473,
-          40647,
-          40504,
-          41331
+          40525,
+          40485,
+          40659,
+          40516,
+          41343
         ],
         "name": "SecurityTokenRegistryProxy",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 40514,
+        "scope": 40526,
         "src": "498:84:98"
       }
     ],
@@ -426,14 +426,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/SecurityTokenRegistryProxy.sol",
     "exportedSymbols": {
       "SecurityTokenRegistryProxy": [
-        40513
+        40525
       ]
     },
-    "id": 40514,
+    "id": 40526,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40506,
+        "id": 40518,
         "literals": [
           "solidity",
           "^",
@@ -446,10 +446,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/EternalStorage.sol",
         "file": "../storage/EternalStorage.sol",
-        "id": 40507,
+        "id": 40519,
         "nodeType": "ImportDirective",
-        "scope": 40514,
-        "sourceUnit": 41332,
+        "scope": 40526,
+        "sourceUnit": 41344,
         "src": "26:39:98",
         "symbolAliases": [],
         "unitAlias": ""
@@ -457,10 +457,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedUpgradeabilityProxy.sol",
         "file": "./OwnedUpgradeabilityProxy.sol",
-        "id": 40508,
+        "id": 40520,
         "nodeType": "ImportDirective",
-        "scope": 40514,
-        "sourceUnit": 40474,
+        "scope": 40526,
+        "sourceUnit": 40486,
         "src": "66:40:98",
         "symbolAliases": [],
         "unitAlias": ""
@@ -471,17 +471,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40509,
+              "id": 40521,
               "name": "EternalStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41331,
+              "referencedDeclaration": 41343,
               "src": "537:14:98",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_EternalStorage_$41331",
+                "typeIdentifier": "t_contract$_EternalStorage_$41343",
                 "typeString": "contract EternalStorage"
               }
             },
-            "id": 40510,
+            "id": 40522,
             "nodeType": "InheritanceSpecifier",
             "src": "537:14:98"
           },
@@ -489,42 +489,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40511,
+              "id": 40523,
               "name": "OwnedUpgradeabilityProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40473,
+              "referencedDeclaration": 40485,
               "src": "553:24:98",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40473",
+                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40485",
                 "typeString": "contract OwnedUpgradeabilityProxy"
               }
             },
-            "id": 40512,
+            "id": 40524,
             "nodeType": "InheritanceSpecifier",
             "src": "553:24:98"
           }
         ],
         "contractDependencies": [
-          40473,
-          40504,
-          40647,
-          41331
+          40485,
+          40516,
+          40659,
+          41343
         ],
         "contractKind": "contract",
         "documentation": "@title SecurityTokenRegistryProxy\n@dev This proxy holds the storage of the SecurityTokenRegistry contract and delegates every call to the current implementation set.\nBesides, it allows to upgrade the SecurityTokenRegistry's behaviour towards further implementations, and provides basic\nauthorization control functionalities",
         "fullyImplemented": true,
-        "id": 40513,
+        "id": 40525,
         "linearizedBaseContracts": [
-          40513,
-          40473,
-          40647,
-          40504,
-          41331
+          40525,
+          40485,
+          40659,
+          40516,
+          41343
         ],
         "name": "SecurityTokenRegistryProxy",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 40514,
+        "scope": 40526,
         "src": "498:84:98"
       }
     ],
@@ -578,5 +578,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.450Z"
+  "updatedAt": "2019-02-05T23:15:00.298Z"
 }

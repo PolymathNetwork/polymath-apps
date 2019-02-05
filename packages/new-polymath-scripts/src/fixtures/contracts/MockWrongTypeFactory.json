@@ -652,7 +652,7 @@
           15125,
           19522,
           26033,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Mock Contract Not fit for production environment",
@@ -663,7 +663,7 @@
           15125,
           19522,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "MockWrongTypeFactory",
@@ -1263,7 +1263,7 @@
           15125,
           19522,
           26033,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Mock Contract Not fit for production environment",
@@ -1274,7 +1274,7 @@
           15125,
           19522,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "MockWrongTypeFactory",
@@ -1800,5 +1800,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.586Z"
+  "updatedAt": "2019-02-05T23:14:22.798Z"
 }

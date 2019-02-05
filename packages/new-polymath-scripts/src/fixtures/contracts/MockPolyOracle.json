@@ -704,7 +704,7 @@
         "id": 15339,
         "nodeType": "ImportDirective",
         "scope": 15353,
-        "sourceUnit": 40034,
+        "sourceUnit": 40046,
         "src": "26:35:36",
         "symbolAliases": [],
         "unitAlias": ""
@@ -718,10 +718,10 @@
               "id": 15340,
               "name": "PolyOracle",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40033,
+              "referencedDeclaration": 40045,
               "src": "90:10:36",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_PolyOracle_$40033",
+                "typeIdentifier": "t_contract$_PolyOracle_$40045",
                 "typeString": "contract PolyOracle"
               }
             },
@@ -733,8 +733,8 @@
         "contractDependencies": [
           10228,
           11079,
-          40033,
-          44293
+          40045,
+          44305
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -742,8 +742,8 @@
         "id": 15352,
         "linearizedBaseContracts": [
           15352,
-          40033,
-          44293,
+          40045,
+          44305,
           11079,
           10228
         ],
@@ -906,7 +906,7 @@
         "id": 15339,
         "nodeType": "ImportDirective",
         "scope": 15353,
-        "sourceUnit": 40034,
+        "sourceUnit": 40046,
         "src": "26:35:36",
         "symbolAliases": [],
         "unitAlias": ""
@@ -920,10 +920,10 @@
               "id": 15340,
               "name": "PolyOracle",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40033,
+              "referencedDeclaration": 40045,
               "src": "90:10:36",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_PolyOracle_$40033",
+                "typeIdentifier": "t_contract$_PolyOracle_$40045",
                 "typeString": "contract PolyOracle"
               }
             },
@@ -935,8 +935,8 @@
         "contractDependencies": [
           10228,
           11079,
-          40033,
-          44293
+          40045,
+          44305
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -944,8 +944,8 @@
         "id": 15352,
         "linearizedBaseContracts": [
           15352,
-          40033,
-          44293,
+          40045,
+          44305,
           11079,
           10228
         ],
@@ -1087,5 +1087,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.585Z"
+  "updatedAt": "2019-02-05T23:14:22.795Z"
 }

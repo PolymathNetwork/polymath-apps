@@ -287,7 +287,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44940,
+                        "referencedDeclaration": 44952,
                         "src": "270:5:59",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_IWallet_$23390",
@@ -393,7 +393,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44940,
+                        "referencedDeclaration": 44952,
                         "src": "343:5:59",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_IWallet_$23390",
@@ -608,7 +608,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44940,
+                        "referencedDeclaration": 44952,
                         "src": "270:5:59",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_IWallet_$23390",
@@ -714,7 +714,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44940,
+                        "referencedDeclaration": 44952,
                         "src": "343:5:59",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_IWallet_$23390",
@@ -815,5 +815,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.685Z"
+  "updatedAt": "2019-02-05T23:14:22.876Z"
 }

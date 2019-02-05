@@ -640,7 +640,7 @@
           10968,
           26033,
           35281,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying ManualApprovalTransferManager module",
@@ -649,7 +649,7 @@
         "linearizedBaseContracts": [
           35473,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "ManualApprovalTransferManagerFactory",
@@ -1734,7 +1734,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1369:3:84",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -1761,7 +1761,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1381:5:84",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -1872,10 +1872,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1338:7:84",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1945,7 +1945,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1545:3:84",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2164,7 +2164,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44985,
+                            "referencedDeclaration": 44997,
                             "src": "1731:4:84",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ManualApprovalTransferManagerFactory_$35473",
@@ -2214,7 +2214,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1738:3:84",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2254,7 +2254,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1761:3:84",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3292,7 +3292,7 @@
           10968,
           26033,
           35281,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying ManualApprovalTransferManager module",
@@ -3301,7 +3301,7 @@
         "linearizedBaseContracts": [
           35473,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "ManualApprovalTransferManagerFactory",
@@ -4386,7 +4386,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1369:3:84",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -4413,7 +4413,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1381:5:84",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -4524,10 +4524,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1338:7:84",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4597,7 +4597,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1545:3:84",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4816,7 +4816,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44985,
+                            "referencedDeclaration": 44997,
                             "src": "1731:4:84",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ManualApprovalTransferManagerFactory_$35473",
@@ -4866,7 +4866,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1738:3:84",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4906,7 +4906,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1761:3:84",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -5889,5 +5889,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.437Z"
+  "updatedAt": "2019-02-05T23:15:00.269Z"
 }

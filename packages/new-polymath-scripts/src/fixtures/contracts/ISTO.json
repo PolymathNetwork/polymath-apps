@@ -419,7 +419,7 @@
         "id": 28452,
         "nodeType": "ImportDirective",
         "scope": 28631,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "145:59:72",
         "symbolAliases": [],
         "unitAlias": ""
@@ -510,10 +510,10 @@
               "id": 28459,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "331:8:72",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -743,10 +743,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "752:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -903,7 +903,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44875,
+                            "referencedDeclaration": 44887,
                             "src": "907:4:72",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ISTO_$28630",
@@ -1012,7 +1012,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44760,
+                              "referencedDeclaration": 44772,
                               "src": "946:3:72",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -1133,10 +1133,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "923:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1495,7 +1495,7 @@
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44762,
+                          "referencedDeclaration": 44774,
                           "src": "1508:3:72",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -1557,10 +1557,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1500:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1597,7 +1597,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44876,
+                        "referencedDeclaration": 44888,
                         "src": "1558:5:72",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_ISTO_$28630",
@@ -1703,7 +1703,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44876,
+                        "referencedDeclaration": 44888,
                         "src": "1692:5:72",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_ISTO_$28630",
@@ -1901,10 +1901,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1888:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2829,7 +2829,7 @@
         "id": 28452,
         "nodeType": "ImportDirective",
         "scope": 28631,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "145:59:72",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2920,10 +2920,10 @@
               "id": 28459,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "331:8:72",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -3153,10 +3153,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "752:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3313,7 +3313,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44875,
+                            "referencedDeclaration": 44887,
                             "src": "907:4:72",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ISTO_$28630",
@@ -3422,7 +3422,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44760,
+                              "referencedDeclaration": 44772,
                               "src": "946:3:72",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -3543,10 +3543,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "923:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3905,7 +3905,7 @@
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44762,
+                          "referencedDeclaration": 44774,
                           "src": "1508:3:72",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -3967,10 +3967,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1500:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4007,7 +4007,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44876,
+                        "referencedDeclaration": 44888,
                         "src": "1558:5:72",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_ISTO_$28630",
@@ -4113,7 +4113,7 @@
                         "name": "super",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44876,
+                        "referencedDeclaration": 44888,
                         "src": "1692:5:72",
                         "typeDescriptions": {
                           "typeIdentifier": "t_super$_ISTO_$28630",
@@ -4311,10 +4311,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1888:7:72",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5174,5 +5174,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.839Z"
+  "updatedAt": "2019-02-05T23:14:23.042Z"
 }

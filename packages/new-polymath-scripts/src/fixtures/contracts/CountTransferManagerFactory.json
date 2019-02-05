@@ -651,7 +651,7 @@
           10968,
           26033,
           32494,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying CountTransferManager module",
@@ -660,7 +660,7 @@
         "linearizedBaseContracts": [
           32709,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "CountTransferManagerFactory",
@@ -1745,7 +1745,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1263:3:79",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -1772,7 +1772,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1275:5:79",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -1883,10 +1883,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1232:7:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1958,7 +1958,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1433:3:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2251,10 +2251,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1474:7:79",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2420,10 +2420,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1648:7:79",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2542,7 +2542,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44973,
+                            "referencedDeclaration": 44985,
                             "src": "1873:4:79",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_CountTransferManagerFactory_$32709",
@@ -2592,7 +2592,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1880:3:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2632,7 +2632,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1903:3:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3681,7 +3681,7 @@
           10968,
           26033,
           32494,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying CountTransferManager module",
@@ -3690,7 +3690,7 @@
         "linearizedBaseContracts": [
           32709,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "CountTransferManagerFactory",
@@ -4775,7 +4775,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1263:3:79",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -4802,7 +4802,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1275:5:79",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -4913,10 +4913,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1232:7:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4988,7 +4988,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1433:3:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5281,10 +5281,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1474:7:79",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5450,10 +5450,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1648:7:79",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5572,7 +5572,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44973,
+                            "referencedDeclaration": 44985,
                             "src": "1873:4:79",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_CountTransferManagerFactory_$32709",
@@ -5622,7 +5622,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1880:3:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5662,7 +5662,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1903:3:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -6645,5 +6645,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.320Z"
+  "updatedAt": "2019-02-05T23:15:00.215Z"
 }

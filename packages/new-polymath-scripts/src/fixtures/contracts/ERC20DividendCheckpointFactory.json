@@ -617,7 +617,7 @@
         "id": 18161,
         "nodeType": "ImportDirective",
         "scope": 18395,
-        "sourceUnit": 40079,
+        "sourceUnit": 40091,
         "src": "26:54:46",
         "symbolAliases": [],
         "unitAlias": ""
@@ -679,8 +679,8 @@
         "contractDependencies": [
           10968,
           26033,
-          40078,
-          44293
+          40090,
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying ERC20DividendCheckpoint module",
@@ -689,7 +689,7 @@
         "linearizedBaseContracts": [
           18394,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "ERC20DividendCheckpointFactory",
@@ -853,10 +853,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "931:7:46",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2026,7 +2026,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1711:3:46",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -2053,7 +2053,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1723:5:46",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -2164,10 +2164,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1680:7:46",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2237,7 +2237,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1843:3:46",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2346,7 +2346,7 @@
                       "nodeType": "NewExpression",
                       "src": "1810:32:46",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_ERC20DividendCheckpointProxy_$40078_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_ERC20DividendCheckpointProxy_$40090_$",
                         "typeString": "function (address,address,address) returns (contract ERC20DividendCheckpointProxy)"
                       },
                       "typeName": {
@@ -2354,10 +2354,10 @@
                         "id": 18275,
                         "name": "ERC20DividendCheckpointProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40078,
+                        "referencedDeclaration": 40090,
                         "src": "1814:28:46",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40078",
+                          "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40090",
                           "typeString": "contract ERC20DividendCheckpointProxy"
                         }
                       }
@@ -2372,7 +2372,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1810:79:46",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40078",
+                      "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40090",
                       "typeString": "contract ERC20DividendCheckpointProxy"
                     }
                   },
@@ -2583,10 +2583,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1972:7:46",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2714,10 +2714,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "2142:7:46",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2798,7 +2798,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44917,
+                            "referencedDeclaration": 44929,
                             "src": "2356:4:46",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ERC20DividendCheckpointFactory_$18394",
@@ -2848,7 +2848,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2363:3:46",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2888,7 +2888,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2386:3:46",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3930,7 +3930,7 @@
         "id": 18161,
         "nodeType": "ImportDirective",
         "scope": 18395,
-        "sourceUnit": 40079,
+        "sourceUnit": 40091,
         "src": "26:54:46",
         "symbolAliases": [],
         "unitAlias": ""
@@ -3992,8 +3992,8 @@
         "contractDependencies": [
           10968,
           26033,
-          40078,
-          44293
+          40090,
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying ERC20DividendCheckpoint module",
@@ -4002,7 +4002,7 @@
         "linearizedBaseContracts": [
           18394,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "ERC20DividendCheckpointFactory",
@@ -4166,10 +4166,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "931:7:46",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5339,7 +5339,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1711:3:46",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -5366,7 +5366,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1723:5:46",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -5477,10 +5477,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1680:7:46",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5550,7 +5550,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1843:3:46",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5659,7 +5659,7 @@
                       "nodeType": "NewExpression",
                       "src": "1810:32:46",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_ERC20DividendCheckpointProxy_$40078_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_ERC20DividendCheckpointProxy_$40090_$",
                         "typeString": "function (address,address,address) returns (contract ERC20DividendCheckpointProxy)"
                       },
                       "typeName": {
@@ -5667,10 +5667,10 @@
                         "id": 18275,
                         "name": "ERC20DividendCheckpointProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40078,
+                        "referencedDeclaration": 40090,
                         "src": "1814:28:46",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40078",
+                          "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40090",
                           "typeString": "contract ERC20DividendCheckpointProxy"
                         }
                       }
@@ -5685,7 +5685,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1810:79:46",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40078",
+                      "typeIdentifier": "t_contract$_ERC20DividendCheckpointProxy_$40090",
                       "typeString": "contract ERC20DividendCheckpointProxy"
                     }
                   },
@@ -5896,10 +5896,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1972:7:46",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -6027,10 +6027,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "2142:7:46",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -6111,7 +6111,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44917,
+                            "referencedDeclaration": 44929,
                             "src": "2356:4:46",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ERC20DividendCheckpointFactory_$18394",
@@ -6161,7 +6161,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2363:3:46",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -6201,7 +6201,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2386:3:46",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -7229,5 +7229,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.367Z"
+  "updatedAt": "2019-02-05T23:15:00.254Z"
 }

@@ -221,7 +221,7 @@
         ],
         "contractDependencies": [
           1693,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Core functionality for registry upgradability",
@@ -230,7 +230,7 @@
         "linearizedBaseContracts": [
           1645,
           1693,
-          44293
+          44305
         ],
         "name": "PolymathRegistry",
         "nodeType": "ContractDefinition",
@@ -481,7 +481,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44754,
+                      "referencedDeclaration": 44766,
                       "src": "569:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -658,10 +658,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "605:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -920,7 +920,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44754,
+                      "referencedDeclaration": 44766,
                       "src": "1006:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -1149,7 +1149,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 44241,
+                  "referencedDeclaration": 44253,
                   "src": "972:9:4",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1296,7 +1296,7 @@
         ],
         "contractDependencies": [
           1693,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Core functionality for registry upgradability",
@@ -1305,7 +1305,7 @@
         "linearizedBaseContracts": [
           1645,
           1693,
-          44293
+          44305
         ],
         "name": "PolymathRegistry",
         "nodeType": "ContractDefinition",
@@ -1556,7 +1556,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44754,
+                      "referencedDeclaration": 44766,
                       "src": "569:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -1733,10 +1733,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "605:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1995,7 +1995,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44754,
+                      "referencedDeclaration": 44766,
                       "src": "1006:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -2224,7 +2224,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 44241,
+                  "referencedDeclaration": 44253,
                   "src": "972:9:4",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2381,5 +2381,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.299Z"
+  "updatedAt": "2019-02-05T23:15:00.128Z"
 }
