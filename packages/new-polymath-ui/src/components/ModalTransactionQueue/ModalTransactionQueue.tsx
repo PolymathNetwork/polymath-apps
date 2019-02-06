@@ -7,8 +7,8 @@ import { Paragraph } from '~/components/Paragraph';
 import { Flex } from '~/components/Flex';
 import { Box } from '~/components/Box';
 import { Modal, ModalStatus } from '~/components/Modal';
-import { getTransactionQueueText } from '~/components/utils/contentMappings';
 import { TransactionItem } from './TransactionItem';
+import { getTransactionQueueTitle } from '~/components/utils/contentMappings';
 
 type ModalProps = typeHelpers.Omit<
   typeHelpers.GetProps<typeof Modal>,
@@ -34,20 +34,13 @@ const getLabelText = (status: ModalStatus) =>
     [ModalStatus.Success]: 'Completed',
   }[status]);
 
-const getTitleText = (status: ModalStatus, title: string) =>
-  ({
-    [ModalStatus.Idle]: `Proceed with ${title}`,
-    [ModalStatus.Loading]: `Proceed with ${title}`,
-    [ModalStatus.Warning]: `An error occured with ${title}`,
-    [ModalStatus.Alert]: `An error occured with ${title}`,
-    [ModalStatus.Success]: `${title} was successfully submitted`,
-  }[status]);
-
 export interface ModalTransactionQueueProps extends ModalProps {
   transactionQueue: types.TransactionQueuePojo;
   onContinue: () => void;
   withEmail?: boolean;
   continueButtonText?: string;
+  getTitle: (queue: types.TransactionQueuePojo) => string;
+  getTransactionTitle?: (transaction: types.TransactionPojo) => string;
 }
 
 export class ModalTransactionQueue extends Component<
@@ -55,6 +48,7 @@ export class ModalTransactionQueue extends Component<
 > {
   public static defaultProps = {
     continueButtonText: 'Continue',
+    getTitle: getTransactionQueueTitle,
   };
 
   public render() {
@@ -64,6 +58,8 @@ export class ModalTransactionQueue extends Component<
       isOpen,
       continueButtonText,
       onContinue,
+      getTitle,
+      getTransactionTitle,
     } = this.props;
 
     const { transactions, status } = transactionQueue;
@@ -83,14 +79,15 @@ export class ModalTransactionQueue extends Component<
           status={modalStatus}
           label={'Transaction ' + getLabelText(modalStatus)}
         >
-          {getTitleText(
-            modalStatus,
-            getTransactionQueueText(transactionQueue).title
-          )}
+          {getTitle(transactionQueue)}
         </Modal.Header>
 
         {transactions.map(transaction => (
-          <TransactionItem key={transaction.uid} transaction={transaction} />
+          <TransactionItem
+            key={transaction.uid}
+            transaction={transaction}
+            getTitle={getTransactionTitle}
+          />
         ))}
 
         {isSuccess && withEmail && (

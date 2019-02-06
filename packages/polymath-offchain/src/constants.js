@@ -37,6 +37,8 @@ type Environment = {|
   DEPLOYMENT_STAGE: string,
   MONGODB_URI: string,
   SENDGRID_API_KEY?: string,
+  CRITICAL_RETRIES: string,
+  OPTIONAL_RETRIES: string,
 |};
 
 const env = cleanEnvironment<Environment>(process.env, [
@@ -68,8 +70,8 @@ export const MONGODB_URI = env.MONGODB_URI;
 export const NODE_ENV = env.NODE_ENV;
 export const DEPLOYMENT_STAGE = env.DEPLOYMENT_STAGE;
 
-const CRITICAL_RETRIES = 5; // Amount of retries for mandatory connections
-const OPTIONAL_RETRIES = 0; // Amount of retries for optional (testing) connections
+const CRITICAL_RETRIES = parseInt(env.CRITICAL_RETRIES, 10);
+const OPTIONAL_RETRIES = parseInt(env.OPTIONAL_RETRIES, 10);
 
 /**
   Blockchain network params

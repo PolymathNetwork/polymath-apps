@@ -2,6 +2,7 @@
 
 import React from 'react';
 import moment from 'moment';
+import { format } from '@polymathnetwork/shared/utils';
 
 import { EmailWrapper, EtherscanURL } from './EmailWrapper';
 import { POLYMATH_ISSUER_URL, POLYMATH_OFFCHAIN_URL } from '../constants';
@@ -17,14 +18,6 @@ type Props = {|
   networkId: string,
 |};
 
-const thousandsDelimiter = (v: number) => {
-  let [i, f] = v.toString(10).split('.');
-  return (
-    i.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-    (f ? '.' + f : '')
-  );
-};
-
 export const CappedSTOScheduled = ({
   ticker,
   start,
@@ -37,7 +30,7 @@ export const CappedSTOScheduled = ({
 }: Props) => {
   const capRate = cap / rate;
   const amountOfFunds =
-    isNaN(capRate) || capRate === Infinity ? '0' : thousandsDelimiter(capRate);
+    isNaN(capRate) || capRate === Infinity ? '0' : format.toTokens(capRate);
 
   return (
     <EmailWrapper>
@@ -82,13 +75,13 @@ export const CappedSTOScheduled = ({
         <div className="value">
           <strong>Rate</strong>
           <p>
-            {thousandsDelimiter(rate)} {ticker.toUpperCase()}
+            {format.toTokens(rate)} {ticker.toUpperCase()}
             /1 {isPolyFundraise ? 'POLY' : 'ETH'}
           </p>
         </div>
         <div className="value">
           <strong>Hardcap (in Tokens)</strong>
-          <p>{thousandsDelimiter(cap)}</p>
+          <p>{format.toTokens(cap)}</p>
         </div>
         <div className="value">
           <strong>Amount of Funds the STO Will Raise</strong>
