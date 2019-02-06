@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import { styled, css } from '~/styles';
 
 export const Table = styled.div`
   display: block;

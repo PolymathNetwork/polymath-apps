@@ -33,13 +33,11 @@ export const Demo = () => {
       Header: 'Age',
       accessor: 'age',
       width: 100,
-      aggregate: 'average',
     },
     {
       Header: 'Visits',
       accessor: 'visits',
       width: 100,
-      aggregate: 'sum',
     },
     {
       Header: 'Status',
@@ -75,8 +73,8 @@ export const Demo = () => {
       {...{
         data,
         columns,
-        debug: true,
       }}
+      selectable
     />
   );
 };
