@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import styled, { StyledComponent } from 'styled-components';
 import { variant as variantHelper } from 'styled-system';
 import { get } from 'lodash';
 import { Icon } from '~/components/Icon';
@@ -26,8 +26,15 @@ export interface ButtonProps {
    */
   href?: string;
   role?: string;
-  iconPosition?: IconPosition;
+  iconPosition: IconPosition;
   onClick: () => void;
+}
+
+interface StaticProps {
+  defaultProps: {
+    variant: ButtonProps['variant'];
+    iconPosition: ButtonProps['iconPosition'];
+  };
 }
 
 const getIconStyle = (position: IconPosition) =>
@@ -90,9 +97,9 @@ const EnhancedButton = styled.button.attrs<ButtonProps>(({ href }) => ({
   }
 `;
 
-EnhancedButton.defaultProps = {
-  variant: 'primary',
-  iconPosition: 'right',
-};
-
-export const Button = EnhancedButton;
+export const Button = Object.assign(EnhancedButton, {
+  defaultProps: {
+    variant: 'primary',
+    iconPosition: 'right',
+  },
+});
