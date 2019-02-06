@@ -195,7 +195,7 @@ const providers: Array<ServiceProvider> = [
   {
     id: 23,
     cat: 1,
-    title: 'Petros Law',
+    title: 'Petros Law Group',
     logo: '/providers/legal/petros.png',
     background: '/providers/legal/bg/img-petros.png',
     desc:
