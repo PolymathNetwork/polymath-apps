@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
-import styled, { StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 import { variant as variantHelper } from 'styled-system';
 import { get } from 'lodash';
 import { Icon } from '~/components/Icon';
@@ -28,13 +28,6 @@ export interface ButtonProps {
   role?: string;
   iconPosition: IconPosition;
   onClick: () => void;
-}
-
-interface StaticProps {
-  defaultProps: {
-    variant: ButtonProps['variant'];
-    iconPosition: ButtonProps['iconPosition'];
-  };
 }
 
 const getIconStyle = (position: IconPosition) =>
