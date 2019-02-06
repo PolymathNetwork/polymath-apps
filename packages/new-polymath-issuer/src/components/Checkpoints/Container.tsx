@@ -21,9 +21,8 @@ export class ContainerBase extends Component<Props> {
             securityTokenSymbol: symbol,
           }),
         ]}
-        render={(data: { checkpoints: types.CheckpointEntity[] }) => {
+        render={(data: { checkpoints: types.CheckpointPojo[] }) => {
           const { checkpoints } = data;
-          // TODO @monitz87: pass the actual props to the presenter when it is implemented
           return <Presenter checkpoints={checkpoints} symbol={symbol} />;
         }}
       />

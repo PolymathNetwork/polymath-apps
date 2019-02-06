@@ -4115,6 +4115,16 @@ babel-plugin-react-docgen@^2.0.0:
     babel-plugin-syntax-jsx "^6.18.0"
     lodash "^4.17.10"
 
+babel-plugin-styled-components@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.10.0.tgz#ff1f42ad2cc78c21f26b62266b8f564dbc862939"
+  integrity sha512-sQVKG8irFXx14ZfaK1bBePirfkacl3j8nZwSZK+ZjsbnadRHKQTbhXbe/RB1vT6Vgkz45E+V95LBq4KqdhZUNw==
+  dependencies:
+    "@babel/helper-annotate-as-pure" "^7.0.0"
+    "@babel/helper-module-imports" "^7.0.0"
+    babel-plugin-syntax-jsx "^6.18.0"
+    lodash "^4.17.10"
+
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -15263,6 +15273,11 @@ polymath-core@2.0.0, polymath-core@PolymathNetwork/polymath-core#83f0afa32699b69
     truffle-hdwallet-provider-privkey "0.3.0"
     web3 "1.0.0-beta.34"
 
+popper.js@^1.0.2, popper.js@^1.14.7:
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.7.tgz#e31ec06cfac6a97a53280c3e55e4e0c860e7738e"
+  integrity sha512-4q1hNvoUre/8srWsH7hnoSJ5xVmIL4qgz+s4qf2TnJIMyZFUFMGH+9vE7mXynAlHSZ/NdTmmow86muD0myUkVQ==
+
 portfinder@^1.0.9:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.20.tgz#bea68632e54b2e13ab7b0c4775e9b41bf270e44a"
@@ -19353,6 +19368,13 @@ toggle-selection@^1.0.3:
 toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
+
+tooltip.js@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/tooltip.js/-/tooltip.js-1.3.1.tgz#f14f18e4ec119c9be198d460db577969e0dc0806"
+  integrity sha512-nZQGUM3YfjUlCVw3+RqYcCubIDj5NmtPsQ6Xj1NZvii1KSnPxuQ9d6xvNgsNmsmilwhNcBOmHLhwuSDVYINm0g==
+  dependencies:
+    popper.js "^1.0.2"
 
 toposort@^1.0.0:
   version "1.0.7"

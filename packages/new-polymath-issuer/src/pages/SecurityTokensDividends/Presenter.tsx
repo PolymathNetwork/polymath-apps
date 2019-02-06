@@ -73,7 +73,7 @@ export class Presenter extends Component<Props> {
               {dividendsModule ? (
                 <Fragment>
                   <Paragraph color="inactive">
-                    <ButtonLarge kind="ghost" iconPosition="left" disabled>
+                    <ButtonLarge variant="ghost" iconPosition="left" disabled>
                       <IconCircled
                         Asset={icons.SvgCheckmark}
                         width={16}
@@ -98,7 +98,7 @@ export class Presenter extends Component<Props> {
                 </Fragment>
               ) : (
                 <ButtonLarge
-                  kind="secondary"
+                  variant="secondary"
                   onClick={this.handleEnableDividendsClick}
                 >
                   Enable

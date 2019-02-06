@@ -5,7 +5,7 @@ import { lighten } from 'polished';
 
 export interface LabelProps {
   color: string;
-  bg: string;
+  bg?: string;
 }
 
 export const Label = styled.span<LabelProps>`

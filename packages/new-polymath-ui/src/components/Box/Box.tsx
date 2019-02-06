@@ -5,6 +5,8 @@ import {
   MinWidthProps,
   maxWidth,
   MaxWidthProps,
+  width,
+  WidthProps,
   height,
   HeightProps,
   space,
@@ -16,6 +18,7 @@ import {
 export type BoxProps = StyledProps<any> &
   MinWidthProps &
   MaxWidthProps &
+  WidthProps &
   HeightProps &
   SpaceProps &
   TextAlignProps;
@@ -24,6 +27,7 @@ export const Box = styled.div<BoxProps>`
   box-sizing: border-box;
   ${minWidth};
   ${maxWidth};
+  ${width};
   ${height};
   ${textAlign};
   ${space};

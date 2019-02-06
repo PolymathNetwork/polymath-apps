@@ -15,11 +15,11 @@ import * as sc from './styles';
 import { iconSize } from './styles';
 
 export interface Props {
-  checkpoints: types.CheckpointEntity[];
+  checkpoints: types.CheckpointPojo[];
   symbol: string;
 }
 
-export const Presenter = ({ checkpoints }: Props) => {
+export const Presenter = ({ checkpoints, symbol }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
   );
@@ -63,7 +63,7 @@ export const Presenter = ({ checkpoints }: Props) => {
                           textAlign="right"
                           mr="calc(-1rem - 2px)" // Button padding
                         >
-                          <Button kind="ghost">
+                          <Button variant="ghost">
                             Ownership list <Icon Asset={icons.SvgDownload} />
                           </Button>
                         </Paragraph>
@@ -81,7 +81,7 @@ export const Presenter = ({ checkpoints }: Props) => {
                           </sc.ProgressIndicator>
                           <Checkpoint
                             checkpointIndex={checkpoint.index}
-                            symbol="A0T0"
+                            symbol={symbol}
                           />
                         </sc.Dividends>
                       </Grid.Item>
