@@ -54,6 +54,7 @@ export class ContainerBase extends Component<Props> {
 
           return (
             <Presenter
+              onCreateCheckpoint={this.createCheckpoint}
               onEnableDividends={this.enableErc20DividendsModule}
               dividendsModule={erc20DividendsModule}
             />

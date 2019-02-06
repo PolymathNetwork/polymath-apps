@@ -99,11 +99,11 @@ export const toShortAddress = (
 export const date = DateTime;
 
 export const toDateFormat = (
-  date: Date,
+  inputDate: Date,
   { format = DateTime.DATE_FULL }: { format?: DateTimeFormatOptions } = {}
-) => DateTime.fromJSDate(date).toLocaleString(format);
+) => DateTime.fromJSDate(inputDate).toLocaleString(format);
 
 export const toTimeFormat = (
-  date: Date,
+  inputDate: Date,
   { format = DateTime.TIME_SIMPLE }: { format?: DateTimeFormatOptions } = {}
-) => DateTime.fromJSDate(date).toLocaleString(format);
+) => DateTime.fromJSDate(inputDate).toLocaleString(format);

@@ -4,15 +4,27 @@ import {
   List,
   Heading,
   IconOutlined,
+  ThemeInterface,
 } from '@polymathnetwork/new-ui';
+import { StyledComponent } from 'styled-components';
 
 export const iconSize = 25;
 
-export const Container = styled(List)`
+export const Container: StyledComponent<
+  React.ReactType<any>,
+  ThemeInterface,
+  any,
+  never
+> = styled(List)`
   margin-top: 60px;
 `;
 
-export const Year = styled(Heading).attrs({
+export const Year: StyledComponent<
+  typeof Heading,
+  ThemeInterface,
+  any,
+  'variant'
+> = styled(Heading).attrs({
   variant: 'h2',
 })`
   position: absolute;
@@ -20,12 +32,22 @@ export const Year = styled(Heading).attrs({
   padding-left: ${({ theme }) => theme.space.gridGap};
 `;
 
-export const Dividends = styled(Flex)`
+export const Dividends: StyledComponent<
+  'div',
+  ThemeInterface,
+  any,
+  never
+> = styled(Flex)`
   position: relative;
   padding-left: ${({ theme }) => theme.space.gridGap};
 `;
 
-export const ProgressIndicator = styled.div<{ isLastChild: boolean }>`
+export const ProgressIndicator: StyledComponent<
+  'div',
+  ThemeInterface,
+  { isLastChild: boolean },
+  never
+> = styled.div<{ isLastChild: boolean }>`
   position: absolute;
   width: 2px;
   background-color: ${({ theme }) => theme.colors.primary};
@@ -35,9 +57,19 @@ export const ProgressIndicator = styled.div<{ isLastChild: boolean }>`
     `-${isLastChild ? theme.space[7] : theme.space.gridGap}`};
 `;
 
-export const YearCheckpoints = styled.li``;
+export const YearCheckpoints: StyledComponent<
+  'li',
+  ThemeInterface,
+  {},
+  never
+> = styled.li``;
 
-export const Checkpoints = styled.li`
+export const Checkpoints: StyledComponent<
+  'li',
+  ThemeInterface,
+  {},
+  never
+> = styled.li`
   position: relative;
 
   &:last-child ${YearCheckpoints}:last-child {
@@ -47,7 +79,14 @@ export const Checkpoints = styled.li`
   }
 `;
 
-export const StepIcon = styled(IconOutlined)`
+export const StepIcon: StyledComponent<
+  typeof IconOutlined,
+  ThemeInterface,
+  {
+    bg: string;
+  },
+  'bg'
+> = styled(IconOutlined)`
   position: absolute;
   top: -${iconSize}px;
   left: 0;
