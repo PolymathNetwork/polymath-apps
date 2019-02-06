@@ -161,14 +161,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/VolumeRestrictionTMStorage.sol",
     "exportedSymbols": {
       "VolumeRestrictionTMStorage": [
-        41621
+        41633
       ]
     },
-    "id": 41622,
+    "id": 41634,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 41543,
+        "id": 41555,
         "literals": [
           "solidity",
           "^",
@@ -184,25 +184,25 @@
         "contractKind": "contract",
         "documentation": "@title Storage layout for VolumeRestrictionTM",
         "fullyImplemented": true,
-        "id": 41621,
+        "id": 41633,
         "linearizedBaseContracts": [
-          41621
+          41633
         ],
         "name": "VolumeRestrictionTMStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "VolumeRestrictionTMStorage.RestrictionType",
-            "id": 41546,
+            "id": 41558,
             "members": [
               {
-                "id": 41544,
+                "id": 41556,
                 "name": "Fixed",
                 "nodeType": "EnumValue",
                 "src": "149:5:107"
               },
               {
-                "id": 41545,
+                "id": 41557,
                 "name": "Percentage",
                 "nodeType": "EnumValue",
                 "src": "156:10:107"
@@ -214,22 +214,22 @@
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.TypeOfPeriod",
-            "id": 41550,
+            "id": 41562,
             "members": [
               {
-                "id": 41547,
+                "id": 41559,
                 "name": "MultipleDays",
                 "nodeType": "EnumValue",
                 "src": "194:12:107"
               },
               {
-                "id": 41548,
+                "id": 41560,
                 "name": "OneDay",
                 "nodeType": "EnumValue",
                 "src": "208:6:107"
               },
               {
-                "id": 41549,
+                "id": 41561,
                 "name": "Both",
                 "nodeType": "EnumValue",
                 "src": "216:4:107"
@@ -241,14 +241,14 @@
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.RestrictedHolder",
-            "id": 41557,
+            "id": 41569,
             "members": [
               {
                 "constant": false,
-                "id": 41552,
+                "id": 41564,
                 "name": "seen",
                 "nodeType": "VariableDeclaration",
-                "scope": 41557,
+                "scope": 41569,
                 "src": "304:10:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -257,7 +257,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41551,
+                  "id": 41563,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "304:5:107",
@@ -271,10 +271,10 @@
               },
               {
                 "constant": false,
-                "id": 41554,
+                "id": 41566,
                 "name": "typeOfPeriod",
                 "nodeType": "VariableDeclaration",
-                "scope": 41557,
+                "scope": 41569,
                 "src": "390:18:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -283,7 +283,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41553,
+                  "id": 41565,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "390:5:107",
@@ -297,10 +297,10 @@
               },
               {
                 "constant": false,
-                "id": 41556,
+                "id": 41568,
                 "name": "index",
                 "nodeType": "VariableDeclaration",
-                "scope": 41557,
+                "scope": 41569,
                 "src": "479:13:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -309,7 +309,7 @@
                   "typeString": "uint128"
                 },
                 "typeName": {
-                  "id": 41555,
+                  "id": 41567,
                   "name": "uint128",
                   "nodeType": "ElementaryTypeName",
                   "src": "479:7:107",
@@ -324,31 +324,31 @@
             ],
             "name": "RestrictedHolder",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "228:271:107",
             "visibility": "public"
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.RestrictedData",
-            "id": 41565,
+            "id": 41577,
             "members": [
               {
                 "constant": false,
-                "id": 41561,
+                "id": 41573,
                 "name": "restrictedHolders",
                 "nodeType": "VariableDeclaration",
-                "scope": 41565,
+                "scope": 41577,
                 "src": "537:54:107",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                   "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder)"
                 },
                 "typeName": {
-                  "id": 41560,
+                  "id": 41572,
                   "keyType": {
-                    "id": 41558,
+                    "id": 41570,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "545:7:107",
@@ -360,18 +360,18 @@
                   "nodeType": "Mapping",
                   "src": "537:36:107",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                     "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder)"
                   },
                   "valueType": {
                     "contractScope": null,
-                    "id": 41559,
+                    "id": 41571,
                     "name": "RestrictedHolder",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 41557,
+                    "referencedDeclaration": 41569,
                     "src": "556:16:107",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage_ptr",
+                      "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage_ptr",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder"
                     }
                   }
@@ -381,10 +381,10 @@
               },
               {
                 "constant": false,
-                "id": 41564,
+                "id": 41576,
                 "name": "restrictedAddresses",
                 "nodeType": "VariableDeclaration",
-                "scope": 41565,
+                "scope": 41577,
                 "src": "601:29:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -394,7 +394,7 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 41562,
+                    "id": 41574,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "601:7:107",
@@ -403,7 +403,7 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 41563,
+                  "id": 41575,
                   "length": null,
                   "nodeType": "ArrayTypeName",
                   "src": "601:9:107",
@@ -418,20 +418,20 @@
             ],
             "name": "RestrictedData",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "505:132:107",
             "visibility": "public"
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.VolumeRestriction",
-            "id": 41576,
+            "id": 41588,
             "members": [
               {
                 "constant": false,
-                "id": 41567,
+                "id": 41579,
                 "name": "allowedTokens",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "876:21:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -440,7 +440,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41566,
+                  "id": 41578,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "876:7:107",
@@ -454,10 +454,10 @@
               },
               {
                 "constant": false,
-                "id": 41569,
+                "id": 41581,
                 "name": "startTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "907:17:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -466,7 +466,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41568,
+                  "id": 41580,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "907:7:107",
@@ -480,10 +480,10 @@
               },
               {
                 "constant": false,
-                "id": 41571,
+                "id": 41583,
                 "name": "rollingPeriodInDays",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "934:27:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -492,7 +492,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41570,
+                  "id": 41582,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "934:7:107",
@@ -506,10 +506,10 @@
               },
               {
                 "constant": false,
-                "id": 41573,
+                "id": 41585,
                 "name": "endTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "971:15:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -518,7 +518,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41572,
+                  "id": 41584,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "971:7:107",
@@ -532,26 +532,26 @@
               },
               {
                 "constant": false,
-                "id": 41575,
+                "id": 41587,
                 "name": "typeOfRestriction",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "996:33:107",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_RestrictionType_$41546",
+                  "typeIdentifier": "t_enum$_RestrictionType_$41558",
                   "typeString": "enum VolumeRestrictionTMStorage.RestrictionType"
                 },
                 "typeName": {
                   "contractScope": null,
-                  "id": 41574,
+                  "id": 41586,
                   "name": "RestrictionType",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 41546,
+                  "referencedDeclaration": 41558,
                   "src": "996:15:107",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_RestrictionType_$41546",
+                    "typeIdentifier": "t_enum$_RestrictionType_$41558",
                     "typeString": "enum VolumeRestrictionTMStorage.RestrictionType"
                   }
                 },
@@ -561,20 +561,20 @@
             ],
             "name": "VolumeRestriction",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "643:393:107",
             "visibility": "public"
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.BucketDetails",
-            "id": 41585,
+            "id": 41597,
             "members": [
               {
                 "constant": false,
-                "id": 41578,
+                "id": 41590,
                 "name": "lastTradedDayTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1073:25:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -583,7 +583,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41577,
+                  "id": 41589,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1073:7:107",
@@ -597,10 +597,10 @@
               },
               {
                 "constant": false,
-                "id": 41580,
+                "id": 41592,
                 "name": "sumOfLastPeriod",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1108:23:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -609,7 +609,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41579,
+                  "id": 41591,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1108:7:107",
@@ -623,10 +623,10 @@
               },
               {
                 "constant": false,
-                "id": 41582,
+                "id": 41594,
                 "name": "daysCovered",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1215:19:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -635,7 +635,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41581,
+                  "id": 41593,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1215:7:107",
@@ -649,10 +649,10 @@
               },
               {
                 "constant": false,
-                "id": 41584,
+                "id": 41596,
                 "name": "dailyLastTradedDayTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1316:30:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -661,7 +661,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41583,
+                  "id": 41595,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1316:7:107",
@@ -676,32 +676,32 @@
             ],
             "name": "BucketDetails",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1042:311:107",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 41587,
+            "id": 41599,
             "name": "defaultRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1419:43:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage",
+              "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage",
               "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
             },
             "typeName": {
               "contractScope": null,
-              "id": 41586,
+              "id": 41598,
               "name": "VolumeRestriction",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41576,
+              "referencedDeclaration": 41588,
               "src": "1419:17:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                 "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
               }
             },
@@ -710,26 +710,26 @@
           },
           {
             "constant": false,
-            "id": 41589,
+            "id": 41601,
             "name": "defaultDailyRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1572:48:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage",
+              "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage",
               "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
             },
             "typeName": {
               "contractScope": null,
-              "id": 41588,
+              "id": 41600,
               "name": "VolumeRestriction",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41576,
+              "referencedDeclaration": 41588,
               "src": "1572:17:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                 "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
               }
             },
@@ -738,21 +738,21 @@
           },
           {
             "constant": false,
-            "id": 41593,
+            "id": 41605,
             "name": "individualRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1693:66:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
             },
             "typeName": {
-              "id": 41592,
+              "id": 41604,
               "keyType": {
-                "id": 41590,
+                "id": 41602,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1701:7:107",
@@ -764,18 +764,18 @@
               "nodeType": "Mapping",
               "src": "1693:37:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41591,
+                "id": 41603,
                 "name": "VolumeRestriction",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41576,
+                "referencedDeclaration": 41588,
                 "src": "1712:17:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                  "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
                 }
               }
@@ -785,21 +785,21 @@
           },
           {
             "constant": false,
-            "id": 41597,
+            "id": 41609,
             "name": "individualDailyRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1838:71:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
             },
             "typeName": {
-              "id": 41596,
+              "id": 41608,
               "keyType": {
-                "id": 41594,
+                "id": 41606,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1846:7:107",
@@ -811,18 +811,18 @@
               "nodeType": "Mapping",
               "src": "1838:37:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41595,
+                "id": 41607,
                 "name": "VolumeRestriction",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41576,
+                "referencedDeclaration": 41588,
                 "src": "1857:17:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                  "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
                 }
               }
@@ -832,10 +832,10 @@
           },
           {
             "constant": false,
-            "id": 41603,
+            "id": 41615,
             "name": "bucket",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2002:63:107",
             "stateVariable": true,
             "storageLocation": "default",
@@ -844,9 +844,9 @@
               "typeString": "mapping(address => mapping(uint256 => uint256))"
             },
             "typeName": {
-              "id": 41602,
+              "id": 41614,
               "keyType": {
-                "id": 41598,
+                "id": 41610,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2010:7:107",
@@ -862,9 +862,9 @@
                 "typeString": "mapping(address => mapping(uint256 => uint256))"
               },
               "valueType": {
-                "id": 41601,
+                "id": 41613,
                 "keyType": {
-                  "id": 41599,
+                  "id": 41611,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2029:7:107",
@@ -880,7 +880,7 @@
                   "typeString": "mapping(uint256 => uint256)"
                 },
                 "valueType": {
-                  "id": 41600,
+                  "id": 41612,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2040:7:107",
@@ -896,21 +896,21 @@
           },
           {
             "constant": false,
-            "id": 41607,
+            "id": 41619,
             "name": "userToBucket",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2140:55:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
             },
             "typeName": {
-              "id": 41606,
+              "id": 41618,
               "keyType": {
-                "id": 41604,
+                "id": 41616,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2148:7:107",
@@ -922,18 +922,18 @@
               "nodeType": "Mapping",
               "src": "2140:33:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41605,
+                "id": 41617,
                 "name": "BucketDetails",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41585,
+                "referencedDeclaration": 41597,
                 "src": "2159:13:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_BucketDetails_$41585_storage_ptr",
+                  "typeIdentifier": "t_struct$_BucketDetails_$41597_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.BucketDetails"
                 }
               }
@@ -943,21 +943,21 @@
           },
           {
             "constant": false,
-            "id": 41611,
+            "id": 41623,
             "name": "defaultUserToBucket",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2263:62:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
             },
             "typeName": {
-              "id": 41610,
+              "id": 41622,
               "keyType": {
-                "id": 41608,
+                "id": 41620,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2271:7:107",
@@ -969,18 +969,18 @@
               "nodeType": "Mapping",
               "src": "2263:33:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41609,
+                "id": 41621,
                 "name": "BucketDetails",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41585,
+                "referencedDeclaration": 41597,
                 "src": "2282:13:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_BucketDetails_$41585_storage_ptr",
+                  "typeIdentifier": "t_struct$_BucketDetails_$41597_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.BucketDetails"
                 }
               }
@@ -990,26 +990,26 @@
           },
           {
             "constant": false,
-            "id": 41613,
+            "id": 41625,
             "name": "holderData",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2404:25:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_RestrictedData_$41565_storage",
+              "typeIdentifier": "t_struct$_RestrictedData_$41577_storage",
               "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
             },
             "typeName": {
               "contractScope": null,
-              "id": 41612,
+              "id": 41624,
               "name": "RestrictedData",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41565,
+              "referencedDeclaration": 41577,
               "src": "2404:14:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
               }
             },
@@ -1018,10 +1018,10 @@
           },
           {
             "constant": false,
-            "id": 41617,
+            "id": 41629,
             "name": "exemptIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2460:39:107",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1030,9 +1030,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 41616,
+              "id": 41628,
               "keyType": {
-                "id": 41614,
+                "id": 41626,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2468:7:107",
@@ -1048,7 +1048,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 41615,
+                "id": 41627,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2479:7:107",
@@ -1063,10 +1063,10 @@
           },
           {
             "constant": false,
-            "id": 41620,
+            "id": 41632,
             "name": "exemptAddresses",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2505:32:107",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1076,7 +1076,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41618,
+                "id": 41630,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2505:7:107",
@@ -1085,7 +1085,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41619,
+              "id": 41631,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "2505:9:107",
@@ -1098,7 +1098,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 41622,
+        "scope": 41634,
         "src": "83:2458:107"
       }
     ],
@@ -1108,14 +1108,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/VolumeRestrictionTMStorage.sol",
     "exportedSymbols": {
       "VolumeRestrictionTMStorage": [
-        41621
+        41633
       ]
     },
-    "id": 41622,
+    "id": 41634,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 41543,
+        "id": 41555,
         "literals": [
           "solidity",
           "^",
@@ -1131,25 +1131,25 @@
         "contractKind": "contract",
         "documentation": "@title Storage layout for VolumeRestrictionTM",
         "fullyImplemented": true,
-        "id": 41621,
+        "id": 41633,
         "linearizedBaseContracts": [
-          41621
+          41633
         ],
         "name": "VolumeRestrictionTMStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "VolumeRestrictionTMStorage.RestrictionType",
-            "id": 41546,
+            "id": 41558,
             "members": [
               {
-                "id": 41544,
+                "id": 41556,
                 "name": "Fixed",
                 "nodeType": "EnumValue",
                 "src": "149:5:107"
               },
               {
-                "id": 41545,
+                "id": 41557,
                 "name": "Percentage",
                 "nodeType": "EnumValue",
                 "src": "156:10:107"
@@ -1161,22 +1161,22 @@
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.TypeOfPeriod",
-            "id": 41550,
+            "id": 41562,
             "members": [
               {
-                "id": 41547,
+                "id": 41559,
                 "name": "MultipleDays",
                 "nodeType": "EnumValue",
                 "src": "194:12:107"
               },
               {
-                "id": 41548,
+                "id": 41560,
                 "name": "OneDay",
                 "nodeType": "EnumValue",
                 "src": "208:6:107"
               },
               {
-                "id": 41549,
+                "id": 41561,
                 "name": "Both",
                 "nodeType": "EnumValue",
                 "src": "216:4:107"
@@ -1188,14 +1188,14 @@
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.RestrictedHolder",
-            "id": 41557,
+            "id": 41569,
             "members": [
               {
                 "constant": false,
-                "id": 41552,
+                "id": 41564,
                 "name": "seen",
                 "nodeType": "VariableDeclaration",
-                "scope": 41557,
+                "scope": 41569,
                 "src": "304:10:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1204,7 +1204,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41551,
+                  "id": 41563,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "304:5:107",
@@ -1218,10 +1218,10 @@
               },
               {
                 "constant": false,
-                "id": 41554,
+                "id": 41566,
                 "name": "typeOfPeriod",
                 "nodeType": "VariableDeclaration",
-                "scope": 41557,
+                "scope": 41569,
                 "src": "390:18:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1230,7 +1230,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41553,
+                  "id": 41565,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "390:5:107",
@@ -1244,10 +1244,10 @@
               },
               {
                 "constant": false,
-                "id": 41556,
+                "id": 41568,
                 "name": "index",
                 "nodeType": "VariableDeclaration",
-                "scope": 41557,
+                "scope": 41569,
                 "src": "479:13:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1256,7 +1256,7 @@
                   "typeString": "uint128"
                 },
                 "typeName": {
-                  "id": 41555,
+                  "id": 41567,
                   "name": "uint128",
                   "nodeType": "ElementaryTypeName",
                   "src": "479:7:107",
@@ -1271,31 +1271,31 @@
             ],
             "name": "RestrictedHolder",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "228:271:107",
             "visibility": "public"
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.RestrictedData",
-            "id": 41565,
+            "id": 41577,
             "members": [
               {
                 "constant": false,
-                "id": 41561,
+                "id": 41573,
                 "name": "restrictedHolders",
                 "nodeType": "VariableDeclaration",
-                "scope": 41565,
+                "scope": 41577,
                 "src": "537:54:107",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                   "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder)"
                 },
                 "typeName": {
-                  "id": 41560,
+                  "id": 41572,
                   "keyType": {
-                    "id": 41558,
+                    "id": 41570,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "545:7:107",
@@ -1307,18 +1307,18 @@
                   "nodeType": "Mapping",
                   "src": "537:36:107",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                     "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder)"
                   },
                   "valueType": {
                     "contractScope": null,
-                    "id": 41559,
+                    "id": 41571,
                     "name": "RestrictedHolder",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 41557,
+                    "referencedDeclaration": 41569,
                     "src": "556:16:107",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage_ptr",
+                      "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage_ptr",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder"
                     }
                   }
@@ -1328,10 +1328,10 @@
               },
               {
                 "constant": false,
-                "id": 41564,
+                "id": 41576,
                 "name": "restrictedAddresses",
                 "nodeType": "VariableDeclaration",
-                "scope": 41565,
+                "scope": 41577,
                 "src": "601:29:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1341,7 +1341,7 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 41562,
+                    "id": 41574,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "601:7:107",
@@ -1350,7 +1350,7 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 41563,
+                  "id": 41575,
                   "length": null,
                   "nodeType": "ArrayTypeName",
                   "src": "601:9:107",
@@ -1365,20 +1365,20 @@
             ],
             "name": "RestrictedData",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "505:132:107",
             "visibility": "public"
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.VolumeRestriction",
-            "id": 41576,
+            "id": 41588,
             "members": [
               {
                 "constant": false,
-                "id": 41567,
+                "id": 41579,
                 "name": "allowedTokens",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "876:21:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1387,7 +1387,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41566,
+                  "id": 41578,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "876:7:107",
@@ -1401,10 +1401,10 @@
               },
               {
                 "constant": false,
-                "id": 41569,
+                "id": 41581,
                 "name": "startTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "907:17:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1413,7 +1413,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41568,
+                  "id": 41580,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "907:7:107",
@@ -1427,10 +1427,10 @@
               },
               {
                 "constant": false,
-                "id": 41571,
+                "id": 41583,
                 "name": "rollingPeriodInDays",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "934:27:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1439,7 +1439,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41570,
+                  "id": 41582,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "934:7:107",
@@ -1453,10 +1453,10 @@
               },
               {
                 "constant": false,
-                "id": 41573,
+                "id": 41585,
                 "name": "endTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "971:15:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1465,7 +1465,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41572,
+                  "id": 41584,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "971:7:107",
@@ -1479,26 +1479,26 @@
               },
               {
                 "constant": false,
-                "id": 41575,
+                "id": 41587,
                 "name": "typeOfRestriction",
                 "nodeType": "VariableDeclaration",
-                "scope": 41576,
+                "scope": 41588,
                 "src": "996:33:107",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_RestrictionType_$41546",
+                  "typeIdentifier": "t_enum$_RestrictionType_$41558",
                   "typeString": "enum VolumeRestrictionTMStorage.RestrictionType"
                 },
                 "typeName": {
                   "contractScope": null,
-                  "id": 41574,
+                  "id": 41586,
                   "name": "RestrictionType",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 41546,
+                  "referencedDeclaration": 41558,
                   "src": "996:15:107",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_RestrictionType_$41546",
+                    "typeIdentifier": "t_enum$_RestrictionType_$41558",
                     "typeString": "enum VolumeRestrictionTMStorage.RestrictionType"
                   }
                 },
@@ -1508,20 +1508,20 @@
             ],
             "name": "VolumeRestriction",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "643:393:107",
             "visibility": "public"
           },
           {
             "canonicalName": "VolumeRestrictionTMStorage.BucketDetails",
-            "id": 41585,
+            "id": 41597,
             "members": [
               {
                 "constant": false,
-                "id": 41578,
+                "id": 41590,
                 "name": "lastTradedDayTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1073:25:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1530,7 +1530,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41577,
+                  "id": 41589,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1073:7:107",
@@ -1544,10 +1544,10 @@
               },
               {
                 "constant": false,
-                "id": 41580,
+                "id": 41592,
                 "name": "sumOfLastPeriod",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1108:23:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1556,7 +1556,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41579,
+                  "id": 41591,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1108:7:107",
@@ -1570,10 +1570,10 @@
               },
               {
                 "constant": false,
-                "id": 41582,
+                "id": 41594,
                 "name": "daysCovered",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1215:19:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1582,7 +1582,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41581,
+                  "id": 41593,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1215:7:107",
@@ -1596,10 +1596,10 @@
               },
               {
                 "constant": false,
-                "id": 41584,
+                "id": 41596,
                 "name": "dailyLastTradedDayTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41585,
+                "scope": 41597,
                 "src": "1316:30:107",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1608,7 +1608,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41583,
+                  "id": 41595,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1316:7:107",
@@ -1623,32 +1623,32 @@
             ],
             "name": "BucketDetails",
             "nodeType": "StructDefinition",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1042:311:107",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 41587,
+            "id": 41599,
             "name": "defaultRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1419:43:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage",
+              "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage",
               "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
             },
             "typeName": {
               "contractScope": null,
-              "id": 41586,
+              "id": 41598,
               "name": "VolumeRestriction",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41576,
+              "referencedDeclaration": 41588,
               "src": "1419:17:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                 "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
               }
             },
@@ -1657,26 +1657,26 @@
           },
           {
             "constant": false,
-            "id": 41589,
+            "id": 41601,
             "name": "defaultDailyRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1572:48:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage",
+              "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage",
               "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
             },
             "typeName": {
               "contractScope": null,
-              "id": 41588,
+              "id": 41600,
               "name": "VolumeRestriction",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41576,
+              "referencedDeclaration": 41588,
               "src": "1572:17:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                 "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
               }
             },
@@ -1685,21 +1685,21 @@
           },
           {
             "constant": false,
-            "id": 41593,
+            "id": 41605,
             "name": "individualRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1693:66:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
             },
             "typeName": {
-              "id": 41592,
+              "id": 41604,
               "keyType": {
-                "id": 41590,
+                "id": 41602,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1701:7:107",
@@ -1711,18 +1711,18 @@
               "nodeType": "Mapping",
               "src": "1693:37:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41591,
+                "id": 41603,
                 "name": "VolumeRestriction",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41576,
+                "referencedDeclaration": 41588,
                 "src": "1712:17:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                  "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
                 }
               }
@@ -1732,21 +1732,21 @@
           },
           {
             "constant": false,
-            "id": 41597,
+            "id": 41609,
             "name": "individualDailyRestriction",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "1838:71:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
             },
             "typeName": {
-              "id": 41596,
+              "id": 41608,
               "keyType": {
-                "id": 41594,
+                "id": 41606,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1846:7:107",
@@ -1758,18 +1758,18 @@
               "nodeType": "Mapping",
               "src": "1838:37:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41576_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_VolumeRestriction_$41588_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.VolumeRestriction)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41595,
+                "id": 41607,
                 "name": "VolumeRestriction",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41576,
+                "referencedDeclaration": 41588,
                 "src": "1857:17:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_VolumeRestriction_$41576_storage_ptr",
+                  "typeIdentifier": "t_struct$_VolumeRestriction_$41588_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.VolumeRestriction"
                 }
               }
@@ -1779,10 +1779,10 @@
           },
           {
             "constant": false,
-            "id": 41603,
+            "id": 41615,
             "name": "bucket",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2002:63:107",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1791,9 +1791,9 @@
               "typeString": "mapping(address => mapping(uint256 => uint256))"
             },
             "typeName": {
-              "id": 41602,
+              "id": 41614,
               "keyType": {
-                "id": 41598,
+                "id": 41610,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2010:7:107",
@@ -1809,9 +1809,9 @@
                 "typeString": "mapping(address => mapping(uint256 => uint256))"
               },
               "valueType": {
-                "id": 41601,
+                "id": 41613,
                 "keyType": {
-                  "id": 41599,
+                  "id": 41611,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2029:7:107",
@@ -1827,7 +1827,7 @@
                   "typeString": "mapping(uint256 => uint256)"
                 },
                 "valueType": {
-                  "id": 41600,
+                  "id": 41612,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2040:7:107",
@@ -1843,21 +1843,21 @@
           },
           {
             "constant": false,
-            "id": 41607,
+            "id": 41619,
             "name": "userToBucket",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2140:55:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
             },
             "typeName": {
-              "id": 41606,
+              "id": 41618,
               "keyType": {
-                "id": 41604,
+                "id": 41616,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2148:7:107",
@@ -1869,18 +1869,18 @@
               "nodeType": "Mapping",
               "src": "2140:33:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41605,
+                "id": 41617,
                 "name": "BucketDetails",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41585,
+                "referencedDeclaration": 41597,
                 "src": "2159:13:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_BucketDetails_$41585_storage_ptr",
+                  "typeIdentifier": "t_struct$_BucketDetails_$41597_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.BucketDetails"
                 }
               }
@@ -1890,21 +1890,21 @@
           },
           {
             "constant": false,
-            "id": 41611,
+            "id": 41623,
             "name": "defaultUserToBucket",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2263:62:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
             },
             "typeName": {
-              "id": 41610,
+              "id": 41622,
               "keyType": {
-                "id": 41608,
+                "id": 41620,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2271:7:107",
@@ -1916,18 +1916,18 @@
               "nodeType": "Mapping",
               "src": "2263:33:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41585_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_BucketDetails_$41597_storage_$",
                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.BucketDetails)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41609,
+                "id": 41621,
                 "name": "BucketDetails",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41585,
+                "referencedDeclaration": 41597,
                 "src": "2282:13:107",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_BucketDetails_$41585_storage_ptr",
+                  "typeIdentifier": "t_struct$_BucketDetails_$41597_storage_ptr",
                   "typeString": "struct VolumeRestrictionTMStorage.BucketDetails"
                 }
               }
@@ -1937,26 +1937,26 @@
           },
           {
             "constant": false,
-            "id": 41613,
+            "id": 41625,
             "name": "holderData",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2404:25:107",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_RestrictedData_$41565_storage",
+              "typeIdentifier": "t_struct$_RestrictedData_$41577_storage",
               "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
             },
             "typeName": {
               "contractScope": null,
-              "id": 41612,
+              "id": 41624,
               "name": "RestrictedData",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41565,
+              "referencedDeclaration": 41577,
               "src": "2404:14:107",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
               }
             },
@@ -1965,10 +1965,10 @@
           },
           {
             "constant": false,
-            "id": 41617,
+            "id": 41629,
             "name": "exemptIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2460:39:107",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1977,9 +1977,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 41616,
+              "id": 41628,
               "keyType": {
-                "id": 41614,
+                "id": 41626,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2468:7:107",
@@ -1995,7 +1995,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 41615,
+                "id": 41627,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2479:7:107",
@@ -2010,10 +2010,10 @@
           },
           {
             "constant": false,
-            "id": 41620,
+            "id": 41632,
             "name": "exemptAddresses",
             "nodeType": "VariableDeclaration",
-            "scope": 41621,
+            "scope": 41633,
             "src": "2505:32:107",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2023,7 +2023,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41618,
+                "id": 41630,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2505:7:107",
@@ -2032,7 +2032,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41619,
+              "id": 41631,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "2505:9:107",
@@ -2045,7 +2045,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 41622,
+        "scope": 41634,
         "src": "83:2458:107"
       }
     ],
@@ -2057,5 +2057,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:10.065Z"
+  "updatedAt": "2019-02-06T16:02:05.782Z"
 }

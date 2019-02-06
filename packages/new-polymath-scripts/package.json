@@ -12,14 +12,14 @@
   },
   "devDependencies": {
     "babel-plugin-inline-json-import": "^0.3.1",
-    "polymath-core": "PolymathNetwork/polymath-core#83f0afa32699b6945e66efd0d1b0bcbb51a009a8"
+    "polymath-core": "PolymathNetwork/polymath-core#5c79d984c6b8fd5b4fd71b4032dd9bc86cfa4b6d"
   },
   "dependencies": {
     "ethereumjs-tx": "^1.3.7",
     "fs-extra": "^7.0.0",
-    "ganache-cli": "6.1.8",
+    "ganache-cli": "6.2.5",
     "lodash": "^4.17.11",
-    "truffle": "4.1.13",
+    "truffle": "4.1.14",
     "web3": "1.0.0-beta.30"
   }
 }

@@ -2,7 +2,7 @@ import { ModuleFactoryAbi } from './abis/ModuleFactoryAbi';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
 import { TransactionObject } from 'web3/eth/types';
-import { GenericContract } from '~/LowLevel/types';
+import { GenericContract } from './types';
 
 // This type should be obtained from a library (must match ABI)
 interface ModuleFactoryContract extends GenericContract {

@@ -30,13 +30,10 @@
     "eslint-config-react-app": "^2.1.0",
     "flow-bin": "^0.81.0",
     "fs-extra": "^7.0.0",
-    "ganache-cli": "6.1.8",
     "jest": "22.4.3",
     "jest-junit": "^5.2.0",
     "lodash": "^4.17.11",
-    "polymath-core": "2.0.0",
     "regenerator-runtime": "^0.12.1",
-    "truffle": "4.1.13",
     "web3": "1.0.0-beta.30",
     "ethereumjs-tx": "^1.3.7"
   },

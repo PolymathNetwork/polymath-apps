@@ -88,7 +88,7 @@ const USDTieredSTOTiersTable = ({ sto: { tiers } }: Props) => {
         progress: (
           <InlineFlex key={id}>
             <Box maxWidth="150px" mr={1}>
-              <ProgressBar height="10" progress={progress.toNumber()} />
+              <ProgressBar height="10" progress={progress.toNumber() * 100} />
             </Box>
             {format.toPercent(progress)}
           </InlineFlex>

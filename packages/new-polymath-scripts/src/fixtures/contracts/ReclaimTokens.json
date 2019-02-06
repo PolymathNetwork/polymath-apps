@@ -115,7 +115,7 @@
         "id": 1648,
         "nodeType": "ImportDirective",
         "scope": 1694,
-        "sourceUnit": 44294,
+        "sourceUnit": 44306,
         "src": "26:63:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -140,10 +140,10 @@
               "id": 1650,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44293,
+              "referencedDeclaration": 44305,
               "src": "244:7:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$44293",
+                "typeIdentifier": "t_contract$_Ownable_$44305",
                 "typeString": "contract Ownable"
               }
             },
@@ -153,7 +153,7 @@
           }
         ],
         "contractDependencies": [
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Utility contract to allow owner to retreive any ERC20 sent to the contract",
@@ -161,7 +161,7 @@
         "id": 1693,
         "linearizedBaseContracts": [
           1693,
-          44293
+          44305
         ],
         "name": "ReclaimTokens",
         "nodeType": "ContractDefinition",
@@ -298,10 +298,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "466:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -458,7 +458,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44777,
+                            "referencedDeclaration": 44789,
                             "src": "621:4:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ReclaimTokens_$1693",
@@ -565,7 +565,7 @@
                             "name": "owner",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44211,
+                            "referencedDeclaration": 44223,
                             "src": "660:5:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -672,10 +672,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "637:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -717,7 +717,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 44241,
+                  "referencedDeclaration": 44253,
                   "src": "446:9:5",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -810,7 +810,7 @@
         "id": 1648,
         "nodeType": "ImportDirective",
         "scope": 1694,
-        "sourceUnit": 44294,
+        "sourceUnit": 44306,
         "src": "26:63:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -835,10 +835,10 @@
               "id": 1650,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44293,
+              "referencedDeclaration": 44305,
               "src": "244:7:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$44293",
+                "typeIdentifier": "t_contract$_Ownable_$44305",
                 "typeString": "contract Ownable"
               }
             },
@@ -848,7 +848,7 @@
           }
         ],
         "contractDependencies": [
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Utility contract to allow owner to retreive any ERC20 sent to the contract",
@@ -856,7 +856,7 @@
         "id": 1693,
         "linearizedBaseContracts": [
           1693,
-          44293
+          44305
         ],
         "name": "ReclaimTokens",
         "nodeType": "ContractDefinition",
@@ -993,10 +993,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "466:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1153,7 +1153,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44777,
+                            "referencedDeclaration": 44789,
                             "src": "621:4:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_ReclaimTokens_$1693",
@@ -1260,7 +1260,7 @@
                             "name": "owner",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44211,
+                            "referencedDeclaration": 44223,
                             "src": "660:5:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1367,10 +1367,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "637:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1412,7 +1412,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 44241,
+                  "referencedDeclaration": 44253,
                   "src": "446:9:5",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1484,5 +1484,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:08.775Z"
+  "updatedAt": "2019-02-06T16:02:04.719Z"
 }

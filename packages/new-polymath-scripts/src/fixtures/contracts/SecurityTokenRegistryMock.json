@@ -1028,7 +1028,7 @@
         "contractDependencies": [
           4155,
           11725,
-          41331
+          41343
         ],
         "contractKind": "contract",
         "documentation": "@title Registry contract for issuers to register their security tokens",
@@ -1037,7 +1037,7 @@
         "linearizedBaseContracts": [
           15981,
           4155,
-          41331,
+          41343,
           11725
         ],
         "name": "SecurityTokenRegistryMock",
@@ -1169,13 +1169,13 @@
                       "name": "set",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        40795,
-                        40809,
-                        40823,
-                        40837,
-                        40851
+                        40807,
+                        40821,
+                        40835,
+                        40849,
+                        40863
                       ],
-                      "referencedDeclaration": 40809,
+                      "referencedDeclaration": 40821,
                       "src": "419:3:40",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_bytes32_$_t_address_$returns$__$",
@@ -1345,7 +1345,7 @@
         "contractDependencies": [
           4155,
           11725,
-          41331
+          41343
         ],
         "contractKind": "contract",
         "documentation": "@title Registry contract for issuers to register their security tokens",
@@ -1354,7 +1354,7 @@
         "linearizedBaseContracts": [
           15981,
           4155,
-          41331,
+          41343,
           11725
         ],
         "name": "SecurityTokenRegistryMock",
@@ -1486,13 +1486,13 @@
                       "name": "set",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        40795,
-                        40809,
-                        40823,
-                        40837,
-                        40851
+                        40807,
+                        40821,
+                        40835,
+                        40849,
+                        40863
                       ],
-                      "referencedDeclaration": 40809,
+                      "referencedDeclaration": 40821,
                       "src": "419:3:40",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_bytes32_$_t_address_$returns$__$",
@@ -1612,5 +1612,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.590Z"
+  "updatedAt": "2019-02-06T16:02:05.301Z"
 }

@@ -1,1 +1,1 @@
-../../../../node_modules/polymath-core/truffle-config.js
+../../node_modules/polymath-core/truffle-config.js
