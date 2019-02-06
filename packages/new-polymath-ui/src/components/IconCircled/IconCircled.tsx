@@ -19,7 +19,6 @@ export const IconCircled = styled(Icon)`
 `;
 
 IconCircled.defaultProps = {
-  width: '1rem',
   bg: 'blue[0]',
   scale: 1,
 };

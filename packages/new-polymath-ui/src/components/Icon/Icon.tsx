@@ -5,18 +5,17 @@ import {
   ColorProps,
   width,
   height,
-  WidthProps,
-  HeightProps,
+  TLengthStyledSystem,
 } from 'styled-system';
 
 export interface IconProps extends StyledProps<any> {
   color: ColorProps;
-  width: WidthProps;
-  height: HeightProps;
+  width: TLengthStyledSystem;
+  height: TLengthStyledSystem;
   Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
 }
 
-const IconPrimitive: FC<IconProps> = ({
+const IconComponent: FC<IconProps> = ({
   Asset,
   color,
   width,
@@ -32,7 +31,7 @@ const IconPrimitive: FC<IconProps> = ({
   );
 };
 
-export const Icon = styled(IconPrimitive)`
+export const Icon = styled(IconComponent)<IconProps>`
   display: inline-block;
   vertical-align: middle;
   ${color};
@@ -45,6 +44,11 @@ export const Icon = styled(IconPrimitive)`
     height: 100%;
   }
 `;
+
+Icon.defaultProps = {
+  width: '1em',
+  height: '1em',
+};
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
 export const IconDocz = (props: IconProps) => {

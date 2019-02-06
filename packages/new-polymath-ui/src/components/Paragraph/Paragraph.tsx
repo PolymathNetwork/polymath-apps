@@ -1,48 +1,25 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import {
-  color,
-  ColorProps,
-  fontFamily,
-  FontFamilyProps,
-  fontWeight,
-  FontWeightProps,
-  lineHeight,
-  LineHeightProps,
-  fontSize,
-  FontSizeProps,
-} from 'styled-system';
-import { Box, BoxProps } from '~/components/Box';
+import { typeHelpers } from '@polymathnetwork/new-shared';
+import { Text } from '~/components/Text';
 
-// TODO @monitz87: figure out whether the 'as' prop should be declared here
-export type ParagraphProps = { bold?: boolean; as?: string } & BoxProps &
-  ColorProps &
-  FontFamilyProps &
-  FontWeightProps &
-  FontSizeProps &
-  LineHeightProps;
+type TextProps = typeHelpers.GetProps<typeof Text>;
 
-export const Paragraph = styled(Box)<ParagraphProps>`
-  ${color};
-  ${fontFamily};
-  ${fontWeight};
-  ${lineHeight};
-  ${fontSize};
-  ${props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })};
+export interface Props extends TextProps {}
 
+export const Paragraph = styled(Text)<Props>`
   &:last-child {
     margin-bottom: 0;
   }
 `;
 
-export const ParagraphDocz: FC<ParagraphProps> = (props: any) => {
+export const ParagraphDocz: FC<Props> = (props: any) => {
   return <Paragraph {...props} />;
 };
 
 Paragraph.defaultProps = {
+  ...Text.defaultProps,
   as: 'p',
   mt: 0,
   mb: 'm',
-  fontSize: 'baseText',
-  lineHeight: 'normal',
 };

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { utils, formatters } from '@polymathnetwork/new-shared';
+import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import {
   Heading,
   Paragraph,
@@ -17,12 +17,17 @@ import { ModalTransactionQueue, Checkpoints } from '~/components';
 
 export interface Props {
   onEnableDividends: () => void;
-  dividendsModule?: { contractAddress: string };
+  onCreateCheckpoint: () => void;
+  dividendsModule?: types.Erc20DividendsModulePojo;
 }
 
 export class Presenter extends Component<Props> {
   public handleEnableDividendsClick = () => {
     this.props.onEnableDividends();
+  };
+
+  public handleCreateCheckpointClick = () => {
+    this.props.onCreateCheckpoint();
   };
 
   public render() {
@@ -44,7 +49,10 @@ export class Presenter extends Component<Props> {
               per wallet address. This percentage will be used to calculate the
               amount of dividends owed to each wallet address.
             </Heading>
-            <Button iconPosition="right">
+            <Button
+              iconPosition="right"
+              onClick={this.handleCreateCheckpointClick}
+            >
               Create dividend checkpoint
               <Icon
                 Asset={icons.SvgPlusPlain}
@@ -65,7 +73,7 @@ export class Presenter extends Component<Props> {
               {dividendsModule ? (
                 <Fragment>
                   <Paragraph color="inactive">
-                    <ButtonLarge kind="ghost" iconPosition="left" disabled>
+                    <ButtonLarge variant="ghost" iconPosition="left" disabled>
                       <IconCircled
                         Asset={icons.SvgCheckmark}
                         width={16}
@@ -81,20 +89,16 @@ export class Presenter extends Component<Props> {
                     <Paragraph fontSize={0}>
                       Dividends contract address:
                       <Link
-                        href={utils.toEtherscanUrl(
-                          dividendsModule.contractAddress
-                        )}
+                        href={utils.toEtherscanUrl(dividendsModule.address)}
                       >
-                        {formatters.toShortAddress(
-                          dividendsModule.contractAddress
-                        )}
+                        {formatters.toShortAddress(dividendsModule.address)}
                       </Link>
                     </Paragraph>
                   </CardPrimary>
                 </Fragment>
               ) : (
                 <ButtonLarge
-                  kind="secondary"
+                  variant="secondary"
                   onClick={this.handleEnableDividendsClick}
                 >
                   Enable
