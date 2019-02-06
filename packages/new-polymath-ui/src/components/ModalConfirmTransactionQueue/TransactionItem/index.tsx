@@ -1,20 +1,37 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 import { Box } from '~/components/Box';
 import { IconCircled } from '~/components/IconCircled';
 import { Heading } from '~/components/Heading';
 import { CardPrimary } from '~/components/CardPrimary';
 import { Paragraph } from '~/components/Paragraph';
-import { getTransactionText } from '~/components/utils/contentMappings';
+import {
+  getTransactionIcon,
+  getTransactionContent,
+} from '~/components/utils/contentMappings';
 
 import * as sc from './styles';
 
 interface TransactionItemProps {
-  transaction: types.TransactionEntity;
+  transaction: types.TransactionPojo;
+  getContent: (
+    transaction: types.TransactionPojo
+  ) => {
+    title: string;
+    description: string;
+  };
 }
 
-export const TransactionItem = ({ transaction }: TransactionItemProps) => {
-  const { title, description, Icon } = getTransactionText(transaction);
+interface StaticProps {
+  defaultProps: { getContent: TransactionItemProps['getContent'] };
+}
+
+export const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
+  transaction,
+  getContent,
+}: TransactionItemProps) => {
+  const { title, description } = getContent(transaction);
+  const Icon = getTransactionIcon(transaction);
   return (
     <sc.Wrapper alignItems="flex-start">
       <Box minWidth={50} mt={1}>
@@ -36,4 +53,8 @@ export const TransactionItem = ({ transaction }: TransactionItemProps) => {
       </sc.Info>
     </sc.Wrapper>
   );
+};
+
+TransactionItem.defaultProps = {
+  getContent: getTransactionContent,
 };

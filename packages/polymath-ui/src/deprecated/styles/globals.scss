@@ -23,7 +23,7 @@ $css--body: false;
   }
 
   .bx--tag--third-party {
-    color:#005448 !important;
+    color: #005448 !important;
   }
 }
 
@@ -88,6 +88,7 @@ $css--body: false;
   text-transform: uppercase;
   background: $poly-blue !important;
   font-family: $font;
+  transition-property: background, color, border-color; // fix a rendering bug when `all` is applied
 
   &:hover {
     background: rgba(40, 38, 110, 0.8) !important;

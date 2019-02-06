@@ -5,8 +5,8 @@ import { CappedSTOScheduled } from '../CappedSTOScheduled';
 describe('Component: CappedSTOScheduled', () => {
   const ticker = 'SOMETICK';
   const start = 561168000;
-  const cap = 1000000;
-  const rate = 1000;
+  const cap = 200023000043430; // Can't use more than 15 digits because of bignumber.js < v7
+  const rate = 320323232323223;
   const isPolyFundraise = true;
   const fundsReceiver = '0xffffffffffffffff';
   const txHash = '0xeeeeeeeeeeeeeeee';

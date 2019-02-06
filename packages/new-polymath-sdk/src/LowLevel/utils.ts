@@ -13,6 +13,14 @@ export function fromWei(value: number) {
   return new BigNumber(Web3.utils.fromWei(String(value)));
 }
 
-export function toWei(value: number) {
-  return new BigNumber(Web3.utils.toWei(String(value)));
+export function toWei(value: number | BigNumber) {
+  let stringValue: string;
+
+  if (typeof value === 'number') {
+    stringValue = String(value);
+  } else {
+    stringValue = value.valueOf();
+  }
+
+  return new BigNumber(Web3.utils.toWei(stringValue));
 }

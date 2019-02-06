@@ -9,7 +9,7 @@ describe('PolyTransaction', () => {
     test('initialzes properly', () => {
       const transaction = {
         method: jest.fn(),
-        args: ['argA'],
+        args: { a: 'argA' },
       };
       const polyTransaction = new PolyTransaction(
         transaction,
@@ -21,7 +21,7 @@ describe('PolyTransaction', () => {
     test('has a default tag', () => {
       const transaction = {
         method: jest.fn(),
-        args: ['argA'],
+        args: { a: 'argA' },
       };
 
       const polyTransaction = new PolyTransaction(
@@ -38,7 +38,7 @@ describe('PolyTransaction', () => {
     test('starts as Idle', () => {
       const transaction = {
         method: jest.fn(),
-        args: ['argA'],
+        args: { a: 'argA' },
       };
       const polyTransaction = new PolyTransaction(
         transaction,
@@ -51,9 +51,9 @@ describe('PolyTransaction', () => {
   test('does not need binding between the method and the contract', async () => {
     const testContract = new MockedContract();
 
-    const transaction = getMockTransactionSpec(testContract.fakeTxOne, [
-      'argA',
-    ]);
+    const transaction = getMockTransactionSpec(testContract.fakeTxOne, {
+      a: 'argA',
+    });
 
     const polyTransaction = new PolyTransaction(transaction, {
       uid: 'txqid0',
@@ -61,13 +61,13 @@ describe('PolyTransaction', () => {
 
     await polyTransaction.run();
 
-    expect(transaction.method).toHaveBeenCalledWith('argA');
+    expect(transaction.method).toHaveBeenCalledWith({ a: 'argA' });
   });
 
   describe('#onStatusChange', () => {
     test("calls the listener with the transaction everytime the transaction's status changes", async () => {
       const testContract = new MockedContract({ autoResolve: false });
-      const transaction = getMockTransactionSpec(testContract.fakeTxOne, []);
+      const transaction = getMockTransactionSpec(testContract.fakeTxOne, {});
       const polyTransaction = new PolyTransaction(transaction, {
         uid: 'tqid0',
       } as TransactionQueue);
@@ -98,7 +98,7 @@ describe('PolyTransaction', () => {
 
     test('correctly handles errors', async () => {
       const testContract = new MockedContract({ autoResolve: false });
-      const transaction = getMockTransactionSpec(testContract.failureTx, []);
+      const transaction = getMockTransactionSpec(testContract.failureTx, {});
       const polyTransaction = new PolyTransaction(transaction, {
         uid: 'tqid0',
       } as TransactionQueue);
@@ -115,7 +115,7 @@ describe('PolyTransaction', () => {
   describe('#toPojo', () => {
     test('returns a plain object representing the entity', () => {
       const testContract = new MockedContract();
-      const transaction = getMockTransactionSpec(testContract.fakeTxOne, []);
+      const transaction = getMockTransactionSpec(testContract.fakeTxOne, {});
 
       const polyTransaction = new PolyTransaction(transaction, {
         uid: 'tqid0',
@@ -128,7 +128,7 @@ describe('PolyTransaction', () => {
   describe('#run', () => {
     test('resolves when transaction is finished', async () => {
       const testContract = new MockedContract({ autoResolve: true });
-      const transaction = getMockTransactionSpec(testContract.fakeTxOne, []);
+      const transaction = getMockTransactionSpec(testContract.fakeTxOne, {});
       const polyTransaction = new PolyTransaction(transaction, {
         uid: 'tqid0',
       } as TransactionQueue);
