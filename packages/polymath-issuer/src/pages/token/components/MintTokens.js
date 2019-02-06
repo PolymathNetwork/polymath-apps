@@ -68,35 +68,31 @@ class MintTokens extends Component<Props> {
   }
 
   handleReset = (withState = true) => {
-    // TODO @bshevchenko: maybe there is a better way to reset FileUploader $FlowFixMe
     const node = this.fileUploader.nodes[0];
     if (node) {
-      const el = Array.from(node.getElementsByClassName('bx--file-close'))[0];
-      const event = document.createEvent('Events');
-      event.initEvent('click', true, false);
-      el.dispatchEvent(event);
+      this.fileUploader.clearFiles();
       if (withState) {
         this.props.mintResetUploaded();
       }
     }
   };
 
-  handleClick = (event: Object) => {
-    const el = event.target;
-    if (
-      el.getAttribute('class') === 'bx--file-close' ||
-      // TODO @bshevchenko: maybe there is a better way to handle cancel event
-      (el.getAttribute('d') &&
-        el.getAttribute('d').substring(0, 6) === 'M8 0C3')
-    ) {
-      this.props.mintResetUploaded();
-    }
-  };
-
-  handleUploaded = (event: Object) => {
+  handleUploaded = async (event: Object) => {
     const file = event.target.files[0];
     if (file.type.match(/csv.*/) || file.name.match(/.*\.csv$/i)) {
-      this.props.uploadCSV(file);
+      await this.props.uploadCSV(file);
+      //NOTE @sajclarke: This hack is necessary to add an eventlistener to the dynamic filename container from FileUploader
+      const node = this.fileUploader.nodes[0];
+      if (node) {
+        const el = Array.from(node.getElementsByClassName('bx--file-close'))[0];
+        el.addEventListener(
+          'click',
+          e => {
+            this.props.mintResetUploaded();
+          },
+          false
+        );
+      }
     }
   };
 
@@ -300,7 +296,6 @@ class MintTokens extends Component<Props> {
             iconDescription="Cancel"
             buttonLabel="Upload File"
             onChange={this.handleUploaded}
-            onClick={this.handleClick}
             className={classNames('file-uploader', {
               disabled: stoInProgress || isTransfersPaused,
             })}

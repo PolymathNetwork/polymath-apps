@@ -2,7 +2,7 @@ import { TransactionObject } from 'web3/eth/types';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
 import { ERC20Abi } from './abis/ERC20Abi';
-import { GenericContract } from '~/LowLevel/types';
+import { GenericContract } from './types';
 
 interface Erc20Contract extends GenericContract {
   methods: {

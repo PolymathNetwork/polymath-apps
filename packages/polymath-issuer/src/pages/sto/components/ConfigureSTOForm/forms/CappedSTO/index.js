@@ -19,6 +19,7 @@ import {
   RaisedAmount,
   Tooltip,
 } from '@polymathnetwork/ui';
+import { format } from '@polymathnetwork/shared/utils';
 import validator from '@polymathnetwork/ui/validator';
 import {
   validateTodayOrAfter,
@@ -191,10 +192,13 @@ export const CappedSTOFormComponent = ({
           <FormItem.Error />
         </FormItem>
         <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-          <Grid.Item gridColumn="span 2 / 4">
+          <Grid.Item gridColumn="span 3 / 5">
             <RaisedAmount
               title="Amount Of Funds the STO Will Raise"
-              primaryAmount={totalRaiseAmount.toFixed(6)}
+              primaryAmount={format.toTokens(totalRaiseAmount, {
+                decimals: 6,
+                precision: 20,
+              })}
               primaryUnit={currency}
               tokenAmount={totalTokensAmount}
               tokenUnit={ticker.toUpperCase()}

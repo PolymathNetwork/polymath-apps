@@ -31,14 +31,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
     "exportedSymbols": {
       "IFeatureRegistry": [
-        10827
+        10739
       ]
     },
-    "id": 10828,
+    "id": 10740,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10819,
+        "id": 10731,
         "literals": [
           "solidity",
           "^",
@@ -46,7 +46,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:13"
+        "src": "0:24:12"
       },
       {
         "baseContracts": [],
@@ -54,9 +54,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface for managing polymath feature switches",
         "fullyImplemented": false,
-        "id": 10827,
+        "id": 10739,
         "linearizedBaseContracts": [
-          10827
+          10739
         ],
         "name": "IFeatureRegistry",
         "nodeType": "ContractDefinition",
@@ -64,7 +64,7 @@
           {
             "body": null,
             "documentation": "@notice Get the status of a feature\n@param _nameKey is the key for the feature status mapping\n@return bool",
-            "id": 10826,
+            "id": 10738,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -72,16 +72,16 @@
             "name": "getFeatureStatus",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10822,
+              "id": 10734,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10821,
+                  "id": 10733,
                   "name": "_nameKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10826,
-                  "src": "297:15:13",
+                  "scope": 10738,
+                  "src": "297:15:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -89,10 +89,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 10820,
+                    "id": 10732,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "297:6:13",
+                    "src": "297:6:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -102,20 +102,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "296:17:13"
+              "src": "296:17:12"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10825,
+              "id": 10737,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10824,
+                  "id": 10736,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10826,
-                  "src": "336:4:13",
+                  "scope": 10738,
+                  "src": "336:4:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -123,10 +123,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 10823,
+                    "id": 10735,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "336:4:13",
+                    "src": "336:4:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -136,33 +136,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "335:6:13"
+              "src": "335:6:12"
             },
-            "scope": 10827,
-            "src": "271:71:13",
+            "scope": 10739,
+            "src": "271:71:12",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 10828,
-        "src": "93:252:13"
+        "scope": 10740,
+        "src": "93:252:12"
       }
     ],
-    "src": "0:346:13"
+    "src": "0:346:12"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IFeatureRegistry.sol",
     "exportedSymbols": {
       "IFeatureRegistry": [
-        10827
+        10739
       ]
     },
-    "id": 10828,
+    "id": 10740,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10819,
+        "id": 10731,
         "literals": [
           "solidity",
           "^",
@@ -170,7 +170,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:13"
+        "src": "0:24:12"
       },
       {
         "baseContracts": [],
@@ -178,9 +178,9 @@
         "contractKind": "interface",
         "documentation": "@title Interface for managing polymath feature switches",
         "fullyImplemented": false,
-        "id": 10827,
+        "id": 10739,
         "linearizedBaseContracts": [
-          10827
+          10739
         ],
         "name": "IFeatureRegistry",
         "nodeType": "ContractDefinition",
@@ -188,7 +188,7 @@
           {
             "body": null,
             "documentation": "@notice Get the status of a feature\n@param _nameKey is the key for the feature status mapping\n@return bool",
-            "id": 10826,
+            "id": 10738,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -196,16 +196,16 @@
             "name": "getFeatureStatus",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10822,
+              "id": 10734,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10821,
+                  "id": 10733,
                   "name": "_nameKey",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10826,
-                  "src": "297:15:13",
+                  "scope": 10738,
+                  "src": "297:15:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -213,10 +213,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 10820,
+                    "id": 10732,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "297:6:13",
+                    "src": "297:6:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -226,20 +226,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "296:17:13"
+              "src": "296:17:12"
             },
             "payable": false,
             "returnParameters": {
-              "id": 10825,
+              "id": 10737,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10824,
+                  "id": 10736,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10826,
-                  "src": "336:4:13",
+                  "scope": 10738,
+                  "src": "336:4:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -247,10 +247,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 10823,
+                    "id": 10735,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "336:4:13",
+                    "src": "336:4:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -260,20 +260,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "335:6:13"
+              "src": "335:6:12"
             },
-            "scope": 10827,
-            "src": "271:71:13",
+            "scope": 10739,
+            "src": "271:71:12",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 10828,
-        "src": "93:252:13"
+        "scope": 10740,
+        "src": "93:252:12"
       }
     ],
-    "src": "0:346:13"
+    "src": "0:346:12"
   },
   "compiler": {
     "name": "solc",
@@ -281,5 +281,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-29T19:35:51.295Z"
+  "updatedAt": "2019-02-01T18:23:33.053Z"
 }
