@@ -640,7 +640,7 @@
           10968,
           26033,
           26812,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying GeneralPermissionManager module",
@@ -649,7 +649,7 @@
         "linearizedBaseContracts": [
           26990,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "GeneralPermissionManagerFactory",
@@ -1734,7 +1734,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1203:3:66",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -1761,7 +1761,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1215:5:66",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -1872,10 +1872,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1172:7:66",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1945,7 +1945,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1361:3:66",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2164,7 +2164,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44951,
+                            "referencedDeclaration": 44963,
                             "src": "1543:4:66",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_GeneralPermissionManagerFactory_$26990",
@@ -2214,7 +2214,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1550:3:66",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2254,7 +2254,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1573:3:66",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3088,7 +3088,7 @@
           10968,
           26033,
           26812,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying GeneralPermissionManager module",
@@ -3097,7 +3097,7 @@
         "linearizedBaseContracts": [
           26990,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "GeneralPermissionManagerFactory",
@@ -4182,7 +4182,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1203:3:66",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -4209,7 +4209,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1215:5:66",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -4320,10 +4320,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1172:7:66",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4393,7 +4393,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1361:3:66",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4612,7 +4612,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44951,
+                            "referencedDeclaration": 44963,
                             "src": "1543:4:66",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_GeneralPermissionManagerFactory_$26990",
@@ -4662,7 +4662,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1550:3:66",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4702,7 +4702,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1573:3:66",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -5477,9 +5477,9 @@
       "events": {},
       "links": {},
       "address": "0xa4392264a2d8c998901d10c154c91725b1bf0158",
-      "transactionHash": "0x555f484f209d2733b270bc75f0787c816a8ff2e0a8da9d41b099cf92fffd34f2"
+      "transactionHash": "0xa31ba8baa86abb649f5909e50012d1c88ac7f49bbaacff2faeae4067842ec9ac"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.313Z"
+  "updatedAt": "2019-02-06T00:35:09.717Z"
 }

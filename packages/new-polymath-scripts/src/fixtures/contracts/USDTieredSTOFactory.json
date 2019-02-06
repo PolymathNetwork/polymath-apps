@@ -628,7 +628,7 @@
         "id": 32100,
         "nodeType": "ImportDirective",
         "scope": 32339,
-        "sourceUnit": 40562,
+        "sourceUnit": 40574,
         "src": "63:43:77",
         "symbolAliases": [],
         "unitAlias": ""
@@ -679,8 +679,8 @@
         "contractDependencies": [
           10968,
           26033,
-          40561,
-          44293
+          40573,
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying CappedSTO module",
@@ -689,7 +689,7 @@
         "linearizedBaseContracts": [
           32338,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "USDTieredSTOFactory",
@@ -853,10 +853,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "636:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2026,7 +2026,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1808:3:77",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -2053,7 +2053,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1820:5:77",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -2164,10 +2164,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1777:7:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2237,7 +2237,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1997:3:77",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2346,7 +2346,7 @@
                       "nodeType": "NewExpression",
                       "src": "1975:21:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_USDTieredSTOProxy_$40561_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_USDTieredSTOProxy_$40573_$",
                         "typeString": "function (address,address,address) returns (contract USDTieredSTOProxy)"
                       },
                       "typeName": {
@@ -2354,10 +2354,10 @@
                         "id": 32213,
                         "name": "USDTieredSTOProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40561,
+                        "referencedDeclaration": 40573,
                         "src": "1979:17:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40561",
+                          "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40573",
                           "typeString": "contract USDTieredSTOProxy"
                         }
                       }
@@ -2372,7 +2372,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1975:68:77",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40561",
+                      "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40573",
                       "typeString": "contract USDTieredSTOProxy"
                     }
                   },
@@ -2583,10 +2583,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "2126:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2714,10 +2714,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "2285:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2798,7 +2798,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44969,
+                            "referencedDeclaration": 44981,
                             "src": "2477:4:77",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_USDTieredSTOFactory_$32338",
@@ -2848,7 +2848,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2484:3:77",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2888,7 +2888,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2507:3:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -4024,7 +4024,7 @@
         "id": 32100,
         "nodeType": "ImportDirective",
         "scope": 32339,
-        "sourceUnit": 40562,
+        "sourceUnit": 40574,
         "src": "63:43:77",
         "symbolAliases": [],
         "unitAlias": ""
@@ -4075,8 +4075,8 @@
         "contractDependencies": [
           10968,
           26033,
-          40561,
-          44293
+          40573,
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying CappedSTO module",
@@ -4085,7 +4085,7 @@
         "linearizedBaseContracts": [
           32338,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "USDTieredSTOFactory",
@@ -4249,10 +4249,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "636:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5422,7 +5422,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1808:3:77",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -5449,7 +5449,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1820:5:77",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -5560,10 +5560,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1777:7:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5633,7 +5633,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1997:3:77",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5742,7 +5742,7 @@
                       "nodeType": "NewExpression",
                       "src": "1975:21:77",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_USDTieredSTOProxy_$40561_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_USDTieredSTOProxy_$40573_$",
                         "typeString": "function (address,address,address) returns (contract USDTieredSTOProxy)"
                       },
                       "typeName": {
@@ -5750,10 +5750,10 @@
                         "id": 32213,
                         "name": "USDTieredSTOProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40561,
+                        "referencedDeclaration": 40573,
                         "src": "1979:17:77",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40561",
+                          "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40573",
                           "typeString": "contract USDTieredSTOProxy"
                         }
                       }
@@ -5768,7 +5768,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1975:68:77",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40561",
+                      "typeIdentifier": "t_contract$_USDTieredSTOProxy_$40573",
                       "typeString": "contract USDTieredSTOProxy"
                     }
                   },
@@ -5979,10 +5979,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "2126:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -6110,10 +6110,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "2285:7:77",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -6194,7 +6194,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44969,
+                            "referencedDeclaration": 44981,
                             "src": "2477:4:77",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_USDTieredSTOFactory_$32338",
@@ -6244,7 +6244,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2484:3:77",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -6284,7 +6284,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2507:3:77",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -7391,9 +7391,9 @@
       "events": {},
       "links": {},
       "address": "0x27032850077abef46fc9c2b39b96885b40abc3ec",
-      "transactionHash": "0x3051294ead88efcb9e786933e823cc86ece661f3593356a40b8dc28a2128c8c4"
+      "transactionHash": "0x5f3206f736cedb96ae83f0eeb502513c44beda017dad1671e9c8764da4c78e1c"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.448Z"
+  "updatedAt": "2019-02-06T00:35:10.103Z"
 }

@@ -318,14 +318,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/ModuleRegistryProxy.sol",
     "exportedSymbols": {
       "ModuleRegistryProxy": [
-        40171
+        40183
       ]
     },
-    "id": 40172,
+    "id": 40184,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40164,
+        "id": 40176,
         "literals": [
           "solidity",
           "^",
@@ -338,10 +338,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/EternalStorage.sol",
         "file": "../storage/EternalStorage.sol",
-        "id": 40165,
+        "id": 40177,
         "nodeType": "ImportDirective",
-        "scope": 40172,
-        "sourceUnit": 41332,
+        "scope": 40184,
+        "sourceUnit": 41344,
         "src": "26:39:94",
         "symbolAliases": [],
         "unitAlias": ""
@@ -349,10 +349,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedUpgradeabilityProxy.sol",
         "file": "./OwnedUpgradeabilityProxy.sol",
-        "id": 40166,
+        "id": 40178,
         "nodeType": "ImportDirective",
-        "scope": 40172,
-        "sourceUnit": 40474,
+        "scope": 40184,
+        "sourceUnit": 40486,
         "src": "66:40:94",
         "symbolAliases": [],
         "unitAlias": ""
@@ -363,17 +363,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40167,
+              "id": 40179,
               "name": "EternalStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41331,
+              "referencedDeclaration": 41343,
               "src": "502:14:94",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_EternalStorage_$41331",
+                "typeIdentifier": "t_contract$_EternalStorage_$41343",
                 "typeString": "contract EternalStorage"
               }
             },
-            "id": 40168,
+            "id": 40180,
             "nodeType": "InheritanceSpecifier",
             "src": "502:14:94"
           },
@@ -381,42 +381,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40169,
+              "id": 40181,
               "name": "OwnedUpgradeabilityProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40473,
+              "referencedDeclaration": 40485,
               "src": "518:24:94",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40473",
+                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40485",
                 "typeString": "contract OwnedUpgradeabilityProxy"
               }
             },
-            "id": 40170,
+            "id": 40182,
             "nodeType": "InheritanceSpecifier",
             "src": "518:24:94"
           }
         ],
         "contractDependencies": [
-          40473,
-          40504,
-          40647,
-          41331
+          40485,
+          40516,
+          40659,
+          41343
         ],
         "contractKind": "contract",
         "documentation": "@title ModuleRegistryProxy\n@dev This proxy holds the storage of the ModuleRegistry contract and delegates every call to the current implementation set.\nBesides, it allows upgrading the contract's behaviour towards further implementations, and provides basic\nauthorization control functionalities",
         "fullyImplemented": true,
-        "id": 40171,
+        "id": 40183,
         "linearizedBaseContracts": [
-          40171,
-          40473,
-          40647,
-          40504,
-          41331
+          40183,
+          40485,
+          40659,
+          40516,
+          41343
         ],
         "name": "ModuleRegistryProxy",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 40172,
+        "scope": 40184,
         "src": "470:77:94"
       }
     ],
@@ -426,14 +426,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/ModuleRegistryProxy.sol",
     "exportedSymbols": {
       "ModuleRegistryProxy": [
-        40171
+        40183
       ]
     },
-    "id": 40172,
+    "id": 40184,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40164,
+        "id": 40176,
         "literals": [
           "solidity",
           "^",
@@ -446,10 +446,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/EternalStorage.sol",
         "file": "../storage/EternalStorage.sol",
-        "id": 40165,
+        "id": 40177,
         "nodeType": "ImportDirective",
-        "scope": 40172,
-        "sourceUnit": 41332,
+        "scope": 40184,
+        "sourceUnit": 41344,
         "src": "26:39:94",
         "symbolAliases": [],
         "unitAlias": ""
@@ -457,10 +457,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedUpgradeabilityProxy.sol",
         "file": "./OwnedUpgradeabilityProxy.sol",
-        "id": 40166,
+        "id": 40178,
         "nodeType": "ImportDirective",
-        "scope": 40172,
-        "sourceUnit": 40474,
+        "scope": 40184,
+        "sourceUnit": 40486,
         "src": "66:40:94",
         "symbolAliases": [],
         "unitAlias": ""
@@ -471,17 +471,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40167,
+              "id": 40179,
               "name": "EternalStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41331,
+              "referencedDeclaration": 41343,
               "src": "502:14:94",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_EternalStorage_$41331",
+                "typeIdentifier": "t_contract$_EternalStorage_$41343",
                 "typeString": "contract EternalStorage"
               }
             },
-            "id": 40168,
+            "id": 40180,
             "nodeType": "InheritanceSpecifier",
             "src": "502:14:94"
           },
@@ -489,42 +489,42 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40169,
+              "id": 40181,
               "name": "OwnedUpgradeabilityProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40473,
+              "referencedDeclaration": 40485,
               "src": "518:24:94",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40473",
+                "typeIdentifier": "t_contract$_OwnedUpgradeabilityProxy_$40485",
                 "typeString": "contract OwnedUpgradeabilityProxy"
               }
             },
-            "id": 40170,
+            "id": 40182,
             "nodeType": "InheritanceSpecifier",
             "src": "518:24:94"
           }
         ],
         "contractDependencies": [
-          40473,
-          40504,
-          40647,
-          41331
+          40485,
+          40516,
+          40659,
+          41343
         ],
         "contractKind": "contract",
         "documentation": "@title ModuleRegistryProxy\n@dev This proxy holds the storage of the ModuleRegistry contract and delegates every call to the current implementation set.\nBesides, it allows upgrading the contract's behaviour towards further implementations, and provides basic\nauthorization control functionalities",
         "fullyImplemented": true,
-        "id": 40171,
+        "id": 40183,
         "linearizedBaseContracts": [
-          40171,
-          40473,
-          40647,
-          40504,
-          41331
+          40183,
+          40485,
+          40659,
+          40516,
+          41343
         ],
         "name": "ModuleRegistryProxy",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 40172,
+        "scope": 40184,
         "src": "470:77:94"
       }
     ],
@@ -574,9 +574,9 @@
       },
       "links": {},
       "address": "0xaa588d3737b611bafd7bd713445b314bd453a5c8",
-      "transactionHash": "0xa327b76b5b43aec9b44bdd9a2bc83da6e32133a1d0c195ee6934b7759e04c8c1"
+      "transactionHash": "0xe593bbd6a1469f7dcc132ed0fdfd9f07ed2851f71d2cdabf28a16aea25999d1a"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.395Z"
+  "updatedAt": "2019-02-06T00:35:09.955Z"
 }

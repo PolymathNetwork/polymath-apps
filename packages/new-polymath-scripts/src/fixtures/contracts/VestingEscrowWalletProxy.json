@@ -286,14 +286,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/VestingEscrowWalletProxy.sol",
     "exportedSymbols": {
       "VestingEscrowWalletProxy": [
-        40689
+        40701
       ]
     },
-    "id": 40690,
+    "id": 40702,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40649,
+        "id": 40661,
         "literals": [
           "solidity",
           "^",
@@ -306,10 +306,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/VestingEscrowWalletStorage.sol",
         "file": "../storage/VestingEscrowWalletStorage.sol",
-        "id": 40650,
+        "id": 40662,
         "nodeType": "ImportDirective",
-        "scope": 40690,
-        "sourceUnit": 41542,
+        "scope": 40702,
+        "sourceUnit": 41554,
         "src": "26:51:101",
         "symbolAliases": [],
         "unitAlias": ""
@@ -317,10 +317,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedProxy.sol",
         "file": "./OwnedProxy.sol",
-        "id": 40651,
+        "id": 40663,
         "nodeType": "ImportDirective",
-        "scope": 40690,
-        "sourceUnit": 40296,
+        "scope": 40702,
+        "sourceUnit": 40308,
         "src": "78:26:101",
         "symbolAliases": [],
         "unitAlias": ""
@@ -328,9 +328,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../Pausable.sol",
-        "id": 40652,
+        "id": 40664,
         "nodeType": "ImportDirective",
-        "scope": 40690,
+        "scope": 40702,
         "sourceUnit": 1565,
         "src": "105:25:101",
         "symbolAliases": [],
@@ -339,9 +339,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/ModuleStorage.sol",
         "file": "../modules/ModuleStorage.sol",
-        "id": 40653,
+        "id": 40665,
         "nodeType": "ImportDirective",
-        "scope": 40690,
+        "scope": 40702,
         "sourceUnit": 26070,
         "src": "131:38:101",
         "symbolAliases": [],
@@ -353,17 +353,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40654,
+              "id": 40666,
               "name": "VestingEscrowWalletStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41541,
+              "referencedDeclaration": 41553,
               "src": "273:26:101",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_VestingEscrowWalletStorage_$41541",
+                "typeIdentifier": "t_contract$_VestingEscrowWalletStorage_$41553",
                 "typeString": "contract VestingEscrowWalletStorage"
               }
             },
-            "id": 40655,
+            "id": 40667,
             "nodeType": "InheritanceSpecifier",
             "src": "273:26:101"
           },
@@ -371,7 +371,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40656,
+              "id": 40668,
               "name": "ModuleStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 26069,
@@ -381,7 +381,7 @@
                 "typeString": "contract ModuleStorage"
               }
             },
-            "id": 40657,
+            "id": 40669,
             "nodeType": "InheritanceSpecifier",
             "src": "301:13:101"
           },
@@ -389,7 +389,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40658,
+              "id": 40670,
               "name": "Pausable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 1564,
@@ -399,7 +399,7 @@
                 "typeString": "contract Pausable"
               }
             },
-            "id": 40659,
+            "id": 40671,
             "nodeType": "InheritanceSpecifier",
             "src": "316:8:101"
           },
@@ -407,17 +407,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40660,
+              "id": 40672,
               "name": "OwnedProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40295,
+              "referencedDeclaration": 40307,
               "src": "326:10:101",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedProxy_$40295",
+                "typeIdentifier": "t_contract$_OwnedProxy_$40307",
                 "typeString": "contract OwnedProxy"
               }
             },
-            "id": 40661,
+            "id": 40673,
             "nodeType": "InheritanceSpecifier",
             "src": "326:10:101"
           }
@@ -425,28 +425,28 @@
         "contractDependencies": [
           1564,
           26069,
-          40295,
-          40504,
-          41541
+          40307,
+          40516,
+          41553
         ],
         "contractKind": "contract",
         "documentation": "@title Escrow wallet module for vesting functionality",
         "fullyImplemented": true,
-        "id": 40689,
+        "id": 40701,
         "linearizedBaseContracts": [
-          40689,
-          40295,
-          40504,
+          40701,
+          40307,
+          40516,
           1564,
           26069,
-          41541
+          41553
         ],
         "name": "VestingEscrowWalletProxy",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 40687,
+              "id": 40699,
               "nodeType": "Block",
               "src": "731:176:101",
               "statements": [
@@ -460,18 +460,18 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 40679,
+                        "id": 40691,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 40675,
+                          "id": 40687,
                           "name": "_implementation",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 40667,
+                          "referencedDeclaration": 40679,
                           "src": "762:15:101",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -486,7 +486,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 40677,
+                              "id": 40689,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -509,7 +509,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 40676,
+                            "id": 40688,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -522,7 +522,7 @@
                             },
                             "typeName": "address"
                           },
-                          "id": 40678,
+                          "id": 40690,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -545,7 +545,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "496d706c656d656e746174696f6e20616464726573732073686f756c64206e6f74206265203078",
-                        "id": 40680,
+                        "id": 40692,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -572,21 +572,21 @@
                           "typeString": "literal_string \"Implementation address should not be 0x\""
                         }
                       ],
-                      "id": 40674,
+                      "id": 40686,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "741:7:101",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 40681,
+                    "id": 40693,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -600,25 +600,25 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 40682,
+                  "id": 40694,
                   "nodeType": "ExpressionStatement",
                   "src": "741:115:101"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 40685,
+                    "id": 40697,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 40683,
+                      "id": 40695,
                       "name": "__implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40180,
+                      "referencedDeclaration": 40192,
                       "src": "866:16:101",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -629,11 +629,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 40684,
+                      "id": 40696,
                       "name": "_implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40667,
+                      "referencedDeclaration": 40679,
                       "src": "885:15:101",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -646,14 +646,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 40686,
+                  "id": 40698,
                   "nodeType": "ExpressionStatement",
                   "src": "866:34:101"
                 }
               ]
             },
             "documentation": "@notice Constructor\n@param _securityToken Address of the security token\n@param _polyAddress Address of the polytoken\n@param _implementation representing the address of the new implementation to be set",
-            "id": 40688,
+            "id": 40700,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -662,11 +662,11 @@
                 "arguments": [
                   {
                     "argumentTypes": null,
-                    "id": 40670,
+                    "id": 40682,
                     "name": "_securityToken",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40663,
+                    "referencedDeclaration": 40675,
                     "src": "697:14:101",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -675,11 +675,11 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 40671,
+                    "id": 40683,
                     "name": "_polyAddress",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40665,
+                    "referencedDeclaration": 40677,
                     "src": "713:12:101",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -687,10 +687,10 @@
                     }
                   }
                 ],
-                "id": 40672,
+                "id": 40684,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 40669,
+                  "id": 40681,
                   "name": "ModuleStorage",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
@@ -708,15 +708,15 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 40668,
+              "id": 40680,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 40663,
+                  "id": 40675,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40688,
+                  "scope": 40700,
                   "src": "597:22:101",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -725,7 +725,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40662,
+                    "id": 40674,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "597:7:101",
@@ -739,10 +739,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40665,
+                  "id": 40677,
                   "name": "_polyAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40688,
+                  "scope": 40700,
                   "src": "621:20:101",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -751,7 +751,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40664,
+                    "id": 40676,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "621:7:101",
@@ -765,10 +765,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40667,
+                  "id": 40679,
                   "name": "_implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40688,
+                  "scope": 40700,
                   "src": "643:23:101",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -777,7 +777,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40666,
+                    "id": 40678,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "643:7:101",
@@ -794,19 +794,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 40673,
+              "id": 40685,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "731:0:101"
             },
-            "scope": 40689,
+            "scope": 40701,
             "src": "584:323:101",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 40690,
+        "scope": 40702,
         "src": "236:674:101"
       }
     ],
@@ -816,14 +816,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/VestingEscrowWalletProxy.sol",
     "exportedSymbols": {
       "VestingEscrowWalletProxy": [
-        40689
+        40701
       ]
     },
-    "id": 40690,
+    "id": 40702,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40649,
+        "id": 40661,
         "literals": [
           "solidity",
           "^",
@@ -836,10 +836,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/VestingEscrowWalletStorage.sol",
         "file": "../storage/VestingEscrowWalletStorage.sol",
-        "id": 40650,
+        "id": 40662,
         "nodeType": "ImportDirective",
-        "scope": 40690,
-        "sourceUnit": 41542,
+        "scope": 40702,
+        "sourceUnit": 41554,
         "src": "26:51:101",
         "symbolAliases": [],
         "unitAlias": ""
@@ -847,10 +847,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedProxy.sol",
         "file": "./OwnedProxy.sol",
-        "id": 40651,
+        "id": 40663,
         "nodeType": "ImportDirective",
-        "scope": 40690,
-        "sourceUnit": 40296,
+        "scope": 40702,
+        "sourceUnit": 40308,
         "src": "78:26:101",
         "symbolAliases": [],
         "unitAlias": ""
@@ -858,9 +858,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../Pausable.sol",
-        "id": 40652,
+        "id": 40664,
         "nodeType": "ImportDirective",
-        "scope": 40690,
+        "scope": 40702,
         "sourceUnit": 1565,
         "src": "105:25:101",
         "symbolAliases": [],
@@ -869,9 +869,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/ModuleStorage.sol",
         "file": "../modules/ModuleStorage.sol",
-        "id": 40653,
+        "id": 40665,
         "nodeType": "ImportDirective",
-        "scope": 40690,
+        "scope": 40702,
         "sourceUnit": 26070,
         "src": "131:38:101",
         "symbolAliases": [],
@@ -883,17 +883,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40654,
+              "id": 40666,
               "name": "VestingEscrowWalletStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41541,
+              "referencedDeclaration": 41553,
               "src": "273:26:101",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_VestingEscrowWalletStorage_$41541",
+                "typeIdentifier": "t_contract$_VestingEscrowWalletStorage_$41553",
                 "typeString": "contract VestingEscrowWalletStorage"
               }
             },
-            "id": 40655,
+            "id": 40667,
             "nodeType": "InheritanceSpecifier",
             "src": "273:26:101"
           },
@@ -901,7 +901,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40656,
+              "id": 40668,
               "name": "ModuleStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 26069,
@@ -911,7 +911,7 @@
                 "typeString": "contract ModuleStorage"
               }
             },
-            "id": 40657,
+            "id": 40669,
             "nodeType": "InheritanceSpecifier",
             "src": "301:13:101"
           },
@@ -919,7 +919,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40658,
+              "id": 40670,
               "name": "Pausable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 1564,
@@ -929,7 +929,7 @@
                 "typeString": "contract Pausable"
               }
             },
-            "id": 40659,
+            "id": 40671,
             "nodeType": "InheritanceSpecifier",
             "src": "316:8:101"
           },
@@ -937,17 +937,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40660,
+              "id": 40672,
               "name": "OwnedProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40295,
+              "referencedDeclaration": 40307,
               "src": "326:10:101",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedProxy_$40295",
+                "typeIdentifier": "t_contract$_OwnedProxy_$40307",
                 "typeString": "contract OwnedProxy"
               }
             },
-            "id": 40661,
+            "id": 40673,
             "nodeType": "InheritanceSpecifier",
             "src": "326:10:101"
           }
@@ -955,28 +955,28 @@
         "contractDependencies": [
           1564,
           26069,
-          40295,
-          40504,
-          41541
+          40307,
+          40516,
+          41553
         ],
         "contractKind": "contract",
         "documentation": "@title Escrow wallet module for vesting functionality",
         "fullyImplemented": true,
-        "id": 40689,
+        "id": 40701,
         "linearizedBaseContracts": [
-          40689,
-          40295,
-          40504,
+          40701,
+          40307,
+          40516,
           1564,
           26069,
-          41541
+          41553
         ],
         "name": "VestingEscrowWalletProxy",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 40687,
+              "id": 40699,
               "nodeType": "Block",
               "src": "731:176:101",
               "statements": [
@@ -990,18 +990,18 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 40679,
+                        "id": 40691,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 40675,
+                          "id": 40687,
                           "name": "_implementation",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 40667,
+                          "referencedDeclaration": 40679,
                           "src": "762:15:101",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1016,7 +1016,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 40677,
+                              "id": 40689,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -1039,7 +1039,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 40676,
+                            "id": 40688,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -1052,7 +1052,7 @@
                             },
                             "typeName": "address"
                           },
-                          "id": 40678,
+                          "id": 40690,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1075,7 +1075,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "496d706c656d656e746174696f6e20616464726573732073686f756c64206e6f74206265203078",
-                        "id": 40680,
+                        "id": 40692,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1102,21 +1102,21 @@
                           "typeString": "literal_string \"Implementation address should not be 0x\""
                         }
                       ],
-                      "id": 40674,
+                      "id": 40686,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "741:7:101",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 40681,
+                    "id": 40693,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1130,25 +1130,25 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 40682,
+                  "id": 40694,
                   "nodeType": "ExpressionStatement",
                   "src": "741:115:101"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 40685,
+                    "id": 40697,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 40683,
+                      "id": 40695,
                       "name": "__implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40180,
+                      "referencedDeclaration": 40192,
                       "src": "866:16:101",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1159,11 +1159,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 40684,
+                      "id": 40696,
                       "name": "_implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40667,
+                      "referencedDeclaration": 40679,
                       "src": "885:15:101",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1176,14 +1176,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 40686,
+                  "id": 40698,
                   "nodeType": "ExpressionStatement",
                   "src": "866:34:101"
                 }
               ]
             },
             "documentation": "@notice Constructor\n@param _securityToken Address of the security token\n@param _polyAddress Address of the polytoken\n@param _implementation representing the address of the new implementation to be set",
-            "id": 40688,
+            "id": 40700,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -1192,11 +1192,11 @@
                 "arguments": [
                   {
                     "argumentTypes": null,
-                    "id": 40670,
+                    "id": 40682,
                     "name": "_securityToken",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40663,
+                    "referencedDeclaration": 40675,
                     "src": "697:14:101",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1205,11 +1205,11 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 40671,
+                    "id": 40683,
                     "name": "_polyAddress",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40665,
+                    "referencedDeclaration": 40677,
                     "src": "713:12:101",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1217,10 +1217,10 @@
                     }
                   }
                 ],
-                "id": 40672,
+                "id": 40684,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 40669,
+                  "id": 40681,
                   "name": "ModuleStorage",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
@@ -1238,15 +1238,15 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 40668,
+              "id": 40680,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 40663,
+                  "id": 40675,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40688,
+                  "scope": 40700,
                   "src": "597:22:101",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1255,7 +1255,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40662,
+                    "id": 40674,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "597:7:101",
@@ -1269,10 +1269,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40665,
+                  "id": 40677,
                   "name": "_polyAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40688,
+                  "scope": 40700,
                   "src": "621:20:101",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1281,7 +1281,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40664,
+                    "id": 40676,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "621:7:101",
@@ -1295,10 +1295,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40667,
+                  "id": 40679,
                   "name": "_implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40688,
+                  "scope": 40700,
                   "src": "643:23:101",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1307,7 +1307,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40666,
+                    "id": 40678,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "643:7:101",
@@ -1324,19 +1324,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 40673,
+              "id": 40685,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "731:0:101"
             },
-            "scope": 40689,
+            "scope": 40701,
             "src": "584:323:101",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 40690,
+        "scope": 40702,
         "src": "236:674:101"
       }
     ],
@@ -1348,5 +1348,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:10.054Z"
+  "updatedAt": "2019-02-06T00:34:32.626Z"
 }

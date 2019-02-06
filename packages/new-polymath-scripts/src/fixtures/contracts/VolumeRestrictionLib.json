@@ -94,7 +94,7 @@
         "id": 14790,
         "nodeType": "ImportDirective",
         "scope": 15048,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "70:59:31",
         "symbolAliases": [],
         "unitAlias": ""
@@ -116,7 +116,7 @@
         "id": 14792,
         "nodeType": "ImportDirective",
         "scope": 15048,
-        "sourceUnit": 41622,
+        "sourceUnit": 41634,
         "src": "173:51:31",
         "symbolAliases": [],
         "unitAlias": ""
@@ -141,10 +141,10 @@
               "id": 14793,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "268:8:31",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -666,10 +666,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "573:7:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -973,7 +973,7 @@
                             "referencedDeclaration": 14852,
                             "src": "1578:4:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                              "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                             }
                           },
@@ -984,10 +984,10 @@
                           "lValueRequested": false,
                           "memberName": "restrictedHolders",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41561,
+                          "referencedDeclaration": 41573,
                           "src": "1578:22:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                             "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                           }
                         },
@@ -1012,7 +1012,7 @@
                         "nodeType": "IndexAccess",
                         "src": "1578:31:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                          "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                           "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                         }
                       },
@@ -1023,7 +1023,7 @@
                       "lValueRequested": false,
                       "memberName": "typeOfPeriod",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41554,
+                      "referencedDeclaration": 41566,
                       "src": "1578:44:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -1045,10 +1045,10 @@
                               "name": "VolumeRestrictionTMStorage",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41621,
+                              "referencedDeclaration": 41633,
                               "src": "1632:26:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41621_$",
+                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41633_$",
                                 "typeString": "type(contract VolumeRestrictionTMStorage)"
                               }
                             },
@@ -1059,10 +1059,10 @@
                             "lValueRequested": false,
                             "memberName": "TypeOfPeriod",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41550,
+                            "referencedDeclaration": 41562,
                             "src": "1632:39:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41550_$",
+                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41562_$",
                               "typeString": "type(enum VolumeRestrictionTMStorage.TypeOfPeriod)"
                             }
                           },
@@ -1076,7 +1076,7 @@
                           "referencedDeclaration": null,
                           "src": "1632:44:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         }
@@ -1084,7 +1084,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         ],
@@ -1149,7 +1149,7 @@
                                   "referencedDeclaration": 14852,
                                   "src": "2163:4:31",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                    "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                     "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                   }
                                 },
@@ -1160,10 +1160,10 @@
                                 "lValueRequested": false,
                                 "memberName": "restrictedHolders",
                                 "nodeType": "MemberAccess",
-                                "referencedDeclaration": 41561,
+                                "referencedDeclaration": 41573,
                                 "src": "2163:22:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                   "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                                 }
                               },
@@ -1188,7 +1188,7 @@
                               "nodeType": "IndexAccess",
                               "src": "2163:31:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                                "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                               }
                             },
@@ -1199,7 +1199,7 @@
                             "lValueRequested": true,
                             "memberName": "typeOfPeriod",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41554,
+                            "referencedDeclaration": 41566,
                             "src": "2163:44:31",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -1289,7 +1289,7 @@
                                 "referencedDeclaration": 14852,
                                 "src": "1709:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -1300,10 +1300,10 @@
                               "lValueRequested": false,
                               "memberName": "restrictedHolders",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41561,
+                              "referencedDeclaration": 41573,
                               "src": "1709:22:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                               }
                             },
@@ -1328,7 +1328,7 @@
                             "nodeType": "IndexAccess",
                             "src": "1709:31:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                              "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                             }
                           },
@@ -1339,7 +1339,7 @@
                           "lValueRequested": false,
                           "memberName": "index",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41556,
+                          "referencedDeclaration": 41568,
                           "src": "1709:37:31",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint128",
@@ -1395,7 +1395,7 @@
                               "referencedDeclaration": 14852,
                               "src": "1775:4:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                               }
                             },
@@ -1406,7 +1406,7 @@
                             "lValueRequested": false,
                             "memberName": "restrictedAddresses",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41564,
+                            "referencedDeclaration": 41576,
                             "src": "1775:24:31",
                             "typeDescriptions": {
                               "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -1508,7 +1508,7 @@
                                         "referencedDeclaration": 14852,
                                         "src": "1857:4:31",
                                         "typeDescriptions": {
-                                          "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                          "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                           "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                         }
                                       },
@@ -1519,10 +1519,10 @@
                                       "lValueRequested": false,
                                       "memberName": "restrictedHolders",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 41561,
+                                      "referencedDeclaration": 41573,
                                       "src": "1857:22:31",
                                       "typeDescriptions": {
-                                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                         "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                                       }
                                     },
@@ -1540,7 +1540,7 @@
                                           "referencedDeclaration": 14852,
                                           "src": "1880:4:31",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                            "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                           }
                                         },
@@ -1551,7 +1551,7 @@
                                         "lValueRequested": false,
                                         "memberName": "restrictedAddresses",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 41564,
+                                        "referencedDeclaration": 41576,
                                         "src": "1880:24:31",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -1627,7 +1627,7 @@
                                     "nodeType": "IndexAccess",
                                     "src": "1857:58:31",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                                      "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                                     }
                                   },
@@ -1638,7 +1638,7 @@
                                   "lValueRequested": true,
                                   "memberName": "index",
                                   "nodeType": "MemberAccess",
-                                  "referencedDeclaration": 41556,
+                                  "referencedDeclaration": 41568,
                                   "src": "1857:64:31",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint128",
@@ -1691,7 +1691,7 @@
                                       "referencedDeclaration": 14852,
                                       "src": "1947:4:31",
                                       "typeDescriptions": {
-                                        "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                        "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                       }
                                     },
@@ -1702,7 +1702,7 @@
                                     "lValueRequested": false,
                                     "memberName": "restrictedAddresses",
                                     "nodeType": "MemberAccess",
-                                    "referencedDeclaration": 41564,
+                                    "referencedDeclaration": 41576,
                                     "src": "1947:24:31",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -1786,7 +1786,7 @@
                                       "referencedDeclaration": 14852,
                                       "src": "1985:4:31",
                                       "typeDescriptions": {
-                                        "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                        "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                       }
                                     },
@@ -1797,7 +1797,7 @@
                                     "lValueRequested": false,
                                     "memberName": "restrictedAddresses",
                                     "nodeType": "MemberAccess",
-                                    "referencedDeclaration": 41564,
+                                    "referencedDeclaration": 41576,
                                     "src": "1985:24:31",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -1904,7 +1904,7 @@
                                 "referencedDeclaration": 14852,
                                 "src": "2054:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -1915,10 +1915,10 @@
                               "lValueRequested": false,
                               "memberName": "restrictedHolders",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41561,
+                              "referencedDeclaration": 41573,
                               "src": "2054:22:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                               }
                             },
@@ -1943,7 +1943,7 @@
                             "nodeType": "IndexAccess",
                             "src": "2054:31:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                              "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                             }
                           },
@@ -1981,7 +1981,7 @@
                                 "referencedDeclaration": 14852,
                                 "src": "2099:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -1992,7 +1992,7 @@
                               "lValueRequested": false,
                               "memberName": "restrictedAddresses",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41564,
+                              "referencedDeclaration": 41576,
                               "src": "2099:24:31",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -2049,7 +2049,7 @@
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                    "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                     "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                   },
                   "typeName": {
@@ -2057,10 +2057,10 @@
                     "id": 14851,
                     "name": "VolumeRestrictionTMStorage.RestrictedData",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 41565,
+                    "referencedDeclaration": 41577,
                     "src": "965:41:31",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                      "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                     }
                   },
@@ -2189,7 +2189,7 @@
                           "referencedDeclaration": 14946,
                           "src": "2415:4:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                            "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                           }
                         },
@@ -2200,10 +2200,10 @@
                         "lValueRequested": false,
                         "memberName": "restrictedHolders",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41561,
+                        "referencedDeclaration": 41573,
                         "src": "2415:22:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                           "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                         }
                       },
@@ -2228,7 +2228,7 @@
                       "nodeType": "IndexAccess",
                       "src": "2415:31:31",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                        "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                       }
                     },
@@ -2239,7 +2239,7 @@
                     "lValueRequested": false,
                     "memberName": "index",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 41556,
+                    "referencedDeclaration": 41568,
                     "src": "2415:37:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint128",
@@ -2276,7 +2276,7 @@
                             "referencedDeclaration": 14946,
                             "src": "2466:4:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                              "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                             }
                           },
@@ -2287,10 +2287,10 @@
                           "lValueRequested": false,
                           "memberName": "restrictedHolders",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41561,
+                          "referencedDeclaration": 41573,
                           "src": "2466:22:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                             "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                           }
                         },
@@ -2315,7 +2315,7 @@
                         "nodeType": "IndexAccess",
                         "src": "2466:31:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                          "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                           "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                         }
                       },
@@ -2326,7 +2326,7 @@
                       "lValueRequested": false,
                       "memberName": "seen",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41552,
+                      "referencedDeclaration": 41564,
                       "src": "2466:36:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -2404,7 +2404,7 @@
                                 "referencedDeclaration": 14946,
                                 "src": "2523:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -2415,7 +2415,7 @@
                               "lValueRequested": false,
                               "memberName": "restrictedAddresses",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41564,
+                              "referencedDeclaration": 41576,
                               "src": "2523:24:31",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -2493,7 +2493,7 @@
                                     "referencedDeclaration": 14946,
                                     "src": "2591:4:31",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                      "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                     }
                                   },
@@ -2504,7 +2504,7 @@
                                   "lValueRequested": false,
                                   "memberName": "restrictedAddresses",
                                   "nodeType": "MemberAccess",
-                                  "referencedDeclaration": 41564,
+                                  "referencedDeclaration": 41576,
                                   "src": "2591:24:31",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -2624,7 +2624,7 @@
                               "referencedDeclaration": 14946,
                               "src": "2674:4:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                               }
                             },
@@ -2635,10 +2635,10 @@
                             "lValueRequested": false,
                             "memberName": "restrictedHolders",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41561,
+                            "referencedDeclaration": 41573,
                             "src": "2674:22:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                             }
                           },
@@ -2663,7 +2663,7 @@
                           "nodeType": "IndexAccess",
                           "src": "2674:31:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                            "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                           }
                         },
@@ -2674,7 +2674,7 @@
                         "lValueRequested": false,
                         "memberName": "typeOfPeriod",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41554,
+                        "referencedDeclaration": 41566,
                         "src": "2674:44:31",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint8",
@@ -2772,7 +2772,7 @@
                           "referencedDeclaration": 14946,
                           "src": "2750:4:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                            "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                           }
                         },
@@ -2783,10 +2783,10 @@
                         "lValueRequested": false,
                         "memberName": "restrictedHolders",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41561,
+                        "referencedDeclaration": 41573,
                         "src": "2750:22:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                           "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                         }
                       },
@@ -2811,7 +2811,7 @@
                       "nodeType": "IndexAccess",
                       "src": "2750:31:31",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                        "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                       }
                     },
@@ -2924,10 +2924,10 @@
                           "name": "VolumeRestrictionTMStorage",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41621,
+                          "referencedDeclaration": 41633,
                           "src": "2784:26:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41621_$",
+                            "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41633_$",
                             "typeString": "type(contract VolumeRestrictionTMStorage)"
                           }
                         },
@@ -2938,10 +2938,10 @@
                         "lValueRequested": false,
                         "memberName": "RestrictedHolder",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41557,
+                        "referencedDeclaration": 41569,
                         "src": "2784:43:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_RestrictedHolder_$41557_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_RestrictedHolder_$41569_storage_ptr_$",
                           "typeString": "type(struct VolumeRestrictionTMStorage.RestrictedHolder storage pointer)"
                         }
                       },
@@ -2955,13 +2955,13 @@
                       "nodeType": "FunctionCall",
                       "src": "2784:67:31",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_RestrictedHolder_$41557_memory",
+                        "typeIdentifier": "t_struct$_RestrictedHolder_$41569_memory",
                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder memory"
                       }
                     },
                     "src": "2750:101:31",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                      "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                     }
                   },
@@ -2993,7 +2993,7 @@
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                    "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                     "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                   },
                   "typeName": {
@@ -3001,10 +3001,10 @@
                     "id": 14945,
                     "name": "VolumeRestrictionTMStorage.RestrictedData",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 41565,
+                    "referencedDeclaration": 41577,
                     "src": "2274:41:31",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                      "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                     }
                   },
@@ -3300,10 +3300,10 @@
                               "name": "VolumeRestrictionTMStorage",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41621,
+                              "referencedDeclaration": 41633,
                               "src": "3082:26:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41621_$",
+                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41633_$",
                                 "typeString": "type(contract VolumeRestrictionTMStorage)"
                               }
                             },
@@ -3314,10 +3314,10 @@
                             "lValueRequested": false,
                             "memberName": "TypeOfPeriod",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41550,
+                            "referencedDeclaration": 41562,
                             "src": "3082:39:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41550_$",
+                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41562_$",
                               "typeString": "type(enum VolumeRestrictionTMStorage.TypeOfPeriod)"
                             }
                           },
@@ -3331,7 +3331,7 @@
                           "referencedDeclaration": null,
                           "src": "3082:44:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         }
@@ -3339,7 +3339,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         ],
@@ -3556,7 +3556,7 @@
         "id": 14790,
         "nodeType": "ImportDirective",
         "scope": 15048,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "70:59:31",
         "symbolAliases": [],
         "unitAlias": ""
@@ -3578,7 +3578,7 @@
         "id": 14792,
         "nodeType": "ImportDirective",
         "scope": 15048,
-        "sourceUnit": 41622,
+        "sourceUnit": 41634,
         "src": "173:51:31",
         "symbolAliases": [],
         "unitAlias": ""
@@ -3603,10 +3603,10 @@
               "id": 14793,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "268:8:31",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -4128,10 +4128,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "573:7:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4435,7 +4435,7 @@
                             "referencedDeclaration": 14852,
                             "src": "1578:4:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                              "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                             }
                           },
@@ -4446,10 +4446,10 @@
                           "lValueRequested": false,
                           "memberName": "restrictedHolders",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41561,
+                          "referencedDeclaration": 41573,
                           "src": "1578:22:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                             "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                           }
                         },
@@ -4474,7 +4474,7 @@
                         "nodeType": "IndexAccess",
                         "src": "1578:31:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                          "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                           "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                         }
                       },
@@ -4485,7 +4485,7 @@
                       "lValueRequested": false,
                       "memberName": "typeOfPeriod",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41554,
+                      "referencedDeclaration": 41566,
                       "src": "1578:44:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -4507,10 +4507,10 @@
                               "name": "VolumeRestrictionTMStorage",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41621,
+                              "referencedDeclaration": 41633,
                               "src": "1632:26:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41621_$",
+                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41633_$",
                                 "typeString": "type(contract VolumeRestrictionTMStorage)"
                               }
                             },
@@ -4521,10 +4521,10 @@
                             "lValueRequested": false,
                             "memberName": "TypeOfPeriod",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41550,
+                            "referencedDeclaration": 41562,
                             "src": "1632:39:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41550_$",
+                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41562_$",
                               "typeString": "type(enum VolumeRestrictionTMStorage.TypeOfPeriod)"
                             }
                           },
@@ -4538,7 +4538,7 @@
                           "referencedDeclaration": null,
                           "src": "1632:44:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         }
@@ -4546,7 +4546,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         ],
@@ -4611,7 +4611,7 @@
                                   "referencedDeclaration": 14852,
                                   "src": "2163:4:31",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                    "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                     "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                   }
                                 },
@@ -4622,10 +4622,10 @@
                                 "lValueRequested": false,
                                 "memberName": "restrictedHolders",
                                 "nodeType": "MemberAccess",
-                                "referencedDeclaration": 41561,
+                                "referencedDeclaration": 41573,
                                 "src": "2163:22:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                   "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                                 }
                               },
@@ -4650,7 +4650,7 @@
                               "nodeType": "IndexAccess",
                               "src": "2163:31:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                                "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                               }
                             },
@@ -4661,7 +4661,7 @@
                             "lValueRequested": true,
                             "memberName": "typeOfPeriod",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41554,
+                            "referencedDeclaration": 41566,
                             "src": "2163:44:31",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -4751,7 +4751,7 @@
                                 "referencedDeclaration": 14852,
                                 "src": "1709:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -4762,10 +4762,10 @@
                               "lValueRequested": false,
                               "memberName": "restrictedHolders",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41561,
+                              "referencedDeclaration": 41573,
                               "src": "1709:22:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                               }
                             },
@@ -4790,7 +4790,7 @@
                             "nodeType": "IndexAccess",
                             "src": "1709:31:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                              "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                             }
                           },
@@ -4801,7 +4801,7 @@
                           "lValueRequested": false,
                           "memberName": "index",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41556,
+                          "referencedDeclaration": 41568,
                           "src": "1709:37:31",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint128",
@@ -4857,7 +4857,7 @@
                               "referencedDeclaration": 14852,
                               "src": "1775:4:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                               }
                             },
@@ -4868,7 +4868,7 @@
                             "lValueRequested": false,
                             "memberName": "restrictedAddresses",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41564,
+                            "referencedDeclaration": 41576,
                             "src": "1775:24:31",
                             "typeDescriptions": {
                               "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -4970,7 +4970,7 @@
                                         "referencedDeclaration": 14852,
                                         "src": "1857:4:31",
                                         "typeDescriptions": {
-                                          "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                          "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                           "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                         }
                                       },
@@ -4981,10 +4981,10 @@
                                       "lValueRequested": false,
                                       "memberName": "restrictedHolders",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 41561,
+                                      "referencedDeclaration": 41573,
                                       "src": "1857:22:31",
                                       "typeDescriptions": {
-                                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                         "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                                       }
                                     },
@@ -5002,7 +5002,7 @@
                                           "referencedDeclaration": 14852,
                                           "src": "1880:4:31",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                            "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                           }
                                         },
@@ -5013,7 +5013,7 @@
                                         "lValueRequested": false,
                                         "memberName": "restrictedAddresses",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 41564,
+                                        "referencedDeclaration": 41576,
                                         "src": "1880:24:31",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -5089,7 +5089,7 @@
                                     "nodeType": "IndexAccess",
                                     "src": "1857:58:31",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                                      "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                                     }
                                   },
@@ -5100,7 +5100,7 @@
                                   "lValueRequested": true,
                                   "memberName": "index",
                                   "nodeType": "MemberAccess",
-                                  "referencedDeclaration": 41556,
+                                  "referencedDeclaration": 41568,
                                   "src": "1857:64:31",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint128",
@@ -5153,7 +5153,7 @@
                                       "referencedDeclaration": 14852,
                                       "src": "1947:4:31",
                                       "typeDescriptions": {
-                                        "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                        "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                       }
                                     },
@@ -5164,7 +5164,7 @@
                                     "lValueRequested": false,
                                     "memberName": "restrictedAddresses",
                                     "nodeType": "MemberAccess",
-                                    "referencedDeclaration": 41564,
+                                    "referencedDeclaration": 41576,
                                     "src": "1947:24:31",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -5248,7 +5248,7 @@
                                       "referencedDeclaration": 14852,
                                       "src": "1985:4:31",
                                       "typeDescriptions": {
-                                        "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                        "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                       }
                                     },
@@ -5259,7 +5259,7 @@
                                     "lValueRequested": false,
                                     "memberName": "restrictedAddresses",
                                     "nodeType": "MemberAccess",
-                                    "referencedDeclaration": 41564,
+                                    "referencedDeclaration": 41576,
                                     "src": "1985:24:31",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -5366,7 +5366,7 @@
                                 "referencedDeclaration": 14852,
                                 "src": "2054:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -5377,10 +5377,10 @@
                               "lValueRequested": false,
                               "memberName": "restrictedHolders",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41561,
+                              "referencedDeclaration": 41573,
                               "src": "2054:22:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                                 "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                               }
                             },
@@ -5405,7 +5405,7 @@
                             "nodeType": "IndexAccess",
                             "src": "2054:31:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                              "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                             }
                           },
@@ -5443,7 +5443,7 @@
                                 "referencedDeclaration": 14852,
                                 "src": "2099:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -5454,7 +5454,7 @@
                               "lValueRequested": false,
                               "memberName": "restrictedAddresses",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41564,
+                              "referencedDeclaration": 41576,
                               "src": "2099:24:31",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -5511,7 +5511,7 @@
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                    "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                     "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                   },
                   "typeName": {
@@ -5519,10 +5519,10 @@
                     "id": 14851,
                     "name": "VolumeRestrictionTMStorage.RestrictedData",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 41565,
+                    "referencedDeclaration": 41577,
                     "src": "965:41:31",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                      "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                     }
                   },
@@ -5651,7 +5651,7 @@
                           "referencedDeclaration": 14946,
                           "src": "2415:4:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                            "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                           }
                         },
@@ -5662,10 +5662,10 @@
                         "lValueRequested": false,
                         "memberName": "restrictedHolders",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41561,
+                        "referencedDeclaration": 41573,
                         "src": "2415:22:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                           "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                         }
                       },
@@ -5690,7 +5690,7 @@
                       "nodeType": "IndexAccess",
                       "src": "2415:31:31",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                        "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                       }
                     },
@@ -5701,7 +5701,7 @@
                     "lValueRequested": false,
                     "memberName": "index",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 41556,
+                    "referencedDeclaration": 41568,
                     "src": "2415:37:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint128",
@@ -5738,7 +5738,7 @@
                             "referencedDeclaration": 14946,
                             "src": "2466:4:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                              "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                               "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                             }
                           },
@@ -5749,10 +5749,10 @@
                           "lValueRequested": false,
                           "memberName": "restrictedHolders",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41561,
+                          "referencedDeclaration": 41573,
                           "src": "2466:22:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                             "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                           }
                         },
@@ -5777,7 +5777,7 @@
                         "nodeType": "IndexAccess",
                         "src": "2466:31:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                          "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                           "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                         }
                       },
@@ -5788,7 +5788,7 @@
                       "lValueRequested": false,
                       "memberName": "seen",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41552,
+                      "referencedDeclaration": 41564,
                       "src": "2466:36:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -5866,7 +5866,7 @@
                                 "referencedDeclaration": 14946,
                                 "src": "2523:4:31",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                  "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                   "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                 }
                               },
@@ -5877,7 +5877,7 @@
                               "lValueRequested": false,
                               "memberName": "restrictedAddresses",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41564,
+                              "referencedDeclaration": 41576,
                               "src": "2523:24:31",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -5955,7 +5955,7 @@
                                     "referencedDeclaration": 14946,
                                     "src": "2591:4:31",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                      "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                                     }
                                   },
@@ -5966,7 +5966,7 @@
                                   "lValueRequested": false,
                                   "memberName": "restrictedAddresses",
                                   "nodeType": "MemberAccess",
-                                  "referencedDeclaration": 41564,
+                                  "referencedDeclaration": 41576,
                                   "src": "2591:24:31",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -6086,7 +6086,7 @@
                               "referencedDeclaration": 14946,
                               "src": "2674:4:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                                "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                                 "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                               }
                             },
@@ -6097,10 +6097,10 @@
                             "lValueRequested": false,
                             "memberName": "restrictedHolders",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41561,
+                            "referencedDeclaration": 41573,
                             "src": "2674:22:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                               "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                             }
                           },
@@ -6125,7 +6125,7 @@
                           "nodeType": "IndexAccess",
                           "src": "2674:31:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                            "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                           }
                         },
@@ -6136,7 +6136,7 @@
                         "lValueRequested": false,
                         "memberName": "typeOfPeriod",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41554,
+                        "referencedDeclaration": 41566,
                         "src": "2674:44:31",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint8",
@@ -6234,7 +6234,7 @@
                           "referencedDeclaration": 14946,
                           "src": "2750:4:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                            "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                             "typeString": "struct VolumeRestrictionTMStorage.RestrictedData storage pointer"
                           }
                         },
@@ -6245,10 +6245,10 @@
                         "lValueRequested": false,
                         "memberName": "restrictedHolders",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41561,
+                        "referencedDeclaration": 41573,
                         "src": "2750:22:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41557_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_RestrictedHolder_$41569_storage_$",
                           "typeString": "mapping(address => struct VolumeRestrictionTMStorage.RestrictedHolder storage ref)"
                         }
                       },
@@ -6273,7 +6273,7 @@
                       "nodeType": "IndexAccess",
                       "src": "2750:31:31",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                        "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                       }
                     },
@@ -6386,10 +6386,10 @@
                           "name": "VolumeRestrictionTMStorage",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41621,
+                          "referencedDeclaration": 41633,
                           "src": "2784:26:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41621_$",
+                            "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41633_$",
                             "typeString": "type(contract VolumeRestrictionTMStorage)"
                           }
                         },
@@ -6400,10 +6400,10 @@
                         "lValueRequested": false,
                         "memberName": "RestrictedHolder",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 41557,
+                        "referencedDeclaration": 41569,
                         "src": "2784:43:31",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_RestrictedHolder_$41557_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_RestrictedHolder_$41569_storage_ptr_$",
                           "typeString": "type(struct VolumeRestrictionTMStorage.RestrictedHolder storage pointer)"
                         }
                       },
@@ -6417,13 +6417,13 @@
                       "nodeType": "FunctionCall",
                       "src": "2784:67:31",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_RestrictedHolder_$41557_memory",
+                        "typeIdentifier": "t_struct$_RestrictedHolder_$41569_memory",
                         "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder memory"
                       }
                     },
                     "src": "2750:101:31",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedHolder_$41557_storage",
+                      "typeIdentifier": "t_struct$_RestrictedHolder_$41569_storage",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedHolder storage ref"
                     }
                   },
@@ -6455,7 +6455,7 @@
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                    "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                     "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                   },
                   "typeName": {
@@ -6463,10 +6463,10 @@
                     "id": 14945,
                     "name": "VolumeRestrictionTMStorage.RestrictedData",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 41565,
+                    "referencedDeclaration": 41577,
                     "src": "2274:41:31",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_RestrictedData_$41565_storage_ptr",
+                      "typeIdentifier": "t_struct$_RestrictedData_$41577_storage_ptr",
                       "typeString": "struct VolumeRestrictionTMStorage.RestrictedData"
                     }
                   },
@@ -6762,10 +6762,10 @@
                               "name": "VolumeRestrictionTMStorage",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41621,
+                              "referencedDeclaration": 41633,
                               "src": "3082:26:31",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41621_$",
+                                "typeIdentifier": "t_type$_t_contract$_VolumeRestrictionTMStorage_$41633_$",
                                 "typeString": "type(contract VolumeRestrictionTMStorage)"
                               }
                             },
@@ -6776,10 +6776,10 @@
                             "lValueRequested": false,
                             "memberName": "TypeOfPeriod",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41550,
+                            "referencedDeclaration": 41562,
                             "src": "3082:39:31",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41550_$",
+                              "typeIdentifier": "t_type$_t_enum$_TypeOfPeriod_$41562_$",
                               "typeString": "type(enum VolumeRestrictionTMStorage.TypeOfPeriod)"
                             }
                           },
@@ -6793,7 +6793,7 @@
                           "referencedDeclaration": null,
                           "src": "3082:44:31",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         }
@@ -6801,7 +6801,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41550",
+                            "typeIdentifier": "t_enum$_TypeOfPeriod_$41562",
                             "typeString": "enum VolumeRestrictionTMStorage.TypeOfPeriod"
                           }
                         ],
@@ -6989,9 +6989,9 @@
       "events": {},
       "links": {},
       "address": "0x30753e4a8aad7f8597332e813735def5dd395028",
-      "transactionHash": "0x6fe2e4c53ac011ae11b2e1bd97c0a14b7b5a28e095dfcc5d4a15aca9af568f5c"
+      "transactionHash": "0xbddd3b58967ea6feed7c372323fbbf9aa859823efb05a7777fb46fc85eba2475"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.665Z"
+  "updatedAt": "2019-02-06T00:35:10.188Z"
 }

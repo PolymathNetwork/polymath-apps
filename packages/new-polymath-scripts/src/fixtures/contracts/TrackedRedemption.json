@@ -222,7 +222,7 @@
         "id": 19233,
         "nodeType": "ImportDirective",
         "scope": 19331,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "133:59:51",
         "symbolAliases": [],
         "unitAlias": ""
@@ -293,10 +293,10 @@
               "id": 19238,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "334:8:51",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -730,7 +730,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1173:3:51",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -911,7 +911,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1221:3:51",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -993,7 +993,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44760,
+                              "referencedDeclaration": 44772,
                               "src": "1250:3:51",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -1032,7 +1032,7 @@
                         "lValueRequested": false,
                         "memberName": "add",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 44206,
+                        "referencedDeclaration": 44218,
                         "src": "1235:30:51",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1075,7 +1075,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1360:3:51",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1115,7 +1115,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1380:3:51",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1502,7 +1502,7 @@
         "id": 19233,
         "nodeType": "ImportDirective",
         "scope": 19331,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "133:59:51",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1573,10 +1573,10 @@
               "id": 19238,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "334:8:51",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -2010,7 +2010,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1173:3:51",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2191,7 +2191,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1221:3:51",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2273,7 +2273,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44760,
+                              "referencedDeclaration": 44772,
                               "src": "1250:3:51",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -2312,7 +2312,7 @@
                         "lValueRequested": false,
                         "memberName": "add",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 44206,
+                        "referencedDeclaration": 44218,
                         "src": "1235:30:51",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -2355,7 +2355,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1360:3:51",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2395,7 +2395,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1380:3:51",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2728,5 +2728,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.654Z"
+  "updatedAt": "2019-02-06T00:34:32.253Z"
 }

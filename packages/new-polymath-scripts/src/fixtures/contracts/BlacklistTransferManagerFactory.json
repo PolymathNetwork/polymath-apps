@@ -651,7 +651,7 @@
           10968,
           21463,
           26033,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying BlacklistManager module",
@@ -660,7 +660,7 @@
         "linearizedBaseContracts": [
           21656,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "BlacklistTransferManagerFactory",
@@ -1745,7 +1745,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1378:3:56",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -1772,7 +1772,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1390:5:56",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -1883,10 +1883,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1347:7:56",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1956,7 +1956,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1552:3:56",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2175,7 +2175,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44933,
+                            "referencedDeclaration": 44945,
                             "src": "1741:4:56",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_BlacklistTransferManagerFactory_$21656",
@@ -2225,7 +2225,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1748:3:56",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2265,7 +2265,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1771:3:56",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3314,7 +3314,7 @@
           10968,
           21463,
           26033,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying BlacklistManager module",
@@ -3323,7 +3323,7 @@
         "linearizedBaseContracts": [
           21656,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "BlacklistTransferManagerFactory",
@@ -4408,7 +4408,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1378:3:56",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -4435,7 +4435,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1390:5:56",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -4546,10 +4546,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1347:7:56",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4619,7 +4619,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1552:3:56",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4838,7 +4838,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44933,
+                            "referencedDeclaration": 44945,
                             "src": "1741:4:56",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_BlacklistTransferManagerFactory_$21656",
@@ -4888,7 +4888,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1748:3:56",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4928,7 +4928,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1771:3:56",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -5907,9 +5907,9 @@
       "events": {},
       "links": {},
       "address": "0x3d49d1ef2ade060a33c6e6aa213513a7ee9a6241",
-      "transactionHash": "0xd7304167a49b5ea0946e81d521f329635fea72c2bf26cef26ce75659a75a18ed"
+      "transactionHash": "0x0783cbe287ced0675ec8770a6adecccabfbd53e9112c9550e832caccdccec982"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.379Z"
+  "updatedAt": "2019-02-06T00:35:09.869Z"
 }
