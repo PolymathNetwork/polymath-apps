@@ -61,7 +61,7 @@ const ConfigSTOConfirmContent = ({ setupCost, balance }) => (
           of:
         </p>
         <div className="bx--details poly-cost">
-          {`${setupCost.toString()} POLY`}
+          {`${ui.thousandsDelimiter(setupCost)} POLY`}
         </div>
       </div>
     ) : (
