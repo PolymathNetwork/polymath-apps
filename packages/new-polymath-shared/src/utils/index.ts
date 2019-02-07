@@ -4,6 +4,7 @@ import { Pojo, isPojo } from '~/typing/types';
 import _ from 'lodash';
 import Papa, { ParseResult } from 'papaparse';
 import { Validator, createValidator } from './validator';
+import { object } from 'prop-types';
 
 export const delay = async (amount: number) => {
   return new Promise(resolve => {
@@ -65,7 +66,7 @@ export const downloadCsvFile = <T>(
 /**
  * Parses a CSV file and returns array of parsed objects
  *
- * @param data Could be a string containing the csv of the file from file input
+ * @param data Could be a string containing the csv or the file from file input
  * @param columns Array defining column names and validation rules
  * @param header Specify if the CSV contain a header
  * @param maxRows Specify the maximum number of rows to parse, anything beyond this number will be ignored
@@ -73,7 +74,7 @@ export const downloadCsvFile = <T>(
  * @param callback A callback function to call when the parsing is done
  */
 export const parseCsv = (
-  data: string,
+  data: any,
   columns: Array<any>,
   header?: boolean,
   maxRows?: number,
@@ -102,9 +103,25 @@ export const parseCsv = (
   let validRows: number = 0;
   let errorRows: number = 0;
   let ignoredRows: number = 0;
+  let headerRead: boolean = false;
 
   const step = (results: ParseResult) => {
     if (results.data.length === 1) {
+      if (hasHeader && !headerRead) {
+        // Map the indexes of the header with the file
+        for (const headerIndex of Object.keys(results.data[0])) {
+          const column = _.find(columns, col => {
+            return col.name === results.data[0][headerIndex];
+          });
+          if (column) {
+            column.index = parseInt(headerIndex, 10);
+          }
+        }
+        headerRead = true;
+
+        return;
+      }
+
       totalRows++;
 
       if (maxRows !== undefined && maxRows > 0 && totalRows > maxRows) {
@@ -115,33 +132,29 @@ export const parseCsv = (
         isRowValid: true,
       };
       for (const column of columns) {
-        if (!hasHeader) {
-          // No header, results are passed as array
-          const isValid = validator.validate(
-            results.data[0][column.index],
-            column.validationRules
-          );
-          // Papa Parser handles all data types except date, hadle date here
-          let columnValue: any = results.data[0][column.index];
-          if (
-            columnValue !== '' &&
-            columnValue !== null &&
-            typeof columnValue !== 'undefined' &&
-            new Date(columnValue).toString() !== 'Invalid Date'
-          ) {
-            columnValue = new Date(columnValue);
-          } else {
-            columnValue = results.data[0][column.index];
-          }
-
-          resultObj[column.name] = {
-            value: columnValue,
-            isColumnValid: isValid,
-          };
-          resultObj.isRowValid = resultObj.isRowValid && isValid;
+        // No header, results are passed as array
+        const isValid = validator.validate(
+          results.data[0][column.index],
+          column.validationRules
+        );
+        // Papa Parser handles all data types except date, hadle date here
+        let columnValue: any = results.data[0][column.index];
+        if (
+          columnValue !== '' &&
+          columnValue !== null &&
+          typeof columnValue !== undefined &&
+          new Date(columnValue).toString() !== 'Invalid Date'
+        ) {
+          columnValue = new Date(columnValue);
         } else {
-          // CSV data contain header, results are passed as objects
+          columnValue = results.data[0][column.index];
         }
+
+        resultObj[column.name] = {
+          value: columnValue,
+          isColumnValid: isValid,
+        };
+        resultObj.isRowValid = resultObj.isRowValid && isValid;
       }
 
       if (typeof validateRow === 'function') {
@@ -164,7 +177,7 @@ export const parseCsv = (
   const config = {
     dynamicTyping: true,
     skipEmptyLines: true,
-    header: hasHeader,
+    header: false,
     step,
     complete,
   };
