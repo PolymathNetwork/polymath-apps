@@ -4,6 +4,7 @@ import { browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import { setWallet } from '~/state/actions/session';
 import { RootState } from '~/state/store';
 import { initializePolyClient } from './app';
+import { polyClient } from '~/lib/polyClient';
 
 export function* requireWallet(
   params: { redirect: boolean } = { redirect: true }
