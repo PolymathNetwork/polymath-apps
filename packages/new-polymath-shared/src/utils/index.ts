@@ -64,7 +64,25 @@ export const downloadCsvFile = <T>(
 };
 
 /**
- * Parses a CSV file and returns array of parsed objects
+ * Parses a CSV file or string and returns array of parsed objects
+ * @example
+ * parseCsv(
+ *  `Column 1,Column 2,Column 3
+ *   1,White,1/1/2019
+ *  `,
+ *  [
+ *    {
+ *      index: 0,
+ *      name: "Column 1",
+ *      validationRules: ["isInt", "isNotEmpty"]
+ *    },
+ *    {
+ *      index: 1,
+ *      name: "Column 2",
+ *      validationRules: ["isString", "isNotEmpty"]
+ *    },
+ *  ]
+ * );
  *
  * @param data Could be a string containing the csv or the file from file input
  * @param columns Array defining column names and validation rules
