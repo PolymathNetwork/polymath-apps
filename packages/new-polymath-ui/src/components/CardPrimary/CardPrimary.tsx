@@ -8,11 +8,11 @@ export interface CardPrimaryProps extends CardProps {}
 export const CardPrimary = styled(Card)<CardPrimaryProps>`
   color: ${({ theme }) => theme.colors.highlightText};
   background-color: ${({ theme }) => theme.colors.gray[1]};
-  padding: ${({ theme }) => theme.space[1]} ${({ theme }) => theme.space[2]};
 `;
 
 CardPrimary.defaultProps = {
   rounded: true,
+  p: 1,
 };
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved

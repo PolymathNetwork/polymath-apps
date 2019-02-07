@@ -2,6 +2,7 @@ import { theme } from './styles/theme';
 import { SvgAccount } from './images/icons/Account';
 import { SvgCalendar } from './images/icons/Calendar';
 import { SvgCaretDown } from './images/icons/CaretDown';
+import { SvgDot } from './images/icons/Dot';
 import { SvgDownload } from './images/icons/Download';
 import { SvgErc20 } from './images/icons/Erc20';
 import { SvgDividends } from './images/icons/Dividends';
@@ -10,6 +11,7 @@ import { SvgCheckmark } from './images/icons/Checkmark';
 import { SvgChecklist } from './images/icons/Checklist';
 import { SvgPlus } from './images/icons/Plus';
 import { SvgPlusPlain } from './images/icons/PlusPlain';
+import { SvgWarning } from './images/icons/Warning';
 
 // Styles
 export * from './styles';
@@ -28,7 +30,10 @@ export { PageWrap } from './components/PageWrap';
 
 // Components
 export { Button } from './components/Button';
+export { ButtonSmall } from './components/ButtonSmall';
 export { ButtonLarge } from './components/ButtonLarge';
+export { ButtonFluid } from './components/ButtonFluid';
+export { ButtonLink } from './components/ButtonLink';
 export { Card } from './components/Card';
 export { CardPrimary } from './components/CardPrimary';
 export { CardFeatureState } from './components/CardFeatureState';
@@ -46,6 +51,7 @@ export { LabeledItem } from './components/LabeledItem';
 export { Link } from './components/Link';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
+export { Text } from './components/Text';
 export { ModalTransactionQueue } from './components/ModalTransactionQueue';
 export {
   ModalConfirmTransactionQueue,
@@ -55,12 +61,16 @@ export { PageCentered } from './components/PageCentered';
 export { ProgressIndicator } from './components/ProgressIndicator';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
+export { Tooltip } from './components/Tooltip';
+export { TooltipIcon } from './components/TooltipIcon';
+export { TooltipPrimary } from './components/TooltipPrimary';
 
 // Icons
 export const icons = {
   SvgAccount,
   SvgCalendar,
   SvgCaretDown,
+  SvgDot,
   SvgDownload,
   SvgErc20,
   SvgDividends,
@@ -69,4 +79,5 @@ export const icons = {
   SvgChecklist,
   SvgPlus,
   SvgPlusPlain,
+  SvgWarning,
 };

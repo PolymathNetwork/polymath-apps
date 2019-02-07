@@ -1,50 +1,89 @@
-import { styled } from '~/styles';
+import { createGlobalStyle } from '~/styles';
 
-import { Icon as _Icon } from '../Icon';
+const tooltipSpace = 5;
+const arrowSize = 8;
 
-export const Container = styled.div`
-  .__react_component_tooltip {
+export const GlobalStyles = createGlobalStyle`
+  .popper,
+  .tooltip {
+    position: absolute;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    max-width: 15rem;
-    background-color: white;
-    padding: 1rem;
-    border: 1px solid #dfe3e6;
-    word-wrap: break-word;
-    pointer-events: auto;
-    border-radius: 0;
-    transition: none;
-    font-weight: normal;
-    font-size: ${({ theme }) => theme.fontSizes.baseText};
-
-    &.show {
-      opacity: 1;
-    }
-
-    &.place-top:before {
-      border-top: 8px solid rgba(0, 0, 0, 0.05);
-    }
-
-    &.place-bottom:before {
-      border-bottom: 8px solid #dfe3e6;
-    }
+    text-align: center;
   }
 
-  p:last-child {
+  .popper .popper__arrow,
+  .tooltip .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: ${arrowSize + tooltipSpace}px;
+  }
+
+  .tooltip .tooltip-arrow,
+  .popper .popper__arrow {
+    border-color: currentColor;
+  }
+
+  .popper[x-placement^="top"],
+  .tooltip[x-placement^="top"] {
+    margin-bottom: ${arrowSize + tooltipSpace}px;
+  }
+
+  .popper[x-placement^="top"] .popper__arrow,
+  .tooltip[x-placement^="top"] .tooltip-arrow {
+    border-width: ${arrowSize}px ${arrowSize}px 0 ${arrowSize}px;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    bottom: ${-arrowSize + 1}px;
+    left: calc(50% - ${arrowSize}px);
+    margin-top: 0;
     margin-bottom: 0;
   }
-`;
-
-export const Label = styled.span`
-  vertical-align: middle;
-  line-height: 1;
-  margin-right: 4px;
-`;
-
-export const Icon = styled(_Icon)`
-  transition: ${({ theme }) => `color ${theme.transitions.hover.ms}ms`};
-  color: ${({ theme }) => theme.colors.secondary};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.blue[0]};
+  .popper[x-placement^="bottom"],
+  .tooltip[x-placement^="bottom"] {
+    margin-top: ${arrowSize + tooltipSpace}px;
+  }
+  .tooltip[x-placement^="bottom"] .tooltip-arrow,
+  .popper[x-placement^="bottom"] .popper__arrow {
+    border-width: 0 ${arrowSize}px ${arrowSize}px ${arrowSize}px;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    top: ${-arrowSize + 1}px;
+    left: calc(50% - ${arrowSize}px);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .tooltip[x-placement^="right"],
+  .popper[x-placement^="right"] {
+    margin-left: ${arrowSize + tooltipSpace}px;
+  }
+  .popper[x-placement^="right"] .popper__arrow,
+  .tooltip[x-placement^="right"] .tooltip-arrow {
+    border-width: ${arrowSize}px ${arrowSize}px ${arrowSize}px 0;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    left: ${-arrowSize + 1}px;
+    top: calc(50% - ${arrowSize}px);
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .popper[x-placement^="left"],
+  .tooltip[x-placement^="left"] {
+    margin-right: ${arrowSize + tooltipSpace}px;
+  }
+  .popper[x-placement^="left"] .popper__arrow,
+  .tooltip[x-placement^="left"] .tooltip-arrow {
+    border-width: ${arrowSize}px 0 ${arrowSize}px ${arrowSize}px;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    right: ${-arrowSize + 1}px;
+    top: calc(50% - ${arrowSize}px);
+    margin-left: 0;
+    margin-right: 0;
   }
 `;

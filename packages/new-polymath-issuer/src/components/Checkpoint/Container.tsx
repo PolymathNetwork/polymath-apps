@@ -4,9 +4,7 @@ import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createCheckpointBySymbolAndIdFetcher } from '~/state/fetchers';
-import { types, utils, formatters } from '@polymathnetwork/new-shared';
-import { DateTime } from 'luxon';
-import BigNumber from 'bignumber.js';
+import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
   dispatch: Dispatch<any>;
@@ -68,13 +66,24 @@ export class ContainerBase extends Component<Props> {
             securityTokenSymbol: symbol,
             checkpointIndex,
           }),
+          createDividendsByCheckpointFetcher({
+            securityTokenSymbol: symbol,
+            checkpointIndex,
+          }),
         ]}
-        render={(data: { checkpoints: types.CheckpointEntity[] }) => {
+        render={(data: {
+          checkpoints: types.CheckpointPojo[];
+          dividends: types.DividendPojo[];
+        }) => {
           const {
             checkpoints: [checkpoint],
           } = data;
-          // TODO @monitz87: pass the actual props to the presenter when it is implemented
-          return <Presenter />;
+          return (
+            <Presenter
+              symbol={symbol}
+              dividends={checkpoint ? checkpoint.dividends : []}
+            />
+          );
         }}
       />
     );

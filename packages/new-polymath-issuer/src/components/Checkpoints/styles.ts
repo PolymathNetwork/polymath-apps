@@ -1,6 +1,6 @@
 import {
   styled,
-  Box,
+  Flex,
   List,
   Heading,
   IconOutlined,
@@ -37,7 +37,7 @@ export const Dividends: StyledComponent<
   ThemeInterface,
   any,
   never
-> = styled(Box)`
+> = styled(Flex)`
   position: relative;
   padding-left: ${({ theme }) => theme.space.gridGap};
 `;
