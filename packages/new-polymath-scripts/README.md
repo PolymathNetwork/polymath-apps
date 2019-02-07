@@ -12,9 +12,9 @@ usage: `yarn local-blockchain:generate-fixtures`
 
 Starts an instance of the ganache CLI and populates the local blockchain with the seed data provided in a JSON file.
 
-usage: `yarn local-blockchain:start --seedData <relative_path_to_json>`
+usage: `yarn local-blockchain:start --seedData <absolute_path_to_json>`
 
-example `yarn local-blockchain:start --seedData ./myData.json`
+example `yarn local-blockchain:start --seedData /FObrien/I/Know/Youre/Reading/This/myData.json`
 
 (The script loads `seedData.json` by default)
 

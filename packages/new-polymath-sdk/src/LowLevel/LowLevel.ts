@@ -100,15 +100,15 @@ a browser, make sure you have MetaMask installed and enabled.`
 
     // TODO @RafaelVidaurre: Paralelize or initialize lazily
 
-    const polyTokenAddress = await this.polymathRegistry.getAddress(
-      'PolyToken'
-    );
+    const polyTokenAddress = await this.polymathRegistry.getAddress({
+      contractName: 'PolyToken',
+    });
     const securityTokenRegistryAddress = await this.polymathRegistry.getAddress(
-      'SecurityTokenRegistry'
+      { contractName: 'SecurityTokenRegistry' }
     );
-    const moduleRegistryAddress = await this.polymathRegistry.getAddress(
-      'ModuleRegistry'
-    );
+    const moduleRegistryAddress = await this.polymathRegistry.getAddress({
+      contractName: 'ModuleRegistry',
+    });
 
     this.polyToken = new PolyToken({
       address: polyTokenAddress,

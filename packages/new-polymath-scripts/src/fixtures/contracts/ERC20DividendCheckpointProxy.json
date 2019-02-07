@@ -375,14 +375,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/ERC20DividendCheckpointProxy.sol",
     "exportedSymbols": {
       "ERC20DividendCheckpointProxy": [
-        40078
+        40090
       ]
     },
-    "id": 40079,
+    "id": 40091,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40035,
+        "id": 40047,
         "literals": [
           "solidity",
           "^",
@@ -395,9 +395,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Checkpoint/ERC20DividendCheckpointStorage.sol",
         "file": "../modules/Checkpoint/ERC20DividendCheckpointStorage.sol",
-        "id": 40036,
+        "id": 40048,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 18402,
         "src": "26:66:91",
         "symbolAliases": [],
@@ -406,9 +406,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpointStorage.sol",
         "file": "../modules/Checkpoint/DividendCheckpointStorage.sol",
-        "id": 40037,
+        "id": 40049,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 17467,
         "src": "93:61:91",
         "symbolAliases": [],
@@ -417,10 +417,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedProxy.sol",
         "file": "./OwnedProxy.sol",
-        "id": 40038,
+        "id": 40050,
         "nodeType": "ImportDirective",
-        "scope": 40079,
-        "sourceUnit": 40296,
+        "scope": 40091,
+        "sourceUnit": 40308,
         "src": "155:26:91",
         "symbolAliases": [],
         "unitAlias": ""
@@ -428,9 +428,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../Pausable.sol",
-        "id": 40039,
+        "id": 40051,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 1565,
         "src": "182:25:91",
         "symbolAliases": [],
@@ -439,9 +439,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/ModuleStorage.sol",
         "file": "../modules/ModuleStorage.sol",
-        "id": 40040,
+        "id": 40052,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 26070,
         "src": "208:38:91",
         "symbolAliases": [],
@@ -453,7 +453,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40041,
+              "id": 40053,
               "name": "ERC20DividendCheckpointStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 18401,
@@ -463,7 +463,7 @@
                 "typeString": "contract ERC20DividendCheckpointStorage"
               }
             },
-            "id": 40042,
+            "id": 40054,
             "nodeType": "InheritanceSpecifier",
             "src": "374:30:91"
           },
@@ -471,7 +471,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40043,
+              "id": 40055,
               "name": "DividendCheckpointStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17466,
@@ -481,7 +481,7 @@
                 "typeString": "contract DividendCheckpointStorage"
               }
             },
-            "id": 40044,
+            "id": 40056,
             "nodeType": "InheritanceSpecifier",
             "src": "406:25:91"
           },
@@ -489,7 +489,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40045,
+              "id": 40057,
               "name": "ModuleStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 26069,
@@ -499,7 +499,7 @@
                 "typeString": "contract ModuleStorage"
               }
             },
-            "id": 40046,
+            "id": 40058,
             "nodeType": "InheritanceSpecifier",
             "src": "433:13:91"
           },
@@ -507,7 +507,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40047,
+              "id": 40059,
               "name": "Pausable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 1564,
@@ -517,7 +517,7 @@
                 "typeString": "contract Pausable"
               }
             },
-            "id": 40048,
+            "id": 40060,
             "nodeType": "InheritanceSpecifier",
             "src": "448:8:91"
           },
@@ -525,17 +525,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40049,
+              "id": 40061,
               "name": "OwnedProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40295,
+              "referencedDeclaration": 40307,
               "src": "458:10:91",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedProxy_$40295",
+                "typeIdentifier": "t_contract$_OwnedProxy_$40307",
                 "typeString": "contract OwnedProxy"
               }
             },
-            "id": 40050,
+            "id": 40062,
             "nodeType": "InheritanceSpecifier",
             "src": "458:10:91"
           }
@@ -545,17 +545,17 @@
           17466,
           18401,
           26069,
-          40295,
-          40504
+          40307,
+          40516
         ],
         "contractKind": "contract",
         "documentation": "@title Transfer Manager module for core transfer validation functionality",
         "fullyImplemented": true,
-        "id": 40078,
+        "id": 40090,
         "linearizedBaseContracts": [
-          40078,
-          40295,
-          40504,
+          40090,
+          40307,
+          40516,
           1564,
           26069,
           17466,
@@ -566,7 +566,7 @@
         "nodes": [
           {
             "body": {
-              "id": 40076,
+              "id": 40088,
               "nodeType": "Block",
               "src": "863:176:91",
               "statements": [
@@ -580,18 +580,18 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 40068,
+                        "id": 40080,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 40064,
+                          "id": 40076,
                           "name": "_implementation",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 40056,
+                          "referencedDeclaration": 40068,
                           "src": "894:15:91",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -606,7 +606,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 40066,
+                              "id": 40078,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -629,7 +629,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 40065,
+                            "id": 40077,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -642,7 +642,7 @@
                             },
                             "typeName": "address"
                           },
-                          "id": 40067,
+                          "id": 40079,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -665,7 +665,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "496d706c656d656e746174696f6e20616464726573732073686f756c64206e6f74206265203078",
-                        "id": 40069,
+                        "id": 40081,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -692,21 +692,21 @@
                           "typeString": "literal_string \"Implementation address should not be 0x\""
                         }
                       ],
-                      "id": 40063,
+                      "id": 40075,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "873:7:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 40070,
+                    "id": 40082,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -720,25 +720,25 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 40071,
+                  "id": 40083,
                   "nodeType": "ExpressionStatement",
                   "src": "873:115:91"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 40074,
+                    "id": 40086,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 40072,
+                      "id": 40084,
                       "name": "__implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40180,
+                      "referencedDeclaration": 40192,
                       "src": "998:16:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -749,11 +749,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 40073,
+                      "id": 40085,
                       "name": "_implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40056,
+                      "referencedDeclaration": 40068,
                       "src": "1017:15:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -766,14 +766,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 40075,
+                  "id": 40087,
                   "nodeType": "ExpressionStatement",
                   "src": "998:34:91"
                 }
               ]
             },
             "documentation": "@notice Constructor\n@param _securityToken Address of the security token\n@param _polyAddress Address of the polytoken\n@param _implementation representing the address of the new implementation to be set",
-            "id": 40077,
+            "id": 40089,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -782,11 +782,11 @@
                 "arguments": [
                   {
                     "argumentTypes": null,
-                    "id": 40059,
+                    "id": 40071,
                     "name": "_securityToken",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40052,
+                    "referencedDeclaration": 40064,
                     "src": "829:14:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -795,11 +795,11 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 40060,
+                    "id": 40072,
                     "name": "_polyAddress",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40054,
+                    "referencedDeclaration": 40066,
                     "src": "845:12:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -807,10 +807,10 @@
                     }
                   }
                 ],
-                "id": 40061,
+                "id": 40073,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 40058,
+                  "id": 40070,
                   "name": "ModuleStorage",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
@@ -828,15 +828,15 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 40057,
+              "id": 40069,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 40052,
+                  "id": 40064,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40077,
+                  "scope": 40089,
                   "src": "729:22:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -845,7 +845,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40051,
+                    "id": 40063,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "729:7:91",
@@ -859,10 +859,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40054,
+                  "id": 40066,
                   "name": "_polyAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40077,
+                  "scope": 40089,
                   "src": "753:20:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -871,7 +871,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40053,
+                    "id": 40065,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "753:7:91",
@@ -885,10 +885,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40056,
+                  "id": 40068,
                   "name": "_implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40077,
+                  "scope": 40089,
                   "src": "775:23:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -897,7 +897,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40055,
+                    "id": 40067,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "775:7:91",
@@ -914,19 +914,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 40062,
+              "id": 40074,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "863:0:91"
             },
-            "scope": 40078,
+            "scope": 40090,
             "src": "716:323:91",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 40079,
+        "scope": 40091,
         "src": "333:709:91"
       }
     ],
@@ -936,14 +936,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/ERC20DividendCheckpointProxy.sol",
     "exportedSymbols": {
       "ERC20DividendCheckpointProxy": [
-        40078
+        40090
       ]
     },
-    "id": 40079,
+    "id": 40091,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 40035,
+        "id": 40047,
         "literals": [
           "solidity",
           "^",
@@ -956,9 +956,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Checkpoint/ERC20DividendCheckpointStorage.sol",
         "file": "../modules/Checkpoint/ERC20DividendCheckpointStorage.sol",
-        "id": 40036,
+        "id": 40048,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 18402,
         "src": "26:66:91",
         "symbolAliases": [],
@@ -967,9 +967,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Checkpoint/DividendCheckpointStorage.sol",
         "file": "../modules/Checkpoint/DividendCheckpointStorage.sol",
-        "id": 40037,
+        "id": 40049,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 17467,
         "src": "93:61:91",
         "symbolAliases": [],
@@ -978,10 +978,10 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/proxy/OwnedProxy.sol",
         "file": "./OwnedProxy.sol",
-        "id": 40038,
+        "id": 40050,
         "nodeType": "ImportDirective",
-        "scope": 40079,
-        "sourceUnit": 40296,
+        "scope": 40091,
+        "sourceUnit": 40308,
         "src": "155:26:91",
         "symbolAliases": [],
         "unitAlias": ""
@@ -989,9 +989,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/Pausable.sol",
         "file": "../Pausable.sol",
-        "id": 40039,
+        "id": 40051,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 1565,
         "src": "182:25:91",
         "symbolAliases": [],
@@ -1000,9 +1000,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/ModuleStorage.sol",
         "file": "../modules/ModuleStorage.sol",
-        "id": 40040,
+        "id": 40052,
         "nodeType": "ImportDirective",
-        "scope": 40079,
+        "scope": 40091,
         "sourceUnit": 26070,
         "src": "208:38:91",
         "symbolAliases": [],
@@ -1014,7 +1014,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40041,
+              "id": 40053,
               "name": "ERC20DividendCheckpointStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 18401,
@@ -1024,7 +1024,7 @@
                 "typeString": "contract ERC20DividendCheckpointStorage"
               }
             },
-            "id": 40042,
+            "id": 40054,
             "nodeType": "InheritanceSpecifier",
             "src": "374:30:91"
           },
@@ -1032,7 +1032,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40043,
+              "id": 40055,
               "name": "DividendCheckpointStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17466,
@@ -1042,7 +1042,7 @@
                 "typeString": "contract DividendCheckpointStorage"
               }
             },
-            "id": 40044,
+            "id": 40056,
             "nodeType": "InheritanceSpecifier",
             "src": "406:25:91"
           },
@@ -1050,7 +1050,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40045,
+              "id": 40057,
               "name": "ModuleStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 26069,
@@ -1060,7 +1060,7 @@
                 "typeString": "contract ModuleStorage"
               }
             },
-            "id": 40046,
+            "id": 40058,
             "nodeType": "InheritanceSpecifier",
             "src": "433:13:91"
           },
@@ -1068,7 +1068,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40047,
+              "id": 40059,
               "name": "Pausable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 1564,
@@ -1078,7 +1078,7 @@
                 "typeString": "contract Pausable"
               }
             },
-            "id": 40048,
+            "id": 40060,
             "nodeType": "InheritanceSpecifier",
             "src": "448:8:91"
           },
@@ -1086,17 +1086,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 40049,
+              "id": 40061,
               "name": "OwnedProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 40295,
+              "referencedDeclaration": 40307,
               "src": "458:10:91",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OwnedProxy_$40295",
+                "typeIdentifier": "t_contract$_OwnedProxy_$40307",
                 "typeString": "contract OwnedProxy"
               }
             },
-            "id": 40050,
+            "id": 40062,
             "nodeType": "InheritanceSpecifier",
             "src": "458:10:91"
           }
@@ -1106,17 +1106,17 @@
           17466,
           18401,
           26069,
-          40295,
-          40504
+          40307,
+          40516
         ],
         "contractKind": "contract",
         "documentation": "@title Transfer Manager module for core transfer validation functionality",
         "fullyImplemented": true,
-        "id": 40078,
+        "id": 40090,
         "linearizedBaseContracts": [
-          40078,
-          40295,
-          40504,
+          40090,
+          40307,
+          40516,
           1564,
           26069,
           17466,
@@ -1127,7 +1127,7 @@
         "nodes": [
           {
             "body": {
-              "id": 40076,
+              "id": 40088,
               "nodeType": "Block",
               "src": "863:176:91",
               "statements": [
@@ -1141,18 +1141,18 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 40068,
+                        "id": 40080,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 40064,
+                          "id": 40076,
                           "name": "_implementation",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 40056,
+                          "referencedDeclaration": 40068,
                           "src": "894:15:91",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1167,7 +1167,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 40066,
+                              "id": 40078,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -1190,7 +1190,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 40065,
+                            "id": 40077,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -1203,7 +1203,7 @@
                             },
                             "typeName": "address"
                           },
-                          "id": 40067,
+                          "id": 40079,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1226,7 +1226,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "496d706c656d656e746174696f6e20616464726573732073686f756c64206e6f74206265203078",
-                        "id": 40069,
+                        "id": 40081,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1253,21 +1253,21 @@
                           "typeString": "literal_string \"Implementation address should not be 0x\""
                         }
                       ],
-                      "id": 40063,
+                      "id": 40075,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "873:7:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 40070,
+                    "id": 40082,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1281,25 +1281,25 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 40071,
+                  "id": 40083,
                   "nodeType": "ExpressionStatement",
                   "src": "873:115:91"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 40074,
+                    "id": 40086,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 40072,
+                      "id": 40084,
                       "name": "__implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40180,
+                      "referencedDeclaration": 40192,
                       "src": "998:16:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1310,11 +1310,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 40073,
+                      "id": 40085,
                       "name": "_implementation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 40056,
+                      "referencedDeclaration": 40068,
                       "src": "1017:15:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1327,14 +1327,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 40075,
+                  "id": 40087,
                   "nodeType": "ExpressionStatement",
                   "src": "998:34:91"
                 }
               ]
             },
             "documentation": "@notice Constructor\n@param _securityToken Address of the security token\n@param _polyAddress Address of the polytoken\n@param _implementation representing the address of the new implementation to be set",
-            "id": 40077,
+            "id": 40089,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -1343,11 +1343,11 @@
                 "arguments": [
                   {
                     "argumentTypes": null,
-                    "id": 40059,
+                    "id": 40071,
                     "name": "_securityToken",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40052,
+                    "referencedDeclaration": 40064,
                     "src": "829:14:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1356,11 +1356,11 @@
                   },
                   {
                     "argumentTypes": null,
-                    "id": 40060,
+                    "id": 40072,
                     "name": "_polyAddress",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 40054,
+                    "referencedDeclaration": 40066,
                     "src": "845:12:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1368,10 +1368,10 @@
                     }
                   }
                 ],
-                "id": 40061,
+                "id": 40073,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 40058,
+                  "id": 40070,
                   "name": "ModuleStorage",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
@@ -1389,15 +1389,15 @@
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 40057,
+              "id": 40069,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 40052,
+                  "id": 40064,
                   "name": "_securityToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40077,
+                  "scope": 40089,
                   "src": "729:22:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1406,7 +1406,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40051,
+                    "id": 40063,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "729:7:91",
@@ -1420,10 +1420,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40054,
+                  "id": 40066,
                   "name": "_polyAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40077,
+                  "scope": 40089,
                   "src": "753:20:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1432,7 +1432,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40053,
+                    "id": 40065,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "753:7:91",
@@ -1446,10 +1446,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 40056,
+                  "id": 40068,
                   "name": "_implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 40077,
+                  "scope": 40089,
                   "src": "775:23:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1458,7 +1458,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 40055,
+                    "id": 40067,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "775:7:91",
@@ -1475,19 +1475,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 40062,
+              "id": 40074,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "863:0:91"
             },
-            "scope": 40078,
+            "scope": 40090,
             "src": "716:323:91",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 40079,
+        "scope": 40091,
         "src": "333:709:91"
       }
     ],
@@ -1499,5 +1499,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.977Z"
+  "updatedAt": "2019-02-06T16:02:05.760Z"
 }

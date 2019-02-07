@@ -1,4 +1,4 @@
-import React, { Fragment, ComponentType } from 'react';
+import React, { Fragment } from 'react';
 import { findDOMNode } from 'react-dom';
 import PopperJS from 'popper.js';
 import TooltipJS, { Options } from 'tooltip.js';
@@ -8,7 +8,6 @@ import * as sc from './styles';
 export interface TooltipProps {
   role?: string;
   placement?: PopperJS.Placement;
-  children: ComponentType;
 }
 
 export class TooltipComponent extends React.Component<TooltipProps> {

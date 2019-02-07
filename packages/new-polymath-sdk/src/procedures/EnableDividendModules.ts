@@ -1,14 +1,11 @@
 import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { types as sharedTypes } from '@polymathnetwork/new-shared';
+import { EnableDividendModulesProcedureArgs } from '~/types';
 
-interface Args {
-  symbol: string;
-  storageWalletAddress: string;
-  types?: DividendModuleTypes[];
-}
-
-export class EnableDividendModules extends Procedure<Args> {
+export class EnableDividendModules extends Procedure<
+  EnableDividendModulesProcedureArgs
+> {
   public type = sharedTypes.ProcedureTypes.EnableDividendModules;
   public async prepareTransactions() {
     const {
@@ -18,12 +15,14 @@ export class EnableDividendModules extends Procedure<Args> {
     } = this.args;
     const { securityTokenRegistry } = this.context;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(symbol);
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
 
     for (const type of types) {
       await this.addTransaction(securityToken.addDividendsModule, {
         tag: sharedTypes.PolyTransactionTags.EnableDividends,
-      })(type, storageWalletAddress);
+      })({ type, wallet: storageWalletAddress });
     }
   }
 }

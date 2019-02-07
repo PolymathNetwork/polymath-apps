@@ -652,7 +652,7 @@
           10968,
           26033,
           28445,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Mock Contract Not fit for production environment",
@@ -662,7 +662,7 @@
           15211,
           28445,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "MockFactory",
@@ -1574,7 +1574,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 44241,
+                  "referencedDeclaration": 44253,
                   "src": "942:9:33",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1670,7 +1670,7 @@
           10968,
           26033,
           28445,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Mock Contract Not fit for production environment",
@@ -1680,7 +1680,7 @@
           15211,
           28445,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "MockFactory",
@@ -2592,7 +2592,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 44241,
+                  "referencedDeclaration": 44253,
                   "src": "942:9:33",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2637,5 +2637,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.579Z"
+  "updatedAt": "2019-02-06T16:02:05.286Z"
 }

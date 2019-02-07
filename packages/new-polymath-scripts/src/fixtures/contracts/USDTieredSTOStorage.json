@@ -322,14 +322,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/USDTieredSTOStorage.sol",
     "exportedSymbols": {
       "USDTieredSTOStorage": [
-        41477
+        41489
       ]
     },
-    "id": 41478,
+    "id": 41490,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 41395,
+        "id": 41407,
         "literals": [
           "solidity",
           "^",
@@ -342,9 +342,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../interfaces/IERC20.sol",
-        "id": 41396,
+        "id": 41408,
         "nodeType": "ImportDirective",
-        "scope": 41478,
+        "scope": 41490,
         "sourceUnit": 10818,
         "src": "26:34:105",
         "symbolAliases": [],
@@ -356,23 +356,23 @@
         "contractKind": "contract",
         "documentation": "@title Contract used to store layout for the USDTieredSTO storage",
         "fullyImplemented": true,
-        "id": 41477,
+        "id": 41489,
         "linearizedBaseContracts": [
-          41477
+          41489
         ],
         "name": "USDTieredSTOStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "USDTieredSTOStorage.Tier",
-            "id": 41413,
+            "id": 41425,
             "members": [
               {
                 "constant": false,
-                "id": 41398,
+                "id": 41410,
                 "name": "rate",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "433:12:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -381,7 +381,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41397,
+                  "id": 41409,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "433:7:105",
@@ -395,10 +395,10 @@
               },
               {
                 "constant": false,
-                "id": 41400,
+                "id": 41412,
                 "name": "rateDiscountPoly",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "593:24:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -407,7 +407,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41399,
+                  "id": 41411,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "593:7:105",
@@ -421,10 +421,10 @@
               },
               {
                 "constant": false,
-                "id": 41402,
+                "id": 41414,
                 "name": "tokenTotal",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "708:18:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -433,7 +433,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41401,
+                  "id": 41413,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "708:7:105",
@@ -447,10 +447,10 @@
               },
               {
                 "constant": false,
-                "id": 41404,
+                "id": 41416,
                 "name": "tokensDiscountPoly",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "858:26:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -459,7 +459,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41403,
+                  "id": 41415,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "858:7:105",
@@ -473,10 +473,10 @@
               },
               {
                 "constant": false,
-                "id": 41406,
+                "id": 41418,
                 "name": "mintedTotal",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "978:19:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -485,7 +485,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41405,
+                  "id": 41417,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "978:7:105",
@@ -499,10 +499,10 @@
               },
               {
                 "constant": false,
-                "id": 41410,
+                "id": 41422,
                 "name": "minted",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "1116:33:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -511,9 +511,9 @@
                   "typeString": "mapping(uint8 => uint256)"
                 },
                 "typeName": {
-                  "id": 41409,
+                  "id": 41421,
                   "keyType": {
-                    "id": 41407,
+                    "id": 41419,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "1125:5:105",
@@ -529,7 +529,7 @@
                     "typeString": "mapping(uint8 => uint256)"
                   },
                   "valueType": {
-                    "id": 41408,
+                    "id": 41420,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1134:7:105",
@@ -544,10 +544,10 @@
               },
               {
                 "constant": false,
-                "id": 41412,
+                "id": 41424,
                 "name": "mintedDiscountPoly",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "1267:26:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -556,7 +556,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41411,
+                  "id": 41423,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1267:7:105",
@@ -571,20 +571,20 @@
             ],
             "name": "Tier",
             "nodeType": "StructDefinition",
-            "scope": 41477,
+            "scope": 41489,
             "src": "229:1071:105",
             "visibility": "public"
           },
           {
             "canonicalName": "USDTieredSTOStorage.Investor",
-            "id": 41420,
+            "id": 41432,
             "members": [
               {
                 "constant": false,
-                "id": 41415,
+                "id": 41427,
                 "name": "accredited",
                 "nodeType": "VariableDeclaration",
-                "scope": 41420,
+                "scope": 41432,
                 "src": "1411:16:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -593,7 +593,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41414,
+                  "id": 41426,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "1411:5:105",
@@ -607,10 +607,10 @@
               },
               {
                 "constant": false,
-                "id": 41417,
+                "id": 41429,
                 "name": "seen",
                 "nodeType": "VariableDeclaration",
-                "scope": 41420,
+                "scope": 41432,
                 "src": "1523:10:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -619,7 +619,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41416,
+                  "id": 41428,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "1523:5:105",
@@ -633,10 +633,10 @@
               },
               {
                 "constant": false,
-                "id": 41419,
+                "id": 41431,
                 "name": "nonAccreditedLimitUSDOverride",
                 "nodeType": "VariableDeclaration",
-                "scope": 41420,
+                "scope": 41432,
                 "src": "1657:37:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -645,7 +645,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41418,
+                  "id": 41430,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1657:7:105",
@@ -660,16 +660,16 @@
             ],
             "name": "Investor",
             "nodeType": "StructDefinition",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1306:395:105",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 41426,
+            "id": 41438,
             "name": "oracleKeys",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1707:59:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -678,9 +678,9 @@
               "typeString": "mapping(bytes32 => mapping(bytes32 => string))"
             },
             "typeName": {
-              "id": 41425,
+              "id": 41437,
               "keyType": {
-                "id": 41421,
+                "id": 41433,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1716:7:105",
@@ -696,9 +696,9 @@
                 "typeString": "mapping(bytes32 => mapping(bytes32 => string))"
               },
               "valueType": {
-                "id": 41424,
+                "id": 41436,
                 "keyType": {
-                  "id": 41422,
+                  "id": 41434,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "1736:7:105",
@@ -714,7 +714,7 @@
                   "typeString": "mapping(bytes32 => string)"
                 },
                 "valueType": {
-                  "id": 41423,
+                  "id": 41435,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "1747:6:105",
@@ -730,10 +730,10 @@
           },
           {
             "constant": false,
-            "id": 41429,
+            "id": 41441,
             "name": "allowBeneficialInvestments",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1842:46:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -742,7 +742,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 41427,
+              "id": 41439,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "1842:4:105",
@@ -754,7 +754,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "66616c7365",
-              "id": 41428,
+              "id": 41440,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -773,10 +773,10 @@
           },
           {
             "constant": false,
-            "id": 41431,
+            "id": 41443,
             "name": "isFinalized",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1944:23:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -785,7 +785,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 41430,
+              "id": 41442,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "1944:4:105",
@@ -799,10 +799,10 @@
           },
           {
             "constant": false,
-            "id": 41433,
+            "id": 41445,
             "name": "wallet",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2039:21:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -811,7 +811,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 41432,
+              "id": 41444,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "2039:7:105",
@@ -825,10 +825,10 @@
           },
           {
             "constant": false,
-            "id": 41435,
+            "id": 41447,
             "name": "reserveWallet",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2125:28:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -837,7 +837,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 41434,
+              "id": 41446,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "2125:7:105",
@@ -851,10 +851,10 @@
           },
           {
             "constant": false,
-            "id": 41438,
+            "id": 41450,
             "name": "usdTokens",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2197:26:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -864,7 +864,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41436,
+                "id": 41448,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2197:7:105",
@@ -873,7 +873,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41437,
+              "id": 41449,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "2197:9:105",
@@ -887,10 +887,10 @@
           },
           {
             "constant": false,
-            "id": 41440,
+            "id": 41452,
             "name": "currentTier",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2250:26:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -899,7 +899,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41439,
+              "id": 41451,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "2250:7:105",
@@ -913,10 +913,10 @@
           },
           {
             "constant": false,
-            "id": 41442,
+            "id": 41454,
             "name": "fundsRaisedUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2317:29:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -925,7 +925,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41441,
+              "id": 41453,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "2317:7:105",
@@ -939,10 +939,10 @@
           },
           {
             "constant": false,
-            "id": 41446,
+            "id": 41458,
             "name": "stableCoinsRaised",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2390:53:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -951,9 +951,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 41445,
+              "id": 41457,
               "keyType": {
-                "id": 41443,
+                "id": 41455,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2399:7:105",
@@ -969,7 +969,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 41444,
+                "id": 41456,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2410:7:105",
@@ -984,10 +984,10 @@
           },
           {
             "constant": false,
-            "id": 41450,
+            "id": 41462,
             "name": "investorInvestedUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2496:55:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -996,9 +996,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 41449,
+              "id": 41461,
               "keyType": {
-                "id": 41447,
+                "id": 41459,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2505:7:105",
@@ -1014,7 +1014,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 41448,
+                "id": 41460,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2516:7:105",
@@ -1029,10 +1029,10 @@
           },
           {
             "constant": false,
-            "id": 41456,
+            "id": 41468,
             "name": "investorInvested",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2617:71:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1041,9 +1041,9 @@
               "typeString": "mapping(address => mapping(uint8 => uint256))"
             },
             "typeName": {
-              "id": 41455,
+              "id": 41467,
               "keyType": {
-                "id": 41451,
+                "id": 41463,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2626:7:105",
@@ -1059,9 +1059,9 @@
                 "typeString": "mapping(address => mapping(uint8 => uint256))"
               },
               "valueType": {
-                "id": 41454,
+                "id": 41466,
                 "keyType": {
-                  "id": 41452,
+                  "id": 41464,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "2646:5:105",
@@ -1077,7 +1077,7 @@
                   "typeString": "mapping(uint8 => uint256)"
                 },
                 "valueType": {
-                  "id": 41453,
+                  "id": 41465,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2655:7:105",
@@ -1093,21 +1093,21 @@
           },
           {
             "constant": false,
-            "id": 41460,
+            "id": 41472,
             "name": "investors",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2744:46:105",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41420_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41432_storage_$",
               "typeString": "mapping(address => struct USDTieredSTOStorage.Investor)"
             },
             "typeName": {
-              "id": 41459,
+              "id": 41471,
               "keyType": {
-                "id": 41457,
+                "id": 41469,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2753:7:105",
@@ -1119,18 +1119,18 @@
               "nodeType": "Mapping",
               "src": "2744:29:105",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41420_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41432_storage_$",
                 "typeString": "mapping(address => struct USDTieredSTOStorage.Investor)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41458,
+                "id": 41470,
                 "name": "Investor",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41420,
+                "referencedDeclaration": 41432,
                 "src": "2764:8:105",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Investor_$41420_storage_ptr",
+                  "typeIdentifier": "t_struct$_Investor_$41432_storage_ptr",
                   "typeString": "struct USDTieredSTOStorage.Investor"
                 }
               }
@@ -1140,10 +1140,10 @@
           },
           {
             "constant": false,
-            "id": 41464,
+            "id": 41476,
             "name": "usdTokenEnabled",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2841:48:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1152,9 +1152,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 41463,
+              "id": 41475,
               "keyType": {
-                "id": 41461,
+                "id": 41473,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2850:7:105",
@@ -1170,7 +1170,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 41462,
+                "id": 41474,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "2861:4:105",
@@ -1185,10 +1185,10 @@
           },
           {
             "constant": false,
-            "id": 41467,
+            "id": 41479,
             "name": "investorsList",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3011:30:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1198,7 +1198,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41465,
+                "id": 41477,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "3011:7:105",
@@ -1207,7 +1207,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41466,
+              "id": 41478,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "3011:9:105",
@@ -1221,10 +1221,10 @@
           },
           {
             "constant": false,
-            "id": 41469,
+            "id": 41481,
             "name": "nonAccreditedLimitUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3126:36:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1233,7 +1233,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41468,
+              "id": 41480,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "3126:7:105",
@@ -1247,10 +1247,10 @@
           },
           {
             "constant": false,
-            "id": 41471,
+            "id": 41483,
             "name": "minimumInvestmentUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3209:35:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1259,7 +1259,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41470,
+              "id": 41482,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "3209:7:105",
@@ -1273,10 +1273,10 @@
           },
           {
             "constant": false,
-            "id": 41473,
+            "id": 41485,
             "name": "finalAmountReturned",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3300:34:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1285,7 +1285,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41472,
+              "id": 41484,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "3300:7:105",
@@ -1299,36 +1299,36 @@
           },
           {
             "constant": false,
-            "id": 41476,
+            "id": 41488,
             "name": "tiers",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3363:19:105",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_struct$_Tier_$41413_storage_$dyn_storage",
+              "typeIdentifier": "t_array$_t_struct$_Tier_$41425_storage_$dyn_storage",
               "typeString": "struct USDTieredSTOStorage.Tier[]"
             },
             "typeName": {
               "baseType": {
                 "contractScope": null,
-                "id": 41474,
+                "id": 41486,
                 "name": "Tier",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41413,
+                "referencedDeclaration": 41425,
                 "src": "3363:4:105",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Tier_$41413_storage_ptr",
+                  "typeIdentifier": "t_struct$_Tier_$41425_storage_ptr",
                   "typeString": "struct USDTieredSTOStorage.Tier"
                 }
               },
-              "id": 41475,
+              "id": 41487,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "3363:6:105",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_struct$_Tier_$41413_storage_$dyn_storage_ptr",
+                "typeIdentifier": "t_array$_t_struct$_Tier_$41425_storage_$dyn_storage_ptr",
                 "typeString": "struct USDTieredSTOStorage.Tier[]"
               }
             },
@@ -1336,7 +1336,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 41478,
+        "scope": 41490,
         "src": "139:3247:105"
       }
     ],
@@ -1346,14 +1346,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/USDTieredSTOStorage.sol",
     "exportedSymbols": {
       "USDTieredSTOStorage": [
-        41477
+        41489
       ]
     },
-    "id": 41478,
+    "id": 41490,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 41395,
+        "id": 41407,
         "literals": [
           "solidity",
           "^",
@@ -1366,9 +1366,9 @@
       {
         "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IERC20.sol",
         "file": "../interfaces/IERC20.sol",
-        "id": 41396,
+        "id": 41408,
         "nodeType": "ImportDirective",
-        "scope": 41478,
+        "scope": 41490,
         "sourceUnit": 10818,
         "src": "26:34:105",
         "symbolAliases": [],
@@ -1380,23 +1380,23 @@
         "contractKind": "contract",
         "documentation": "@title Contract used to store layout for the USDTieredSTO storage",
         "fullyImplemented": true,
-        "id": 41477,
+        "id": 41489,
         "linearizedBaseContracts": [
-          41477
+          41489
         ],
         "name": "USDTieredSTOStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "USDTieredSTOStorage.Tier",
-            "id": 41413,
+            "id": 41425,
             "members": [
               {
                 "constant": false,
-                "id": 41398,
+                "id": 41410,
                 "name": "rate",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "433:12:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1405,7 +1405,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41397,
+                  "id": 41409,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "433:7:105",
@@ -1419,10 +1419,10 @@
               },
               {
                 "constant": false,
-                "id": 41400,
+                "id": 41412,
                 "name": "rateDiscountPoly",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "593:24:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1431,7 +1431,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41399,
+                  "id": 41411,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "593:7:105",
@@ -1445,10 +1445,10 @@
               },
               {
                 "constant": false,
-                "id": 41402,
+                "id": 41414,
                 "name": "tokenTotal",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "708:18:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1457,7 +1457,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41401,
+                  "id": 41413,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "708:7:105",
@@ -1471,10 +1471,10 @@
               },
               {
                 "constant": false,
-                "id": 41404,
+                "id": 41416,
                 "name": "tokensDiscountPoly",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "858:26:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1483,7 +1483,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41403,
+                  "id": 41415,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "858:7:105",
@@ -1497,10 +1497,10 @@
               },
               {
                 "constant": false,
-                "id": 41406,
+                "id": 41418,
                 "name": "mintedTotal",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "978:19:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1509,7 +1509,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41405,
+                  "id": 41417,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "978:7:105",
@@ -1523,10 +1523,10 @@
               },
               {
                 "constant": false,
-                "id": 41410,
+                "id": 41422,
                 "name": "minted",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "1116:33:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1535,9 +1535,9 @@
                   "typeString": "mapping(uint8 => uint256)"
                 },
                 "typeName": {
-                  "id": 41409,
+                  "id": 41421,
                   "keyType": {
-                    "id": 41407,
+                    "id": 41419,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "1125:5:105",
@@ -1553,7 +1553,7 @@
                     "typeString": "mapping(uint8 => uint256)"
                   },
                   "valueType": {
-                    "id": 41408,
+                    "id": 41420,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1134:7:105",
@@ -1568,10 +1568,10 @@
               },
               {
                 "constant": false,
-                "id": 41412,
+                "id": 41424,
                 "name": "mintedDiscountPoly",
                 "nodeType": "VariableDeclaration",
-                "scope": 41413,
+                "scope": 41425,
                 "src": "1267:26:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1580,7 +1580,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41411,
+                  "id": 41423,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1267:7:105",
@@ -1595,20 +1595,20 @@
             ],
             "name": "Tier",
             "nodeType": "StructDefinition",
-            "scope": 41477,
+            "scope": 41489,
             "src": "229:1071:105",
             "visibility": "public"
           },
           {
             "canonicalName": "USDTieredSTOStorage.Investor",
-            "id": 41420,
+            "id": 41432,
             "members": [
               {
                 "constant": false,
-                "id": 41415,
+                "id": 41427,
                 "name": "accredited",
                 "nodeType": "VariableDeclaration",
-                "scope": 41420,
+                "scope": 41432,
                 "src": "1411:16:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1617,7 +1617,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41414,
+                  "id": 41426,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "1411:5:105",
@@ -1631,10 +1631,10 @@
               },
               {
                 "constant": false,
-                "id": 41417,
+                "id": 41429,
                 "name": "seen",
                 "nodeType": "VariableDeclaration",
-                "scope": 41420,
+                "scope": 41432,
                 "src": "1523:10:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1643,7 +1643,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 41416,
+                  "id": 41428,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "1523:5:105",
@@ -1657,10 +1657,10 @@
               },
               {
                 "constant": false,
-                "id": 41419,
+                "id": 41431,
                 "name": "nonAccreditedLimitUSDOverride",
                 "nodeType": "VariableDeclaration",
-                "scope": 41420,
+                "scope": 41432,
                 "src": "1657:37:105",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1669,7 +1669,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41418,
+                  "id": 41430,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1657:7:105",
@@ -1684,16 +1684,16 @@
             ],
             "name": "Investor",
             "nodeType": "StructDefinition",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1306:395:105",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 41426,
+            "id": 41438,
             "name": "oracleKeys",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1707:59:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1702,9 +1702,9 @@
               "typeString": "mapping(bytes32 => mapping(bytes32 => string))"
             },
             "typeName": {
-              "id": 41425,
+              "id": 41437,
               "keyType": {
-                "id": 41421,
+                "id": 41433,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1716:7:105",
@@ -1720,9 +1720,9 @@
                 "typeString": "mapping(bytes32 => mapping(bytes32 => string))"
               },
               "valueType": {
-                "id": 41424,
+                "id": 41436,
                 "keyType": {
-                  "id": 41422,
+                  "id": 41434,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "1736:7:105",
@@ -1738,7 +1738,7 @@
                   "typeString": "mapping(bytes32 => string)"
                 },
                 "valueType": {
-                  "id": 41423,
+                  "id": 41435,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "1747:6:105",
@@ -1754,10 +1754,10 @@
           },
           {
             "constant": false,
-            "id": 41429,
+            "id": 41441,
             "name": "allowBeneficialInvestments",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1842:46:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1766,7 +1766,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 41427,
+              "id": 41439,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "1842:4:105",
@@ -1778,7 +1778,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "66616c7365",
-              "id": 41428,
+              "id": 41440,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -1797,10 +1797,10 @@
           },
           {
             "constant": false,
-            "id": 41431,
+            "id": 41443,
             "name": "isFinalized",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "1944:23:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1809,7 +1809,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 41430,
+              "id": 41442,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "1944:4:105",
@@ -1823,10 +1823,10 @@
           },
           {
             "constant": false,
-            "id": 41433,
+            "id": 41445,
             "name": "wallet",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2039:21:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1835,7 +1835,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 41432,
+              "id": 41444,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "2039:7:105",
@@ -1849,10 +1849,10 @@
           },
           {
             "constant": false,
-            "id": 41435,
+            "id": 41447,
             "name": "reserveWallet",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2125:28:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1861,7 +1861,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 41434,
+              "id": 41446,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "2125:7:105",
@@ -1875,10 +1875,10 @@
           },
           {
             "constant": false,
-            "id": 41438,
+            "id": 41450,
             "name": "usdTokens",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2197:26:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1888,7 +1888,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41436,
+                "id": 41448,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2197:7:105",
@@ -1897,7 +1897,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41437,
+              "id": 41449,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "2197:9:105",
@@ -1911,10 +1911,10 @@
           },
           {
             "constant": false,
-            "id": 41440,
+            "id": 41452,
             "name": "currentTier",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2250:26:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1923,7 +1923,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41439,
+              "id": 41451,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "2250:7:105",
@@ -1937,10 +1937,10 @@
           },
           {
             "constant": false,
-            "id": 41442,
+            "id": 41454,
             "name": "fundsRaisedUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2317:29:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1949,7 +1949,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41441,
+              "id": 41453,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "2317:7:105",
@@ -1963,10 +1963,10 @@
           },
           {
             "constant": false,
-            "id": 41446,
+            "id": 41458,
             "name": "stableCoinsRaised",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2390:53:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1975,9 +1975,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 41445,
+              "id": 41457,
               "keyType": {
-                "id": 41443,
+                "id": 41455,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2399:7:105",
@@ -1993,7 +1993,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 41444,
+                "id": 41456,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2410:7:105",
@@ -2008,10 +2008,10 @@
           },
           {
             "constant": false,
-            "id": 41450,
+            "id": 41462,
             "name": "investorInvestedUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2496:55:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2020,9 +2020,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 41449,
+              "id": 41461,
               "keyType": {
-                "id": 41447,
+                "id": 41459,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2505:7:105",
@@ -2038,7 +2038,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 41448,
+                "id": 41460,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2516:7:105",
@@ -2053,10 +2053,10 @@
           },
           {
             "constant": false,
-            "id": 41456,
+            "id": 41468,
             "name": "investorInvested",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2617:71:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2065,9 +2065,9 @@
               "typeString": "mapping(address => mapping(uint8 => uint256))"
             },
             "typeName": {
-              "id": 41455,
+              "id": 41467,
               "keyType": {
-                "id": 41451,
+                "id": 41463,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2626:7:105",
@@ -2083,9 +2083,9 @@
                 "typeString": "mapping(address => mapping(uint8 => uint256))"
               },
               "valueType": {
-                "id": 41454,
+                "id": 41466,
                 "keyType": {
-                  "id": 41452,
+                  "id": 41464,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "2646:5:105",
@@ -2101,7 +2101,7 @@
                   "typeString": "mapping(uint8 => uint256)"
                 },
                 "valueType": {
-                  "id": 41453,
+                  "id": 41465,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2655:7:105",
@@ -2117,21 +2117,21 @@
           },
           {
             "constant": false,
-            "id": 41460,
+            "id": 41472,
             "name": "investors",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2744:46:105",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41420_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41432_storage_$",
               "typeString": "mapping(address => struct USDTieredSTOStorage.Investor)"
             },
             "typeName": {
-              "id": 41459,
+              "id": 41471,
               "keyType": {
-                "id": 41457,
+                "id": 41469,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2753:7:105",
@@ -2143,18 +2143,18 @@
               "nodeType": "Mapping",
               "src": "2744:29:105",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41420_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Investor_$41432_storage_$",
                 "typeString": "mapping(address => struct USDTieredSTOStorage.Investor)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41458,
+                "id": 41470,
                 "name": "Investor",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41420,
+                "referencedDeclaration": 41432,
                 "src": "2764:8:105",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Investor_$41420_storage_ptr",
+                  "typeIdentifier": "t_struct$_Investor_$41432_storage_ptr",
                   "typeString": "struct USDTieredSTOStorage.Investor"
                 }
               }
@@ -2164,10 +2164,10 @@
           },
           {
             "constant": false,
-            "id": 41464,
+            "id": 41476,
             "name": "usdTokenEnabled",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "2841:48:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2176,9 +2176,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 41463,
+              "id": 41475,
               "keyType": {
-                "id": 41461,
+                "id": 41473,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "2850:7:105",
@@ -2194,7 +2194,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 41462,
+                "id": 41474,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "2861:4:105",
@@ -2209,10 +2209,10 @@
           },
           {
             "constant": false,
-            "id": 41467,
+            "id": 41479,
             "name": "investorsList",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3011:30:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2222,7 +2222,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41465,
+                "id": 41477,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "3011:7:105",
@@ -2231,7 +2231,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41466,
+              "id": 41478,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "3011:9:105",
@@ -2245,10 +2245,10 @@
           },
           {
             "constant": false,
-            "id": 41469,
+            "id": 41481,
             "name": "nonAccreditedLimitUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3126:36:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2257,7 +2257,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41468,
+              "id": 41480,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "3126:7:105",
@@ -2271,10 +2271,10 @@
           },
           {
             "constant": false,
-            "id": 41471,
+            "id": 41483,
             "name": "minimumInvestmentUSD",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3209:35:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2283,7 +2283,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41470,
+              "id": 41482,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "3209:7:105",
@@ -2297,10 +2297,10 @@
           },
           {
             "constant": false,
-            "id": 41473,
+            "id": 41485,
             "name": "finalAmountReturned",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3300:34:105",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2309,7 +2309,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41472,
+              "id": 41484,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "3300:7:105",
@@ -2323,36 +2323,36 @@
           },
           {
             "constant": false,
-            "id": 41476,
+            "id": 41488,
             "name": "tiers",
             "nodeType": "VariableDeclaration",
-            "scope": 41477,
+            "scope": 41489,
             "src": "3363:19:105",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_struct$_Tier_$41413_storage_$dyn_storage",
+              "typeIdentifier": "t_array$_t_struct$_Tier_$41425_storage_$dyn_storage",
               "typeString": "struct USDTieredSTOStorage.Tier[]"
             },
             "typeName": {
               "baseType": {
                 "contractScope": null,
-                "id": 41474,
+                "id": 41486,
                 "name": "Tier",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41413,
+                "referencedDeclaration": 41425,
                 "src": "3363:4:105",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Tier_$41413_storage_ptr",
+                  "typeIdentifier": "t_struct$_Tier_$41425_storage_ptr",
                   "typeString": "struct USDTieredSTOStorage.Tier"
                 }
               },
-              "id": 41475,
+              "id": 41487,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "3363:6:105",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_struct$_Tier_$41413_storage_$dyn_storage_ptr",
+                "typeIdentifier": "t_array$_t_struct$_Tier_$41425_storage_$dyn_storage_ptr",
                 "typeString": "struct USDTieredSTOStorage.Tier[]"
               }
             },
@@ -2360,7 +2360,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 41478,
+        "scope": 41490,
         "src": "139:3247:105"
       }
     ],
@@ -2372,5 +2372,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:10.066Z"
+  "updatedAt": "2019-02-06T16:02:05.783Z"
 }

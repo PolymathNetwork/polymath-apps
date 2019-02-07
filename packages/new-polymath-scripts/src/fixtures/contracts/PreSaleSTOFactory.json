@@ -651,7 +651,7 @@
           10968,
           26033,
           28945,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying PreSaleSTO module",
@@ -660,7 +660,7 @@
         "linearizedBaseContracts": [
           29155,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "PreSaleSTOFactory",
@@ -1750,7 +1750,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 44760,
+                                    "referencedDeclaration": 44772,
                                     "src": "1236:3:75",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -1777,7 +1777,7 @@
                                   "name": "owner",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 44211,
+                                  "referencedDeclaration": 44223,
                                   "src": "1248:5:75",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -1888,10 +1888,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              44763,
-                              44764
+                              44775,
+                              44776
                             ],
-                            "referencedDeclaration": 44764,
+                            "referencedDeclaration": 44776,
                             "src": "1205:7:75",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1965,7 +1965,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1429:3:75",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2258,10 +2258,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1543:7:75",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2427,10 +2427,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1693:7:75",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2549,7 +2549,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44961,
+                            "referencedDeclaration": 44973,
                             "src": "1899:4:75",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_PreSaleSTOFactory_$29155",
@@ -2599,7 +2599,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1906:3:75",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2639,7 +2639,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1929:3:75",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3605,7 +3605,7 @@
           10968,
           26033,
           28945,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying PreSaleSTO module",
@@ -3614,7 +3614,7 @@
         "linearizedBaseContracts": [
           29155,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "PreSaleSTOFactory",
@@ -4704,7 +4704,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 44760,
+                                    "referencedDeclaration": 44772,
                                     "src": "1236:3:75",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -4731,7 +4731,7 @@
                                   "name": "owner",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 44211,
+                                  "referencedDeclaration": 44223,
                                   "src": "1248:5:75",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -4842,10 +4842,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              44763,
-                              44764
+                              44775,
+                              44776
                             ],
-                            "referencedDeclaration": 44764,
+                            "referencedDeclaration": 44776,
                             "src": "1205:7:75",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4919,7 +4919,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1429:3:75",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5212,10 +5212,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1543:7:75",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5381,10 +5381,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1693:7:75",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5503,7 +5503,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44961,
+                            "referencedDeclaration": 44973,
                             "src": "1899:4:75",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_PreSaleSTOFactory_$29155",
@@ -5553,7 +5553,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1906:3:75",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5593,7 +5593,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1929:3:75",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -6486,5 +6486,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.847Z"
+  "updatedAt": "2019-02-06T16:02:05.569Z"
 }

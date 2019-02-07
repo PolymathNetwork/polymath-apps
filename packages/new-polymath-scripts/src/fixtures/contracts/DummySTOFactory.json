@@ -651,7 +651,7 @@
           10968,
           26033,
           28224,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying DummySTO module",
@@ -660,7 +660,7 @@
         "linearizedBaseContracts": [
           28445,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "DummySTOFactory",
@@ -1745,7 +1745,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1095:3:71",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -1772,7 +1772,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1107:5:71",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -1883,10 +1883,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1064:7:71",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1958,7 +1958,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1272:3:71",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2251,10 +2251,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1386:7:71",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2420,10 +2420,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1534:7:71",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2542,7 +2542,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44879,
+                            "referencedDeclaration": 44891,
                             "src": "1736:4:71",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DummySTOFactory_$28445",
@@ -2592,7 +2592,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1743:3:71",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2632,7 +2632,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1766:3:71",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3764,7 +3764,7 @@
           10968,
           26033,
           28224,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying DummySTO module",
@@ -3773,7 +3773,7 @@
         "linearizedBaseContracts": [
           28445,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "DummySTOFactory",
@@ -4858,7 +4858,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1095:3:71",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -4885,7 +4885,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1107:5:71",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -4996,10 +4996,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1064:7:71",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5071,7 +5071,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1272:3:71",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5364,10 +5364,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1386:7:71",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5533,10 +5533,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1534:7:71",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5655,7 +5655,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44879,
+                            "referencedDeclaration": 44891,
                             "src": "1736:4:71",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_DummySTOFactory_$28445",
@@ -5705,7 +5705,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1743:3:71",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5745,7 +5745,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "1766:3:71",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -6804,5 +6804,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:09.813Z"
+  "updatedAt": "2019-02-06T16:02:05.555Z"
 }
