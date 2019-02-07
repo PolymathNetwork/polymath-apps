@@ -2,12 +2,14 @@
 
 import BigNumber from 'bignumber.js';
 import React, { Component } from 'react';
+import { Icon } from 'carbon-components-react';
 import type { SecurityToken, STODetails } from '@polymathnetwork/js/types';
 
 import { etherscanAddress } from '../../helpers';
 import Box from '../Box';
 import Grid from '../Grid';
 import Countdown from '../Countdown';
+import ContentBox from '../ContentBox';
 import ProgressBar from '../ProgressBar';
 import RaisedAmount from '../RaisedAmount';
 
@@ -80,6 +82,8 @@ export default class STOStatus extends Component<Props> {
       .times(100)
       .toFixed(1);
 
+    const isSaleComplete = parseInt(fractionComplete, 10) === 100;
+
     return (
       <div className="pui-page-box">
         <h2 className="pui-h2">Capped STO</h2>
@@ -133,23 +137,47 @@ export default class STOStatus extends Component<Props> {
               </div>
             </div>
           </div>
-          {countdownProps != null && (
+          {isSaleComplete ? (
             <div className="pui-countdown-container">
-              <Countdown
-                deadline={countdownProps.deadline}
-                title={countdownProps.title}
-                buttonTitle={
-                  notPausable
-                    ? undefined
-                    : this.props.isStoPaused
-                    ? 'RESUME STO'
-                    : 'PAUSE STO'
-                }
-                handleButtonClick={this.props.toggleStoPause}
-                isPaused={this.props.isStoPaused}
-                pausable={!notPausable}
-              />
+              <ContentBox
+                style={{
+                  borderRadius: '10px',
+                  borderTop: '15px solid #00AA5E',
+                  width: '350px',
+                }}
+              >
+                <p align="center">
+                  <Icon
+                    name="checkmark--outline"
+                    fill="#00AA5E"
+                    width="64"
+                    height="64"
+                  />
+                </p>
+                <h2 className="pui-h2" align="center">
+                  The Sale is Complete
+                </h2>
+              </ContentBox>
             </div>
+          ) : (
+            countdownProps != null && (
+              <div className="pui-countdown-container">
+                <Countdown
+                  deadline={countdownProps.deadline}
+                  title={countdownProps.title}
+                  buttonTitle={
+                    notPausable
+                      ? undefined
+                      : this.props.isStoPaused
+                      ? 'RESUME STO'
+                      : 'PAUSE STO'
+                  }
+                  handleButtonClick={this.props.toggleStoPause}
+                  isPaused={this.props.isStoPaused}
+                  pausable={!notPausable}
+                />
+              </div>
+            )
           )}
         </Grid>
       </div>
