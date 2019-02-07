@@ -2,6 +2,8 @@ import { saveAs } from 'file-saver';
 import { parse, json2csv } from 'json2csv';
 import { Pojo, isPojo } from '~/typing/types';
 import _ from 'lodash';
+import Papa, { ParseResult } from 'papaparse';
+import { Validator, createValidator } from './validator';
 
 export const delay = async (amount: number) => {
   return new Promise(resolve => {
@@ -58,4 +60,113 @@ export const downloadCsvFile = <T>(
   const blob = new Blob([csvOutput], { type: 'text/csv' });
 
   saveAs(blob, fileName);
+};
+
+/**
+ * Parses a CSV file and returns array of parsed objects
+ *
+ * @param data Could be a string containing the csv of the file from file input
+ * @param columns Array defining column names and validation rules
+ * @param header Specify if the CSV contain a header
+ * @param maxRows Specify the maximum number of rows to parse, anything beyond this number will be ignored
+ * @validateRow custom validator for rows, function sould return a boolean indicating if the row is valid or not
+ * @param callback A callback function to call when the parsing is done
+ */
+export const parseCsv = (
+  data: string,
+  columns: Array<any>,
+  header?: boolean,
+  maxRows?: number,
+  validateRow?: (rowData: Array<any>) => boolean,
+  callback?: (
+    result: Array<any>,
+    totalRows: number,
+    validRows: number,
+    errorRows: number,
+    ignoredRows: number
+  ) => void
+): void => {
+  interface IResultObject {
+    [key: string]: any;
+    isRowValid: boolean;
+  }
+
+  // default parameters
+  const hasHeader: boolean = header === undefined ? false : header;
+  // Init the validator
+  const validator: Validator = createValidator();
+
+  // Prepare the data and errors arrays
+  const parseResult: Array<any> = [];
+  let totalRows: number = 0;
+  let validRows: number = 0;
+  let errorRows: number = 0;
+  let ignoredRows: number = 0;
+
+  const step = (results: ParseResult) => {
+    if (results.data.length === 1) {
+      totalRows++;
+
+      if (maxRows !== undefined && maxRows > 0 && totalRows > maxRows) {
+        ignoredRows++;
+        return;
+      }
+      const resultObj: IResultObject = {
+        isRowValid: true,
+      };
+      for (const column of columns) {
+        if (!hasHeader) {
+          // No header, results are passed as array
+          const isValid = validator.validate(
+            results.data[0][column.index],
+            column.validationRules
+          );
+          // Papa Parser handles all data types except date, hadle date here
+          let columnValue: any = results.data[0][column.index];
+          if (
+            columnValue !== '' &&
+            columnValue !== null &&
+            typeof columnValue !== 'undefined' &&
+            new Date(columnValue).toString() !== 'Invalid Date'
+          ) {
+            columnValue = new Date(columnValue);
+          } else {
+            columnValue = results.data[0][column.index];
+          }
+
+          resultObj[column.name] = {
+            value: columnValue,
+            isColumnValid: isValid,
+          };
+          resultObj.isRowValid = resultObj.isRowValid && isValid;
+        } else {
+          // CSV data contain header, results are passed as objects
+        }
+      }
+
+      if (typeof validateRow === 'function') {
+        resultObj.isRowValid =
+          resultObj.isRowValid && validateRow(results.data[0]);
+      }
+      parseResult.push(resultObj);
+      if (resultObj.isRowValid) {
+        validRows++;
+      } else {
+        errorRows++;
+      }
+    }
+  };
+  const complete = (results: ParseResult) => {
+    if (typeof callback === 'function') {
+      callback(parseResult, totalRows, validRows, errorRows, ignoredRows);
+    }
+  };
+  const config = {
+    dynamicTyping: true,
+    skipEmptyLines: true,
+    header: hasHeader,
+    step,
+    complete,
+  };
+  Papa.parse(data, config);
 };
