@@ -19,6 +19,7 @@ jest.mock('@polymathnetwork/sdk', () => {
         return () => {};
       },
       enableWallet: jest.fn(),
+      getNetworkId: jest.fn(async () => '1'),
     },
   };
 });
