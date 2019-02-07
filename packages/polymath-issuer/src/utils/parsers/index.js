@@ -87,14 +87,17 @@ const checkCSVHeaders = data => {
   // Split the input into lines
   let rows = data.split('\n');
   const header_row = rows[0].split(',');
-  const default_headers =
-    'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
+  const required_keywords =
+    'ETH Address,Sell Restriction Date,Buy Restriction Date,KYC/AML Expiry Date,Can Buy From STO,Exempt From % Ownership';
   let errorMsg = false;
-  const cells = default_headers.split(',');
-  for (let i = 1; i < cells.length; i++) {
+  const cells = required_keywords.split(',');
+  for (let i = 0; i < cells.length; i++) {
     const result = header_row.includes(cells[i]);
     if (!result) {
-      errorMsg = 'The header row is missing fields';
+      errorMsg =
+        "The header row is missing or has misspelt the field '" +
+        cells[i] +
+        "'";
       break;
     }
   }
