@@ -7,6 +7,7 @@ import {
   SecurityTokensIndexPage,
   HomePage,
   NotFoundPage,
+  TempPage,
 } from '~/pages';
 
 import {
@@ -51,6 +52,11 @@ export const routes = {
     },
     '/notFound': {
       Page: NotFoundPage,
+    },
+    // NOTE @RafaelVidaurre: Temporary route for testing the low-level package
+    // on Polymath SDK
+    '/temp': {
+      Page: TempPage,
     },
   },
 };

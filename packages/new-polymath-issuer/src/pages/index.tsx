@@ -19,6 +19,7 @@ export { SecurityTokensIndexPage } from './SecurityTokensIndex';
 export { SecurityTokensReservePage } from './SecurityTokensReserve';
 export { SecurityTokensDividendsPage } from './SecurityTokensDividends';
 export { NotFoundPage } from './NotFound';
+export { TempPage } from './Temp';
 
 interface StateProps {
   router: RootState['router'];
