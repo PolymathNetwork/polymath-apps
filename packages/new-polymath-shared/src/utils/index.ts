@@ -81,7 +81,19 @@ export const downloadCsvFile = <T>(
  *      name: "Column 2",
  *      validationRules: ["isString", "isNotEmpty"]
  *    },
- *  ]
+ *  ],
+ *  true,
+ *  2,
+ *  (rowData: Array<any>) => true,
+ *  (
+ *    result: Array<any>,
+ *    totalRows: number,
+ *    validRows: number,
+ *    errorRows: number,
+ *    ignoredRows: number
+ *  ) => {
+ *    // Results will be available here
+ *  }
  * );
  *
  * @param data Could be a string containing the csv or the file from file input
@@ -110,9 +122,7 @@ export const parseCsv = (
     isRowValid: boolean;
   }
 
-  // default parameters
   const hasHeader: boolean = header === undefined ? false : header;
-  // Init the validator
   const validator: Validator = createValidator();
 
   // Prepare the data and errors arrays
@@ -161,20 +171,17 @@ export const parseCsv = (
           columnValue !== '' &&
           columnValue !== null &&
           typeof columnValue !== undefined &&
+          parseInt(columnValue, 10).toString() === 'NaN' &&
           new Date(columnValue).toString() !== 'Invalid Date'
         ) {
           columnValue = new Date(columnValue);
-        } else {
-          columnValue = results.data[0][column.index];
         }
-
         resultObj[column.name] = {
           value: columnValue,
           isColumnValid: isValid,
         };
         resultObj.isRowValid = resultObj.isRowValid && isValid;
       }
-
       if (typeof validateRow === 'function') {
         resultObj.isRowValid =
           resultObj.isRowValid && validateRow(results.data[0]);
