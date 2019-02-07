@@ -101,7 +101,7 @@ export default class STOStatus extends Component<Props> {
               </div>
             </div>
             <Box mb="l">
-              <ProgressBar progress={fractionComplete / 100} />
+              <ProgressBar progress={fractionComplete} />
             </Box>
             <div className="pui-sto-status-bottom-row">
               <div className="pui-sto-status-dates">
