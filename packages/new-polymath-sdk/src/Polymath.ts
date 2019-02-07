@@ -78,22 +78,23 @@ export class Polymath {
     httpProvider,
     httpProviderUrl,
   }: PolymathNetworkParams) => {
-    this.polymathRegistryAddress = polymathRegistryAddress;
+    let lowLevel: LowLevel;
 
     if (httpProvider) {
       this.httpProvider = httpProvider;
-      this.lowLevel = new LowLevel({ provider: this.httpProvider });
+      lowLevel = new LowLevel({ provider: this.httpProvider });
     } else if (httpProviderUrl) {
       this.httpProviderUrl = httpProviderUrl;
-      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
+      lowLevel = new LowLevel({ provider: this.httpProviderUrl });
     } else {
-      this.lowLevel = new LowLevel();
+      lowLevel = new LowLevel();
     }
 
+    this.lowLevel = lowLevel;
     this.polymathRegistryAddress = polymathRegistryAddress;
 
-    this.networkId = await this.lowLevel.getNetworkId();
-    const account = await this.lowLevel.getAccount();
+    this.networkId = await lowLevel.getNetworkId();
+    const account = await lowLevel.getAccount();
 
     if (!polymathRegistryAddress) {
       throw new Error(
@@ -110,15 +111,14 @@ export class Polymath {
       );
     }
 
-    await this.lowLevel.initialize({ polymathRegistryAddress });
+    await lowLevel.initialize({ polymathRegistryAddress });
 
     this.context = new Context({
-      polyToken: this.lowLevel.polyToken as PolyToken,
-      polymathRegistry: this.lowLevel.polymathRegistry as PolymathRegistry,
-      securityTokenRegistry: this.lowLevel
-        .securityTokenRegistry as SecurityTokenRegistry,
-      moduleRegistry: this.lowLevel.moduleRegistry as ModuleRegistry,
-      isTestnet: this.lowLevel.isTestnet(),
+      polyToken: lowLevel.polyToken as PolyToken,
+      polymathRegistry: lowLevel.polymathRegistry as PolymathRegistry,
+      securityTokenRegistry: lowLevel.securityTokenRegistry as SecurityTokenRegistry,
+      moduleRegistry: lowLevel.moduleRegistry as ModuleRegistry,
+      isTestnet: lowLevel.isTestnet(),
       accountAddress: account,
     });
 
