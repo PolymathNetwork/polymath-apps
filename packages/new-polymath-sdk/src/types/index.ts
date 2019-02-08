@@ -154,6 +154,13 @@ export interface WithdrawTaxesProcedureArgs {
   dividendType: DividendModuleTypes;
 }
 
+export interface SetDividendsTaxWithholdingListArgs {
+  symbol: string;
+  dividendType: DividendModuleTypes;
+  investorAddresses: string[];
+  percentages: number[];
+}
+
 export interface ProcedureArguments {
   [types.ProcedureTypes.Approve]: ApproveProcedureArgs;
   [types.ProcedureTypes.CreateCheckpoint]: CreateCheckpointProcedureArgs;
@@ -168,5 +175,7 @@ export interface ProcedureArguments {
   [types.ProcedureTypes
     .ReserveSecurityToken]: ReserveSecurityTokenProcedureArgs;
   [types.ProcedureTypes.WithdrawTaxes]: WithdrawTaxesProcedureArgs;
+  [types.ProcedureTypes
+    .SetDividendsTaxWithholdingList]: SetDividendsTaxWithholdingListArgs;
   [types.ProcedureTypes.UnnamedProcedure]: {};
 }

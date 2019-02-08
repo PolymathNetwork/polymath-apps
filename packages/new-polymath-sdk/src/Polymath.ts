@@ -19,6 +19,7 @@ import {
   CreateCheckpoint,
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
+  SetDividendsTaxWithholdingList,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
@@ -231,6 +232,54 @@ export class Polymath {
   }) => {
     const procedure = new CreateEtherDividendDistribution(args, this.context);
     return await procedure.prepare();
+  };
+
+  /**
+   * Set tax withtholding list for a type of dividends
+   */
+  public setDividendsTaxWithholdingList = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    investorAddresses: string[];
+    percentages: number[];
+  }) => {
+    const procedure = new SetDividendsTaxWithholdingList(args, this.context);
+    return await procedure.prepare();
+  };
+
+  /**
+   * Retrieve a list of investor addresses and their corresponding tax withholding
+   * percentages
+   */
+  public getDividendsTaxWithholdingList = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+  }) => {
+    const { securityTokenRegistry } = this.context;
+    const { symbol: securityTokenSymbol, dividendType } = args;
+
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
+
+    let dividendsModule;
+    if (dividendType === DividendModuleTypes.Erc20) {
+      dividendsModule = await securityToken.getErc20DividendModule();
+    } else if (dividendType === DividendModuleTypes.Eth) {
+      dividendsModule = await securityToken.getEtherDividendModule();
+    }
+
+    if (!dividendsModule) {
+      throw new Error(
+        'There is no attached dividend module of the specified type'
+      );
+    }
+
+    const checkpointIndex = await securityToken.currentCheckpointId();
+
+    return await dividendsModule.getTaxWithholdingList({
+      checkpointIndex,
+    });
   };
 
   /**

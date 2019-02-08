@@ -81,6 +81,21 @@ export interface Checkpoint {
   createdAt: Date;
 }
 
+export interface TaxWithholding {
+  address: string;
+  percentage: number;
+}
+
+// Call argument types
+
+export interface GetExclusionListArgs {
+  dividendIndex: number;
+}
+
+export interface GetTaxWithholdingListArgs {
+  checkpointIndex: number;
+}
+
 // Transaction argument types
 
 export interface SetWithholdingArgs {

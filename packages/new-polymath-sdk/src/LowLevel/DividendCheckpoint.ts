@@ -10,8 +10,11 @@ import {
   SetWithholdingArgs,
   ReclaimDividendArgs,
   WithdrawWithholdingArgs,
+  GetTaxWithholdingListArgs,
 } from './types';
 import { fromUnixTimestamp, fromWei, toWei } from './utils';
+import { TaxWithholding } from '~/types';
+import { zipWith } from 'lodash';
 
 interface InternalDividend {
   checkpointId: number;
@@ -27,9 +30,18 @@ interface InternalDividend {
   name: string;
 }
 
+interface InternalCheckpointData {
+  investors: string[];
+  balances: string[];
+  percentages: number[];
+}
+
 // This type should be obtained from a library (must match ABI)
 interface DividendCheckpointContract<T extends GenericContract> {
   methods: {
+    getCheckpointData(
+      checkpointId: number
+    ): TransactionObject<InternalCheckpointData>;
     getDividendIndex(checkpointId: number): TransactionObject<number[]>;
     dividends(index: number): TransactionObject<InternalDividend>;
     setWithholding(
@@ -55,6 +67,20 @@ export class DividendCheckpoint<
     context: Context;
   }) {
     super({ address, abi, context });
+  }
+
+  public async getTaxWithholdingList({
+    checkpointIndex,
+  }: GetTaxWithholdingListArgs): Promise<TaxWithholding[]> {
+    const {
+      investors,
+      percentages,
+    } = await this.contract.methods.getCheckpointData(checkpointIndex).call();
+
+    return zipWith(investors, percentages, (address, percentage) => ({
+      address,
+      percentage,
+    }));
   }
 
   public async getDividends() {
