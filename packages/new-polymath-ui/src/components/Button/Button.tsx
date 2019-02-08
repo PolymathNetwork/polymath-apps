@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import { styled } from '~/styles';
+import { Buttons } from '~/styles/types';
 import { variant as variantHelper } from 'styled-system';
 import { get } from 'lodash';
 import { Icon } from '~/components/Icon';
@@ -16,7 +17,7 @@ export interface ButtonProps {
   /**
    * Specify the variant of Button you want to create
    */
-  variant: 'primary' | 'secondary' | 'ghost';
+  variant: keyof Buttons;
   /**
    * Optional prop to specify the type of the Button
    */
@@ -38,7 +39,7 @@ const getIconStyle = (position: IconPosition) =>
     right: 'left',
   }[position]);
 
-const EnhancedButton = styled.button.attrs<ButtonProps>(({ href }) => ({
+export const Button = styled.button.attrs<ButtonProps>(({ href }) => ({
   tabIndex: 0,
   role: href ? 'button' : undefined,
   type: href ? undefined : 'button',
@@ -86,13 +87,11 @@ const EnhancedButton = styled.button.attrs<ButtonProps>(({ href }) => ({
 
   ${Icon} {
     ${({ theme, iconPosition }) =>
+      iconPosition &&
       `margin-${getIconStyle(iconPosition!)}: ${theme.space.s}`};
   }
 `;
 
-EnhancedButton.defaultProps = {
+Button.defaultProps = {
   variant: 'primary',
-  iconPosition: 'right',
 };
-
-export const Button = EnhancedButton;
