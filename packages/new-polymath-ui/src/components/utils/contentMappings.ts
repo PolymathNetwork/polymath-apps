@@ -204,6 +204,28 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
         }
       }
     }
+    case types.ProcedureTypes.SetDividendsTaxWithholdingList: {
+      const args: ProcedureArguments[types.ProcedureTypes.SetDividendsTaxWithholdingList] =
+        queue.args;
+
+      switch (status) {
+        case types.TransactionQueueStatus.Failed: {
+          return 'An error ocurred while Setting Tax Withholdings';
+        }
+        case types.TransactionQueueStatus.Idle: {
+          return 'Proceed with Set Tax Withholdings';
+        }
+        case types.TransactionQueueStatus.Running: {
+          return 'Proceeding with Set Tax Withholdings';
+        }
+        case types.TransactionQueueStatus.Succeeded: {
+          return 'Set Tax Withholdings was successfully submitted';
+        }
+        default: {
+          return '';
+        }
+      }
+    }
     case types.ProcedureTypes.UnnamedProcedure:
     default: {
       return 'Unnamed Procedure';
@@ -296,6 +318,15 @@ export const getTransactionQueueContent = (
       return {
         title: 'Withdraw Taxes',
         description: 'Withdraw Taxes',
+      };
+    }
+    case types.ProcedureTypes.SetDividendsTaxWithholdingList: {
+      const args: ProcedureArguments[types.ProcedureTypes.SetDividendsTaxWithholdingList] =
+        queue.args;
+
+      return {
+        title: 'Set Tax Withholding',
+        description: 'Set Tax Withholding',
       };
     }
     case types.ProcedureTypes.UnnamedProcedure:
