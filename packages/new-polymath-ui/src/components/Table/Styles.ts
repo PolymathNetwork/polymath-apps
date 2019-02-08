@@ -1,51 +1,67 @@
+import { darken } from 'polished';
 import { styled, css } from '~/styles';
+import { Flex } from '~/components/Flex';
+import { Icon } from '~/components/Icon';
+import { Button as ButtonRaw } from '~/components/Button';
 
-export const Table = styled.div`
+const rowHeight = css(({ theme }) => theme.space.xl);
+
+export const Table = styled.div<{ selectable: boolean }>`
+  position: relative;
   display: block;
-  border-radius: 5px;
-  border: solid 1px #ddd;
-  overflow: scroll;
+  overflow: auto;
+  font-size: ${({ theme }) => theme.fontSizes.baseText};
+  padding-top: ${({ selectable }) => selectable && rowHeight};
 `;
 
-const RowBase = styled.div`
-  display: flex;
-  border-bottom: solid 1px #ddd;
+const RowBase = styled(Flex)`
+  border: solid 1px #ddd;
+
+  & + & {
+    margin-top: -1px;
+  }
 
   :last-child {
     border-bottom: 0;
   }
 `;
 
+export const BatchActionsToolbar = styled(RowBase)`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: ${({ theme }) => theme.colors.primary};
+  color: white;
+  height: ${rowHeight};
+  border: none;
+`;
+
 export const Row = styled(RowBase)`
-  ${props =>
-    props.selected &&
-    css`
-      background: rgba(42, 117, 146, 0.12);
-    `}
-`;
+  background: ${({ selected, theme }) =>
+    selected && darken(0.03, theme.colors.gray[1])};
 
-export const HeaderRow = styled(RowBase)`
-  background: rgba(42, 117, 146, 1);
-  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
-  color: white;
-`;
-
-export const Pagination = styled(RowBase)`
-  background: rgba(42, 117, 146, 1);
-  color: white;
-`;
-
-export const Cell = styled.div`
-  border-right: solid 1px rgba(0, 0, 0, 0.1);
-  padding: 0.6rem;
-
-  :last-child {
-    border-right: 0;
+  &:hover {
+    position: relative;
+    background: ${({ theme }) => darken(0.03, theme.colors.gray[1])};
+    border-color: ${({ theme }) => theme.colors.blue[1]};
   }
 `;
 
-export const Header = styled(Cell)`
-  font-weight: bold;
+export const HeaderRow = styled(RowBase)`
+  background: ${({ theme }) => theme.colors.gray[1]};
+  color: ${({ theme }) => theme.colors.highlightText};
+  border-bottom: none;
+`;
+
+export const Pagination = styled(RowBase)``;
+
+export const Cell = styled(Flex)`
+  padding: 0.6em;
+  height: ${rowHeight};
+`;
+
+export const HeaderCell = styled(Cell)`
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
 
   ${props => {
     const width = (props.sortedIndex + 1) * 5;
@@ -62,18 +78,6 @@ export const Header = styled(Cell)`
   }};
 `;
 
-export const Button = styled.button`
-  font-size: 1rem;
-  padding: 0.5rem 0.7rem;
-  background: white;
-  border-radius: 5px;
-  cursor: pointer;
-
-  :disabled {
-    opacity: 0.3;
-  }
-`;
-
 export const Select = styled.select`
   appearance: none;
   background: white;
@@ -81,7 +85,6 @@ export const Select = styled.select`
   margin: 0;
   color: black;
   font-size: 1rem;
-  border-radius: 5px;
   padding: 0.5rem 0.7rem;
   border: 0;
   cursor: pointer;
@@ -91,14 +94,16 @@ export const Input = styled.input`
   font-size: 1rem;
   padding: 0.5rem 0.7rem;
   background: white;
-  border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   max-width: 100%;
 `;
 
-export const Emoji = styled.span`
-  font-size: 1rem;
-  margin: 0 0.3rem;
-  display: inline-block;
-  transform: scale(1.4);
+export const Button = styled(ButtonRaw)`
+  ${Icon} {
+    color: ${({ theme }) => theme.colors.gray[3]};
+    ${props =>
+      props.sorted
+        ? props.sortedDesc && 'transform: rotateZ(0.5turn);'
+        : 'visibility: hidden;'}};
+  }
 `;

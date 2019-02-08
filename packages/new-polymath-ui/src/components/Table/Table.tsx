@@ -8,20 +8,29 @@ import {
   usePagination,
   useFlexLayout,
   useExpanded,
+  Row,
 } from 'react-table';
-
+import { Button } from '~/components/Button';
+import { Icon } from '~/components/Icon';
+import { Box } from '~/components/Box';
+import { Text } from '~/components/Text';
+import { SvgDelete } from '~/images/icons/Delete';
+import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { useSelectRow } from './hooks';
 import * as sc from './Styles';
 
 interface Props {
-  columns: Array<{}>;
+  columns: [];
+  data: [];
   selectable: boolean;
 }
 
-export const Table: FC<Props> = props => {
-  const { selectable } = props;
+export const Table: FC<Props> = ({ columns, data, selectable }) => {
   const instance = useTable(
-    props,
+    {
+      columns,
+      data,
+    },
     useColumns,
     useRows,
     useFilters,
@@ -51,7 +60,9 @@ export const Table: FC<Props> = props => {
 
   console.log(instance);
 
-  const renderRow = row => {
+  const selectedRows = rows.filter(row => row.isSelected);
+
+  const renderRow = (row: Row) => {
     if (!row) {
       return null;
     }
@@ -70,7 +81,11 @@ export const Table: FC<Props> = props => {
           </sc.Cell>
         )}
         {row.cells.map((cell, i: number) => (
-          <sc.Cell key={i} {...cell.getCellProps()}>
+          <sc.Cell
+            key={i}
+            {...cell.getCellProps()}
+            style={{ ...cell.getCellProps().style, display: 'flex' }}
+          >
             {cell.render('Cell')}
           </sc.Cell>
         ))}
@@ -79,83 +94,102 @@ export const Table: FC<Props> = props => {
   };
 
   const tableBody =
-    page && page.length ? page.map((row: any) => renderRow(row)) : null;
+    page && page.length ? page.map(row => renderRow(row)) : null;
 
   return (
-    <sc.Table {...getTableProps()}>
+    <sc.Table {...getTableProps()} selectable={true}>
+      {selectedRows.length ? (
+        <sc.BatchActionsToolbar>
+          <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+            Delete <Icon Asset={SvgDelete} />
+          </Button>
+          <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+            Edit <Icon Asset={SvgDelete} />
+          </Button>
+          <Box ml="auto">
+            {selectedRows.length} items selected
+            <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+              Cancel
+            </Button>
+          </Box>
+        </sc.BatchActionsToolbar>
+      ) : null}
       {headerGroups.map(headerGroup => (
         <sc.HeaderRow {...headerGroup.getRowProps()}>
           {selectable && (
-            <sc.Header>
+            <sc.HeaderCell>
               <input type="checkbox" {...rows.getSelectToggleProps()} />
-            </sc.Header>
+            </sc.HeaderCell>
           )}
           {headerGroup.headers.map((column, i: number) => (
-            <sc.Header
-              {...column.getHeaderProps()}
-              sorted={column.sorted}
-              sortedDesc={column.sortedDesc}
-              sortedIndex={column.sortedIndex}
-            >
-              <div>
-                <span {...column.getSortByToggleProps()}>
-                  {column.render('Header')}
-                </span>{' '}
-                {column.canGroupBy ? (
-                  <sc.Emoji {...column.getGroupByToggleProps()}>
-                    {column.grouped ? '🛑' : '👊'}
-                  </sc.Emoji>
-                ) : null}
-              </div>
-              {column.canFilter ? <div>{column.render('Filter')}</div> : null}
-            </sc.Header>
+            <sc.HeaderCell {...column.getHeaderProps()}>
+              <sc.Button
+                variant="raw"
+                iconPosition="right"
+                {...column.getSortByToggleProps()}
+                sorted={column.sorted}
+                sortedDesc={column.sortedDesc}
+                sortedIndex={column.sortedIndex}
+              >
+                <span>{column.render('Header')}</span>
+                <Icon Asset={SvgCaretDown} width="0.7em" height="0.7em" />
+              </sc.Button>
+            </sc.HeaderCell>
           ))}
         </sc.HeaderRow>
       ))}
       {tableBody}
       {pageOptions.length ? (
         <sc.Pagination {...getRowProps()}>
-          <sc.Cell>
-            <sc.Button
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
-            >
-              Previous
-            </sc.Button>{' '}
-            <sc.Button onClick={() => nextPage()} disabled={!canNextPage}>
-              Next
-            </sc.Button>{' '}
+          Items per page:
+          <sc.Select
+            value={pageSize}
+            onChange={e => {
+              setPageSize(Number(e.target.value));
+            }}
+          >
+            {[10, 20, 30, 40, 50].map(pageSize => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </sc.Select>
+          <Box ml="auto">
             <span>
               Page{' '}
               <strong>
                 {pageIndex + 1} of {pageOptions.length}
               </strong>{' '}
             </span>
+            <Button
+              variant="ghost"
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+            >
+              Previous
+            </Button>
             <span>
               | Go to page:{' '}
               <sc.Input
                 type="number"
                 defaultValue={pageIndex + 1}
                 onChange={e => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  gotoPage(page);
+                  const newPageIndex = e.target.value
+                    ? Number(e.target.value) - 1
+                    : 0;
+                  gotoPage(newPageIndex);
                 }}
                 style={{ width: '100px' }}
               />
-            </span>{' '}
-            <sc.Select
-              value={pageSize}
-              onChange={e => {
-                setPageSize(Number(e.target.value));
-              }}
+            </span>
+            <Button
+              variant="ghost"
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
             >
-              {[10, 20, 30, 40, 50].map(pageSize => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </sc.Select>
-          </sc.Cell>
+              Next
+            </Button>{' '}
+          </Box>
         </sc.Pagination>
       ) : null}
     </sc.Table>

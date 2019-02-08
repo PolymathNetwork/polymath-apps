@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
+import { SvgDelete } from '~/images/icons/Delete';
+import { Box } from '~/components/Box';
+import { IconButton } from '~/components/IconButton';
 import { makeData } from './makeData';
 
-import { Input } from '../Styles';
 import { Table } from '../Table';
 
 export const Demo = () => {
@@ -12,15 +14,6 @@ export const Demo = () => {
       accessor: 'firstName',
       minWidth: 140,
       maxWidth: 200,
-      Filter: header => {
-        return (
-          <Input
-            placeholder='Search...  eg. "room"...'
-            value={header.filterValue || ''}
-            onChange={e => header.setFilter(e.target.value)}
-          />
-        );
-      },
     },
     {
       Header: 'Last Name',
@@ -43,7 +36,7 @@ export const Demo = () => {
       Header: 'Status',
       accessor: 'status',
       width: 150,
-      Cell: row => (
+      Cell: (row: any) => (
         <span>
           <span
             style={{
@@ -66,15 +59,37 @@ export const Demo = () => {
         </span>
       ),
     },
+    {
+      accessor: 'actions',
+      width: 50,
+      Cell: () => (
+        <Fragment>
+          <IconButton
+            Asset={SvgDelete}
+            width="1.3em"
+            height="1.3em"
+            color="gray.2"
+          />
+          <IconButton
+            Asset={SvgDelete}
+            width="1.3em"
+            height="1.3em"
+            color="gray.2"
+          />
+        </Fragment>
+      ),
+    },
   ]);
 
   return (
-    <Table
-      {...{
-        data,
-        columns,
-      }}
-      selectable
-    />
+    <Fragment>
+      <Table
+        {...{
+          data,
+          columns,
+        }}
+        selectable
+      />
+    </Fragment>
   );
 };
