@@ -10,6 +10,8 @@ import Box from '../Box';
 import Grid from '../Grid';
 import Countdown from '../Countdown';
 import ContentBox from '../ContentBox';
+import Heading from '../Heading';
+import Paragraph from '../Paragraph';
 import ProgressBar from '../ProgressBar';
 import RaisedAmount from '../RaisedAmount';
 
@@ -146,17 +148,17 @@ export default class STOStatus extends Component<Props> {
                   width: '350px',
                 }}
               >
-                <p align="center">
+                <Paragraph textAlign="center">
                   <Icon
                     name="checkmark--outline"
                     fill="#00AA5E"
                     width="64"
                     height="64"
                   />
-                </p>
-                <h2 className="pui-h2" align="center">
+                </Paragraph>
+                <Heading variant="h2" textAlign="center">
                   The Sale is Complete
-                </h2>
+                </Heading>
               </ContentBox>
             </div>
           ) : (
