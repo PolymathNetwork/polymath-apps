@@ -34,6 +34,7 @@ export enum ProcedureTypes {
   ReclaimFunds = 'ReclaimFunds',
   ReserveSecurityToken = 'ReserveSecurityToken',
   WithdrawTaxes = 'WithdrawTaxes',
+  SetDividendsTaxWithholdingList = 'SetDividendsTaxWithholdingList',
 }
 
 export enum PolyTransactionTags {
