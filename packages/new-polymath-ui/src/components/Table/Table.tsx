@@ -12,10 +12,12 @@ import {
 } from 'react-table';
 import { Button } from '~/components/Button';
 import { Icon } from '~/components/Icon';
+import { Flex } from '~/components/Flex';
 import { Box } from '~/components/Box';
-import { Text } from '~/components/Text';
+import { SelectPrimitive as Select } from '~/components/inputs/Select';
 import { SvgDelete } from '~/images/icons/Delete';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
+import { SvgCaretDown2 } from '~/images/icons/CaretDown2';
 import { useSelectRow } from './hooks';
 import * as sc from './Styles';
 
@@ -123,7 +125,7 @@ export const Table: FC<Props> = ({ columns, data, selectable }) => {
           )}
           {headerGroup.headers.map((column, i: number) => (
             <sc.HeaderCell {...column.getHeaderProps()}>
-              <sc.Button
+              <sc.ButtonSort
                 variant="raw"
                 iconPosition="right"
                 {...column.getSortByToggleProps()}
@@ -133,7 +135,7 @@ export const Table: FC<Props> = ({ columns, data, selectable }) => {
               >
                 <span>{column.render('Header')}</span>
                 <Icon Asset={SvgCaretDown} width="0.7em" height="0.7em" />
-              </sc.Button>
+              </sc.ButtonSort>
             </sc.HeaderCell>
           ))}
         </sc.HeaderRow>
@@ -141,55 +143,48 @@ export const Table: FC<Props> = ({ columns, data, selectable }) => {
       {tableBody}
       {pageOptions.length ? (
         <sc.Pagination {...getRowProps()}>
-          Items per page:
-          <sc.Select
-            value={pageSize}
+          <Box ml="m">Items per page:</Box>
+          <Select
+            variant="ghost"
             onChange={e => {
               setPageSize(Number(e.target.value));
             }}
-          >
-            {[10, 20, 30, 40, 50].map(pageSize => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </sc.Select>
-          <Box ml="auto">
-            <span>
-              Page{' '}
-              <strong>
-                {pageIndex + 1} of {pageOptions.length}
-              </strong>{' '}
-            </span>
-            <Button
-              variant="ghost"
+            options={[10, 20, 30, 40, 50].map(option => ({
+              label: option,
+              value: option,
+            }))}
+            value={pageSize}
+          />
+          <Flex ml="auto">
+            <Box mr="m">
+              Page {pageIndex + 1} of {pageOptions.length}
+            </Box>
+            <sc.ButtonPreviousPage
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
-            >
-              Previous
-            </Button>
-            <span>
-              | Go to page:{' '}
-              <sc.Input
-                type="number"
-                defaultValue={pageIndex + 1}
-                onChange={e => {
-                  const newPageIndex = e.target.value
-                    ? Number(e.target.value) - 1
-                    : 0;
-                  gotoPage(newPageIndex);
-                }}
-                style={{ width: '100px' }}
-              />
-            </span>
-            <Button
               variant="ghost"
+            >
+              <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
+            </sc.ButtonPreviousPage>
+            <Select
+              variant="ghost"
+              onChange={value => {
+                gotoPage(value);
+              }}
+              options={pageOptions.map(option => ({
+                label: option + 1,
+                value: option,
+              }))}
+              value={pageIndex}
+            />
+            <sc.ButtonNextPage
               onClick={() => nextPage()}
               disabled={!canNextPage}
+              variant="ghost"
             >
-              Next
-            </Button>{' '}
-          </Box>
+              <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
+            </sc.ButtonNextPage>
+          </Flex>
         </sc.Pagination>
       ) : null}
     </sc.Table>

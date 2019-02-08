@@ -2,7 +2,8 @@ import { darken } from 'polished';
 import { styled, css } from '~/styles';
 import { Flex } from '~/components/Flex';
 import { Icon } from '~/components/Icon';
-import { Button as ButtonRaw } from '~/components/Button';
+import { IconButton } from '~/components/IconButton';
+import { Button } from '~/components/Button';
 
 const rowHeight = css(({ theme }) => theme.space.xl);
 
@@ -19,10 +20,6 @@ const RowBase = styled(Flex)`
 
   & + & {
     margin-top: -1px;
-  }
-
-  :last-child {
-    border-bottom: 0;
   }
 `;
 
@@ -52,8 +49,6 @@ export const HeaderRow = styled(RowBase)`
   color: ${({ theme }) => theme.colors.highlightText};
   border-bottom: none;
 `;
-
-export const Pagination = styled(RowBase)``;
 
 export const Cell = styled(Flex)`
   padding: 0.6em;
@@ -98,12 +93,42 @@ export const Input = styled.input`
   max-width: 100%;
 `;
 
-export const Button = styled(ButtonRaw)`
+export const ButtonSort = styled(Button)`
   ${Icon} {
     color: ${({ theme }) => theme.colors.gray[3]};
     ${props =>
       props.sorted
         ? props.sortedDesc && 'transform: rotateZ(0.5turn);'
         : 'visibility: hidden;'}};
+  }
+`;
+
+export const Pagination = styled(RowBase)`
+  color: ${({ theme }) => theme.colors.baseText};
+`;
+
+const ButtonPagination = styled(Button)`
+  color: ${({ theme }) => theme.colors.blue[1]};
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  border-top: none;
+  border-bottom: none;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+
+  &:last-child {
+    border-right: none;
+  }
+`;
+
+export const ButtonPreviousPage = styled(ButtonPagination)`
+  ${Icon} {
+    transform: rotateZ(0.25turn);
+  }
+`;
+
+export const ButtonNextPage = styled(ButtonPagination)`
+  ${Icon} {
+    transform: rotateZ(-0.25turn);
   }
 `;
