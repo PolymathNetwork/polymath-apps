@@ -1,37 +1,29 @@
-import { Validator, createValidator } from '../validator';
+import * as validators from '../validators';
 
 describe('Validator', () => {
-  const validator: Validator = createValidator();
-  test('initializes correctly', () => {
-    expect(validator).toBeInstanceOf(Validator);
-  });
   test('tests strings correctly', () => {
-    expect(validator.validate('hi there', ['isString'])).toBe(true);
-    expect(validator.validate(1, ['isString'])).toBe(false);
+    expect(validators.isString('hi there')).toBe(true);
+    expect(validators.isString(1)).toBe(false);
   });
   test('tests numbers correctly', () => {
-    expect(validator.validate('hi there', ['isInt'])).toBe(false);
-    expect(validator.validate(12, ['isInt'])).toBe(true);
+    expect(validators.isInt('hi there')).toBe(false);
+    expect(validators.isInt(1)).toBe(true);
   });
   test('tests addresses correctly', () => {
     expect(
-      validator.validate('0x07889A89C6854bb4Ec445825E680255b17751192', [
-        'isAddress',
-      ])
+      validators.isAddress('0x07889A89C6854bb4Ec445825E680255b17751192')
     ).toBe(true);
     expect(
-      validator.validate('0x07889A89C6854bb4Ec445825E680255b17751193', [
-        'isAddress',
-      ])
+      validators.isAddress('0x07889A89C6854bb4Ec445825E680255b17751193')
     ).toBe(false);
   });
   test('tests isNotEmpty correctly', () => {
-    expect(validator.validate('', ['isNotEmpty'])).toBe(false);
-    expect(validator.validate('test', ['isNotEmpty'])).toBe(true);
-    expect(validator.validate(null, ['isNotEmpty'])).toBe(false);
+    expect(validators.isNotEmpty('')).toBe(false);
+    expect(validators.isNotEmpty('test')).toBe(true);
+    expect(validators.isNotEmpty(null)).toBe(false);
   });
   test('tests dates correctly', () => {
-    expect(validator.validate('1/1/2019', ['isDate'])).toBe(true);
-    expect(validator.validate('22/22/2019', ['isDate'])).toBe(false);
+    expect(validators.isDate('1/1/2019')).toBe(true);
+    expect(validators.isDate('22/22/2019')).toBe(false);
   });
 });
