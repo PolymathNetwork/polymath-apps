@@ -2,6 +2,7 @@ import Web3 from 'web3';
 import { PolymathError } from '~/PolymathError';
 import { ErrorCodes } from '~/types';
 import { HttpProvider } from 'web3/providers';
+import { utils } from '@polymathnetwork/new-shared';
 
 export enum BrowserSupport {
   None = 'NONE',
@@ -10,7 +11,7 @@ export enum BrowserSupport {
 }
 
 interface Ethereum extends HttpProvider {
-  networkversion: string;
+  networkVersion: string;
   _metamask?: {
     isApproved: () => Promise<boolean>;
   };
@@ -57,19 +58,16 @@ export function getWeb3() {
 }
 
 function isModern(obj: ExtendedWindow): obj is WindowWithEthereum {
-  if (getBrowserSupport() === BrowserSupport.Modern) {
-    return true;
-  }
-  return false;
+  return getBrowserSupport() === BrowserSupport.Modern;
 }
 
 function isLegacy(obj: ExtendedWindow): obj is WindowWithWeb3 {
-  if (getBrowserSupport() === BrowserSupport.Legacy) {
-    return true;
-  }
-  return false;
+  return getBrowserSupport() === BrowserSupport.Legacy;
 }
 
+function isUnsupported(obj: ExtendedWindow): obj is ExtendedWindow {
+  return getBrowserSupport() === BrowserSupport.None;
+}
 /**
  * Returns the browser support for Ethereum
  */
@@ -91,22 +89,25 @@ export function getBrowserSupport() {
 /**
  * Returns the current networkId provided by the browser
  */
-export function getNetworkId() {
-  const win = window as ExtendedWindow;
-  const support = getBrowserSupport();
-  if (support === BrowserSupport.None) {
+export async function getNetworkId(): Promise<number | null> {
+  const win: ExtendedWindow = window as ExtendedWindow;
+
+  let rawNetworkId: string | undefined;
+
+  if (isModern(win)) {
+    rawNetworkId = win.ethereum.networkVersion;
+  } else if (isLegacy(win)) {
+    rawNetworkId = win.web3.version;
+  } else {
     return null;
   }
 
-  if (support === BrowserSupport.Modern) {
-    return parseInt((win as any).ethereum.networkVersion, 10);
+  if (rawNetworkId === 'loading' || !rawNetworkId) {
+    await utils.delay(50);
+    return getNetworkId();
   }
 
-  if (support === BrowserSupport.Legacy) {
-    return parseInt((win as any).web3.version.networkId, 10);
-  }
-
-  throw new Error('Assertion Error');
+  return parseInt(rawNetworkId, 10);
 }
 
 export async function getCurrentAddress() {

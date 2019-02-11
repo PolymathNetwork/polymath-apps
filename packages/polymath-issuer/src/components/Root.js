@@ -24,6 +24,7 @@ import {
   MAINNET_NETWORK_ID,
   KOVAN_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
+import { ModalTransactionQueue } from '@polymathnetwork/new-issuer/components/ModalTransactionQueue';
 
 import HomePage from '../pages/home';
 
@@ -78,6 +79,7 @@ class Root extends Component<Props> {
               <Header variant="transparent" />
             </StickyTop>
             <HomePage />
+            <ModalTransactionQueue />
             <Footer variant="transparent" />
           </Fragment>
         ) : (

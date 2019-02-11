@@ -3,5 +3,15 @@ import * as types from './typing/types';
 import * as constants from './constants';
 import * as utils from './utils';
 import * as formatters from './formatters';
+import * as testUtils from './testUtils';
+import * as csvParser from './utils/csvParser';
 
-export { utils, types, typeHelpers, constants, formatters };
+export {
+  utils,
+  types,
+  typeHelpers,
+  constants,
+  formatters,
+  testUtils,
+  csvParser,
+};

@@ -25,7 +25,7 @@ const networkConfigs = {
     /* */
   },
 };
-const networkId = browserUtils.getNetworkId();
+const networkId = await browserUtils.getNetworkId();
 const config = networkConfigs[networkId];
 
 // You'll want to reuse the smae instance of the Polymath client in the rest of
@@ -36,35 +36,7 @@ export const polyClient = new Polymath(config);
 Initializing your client
 
 ```ts
-import { polyClient } from './polyClient';
-
-// These two steps need to be done once, somewhere in your app
-
-// Initializes the client with network data
-await polyClient.connect();
-
-// This only needs to be done for browsers, it will obtain the user's address
-// popping up metamask's dialog to ask the user for access. This should be used
-// to control the "login" flow of your application, it will throw meaningful
-// exceptions depending on what the result was
-try {
-  await browserUtils.getCurrentAddress();
-} catch (err) {
-  switch (code) {
-    case ErrorCodes.UserDeniedAccess: {
-      // User didn't allow access
-      break;
-    }
-    case ErrorCodes.IncompatibleBrowser: {
-      // Browser does not support Ethereum
-      break;
-    }
-    case ErrorCodes.WalletIsLocked: {
-      // The user needs to unlock his/her wallet first
-      break;
-    }
-  }
-}
+// Pending
 ```
 
 Finally, let's start a procedure to reserve a Security Token
