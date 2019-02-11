@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressIndicator renders without crashing 1`] = `
+<ul
+  class="styles__Container-sc-1yqgbjt-0 ewEVem"
+>
+  <li
+    class="styles__Container-sc-1kjjzf5-4 iKGuKD"
+    data-testid="ProgressIndicator-Step-1"
+  >
+    <div
+      class="styles__Inner-sc-1kjjzf5-3 kmSbNL"
+    >
+      <span
+        class="Icon-sc-1la2wzw-0 IconCircled-sc-1nqzu1v-0 IconOutlined-sc-1skygp6-0 styles__Icon-sc-1kjjzf5-1 hMzgUo"
+      >
+        <svg
+          bg="blue[0]"
+          role="img"
+          scale="0.9"
+          viewBox="0 0 24 24"
+        >
+          <title>
+            Current step
+          </title>
+          <circle
+            cx="12"
+            cy="12"
+            fill="currentColor"
+            r="8"
+          />
+        </svg>
+      </span>
+      <p
+        class="Box-jssg1f-0 Text-sc-1igr82g-0 Paragraph-sc-7czaxl-0 styles__Label-sc-1kjjzf5-2 XqKlX"
+        font-size="inherit"
+        font-weight="bold"
+      >
+        foo
+      </p>
+    </div>
+    <span
+      class="styles__ProgressLine-sc-1kjjzf5-0 cdbQvi"
+    />
+  </li>
+</ul>
+`;

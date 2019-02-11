@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Paragraph } from '~/components/Paragraph';
 import { SvgCheckmark } from '~/images/icons/Checkmark';
 import * as sc from './styles';
@@ -19,51 +19,51 @@ export interface StepProps {
   label?: string;
   isVertical?: boolean;
   isOrdered?: boolean;
-  index: number;
+  index?: number;
 }
 
-export const Step = ({
+export const Step: FC<StepProps> = ({
   label,
   index,
   isCurrent,
   isComplete,
   isVertical,
   isOrdered,
-}: StepProps) => {
-  const NumberedSvg = () => (
+}) => {
+  const stepNumber = (index || 0) + 1;
+
+  const NumberedSvg: FC = () => (
     <Paragraph as="span" fontWeight="bold" fontSize="inherit">
-      {index}
+      {stepNumber}
     </Paragraph>
   );
 
+  const CurrentStepSvg: FC<React.SVGAttributes<SVGElement>> = props => (
+    <svg role="img" viewBox="0 0 24 24" {...props}>
+      <title>Current step</title>
+      <circle fill="currentColor" cx="12" cy="12" r="8" />
+    </svg>
+  );
+  const IncompleteStepSvg: FC<React.SVGAttributes<SVGElement>> = (
+    props: React.SVGAttributes<SVGElement>
+  ) => (
+    <svg role="img" viewBox="0 0 24 24" {...props}>
+      <title>Incomplete step</title>
+      <circle fill="currentColor" cx="12" cy="12" r="8" />
+    </svg>
+  );
+
   const CompleteSvg = isComplete && SvgCheckmark;
-
-  const CurrentSvg =
-    isCurrent &&
-    (isOrdered
-      ? NumberedSvg
-      : (props: React.SVGAttributes<SVGElement>) => (
-          <svg role="img" viewBox="0 0 24 24" {...props}>
-            <title>Current step</title>
-            <circle fill="currentColor" cx="12" cy="12" r="8" />
-          </svg>
-        ));
-
+  const CurrentSvg = isCurrent && (isOrdered ? NumberedSvg : CurrentStepSvg);
   const IncompleteSvg =
-    !isComplete && isOrdered
-      ? NumberedSvg
-      : (props: React.SVGAttributes<SVGElement>) => (
-          <svg role="img" viewBox="0 0 24 24" {...props}>
-            <title>Incomplete step</title>
-            <circle fill="currentColor" cx="12" cy="12" r="8" />
-          </svg>
-        );
+    !isComplete && isOrdered ? NumberedSvg : IncompleteStepSvg;
 
   return (
     <sc.Container
       isCurrent={isCurrent}
       isComplete={isComplete}
       isVertical={isVertical}
+      data-testid={`ProgressIndicator-Step-${stepNumber}`}
     >
       <sc.Inner>
         <sc.Icon
