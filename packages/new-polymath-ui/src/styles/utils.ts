@@ -25,3 +25,10 @@ export const ulReset = `
   padding: 0;
   margin: 0;
 `;
+
+export const buttonReset = `
+  padding: 0;
+  background: none;
+  text-transform: none;
+  letter-spacing: normal;
+`;
