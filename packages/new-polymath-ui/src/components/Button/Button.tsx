@@ -26,7 +26,7 @@ export interface ButtonProps {
    */
   href?: string;
   role?: string;
-  iconPosition?: IconPosition;
+  iconPosition: IconPosition;
   onClick: () => void;
 }
 
@@ -90,9 +90,9 @@ const EnhancedButton = styled.button.attrs<ButtonProps>(({ href }) => ({
   }
 `;
 
-EnhancedButton.defaultProps = {
-  variant: 'primary',
-  iconPosition: 'right',
-};
-
-export const Button = EnhancedButton;
+export const Button = Object.assign(EnhancedButton, {
+  defaultProps: {
+    variant: 'primary',
+    iconPosition: 'right',
+  },
+});

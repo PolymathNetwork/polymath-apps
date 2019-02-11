@@ -617,7 +617,7 @@
         "id": 25279,
         "nodeType": "ImportDirective",
         "scope": 25514,
-        "sourceUnit": 40690,
+        "sourceUnit": 40702,
         "src": "26:53:61",
         "symbolAliases": [],
         "unitAlias": ""
@@ -679,8 +679,8 @@
         "contractDependencies": [
           10968,
           26033,
-          40689,
-          44293
+          40701,
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying VestingEscrowWallet module",
@@ -689,7 +689,7 @@
         "linearizedBaseContracts": [
           25513,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "VestingEscrowWalletFactory",
@@ -853,10 +853,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "675:7:61",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2031,7 +2031,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 44760,
+                                    "referencedDeclaration": 44772,
                                     "src": "1504:3:61",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -2058,7 +2058,7 @@
                                   "name": "owner",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 44211,
+                                  "referencedDeclaration": 44223,
                                   "src": "1516:5:61",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -2169,10 +2169,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              44763,
-                              44764
+                              44775,
+                              44776
                             ],
-                            "referencedDeclaration": 44764,
+                            "referencedDeclaration": 44776,
                             "src": "1473:7:61",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2215,7 +2215,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                        "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                         "typeString": "contract VestingEscrowWalletProxy"
                       },
                       "typeName": {
@@ -2223,10 +2223,10 @@
                         "id": 25392,
                         "name": "VestingEscrowWalletProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40689,
+                        "referencedDeclaration": 40701,
                         "src": "1615:24:61",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       },
@@ -2246,7 +2246,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1691:3:61",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2355,7 +2355,7 @@
                       "nodeType": "NewExpression",
                       "src": "1662:28:61",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_VestingEscrowWalletProxy_$40689_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_VestingEscrowWalletProxy_$40701_$",
                         "typeString": "function (address,address,address) returns (contract VestingEscrowWalletProxy)"
                       },
                       "typeName": {
@@ -2363,10 +2363,10 @@
                         "id": 25394,
                         "name": "VestingEscrowWalletProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40689,
+                        "referencedDeclaration": 40701,
                         "src": "1666:24:61",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       }
@@ -2381,7 +2381,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1662:75:61",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                      "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                       "typeString": "contract VestingEscrowWalletProxy"
                     }
                   },
@@ -2487,7 +2487,7 @@
                                   "referencedDeclaration": 25393,
                                   "src": "1856:19:61",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                     "typeString": "contract VestingEscrowWalletProxy"
                                   }
                                 }
@@ -2495,7 +2495,7 @@
                               "expression": {
                                 "argumentTypes": [
                                   {
-                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                     "typeString": "contract VestingEscrowWalletProxy"
                                   }
                                 ],
@@ -2592,10 +2592,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1820:7:61",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2660,7 +2660,7 @@
                                 "referencedDeclaration": 25393,
                                 "src": "2002:19:61",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                   "typeString": "contract VestingEscrowWalletProxy"
                                 }
                               }
@@ -2668,7 +2668,7 @@
                             "expression": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                   "typeString": "contract VestingEscrowWalletProxy"
                                 }
                               ],
@@ -2761,10 +2761,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1986:7:61",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2805,7 +2805,7 @@
                             "referencedDeclaration": 25393,
                             "src": "2169:19:61",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                               "typeString": "contract VestingEscrowWalletProxy"
                             }
                           }
@@ -2813,7 +2813,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                               "typeString": "contract VestingEscrowWalletProxy"
                             }
                           ],
@@ -2883,7 +2883,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44947,
+                            "referencedDeclaration": 44959,
                             "src": "2210:4:61",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_VestingEscrowWalletFactory_$25513",
@@ -2933,7 +2933,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2217:3:61",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2973,7 +2973,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2240:3:61",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3050,7 +3050,7 @@
                         "referencedDeclaration": 25393,
                         "src": "2269:19:61",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       }
@@ -3058,7 +3058,7 @@
                     "expression": {
                       "argumentTypes": [
                         {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       ],
@@ -3970,7 +3970,7 @@
         "id": 25279,
         "nodeType": "ImportDirective",
         "scope": 25514,
-        "sourceUnit": 40690,
+        "sourceUnit": 40702,
         "src": "26:53:61",
         "symbolAliases": [],
         "unitAlias": ""
@@ -4032,8 +4032,8 @@
         "contractDependencies": [
           10968,
           26033,
-          40689,
-          44293
+          40701,
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying VestingEscrowWallet module",
@@ -4042,7 +4042,7 @@
         "linearizedBaseContracts": [
           25513,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "VestingEscrowWalletFactory",
@@ -4206,10 +4206,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "675:7:61",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5384,7 +5384,7 @@
                                     "name": "msg",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 44760,
+                                    "referencedDeclaration": 44772,
                                     "src": "1504:3:61",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_message",
@@ -5411,7 +5411,7 @@
                                   "name": "owner",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 44211,
+                                  "referencedDeclaration": 44223,
                                   "src": "1516:5:61",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -5522,10 +5522,10 @@
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              44763,
-                              44764
+                              44775,
+                              44776
                             ],
-                            "referencedDeclaration": 44764,
+                            "referencedDeclaration": 44776,
                             "src": "1473:7:61",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5568,7 +5568,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                        "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                         "typeString": "contract VestingEscrowWalletProxy"
                       },
                       "typeName": {
@@ -5576,10 +5576,10 @@
                         "id": 25392,
                         "name": "VestingEscrowWalletProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40689,
+                        "referencedDeclaration": 40701,
                         "src": "1615:24:61",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       },
@@ -5599,7 +5599,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1691:3:61",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5708,7 +5708,7 @@
                       "nodeType": "NewExpression",
                       "src": "1662:28:61",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_VestingEscrowWalletProxy_$40689_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$_t_address_$returns$_t_contract$_VestingEscrowWalletProxy_$40701_$",
                         "typeString": "function (address,address,address) returns (contract VestingEscrowWalletProxy)"
                       },
                       "typeName": {
@@ -5716,10 +5716,10 @@
                         "id": 25394,
                         "name": "VestingEscrowWalletProxy",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 40689,
+                        "referencedDeclaration": 40701,
                         "src": "1666:24:61",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       }
@@ -5734,7 +5734,7 @@
                     "nodeType": "FunctionCall",
                     "src": "1662:75:61",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                      "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                       "typeString": "contract VestingEscrowWalletProxy"
                     }
                   },
@@ -5840,7 +5840,7 @@
                                   "referencedDeclaration": 25393,
                                   "src": "1856:19:61",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                     "typeString": "contract VestingEscrowWalletProxy"
                                   }
                                 }
@@ -5848,7 +5848,7 @@
                               "expression": {
                                 "argumentTypes": [
                                   {
-                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                    "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                     "typeString": "contract VestingEscrowWalletProxy"
                                   }
                                 ],
@@ -5945,10 +5945,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1820:7:61",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -6013,7 +6013,7 @@
                                 "referencedDeclaration": 25393,
                                 "src": "2002:19:61",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                   "typeString": "contract VestingEscrowWalletProxy"
                                 }
                               }
@@ -6021,7 +6021,7 @@
                             "expression": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                                  "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                                   "typeString": "contract VestingEscrowWalletProxy"
                                 }
                               ],
@@ -6114,10 +6114,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1986:7:61",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -6158,7 +6158,7 @@
                             "referencedDeclaration": 25393,
                             "src": "2169:19:61",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                               "typeString": "contract VestingEscrowWalletProxy"
                             }
                           }
@@ -6166,7 +6166,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                              "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                               "typeString": "contract VestingEscrowWalletProxy"
                             }
                           ],
@@ -6236,7 +6236,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44947,
+                            "referencedDeclaration": 44959,
                             "src": "2210:4:61",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_VestingEscrowWalletFactory_$25513",
@@ -6286,7 +6286,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2217:3:61",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -6326,7 +6326,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2240:3:61",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -6403,7 +6403,7 @@
                         "referencedDeclaration": 25393,
                         "src": "2269:19:61",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       }
@@ -6411,7 +6411,7 @@
                     "expression": {
                       "argumentTypes": [
                         {
-                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40689",
+                          "typeIdentifier": "t_contract$_VestingEscrowWalletProxy_$40701",
                           "typeString": "contract VestingEscrowWalletProxy"
                         }
                       ],
@@ -7305,9 +7305,9 @@
       "events": {},
       "links": {},
       "address": "0x4e72770760c011647d4873f60a3cf6cdea896cd8",
-      "transactionHash": "0xabcf4c13563c5aaf66bd026c1bbd1ba75a0bab6046438ad91129453b10583d8b"
+      "transactionHash": "0x7edf84dbe766b49e7974d9d988fb27c7255ca67d55ed9d9f6fc0743724e465b8"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.393Z"
+  "updatedAt": "2019-02-06T16:02:42.803Z"
 }

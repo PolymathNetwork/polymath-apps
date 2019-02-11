@@ -17,16 +17,30 @@ export class Wallet {
   }
 
   public async getBalance(token: types.Tokens) {
-    const tokenContract = this.context.getTokenContract(token);
-    const balanceRes = await tokenContract.balanceOf(this.address);
+    const {
+      context: { getTokenContract },
+      address,
+    } = this;
+    const tokenContract = getTokenContract(token);
+    const balanceRes = await tokenContract.balanceOf({ address });
     return new BigNumber(balanceRes);
   }
 
   public async getAllowance(spender: string | Wallet) {
-    const allowanceRes = await this.context.polyToken.allowance(
-      this.address,
-      `${spender}`
-    );
+    const {
+      context: {
+        polyToken: { allowance },
+      },
+      address,
+    } = this;
+    const allowanceRes = await allowance({
+      tokenOwner: address,
+      spender: `${spender}`,
+    });
     return new BigNumber(allowanceRes);
+  }
+
+  public toString() {
+    return this.address;
   }
 }

@@ -651,7 +651,7 @@
           10968,
           26033,
           27816,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying CappedSTO module",
@@ -660,7 +660,7 @@
         "linearizedBaseContracts": [
           28043,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "CappedSTOFactory",
@@ -1745,7 +1745,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1405:3:69",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -1772,7 +1772,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1417:5:69",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -1883,10 +1883,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1374:7:69",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1958,7 +1958,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1585:3:69",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2251,10 +2251,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1699:7:69",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2420,10 +2420,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1848:7:69",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2542,7 +2542,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44957,
+                            "referencedDeclaration": 44969,
                             "src": "2052:4:69",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_CappedSTOFactory_$28043",
@@ -2592,7 +2592,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2059:3:69",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2632,7 +2632,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2082:3:69",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3847,7 +3847,7 @@
           10968,
           26033,
           27816,
-          44293
+          44305
         ],
         "contractKind": "contract",
         "documentation": "@title Factory for deploying CappedSTO module",
@@ -3856,7 +3856,7 @@
         "linearizedBaseContracts": [
           28043,
           26033,
-          44293,
+          44305,
           10968
         ],
         "name": "CappedSTOFactory",
@@ -4941,7 +4941,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44760,
+                                "referencedDeclaration": 44772,
                                 "src": "1405:3:69",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -4968,7 +4968,7 @@
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "1417:5:69",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -5079,10 +5079,10 @@
                         "name": "require",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [
-                          44763,
-                          44764
+                          44775,
+                          44776
                         ],
-                        "referencedDeclaration": 44764,
+                        "referencedDeclaration": 44776,
                         "src": "1374:7:69",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5154,7 +5154,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "1585:3:69",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5447,10 +5447,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1699:7:69",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5616,10 +5616,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "1848:7:69",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -5738,7 +5738,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44957,
+                            "referencedDeclaration": 44969,
                             "src": "2052:4:69",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_CappedSTOFactory_$28043",
@@ -5788,7 +5788,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "2059:3:69",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5828,7 +5828,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "2082:3:69",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -6973,9 +6973,9 @@
       "events": {},
       "links": {},
       "address": "0xd5e8aa91bda51688e6f3de82e52fb38e35298515",
-      "transactionHash": "0x6216049ed0b66790763c846b4e288b7030076604386ae8da91919a43b3ac9744"
+      "transactionHash": "0x53a13436ecfa44dfd24c6c11b5e18c35e27fe34efe146526634ef54f403d289c"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.441Z"
+  "updatedAt": "2019-02-06T16:02:42.821Z"
 }

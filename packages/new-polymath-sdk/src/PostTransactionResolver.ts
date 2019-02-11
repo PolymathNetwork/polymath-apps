@@ -1,8 +1,13 @@
 export class PostTransactionResolver<Value extends any> {
   public result?: Value;
-  private resolver: () => Promise<Value>;
+  private resolver: () => Promise<Value> | Promise<undefined>;
 
-  constructor(resolver: () => Promise<Value>) {
+  constructor(resolver?: () => Promise<Value>) {
+    if (!resolver) {
+      this.resolver = async () => undefined;
+      return;
+    }
+
     this.resolver = resolver;
   }
 

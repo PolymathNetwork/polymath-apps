@@ -1,4 +1,4 @@
-import { polyClient } from '~/lib/polymath';
+import { polyClient } from '~/lib/polyClient';
 import { cacheData, fetchDataFail } from '~/state/actions/dataRequests';
 import { createAction as createDividend } from '~/state/actions/dividends';
 import { call, put } from 'redux-saga/effects';
