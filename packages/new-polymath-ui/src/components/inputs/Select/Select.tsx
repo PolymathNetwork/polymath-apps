@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ReactSelect, { components } from 'react-select';
 import { Props as ReactSelectProps } from 'react-select/lib/Select';
 import { typeHelpers } from '@polymathnetwork/new-shared';
-import { withTheme, ThemeInterface, styled } from '~/styles';
+import { withTheme, ThemeInterface } from '~/styles';
 import { Selects } from '~/styles/types';
-import { Icon, IconProps } from '~/components/Icon';
+import { Icon } from '~/components/Icon';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { formikProxy } from '../formikProxy';
 
@@ -13,11 +13,11 @@ export interface SelectProps<OptT extends any = any>
     ReactSelectProps<OptT>,
     'theme' | 'onChange' | 'onBlur'
   > {
-  name: string;
   theme: ThemeInterface;
   onChange: (value: OptT['value']) => void;
   onBlur: () => void;
   variant: keyof Selects;
+  name?: string;
 }
 
 const getStyles = (theme: ThemeInterface, variant: keyof Selects) =>
