@@ -12,14 +12,13 @@ import {
 } from 'react-table';
 import { Button } from '~/components/Button';
 import { Icon } from '~/components/Icon';
-import { Flex } from '~/components/Flex';
 import { Box } from '~/components/Box';
-import { SelectPrimitive as Select } from '~/components/inputs/Select';
 import { SvgDelete } from '~/images/icons/Delete';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
-import { SvgCaretDown2 } from '~/images/icons/CaretDown2';
 import { useSelectRow } from './hooks';
-import * as sc from './Styles';
+import { Context } from './Context';
+import { Pagination } from './Pagination';
+import * as sc from './styles';
 
 interface Props {
   columns: [];
@@ -27,7 +26,12 @@ interface Props {
   selectable: boolean;
 }
 
-export const Table: FC<Props> = ({ columns, data, selectable }) => {
+export const TableComponent: FC<Props> = ({
+  columns,
+  data,
+  selectable,
+  children,
+}) => {
   const instance = useTable(
     {
       columns,
@@ -43,22 +47,7 @@ export const Table: FC<Props> = ({ columns, data, selectable }) => {
     useSelectRow
   );
 
-  const {
-    getTableProps,
-    headerGroups,
-    rows,
-    getRowProps,
-    pageOptions,
-    page,
-    state: [{ pageIndex, pageSize }],
-    gotoPage,
-    prepareRow,
-    previousPage,
-    nextPage,
-    setPageSize,
-    canPreviousPage,
-    canNextPage,
-  } = instance;
+  const { getTableProps, headerGroups, rows, page, prepareRow } = instance;
 
   console.log(instance);
 
@@ -141,52 +130,11 @@ export const Table: FC<Props> = ({ columns, data, selectable }) => {
         </sc.HeaderRow>
       ))}
       {tableBody}
-      {pageOptions.length ? (
-        <sc.Pagination {...getRowProps()}>
-          <Box ml="m">Items per page:</Box>
-          <Select
-            variant="ghost"
-            onChange={e => {
-              setPageSize(Number(e.target.value));
-            }}
-            options={[10, 20, 30, 40, 50].map(option => ({
-              label: option,
-              value: option,
-            }))}
-            value={pageSize}
-          />
-          <Flex ml="auto">
-            <Box mr="m">
-              Page {pageIndex + 1} of {pageOptions.length}
-            </Box>
-            <sc.ButtonPreviousPage
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
-              variant="ghost"
-            >
-              <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
-            </sc.ButtonPreviousPage>
-            <Select
-              variant="ghost"
-              onChange={value => {
-                gotoPage(value);
-              }}
-              options={pageOptions.map(option => ({
-                label: option + 1,
-                value: option,
-              }))}
-              value={pageIndex}
-            />
-            <sc.ButtonNextPage
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
-              variant="ghost"
-            >
-              <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
-            </sc.ButtonNextPage>
-          </Flex>
-        </sc.Pagination>
-      ) : null}
+      <Context.Provider value={instance}>{children}</Context.Provider>
     </sc.Table>
   );
 };
+
+export const Table = Object.assign(TableComponent, {
+  Pagination,
+});

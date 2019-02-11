@@ -2,7 +2,6 @@ import { darken } from 'polished';
 import { styled, css } from '~/styles';
 import { Flex } from '~/components/Flex';
 import { Icon } from '~/components/Icon';
-import { IconButton } from '~/components/IconButton';
 import { Button } from '~/components/Button';
 
 const rowHeight = css(({ theme }) => theme.space.xl);
@@ -15,7 +14,7 @@ export const Table = styled.div<{ selectable: boolean }>`
   padding-top: ${({ selectable }) => selectable && rowHeight};
 `;
 
-const RowBase = styled(Flex)`
+export const RowBase = styled(Flex)`
   border: solid 1px #ddd;
 
   & + & {

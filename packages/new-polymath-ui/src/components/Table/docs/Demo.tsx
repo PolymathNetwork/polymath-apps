@@ -89,7 +89,9 @@ export const Demo = () => {
           columns,
         }}
         selectable
-      />
+      >
+        <Table.Pagination />
+      </Table>
     </Fragment>
   );
 };
