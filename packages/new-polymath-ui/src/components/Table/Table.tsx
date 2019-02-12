@@ -9,6 +9,7 @@ import {
   useFlexLayout,
   useExpanded,
   Row,
+  Column,
 } from 'react-table';
 import { Icon } from '~/components/Icon';
 import { CheckboxPrimitive as Checkbox } from '~/components/inputs/Checkbox';
@@ -31,9 +32,19 @@ export const TableComponent: FC<Props> = ({
   selectable,
   children,
 }) => {
+  const selectRowColumn: Column = {
+    accessor: 'selectRow',
+    Header: ({ getSelectRowToggleProps }) => (
+      <Checkbox {...getSelectRowToggleProps()} />
+    ),
+    Cell: ({ row }) => (
+      <Checkbox onChange={row.toggleSelected} checked={row.isSelected} />
+    ),
+    width: 60,
+  };
   const instance = useTable(
     {
-      columns,
+      columns: selectable ? [selectRowColumn, ...columns] : columns,
       data,
     },
     useColumns,
@@ -45,16 +56,7 @@ export const TableComponent: FC<Props> = ({
     useFlexLayout,
     useSelectRow
   );
-
-  const {
-    getTableProps,
-    getSelectRowToggleProps,
-    headerGroups,
-    page,
-    prepareRow,
-  } = instance;
-
-  console.log(instance);
+  const { getTableProps, headerGroups, page, prepareRow } = instance;
 
   const renderRow = (row: Row) => {
     if (!row) {
@@ -65,11 +67,6 @@ export const TableComponent: FC<Props> = ({
 
     return (
       <sc.Row {...row.getRowProps()} selected={row.isSelected}>
-        {selectable && (
-          <sc.Cell>
-            <Checkbox onChange={row.toggleSelected} checked={row.isSelected} />
-          </sc.Cell>
-        )}
         {row.cells.map((cell, i: number) => (
           <sc.Cell
             key={i}
@@ -88,30 +85,31 @@ export const TableComponent: FC<Props> = ({
 
   return (
     <sc.Table {...getTableProps()} selectable={selectable}>
-      {headerGroups.map(headerGroup => (
-        <sc.HeaderRow {...headerGroup.getRowProps()}>
-          {selectable && (
-            <sc.HeaderCell>
-              <Checkbox {...getSelectRowToggleProps()} />
-            </sc.HeaderCell>
-          )}
-          {headerGroup.headers.map((column, i: number) => (
-            <sc.HeaderCell {...column.getHeaderProps()}>
-              <sc.ButtonSort
-                variant="raw"
-                iconPosition="right"
-                {...column.getSortByToggleProps()}
-                sorted={column.sorted}
-                sortedDesc={column.sortedDesc}
-              >
-                <span>{column.render('Header')}</span>
-                <Icon Asset={SvgCaretDown} width="0.7em" height="0.7em" />
-              </sc.ButtonSort>
-            </sc.HeaderCell>
-          ))}
-        </sc.HeaderRow>
-      ))}
-      {tableBody}
+      <sc.Body>
+        {headerGroups.map(headerGroup => (
+          <sc.HeaderRow {...headerGroup.getRowProps()}>
+            {headerGroup.headers.map((column, i) => (
+              <sc.HeaderCell {...column.getHeaderProps()}>
+                {selectable && i === 0 ? (
+                  column.render('Header')
+                ) : (
+                  <sc.ButtonSort
+                    variant="raw"
+                    iconPosition="right"
+                    {...column.getSortByToggleProps()}
+                    sorted={column.sorted}
+                    sortedDesc={column.sortedDesc}
+                  >
+                    <span>{column.render('Header')}</span>
+                    <Icon Asset={SvgCaretDown} width="0.7em" height="0.7em" />
+                  </sc.ButtonSort>
+                )}
+              </sc.HeaderCell>
+            ))}
+          </sc.HeaderRow>
+        ))}
+        {tableBody}
+      </sc.Body>
       <Context.Provider value={instance}>{children}</Context.Provider>
     </sc.Table>
   );

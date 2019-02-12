@@ -1,11 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Column } from 'react-table';
 import { SvgDelete } from '~/images/icons/Delete';
+import { SvgPen } from '~/images/icons/Pen';
 import { IconButton } from '~/components/IconButton';
+import { RowActions } from '../RowActions';
 import { makeData } from './makeData';
 
 export const data = makeData(1000);
 
-export const columns = [
+export const columns: Column[] = [
   {
     Header: 'First Name',
     accessor: 'firstName',
@@ -32,7 +35,7 @@ export const columns = [
   {
     Header: 'Status',
     accessor: 'status',
-    width: 150,
+    width: 120,
     Cell: (row: any) => (
       <span>
         <span
@@ -58,22 +61,22 @@ export const columns = [
   },
   {
     accessor: 'actions',
-    width: 50,
+    width: 80,
     Cell: () => (
-      <Fragment>
+      <RowActions>
         <IconButton
-          Asset={SvgDelete}
-          width="1.3em"
-          height="1.3em"
+          Asset={SvgPen}
+          width="1.5rem"
+          height="1.5rem"
           color="gray.2"
         />
         <IconButton
           Asset={SvgDelete}
-          width="1.3em"
-          height="1.3em"
+          width="1.5rem"
+          height="1.5rem"
           color="gray.2"
         />
-      </Fragment>
+      </RowActions>
     ),
   },
 ];

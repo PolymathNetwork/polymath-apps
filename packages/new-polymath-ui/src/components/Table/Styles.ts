@@ -9,7 +9,6 @@ export const rowHeight = css(({ theme }) => theme.space.xl);
 export const Table = styled.div<{ selectable: boolean }>`
   position: relative;
   display: block;
-  overflow: auto;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   padding-top: ${({ selectable }) => selectable && rowHeight};
 `;
@@ -42,6 +41,14 @@ export const HeaderRow = styled(RowBase)`
 export const Cell = styled(Flex)`
   padding: 0.6em;
   height: ${rowHeight};
+
+  &:first-child {
+    padding-left: ${({ theme }) => theme.space.gridGap};
+  }
+
+  &:last-child {
+    padding-right: ${({ theme }) => theme.space.gridGap};
+  }
 `;
 
 export const HeaderCell = styled(Cell)`
@@ -68,13 +75,16 @@ export const Input = styled.input`
   max-width: 100%;
 `;
 
-export const ButtonSort = styled(Button)`
+export const ButtonSort = styled(Button)<{
+  sorted: boolean;
+  sortedDesc: boolean;
+}>`
   ${Icon} {
     color: ${({ theme }) => theme.colors.gray[3]};
     ${props =>
       props.sorted
         ? props.sortedDesc && 'transform: rotateZ(0.5turn);'
-        : 'visibility: hidden;'}};
+        : 'visibility: hidden;'}
   }
 `;
 
@@ -106,4 +116,8 @@ export const ButtonNextPage = styled(ButtonPagination)`
   ${Icon} {
     transform: rotateZ(-0.25turn);
   }
+`;
+
+export const Body = styled.div`
+  overflow: auto;
 `;

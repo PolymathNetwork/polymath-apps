@@ -9,4 +9,9 @@ export const BatchActionsToolbar = styled(RowBase)`
   color: white;
   height: ${rowHeight};
   border: none;
+
+  &[hidden] {
+    visibility: hidden;
+    opacity: 0;
+  }
 `;

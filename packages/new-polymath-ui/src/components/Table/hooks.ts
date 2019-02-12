@@ -1,16 +1,14 @@
 import { useMemo, useState } from 'react';
 import { Api } from 'react-table';
 
-export interface SelectRowProps extends Api {
-  selectable: boolean;
-}
+export interface SelectRowProps extends Api {}
 
 export const useSelectRow = (props: SelectRowProps) => {
   const { columns, rows } = props;
   const initialState: number[] = [];
   const [selected, setSelected] = useState(initialState);
 
-  const toggleSelectAll = forcedState => {
+  const toggleSelectAll: Api['toggleSelectAll'] = forcedState => {
     return setSelected(state => {
       if (state.length === rows.length || forcedState === false) {
         return [];

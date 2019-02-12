@@ -16,27 +16,31 @@ declare module 'react-table' {
     getSelectToggleProps: () => any;
     toggleSelected: (index: number) => any;
     isSelected: boolean;
+    originalRow: any;
   };
 
-  export type Column = {
+  export interface Column {
+    accessor: string | ((originalRow: any) => string);
+    Header?: string | ((props: Api) => JSX.Element);
+    Filter?: string | ((props: Api) => JSX.Element);
+    Cell?: string | (({ row }: { row: Row }) => JSX.Element);
+    id?: string | number;
+    minWidth?: string | number;
+    maxWidth?: string | number;
+    width?: string | number;
+  }
+
+  export interface EnhancedColumn extends Column {
     render: (type: string) => any;
-    accessor: string;
-    Header?: React.ComponentType;
-    Cell?: React.ComponentType;
-    minWidth?: number;
-    maxWidth?: number;
-    Filter?: (props: Api) => JSX.Element;
-    id?: undefined;
-    width?: undefined;
     getHeaderProps: () => any;
     getSortByToggleProps: () => any;
     sorted: boolean;
     sortedDesc: boolean;
     sortedIndex: number;
-  };
+  }
 
   export type HeaderGroup = {
-    headers: Column[];
+    headers: EnhancedColumn[];
     getRowProps: () => any;
   };
 
@@ -63,6 +67,7 @@ declare module 'react-table' {
       UseColumnsValues {
     hooks: Hooks;
     rows: Row[];
+    columns: EnhancedColumn[];
     getTableProps: () => any;
     getRowProps: () => any;
     prepareRow: (row: Row) => any;
@@ -71,7 +76,7 @@ declare module 'react-table' {
   }
 
   export interface TableProps {
-    data: [];
+    data: any[];
     columns: Column[];
     state?: any;
     debug?: boolean;
@@ -105,9 +110,9 @@ declare module 'react-table' {
   }
 
   export interface UseColumnsValues {
-    columns: Column[];
+    columns: EnhancedColumn[];
     headerGroups: HeaderGroup[];
-    headers: Column[];
+    headers: EnhancedColumn[];
   }
 
   export interface UseFiltersValues {
