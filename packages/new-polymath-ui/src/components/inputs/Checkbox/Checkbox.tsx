@@ -47,7 +47,12 @@ export const CheckboxPrimitive: FC<Props> = ({
         }}
       />
       <sc.CheckboxInput htmlFor={name || id}>
-        <sc.CheckIcon Asset={SvgCheckmark} color="white" />
+        <sc.CheckIcon
+          Asset={SvgCheckmark}
+          color="white"
+          width="0.9rem"
+          height="0.9rem"
+        />
       </sc.CheckboxInput>
     </InlineFlex>
   );
