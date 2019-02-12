@@ -132,6 +132,21 @@ export interface Erc20DividendsModuleEntity extends Entity {
 
 export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
 
+export enum DividendModuleTypes {
+  Erc20 = 'erc20',
+  Eth = 'eth',
+}
+
+export interface TaxWithholdingEntity extends Entity {
+  securityTokenSymbol: string;
+  securityTokenId: string;
+  dividendType: DividendModuleTypes;
+  investorAddress: string;
+  percentage: number;
+}
+
+export interface TaxWithholdingPojo extends TaxWithholdingEntity {}
+
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;
   procedureType: ProcedureTypes;
