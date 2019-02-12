@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { darken, lighten, getLuminance } from 'polished';
 
 export const ellipsis = `
   white-space: nowrap;
@@ -32,3 +33,6 @@ export const buttonReset = `
   text-transform: none;
   letter-spacing: normal;
 `;
+
+export const getHoverColor = (color: string) =>
+  getLuminance(color) > 0.5 ? darken(0.2, color) : lighten(0.2, color);
