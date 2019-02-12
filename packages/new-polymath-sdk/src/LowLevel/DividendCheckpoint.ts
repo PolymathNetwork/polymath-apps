@@ -13,7 +13,7 @@ import {
   GetTaxWithholdingListArgs,
 } from './types';
 import { fromUnixTimestamp, fromWei, toWei } from './utils';
-import { TaxWithholding } from '~/types';
+import { TaxWithholding } from './types';
 import { zipWith } from 'lodash';
 
 interface InternalDividend {

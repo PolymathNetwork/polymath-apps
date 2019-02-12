@@ -5,13 +5,19 @@ import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 import { Context } from '~/Context';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { TaxWithholding } from '~/types';
+import { TaxWithholdingEntry } from '~/types';
 import {
   Dividend as LowLevelDividend,
   Checkpoint as LowLevelCheckpoint,
   DividendModuleTypes,
 } from '~/LowLevel/types';
-import { Dividend, Checkpoint } from '~/entities';
+import {
+  Dividend as DividendEntity,
+  Checkpoint as CheckpointEntity,
+  TaxWithholding as TaxWithholdingEntity,
+  SecurityToken as SecurityTokenEntity,
+  Erc20DividendsModule as Erc20DividendsModuleEntity,
+} from '~/entities';
 
 import {
   ReserveSecurityToken,
@@ -23,8 +29,6 @@ import {
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
-import { SecurityToken } from '~/entities';
-import { Erc20DividendsModule } from '~/entities';
 import { PolymathNetworkParams } from '~/types';
 import BigNumber from 'bignumber.js';
 
@@ -44,10 +48,11 @@ const createContextualizedEntity = <T extends typeof Entity>(
 };
 
 interface ContextualizedEntities {
-  SecurityToken: typeof SecurityToken;
-  Dividend: typeof Dividend;
-  Checkpoint: typeof Checkpoint;
-  Erc20DividendsModule: typeof Erc20DividendsModule;
+  SecurityToken: typeof SecurityTokenEntity;
+  Dividend: typeof DividendEntity;
+  Checkpoint: typeof CheckpointEntity;
+  Erc20DividendsModule: typeof Erc20DividendsModuleEntity;
+  TaxWithholding: typeof TaxWithholdingEntity;
 }
 
 export class Polymath {
@@ -64,13 +69,20 @@ export class Polymath {
   constructor() {
     // TODO @RafaelVidaurre: type this correctly
     this.entities = {
-      SecurityToken: createContextualizedEntity(SecurityToken as any, this),
-      Erc20DividendsModule: createContextualizedEntity(
-        Erc20DividendsModule as any,
+      SecurityToken: createContextualizedEntity(
+        SecurityTokenEntity as any,
         this
       ),
-      Dividend: createContextualizedEntity(Dividend as any, this),
-      Checkpoint: createContextualizedEntity(Checkpoint as any, this),
+      Erc20DividendsModule: createContextualizedEntity(
+        Erc20DividendsModuleEntity as any,
+        this
+      ),
+      Dividend: createContextualizedEntity(DividendEntity as any, this),
+      Checkpoint: createContextualizedEntity(CheckpointEntity as any, this),
+      TaxWithholding: createContextualizedEntity(
+        TaxWithholdingEntity as any,
+        this
+      ),
     };
   }
 
@@ -184,7 +196,7 @@ export class Polymath {
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
-    taxWithholdings?: TaxWithholding[];
+    taxWithholdings?: TaxWithholdingEntry[];
   }) => {
     const polyAddress = this.context.polyToken.address;
     const procedure = new CreateErc20DividendDistribution(
@@ -210,7 +222,7 @@ export class Polymath {
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
-    taxWithholdings?: TaxWithholding[];
+    taxWithholdings?: TaxWithholdingEntry[];
   }) => {
     const procedure = new CreateErc20DividendDistribution(args, this.context);
     return await procedure.prepare();
@@ -228,7 +240,7 @@ export class Polymath {
     checkpointId: number;
     name: string;
     excludedAddresses?: string[];
-    taxWithholdings?: TaxWithholding[];
+    taxWithholdings?: TaxWithholdingEntry[];
   }) => {
     const procedure = new CreateEtherDividendDistribution(args, this.context);
     return await procedure.prepare();
@@ -287,7 +299,7 @@ export class Polymath {
    */
   public getCheckpoints = async (args: {
     symbol: string;
-  }): Promise<Checkpoint[]> => {
+  }): Promise<CheckpointEntity[]> => {
     const { securityTokenRegistry } = this.context;
     const { symbol: securityTokenSymbol } = args;
 
@@ -426,5 +438,9 @@ export class Polymath {
 
   get Erc20DividendsModule() {
     return this.entities.Erc20DividendsModule;
+  }
+
+  get TaxWithholding() {
+    return this.entities.TaxWithholding;
   }
 }

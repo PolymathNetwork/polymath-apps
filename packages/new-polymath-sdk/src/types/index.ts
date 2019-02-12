@@ -19,7 +19,7 @@ import {
 
 export { DividendModuleTypes };
 
-export interface TaxWithholding {
+export interface TaxWithholdingEntry {
   address: string;
   percentage: number;
 }
@@ -110,7 +110,7 @@ export interface CreateErc20DividendDistributionProcedureArgs {
   checkpointId: number;
   name: string;
   excludedAddresses?: string[];
-  taxWithholdings?: TaxWithholding[];
+  taxWithholdings?: TaxWithholdingEntry[];
 }
 
 export interface CreateEtherDividendDistributionProcedureArgs {
@@ -121,7 +121,7 @@ export interface CreateEtherDividendDistributionProcedureArgs {
   checkpointId: number;
   name: string;
   excludedAddresses?: string[];
-  taxWithholdings?: TaxWithholding[];
+  taxWithholdings?: TaxWithholdingEntry[];
 }
 
 export interface CreateSecurityTokenProcedureArgs {
