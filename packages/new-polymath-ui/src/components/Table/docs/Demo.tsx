@@ -1,14 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { SvgDelete } from '~/images/icons/Delete';
-import { Box } from '~/components/Box';
 import { IconButton } from '~/components/IconButton';
 import { makeData } from './makeData';
 
 import { Table } from '../Table';
 
 export const Demo = () => {
-  const [data] = useState(() => makeData(1000));
-  const [columns] = useState([
+  const data = makeData(1000);
+  const columns = [
     {
       Header: 'First Name',
       accessor: 'firstName',
@@ -79,7 +78,7 @@ export const Demo = () => {
         </Fragment>
       ),
     },
-  ]);
+  ];
 
   return (
     <Fragment>

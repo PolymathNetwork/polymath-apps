@@ -4,9 +4,12 @@ menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
-
+import { Button } from '~/components/Button';
+import { Icon } from '~/components/Icon';
+import { SvgDelete } from '~/images/icons/Delete';
 import { Table } from '../Table';
 import { Demo } from './Demo';
+import { columns, data } from './data';
 
 # Table
 
@@ -15,5 +18,57 @@ import { Demo } from './Demo';
 ## Basic usage
 
 <Playground>
-  <Demo />
+  {() => {
+    return (
+      <Table
+        {...{
+          data,
+          columns,
+        }}
+      />
+    );
+  }}
+</Playground>
+
+## With pagination
+
+<Playground>
+  {() => {
+    return (
+      <Table
+        {...{
+          data,
+          columns,
+        }}
+      >
+        <Table.Pagination />
+      </Table>
+    );
+  }}
+</Playground>
+
+## With batch actions
+
+<Playground>
+  {() => {
+    return (
+      <Table
+        {...{
+          data,
+          columns,
+        }}
+        selectable
+      >
+        <Table.BatchActionsToolbar>
+          <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+            Delete <Icon Asset={SvgDelete} />
+          </Button>
+          <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+            Edit <Icon Asset={SvgDelete} />
+          </Button>
+        </Table.BatchActionsToolbar>
+        <Table.Pagination />
+      </Table>
+    );
+  }}
 </Playground>

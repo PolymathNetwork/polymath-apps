@@ -4,7 +4,7 @@ import { Flex } from '~/components/Flex';
 import { Icon } from '~/components/Icon';
 import { Button } from '~/components/Button';
 
-const rowHeight = css(({ theme }) => theme.space.xl);
+export const rowHeight = css(({ theme }) => theme.space.xl);
 
 export const Table = styled.div<{ selectable: boolean }>`
   position: relative;
@@ -20,16 +20,6 @@ export const RowBase = styled(Flex)`
   & + & {
     margin-top: -1px;
   }
-`;
-
-export const BatchActionsToolbar = styled(RowBase)`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  height: ${rowHeight};
-  border: none;
 `;
 
 export const Row = styled(RowBase)`
@@ -56,20 +46,6 @@ export const Cell = styled(Flex)`
 
 export const HeaderCell = styled(Cell)`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-
-  ${props => {
-    const width = (props.sortedIndex + 1) * 5;
-    return (
-      props.sorted &&
-      (props.sortedDesc
-        ? css`
-            box-shadow: inset 0 ${width}px hsla(0, 100%, 40%);
-          `
-        : css`
-            box-shadow: inset 0 -${width}px hsl(55, 100%, 50%);
-          `)
-    );
-  }};
 `;
 
 export const Select = styled.select`

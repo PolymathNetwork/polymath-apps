@@ -1,18 +1,18 @@
 import { useMemo, useState } from 'react';
-import { mergeProps, applyPropHooks } from 'react-table/es/utils';
-import { Api, Row } from 'react-table';
+import { Api } from 'react-table';
 
 export interface SelectRowProps extends Api {
   selectable: boolean;
 }
 
 export const useSelectRow = (props: SelectRowProps) => {
-  const { columns, rows, hooks } = props;
-  const [selected, setSelected] = useState([]);
+  const { columns, rows } = props;
+  const initialState: number[] = [];
+  const [selected, setSelected] = useState(initialState);
 
-  const toggleSelectAll = () => {
+  const toggleSelectAll = forcedState => {
     return setSelected(state => {
-      if (state.length === rows.length) {
+      if (state.length === rows.length || forcedState === false) {
         return [];
       }
 
@@ -32,41 +32,28 @@ export const useSelectRow = (props: SelectRowProps) => {
     });
   };
 
-  hooks.rows.push((rows, api) => {
-    rows.getSelectToggleProps = props => {
-      return mergeProps(
-        {
-          onChange: toggleSelectAll,
-          checked: selected.length === rows.length,
-        },
-        applyPropHooks(api.hooks.getSortByToggleProps, rows, api),
-        props
-      );
-    };
-
-    rows.forEach(row => {
-      row.toggleSelected = () => toggleSelected(row.index);
-    });
-    return rows;
-  });
-
-  const selectedRows = useMemo(
+  // We need to mutate the rows due to how react-table work at the moment
+  const mutatedRows = useMemo(
     () => {
-      const newSelectedRows: Row[] = [];
-
       rows.forEach(row => {
         row.isSelected = selected.includes(row.index);
-        newSelectedRows.push(row);
+        row.toggleSelected = () => toggleSelected(row.index);
       });
 
-      return newSelectedRows;
+      return rows;
     },
     [rows, selected, columns]
   );
 
+  const getSelectRowToggleProps = () => ({
+    onChange: toggleSelectAll,
+    checked: selected.length === rows.length,
+  });
+
   return {
     ...props,
-    toggleSelected,
-    rows: selectedRows,
+    rows: mutatedRows,
+    getSelectRowToggleProps,
+    toggleSelectAll,
   };
 };
