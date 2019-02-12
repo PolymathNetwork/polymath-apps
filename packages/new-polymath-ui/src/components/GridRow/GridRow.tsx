@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { Grid } from '~/components/Grid';
-import { GridCol } from './GridCol';
+import { Col } from './Col';
 
-const GridRowBase = styled(Grid)`
+const GridRowComponent = styled(Grid)`
   grid-template-columns: repeat(12, 1fr);
 `;
 
-export const GridRow = Object.assign(GridRowBase, {
-  Col: GridCol,
+export const GridRow = Object.assign(GridRowComponent, {
+  Col,
 });
