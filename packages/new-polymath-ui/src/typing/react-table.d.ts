@@ -13,6 +13,9 @@ declare module 'react-table' {
     index: number;
     cells: Cell[];
     getRowProps: () => any;
+    getSelectToggleProps: () => any;
+    toggleSelected: (index: number) => any;
+    isSelected: boolean;
   };
 
   export type Column = {
@@ -26,6 +29,10 @@ declare module 'react-table' {
     id?: undefined;
     width?: undefined;
     getHeaderProps: () => any;
+    getSortByToggleProps: () => any;
+    sorted: boolean;
+    sortedDesc: boolean;
+    sortedIndex: number;
   };
 
   export type HeaderGroup = {
@@ -38,7 +45,7 @@ declare module 'react-table' {
     columns: [];
     headerGroups: [];
     headers: [];
-    rows: [];
+    rows: Row[];
     row: [];
     renderableRows: [];
     getTableProps: [];
@@ -59,6 +66,8 @@ declare module 'react-table' {
     getTableProps: () => any;
     getRowProps: () => any;
     prepareRow: (row: Row) => any;
+    getSelectRowToggleProps: () => any;
+    toggleSelectAll: (forcedState: boolean) => any;
   }
 
   export interface TableProps {
