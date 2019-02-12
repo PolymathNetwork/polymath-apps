@@ -1,5 +1,6 @@
 import { types } from '@polymathnetwork/new-shared';
 import { typeHelpers } from '@polymathnetwork/new-shared';
+import { DividendModuleTypes } from '@polymathnetwork/sdk';
 
 export interface Wallet {
   address: string;
@@ -24,6 +25,7 @@ export enum Entities {
   Dividends = 'dividends',
   Erc20DividendsModules = 'erc20DividendsModules',
   TransactionQueues = 'transactionQueues',
+  TaxWithholdings = 'taxWithholdings',
 }
 
 export enum RequestKeys {
@@ -32,6 +34,7 @@ export enum RequestKeys {
   GetDividendsByCheckpoint = 'getDividendsByCheckpoint',
   GetCheckpointBySymbolAndId = 'getCheckpointBySymbolAndId',
   GetErc20DividendsModuleBySymbol = 'getErc20DividendsModuleBySymbol',
+  GetTaxWithholdingListBySymbol = 'getTaxWithholdingListBySymbol',
 }
 
 export interface GetCheckpointsBySymbolArgs {
@@ -54,6 +57,11 @@ export interface GetDividendsByCheckpointArgs {
 
 export interface GetErc20DividendsModuleBySymbolArgs {
   securityTokenSymbol: string;
+}
+
+export interface GetTaxWithholdingListBySymbolArgs {
+  securityTokenSymbol: string;
+  dividendType: DividendModuleTypes;
 }
 
 export function isGetCheckpointsBySymbolArgs(
@@ -100,6 +108,19 @@ export function isGetErc20DividendsModuleBySymbolArgs(
   const { securityTokenSymbol } = args;
 
   return typeof securityTokenSymbol === 'string';
+}
+
+export function isGetTaxWithholdingsListBySymbolArgs(
+  args: any
+): args is GetTaxWithholdingListBySymbolArgs {
+  const { securityTokenSymbol, dividendType } = args;
+
+  return (
+    typeof securityTokenSymbol === 'string' &&
+    typeof dividendType === 'string' &&
+    (dividendType === DividendModuleTypes.Erc20 ||
+      dividendType === DividendModuleTypes.Eth)
+  );
 }
 
 export interface Fetcher {

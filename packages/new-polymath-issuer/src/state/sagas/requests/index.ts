@@ -11,6 +11,7 @@ import {
   isGetErc20DividendsModuleBySymbolArgs,
   isGetCheckpointBySymbolAndIdArgs,
   CacheStatus,
+  isGetTaxWithholdingsListBySymbolArgs,
 } from '~/types';
 import {
   fetchCheckpointsBySymbol,
@@ -19,6 +20,7 @@ import {
 import { fetchDividendsByCheckpoint } from './dividends';
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
 import { createGetCacheStatus } from '~/state/selectors';
+import { fetchTaxWithholdingListBySymbol } from '~/state/sagas/requests/taxWithholdings';
 
 /**
  * This saga uses the cache to determine if data needs to be fetched from the blockchain
@@ -80,6 +82,16 @@ export function* requestData(action: ActionType<typeof requestDataAction>) {
       } else {
         throw new Error(
           'Invalid arguments passed for fetching dividends module.'
+        );
+      }
+      break;
+    }
+    case RequestKeys.GetTaxWithholdingListBySymbol: {
+      if (isGetTaxWithholdingsListBySymbolArgs(args)) {
+        yield call(fetchTaxWithholdingListBySymbol, args);
+      } else {
+        throw new Error(
+          'Invalid arguments passed for fetching tax withholding list.'
         );
       }
       break;

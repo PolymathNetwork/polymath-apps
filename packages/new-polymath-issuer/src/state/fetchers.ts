@@ -47,3 +47,15 @@ export const createErc20DividendsModuleBySymbolFetcher = (
     args,
   };
 };
+
+export const createTaxWithholdingListBySymbolFetcher = (
+  args: { securityTokenSymbol: string },
+  opts: { propKey?: string } = {}
+): Fetcher => {
+  return {
+    propKey: opts.propKey,
+    entity: Entities.TaxWithholdings,
+    requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+    args,
+  };
+};

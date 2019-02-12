@@ -1,4 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
+import { DividendModuleTypes } from '@polymathnetwork/sdk';
 
 const enableErc20DividendsModuleStart = createStandardAction(
   'PROCEDURES/ENABLE_ERC20_DIVIDENDS_MODULE_START'
@@ -13,4 +14,17 @@ const createCheckpointStart = createStandardAction(
   securityTokenSymbol: string;
 }>();
 
-export { enableErc20DividendsModuleStart, createCheckpointStart };
+const updateTaxWithholdingListStart = createStandardAction(
+  'PROCEDURES/UPDATE_TAX_WITHHOLDING_LIST_START'
+)<{
+  securityTokenSymbol: string;
+  dividendType: DividendModuleTypes;
+  investorAddresses: string[];
+  percentages: number[];
+}>();
+
+export {
+  enableErc20DividendsModuleStart,
+  createCheckpointStart,
+  updateTaxWithholdingListStart,
+};

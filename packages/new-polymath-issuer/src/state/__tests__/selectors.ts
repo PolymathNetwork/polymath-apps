@@ -124,6 +124,11 @@ const erc20DividendsModules = {
   allIds: [],
 };
 
+const taxWithholdings = {
+  byId: {},
+  allIds: [],
+};
+
 const transactionQueues = {
   byId: {
     tq0: {
@@ -147,6 +152,7 @@ const entitiesState: EntitiesState = {
   dividends,
   transactions,
   erc20DividendsModules,
+  taxWithholdings,
   transactionQueues,
 };
 
@@ -163,6 +169,7 @@ const dataRequestsState = {
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
+  [RequestKeys.GetTaxWithholdingListBySymbol]: {},
 };
 
 const mockState: RootState = {
