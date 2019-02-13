@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import {
   useTable,
   useColumns,
@@ -10,6 +10,8 @@ import {
   useExpanded,
   Column,
 } from 'react-table';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.css';
 import { Icon } from '~/components/Icon';
 import { CheckboxPrimitive as Checkbox } from '~/components/inputs/Checkbox';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
@@ -32,6 +34,7 @@ export const TableComponent: FC<Props> = ({
   selectable,
   children,
 }) => {
+  const tableEl = useRef(null);
   const selectRowColumn: Column = {
     accessor: 'selectRow',
     Header: ({ getSelectRowToggleProps }) => (
@@ -60,31 +63,41 @@ export const TableComponent: FC<Props> = ({
 
   return (
     <sc.Table {...getTableProps()} selectable={selectable}>
-      <sc.Body>
-        {headerGroups.map(headerGroup => (
-          <sc.HeaderRow {...headerGroup.getRowProps()}>
-            {headerGroup.headers.map((column, i) => (
-              <sc.HeaderCell {...column.getHeaderProps()}>
-                {selectable && i === 0 ? (
-                  column.render('Header')
-                ) : (
-                  <sc.ButtonSort
-                    variant="raw"
-                    iconPosition="right"
-                    {...column.getSortByToggleProps()}
-                    sorted={column.sorted}
-                    sortedDesc={column.sortedDesc}
-                  >
-                    <span>{column.render('Header')}</span>
-                    <Icon Asset={SvgCaretDown} width="0.7em" height="0.7em" />
-                  </sc.ButtonSort>
-                )}
-              </sc.HeaderCell>
+      <sc.Inner>
+        <SimpleBar>
+          <sc.Body ref={tableEl}>
+            {headerGroups.map(headerGroup => (
+              <sc.HeaderRow {...headerGroup.getRowProps()}>
+                {headerGroup.headers.map((column, i) => (
+                  <sc.HeaderCell {...column.getHeaderProps()}>
+                    {selectable && i === 0 ? (
+                      column.render('Header')
+                    ) : (
+                      <sc.ButtonSort
+                        variant="raw"
+                        iconPosition="right"
+                        {...column.getSortByToggleProps()}
+                        sorted={column.sorted}
+                        sortedDesc={column.sortedDesc}
+                      >
+                        <span>{column.render('Header')}</span>
+                        <Icon
+                          Asset={SvgCaretDown}
+                          width="0.7em"
+                          height="0.7em"
+                        />
+                      </sc.ButtonSort>
+                    )}
+                  </sc.HeaderCell>
+                ))}
+              </sc.HeaderRow>
             ))}
-          </sc.HeaderRow>
-        ))}
-      </sc.Body>
-      <Context.Provider value={instance}>{children}</Context.Provider>
+          </sc.Body>
+        </SimpleBar>
+      </sc.Inner>
+      <Context.Provider value={{ ...instance, tableEl: tableEl.current }}>
+        {children}
+      </Context.Provider>
     </sc.Table>
   );
 };

@@ -10,9 +10,18 @@ export const rowHeight = css(
 
 export const Table = styled.div<{ selectable: boolean }>`
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   padding-top: ${({ selectable }) => selectable && rowHeight};
+`;
+
+export const Inner = styled.div`
+  display: flex;
+  width: 100%;
+  height: ${({ selectable }) =>
+    selectable ? `calc(100% - ${rowHeight})` : '100%'};
 `;
 
 export const RowBase = styled(Flex)`
@@ -24,6 +33,10 @@ export const RowBase = styled(Flex)`
 `;
 
 export const HeaderRow = styled(RowBase)`
+  position: sticky;
+  top: 0;
+  bottom: auto;
+  z-index: 1;
   background: ${({ theme }) => theme.colors.gray[1]};
   color: ${({ theme }) => theme.colors.highlightText};
   border-bottom: none;
@@ -79,10 +92,6 @@ export const ButtonSort = styled(Button)<{
   }
 `;
 
-export const Pagination = styled(RowBase)`
-  color: ${({ theme }) => theme.colors.baseText};
-`;
-
 const ButtonPagination = styled(Button)`
   color: ${({ theme }) => theme.colors.blue[1]};
   border-left: solid 1px #ddd;
@@ -110,5 +119,5 @@ export const ButtonNextPage = styled(ButtonPagination)`
 `;
 
 export const Body = styled.div`
-  overflow: auto;
+  min-height: 200px;
 `;

@@ -4,6 +4,7 @@ import { Button } from '~/components/Button';
 import { RowBase } from '../styles';
 
 export const Pagination = styled(RowBase)`
+  flex-shrink: 0;
   color: ${({ theme }) => theme.colors.baseText};
 `;
 
