@@ -90,6 +90,15 @@ export interface TransactionEntity extends Entity {
 
 export interface TransactionPojo extends TransactionEntity {}
 
+export interface DividendInvestorStatus {
+  address: string;
+  paymentReceived: boolean;
+  excluded: boolean;
+  withheldTax: BigNumber;
+  amountReceived: BigNumber;
+  balance: BigNumber;
+}
+
 export interface DividendEntity extends Entity {
   index: number;
   securityTokenSymbol: string;
@@ -105,6 +114,7 @@ export interface DividendEntity extends Entity {
   reclaimed: boolean;
   dividendWithheld: BigNumber;
   dividendWithheldReclaimed: BigNumber;
+  investors: DividendInvestorStatus[];
   name: string;
   currency: string | null;
 }
