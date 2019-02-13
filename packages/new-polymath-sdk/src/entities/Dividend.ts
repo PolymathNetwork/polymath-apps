@@ -3,6 +3,7 @@ import { Entity } from './Entity';
 import { serialize } from '~/utils';
 import BigNumber from 'bignumber.js';
 import { DividendModuleTypes } from '~/types';
+import { DividendInvestorStatus } from '~/LowLevel/types';
 
 interface Params {
   index: number;
@@ -19,6 +20,7 @@ interface Params {
   reclaimed: boolean;
   dividendWithheld: BigNumber;
   dividendWithheldReclaimed: BigNumber;
+  investors: DividendInvestorStatus[];
   name: string;
   currency: string | null;
 }
@@ -40,6 +42,7 @@ export class Dividend extends Entity {
   public reclaimed: boolean;
   public dividendWithheld: BigNumber;
   public dividendWithheldReclaimed: BigNumber;
+  public investors: DividendInvestorStatus[];
   public name: string;
   public currency: string | null;
 
@@ -61,6 +64,7 @@ export class Dividend extends Entity {
       reclaimed,
       dividendWithheld,
       dividendWithheldReclaimed,
+      investors,
       name,
       currency,
     } = params;
@@ -80,6 +84,7 @@ export class Dividend extends Entity {
     this.dividendWithheld = dividendWithheld;
     this.dividendWithheldReclaimed = dividendWithheldReclaimed;
     this.name = name;
+    this.investors = investors;
     this.currency = currency;
     this.uid = this.generateId();
   }
@@ -101,6 +106,7 @@ export class Dividend extends Entity {
       reclaimed,
       dividendWithheld,
       dividendWithheldReclaimed,
+      investors,
       name,
       currency,
     } = this;
@@ -121,6 +127,7 @@ export class Dividend extends Entity {
       reclaimed,
       dividendWithheld,
       dividendWithheldReclaimed,
+      investors,
       name,
       currency,
     };

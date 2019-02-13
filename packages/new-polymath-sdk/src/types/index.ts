@@ -14,11 +14,12 @@ import {
   AddDividendsModuleArgs,
   RegisterTickerArgs,
   GenerateSecurityTokenArgs,
-  DividendModuleTypes,
   PushDividendPaymentArgs,
+  DividendModuleTypes,
+  DividendInvestorStatus,
 } from '~/LowLevel/types';
 
-export { DividendModuleTypes };
+export { DividendModuleTypes, DividendInvestorStatus };
 
 export interface TaxWithholdingEntry {
   address: string;

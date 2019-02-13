@@ -53,6 +53,15 @@ export enum ModuleTypes {
   Burn,
 }
 
+export interface DividendInvestorStatus {
+  address: string;
+  paymentReceived: boolean;
+  excluded: boolean;
+  withheldTax: BigNumber;
+  amountReceived: BigNumber;
+  balance: BigNumber;
+}
+
 export interface Dividend {
   index: number;
   checkpointId: number;
@@ -68,6 +77,7 @@ export interface Dividend {
   dividendWithheldReclaimed: BigNumber;
   name: string;
   currency: string | null;
+  investors: DividendInvestorStatus[];
 }
 
 export interface InvestorBalance {
@@ -98,6 +108,14 @@ export interface GetTaxWithholdingListArgs {
 }
 
 export interface GetDividendInvestorsArgs {
+  dividendIndex: number;
+}
+
+export interface GetDividendsByCheckpointArgs {
+  checkpointIndex: number;
+}
+
+export interface GetDividendArgs {
   dividendIndex: number;
 }
 

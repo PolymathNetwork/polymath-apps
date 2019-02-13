@@ -1,6 +1,7 @@
 export { SecurityTokenReservation } from './SecurityTokenReservation';
 export { SecurityToken } from './SecurityToken';
 export { Erc20DividendsModule } from './Erc20DividendsModule';
+export { EthDividendsModule } from './EthDividendsModule';
 export { Dividend } from './Dividend';
 export { Checkpoint } from './Checkpoint';
 export { TaxWithholding } from './TaxWithholding';
