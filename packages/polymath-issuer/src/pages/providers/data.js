@@ -42,7 +42,7 @@ export const categories: Array<SPCategory> = [
     id: 1,
     title: 'Legal',
     desc:
-      'Law firms may advise you on the planning and execution of your STO. Your Polymath dashboard is integrated' +
+      'Law firms may advise you on the planning and execution of your STO. Your Polymath dashboard is integrated ' +
       'with the following Law firms. Alternatively, you can elect to use your own Law firm or General Counsel.',
   },
   {
@@ -128,7 +128,7 @@ const providers: Array<ServiceProvider> = [
     logo: '/providers/legal/homierlaw.png',
     background: '/providers/legal/bg/img-homier.png',
     desc:
-      'Homeier Law PC is a securities and corporate law firm with deep experience in exempt as well as ' +
+      'Homeier Law PC is a securities and corporate law firm with deep experience in exemptions as well as ' +
       'SEC-registered alternative finance offerings, having advised on hundreds of private offerings that have ' +
       'raised billions of dollars for developers and entrepreneurs over the past decade.  As a leader and ' +
       'pioneer ininvestment crowdfunding, Homeier Law serves the emerging blockchain and cryptocurrency industries ' +
