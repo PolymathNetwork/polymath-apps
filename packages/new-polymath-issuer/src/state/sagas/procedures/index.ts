@@ -3,11 +3,12 @@ import { takeOneAtATime } from '../helpers';
 import { getType } from 'typesafe-actions';
 import { enableErc20DividendsModule } from './modules';
 import { createCheckpoint } from './checkpoints';
-import { updateTaxWithholdingList } from './dividends';
+import { updateTaxWithholdingList, pushDividendPayment } from './dividends';
 import {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
   updateTaxWithholdingListStart,
+  pushDividendPaymentStart,
 } from '~/state/actions/procedures';
 
 export function* procedureWatcher() {
@@ -21,5 +22,6 @@ export function* procedureWatcher() {
       getType(updateTaxWithholdingListStart),
       updateTaxWithholdingList
     ),
+    takeOneAtATime(getType(pushDividendPaymentStart), pushDividendPayment),
   ]);
 }

@@ -12,12 +12,16 @@ import {
   isGetCheckpointBySymbolAndIdArgs,
   CacheStatus,
   isGetTaxWithholdingsListBySymbolArgs,
+  isGetDividendBySymbolAndIdArgs,
 } from '~/types';
 import {
   fetchCheckpointsBySymbol,
   fetchCheckpointBySymbolAndId,
 } from './checkpoints';
-import { fetchDividendsByCheckpoint } from './dividends';
+import {
+  fetchDividendsByCheckpoint,
+  fetchDividendBySymbolAndId,
+} from './dividends';
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
 import { createGetCacheStatus } from '~/state/selectors';
 import { fetchTaxWithholdingListBySymbol } from '~/state/sagas/requests/taxWithholdings';
@@ -73,6 +77,14 @@ export function* requestData(action: ActionType<typeof requestDataAction>) {
         yield call(fetchDividendsByCheckpoint, args);
       } else {
         throw new Error('Invalid arguments passed for fetching dividends.');
+      }
+      break;
+    }
+    case RequestKeys.GetDividendBySymbolAndId: {
+      if (isGetDividendBySymbolAndIdArgs(args)) {
+        yield call(fetchDividendBySymbolAndId, args);
+      } else {
+        throw new Error('Invalid arguments passed for fetching dividend.');
       }
       break;
     }

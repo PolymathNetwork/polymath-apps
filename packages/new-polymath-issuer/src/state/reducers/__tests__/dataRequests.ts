@@ -24,6 +24,7 @@ describe('Reducer: dataRequests', () => {
     [RequestKeys.GetDividendsByCheckpoint]: {},
     [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
     [RequestKeys.GetTaxWithholdingListBySymbol]: {},
+    [RequestKeys.GetDividendBySymbolAndId]: {},
   };
 
   test('invalidateRequest invalidates cache for all requests of a certain type', () => {

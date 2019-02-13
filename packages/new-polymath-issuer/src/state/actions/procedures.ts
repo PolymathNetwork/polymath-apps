@@ -23,8 +23,17 @@ const updateTaxWithholdingListStart = createStandardAction(
   percentages: number[];
 }>();
 
+const pushDividendPaymentStart = createStandardAction(
+  'PROCEDURES/PUSH_DIVIDEND_PAYMENT_START'
+)<{
+  securityTokenSymbol: string;
+  dividendType: DividendModuleTypes;
+  dividendIndex: number;
+}>();
+
 export {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
   updateTaxWithholdingListStart,
+  pushDividendPaymentStart,
 };
