@@ -102,12 +102,14 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
               const column = _.find(props.columns, col => {
                 return col.name === results.data[0][headerIndex];
               });
+
               if (column) {
                 column.index = parseInt(headerIndex, 10);
               } else {
                 // The file has a column that is not defined by the columns definition
                 if (props.strict) {
                   validFile = false;
+
                   if (
                     props.errorMessages &&
                     props.errorMessages.extraColumns &&
@@ -127,6 +129,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
               })
             ) {
               validFile = false;
+
               if (
                 props.errorMessages &&
                 props.errorMessages.missingRequiredColumns
@@ -152,6 +155,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
             totalRows > props.maxRows
           ) {
             ignoredRows++;
+
             if (
               props.errorMessages &&
               props.errorMessages.rowsExceedMaxLimit &&
@@ -160,11 +164,14 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
               hasExtraRows = true;
               errors.push(props.errorMessages.rowsExceedMaxLimit);
             }
+
             return;
           }
+
           const resultObj: ResultObject = {
             isRowValid: true,
           };
+
           for (const column of props.columns) {
             // No header, results are passed as array
             const isValid = _.every(
@@ -174,6 +181,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
             );
             // Papa Parser handles all data types except date, hadle date here
             let columnValue: any = results.data[0][column.index];
+
             if (
               columnValue !== '' &&
               columnValue !== null &&
@@ -185,17 +193,22 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
             ) {
               columnValue = new Date(columnValue);
             }
+
             resultObj[column.name] = {
               value: columnValue,
               isColumnValid: isValid,
             };
+
             resultObj.isRowValid = resultObj.isRowValid && isValid;
           }
+
           if (typeof props.validateRow === 'function') {
             resultObj.isRowValid =
               resultObj.isRowValid && props.validateRow(results.data[0]);
           }
+
           result.push(resultObj);
+
           if (resultObj.isRowValid) {
             validRows++;
           } else {
@@ -221,6 +234,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
         step,
         complete,
       };
+
       Papa.parse(props.data, config);
     } catch (error) {
       reject(error);
