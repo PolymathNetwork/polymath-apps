@@ -24,7 +24,26 @@ import { columns, data } from './data';
           data,
           columns,
         }}
-      />
+      >
+        <Table.Rows />
+      </Table>
+    );
+  }}
+</Playground>
+
+## With small Rows
+
+<Playground>
+  {() => {
+    return (
+      <Table
+        {...{
+          data,
+          columns,
+        }}
+      >
+        <Table.Rows small />
+      </Table>
     );
   }}
 </Playground>
@@ -40,6 +59,7 @@ import { columns, data } from './data';
           columns,
         }}
       >
+        <Table.Rows />
         <Table.Pagination />
       </Table>
     );
@@ -66,6 +86,7 @@ import { columns, data } from './data';
             Edit <Icon Asset={SvgDelete} />
           </Button>
         </Table.BatchActionsToolbar>
+        <Table.Rows />
         <Table.Pagination />
       </Table>
     );

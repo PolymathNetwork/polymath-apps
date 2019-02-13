@@ -30,6 +30,8 @@ declare module 'react-table' {
     width?: string | number;
   }
 
+  export type Page = Row[];
+
   export interface EnhancedColumn extends Column {
     render: (type: string) => any;
     getHeaderProps: () => any;
@@ -101,7 +103,7 @@ declare module 'react-table' {
     gotoPage: (page: number) => any;
     canPreviousPage: boolean;
     canNextPage: boolean;
-    page: Row[];
+    page: Page;
     pageOptions: [];
   }
 

@@ -8,7 +8,6 @@ import {
   usePagination,
   useFlexLayout,
   useExpanded,
-  Row,
   Column,
 } from 'react-table';
 import { Icon } from '~/components/Icon';
@@ -18,6 +17,7 @@ import { useSelectRow } from './hooks';
 import { Context } from './Context';
 import { Pagination } from './Pagination';
 import { BatchActionsToolbar } from './BatchActionsToolbar';
+import { Rows } from './Rows';
 import * as sc from './styles';
 
 interface Props {
@@ -56,32 +56,7 @@ export const TableComponent: FC<Props> = ({
     useFlexLayout,
     useSelectRow
   );
-  const { getTableProps, headerGroups, page, prepareRow } = instance;
-
-  const renderRow = (row: Row) => {
-    if (!row) {
-      return null;
-    }
-
-    prepareRow(row);
-
-    return (
-      <sc.Row {...row.getRowProps()} selected={row.isSelected}>
-        {row.cells.map((cell, i: number) => (
-          <sc.Cell
-            key={i}
-            {...cell.getCellProps()}
-            style={{ ...cell.getCellProps().style, display: 'flex' }}
-          >
-            {cell.render('Cell')}
-          </sc.Cell>
-        ))}
-      </sc.Row>
-    );
-  };
-
-  const tableBody =
-    page && page.length ? page.map(row => renderRow(row)) : null;
+  const { getTableProps, headerGroups } = instance;
 
   return (
     <sc.Table {...getTableProps()} selectable={selectable}>
@@ -108,7 +83,6 @@ export const TableComponent: FC<Props> = ({
             ))}
           </sc.HeaderRow>
         ))}
-        {tableBody}
       </sc.Body>
       <Context.Provider value={instance}>{children}</Context.Provider>
     </sc.Table>
@@ -118,4 +92,5 @@ export const TableComponent: FC<Props> = ({
 export const Table = Object.assign(TableComponent, {
   Pagination,
   BatchActionsToolbar,
+  Rows,
 });

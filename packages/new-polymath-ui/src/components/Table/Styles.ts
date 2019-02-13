@@ -1,10 +1,12 @@
-import { darken } from 'polished';
-import { styled, css } from '~/styles';
+import { styled, css, ThemeInterface } from '~/styles';
 import { Flex } from '~/components/Flex';
 import { Icon } from '~/components/Icon';
 import { Button } from '~/components/Button';
 
-export const rowHeight = css(({ theme }) => theme.space.xl);
+export const rowHeight = css(
+  ({ theme, small }: { theme: ThemeInterface; small?: boolean }) =>
+    small ? theme.space.l : theme.space.xl
+);
 
 export const Table = styled.div<{ selectable: boolean }>`
   position: relative;
@@ -18,17 +20,6 @@ export const RowBase = styled(Flex)`
 
   & + & {
     margin-top: -1px;
-  }
-`;
-
-export const Row = styled(RowBase)`
-  background: ${({ selected, theme }) =>
-    selected && darken(0.03, theme.colors.gray[1])};
-
-  &:hover {
-    position: relative;
-    background: ${({ theme }) => darken(0.03, theme.colors.gray[1])};
-    border-color: ${({ theme }) => theme.colors.blue[1]};
   }
 `;
 
