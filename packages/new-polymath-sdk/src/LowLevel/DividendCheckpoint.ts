@@ -11,9 +11,11 @@ import {
   ReclaimDividendArgs,
   WithdrawWithholdingArgs,
   GetTaxWithholdingListArgs,
+  PushDividendPaymentArgs,
+  GetDividendInvestorsArgs,
 } from './types';
 import { fromUnixTimestamp, fromWei, toWei } from './utils';
-import { TaxWithholding } from './types';
+import { TaxWithholding, DividendModuleTypes } from './types';
 import { zipWith } from 'lodash';
 
 interface InternalDividend {
@@ -36,6 +38,15 @@ interface InternalCheckpointData {
   percentages: number[];
 }
 
+interface DividendProgress {
+  investors: string[];
+  claimed: boolean[];
+  excluded: boolean[];
+  withheld: number[];
+  amount: number[];
+  balance: number[];
+}
+
 // This type should be obtained from a library (must match ABI)
 interface DividendCheckpointContract<T extends GenericContract> {
   methods: {
@@ -43,6 +54,9 @@ interface DividendCheckpointContract<T extends GenericContract> {
       checkpointId: number
     ): TransactionObject<InternalCheckpointData>;
     getDividendIndex(checkpointId: number): TransactionObject<number[]>;
+    getDividendProgress(
+      dividendIndex: number
+    ): TransactionObject<DividendProgress>;
     dividends(index: number): TransactionObject<InternalDividend>;
     setWithholding(
       investors: string[],
@@ -50,13 +64,18 @@ interface DividendCheckpointContract<T extends GenericContract> {
     ): TransactionObject<void>;
     reclaimDividend(dividendIndex: number): TransactionObject<void>;
     withdrawWithholding(dividendIndex: number): TransactionObject<void>;
+    pushDividendPaymentToAddresses(
+      dividendIndex: number,
+      investorAddresses: string[]
+    ): TransactionObject<void>;
   } & T['methods'];
   getPastEvents: T['getPastEvents'];
 }
 
-export class DividendCheckpoint<
+export abstract class DividendCheckpoint<
   T extends GenericContract = GenericContract
 > extends Module<DividendCheckpointContract<T>> {
+  public abstract dividendType: DividendModuleTypes;
   constructor({
     address,
     abi,
@@ -81,6 +100,14 @@ export class DividendCheckpoint<
       address,
       percentage,
     }));
+  }
+
+  public async getInvestors({ dividendIndex }: GetDividendInvestorsArgs) {
+    const { investors } = await this.contract.methods
+      .getDividendProgress(dividendIndex)
+      .call();
+
+    return investors;
   }
 
   public async getDividends() {
@@ -137,6 +164,7 @@ export class DividendCheckpoint<
         return {
           index,
           checkpointId,
+          dividendType: this.dividendType,
           created: fromUnixTimestamp(created),
           maturity: fromUnixTimestamp(maturity),
           expiry: fromUnixTimestamp(expiry),
@@ -178,6 +206,16 @@ export class DividendCheckpoint<
     return () =>
       this.contract.methods
         .withdrawWithholding(dividendIndex)
+        .send({ from: this.context.account });
+  };
+
+  public pushDividendPayment = async ({
+    dividendIndex,
+    investorAddresses,
+  }: PushDividendPaymentArgs) => {
+    return () =>
+      this.contract.methods
+        .pushDividendPaymentToAddresses(dividendIndex, investorAddresses)
         .send({ from: this.context.account });
   };
 }

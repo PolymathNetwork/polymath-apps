@@ -26,11 +26,13 @@ import {
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
   SetDividendsTaxWithholdingList,
+  PushDividendPayment,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
 import { PolymathNetworkParams } from '~/types';
 import BigNumber from 'bignumber.js';
+import { includes } from 'lodash';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -188,7 +190,7 @@ export class Polymath {
   /**
    * Distribute dividends in POLY
    */
-  public distributePolyDividends = async (args: {
+  public createPolyDividendDistribution = async (args: {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
@@ -213,7 +215,7 @@ export class Polymath {
   /**
    * Distribute dividends in a specified ERC20 token
    */
-  public distributeErc20Dividends = async (args: {
+  public createErc20DividendDistribution = async (args: {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
@@ -231,7 +233,7 @@ export class Polymath {
   /**
    * Distribute dividends in ETH
    */
-  public distributeEtherDividends = async (args: {
+  public createEthDividendDistribution = async (args: {
     symbol: string;
     maturityDate: Date;
     expiryDate: Date;
@@ -256,6 +258,18 @@ export class Polymath {
     percentages: number[];
   }) => {
     const procedure = new SetDividendsTaxWithholdingList(args, this.context);
+    return await procedure.prepare();
+  };
+
+  /**
+   * Push dividends payments for a dividend distribution
+   */
+  public pushDividendPayment = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    dividendId: number;
+  }) => {
+    const procedure = new PushDividendPayment(args, this.context);
     return await procedure.prepare();
   };
 
@@ -296,12 +310,18 @@ export class Polymath {
 
   /**
    * Retrieve list of checkpoints and their corresponding dividends
+   *
+   * @param dividendTypes array of dividend types that should be returned. Default value is both
    */
   public getCheckpoints = async (args: {
     symbol: string;
+    dividendTypes?: DividendModuleTypes[];
   }): Promise<CheckpointEntity[]> => {
     const { securityTokenRegistry } = this.context;
-    const { symbol: securityTokenSymbol } = args;
+    const {
+      symbol: securityTokenSymbol,
+      dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
+    } = args;
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: securityTokenSymbol,
@@ -312,10 +332,10 @@ export class Polymath {
     let erc20Dividends: LowLevelDividend[] = [];
     let etherDividends: LowLevelDividend[] = [];
 
-    if (erc20Module) {
+    if (erc20Module && includes(dividendTypes, DividendModuleTypes.Erc20)) {
       erc20Dividends = await erc20Module.getDividends();
     }
-    if (etherModule) {
+    if (etherModule && includes(dividendTypes, DividendModuleTypes.Eth)) {
       etherDividends = await etherModule.getDividends();
     }
 
@@ -361,10 +381,16 @@ export class Polymath {
   public getCheckpoint = async (args: {
     symbol: string;
     checkpointIndex: number;
+    dividendTypes?: DividendModuleTypes[];
   }) => {
-    const { symbol, checkpointIndex } = args;
+    const {
+      symbol,
+      checkpointIndex,
+      dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
+    } = args;
     const checkpoints = await this.getCheckpoints({
       symbol,
+      dividendTypes,
     });
 
     const thisCheckpoint = checkpoints.find(
@@ -377,12 +403,18 @@ export class Polymath {
   public getDividends = async (args: {
     symbol: string;
     checkpointIndex: number;
+    dividendTypes?: DividendModuleTypes[];
   }) => {
-    const { symbol, checkpointIndex } = args;
+    const {
+      symbol,
+      checkpointIndex,
+      dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
+    } = args;
 
     const thisCheckpoint = await this.getCheckpoint({
       symbol,
       checkpointIndex,
+      dividendTypes,
     });
 
     if (thisCheckpoint) {

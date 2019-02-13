@@ -35,6 +35,7 @@ export enum ProcedureTypes {
   ReserveSecurityToken = 'ReserveSecurityToken',
   WithdrawTaxes = 'WithdrawTaxes',
   SetDividendsTaxWithholdingList = 'SetDividendsTaxWithholdingList',
+  PushDividendPayment = 'PushDividendPayment',
 }
 
 export enum PolyTransactionTags {
@@ -51,6 +52,7 @@ export enum PolyTransactionTags {
   EnableDividends = 'EnableDividends',
   ReclaimDividendFunds = 'ReclaimDividendFunds',
   WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
+  PushDividendPayment = 'PushDividendPayment',
 }
 
 export enum TransactionStatus {
@@ -93,6 +95,7 @@ export interface DividendEntity extends Entity {
   securityTokenSymbol: string;
   securityTokenId: string;
   checkpointId: string;
+  dividendType: DividendModuleTypes;
   created: Date;
   maturity: Date;
   expiry: Date;

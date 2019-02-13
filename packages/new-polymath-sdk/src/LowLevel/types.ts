@@ -56,6 +56,7 @@ export enum ModuleTypes {
 export interface Dividend {
   index: number;
   checkpointId: number;
+  dividendType: DividendModuleTypes;
   created: Date;
   maturity: Date;
   expiry: Date;
@@ -96,6 +97,10 @@ export interface GetTaxWithholdingListArgs {
   checkpointIndex: number;
 }
 
+export interface GetDividendInvestorsArgs {
+  dividendIndex: number;
+}
+
 // Transaction argument types
 
 export interface SetWithholdingArgs {
@@ -109,6 +114,11 @@ export interface ReclaimDividendArgs {
 
 export interface WithdrawWithholdingArgs {
   dividendIndex: number;
+}
+
+export interface PushDividendPaymentArgs {
+  dividendIndex: number;
+  investorAddresses: string[];
 }
 
 export interface CreateErc20DividendArgs {
@@ -171,6 +181,10 @@ export interface AddDividendsModuleArgs {
 
 export interface GetModuleAddressArgs {
   name: string;
+}
+
+export interface GetCheckpointArgs {
+  checkpointId: number;
 }
 
 export interface RegisterTickerArgs {

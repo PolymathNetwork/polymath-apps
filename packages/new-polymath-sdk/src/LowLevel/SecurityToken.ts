@@ -10,6 +10,7 @@ import {
   ModuleTypes,
   AddDividendsModuleArgs,
   GetModuleAddressArgs,
+  GetCheckpointArgs,
 } from './types';
 import { Context } from './LowLevel';
 import { fromUnixTimestamp, fromWei } from './utils';
@@ -122,6 +123,12 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     }
 
     return new EtherDividendCheckpoint({ address, context: this.context });
+  }
+
+  public async getCheckpoint({ checkpointId }: GetCheckpointArgs) {
+    const checkpoints = await this.getCheckpoints();
+
+    return checkpoints.find(checkpoint => checkpoint.index === checkpointId);
   }
 
   public async getCheckpoints() {

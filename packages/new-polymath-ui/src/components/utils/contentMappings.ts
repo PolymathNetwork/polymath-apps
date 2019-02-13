@@ -226,6 +226,28 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
         }
       }
     }
+    case types.ProcedureTypes.PushDividendPayment: {
+      const args: ProcedureArguments[types.ProcedureTypes.PushDividendPayment] =
+        queue.args;
+
+      switch (status) {
+        case types.TransactionQueueStatus.Failed: {
+          return 'An error ocurred while Pushing ERC20 Dividends Payments';
+        }
+        case types.TransactionQueueStatus.Idle: {
+          return 'Proceed with Push ERC20 Dividends Payments';
+        }
+        case types.TransactionQueueStatus.Running: {
+          return 'Proceeding with Push ERC20 Dividends Payments';
+        }
+        case types.TransactionQueueStatus.Succeeded: {
+          return 'Push ERC20 Dividends Payments was successfully submitted';
+        }
+        default: {
+          return '';
+        }
+      }
+    }
     case types.ProcedureTypes.UnnamedProcedure:
     default: {
       return 'Unnamed Procedure';
@@ -340,7 +362,11 @@ export const getTransactionQueueContent = (
 };
 
 // TODO @monitz87: use actual text. The arguments are already there and typesafe
-export const getTransactionTitle = (transaction: types.TransactionPojo) => {
+export const getTransactionTitle = (
+  transaction: types.TransactionPojo,
+  index: number,
+  transactions: types.TransactionPojo[]
+) => {
   const { tag } = transaction;
 
   switch (tag) {
@@ -420,7 +446,11 @@ export const getTransactionTitle = (transaction: types.TransactionPojo) => {
 };
 
 // TODO @monitz87: use actual text. The arguments are already there and typesafe
-export const getTransactionContent = (transaction: types.TransactionPojo) => {
+export const getTransactionContent = (
+  transaction: types.TransactionPojo,
+  index: number,
+  transactions: types.TransactionPojo[]
+) => {
   const { tag } = transaction;
 
   switch (tag) {
@@ -529,6 +559,15 @@ export const getTransactionContent = (transaction: types.TransactionPojo) => {
         description: 'Withdraw Tax Withholdings',
       };
     }
+    case types.PolyTransactionTags.PushDividendPayment: {
+      const args: TransactionArguments[types.PolyTransactionTags.PushDividendPayment] =
+        transaction.args;
+
+      return {
+        title: 'Push Dividends Payment',
+        description: 'Push Dividends Payment',
+      };
+    }
     default: {
       return {
         title: '',
@@ -554,4 +593,5 @@ export const getTransactionIcon = (transaction: types.TransactionPojo) =>
     [types.PolyTransactionTags.EnableDividends]: SvgErc20,
     [types.PolyTransactionTags.ReclaimDividendFunds]: SvgErc20,
     [types.PolyTransactionTags.WithdrawTaxWithholdings]: SvgErc20,
+    [types.PolyTransactionTags.PushDividendPayment]: SvgErc20,
   }[transaction.tag]);

@@ -15,6 +15,7 @@ import {
   RegisterTickerArgs,
   GenerateSecurityTokenArgs,
   DividendModuleTypes,
+  PushDividendPaymentArgs,
 } from '~/LowLevel/types';
 
 export { DividendModuleTypes };
@@ -87,6 +88,9 @@ export interface TransactionArguments {
   [types.PolyTransactionTags.CreateSecurityToken]: Partial<
     GenerateSecurityTokenArgs
   >;
+  [types.PolyTransactionTags.PushDividendPayment]: Partial<
+    PushDividendPaymentArgs
+  >;
   [types.PolyTransactionTags.CreateCheckpoint]: {};
 }
 
@@ -122,6 +126,13 @@ export interface CreateEtherDividendDistributionProcedureArgs {
   name: string;
   excludedAddresses?: string[];
   taxWithholdings?: TaxWithholdingEntry[];
+}
+
+export interface PushDividendPaymentProcedureArgs {
+  symbol: string;
+  dividendId: number;
+  dividendType: DividendModuleTypes;
+  investorAddresses?: string[];
 }
 
 export interface CreateSecurityTokenProcedureArgs {
@@ -177,5 +188,6 @@ export interface ProcedureArguments {
   [types.ProcedureTypes.WithdrawTaxes]: WithdrawTaxesProcedureArgs;
   [types.ProcedureTypes
     .SetDividendsTaxWithholdingList]: SetDividendsTaxWithholdingListArgs;
+  [types.ProcedureTypes.PushDividendPayment]: PushDividendPaymentProcedureArgs;
   [types.ProcedureTypes.UnnamedProcedure]: {};
 }

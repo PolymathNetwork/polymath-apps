@@ -2,10 +2,12 @@ import { Polymath } from '~/Polymath';
 import { Entity } from './Entity';
 import { serialize } from '~/utils';
 import BigNumber from 'bignumber.js';
+import { DividendModuleTypes } from '~/types';
 
 interface Params {
   index: number;
   checkpointId: string;
+  dividendType: DividendModuleTypes;
   securityTokenSymbol: string;
   securityTokenId: string;
   created: Date;
@@ -26,6 +28,7 @@ export class Dividend extends Entity {
   public entityType: string = 'dividend';
   public index: number;
   public checkpointId: string;
+  public dividendType: DividendModuleTypes;
   public securityTokenSymbol: string;
   public securityTokenId: string;
   public created: Date;
@@ -46,6 +49,7 @@ export class Dividend extends Entity {
     const {
       index,
       checkpointId,
+      dividendType,
       securityTokenSymbol,
       securityTokenId,
       created,
@@ -63,6 +67,7 @@ export class Dividend extends Entity {
 
     this.index = index;
     this.checkpointId = checkpointId;
+    this.dividendType = dividendType;
     this.securityTokenSymbol = securityTokenSymbol;
     this.securityTokenId = securityTokenId;
     this.created = created;
@@ -84,6 +89,7 @@ export class Dividend extends Entity {
       uid,
       index,
       checkpointId,
+      dividendType,
       securityTokenSymbol,
       securityTokenId,
       created,
@@ -103,6 +109,7 @@ export class Dividend extends Entity {
       uid,
       index,
       checkpointId,
+      dividendType,
       securityTokenSymbol,
       securityTokenId,
       created,
@@ -120,11 +127,11 @@ export class Dividend extends Entity {
   }
 
   protected generateId() {
-    const { securityTokenSymbol, checkpointId, index, entityType } = this;
+    const { securityTokenSymbol, dividendType, index, entityType } = this;
 
     return serialize(entityType, {
       securityTokenSymbol,
-      checkpointId,
+      dividendType,
       index,
     });
   }

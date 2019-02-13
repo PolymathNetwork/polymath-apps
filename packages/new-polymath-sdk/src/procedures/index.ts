@@ -14,3 +14,4 @@ export { WithdrawTaxes } from './WithdrawTaxes';
 export {
   SetDividendsTaxWithholdingList,
 } from './SetDividendsTaxWithholdingList';
+export { PushDividendPayment } from './PushDividendPayment';
