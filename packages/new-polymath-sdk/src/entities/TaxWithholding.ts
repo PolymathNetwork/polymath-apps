@@ -1,7 +1,6 @@
 import { Polymath } from '~/Polymath';
 import { Entity } from './Entity';
 import { serialize } from '~/utils';
-import BigNumber from 'bignumber.js';
 import { DividendModuleTypes } from '~/types';
 
 interface Params {
