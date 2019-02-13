@@ -1,0 +1,89 @@
+---
+name: Table
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Box } from '~/components/Box';
+import { Button } from '~/components/Button';
+import { Icon } from '~/components/Icon';
+import { SvgDelete } from '~/images/icons/Delete';
+import { Table } from '../Table';
+import { columns, data } from './data';
+
+# Table
+
+<PropsTable of={Table} />
+
+## Basic usage
+
+<Playground>
+  {() => {
+    return (
+      <Table
+        {...{
+          data,
+          columns,
+        }}
+      >
+        <Table.Rows />
+      </Table>
+    );
+  }}
+</Playground>
+
+## With small Rows + scrollable area
+
+<Playground>
+  <Box height={250}>
+    <Table
+      {...{
+        data,
+        columns,
+      }}
+    >
+      <Table.Rows small />
+    </Table>
+  </Box>
+</Playground>
+
+## With pagination
+
+<Playground>
+  {() => {
+    return (
+      <Table
+        {...{
+          data,
+          columns,
+        }}
+      >
+        <Table.Rows />
+        <Table.Pagination />
+      </Table>
+    );
+  }}
+</Playground>
+
+## With batch actions
+
+<Playground>
+  <Table
+    {...{
+      data,
+      columns,
+    }}
+    selectable
+  >
+    <Table.BatchActionsToolbar>
+      <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+        Delete <Icon Asset={SvgDelete} />
+      </Button>
+      <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+        Edit <Icon Asset={SvgDelete} />
+      </Button>
+    </Table.BatchActionsToolbar>
+    <Table.Rows />
+    <Table.Pagination />
+  </Table>
+</Playground>

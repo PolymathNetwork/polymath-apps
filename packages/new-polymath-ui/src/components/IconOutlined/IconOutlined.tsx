@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { borderColor } from 'styled-system';
-
-import { IconCircled, IconCircledProps } from '~/components/IconCircled';
-
-export interface IconCircledProps extends IconCircledProps {}
+import { IconCircled } from '~/components/IconCircled';
 
 export const IconOutlined = styled(IconCircled).attrs({
   bg: 'transparent',
