@@ -1,6 +1,5 @@
 import { within } from 'react-testing-library';
 import React from 'react';
-import 'jest-dom/extend-expect';
 import { ProgressIndicator } from '../ProgressIndicator';
 import { render } from '~/testUtils/helpers';
 
@@ -28,9 +27,9 @@ describe('ProgressIndicator', () => {
         </ProgressIndicator>
       );
 
-      const firstStep = getByTestId('ProgressIndicator-Step-1');
-      const secondStep = getByTestId('ProgressIndicator-Step-2');
-      const thirdStep = getByTestId('ProgressIndicator-Step-3');
+      const firstStep = getByTestId('first-step');
+      const secondStep = getByTestId('second-step');
+      const thirdStep = getByTestId('third-step');
 
       // Since it is a completed step it should not show its number
       expect(firstStep).not.toHaveTextContent('1');
