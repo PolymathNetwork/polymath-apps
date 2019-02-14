@@ -63,7 +63,7 @@ describe('csvParser', () => {
       header: true,
       validateRow: mockValidator,
     });
-    expect(result.validFile).toBe(false);
+    expect(result.isFileValid).toBe(false);
   });
   test('should mark file as valid if missing non-required field', async () => {
     const mockCsvHeader = `column 1,column 2
@@ -94,7 +94,7 @@ describe('csvParser', () => {
       header: true,
       validateRow: mockValidator,
     });
-    expect(result.validFile).toBe(true);
+    expect(result.isFileValid).toBe(true);
   });
   test('should mark file as invalid if it has extra fields in strict mode', async () => {
     const mockCsvHeader = `column 1,column 2,column 3
@@ -122,7 +122,7 @@ describe('csvParser', () => {
       strict: true,
       validateRow: mockValidator,
     });
-    expect(result.validFile).toBe(false);
+    expect(result.isFileValid).toBe(false);
   });
   test('should mark file as valid if it has extra fields in non strict mode', async () => {
     const mockCsvHeader = `column 1,column 2,column 3
@@ -149,7 +149,7 @@ describe('csvParser', () => {
       header: true,
       validateRow: mockValidator,
     });
-    expect(result.validFile).toBe(true);
+    expect(result.isFileValid).toBe(true);
   });
   test('should parse file without header correctly', async () => {
     const mockCsvNoHeader = `1,value 1
