@@ -1,7 +1,6 @@
 import React from 'react';
-import 'jest-dom/extend-expect';
 import { ProgressIndicator } from '../ProgressIndicator';
-import { render, getByTestId } from '~/testUtils/helpers';
+import { render } from '~/testUtils/helpers';
 
 describe('ProgressIndicator', () => {
   test('renders without crashing', () => {
@@ -17,7 +16,7 @@ describe('ProgressIndicator', () => {
   describe('ordered', () => {
     test('correctly numbers the steps', () => {
       const rendered = render(
-        <ProgressIndicator vertical currentIndex={0} ordered>
+        <ProgressIndicator vertical currentIndex={1} ordered>
           <ProgressIndicator.Step label="First Step" data-testid="first-step" />
           <ProgressIndicator.Step
             label="Second Step"
@@ -26,17 +25,11 @@ describe('ProgressIndicator', () => {
         </ProgressIndicator>
       );
 
-      const { container, getAllByTitle, getByText, debug } = rendered;
+      const firstStep = rendered.getByTestId('first-step');
+      const secondStep = rendered.getByTestId('second-step');
 
-      const byTitle = getAllByTitle('Current step');
-      expect(byTitle.length).toEqual(1);
-
-      const firstStep = rendered.getByTestId('ProgressIndicator-Step-1');
-      const secondStep = rendered.getByTestId('ProgressIndicator-Step-2');
-
-      // Since it is the current step it should not show its number
+      // Since it is the previous step it should not show its number
       expect(firstStep).not.toHaveTextContent('1');
-      expect(firstStep).toHaveTextContent('Current step');
 
       expect(secondStep).toHaveTextContent('2');
     });

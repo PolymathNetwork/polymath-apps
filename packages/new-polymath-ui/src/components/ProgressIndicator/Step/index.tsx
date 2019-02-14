@@ -29,6 +29,7 @@ export const Step: FC<StepProps> = ({
   isComplete,
   isVertical,
   isOrdered,
+  ...otherProps
 }) => {
   const stepNumber = (index || 0) + 1;
 
@@ -63,7 +64,7 @@ export const Step: FC<StepProps> = ({
       isCurrent={isCurrent}
       isComplete={isComplete}
       isVertical={isVertical}
-      data-testid={`ProgressIndicator-Step-${stepNumber}`}
+      {...otherProps}
     >
       <sc.Inner>
         <sc.Icon
