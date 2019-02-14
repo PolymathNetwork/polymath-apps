@@ -5,16 +5,18 @@ import { Context } from '../Context';
 import { Row } from './Row';
 
 export interface Props {
-  page: PageType;
-  prepareRow: (row: RowType) => any;
   small?: boolean;
 }
 
 export const Rows: FC<Props> = props => {
-  const { page, prepareRow, tableEl, small } = {
-    ...useContext(Context),
-    ...props,
-  };
+  const context = useContext(Context);
+  const { small } = props;
+
+  if (!context) {
+    return null;
+  }
+
+  const { page, prepareRow, tableEl } = context;
 
   return tableEl && page && page.length
     ? ReactDOM.createPortal(
