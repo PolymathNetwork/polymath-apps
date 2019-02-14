@@ -12,6 +12,7 @@ import {
   STAGE_SELECT,
   STAGE_CONFIGURE,
   STAGE_OVERVIEW,
+  STAGE_COMPLETED,
 } from '../../reducers/sto';
 import SelectSTOTemplate from './components/SelectSTOTemplate';
 import STOOverview from './components/STOOverview';
@@ -56,6 +57,7 @@ class STOPage extends Component<Props> {
       case STAGE_CONFIGURE:
         return <ConfigureSTO />;
       case STAGE_OVERVIEW:
+      case STAGE_COMPLETED:
         return <STOOverview />;
       default:
         return <Loading />;

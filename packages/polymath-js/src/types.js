@@ -121,6 +121,8 @@ export type STODetails = {|
   cap: BigNumber,
   raised: BigNumber,
   tokensSold: BigNumber,
+  isOpen: boolean,
+  capReached: boolean,
   rate: number,
   investorCount: number,
   isPolyFundraise: boolean,
