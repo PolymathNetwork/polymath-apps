@@ -24,7 +24,7 @@ export interface ResultProps {
   validRows: number;
   errorRows: number;
   ignoredRows: number;
-  validFile: boolean;
+  isFileValid: boolean;
   errors: Array<string>;
 }
 
@@ -62,9 +62,19 @@ export interface Column {
  *      rowsExceedMaxLimit: 'The CSV file contains more columns than the maximum limit'
  *    }
  *  }
- * );
+ * )
+ * .then((parseResult => {
+ *   // Results are returned as ResultProps object
+ * }));
  *
  * @param props Object of type Props containing the conversion details
+ * @param props.data Can be a string containing CSV data of a file input value
+ * @param props.columns Definition of the columns with their validation rules
+ * @param props.header Specifies wether the CSV data has header or not
+ * @param props.maxRows Maximum number of rows to parse from the file, any rows beyond that will be ignored
+ * @param props.validateRow custom function to perform custom validation on each row
+ * @param props.strict Strict mode: if set to true, file will be marked as invalid if the CSV data contain any extra column(s)
+ * @param props.errorMessages Specifies the error messages to be returned by the parse if the data has issues
  */
 export const parseCsv = async (props: Props): Promise<ResultProps> => {
   return new Promise(resolve => {
@@ -81,7 +91,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
     let errorRows: number = 0;
     let ignoredRows: number = 0;
     let headerRead: boolean = false;
-    let validFile: boolean = true;
+    let isFileValid: boolean = true;
     let hasExtraRows: boolean = false;
     let hasExtraColumns: boolean = false;
 
@@ -108,7 +118,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
             } else {
               // The file has a column that is not defined by the columns definition
               if (props.strict) {
-                validFile = false;
+                isFileValid = false;
 
                 if (
                   props.errorMessages &&
@@ -128,7 +138,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
               return col.index === undefined && col.required;
             })
           ) {
-            validFile = false;
+            isFileValid = false;
 
             if (
               props.errorMessages &&
@@ -143,7 +153,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
         totalRows++;
 
         if (!props.header && props.columns.length !== results.data[0].length) {
-          validFile = false;
+          isFileValid = false;
         }
 
         if (
@@ -214,14 +224,14 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
       }
     };
 
-    const complete = (results: ParseResult) => {
+    const complete = () => {
       resolve({
         result,
         totalRows,
         validRows,
         errorRows,
         ignoredRows,
-        validFile,
+        isFileValid,
         errors,
       });
     };
