@@ -78,13 +78,15 @@ export interface Column {
  */
 export const parseCsv = async (props: Props): Promise<ResultProps> => {
   return new Promise(resolve => {
-    interface ResultObject {
-      [key: string]: any;
+    interface ResultRow {
+      data: {
+        [key: string]: any;
+      };
       isRowValid: boolean;
     }
 
     // Prepare the data and errors arrays
-    const result: ResultObject[] = [];
+    const result: ResultRow[] = [];
     const errors: string[] = [];
     let totalRows: number = 0;
     let validRows: number = 0;
@@ -175,8 +177,9 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
           return;
         }
 
-        const resultObj: ResultObject = {
+        const resultRow: ResultRow = {
           isRowValid: true,
+          data: {},
         };
 
         for (const column of props.columns) {
@@ -201,22 +204,22 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
             columnValue = new Date(columnValue);
           }
 
-          resultObj[column.name] = {
+          resultRow.data[column.name] = {
             value: columnValue,
             isColumnValid: isValid,
           };
 
-          resultObj.isRowValid = resultObj.isRowValid && isValid;
+          resultRow.isRowValid = resultRow.isRowValid && isValid;
         }
 
         if (typeof props.validateRow === 'function') {
-          resultObj.isRowValid =
-            resultObj.isRowValid && props.validateRow(results.data[0]);
+          resultRow.isRowValid =
+            resultRow.isRowValid && props.validateRow(results.data[0]);
         }
 
-        result.push(resultObj);
+        result.push(resultRow);
 
-        if (resultObj.isRowValid) {
+        if (resultRow.isRowValid) {
           validRows++;
         } else {
           errorRows++;
