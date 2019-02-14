@@ -90,8 +90,8 @@
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
     },
-    "setupFiles": [
-      "<rootDir>/src/testUtils/setupTests.ts"
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/setupTests.ts"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/src/testUtils/globalSetup.ts"
