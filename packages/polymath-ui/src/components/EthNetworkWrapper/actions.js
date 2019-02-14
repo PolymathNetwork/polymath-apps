@@ -21,7 +21,10 @@ import { txHash, txEnd } from '../TxModal/actions';
 import {
   LOCAL_NETWORK_ID,
   LOCALVM_NETWORK_ID,
+  ALLOW_GANACHE_ONLY,
 } from '@polymathnetwork/shared/constants';
+
+const localUrl = process.env.REACT_APP_NETWORK_LOCAL_HTTP;
 
 export const CONNECTED = 'polymath-auth/CONNECTED';
 export const FAILED = 'polymath-auth/FAILED';
@@ -79,12 +82,17 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
 
   const newProviderInjected = !!window.ethereum;
   const oldProviderInjected = !!window.web3;
+  const canUseGanacheOnly =
+    ALLOW_GANACHE_ONLY && process.env.NODE_ENV === 'development' && localUrl;
 
   // Instantiate Web3 HTTP
   if (newProviderInjected) {
     web3 = new Web3(window.ethereum);
   } else if (oldProviderInjected) {
     web3 = new Web3(window.web3.currentProvider);
+  } else if (canUseGanacheOnly) {
+    // If we can run the dApp without Metamask
+    web3 = new Web3(localUrl);
   } else {
     // If no Metamask/Mist
     return dispatch(fail(ERROR_NOT_INSTALLED));

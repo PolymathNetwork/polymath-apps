@@ -8,6 +8,8 @@ export const LOCAL_NETWORK_ID = '15';
 export const LOCALVM_NETWORK_ID = '16';
 export const ROPSTEN_NETWORK_ID = '3';
 export const RINKEBY_NETWORK_ID = '4';
+export const ALLOW_GANACHE_ONLY =
+  process.env.REACT_APP_ALLOW_GANACHE_ONLY === 'true';
 
 type DaiAddresses = {
   [networkId: string]: string,
