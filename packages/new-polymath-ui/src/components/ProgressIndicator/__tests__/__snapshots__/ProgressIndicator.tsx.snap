@@ -11,11 +11,12 @@ exports[`ProgressIndicator renders without crashing 1`] = `
       class="styles__Inner-sc-1kjjzf5-3 kmSbNL"
     >
       <span
-        class="Icon-sc-1la2wzw-0 IconCircled-sc-1nqzu1v-0 IconOutlined-sc-1skygp6-0 styles__Icon-sc-1kjjzf5-1 eLHWgZ"
+        class="Icon-sc-1la2wzw-0 IconCircled-sc-1nqzu1v-0 IconOutlined-sc-1skygp6-0 styles__Icon-sc-1kjjzf5-1 hMzgUo"
       >
         <svg
           bg="blue[0]"
           role="img"
+          scale="0.9"
           viewBox="0 0 24 24"
         >
           <title>

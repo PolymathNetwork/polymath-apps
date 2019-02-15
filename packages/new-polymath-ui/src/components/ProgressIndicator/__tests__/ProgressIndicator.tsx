@@ -47,14 +47,14 @@ describe('ProgressIndicator', () => {
       </ProgressIndicator>
     );
 
-    const firstStep = getByTestId('ProgressIndicator-Step-1');
-    const secondStep = getByTestId('ProgressIndicator-Step-2');
-    const thirdStep = getByTestId('ProgressIndicator-Step-3');
+    const firstStep = getByTestId('first-step');
+    const secondStep = getByTestId('second-step');
+    const thirdStep = getByTestId('third-step');
 
     expect(() => {
-      within(firstStep).getByTestId('IncompleteStepSvg');
+      within(firstStep).getByTestId('incomplete-step-svg');
     }).toThrow();
-    within(secondStep).getByTestId('IncompleteStepSvg');
-    within(thirdStep).getByTestId('IncompleteStepSvg');
+    within(secondStep).getByTestId('incomplete-step-svg');
+    within(thirdStep).getByTestId('incomplete-step-svg');
   });
 });

@@ -51,7 +51,7 @@ export const Step: FC<StepProps> = ({
     <svg
       role="img"
       viewBox="0 0 24 24"
-      data-testid="IncompleteStepSvg"
+      data-testid="incomplete-step-svg"
       {...props}
     >
       <title>Incomplete step</title>
