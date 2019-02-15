@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { uniqueId } from 'lodash';
 import { InlineFlex } from '~/components/InlineFlex';
 import { SvgCheckmark } from '~/images/icons/Checkmark';

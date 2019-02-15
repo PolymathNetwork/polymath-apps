@@ -1,4 +1,5 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
+import { uniqueId } from 'lodash';
 import { UsePaginationValues } from 'react-table';
 import { Icon } from '~/components/Icon';
 import { Flex } from '~/components/Flex';
@@ -8,11 +9,15 @@ import { SvgCaretDown2 } from '~/images/icons/CaretDown2';
 import { Context } from '../Context';
 import * as sc from './styles';
 
-export interface Props extends UsePaginationValues {
-  state: [{ pageIndex: number; pageSize: number }];
-}
+export interface Props {}
 
 export const Pagination: FC<Props> = props => {
+  const context = useContext(Context);
+
+  if (!context) {
+    return null;
+  }
+
   const {
     pageOptions,
     state: [{ pageIndex, pageSize }],
@@ -22,11 +27,16 @@ export const Pagination: FC<Props> = props => {
     setPageSize,
     canPreviousPage,
     canNextPage,
-  } = { ...useContext(Context), ...props };
+  } = context;
+  const [itemsPerPageSelectId] = useState(uniqueId());
+  const [pageSelectId] = useState(uniqueId());
 
   return (
     <sc.Pagination>
-      <Box ml="m">Items per page:</Box>
+      <Box as="label" ml="m" for={itemsPerPageSelectId}>
+        Items per page
+      </Box>
+      :
       <Select
         variant="ghost"
         onChange={setPageSize}
@@ -35,15 +45,18 @@ export const Pagination: FC<Props> = props => {
           value: option,
         }))}
         value={pageSize}
+        name={itemsPerPageSelectId}
+        className="items-per-page-select"
       />
       <Flex ml="auto">
-        <Box mr="m">
+        <Box as="label" mr="m" for={pageSelectId}>
           Page {pageIndex + 1} of {pageOptions.length}
         </Box>
         <sc.ButtonPreviousPage
           onClick={previousPage}
           disabled={!canPreviousPage}
           variant="ghost"
+          aria-label="Previous page"
         >
           <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
         </sc.ButtonPreviousPage>
@@ -55,11 +68,13 @@ export const Pagination: FC<Props> = props => {
             value: option,
           }))}
           value={pageIndex}
+          name={pageSelectId}
         />
         <sc.ButtonNextPage
           onClick={nextPage}
           disabled={!canNextPage}
           variant="ghost"
+          aria-label="Next page"
         >
           <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
         </sc.ButtonNextPage>

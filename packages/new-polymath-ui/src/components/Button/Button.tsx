@@ -27,7 +27,7 @@ export interface ButtonProps {
    */
   href?: string;
   role?: string;
-  iconPosition: IconPosition;
+  iconPosition?: IconPosition;
   onClick: () => void;
 }
 

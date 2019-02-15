@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { Page as PageType, Row as RowType } from 'react-table';
 import { Context } from '../Context';
 import { Row } from './Row';
 
