@@ -119,8 +119,11 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
       const { data: resultsData } = results;
       if (resultsData.length === 1) {
         if (header && !headerRead) {
+          indexedColumns = _.map(columns, col => ({
+            ...col,
+            index: -1,
+          }));
           // Map the indexes of the header with the file
-          indexedColumns = [];
           for (const headerIndex of Object.keys(resultsData[0])) {
             const columnIndex = _.findIndex(columns, col => {
               return col.name === resultsData[0][headerIndex];
@@ -128,11 +131,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
 
             if (columnIndex >= 0) {
               const index = parseInt(headerIndex, 10);
-              const column = columns[index];
-              indexedColumns[columnIndex] = {
-                ...column,
-                index,
-              };
+              indexedColumns[columnIndex].index = index;
             } else {
               // The file has a column that is not defined by the columns definition
               if (strict) {
@@ -150,10 +149,9 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
             }
           }
           headerRead = true;
-
           if (
             _.find(indexedColumns, col => {
-              return col.index === undefined && col.required;
+              return col.index === -1 && col.required;
             })
           ) {
             isFileValid = false;
@@ -167,7 +165,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
         }
         totalRows++;
 
-        if (!header && columns.length !== resultsData[0].length) {
+        if (!header && indexedColumns.length !== resultsData[0].length) {
           isFileValid = false;
         }
 
