@@ -9,8 +9,8 @@ export interface ErrorMessages {
 }
 
 export interface Props {
-  data: any;
-  columns: Array<any>;
+  data: string | File;
+  columns: Array<Column>;
   header?: boolean;
   maxRows?: number;
   validateRow?: (rowData: Array<any>) => boolean;
@@ -19,7 +19,7 @@ export interface Props {
 }
 
 export interface ResultProps {
-  result: Array<any>;
+  result: ResultRow[];
   totalRows: number;
   validRows: number;
   errorRows: number;
@@ -32,6 +32,13 @@ export interface Column {
   name: string;
   validators: Array<validators.ValidatorFn>;
   required?: boolean;
+}
+
+interface ResultRow {
+  data: {
+    [key: string]: any;
+  };
+  isRowValid: boolean;
 }
 
 /**
@@ -78,16 +85,10 @@ export interface Column {
  */
 export const parseCsv = async (props: Props): Promise<ResultProps> => {
   return new Promise(resolve => {
-    interface ResultRow {
-      data: {
-        [key: string]: any;
-      };
-      isRowValid: boolean;
-    }
-
     // Prepare the data and errors arrays
     const result: ResultRow[] = [];
     const errors: string[] = [];
+    let indexedColumns: Array<Column & { index: number }>;
     let totalRows: number = 0;
     let validRows: number = 0;
     let errorRows: number = 0;
@@ -97,38 +98,53 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
     let hasExtraRows: boolean = false;
     let hasExtraColumns: boolean = false;
 
-    if (!props.header) {
-      for (const headerIndex of Object.keys(props.columns)) {
-        props.columns[parseInt(headerIndex, 10)].index = parseInt(
-          headerIndex,
-          10
-        );
-      }
+    const {
+      header,
+      data,
+      columns,
+      errorMessages,
+      maxRows,
+      validateRow,
+      strict,
+    } = props;
+
+    if (!header) {
+      indexedColumns = columns.map((column, index) => ({
+        ...column,
+        index,
+      }));
     }
 
     const step = (results: ParseResult) => {
-      if (results.data.length === 1) {
-        if (props.header && !headerRead) {
+      const { data: resultsData } = results;
+      if (resultsData.length === 1) {
+        if (header && !headerRead) {
           // Map the indexes of the header with the file
-          for (const headerIndex of Object.keys(results.data[0])) {
-            const column = _.find(props.columns, col => {
-              return col.name === results.data[0][headerIndex];
+          indexedColumns = [];
+          for (const headerIndex of Object.keys(resultsData[0])) {
+            const columnIndex = _.findIndex(columns, col => {
+              return col.name === resultsData[0][headerIndex];
             });
 
-            if (column) {
-              column.index = parseInt(headerIndex, 10);
+            if (columnIndex >= 0) {
+              const index = parseInt(headerIndex, 10);
+              const column = columns[index];
+              indexedColumns[columnIndex] = {
+                ...column,
+                index,
+              };
             } else {
               // The file has a column that is not defined by the columns definition
-              if (props.strict) {
+              if (strict) {
                 isFileValid = false;
 
                 if (
-                  props.errorMessages &&
-                  props.errorMessages.extraColumns &&
+                  errorMessages &&
+                  errorMessages.extraColumns &&
                   !hasExtraColumns
                 ) {
                   hasExtraColumns = true;
-                  errors.push(props.errorMessages.extraColumns);
+                  errors.push(errorMessages.extraColumns);
                 }
               }
             }
@@ -136,17 +152,14 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
           headerRead = true;
 
           if (
-            _.find(props.columns, col => {
+            _.find(indexedColumns, col => {
               return col.index === undefined && col.required;
             })
           ) {
             isFileValid = false;
 
-            if (
-              props.errorMessages &&
-              props.errorMessages.missingRequiredColumns
-            ) {
-              errors.push(props.errorMessages.missingRequiredColumns);
+            if (errorMessages && errorMessages.missingRequiredColumns) {
+              errors.push(errorMessages.missingRequiredColumns);
             }
           }
 
@@ -154,24 +167,20 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
         }
         totalRows++;
 
-        if (!props.header && props.columns.length !== results.data[0].length) {
+        if (!header && columns.length !== resultsData[0].length) {
           isFileValid = false;
         }
 
-        if (
-          props.maxRows !== undefined &&
-          props.maxRows > 0 &&
-          totalRows > props.maxRows
-        ) {
+        if (maxRows !== undefined && maxRows > 0 && totalRows > maxRows) {
           ignoredRows++;
 
           if (
-            props.errorMessages &&
-            props.errorMessages.rowsExceedMaxLimit &&
+            errorMessages &&
+            errorMessages.rowsExceedMaxLimit &&
             !hasExtraRows
           ) {
             hasExtraRows = true;
-            errors.push(props.errorMessages.rowsExceedMaxLimit);
+            errors.push(errorMessages.rowsExceedMaxLimit);
           }
 
           return;
@@ -182,15 +191,16 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
           data: {},
         };
 
-        for (const column of props.columns) {
+        for (const column of indexedColumns) {
+          const { index, name } = column;
           // No header, results are passed as array
           const isValid = _.every(
             column.validators,
             (validator: validators.ValidatorFn) =>
-              validator(results.data[0][column.index])
+              validator(resultsData[0][index])
           );
           // Papa Parser handles all data types except date, hadle date here
-          let columnValue: any = results.data[0][column.index];
+          let columnValue: any = resultsData[0][index];
 
           if (
             columnValue !== '' &&
@@ -204,7 +214,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
             columnValue = new Date(columnValue);
           }
 
-          resultRow.data[column.name] = {
+          resultRow.data[name] = {
             value: columnValue,
             isColumnValid: isValid,
           };
@@ -212,9 +222,9 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
           resultRow.isRowValid = resultRow.isRowValid && isValid;
         }
 
-        if (typeof props.validateRow === 'function') {
+        if (typeof validateRow === 'function') {
           resultRow.isRowValid =
-            resultRow.isRowValid && props.validateRow(results.data[0]);
+            resultRow.isRowValid && validateRow(resultsData[0]);
         }
 
         result.push(resultRow);
@@ -246,6 +256,11 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
       complete,
     };
 
-    Papa.parse(props.data, config);
+    // NOTE @monitz87: this might seem unintuitive but it's necessary for type safety in the props
+    if (typeof data === 'string') {
+      Papa.parse(data, config);
+    } else {
+      Papa.parse(data, config);
+    }
   });
 };
