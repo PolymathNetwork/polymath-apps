@@ -50,14 +50,16 @@ interface ResultRow {
  *      1,White,1/1/2019`,
  *    columns: [
  *        {
- *          index: 0,
  *          name: 'Column 1',
- *          validationRules: ['isInt', 'isNotEmpty']
+ *          validationRules: [validators.isInt, validators.isNotEmpty]
  *        },
  *        {
- *          index: 1,
  *          name: 'Column 2',
- *          validationRules: ['isString', 'isNotEmpty']
+ *          validationRules: [validators.isString, validators.isNotEmpty]
+ *        },
+ *        {
+ *          name: 'Column 3',
+ *          validationRules: [validators.isDate, validators.isNotEmpty]
  *        },
  *      ],
  *    header: true,
