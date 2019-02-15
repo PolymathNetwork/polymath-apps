@@ -1,5 +1,6 @@
 import { runSaga } from 'redux-saga';
 import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
+import '~/state/store';
 import * as sagas from '~/state/sagas/accessControl';
 import { MockedStore, mockEthereumBrowser } from '~/testUtils/helpers';
 
@@ -14,7 +15,9 @@ jest.mock('@polymathnetwork/sdk', () => {
   return {
     ...original,
     browserUtils: {
-      getCurrentAddress: jest.fn(),
+      getCurrentAddress: jest.fn(() => {
+        console.log(' ===== MOCK CALLED =====');
+      }),
       onAddressChange() {
         return () => {};
       },
@@ -33,8 +36,9 @@ describe('accessControl sagas', () => {
   });
 
   describe('requireWallet', () => {
-    test('redirects to "/login" if user denied access', async () => {
+    test.only('redirects to "/login" if user denied access', async () => {
       (browserUtils.getCurrentAddress as any).mockImplementationOnce(() => {
+        console.log('BROWTILSS');
         throw new PolymathError({ code: ErrorCodes.UserDeniedAccess });
       });
 
@@ -75,7 +79,7 @@ describe('accessControl sagas', () => {
         throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
       });
 
-      await runSaga(store, sagas.requireWallet);
+      await runSaga(store, sagas.requireWallet).done;
 
       expect(store.dispatched).toContainEqual({
         type: 'ROUTER_PUSH',

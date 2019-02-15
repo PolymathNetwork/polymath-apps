@@ -35,7 +35,7 @@
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
     },
-    "setupFiles": [
+    "setupFilesAfterEnv": [
       "<rootDir>/src/testUtils/setupTests.ts"
     ],
     "collectCoverageFrom": [

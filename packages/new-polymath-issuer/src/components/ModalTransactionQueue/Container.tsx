@@ -1,15 +1,16 @@
 import React, { Component, Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { createGetActiveTransactionQueue } from '~/state/selectors';
-import { RootState } from '~/state/store';
 import { ActionType } from 'typesafe-actions';
+import { types } from '@polymathnetwork/new-shared';
+import { RootState } from '~/state/store';
+import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
+import { sagaMiddleware } from '~/testUtils/helpers';
 import {
   confirmTransactionQueue,
   cancelTransactionQueue,
 } from '~/state/actions/transactionQueues';
-import { types } from '@polymathnetwork/new-shared';
-import { Presenter } from './Presenter';
+import { ModalTransactionQueuePresenter } from './Presenter';
 
 const actions = {
   unsetActiveTransactionQueue,
@@ -27,7 +28,7 @@ export interface DispatchProps {
 
 export type Props = StateProps & DispatchProps;
 
-const mapStateToProps = () => {
+const mapStateToProps = props => {
   const getActiveTransactionQueue = createGetActiveTransactionQueue();
 
   return (state: RootState): StateProps => {
@@ -37,7 +38,7 @@ const mapStateToProps = () => {
   };
 };
 
-export class ContainerBase extends Component<Props> {
+export class ModalTransactionQueueContainerBase extends Component<Props> {
   public onFinish = () => {
     const { dispatch } = this.props;
 
@@ -67,7 +68,7 @@ export class ContainerBase extends Component<Props> {
     }
 
     return (
-      <Presenter
+      <ModalTransactionQueuePresenter
         transactionQueue={transactionQueue}
         onContinue={onFinish}
         onClose={onClose}
@@ -77,4 +78,6 @@ export class ContainerBase extends Component<Props> {
   }
 }
 
-export const Container = connect(mapStateToProps)(ContainerBase);
+export const ModalTransactionQueueContainer = connect(mapStateToProps)(
+  ModalTransactionQueueContainerBase
+);

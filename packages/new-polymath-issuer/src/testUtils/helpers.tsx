@@ -1,19 +1,38 @@
 import React, { Fragment } from 'react';
+// import createSagaMiddleware from 'redux-saga';
 import { render } from 'react-testing-library';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { Action } from 'redux';
+import { compose, applyMiddleware, Action, Middleware } from 'redux';
 import { set } from 'lodash';
 import Web3FakeProvider from 'web3-fake-provider';
-import { RootState } from '~/state/reducers/root';
+import { RootState, reducer } from '~/state/reducers/root';
+// import { routerEnhancer, routerMiddleware } from '~/routing';
+// import { rootSaga } from '~/state/sagas/root';
 
-const middlewares: any[] = [];
+interface RenderTestOpts {
+  initialState: RootState;
+}
+// export const sagaMiddleware = createSagaMiddleware();
+// sagaMiddleware.run(rootSaga);
+// const middlewares: Middleware[] = [sagaMiddleware, routerMiddleware];
+// // const enhancer = compose(
+// //   routerEnhancer,
+// //   applyMiddleware(...middlewares)
+// // );
+const middlewares: Middleware[] = [];
+const mockStore = configureMockStore(middlewares);
 
-export const mockStore = configureMockStore(middlewares);
+const defaultState = reducer({} as any, {} as any);
 
-const customRender = (node: React.ReactElement<any>, ...opts: any[]) => {
+const customRender = (
+  node: React.ReactElement<any>,
+  testOpts: RenderTestOpts,
+  ...opts: any[]
+) => {
+  const initialState = testOpts.initialState || defaultState;
   const { rerender, ...result } = render(
-    <Provider store={mockStore()}>{node}</Provider>,
+    <Provider store={mockStore(initialState)}>{node}</Provider>,
     ...opts
   );
 

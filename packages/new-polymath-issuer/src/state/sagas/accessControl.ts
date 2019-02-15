@@ -4,22 +4,28 @@ import { browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import { setWallet } from '~/state/actions/session';
 import { RootState } from '~/state/store';
 import { initializePolyClient } from './app';
-import { polyClient } from '~/lib/polyClient';
 
 export function* requireWallet(
   params: { redirect: boolean } = { redirect: true }
 ) {
   let address: string;
   const wallet = yield select<RootState>(({ session }) => session.wallet);
+
+  console.log('wallet', wallet);
   if (wallet) {
     return;
   }
+  console.log('PASSED WALLET');
+
   try {
+    console.log('Calling browtils');
     address = yield call(browserUtils.getCurrentAddress);
+    console.log('address', address);
     if (address) {
       yield put(setWallet({ address }));
     }
   } catch (error) {
+    console.log('error', error);
     const code = error.code as ErrorCodes;
 
     switch (code) {
