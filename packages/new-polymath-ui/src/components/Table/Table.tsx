@@ -38,10 +38,19 @@ export const TableComponent: FC<Props> = ({
   const selectRowColumn: Column = {
     accessor: 'selectRow',
     Header: ({ getSelectRowToggleProps }) => (
-      <Checkbox {...getSelectRowToggleProps()} />
+      <Checkbox
+        {...getSelectRowToggleProps()}
+        aria-label="Select all rows"
+        data-testid="select-all-rows"
+      />
     ),
     Cell: ({ row }) => (
-      <Checkbox onChange={row.toggleSelected} checked={row.isSelected} />
+      <Checkbox
+        onChange={row.toggleSelected}
+        checked={row.isSelected}
+        aria-label="Select row"
+        data-testid="select-row"
+      />
     ),
     width: 60,
   };
