@@ -1252,13 +1252,15 @@ exports[`Table renders without crashing 1`] = `
   <div
     class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Pagination-sc-1tc5mxl-0 kwsvDu"
   >
-    <div
+    <label
       class="Box-jssg1f-0 dsLPVe"
+      for="1"
     >
-      Items per page:
-    </div>
+      Items per page
+    </label>
+    :
     <div
-      class="css-12c1uc0"
+      class="css-12c1uc0 items-per-page-select"
     >
       <div
         class="css-sq30s7"
@@ -1273,7 +1275,7 @@ exports[`Table renders without crashing 1`] = `
           </div>
           <input
             class="css-14uuagi"
-            id="react-select-2-input"
+            id="1"
             readonly=""
             tabindex="0"
             value=""
@@ -1309,15 +1311,17 @@ exports[`Table renders without crashing 1`] = `
     <div
       class="Box-jssg1f-0 Flex-sc-12tu8cz-0 jouElx"
     >
-      <div
+      <label
         class="Box-jssg1f-0 dIKNPl"
+        for="2"
       >
         Page 
         1
          of 
         5
-      </div>
+      </label>
       <button
+        aria-label="Previous page"
         class="Button-sc-10evn3r-0 styles__ButtonPagination-sc-1tc5mxl-1 styles__ButtonPreviousPage-sc-1tc5mxl-2 grhMyy"
         disabled=""
         tabindex="0"
@@ -1356,7 +1360,7 @@ exports[`Table renders without crashing 1`] = `
             </div>
             <input
               class="css-14uuagi"
-              id="react-select-3-input"
+              id="2"
               readonly=""
               tabindex="0"
               value=""
@@ -1390,6 +1394,7 @@ exports[`Table renders without crashing 1`] = `
         </div>
       </div>
       <button
+        aria-label="Next page"
         class="Button-sc-10evn3r-0 styles__ButtonPagination-sc-1tc5mxl-1 styles__ButtonNextPage-sc-1tc5mxl-3 iYgSoN"
         tabindex="0"
         type="button"

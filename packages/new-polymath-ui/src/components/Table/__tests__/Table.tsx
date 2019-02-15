@@ -21,7 +21,7 @@ describe('Table', () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  test('select all button selects every rows', () => {
+  test('clicking select all button selects every rows', () => {
     const rendered = render(
       <Table
         {...{
@@ -35,11 +35,10 @@ describe('Table', () => {
       </Table>
     );
 
-    const { getByText, getAllByTestId } = rendered;
+    const { getByText, getAllByTestId, getByTestId } = rendered;
 
-    fireEvent.click(rendered.getByTestId('select-all-rows'));
+    fireEvent.click(getByTestId('select-all-rows'));
 
-    const cancelBatchActionBtn = getByText(/Cancel/i);
     const selectCount = getByText(/items selected/i);
     const rowsCheckbox = getAllByTestId('select-row');
 
@@ -50,5 +49,32 @@ describe('Table', () => {
     ).toBeFalsy();
 
     expect(selectCount).toHaveTextContent(`${dataTests.length} items selected`);
+  });
+
+  test('clicking batch actions cancel button hides it', () => {
+    const rendered = render(
+      <Table
+        {...{
+          data: dataTests,
+          columns,
+        }}
+        selectable
+      >
+        <Table.BatchActionsToolbar />
+        <Table.Rows />
+      </Table>
+    );
+
+    const { getByText, getByTestId } = rendered;
+
+    const cancelBatchActionsBtn = getByText(/Cancel/i);
+
+    fireEvent.click(getByTestId('select-all-rows'));
+
+    expect(cancelBatchActionsBtn).toBeVisible();
+
+    fireEvent.click(cancelBatchActionsBtn);
+
+    expect(cancelBatchActionsBtn).not.toBeVisible();
   });
 });
