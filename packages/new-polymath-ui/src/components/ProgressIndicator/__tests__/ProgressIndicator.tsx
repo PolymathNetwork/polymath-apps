@@ -1,7 +1,8 @@
+import { within } from 'react-testing-library';
 import React from 'react';
 import 'jest-dom/extend-expect';
 import { ProgressIndicator } from '../ProgressIndicator';
-import { render, getByTestId } from '~/testUtils/helpers';
+import { render } from '~/testUtils/helpers';
 
 describe('ProgressIndicator', () => {
   test('renders without crashing', () => {
@@ -16,29 +17,45 @@ describe('ProgressIndicator', () => {
 
   describe('ordered', () => {
     test('correctly numbers the steps', () => {
-      const rendered = render(
-        <ProgressIndicator vertical currentIndex={0} ordered>
+      const { getByTestId } = render(
+        <ProgressIndicator vertical currentIndex={1} ordered>
           <ProgressIndicator.Step label="First Step" data-testid="first-step" />
           <ProgressIndicator.Step
             label="Second Step"
             data-testid="second-step"
           />
+          <ProgressIndicator.Step label="Third Step" data-testid="third-step" />
         </ProgressIndicator>
       );
 
-      const { container, getAllByTitle, getByText, debug } = rendered;
+      const firstStep = getByTestId('ProgressIndicator-Step-1');
+      const secondStep = getByTestId('ProgressIndicator-Step-2');
+      const thirdStep = getByTestId('ProgressIndicator-Step-3');
 
-      const byTitle = getAllByTitle('Current step');
-      expect(byTitle.length).toEqual(1);
-
-      const firstStep = rendered.getByTestId('ProgressIndicator-Step-1');
-      const secondStep = rendered.getByTestId('ProgressIndicator-Step-2');
-
-      // Since it is the current step it should not show its number
+      // Since it is a completed step it should not show its number
       expect(firstStep).not.toHaveTextContent('1');
-      expect(firstStep).toHaveTextContent('Current step');
-
       expect(secondStep).toHaveTextContent('2');
+      expect(thirdStep).toHaveTextContent('3');
     });
+  });
+
+  test('marks next steps as incomplete', () => {
+    const { debug, getByTestId } = render(
+      <ProgressIndicator vertical currentIndex={0}>
+        <ProgressIndicator.Step label="First Step" data-testid="first-step" />
+        <ProgressIndicator.Step label="Second Step" data-testid="second-step" />
+        <ProgressIndicator.Step label="Third Step" data-testid="third-step" />
+      </ProgressIndicator>
+    );
+
+    const firstStep = getByTestId('ProgressIndicator-Step-1');
+    const secondStep = getByTestId('ProgressIndicator-Step-2');
+    const thirdStep = getByTestId('ProgressIndicator-Step-3');
+
+    expect(() => {
+      within(firstStep).getByTestId('IncompleteStepSvg');
+    }).toThrow();
+    within(secondStep).getByTestId('IncompleteStepSvg');
+    within(thirdStep).getByTestId('IncompleteStepSvg');
   });
 });

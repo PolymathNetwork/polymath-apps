@@ -93,6 +93,9 @@
     "setupFiles": [
       "<rootDir>/src/testUtils/setupTests.ts"
     ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/testUtils/globalSetup.ts"
+    ],
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx,mjs}"
     ],
