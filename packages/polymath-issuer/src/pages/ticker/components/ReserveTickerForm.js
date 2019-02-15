@@ -24,6 +24,12 @@ const formSchema = validator.object().shape({
       /^[a-z0-9./-]+$/i,
       'Only alphanumeric characters, hyphens and periods are allowed.'
     )
+    .matches(/^[a-z0-9].*/i, 'Ticker must start with a letter or number.')
+    .matches(/.[a-z0-9]+$/i, 'Ticker must end with a letter or number.')
+    .matches(
+      /^(?!.*\.\.)(?!.*\.\-)(?!.*-\.)(?!.*--).*$/i,
+      'Ticker must not contain 2 special characters together.'
+    )
     .test('isNotReserved', async function(value) {
       let details;
       try {
