@@ -92,8 +92,8 @@
       "~/(.*)": "<rootDir>/src/$1",
       "\\.(css|scss)$": "<rootDir>/config/cssTransform.js"
     },
-    "setupFilesAfterEnv": [
-      "<rootDir>/config/setupTests.ts"
+    "setupFiles": [
+      "<rootDir>/src/testUtils/setupTests.ts"
     ],
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx,mjs}"

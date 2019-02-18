@@ -48,7 +48,12 @@ export const Step: FC<StepProps> = ({
   const IncompleteStepSvg: FC<React.SVGAttributes<SVGElement>> = (
     props: React.SVGAttributes<SVGElement>
   ) => (
-    <svg role="img" viewBox="0 0 24 24" {...props}>
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      data-testid="incomplete-step-svg"
+      {...props}
+    >
       <title>Incomplete step</title>
       <circle fill="currentColor" cx="12" cy="12" r="8" />
     </svg>
