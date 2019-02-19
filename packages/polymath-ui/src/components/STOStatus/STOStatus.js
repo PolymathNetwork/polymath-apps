@@ -57,7 +57,6 @@ export default class STOStatus extends Component<Props, State> {
     const now = new Date();
     if (now < startDate) {
       const timeUntilStart = startDate - now;
-      console.log(timeUntilStart);
 
       setTimeout(() => {
         this.setState({
@@ -76,7 +75,6 @@ export default class STOStatus extends Component<Props, State> {
       };
     } else if (now < endDate) {
       const timeUntilEnd = endDate - now;
-      console.log(timeUntilEnd);
 
       setTimeout(() => {
         this.setState({
@@ -100,14 +98,6 @@ export default class STOStatus extends Component<Props, State> {
 
   componentWillMount() {
     const { token, details, notPausable } = this.props;
-
-    const startTime = new Date(2019, 1, 15, 13, 55, 0, 0);
-    const endTime = new Date(2019, 1, 15, 13, 56, 0, 0);
-
-    console.log(startTime);
-    console.log(endTime);
-    console.log(details.start);
-    console.log(details.end);
 
     this.setState({
       countdownProps: this.getCountdownProps(
