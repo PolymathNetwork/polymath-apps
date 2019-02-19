@@ -78,7 +78,7 @@ export const toTokens = (
   if (isBigNumber(value)) {
     num = new BigNumber(value);
   } else {
-    num = new BigNumber(String(value));
+    num = new BigNumber(`${value}`);
   }
 
   return num.toFormat(decimals);
