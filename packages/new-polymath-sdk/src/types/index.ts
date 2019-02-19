@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { HttpProvider, WebsocketProvider } from 'web3/providers';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
-import PromiEvent from 'web3/promiEvent';
 import { types } from '@polymathnetwork/new-shared';
+import { PolyResponse } from '@polymathnetwork/contract-wrappers';
 
 export { DividendModuleTypes } from '~/LowLevel/types';
 
@@ -36,7 +36,7 @@ export interface InvestorBalance {
 
 export type LowLevelMethod<A extends any[]> = (
   ...args: A
-) => Promise<() => PromiEvent<any>>;
+) => Promise<() => Promise<PolyResponse>>;
 
 export interface TransactionSpec {
   method: LowLevelMethod<any>;

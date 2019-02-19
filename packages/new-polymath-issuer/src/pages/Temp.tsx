@@ -91,11 +91,11 @@ export class ContainerBase extends Component<Props> {
     //   console.log(`Transaction status: ${tx.status}`);
     // });
 
-    // try {
-    //   await transactionQueue.run();
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      await transactionQueue.run();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   public render() {

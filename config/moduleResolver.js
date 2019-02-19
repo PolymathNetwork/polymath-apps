@@ -16,6 +16,8 @@ module.exports = mainDir => {
       root: [`./src`],
       cwd: 'packagejson',
       alias: {
+        '@polymathnetwork/contract-wrappers':
+          '@polymathnetwork/contract-wrappers',
         '~/(.+)': `./src/`,
         /* Resolve local dependencies to the corresponding directory */
         '^@polymathnetwork/([^/]+)/(.+)': `@polymathnetwork/\\1/${mainDir}/\\2`,

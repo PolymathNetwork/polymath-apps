@@ -1,10 +1,13 @@
 import { HttpProvider } from 'web3/providers';
-import { PolyToken } from '~/LowLevel/PolyToken';
-import { LowLevel } from '~/LowLevel';
-import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
-import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
+import { PolymathAPI } from '@polymathnetwork/contract-wrappers';
+import {
+  RPCSubprovider,
+  Web3ProviderEngine,
+  MetamaskSubprovider,
+  RedundantSubprovider,
+} from '@0x/subproviders';
+import { Provider } from 'ethereum-types';
 import { Context } from '~/Context';
-import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
 import { TaxWithholding } from '~/types';
 import {
   Dividend as LowLevelDividend,
@@ -26,6 +29,10 @@ import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
 import { PolymathNetworkParams } from '~/types';
 import { constants } from '@polymathnetwork/new-shared';
+import { PolyTokenWrapper } from '@polymathnetwork/contract-wrappers';
+import { PolymathRegistryWrapper } from '@polymathnetwork/contract-wrappers';
+import { SecurityTokenRegistryWrapper } from '@polymathnetwork/contract-wrappers';
+import { ModuleRegistryWrapper } from '@polymathnetwork/contract-wrappers';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -49,6 +56,66 @@ interface ContextualizedEntities {
   Erc20DividendsModule: typeof Erc20DividendsModule;
 }
 
+interface DataProvider {
+  network: number,
+  provider: Web3ProviderEngine,
+}
+
+async function getProviderEngine(): Promise<DataProvider> {
+  const providerEngine = new Web3ProviderEngine();
+  const injectedProviderIfExists = await getInjectedProviderIfExists();
+  let networkId = 15;
+  if (injectedProviderIfExists !== undefined) {
+    try {
+      providerEngine.addProvider(new MetamaskSubprovider(injectedProviderIfExists));
+      networkId = Number((injectedProviderIfExists as any).networkVersion);
+    } catch (err) {
+      // Ignore error and proceed with networkId undefined
+    }
+  }
+  interface IPublicNodeUrlsByNetworkId {
+    [networkId: number]: string[];
+  }
+  const INFURA_API_KEY = 'T5WSC8cautR4KXyYgsRs';
+  const configs = {
+    PUBLIC_NODE_URLS_BY_NETWORK_ID: {
+      [1]: [`https://mainnet.infura.io/${INFURA_API_KEY}`],
+      [42]: [`https://kovan.infura.io/${INFURA_API_KEY}`],
+      [15]: ['http://127.0.0.1:8545'],
+    } as IPublicNodeUrlsByNetworkId,
+  };
+  const publicNodeUrlsIfExistsForNetworkId = configs.PUBLIC_NODE_URLS_BY_NETWORK_ID[networkId];
+  const rpcSubproviders = publicNodeUrlsIfExistsForNetworkId.map(publicNodeUrl => {
+    return new RPCSubprovider(publicNodeUrl);
+  });
+  providerEngine.addProvider(new RedundantSubprovider(rpcSubproviders));
+  providerEngine.start();
+  return {
+    network: networkId,
+    provider: providerEngine
+  };
+}
+
+async function getInjectedProviderIfExists(): Promise<Provider | undefined> {
+  let injectedProviderIfExists = (window as any).ethereum;
+  if (injectedProviderIfExists !== undefined) {
+    if (injectedProviderIfExists.enable !== undefined) {
+      try {
+        await injectedProviderIfExists.enable();
+      } catch (err) {
+        return undefined;
+      }
+    }
+  } else {
+    const injectedWeb3IfExists = (window as any).web3;
+    if (injectedWeb3IfExists !== undefined && injectedWeb3IfExists.currentProvider !== undefined) {
+      injectedProviderIfExists = injectedWeb3IfExists.currentProvider;
+    } else {
+      return undefined;
+    }
+  }
+  return injectedProviderIfExists;
+}
 export class Polymath {
   public httpProvider: HttpProvider = (null as any) as HttpProvider;
   public httpProviderUrl: string = '';
@@ -56,9 +123,11 @@ export class Polymath {
   public isUnsupported: boolean = false;
   public isConnected: boolean = false;
   public polymathRegistryAddress: string = '';
-  private lowLevel: LowLevel = {} as LowLevel;
+  //private lowLevel: LowLevel = {} as LowLevel;
+  private polymatAPI: PolymathAPI = {} as PolymathAPI;
   private context: Context = {} as Context;
   private entities: ContextualizedEntities;
+  private provider: DataProvider = {} as DataProvider;
 
   constructor() {
     // TODO @RafaelVidaurre: type this correctly
@@ -79,26 +148,19 @@ export class Polymath {
     httpProviderUrl,
   }: PolymathNetworkParams) => {
     this.polymathRegistryAddress = polymathRegistryAddress;
+    this.provider = await getProviderEngine();
 
-    if (httpProvider) {
-      this.httpProvider = httpProvider;
-      this.lowLevel = new LowLevel({ provider: this.httpProvider });
-    } else if (httpProviderUrl) {
-      this.httpProviderUrl = httpProviderUrl;
-      this.lowLevel = new LowLevel({ provider: this.httpProviderUrl });
-    } else {
-      this.lowLevel = new LowLevel();
-    }
+    this.polymatAPI = new PolymathAPI(this.provider.provider, this.provider.network);
 
     this.polymathRegistryAddress = polymathRegistryAddress;
 
-    this.networkId = await this.lowLevel.getNetworkId();
-    const account = await this.lowLevel.getAccount();
+    this.networkId = this.provider.network;
+    const account = await this.polymatAPI.getAccount();
 
     if (!polymathRegistryAddress) {
       throw new Error(
         `Polymath registry address for network id "${
-          this.networkId
+        this.networkId
         }" was not found`
       );
     }
@@ -106,19 +168,17 @@ export class Polymath {
     if (!account) {
       throw new Error(
         "No account found. If you are using node, make sure you've not" +
-          ' forgotten to add a private key. If you are using Metamask make sure ethereum.enable() was called first'
+        ' forgotten to add a private key. If you are using Metamask make sure ethereum.enable() was called first'
       );
     }
 
-    await this.lowLevel.initialize({ polymathRegistryAddress });
-
     this.context = new Context({
-      polyToken: this.lowLevel.polyToken as PolyToken,
-      polymathRegistry: this.lowLevel.polymathRegistry as PolymathRegistry,
-      securityTokenRegistry: this.lowLevel
-        .securityTokenRegistry as SecurityTokenRegistry,
-      moduleRegistry: this.lowLevel.moduleRegistry as ModuleRegistry,
-      isTestnet: this.lowLevel.isTestnet(),
+      polyToken: this.polymatAPI.polyToken as PolyTokenWrapper,
+      polymathRegistry: this.polymatAPI.polymathRegistry as PolymathRegistryWrapper,
+      securityTokenRegistry: this.polymatAPI
+        .securityTokenRegistry as SecurityTokenRegistryWrapper,
+      moduleRegistry: this.polymatAPI.moduleRegistry as ModuleRegistryWrapper,
+      isTestnet: true,
       accountAddress: account,
     });
 
@@ -185,7 +245,7 @@ export class Polymath {
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholding[];
   }) => {
-    const polyAddress = this.context.polyToken.address;
+    const polyAddress = await this.context.polyToken.getAddress();
     const procedure = new CreateErc20DividendDistribution(
       {
         erc20Address: polyAddress,
@@ -233,135 +293,135 @@ export class Polymath {
     return await procedure.prepare();
   };
 
-  /**
-   * Retrieve list of checkpoints and their corresponding dividends
-   */
-  public getCheckpoints = async (args: {
-    symbol: string;
-  }): Promise<Checkpoint[]> => {
-    const { securityTokenRegistry } = this.context;
-    const { symbol: securityTokenSymbol } = args;
+  // /**
+  //  * Retrieve list of checkpoints and their corresponding dividends
+  //  */
+  // public getCheckpoints = async (args: {
+  //   symbol: string;
+  // }): Promise<Checkpoint[]> => {
+  //   const { securityTokenRegistry } = this.context;
+  //   const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
-    const erc20Module = await securityToken.getErc20DividendModule();
-    const etherModule = await securityToken.getEtherDividendModule();
+  //   const securityToken = await securityTokenRegistry.getSecurityTokenAddress(
+  //     securityTokenSymbol
+  //   );
+  //   const erc20Module = await securityToken.getErc20DividendModule();
+  //   const etherModule = await securityToken.getEtherDividendModule();
 
-    let erc20Dividends: LowLevelDividend[] = [];
-    let etherDividends: LowLevelDividend[] = [];
+  //   let erc20Dividends: LowLevelDividend[] = [];
+  //   let etherDividends: LowLevelDividend[] = [];
 
-    if (erc20Module) {
-      erc20Dividends = await erc20Module.getDividends();
-    }
-    if (etherModule) {
-      etherDividends = await etherModule.getDividends();
-    }
+  //   if (erc20Module) {
+  //     erc20Dividends = await erc20Module.getDividends();
+  //   }
+  //   if (etherModule) {
+  //     etherDividends = await etherModule.getDividends();
+  //   }
 
-    const checkpoints: LowLevelCheckpoint[] = await securityToken.getCheckpoints();
+  //   const checkpoints: LowLevelCheckpoint[] = await securityToken.getCheckpoints();
 
-    const address = securityToken.address;
-    const name = await securityToken.name();
-    const stEntity = new this.SecurityToken({
-      symbol: securityTokenSymbol,
-      name,
-      address,
-    });
-    const securityTokenId = stEntity.uid;
+  //   const address = securityToken.address;
+  //   const name = await securityToken.name();
+  //   const stEntity = new this.SecurityToken({
+  //     symbol: securityTokenSymbol,
+  //     name,
+  //     address,
+  //   });
+  //   const securityTokenId = stEntity.uid;
 
-    return checkpoints.map(checkpoint => {
-      const checkpointDividends = [...erc20Dividends, ...etherDividends].filter(
-        dividend => dividend.checkpointId === checkpoint.index
-      );
+  //   return checkpoints.map(checkpoint => {
+  //     const checkpointDividends = [...erc20Dividends, ...etherDividends].filter(
+  //       dividend => dividend.checkpointId === checkpoint.index
+  //     );
 
-      const emptyCheckpoint = new this.Checkpoint({
-        ...checkpoint,
-        securityTokenId,
-        securityTokenSymbol,
-        dividends: [],
-      });
+  //     const emptyCheckpoint = new this.Checkpoint({
+  //       ...checkpoint,
+  //       securityTokenId,
+  //       securityTokenSymbol,
+  //       dividends: [],
+  //     });
 
-      const dividends = checkpointDividends.map(
-        dividend =>
-          new this.Dividend({
-            ...dividend,
-            checkpointId: emptyCheckpoint.uid,
-            securityTokenSymbol,
-            securityTokenId,
-          })
-      );
+  //     const dividends = checkpointDividends.map(
+  //       dividend =>
+  //         new this.Dividend({
+  //           ...dividend,
+  //           checkpointId: emptyCheckpoint.uid,
+  //           securityTokenSymbol,
+  //           securityTokenId,
+  //         })
+  //     );
 
-      emptyCheckpoint.dividends = dividends;
+  //     emptyCheckpoint.dividends = dividends;
 
-      return emptyCheckpoint;
-    });
-  };
+  //     return emptyCheckpoint;
+  //   });
+  // };
 
-  public getCheckpoint = async (args: {
-    symbol: string;
-    checkpointIndex: number;
-  }) => {
-    const { symbol, checkpointIndex } = args;
-    const checkpoints = await this.getCheckpoints({
-      symbol,
-    });
+  // public getCheckpoint = async (args: {
+  //   symbol: string;
+  //   checkpointIndex: number;
+  // }) => {
+  //   const { symbol, checkpointIndex } = args;
+  //   const checkpoints = await this.getCheckpoints({
+  //     symbol,
+  //   });
 
-    const thisCheckpoint = checkpoints.find(
-      checkpoint => checkpoint.index === checkpointIndex
-    );
+  //   const thisCheckpoint = checkpoints.find(
+  //     checkpoint => checkpoint.index === checkpointIndex
+  //   );
 
-    return thisCheckpoint || null;
-  };
+  //   return thisCheckpoint || null;
+  // };
 
-  public getDividends = async (args: {
-    symbol: string;
-    checkpointIndex: number;
-  }) => {
-    const { symbol, checkpointIndex } = args;
+  // public getDividends = async (args: {
+  //   symbol: string;
+  //   checkpointIndex: number;
+  // }) => {
+  //   const { symbol, checkpointIndex } = args;
 
-    const thisCheckpoint = await this.getCheckpoint({
-      symbol,
-      checkpointIndex,
-    });
+  //   const thisCheckpoint = await this.getCheckpoint({
+  //     symbol,
+  //     checkpointIndex,
+  //   });
 
-    if (thisCheckpoint) {
-      return thisCheckpoint.dividends;
-    }
+  //   if (thisCheckpoint) {
+  //     return thisCheckpoint.dividends;
+  //   }
 
-    return [];
-  };
+  //   return [];
+  // };
 
-  public getErc20DividendsModule = async (args: { symbol: string }) => {
-    const { securityTokenRegistry } = this.context;
-    const { symbol: securityTokenSymbol } = args;
+  // public getErc20DividendsModule = async (args: { symbol: string }) => {
+  //   const { securityTokenRegistry } = this.context;
+  //   const { symbol: securityTokenSymbol } = args;
 
-    const securityToken = await securityTokenRegistry.getSecurityToken(
-      securityTokenSymbol
-    );
-    const erc20Module = await securityToken.getErc20DividendModule();
+  //   const securityToken = await securityTokenRegistry.getSecurityTokenAddress(
+  //     securityTokenSymbol
+  //   );
+  //   const erc20Module = await securityToken.getErc20DividendModule();
 
-    const name = await securityToken.name();
+  //   const name = await securityToken.name();
 
-    const securityTokenEntity = new this.SecurityToken({
-      address: securityToken.address,
-      symbol: securityTokenSymbol,
-      name,
-    });
+  //   const securityTokenEntity = new this.SecurityToken({
+  //     address: securityToken.address,
+  //     symbol: securityTokenSymbol,
+  //     name,
+  //   });
 
-    const constructorData = {
-      securityTokenSymbol,
-      securityTokenId: securityTokenEntity.uid,
-    };
+  //   const constructorData = {
+  //     securityTokenSymbol,
+  //     securityTokenId: securityTokenEntity.uid,
+  //   };
 
-    if (erc20Module) {
-      return new this.Erc20DividendsModule({
-        address: erc20Module.address,
-        ...constructorData,
-      });
-    }
+  //   if (erc20Module) {
+  //     return new this.Erc20DividendsModule({
+  //       address: erc20Module.address,
+  //       ...constructorData,
+  //     });
+  //   }
 
-    return null;
-  };
+  //   return null;
+  // };
 
   get SecurityToken() {
     return this.entities.SecurityToken;

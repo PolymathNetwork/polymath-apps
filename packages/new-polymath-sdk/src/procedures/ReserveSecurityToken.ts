@@ -1,6 +1,7 @@
 import { Procedure } from './Procedure';
 import { Approve } from './Approve';
 import { types } from '@polymathnetwork/new-shared';
+import { IApprove, IRegisterTicker } from '@polymathnetwork/contract-wrappers';
 
 interface Args {
   symbol: string;
@@ -17,12 +18,14 @@ export class ReserveSecurityToken extends Procedure<Args> {
 
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
 
+    const approvalParams: IApprove = { spender: 'securityTokenRegistry.address', value: fee }
     await this.addTransaction(polyToken.approve, {
       tag: types.PolyTransactionTags.Approve,
-    })(securityTokenRegistry.address, fee);
+    })(approvalParams);
 
+    const registerTicerParams: IRegisterTicker = { ticker: symbol, tokenName: name }
     await this.addTransaction(securityTokenRegistry.registerTicker, {
       tag: types.PolyTransactionTags.ReserveSecurityToken,
-    })(currentWallet.address, symbol, name);
+    })(registerTicerParams);
   }
 }

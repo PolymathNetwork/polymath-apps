@@ -4,7 +4,7 @@ import { types } from '@polymathnetwork/new-shared';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { TransactionSpec, ErrorCodes } from '~/types';
 import { PolymathError } from '~/PolymathError';
-import { TransactionReceipt } from 'web3/types';
+import { TransactionReceiptWithDecodedLogs } from 'ethereum-types';
 import { Entity } from '~/entities/Entity';
 import { TransactionQueue } from '~/entities/TransactionQueue';
 
@@ -42,7 +42,7 @@ export class PolyTransaction extends Entity {
   public transactionQueue: TransactionQueue;
   public promise: Promise<any>;
   public error?: PolymathError;
-  public receipt?: TransactionReceipt;
+  public receipt?: TransactionReceiptWithDecodedLogs;
   public tag: types.PolyTransactionTags;
   public txHash?: string;
   public description: string;
@@ -50,7 +50,7 @@ export class PolyTransaction extends Entity {
   protected args: TransactionSpec['args'];
   private postResolver: PostTransactionResolver<
     any
-  > = new PostTransactionResolver(async () => {});
+  > = new PostTransactionResolver(async () => { });
   private emitter: EventEmitter;
 
   constructor(
@@ -130,24 +130,22 @@ export class PolyTransaction extends Entity {
     };
   };
 
-  protected resolve: (val?: any) => void = () => {};
-  protected reject: (reason?: any) => void = () => {};
+  protected resolve: (val?: any) => void = () => { };
+  protected reject: (reason?: any) => void = () => { };
 
   private async internalRun() {
     this.updateStatus(types.TransactionStatus.Unapproved);
 
     const unwrappedArgs = this.unwrapArgs(this.args);
-    const promiEvent = (await this.method(...unwrappedArgs))();
+    const polyResponse = await (await this.method(...unwrappedArgs))();
     // Set the Transaction as Running once it is approved by the user
-    promiEvent.on('transactionHash', txHash => {
-      this.txHash = txHash;
-      this.updateStatus(types.TransactionStatus.Running);
-    });
+    this.txHash = polyResponse.txHash;
+    this.updateStatus(types.TransactionStatus.Running);
 
-    let result;
+    let receipt;
 
     try {
-      result = await promiEvent;
+      receipt = await polyResponse.receiptAsync;
     } catch (err) {
       // Wrap with PolymathError
       if (err.message.indexOf('MetaMask Tx Signature') > -1) {
@@ -166,7 +164,7 @@ export class PolyTransaction extends Entity {
 
     await this.postResolver.run();
 
-    return result;
+    return receipt;
   }
 
   private updateStatus = (status: types.TransactionStatus) => {
@@ -209,8 +207,8 @@ export class PolyTransaction extends Entity {
     return _.map(args, arg => {
       return _.isPlainObject(arg)
         ? mapValuesDeep(arg as { [key: string]: any }, (val: any) => {
-            return this.unwrapArg(val);
-          })
+          return this.unwrapArg(val);
+        })
         : this.unwrapArg(arg);
     });
   }
