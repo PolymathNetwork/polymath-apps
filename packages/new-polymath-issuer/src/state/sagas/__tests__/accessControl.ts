@@ -1,6 +1,5 @@
 import { runSaga } from 'redux-saga';
 import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
-import '~/state/store';
 import * as sagas from '~/state/sagas/accessControl';
 import { MockedStore, mockEthereumBrowser } from '~/testUtils/helpers';
 
@@ -15,9 +14,7 @@ jest.mock('@polymathnetwork/sdk', () => {
   return {
     ...original,
     browserUtils: {
-      getCurrentAddress: jest.fn(() => {
-        console.log(' ===== MOCK CALLED =====');
-      }),
+      getCurrentAddress: jest.fn(() => '0x1234'),
       onAddressChange() {
         return () => {};
       },
@@ -36,9 +33,8 @@ describe('accessControl sagas', () => {
   });
 
   describe('requireWallet', () => {
-    test.only('redirects to "/login" if user denied access', async () => {
+    test('redirects to "/login" if user denied access', async () => {
       (browserUtils.getCurrentAddress as any).mockImplementationOnce(() => {
-        console.log('BROWTILSS');
         throw new PolymathError({ code: ErrorCodes.UserDeniedAccess });
       });
 

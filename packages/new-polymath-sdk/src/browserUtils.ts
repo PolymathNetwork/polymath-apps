@@ -111,6 +111,7 @@ export async function getNetworkId(): Promise<number | null> {
 }
 
 export async function getCurrentAddress() {
+  console.log('ADDRESS RETRIEVAL!!');
   const win = window as ExtendedWindow;
   const web3 = getWeb3();
   let accounts: string[] = [];
