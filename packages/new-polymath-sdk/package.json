@@ -33,8 +33,10 @@
     ]
   },
   "dependencies": {
+    "@0x/subproviders": "^3.0.2",
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.2.0",
+    "@polymathnetwork/contract-wrappers": "2.1.0-alpha.7",
     "@polymathnetwork/new-shared": "0.0.0",
     "bignumber.js": "^8.0.1",
     "uuid": "^3.3.2",
