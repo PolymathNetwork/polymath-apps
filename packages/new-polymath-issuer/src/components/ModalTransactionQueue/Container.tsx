@@ -5,7 +5,6 @@ import { types } from '@polymathnetwork/new-shared';
 import { RootState } from '~/state/store';
 import { createGetActiveTransactionQueue } from '~/state/selectors';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
-import { sagaMiddleware } from '~/testUtils/helpers';
 import {
   confirmTransactionQueue,
   cancelTransactionQueue,
@@ -28,7 +27,7 @@ export interface DispatchProps {
 
 export type Props = StateProps & DispatchProps;
 
-const mapStateToProps = props => {
+const mapStateToProps = () => {
   const getActiveTransactionQueue = createGetActiveTransactionQueue();
 
   return (state: RootState): StateProps => {

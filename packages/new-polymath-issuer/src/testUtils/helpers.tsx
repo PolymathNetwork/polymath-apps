@@ -1,15 +1,17 @@
 import React, { Fragment } from 'react';
-// import createSagaMiddleware from 'redux-saga';
 import { render } from 'react-testing-library';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { Action, Middleware } from 'redux';
+import { Action, Middleware, Store } from 'redux';
 import { set } from 'lodash';
 import Web3FakeProvider from 'web3-fake-provider';
 import { RootState } from '~/state/reducers/root';
 
 interface RenderTestOpts {
-  initialState: RootState;
+  state?: RootState;
+}
+export interface StoreMock extends Store<RootState> {
+  getActions(): Array<{ [key: string]: any }>;
 }
 
 const middlewares: Middleware[] = [];
@@ -17,12 +19,12 @@ const mockStore = configureMockStore(middlewares);
 
 const customRender = (
   node: React.ReactElement<any>,
-  testOpts: RenderTestOpts,
+  testOpts: RenderTestOpts = {},
   ...opts: any[]
 ) => {
-  const initialState = testOpts.initialState;
+  const store = (mockStore(testOpts.state || {}) as any) as StoreMock;
   const { rerender, ...result } = render(
-    <Provider store={mockStore(initialState)}>{node}</Provider>,
+    <Provider store={store}>{node}</Provider>,
     ...opts
   );
 
@@ -30,7 +32,7 @@ const customRender = (
     return rerender(<Fragment>{rerenderNode}</Fragment>);
   };
 
-  return { rerender: customRerender, ...result };
+  return { rerender: customRerender, store, ...result };
 };
 
 export * from 'react-testing-library';
