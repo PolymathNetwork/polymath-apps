@@ -66,6 +66,7 @@ const REQUIRED_MESSAGE = 'Required.';
 const MORE_THAN_MESSAGE = 'Must be higher than ${more}.';
 const MIN_MESSAGE = 'Must be at least ${min}.';
 const ADDRESS_MESSAGE = 'Invalid address.';
+const MAX_DIGITS_MESSAGE = 'Cannot have more than ${maxDigits} digits.';
 /* eslint-enable no-template-curly-in-string */
 
 export {
@@ -77,4 +78,5 @@ export {
   MORE_THAN_MESSAGE,
   MIN_MESSAGE,
   ADDRESS_MESSAGE,
+  MAX_DIGITS_MESSAGE,
 };
