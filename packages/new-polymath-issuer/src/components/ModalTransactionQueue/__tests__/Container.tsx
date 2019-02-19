@@ -1,5 +1,5 @@
 import React from 'react';
-import { testUtils, utils } from '@polymathnetwork/new-shared';
+import { testUtils } from '@polymathnetwork/new-shared';
 import { render } from '~/testUtils/helpers';
 import { reducer } from '~/state/reducers/root';
 import * as transactionQueueActions from '~/state/actions/transactionQueues';
