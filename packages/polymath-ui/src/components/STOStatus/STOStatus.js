@@ -47,7 +47,6 @@ type State = {|
 export default class STOStatus extends Component<Props, State> {
   state = {
     countdownProps: {},
-    isSaleClosed: false,
   };
 
   getCountdownProps = (
@@ -57,7 +56,8 @@ export default class STOStatus extends Component<Props, State> {
   ): ?CountdownProps => {
     const now = new Date();
     if (now < startDate) {
-      const diffMs = startDate - now;
+      const timeUntilStart = startDate - now;
+      console.log(timeUntilStart);
 
       setTimeout(() => {
         this.setState({
@@ -67,7 +67,7 @@ export default class STOStatus extends Component<Props, State> {
             this.props.isStoPaused
           ),
         });
-      }, diffMs);
+      }, timeUntilStart);
 
       return {
         deadline: startDate,
@@ -75,7 +75,8 @@ export default class STOStatus extends Component<Props, State> {
         isPaused: isStoPaused,
       };
     } else if (now < endDate) {
-      const diffMs = endDate - now;
+      const timeUntilEnd = endDate - now;
+      console.log(timeUntilEnd);
 
       setTimeout(() => {
         this.setState({
@@ -85,7 +86,7 @@ export default class STOStatus extends Component<Props, State> {
             this.props.isStoPaused
           ),
         });
-      }, diffMs);
+      }, timeUntilEnd);
 
       return {
         deadline: endDate,
@@ -100,6 +101,14 @@ export default class STOStatus extends Component<Props, State> {
   componentWillMount() {
     const { token, details, notPausable } = this.props;
 
+    const startTime = new Date(2019, 1, 15, 13, 55, 0, 0);
+    const endTime = new Date(2019, 1, 15, 13, 56, 0, 0);
+
+    console.log(startTime);
+    console.log(endTime);
+    console.log(details.start);
+    console.log(details.end);
+
     this.setState({
       countdownProps: this.getCountdownProps(
         details.start,
@@ -111,7 +120,7 @@ export default class STOStatus extends Component<Props, State> {
   render() {
     const { token, details, notPausable } = this.props;
 
-    const { countdownProps, isSaleClosed } = this.state;
+    const { countdownProps } = this.state;
 
     const symbol = details.isPolyFundraise ? 'POLY' : 'ETH';
 
@@ -178,7 +187,7 @@ export default class STOStatus extends Component<Props, State> {
               </div>
             </div>
           </div>
-          {countdownProps != null && !isSaleClosed ? (
+          {countdownProps != null ? (
             <div className="pui-countdown-container">
               <Countdown
                 deadline={countdownProps.deadline}
