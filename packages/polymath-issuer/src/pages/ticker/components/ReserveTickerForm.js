@@ -84,7 +84,7 @@ export const ReserveTickerFormComponent = ({ handleSubmit }) => (
 
     <FormItem name="owner">
       <FormItem.Label>
-        <Tooltip triggerText="Issuer&apos;s ETH Address">
+        <Tooltip triggerText="Issuer's ETH Address">
           <p>
             <strong>Issuer&apos;s ETH Address</strong>
           </p>
@@ -127,8 +127,8 @@ const formikEnhancer = withFormik({
   },
   handleSubmit: (values, { props }) => {
     const { dispatch } = props;
-
-    dispatch(reserve(values));
+    const formattedValues = { ...values, ticker: values.ticker.toUpperCase() };
+    dispatch(reserve(formattedValues));
   },
 });
 

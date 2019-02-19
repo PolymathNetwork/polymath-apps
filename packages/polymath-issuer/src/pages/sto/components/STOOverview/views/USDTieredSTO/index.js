@@ -164,7 +164,7 @@ const USDTieredSTOOverviewComponent = ({
                   </div>
                 </div>
                 <Box mb={4}>
-                  <ProgressBar progress={totalUsdRaisedPercent / 100} />
+                  <ProgressBar progress={totalUsdRaisedPercent} />
                 </Box>
                 <Grid
                   gridTemplateColumns={['', '', '', '1fr minmax(250px, 1fr)']}

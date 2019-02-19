@@ -884,7 +884,7 @@
         "id": 32713,
         "nodeType": "ImportDirective",
         "scope": 33728,
-        "sourceUnit": 41394,
+        "sourceUnit": 41406,
         "src": "59:57:80",
         "symbolAliases": [],
         "unitAlias": ""
@@ -895,7 +895,7 @@
         "id": 32714,
         "nodeType": "ImportDirective",
         "scope": 33728,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "117:59:80",
         "symbolAliases": [],
         "unitAlias": ""
@@ -909,10 +909,10 @@
               "id": 32715,
               "name": "GeneralTransferManagerStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41393,
+              "referencedDeclaration": 41405,
               "src": "298:29:80",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_GeneralTransferManagerStorage_$41393",
+                "typeIdentifier": "t_contract$_GeneralTransferManagerStorage_$41405",
                 "typeString": "contract GeneralTransferManagerStorage"
               }
             },
@@ -945,7 +945,7 @@
           25673,
           26069,
           33988,
-          41393
+          41405
         ],
         "contractKind": "contract",
         "documentation": "@title Transfer Manager module for core transfer validation functionality",
@@ -958,7 +958,7 @@
           25673,
           26069,
           10848,
-          41393
+          41405
         ],
         "name": "GeneralTransferManager",
         "nodeType": "ContractDefinition",
@@ -970,10 +970,10 @@
               "id": 32719,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "359:8:80",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -1795,10 +1795,10 @@
                         "name": "defaults",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41367,
+                        "referencedDeclaration": 41379,
                         "src": "2873:8:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                          "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                           "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                         }
                       },
@@ -1809,7 +1809,7 @@
                       "lValueRequested": true,
                       "memberName": "fromTime",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41362,
+                      "referencedDeclaration": 41374,
                       "src": "2873:17:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint64",
@@ -1857,10 +1857,10 @@
                         "name": "defaults",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41367,
+                        "referencedDeclaration": 41379,
                         "src": "2919:8:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                          "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                           "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                         }
                       },
@@ -1871,7 +1871,7 @@
                       "lValueRequested": true,
                       "memberName": "toTime",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41364,
+                      "referencedDeclaration": 41376,
                       "src": "2919:15:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint64",
@@ -1990,7 +1990,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "2856:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -2110,7 +2110,7 @@
                       "name": "issuanceAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41338,
+                      "referencedDeclaration": 41350,
                       "src": "3244:15:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2212,7 +2212,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "3227:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -2306,7 +2306,7 @@
                       "name": "signingAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41343,
+                      "referencedDeclaration": 41355,
                       "src": "3558:14:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2408,7 +2408,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "3541:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -2502,7 +2502,7 @@
                       "name": "allowAllTransfers",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41383,
+                      "referencedDeclaration": 41395,
                       "src": "4002:17:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -2604,7 +2604,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "3985:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -2698,7 +2698,7 @@
                       "name": "allowAllWhitelistTransfers",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41386,
+                      "referencedDeclaration": 41398,
                       "src": "4502:26:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -2800,7 +2800,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "4485:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -2894,7 +2894,7 @@
                       "name": "allowAllWhitelistIssuances",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41389,
+                      "referencedDeclaration": 41401,
                       "src": "5038:26:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -2996,7 +2996,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "5021:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -3090,7 +3090,7 @@
                       "name": "allowAllBurnTransfers",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41392,
+                      "referencedDeclaration": 41404,
                       "src": "5483:21:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -3192,7 +3192,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "5466:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -3318,7 +3318,7 @@
                           "name": "allowAllTransfers",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41383,
+                          "referencedDeclaration": 41395,
                           "src": "6261:17:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -3390,7 +3390,7 @@
                             "name": "allowAllBurnTransfers",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 41392,
+                            "referencedDeclaration": 41404,
                             "src": "6414:21:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bool",
@@ -3564,7 +3564,7 @@
                           "name": "allowAllWhitelistTransfers",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41386,
+                          "referencedDeclaration": 41398,
                           "src": "6529:26:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -3868,10 +3868,10 @@
                                   "name": "whitelist",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 41374,
+                                  "referencedDeclaration": 41386,
                                   "src": "6819:9:80",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                     "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                   }
                                 },
@@ -3896,7 +3896,7 @@
                                 "nodeType": "IndexAccess",
                                 "src": "6819:16:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                  "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                   "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                                 }
                               },
@@ -3907,7 +3907,7 @@
                               "lValueRequested": false,
                               "memberName": "fromTime",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41351,
+                              "referencedDeclaration": 41363,
                               "src": "6819:25:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint64",
@@ -3924,10 +3924,10 @@
                                   "name": "whitelist",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 41374,
+                                  "referencedDeclaration": 41386,
                                   "src": "6846:9:80",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                     "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                   }
                                 },
@@ -3952,7 +3952,7 @@
                                 "nodeType": "IndexAccess",
                                 "src": "6846:14:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                  "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                   "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                                 }
                               },
@@ -3963,7 +3963,7 @@
                               "lValueRequested": false,
                               "memberName": "toTime",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41353,
+                              "referencedDeclaration": 41365,
                               "src": "6846:21:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint64",
@@ -4043,7 +4043,7 @@
                             "name": "issuanceAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 41338,
+                            "referencedDeclaration": 41350,
                             "src": "6895:15:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -4101,10 +4101,10 @@
                                             "name": "whitelist",
                                             "nodeType": "Identifier",
                                             "overloadedDeclarations": [],
-                                            "referencedDeclaration": 41374,
+                                            "referencedDeclaration": 41386,
                                             "src": "7027:9:80",
                                             "typeDescriptions": {
-                                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                               "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                             }
                                           },
@@ -4129,7 +4129,7 @@
                                           "nodeType": "IndexAccess",
                                           "src": "7027:14:80",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                            "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                             "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                                           }
                                         },
@@ -4140,7 +4140,7 @@
                                         "lValueRequested": false,
                                         "memberName": "canBuyFromSTO",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 41357,
+                                        "referencedDeclaration": 41369,
                                         "src": "7027:28:80",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_uint8",
@@ -4279,7 +4279,7 @@
                                 "name": "allowAllWhitelistIssuances",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41389,
+                                "referencedDeclaration": 41401,
                                 "src": "7241:26:80",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_bool",
@@ -4397,7 +4397,7 @@
                                                         "name": "now",
                                                         "nodeType": "Identifier",
                                                         "overloadedDeclarations": [],
-                                                        "referencedDeclaration": 44762,
+                                                        "referencedDeclaration": 44774,
                                                         "src": "7444:3:80",
                                                         "typeDescriptions": {
                                                           "typeIdentifier": "t_uint256",
@@ -4817,7 +4817,7 @@
                                                   "name": "now",
                                                   "nodeType": "Identifier",
                                                   "overloadedDeclarations": [],
-                                                  "referencedDeclaration": 44762,
+                                                  "referencedDeclaration": 44774,
                                                   "src": "7743:3:80",
                                                   "typeDescriptions": {
                                                     "typeIdentifier": "t_uint256",
@@ -5004,7 +5004,7 @@
                                                   "name": "now",
                                                   "nodeType": "Identifier",
                                                   "overloadedDeclarations": [],
-                                                  "referencedDeclaration": 44762,
+                                                  "referencedDeclaration": 44774,
                                                   "src": "7817:3:80",
                                                   "typeDescriptions": {
                                                     "typeIdentifier": "t_uint256",
@@ -5552,7 +5552,7 @@
                     "name": "WHITELIST",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41346,
+                    "referencedDeclaration": 41358,
                     "src": "8729:9:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -5862,10 +5862,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "9622:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -6043,10 +6043,10 @@
                           "name": "whitelist",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41374,
+                          "referencedDeclaration": 41386,
                           "src": "9792:9:80",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                             "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                           }
                         },
@@ -6071,7 +6071,7 @@
                         "nodeType": "IndexAccess",
                         "src": "9792:20:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                          "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                           "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                         }
                       },
@@ -6082,7 +6082,7 @@
                       "lValueRequested": false,
                       "memberName": "added",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41359,
+                      "referencedDeclaration": 41371,
                       "src": "9792:26:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -6193,7 +6193,7 @@
                               "name": "investors",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41370,
+                              "referencedDeclaration": 41382,
                               "src": "9846:9:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -6251,10 +6251,10 @@
                         "name": "whitelist",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41374,
+                        "referencedDeclaration": 41386,
                         "src": "9891:9:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                           "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                         }
                       },
@@ -6279,7 +6279,7 @@
                       "nodeType": "IndexAccess",
                       "src": "9891:20:80",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                        "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                         "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                       }
                     },
@@ -6538,10 +6538,10 @@
                         "name": "TimeRestriction",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41360,
+                        "referencedDeclaration": 41372,
                         "src": "9914:15:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_TimeRestriction_$41360_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_TimeRestriction_$41372_storage_ptr_$",
                           "typeString": "type(struct GeneralTransferManagerStorage.TimeRestriction storage pointer)"
                         }
                       },
@@ -6555,13 +6555,13 @@
                       "nodeType": "FunctionCall",
                       "src": "9914:97:80",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_TimeRestriction_$41360_memory",
+                        "typeIdentifier": "t_struct$_TimeRestriction_$41372_memory",
                         "typeString": "struct GeneralTransferManagerStorage.TimeRestriction memory"
                       }
                     },
                     "src": "9891:120:80",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                      "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                       "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                     }
                   },
@@ -6592,7 +6592,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "10053:3:80",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -6607,7 +6607,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "10058:3:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -7022,10 +7022,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "10931:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -7165,10 +7165,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "11016:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -7308,10 +7308,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "11099:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -7451,10 +7451,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "11184:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -7913,7 +7913,7 @@
                     "name": "WHITELIST",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41346,
+                    "referencedDeclaration": 41358,
                     "src": "10910:9:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -8183,7 +8183,7 @@
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44762,
+                          "referencedDeclaration": 44774,
                           "src": "12788:3:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -8230,10 +8230,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "12766:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -8294,7 +8294,7 @@
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44762,
+                          "referencedDeclaration": 44774,
                           "src": "12911:3:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -8341,10 +8341,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "12891:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -8394,7 +8394,7 @@
                               "name": "nonceMap",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41380,
+                              "referencedDeclaration": 41392,
                               "src": "12957:8:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint256_$_t_bool_$_$",
@@ -8490,10 +8490,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "12948:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -8536,7 +8536,7 @@
                           "name": "nonceMap",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41380,
+                          "referencedDeclaration": 41392,
                           "src": "13021:8:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint256_$_t_bool_$_$",
@@ -8668,7 +8668,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44977,
+                            "referencedDeclaration": 44989,
                             "src": "13120:4:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_GeneralTransferManager_$33727",
@@ -8825,7 +8825,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44747,
+                            "referencedDeclaration": 44759,
                             "src": "13103:3:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -8872,7 +8872,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44754,
+                      "referencedDeclaration": 44766,
                       "src": "13080:9:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -9536,7 +9536,7 @@
                                 "name": "abi",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44747,
+                                "referencedDeclaration": 44759,
                                 "src": "13708:3:80",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_abi",
@@ -9583,7 +9583,7 @@
                           "name": "keccak256",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44754,
+                          "referencedDeclaration": 44766,
                           "src": "13698:9:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -9667,7 +9667,7 @@
                       "name": "ecrecover",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44752,
+                      "referencedDeclaration": 44764,
                       "src": "13688:9:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_ecrecover_pure$_t_bytes32_$_t_uint8_$_t_bytes32_$_t_bytes32_$returns$_t_address_$",
@@ -9765,10 +9765,10 @@
                                   "name": "Ownable",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 44293,
+                                  "referencedDeclaration": 44305,
                                   "src": "13809:7:80",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_type$_t_contract$_Ownable_$44293_$",
+                                    "typeIdentifier": "t_type$_t_contract$_Ownable_$44305_$",
                                     "typeString": "type(contract Ownable)"
                                   }
                                 },
@@ -9782,7 +9782,7 @@
                                 "nodeType": "FunctionCall",
                                 "src": "13809:22:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_Ownable_$44293",
+                                  "typeIdentifier": "t_contract$_Ownable_$44305",
                                   "typeString": "contract Ownable"
                                 }
                               },
@@ -9793,7 +9793,7 @@
                               "lValueRequested": false,
                               "memberName": "owner",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "13809:28:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -9854,7 +9854,7 @@
                             "name": "signingAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 41343,
+                            "referencedDeclaration": 41355,
                             "src": "13853:14:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -9907,10 +9907,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "13791:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -10100,10 +10100,10 @@
                               "name": "whitelist",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41374,
+                              "referencedDeclaration": 41386,
                               "src": "14220:9:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                 "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                               }
                             },
@@ -10128,7 +10128,7 @@
                             "nodeType": "IndexAccess",
                             "src": "14220:20:80",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                              "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                               "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                             }
                           },
@@ -10139,7 +10139,7 @@
                           "lValueRequested": false,
                           "memberName": "expiryTime",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41355,
+                          "referencedDeclaration": 41367,
                           "src": "14220:31:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint64",
@@ -10157,7 +10157,7 @@
                               "name": "now",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44762,
+                              "referencedDeclaration": 44774,
                               "src": "14262:3:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -10778,10 +10778,10 @@
                               "name": "defaults",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41367,
+                              "referencedDeclaration": 41379,
                               "src": "14933:8:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                                "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                               }
                             },
@@ -10792,7 +10792,7 @@
                             "lValueRequested": false,
                             "memberName": "fromTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41362,
+                            "referencedDeclaration": 41374,
                             "src": "14933:17:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -10903,10 +10903,10 @@
                               "name": "defaults",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41367,
+                              "referencedDeclaration": 41379,
                               "src": "15019:8:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                                "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                               }
                             },
@@ -10917,7 +10917,7 @@
                             "lValueRequested": false,
                             "memberName": "toTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41364,
+                            "referencedDeclaration": 41376,
                             "src": "15019:15:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -11134,7 +11134,7 @@
                     "name": "investors",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41370,
+                    "referencedDeclaration": 41382,
                     "src": "15240:9:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -11381,7 +11381,7 @@
                         "name": "investors",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41370,
+                        "referencedDeclaration": 41382,
                         "src": "15582:9:80",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -11434,7 +11434,7 @@
                         "name": "investors",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41370,
+                        "referencedDeclaration": 41382,
                         "src": "15610:9:80",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -12594,10 +12594,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16398:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -12649,7 +12649,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16398:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -12660,7 +12660,7 @@
                             "lValueRequested": false,
                             "memberName": "fromTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41351,
+                            "referencedDeclaration": 41363,
                             "src": "16398:33:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -12737,10 +12737,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16458:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -12792,7 +12792,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16458:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -12803,7 +12803,7 @@
                             "lValueRequested": false,
                             "memberName": "toTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41353,
+                            "referencedDeclaration": 41365,
                             "src": "16458:31:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -12880,10 +12880,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16520:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -12935,7 +12935,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16520:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -12946,7 +12946,7 @@
                             "lValueRequested": false,
                             "memberName": "expiryTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41355,
+                            "referencedDeclaration": 41367,
                             "src": "16520:35:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -12985,10 +12985,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16573:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -13040,7 +13040,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16573:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -13051,7 +13051,7 @@
                             "lValueRequested": false,
                             "memberName": "canBuyFromSTO",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41357,
+                            "referencedDeclaration": 41369,
                             "src": "16573:38:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -13887,7 +13887,7 @@
                       "name": "WHITELIST",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41346,
+                      "referencedDeclaration": 41358,
                       "src": "17083:9:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -13965,7 +13965,7 @@
                       "name": "FLAGS",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41349,
+                      "referencedDeclaration": 41361,
                       "src": "17122:5:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -14112,7 +14112,7 @@
         "id": 32713,
         "nodeType": "ImportDirective",
         "scope": 33728,
-        "sourceUnit": 41394,
+        "sourceUnit": 41406,
         "src": "59:57:80",
         "symbolAliases": [],
         "unitAlias": ""
@@ -14123,7 +14123,7 @@
         "id": 32714,
         "nodeType": "ImportDirective",
         "scope": 33728,
-        "sourceUnit": 44208,
+        "sourceUnit": 44220,
         "src": "117:59:80",
         "symbolAliases": [],
         "unitAlias": ""
@@ -14137,10 +14137,10 @@
               "id": 32715,
               "name": "GeneralTransferManagerStorage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 41393,
+              "referencedDeclaration": 41405,
               "src": "298:29:80",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_GeneralTransferManagerStorage_$41393",
+                "typeIdentifier": "t_contract$_GeneralTransferManagerStorage_$41405",
                 "typeString": "contract GeneralTransferManagerStorage"
               }
             },
@@ -14173,7 +14173,7 @@
           25673,
           26069,
           33988,
-          41393
+          41405
         ],
         "contractKind": "contract",
         "documentation": "@title Transfer Manager module for core transfer validation functionality",
@@ -14186,7 +14186,7 @@
           25673,
           26069,
           10848,
-          41393
+          41405
         ],
         "name": "GeneralTransferManager",
         "nodeType": "ContractDefinition",
@@ -14198,10 +14198,10 @@
               "id": 32719,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 44207,
+              "referencedDeclaration": 44219,
               "src": "359:8:80",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$44207",
+                "typeIdentifier": "t_contract$_SafeMath_$44219",
                 "typeString": "library SafeMath"
               }
             },
@@ -15023,10 +15023,10 @@
                         "name": "defaults",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41367,
+                        "referencedDeclaration": 41379,
                         "src": "2873:8:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                          "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                           "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                         }
                       },
@@ -15037,7 +15037,7 @@
                       "lValueRequested": true,
                       "memberName": "fromTime",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41362,
+                      "referencedDeclaration": 41374,
                       "src": "2873:17:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint64",
@@ -15085,10 +15085,10 @@
                         "name": "defaults",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41367,
+                        "referencedDeclaration": 41379,
                         "src": "2919:8:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                          "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                           "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                         }
                       },
@@ -15099,7 +15099,7 @@
                       "lValueRequested": true,
                       "memberName": "toTime",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41364,
+                      "referencedDeclaration": 41376,
                       "src": "2919:15:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint64",
@@ -15218,7 +15218,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "2856:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -15338,7 +15338,7 @@
                       "name": "issuanceAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41338,
+                      "referencedDeclaration": 41350,
                       "src": "3244:15:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -15440,7 +15440,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "3227:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -15534,7 +15534,7 @@
                       "name": "signingAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41343,
+                      "referencedDeclaration": 41355,
                       "src": "3558:14:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -15636,7 +15636,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "3541:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -15730,7 +15730,7 @@
                       "name": "allowAllTransfers",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41383,
+                      "referencedDeclaration": 41395,
                       "src": "4002:17:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -15832,7 +15832,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "3985:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -15926,7 +15926,7 @@
                       "name": "allowAllWhitelistTransfers",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41386,
+                      "referencedDeclaration": 41398,
                       "src": "4502:26:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -16028,7 +16028,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "4485:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -16122,7 +16122,7 @@
                       "name": "allowAllWhitelistIssuances",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41389,
+                      "referencedDeclaration": 41401,
                       "src": "5038:26:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -16224,7 +16224,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "5021:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -16318,7 +16318,7 @@
                       "name": "allowAllBurnTransfers",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41392,
+                      "referencedDeclaration": 41404,
                       "src": "5483:21:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -16420,7 +16420,7 @@
                     "name": "FLAGS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41349,
+                    "referencedDeclaration": 41361,
                     "src": "5466:5:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -16546,7 +16546,7 @@
                           "name": "allowAllTransfers",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41383,
+                          "referencedDeclaration": 41395,
                           "src": "6261:17:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -16618,7 +16618,7 @@
                             "name": "allowAllBurnTransfers",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 41392,
+                            "referencedDeclaration": 41404,
                             "src": "6414:21:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bool",
@@ -16792,7 +16792,7 @@
                           "name": "allowAllWhitelistTransfers",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41386,
+                          "referencedDeclaration": 41398,
                           "src": "6529:26:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -17096,10 +17096,10 @@
                                   "name": "whitelist",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 41374,
+                                  "referencedDeclaration": 41386,
                                   "src": "6819:9:80",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                     "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                   }
                                 },
@@ -17124,7 +17124,7 @@
                                 "nodeType": "IndexAccess",
                                 "src": "6819:16:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                  "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                   "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                                 }
                               },
@@ -17135,7 +17135,7 @@
                               "lValueRequested": false,
                               "memberName": "fromTime",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41351,
+                              "referencedDeclaration": 41363,
                               "src": "6819:25:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint64",
@@ -17152,10 +17152,10 @@
                                   "name": "whitelist",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 41374,
+                                  "referencedDeclaration": 41386,
                                   "src": "6846:9:80",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                     "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                   }
                                 },
@@ -17180,7 +17180,7 @@
                                 "nodeType": "IndexAccess",
                                 "src": "6846:14:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                  "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                   "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                                 }
                               },
@@ -17191,7 +17191,7 @@
                               "lValueRequested": false,
                               "memberName": "toTime",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 41353,
+                              "referencedDeclaration": 41365,
                               "src": "6846:21:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint64",
@@ -17271,7 +17271,7 @@
                             "name": "issuanceAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 41338,
+                            "referencedDeclaration": 41350,
                             "src": "6895:15:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -17329,10 +17329,10 @@
                                             "name": "whitelist",
                                             "nodeType": "Identifier",
                                             "overloadedDeclarations": [],
-                                            "referencedDeclaration": 41374,
+                                            "referencedDeclaration": 41386,
                                             "src": "7027:9:80",
                                             "typeDescriptions": {
-                                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                               "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                             }
                                           },
@@ -17357,7 +17357,7 @@
                                           "nodeType": "IndexAccess",
                                           "src": "7027:14:80",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                            "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                             "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                                           }
                                         },
@@ -17368,7 +17368,7 @@
                                         "lValueRequested": false,
                                         "memberName": "canBuyFromSTO",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 41357,
+                                        "referencedDeclaration": 41369,
                                         "src": "7027:28:80",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_uint8",
@@ -17507,7 +17507,7 @@
                                 "name": "allowAllWhitelistIssuances",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41389,
+                                "referencedDeclaration": 41401,
                                 "src": "7241:26:80",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_bool",
@@ -17625,7 +17625,7 @@
                                                         "name": "now",
                                                         "nodeType": "Identifier",
                                                         "overloadedDeclarations": [],
-                                                        "referencedDeclaration": 44762,
+                                                        "referencedDeclaration": 44774,
                                                         "src": "7444:3:80",
                                                         "typeDescriptions": {
                                                           "typeIdentifier": "t_uint256",
@@ -18045,7 +18045,7 @@
                                                   "name": "now",
                                                   "nodeType": "Identifier",
                                                   "overloadedDeclarations": [],
-                                                  "referencedDeclaration": 44762,
+                                                  "referencedDeclaration": 44774,
                                                   "src": "7743:3:80",
                                                   "typeDescriptions": {
                                                     "typeIdentifier": "t_uint256",
@@ -18232,7 +18232,7 @@
                                                   "name": "now",
                                                   "nodeType": "Identifier",
                                                   "overloadedDeclarations": [],
-                                                  "referencedDeclaration": 44762,
+                                                  "referencedDeclaration": 44774,
                                                   "src": "7817:3:80",
                                                   "typeDescriptions": {
                                                     "typeIdentifier": "t_uint256",
@@ -18780,7 +18780,7 @@
                     "name": "WHITELIST",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41346,
+                    "referencedDeclaration": 41358,
                     "src": "8729:9:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -19090,10 +19090,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "9622:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -19271,10 +19271,10 @@
                           "name": "whitelist",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41374,
+                          "referencedDeclaration": 41386,
                           "src": "9792:9:80",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                             "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                           }
                         },
@@ -19299,7 +19299,7 @@
                         "nodeType": "IndexAccess",
                         "src": "9792:20:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                          "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                           "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                         }
                       },
@@ -19310,7 +19310,7 @@
                       "lValueRequested": false,
                       "memberName": "added",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 41359,
+                      "referencedDeclaration": 41371,
                       "src": "9792:26:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -19421,7 +19421,7 @@
                               "name": "investors",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41370,
+                              "referencedDeclaration": 41382,
                               "src": "9846:9:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -19479,10 +19479,10 @@
                         "name": "whitelist",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41374,
+                        "referencedDeclaration": 41386,
                         "src": "9891:9:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                           "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                         }
                       },
@@ -19507,7 +19507,7 @@
                       "nodeType": "IndexAccess",
                       "src": "9891:20:80",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                        "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                         "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                       }
                     },
@@ -19766,10 +19766,10 @@
                         "name": "TimeRestriction",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41360,
+                        "referencedDeclaration": 41372,
                         "src": "9914:15:80",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_TimeRestriction_$41360_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_TimeRestriction_$41372_storage_ptr_$",
                           "typeString": "type(struct GeneralTransferManagerStorage.TimeRestriction storage pointer)"
                         }
                       },
@@ -19783,13 +19783,13 @@
                       "nodeType": "FunctionCall",
                       "src": "9914:97:80",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_TimeRestriction_$41360_memory",
+                        "typeIdentifier": "t_struct$_TimeRestriction_$41372_memory",
                         "typeString": "struct GeneralTransferManagerStorage.TimeRestriction memory"
                       }
                     },
                     "src": "9891:120:80",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                      "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                       "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                     }
                   },
@@ -19820,7 +19820,7 @@
                         "name": "now",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 44762,
+                        "referencedDeclaration": 44774,
                         "src": "10053:3:80",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -19835,7 +19835,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44760,
+                          "referencedDeclaration": 44772,
                           "src": "10058:3:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -20250,10 +20250,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "10931:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -20393,10 +20393,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "11016:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -20536,10 +20536,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "11099:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -20679,10 +20679,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "11184:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -21141,7 +21141,7 @@
                     "name": "WHITELIST",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41346,
+                    "referencedDeclaration": 41358,
                     "src": "10910:9:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
@@ -21411,7 +21411,7 @@
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44762,
+                          "referencedDeclaration": 44774,
                           "src": "12788:3:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -21458,10 +21458,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "12766:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -21522,7 +21522,7 @@
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44762,
+                          "referencedDeclaration": 44774,
                           "src": "12911:3:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -21569,10 +21569,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "12891:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -21622,7 +21622,7 @@
                               "name": "nonceMap",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41380,
+                              "referencedDeclaration": 41392,
                               "src": "12957:8:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint256_$_t_bool_$_$",
@@ -21718,10 +21718,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "12948:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -21764,7 +21764,7 @@
                           "name": "nonceMap",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 41380,
+                          "referencedDeclaration": 41392,
                           "src": "13021:8:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint256_$_t_bool_$_$",
@@ -21896,7 +21896,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44977,
+                            "referencedDeclaration": 44989,
                             "src": "13120:4:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_GeneralTransferManager_$33727",
@@ -22053,7 +22053,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 44747,
+                            "referencedDeclaration": 44759,
                             "src": "13103:3:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -22100,7 +22100,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44754,
+                      "referencedDeclaration": 44766,
                       "src": "13080:9:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -22764,7 +22764,7 @@
                                 "name": "abi",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 44747,
+                                "referencedDeclaration": 44759,
                                 "src": "13708:3:80",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_abi",
@@ -22811,7 +22811,7 @@
                           "name": "keccak256",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 44754,
+                          "referencedDeclaration": 44766,
                           "src": "13698:9:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -22895,7 +22895,7 @@
                       "name": "ecrecover",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 44752,
+                      "referencedDeclaration": 44764,
                       "src": "13688:9:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_ecrecover_pure$_t_bytes32_$_t_uint8_$_t_bytes32_$_t_bytes32_$returns$_t_address_$",
@@ -22993,10 +22993,10 @@
                                   "name": "Ownable",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 44293,
+                                  "referencedDeclaration": 44305,
                                   "src": "13809:7:80",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_type$_t_contract$_Ownable_$44293_$",
+                                    "typeIdentifier": "t_type$_t_contract$_Ownable_$44305_$",
                                     "typeString": "type(contract Ownable)"
                                   }
                                 },
@@ -23010,7 +23010,7 @@
                                 "nodeType": "FunctionCall",
                                 "src": "13809:22:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_Ownable_$44293",
+                                  "typeIdentifier": "t_contract$_Ownable_$44305",
                                   "typeString": "contract Ownable"
                                 }
                               },
@@ -23021,7 +23021,7 @@
                               "lValueRequested": false,
                               "memberName": "owner",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 44211,
+                              "referencedDeclaration": 44223,
                               "src": "13809:28:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -23082,7 +23082,7 @@
                             "name": "signingAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 41343,
+                            "referencedDeclaration": 41355,
                             "src": "13853:14:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -23135,10 +23135,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        44763,
-                        44764
+                        44775,
+                        44776
                       ],
-                      "referencedDeclaration": 44764,
+                      "referencedDeclaration": 44776,
                       "src": "13791:7:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -23328,10 +23328,10 @@
                               "name": "whitelist",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41374,
+                              "referencedDeclaration": 41386,
                               "src": "14220:9:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                 "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                               }
                             },
@@ -23356,7 +23356,7 @@
                             "nodeType": "IndexAccess",
                             "src": "14220:20:80",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                              "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                               "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                             }
                           },
@@ -23367,7 +23367,7 @@
                           "lValueRequested": false,
                           "memberName": "expiryTime",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 41355,
+                          "referencedDeclaration": 41367,
                           "src": "14220:31:80",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint64",
@@ -23385,7 +23385,7 @@
                               "name": "now",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 44762,
+                              "referencedDeclaration": 44774,
                               "src": "14262:3:80",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -24006,10 +24006,10 @@
                               "name": "defaults",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41367,
+                              "referencedDeclaration": 41379,
                               "src": "14933:8:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                                "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                               }
                             },
@@ -24020,7 +24020,7 @@
                             "lValueRequested": false,
                             "memberName": "fromTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41362,
+                            "referencedDeclaration": 41374,
                             "src": "14933:17:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -24131,10 +24131,10 @@
                               "name": "defaults",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 41367,
+                              "referencedDeclaration": 41379,
                               "src": "15019:8:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Defaults_$41365_storage",
+                                "typeIdentifier": "t_struct$_Defaults_$41377_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.Defaults storage ref"
                               }
                             },
@@ -24145,7 +24145,7 @@
                             "lValueRequested": false,
                             "memberName": "toTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41364,
+                            "referencedDeclaration": 41376,
                             "src": "15019:15:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -24362,7 +24362,7 @@
                     "name": "investors",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 41370,
+                    "referencedDeclaration": 41382,
                     "src": "15240:9:80",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -24609,7 +24609,7 @@
                         "name": "investors",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41370,
+                        "referencedDeclaration": 41382,
                         "src": "15582:9:80",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -24662,7 +24662,7 @@
                         "name": "investors",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 41370,
+                        "referencedDeclaration": 41382,
                         "src": "15610:9:80",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -25822,10 +25822,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16398:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -25877,7 +25877,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16398:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -25888,7 +25888,7 @@
                             "lValueRequested": false,
                             "memberName": "fromTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41351,
+                            "referencedDeclaration": 41363,
                             "src": "16398:33:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -25965,10 +25965,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16458:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -26020,7 +26020,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16458:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -26031,7 +26031,7 @@
                             "lValueRequested": false,
                             "memberName": "toTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41353,
+                            "referencedDeclaration": 41365,
                             "src": "16458:31:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -26108,10 +26108,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16520:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -26163,7 +26163,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16520:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -26174,7 +26174,7 @@
                             "lValueRequested": false,
                             "memberName": "expiryTime",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41355,
+                            "referencedDeclaration": 41367,
                             "src": "16520:35:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint64",
@@ -26213,10 +26213,10 @@
                                 "name": "whitelist",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 41374,
+                                "referencedDeclaration": 41386,
                                 "src": "16573:9:80",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41360_storage_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_struct$_TimeRestriction_$41372_storage_$",
                                   "typeString": "mapping(address => struct GeneralTransferManagerStorage.TimeRestriction storage ref)"
                                 }
                               },
@@ -26268,7 +26268,7 @@
                               "nodeType": "IndexAccess",
                               "src": "16573:24:80",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_TimeRestriction_$41360_storage",
+                                "typeIdentifier": "t_struct$_TimeRestriction_$41372_storage",
                                 "typeString": "struct GeneralTransferManagerStorage.TimeRestriction storage ref"
                               }
                             },
@@ -26279,7 +26279,7 @@
                             "lValueRequested": false,
                             "memberName": "canBuyFromSTO",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 41357,
+                            "referencedDeclaration": 41369,
                             "src": "16573:38:80",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -27115,7 +27115,7 @@
                       "name": "WHITELIST",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41346,
+                      "referencedDeclaration": 41358,
                       "src": "17083:9:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -27193,7 +27193,7 @@
                       "name": "FLAGS",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 41349,
+                      "referencedDeclaration": 41361,
                       "src": "17122:5:80",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -27311,9 +27311,9 @@
       "events": {},
       "links": {},
       "address": "0x82d50ad3c1091866e258fd0f1a7cc9674609d254",
-      "transactionHash": "0xd1fe1c6e4903427ac6088891396467c393dd86010e65dfa49bb3364143a8e50a"
+      "transactionHash": "0x6475e0b980b324140748d7f41711a3ee678956f98a33337ab2d2a9ad583d54fc"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:45.357Z"
+  "updatedAt": "2019-02-06T16:02:42.759Z"
 }

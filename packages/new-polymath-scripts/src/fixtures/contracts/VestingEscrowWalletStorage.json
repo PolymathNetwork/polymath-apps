@@ -109,14 +109,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/VestingEscrowWalletStorage.sol",
     "exportedSymbols": {
       "VestingEscrowWalletStorage": [
-        41541
+        41553
       ]
     },
-    "id": 41542,
+    "id": 41554,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 41479,
+        "id": 41491,
         "literals": [
           "solidity",
           "^",
@@ -132,23 +132,23 @@
         "contractKind": "contract",
         "documentation": "@title Wallet for core vesting escrow functionality",
         "fullyImplemented": true,
-        "id": 41541,
+        "id": 41553,
         "linearizedBaseContracts": [
-          41541
+          41553
         ],
         "name": "VestingEscrowWalletStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "VestingEscrowWalletStorage.Schedule",
-            "id": 41486,
+            "id": 41498,
             "members": [
               {
                 "constant": false,
-                "id": 41481,
+                "id": 41493,
                 "name": "templateName",
                 "nodeType": "VariableDeclaration",
-                "scope": 41486,
+                "scope": 41498,
                 "src": "194:20:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -157,7 +157,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 41480,
+                  "id": 41492,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "194:7:106",
@@ -171,10 +171,10 @@
               },
               {
                 "constant": false,
-                "id": 41483,
+                "id": 41495,
                 "name": "claimedTokens",
                 "nodeType": "VariableDeclaration",
-                "scope": 41486,
+                "scope": 41498,
                 "src": "268:21:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -183,7 +183,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41482,
+                  "id": 41494,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "268:7:106",
@@ -197,10 +197,10 @@
               },
               {
                 "constant": false,
-                "id": 41485,
+                "id": 41497,
                 "name": "startTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41486,
+                "scope": 41498,
                 "src": "337:17:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -209,7 +209,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41484,
+                  "id": 41496,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "337:7:106",
@@ -224,20 +224,20 @@
             ],
             "name": "Schedule",
             "nodeType": "StructDefinition",
-            "scope": 41541,
+            "scope": 41553,
             "src": "136:225:106",
             "visibility": "public"
           },
           {
             "canonicalName": "VestingEscrowWalletStorage.Template",
-            "id": 41495,
+            "id": 41507,
             "members": [
               {
                 "constant": false,
-                "id": 41488,
+                "id": 41500,
                 "name": "numberOfTokens",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "427:22:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -246,7 +246,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41487,
+                  "id": 41499,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "427:7:106",
@@ -260,10 +260,10 @@
               },
               {
                 "constant": false,
-                "id": 41490,
+                "id": 41502,
                 "name": "duration",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "522:16:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -272,7 +272,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41489,
+                  "id": 41501,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "522:7:106",
@@ -286,10 +286,10 @@
               },
               {
                 "constant": false,
-                "id": 41492,
+                "id": 41504,
                 "name": "frequency",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "606:17:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -298,7 +298,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41491,
+                  "id": 41503,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "606:7:106",
@@ -312,10 +312,10 @@
               },
               {
                 "constant": false,
-                "id": 41494,
+                "id": 41506,
                 "name": "index",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "693:13:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -324,7 +324,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41493,
+                  "id": 41505,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "693:7:106",
@@ -339,16 +339,16 @@
             ],
             "name": "Template",
             "nodeType": "StructDefinition",
-            "scope": 41541,
+            "scope": 41553,
             "src": "367:346:106",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 41497,
+            "id": 41509,
             "name": "unassignedTokens",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "815:31:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -357,7 +357,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41496,
+              "id": 41508,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "815:7:106",
@@ -371,10 +371,10 @@
           },
           {
             "constant": false,
-            "id": 41499,
+            "id": 41511,
             "name": "treasuryWallet",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "950:29:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -383,7 +383,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 41498,
+              "id": 41510,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "950:7:106",
@@ -397,10 +397,10 @@
           },
           {
             "constant": false,
-            "id": 41502,
+            "id": 41514,
             "name": "beneficiaries",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1067:30:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -410,7 +410,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41500,
+                "id": 41512,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1067:7:106",
@@ -419,7 +419,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41501,
+              "id": 41513,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "1067:9:106",
@@ -433,10 +433,10 @@
           },
           {
             "constant": false,
-            "id": 41506,
+            "id": 41518,
             "name": "beneficiaryAdded",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1165:50:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -445,9 +445,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 41505,
+              "id": 41517,
               "keyType": {
-                "id": 41503,
+                "id": 41515,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1173:7:106",
@@ -463,7 +463,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 41504,
+                "id": 41516,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "1184:4:106",
@@ -478,21 +478,21 @@
           },
           {
             "constant": false,
-            "id": 41511,
+            "id": 41523,
             "name": "schedules",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1297:47:106",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41486_storage_$dyn_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41498_storage_$dyn_storage_$",
               "typeString": "mapping(address => struct VestingEscrowWalletStorage.Schedule[])"
             },
             "typeName": {
-              "id": 41510,
+              "id": 41522,
               "keyType": {
-                "id": 41507,
+                "id": 41519,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1305:7:106",
@@ -504,28 +504,28 @@
               "nodeType": "Mapping",
               "src": "1297:30:106",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41486_storage_$dyn_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41498_storage_$dyn_storage_$",
                 "typeString": "mapping(address => struct VestingEscrowWalletStorage.Schedule[])"
               },
               "valueType": {
                 "baseType": {
                   "contractScope": null,
-                  "id": 41508,
+                  "id": 41520,
                   "name": "Schedule",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 41486,
+                  "referencedDeclaration": 41498,
                   "src": "1316:8:106",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Schedule_$41486_storage_ptr",
+                    "typeIdentifier": "t_struct$_Schedule_$41498_storage_ptr",
                     "typeString": "struct VestingEscrowWalletStorage.Schedule"
                   }
                 },
-                "id": 41509,
+                "id": 41521,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "1316:10:106",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_struct$_Schedule_$41486_storage_$dyn_storage_ptr",
+                  "typeIdentifier": "t_array$_t_struct$_Schedule_$41498_storage_$dyn_storage_ptr",
                   "typeString": "struct VestingEscrowWalletStorage.Schedule[]"
                 }
               }
@@ -535,10 +535,10 @@
           },
           {
             "constant": false,
-            "id": 41516,
+            "id": 41528,
             "name": "userToTemplates",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1430:54:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -547,9 +547,9 @@
               "typeString": "mapping(address => bytes32[])"
             },
             "typeName": {
-              "id": 41515,
+              "id": 41527,
               "keyType": {
-                "id": 41512,
+                "id": 41524,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1438:7:106",
@@ -566,7 +566,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 41513,
+                  "id": 41525,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "1449:7:106",
@@ -575,7 +575,7 @@
                     "typeString": "bytes32"
                   }
                 },
-                "id": 41514,
+                "id": 41526,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "1449:9:106",
@@ -590,10 +590,10 @@
           },
           {
             "constant": false,
-            "id": 41522,
+            "id": 41534,
             "name": "userToTemplateIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1632:76:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -602,9 +602,9 @@
               "typeString": "mapping(address => mapping(bytes32 => uint256))"
             },
             "typeName": {
-              "id": 41521,
+              "id": 41533,
               "keyType": {
-                "id": 41517,
+                "id": 41529,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1640:7:106",
@@ -620,9 +620,9 @@
                 "typeString": "mapping(address => mapping(bytes32 => uint256))"
               },
               "valueType": {
-                "id": 41520,
+                "id": 41532,
                 "keyType": {
-                  "id": 41518,
+                  "id": 41530,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "1659:7:106",
@@ -638,7 +638,7 @@
                   "typeString": "mapping(bytes32 => uint256)"
                 },
                 "valueType": {
-                  "id": 41519,
+                  "id": 41531,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1670:7:106",
@@ -654,10 +654,10 @@
           },
           {
             "constant": false,
-            "id": 41527,
+            "id": 41539,
             "name": "templateToUsers",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1789:54:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -666,9 +666,9 @@
               "typeString": "mapping(bytes32 => address[])"
             },
             "typeName": {
-              "id": 41526,
+              "id": 41538,
               "keyType": {
-                "id": 41523,
+                "id": 41535,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1797:7:106",
@@ -685,7 +685,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 41524,
+                  "id": 41536,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "1808:7:106",
@@ -694,7 +694,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 41525,
+                "id": 41537,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "1808:9:106",
@@ -709,10 +709,10 @@
           },
           {
             "constant": false,
-            "id": 41533,
+            "id": 41545,
             "name": "templateToUserIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1985:76:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -721,9 +721,9 @@
               "typeString": "mapping(bytes32 => mapping(address => uint256))"
             },
             "typeName": {
-              "id": 41532,
+              "id": 41544,
               "keyType": {
-                "id": 41528,
+                "id": 41540,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1993:7:106",
@@ -739,9 +739,9 @@
                 "typeString": "mapping(bytes32 => mapping(address => uint256))"
               },
               "valueType": {
-                "id": 41531,
+                "id": 41543,
                 "keyType": {
-                  "id": 41529,
+                  "id": 41541,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "2012:7:106",
@@ -757,7 +757,7 @@
                   "typeString": "mapping(address => uint256)"
                 },
                 "valueType": {
-                  "id": 41530,
+                  "id": 41542,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2023:7:106",
@@ -773,21 +773,21 @@
           },
           {
             "constant": false,
-            "id": 41537,
+            "id": 41549,
             "name": "templates",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "2134:38:106",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41495_storage_$",
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41507_storage_$",
               "typeString": "mapping(bytes32 => struct VestingEscrowWalletStorage.Template)"
             },
             "typeName": {
-              "id": 41536,
+              "id": 41548,
               "keyType": {
-                "id": 41534,
+                "id": 41546,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "2142:7:106",
@@ -799,18 +799,18 @@
               "nodeType": "Mapping",
               "src": "2134:28:106",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41495_storage_$",
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41507_storage_$",
                 "typeString": "mapping(bytes32 => struct VestingEscrowWalletStorage.Template)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41535,
+                "id": 41547,
                 "name": "Template",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41495,
+                "referencedDeclaration": 41507,
                 "src": "2153:8:106",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Template_$41495_storage_ptr",
+                  "typeIdentifier": "t_struct$_Template_$41507_storage_ptr",
                   "typeString": "struct VestingEscrowWalletStorage.Template"
                 }
               }
@@ -820,10 +820,10 @@
           },
           {
             "constant": false,
-            "id": 41540,
+            "id": 41552,
             "name": "templateNames",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "2213:30:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -833,7 +833,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41538,
+                "id": 41550,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "2213:7:106",
@@ -842,7 +842,7 @@
                   "typeString": "bytes32"
                 }
               },
-              "id": 41539,
+              "id": 41551,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "2213:9:106",
@@ -855,7 +855,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 41542,
+        "scope": 41554,
         "src": "89:2157:106"
       }
     ],
@@ -865,14 +865,14 @@
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/storage/VestingEscrowWalletStorage.sol",
     "exportedSymbols": {
       "VestingEscrowWalletStorage": [
-        41541
+        41553
       ]
     },
-    "id": 41542,
+    "id": 41554,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 41479,
+        "id": 41491,
         "literals": [
           "solidity",
           "^",
@@ -888,23 +888,23 @@
         "contractKind": "contract",
         "documentation": "@title Wallet for core vesting escrow functionality",
         "fullyImplemented": true,
-        "id": 41541,
+        "id": 41553,
         "linearizedBaseContracts": [
-          41541
+          41553
         ],
         "name": "VestingEscrowWalletStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "VestingEscrowWalletStorage.Schedule",
-            "id": 41486,
+            "id": 41498,
             "members": [
               {
                 "constant": false,
-                "id": 41481,
+                "id": 41493,
                 "name": "templateName",
                 "nodeType": "VariableDeclaration",
-                "scope": 41486,
+                "scope": 41498,
                 "src": "194:20:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -913,7 +913,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 41480,
+                  "id": 41492,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "194:7:106",
@@ -927,10 +927,10 @@
               },
               {
                 "constant": false,
-                "id": 41483,
+                "id": 41495,
                 "name": "claimedTokens",
                 "nodeType": "VariableDeclaration",
-                "scope": 41486,
+                "scope": 41498,
                 "src": "268:21:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -939,7 +939,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41482,
+                  "id": 41494,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "268:7:106",
@@ -953,10 +953,10 @@
               },
               {
                 "constant": false,
-                "id": 41485,
+                "id": 41497,
                 "name": "startTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 41486,
+                "scope": 41498,
                 "src": "337:17:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -965,7 +965,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41484,
+                  "id": 41496,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "337:7:106",
@@ -980,20 +980,20 @@
             ],
             "name": "Schedule",
             "nodeType": "StructDefinition",
-            "scope": 41541,
+            "scope": 41553,
             "src": "136:225:106",
             "visibility": "public"
           },
           {
             "canonicalName": "VestingEscrowWalletStorage.Template",
-            "id": 41495,
+            "id": 41507,
             "members": [
               {
                 "constant": false,
-                "id": 41488,
+                "id": 41500,
                 "name": "numberOfTokens",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "427:22:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1002,7 +1002,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41487,
+                  "id": 41499,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "427:7:106",
@@ -1016,10 +1016,10 @@
               },
               {
                 "constant": false,
-                "id": 41490,
+                "id": 41502,
                 "name": "duration",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "522:16:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1028,7 +1028,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41489,
+                  "id": 41501,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "522:7:106",
@@ -1042,10 +1042,10 @@
               },
               {
                 "constant": false,
-                "id": 41492,
+                "id": 41504,
                 "name": "frequency",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "606:17:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1054,7 +1054,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41491,
+                  "id": 41503,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "606:7:106",
@@ -1068,10 +1068,10 @@
               },
               {
                 "constant": false,
-                "id": 41494,
+                "id": 41506,
                 "name": "index",
                 "nodeType": "VariableDeclaration",
-                "scope": 41495,
+                "scope": 41507,
                 "src": "693:13:106",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1080,7 +1080,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 41493,
+                  "id": 41505,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "693:7:106",
@@ -1095,16 +1095,16 @@
             ],
             "name": "Template",
             "nodeType": "StructDefinition",
-            "scope": 41541,
+            "scope": 41553,
             "src": "367:346:106",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 41497,
+            "id": 41509,
             "name": "unassignedTokens",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "815:31:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1113,7 +1113,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 41496,
+              "id": 41508,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "815:7:106",
@@ -1127,10 +1127,10 @@
           },
           {
             "constant": false,
-            "id": 41499,
+            "id": 41511,
             "name": "treasuryWallet",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "950:29:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1139,7 +1139,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 41498,
+              "id": 41510,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "950:7:106",
@@ -1153,10 +1153,10 @@
           },
           {
             "constant": false,
-            "id": 41502,
+            "id": 41514,
             "name": "beneficiaries",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1067:30:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1166,7 +1166,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41500,
+                "id": 41512,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1067:7:106",
@@ -1175,7 +1175,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 41501,
+              "id": 41513,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "1067:9:106",
@@ -1189,10 +1189,10 @@
           },
           {
             "constant": false,
-            "id": 41506,
+            "id": 41518,
             "name": "beneficiaryAdded",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1165:50:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1201,9 +1201,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 41505,
+              "id": 41517,
               "keyType": {
-                "id": 41503,
+                "id": 41515,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1173:7:106",
@@ -1219,7 +1219,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 41504,
+                "id": 41516,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "1184:4:106",
@@ -1234,21 +1234,21 @@
           },
           {
             "constant": false,
-            "id": 41511,
+            "id": 41523,
             "name": "schedules",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1297:47:106",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41486_storage_$dyn_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41498_storage_$dyn_storage_$",
               "typeString": "mapping(address => struct VestingEscrowWalletStorage.Schedule[])"
             },
             "typeName": {
-              "id": 41510,
+              "id": 41522,
               "keyType": {
-                "id": 41507,
+                "id": 41519,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1305:7:106",
@@ -1260,28 +1260,28 @@
               "nodeType": "Mapping",
               "src": "1297:30:106",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41486_storage_$dyn_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_Schedule_$41498_storage_$dyn_storage_$",
                 "typeString": "mapping(address => struct VestingEscrowWalletStorage.Schedule[])"
               },
               "valueType": {
                 "baseType": {
                   "contractScope": null,
-                  "id": 41508,
+                  "id": 41520,
                   "name": "Schedule",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 41486,
+                  "referencedDeclaration": 41498,
                   "src": "1316:8:106",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Schedule_$41486_storage_ptr",
+                    "typeIdentifier": "t_struct$_Schedule_$41498_storage_ptr",
                     "typeString": "struct VestingEscrowWalletStorage.Schedule"
                   }
                 },
-                "id": 41509,
+                "id": 41521,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "1316:10:106",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_struct$_Schedule_$41486_storage_$dyn_storage_ptr",
+                  "typeIdentifier": "t_array$_t_struct$_Schedule_$41498_storage_$dyn_storage_ptr",
                   "typeString": "struct VestingEscrowWalletStorage.Schedule[]"
                 }
               }
@@ -1291,10 +1291,10 @@
           },
           {
             "constant": false,
-            "id": 41516,
+            "id": 41528,
             "name": "userToTemplates",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1430:54:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1303,9 +1303,9 @@
               "typeString": "mapping(address => bytes32[])"
             },
             "typeName": {
-              "id": 41515,
+              "id": 41527,
               "keyType": {
-                "id": 41512,
+                "id": 41524,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1438:7:106",
@@ -1322,7 +1322,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 41513,
+                  "id": 41525,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "1449:7:106",
@@ -1331,7 +1331,7 @@
                     "typeString": "bytes32"
                   }
                 },
-                "id": 41514,
+                "id": 41526,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "1449:9:106",
@@ -1346,10 +1346,10 @@
           },
           {
             "constant": false,
-            "id": 41522,
+            "id": 41534,
             "name": "userToTemplateIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1632:76:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1358,9 +1358,9 @@
               "typeString": "mapping(address => mapping(bytes32 => uint256))"
             },
             "typeName": {
-              "id": 41521,
+              "id": 41533,
               "keyType": {
-                "id": 41517,
+                "id": 41529,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1640:7:106",
@@ -1376,9 +1376,9 @@
                 "typeString": "mapping(address => mapping(bytes32 => uint256))"
               },
               "valueType": {
-                "id": 41520,
+                "id": 41532,
                 "keyType": {
-                  "id": 41518,
+                  "id": 41530,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "1659:7:106",
@@ -1394,7 +1394,7 @@
                   "typeString": "mapping(bytes32 => uint256)"
                 },
                 "valueType": {
-                  "id": 41519,
+                  "id": 41531,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "1670:7:106",
@@ -1410,10 +1410,10 @@
           },
           {
             "constant": false,
-            "id": 41527,
+            "id": 41539,
             "name": "templateToUsers",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1789:54:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1422,9 +1422,9 @@
               "typeString": "mapping(bytes32 => address[])"
             },
             "typeName": {
-              "id": 41526,
+              "id": 41538,
               "keyType": {
-                "id": 41523,
+                "id": 41535,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1797:7:106",
@@ -1441,7 +1441,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 41524,
+                  "id": 41536,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "1808:7:106",
@@ -1450,7 +1450,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 41525,
+                "id": 41537,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "1808:9:106",
@@ -1465,10 +1465,10 @@
           },
           {
             "constant": false,
-            "id": 41533,
+            "id": 41545,
             "name": "templateToUserIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "1985:76:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1477,9 +1477,9 @@
               "typeString": "mapping(bytes32 => mapping(address => uint256))"
             },
             "typeName": {
-              "id": 41532,
+              "id": 41544,
               "keyType": {
-                "id": 41528,
+                "id": 41540,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1993:7:106",
@@ -1495,9 +1495,9 @@
                 "typeString": "mapping(bytes32 => mapping(address => uint256))"
               },
               "valueType": {
-                "id": 41531,
+                "id": 41543,
                 "keyType": {
-                  "id": 41529,
+                  "id": 41541,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "2012:7:106",
@@ -1513,7 +1513,7 @@
                   "typeString": "mapping(address => uint256)"
                 },
                 "valueType": {
-                  "id": 41530,
+                  "id": 41542,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "2023:7:106",
@@ -1529,21 +1529,21 @@
           },
           {
             "constant": false,
-            "id": 41537,
+            "id": 41549,
             "name": "templates",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "2134:38:106",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41495_storage_$",
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41507_storage_$",
               "typeString": "mapping(bytes32 => struct VestingEscrowWalletStorage.Template)"
             },
             "typeName": {
-              "id": 41536,
+              "id": 41548,
               "keyType": {
-                "id": 41534,
+                "id": 41546,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "2142:7:106",
@@ -1555,18 +1555,18 @@
               "nodeType": "Mapping",
               "src": "2134:28:106",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41495_storage_$",
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Template_$41507_storage_$",
                 "typeString": "mapping(bytes32 => struct VestingEscrowWalletStorage.Template)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 41535,
+                "id": 41547,
                 "name": "Template",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 41495,
+                "referencedDeclaration": 41507,
                 "src": "2153:8:106",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Template_$41495_storage_ptr",
+                  "typeIdentifier": "t_struct$_Template_$41507_storage_ptr",
                   "typeString": "struct VestingEscrowWalletStorage.Template"
                 }
               }
@@ -1576,10 +1576,10 @@
           },
           {
             "constant": false,
-            "id": 41540,
+            "id": 41552,
             "name": "templateNames",
             "nodeType": "VariableDeclaration",
-            "scope": 41541,
+            "scope": 41553,
             "src": "2213:30:106",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1589,7 +1589,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 41538,
+                "id": 41550,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "2213:7:106",
@@ -1598,7 +1598,7 @@
                   "typeString": "bytes32"
                 }
               },
-              "id": 41539,
+              "id": 41551,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "2213:9:106",
@@ -1611,7 +1611,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 41542,
+        "scope": 41554,
         "src": "89:2157:106"
       }
     ],
@@ -1623,5 +1623,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-01-17T19:56:10.064Z"
+  "updatedAt": "2019-02-06T16:02:05.782Z"
 }

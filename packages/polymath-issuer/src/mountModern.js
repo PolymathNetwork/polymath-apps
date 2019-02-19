@@ -1,0 +1,1 @@
+import '@polymathnetwork/new-issuer';

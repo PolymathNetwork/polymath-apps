@@ -1,4 +1,4 @@
-import { polyClient } from '~/lib/polymath';
+import { polyClient } from '~/lib/polyClient';
 import { call, put } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { TransactionQueue } from '@polymathnetwork/sdk';

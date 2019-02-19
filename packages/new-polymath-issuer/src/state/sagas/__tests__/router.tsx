@@ -5,7 +5,7 @@ import * as sagas from '~/state/sagas/router';
 import { setChangingRoute } from '~/state/actions/app';
 import { getGeneratorOutputs, mockEthereumBrowser } from '~/testUtils/helpers';
 
-jest.mock('~/lib/polymath', () => ({
+jest.mock('~/lib/polyClient', () => ({
   polyClient: {
     connect: () => {},
   },

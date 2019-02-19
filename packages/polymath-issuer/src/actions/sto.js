@@ -40,7 +40,7 @@ export const data = (contract: STO, details: ?STODetails) => ({
 
 const STO_TYPE = 3;
 
-const ConfigSTOConfirmContent = ({ setupCost }) => (
+const ConfigSTOConfirmContent = ({ setupCost, balance }) => (
   <div>
     <p>
       Once submitted to the blockchain, the dates for your offering cannot be
@@ -52,17 +52,25 @@ const ConfigSTOConfirmContent = ({ setupCost }) => (
     </p>
     <p>
       Completion of your STO smart contract deployment and scheduling will
-      require two wallet transactions.
+      require {balance.lt(setupCost) ? 'two' : 'one'} wallet transactions.
     </p>
+    {balance.lt(setupCost) ? (
+      <div>
+        <p>
+          • The first transaction will be used to pay for the smart contract fee
+          of:
+        </p>
+        <div className="bx--details poly-cost">
+          {`${setupCost.toString()} POLY`}
+        </div>
+      </div>
+    ) : (
+      ''
+    )}
     <p>
-      • The first transaction will be used to pay for the smart contract fee of:
-    </p>
-    <div className="bx--details poly-cost">
-      {`${setupCost.toString()} POLY`}
-    </div>
-    <p>
-      • The second transaction will be used to pay the mining fee (aka gas fee)
-      to complete the scheduling of your STO.
+      • {balance.lt(setupCost) ? 'The second' : 'This'} transaction will be used
+      to pay the mining fee (aka gas fee) to complete the scheduling of your
+      STO.
     </p>
     <p>
       Hit &laquo;CANCEL&raquo; if you would like to edit the information
@@ -220,21 +228,14 @@ export const configureSTO = (config: STOConfig, type: string) => async (
   const { setupCost } = stoModule;
   // TODO @RafaelVidaurre: Format setup cost
 
+  const spentBalance = await PolyToken.balanceOf(token.token.address);
+
   dispatch(
     ui.confirm(
-      <ConfigSTOConfirmContent setupCost={setupCost} />,
+      <ConfigSTOConfirmContent setupCost={setupCost} balance={spentBalance} />,
       async () => {
         const balance = getState().pui.account.balance;
         const hasEnoughBalance = balance.gte(setupCost);
-
-        if (!hasEnoughBalance) {
-          dispatch(
-            ui.faucet(
-              `The launching of a STO has a fixed cost of ${setupCost} POLY.`
-            )
-          );
-          return;
-        }
 
         // NOTE @RafaelVidaurre: Legacy checks, verify if actually necessary
         const {
@@ -248,11 +249,18 @@ export const configureSTO = (config: STOConfig, type: string) => async (
         const stoModuleConfig = {
           ...config.data,
         };
-
         const tokenBalance = await PolyToken.balanceOf(token.address);
         const titles = ['Deploying And Scheduling'];
 
         if (tokenBalance.lt(setupCost)) {
+          if (!hasEnoughBalance) {
+            dispatch(
+              ui.faucet(
+                `The launching of a STO has a fixed cost of ${setupCost} POLY.`
+              )
+            );
+            return;
+          }
           titles.unshift('Transferring POLY');
         }
 

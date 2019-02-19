@@ -9,7 +9,6 @@ This is a monorepo containing the webapps and libraries in Polymath. In each pac
 # Apps and packages
 
 - [Polymath Issuer](https://github.com/PolymathNetwork/polymath-apps/blob/develop/packages/polymath-issuer/README.md)
-- [Polymath Investor](https://github.com/PolymathNetwork/polymath-apps/blob/develop/packages/polymath-investor/README.md)
 
 # Setup
 

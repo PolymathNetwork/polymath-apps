@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
-import { createCheckpointBySymbolAndIdFetcher } from '~/state/fetchers';
-import { types } from '@polymathnetwork/new-shared';
+import { createDividendsByCheckpointFetcher } from '~/state/fetchers';
+import { types, utils, formatters } from '@polymathnetwork/new-shared';
+import { BigNumber } from 'bignumber.js';
+import { DateTime } from 'luxon';
 
 export interface Props {
   dispatch: Dispatch<any>;
@@ -62,28 +64,13 @@ export class ContainerBase extends Component<Props> {
     return (
       <DataFetcher
         fetchers={[
-          createCheckpointBySymbolAndIdFetcher({
-            securityTokenSymbol: symbol,
-            checkpointIndex,
-          }),
           createDividendsByCheckpointFetcher({
             securityTokenSymbol: symbol,
             checkpointIndex,
           }),
         ]}
-        render={(data: {
-          checkpoints: types.CheckpointPojo[];
-          dividends: types.DividendPojo[];
-        }) => {
-          const {
-            checkpoints: [checkpoint],
-          } = data;
-          return (
-            <Presenter
-              symbol={symbol}
-              dividends={checkpoint ? checkpoint.dividends : []}
-            />
-          );
+        render={({ dividends }: { dividends: types.DividendEntity[] }) => {
+          return <Presenter symbol={symbol} dividends={dividends} />;
         }}
       />
     );

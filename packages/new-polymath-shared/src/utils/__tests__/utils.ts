@@ -1,4 +1,4 @@
-import { hashObj, delay } from '../index';
+import { hashObj } from '../index';
 
 describe('hashObj', () => {
   const pojo = {

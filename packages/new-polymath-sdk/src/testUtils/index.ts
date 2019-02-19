@@ -44,7 +44,7 @@ export class MockedContract<T extends GenericContract> {
 }
 
 export const getMockTransactionSpec = (
-  method: (...args: any[]) => Promise<any>,
+  method: (args: any) => Promise<any>,
   args: any,
   resolver = async () => {}
 ) => ({

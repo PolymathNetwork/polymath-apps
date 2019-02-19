@@ -1,11 +1,22 @@
-import { styled, ButtonLink } from '@polymathnetwork/new-ui';
+import { styled, ButtonLink, ThemeInterface } from '@polymathnetwork/new-ui';
+import { StyledComponent } from 'styled-components';
 
-export const NewDividendButton = styled(ButtonLink)`
+export const NewDividendButton: StyledComponent<
+  typeof ButtonLink,
+  ThemeInterface,
+  {},
+  never
+> = styled(ButtonLink)`
   flex-direction: column;
   align-items: center;
 `;
 
-export const PlaceholderButton = styled(NewDividendButton).attrs({
+export const PlaceholderButton: StyledComponent<
+  typeof NewDividendButton,
+  ThemeInterface,
+  any,
+  'variant'
+> = styled(NewDividendButton).attrs({
   variant: 'ghost',
   iconPosition: 'top',
 })`
