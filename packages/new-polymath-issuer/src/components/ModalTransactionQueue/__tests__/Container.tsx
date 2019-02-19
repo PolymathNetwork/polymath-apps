@@ -85,8 +85,6 @@ describe('ModalTransactionQueueContainer', () => {
 
       getByTestId('continueButton').click();
 
-      await utils.delay(100);
-
       expect(store.getActions()).toContainEqual(
         expect.objectContaining({
           type: getType(appActions.unsetActiveTransactionQueue),
