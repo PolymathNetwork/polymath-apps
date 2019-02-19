@@ -86,7 +86,9 @@ export const toTokens = (
     return `-`;
   }
   const number = new BigNumber(value);
-  return new BigNumber(number.toPrecision(precision))
-    .toFormat(decimals, 1)
-    .replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1');
+  if (number.toString().length > precision) {
+    return new BigNumber(number.toPrecision(precision)).toExponential(decimals);
+  } else {
+    return new BigNumber(number.toPrecision(precision)).decimalPlaces(decimals);
+  }
 };
