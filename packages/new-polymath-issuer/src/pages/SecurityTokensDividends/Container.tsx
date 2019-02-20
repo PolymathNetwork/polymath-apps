@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { ActionType } from 'typesafe-actions/dist/types';
 import { types } from '@polymathnetwork/new-shared';
 import { Page } from '@polymathnetwork/new-ui';
 import { Presenter } from './Presenter';
@@ -10,7 +11,8 @@ import {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
 } from '~/state/actions/procedures';
-import { ActionType } from 'typesafe-actions/dist/types';
+import { RootState } from '~/state/store';
+import { getSession } from '~/state/selectors';
 
 const actions = {
   enableErc20DividendsModuleStart,
@@ -20,7 +22,19 @@ const actions = {
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
+  walletAddress: string;
 }
+
+const mapStateToProps = (state: RootState) => {
+  const { wallet } = getSession(state);
+  let walletAddress;
+
+  if (wallet) {
+    walletAddress = wallet.address;
+  }
+
+  return { walletAddress };
+};
 
 export class ContainerBase extends Component<Props> {
   public enableErc20DividendsModule = () => {
@@ -34,13 +48,15 @@ export class ContainerBase extends Component<Props> {
       })
     );
   };
+
   public createCheckpoint = () => {
     const { dispatch, securityTokenSymbol } = this.props;
 
     dispatch(createCheckpointStart({ securityTokenSymbol }));
   };
+
   public render() {
-    const { securityTokenSymbol } = this.props;
+    const { securityTokenSymbol, walletAddress } = this.props;
     return (
       <Page title="Dividends">
         <DataFetcher
@@ -59,6 +75,7 @@ export class ContainerBase extends Component<Props> {
                 onCreateCheckpoint={this.createCheckpoint}
                 onEnableDividends={this.enableErc20DividendsModule}
                 dividendsModule={erc20DividendsModule}
+                walletAddress={walletAddress}
               />
             );
           }}
@@ -68,4 +85,4 @@ export class ContainerBase extends Component<Props> {
   }
 }
 
-export const Container = connect()(ContainerBase);
+export const Container = connect(mapStateToProps)(ContainerBase);

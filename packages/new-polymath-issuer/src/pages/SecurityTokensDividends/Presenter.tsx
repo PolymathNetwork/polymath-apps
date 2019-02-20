@@ -23,6 +23,7 @@ export interface Props {
   onEnableDividends: () => void;
   onCreateCheckpoint: () => void;
   dividendsModule?: types.Erc20DividendsModulePojo;
+  walletAddress: string;
 }
 
 export class Presenter extends Component<Props> {
@@ -35,7 +36,7 @@ export class Presenter extends Component<Props> {
   };
 
   public render() {
-    const { dividendsModule } = this.props;
+    const { dividendsModule, walletAddress } = this.props;
 
     return (
       <Fragment>
@@ -102,10 +103,13 @@ export class Presenter extends Component<Props> {
                 </Fragment>
               ) : (
                 <Form
+                  initialValues={{
+                    walletAddress,
+                  }}
                   onSubmit={this.handleEnableDividendsClick}
                   render={() => (
                     <Grid>
-                      <FormItem name="textInput">
+                      <FormItem name="walletAddress">
                         <FormItem.Label>
                           Wallet Address to Receive Tax Withholdings
                         </FormItem.Label>
