@@ -5,7 +5,7 @@ import { SvgCheckmark } from '~/images/icons/Checkmark';
 import { formikProxy } from '../formikProxy';
 import * as sc from './styles';
 
-export interface Props {
+interface Props {
   onChange: (e: any) => void;
   /**
    * Specify whether the toggle should be on by default

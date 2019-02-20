@@ -5,13 +5,13 @@ import numeral from 'numeral';
 import { formikProxy } from '../formikProxy';
 import { BaseInput } from '../BaseInput';
 
-export interface PercentageInputProps {
+interface Props {
   onChange: (value: number) => void;
   name: string;
   value: number;
 }
 
-export class PercentageInputPrimitive extends Component<PercentageInputProps> {
+export class PercentageInputPrimitive extends Component<Props> {
   public static formatValue = (value: any) => {
     if (!isNumber(value) || isNaN(value)) {
       return '';

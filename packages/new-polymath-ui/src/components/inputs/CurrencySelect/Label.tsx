@@ -5,7 +5,7 @@ import { Box } from '~/components/Box';
 import { IconCircled } from '~/components/IconCircled';
 import { ellipsis } from '~/components/../styles/utils';
 
-export interface LabelProps {
+interface Props {
   Asset: React.ComponentType | string;
   text: string;
   theme: ThemeInterface;
@@ -24,7 +24,7 @@ const Text = styled.span`
   ${ellipsis};
 `;
 
-const LabelPrimitive: FC<LabelProps> = ({ Asset, text, theme, token }) => (
+const LabelPrimitive: FC<Props> = ({ Asset, text, theme, token }) => (
   <Wrapper>
     <IconCircled
       Asset={Asset}
