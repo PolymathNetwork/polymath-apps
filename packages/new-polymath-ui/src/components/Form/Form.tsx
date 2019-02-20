@@ -1,4 +1,3 @@
-// Packages
 import React, { FC } from 'react';
 import { Formik } from 'formik';
 import { typeHelpers } from '@polymathnetwork/new-shared';
@@ -15,7 +14,7 @@ export const Form: FC<Props> = props => {
     <Formik
       {...props}
       render={formikProps => {
-        return props.render(formikProps);
+        return props.render ? props.render(formikProps) : null;
       }}
     />
   );
