@@ -15,7 +15,7 @@ export interface Props {
   symbol: string;
 }
 
-export const Presenter = ({ symbol, dividends }: Props) => (
+export const CheckpointPresenter = ({ symbol, dividends }: Props) => (
   <List>
     {dividends.length ? (
       <Fragment>

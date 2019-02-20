@@ -26,6 +26,7 @@ import { exampleOptions } from './data';
 
 <Playground>
   <Formik
+    initialValues={{ mySelect: exampleOptions[0] }}
     render={values => (
       <form>
         <pre>{JSON.stringify(values, null, 2)}</pre>

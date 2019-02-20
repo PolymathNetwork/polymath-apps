@@ -1,3 +1,3 @@
-import { Container } from './Container';
+import { CheckpointsContainer } from './Container';
 
-export const Checkpoints = Container;
+export const Checkpoints = CheckpointsContainer;

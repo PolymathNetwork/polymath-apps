@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { get } from 'lodash';
+import { typeHelpers } from '@polymathnetwork/new-shared';
+import { getHoverColor } from '~/styles/utils';
+import { Icon } from '../Icon';
 
-import { Icon, IconProps } from '../Icon';
+type IconProps = typeHelpers.GetProps<typeof Icon>;
 
 export interface IconButtonProps extends IconProps {}
 
@@ -14,18 +18,20 @@ const Button = styled.button`
 
 const StyledIcon = styled(Icon)`
   display: block;
-  width: 100%;
-  height: 100%;
+
+  &:hover {
+    color: ${({ theme, color }) =>
+      color && getHoverColor(get(theme, `colors.${color}`))};
+  }
 `;
 
 export const IconButton: FC<IconButtonProps> = ({
   Asset,
-  color,
   children,
   ...props
 }) => (
-  <Button {...props}>
-    <StyledIcon Asset={Asset} />
+  <Button>
+    <StyledIcon Asset={Asset} {...props} />
     {children}
   </Button>
 );

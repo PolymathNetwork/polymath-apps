@@ -23,7 +23,7 @@ import {
 } from 'styled-system';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Box } from '~/components/Box';
-import { GridItem } from './GridItem';
+import { Item } from './Item';
 
 export type GridProps = typeHelpers.GetProps<typeof Box> &
   GridGapProps &
@@ -37,7 +37,7 @@ export type GridProps = typeHelpers.GetProps<typeof Box> &
   JustifyItemsProps &
   JustifyContentProps;
 
-const GridBase = styled(Box)<GridProps>`
+const GridComponent = styled(Box)<GridProps>`
   display: grid;
   ${gridGap};
   ${gridAutoFlow};
@@ -55,8 +55,8 @@ export const GridDocz: FC<GridProps> = props => {
   return <Grid {...props} />;
 };
 
-export const Grid = Object.assign(GridBase, {
-  Item: GridItem,
+export const Grid = Object.assign(GridComponent, {
+  Item,
 });
 
 Grid.defaultProps = {

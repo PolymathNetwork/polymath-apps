@@ -9,10 +9,10 @@ const gridSpan = style({
   transformValue: n => `auto / span ${n}`,
 });
 
-export interface GridColProps {
+export interface Props {
   gridSpan?: number | ResponsiveValue<number>;
 }
 
-export const GridCol = styled(Grid.Item)<GridColProps>`
+export const Col = styled(Grid.Item)<Props>`
   ${gridSpan};
 `;

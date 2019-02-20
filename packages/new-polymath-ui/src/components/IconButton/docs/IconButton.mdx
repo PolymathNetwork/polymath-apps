@@ -7,6 +7,7 @@ import { Playground, PropsTable } from 'docz';
 
 import { IconButton } from '../';
 import { SvgDot } from '~/images/icons/Dot';
+import { SvgPen } from '~/images/icons/Pen';
 
 # IconButton
 
@@ -15,5 +16,12 @@ import { SvgDot } from '~/images/icons/Dot';
 ## Basic usage
 
 <Playground>
-  <IconButton Asset={SvgDot} />
+  <IconButton Asset={SvgDot} scale={0.8} width={35} height={35} />
+  <IconButton
+    Asset={SvgPen}
+    color="primary"
+    scale={0.8}
+    width={35}
+    height={35}
+  />
 </Playground>
