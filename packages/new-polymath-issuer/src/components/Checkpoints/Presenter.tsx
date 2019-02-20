@@ -19,7 +19,7 @@ export interface Props {
   symbol: string;
 }
 
-export const Presenter = ({ checkpoints, symbol }: Props) => {
+export const CheckpointsPresenter = ({ checkpoints, symbol }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
   );
