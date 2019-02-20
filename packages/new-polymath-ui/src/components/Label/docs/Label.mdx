@@ -4,8 +4,6 @@ menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
-
-import { theme } from '~/styles/theme';
 import { Label, LabelDocz } from '../';
 
 import { constants, types } from '@polymathnetwork/new-shared';
@@ -17,13 +15,13 @@ import { constants, types } from '@polymathnetwork/new-shared';
 ## Basic usage
 
 <Playground>
-  <Label color={theme.tokens[types.Tokens.Ether].color}>Issued in ETH</Label>
+  <Label color={`tokens.${types.Tokens.Ether}.color`}>Issued in ETH</Label>
   <Label
-    color={theme.tokens[types.Tokens.Dai].color}
-    bg={theme.tokens[types.Tokens.Dai].backgroundColor}
+    color={`tokens.${types.Tokens.Dai}.color`}
+    bg={`tokens.${types.Tokens.Dai}.backgroundColor`}
   >
     Issued in DAI
   </Label>
-  <Label color={theme.tokens[types.Tokens.Poly].color}>Issued in POLY</Label>
-  <Label color={theme.tokens[types.Tokens.Erc20].color}>Issued in ERC20</Label>
+  <Label color={`tokens.${types.Tokens.Poly}.color`}>Issued in POLY</Label>
+  <Label color={`tokens.${types.Tokens.Erc20}.color`}>Issued in ERC20</Label>
 </Playground>
