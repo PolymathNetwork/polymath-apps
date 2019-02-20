@@ -50,6 +50,38 @@ export class BigNumberSchema extends Yup.mixed {
     });
   }
 
+  minDigits(minDigits, message) {
+    return this.test({
+      message,
+      name: ' minLength',
+      exclusive: true,
+      params: { minDigits },
+      test(value) {
+        return (
+          value === null ||
+          value.toFormat().replace(/[.,]/g, '').length >=
+            this.resolve(minDigits)
+        );
+      },
+    });
+  }
+
+  maxDigits(maxDigits, message) {
+    return this.test({
+      message,
+      name: ' maxLength',
+      exclusive: true,
+      params: { maxDigits },
+      test(value) {
+        return (
+          value === null ||
+          value.toFormat().replace(/[.,]/g, '').length <=
+            this.resolve(maxDigits)
+        );
+      },
+    });
+  }
+
   lessThan(less, message) {
     return this.test({
       message,

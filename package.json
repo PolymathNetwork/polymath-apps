@@ -9,7 +9,9 @@
       "@polymathnetwork/polymath-scripts/polymath-core"
     ]
   },
+  "version": "0.1.0",
   "scripts": {
+    "changelog": "node ./config/changelog.js",
     "commit": "commit",
     "typecheck": "lerna run --parallel typecheck ",
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",

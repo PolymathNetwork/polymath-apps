@@ -46,7 +46,7 @@ export const EmailWrapper = ({ children }: Props) => (
           </h2>
         </div>
         <div className="footer">
-          <div className="left">© 2018 Polymath</div>
+          <div className="left">&copy; {new Date().getFullYear()} Polymath</div>
           <div className="right">
             <a href="https://polymath.network/termsofservice.html">
               Terms of service

@@ -174,6 +174,13 @@ class ImportWhitelistModal extends Component<Props> {
             subtitle="Please check instructions above and try again."
             kind="error"
           />
+        ) : isInvalid ? (
+          <InlineNotification
+            hideCloseButton
+            title="The file you uploaded has invalid fields"
+            subtitle="Please check instructions above and try again."
+            kind="error"
+          />
         ) : isInvalid && !isReady ? (
           <InlineNotification
             hideCloseButton
