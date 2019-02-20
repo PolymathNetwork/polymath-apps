@@ -468,8 +468,6 @@ export const getTransactionContent = (
 ) => {
   const { tag } = transaction;
 
-  console.log('TAG', tag);
-
   switch (tag) {
     case types.PolyTransactionTags.Any: {
       return {

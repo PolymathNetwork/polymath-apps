@@ -42,7 +42,6 @@ export class PushDividendPayment extends Procedure<
     const investorAddressChunks = chunk(investors, CHUNK_SIZE);
 
     for (const addresses of investorAddressChunks) {
-      console.log('ADDRESSES', addresses);
       await this.addTransaction(dividendsModule.pushDividendPayment, {
         tag: types.PolyTransactionTags.PushDividendPayment,
       })({
