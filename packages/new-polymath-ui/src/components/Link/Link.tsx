@@ -6,11 +6,11 @@ const urlRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6
 
 export interface LinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string;
+  href?: string;
 }
 
 export const Link = styled(({ href, ...rest }: LinkProps) => {
-  const isExternal = href.match(urlRegex);
+  const isExternal = href && href.match(urlRegex);
   let linkProps = {};
 
   if (isExternal) {
