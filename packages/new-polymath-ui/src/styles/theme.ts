@@ -1,6 +1,7 @@
 import { transparentize, darken } from 'polished';
 import { types } from '@polymathnetwork/new-shared';
 import { Scale } from './types';
+import { buttonReset } from './utils';
 
 const breakpoints = {
   sm: 0,
@@ -142,6 +143,7 @@ const buttons = {
       opacity: 1,
     },
   },
+  raw: buttonReset,
 };
 
 const links = {

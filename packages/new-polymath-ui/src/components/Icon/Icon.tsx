@@ -1,18 +1,13 @@
 import React, { FC } from 'react';
 import styled, { StyledProps } from 'styled-components';
-import {
-  color,
-  ColorProps,
-  width,
-  height,
-  TLengthStyledSystem,
-} from 'styled-system';
+import { color, width, height, TLengthStyledSystem } from 'styled-system';
 
 export interface IconProps extends StyledProps<any> {
-  color: ColorProps;
+  Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
   width: TLengthStyledSystem;
   height: TLengthStyledSystem;
-  Asset: React.ComponentType<React.SVGAttributes<SVGElement>>;
+  color?: string;
+  scale?: number;
 }
 
 const IconComponent: FC<IconProps> = ({
@@ -20,6 +15,7 @@ const IconComponent: FC<IconProps> = ({
   color,
   width,
   height,
+  scale,
   className,
   alt,
   ...props
@@ -42,12 +38,14 @@ export const Icon = styled(IconComponent)<IconProps>`
     display: block;
     width: 100%;
     height: 100%;
+    padding: ${({ scale }) => `${(1 - scale!) * 100 + 10}%`};
   }
 `;
 
 Icon.defaultProps = {
   width: '1em',
   height: '1em',
+  scale: 1,
 };
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved

@@ -9,6 +9,7 @@ import { SvgDividends } from './images/icons/Dividends';
 import { SvgDividendsOutline } from './images/icons/DividendsOutline';
 import { SvgCheckmark } from './images/icons/Checkmark';
 import { SvgChecklist } from './images/icons/Checklist';
+import { SvgPen } from './images/icons/Pen';
 import { SvgPlus } from './images/icons/Plus';
 import { SvgPlusPlain } from './images/icons/PlusPlain';
 import { SvgWarning } from './images/icons/Warning';
@@ -78,6 +79,7 @@ export const icons = {
   SvgDividendsOutline,
   SvgCheckmark,
   SvgChecklist,
+  SvgPen,
   SvgPlus,
   SvgPlusPlain,
   SvgWarning,

@@ -1,29 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { color, ColorProps } from 'styled-system';
+import { typeHelpers } from '@polymathnetwork/new-shared';
+import { Icon } from '~/components/Icon';
 
-import { Icon, IconProps } from '~/components/Icon';
+type IconProps = typeHelpers.GetProps<typeof Icon>;
 
-export interface IconCircledProps extends IconProps {
-  color: ColorProps;
-  scale?: number;
-}
-
-export const IconCircled = styled(Icon)`
-  ${color};
+export const IconCircled = styled(Icon)<IconProps>`
   border-radius: 50%;
-
-  svg {
-    padding: ${({ scale }) => `${(1 - scale) * 100 + 10}%`};
-  }
 `;
 
 IconCircled.defaultProps = {
+  ...Icon.defaultProps,
   bg: 'blue[0]',
-  scale: 1,
 };
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
-export const IconCircledDocz = (props: IconCircledProps) => {
+export const IconCircledDocz = (props: IconProps) => {
   return <IconCircled {...props} />;
 };
