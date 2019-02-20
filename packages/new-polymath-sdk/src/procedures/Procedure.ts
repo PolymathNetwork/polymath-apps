@@ -4,14 +4,16 @@ import {
   ErrorCodes,
   LowLevelMethod,
   MapMaybeResolver,
+  MaybeResolver,
 } from '~/types';
 import { TransactionQueue } from '~/entities/TransactionQueue';
 import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { types } from '@polymathnetwork/new-shared';
+import { TransactionReceipt } from 'web3/types';
 
 function isProcedure<T>(value: any): value is ProcedureType<T> {
-  return value instanceof Procedure;
+  return value.prototype instanceof Procedure;
 }
 
 export interface ProcedureType<Args = any> {
@@ -21,7 +23,7 @@ export interface ProcedureType<Args = any> {
 type MethodOrProcedure<A> = LowLevelMethod<A> | ProcedureType<A>;
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
-export abstract class Procedure<Args> {
+export abstract class Procedure<Args, ReturnType = any> {
   public type: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure;
   protected args: Args;
   protected context: Context;
@@ -38,12 +40,13 @@ export abstract class Procedure<Args> {
    */
 
   public prepare = async () => {
-    await this.prepareTransactions();
+    const returnValue = await this.prepareTransactions();
 
-    const transactionQueue = new TransactionQueue(
+    const transactionQueue = new TransactionQueue<Args, ReturnType>(
       this.transactions,
       this.type,
-      this.args
+      this.args,
+      returnValue
     );
 
     return transactionQueue;
@@ -66,7 +69,7 @@ export abstract class Procedure<Args> {
       resolver = (() => {}) as () => Promise<R>,
     }: {
       tag?: types.PolyTransactionTags;
-      resolver?: () => Promise<R>;
+      resolver?: (receipt: TransactionReceipt) => Promise<R>;
     } = {}
   ) {
     return async (args: MapMaybeResolver<A> = {} as A) => {
@@ -103,5 +106,8 @@ export abstract class Procedure<Args> {
       return postTransactionResolver;
     };
   }
-  protected abstract prepareTransactions(): Promise<void>;
+
+  protected abstract prepareTransactions(): Promise<
+    MaybeResolver<ReturnType | undefined> | undefined
+  >;
 }

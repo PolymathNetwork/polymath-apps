@@ -1,5 +1,6 @@
 import { createStandardAction } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
+import BigNumber from 'bignumber.js';
 
 const enableErc20DividendsModuleStart = createStandardAction(
   'PROCEDURES/ENABLE_ERC20_DIVIDENDS_MODULE_START'
@@ -23,6 +24,20 @@ const updateTaxWithholdingListStart = createStandardAction(
   percentages: number[];
 }>();
 
+const createErc20DividendDistributionStart = createStandardAction(
+  'PROCEDURES/CREATE_ERC20_DIVIDEND_DISTRIBUTION_START'
+)<{
+  securityTokenSymbol: string;
+  maturityDate: Date;
+  expiryDate: Date;
+  erc20Address: string;
+  amount: BigNumber;
+  checkpointId: number;
+  name: string;
+  excludedAddresses: string[];
+  pushPaymentsWhenComplete: boolean;
+}>();
+
 const pushDividendPaymentStart = createStandardAction(
   'PROCEDURES/PUSH_DIVIDEND_PAYMENT_START'
 )<{
@@ -36,4 +51,5 @@ export {
   createCheckpointStart,
   updateTaxWithholdingListStart,
   pushDividendPaymentStart,
+  createErc20DividendDistributionStart,
 };

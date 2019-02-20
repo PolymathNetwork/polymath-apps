@@ -15,8 +15,8 @@ import {
   RegisterTickerArgs,
   GenerateSecurityTokenArgs,
   PushDividendPaymentArgs,
-  DividendModuleTypes,
   DividendInvestorStatus,
+  DividendModuleTypes,
 } from '~/LowLevel/types';
 
 export { DividendModuleTypes, DividendInvestorStatus };
@@ -58,9 +58,9 @@ export interface PolymathNetworkParams {
   polymathRegistryAddress: string;
 }
 
-export type MapMaybeResolver<T> = {
-  [K in keyof T]: PostTransactionResolver<T[K]> | T[K]
-};
+export type MaybeResolver<T> = PostTransactionResolver<T> | T;
+
+export type MapMaybeResolver<T> = { [K in keyof T]: MaybeResolver<T[K]> };
 
 export interface TransactionArguments {
   [types.PolyTransactionTags.Any]: {};

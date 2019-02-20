@@ -39,7 +39,7 @@ export class Context {
     this.currentWallet = new Wallet({ address: accountAddress }, this);
   }
 
-  public getTokenContract(token: types.Tokens) {
+  public getTokenContract = (token: types.Tokens) => {
     switch (token) {
       case types.Tokens.Poly:
         return this.polyToken;
@@ -47,5 +47,5 @@ export class Context {
         throw new Error(`No contract for token: "${token}"`);
       }
     }
-  }
+  };
 }

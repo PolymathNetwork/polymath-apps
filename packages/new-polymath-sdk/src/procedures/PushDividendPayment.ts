@@ -8,7 +8,7 @@ const CHUNK_SIZE = 100;
 export class PushDividendPayment extends Procedure<
   PushDividendPaymentProcedureArgs
 > {
-  public type = types.ProcedureTypes.CreateErc20DividendDistribution;
+  public type = types.ProcedureTypes.PushDividendPayment;
   public async prepareTransactions() {
     const { symbol, dividendId, investorAddresses, dividendType } = this.args;
     const { securityTokenRegistry } = this.context;
@@ -42,6 +42,7 @@ export class PushDividendPayment extends Procedure<
     const investorAddressChunks = chunk(investors, CHUNK_SIZE);
 
     for (const addresses of investorAddressChunks) {
+      console.log('ADDRESSES', addresses);
       await this.addTransaction(dividendsModule.pushDividendPayment, {
         tag: types.PolyTransactionTags.PushDividendPayment,
       })({

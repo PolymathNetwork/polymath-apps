@@ -11,6 +11,7 @@ import {
   BalanceOfArgs,
   ApproveArgs,
 } from './types';
+import { fromWei, toWei } from './utils';
 
 interface PolyTokenContract extends GenericContract {
   methods: {
@@ -18,11 +19,11 @@ interface PolyTokenContract extends GenericContract {
       amount: BigNumber,
       recipient: string
     ) => TransactionObject<boolean>;
-    balanceOf: (address: string) => TransactionObject<string>;
+    balanceOf: (address: string) => TransactionObject<number>;
     allowance: (
       tokenOwner: string,
       spender: string
-    ) => TransactionObject<string>;
+    ) => TransactionObject<number>;
     approve: (spender: string, amount: BigNumber) => TransactionObject<boolean>;
   };
 }
@@ -31,15 +32,17 @@ export class PolyToken extends Contract<PolyTokenContract> {
   private isTestnet: boolean;
 
   constructor({ address, context }: { address: string; context: Context }) {
-    const isTestnet = context.isTestnet();
-    const abi = isTestnet ? PolyTokenFaucetAbi.abi : PolyTokenAbi.abi;
-    super({ address, abi, context });
-    this.isTestnet = isTestnet;
+    super({
+      address,
+      abi: context.isTestnet() ? PolyTokenFaucetAbi.abi : PolyTokenAbi.abi,
+      context,
+    });
+    this.isTestnet = context.isTestnet();
     this.getTokens = this.getTokens.bind(this);
     this.approve = this.approve.bind(this);
   }
 
-  public async getTokens({ amount, recipient }: GetTokensArgs) {
+  public getTokens = async ({ amount, recipient }: GetTokensArgs) => {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
@@ -47,20 +50,25 @@ export class PolyToken extends Contract<PolyTokenContract> {
       this.contract.methods
         .getTokens(amount, recipient)
         .send({ from: this.context.account });
-  }
+  };
 
-  public async balanceOf({ address }: BalanceOfArgs) {
+  public balanceOf = async ({ address }: BalanceOfArgs) => {
     return this.contract.methods.balanceOf(address).call();
-  }
+  };
 
-  public async allowance({ tokenOwner, spender }: AllowanceArgs) {
-    return this.contract.methods.allowance(tokenOwner, spender).call();
-  }
+  public allowance = async ({ tokenOwner, spender }: AllowanceArgs) => {
+    const allowance = await this.contract.methods
+      .allowance(tokenOwner, spender)
+      .call();
 
-  public async approve({ spender, amount }: ApproveArgs) {
+    return fromWei(allowance);
+  };
+
+  public approve = async ({ spender, amount }: ApproveArgs) => {
+    const amountInWei = toWei(amount);
     return () =>
       this.contract.methods
-        .approve(spender, amount)
+        .approve(spender, amountInWei)
         .send({ from: this.context.account });
-  }
+  };
 }

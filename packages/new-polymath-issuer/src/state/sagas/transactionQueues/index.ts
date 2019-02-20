@@ -16,9 +16,11 @@ import { types } from '@polymathnetwork/new-shared';
  * Populates the state with the current transactions in the queue and the queue itself,
  * waits for confirmation (or cancellation) and runs the queue
  *
- * @returns true if running the queue succeeded, false if it was canceled or failed
+ * @returns an object containing a boolean that is true if running the queue succeeded, false if it was canceled or failed, and the return value of the queue
  */
-export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
+export function* runTransactionQueue<Args, ReturnType>(
+  transactionQueueToRun: TransactionQueue<Args, ReturnType>
+) {
   const { transactions, ...transactionQueue } = transactionQueueToRun.toPojo();
 
   const transactionsToRun = transactionQueueToRun.transactions;
@@ -54,13 +56,17 @@ export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
    * since we need to start listening to status changes BEFORE the queue starts to run,
    * or we cannot catch the change from 'IDLE' to 'RUNNING'
    */
-  let queueSucceeded: boolean;
-  [queueSucceeded] = yield all([
+  let success: boolean;
+  let result: ReturnType;
+  [success, result] = yield all([
     call(watchQueueStatus, transactionQueueToRun),
     call(transactionQueueToRun.run),
   ]);
 
-  return queueSucceeded;
+  return {
+    success,
+    result,
+  };
 }
 
 /**

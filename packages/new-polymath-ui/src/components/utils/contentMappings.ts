@@ -351,6 +351,15 @@ export const getTransactionQueueContent = (
         description: 'Set Tax Withholding',
       };
     }
+    case types.ProcedureTypes.PushDividendPayment: {
+      const args: ProcedureArguments[types.ProcedureTypes.PushDividendPayment] =
+        queue.args;
+
+      return {
+        title: 'Push Dividend Payment',
+        description: 'Push Dividend Payment',
+      };
+    }
     case types.ProcedureTypes.UnnamedProcedure:
     default: {
       return {
@@ -439,6 +448,12 @@ export const getTransactionTitle = (
 
       return 'Withdraw Tax Withholdings';
     }
+    case types.PolyTransactionTags.PushDividendPayment: {
+      const args: TransactionArguments[types.PolyTransactionTags.PushDividendPayment] =
+        transaction.args;
+
+      return 'Push Dividend Payment';
+    }
     default: {
       return '';
     }
@@ -452,6 +467,8 @@ export const getTransactionContent = (
   transactions: types.TransactionPojo[]
 ) => {
   const { tag } = transaction;
+
+  console.log('TAG', tag);
 
   switch (tag) {
     case types.PolyTransactionTags.Any: {

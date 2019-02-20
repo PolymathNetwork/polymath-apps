@@ -166,3 +166,8 @@ export type PartialWithId<T extends types.Entity> = Partial<
 > & {
   uid: string;
 };
+
+export interface TransactionQueueResult<T = any> {
+  success: boolean;
+  result?: T;
+}

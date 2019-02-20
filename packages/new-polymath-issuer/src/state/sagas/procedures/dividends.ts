@@ -1,14 +1,99 @@
 import { polyClient } from '~/lib/polyClient';
-import { call, put } from 'redux-saga/effects';
-import { ActionType } from 'typesafe-actions';
-import { TransactionQueue } from '@polymathnetwork/sdk';
+import { call, put, take } from 'redux-saga/effects';
+import { ActionType, getType } from 'typesafe-actions';
+import { TransactionQueue, DividendModuleTypes } from '@polymathnetwork/sdk';
 import {
   updateTaxWithholdingListStart,
   pushDividendPaymentStart,
+  createErc20DividendDistributionStart,
 } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 import { invalidateRequest } from '~/state/actions/dataRequests';
-import { RequestKeys } from '~/types';
+import { RequestKeys, TransactionQueueResult } from '~/types';
+import { finishTransactionQueue } from '~/state/actions/transactionQueues';
+
+export function* createErc20DividendsDistribution(
+  action: ActionType<typeof createErc20DividendDistributionStart>
+) {
+  const {
+    securityTokenSymbol,
+    maturityDate,
+    expiryDate,
+    erc20Address,
+    amount,
+    checkpointId,
+    name,
+    excludedAddresses,
+    pushPaymentsWhenComplete,
+  } = action.payload;
+  const transactionQueueToRun: TransactionQueue = yield call(
+    polyClient.createErc20DividendDistribution,
+    {
+      symbol: securityTokenSymbol,
+      maturityDate,
+      expiryDate,
+      erc20Address,
+      amount,
+      checkpointId,
+      name,
+      excludedAddresses,
+    }
+  );
+
+  try {
+    const { success, result }: TransactionQueueResult<number> = yield call(
+      runTransactionQueue,
+      transactionQueueToRun
+    );
+
+    // Queue was canceled or failed
+    if (!success) {
+      return;
+    }
+
+    // Invalidate cache
+    yield put(
+      invalidateRequest({
+        requestKey: RequestKeys.GetDividendsByCheckpoint,
+        args: {
+          securityTokenSymbol,
+          checkpointIndex: checkpointId,
+        },
+      })
+    );
+
+    yield put(
+      invalidateRequest({
+        requestKey: RequestKeys.GetCheckpointBySymbolAndId,
+        args: {
+          securityTokenSymbol,
+          checkpointIndex: checkpointId,
+        },
+      })
+    );
+
+    yield take(getType(finishTransactionQueue));
+
+    if (pushPaymentsWhenComplete) {
+      if (result === undefined) {
+        throw new Error(
+          'Something went wrong. A dividend distribution was created but no dividend index was returned from the SDK.'
+        );
+      }
+      yield put(
+        pushDividendPaymentStart({
+          securityTokenSymbol,
+          dividendType: DividendModuleTypes.Erc20,
+          dividendIndex: result,
+        })
+      );
+    }
+  } catch (err) {
+    if (!err.code) {
+      throw err;
+    }
+  }
+}
 
 export function* updateTaxWithholdingList(
   action: ActionType<typeof updateTaxWithholdingListStart>
@@ -30,13 +115,13 @@ export function* updateTaxWithholdingList(
   );
 
   try {
-    const queueSucceeded: boolean = yield call(
+    const { success }: TransactionQueueResult = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
     // Queue was canceled or failed
-    if (!queueSucceeded) {
+    if (!success) {
       return;
     }
 

@@ -5,7 +5,7 @@ import { TransactionQueue } from '@polymathnetwork/sdk';
 import { createCheckpointStart } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 import { invalidateRequest } from '~/state/actions/dataRequests';
-import { RequestKeys } from '~/types';
+import { RequestKeys, TransactionQueueResult } from '~/types';
 
 export function* createCheckpoint(
   action: ActionType<typeof createCheckpointStart>
@@ -19,13 +19,13 @@ export function* createCheckpoint(
   );
 
   try {
-    const queueSucceeded: boolean = yield call(
+    const { success }: TransactionQueueResult = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
     // Queue was canceled or failed
-    if (!queueSucceeded) {
+    if (!success) {
       return;
     }
 
