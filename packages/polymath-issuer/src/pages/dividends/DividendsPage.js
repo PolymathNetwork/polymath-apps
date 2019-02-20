@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { SecurityTokensDividendsPage } from '@polymathnetwork/new-issuer/pages';
-import { Page } from '@polymathnetwork/new-ui';
+import { Page } from '@polymathnetwork/ui';
 import { ThemeProvider, GlobalStyles } from '@polymathnetwork/new-ui';
 
 const AdapterContainer = props => {
