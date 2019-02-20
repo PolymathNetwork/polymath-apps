@@ -32,6 +32,7 @@ export const buttonReset = `
   background: none;
   text-transform: none;
   letter-spacing: normal;
+  border: none;
 `;
 
 export const getHoverColor = (color: string) =>
