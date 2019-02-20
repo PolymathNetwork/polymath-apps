@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { types } from '@polymathnetwork/new-shared';
+import { Page } from '@polymathnetwork/new-ui';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createErc20DividendsModuleBySymbolFetcher } from '~/state/fetchers';
@@ -41,26 +42,28 @@ export class ContainerBase extends Component<Props> {
   public render() {
     const { securityTokenSymbol } = this.props;
     return (
-      <DataFetcher
-        fetchers={[
-          createErc20DividendsModuleBySymbolFetcher({ securityTokenSymbol }),
-        ]}
-        render={(data: {
-          erc20DividendsModules: types.Erc20DividendsModuleEntity[];
-        }) => {
-          const {
-            erc20DividendsModules: [erc20DividendsModule],
-          } = data;
+      <Page title="Dividends">
+        <DataFetcher
+          fetchers={[
+            createErc20DividendsModuleBySymbolFetcher({ securityTokenSymbol }),
+          ]}
+          render={(data: {
+            erc20DividendsModules: types.Erc20DividendsModuleEntity[];
+          }) => {
+            const {
+              erc20DividendsModules: [erc20DividendsModule],
+            } = data;
 
-          return (
-            <Presenter
-              onCreateCheckpoint={this.createCheckpoint}
-              onEnableDividends={this.enableErc20DividendsModule}
-              dividendsModule={erc20DividendsModule}
-            />
-          );
-        }}
-      />
+            return (
+              <Presenter
+                onCreateCheckpoint={this.createCheckpoint}
+                onEnableDividends={this.enableErc20DividendsModule}
+                dividendsModule={erc20DividendsModule}
+              />
+            );
+          }}
+        />
+      </Page>
     );
   }
 }
