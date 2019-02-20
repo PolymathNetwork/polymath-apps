@@ -3,6 +3,7 @@ import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import {
   Heading,
   Paragraph,
+  Grid,
   GridRow,
   Link,
   Button,
@@ -12,6 +13,9 @@ import {
   Icon,
   IconCircled,
   icons,
+  Form,
+  FormItem,
+  TextInput,
 } from '@polymathnetwork/new-ui';
 import { ModalTransactionQueue, Checkpoints } from '~/components';
 
@@ -87,7 +91,7 @@ export class Presenter extends Component<Props> {
                   </Paragraph>
                   <CardPrimary>
                     <Paragraph fontSize={0}>
-                      Dividends contract address:
+                      Dividends contract address:{' '}
                       <Link
                         href={utils.toEtherscanUrl(dividendsModule.address)}
                       >
@@ -97,12 +101,24 @@ export class Presenter extends Component<Props> {
                   </CardPrimary>
                 </Fragment>
               ) : (
-                <ButtonLarge
-                  variant="secondary"
-                  onClick={this.handleEnableDividendsClick}
-                >
-                  Enable
-                </ButtonLarge>
+                <Form
+                  onSubmit={this.handleEnableDividendsClick}
+                  render={() => (
+                    <Grid>
+                      <FormItem name="textInput">
+                        <FormItem.Label>Founds wallet address</FormItem.Label>
+                        <FormItem.Input
+                          component={TextInput}
+                          placeholder="Wallet address"
+                        />
+                        <FormItem.Error />
+                      </FormItem>
+                      <ButtonLarge variant="secondary" type="submit">
+                        Enable
+                      </ButtonLarge>
+                    </Grid>
+                  )}
+                />
               )}
             </CardFeatureState>
           </GridRow.Col>
