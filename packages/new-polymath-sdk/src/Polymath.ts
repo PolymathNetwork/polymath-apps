@@ -57,8 +57,8 @@ interface ContextualizedEntities {
 }
 
 interface DataProvider {
-  network: number,
-  provider: Web3ProviderEngine,
+  network: number;
+  provider: Web3ProviderEngine;
 }
 
 async function getProviderEngine(): Promise<DataProvider> {
@@ -67,7 +67,9 @@ async function getProviderEngine(): Promise<DataProvider> {
   let networkId = 15;
   if (injectedProviderIfExists !== undefined) {
     try {
-      providerEngine.addProvider(new MetamaskSubprovider(injectedProviderIfExists));
+      providerEngine.addProvider(
+        new MetamaskSubprovider(injectedProviderIfExists)
+      );
       networkId = Number((injectedProviderIfExists as any).networkVersion);
     } catch (err) {
       // Ignore error and proceed with networkId undefined
@@ -79,20 +81,23 @@ async function getProviderEngine(): Promise<DataProvider> {
   const INFURA_API_KEY = 'T5WSC8cautR4KXyYgsRs';
   const configs = {
     PUBLIC_NODE_URLS_BY_NETWORK_ID: {
-      [1]: [`https://mainnet.infura.io/${INFURA_API_KEY}`],
-      [42]: [`https://kovan.infura.io/${INFURA_API_KEY}`],
-      [15]: ['http://127.0.0.1:8545'],
+      1: [`https://mainnet.infura.io/${INFURA_API_KEY}`],
+      42: [`https://kovan.infura.io/${INFURA_API_KEY}`],
+      15: ['http://127.0.0.1:8545'],
     } as IPublicNodeUrlsByNetworkId,
   };
-  const publicNodeUrlsIfExistsForNetworkId = configs.PUBLIC_NODE_URLS_BY_NETWORK_ID[networkId];
-  const rpcSubproviders = publicNodeUrlsIfExistsForNetworkId.map(publicNodeUrl => {
-    return new RPCSubprovider(publicNodeUrl);
-  });
+  const publicNodeUrlsIfExistsForNetworkId =
+    configs.PUBLIC_NODE_URLS_BY_NETWORK_ID[networkId];
+  const rpcSubproviders = publicNodeUrlsIfExistsForNetworkId.map(
+    publicNodeUrl => {
+      return new RPCSubprovider(publicNodeUrl);
+    }
+  );
   providerEngine.addProvider(new RedundantSubprovider(rpcSubproviders));
   providerEngine.start();
   return {
     network: networkId,
-    provider: providerEngine
+    provider: providerEngine,
   };
 }
 
@@ -108,7 +113,10 @@ async function getInjectedProviderIfExists(): Promise<Provider | undefined> {
     }
   } else {
     const injectedWeb3IfExists = (window as any).web3;
-    if (injectedWeb3IfExists !== undefined && injectedWeb3IfExists.currentProvider !== undefined) {
+    if (
+      injectedWeb3IfExists !== undefined &&
+      injectedWeb3IfExists.currentProvider !== undefined
+    ) {
       injectedProviderIfExists = injectedWeb3IfExists.currentProvider;
     } else {
       return undefined;
@@ -123,7 +131,7 @@ export class Polymath {
   public isUnsupported: boolean = false;
   public isConnected: boolean = false;
   public polymathRegistryAddress: string = '';
-  //private lowLevel: LowLevel = {} as LowLevel;
+  // private lowLevel: LowLevel = {} as LowLevel;
   private polymatAPI: PolymathAPI = {} as PolymathAPI;
   private context: Context = {} as Context;
   private entities: ContextualizedEntities;
@@ -150,7 +158,10 @@ export class Polymath {
     this.polymathRegistryAddress = polymathRegistryAddress;
     this.provider = await getProviderEngine();
 
-    this.polymatAPI = new PolymathAPI(this.provider.provider, this.provider.network);
+    this.polymatAPI = new PolymathAPI(
+      this.provider.provider,
+      this.provider.network
+    );
 
     this.polymathRegistryAddress = polymathRegistryAddress;
 
@@ -160,7 +171,7 @@ export class Polymath {
     if (!polymathRegistryAddress) {
       throw new Error(
         `Polymath registry address for network id "${
-        this.networkId
+          this.networkId
         }" was not found`
       );
     }
@@ -168,13 +179,14 @@ export class Polymath {
     if (!account) {
       throw new Error(
         "No account found. If you are using node, make sure you've not" +
-        ' forgotten to add a private key. If you are using Metamask make sure ethereum.enable() was called first'
+          ' forgotten to add a private key. If you are using Metamask make sure ethereum.enable() was called first'
       );
     }
 
     this.context = new Context({
       polyToken: this.polymatAPI.polyToken as PolyTokenWrapper,
-      polymathRegistry: this.polymatAPI.polymathRegistry as PolymathRegistryWrapper,
+      polymathRegistry: this.polymatAPI
+        .polymathRegistry as PolymathRegistryWrapper,
       securityTokenRegistry: this.polymatAPI
         .securityTokenRegistry as SecurityTokenRegistryWrapper,
       moduleRegistry: this.polymatAPI.moduleRegistry as ModuleRegistryWrapper,

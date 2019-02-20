@@ -1,8 +1,8 @@
 import { types } from '@polymathnetwork/new-shared';
-//import { PolyToken } from '~/LowLevel/PolyToken';
-//import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
-//import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
-//import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
+// import { PolyToken } from '~/LowLevel/PolyToken';
+// import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
+// import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
+// import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
 import { PolyTokenWrapper } from '@polymathnetwork/contract-wrappers';
 import { PolymathRegistryWrapper } from '@polymathnetwork/contract-wrappers';
 import { SecurityTokenRegistryWrapper } from '@polymathnetwork/contract-wrappers';
