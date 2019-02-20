@@ -14,8 +14,8 @@ export const Form: FC<Props> = props => {
   return (
     <Formik
       {...props}
-      render={({ handleSubmit, ...formikProps }) => {
-        return <form onSubmit={handleSubmit}>{props.render(formikProps)}</form>;
+      render={formikProps => {
+        return props.render(formikProps);
       }}
     />
   );

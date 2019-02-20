@@ -37,14 +37,14 @@ const mapStateToProps = (state: RootState) => {
 };
 
 export class ContainerBase extends Component<Props> {
-  public enableErc20DividendsModule = () => {
+  public enableErc20DividendsModule = (storageWalletAddress: string) => {
     const { dispatch, securityTokenSymbol } = this.props;
 
     // TODO @monitz87: change the wallet address to the one supplied by the user when we implement the form
     dispatch(
       enableErc20DividendsModuleStart({
         securityTokenSymbol,
-        storageWalletAddress: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
+        storageWalletAddress,
       })
     );
   };
@@ -75,7 +75,7 @@ export class ContainerBase extends Component<Props> {
                 onCreateCheckpoint={this.createCheckpoint}
                 onEnableDividends={this.enableErc20DividendsModule}
                 dividendsModule={erc20DividendsModule}
-                walletAddress={walletAddress}
+                defaultWalletAddress={walletAddress}
               />
             );
           }}
