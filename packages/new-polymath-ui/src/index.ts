@@ -64,6 +64,7 @@ export { Sidebar } from './components/Sidebar';
 export { Tooltip } from './components/Tooltip';
 export { TooltipIcon } from './components/TooltipIcon';
 export { TooltipPrimary } from './components/TooltipPrimary';
+export * from './components/Form';
 
 // Icons
 export const icons = {
