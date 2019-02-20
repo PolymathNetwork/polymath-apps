@@ -106,7 +106,9 @@ export class Presenter extends Component<Props> {
                   render={() => (
                     <Grid>
                       <FormItem name="textInput">
-                        <FormItem.Label>Founds wallet address</FormItem.Label>
+                        <FormItem.Label>
+                          Wallet Address to Receive Tax Withholdings
+                        </FormItem.Label>
                         <FormItem.Input
                           component={TextInput}
                           placeholder="Wallet address"
