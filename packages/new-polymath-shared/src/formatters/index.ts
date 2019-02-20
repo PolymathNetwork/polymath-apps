@@ -7,8 +7,8 @@ import { times, isNumber } from 'lodash';
  * NOTE @RafaelVidaurre: We cannot use instanceof here since we are handling
  * multiple versions of BigNumber
  */
-function isBigNumber(value: any) {
-  return typeof value === 'object';
+function isBigNumber(value: any): value is BigNumber {
+  return typeof value === 'object' && (value.isBigNumber || value._isBigNumber);
 }
 
 /**
@@ -72,7 +72,15 @@ export const toTokens = (
   if (!isValid) {
     return `-`;
   }
-  const num = new BigNumber(value);
+
+  let num: BigNumber;
+
+  if (isBigNumber(value)) {
+    num = new BigNumber(value);
+  } else {
+    num = new BigNumber(`${value}`);
+  }
+
   return num.toFormat(decimals);
 };
 

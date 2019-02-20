@@ -29,6 +29,7 @@ import {
   REQUIRED_MESSAGE,
   MORE_THAN_MESSAGE,
   ADDRESS_MESSAGE,
+  MAX_DIGITS_MESSAGE,
 } from '../../validators';
 import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
@@ -57,10 +58,12 @@ const formSchema = validator.object().shape({
   cap: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .moreThan(0, MORE_THAN_MESSAGE),
   rate: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .moreThan(0, MORE_THAN_MESSAGE),
   receiverAddress: validator
     .string()

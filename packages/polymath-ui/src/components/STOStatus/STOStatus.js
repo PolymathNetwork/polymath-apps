@@ -2,8 +2,8 @@
 
 import BigNumber from 'bignumber.js';
 import React, { Component } from 'react';
-import type { SecurityToken, STODetails } from '@polymathnetwork/js/types';
 import { Icon } from 'carbon-components-react';
+import type { SecurityToken, STODetails } from '@polymathnetwork/js/types';
 
 import { etherscanAddress } from '../../helpers';
 import Box from '../Box';
@@ -40,11 +40,7 @@ const dateFormat = (date: Date) =>
     day: 'numeric',
   });
 
-type State = {|
-  countdownProps: any,
-|};
-
-export default class STOStatus extends Component<Props, State> {
+export default class STOStatus extends Component<Props> {
   state = {
     countdownProps: {},
   };
@@ -97,7 +93,7 @@ export default class STOStatus extends Component<Props, State> {
   };
 
   componentWillMount() {
-    const { token, details, notPausable } = this.props;
+    const { details } = this.props;
 
     this.setState({
       countdownProps: this.getCountdownProps(
@@ -107,9 +103,9 @@ export default class STOStatus extends Component<Props, State> {
       ),
     });
   }
+
   render() {
     const { token, details, notPausable } = this.props;
-
     const { countdownProps } = this.state;
 
     const symbol = details.isPolyFundraise ? 'POLY' : 'ETH';
@@ -123,6 +119,8 @@ export default class STOStatus extends Component<Props, State> {
       .div(details.cap.div(details.rate))
       .times(100)
       .toFixed(1);
+
+    const isSaleComplete = parseInt(fractionComplete, 10) === 100;
 
     return (
       <div className="pui-page-box">
@@ -145,7 +143,7 @@ export default class STOStatus extends Component<Props, State> {
               </div>
             </div>
             <Box mb="l">
-              <ProgressBar progress={fractionComplete / 100} />
+              <ProgressBar progress={fractionComplete} />
             </Box>
             <div className="pui-sto-status-bottom-row">
               <div className="pui-sto-status-dates">
@@ -177,7 +175,29 @@ export default class STOStatus extends Component<Props, State> {
               </div>
             </div>
           </div>
-          {countdownProps != null ? (
+          {isSaleComplete ? (
+            <div className="pui-countdown-container">
+              <ContentBox
+                style={{
+                  borderRadius: '10px',
+                  borderTop: '15px solid #00AA5E',
+                  width: '350px',
+                }}
+              >
+                <Paragraph textAlign="center">
+                  <Icon
+                    name="checkmark--outline"
+                    fill="#00AA5E"
+                    width="64"
+                    height="64"
+                  />
+                </Paragraph>
+                <Heading variant="h2" textAlign="center">
+                  The Sale is Complete
+                </Heading>
+              </ContentBox>
+            </div>
+          ) : countdownProps != null ? (
             <div className="pui-countdown-container">
               <Countdown
                 deadline={countdownProps.deadline}
