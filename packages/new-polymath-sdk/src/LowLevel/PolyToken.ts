@@ -53,7 +53,9 @@ export class PolyToken extends Contract<PolyTokenContract> {
   };
 
   public balanceOf = async ({ address }: BalanceOfArgs) => {
-    return this.contract.methods.balanceOf(address).call();
+    const balance = await this.contract.methods.balanceOf(address).call();
+
+    return fromWei(balance);
   };
 
   public allowance = async ({ tokenOwner, spender }: AllowanceArgs) => {

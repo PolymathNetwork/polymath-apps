@@ -86,12 +86,35 @@ export class ContainerBase extends Component<Props> {
         securityTokenSymbol: 'A0T0',
         maturityDate: new Date(),
         expiryDate: new Date('10/10/2025'),
-        erc20Address: '0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0',
+        erc20Address: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
         name: 'My Dividend Distribution',
         amount: new BigNumber('10000'),
         checkpointId: 1,
         excludedAddresses: [],
         pushPaymentsWhenComplete: true,
+      })
+    );
+  };
+
+  public checkForValidity = async () => {
+    console.log(
+      '0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0 VALID: ',
+      await polyClient.isValidErc20({
+        address: '0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0',
+      })
+    );
+
+    console.log(
+      '0xf17f52151EbEF6C7334FAD080c5704D77216b732 VALID: ',
+      await polyClient.isValidErc20({
+        address: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
+      })
+    );
+
+    console.log(
+      '0xf12b5dd4ead5f743c6baa640b0216200e89b60da VALID: ',
+      await polyClient.isValidErc20({
+        address: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
       })
     );
   };
@@ -109,6 +132,10 @@ export class ContainerBase extends Component<Props> {
             </Button>
             <Button onClick={this.startCreateDividendDistribution}>
               Create Distribution (Test)
+            </Button>
+            <Button onClick={this.checkForValidity}>
+              Check if 0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0 is a valid
+              ERC20
             </Button>
           </Fragment>
         ) : (

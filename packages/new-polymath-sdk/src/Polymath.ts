@@ -34,6 +34,7 @@ import { Entity } from '~/entities/Entity';
 import { PolymathNetworkParams } from '~/types';
 import BigNumber from 'bignumber.js';
 import { includes } from 'lodash';
+import { Erc20 } from '~/LowLevel/Erc20';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -140,6 +141,7 @@ export class Polymath {
       securityTokenRegistry: lowLevel.securityTokenRegistry as SecurityTokenRegistry,
       moduleRegistry: lowLevel.moduleRegistry as ModuleRegistry,
       isTestnet: lowLevel.isTestnet(),
+      getErc20Token: lowLevel.getErc20Token,
       accountAddress: account,
     });
 
@@ -532,6 +534,11 @@ export class Polymath {
       symbol: args.symbol,
       dividendType: DividendModuleTypes.Eth,
     });
+  };
+
+  public isValidErc20 = async (args: { address: string }) => {
+    const { address } = args;
+    return this.lowLevel.isValidErc20({ address });
   };
 
   get SecurityToken() {

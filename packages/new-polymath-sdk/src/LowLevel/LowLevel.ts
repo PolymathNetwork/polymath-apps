@@ -7,6 +7,7 @@ import { PolyToken } from './PolyToken';
 import { PolymathRegistry } from './PolymathRegistry';
 import { SecurityTokenRegistry } from './SecurityTokenRegistry';
 import { ModuleRegistry } from './ModuleRegistry';
+import { Erc20 } from './Erc20';
 
 interface EthereumProvider extends HttpProvider {
   enable(): Promise<void>;
@@ -73,22 +74,22 @@ a browser, make sure you have MetaMask installed and enabled.`
     }
   }
 
-  public isTestnet() {
+  public isTestnet = () => {
     return this.networkId !== 1;
-  }
+  };
 
-  public async getAccount() {
+  public getAccount = async () => {
     const nodeAccounts = await web3.eth.getAccounts();
     const walletAccount = (web3.eth.accounts.wallet as Web3Wallet)[0] || {};
 
     return nodeAccounts[0] || walletAccount.address;
-  }
+  };
 
-  public async initialize({
+  public initialize = async ({
     polymathRegistryAddress,
   }: {
     polymathRegistryAddress: string;
-  }) {
+  }) => {
     this.account = await this.getAccount();
 
     const context = this as Context;
@@ -124,13 +125,23 @@ a browser, make sure you have MetaMask installed and enabled.`
       address: moduleRegistryAddress,
       context,
     });
-  }
+  };
 
-  public getNetworkId() {
+  public getNetworkId = () => {
     return this.networkId;
-  }
+  };
 
-  private getBrowserProvider() {
+  public isValidErc20 = ({ address }: { address: string }) => {
+    const token = this.getErc20Token({ address });
+
+    return token.isValidErc20();
+  };
+
+  public getErc20Token = ({ address }: { address: string }): Erc20 => {
+    return new Erc20({ address, context: this as Context });
+  };
+
+  private getBrowserProvider = () => {
     if (!window) {
       return null;
     }
@@ -154,5 +165,5 @@ a browser, make sure you have MetaMask installed and enabled.`
     }
 
     return null;
-  }
+  };
 }

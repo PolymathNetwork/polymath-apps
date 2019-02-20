@@ -36,6 +36,7 @@ export class CreateErc20DividendDistribution extends Procedure<
     await this.addTransaction(Approve)({
       amount,
       spender: erc20Module.address,
+      tokenAddress: erc20Address,
     });
 
     const dividendIndex = await this.addTransaction(

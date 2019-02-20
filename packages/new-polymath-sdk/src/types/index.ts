@@ -100,6 +100,7 @@ export interface TransactionArguments {
 export interface ApproveProcedureArgs {
   amount: BigNumber;
   spender: string;
+  tokenAddress?: string;
 }
 
 export interface CreateCheckpointProcedureArgs {
