@@ -1,6 +1,6 @@
 import { styled } from '~/styles';
 import { Flex } from '~/components/Flex';
-import { Row } from '../styles';
+import { Row } from '../Rows/Row/styles';
 
 export const RowActions = styled(Flex)`
   visibility: hidden;
