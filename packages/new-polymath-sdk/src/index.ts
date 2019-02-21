@@ -4,4 +4,5 @@ export { Polymath } from './Polymath';
 export { PolymathError } from './PolymathError';
 export * from './types';
 export * from './entities';
+export * from './utils';
 export { browserUtils };
