@@ -7,6 +7,10 @@
   "scripts": {
     "test": "jest --env=jsdom"
   },
+  "resolutions": {
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.2"
+  },
   "dependencies": {
     "bignumber.js": "8.0.1",
     "file-saver": "^2.0.0",

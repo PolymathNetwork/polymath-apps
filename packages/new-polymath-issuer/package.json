@@ -52,6 +52,10 @@
       "default"
     ]
   },
+  "resolutions": {
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.2"
+  },
   "dependencies": {
     "@babel/runtime": "7.0.0",
     "@polymathnetwork/new-ui": "0.0.0",
