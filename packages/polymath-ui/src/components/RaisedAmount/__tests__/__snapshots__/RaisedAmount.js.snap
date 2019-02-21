@@ -1,37 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
-.c1 {
-  margin-bottom: 5px;
-  color: #152935;
-  font-size: 0.875rem;
-}
-
-.c2 {
-  margin-bottom: 5px;
-  color: #152935;
-  font-size: 1.5rem;
-}
-
-.c0 {
-  padding: 10px 15px;
-  border-radius: 4px;
-  background-color: #EBF0F7;
-  min-width: 250px;
-}
-
 <div
-  class="c0"
+  class="RaisedAmount__Container-sc-44gvup-0 BgzZt"
 >
   <h4
-    class="c1"
+    class="Paragraph-sc-1ehtinw-0 cTzdzx"
     color="highlightText"
     font-size="1"
   >
     a title
   </h4>
   <p
-    class="c2"
+    class="Paragraph-sc-1ehtinw-0 jxsSuk"
     color="highlightText"
     font-size="5"
   >
