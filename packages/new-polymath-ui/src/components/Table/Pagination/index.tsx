@@ -33,7 +33,7 @@ export const Pagination: FC<Props> = props => {
 
   return (
     <sc.Pagination>
-      <Box as="label" ml="m" for={itemsPerPageSelectId}>
+      <Box as="label" ml="m" htmlFor={itemsPerPageSelectId}>
         Items per page
       </Box>
       :
@@ -49,7 +49,7 @@ export const Pagination: FC<Props> = props => {
         className="items-per-page-select"
       />
       <Flex ml="auto">
-        <Box as="label" mr="m" for={pageSelectId}>
+        <Box as="label" mr="m" htmlFor={pageSelectId}>
           Page {pageIndex + 1} of {pageOptions.length}
         </Box>
         <sc.ButtonPreviousPage
