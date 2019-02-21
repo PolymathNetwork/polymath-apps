@@ -16,7 +16,8 @@ export const Label = styled.span<LabelProps>`
   line-height: ${({ theme }) => theme.lineHeights.none};
   font-size: ${({ theme }) => theme.fontSizes[0]};
   background-color: ${({ color, bg, theme }) =>
-    bg || lighten(0.4, get(theme, `colors.${color}`))};
+    (bg && get(theme, bg)) ||
+    lighten(0.4, get(theme, `colors.${color}`) || color)};
   ${colorProp};
 `;
 
