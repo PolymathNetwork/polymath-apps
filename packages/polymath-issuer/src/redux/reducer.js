@@ -1,6 +1,7 @@
 // @flow
 
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 import { reducer as form } from 'redux-form';
 import {
   uiReducer as pui,
@@ -27,21 +28,23 @@ import type { WhitelistState } from '../reducers/compliance';
 import type { STOModulesState } from '../reducers/stoModules';
 import type { UIState } from '../reducers/ui';
 
-export default combineReducers({
-  network,
-  form,
-  ticker,
-  providers,
-  token,
-  sto,
-  stoModules,
-  pui,
-  ui,
-  whitelist,
-  entities,
-  dataRequests,
-  app,
-});
+export default history =>
+  combineReducers({
+    network,
+    form,
+    ticker,
+    providers,
+    token,
+    sto,
+    stoModules,
+    pui,
+    ui,
+    whitelist,
+    entities,
+    dataRequests,
+    app,
+    router: connectRouter(history),
+  });
 
 export type RootState = {
   network: NetworkState,

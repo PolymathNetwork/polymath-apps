@@ -4,6 +4,7 @@ import { Buttons } from '~/styles/types';
 import { variant as variantHelper } from 'styled-system';
 import { get } from 'lodash';
 import { Icon } from '~/components/Icon';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
 const buttonVariant = variantHelper({
   key: 'buttons',
@@ -13,7 +14,7 @@ type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 type IconPosition = 'left' | 'right' | 'top' | 'bottom';
 
-export interface ButtonProps {
+export interface Props {
   /**
    * Specify the variant of Button you want to create
    */
@@ -39,11 +40,11 @@ const getIconStyle = (position: IconPosition) =>
     right: 'left',
   }[position]);
 
-export const Button = styled.button.attrs<ButtonProps>(({ href }) => ({
+const ButtonBase = styled.button.attrs<Props>(({ href }) => ({
   tabIndex: 0,
   role: href ? 'button' : undefined,
   type: href ? undefined : 'button',
-}))<ButtonProps>`
+}))<Props>`
   position: relative;
   display: inline-flex;
   justify-content: center;
@@ -92,6 +93,10 @@ export const Button = styled.button.attrs<ButtonProps>(({ href }) => ({
   }
 `;
 
-Button.defaultProps = {
-  variant: 'primary',
-};
+export const Button = Object.assign(ButtonBase, {
+  defaultProps: {
+    variant: 'primary',
+  },
+});
+
+export type ButtonProps = typeHelpers.GetProps<typeof Button>;

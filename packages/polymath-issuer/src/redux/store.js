@@ -2,10 +2,10 @@
 import createSagaMiddleware from 'redux-saga';
 import { compose, applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { rootSaga } from '@polymathnetwork/new-issuer/state/sagas/root';
-import reducer from './reducer';
+import createRootReducer from './reducer';
 
 export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -13,7 +13,7 @@ const sagaMiddleware = createSagaMiddleware();
 const middleware = [thunk, routerMiddleware(history), sagaMiddleware];
 
 const store = createStore(
-  connectRouter(history)(reducer),
+  createRootReducer(history),
   {}, // initial state
   compose(
     applyMiddleware(...middleware),

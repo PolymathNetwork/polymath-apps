@@ -8,7 +8,7 @@ export const rowHeight = css(
     small ? theme.space.l : theme.space.xl
 );
 
-export const Table = styled.div<{ selectable: boolean }>`
+export const Table = styled.div<{ selectable?: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@ export const Table = styled.div<{ selectable: boolean }>`
   padding-top: ${({ selectable }) => selectable && rowHeight};
 `;
 
-export const Inner = styled.div`
+export const Inner = styled.div<{ selectable?: boolean }>`
   display: flex;
   width: 100%;
   height: ${({ selectable }) =>
