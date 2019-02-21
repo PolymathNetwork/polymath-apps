@@ -27,7 +27,7 @@ export interface Props {
 
 const mapStateToProps = (state: RootState) => {
   const { wallet } = getSession(state);
-  let walletAddress;
+  let walletAddress = '';
 
   if (wallet) {
     walletAddress = wallet.address;

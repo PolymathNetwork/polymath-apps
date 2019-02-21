@@ -31,7 +31,8 @@ export interface Props {
   defaultWalletAddress: string;
 }
 
-export const validateFormWithSchema = (validationSchema, values) => {
+// TODO @grsmto: move this to external form utils
+export const validateFormWithSchema = (validationSchema: any, values: any) => {
   try {
     validateYupSchema(values, validationSchema, true);
   } catch (err) {
