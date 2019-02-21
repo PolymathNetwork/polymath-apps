@@ -39,7 +39,7 @@ describe('ProgressIndicator', () => {
   });
 
   test('marks next steps as incomplete', () => {
-    const { debug, getByTestId } = render(
+    const { getByTestId } = render(
       <ProgressIndicator vertical currentIndex={0}>
         <ProgressIndicator.Step label="First Step" data-testid="first-step" />
         <ProgressIndicator.Step label="Second Step" data-testid="second-step" />

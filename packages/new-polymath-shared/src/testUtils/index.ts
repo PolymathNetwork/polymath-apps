@@ -1,3 +1,5 @@
+export * from './factories';
+
 const originalWindow = {
   ...window,
 };

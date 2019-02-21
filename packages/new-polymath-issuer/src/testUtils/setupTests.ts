@@ -1,7 +1,7 @@
 import '@babel/polyfill';
-import { mockEthereumBrowser } from './helpers';
-
 import dotenv from 'dotenv';
+import { cleanup } from 'react-testing-library';
+import { mockEthereumBrowser } from './helpers';
 
 // Avoid breaking tests trying to import third party css
 jest.mock('typeface-overpass', () => ({}));
@@ -15,3 +15,5 @@ process.env = {
 };
 
 mockEthereumBrowser();
+
+afterEach(cleanup);

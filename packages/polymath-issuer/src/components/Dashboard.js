@@ -140,6 +140,14 @@ class Dashboard extends Component<Props> {
         isActive: location.slice(-11) === '/compliance',
         isDisabled: !token || !token.address,
       },
+      {
+        title: 'Dividends',
+        id: 'dividends-nav-link',
+        icon: icoDividends,
+        to: `${tokenUrl}/dividends`,
+        isActive: location.slice(-10) === '/dividends',
+        isDisabled: !token || !token.address,
+      },
     ];
     const bottomSidebarItems = [
       // {
