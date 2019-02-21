@@ -1,8 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
+.c0 {
+  box-sizing: border-box;
+  display: grid;
+  grid-gap: 24px;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  -webkit-align-items: end;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: end;
+}
+
 <div
-  class="Box-sc-1ayjt33-0 Grid-sc-29x9q9-0 KBkod"
+  class="c0"
 >
   <div>
     First block
