@@ -9,7 +9,6 @@ import {
   GridRow,
   Link,
   LinkButton,
-  Label,
   Button,
   ButtonLarge,
   CardFeatureState,
@@ -23,6 +22,7 @@ import {
   ModalConfirm,
 } from '@polymathnetwork/new-ui';
 import { Checkpoints } from '~/components';
+import { WalletAddress } from './WalletAddress';
 
 export interface Props {
   onEnableDividends: (walletAddress: string) => void;
@@ -122,6 +122,10 @@ export const Presenter: FC<Props> = ({
                     Enabled
                   </ButtonLarge>
                 </Paragraph>
+                <WalletAddress
+                  walletAddress={walletAddress}
+                  defaultWalletAddress={defaultWalletAddress}
+                />
                 <CardPrimary>
                   <Paragraph fontSize={0}>
                     Dividends contract address:{' '}
@@ -133,18 +137,10 @@ export const Presenter: FC<Props> = ({
               </Fragment>
             ) : (
               <Fragment>
-                <Paragraph bold color="highlightText" mb={1}>
-                  Wallet Address to Receive Tax Withholdings
-                </Paragraph>
-                <Paragraph mb={1}>
-                  {formatters.toShortAddress(walletAddress, { size: 26 })}
-                  <br />
-                  {walletAddress === defaultWalletAddress && (
-                    <Label color="baseText" bg="gray.1">
-                      Current Wallet Address
-                    </Label>
-                  )}
-                </Paragraph>
+                <WalletAddress
+                  walletAddress={walletAddress}
+                  defaultWalletAddress={defaultWalletAddress}
+                />
                 <Paragraph mb="l">
                   <LinkButton onClick={handleAddressModalOpen}>
                     Edit address
