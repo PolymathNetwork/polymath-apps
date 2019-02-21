@@ -96,6 +96,7 @@ const ButtonBase = styled.button.attrs<Props>(({ href }) => ({
 export const Button = Object.assign(ButtonBase, {
   defaultProps: {
     variant: 'primary',
+    onClick: () => {},
   },
 });
 
