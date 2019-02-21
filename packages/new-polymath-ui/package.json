@@ -55,8 +55,9 @@
     "babel-plugin-named-asset-import": "^0.3.0",
     "docz": "^0.13.7",
     "docz-plugin-css": "^0.11.0",
+    "jest-dom": "^3.0.0",
     "docz-theme-default": "^0.13.7",
-    "jest": "^23.6.0",
+    "jest": "^24.1.0",
     "namor": "^1.1.1",
     "typescript": "^3.2.1",
     "yup": "^0.26.6"
@@ -70,6 +71,7 @@
       "json",
       "node"
     ],
+    "testEnvironment": "node",
     "testMatch": [
       "**/__tests__/**/*.(ts|tsx|js)"
     ],
@@ -77,13 +79,18 @@
     "testPathIgnorePatterns": [
       "build"
     ],
+    "roots": [
+      "<rootDir>/src"
+    ],
     "transform": {
-      "^.+\\.tsx?$": "../../config/babelJestWrapper.js"
+      "\\.(css|scss)$": "<rootDir>/config/cssTransform.js",
+      "^.+\\.tsx?$": "<rootDir>/../../config/babelJestWrapper",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/fileTransform.js"
     },
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
     },
-    "setupFiles": [
+    "setupFilesAfterEnv": [
       "<rootDir>/src/testUtils/setupTests.ts"
     ],
     "collectCoverageFrom": [
