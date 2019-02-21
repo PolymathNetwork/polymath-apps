@@ -82,7 +82,14 @@ class ModalBase extends Component<Props, State> {
       >
         {!!status && <sc.StatusBar status={status} />}
         {isCloseable && (
-          <sc.CloseButton Asset={SvgClose} onClick={this.handleCloseRequest} />
+          <sc.CloseButton
+            Asset={SvgClose}
+            onClick={this.handleCloseRequest}
+            height={44}
+            width={44}
+            color="gray.2"
+            scale={0.72}
+          />
         )}
         <sc.Inner>{children}</sc.Inner>
       </ReactModal>
