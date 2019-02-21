@@ -23,6 +23,7 @@ export class CheckpointsContainerBase extends Component<Props> {
         ]}
         render={(data: { checkpoints: types.CheckpointPojo[] }) => {
           const { checkpoints } = data;
+
           if (!checkpoints.length) {
             return null;
           }
