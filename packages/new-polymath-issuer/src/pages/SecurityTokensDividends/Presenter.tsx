@@ -109,7 +109,9 @@ export class Presenter extends Component<Props> {
             </CardFeatureState>
           </GridRow.Col>
           <GridRow.Col gridSpan={12}>
-            {dividendsModule ? <Checkpoints symbol="A0T0" /> : null}
+            {dividendsModule ? (
+              <Checkpoints symbol={dividendsModule.securityTokenSymbol} />
+            ) : null}
           </GridRow.Col>
         </GridRow>
         <ModalTransactionQueue />
