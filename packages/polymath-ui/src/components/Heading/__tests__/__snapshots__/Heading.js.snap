@@ -1,16 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
-.c0 {
-  margin-bottom: 16px;
-  line-height: 1.5;
-  color: #152935;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
 <h2
-  class="c0"
+  class="Paragraph-sc-1ehtinw-0 Heading-sc-10pyzom-0 hVpnIj"
 >
   This is a Heading.
 </h2>
