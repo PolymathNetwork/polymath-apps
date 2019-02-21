@@ -21,7 +21,7 @@ interface Row {
 }
 
 export class ContainerBase extends Component<Props> {
-  public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
+  public downloadOwnershipList = (checkpoint: types.CheckpointPojo) => {
     const { symbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
     const data: Row[] = investorBalances.map(({ balance, address }) => {
