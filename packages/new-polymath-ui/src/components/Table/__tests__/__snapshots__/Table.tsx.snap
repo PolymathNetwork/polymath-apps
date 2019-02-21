@@ -1,11 +1,606 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Table renders without crashing 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0.7em;
+  height: 0.7em;
+}
+
+.c9 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10%;
+}
+
+.c23 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height: 10px;
+}
+
+.c23 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10%;
+}
+
+.c27 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+}
+
+.c27 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10%;
+}
+
+.c18 {
+  box-sizing: border-box;
+  margin-left: auto;
+}
+
+.c22 {
+  box-sizing: border-box;
+  margin-left: 16px;
+}
+
+.c25 {
+  box-sizing: border-box;
+  margin-right: 16px;
+}
+
+.c24 {
+  box-sizing: border-box;
+  margin-left: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c19 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  border: 2px solid transparent;
+  outline: none;
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
+  line-height: 1.15;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+  -webkit-transition-property: background,color,border-color;
+  transition-property: background,color,border-color;
+  font-family: 'Overpass',sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: transparent;
+  border-color: transparent;
+  color: currentColor;
+}
+
+.c19:hover,
+.c19:focus {
+  color: #fff;
+  background-color: #5596E6;
+}
+
+.c19:disabled {
+  opacity: 1;
+}
+
+.c19button,
+.c19input[type='button'],
+.c19input[type='submit'],
+.c19input[type='reset'],
+.c19input[type='file'] {
+  border-radius: 0;
+}
+
+.c19:focus {
+  border-color: #f4f7fb;
+}
+
+.c19:disabled:hover {
+  background-color: transparent;
+  color: currentColor;
+}
+
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: inherit;
+  font-size: 0.875rem;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: solid 1px #ddd;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  bottom: auto;
+  z-index: 1;
+  background: #EBF0F7;
+  color: #152935;
+  border-bottom: none;
+}
+
+.c5 + .c4 {
+  margin-top: -1px;
+}
+
+.c12 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0.6em;
+  height: 30px;
+}
+
+.c12:first-child {
+  padding-left: 23px;
+}
+
+.c12:last-child {
+  padding-right: 23px;
+}
+
+.c6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0.6em;
+  height: 48px;
+  font-weight: 600;
+}
+
+.c6:first-child {
+  padding-left: 23px;
+}
+
+.c6:last-child {
+  padding-right: 23px;
+}
+
+.c7 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  border: 2px solid transparent;
+  outline: none;
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
+  line-height: 1.15;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+  -webkit-transition-property: background,color,border-color;
+  transition-property: background,color,border-color;
+  font-family: 'Overpass',sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0;
+  background: none;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+}
+
+.c7button,
+.c7input[type='button'],
+.c7input[type='submit'],
+.c7input[type='reset'],
+.c7input[type='file'] {
+  border-radius: 0;
+}
+
+.c7:focus {
+  border-color: #f4f7fb;
+}
+
+.c7 .c8 {
+  margin-left: 10px;
+}
+
+.c7 .c8 {
+  color: #5A6872;
+  visibility: hidden;
+}
+
+.c2 {
+  min-height: 200px;
+}
+
+.c21 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: solid 1px #ddd;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #5A6872;
+}
+
+.c21 + .c20 {
+  margin-top: -1px;
+}
+
+.c26 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  border: 2px solid transparent;
+  outline: none;
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
+  line-height: 1.15;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+  -webkit-transition-property: background,color,border-color;
+  transition-property: background,color,border-color;
+  font-family: 'Overpass',sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: transparent;
+  border-color: transparent;
+  color: currentColor;
+  color: #3D70B2;
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  border-top: none;
+  border-bottom: none;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+}
+
+.c26:hover,
+.c26:focus {
+  color: #fff;
+  background-color: #5596E6;
+}
+
+.c26:disabled {
+  opacity: 1;
+}
+
+.c26button,
+.c26input[type='button'],
+.c26input[type='submit'],
+.c26input[type='reset'],
+.c26input[type='file'] {
+  border-radius: 0;
+}
+
+.c26:focus {
+  border-color: #f4f7fb;
+}
+
+.c26:disabled:hover {
+  background-color: transparent;
+  color: currentColor;
+}
+
+.c26:last-child {
+  border-right: none;
+}
+
+.c26 .c8 {
+  -webkit-transform: rotateZ(0.25turn);
+  -ms-transform: rotateZ(0.25turn);
+  transform: rotateZ(0.25turn);
+}
+
+.c28 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  border: 2px solid transparent;
+  outline: none;
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
+  line-height: 1.15;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+  -webkit-transition-property: background,color,border-color;
+  transition-property: background,color,border-color;
+  font-family: 'Overpass',sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: transparent;
+  border-color: transparent;
+  color: currentColor;
+  color: #3D70B2;
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  border-top: none;
+  border-bottom: none;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+}
+
+.c28:hover,
+.c28:focus {
+  color: #fff;
+  background-color: #5596E6;
+}
+
+.c28:disabled {
+  opacity: 1;
+}
+
+.c28button,
+.c28input[type='button'],
+.c28input[type='submit'],
+.c28input[type='reset'],
+.c28input[type='file'] {
+  border-radius: 0;
+}
+
+.c28:focus {
+  border-color: #f4f7fb;
+}
+
+.c28:disabled:hover {
+  background-color: transparent;
+  color: currentColor;
+}
+
+.c28:last-child {
+  border-right: none;
+}
+
+.c28 .c8 {
+  -webkit-transform: rotateZ(-0.25turn);
+  -ms-transform: rotateZ(-0.25turn);
+  transform: rotateZ(-0.25turn);
+}
+
+.c17 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: solid 1px #ddd;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: #252D6B;
+  color: white;
+  height: 48px;
+  border: none;
+}
+
+.c17 + .c16 {
+  margin-top: -1px;
+}
+
+.c17[hidden] {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.c11 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: solid 1px #ddd;
+}
+
+.c11 + .c10 {
+  margin-top: -1px;
+}
+
+.c11:hover {
+  position: relative;
+  background: #e0e8f3;
+  border-color: #3D70B2;
+}
+
+.c14 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.c15 {
+  display: inline-block;
+  vertical-align: middle;
+  color: #8C9BA5;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+}
+
+.c15 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10%;
+}
+
+.c15:hover {
+  color: #c5cdd2;
+}
+
+.c13 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.c3:hover .c13 {
+  visibility: visible;
+  opacity: 1;
+}
+
 <div
-  class="styles__Table-sc-815llh-0 jJbBcv"
+  class="c0"
 >
   <div
-    class="styles__Inner-sc-815llh-1 iRUvge"
+    class="c1"
   >
     <div
       data-simplebar="true"
@@ -30,18 +625,18 @@ exports[`Table renders without crashing 1`] = `
               class="simplebar-content"
             >
               <div
-                class="styles__Body-sc-815llh-12 jdeLX"
+                class="c2"
               >
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__HeaderRow-sc-815llh-3 hLIhXq"
+                  class="c3 c4 c5"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 styles__HeaderCell-sc-815llh-5 STThG"
+                    class="c6"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="Button-sc-10evn3r-0 styles__ButtonSort-sc-815llh-8 ictPoy"
+                      class="c7"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -51,7 +646,7 @@ exports[`Table renders without crashing 1`] = `
                         First Name
                       </span>
                       <span
-                        class="Icon-sc-1la2wzw-0 jyXTss"
+                        class="c8 c9"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -69,11 +664,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 styles__HeaderCell-sc-815llh-5 STThG"
+                    class="c6"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="Button-sc-10evn3r-0 styles__ButtonSort-sc-815llh-8 ictPoy"
+                      class="c7"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -83,7 +678,7 @@ exports[`Table renders without crashing 1`] = `
                         Last Name
                       </span>
                       <span
-                        class="Icon-sc-1la2wzw-0 jyXTss"
+                        class="c8 c9"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -101,11 +696,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 styles__HeaderCell-sc-815llh-5 STThG"
+                    class="c6"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="Button-sc-10evn3r-0 styles__ButtonSort-sc-815llh-8 ictPoy"
+                      class="c7"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -115,7 +710,7 @@ exports[`Table renders without crashing 1`] = `
                         Age
                       </span>
                       <span
-                        class="Icon-sc-1la2wzw-0 jyXTss"
+                        class="c8 c9"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -133,11 +728,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 styles__HeaderCell-sc-815llh-5 STThG"
+                    class="c6"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="Button-sc-10evn3r-0 styles__ButtonSort-sc-815llh-8 ictPoy"
+                      class="c7"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -147,7 +742,7 @@ exports[`Table renders without crashing 1`] = `
                         Visits
                       </span>
                       <span
-                        class="Icon-sc-1la2wzw-0 jyXTss"
+                        class="c8 c9"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -165,11 +760,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 styles__HeaderCell-sc-815llh-5 STThG"
+                    class="c6"
                     style="box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <button
-                      class="Button-sc-10evn3r-0 styles__ButtonSort-sc-815llh-8 ictPoy"
+                      class="c7"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -179,7 +774,7 @@ exports[`Table renders without crashing 1`] = `
                         Status
                       </span>
                       <span
-                        class="Icon-sc-1la2wzw-0 jyXTss"
+                        class="c8 c9"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -197,11 +792,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 styles__HeaderCell-sc-815llh-5 STThG"
+                    class="c6"
                     style="box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <button
-                      class="Button-sc-10evn3r-0 styles__ButtonSort-sc-815llh-8 ictPoy"
+                      class="c7"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -209,7 +804,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <span />
                       <span
-                        class="Icon-sc-1la2wzw-0 jyXTss"
+                        class="c8 c9"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -228,35 +823,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     fishing
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     historian
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     20
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     60
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -270,17 +865,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -297,10 +892,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -326,35 +921,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     physics
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     quality
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     11
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     90
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -368,17 +963,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -395,10 +990,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -424,35 +1019,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     burn
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     ship
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     10
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     52
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -466,17 +1061,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -493,10 +1088,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -522,35 +1117,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     wine
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     reading
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     18
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     34
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -564,17 +1159,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -591,10 +1186,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -620,35 +1215,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     hospital
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     low
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     23
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     93
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -662,17 +1257,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -689,10 +1284,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -718,35 +1313,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     reaction
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     category
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     17
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     56
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -760,17 +1355,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -787,10 +1382,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -816,35 +1411,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     letter
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     produce
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     6
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     12
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -858,17 +1453,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -885,10 +1480,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -914,35 +1509,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     skirt
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     impulse
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     16
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     52
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -956,17 +1551,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -983,10 +1578,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -1012,35 +1607,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     police
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     desire
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     5
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     13
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1054,17 +1649,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -1081,10 +1676,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -1110,35 +1705,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Row-ao456b-0 cOwZgl"
+                  class="c3 c10 c11"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     delivery
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     art
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     21
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     63
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1152,17 +1747,17 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__Cell-sc-815llh-4 iAZvot"
+                    class="c12"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 RowActions-sc-1ph9ief-0 kqilOX"
+                      class="c13"
                     >
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -1179,10 +1774,10 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="IconButton__Button-sc-1xt91wt-0 dTpwve"
+                        class="c14"
                       >
                         <span
-                          class="Icon-sc-1la2wzw-0 IconButton__StyledIcon-sc-1xt91wt-1 bgVFxP"
+                          class="c8 c15"
                         >
                           <svg
                             height="1em"
@@ -1232,16 +1827,16 @@ exports[`Table renders without crashing 1`] = `
     </div>
   </div>
   <div
-    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__BatchActionsToolbar-sc-12woado-0 EZvDP"
+    class="c3 c16 c17"
     hidden=""
   >
     <div
-      class="Box-jssg1f-0 gypHln"
+      class="c18"
     >
       0
        items selected
       <button
-        class="Button-sc-10evn3r-0 eplwNc"
+        class="c19"
         tabindex="0"
         type="button"
       >
@@ -1250,10 +1845,10 @@ exports[`Table renders without crashing 1`] = `
     </div>
   </div>
   <div
-    class="Box-jssg1f-0 Flex-sc-12tu8cz-0 styles__RowBase-sc-815llh-2 styles__Pagination-sc-1tc5mxl-0 kwsvDu"
+    class="c3 c20 c21"
   >
     <label
-      class="Box-jssg1f-0 dsLPVe"
+      class="c22"
       for="1"
     >
       Items per page
@@ -1289,7 +1884,7 @@ exports[`Table renders without crashing 1`] = `
             class="css-767nh9"
           >
             <span
-              class="Icon-sc-1la2wzw-0 bbvMwv"
+              class="c8 c23"
             >
               <svg
                 fill-rule="evenodd"
@@ -1309,10 +1904,10 @@ exports[`Table renders without crashing 1`] = `
       </div>
     </div>
     <div
-      class="Box-jssg1f-0 Flex-sc-12tu8cz-0 jouElx"
+      class="c24"
     >
       <label
-        class="Box-jssg1f-0 dIKNPl"
+        class="c25"
         for="2"
       >
         Page 
@@ -1322,13 +1917,13 @@ exports[`Table renders without crashing 1`] = `
       </label>
       <button
         aria-label="Previous page"
-        class="Button-sc-10evn3r-0 styles__ButtonPagination-sc-1tc5mxl-1 styles__ButtonPreviousPage-sc-1tc5mxl-2 grhMyy"
+        class="c26"
         disabled=""
         tabindex="0"
         type="button"
       >
         <span
-          class="Icon-sc-1la2wzw-0 ipKRsf"
+          class="c8 c27"
         >
           <svg
             height="1em"
@@ -1374,7 +1969,7 @@ exports[`Table renders without crashing 1`] = `
               class="css-767nh9"
             >
               <span
-                class="Icon-sc-1la2wzw-0 bbvMwv"
+                class="c8 c23"
               >
                 <svg
                   fill-rule="evenodd"
@@ -1395,12 +1990,12 @@ exports[`Table renders without crashing 1`] = `
       </div>
       <button
         aria-label="Next page"
-        class="Button-sc-10evn3r-0 styles__ButtonPagination-sc-1tc5mxl-1 styles__ButtonNextPage-sc-1tc5mxl-3 iYgSoN"
+        class="c28"
         tabindex="0"
         type="button"
       >
         <span
-          class="Icon-sc-1la2wzw-0 ipKRsf"
+          class="c8 c27"
         >
           <svg
             height="1em"

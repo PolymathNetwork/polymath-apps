@@ -63,6 +63,7 @@
     "docz-theme-default": "^0.13.7",
     "jest": "^24.1.0",
     "jest-dom": "^3.1.1",
+    "jest-styled-components": "^6.3.1",
     "namor": "^1.1.1",
     "react-testing-library": "^5.8.0",
     "typescript": "^3.2.1",
