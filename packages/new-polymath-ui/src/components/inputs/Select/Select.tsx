@@ -8,7 +8,7 @@ import { Icon } from '~/components/Icon';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { formikProxy } from '../formikProxy';
 
-export interface SelectProps<OptT extends any = any>
+interface Props<OptT extends any = any>
   extends typeHelpers.Omit<
     ReactSelectProps<OptT>,
     'theme' | 'onChange' | 'onBlur'
@@ -98,7 +98,7 @@ const DropdownIndicator = ({ variant, ...props }: any) => {
   );
 };
 
-class SelectPrimitiveBase extends Component<SelectProps> {
+class SelectPrimitiveBase extends Component<Props> {
   public static defaultProps = {
     isClearable: false,
     variant: 'primary',
@@ -144,9 +144,15 @@ class SelectPrimitiveBase extends Component<SelectProps> {
   }
 }
 
-export const SelectPrimitive = withTheme(SelectPrimitiveBase);
+const ThemedSelectPrimitive = withTheme(SelectPrimitiveBase);
+export const SelectPrimitive = Object.assign(ThemedSelectPrimitive, {
+  defaultProps: SelectPrimitiveBase.defaultProps,
+});
+
 const EnhancedSelect = formikProxy(SelectPrimitive);
 
 export const Select = Object.assign(EnhancedSelect, {
   defaultProps: SelectPrimitive.defaultProps,
 });
+
+export type SelectProps = typeHelpers.GetProps<typeof Select>;

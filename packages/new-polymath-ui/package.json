@@ -9,6 +9,10 @@
     "build:website": "docz build",
     "test": "jest --env=jsdom"
   },
+  "resolutions": {
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.2"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.2.0",
@@ -43,6 +47,7 @@
     "@svgr/webpack": "^4.1.0",
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.119",
+    "@types/moment-timezone": "^0.5.10",
     "@types/node": "^10.12.12",
     "@types/react": "16.8.3",
     "@types/react-dom": "^16.8.2",

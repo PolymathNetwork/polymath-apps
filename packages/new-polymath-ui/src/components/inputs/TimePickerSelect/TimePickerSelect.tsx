@@ -7,6 +7,8 @@ import { formikProxy } from '~/components/inputs/formikProxy';
 
 export interface TimePickerSelectProps extends SelectProps {
   format: string;
+  onChange: (value: number) => void;
+  onBlur: () => void;
 }
 
 const minutesInADay = 60 * 24;

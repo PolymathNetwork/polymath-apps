@@ -9,6 +9,7 @@
     "composite": true,
     "esModuleInterop": true,
     "emitDeclarationOnly": true,
-    "jsx": "react"
+    "jsx": "react",
+    "lib": ["es2016", "dom"]
   }
 }

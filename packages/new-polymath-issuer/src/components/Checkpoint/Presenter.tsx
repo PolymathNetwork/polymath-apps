@@ -24,7 +24,12 @@ export const CheckpointPresenter = ({ symbol, dividends }: Props) => (
             <DividendCard dividend={dividend} symbol={symbol} />
           </li>
         ))}
-        <sc.NewDividendButton variant="ghost" iconPosition="top">
+        <sc.NewDividendButton
+          RouterLink={Link}
+          onClick={() => {}}
+          variant="ghost"
+          iconPosition="top"
+        >
           <IconOutlined
             Asset={icons.SvgPlus}
             width={25}
