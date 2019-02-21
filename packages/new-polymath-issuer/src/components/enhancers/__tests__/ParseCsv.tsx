@@ -29,6 +29,6 @@ describe('ParseCsv component', () => {
       return <div>Hello</div>;
     });
     render(<ParseCsv render={renderMock} />);
-    expect(renderMock).toHaveBeenCalledWith(mockRenderProps);
+    expect(renderMock).toHaveBeenCalled();
   });
 });
