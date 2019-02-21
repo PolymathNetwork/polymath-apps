@@ -9,6 +9,10 @@
     "build:website": "docz build",
     "test": "jest --env=jsdom"
   },
+  "resolutions": {
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.2"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.2.0",
@@ -43,6 +47,7 @@
     "@svgr/webpack": "^4.1.0",
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.119",
+    "@types/moment-timezone": "^0.5.10",
     "@types/node": "^10.12.12",
     "@types/react": "16.8.3",
     "@types/react-dom": "^16.8.2",
@@ -56,7 +61,8 @@
     "docz": "^0.13.7",
     "docz-plugin-css": "^0.11.0",
     "docz-theme-default": "^0.13.7",
-    "jest": "^23.6.0",
+    "jest": "^24.1.0",
+    "jest-dom": "^3.0.0",
     "namor": "^1.1.1",
     "redux-little-router": "^15.1.2",
     "typescript": "^3.2.1",
@@ -71,6 +77,7 @@
       "json",
       "node"
     ],
+    "testEnvironment": "node",
     "testMatch": [
       "**/__tests__/**/*.(ts|tsx|js)"
     ],
@@ -78,13 +85,18 @@
     "testPathIgnorePatterns": [
       "build"
     ],
+    "roots": [
+      "<rootDir>/src"
+    ],
     "transform": {
-      "^.+\\.tsx?$": "../../config/babelJestWrapper.js"
+      "\\.(css|scss)$": "<rootDir>/config/cssTransform.js",
+      "^.+\\.tsx?$": "<rootDir>/../../config/babelJestWrapper",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/fileTransform.js"
     },
     "moduleNameMapper": {
       "~/(.*)": "<rootDir>/src/$1"
     },
-    "setupFiles": [
+    "setupFilesAfterEnv": [
       "<rootDir>/src/testUtils/setupTests.ts"
     ],
     "collectCoverageFrom": [

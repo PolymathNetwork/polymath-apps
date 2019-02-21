@@ -15,7 +15,7 @@ export interface Props {
   symbol: string;
 }
 
-export const Presenter = ({ symbol, dividends }: Props) => (
+export const CheckpointPresenter = ({ symbol, dividends }: Props) => (
   <List>
     {dividends.length ? (
       <Fragment>
@@ -24,7 +24,12 @@ export const Presenter = ({ symbol, dividends }: Props) => (
             <DividendCard dividend={dividend} symbol={symbol} />
           </li>
         ))}
-        <sc.NewDividendButton variant="ghost" iconPosition="top">
+        <sc.NewDividendButton
+          RouterLink={Link}
+          onClick={() => {}}
+          variant="ghost"
+          iconPosition="top"
+        >
           <IconOutlined
             Asset={icons.SvgPlus}
             width={25}

@@ -1,6 +1,6 @@
 import namor from 'namor';
 
-const range = len => {
+const range = (len: number) => {
   const arr = [];
   for (let i = 0; i < len; i++) {
     arr.push(i);
@@ -25,8 +25,8 @@ const newPerson = () => {
   };
 };
 
-export function makeData(...lens) {
-  const makeDataLevel = (depth = 0) => {
+export function makeData(...lens: any[]) {
+  const makeDataLevel = (depth = 0): any => {
     const len = lens[depth];
     return range(len).map(d => {
       return {

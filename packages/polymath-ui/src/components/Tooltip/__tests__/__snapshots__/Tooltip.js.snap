@@ -1,14 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
-.c0 {
-  vertical-align: middle;
-  line-height: 1;
-  margin-right: 4px;
-}
-
 <span
-  class="c0"
+  class="Tooltip__StyledText-sc-17u976r-1 gbSMnx"
 >
   Hover the icon!
 </span>
