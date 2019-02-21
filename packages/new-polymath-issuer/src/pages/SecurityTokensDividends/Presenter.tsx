@@ -49,18 +49,20 @@ export class Presenter extends Component<Props> {
               per wallet address. This percentage will be used to calculate the
               amount of dividends owed to each wallet address.
             </Heading>
-            <Button
-              iconPosition="right"
-              onClick={this.handleCreateCheckpointClick}
-            >
-              Create dividend checkpoint
-              <Icon
-                Asset={icons.SvgPlusPlain}
-                width={16}
-                height={16}
-                color="white"
-              />
-            </Button>
+            {dividendsModule ? (
+              <Button
+                iconPosition="right"
+                onClick={this.handleCreateCheckpointClick}
+              >
+                Create dividend checkpoint
+                <Icon
+                  Asset={icons.SvgPlusPlain}
+                  width={16}
+                  height={16}
+                  color="white"
+                />
+              </Button>
+            ) : null}
           </GridRow.Col>
           <GridRow.Col gridSpan={{ sm: 12, lg: 5 }}>
             <CardFeatureState

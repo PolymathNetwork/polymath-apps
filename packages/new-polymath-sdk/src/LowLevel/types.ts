@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-export type BlockType = 'latest' | 'pending' | 'genesis' | number;
+export type BlockType = 'latest' | 'pending' | 'earliest' | number;
 
 export interface Event<T> {
   event: string;
