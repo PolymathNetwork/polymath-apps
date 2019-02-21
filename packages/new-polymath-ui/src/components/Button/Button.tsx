@@ -1,8 +1,10 @@
 import { ButtonHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import { styled } from '~/styles';
+import { Buttons } from '~/styles/types';
 import { variant as variantHelper } from 'styled-system';
 import { get } from 'lodash';
 import { Icon } from '~/components/Icon';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
 const buttonVariant = variantHelper({
   key: 'buttons',
@@ -12,11 +14,11 @@ type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 type IconPosition = 'left' | 'right' | 'top' | 'bottom';
 
-export interface ButtonProps {
+export interface Props {
   /**
    * Specify the variant of Button you want to create
    */
-  variant: 'primary' | 'secondary' | 'ghost';
+  variant: keyof Buttons;
   /**
    * Optional prop to specify the type of the Button
    */
@@ -26,7 +28,7 @@ export interface ButtonProps {
    */
   href?: string;
   role?: string;
-  iconPosition: IconPosition;
+  iconPosition?: IconPosition;
   onClick: () => void;
 }
 
@@ -38,11 +40,11 @@ const getIconStyle = (position: IconPosition) =>
     right: 'left',
   }[position]);
 
-const EnhancedButton = styled.button.attrs<ButtonProps>(({ href }) => ({
+const ButtonBase = styled.button.attrs<Props>(({ href }) => ({
   tabIndex: 0,
   role: href ? 'button' : undefined,
   type: href ? undefined : 'button',
-}))<ButtonProps>`
+}))<Props>`
   position: relative;
   display: inline-flex;
   justify-content: center;
@@ -86,13 +88,16 @@ const EnhancedButton = styled.button.attrs<ButtonProps>(({ href }) => ({
 
   ${Icon} {
     ${({ theme, iconPosition }) =>
+      iconPosition &&
       `margin-${getIconStyle(iconPosition!)}: ${theme.space.s}`};
   }
 `;
 
-export const Button = Object.assign(EnhancedButton, {
+export const Button = Object.assign(ButtonBase, {
   defaultProps: {
     variant: 'primary',
-    iconPosition: 'right',
+    onClick: () => {},
   },
 });
+
+export type ButtonProps = typeHelpers.GetProps<typeof Button>;

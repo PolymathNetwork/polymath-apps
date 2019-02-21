@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { Presenter } from './Presenter';
+import { CheckpointPresenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createDividendsByCheckpointFetcher } from '~/state/fetchers';
 import { types, utils, formatters } from '@polymathnetwork/new-shared';
@@ -20,7 +20,7 @@ interface Row {
   percentage: number;
 }
 
-export class ContainerBase extends Component<Props> {
+export class CheckpointContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointPojo) => {
     const { symbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
@@ -70,11 +70,11 @@ export class ContainerBase extends Component<Props> {
           }),
         ]}
         render={({ dividends }: { dividends: types.DividendEntity[] }) => {
-          return <Presenter symbol={symbol} dividends={dividends} />;
+          return <CheckpointPresenter symbol={symbol} dividends={dividends} />;
         }}
       />
     );
   }
 }
 
-export const Container = connect()(ContainerBase);
+export const CheckpointContainer = connect()(CheckpointContainerBase);

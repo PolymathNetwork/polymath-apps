@@ -10,12 +10,12 @@ import {
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Box } from '~/components/Box';
 
-export type GridItemProps = typeHelpers.GetProps<typeof Box> &
+export type ItemProps = typeHelpers.GetProps<typeof Box> &
   GridColumnProps &
   GridRowProps &
   GridAreaProps;
 
-export const GridItem = styled(Box)<GridItemProps>`
+export const Item = styled(Box)<ItemProps>`
   ${gridColumn};
   ${gridRow};
   ${gridArea};

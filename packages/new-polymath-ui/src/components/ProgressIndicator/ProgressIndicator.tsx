@@ -13,7 +13,7 @@ interface Props {
    */
   currentIndex: number;
   vertical: boolean;
-  ordered: boolean;
+  ordered?: boolean;
 }
 
 export class ProgressIndicator extends React.Component<Props> {

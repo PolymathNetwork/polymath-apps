@@ -14,7 +14,7 @@ jest.mock('@polymathnetwork/sdk', () => {
   return {
     ...original,
     browserUtils: {
-      getCurrentAddress: jest.fn(),
+      getCurrentAddress: jest.fn(() => '0x1234'),
       onAddressChange() {
         return () => {};
       },
@@ -75,7 +75,7 @@ describe('accessControl sagas', () => {
         throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
       });
 
-      await runSaga(store, sagas.requireWallet);
+      await runSaga(store, sagas.requireWallet).done;
 
       expect(store.dispatched).toContainEqual({
         type: 'ROUTER_PUSH',
