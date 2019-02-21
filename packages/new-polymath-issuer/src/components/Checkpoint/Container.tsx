@@ -10,7 +10,7 @@ import { DateTime } from 'luxon';
 
 export interface Props {
   dispatch: Dispatch<any>;
-  symbol: string;
+  securityTokenSymbol: string;
   checkpointIndex: number;
 }
 
@@ -22,7 +22,7 @@ interface Row {
 
 export class CheckpointContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
-    const { symbol } = this.props;
+    const { securityTokenSymbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
     const data: Row[] = investorBalances.map(({ balance, address }) => {
       const percentage = balance
@@ -37,7 +37,7 @@ export class CheckpointContainerBase extends Component<Props> {
       };
     });
 
-    const fileName = `checkpoint_${symbol.toUpperCase()}_${formatters.toDateFormat(
+    const fileName = `checkpoint_${securityTokenSymbol.toUpperCase()}_${formatters.toDateFormat(
       createdAt,
       { format: DateTime.DATE_SHORT }
     )}_${totalSupply}`;
@@ -60,17 +60,22 @@ export class CheckpointContainerBase extends Component<Props> {
     });
   };
   public render() {
-    const { symbol, checkpointIndex } = this.props;
+    const { securityTokenSymbol, checkpointIndex } = this.props;
     return (
       <DataFetcher
         fetchers={[
           createDividendsByCheckpointFetcher({
-            securityTokenSymbol: symbol,
+            securityTokenSymbol,
             checkpointIndex,
           }),
         ]}
         render={({ dividends }: { dividends: types.DividendEntity[] }) => {
-          return <CheckpointPresenter symbol={symbol} dividends={dividends} />;
+          return (
+            <CheckpointPresenter
+              securityTokenSymbol={securityTokenSymbol}
+              dividends={dividends}
+            />
+          );
         }}
       />
     );

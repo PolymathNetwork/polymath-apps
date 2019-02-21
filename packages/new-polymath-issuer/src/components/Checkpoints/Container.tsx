@@ -8,17 +8,17 @@ import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
   dispatch: Dispatch<any>;
-  symbol: string;
+  securityTokenSymbol: string;
 }
 
 export class CheckpointsContainerBase extends Component<Props> {
   public render() {
-    const { symbol } = this.props;
+    const { securityTokenSymbol } = this.props;
     return (
       <DataFetcher
         fetchers={[
           createCheckpointsBySymbolFetcher({
-            securityTokenSymbol: symbol,
+            securityTokenSymbol,
           }),
         ]}
         render={(data: { checkpoints: types.CheckpointPojo[] }) => {
@@ -28,7 +28,10 @@ export class CheckpointsContainerBase extends Component<Props> {
           }
 
           return (
-            <CheckpointsPresenter checkpoints={checkpoints} symbol={symbol} />
+            <CheckpointsPresenter
+              checkpoints={checkpoints}
+              securityTokenSymbol={securityTokenSymbol}
+            />
           );
         }}
       />

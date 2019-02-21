@@ -12,16 +12,22 @@ import * as sc from './styles';
 
 export interface Props {
   dividends: types.DividendPojo[];
-  symbol: string;
+  securityTokenSymbol: string;
 }
 
-export const CheckpointPresenter = ({ symbol, dividends }: Props) => (
+export const CheckpointPresenter = ({
+  securityTokenSymbol,
+  dividends,
+}: Props) => (
   <List>
     {dividends.length ? (
       <Fragment>
         {dividends.map(dividend => (
           <li key={dividend.uid}>
-            <DividendCard dividend={dividend} symbol={symbol} />
+            <DividendCard
+              dividend={dividend}
+              securityTokenSymbol={securityTokenSymbol}
+            />
           </li>
         ))}
         <sc.NewDividendButton
@@ -46,7 +52,7 @@ export const CheckpointPresenter = ({ symbol, dividends }: Props) => (
     ) : (
       <sc.PlaceholderButton
         RouterLink={Link}
-        href={`/securityTokens/${symbol}/dividends`}
+        href={`/securityTokens/${securityTokenSymbol}/dividends`}
       >
         <IconOutlined
           Asset={icons.SvgPlus}

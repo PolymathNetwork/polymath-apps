@@ -16,6 +16,7 @@ import {
 import { ModalTransactionQueue, Checkpoints } from '~/components';
 
 export interface Props {
+  securityTokenSymbol: string;
   onEnableDividends: () => void;
   onCreateCheckpoint: () => void;
   dividendsModule?: types.Erc20DividendsModulePojo;
@@ -31,7 +32,7 @@ export class Presenter extends Component<Props> {
   };
 
   public render() {
-    const { dividendsModule } = this.props;
+    const { dividendsModule, securityTokenSymbol } = this.props;
 
     return (
       <Fragment>
@@ -109,7 +110,9 @@ export class Presenter extends Component<Props> {
             </CardFeatureState>
           </GridRow.Col>
           <GridRow.Col gridSpan={12}>
-            {dividendsModule ? <Checkpoints symbol="A0T0" /> : null}
+            {dividendsModule ? (
+              <Checkpoints securityTokenSymbol={securityTokenSymbol} />
+            ) : null}
           </GridRow.Col>
         </GridRow>
         <ModalTransactionQueue />

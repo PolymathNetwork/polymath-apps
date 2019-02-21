@@ -18,10 +18,10 @@ import {
 
 interface Props {
   dividend: types.DividendPojo;
-  symbol: string;
+  securityTokenSymbol: string;
 }
 
-export const DividendCard: FC<Props> = ({ dividend, symbol }) => {
+export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
   return (
     <Card width={300} height={370} p="gridGap">
       <Flex flexDirection="column" height="100%" alignItems="flex-start">
@@ -41,7 +41,7 @@ export const DividendCard: FC<Props> = ({ dividend, symbol }) => {
             </Text>
           </Flex>
           <Paragraph fontSize={4} color="baseText" mt="m">
-            {formatters.toTokens(dividend.amount)} {symbol}
+            {formatters.toTokens(dividend.amount)} {securityTokenSymbol}
           </Paragraph>
         </CardPrimary>
         <Heading mt="m" mb={1}>

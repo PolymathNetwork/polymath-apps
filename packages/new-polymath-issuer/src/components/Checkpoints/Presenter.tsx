@@ -16,10 +16,13 @@ import { iconSize } from './styles';
 
 export interface Props {
   checkpoints: types.CheckpointPojo[];
-  symbol: string;
+  securityTokenSymbol: string;
 }
 
-export const CheckpointsPresenter = ({ checkpoints, symbol }: Props) => {
+export const CheckpointsPresenter = ({
+  checkpoints,
+  securityTokenSymbol,
+}: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
   );
@@ -81,7 +84,7 @@ export const CheckpointsPresenter = ({ checkpoints, symbol }: Props) => {
                           </sc.ProgressIndicator>
                           <Checkpoint
                             checkpointIndex={checkpoint.index}
-                            symbol={symbol}
+                            securityTokenSymbol={securityTokenSymbol}
                           />
                         </sc.Dividends>
                       </Grid.Item>
