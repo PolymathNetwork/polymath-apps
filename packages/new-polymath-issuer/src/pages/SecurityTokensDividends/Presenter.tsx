@@ -1,5 +1,7 @@
 import React, { FC, Fragment, useState, useCallback } from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
+import * as Yup from 'yup';
+import { validateYupSchema, yupToFormErrors } from 'formik';
 import {
   Heading,
   Paragraph,
@@ -29,6 +31,15 @@ export interface Props {
   defaultWalletAddress: string;
 }
 
+export const validateFormWithSchema = (validationSchema, values) => {
+  try {
+    validateYupSchema(values, validationSchema, true);
+  } catch (err) {
+    return yupToFormErrors(err);
+  }
+  return {};
+};
+
 export const Presenter: FC<Props> = ({
   onEnableDividends,
   onCreateCheckpoint,
@@ -53,6 +64,13 @@ export const Presenter: FC<Props> = ({
   const handleAddressChange = useCallback(values => {
     setWalletAddress(values.walletAddress);
     setEditAddressState(false);
+  }, []);
+
+  const handleAddressValidation = useCallback(values => {
+    const schema = Yup.object().shape({
+      walletAddress: Yup.string().required(),
+    });
+    return validateFormWithSchema(schema, values);
   }, []);
 
   return (
@@ -151,18 +169,21 @@ export const Presenter: FC<Props> = ({
           walletAddress,
         }}
         onSubmit={handleAddressChange}
-        render={({ handleSubmit }) => (
+        validate={handleAddressValidation}
+        render={({ handleSubmit, isValid }) => (
           <ModalConfirm
             isOpen={isEditingAddress && !dividendsModule}
             onSubmit={handleSubmit}
             onClose={handleAddressModalClose}
+            isActionDisabled={!isValid}
+            maxWidth={500}
           >
             <ModalConfirm.Header>
               Wallet Address to Receive Tax Withholdings
             </ModalConfirm.Header>
-            <Heading variant="h4">
+            <Paragraph fontSize={2}>
               This is the explanation of what is going on here.
-            </Heading>
+            </Paragraph>
             <Grid>
               <FormItem name="walletAddress">
                 <FormItem.Label>Wallet Address</FormItem.Label>
