@@ -21,7 +21,7 @@ import {
   TextInput,
   ModalConfirm,
 } from '@polymathnetwork/new-ui';
-import { Checkpoints } from '~/components';
+import { CheckpointList } from '~/components';
 import { WalletAddress } from './WalletAddress';
 
 export interface Props {
@@ -90,6 +90,7 @@ export const Presenter: FC<Props> = ({
             per wallet address. This percentage will be used to calculate the
             amount of dividends owed to each wallet address.
           </Heading>
+          {dividendsModule ? (
           <Button iconPosition="right" onClick={onCreateCheckpoint}>
             Create dividend checkpoint
             <Icon
@@ -99,6 +100,7 @@ export const Presenter: FC<Props> = ({
               color="white"
             />
           </Button>
+          ) : null}
         </GridRow.Col>
         <GridRow.Col gridSpan={{ sm: 12, lg: 5 }}>
           <CardFeatureState
@@ -158,7 +160,9 @@ export const Presenter: FC<Props> = ({
           </CardFeatureState>
         </GridRow.Col>
         <GridRow.Col gridSpan={12}>
-          {dividendsModule ? <Checkpoints symbol="A0T0" /> : null}
+          {dividendsModule ? (
+              <CheckpointList securityTokenSymbol={securityTokenSymbol} />
+            ) : null}
         </GridRow.Col>
       </GridRow>
       <Form
