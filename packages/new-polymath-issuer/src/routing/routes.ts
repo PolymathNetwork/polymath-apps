@@ -4,6 +4,7 @@ import {
   MetamaskLockedPage,
   MetamaskGetPage,
   SecurityTokensDividendsPage,
+  DividendsWizardPage,
   SecurityTokensIndexPage,
   HomePage,
   NotFoundPage,
@@ -37,6 +38,10 @@ export const routes = {
         '/dividends': {
           Page: SecurityTokensDividendsPage,
           handler: handleDividendsRoute,
+          '/new': {
+            Page: DividendsWizardPage,
+            handler: handleDividendsRoute,
+          },
         },
       },
       handler: handleSecurityTokensRoute,

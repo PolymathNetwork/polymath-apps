@@ -5,8 +5,12 @@ import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createTaxWithholdingListBySymbolFetcher } from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
+import { Page } from '@polymathnetwork/new-ui';
 import { DateTime } from 'luxon';
-import { updateTaxWithholdingListStart, createErc20DividendDistributionStart } from '~/state/actions/procedures';
+import {
+  updateTaxWithholdingListStart,
+  createErc20DividendDistributionStart,
+} from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 
@@ -27,7 +31,9 @@ interface Row {
 }
 
 export class ContainerBase extends Component<Props> {
-  public updateTaxWithholdingList = (taxWithholdings: types.TaxWithholdingPojo[]) => {
+  public updateTaxWithholdingList = (
+    taxWithholdings: types.TaxWithholdingPojo[]
+  ) => {
     const { symbol, dispatch } = this.props;
     const investorAddresses: string[] = [];
     const percentages: number[] = [];
@@ -37,12 +43,14 @@ export class ContainerBase extends Component<Props> {
       percentages.push(percentage);
     });
 
-    dispatch(updateTaxWithholdingListStart({
-      securityTokenSymbol: symbol,
-      dividendType: DividendModuleTypes.Erc20,
-      investorAddresses,
-      percentages,
-    }));
+    dispatch(
+      updateTaxWithholdingListStart({
+        securityTokenSymbol: symbol,
+        dividendType: DividendModuleTypes.Erc20,
+        investorAddresses,
+        percentages,
+      })
+    );
   };
 
   public downloadTaxWithholdingList = (
@@ -78,21 +86,26 @@ export class ContainerBase extends Component<Props> {
 
   public render() {
     const { symbol } = this.props;
+    // return (
+    // <DataFetcher
+    //   fetchers={[
+    //     createTaxWithholdingListBySymbolFetcher({
+    //       securityTokenSymbol: symbol,
+    //     }),
+    //   ]}
+    //   render={({
+    //     taxWithholdings,
+    //   }: {
+    //     taxWithholdings: types.TaxWithholdingEntity[];
+    //   }) => {
+    //     return <Presenter />;
+    //   }}
+    // />
+    // );
     return (
-      <DataFetcher
-        fetchers={[
-          createTaxWithholdingListBySymbolFetcher({
-            securityTokenSymbol: symbol,
-          }),
-        ]}
-        render={({
-          taxWithholdings,
-        }: {
-          taxWithholdings: types.TaxWithholdingEntity[];
-        }) => {
-          return <Presenter />;
-        }}
-      />
+      <Page>
+        <Presenter />
+      </Page>
     );
   }
 }
