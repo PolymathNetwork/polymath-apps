@@ -1,14 +1,92 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
+.c1 {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1600px;
+  padding-left: calc(64px + 2%);
+  padding-right: calc(64px + 2%);
+}
+
+.c0 {
+  width: 100%;
+  height: 48px;
+  background-color: white;
+  box-shadow: 0 -1px 0 0 #dfe3e6;
+}
+
+.c0 .pui-footer-text {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.c2 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 48px;
+}
+
+.c3 {
+  margin-left: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 a {
+  color: #5A6872;
+}
+
+.c3 li {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 22px;
+  margin-left: 30px;
+}
+
+.c3 li a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3 li a:hover,
+.c3 li a:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 <div
-  class="pui-footer Footer__Container-hx8agb-0 jKXVoU"
+  class="pui-footer c0"
 >
   <div
-    class="Box-sc-1ayjt33-0 PageWrap-j7u0ds-0 koPitZ"
+    class="c1"
   >
     <div
-      class="Box-sc-1ayjt33-0 Flex-sc-1kg4q90-0 Footer__Inner-hx8agb-1 giiVdw"
+      class="c2"
     >
       <span
         class="pui-footer-text"
@@ -19,7 +97,7 @@ exports[`renders without crashing 1`] = `
         Polymath
       </span>
       <ul
-        class="pui-footer-links Footer__Links-hx8agb-2 fjOXNy"
+        class="pui-footer-links c3"
       >
         <li>
           <a

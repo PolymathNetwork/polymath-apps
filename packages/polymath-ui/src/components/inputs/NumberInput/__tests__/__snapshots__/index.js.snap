@@ -1,11 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NumberInput renders without crashing  1`] = `
+.c1 {
+  display: block;
+  width: 100%;
+  height: 2.5rem;
+  min-width: 18.75rem;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  color: #5A6872;
+  font-family: 'Overpass',sans-serif;
+  background-color: #EBF0F7;
+  border: none;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  border-bottom: 1px solid transparent;
+  -webkit-transition: all 150ms;
+  transition: all 150ms;
+}
+
+.c1:focus {
+  background-color: #F5F7FA;
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    -moz-appearance: textfield;
+  }
+
+  .c0::-webkit-inner-spin-button,
+  .c0::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
 <div
-  class="BaseInput__Container-sc-48ma8v-0 csflbi"
+  class=""
 >
   <input
-    class="NumberInput__StyledBaseInput-sc-1gojrn9-0 hgLRjV BaseInput__Input-sc-48ma8v-1 lbfLx"
+    class="c0 c1"
     data-testid="base-input"
     id="foo"
     type="text"
