@@ -40,6 +40,7 @@ export { CardPrimary } from './components/CardPrimary';
 export { CardFeatureState } from './components/CardFeatureState';
 export { ErrorBoundary } from './components/ErrorBoundary';
 export { Footer } from './components/Footer';
+export { Form } from './components/Form';
 export { FormItem } from './components/FormItem';
 export { Header } from './components/Header';
 export { Icon } from './components/Icon';
@@ -50,9 +51,12 @@ export { IconText } from './components/IconText';
 export { Label } from './components/Label';
 export { LabeledItem } from './components/LabeledItem';
 export { Link } from './components/Link';
+export { LinkButton } from './components/LinkButton';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
 export { Text } from './components/Text';
+export { Modal } from './components/Modal';
+export { ModalConfirm } from './components/ModalConfirm';
 export { ModalTransactionQueue } from './components/ModalTransactionQueue';
 export {
   ModalConfirmTransactionQueue,
@@ -66,6 +70,7 @@ export { Sidebar } from './components/Sidebar';
 export { Tooltip } from './components/Tooltip';
 export { TooltipIcon } from './components/TooltipIcon';
 export { TooltipPrimary } from './components/TooltipPrimary';
+export * from './components/inputs';
 
 // Icons
 export const icons = {
