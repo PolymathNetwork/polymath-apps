@@ -3,19 +3,31 @@ import { csvParser } from '@polymathnetwork/new-shared';
 
 export interface RenderProps {
   data: csvParser.ResultProps;
-  setFile(fileProps: csvParser.Props): void;
+  setFile(file: File): void;
   clearFile(): void;
 }
 
 export interface ParseResult {
   data: csvParser.ResultProps;
+  config: Config;
   errors: string[];
   warnings: string[];
 }
 
-interface Props {
+interface Config {
+  columns: Array<csvParser.Column>;
+  header?: boolean;
+  maxRows?: number;
+  strict?: boolean;
   parseErrorMessage: string;
-  render(input: RenderProps): ReactNode;
+  missingRequiredColumnsErrorMessage?: string;
+  extraColumnsErrorMessage?: string;
+  rowsExceedMaxLimitErrorMessage?: string;
+}
+
+interface Props {
+  config: Config;
+  render(output: RenderProps): ReactNode;
 }
 
 interface State {
@@ -35,20 +47,34 @@ export class ParseCsv extends Component<Props, State> {
     },
   };
 
-  public setFile = (fileProps: csvParser.Props) => {
-    csvParser
-      .parseCsv(fileProps)
-      .then((parseResult: csvParser.ResultProps) => {
-        this.setState({ data: parseResult });
-      })
-      .catch(() => {
-        this.setState(prevState => ({
-          data: {
-            ...prevState.data,
-            errors: [this.props.parseErrorMessage],
-          },
-        }));
-      });
+  public setFile = async (file: string | File) => {
+    try {
+      const {
+        missingRequiredColumnsErrorMessage,
+        extraColumnsErrorMessage,
+        rowsExceedMaxLimitErrorMessage,
+        parseErrorMessage,
+        ...csvConfig
+      } = this.props.config;
+      const fileProps: csvParser.Props = {
+        data: file,
+        ...csvConfig,
+        errorMessages: {
+          missingRequiredColumns: missingRequiredColumnsErrorMessage || '',
+          extraColumns: extraColumnsErrorMessage || '',
+          rowsExceedMaxLimit: rowsExceedMaxLimitErrorMessage || '',
+        },
+      };
+      const parseResult = await csvParser.parseCsv(fileProps);
+      this.setState({ data: parseResult });
+    } catch {
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          errors: [this.props.config.parseErrorMessage],
+        },
+      }));
+    }
   };
 
   public clearFile = () => {
