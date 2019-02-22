@@ -84,7 +84,7 @@ export function* requestData(action: ActionType<typeof requestDataAction>) {
     return;
   }
 
-  // set fetching to true for the corresponding cache entry
+  // Set fetching to true for the corresponding cache entry
   yield put(
     fetchDataStart({
       requestKey,
@@ -95,7 +95,13 @@ export function* requestData(action: ActionType<typeof requestDataAction>) {
   try {
     yield call(runDataRequest, requestKey, args);
   } catch (err) {
-    fetchDataFail(err);
+    yield put(
+      fetchDataFail({
+        errorMessage: err.message,
+        requestKey,
+        args,
+      })
+    );
   }
 }
 
