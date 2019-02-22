@@ -91,15 +91,15 @@ export const Presenter: FC<Props> = ({
             amount of dividends owed to each wallet address.
           </Heading>
           {dividendsModule ? (
-          <Button iconPosition="right" onClick={onCreateCheckpoint}>
-            Create dividend checkpoint
-            <Icon
-              Asset={icons.SvgPlusPlain}
-              width={16}
-              height={16}
-              color="white"
-            />
-          </Button>
+            <Button iconPosition="right" onClick={onCreateCheckpoint}>
+              Create dividend checkpoint
+              <Icon
+                Asset={icons.SvgPlusPlain}
+                width={16}
+                height={16}
+                color="white"
+              />
+            </Button>
           ) : null}
         </GridRow.Col>
         <GridRow.Col gridSpan={{ sm: 12, lg: 5 }}>
@@ -161,8 +161,10 @@ export const Presenter: FC<Props> = ({
         </GridRow.Col>
         <GridRow.Col gridSpan={12}>
           {dividendsModule ? (
-              <CheckpointList securityTokenSymbol={securityTokenSymbol} />
-            ) : null}
+            <CheckpointList
+              securityTokenSymbol={dividendsModule.securityTokenSymbol}
+            />
+          ) : null}
         </GridRow.Col>
       </GridRow>
       <Form
