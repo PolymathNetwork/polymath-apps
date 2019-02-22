@@ -25,6 +25,7 @@ import {
   KOVAN_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
 import { ModalTransactionQueue } from '@polymathnetwork/new-issuer/components/ModalTransactionQueue';
+import { ThemeProvider, GlobalStyles } from '@polymathnetwork/new-ui';
 
 import HomePage from '../pages/home';
 
@@ -70,6 +71,7 @@ class Root extends Component<Props> {
     }
     return (
       <ErrorBoundary>
+        <GlobalStyles />
         {isMobile || isUnsupportedBrowser ? (
           <NotSupportedPage />
         ) : location.pathname === '/' ? (
@@ -79,7 +81,6 @@ class Root extends Component<Props> {
               <Header variant="transparent" />
             </StickyTop>
             <HomePage />
-            <ModalTransactionQueue />
             <Footer variant="transparent" />
           </Fragment>
         ) : (
@@ -95,6 +96,9 @@ class Root extends Component<Props> {
             )}
           >
             {renderRoutes(routes)}
+            <ThemeProvider>
+              <ModalTransactionQueue />
+            </ThemeProvider>
           </EthNetworkWrapper>
         )}
       </ErrorBoundary>
