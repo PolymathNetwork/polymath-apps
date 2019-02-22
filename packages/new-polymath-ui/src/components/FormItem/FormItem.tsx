@@ -8,7 +8,6 @@ import { Context } from './Context';
 interface Props {
   name: string;
 }
-
 const Wrapper = styled.div``;
 
 const FormItemBase: FC<Props> = ({ name, children, ...props }) => {
