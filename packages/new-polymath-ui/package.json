@@ -62,8 +62,10 @@
     "docz-plugin-css": "^0.11.0",
     "docz-theme-default": "^0.13.7",
     "jest": "^24.1.0",
-    "jest-dom": "^3.0.0",
+    "jest-dom": "^3.1.1",
+    "jest-styled-components": "^6.3.1",
     "namor": "^1.1.1",
+    "react-testing-library": "^5.8.0",
     "typescript": "^3.2.1",
     "yup": "^0.26.6"
   },
@@ -88,12 +90,12 @@
       "<rootDir>/src"
     ],
     "transform": {
-      "\\.(css|scss)$": "<rootDir>/config/cssTransform.js",
       "^.+\\.tsx?$": "<rootDir>/../../config/babelJestWrapper",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/fileTransform.js"
     },
     "moduleNameMapper": {
-      "~/(.*)": "<rootDir>/src/$1"
+      "~/(.*)": "<rootDir>/src/$1",
+      "\\.(css|scss)$": "<rootDir>/config/cssTransform.js"
     },
     "setupFilesAfterEnv": [
       "<rootDir>/src/testUtils/setupTests.ts"
