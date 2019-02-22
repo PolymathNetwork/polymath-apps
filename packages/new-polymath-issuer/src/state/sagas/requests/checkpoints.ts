@@ -34,21 +34,11 @@ export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
     })
   );
 
-  // cross-cache the individual checkpoint
-  yield put(
-    cacheData({
-      requestKey: RequestKeys.GetCheckpointBySymbolAndId,
-      args: { securityTokenSymbol, checkpointIndex: index },
-      fetchedIds: [uid],
-    })
-  );
-
   yield put(createCheckpoint(rest));
 }
 
 /**
- * Fetches a particular checkpoint for a security token
- * from the cache or the blockchain
+ * Fetches a particular checkpoint for a security token from the blockchain
  *
  * @param args request arguments
  */

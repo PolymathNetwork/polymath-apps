@@ -13,9 +13,10 @@ import {
   IconCircled,
   icons,
 } from '@polymathnetwork/new-ui';
-import { ModalTransactionQueue, Checkpoints } from '~/components';
+import { CheckpointList } from '~/components';
 
 export interface Props {
+  securityTokenSymbol: string;
   onEnableDividends: () => void;
   onCreateCheckpoint: () => void;
   dividendsModule?: types.Erc20DividendsModulePojo;
@@ -31,7 +32,7 @@ export class Presenter extends Component<Props> {
   };
 
   public render() {
-    const { dividendsModule } = this.props;
+    const { dividendsModule, securityTokenSymbol } = this.props;
 
     return (
       <Fragment>
@@ -49,18 +50,20 @@ export class Presenter extends Component<Props> {
               per wallet address. This percentage will be used to calculate the
               amount of dividends owed to each wallet address.
             </Heading>
-            <Button
-              iconPosition="right"
-              onClick={this.handleCreateCheckpointClick}
-            >
-              Create dividend checkpoint
-              <Icon
-                Asset={icons.SvgPlusPlain}
-                width={16}
-                height={16}
-                color="white"
-              />
-            </Button>
+            {dividendsModule ? (
+              <Button
+                iconPosition="right"
+                onClick={this.handleCreateCheckpointClick}
+              >
+                Create dividend checkpoint
+                <Icon
+                  Asset={icons.SvgPlusPlain}
+                  width={16}
+                  height={16}
+                  color="white"
+                />
+              </Button>
+            ) : null}
           </GridRow.Col>
           <GridRow.Col gridSpan={{ sm: 12, lg: 5 }}>
             <CardFeatureState
@@ -107,10 +110,11 @@ export class Presenter extends Component<Props> {
             </CardFeatureState>
           </GridRow.Col>
           <GridRow.Col gridSpan={12}>
-            {dividendsModule ? <Checkpoints symbol="A0T0" /> : null}
+            {dividendsModule ? (
+              <CheckpointList securityTokenSymbol={securityTokenSymbol} />
+            ) : null}
           </GridRow.Col>
         </GridRow>
-        <ModalTransactionQueue />
       </Fragment>
     );
   }
