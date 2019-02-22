@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { ActionType } from 'typesafe-actions/dist/types';
 import { types } from '@polymathnetwork/new-shared';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
@@ -9,7 +10,6 @@ import {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
 } from '~/state/actions/procedures';
-import { ActionType } from 'typesafe-actions/dist/types';
 
 const actions = {
   enableErc20DividendsModuleStart,
