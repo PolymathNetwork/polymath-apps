@@ -15,7 +15,7 @@ export interface Props {
   securityTokenSymbol: string;
 }
 
-export const CheckpointPresenter = ({
+export const DividendListPresenter = ({
   securityTokenSymbol,
   dividends,
 }: Props) => (

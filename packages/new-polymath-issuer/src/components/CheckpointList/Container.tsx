@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { CheckpointPresenter } from './Presenter';
+import { CheckpointListPresenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
-import { createDividendsByCheckpointFetcher } from '~/state/fetchers';
-import { types, utils, formatters } from '@polymathnetwork/new-shared';
+import { createCheckpointsBySymbolFetcher } from '~/state/fetchers';
+import { types, formatters, utils } from '@polymathnetwork/new-shared';
 import { BigNumber } from 'bignumber.js';
 import { DateTime } from 'luxon';
 
 export interface Props {
   dispatch: Dispatch<any>;
   securityTokenSymbol: string;
-  checkpointIndex: number;
 }
 
 interface Row {
@@ -20,7 +19,7 @@ interface Row {
   percentage: number;
 }
 
-export class CheckpointContainerBase extends Component<Props> {
+export class CheckpointListContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
     const { securityTokenSymbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
@@ -59,21 +58,24 @@ export class CheckpointContainerBase extends Component<Props> {
       ],
     });
   };
+
   public render() {
-    const { securityTokenSymbol, checkpointIndex } = this.props;
+    const { securityTokenSymbol } = this.props;
     return (
       <DataFetcher
         fetchers={[
-          createDividendsByCheckpointFetcher({
+          createCheckpointsBySymbolFetcher({
             securityTokenSymbol,
-            checkpointIndex,
           }),
         ]}
-        render={({ dividends }: { dividends: types.DividendEntity[] }) => {
+        render={(data: { checkpoints: types.CheckpointEntity[] }) => {
+          const { checkpoints } = data;
+
           return (
-            <CheckpointPresenter
+            <CheckpointListPresenter
+              checkpoints={checkpoints}
               securityTokenSymbol={securityTokenSymbol}
-              dividends={dividends}
+              downloadOwnershipList={this.downloadOwnershipList}
             />
           );
         }}
@@ -82,4 +84,4 @@ export class CheckpointContainerBase extends Component<Props> {
   }
 }
 
-export const CheckpointContainer = connect()(CheckpointContainerBase);
+export const CheckpointListContainer = connect()(CheckpointListContainerBase);

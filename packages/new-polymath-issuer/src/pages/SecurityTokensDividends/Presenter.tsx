@@ -13,7 +13,7 @@ import {
   IconCircled,
   icons,
 } from '@polymathnetwork/new-ui';
-import { ModalTransactionQueue, Checkpoints } from '~/components';
+import { CheckpointList } from '~/components';
 
 export interface Props {
   securityTokenSymbol: string;
@@ -111,11 +111,10 @@ export class Presenter extends Component<Props> {
           </GridRow.Col>
           <GridRow.Col gridSpan={12}>
             {dividendsModule ? (
-              <Checkpoints securityTokenSymbol={securityTokenSymbol} />
+              <CheckpointList securityTokenSymbol={securityTokenSymbol} />
             ) : null}
           </GridRow.Col>
         </GridRow>
-        <ModalTransactionQueue />
       </Fragment>
     );
   }

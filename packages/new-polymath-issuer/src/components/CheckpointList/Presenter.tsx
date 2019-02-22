@@ -10,18 +10,20 @@ import {
   icons,
   IconText,
 } from '@polymathnetwork/new-ui';
-import { Checkpoint } from '~/components/Checkpoint';
+import { DividendList } from '~/components/DividendList';
 import * as sc from './styles';
 import { iconSize } from './styles';
 
 export interface Props {
-  checkpoints: types.CheckpointPojo[];
+  checkpoints: types.CheckpointEntity[];
   securityTokenSymbol: string;
+  downloadOwnershipList: (checkpoint: types.CheckpointEntity) => void;
 }
 
-export const CheckpointsPresenter = ({
+export const CheckpointListPresenter = ({
   checkpoints,
   securityTokenSymbol,
+  downloadOwnershipList,
 }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
@@ -66,7 +68,10 @@ export const CheckpointsPresenter = ({
                           textAlign="right"
                           mr="calc(-1rem - 2px)" // Button padding
                         >
-                          <Button variant="ghost">
+                          <Button
+                            variant="ghost"
+                            onClick={() => downloadOwnershipList(checkpoint)}
+                          >
                             Ownership list <Icon Asset={icons.SvgDownload} />
                           </Button>
                         </Paragraph>
@@ -82,7 +87,7 @@ export const CheckpointsPresenter = ({
                               color="primary"
                             />
                           </sc.ProgressIndicator>
-                          <Checkpoint
+                          <DividendList
                             checkpointIndex={checkpoint.index}
                             securityTokenSymbol={securityTokenSymbol}
                           />
