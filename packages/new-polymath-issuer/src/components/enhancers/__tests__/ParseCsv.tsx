@@ -88,7 +88,7 @@ describe('ParseCsv component', () => {
     render(
       <ParseCsv
         config={config}
-        render={(inputParams: RenderProps) => {
+        render={inputParams => {
           setFile = inputParams.setFile;
           clearFile = inputParams.clearFile;
           result = inputParams.data.result;
@@ -125,7 +125,7 @@ describe('ParseCsv component', () => {
     render(
       <ParseCsv
         config={config}
-        render={(inputParams: RenderProps) => {
+        render={inputParams => {
           setFile = inputParams.setFile;
           errors = inputParams.data.errors;
           return <div>Hello</div>;
