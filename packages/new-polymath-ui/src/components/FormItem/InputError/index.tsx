@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { ErrorMessage, ErrorMessageProps } from 'formik';
-
+import { typeHelpers } from '@polymathnetwork/new-shared';
 import { formError } from '~/styles/utils';
 import { Context } from '../Context';
 
-export interface Props extends ErrorMessageProps {}
+export interface Props extends typeHelpers.Omit<ErrorMessageProps, 'name'> {}
 
 const StyledError = styled.span`
   ${formError};

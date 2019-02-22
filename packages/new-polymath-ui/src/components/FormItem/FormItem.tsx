@@ -7,7 +7,6 @@ import { Context } from './Context';
 
 interface Props {
   name: string;
-  children?: React.ComponentType;
 }
 const Wrapper = styled.div``;
 
