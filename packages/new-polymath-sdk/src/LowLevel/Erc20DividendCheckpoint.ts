@@ -94,7 +94,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
     const events = await this.contract.getPastEvents<
       Erc20DividendDepositedEvent
     >('ERC20DividendDeposited', {
-      fromBlock: 'genesis',
+      fromBlock: 'earliest',
       toBlock: 'latest',
     });
 

@@ -5,7 +5,7 @@ import { Grid } from '~/components/Grid';
 
 type FlexProps = typeHelpers.GetProps<typeof Grid>;
 
-export interface Props extends FlexProps {
+interface Props extends FlexProps {
   vertical?: boolean;
 }
 

@@ -7,9 +7,9 @@ import { Playground, PropsTable } from 'docz';
 import { Link as ReactLink } from 'redux-little-router';
 import { Provider } from 'react-redux';
 import { constants, types } from '@polymathnetwork/new-shared';
-
 import { Demo } from './Demo';
 import { Link } from '../';
+import { LinkButton } from '~/components/LinkButton';
 
 # Link
 
@@ -27,4 +27,5 @@ This can be an internal or external link. To create an internal link, use the `a
   </Demo>
   <br />
   <Link href="https://google.com">External link</Link>
+  <LinkButton>Link that used a button tag under the hood</LinkButton>
 </Playground>
