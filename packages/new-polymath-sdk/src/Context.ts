@@ -3,26 +3,28 @@ import { types } from '@polymathnetwork/new-shared';
 // import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 // import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
 // import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { PolyTokenWrapper } from '@polymathnetwork/contract-wrappers';
-import { PolymathRegistryWrapper } from '@polymathnetwork/contract-wrappers';
-import { SecurityTokenRegistryWrapper } from '@polymathnetwork/contract-wrappers';
-import { ModuleRegistryWrapper } from '@polymathnetwork/contract-wrappers';
+import {
+  PolyToken,
+  PolymathRegistry,
+  SecurityTokenRegistry,
+  ModuleRegistry
+} from '@polymathnetwork/contract-wrappers';
 import { Wallet } from '~/Wallet';
 
 interface Params {
-  polyToken: PolyTokenWrapper;
-  polymathRegistry: PolymathRegistryWrapper;
-  securityTokenRegistry: SecurityTokenRegistryWrapper;
-  moduleRegistry: ModuleRegistryWrapper;
+  polyToken: PolyToken;
+  polymathRegistry: PolymathRegistry;
+  securityTokenRegistry: SecurityTokenRegistry;
+  moduleRegistry: ModuleRegistry;
   isTestnet: boolean;
   accountAddress: string;
 }
 
 export class Context {
-  public polyToken: PolyTokenWrapper;
-  public polymathRegistry: PolymathRegistryWrapper;
-  public securityTokenRegistry: SecurityTokenRegistryWrapper;
-  public moduleRegistry: ModuleRegistryWrapper;
+  public polyToken: PolyToken;
+  public polymathRegistry: PolymathRegistry;
+  public securityTokenRegistry: SecurityTokenRegistry;
+  public moduleRegistry: ModuleRegistry;
   public isTestnet: boolean;
   public currentWallet: Wallet;
   constructor(params: Params) {

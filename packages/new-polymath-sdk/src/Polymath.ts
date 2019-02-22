@@ -1,5 +1,12 @@
 import { HttpProvider } from 'web3/providers';
-import { PolymathAPI } from '@polymathnetwork/contract-wrappers';
+import {
+  PolymathAPI,
+  IApiConstructor,
+  PolyToken,
+  PolymathRegistry,
+  SecurityTokenRegistry,
+  ModuleRegistry
+} from '@polymathnetwork/contract-wrappers';
 import {
   RPCSubprovider,
   Web3ProviderEngine,
@@ -29,10 +36,6 @@ import { SecurityToken } from '~/entities';
 import { Erc20DividendsModule } from '~/entities';
 import { PolymathNetworkParams } from '~/types';
 import { constants } from '@polymathnetwork/new-shared';
-import { PolyTokenWrapper } from '@polymathnetwork/contract-wrappers';
-import { PolymathRegistryWrapper } from '@polymathnetwork/contract-wrappers';
-import { SecurityTokenRegistryWrapper } from '@polymathnetwork/contract-wrappers';
-import { ModuleRegistryWrapper } from '@polymathnetwork/contract-wrappers';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -135,7 +138,6 @@ export class Polymath {
   private polymatAPI: PolymathAPI = {} as PolymathAPI;
   private context: Context = {} as Context;
   private entities: ContextualizedEntities;
-  private provider: DataProvider = {} as DataProvider;
 
   constructor() {
     // TODO @RafaelVidaurre: type this correctly
@@ -156,18 +158,17 @@ export class Polymath {
     httpProviderUrl,
   }: PolymathNetworkParams) => {
     this.polymathRegistryAddress = polymathRegistryAddress;
-    this.provider = await getProviderEngine();
+    const dataProvider: DataProvider = await getProviderEngine();
+    this.networkId = dataProvider.network;
 
+    const apiConstructor: IApiConstructor = {
+      provider: dataProvider.provider,
+      polymathRegistryAddress: this.polymathRegistryAddress
+    };
     this.polymatAPI = new PolymathAPI(
-      this.provider.provider,
-      this.provider.network
+      apiConstructor
     );
-
-    this.polymathRegistryAddress = polymathRegistryAddress;
-
-    this.networkId = this.provider.network;
     const account = await this.polymatAPI.getAccount();
-
     if (!polymathRegistryAddress) {
       throw new Error(
         `Polymath registry address for network id "${
@@ -184,12 +185,12 @@ export class Polymath {
     }
 
     this.context = new Context({
-      polyToken: this.polymatAPI.polyToken as PolyTokenWrapper,
+      polyToken: this.polymatAPI.polyToken as PolyToken,
       polymathRegistry: this.polymatAPI
-        .polymathRegistry as PolymathRegistryWrapper,
+        .polymathRegistry as PolymathRegistry,
       securityTokenRegistry: this.polymatAPI
-        .securityTokenRegistry as SecurityTokenRegistryWrapper,
-      moduleRegistry: this.polymatAPI.moduleRegistry as ModuleRegistryWrapper,
+        .securityTokenRegistry as SecurityTokenRegistry,
+      moduleRegistry: this.polymatAPI.moduleRegistry as ModuleRegistry,
       isTestnet: true,
       accountAddress: account,
     });

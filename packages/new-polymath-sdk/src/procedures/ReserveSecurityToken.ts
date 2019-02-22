@@ -15,10 +15,11 @@ export class ReserveSecurityToken extends Procedure<Args> {
     const { securityTokenRegistry, currentWallet, polyToken } = this.context;
 
     // TODO @RafaelVidaurre: See if ticker is not already registered
+    const securityTokenRegistryAddress = await securityTokenRegistry.getAddress();
 
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
 
-    const approvalParams: IApprove = { spender: 'securityTokenRegistry.address', value: fee }
+    const approvalParams: IApprove = { spender: securityTokenRegistryAddress, value: fee }
     await this.addTransaction(polyToken.approve, {
       tag: types.PolyTransactionTags.Approve,
     })(approvalParams);
