@@ -59,4 +59,4 @@ To run tests:
 
 - Export your SVG in black `#000` (or replace the hex value in the following command by the color of your SVG)
 - Add the SVG files to `images/{folder}`
-- `npx @svgr/cli --icon --replace-attr-values "#000=currentColor" -d images/{folder} images/{folder}`
+- `npx @svgr/cli --icon --replace-attr-values "#000=currentColor" --ext tsx -d images/{folder}/generated images/{folder}`
