@@ -1,10 +1,11 @@
-import React, { FC, ComponentClass } from 'react';
-import { FastField } from 'formik';
+import React, { FC } from 'react';
+import { FastField, FieldConfig } from 'formik';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
 import { Context } from '../Context';
 
-export interface Props {
-  FormikComponent: ComponentClass<{ name: string }>;
+export interface Props extends typeHelpers.Omit<FieldConfig, 'name'> {
+  FormikComponent: React.ComponentType<any>;
 }
 
 export const Input: FC<Props> = ({ FormikComponent, ...props }) => {

@@ -9,6 +9,7 @@ export interface TimePickerSelectProps extends SelectProps {
   format: string;
   onChange: (value: number) => void;
   onBlur: () => void;
+  value: any;
 }
 
 const minutesInADay = 60 * 24;

@@ -23,9 +23,9 @@ import { Rows } from './Rows';
 import * as sc from './styles';
 
 interface Props {
-  columns: [];
-  data: [];
-  selectable: boolean;
+  columns: Column[];
+  data: any[];
+  selectable?: boolean;
 }
 
 export const TableComponent: FC<Props> = ({

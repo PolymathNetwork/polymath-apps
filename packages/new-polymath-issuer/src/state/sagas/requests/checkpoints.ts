@@ -46,32 +46,28 @@ export function* fetchCheckpointBySymbolAndId(args: {
   securityTokenSymbol: string;
   checkpointIndex: number;
 }) {
-  try {
-    const { securityTokenSymbol, checkpointIndex } = args;
-    const checkpoint: Checkpoint | null = yield call(polyClient.getCheckpoint, {
-      symbol: securityTokenSymbol,
-      checkpointIndex,
-    });
+  const { securityTokenSymbol, checkpointIndex } = args;
+  const checkpoint: Checkpoint | null = yield call(polyClient.getCheckpoint, {
+    symbol: securityTokenSymbol,
+    checkpointIndex,
+  });
 
-    const fetchedCheckpointIds: string[] = [];
+  const fetchedCheckpointIds: string[] = [];
 
-    if (checkpoint) {
-      const checkpointPojo = checkpoint.toPojo();
-      fetchedCheckpointIds.push(checkpoint.uid);
+  if (checkpoint) {
+    const checkpointPojo = checkpoint.toPojo();
+    fetchedCheckpointIds.push(checkpoint.uid);
 
-      yield call(saveCheckpoint, checkpointPojo);
-    }
-
-    yield put(
-      cacheData({
-        requestKey: RequestKeys.GetCheckpointBySymbolAndId,
-        args,
-        fetchedIds: fetchedCheckpointIds,
-      })
-    );
-  } catch (err) {
-    yield put(fetchDataFail(err));
+    yield call(saveCheckpoint, checkpointPojo);
   }
+
+  yield put(
+    cacheData({
+      requestKey: RequestKeys.GetCheckpointBySymbolAndId,
+      args,
+      fetchedIds: fetchedCheckpointIds,
+    })
+  );
 }
 
 /**
@@ -83,29 +79,25 @@ export function* fetchCheckpointBySymbolAndId(args: {
 export function* fetchCheckpointsBySymbol(args: {
   securityTokenSymbol: string;
 }) {
-  try {
-    const { securityTokenSymbol } = args;
-    const checkpoints: Checkpoint[] = yield call(polyClient.getCheckpoints, {
-      symbol: securityTokenSymbol,
-    });
+  const { securityTokenSymbol } = args;
+  const checkpoints: Checkpoint[] = yield call(polyClient.getCheckpoints, {
+    symbol: securityTokenSymbol,
+  });
 
-    const fetchedCheckpointIds: string[] = [];
+  const fetchedCheckpointIds: string[] = [];
 
-    const checkpointPojos = checkpoints.map(checkpoint => checkpoint.toPojo());
-    for (const checkpoint of checkpointPojos) {
-      fetchedCheckpointIds.push(checkpoint.uid);
+  const checkpointPojos = checkpoints.map(checkpoint => checkpoint.toPojo());
+  for (const checkpoint of checkpointPojos) {
+    fetchedCheckpointIds.push(checkpoint.uid);
 
-      yield call(saveCheckpoint, checkpoint);
-    }
-
-    yield put(
-      cacheData({
-        requestKey: RequestKeys.GetCheckpointsBySymbol,
-        args,
-        fetchedIds: fetchedCheckpointIds,
-      })
-    );
-  } catch (err) {
-    yield put(fetchDataFail(err));
+    yield call(saveCheckpoint, checkpoint);
   }
+
+  yield put(
+    cacheData({
+      requestKey: RequestKeys.GetCheckpointsBySymbol,
+      args,
+      fetchedIds: fetchedCheckpointIds,
+    })
+  );
 }
