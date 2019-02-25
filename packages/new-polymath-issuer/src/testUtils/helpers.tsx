@@ -6,6 +6,7 @@ import { Action, Middleware, Store } from 'redux';
 import { set } from 'lodash';
 import Web3FakeProvider from 'web3-fake-provider';
 import { RootState } from '~/state/reducers/root';
+import { ThemeProvider } from '@polymathnetwork/new-ui';
 
 interface RenderTestOpts {
   state?: RootState;
@@ -24,7 +25,9 @@ const customRender = (
 ) => {
   const store = (mockStore(testOpts.state || {}) as any) as StoreMock;
   const { rerender, ...result } = render(
-    <Provider store={store}>{node}</Provider>,
+    <Provider store={store}>
+      <ThemeProvider>{node}</ThemeProvider>
+    </Provider>,
     ...opts
   );
 

@@ -26,7 +26,11 @@ const fetchDataStart = createStandardAction('DATA_REQUESTS/FETCH_START')<{
   args: types.Pojo;
 }>();
 
-const fetchDataFail = createStandardAction('DATA_REQUESTS/FETCH_FAIL')<Error>();
+const fetchDataFail = createStandardAction('DATA_REQUESTS/FETCH_FAIL')<{
+  errorMessage: string;
+  requestKey: RequestKeys;
+  args: types.Pojo;
+}>();
 
 export {
   invalidateRequest,
