@@ -5,6 +5,7 @@ import { BaseInput } from '../BaseInput';
 import { formikProxy } from '~/components/inputs/formikProxy';
 
 interface Props {
+  onChange: (e: any) => void;
   name: string;
   value: string;
 }
@@ -15,9 +16,18 @@ export type TextInputProps = JSX.LibraryManagedAttributes<
 >;
 
 export const TextInputPrimitive: FC<Props> = props => {
-  const { name, ...otherProps } = props;
+  const { name, onChange, ...otherProps } = props;
 
-  return <BaseInput type="text" {...otherProps} id={name} />;
+  return (
+    <BaseInput
+      type="text"
+      {...otherProps}
+      id={name}
+      onChange={e => {
+        onChange(e.target.value);
+      }}
+    />
+  );
 };
 
 TextInputPrimitive.defaultProps = {

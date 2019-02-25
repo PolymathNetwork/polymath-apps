@@ -1,7 +1,7 @@
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { styled } from '~/styles';
 import { Tooltip } from '~/components/Tooltip';
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 type TooltipProps = typeHelpers.GetProps<typeof Tooltip>;
 
@@ -9,7 +9,7 @@ type TooltipProps = typeHelpers.GetProps<typeof Tooltip>;
  * NOTE @monitz87: this is needed because styled components ignores the children
  * prop for some reason
  */
-export interface Props extends TooltipProps {
+interface Props extends TooltipProps {
   children?: ReactNode;
 }
 

@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { uniqueId } from 'lodash';
 import { InlineFlex } from '~/components/InlineFlex';
 import { SvgCheckmark } from '~/images/icons/Checkmark';
 import { formikProxy } from '../formikProxy';
 import * as sc from './styles';
 
-export interface Props {
+interface Props {
   onChange: (e: any) => void;
   /**
    * Specify whether the toggle should be on by default

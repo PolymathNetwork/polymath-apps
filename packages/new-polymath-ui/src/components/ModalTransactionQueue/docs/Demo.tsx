@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { types } from '@polymathnetwork/new-shared';
-import { ModalConfirm } from '~/components/ModalConfirm';
 import { ModalTransactionQueue } from '../ModalTransactionQueue';
 
 export const mockTransactionQueue = {
@@ -32,7 +31,7 @@ interface DemoState {
   transactionQueue: types.TransactionQueuePojo | null;
 }
 
-export class ModalDemo extends React.Component<{}, DemoState> {
+export class Demo extends React.Component<{}, DemoState> {
   public state = {
     isModalOpen: false,
     transactionQueue: mockTransactionQueue,
