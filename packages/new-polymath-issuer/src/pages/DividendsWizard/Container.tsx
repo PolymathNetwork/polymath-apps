@@ -104,7 +104,7 @@ export class ContainerBase extends Component<Props> {
     // );
     return (
       <Page>
-        <Presenter />
+        <Presenter stepIndex={0} />
       </Page>
     );
   }
