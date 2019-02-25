@@ -1,9 +1,10 @@
 import { RootState } from '~/state/store';
 import { createSelector } from 'reselect';
-import { filter, zipWith, forEach, includes } from 'lodash';
+import { filter, zipWith, forEach, includes, compact } from 'lodash';
 import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
 import { DataRequestResults } from '~/state/reducers/dataRequests';
+import { downloadCsvFile } from '@polymathnetwork/new-shared/build/dist/utils';
 
 const getApp = (state: RootState) => state.app;
 const getEntities = (state: RootState) => state.entities;
@@ -57,6 +58,20 @@ const getCachedResultsPerFetcher = (
       key,
       requestKey,
       args,
+    };
+  });
+
+const getErrorsPerFetcher = (state: RootState, { fetchers }: FetcherProps) =>
+  fetchers.map(({ args, propKey, requestKey, entity }) => {
+    const argsHash = utils.hashObj(args);
+    const cachedData = state.dataRequests[requestKey][argsHash];
+    const key = propKey || entity;
+
+    return {
+      key,
+      requestKey,
+      args,
+      errorMessage: cachedData && cachedData.errorMessage,
     };
   });
 
@@ -186,17 +201,23 @@ const createGetLoadingStatus = () =>
       })
   );
 
+export const createGetFetchersErrorMessages = () =>
+  createSelector(
+    [getErrorsPerFetcher],
+    results => {
+      const errorMessages =
+        (results && results.map(({ errorMessage }) => errorMessage)) || [];
+      return compact(errorMessages);
+    }
+  );
+
 /**
  * Creates a selector that retrieves the active transaction queue and
  * all of its associated transactions
  */
 const createGetActiveTransactionQueue = () =>
   createSelector(
-    [
-      getTransactionQueues,
-      getTransactions,
-      getActiveTransactionQueueId,
-    ],
+    [getTransactionQueues, getTransactions, getActiveTransactionQueueId],
     (transactionQueues, transactions, activeTransactionQueueId) => {
       if (!activeTransactionQueueId) {
         return null;

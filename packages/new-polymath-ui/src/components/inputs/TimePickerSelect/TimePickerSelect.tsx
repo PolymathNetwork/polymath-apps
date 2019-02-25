@@ -5,12 +5,12 @@ import moment from 'moment';
 import { SelectPrimitive, SelectProps } from '../Select';
 import { formikProxy } from '~/components/inputs/formikProxy';
 
-export interface TimePickerSelectProps extends SelectProps {
+export type TimePickerSelectProps = SelectProps & {
   format: string;
   onChange: (value: number) => void;
   onBlur: () => void;
   value: any;
-}
+};
 
 const minutesInADay = 60 * 24;
 const timeIntervals = range(0, minutesInADay, 30);

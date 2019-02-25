@@ -1,18 +1,20 @@
 import { theme } from './styles/theme';
-import { SvgAccount } from './images/icons/Account';
-import { SvgCalendar } from './images/icons/Calendar';
-import { SvgCaretDown } from './images/icons/CaretDown';
-import { SvgDot } from './images/icons/Dot';
-import { SvgDownload } from './images/icons/Download';
-import { SvgErc20 } from './images/icons/Erc20';
-import { SvgDividends } from './images/icons/Dividends';
-import { SvgDividendsOutline } from './images/icons/DividendsOutline';
-import { SvgCheckmark } from './images/icons/Checkmark';
-import { SvgChecklist } from './images/icons/Checklist';
-import { SvgPen } from './images/icons/Pen';
-import { SvgPlus } from './images/icons/Plus';
-import { SvgPlusPlain } from './images/icons/PlusPlain';
-import { SvgWarning } from './images/icons/Warning';
+
+import { SvgAccount } from './images/icons/generated/Account';
+import { SvgArrow } from './images/icons/generated/Arrow';
+import { SvgCalendar } from './images/icons/generated/Calendar';
+import { SvgCaretDown } from './images/icons/generated/CaretDown';
+import { SvgDot } from './images/icons/generated/Dot';
+import { SvgDownload } from './images/icons/generated/Download';
+import { SvgErc20 } from './images/icons/generated/Erc20';
+import { SvgDividends } from './images/icons/generated/Dividends';
+import { SvgDividendsOutline } from './images/icons/generated/DividendsOutline';
+import { SvgCheckmark } from './images/icons/generated/Checkmark';
+import { SvgChecklist } from './images/icons/generated/Checklist';
+import { SvgPen } from './images/icons/generated/Pen';
+import { SvgPlus } from './images/icons/generated/Plus';
+import { SvgPlusPlain } from './images/icons/generated/PlusPlain';
+import { SvgWarning } from './images/icons/generated/Warning';
 
 // Styles
 export * from './styles';
@@ -75,6 +77,7 @@ export * from './components/inputs';
 // Icons
 export const icons = {
   SvgAccount,
+  SvgArrow,
   SvgCalendar,
   SvgCaretDown,
   SvgDot,
