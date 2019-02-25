@@ -48,23 +48,23 @@ export class ParseCsv extends Component<Props, State> {
   };
 
   public setFile = async (file: string | File) => {
+    const {
+      missingRequiredColumnsErrorMessage,
+      extraColumnsErrorMessage,
+      rowsExceedMaxLimitErrorMessage,
+      parseErrorMessage,
+      ...csvConfig
+    } = this.props.config;
+    const fileProps: csvParser.Props = {
+      data: file,
+      ...csvConfig,
+      errorMessages: {
+        missingRequiredColumns: missingRequiredColumnsErrorMessage || '',
+        extraColumns: extraColumnsErrorMessage || '',
+        rowsExceedMaxLimit: rowsExceedMaxLimitErrorMessage || '',
+      },
+    };
     try {
-      const {
-        missingRequiredColumnsErrorMessage,
-        extraColumnsErrorMessage,
-        rowsExceedMaxLimitErrorMessage,
-        parseErrorMessage,
-        ...csvConfig
-      } = this.props.config;
-      const fileProps: csvParser.Props = {
-        data: file,
-        ...csvConfig,
-        errorMessages: {
-          missingRequiredColumns: missingRequiredColumnsErrorMessage || '',
-          extraColumns: extraColumnsErrorMessage || '',
-          rowsExceedMaxLimit: rowsExceedMaxLimitErrorMessage || '',
-        },
-      };
       const parseResult = await csvParser.parseCsv(fileProps);
       this.setState({ data: parseResult });
     } catch {
