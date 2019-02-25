@@ -85,7 +85,14 @@ export const toTokens = (
   if (!isValid) {
     return `-`;
   }
-  const number = new BigNumber(value);
+
+  let number;
+
+  if (typeof value === 'number') {
+    number = new BigNumber(`${value}`);
+  } else {
+    number = new BigNumber(value);
+  }
   return new BigNumber(number.toPrecision(precision))
     .toFormat(decimals, 1)
     .replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1');

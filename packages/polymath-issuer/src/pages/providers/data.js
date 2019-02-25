@@ -42,7 +42,7 @@ export const categories: Array<SPCategory> = [
     id: 1,
     title: 'Legal',
     desc:
-      'Law firms may advise you on the planning and execution of your STO. Your Polymath dashboard is integrated' +
+      'Law firms may advise you on the planning and execution of your STO. Your Polymath dashboard is integrated ' +
       'with the following Law firms. Alternatively, you can elect to use your own Law firm or General Counsel.',
   },
   {
@@ -128,7 +128,7 @@ const providers: Array<ServiceProvider> = [
     logo: '/providers/legal/homierlaw.png',
     background: '/providers/legal/bg/img-homier.png',
     desc:
-      'Homeier Law PC is a securities and corporate law firm with deep experience in exempt as well as ' +
+      'Homeier Law PC is a securities and corporate law firm with deep experience in exemptions as well as ' +
       'SEC-registered alternative finance offerings, having advised on hundreds of private offerings that have ' +
       'raised billions of dollars for developers and entrepreneurs over the past decade.  As a leader and ' +
       'pioneer ininvestment crowdfunding, Homeier Law serves the emerging blockchain and cryptocurrency industries ' +
@@ -191,6 +191,17 @@ const providers: Array<ServiceProvider> = [
     desc:
       'Messner Reeves is a national full-service business law with expertise in securities matters in the following ' +
       'jurisdictions: Colorado, Nebraska, Pennsylvania.',
+  },
+  {
+    id: 23,
+    cat: 1,
+    title: 'Petros Law Group',
+    logo: '/providers/legal/petros.png',
+    background: '/providers/legal/bg/img-petros.png',
+    desc:
+      'Petros Law Group is a fintech law firm that focuses on commercial business application of digital asset ' +
+      'technologies through blockchain infrastructures, such as tokenized-securities. The Firm focuses on bringing ' +
+      'blockchain to commercial real estate and corporate business transactions',
   },
 
   // KYC/AML

@@ -102,6 +102,18 @@ const signPersonal = ({ web3, normal, address }) => {
   const message = bufferToHex(new Buffer(normal, 'utf8'));
 
   return new Promise((resolve, reject) => {
+    if (!web3.currentProvider.sendAsync) {
+      web3.eth.sign(normal, address, (err, result) => {
+        if (err) {
+          console.log('err', err);
+          reject(err);
+        }
+
+        resolve({ result });
+      });
+      return;
+    }
+
     web3.currentProvider.sendAsync(
       {
         method: 'personal_sign',
@@ -212,7 +224,6 @@ const signData = async (web3, normal, typed, address) => {
   } catch (err) {
     throw err;
   }
-
   return response.result;
 };
 

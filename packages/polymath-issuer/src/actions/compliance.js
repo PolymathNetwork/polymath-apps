@@ -238,7 +238,7 @@ export const exportWhitelist = () => async (
 
     // eslint-disable-next-line max-len
     let csvContent =
-      'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Can Buy From STO,Exempt From % Ownership';
+      'ETH Address,Sell Restriction Date,Buy Restriction Date,KYC/AML Expiry Date,Can Buy From STO,Exempt From % Ownership,Is Accredited,Non-Accredited Limit';
 
     if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
       csvContent += ',Is Accredited,Non-Accredited Limit';
