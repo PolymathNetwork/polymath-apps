@@ -11,7 +11,12 @@ export interface Props {}
 const RemarkComponent: FC<Props> = ({ children }) => {
   return (
     <CardPrimary p={0}>
-      <Grid gridAutoFlow="column" alignItems="center" gridGap={0}>
+      <Grid
+        gridAutoFlow="column"
+        gridAutoColumns="auto 1fr"
+        alignItems="center"
+        gridGap={0}
+      >
         <Text as="strong" p="gridGap" color="baseText">
           Note
         </Text>
