@@ -17,7 +17,7 @@ import { Box } from '~/components/Box';
 
 type BoxProps = typeHelpers.GetProps<typeof Box>;
 
-export type Props = { bold?: boolean } & BoxProps &
+type Props = { bold?: boolean } & BoxProps &
   ColorProps &
   FontFamilyProps &
   FontWeightProps &

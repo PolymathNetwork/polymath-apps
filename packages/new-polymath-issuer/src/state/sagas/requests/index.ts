@@ -2,6 +2,7 @@ import { call, takeEvery, put, select } from 'redux-saga/effects';
 import {
   requestData as requestDataAction,
   fetchDataStart,
+  fetchDataFail,
 } from '~/state/actions/dataRequests';
 import { getType, ActionType } from 'typesafe-actions';
 import {
@@ -23,38 +24,11 @@ import {
   fetchDividendBySymbolAndId,
 } from './dividends';
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
-import { createGetCacheStatus } from '~/state/selectors';
 import { fetchTaxWithholdingListBySymbol } from '~/state/sagas/requests/taxWithholdings';
+import { createGetCacheStatus } from '~/state/selectors';
+import { types } from '@polymathnetwork/new-shared';
 
-/**
- * This saga uses the cache to determine if data needs to be fetched from the blockchain
- * If it does, it calls the corresponding saga
- */
-export function* requestData(action: ActionType<typeof requestDataAction>) {
-  const {
-    payload: {
-      fetcher: { requestKey, args },
-      fetcher,
-    },
-  } = action;
-
-  const cacheStatus: CacheStatus[] = yield select(createGetCacheStatus(), {
-    fetchers: [fetcher],
-  });
-
-  // Ignore request if it is already fetching or the data is present
-  if (!cacheStatus[0].mustBeFetched) {
-    return;
-  }
-
-  // set fetching to true for the corresponding cache entry
-  yield put(
-    fetchDataStart({
-      requestKey,
-      args,
-    })
-  );
-
+function* runDataRequest(requestKey: RequestKeys, args: types.Pojo) {
   switch (requestKey) {
     case RequestKeys.GetCheckpointsBySymbol: {
       if (isGetCheckpointsBySymbolArgs(args)) {
@@ -110,6 +84,48 @@ export function* requestData(action: ActionType<typeof requestDataAction>) {
     }
     default:
       break;
+  }
+}
+
+/**
+ * This saga uses the cache to determine if data needs to be fetched from the blockchain
+ * If it does, it calls the corresponding saga
+ */
+export function* requestData(action: ActionType<typeof requestDataAction>) {
+  const {
+    payload: {
+      fetcher: { requestKey, args },
+      fetcher,
+    },
+  } = action;
+
+  const cacheStatus: CacheStatus[] = yield select(createGetCacheStatus(), {
+    fetchers: [fetcher],
+  });
+
+  // Ignore request if it is already fetching or the data is present
+  if (!cacheStatus[0].mustBeFetched) {
+    return;
+  }
+
+  // Set fetching to true for the corresponding cache entry
+  yield put(
+    fetchDataStart({
+      requestKey,
+      args,
+    })
+  );
+
+  try {
+    yield call(runDataRequest, requestKey, args);
+  } catch (err) {
+    yield put(
+      fetchDataFail({
+        errorMessage: err.message,
+        requestKey,
+        args,
+      })
+    );
   }
 }
 

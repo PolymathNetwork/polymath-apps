@@ -1,12 +1,12 @@
 import { styled } from '~/styles';
 import { Flex } from '~/components/Flex';
-import { RowBase } from '../styles';
+import { Row } from '../Rows/Row/styles';
 
 export const RowActions = styled(Flex)`
   visibility: hidden;
   opacity: 0;
 
-  ${RowBase}:hover & {
+  ${Row}:hover & {
     visibility: visible;
     opacity: 1;
   }
