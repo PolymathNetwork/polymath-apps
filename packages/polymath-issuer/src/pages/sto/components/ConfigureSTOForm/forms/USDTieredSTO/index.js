@@ -31,6 +31,7 @@ import {
   MIN_MESSAGE,
   MORE_THAN_MESSAGE,
   ADDRESS_MESSAGE,
+  MAX_DIGITS_MESSAGE,
 } from '../../validators';
 import InvestmentTiers from './InvestmentTiers';
 import { toWei } from '../../../../../../utils/contracts';
@@ -78,10 +79,12 @@ export const investmentTierSchema = validator.object().shape({
   tokensAmount: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .moreThan(0, MORE_THAN_MESSAGE),
   tokenPrice: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .moreThan(0, MORE_THAN_MESSAGE),
 });
 
@@ -112,10 +115,12 @@ const formSchema = validator.object().shape({
   nonAccreditedMax: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .min(0, MIN_MESSAGE),
   minimumInvestment: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .min(0, MIN_MESSAGE),
   receiverAddress: validator
     .string()

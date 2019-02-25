@@ -55,6 +55,16 @@ export default class STO extends Contract {
       isPolyFundraise,
     ] = this._toArray(await this._methods.getSTODetails().call());
 
+    const now = new Date().getTime() / 1000;
+    const capReached = await this._methods.capReached().call();
+    const isPaused = await this._methods.paused().call();
+    const isOpen = !(
+      isPaused ||
+      capReached ||
+      now < startTime ||
+      now > endTime
+    );
+
     return {
       address: this.address,
       start: this._toDate(startTime),
@@ -62,6 +72,8 @@ export default class STO extends Contract {
       cap: this._fromWei(cap),
       raised: this._fromWei(fundsRaised),
       tokensSold: this.token.removeDecimals(tokensSold),
+      capReached,
+      isOpen,
       rate,
       investorCount,
       isPolyFundraise,

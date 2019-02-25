@@ -14,6 +14,7 @@ export const STAGE_FETCHING = 0;
 export const STAGE_SELECT = 1;
 export const STAGE_CONFIGURE = 2;
 export const STAGE_OVERVIEW = 3;
+export const STAGE_COMPLETED = 4;
 
 export type STOState = {
   stage: number,
@@ -37,13 +38,26 @@ const defaultState: STOState = {
 
 export default (state: STOState = defaultState, action: Action) => {
   switch (action.type) {
-    case a.DATA:
+    case a.DATA: {
+      const now = new Date();
+      const { details, contract } = action;
+      let isFinished = false;
+      if (details) {
+        const { capReached, isOpen, end, endDate } = details;
+        const finishDate = end || endDate;
+        isFinished = (capReached && !isOpen) || now >= finishDate;
+      }
       return {
         ...state,
-        stage: action.contract ? STAGE_OVERVIEW : STAGE_SELECT,
-        contract: action.contract,
-        details: action.details,
+        stage: contract
+          ? isFinished
+            ? STAGE_COMPLETED
+            : STAGE_OVERVIEW
+          : STAGE_SELECT,
+        contract: contract,
+        details: details,
       };
+    }
     case a.FACTORIES:
       return {
         ...state,
