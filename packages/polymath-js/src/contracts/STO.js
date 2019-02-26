@@ -95,7 +95,7 @@ export default class STO extends Contract {
       tokensSold: this.token.removeDecimals(tokensSold),
       capReached,
       isOpen,
-      rate: rate,
+      rate,
       investorCount,
       isPolyFundraise,
       type: 'CappedSTO',
