@@ -16,6 +16,7 @@ const IconComponent: FC<IconProps> = ({
   width,
   height,
   scale,
+  borderWidth, // Filter out prop coming from IconOutlined component
   className,
   alt,
   ...props

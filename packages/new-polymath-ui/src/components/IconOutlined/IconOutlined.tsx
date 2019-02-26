@@ -6,7 +6,7 @@ export const IconOutlined = styled(IconCircled).attrs({
   bg: 'transparent',
 })`
   border-style: solid;
-  border-width: ${({ borderWidth, theme }) => borderWidth};
+  border-width: ${({ borderWidth }) => borderWidth};
   ${({ color, theme }) => borderColor({ borderColor: color, theme })};
 `;
 
