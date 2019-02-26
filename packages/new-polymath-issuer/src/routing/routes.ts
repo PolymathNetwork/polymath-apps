@@ -8,6 +8,7 @@ import {
   SecurityTokensIndexPage,
   HomePage,
   NotFoundPage,
+  DividendsDetails,
 } from '~/pages';
 
 import {
@@ -41,6 +42,9 @@ export const routes = {
           '/new': {
             Page: DividendsWizardPage,
             handler: handleDividendsRoute,
+          },
+          '/details': {
+            Page: DividendsDetails,
           },
         },
       },

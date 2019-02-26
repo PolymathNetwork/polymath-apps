@@ -20,6 +20,7 @@ export { SecurityTokensReservePage } from './SecurityTokensReserve';
 export { SecurityTokensDividendsPage } from './SecurityTokensDividends';
 export { DividendsWizardPage } from './DividendsWizard';
 export { NotFoundPage } from './NotFound';
+export { DividendsDetails } from './DividendsDetails';
 
 interface StateProps {
   router: RootState['router'];
