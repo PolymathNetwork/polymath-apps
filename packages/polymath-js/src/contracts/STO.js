@@ -1,6 +1,7 @@
 // @flow
 
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
+import IModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/IModuleFactory.json';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
@@ -48,12 +49,32 @@ export default class STO extends Contract {
       startTime,
       endTime,
       cap,
-      rate,
+      rawRate,
       fundsRaised,
       investorCount,
       tokensSold,
       isPolyFundraise,
     ] = this._toArray(await this._methods.getSTODetails().call());
+
+    const factoryAddress = await this._methods.factory().call();
+
+    const GenericModuleFactory = new Contract._params.web3.eth.Contract(
+      IModuleFactoryArtifacts.abi,
+      factoryAddress
+    );
+
+    // NOTE @RafaelVidaurre: This is a hacky implementation to be backwards-compatible
+    // with 0.0.0 version of the Capped STO. This will be tackled properly by
+    // module version supporton the SDK
+    const version = (await GenericModuleFactory.methods
+      .getUpperSTVersionBounds()
+      .call()).join('.');
+
+    let rate = rawRate;
+
+    if (version === '0.0.0') {
+      rate = this._fromWei(rate).toNumber();
+    }
 
     const now = new Date().getTime() / 1000;
     const capReached = await this._methods.capReached().call();
@@ -74,7 +95,7 @@ export default class STO extends Contract {
       tokensSold: this.token.removeDecimals(tokensSold),
       capReached,
       isOpen,
-      rate,
+      rate: rate,
       investorCount,
       isPolyFundraise,
       type: 'CappedSTO',
