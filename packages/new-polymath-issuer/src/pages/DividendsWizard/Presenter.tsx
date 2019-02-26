@@ -14,7 +14,6 @@ import {
   CardPrimary,
   IconCircled,
 } from '@polymathnetwork/new-ui';
-import { types } from '@polymathnetwork/new-shared';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
 
@@ -37,9 +36,9 @@ const getStep = (stepIndex: number) => {
 export const Presenter = ({ stepIndex }: Props) => (
   <div>
     <Text color="primary">
-      <Button variant="ghost" iconPosition="right">
+      <Button variant="ghostSecondary" iconPosition="right">
         Go back
-        <Icon Asset={icons.SvgArrow} width={18} height={17} />
+        <Icon Asset={icons.SvgArrow} width={18} height={18} />
       </Button>
     </Text>
     <Heading variant="h1" as="h1">
@@ -51,7 +50,7 @@ export const Presenter = ({ stepIndex }: Props) => (
       </GridRow.Col>
       <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
         <Box height={250} mb="xl">
-          <sc.WizardProgress currentIndex={0} vertical ordered>
+          <sc.WizardProgress currentIndex={stepIndex} vertical ordered>
             <ProgressIndicator.Step label="Dividends Exclusion List" />
             <ProgressIndicator.Step label="Tax Withholdings List" />
             <ProgressIndicator.Step label="Dividends Distribution Parameters" />
@@ -63,42 +62,22 @@ export const Presenter = ({ stepIndex }: Props) => (
           </Heading>
           <Box mb="l">
             <List vertical>
-              <li>
-                <Flex>
-                  <Flex flex="0" alignSelf="flex-start" mr="s">
-                    <IconCircled
-                      Asset={icons.SvgCheckmark}
-                      bg="inactive"
-                      color="gray.1"
-                      width={24}
-                      height={24}
-                      scale={0.9}
-                    />
-                  </Flex>
-                  <Paragraph>
-                    <Text as="strong">1400</Text> Investors held the token at
-                    checkpoint time
-                  </Paragraph>
+              <Flex as="li">
+                <Flex flex="0" alignSelf="flex-start" mr="s">
+                  <IconCircled
+                    Asset={icons.SvgCheckmark}
+                    bg="inactive"
+                    color="gray.1"
+                    width={24}
+                    height={24}
+                    scale={0.9}
+                  />
                 </Flex>
-              </li>
-              <li>
-                <Flex>
-                  <Flex flex="0" alignSelf="flex-start" mr="s">
-                    <IconCircled
-                      Asset={icons.SvgCheckmark}
-                      bg="inactive"
-                      color="gray.1"
-                      width={24}
-                      height={24}
-                      scale={0.9}
-                    />
-                  </Flex>
-                  <Paragraph>
-                    <Text as="strong">1400</Text> Investors held the token at
-                    checkpoint time
-                  </Paragraph>
-                </Flex>
-              </li>
+                <Paragraph>
+                  <Text as="strong">1400</Text> Investors held the token at
+                  checkpoint time
+                </Paragraph>
+              </Flex>
             </List>
           </Box>
           <Text as="strong" mt="m">

@@ -144,6 +144,20 @@ const buttons = {
       opacity: 1,
     },
   },
+  ghostSecondary: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    color: 'currentColor',
+    padding: 0,
+    '&:hover, &:focus': {
+      backgroundColor: 'transparent',
+      color: 'currentColor',
+      textDecoration: 'underline',
+    },
+    '&:disabled': {
+      opacity: 1,
+    },
+  },
   raw: buttonReset,
 };
 

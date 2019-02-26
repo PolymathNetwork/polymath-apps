@@ -28,7 +28,7 @@ export const Step1 = ({  }: Props) => (
     </Paragraph>
     <Paragraph>
       You can download{' '}
-      <Link href="">
+      <Link href="" download>
         <Icon Asset={icons.SvgDownload} /> Sample-Excluding-List.csv
       </Link>{' '}
       file and edit it.
