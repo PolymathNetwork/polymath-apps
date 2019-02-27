@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { fireEvent } from 'react-testing-library';
-import { FormikProxy, RenderProps, ExternalProps } from '../index';
+import { FormikProxy, RenderProps, FormikExternalProps } from '../index';
 import { render } from '~/testUtils/helpers';
 
 const MockInput: FC<RenderProps<string>> = ({
@@ -20,7 +20,7 @@ const MockInput: FC<RenderProps<string>> = ({
 );
 
 describe('FormikProxy Enhancer', () => {
-  let props: ExternalProps;
+  let props: FormikExternalProps;
   let Input: FC;
 
   beforeEach(() => {

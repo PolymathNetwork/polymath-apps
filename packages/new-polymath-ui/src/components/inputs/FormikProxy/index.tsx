@@ -9,12 +9,12 @@ export interface RenderProps<Value> {
   onBlur: () => void;
 }
 
-export interface ExternalProps {
+export interface FormikExternalProps {
   field: Pick<FieldProps['field'], 'name' | 'value'>;
   form: Pick<FormikProps<any>, 'setFieldValue' | 'setFieldTouched'>;
 }
 
-interface Props<ValueType> extends ExternalProps {
+interface Props<ValueType> extends FormikExternalProps {
   render: (props: RenderProps<ValueType>) => ReactNode;
 }
 

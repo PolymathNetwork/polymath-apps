@@ -2,7 +2,10 @@ import React, { FC } from 'react';
 
 import { BaseInput } from '../BaseInput';
 
-import { formikProxy } from '~/components/inputs/formikProxy';
+import {
+  FormikExternalProps,
+  FormikProxy,
+} from '~/components/inputs/FormikProxy';
 
 interface Props {
   onChange: (e: any) => void;
@@ -34,7 +37,18 @@ TextInputPrimitive.defaultProps = {
   value: '',
 };
 
-const EnhancedTextInput = formikProxy(TextInputPrimitive);
-export const TextInput = Object.assign(EnhancedTextInput, {
+const EnhancedDatePickerInput: FC<FormikExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<string>
+    field={field}
+    form={form}
+    render={formikProps => <TextInputPrimitive {...rest} {...formikProps} />}
+  />
+);
+
+export const TextInput = Object.assign(EnhancedDatePickerInput, {
   defaultProps: TextInputPrimitive.defaultProps,
 });
