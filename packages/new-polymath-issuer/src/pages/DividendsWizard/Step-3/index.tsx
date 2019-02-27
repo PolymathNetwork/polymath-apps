@@ -2,18 +2,14 @@ import React, { Fragment } from 'react';
 import {
   Box,
   Button,
-  Icon,
-  icons,
   Heading,
   Card,
   Paragraph,
-  Link,
   Grid,
   Form,
   FormItem,
   TextInput,
   CurrencySelect,
-  Checkbox,
   TooltipIcon,
 } from '@polymathnetwork/new-ui';
 
