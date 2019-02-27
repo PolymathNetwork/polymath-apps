@@ -15,8 +15,10 @@ import {
   handleLoginRoute,
   handleSecurityTokensRoute,
   handleDividendsRoute,
+  handleDividendsWizardRoute,
 } from '~/state/sagas/router';
 import { DashboardLayout, HomeLayout } from '~/layouts';
+import { DividendsWizardPage } from '~/pages/DividendsWizard';
 
 export const routes = {
   '/': {
@@ -36,12 +38,19 @@ export const routes = {
       Page: SecurityTokensIndexPage,
       '/:securityTokenSymbol': {
         '/dividends': {
+          '/:dividendIndex': {
+            // TODO @monitz87: add Dividend Card page and handler when they are done
+          },
           Page: SecurityTokensDividendsPage,
           handler: handleDividendsRoute,
           '/new': {
             Page: DividendsWizardPage,
             handler: handleDividendsRoute,
           },
+        },
+        '/checkpoints/:checkpointIndex/dividends/new': {
+          Page: DividendsWizardPage,
+          handler: handleDividendsWizardRoute,
         },
       },
       handler: handleSecurityTokensRoute,

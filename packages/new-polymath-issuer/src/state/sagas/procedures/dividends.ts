@@ -9,8 +9,9 @@ import {
 } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 import { invalidateRequest } from '~/state/actions/dataRequests';
-import { RequestKeys, TransactionQueueResult } from '~/types';
+import { RequestKeys, TransactionQueueResult, QueueStatus } from '~/types';
 import { finishTransactionQueue } from '~/state/actions/transactionQueues';
+import { push } from 'redux-little-router';
 
 export function* createErc20DividendsDistribution(
   action: ActionType<typeof createErc20DividendDistributionStart>
@@ -41,13 +42,13 @@ export function* createErc20DividendsDistribution(
   );
 
   try {
-    const { success, result }: TransactionQueueResult<number> = yield call(
+    const { queueStatus, result }: TransactionQueueResult<number> = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
     // Queue was canceled or failed
-    if (!success) {
+    if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
 
@@ -115,13 +116,13 @@ export function* updateTaxWithholdingList(
   );
 
   try {
-    const { success }: TransactionQueueResult = yield call(
+    const { queueStatus }: TransactionQueueResult = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
     // Queue was canceled or failed
-    if (!success) {
+    if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
 
@@ -155,13 +156,14 @@ export function* pushDividendPayment(
   );
 
   try {
-    const queueSucceeded: boolean = yield call(
+    const { queueStatus }: TransactionQueueResult = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
-    if (!queueSucceeded) {
+    // Queue was canceled
+    // (if it failed we still redirect and invalidate cache because some of the payments could have been pushed successfully)
+    if (queueStatus === QueueStatus.Canceled) {
       return;
     }
 
@@ -175,6 +177,12 @@ export function* pushDividendPayment(
           dividendType,
         },
       })
+    );
+
+    yield take(getType(finishTransactionQueue));
+
+    yield put(
+      push(`/securityTokens/${securityTokenSymbol}/dividends/${dividendIndex}`)
     );
   } catch (err) {
     if (!err.code) {

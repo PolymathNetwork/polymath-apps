@@ -11,12 +11,13 @@ import {
 } from '~/state/actions/transactionQueues';
 import { eventChannel } from 'redux-saga';
 import { types } from '@polymathnetwork/new-shared';
+import { QueueStatus } from '~/types';
 
 /**
  * Populates the state with the current transactions in the queue and the queue itself,
  * waits for confirmation (or cancellation) and runs the queue
  *
- * @returns an object containing a boolean that is true if running the queue succeeded, false if it was canceled or failed, and the return value of the queue
+ * @returns an object containing the status of the queue (if it was canceled, failed or succeeded), and the return value of the queue
  */
 export function* runTransactionQueue<Args, ReturnType>(
   transactionQueueToRun: TransactionQueue<Args, ReturnType>
@@ -46,7 +47,7 @@ export function* runTransactionQueue<Args, ReturnType>(
 
   // Stop the saga and return false if the transactions weren't confirmed
   if (canceled) {
-    return false;
+    return QueueStatus.Canceled;
   }
 
   /**
@@ -56,15 +57,15 @@ export function* runTransactionQueue<Args, ReturnType>(
    * since we need to start listening to status changes BEFORE the queue starts to run,
    * or we cannot catch the change from 'IDLE' to 'RUNNING'
    */
-  let success: boolean;
+  let queueStatus: QueueStatus;
   let result: ReturnType;
-  [success, result] = yield all([
+  [queueStatus, result] = yield all([
     call(watchQueueStatus, transactionQueueToRun),
     call(transactionQueueToRun.run),
   ]);
 
   return {
-    success,
+    queueStatus,
     result,
   };
 }
@@ -97,10 +98,10 @@ export function* watchQueueStatus(transactionQueue: TransactionQueue) {
       statusChangeChannel.close();
 
       if (failed) {
-        return false;
+        return QueueStatus.Failed;
       }
 
-      return true;
+      return QueueStatus.Succeeded;
     }
   }
 }
