@@ -19,6 +19,7 @@ import {
   Grid,
   Label,
   Link,
+  Hr,
 } from '@polymathnetwork/new-ui';
 import { types } from '@polymathnetwork/new-shared';
 
@@ -116,7 +117,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
               </Paragraph>
             </Box>
             <Box>
-              <hr />
+              <Hr />
               <Box mb="m" mt="s">
                 <Text>0 Remaining number of transactions</Text>
               </Box>
@@ -161,7 +162,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
               </Paragraph>
             </Box>
             <Box>
-              <hr />
+              <Hr />
               <Box mb="s" mt={0}>
                 <List vertical gridGap="s">
                   <li>
@@ -297,7 +298,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
                   </Flex>
                 </li>
                 <li>
-                  <hr />
+                  <Hr />
                   <Flex>
                     <Flex flex="0" alignSelf="flex-start" mr="s">
                       <IconCircled
