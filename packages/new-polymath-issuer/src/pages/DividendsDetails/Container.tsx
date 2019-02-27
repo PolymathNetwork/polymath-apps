@@ -43,7 +43,7 @@ export class ContainerBase extends Component<Props> {
     // );
     return (
       <Page>
-        <Presenter />
+        <Presenter dividends={[]} symbol="TOKEN" />
       </Page>
     );
   }
