@@ -1,7 +1,7 @@
 import React, { FC, Fragment, useState, useCallback } from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import * as Yup from 'yup';
-import { validateYupSchema, yupToFormErrors } from 'formik';
+import { validateYupSchema, yupToFormErrors, FastField } from 'formik';
 import {
   Heading,
   Paragraph,
@@ -190,10 +190,7 @@ export const Presenter: FC<Props> = ({
             <Grid>
               <FormItem name="walletAddress">
                 <FormItem.Label>Wallet Address</FormItem.Label>
-                <FormItem.Input
-                  component={TextInput}
-                  placeholder="Wallet address"
-                />
+                <FormItem.Input component={TextInput} />
                 <FormItem.Error />
               </FormItem>
             </Grid>
