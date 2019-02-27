@@ -74,6 +74,7 @@ export { Table } from './components/Table';
 export { Tooltip } from './components/Tooltip';
 export { TooltipIcon } from './components/TooltipIcon';
 export { TooltipPrimary } from './components/TooltipPrimary';
+export { Hr } from './components/Hr';
 export * from './components/inputs';
 
 // Icons
