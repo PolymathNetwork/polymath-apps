@@ -1,0 +1,69 @@
+---
+name: CSVUploader
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik } from 'formik';
+import { validators } from '@polymathnetwork/new-shared';
+
+import { FormItem } from '~/components/FormItem';
+import { CSVUploader, CSVUploaderPrimitive } from '../';
+
+# CSVUploader
+
+<PropsTable of={CSVUploader} />
+
+## Basic usage
+
+<Playground>
+  <CSVUploaderPrimitive
+    config={{
+      columns: [
+        {
+          name: 'column 1',
+          validators: [validators.isString, validators.isNotEmpty],
+        },
+        {
+          name: 'column 2',
+          validators: [validators.isString, validators.isNotEmpty],
+        },
+      ],
+      header: true,
+      maxRows: 2,
+    }}
+  />
+</Playground>
+
+## As Formik component
+
+<Playground>
+  <Formik
+    initialValues={{ myFile: null }}
+    render={formValues => (
+      <form>
+        <pre>{JSON.stringify(formValues.values, null, 2)}</pre>
+        <FormItem name="myFile">
+          <FormItem.Input
+            component={CSVUploader}
+            config={{
+              columns: [
+                {
+                  name: 'column 1',
+                  validators: [validators.isString, validators.isNotEmpty],
+                },
+                {
+                  name: 'column 2',
+                  validators: [validators.isString, validators.isNotEmpty],
+                },
+              ],
+              header: true,
+              maxRows: 2,
+              parseErrorMessage: 'Parsing Error',
+            }}
+          />
+        </FormItem>
+      </form>
+    )}
+  />
+</Playground>
