@@ -7,7 +7,7 @@ import { types } from '@polymathnetwork/new-shared';
 import {
   FormikProxy,
   FormikExternalProps,
-} from '~/components/inputs/formikProxy';
+} from '~/components/inputs/FormikProxy';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { SvgClose } from '~/images/icons/Close';
 import { SvgEth } from '~/images/icons/Eth';
@@ -19,7 +19,6 @@ import { Icon } from '~/components/Icon';
 import { InputProps } from '~/components/inputs/types';
 import { Label } from './Label';
 import * as sc from './styles';
-import { Tokens } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 interface OptionType {
   value: types.Tokens;
@@ -32,7 +31,7 @@ interface ExternalProps extends FormikExternalProps {
   type: types.Tokens;
 }
 
-type Value = Tokens | Tokens[];
+type Value = types.Tokens | types.Tokens[];
 
 export const CURRENCY_OPTIONS: OptionType[] = [
   {
