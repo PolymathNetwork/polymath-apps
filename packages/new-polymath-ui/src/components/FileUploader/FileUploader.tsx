@@ -50,7 +50,11 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
 
     if (!this.props.uploadTo) {
       this.setState({ progress: 100 });
-      this.props.onChange(acceptedFiles);
+
+      if (this.props.onChange) {
+        this.props.onChange(acceptedFiles);
+      }
+
       return;
     }
 
