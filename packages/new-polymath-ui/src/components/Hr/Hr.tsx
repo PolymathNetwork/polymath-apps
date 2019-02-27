@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { color as colorProp } from 'styled-system';
 
 export interface HrProps {
-  color: string;
+  color?: string;
 }
 
 // export type HrProps = StyledProps<any> & WidthProps & HeightProps & SpaceProps;
