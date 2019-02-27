@@ -15,7 +15,7 @@ interface Props {
   description: string;
 }
 
-const getStatusIcon = status =>
+const getStatusIcon = (status: Props['status']) =>
   ({
     idle: SvgInfo,
     warning: SvgWarning,
