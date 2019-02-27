@@ -13,29 +13,48 @@ import * as sc from './styles';
 export interface Props {
   dividends: types.DividendPojo[];
   securityTokenSymbol: string;
+  checkpointIndex: number;
 }
 
 export const DividendListPresenter = ({
   securityTokenSymbol,
   dividends,
-}: Props) => (
-  <List>
-    {dividends.length ? (
-      <Fragment>
-        {dividends.map(dividend => (
-          <li key={dividend.uid}>
-            <DividendCard
-              dividend={dividend}
-              securityTokenSymbol={securityTokenSymbol}
+  checkpointIndex,
+}: Props) => {
+  const newDividendUrl = `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/new`;
+  return (
+    <List>
+      {dividends.length ? (
+        <Fragment>
+          {dividends.map(dividend => (
+            <li key={dividend.uid}>
+              <DividendCard
+                dividend={dividend}
+                securityTokenSymbol={securityTokenSymbol}
+              />
+            </li>
+          ))}
+          <sc.NewDividendButton
+            RouterLink={Link}
+            href={newDividendUrl}
+            variant="ghost"
+            iconPosition="top"
+          >
+            <IconOutlined
+              Asset={icons.SvgPlus}
+              width={25}
+              height={25}
+              scale={0.9}
             />
-          </li>
-        ))}
-        <sc.NewDividendButton
-          RouterLink={Link}
-          onClick={() => {}}
-          variant="ghost"
-          iconPosition="top"
-        >
+            Add new <br /> dividend <br /> distribution
+            <TooltipPrimary>
+              You can add new dividend distribution if previous dividend has
+              been completed/expired.
+            </TooltipPrimary>
+          </sc.NewDividendButton>
+        </Fragment>
+      ) : (
+        <sc.PlaceholderButton RouterLink={Link} href={newDividendUrl}>
           <IconOutlined
             Asset={icons.SvgPlus}
             width={25}
@@ -43,25 +62,8 @@ export const DividendListPresenter = ({
             scale={0.9}
           />
           Add new <br /> dividend <br /> distribution
-          <TooltipPrimary>
-            You can add new dividend distribution if previous dividend has been
-            completed/expired.
-          </TooltipPrimary>
-        </sc.NewDividendButton>
-      </Fragment>
-    ) : (
-      <sc.PlaceholderButton
-        RouterLink={Link}
-        href={`/securityTokens/${securityTokenSymbol}/dividends`}
-      >
-        <IconOutlined
-          Asset={icons.SvgPlus}
-          width={25}
-          height={25}
-          scale={0.9}
-        />
-        Add new <br /> dividend <br /> distribution
-      </sc.PlaceholderButton>
-    )}
-  </List>
-);
+        </sc.PlaceholderButton>
+      )}
+    </List>
+  );
+};

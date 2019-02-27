@@ -13,6 +13,12 @@ export interface Identity {
   fullName: string;
 }
 
+export enum QueueStatus {
+  Canceled = 'canceled',
+  Failed = 'failed',
+  Succeeded = 'succeeded',
+}
+
 export enum SessionRoles {
   Anonymous,
   LoggedIn,
@@ -168,6 +174,6 @@ export type PartialWithId<T extends types.Entity> = Partial<
 };
 
 export interface TransactionQueueResult<T = any> {
-  success: boolean;
+  queueStatus: QueueStatus;
   result?: T;
 }

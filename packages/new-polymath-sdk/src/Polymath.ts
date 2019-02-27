@@ -34,7 +34,6 @@ import { Entity } from '~/entities/Entity';
 import { PolymathNetworkParams } from '~/types';
 import BigNumber from 'bignumber.js';
 import { includes } from 'lodash';
-import { Erc20 } from '~/LowLevel/Erc20';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
