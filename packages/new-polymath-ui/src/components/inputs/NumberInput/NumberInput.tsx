@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import BigNumber from 'bignumber.js';
 import { constants } from '@polymathnetwork/new-shared';
 
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, ExternalProps } from '../FormikProxy';
 import { BaseInput } from '../BaseInput';
 
 type Value = number | BigNumber | null;
@@ -260,7 +260,20 @@ export class NumberInputPrimitive extends Component<Props, State> {
   }
 }
 
-const EnhancedNumberInput = formikProxy(NumberInputPrimitive);
+const EnhancedNumberInput: FC<ExternalProps> = ({ field, form }) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    render={({ onChange, onBlur, name, value }) => (
+      <NumberInputPrimitive
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+        name={name}
+      />
+    )}
+  />
+);
 
 export const NumberInput = Object.assign(EnhancedNumberInput, {
   defaultProps: NumberInputPrimitive.defaultProps,
