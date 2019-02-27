@@ -17,6 +17,8 @@ import {
   Text,
   List,
   Grid,
+  Label,
+  Link,
 } from '@polymathnetwork/new-ui';
 import { types } from '@polymathnetwork/new-shared';
 
@@ -29,6 +31,7 @@ const columns = [
   {
     Header: 'Investor Wallet Address',
     accessor: 'investorWalletAddress',
+    Cell: props => <Link href="#">{props.value}</Link>,
   },
   {
     Header: 'Dividends Pre-Tax',
@@ -49,6 +52,7 @@ const columns = [
   {
     Header: 'Status of Payment',
     accessor: 'statusOfPayment',
+    Cell: props => <Label color="green.0">{props.value}</Label>,
   },
 ];
 
@@ -117,7 +121,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
                 <Text>0 Remaining number of transactions</Text>
               </Box>
               <ButtonFluid mt="l" disabled>
-                SUBMIT OUTSTANDING TRANSACTIONS
+                Submit Outstanding Transactions
               </ButtonFluid>
             </Box>
           </Grid>
@@ -217,7 +221,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
                 </List>
               </Box>
               <ButtonFluid variant="secondary" mt="l">
-                WITHDRAW TAXES
+                Withdraw Taxes
               </ButtonFluid>
             </Box>
           </Grid>
@@ -345,6 +349,9 @@ export const Presenter = ({ symbol, dividends }: Props) => (
     <Heading variant="h2" mt="l" mb="m">
       Transactions
     </Heading>
-    <Table columns={columns} data={dataSet} />
+    <Table columns={columns} data={dataSet}>
+      <Table.Rows />
+      <Table.Pagination />
+    </Table>
   </div>
 );
