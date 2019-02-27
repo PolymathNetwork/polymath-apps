@@ -2,15 +2,14 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import { Text } from '~/components/Text';
 import { SvgClose } from '~/images/icons';
+import { formikProxy } from '~/components/inputs/formikProxy';
 import * as sc from './styles';
-import { Button } from '~/components/Button';
-import { IconCircled } from '~/components/IconCircled';
 
 interface Props {
   value: string;
-  multiple: boolean;
-  uploadTo: string;
-  onChange: () => void;
+  onChange: (files: File[]) => void;
+  multiple?: boolean;
+  uploadTo?: string;
   onTouch?: () => void;
   onError?: () => void;
 }
@@ -21,7 +20,7 @@ interface State {
   isFocused: boolean;
 }
 
-export class FileUploader extends React.Component<Props, State> {
+export class FileUploaderPrimitive extends React.Component<Props, State> {
   public static defaultProps = {
     multiple: false, // only single file supported in this implementation
     onTouch: () => {},
@@ -45,13 +44,14 @@ export class FileUploader extends React.Component<Props, State> {
       return;
     }
 
-    if (!this.props.uploadTo) {
-      this.setState({ progress: 100 });
-      return;
-    }
-
     if (this.props.onTouch) {
       this.props.onTouch();
+    }
+
+    if (!this.props.uploadTo) {
+      this.setState({ progress: 100 });
+      this.props.onChange(acceptedFiles);
+      return;
     }
 
     // const file = acceptedFiles[0];
@@ -177,7 +177,9 @@ export class FileUploader extends React.Component<Props, State> {
     );
   }
 
-  render() {
+  public render() {
     return <div>{this.renderInput()}</div>;
   }
 }
+
+export const FileUploader = formikProxy(FileUploaderPrimitive);
