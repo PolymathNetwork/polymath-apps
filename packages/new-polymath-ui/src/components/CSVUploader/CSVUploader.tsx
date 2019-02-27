@@ -1,9 +1,11 @@
 import React, { FC, Fragment, useCallback } from 'react';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
+import { Notification } from '~/components/Notification';
 import { Table } from '~/components/Table';
 import { formikProxy } from '~/components/inputs/formikProxy';
 import { ParseCsv } from './ParseCsv';
+import * as sc from './styles';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
 
@@ -12,22 +14,35 @@ interface Props {
   config: ParseCsvProps['config'];
 }
 
-const CSVUploaderComponent: FC<Props> = ({ clearFile, setFile, data }) => {
+const CSVUploaderComponent: FC<Props> = ({
+  clearFile,
+  setFile,
+  data,
+  config,
+}) => {
   const handleFileUploaderChange = file => {
-    // clearFile();
+    clearFile();
     setFile(file);
   };
-  console.log(data);
-  console.log(data.errors);
+  console.log(config.maxRows);
+
   return (
     <Fragment>
       <FileUploaderPrimitive onChange={handleFileUploaderChange} />
-      {data ? (
+      {!!data.result.length ? (
         <Fragment>
-          {data.errors}
-          {/* <Table data={data.result} columns={[]}>
+          <sc.ErrorsWrapper>
+            {config.maxRows && data.totalRows > config.maxRows && (
+              <Notification
+                status="warning"
+                title="the title"
+                description="the description"
+              />
+            )}
+          </sc.ErrorsWrapper>
+          <Table data={data.result} columns={config.columns}>
             <Table.Rows />
-          </Table> */}
+          </Table>
         </Fragment>
       ) : null}
     </Fragment>
@@ -39,7 +54,11 @@ export const CSVUploaderPrimitive: FC<Props> = ({ config, ...formikProps }) => {
     <ParseCsv
       config={config}
       render={parseCsvProps => (
-        <CSVUploaderComponent {...parseCsvProps} {...formikProps} />
+        <CSVUploaderComponent
+          config={config}
+          {...parseCsvProps}
+          {...formikProps}
+        />
       )}
     />
   );

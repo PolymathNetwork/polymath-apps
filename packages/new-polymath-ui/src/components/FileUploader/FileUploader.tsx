@@ -6,8 +6,7 @@ import { formikProxy } from '~/components/inputs/formikProxy';
 import * as sc from './styles';
 
 interface Props {
-  value: string;
-  onChange: (files: File[]) => void;
+  onChange: (files: File | File[]) => void;
   multiple?: boolean;
   uploadTo?: string;
   onTouch?: () => void;
@@ -52,7 +51,9 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
       this.setState({ progress: 100 });
 
       if (this.props.onChange) {
-        this.props.onChange(acceptedFiles);
+        this.props.onChange(
+          this.props.multiple ? acceptedFiles : acceptedFiles[0]
+        );
       }
 
       return;
