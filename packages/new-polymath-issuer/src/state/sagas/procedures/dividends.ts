@@ -133,6 +133,7 @@ export function* updateTaxWithholdingList(
         requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
         args: {
           securityTokenSymbol,
+          dividendType,
         },
       })
     );
