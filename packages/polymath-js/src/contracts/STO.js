@@ -1,7 +1,7 @@
 // @flow
 
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
-import IModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/IModuleFactory.json';
+import ModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
@@ -59,20 +59,18 @@ export default class STO extends Contract {
     const factoryAddress = await this._methods.factory().call();
 
     const GenericModuleFactory = new Contract._params.web3.eth.Contract(
-      IModuleFactoryArtifacts.abi,
+      ModuleFactoryArtifacts.abi,
       factoryAddress
     );
 
     // NOTE @RafaelVidaurre: This is a hacky implementation to be backwards-compatible
     // with 0.0.0 version of the Capped STO. This will be tackled properly by
     // module version supporton the SDK
-    const version = (await GenericModuleFactory.methods
-      .getUpperSTVersionBounds()
-      .call()).join('.');
+    const version = await GenericModuleFactory.methods.version().call();
 
     let rate = rawRate;
 
-    if (version === '0.0.0') {
+    if (version !== '1.0.0') {
       rate = this._fromWei(rate).toNumber();
     }
 
