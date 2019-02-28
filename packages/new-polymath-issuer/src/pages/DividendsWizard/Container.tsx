@@ -143,7 +143,7 @@ export class ContainerBase extends Component<Props, State> {
       <DataFetcher
         fetchers={[
           createTaxWithholdingListBySymbolFetcher({
-            securityTokenSymbol: symbol,
+            securityTokenSymbol,
           }),
         ]}
         render={({
