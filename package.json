@@ -19,6 +19,7 @@
     "start:new-issuer": "lerna exec --scope=@polymathnetwork/new-issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
     "start:dev": "ttsc -b packages --watch",
+    "start:local-blockchain": "yarn local-blockchain:start",
     "build:typedefs": "yarn build:shared-typedefs && yarn build:sdk-typedefs && yarn build:ui-typedefs && yarn build:issuer-typedefs",
     "build:shared-typedefs": "ttsc -b packages/new-polymath-shared",
     "build:sdk-typedefs": "ttsc -b packages/new-polymath-sdk",
