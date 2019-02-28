@@ -32,9 +32,9 @@ const columns = [
   {
     Header: 'Investor Wallet Address',
     accessor: 'investorWalletAddress',
-    Cell: props => {
-      console.log(props);
-      return <Link href="#">{props.value}</Link>;
+    Cell: ({ value }) => {
+      console.log(value);
+      return <Link href="#">{value}</Link>;
     },
   },
   {
