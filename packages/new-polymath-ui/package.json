@@ -10,8 +10,11 @@
     "test": "jest --env=jsdom"
   },
   "resolutions": {
+    "react-hot-loader": "4.7.1",
     "@types/react": "16.8.3",
-    "@types/react-dom": "16.8.2"
+    "@types/react-dom": "16.8.2",
+    "docz-core": "^0.13.7",
+    "ansi-styles": "^3.2.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -46,6 +49,8 @@
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.0.0",
+    "@emotion/cache": "^10.0.0",
+    "@emotion/core": "^10.0.6",
     "@svgr/webpack": "^4.1.0",
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.119",
@@ -64,10 +69,13 @@
     "docz": "^0.13.7",
     "docz-plugin-css": "^0.11.0",
     "docz-theme-default": "^0.13.7",
+    "emotion-theming": "^10.0.6",
     "jest": "^24.1.0",
     "jest-dom": "^3.1.1",
     "jest-styled-components": "^6.3.1",
     "namor": "^1.1.1",
+    "react-hot-loader": "^4.7.1",
+    "react-redux": "^6.0.1",
     "react-testing-library": "^5.8.0",
     "redux-little-router": "^15.1.2",
     "typescript": "^3.2.1"
