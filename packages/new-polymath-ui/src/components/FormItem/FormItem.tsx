@@ -4,7 +4,6 @@ import { InputError } from './InputError';
 import { Label } from './Label';
 import { Input } from './Input';
 import { Context } from './Context';
-import { FastField } from 'formik';
 
 interface Props {
   name: string;

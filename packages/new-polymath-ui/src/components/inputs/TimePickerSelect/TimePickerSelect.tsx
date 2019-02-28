@@ -12,7 +12,7 @@ export interface TimePickerSelectProps extends SelectProps {
   format: string;
   onChange: (value: number) => void;
   onBlur: () => void;
-  value: any;
+  value: number;
   onMenuClose: () => void;
 }
 
@@ -75,14 +75,12 @@ class TimePickerSelectBase extends Component<TimePickerSelectProps> {
   }
 }
 
-// export const TimePickerSelect = formikProxy(TimePickerSelectBase);
-
 const EnhancedTimePickerSelect: FC<ExternalProps> = ({
   field,
   form,
   ...rest
 }) => (
-  <FormikProxy<Value>
+  <FormikProxy<number>
     field={field}
     form={form}
     render={formikProps => (

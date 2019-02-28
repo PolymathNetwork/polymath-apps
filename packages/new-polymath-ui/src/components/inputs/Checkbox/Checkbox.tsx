@@ -63,7 +63,7 @@ const EnhancedCheckbox: FC<FormikExternalProps> = ({
   form,
   ...rest
 }) => (
-  <FormikProxy<Value>
+  <FormikProxy<boolean>
     field={field}
     form={form}
     render={formikProps => <CheckboxPrimitive {...rest} {...formikProps} />}

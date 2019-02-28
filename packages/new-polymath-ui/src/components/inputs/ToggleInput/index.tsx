@@ -143,7 +143,7 @@ export class ToggleInputPrimitive extends Component<ToggleInputProps> {
 }
 
 const EnhancedToggleInput: FC<ExternalProps> = ({ field, form, ...rest }) => (
-  <FormikProxy<Value>
+  <FormikProxy<boolean>
     field={field}
     form={form}
     render={formikProps => <ToggleInputPrimitive {...rest} {...formikProps} />}

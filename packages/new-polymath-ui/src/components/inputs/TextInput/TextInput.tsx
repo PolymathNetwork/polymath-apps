@@ -37,7 +37,7 @@ TextInputPrimitive.defaultProps = {
   value: '',
 };
 
-const EnhancedDatePickerInput: FC<FormikExternalProps> = ({
+const EnhancedTextInput: FC<FormikExternalProps> = ({
   field,
   form,
   ...rest
@@ -49,6 +49,6 @@ const EnhancedDatePickerInput: FC<FormikExternalProps> = ({
   />
 );
 
-export const TextInput = Object.assign(EnhancedDatePickerInput, {
+export const TextInput = Object.assign(EnhancedTextInput, {
   defaultProps: TextInputPrimitive.defaultProps,
 });

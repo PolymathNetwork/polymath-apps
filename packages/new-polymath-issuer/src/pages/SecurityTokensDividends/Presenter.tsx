@@ -190,7 +190,10 @@ export const Presenter: FC<Props> = ({
             <Grid>
               <FormItem name="walletAddress">
                 <FormItem.Label>Wallet Address</FormItem.Label>
-                <FormItem.Input component={TextInput} />
+                <FormItem.Input
+                  component={TextInput}
+                  placeholder="Wallet address"
+                />
                 <FormItem.Error />
               </FormItem>
             </Grid>
