@@ -1,14 +1,16 @@
 import React, { FC } from 'react';
 import { FastField, FieldConfig } from 'formik';
-import { typeHelpers } from '@polymathnetwork/new-shared';
-
+import { FormikExternalProps } from '~/components/inputs/FormikProxy';
 import { Context } from '../Context';
-
-export interface Props extends typeHelpers.Omit<FieldConfig, 'name'> {
+import { typeHelpers } from '@polymathnetwork/new-shared';
+export interface Props
+  extends typeHelpers.Omit<FieldConfig, 'name' | 'component'> {
   FormikComponent: React.ComponentType<any>;
+  placeholder?: string;
+  component: React.ComponentType<FormikExternalProps>;
 }
 
-export const Input: FC<Props> = ({ FormikComponent, ...props }) => {
+const InputBase: FC<Props> = ({ FormikComponent, ...props }) => {
   return (
     <Context.Consumer>
       {({ name }) => <FormikComponent name={name} {...props} />}
@@ -16,6 +18,8 @@ export const Input: FC<Props> = ({ FormikComponent, ...props }) => {
   );
 };
 
-Input.defaultProps = {
-  FormikComponent: FastField,
-};
+export const Input = Object.assign(InputBase, {
+  defaultProps: {
+    FormikComponent: FastField,
+  },
+});
