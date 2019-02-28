@@ -209,11 +209,13 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
      */
     const start: number = details[0];
     const cap: number = Web3.utils.fromWei(details[2]);
-    let rate: number = parseInt(details[3], 10);
+    let rate: number;
     const isPolyFundraise: boolean = details[7];
 
     if (version !== '1.0.0') {
       rate = Web3.utils.fromWei(rate).toNumber();
+    } else {
+      rate = parseInt(details[3], 10);
     }
 
     return {
