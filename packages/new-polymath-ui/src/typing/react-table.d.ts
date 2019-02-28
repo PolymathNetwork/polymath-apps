@@ -23,7 +23,9 @@ declare module 'react-table' {
     accessor: string | ((originalRow: any) => string);
     Header?: string | ((props: Api) => JSX.Element);
     Filter?: string | ((props: Api) => JSX.Element);
-    Cell?: string | (({ row }: { row: Row }) => JSX.Element);
+    Cell?:
+      | string
+      | (({ row, value }: { row: Row; value: string }) => JSX.Element);
     id?: string | number;
     minWidth?: string | number;
     maxWidth?: string | number;
