@@ -28,7 +28,7 @@ export const Step3 = ({  }: Props) => (
       render={({ handleSubmit, isValid }) => (
         <Fragment>
           <Grid gridGap="gridGap" gridAutoFlow="row" width={512}>
-            <FormItem name="textInput">
+            <FormItem name="distributionName">
               <FormItem.Label>Dividend Distribution Name</FormItem.Label>
               <FormItem.Input
                 component={TextInput}
@@ -36,7 +36,7 @@ export const Step3 = ({  }: Props) => (
               />
               <FormItem.Error />
             </FormItem>
-            <FormItem name="textInput">
+            <FormItem name="walletAddress">
               <FormItem.Label>
                 <Paragraph>
                   <span>Wallet Address to Receive Tax Withholdings</span>
@@ -54,7 +54,7 @@ export const Step3 = ({  }: Props) => (
               />
               <FormItem.Error />
             </FormItem>
-            <FormItem name="myCurrency">
+            <FormItem name="currency">
               <FormItem.Label>Issue in</FormItem.Label>
               <FormItem.Input
                 component={CurrencySelect}
@@ -62,7 +62,7 @@ export const Step3 = ({  }: Props) => (
               />
             </FormItem>
             <Box width="336px" mt={0}>
-              <FormItem name="textInput">
+              <FormItem name="value">
                 <FormItem.Label>Dividend Amount</FormItem.Label>
                 <FormItem.Input
                   component={TextInput}
