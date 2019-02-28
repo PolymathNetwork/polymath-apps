@@ -11,6 +11,7 @@ export interface EntitiesState {
   dividends: EntityState<types.DividendEntity>;
   erc20DividendsModules: EntityState<types.Erc20DividendsModuleEntity>;
   transactionQueues: EntityState<types.TransactionQueueEntity>;
+  taxWithholdings: EntityState<types.TaxWithholdingEntity>;
 }
 
 export const reducer = combineReducers<EntitiesState>({
@@ -22,5 +23,8 @@ export const reducer = combineReducers<EntitiesState>({
   ),
   transactionQueues: createEntityReducer<types.TransactionQueueEntity>(
     'TRANSACTION_QUEUES'
+  ),
+  taxWithholdings: createEntityReducer<types.TaxWithholdingEntity>(
+    'TAX_WITHHOLDINGS'
   ),
 });

@@ -12,13 +12,19 @@ import {
   isGetErc20DividendsModuleBySymbolArgs,
   isGetCheckpointBySymbolAndIdArgs,
   CacheStatus,
+  isGetTaxWithholdingsListBySymbolArgs,
+  isGetDividendBySymbolAndIdArgs,
 } from '~/types';
 import {
   fetchCheckpointsBySymbol,
   fetchCheckpointBySymbolAndId,
 } from './checkpoints';
-import { fetchDividendsByCheckpoint } from './dividends';
+import {
+  fetchDividendsByCheckpoint,
+  fetchDividendBySymbolAndId,
+} from './dividends';
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
+import { fetchTaxWithholdingListBySymbol } from '~/state/sagas/requests/taxWithholdings';
 import { createGetCacheStatus } from '~/state/selectors';
 import { types } from '@polymathnetwork/new-shared';
 
@@ -48,12 +54,30 @@ function* runDataRequest(requestKey: RequestKeys, args: types.Pojo) {
       }
       break;
     }
+    case RequestKeys.GetDividendBySymbolAndId: {
+      if (isGetDividendBySymbolAndIdArgs(args)) {
+        yield call(fetchDividendBySymbolAndId, args);
+      } else {
+        throw new Error('Invalid arguments passed for fetching dividend.');
+      }
+      break;
+    }
     case RequestKeys.GetErc20DividendsModuleBySymbol: {
       if (isGetErc20DividendsModuleBySymbolArgs(args)) {
         yield call(fetchErc20DividendsModuleBySymbol, args);
       } else {
         throw new Error(
           'Invalid arguments passed for fetching dividends module.'
+        );
+      }
+      break;
+    }
+    case RequestKeys.GetTaxWithholdingListBySymbol: {
+      if (isGetTaxWithholdingsListBySymbolArgs(args)) {
+        yield call(fetchTaxWithholdingListBySymbol, args);
+      } else {
+        throw new Error(
+          'Invalid arguments passed for fetching tax withholding list.'
         );
       }
       break;

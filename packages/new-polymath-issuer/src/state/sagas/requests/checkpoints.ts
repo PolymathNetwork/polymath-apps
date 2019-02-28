@@ -1,5 +1,5 @@
 import { polyClient } from '~/lib/polyClient';
-import { cacheData, fetchDataFail } from '~/state/actions/dataRequests';
+import { cacheData } from '~/state/actions/dataRequests';
 import { createAction as createCheckpoint } from '~/state/actions/checkpoints';
 import { createAction as createDividend } from '~/state/actions/dividends';
 import { call, put } from 'redux-saga/effects';

@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Button } from '~/components/Button';
 
-type ButtonProps = typeHelpers.GetProps<typeof Button>;
+export type ButtonProps = typeHelpers.GetProps<typeof Button>;
 
-interface Props extends ButtonProps {
+export interface Props extends ButtonProps {
   RouterLink: React.ComponentType<any>;
 }
 
-export const ButtonLink = styled(({ RouterLink, ...otherProps }: Props) => (
+export const ButtonLinkBase = styled(({ RouterLink, ...otherProps }: Props) => (
   <Button
     as={(props: ButtonProps) => {
       const { variant, iconPosition, ...filteredProps } = props;
@@ -18,3 +18,7 @@ export const ButtonLink = styled(({ RouterLink, ...otherProps }: Props) => (
     {...otherProps}
   />
 ))``;
+
+export const ButtonLink = Object.assign(ButtonLinkBase, {
+  defaultProps: Button.defaultProps,
+});

@@ -13,7 +13,6 @@
   "scripts": {
     "changelog": "node ./config/changelog.js",
     "commit": "commit",
-    "typecheck": "lerna run --parallel typecheck ",
     "clean:builds": "lerna exec --parallel --stream --scope=@polymathnetwork/{new-issuer,new-ui,investor,sdk,shared,new-shared} -- rm -rf ./build",
     "clean:node_modules": "lerna exec --parallel --stream -- rm -rf ./node_modules",
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",

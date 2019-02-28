@@ -20,7 +20,13 @@ const { TransactionStatus } = types;
 
 interface TransactionItemProps {
   transaction: types.TransactionPojo;
-  getTitle: (transaction: types.TransactionPojo) => string;
+  getTitle: (
+    transaction: types.TransactionPojo,
+    index: number,
+    transactions: types.TransactionPojo[]
+  ) => string;
+  index: number;
+  allTransactions: types.TransactionPojo[];
 }
 
 const getIcon = (transaction: types.TransactionPojo) => {
@@ -55,8 +61,10 @@ interface StaticProps {
 const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
   transaction,
   getTitle,
+  index,
+  allTransactions,
 }) => {
-  const title = getTitle(transaction);
+  const title = getTitle(transaction, index, allTransactions);
   const { txHash } = transaction;
 
   return (

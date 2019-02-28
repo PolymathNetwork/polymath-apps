@@ -1,5 +1,7 @@
 import { types } from '@polymathnetwork/new-shared';
 import { typeHelpers } from '@polymathnetwork/new-shared';
+import { DividendModuleTypes } from '@polymathnetwork/sdk';
+import { includes } from 'lodash';
 
 export interface Wallet {
   address: string;
@@ -9,6 +11,12 @@ export interface Identity {
   email: string;
   confirmed?: boolean;
   fullName: string;
+}
+
+export enum QueueStatus {
+  Canceled = 'canceled',
+  Failed = 'failed',
+  Succeeded = 'succeeded',
 }
 
 export enum SessionRoles {
@@ -24,14 +32,17 @@ export enum Entities {
   Dividends = 'dividends',
   Erc20DividendsModules = 'erc20DividendsModules',
   TransactionQueues = 'transactionQueues',
+  TaxWithholdings = 'taxWithholdings',
 }
 
 export enum RequestKeys {
   GetCheckpointsBySymbol = 'getCheckpointsBySymbol',
   GetSecurityTokenBySymbol = 'getSecurityTokenBySymbol',
   GetDividendsByCheckpoint = 'getDividendsByCheckpoint',
+  GetDividendBySymbolAndId = 'getDividendBySymbolAndId',
   GetCheckpointBySymbolAndId = 'getCheckpointBySymbolAndId',
   GetErc20DividendsModuleBySymbol = 'getErc20DividendsModuleBySymbol',
+  GetTaxWithholdingListBySymbol = 'getTaxWithholdingListBySymbol',
 }
 
 export interface GetCheckpointsBySymbolArgs {
@@ -52,8 +63,19 @@ export interface GetDividendsByCheckpointArgs {
   checkpointIndex: number;
 }
 
+export interface GetDividendsBySymbolAndIdArgs {
+  securityTokenSymbol: string;
+  dividendIndex: number;
+  dividendType: DividendModuleTypes;
+}
+
 export interface GetErc20DividendsModuleBySymbolArgs {
   securityTokenSymbol: string;
+}
+
+export interface GetTaxWithholdingListBySymbolArgs {
+  securityTokenSymbol: string;
+  dividendType: DividendModuleTypes;
 }
 
 export function isGetCheckpointsBySymbolArgs(
@@ -94,12 +116,38 @@ export function isGetDividendsByCheckpointArgs(
   );
 }
 
+export function isGetDividendBySymbolAndIdArgs(
+  args: any
+): args is GetDividendsBySymbolAndIdArgs {
+  const { securityTokenSymbol, dividendIndex, dividendType } = args;
+
+  return (
+    typeof securityTokenSymbol === 'string' &&
+    typeof dividendIndex === 'number' &&
+    typeof dividendIndex === 'string' &&
+    includes([DividendModuleTypes.Erc20, DividendModuleTypes.Eth], dividendType)
+  );
+}
+
 export function isGetErc20DividendsModuleBySymbolArgs(
   args: any
 ): args is GetCheckpointsBySymbolArgs {
   const { securityTokenSymbol } = args;
 
   return typeof securityTokenSymbol === 'string';
+}
+
+export function isGetTaxWithholdingsListBySymbolArgs(
+  args: any
+): args is GetTaxWithholdingListBySymbolArgs {
+  const { securityTokenSymbol, dividendType } = args;
+
+  return (
+    typeof securityTokenSymbol === 'string' &&
+    typeof dividendType === 'string' &&
+    (dividendType === DividendModuleTypes.Erc20 ||
+      dividendType === DividendModuleTypes.Eth)
+  );
 }
 
 export interface Fetcher {
@@ -124,3 +172,8 @@ export type PartialWithId<T extends types.Entity> = Partial<
 > & {
   uid: string;
 };
+
+export interface TransactionQueueResult<T = any> {
+  queueStatus: QueueStatus;
+  result?: T;
+}

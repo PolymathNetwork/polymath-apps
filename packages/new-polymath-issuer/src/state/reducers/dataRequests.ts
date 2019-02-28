@@ -20,7 +20,9 @@ export interface DataRequestsState {
   [RequestKeys.GetCheckpointBySymbolAndId]: DataRequestResults;
   [RequestKeys.GetSecurityTokenBySymbol]: DataRequestResults;
   [RequestKeys.GetDividendsByCheckpoint]: DataRequestResults;
+  [RequestKeys.GetDividendBySymbolAndId]: DataRequestResults;
   [RequestKeys.GetErc20DividendsModuleBySymbol]: DataRequestResults;
+  [RequestKeys.GetTaxWithholdingListBySymbol]: DataRequestResults;
 }
 
 const initialState: DataRequestsState = {
@@ -28,7 +30,9 @@ const initialState: DataRequestsState = {
   [RequestKeys.GetCheckpointBySymbolAndId]: {},
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
+  [RequestKeys.GetDividendBySymbolAndId]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
+  [RequestKeys.GetTaxWithholdingListBySymbol]: {},
 };
 
 export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (
