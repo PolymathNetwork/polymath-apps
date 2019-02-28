@@ -1,7 +1,7 @@
 import React, { FC, Fragment, useState, useCallback } from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import * as Yup from 'yup';
-import { validateYupSchema, yupToFormErrors } from 'formik';
+import { validateYupSchema, yupToFormErrors, FastField } from 'formik';
 import {
   Heading,
   Paragraph,

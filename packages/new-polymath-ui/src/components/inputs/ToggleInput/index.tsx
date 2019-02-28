@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import styled from 'styled-components';
 
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, FormikExternalProps } from '../FormikProxy';
 import { InputProps } from '../types';
 
 export interface ToggleInputProps extends InputProps {
@@ -23,6 +23,8 @@ export interface ToggleInputProps extends InputProps {
   labelB: string;
   checked: boolean;
 }
+
+interface ExternalProps extends ToggleInputProps, FormikExternalProps {}
 
 const Input = styled.input`
   position: absolute;
@@ -140,4 +142,12 @@ export class ToggleInputPrimitive extends Component<ToggleInputProps> {
   }
 }
 
-export const ToggleInput = formikProxy(ToggleInputPrimitive);
+const EnhancedToggleInput: FC<ExternalProps> = ({ field, form, ...rest }) => (
+  <FormikProxy<boolean>
+    field={field}
+    form={form}
+    render={formikProps => <ToggleInputPrimitive {...rest} {...formikProps} />}
+  />
+);
+
+export const ToggleInput = EnhancedToggleInput;
