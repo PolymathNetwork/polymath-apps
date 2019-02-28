@@ -16,10 +16,12 @@ import {
   GenerateSecurityTokenArgs,
   PushDividendPaymentArgs,
   DividendInvestorStatus,
-  DividendModuleTypes,
 } from '~/LowLevel/types';
 
-export { DividendModuleTypes, DividendInvestorStatus };
+export enum DividendModuleTypes {
+  Erc20 = 'erc20',
+  Eth = 'eth',
+}
 
 export interface TaxWithholdingEntry {
   address: string;
@@ -193,3 +195,5 @@ export interface ProcedureArguments {
   [types.ProcedureTypes.PushDividendPayment]: PushDividendPaymentProcedureArgs;
   [types.ProcedureTypes.UnnamedProcedure]: {};
 }
+
+export { DividendInvestorStatus, DividendModuleTypes };

@@ -90,9 +90,9 @@
     "tsconfig-paths": "^3.7.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint-react": "^3.6.0",
-    "ttypescript": "^1.5.5",
+    "ttypescript": "1.5.6",
     "typechain": "^0.3.9",
-    "typescript": "^3.2.1"
+    "typescript": "3.2.4"
   },
   "husky": {
     "hooks": {
