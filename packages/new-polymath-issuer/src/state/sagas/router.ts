@@ -22,6 +22,9 @@ export function* handleDividendsRoute() {
 export function* handleDividendsWizardRoute() {
   yield call(requireAppConnected);
 }
+export function* handleDividendDetailsRoute() {
+  yield call(requireAppConnected);
+}
 
 export function* processRouteChange(action: LocationChangedAction) {
   yield put(setChangingRoute(true));
