@@ -18,7 +18,6 @@ import {
   handleDividendsWizardRoute,
 } from '~/state/sagas/router';
 import { DashboardLayout, HomeLayout } from '~/layouts';
-import { DividendsWizardPage } from '~/pages/DividendsWizard';
 
 export const routes = {
   '/': {
