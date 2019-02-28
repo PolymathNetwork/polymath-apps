@@ -14,6 +14,7 @@ import PolymathRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures
 import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
 import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityToken.json';
 import CappedSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
+import STOModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import USDTieredSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
 
 // TODO @monitz87: remake this when we rework polymath-js
@@ -62,6 +63,19 @@ const getSTContract = (address: string, networkId: string) => {
 const getCappedSTOContract = (address: string, networkId: string) => {
   const client = web3Clients[networkId];
   return new client.eth.Contract(CappedSTOArtifact.abi, address);
+};
+
+/**
+ * Get a generic STO Factory contract
+ *
+ * @param {string} address
+ * @param {string} networkId id of the network to which the contract is deployed
+ *
+ * @returns a generic web3 STO Module contract
+ */
+const getGenericSTOFactoryContract = (address: string, networkId: string) => {
+  const client = web3Clients[networkId];
+  return new client.eth.Contract(STOModuleFactoryArtifacts.abi, address);
 };
 
 /**
@@ -172,7 +186,13 @@ const newProvider = async (networkId: string) => {
 const getCappedSTODetails = async (address: string, networkId: string) => {
   const contract = getCappedSTOContract(address, networkId);
 
+  const genericSTOModuleFactory = getGenericSTOFactoryContract(
+    address,
+    networkId
+  );
+
   try {
+    const version = await genericSTOModuleFactory.methods.version().call();
     const details = await contract.methods.getSTODetails().call();
     const fundsReceiver: string = await contract.methods.wallet().call();
 
@@ -189,8 +209,14 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
      */
     const start: number = details[0];
     const cap: number = Web3.utils.fromWei(details[2]);
-    const rate: number = Web3.utils.fromWei(details[3]);
+    let rate: number;
     const isPolyFundraise: boolean = details[7];
+
+    if (version !== '1.0.0') {
+      rate = Web3.utils.fromWei(rate).toNumber();
+    } else {
+      rate = parseInt(details[3], 10);
+    }
 
     return {
       start,
