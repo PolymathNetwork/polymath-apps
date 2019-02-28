@@ -11,8 +11,8 @@ import {
   GenericContract,
   Erc20DividendDepositedEvent,
   CreateErc20DividendArgs,
+  DividendModuleTypes,
 } from './types';
-import { DividendModuleTypes } from '~/types';
 
 // This type should be obtained from a library (must match ABI)
 interface Erc20DividendCheckpointContract extends GenericContract {
