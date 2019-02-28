@@ -8,6 +8,7 @@ export interface Props
   FormikComponent: React.ComponentType<any>;
   placeholder?: string;
   component: React.ComponentType<FormikExternalProps>;
+  unit?: string;
 }
 
 const InputBase: FC<Props> = ({ FormikComponent, ...props }) => {
