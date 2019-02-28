@@ -4,8 +4,12 @@ import { DividendCheckpoint } from './DividendCheckpoint';
 import { toUnixTimestamp, toWei } from './utils';
 import { TransactionObject } from 'web3/eth/types';
 import { Context } from './LowLevel';
-import { Dividend, GenericContract, CreateEtherDividendArgs } from './types';
-import { DividendModuleTypes } from '~/types';
+import {
+  Dividend,
+  GenericContract,
+  CreateEtherDividendArgs,
+  DividendModuleTypes,
+} from './types';
 
 // This type should be obtained from a library (must match ABI)
 interface EtherDividendCheckpointContract extends GenericContract {
