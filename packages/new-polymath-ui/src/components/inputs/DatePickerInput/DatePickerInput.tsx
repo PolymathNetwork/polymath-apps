@@ -12,7 +12,7 @@ import { BaseOptions } from 'flatpickr/dist/types/options';
 
 // TODO @RafaelVidaurre: This component could definitely get some love
 
-export interface Props {
+interface Props {
   /**
    * The date format.
    */

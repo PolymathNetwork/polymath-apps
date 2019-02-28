@@ -23,6 +23,7 @@ module.exports = {
     '@babel/proposal-export-default-from',
     '@babel/proposal-class-properties',
     '@babel/plugin-proposal-object-rest-spread',
+    'babel-plugin-styled-components',
     moduleResolver('src'),
     ...(instrumentForCodeCoverage ? [istanbulPlugin] : []),
   ],

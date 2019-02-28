@@ -9,6 +9,18 @@ export interface Breakpoints<T> {
   xl?: T;
 }
 
+export interface Buttons {
+  primary: {};
+  secondary: {};
+  ghost: {};
+  raw: {};
+}
+
+export interface Selects {
+  primary: {};
+  ghost: {};
+}
+
 export type ResponsiveValue<T> = T | Array<T | null> | Breakpoints<T>;
 
 export interface ThemeInterface {
@@ -21,7 +33,8 @@ export interface ThemeInterface {
   zIndexes: any;
   colors: any;
   headings: any;
-  buttons: any;
+  buttons: Buttons;
+  selects: Selects;
   transitions: any;
   maxWidth: string;
   inputs: any;

@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 import React, { Component, Dispatch } from 'react';
 import { browserUtils } from '@polymathnetwork/sdk';
 import { Page, Button, Loading } from '@polymathnetwork/new-ui';
-import { polyClient } from '~/lib/polymath';
+import { polyClient } from '~/lib/polyClient';
 import { ModalTransactionQueue } from '~/components';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
+import { NETWORK } from '~/constants';
 
 export interface DispatchProps {
   dispatch: Dispatch<ActionType<typeof enableErc20DividendsModuleStart>>;
@@ -19,11 +20,15 @@ export class ContainerBase extends Component<Props> {
   };
   public async componentDidMount() {
     const { dispatch } = this.props;
+    const networkId = await browserUtils.getNetworkId();
+
+    if (!networkId) {
+      throw new Error('Couldnt obtain network id');
+    }
     await browserUtils.getCurrentAddress();
-    await polyClient.connect();
+    await polyClient.connect(NETWORK.POLY_CLIENT_PARAMS[networkId]);
 
     this.setState({ ready: true });
-    console.log('Logged in.');
 
     // const transactionQueue = await polyClient.reserveSecurityToken({
     //   name: 'FOOKEN',

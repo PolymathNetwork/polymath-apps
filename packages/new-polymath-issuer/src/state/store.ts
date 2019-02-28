@@ -8,7 +8,7 @@ import { routerEnhancer, routerMiddleware } from '~/routing';
 const windowObj = window as any;
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware: Middleware[] = [sagaMiddleware];
+const middleware: Middleware[] = [sagaMiddleware, routerMiddleware];
 
 const hasReduxDevtools =
   typeof windowObj === 'object' &&
@@ -20,7 +20,7 @@ const composeEnhancers = hasReduxDevtools
 
 const enhancer = composeEnhancers(
   routerEnhancer,
-  applyMiddleware(...middleware, routerMiddleware)
+  applyMiddleware(...middleware)
 );
 
 export const store = createStore(rootReducer, enhancer);

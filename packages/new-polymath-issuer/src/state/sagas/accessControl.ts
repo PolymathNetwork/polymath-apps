@@ -10,9 +10,11 @@ export function* requireWallet(
 ) {
   let address: string;
   const wallet = yield select<RootState>(({ session }) => session.wallet);
+
   if (wallet) {
     return;
   }
+
   try {
     address = yield call(browserUtils.getCurrentAddress);
     if (address) {

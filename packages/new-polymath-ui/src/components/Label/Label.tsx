@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { color as colorProp } from 'styled-system';
+import { get } from 'lodash';
 import { lighten } from 'polished';
 
 export interface LabelProps {
   color: string;
-  bg: string;
+  bg?: string;
 }
 
 export const Label = styled.span<LabelProps>`
@@ -14,7 +15,9 @@ export const Label = styled.span<LabelProps>`
   border-radius: 1rem;
   line-height: ${({ theme }) => theme.lineHeights.none};
   font-size: ${({ theme }) => theme.fontSizes[0]};
-  background-color: ${({ color, bg }) => bg || lighten(0.4, color)};
+  background-color: ${({ color, bg, theme }) =>
+    (bg && get(theme, bg)) ||
+    lighten(0.4, get(theme, `colors.${color}`) || color)};
   ${colorProp};
 `;
 

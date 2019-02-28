@@ -29,10 +29,14 @@ const ModalConfirmBase: FC<Props> = props => {
     <Modal isOpen={isOpen} onClose={onClose} {...otherProps}>
       {children}
       <Modal.Footer>
-        <Button kind="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={onClose}>
           {cancelButtonText}
         </Button>
-        <ButtonLarge onClick={onSubmit} disabled={isActionDisabled}>
+        <ButtonLarge
+          variant="primary"
+          onClick={onSubmit}
+          disabled={isActionDisabled}
+        >
           {actionButtonText}
         </ButtonLarge>
       </Modal.Footer>

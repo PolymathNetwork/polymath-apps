@@ -1,12 +1,16 @@
 // @flow
 
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 import { reducer as form } from 'redux-form';
 import {
   uiReducer as pui,
   networkReducer as network,
 } from '@polymathnetwork/ui';
 import type { PUIState, NetworkState } from '@polymathnetwork/ui';
+import { reducer as entities } from '@polymathnetwork/new-issuer/state/reducers/entities';
+import { reducer as dataRequests } from '@polymathnetwork/new-issuer/state/reducers/dataRequests';
+import { reducer as app } from '@polymathnetwork/new-issuer/state/reducers/app';
 
 import providers from '../reducers/providers';
 import token from '../reducers/token';
@@ -24,18 +28,23 @@ import type { WhitelistState } from '../reducers/compliance';
 import type { STOModulesState } from '../reducers/stoModules';
 import type { UIState } from '../reducers/ui';
 
-export default combineReducers({
-  network,
-  form,
-  ticker,
-  providers,
-  token,
-  sto,
-  stoModules,
-  pui,
-  ui,
-  whitelist,
-});
+export default history =>
+  combineReducers({
+    network,
+    form,
+    ticker,
+    providers,
+    token,
+    sto,
+    stoModules,
+    pui,
+    ui,
+    whitelist,
+    entities,
+    dataRequests,
+    app,
+    router: connectRouter(history),
+  });
 
 export type RootState = {
   network: NetworkState,

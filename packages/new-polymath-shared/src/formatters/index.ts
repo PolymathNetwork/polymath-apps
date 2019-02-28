@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import numeral from 'numeral';
 import { times, isNumber } from 'lodash';
+import { DateTime, DateTimeFormatOptions } from 'luxon';
 
 /**
  * Wether a value is a BigNumber instance or not
@@ -102,3 +103,15 @@ export const toShortAddress = (
     -portionSize
   )}`;
 };
+
+export const date = DateTime;
+
+export const toDateFormat = (
+  inputDate: Date,
+  { format = DateTime.DATE_FULL }: { format?: DateTimeFormatOptions } = {}
+) => DateTime.fromJSDate(inputDate).toLocaleString(format);
+
+export const toTimeFormat = (
+  inputDate: Date,
+  { format = DateTime.TIME_SIMPLE }: { format?: DateTimeFormatOptions } = {}
+) => DateTime.fromJSDate(inputDate).toLocaleString(format);

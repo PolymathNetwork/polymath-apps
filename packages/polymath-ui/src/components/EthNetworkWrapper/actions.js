@@ -5,6 +5,7 @@
  */
 
 import Web3 from 'web3';
+import { polyClient } from '@polymathnetwork/new-issuer/lib/polyClient';
 
 import { getNetworkInfo } from './networks';
 import {
@@ -177,6 +178,11 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     web3,
     web3WS,
   };
+
+  await polyClient.connect({
+    polymathRegistryAddress: network.polymathRegistryAddress,
+    wsProviderUrl: process.env.REACT_APP_NODE_WS || network.url,
+  });
 
   await initPolymathJs({
     networkParams,

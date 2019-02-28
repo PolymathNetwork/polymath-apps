@@ -3,9 +3,9 @@ import { PolymathError, browserUtils, ErrorCodes } from '@polymathnetwork/sdk';
 import * as sagas from '~/state/sagas/accessControl';
 import { MockedStore, mockEthereumBrowser } from '~/testUtils/helpers';
 
-jest.mock('~/lib/polymath', () => ({
+jest.mock('~/lib/polyClient', () => ({
   polyClient: {
-    connect: () => { },
+    connect: () => {},
   },
 }));
 
@@ -14,11 +14,12 @@ jest.mock('@polymathnetwork/sdk', () => {
   return {
     ...original,
     browserUtils: {
-      getCurrentAddress: jest.fn(),
+      getCurrentAddress: jest.fn(() => '0x1234'),
       onAddressChange() {
-        return () => { };
+        return () => {};
       },
       enableWallet: jest.fn(),
+      getNetworkId: jest.fn(async () => '1'),
     },
   };
 });
@@ -74,7 +75,7 @@ describe('accessControl sagas', () => {
         throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
       });
 
-      await runSaga(store, sagas.requireWallet);
+      await runSaga(store, sagas.requireWallet).done;
 
       expect(store.dispatched).toContainEqual({
         type: 'ROUTER_PUSH',

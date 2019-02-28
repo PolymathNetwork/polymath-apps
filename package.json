@@ -14,6 +14,8 @@
     "changelog": "node ./config/changelog.js",
     "commit": "commit",
     "typecheck": "lerna run --parallel typecheck ",
+    "clean:builds": "lerna exec --parallel --stream --scope=@polymathnetwork/{new-issuer,new-ui,investor,sdk,shared,new-shared} -- rm -rf ./build",
+    "clean:node_modules": "lerna exec --parallel --stream -- rm -rf ./node_modules",
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",
     "start:issuer": "lerna exec --scope=@polymathnetwork/issuer -- yarn start",
     "start:new-issuer": "lerna exec --scope=@polymathnetwork/new-issuer -- yarn start",
@@ -54,6 +56,10 @@
     "postinstall": "rm -f node_modules/web3/index.d.ts node_modules/web3/types.d.ts",
     "heroku-postbuild": "yarn build:heroku-apps"
   },
+  "resolutions": {
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.2"
+  },
   "devDependencies": {
     "@commitlint/cli": "7.3.1",
     "@commitlint/config-conventional": "7.3.1",
@@ -64,6 +70,7 @@
     "@types/styled-system": "3.1.1",
     "babel-eslint": "8.1.2",
     "babel-jest": "^23.6.0",
+    "babel-plugin-styled-components": "^1.10.0",
     "common-tags": "^1.8.0",
     "eslint": "4.19.1",
     "eslint-config-prettier": "^3.0.1",

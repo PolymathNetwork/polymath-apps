@@ -12,7 +12,7 @@ export interface Props {
   onClose: () => void;
 }
 
-export class Presenter extends Component<Props> {
+export class ModalTransactionQueuePresenter extends Component<Props> {
   public state = {
     isConfirmed: false,
   };
