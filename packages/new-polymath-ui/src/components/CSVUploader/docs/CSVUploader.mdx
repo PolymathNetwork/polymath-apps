@@ -1,5 +1,5 @@
 ---
-name: CSVUploader
+name: CsvUploader
 menu: Components
 ---
 
@@ -8,16 +8,16 @@ import { Formik } from 'formik';
 import { validators } from '@polymathnetwork/new-shared';
 
 import { FormItem } from '~/components/FormItem';
-import { CSVUploader, CSVUploaderPrimitive } from '../';
+import { CsvUploader, CsvUploaderPrimitive } from '../';
 
-# CSVUploader
+# CsvUploader
 
-<PropsTable of={CSVUploader} />
+<PropsTable of={CsvUploader} />
 
 ## Basic usage
 
 <Playground>
-  <CSVUploaderPrimitive
+  <CsvUploaderPrimitive
     config={{
       columns: [
         {
@@ -50,7 +50,7 @@ import { CSVUploader, CSVUploaderPrimitive } from '../';
         <pre>{JSON.stringify(formValues.values, null, 2)}</pre>
         <FormItem name="myFile">
           <FormItem.Input
-            component={CSVUploader}
+            component={CsvUploader}
             config={{
               columns: [
                 {

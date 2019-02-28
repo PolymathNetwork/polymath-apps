@@ -1,1 +1,1 @@
-export * from './CSVUploader';
+export * from './CsvUploader';

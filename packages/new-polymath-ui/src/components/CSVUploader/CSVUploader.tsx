@@ -9,12 +9,28 @@ import * as sc from './styles';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
 
+const parsedCsvToTable = parsedCsvRows => {
+  return parsedCsvRows.map(parsedCsvRow =>
+    Object.keys(parsedCsvRow.data).reduce((acc, curr) => {
+      return { ...acc, [curr]: parsedCsvRow.data[curr].value };
+    }, {})
+  );
+};
+
+const csvColumnsToTableColumns = csvColumns => {
+  return csvColumns.map(csvColumn => ({
+    ...csvColumn,
+    id: csvColumn.name,
+    Header: csvColumn.name,
+  }));
+};
+
 interface Props {
   name: string;
   config: ParseCsvProps['config'];
 }
 
-const CSVUploaderComponent: FC<Props> = ({
+const CsvUploaderComponent: FC<Props> = ({
   clearFile,
   setFile,
   data,
@@ -24,7 +40,11 @@ const CSVUploaderComponent: FC<Props> = ({
     clearFile();
     setFile(file);
   };
-  console.log(config.maxRows);
+  console.log(data);
+  console.log(data.result);
+  console.log(parsedCsvToTable(data.result));
+  const isFullyInvalid =
+    data.errorRows === data.totalRows || data.errorRows === config.maxRows;
 
   return (
     <Fragment>
@@ -35,26 +55,42 @@ const CSVUploaderComponent: FC<Props> = ({
             {config.maxRows && data.totalRows > config.maxRows && (
               <Notification
                 status="warning"
-                title="the title"
-                description="the description"
+                title={`More Than ${config.maxRows} Records Found`}
+                description={`Only ${
+                  config.maxRows
+                } records can be uploaded at a time. Any records above ${
+                  config.maxRows
+                } limit will not be added.`}
+              />
+            )}
+            {isFullyInvalid && (
+              <Notification
+                status="alert"
+                title="Your .csv is Invalid"
+                description="Please make sure your .csv file follows the format of format our sample file."
               />
             )}
           </sc.ErrorsWrapper>
-          <Table data={data.result} columns={config.columns}>
-            <Table.Rows />
-          </Table>
+          {!isFullyInvalid && (
+            <Table
+              data={parsedCsvToTable(data.result)}
+              columns={csvColumnsToTableColumns(config.columns)}
+            >
+              <Table.Rows small />
+            </Table>
+          )}
         </Fragment>
       ) : null}
     </Fragment>
   );
 };
 
-export const CSVUploaderPrimitive: FC<Props> = ({ config, ...formikProps }) => {
+export const CsvUploaderPrimitive: FC<Props> = ({ config, ...formikProps }) => {
   return (
     <ParseCsv
       config={config}
       render={parseCsvProps => (
-        <CSVUploaderComponent
+        <CsvUploaderComponent
           config={config}
           {...parseCsvProps}
           {...formikProps}
@@ -64,4 +100,4 @@ export const CSVUploaderPrimitive: FC<Props> = ({ config, ...formikProps }) => {
   );
 };
 
-export const CSVUploader = formikProxy(CSVUploaderPrimitive);
+export const CsvUploader = formikProxy(CsvUploaderPrimitive);
