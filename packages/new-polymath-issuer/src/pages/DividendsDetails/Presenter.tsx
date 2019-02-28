@@ -32,7 +32,10 @@ const columns = [
   {
     Header: 'Investor Wallet Address',
     accessor: 'investorWalletAddress',
-    Cell: props => <Link href="#">{props.value}</Link>,
+    Cell: props => {
+      console.log(props);
+      return <Link href="#">{props.value}</Link>;
+    },
   },
   {
     Header: 'Dividends Pre-Tax',
@@ -53,7 +56,7 @@ const columns = [
   {
     Header: 'Status of Payment',
     accessor: 'statusOfPayment',
-    Cell: props => <Label color="green.0">{props.value}</Label>,
+    Cell: props => <Label color="green.1">{props.value}</Label>,
   },
 ];
 
