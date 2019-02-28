@@ -1,6 +1,16 @@
-import styled from 'styled-components';
+import styled, { StyledComponent } from 'styled-components';
 import { Button } from '~/components/Button';
+import { ThemeInterface } from '~/styles';
 
-export const ButtonFluid = styled(Button)`
+const ButtonFluidBase: StyledComponent<
+  typeof Button,
+  ThemeInterface,
+  {},
+  never
+> = styled(Button)`
   width: 100%;
 `;
+
+export const ButtonFluid = Object.assign(ButtonFluidBase, {
+  defaultProps: Button.defaultProps,
+});
