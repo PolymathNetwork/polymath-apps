@@ -4,7 +4,10 @@ import { IndicatorProps } from 'react-select/lib/components/indicators';
 import { Styles } from 'react-select/lib/styles';
 import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
-import { formikProxy } from '~/components/inputs/formikProxy';
+import {
+  FormikProxy,
+  FormikExternalProps,
+} from '~/components/inputs/FormikProxy';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { SvgClose } from '~/images/icons/Close';
 import { SvgEth } from '~/images/icons/Eth';
@@ -21,6 +24,14 @@ interface OptionType {
   value: types.Tokens;
   label: ReactNode;
 }
+
+interface ExternalProps extends FormikExternalProps {
+  theme: ThemeInterface;
+  placeholder: string;
+  type: types.Tokens;
+}
+
+type Value = types.Tokens | types.Tokens[];
 
 export const CURRENCY_OPTIONS: OptionType[] = [
   {
@@ -261,5 +272,18 @@ export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   }
 }
 
-export const CurrencySelectPrimitive = formikProxy(CurrencySelectPrimitiveBase);
-export const CurrencySelect = withTheme(CurrencySelectPrimitive);
+const EnhancedCurrencySelectPrimitive: FC<ExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    render={formikProps => (
+      <CurrencySelectPrimitiveBase {...rest} {...formikProps} />
+    )}
+  />
+);
+
+export const CurrencySelect = withTheme(EnhancedCurrencySelectPrimitive);

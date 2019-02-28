@@ -1,16 +1,25 @@
 import { range } from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import moment from 'moment';
 
 import { SelectPrimitive, SelectProps } from '../Select';
-import { formikProxy } from '~/components/inputs/formikProxy';
+import {
+  FormikProxy,
+  FormikExternalProps,
+} from '~/components/inputs/FormikProxy';
 
 export type TimePickerSelectProps = SelectProps & {
   format: string;
   onChange: (value: number) => void;
   onBlur: () => void;
-  value: any;
+  value: number;
+  onMenuClose: () => void;
 };
+
+interface ExternalProps extends FormikExternalProps {
+  format: string;
+  onMenuClose: () => void;
+}
 
 const minutesInADay = 60 * 24;
 const timeIntervals = range(0, minutesInADay, 30);
@@ -66,4 +75,23 @@ class TimePickerSelectBase extends Component<TimePickerSelectProps> {
   }
 }
 
-export const TimePickerSelect = formikProxy(TimePickerSelectBase);
+const EnhancedTimePickerSelect: FC<ExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<number>
+    field={field}
+    form={form}
+    render={formikProps => (
+      <TimePickerSelectBase
+        field={field}
+        form={form}
+        {...rest}
+        {...formikProps}
+      />
+    )}
+  />
+);
+
+export const TimePickerSelect = EnhancedTimePickerSelect;
