@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { fireEvent } from 'react-testing-library';
-import { FormikProxy, RenderProps, FormikExternalProps } from '../index';
+import { FormikProxy, RenderProps, FormikExternalProps } from '../FormikProxy';
 import { render } from '~/testUtils/helpers';
 
 const MockInput: FC<RenderProps<string>> = ({
