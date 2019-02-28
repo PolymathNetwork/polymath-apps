@@ -40,7 +40,7 @@ export const routes = {
       '/:securityTokenSymbol': {
         '/dividends': {
           '/:dividendIndex': {
-            // TODO @monitz87: add Dividend Card page and handler when they are done
+            // TODO @monitz87: add Dividend Details page and handler when they are done
           },
           Page: SecurityTokensDividendsPage,
           handler: handleDividendsRoute,

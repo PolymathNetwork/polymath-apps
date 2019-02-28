@@ -4,7 +4,6 @@ import { filter, zipWith, forEach, includes, compact } from 'lodash';
 import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
 import { DataRequestResults } from '~/state/reducers/dataRequests';
-import { downloadCsvFile } from '@polymathnetwork/new-shared/build/dist/utils';
 
 const getApp = (state: RootState) => state.app;
 const getEntities = (state: RootState) => state.entities;

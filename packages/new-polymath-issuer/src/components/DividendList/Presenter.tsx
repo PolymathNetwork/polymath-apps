@@ -21,7 +21,7 @@ export const DividendListPresenter = ({
   dividends,
   checkpointIndex,
 }: Props) => {
-  const newDividendUrl = `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/new`;
+  const newDividendUrl = `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
   return (
     <List>
       {dividends.length ? (
