@@ -175,7 +175,7 @@ export default class Contract {
   async _tx(
     method: Object,
     value?: BigNumber,
-    gasLimit?: number,
+    gasLimit?: number = 1.2,
     fixedGasPriceInGwei?: number
   ): Promise<Web3Receipt> {
     const preParams = {

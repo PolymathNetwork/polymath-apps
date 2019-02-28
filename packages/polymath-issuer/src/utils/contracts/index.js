@@ -116,7 +116,7 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
           name: '_reserveWallet',
         },
         {
-          type: 'address',
+          type: 'address[]',
           name: '_usdToken',
         },
       ],
@@ -133,7 +133,7 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
       params.fundRaiseTypes,
       params.wallet,
       params.reserveWallet,
-      params.usdToken,
+      [params.usdToken],
     ]
   );
 }

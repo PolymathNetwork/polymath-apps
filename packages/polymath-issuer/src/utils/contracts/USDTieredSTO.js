@@ -106,7 +106,9 @@ export default class USDTieredSTO {
     const checksumAddresses = addresses.map(Web3.utils.toChecksumAddress);
 
     await this.legacyContractInstance._tx(
-      this.contract.methods.changeAccredited(checksumAddresses, statuses)
+      this.contract.methods.changeAccredited(checksumAddresses, statuses),
+      null,
+      1.15
     );
   }
 
@@ -119,56 +121,62 @@ export default class USDTieredSTO {
   async changeNonAccreditedLimit(addresses: string[], limits: BigNumber[]) {
     const limitsInWei = limits.map(limit => toWei(limit.toFixed()));
     await this.legacyContractInstance._tx(
-      this.contract.methods.changeNonAccreditedLimit(addresses, limitsInWei)
+      this.contract.methods.changeNonAccreditedLimit(addresses, limitsInWei),
+      null,
+      1.15
     );
+  }
+
+  _toArray(v: Object): Array<any> {
+    const result: Array<any> = [];
+    for (let key of Object.keys(v)) {
+      result.push(v[key]);
+    }
+    return result;
   }
 
   async getDetails(): Promise<USDTieredSTOType> {
     const [
       startTime,
       endTime,
+      currentTierRes,
+      caps,
+      rates,
+      fundsRaisedUSD,
+      ,
+      tokensSoldRes,
+    ] = this._toArray(await this.contract.methods.getSTODetails().call());
+    const [
       paused,
       factoryAddress,
       isOpen,
       isFinalized,
       tiersCount,
-      currentTierRes,
-      totalUsdRaisedRes,
-      totalTokensSoldRes,
       capReached,
     ] = await Promise.all([
-      this.contract.methods.startTime().call(),
-      this.contract.methods.endTime().call(),
       this.paused(),
       this.contract.methods.factory().call(),
       this.contract.methods.isOpen().call(),
       this.contract.methods.isFinalized().call(),
       this.contract.methods.getNumberOfTiers().call(),
-      this.contract.methods.currentTier().call(),
-      this.contract.methods.fundsRaisedUSD().call(),
-      this.contract.methods.getTokensSold().call(),
       this.contract.methods.capReached().call(),
     ]);
 
     const currentTier = parseInt(currentTierRes, 10);
     const totalUsdRaised = new BigNumber(
-      Web3.utils.fromWei(totalUsdRaisedRes.toString())
+      Web3.utils.fromWei(fundsRaisedUSD.toString())
     );
     const totalTokensSold = new BigNumber(
-      Web3.utils.fromWei(totalTokensSoldRes.toString())
+      Web3.utils.fromWei(tokensSoldRes.toString())
     );
 
     // Get tiers data
     let tiers = await P.map(range(tiersCount), async tierNumber => {
-      const rateRes = await this.contract.methods
-        .ratePerTier(tierNumber)
-        .call();
-      const totalTokensRes = await this.contract.methods
-        .tokensPerTierTotal(tierNumber)
-        .call();
+      const rateRes = rates[tierNumber];
+      const totalTokensRes = caps[tierNumber];
 
       const tokensSoldRes = await this.contract.methods
-        .mintedPerTierTotal(tierNumber)
+        .getTokensSoldByTier(tierNumber)
         .call();
 
       const totalTokens = new BigNumber(Web3.utils.fromWei(totalTokensRes));
@@ -178,7 +186,7 @@ export default class USDTieredSTO {
       const usdRaised = tokensSold.times(rate);
       let status: USDTieredSTOTierStatus;
 
-      if (tierNumber < currentTier || totalTokens <= tokensSold) {
+      if (tierNumber < currentTier || totalTokens.lte(tokensSold)) {
         status = 'done';
       } else if (tierNumber === currentTier) {
         status = 'active';
@@ -194,31 +202,6 @@ export default class USDTieredSTO {
         usdRaised,
         status,
       };
-    });
-
-    // NOTE @RafaelVidaurre: We need to calculate tokens sold per tier
-    // since we don't have a method to get tokens sold, and mintedPerTier can
-    // cause errors in specific situations
-    let totalTokensSum = new BigNumber(0);
-
-    tiers = map(tiers, tier => {
-      const { tokensSold, totalTokens: tierTotalTokens } = tier;
-      let thisTokensSold = tokensSold;
-
-      totalTokensSum = totalTokensSum.plus(tierTotalTokens);
-
-      const tierIsFullySold = totalTokensSum.lte(totalTokensSold);
-
-      if (!tierIsFullySold) {
-        thisTokensSold = totalTokensSold.minus(
-          totalTokensSum.minus(tierTotalTokens)
-        );
-        if (thisTokensSold.lt(0)) {
-          thisTokensSold = new BigNumber(0);
-        }
-      }
-
-      return { ...tier, tokensSold: thisTokensSold };
     });
 
     return {

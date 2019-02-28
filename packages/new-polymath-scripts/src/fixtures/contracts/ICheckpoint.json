@@ -3,22 +3,22 @@
   "abi": [],
   "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058203869938cce6528b51e818eb0be6a239f1644f90b2b9a9232876a66c34f56b52b0029",
   "deployedBytecode": "0x6080604052600080fd00a165627a7a723058203869938cce6528b51e818eb0be6a239f1644f90b2b9a9232876a66c34f56b52b0029",
-  "sourceMap": "149:28:45:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;149:28:45;;;;;;;",
-  "deployedSourceMap": "149:28:45:-;;;;;",
+  "sourceMap": "149:28:50:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;149:28:50;;;;;;;",
+  "deployedSourceMap": "149:28:50:-;;;;;",
   "source": "pragma solidity ^0.4.24;\r\n\r\n/**\r\n * @title Interface to be implemented by all checkpoint modules\r\n */\r\n/*solium-disable-next-line no-empty-blocks*/\r\ninterface ICheckpoint {\r\n\r\n}\r\n",
   "sourcePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
   "ast": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
     "exportedSymbols": {
       "ICheckpoint": [
-        16620
+        19227
       ]
     },
-    "id": 16621,
+    "id": 19228,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 16619,
+        "id": 19226,
         "literals": [
           "solidity",
           "^",
@@ -26,7 +26,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:45"
+        "src": "0:24:50"
       },
       {
         "baseContracts": [],
@@ -34,31 +34,31 @@
         "contractKind": "interface",
         "documentation": "@title Interface to be implemented by all checkpoint modules\r",
         "fullyImplemented": true,
-        "id": 16620,
+        "id": 19227,
         "linearizedBaseContracts": [
-          16620
+          19227
         ],
         "name": "ICheckpoint",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 16621,
-        "src": "149:28:45"
+        "scope": 19228,
+        "src": "149:28:50"
       }
     ],
-    "src": "0:179:45"
+    "src": "0:179:50"
   },
   "legacyAST": {
     "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/Checkpoint/ICheckpoint.sol",
     "exportedSymbols": {
       "ICheckpoint": [
-        16620
+        19227
       ]
     },
-    "id": 16621,
+    "id": 19228,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 16619,
+        "id": 19226,
         "literals": [
           "solidity",
           "^",
@@ -66,7 +66,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:45"
+        "src": "0:24:50"
       },
       {
         "baseContracts": [],
@@ -74,18 +74,18 @@
         "contractKind": "interface",
         "documentation": "@title Interface to be implemented by all checkpoint modules\r",
         "fullyImplemented": true,
-        "id": 16620,
+        "id": 19227,
         "linearizedBaseContracts": [
-          16620
+          19227
         ],
         "name": "ICheckpoint",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 16621,
-        "src": "149:28:45"
+        "scope": 19228,
+        "src": "149:28:50"
       }
     ],
-    "src": "0:179:45"
+    "src": "0:179:50"
   },
   "compiler": {
     "name": "solc",
@@ -93,5 +93,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2019-02-01T18:23:33.238Z"
+  "updatedAt": "2019-02-06T16:02:05.370Z"
 }
