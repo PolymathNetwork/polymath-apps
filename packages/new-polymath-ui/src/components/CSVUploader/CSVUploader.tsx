@@ -2,6 +2,7 @@ import React, { FC, Fragment, useCallback } from 'react';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import { Notification } from '~/components/Notification';
+import { Box } from '~/components/Box';
 import { Table } from '~/components/Table';
 import { formikProxy } from '~/components/inputs/formikProxy';
 import { ParseCsv } from './ParseCsv';
@@ -20,7 +21,7 @@ const parsedCsvToTable = parsedCsvRows => {
 const csvColumnsToTableColumns = csvColumns => {
   return csvColumns.map(csvColumn => ({
     ...csvColumn,
-    id: csvColumn.name,
+    accessor: csvColumn.name,
     Header: csvColumn.name,
   }));
 };
@@ -36,10 +37,10 @@ const CsvUploaderComponent: FC<Props> = ({
   data,
   config,
 }) => {
-  const handleFileUploaderChange = file => {
+  const handleFileUploaderChange = useCallback(file => {
     clearFile();
     setFile(file);
-  };
+  }, []);
   console.log(data);
   console.log(data.result);
   console.log(parsedCsvToTable(data.result));
@@ -72,12 +73,14 @@ const CsvUploaderComponent: FC<Props> = ({
             )}
           </sc.ErrorsWrapper>
           {!isFullyInvalid && (
-            <Table
-              data={parsedCsvToTable(data.result)}
-              columns={csvColumnsToTableColumns(config.columns)}
-            >
-              <Table.Rows small />
-            </Table>
+            <Box mt="m">
+              <Table
+                data={parsedCsvToTable(data.result)}
+                columns={csvColumnsToTableColumns(config.columns)}
+              >
+                <Table.Rows small />
+              </Table>
+            </Box>
           )}
         </Fragment>
       ) : null}

@@ -21,12 +21,16 @@ import { CsvUploader, CsvUploaderPrimitive } from '../';
     config={{
       columns: [
         {
-          name: 'column 1',
+          name: 'Address',
           validators: [validators.isString, validators.isNotEmpty],
         },
         {
-          name: 'column 2',
-          validators: [validators.isString, validators.isNotEmpty],
+          name: 'Sale Lockup',
+          validators: [validators.isDate],
+        },
+        {
+          name: 'Purchase Lockup',
+          validators: [validators.isDate],
         },
       ],
       header: true,
