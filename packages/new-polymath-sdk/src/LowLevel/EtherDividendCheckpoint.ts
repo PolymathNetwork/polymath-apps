@@ -5,6 +5,7 @@ import { toUnixTimestamp, toWei } from './utils';
 import { TransactionObject } from 'web3/eth/types';
 import { Context } from './LowLevel';
 import { Dividend, GenericContract, CreateEtherDividendArgs } from './types';
+import { DividendModuleTypes } from '~/types';
 
 // This type should be obtained from a library (must match ABI)
 interface EtherDividendCheckpointContract extends GenericContract {
@@ -28,6 +29,7 @@ interface EtherDividendCheckpointContract extends GenericContract {
 export class EtherDividendCheckpoint extends DividendCheckpoint<
   EtherDividendCheckpointContract
 > {
+  public dividendType = DividendModuleTypes.Eth;
   constructor({ address, context }: { address: string; context: Context }) {
     super({ address, abi: EtherDividendCheckpointAbi.abi, context });
   }

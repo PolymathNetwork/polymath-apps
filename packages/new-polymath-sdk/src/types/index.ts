@@ -14,12 +14,14 @@ import {
   AddDividendsModuleArgs,
   RegisterTickerArgs,
   GenerateSecurityTokenArgs,
+  PushDividendPaymentArgs,
+  DividendInvestorStatus,
   DividendModuleTypes,
 } from '~/LowLevel/types';
 
-export { DividendModuleTypes };
+export { DividendModuleTypes, DividendInvestorStatus };
 
-export interface TaxWithholding {
+export interface TaxWithholdingEntry {
   address: string;
   percentage: number;
 }
@@ -56,9 +58,9 @@ export interface PolymathNetworkParams {
   polymathRegistryAddress: string;
 }
 
-export type MapMaybeResolver<T> = {
-  [K in keyof T]: PostTransactionResolver<T[K]> | T[K]
-};
+export type MaybeResolver<T> = PostTransactionResolver<T> | T;
+
+export type MapMaybeResolver<T> = { [K in keyof T]: MaybeResolver<T[K]> };
 
 export interface TransactionArguments {
   [types.PolyTransactionTags.Any]: {};
@@ -87,6 +89,9 @@ export interface TransactionArguments {
   [types.PolyTransactionTags.CreateSecurityToken]: Partial<
     GenerateSecurityTokenArgs
   >;
+  [types.PolyTransactionTags.PushDividendPayment]: Partial<
+    PushDividendPaymentArgs
+  >;
   [types.PolyTransactionTags.CreateCheckpoint]: {};
 }
 
@@ -95,6 +100,7 @@ export interface TransactionArguments {
 export interface ApproveProcedureArgs {
   amount: BigNumber;
   spender: string;
+  tokenAddress?: string;
 }
 
 export interface CreateCheckpointProcedureArgs {
@@ -110,7 +116,7 @@ export interface CreateErc20DividendDistributionProcedureArgs {
   checkpointId: number;
   name: string;
   excludedAddresses?: string[];
-  taxWithholdings?: TaxWithholding[];
+  taxWithholdings?: TaxWithholdingEntry[];
 }
 
 export interface CreateEtherDividendDistributionProcedureArgs {
@@ -121,7 +127,14 @@ export interface CreateEtherDividendDistributionProcedureArgs {
   checkpointId: number;
   name: string;
   excludedAddresses?: string[];
-  taxWithholdings?: TaxWithholding[];
+  taxWithholdings?: TaxWithholdingEntry[];
+}
+
+export interface PushDividendPaymentProcedureArgs {
+  symbol: string;
+  dividendId: number;
+  dividendType: DividendModuleTypes;
+  investorAddresses?: string[];
 }
 
 export interface CreateSecurityTokenProcedureArgs {
@@ -154,6 +167,13 @@ export interface WithdrawTaxesProcedureArgs {
   dividendType: DividendModuleTypes;
 }
 
+export interface SetDividendsTaxWithholdingListArgs {
+  symbol: string;
+  dividendType: DividendModuleTypes;
+  investorAddresses: string[];
+  percentages: number[];
+}
+
 export interface ProcedureArguments {
   [types.ProcedureTypes.Approve]: ApproveProcedureArgs;
   [types.ProcedureTypes.CreateCheckpoint]: CreateCheckpointProcedureArgs;
@@ -168,5 +188,8 @@ export interface ProcedureArguments {
   [types.ProcedureTypes
     .ReserveSecurityToken]: ReserveSecurityTokenProcedureArgs;
   [types.ProcedureTypes.WithdrawTaxes]: WithdrawTaxesProcedureArgs;
+  [types.ProcedureTypes
+    .SetDividendsTaxWithholdingList]: SetDividendsTaxWithholdingListArgs;
+  [types.ProcedureTypes.PushDividendPayment]: PushDividendPaymentProcedureArgs;
   [types.ProcedureTypes.UnnamedProcedure]: {};
 }

@@ -6,8 +6,8 @@ interface Params {
   securityTokenId: string;
 }
 
-export class Erc20DividendsModule extends DividendsModule {
-  public entityType: string = 'erc20DividendsModule';
+export class EthDividendsModule extends DividendsModule {
+  public entityType: string = 'ethDividendsModule';
 
   constructor(params: Params) {
     super(params);

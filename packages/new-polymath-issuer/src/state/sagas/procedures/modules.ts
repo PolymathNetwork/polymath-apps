@@ -6,7 +6,7 @@ import { TransactionQueue } from '@polymathnetwork/sdk';
 import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 import { invalidateRequest } from '~/state/actions/dataRequests';
-import { RequestKeys } from '~/types';
+import { RequestKeys, TransactionQueueResult, QueueStatus } from '~/types';
 
 export function* enableErc20DividendsModule(
   action: ActionType<typeof enableErc20DividendsModuleStart>
@@ -22,13 +22,13 @@ export function* enableErc20DividendsModule(
   );
 
   try {
-    const queueSucceeded: boolean = yield call(
+    const { queueStatus }: TransactionQueueResult = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
     // Queue was canceled or failed
-    if (!queueSucceeded) {
+    if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
 

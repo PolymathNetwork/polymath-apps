@@ -8,13 +8,13 @@ import {
   FormikExternalProps,
 } from '~/components/inputs/FormikProxy';
 
-export interface TimePickerSelectProps extends SelectProps {
+export type TimePickerSelectProps = SelectProps & {
   format: string;
   onChange: (value: number) => void;
   onBlur: () => void;
   value: number;
   onMenuClose: () => void;
-}
+};
 
 interface ExternalProps extends FormikExternalProps {
   format: string;

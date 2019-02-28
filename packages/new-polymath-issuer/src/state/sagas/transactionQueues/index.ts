@@ -11,14 +11,17 @@ import {
 } from '~/state/actions/transactionQueues';
 import { eventChannel } from 'redux-saga';
 import { types } from '@polymathnetwork/new-shared';
+import { QueueStatus } from '~/types';
 
 /**
  * Populates the state with the current transactions in the queue and the queue itself,
  * waits for confirmation (or cancellation) and runs the queue
  *
- * @returns true if running the queue succeeded, false if it was canceled or failed
+ * @returns an object containing the status of the queue (if it was canceled, failed or succeeded), and the return value of the queue
  */
-export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
+export function* runTransactionQueue<Args, ReturnType>(
+  transactionQueueToRun: TransactionQueue<Args, ReturnType>
+) {
   const { transactions, ...transactionQueue } = transactionQueueToRun.toPojo();
 
   const transactionsToRun = transactionQueueToRun.transactions;
@@ -44,7 +47,7 @@ export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
 
   // Stop the saga and return false if the transactions weren't confirmed
   if (canceled) {
-    return false;
+    return QueueStatus.Canceled;
   }
 
   /**
@@ -54,13 +57,17 @@ export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
    * since we need to start listening to status changes BEFORE the queue starts to run,
    * or we cannot catch the change from 'IDLE' to 'RUNNING'
    */
-  let queueSucceeded: boolean;
-  [queueSucceeded] = yield all([
+  let queueStatus: QueueStatus;
+  let result: ReturnType;
+  [queueStatus, result] = yield all([
     call(watchQueueStatus, transactionQueueToRun),
     call(transactionQueueToRun.run),
   ]);
 
-  return queueSucceeded;
+  return {
+    queueStatus,
+    result,
+  };
 }
 
 /**
@@ -91,10 +98,10 @@ export function* watchQueueStatus(transactionQueue: TransactionQueue) {
       statusChangeChannel.close();
 
       if (failed) {
-        return false;
+        return QueueStatus.Failed;
       }
 
-      return true;
+      return QueueStatus.Succeeded;
     }
   }
 }

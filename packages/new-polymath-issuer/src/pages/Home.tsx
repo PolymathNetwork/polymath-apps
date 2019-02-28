@@ -1,15 +1,26 @@
 import { connect } from 'react-redux';
-import React, { Component, Dispatch } from 'react';
+import React, { Component, Dispatch, Fragment } from 'react';
 import { browserUtils } from '@polymathnetwork/sdk';
 import { Page, Button, Loading } from '@polymathnetwork/new-ui';
 import { polyClient } from '~/lib/polyClient';
 import { ModalTransactionQueue } from '~/components';
-import { enableErc20DividendsModuleStart } from '~/state/actions/procedures';
+import {
+  enableErc20DividendsModuleStart,
+  createCheckpointStart,
+  createErc20DividendDistributionStart,
+} from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
 import { NETWORK } from '~/constants';
+import BigNumber from 'bignumber.js';
+
+const actions = {
+  enableErc20DividendsModuleStart,
+  createCheckpointStart,
+  createErc20DividendDistributionStart,
+};
 
 export interface DispatchProps {
-  dispatch: Dispatch<ActionType<typeof enableErc20DividendsModuleStart>>;
+  dispatch: Dispatch<ActionType<typeof actions>>;
 }
 
 type Props = DispatchProps;
@@ -61,14 +72,72 @@ export class ContainerBase extends Component<Props> {
     );
   };
 
+  public startCreateCheckpoint = () => {
+    this.props.dispatch(
+      createCheckpointStart({
+        securityTokenSymbol: 'A0T0',
+      })
+    );
+  };
+
+  public startCreateDividendDistribution = () => {
+    this.props.dispatch(
+      createErc20DividendDistributionStart({
+        securityTokenSymbol: 'A0T0',
+        maturityDate: new Date(),
+        expiryDate: new Date('10/10/2025'),
+        erc20Address: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
+        name: 'My Dividend Distribution',
+        amount: new BigNumber('10000'),
+        checkpointId: 1,
+        excludedAddresses: [],
+        pushPaymentsWhenComplete: true,
+      })
+    );
+  };
+
+  public checkForValidity = async () => {
+    console.log(
+      '0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0 VALID: ',
+      await polyClient.isValidErc20({
+        address: '0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0',
+      })
+    );
+
+    console.log(
+      '0xf17f52151EbEF6C7334FAD080c5704D77216b732 VALID: ',
+      await polyClient.isValidErc20({
+        address: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
+      })
+    );
+
+    console.log(
+      '0xf12b5dd4ead5f743c6baa640b0216200e89b60da VALID: ',
+      await polyClient.isValidErc20({
+        address: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
+      })
+    );
+  };
+
   public render() {
     return (
       <Page title="Home">
-        <ModalTransactionQueue />
         {this.state.ready ? (
-          <Button onClick={this.startEnableDividends}>
-            Enable Dividends (Test)
-          </Button>
+          <Fragment>
+            <Button onClick={this.startEnableDividends}>
+              Enable Dividends (Test)
+            </Button>
+            <Button onClick={this.startCreateCheckpoint}>
+              Create Checkpoint (Test)
+            </Button>
+            <Button onClick={this.startCreateDividendDistribution}>
+              Create Distribution (Test)
+            </Button>
+            <Button onClick={this.checkForValidity}>
+              Check if 0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0 is a valid
+              ERC20
+            </Button>
+          </Fragment>
         ) : (
           <Loading />
         )}

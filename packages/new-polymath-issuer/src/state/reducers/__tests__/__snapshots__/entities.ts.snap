@@ -14,6 +14,10 @@ Object {
     "allIds": Array [],
     "byId": Object {},
   },
+  "taxWithholdings": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
   "transactionQueues": Object {
     "allIds": Array [],
     "byId": Object {},
