@@ -16,10 +16,25 @@ import {
   GenerateSecurityTokenArgs,
   PushDividendPaymentArgs,
   DividendInvestorStatus,
-  DividendModuleTypes,
 } from '~/LowLevel/types';
 
-export { DividendModuleTypes, DividendInvestorStatus };
+// TODO @RafaelVidaurre: This type should come from LowLevel. Duplicating it
+// for now because of compilation issues
+export interface DividendInvestorStatus {
+  address: string;
+  paymentReceived: boolean;
+  excluded: boolean;
+  withheldTax: BigNumber;
+  amountReceived: BigNumber;
+  balance: BigNumber;
+}
+
+// TODO @RafaelVidaurre: This type should come from LowLevel. Duplicating it
+// for now because of compilation issues
+export enum DividendModuleTypes {
+  Erc20 = 'erc20',
+  Eth = 'eth',
+}
 
 export interface TaxWithholdingEntry {
   address: string;
