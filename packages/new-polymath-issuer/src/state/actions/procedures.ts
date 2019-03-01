@@ -54,11 +54,20 @@ const setDividendsWalletStart = createStandardAction(
   walletAddress: string;
 }>();
 
+const withdrawDividendTaxesStart = createStandardAction(
+  'PROCEDURES/WITHDRAW_DIVIDEND_TAXES_START'
+)<{
+  securityTokenSymbol: string;
+  dividendType: DividendModuleTypes;
+  dividendIndex: number;
+}>();
+
 export {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
   updateTaxWithholdingListStart,
   pushDividendPaymentStart,
   setDividendsWalletStart,
+  withdrawDividendTaxesStart,
   createErc20DividendDistributionStart,
 };

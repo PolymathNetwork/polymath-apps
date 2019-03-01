@@ -66,7 +66,14 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
           </Paragraph>
         </Flex>
         <Box mt="auto" minWidth="100%" textAlign="center">
-          <ButtonFluid variant="secondary">View details</ButtonFluid>
+          <ButtonFluid
+            href={`/securityTokens/${securityTokenSymbol}/dividends/${
+              dividend.index
+            }`}
+            variant="secondary"
+          >
+            View details
+          </ButtonFluid>
         </Box>
       </Flex>
     </Card>

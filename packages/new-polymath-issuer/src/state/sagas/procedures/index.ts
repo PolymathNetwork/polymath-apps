@@ -8,6 +8,7 @@ import {
   pushDividendPayment,
   createErc20DividendsDistribution,
   setDividendsWallet,
+  withdrawDividendTaxes,
 } from './dividends';
 import {
   enableErc20DividendsModuleStart,
@@ -16,6 +17,7 @@ import {
   pushDividendPaymentStart,
   createErc20DividendDistributionStart,
   setDividendsWalletStart,
+  withdrawDividendTaxesStart,
 } from '~/state/actions/procedures';
 
 export function* procedureWatcher() {
@@ -35,5 +37,6 @@ export function* procedureWatcher() {
     ),
     takeOneAtATime(getType(pushDividendPaymentStart), pushDividendPayment),
     takeOneAtATime(getType(setDividendsWalletStart), setDividendsWallet),
+    takeOneAtATime(getType(withdrawDividendTaxesStart), withdrawDividendTaxes),
   ]);
 }

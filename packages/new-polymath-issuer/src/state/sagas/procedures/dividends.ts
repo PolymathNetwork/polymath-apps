@@ -7,6 +7,7 @@ import {
   pushDividendPaymentStart,
   createErc20DividendDistributionStart,
   setDividendsWalletStart,
+  withdrawDividendTaxesStart,
 } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 import { invalidateRequest } from '~/state/actions/dataRequests';
@@ -133,6 +134,7 @@ export function* updateTaxWithholdingList(
         requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
         args: {
           securityTokenSymbol,
+          dividendType,
         },
       })
     );
@@ -232,6 +234,47 @@ export function* setDividendsWallet(
         requestKey,
         args: {
           securityTokenSymbol,
+        },
+      })
+    );
+  } catch (err) {
+    if (!err.code) {
+      throw err;
+    }
+  }
+}
+export function* withdrawDividendTaxes(
+  action: ActionType<typeof withdrawDividendTaxesStart>
+) {
+  const { securityTokenSymbol, dividendType, dividendIndex } = action.payload;
+  const transactionQueueToRun: TransactionQueue = yield call(
+    polyClient.withdrawTaxes,
+    {
+      symbol: securityTokenSymbol,
+      dividendType,
+      dividendIndex,
+    }
+  );
+
+  try {
+    const { queueStatus }: TransactionQueueResult = yield call(
+      runTransactionQueue,
+      transactionQueueToRun
+    );
+
+    // Queue was canceled or failed
+    if (queueStatus !== QueueStatus.Succeeded) {
+      return;
+    }
+
+    // Invalidate cache
+    yield put(
+      invalidateRequest({
+        requestKey: RequestKeys.GetDividendBySymbolAndId,
+        args: {
+          securityTokenSymbol,
+          dividendIndex,
+          dividendType,
         },
       })
     );
