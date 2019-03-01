@@ -45,6 +45,7 @@ export const HeaderRow = styled(RowBase)`
 export const Cell = styled(Flex)`
   padding: 0.6em;
   height: ${rowHeight};
+  color: ${({ hasError, theme }) => hasError && theme.colors.alert};
 
   &:first-child {
     padding-left: ${({ theme }) => theme.space.gridGap};

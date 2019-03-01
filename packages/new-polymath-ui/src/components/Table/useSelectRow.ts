@@ -1,14 +1,19 @@
 import { useMemo, useState } from 'react';
-import { Api } from 'react-table';
+import { Api as ReactTableApi, Row as ReactTableRow } from 'react-table';
 
-export interface SelectRowProps extends Api {}
+export interface SelectRowProps extends ReactTableApi {}
+export interface Row extends ReactTableRow {
+  isSelected?: boolean;
+  getSelectToggleProps?: () => any;
+  toggleSelected?: (index: number) => any;
+}
 
 export const useSelectRow = (props: SelectRowProps) => {
   const { columns, rows } = props;
   const initialState: number[] = [];
   const [selected, setSelected] = useState(initialState);
 
-  const toggleSelectAll: Api['toggleSelectAll'] = forcedState => {
+  const toggleSelectAll: ReactTableApi['toggleSelectAll'] = forcedState => {
     return setSelected(state => {
       if (state.length === rows.length || forcedState === false) {
         return [];
@@ -33,7 +38,7 @@ export const useSelectRow = (props: SelectRowProps) => {
   // We need to mutate the rows due to how react-table work at the moment
   const mutatedRows = useMemo(
     () => {
-      rows.forEach(row => {
+      rows.forEach((row: Row) => {
         row.isSelected = selected.includes(row.index);
         row.toggleSelected = () => toggleSelected(row.index);
       });

@@ -7,15 +7,16 @@ declare module 'react-table' {
   export type Cell = {
     render: (type: string) => any;
     getCellProps: () => any;
+    column: Column;
+    row: Row;
+    state: any;
+    value: any;
   };
 
   export type Row = {
     index: number;
     cells: Cell[];
     getRowProps: () => any;
-    getSelectToggleProps: () => any;
-    toggleSelected: (index: number) => any;
-    isSelected: boolean;
     originalRow: any;
   };
 

@@ -15,7 +15,8 @@ import 'simplebar/dist/simplebar.css';
 import { Icon } from '~/components/Icon';
 import { CheckboxPrimitive as Checkbox } from '~/components/inputs/Checkbox';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
-import { useSelectRow } from './hooks';
+import { useCsvParser } from './useCsvParser';
+import { useSelectRow } from './useSelectRow';
 import { Context } from './Context';
 import { Pagination } from './Pagination';
 import { BatchActionsToolbar } from './BatchActionsToolbar';
@@ -26,12 +27,14 @@ interface Props {
   columns: Column[];
   data: any[];
   selectable?: boolean;
+  csvParserData: any[];
 }
 
 export const TableComponent: FC<Props> = ({
   columns,
   data,
   selectable,
+  csvParserData,
   children,
 }) => {
   const tableEl = useRef(null);
@@ -54,11 +57,8 @@ export const TableComponent: FC<Props> = ({
     ),
     width: 60,
   };
-  const instance = useTable(
-    {
-      columns: selectable ? [selectRowColumn, ...columns] : columns,
-      data,
-    },
+  // Define plugins we want to support
+  const plugins: any[] = [
     useColumns,
     useRows,
     useFilters,
@@ -66,7 +66,24 @@ export const TableComponent: FC<Props> = ({
     useExpanded,
     usePagination,
     useFlexLayout,
-    useSelectRow
+  ];
+
+  // If Table is selectable, add SelectRow plugin
+  if (selectable) {
+    plugins.push(useSelectRow);
+  }
+
+  // If Table has Csv parser data, add CsvParser plugin
+  if (csvParserData) {
+    plugins.push(useCsvParser(csvParserData));
+  }
+
+  const instance = useTable(
+    {
+      columns: selectable ? [selectRowColumn, ...columns] : columns,
+      data,
+    },
+    ...plugins
   );
   const { getTableProps, headerGroups } = instance;
 
