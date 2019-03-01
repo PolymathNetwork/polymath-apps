@@ -50,7 +50,7 @@ export const createErc20DividendsModuleBySymbolFetcher = (
 };
 
 export const createTaxWithholdingListBySymbolFetcher = (
-  args: { securityTokenSymbol: string },
+  args: { securityTokenSymbol: string; dividendType: DividendModuleTypes },
   opts: { propKey?: string } = {}
 ): Fetcher => {
   return {

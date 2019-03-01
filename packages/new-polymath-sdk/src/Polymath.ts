@@ -28,6 +28,7 @@ import {
   CreateEtherDividendDistribution,
   SetDividendsTaxWithholdingList,
   PushDividendPayment,
+  WithdrawTaxes,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
@@ -277,6 +278,18 @@ export class Polymath {
     dividendId: number;
   }) => {
     const procedure = new PushDividendPayment(args, this.context);
+    return await procedure.prepare();
+  };
+
+  /**
+   * Withdraw taxes from a dividend distribution
+   */
+  public withdrawTaxes = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    dividendIndex: number;
+  }) => {
+    const procedure = new WithdrawTaxes(args, this.context);
     return await procedure.prepare();
   };
 
@@ -536,7 +549,7 @@ export class Polymath {
   };
 
   public isValidErc20 = async (args: { address: string }) => {
-    const { address } = args;
+    const { address } = args;
     return this.lowLevel.isValidErc20({ address });
   };
 
