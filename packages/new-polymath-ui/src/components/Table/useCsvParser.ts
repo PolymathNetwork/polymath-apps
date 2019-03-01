@@ -14,9 +14,9 @@ export interface Cell extends ReactTableCell {
   isValid?: boolean;
 }
 
-export const useCsvParser = (
-  csvParserData: csvParser.ResultProps['result']
-) => (props: CsvParserProps) => {
+export const useCsvParser = (csvParserData: csvParser.ResultRow[]) => (
+  props: CsvParserProps
+) => {
   const { rows } = props;
 
   // We need to mutate the rows due to how react-table work at the moment

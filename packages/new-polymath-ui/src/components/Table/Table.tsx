@@ -8,7 +8,7 @@ import {
   usePagination,
   useFlexLayout,
   useExpanded,
-  Column,
+  HeaderColumn,
 } from 'react-table';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.css';
@@ -25,7 +25,7 @@ import { Row as RowType } from './index';
 import * as sc from './styles';
 
 interface Props {
-  columns: Column[];
+  columns: HeaderColumn[];
   data: any[];
   selectable?: boolean;
   csvParserData?: any[];
@@ -39,7 +39,7 @@ export const TableComponent: FC<Props> = ({
   children,
 }) => {
   const tableEl = useRef(null);
-  const selectRowColumn: Column = {
+  const selectRowColumn: HeaderColumn = {
     accessor: 'selectRow',
     Header: ({ getSelectRowToggleProps }) => (
       <Checkbox

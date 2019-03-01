@@ -7,6 +7,7 @@ import { Table } from '~/components/Table';
 import {
   FormikProxy,
   FormikExternalProps,
+  RenderProps as FormikProxyRenderProps,
 } from '~/components/inputs/FormikProxy';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
@@ -110,7 +111,7 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
   );
 };
 
-interface PrimitiveProps extends FormikExternalProps {
+interface PrimitiveProps extends FormikProxyRenderProps<Value> {
   config: ParseCsvProps['config'];
 }
 
@@ -132,11 +133,11 @@ export const CsvUploaderPrimitive: FC<PrimitiveProps> = ({
   );
 };
 
-export const CsvUploader: FC<FormikExternalProps> = ({
-  field,
-  form,
-  ...rest
-}) => (
+interface Props extends FormikExternalProps {
+  config: ParseCsvProps['config'];
+}
+
+export const CsvUploader: FC<Props> = ({ field, form, ...rest }) => (
   <FormikProxy<Value>
     field={field}
     form={form}
