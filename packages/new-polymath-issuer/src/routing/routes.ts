@@ -5,6 +5,7 @@ import {
   MetamaskGetPage,
   SecurityTokensDividendsPage,
   DividendsWizardPage,
+  DividendDetailsPage,
   SecurityTokensIndexPage,
   HomePage,
   NotFoundPage,
@@ -19,8 +20,6 @@ import {
   handleDividendDetailsRoute,
 } from '~/state/sagas/router';
 import { DashboardLayout, HomeLayout } from '~/layouts';
-import { DividendsWizardPage } from '~/pages/DividendsWizard';
-import { DividendDetailsPage } from '~/pages/DividendDetails';
 
 export const routes = {
   '/': {
