@@ -16,6 +16,7 @@ import {
   GenerateSecurityTokenArgs,
   PushDividendPaymentArgs,
   DividendInvestorStatus,
+  SetDividendsWalletArgs,
 } from '~/LowLevel/types';
 
 // TODO @RafaelVidaurre: This type should come from LowLevel. Duplicating it
@@ -107,6 +108,9 @@ export interface TransactionArguments {
   [types.PolyTransactionTags.PushDividendPayment]: Partial<
     PushDividendPaymentArgs
   >;
+  [types.PolyTransactionTags.SetDividendsWallet]: Partial<
+    SetDividendsWalletArgs
+  >;
   [types.PolyTransactionTags.CreateCheckpoint]: {};
 }
 
@@ -182,11 +186,17 @@ export interface WithdrawTaxesProcedureArgs {
   dividendType: DividendModuleTypes;
 }
 
-export interface SetDividendsTaxWithholdingListArgs {
+export interface SetDividendsTaxWithholdingListProcedureArgs {
   symbol: string;
   dividendType: DividendModuleTypes;
   investorAddresses: string[];
   percentages: number[];
+}
+
+export interface SetDividendsWalletProcedureArgs {
+  symbol: string;
+  dividendType: DividendModuleTypes;
+  address: string;
 }
 
 export interface ProcedureArguments {
@@ -204,7 +214,8 @@ export interface ProcedureArguments {
     .ReserveSecurityToken]: ReserveSecurityTokenProcedureArgs;
   [types.ProcedureTypes.WithdrawTaxes]: WithdrawTaxesProcedureArgs;
   [types.ProcedureTypes
-    .SetDividendsTaxWithholdingList]: SetDividendsTaxWithholdingListArgs;
+    .SetDividendsTaxWithholdingList]: SetDividendsTaxWithholdingListProcedureArgs;
   [types.ProcedureTypes.PushDividendPayment]: PushDividendPaymentProcedureArgs;
+  [types.ProcedureTypes.SetDividendsWallet]: SetDividendsWalletProcedureArgs;
   [types.ProcedureTypes.UnnamedProcedure]: {};
 }

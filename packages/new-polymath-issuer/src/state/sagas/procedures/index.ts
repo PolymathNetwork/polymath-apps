@@ -7,6 +7,7 @@ import {
   updateTaxWithholdingList,
   pushDividendPayment,
   createErc20DividendsDistribution,
+  setDividendsWallet,
   withdrawDividendTaxes,
 } from './dividends';
 import {
@@ -15,6 +16,7 @@ import {
   updateTaxWithholdingListStart,
   pushDividendPaymentStart,
   createErc20DividendDistributionStart,
+  setDividendsWalletStart,
   withdrawDividendTaxesStart,
 } from '~/state/actions/procedures';
 
@@ -34,6 +36,7 @@ export function* procedureWatcher() {
       createErc20DividendsDistribution
     ),
     takeOneAtATime(getType(pushDividendPaymentStart), pushDividendPayment),
+    takeOneAtATime(getType(setDividendsWalletStart), setDividendsWallet),
     takeOneAtATime(getType(withdrawDividendTaxesStart), withdrawDividendTaxes),
   ]);
 }

@@ -35,6 +35,7 @@ import { Entity } from '~/entities/Entity';
 import { PolymathNetworkParams } from '~/types';
 import BigNumber from 'bignumber.js';
 import { includes } from 'lodash';
+import { SetDividendsWallet } from '~/procedures/SetDividendsWallet';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -281,6 +282,18 @@ export class Polymath {
     return await procedure.prepare();
   };
 
+  /**
+   * Change dividends module reclaiming wallet address
+   */
+  public setDividendsWallet = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    address: string;
+  }) => {
+    const procedure = new SetDividendsWallet(args, this.context);
+    return await procedure.prepare();
+  };
+  
   /**
    * Withdraw taxes from a dividend distribution
    */
