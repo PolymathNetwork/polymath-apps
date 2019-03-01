@@ -11,6 +11,7 @@ import type { PUIState, NetworkState } from '@polymathnetwork/ui';
 import { reducer as entities } from '@polymathnetwork/new-issuer/state/reducers/entities';
 import { reducer as dataRequests } from '@polymathnetwork/new-issuer/state/reducers/dataRequests';
 import { reducer as app } from '@polymathnetwork/new-issuer/state/reducers/app';
+import { reducer as session } from '@polymathnetwork/new-issuer/state/reducers/session';
 
 import providers from '../reducers/providers';
 import token from '../reducers/token';
@@ -43,6 +44,7 @@ export default history =>
     entities,
     dataRequests,
     app,
+    session,
     router: connectRouter(history),
   });
 

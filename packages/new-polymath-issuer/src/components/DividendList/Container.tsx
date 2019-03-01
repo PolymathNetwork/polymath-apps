@@ -28,6 +28,7 @@ export class DividendListContainerBase extends Component<Props> {
             <DividendListPresenter
               securityTokenSymbol={securityTokenSymbol}
               dividends={dividends}
+              checkpointIndex={checkpointIndex}
             />
           );
         }}

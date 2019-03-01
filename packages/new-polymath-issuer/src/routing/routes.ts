@@ -14,8 +14,12 @@ import {
   handleLoginRoute,
   handleSecurityTokensRoute,
   handleDividendsRoute,
+  handleDividendsWizardRoute,
+  handleDividendDetailsRoute,
 } from '~/state/sagas/router';
 import { DashboardLayout, HomeLayout } from '~/layouts';
+import { DividendsWizardPage } from '~/pages/DividendsWizard';
+import { DividendDetailsPage } from '~/pages/DividendDetails';
 
 export const routes = {
   '/': {
@@ -35,8 +39,16 @@ export const routes = {
       Page: SecurityTokensIndexPage,
       '/:securityTokenSymbol': {
         '/dividends': {
+          '/:dividendIndex': {
+            Page: DividendDetailsPage,
+            handler: handleDividendDetailsRoute,
+          },
           Page: SecurityTokensDividendsPage,
           handler: handleDividendsRoute,
+        },
+        '/checkpoints/:checkpointIndex/dividends/new': {
+          Page: DividendsWizardPage,
+          handler: handleDividendsWizardRoute,
         },
       },
       handler: handleSecurityTokensRoute,

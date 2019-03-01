@@ -15,11 +15,15 @@ import * as sc from './styles';
 interface TransactionItemProps {
   transaction: types.TransactionPojo;
   getContent: (
-    transaction: types.TransactionPojo
+    transaction: types.TransactionPojo,
+    index: number,
+    transactions: types.TransactionPojo[]
   ) => {
     title: string;
     description: string;
   };
+  index: number;
+  allTransactions: types.TransactionPojo[];
 }
 
 interface StaticProps {
@@ -29,8 +33,14 @@ interface StaticProps {
 export const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
   transaction,
   getContent,
+  index,
+  allTransactions,
 }: TransactionItemProps) => {
-  const { title, description } = getContent(transaction);
+  const { title, description } = getContent(
+    transaction,
+    index,
+    allTransactions
+  );
   const Icon = getTransactionIcon(transaction);
   return (
     <sc.Wrapper alignItems="flex-start">

@@ -1,14 +1,21 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { Component, ChangeEvent, FC } from 'react';
 import moment from 'moment-timezone';
 import flatpickr from 'flatpickr';
 import l10n from 'flatpickr/dist/l10n/index';
 
 import { BaseInput } from '../BaseInput';
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, FormikExternalProps } from '../FormikProxy';
 import * as sc from './styles';
 
 import { SvgCalendar } from '~/images/icons/Calendar';
 import { BaseOptions } from 'flatpickr/dist/types/options';
+
+interface ExternalProps extends FormikExternalProps {
+  minDate: string;
+  maxDate: string;
+}
+
+type Value = Date | Date[] | undefined;
 
 // TODO @RafaelVidaurre: This component could definitely get some love
 
@@ -25,7 +32,7 @@ interface Props {
   /**
    * The value of the date value provided to flatpickr
    */
-  value?: Date | Date[];
+  value?: Value;
   /**
    * The DOM element or selector the Flatpicker should be inserted into. `<body>` by default.
    */
@@ -228,7 +235,19 @@ export class DatePickerInputComponent extends Component<Props> {
   }
 }
 
-export const EnhancedDatePickerInput = formikProxy(DatePickerInputComponent);
+const EnhancedDatePickerInput: FC<ExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    render={formikProps => (
+      <DatePickerInputComponent {...rest} {...formikProps} />
+    )}
+  />
+);
 
 export const DatePickerInput = Object.assign(EnhancedDatePickerInput, {
   defaultProps: DatePickerInputComponent.defaultProps,
