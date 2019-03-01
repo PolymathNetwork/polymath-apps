@@ -21,6 +21,7 @@ import { Context } from './Context';
 import { Pagination } from './Pagination';
 import { BatchActionsToolbar } from './BatchActionsToolbar';
 import { Rows } from './Rows';
+import { Row as RowType } from './index';
 import * as sc from './styles';
 
 interface Props {
@@ -47,9 +48,9 @@ export const TableComponent: FC<Props> = ({
         data-testid="select-all-rows"
       />
     ),
-    Cell: ({ row }) => (
+    Cell: ({ row }: { row: RowType }) => (
       <Checkbox
-        onChange={row.toggleSelected}
+        onChange={row.toggleSelected ? row.toggleSelected : () => {}}
         checked={row.isSelected}
         aria-label="Select row"
         data-testid="select-row"

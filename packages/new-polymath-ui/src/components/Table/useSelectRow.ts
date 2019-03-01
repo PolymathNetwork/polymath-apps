@@ -5,7 +5,7 @@ export interface SelectRowProps extends ReactTableApi {}
 export interface Row extends ReactTableRow {
   isSelected?: boolean;
   getSelectToggleProps?: () => any;
-  toggleSelected?: (index: number) => any;
+  toggleSelected?: (index: number) => void;
 }
 
 export const useSelectRow = (props: SelectRowProps) => {
