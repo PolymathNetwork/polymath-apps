@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Dropzone from 'react-dropzone';
 import { Text } from '~/components/Text';
 import { SvgClose } from '~/images/icons';
-import { formikProxy } from '~/components/inputs/formikProxy';
+import {
+  FormikProxy,
+  FormikExternalProps,
+} from '~/components/inputs/formikProxy';
 import * as sc from './styles';
 
+type Value = File | File[] | null;
+
 interface Props {
-  onChange: (files: File | File[]) => void;
+  onChange: (value: Value) => void;
   multiple?: boolean;
   uploadTo?: string;
   onTouch?: () => void;
@@ -188,4 +193,14 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
   }
 }
 
-export const FileUploader = formikProxy(FileUploaderPrimitive);
+export const FileUploader: FC<FormikExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    render={formikProps => <FileUploaderPrimitive {...rest} {...formikProps} />}
+  />
+);

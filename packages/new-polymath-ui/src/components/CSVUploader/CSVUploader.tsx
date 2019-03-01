@@ -4,11 +4,16 @@ import { FileUploaderPrimitive } from '~/components/FileUploader';
 import { Notification } from '~/components/Notification';
 import { Box } from '~/components/Box';
 import { Table } from '~/components/Table';
-import { formikProxy } from '~/components/inputs/formikProxy';
+import {
+  FormikProxy,
+  FormikExternalProps,
+} from '~/components/inputs/formikProxy';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
+
+type Value = File | File[] | null;
 
 const parsedCsvToTable = (
   parsedCsvRows: ParseCsvRenderProps['data']['result']
@@ -30,26 +35,29 @@ const csvColumnsToTableColumns = (
   }));
 };
 
-interface Props extends ParseCsvRenderProps {
+interface ComponentProps extends ParseCsvRenderProps {
+  onChange: (value: Value) => void;
   config: ParseCsvProps['config'];
 }
 
-const CsvUploaderComponent: FC<Props> = ({
+const CsvUploaderComponent: FC<ComponentProps> = ({
   clearFile,
   setFile,
   data,
   config,
+  onChange,
 }) => {
   const handleFileUploaderChange = useCallback(file => {
     clearFile();
     setFile(file);
+    onChange(file);
   }, []);
 
-  console.log(data);
   const isFullyInvalid =
     data.errorRows === data.totalRows || data.errorRows === config.maxRows;
   const errorCount = data.result.reduce((acc, cur) => {
-    acc += Object.values(cur.data).filter(cell => !cell.isColumnValid).length;
+    acc += Object.values(cur.data).filter((cell: any) => !cell.isColumnValid)
+      .length;
     return acc;
   }, 0);
 
@@ -102,7 +110,14 @@ const CsvUploaderComponent: FC<Props> = ({
   );
 };
 
-export const CsvUploaderPrimitive: FC<Props> = ({ config, ...formikProps }) => {
+interface PrimitiveProps extends FormikExternalProps {
+  config: ParseCsvProps['config'];
+}
+
+export const CsvUploaderPrimitive: FC<PrimitiveProps> = ({
+  config,
+  ...formikProps
+}) => {
   return (
     <ParseCsv
       config={config}
@@ -117,4 +132,14 @@ export const CsvUploaderPrimitive: FC<Props> = ({ config, ...formikProps }) => {
   );
 };
 
-export const CsvUploader = formikProxy(CsvUploaderPrimitive);
+export const CsvUploader: FC<FormikExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    render={formikProps => <CsvUploaderPrimitive {...rest} {...formikProps} />}
+  />
+);

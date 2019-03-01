@@ -28,7 +28,7 @@ interface Props {
   columns: Column[];
   data: any[];
   selectable?: boolean;
-  csvParserData: any[];
+  csvParserData?: any[];
 }
 
 export const TableComponent: FC<Props> = ({
