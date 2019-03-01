@@ -2,19 +2,14 @@ import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
 import { types } from '@polymathnetwork/new-shared';
-import { SetDividendsTaxWithholdingListProcedureArgs } from '~/types';
+import { SetDividendsWalletProcedureArgs } from '~/types';
 
-export class SetDividendsTaxWithholdingList extends Procedure<
-  SetDividendsTaxWithholdingListProcedureArgs
+export class SetDividendsWallet extends Procedure<
+  SetDividendsWalletProcedureArgs
 > {
-  public type = types.ProcedureTypes.SetDividendsTaxWithholdingList;
+  public type = types.ProcedureTypes.SetDividendsWallet;
   public async prepareTransactions() {
-    const {
-      symbol,
-      dividendType,
-      investorAddresses: investors,
-      percentages,
-    } = this.args;
+    const { symbol, dividendType, address } = this.args;
     const { securityTokenRegistry } = this.context;
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
@@ -37,8 +32,8 @@ export class SetDividendsTaxWithholdingList extends Procedure<
       );
     }
 
-    await this.addTransaction(dividendModule.setWithholding, {
-      tag: types.PolyTransactionTags.WithdrawTaxWithholdings,
-    })({ investors, percentages });
+    await this.addTransaction(dividendModule.setWallet, {
+      tag: types.PolyTransactionTags.SetDividendsWallet,
+    })({ address });
   }
 }

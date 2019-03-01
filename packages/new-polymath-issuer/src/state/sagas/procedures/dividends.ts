@@ -6,6 +6,7 @@ import {
   updateTaxWithholdingListStart,
   pushDividendPaymentStart,
   createErc20DividendDistributionStart,
+  setDividendsWalletStart,
   withdrawDividendTaxesStart,
 } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
@@ -193,6 +194,55 @@ export function* pushDividendPayment(
   }
 }
 
+export function* setDividendsWallet(
+  action: ActionType<typeof setDividendsWalletStart>
+) {
+  const { securityTokenSymbol, dividendType, walletAddress } = action.payload;
+  const transactionQueueToRun: TransactionQueue = yield call(
+    polyClient.setDividendsWallet,
+    {
+      symbol: securityTokenSymbol,
+      dividendType,
+      address: walletAddress,
+    }
+  );
+
+  try {
+    const { queueStatus }: TransactionQueueResult = yield call(
+      runTransactionQueue,
+      transactionQueueToRun
+    );
+
+    // Queue was canceled or failed
+    if (queueStatus !== QueueStatus.Succeeded) {
+      return;
+    }
+
+    // Invalidate cache
+    // TODO @monitz87: delete default assignment when ETH dividends module request is implemented
+    let requestKey: RequestKeys = RequestKeys.GetErc20DividendsModuleBySymbol;
+
+    if (dividendType === DividendModuleTypes.Erc20) {
+      requestKey = RequestKeys.GetErc20DividendsModuleBySymbol;
+    }
+    if (dividendType === DividendModuleTypes.Eth) {
+      // TODO @monitz87: set request key to ETH dividends module request when it is implemented
+    }
+
+    yield put(
+      invalidateRequest({
+        requestKey,
+        args: {
+          securityTokenSymbol,
+        },
+      })
+    );
+  } catch (err) {
+    if (!err.code) {
+      throw err;
+    }
+  }
+}
 export function* withdrawDividendTaxes(
   action: ActionType<typeof withdrawDividendTaxesStart>
 ) {

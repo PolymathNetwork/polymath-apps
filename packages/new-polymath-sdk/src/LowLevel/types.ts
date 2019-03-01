@@ -139,6 +139,10 @@ export interface PushDividendPaymentArgs {
   investorAddresses: string[];
 }
 
+export interface SetDividendsWalletArgs {
+  address: string;
+}
+
 export interface CreateErc20DividendArgs {
   maturityDate: Date;
   expiryDate: Date;
