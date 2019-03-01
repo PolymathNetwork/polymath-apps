@@ -36,7 +36,10 @@ export interface Column {
 
 interface ResultRow {
   data: {
-    [key: string]: any;
+    [key: string]: {
+      isColumnValid: boolean;
+      value: any;
+    };
   };
   isRowValid: boolean;
 }
