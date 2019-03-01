@@ -7,7 +7,7 @@ import { Table } from '~/components/Table';
 import {
   FormikProxy,
   FormikExternalProps,
-} from '~/components/inputs/formikProxy';
+} from '~/components/inputs/FormikProxy';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
 

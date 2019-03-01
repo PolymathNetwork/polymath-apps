@@ -5,7 +5,7 @@ import { SvgClose } from '~/images/icons';
 import {
   FormikProxy,
   FormikExternalProps,
-} from '~/components/inputs/formikProxy';
+} from '~/components/inputs/FormikProxy';
 import * as sc from './styles';
 
 type Value = File | File[] | null;
