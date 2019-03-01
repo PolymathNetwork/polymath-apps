@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useState, useCallback } from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
-import * as Yup from 'yup';
+import { validator } from '@polymathnetwork/new-ui';
 import { validateYupSchema, yupToFormErrors } from 'formik';
 import {
   Heading,
@@ -68,8 +68,11 @@ export const Presenter: FC<Props> = ({
   }, []);
 
   const handleAddressValidation = useCallback(values => {
-    const schema = Yup.object().shape({
-      walletAddress: Yup.string().required(),
+    const schema = validator.object().shape({
+      walletAddress: validator
+        .string()
+        .required()
+        .isAddress(),
     });
     return validateFormWithSchema(schema, values);
   }, []);
