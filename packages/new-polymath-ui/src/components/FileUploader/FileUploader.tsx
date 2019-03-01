@@ -107,6 +107,7 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
       files: [],
       progress: -1,
     });
+    this.props.onChange([]);
   }
 
   public renderInput() {

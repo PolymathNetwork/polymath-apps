@@ -26,15 +26,15 @@ import { CsvUploader, CsvUploaderPrimitive } from '../';
         },
         {
           name: 'Sale Lockup',
-          validators: [validators.isDate],
+          validators: [validators.isDate, validators.isNotEmpty],
         },
         {
           name: 'Purchase Lockup',
-          validators: [validators.isDate],
+          validators: [validators.isDate, validators.isNotEmpty],
         },
       ],
       header: true,
-      maxRows: 2,
+      maxRows: 3,
       missingRequiredColumnsErrorMessage:
         'Some required columns do not exist in the CSV',
       extraColumnsErrorMessage: 'the CSV file contains extra columns',

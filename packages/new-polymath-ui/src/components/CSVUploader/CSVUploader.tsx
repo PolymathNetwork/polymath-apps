@@ -5,12 +5,14 @@ import { Notification } from '~/components/Notification';
 import { Box } from '~/components/Box';
 import { Table } from '~/components/Table';
 import { formikProxy } from '~/components/inputs/formikProxy';
-import { ParseCsv } from './ParseCsv';
+import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
 
-const parsedCsvToTable = parsedCsvRows => {
+const parsedCsvToTable = (
+  parsedCsvRows: ParseCsvRenderProps['data']['result']
+) => {
   return parsedCsvRows.map(parsedCsvRow =>
     Object.keys(parsedCsvRow.data).reduce((acc, curr) => {
       return { ...acc, [curr]: parsedCsvRow.data[curr].value };
@@ -18,7 +20,9 @@ const parsedCsvToTable = parsedCsvRows => {
   );
 };
 
-const csvColumnsToTableColumns = csvColumns => {
+const csvColumnsToTableColumns = (
+  csvColumns: ParseCsvProps['config']['columns']
+) => {
   return csvColumns.map(csvColumn => ({
     ...csvColumn,
     accessor: csvColumn.name,
@@ -26,8 +30,7 @@ const csvColumnsToTableColumns = csvColumns => {
   }));
 };
 
-interface Props {
-  name: string;
+interface Props extends ParseCsvRenderProps {
   config: ParseCsvProps['config'];
 }
 
@@ -41,11 +44,14 @@ const CsvUploaderComponent: FC<Props> = ({
     clearFile();
     setFile(file);
   }, []);
+
   console.log(data);
-  console.log(data.result);
-  console.log(parsedCsvToTable(data.result));
   const isFullyInvalid =
     data.errorRows === data.totalRows || data.errorRows === config.maxRows;
+  const errorCount = data.result.reduce((acc, cur) => {
+    acc += Object.values(cur.data).filter(cell => !cell.isColumnValid).length;
+    return acc;
+  }, 0);
 
   return (
     <Fragment>
@@ -71,12 +77,20 @@ const CsvUploaderComponent: FC<Props> = ({
                 description="Please make sure your .csv file follows the format of format our sample file."
               />
             )}
+            {errorCount && (
+              <Notification
+                status="alert"
+                title={`${errorCount} Errors in Your .csv File`}
+                description="Please note that the entries below contains error that prevent their content to be committed to the blockchain. Entries were automatically deselected so they are not submitted to the blockchain and may be edited separately. You can also elect to cancel the minting operation to review the csv file offline."
+              />
+            )}
           </sc.ErrorsWrapper>
           {!isFullyInvalid && (
             <Box mt="m">
               <Table
                 data={parsedCsvToTable(data.result)}
                 columns={csvColumnsToTableColumns(config.columns)}
+                csvParserData={data.result}
               >
                 <Table.Rows small />
               </Table>
