@@ -168,6 +168,7 @@ export const Presenter: FC<Props> = ({
         </GridRow.Col>
       </GridRow>
       <Form
+        enableReinitialize
         initialValues={{
           walletAddress,
         }}
