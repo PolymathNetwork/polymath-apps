@@ -10,13 +10,16 @@ import { createErc20DividendsModuleBySymbolFetcher } from '~/state/fetchers';
 import {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
+  setDividendsWalletStart,
 } from '~/state/actions/procedures';
 import { RootState } from '~/state/store';
 import { getSession } from '~/state/selectors';
+import { DividendModuleTypes } from '@polymathnetwork/sdk';
 
 const actions = {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
+  setDividendsWalletStart,
 };
 
 export interface Props {
@@ -40,11 +43,22 @@ export class ContainerBase extends Component<Props> {
   public enableErc20DividendsModule = (storageWalletAddress: string) => {
     const { dispatch, securityTokenSymbol } = this.props;
 
-    // TODO @monitz87: change the wallet address to the one supplied by the user when we implement the form
     dispatch(
       enableErc20DividendsModuleStart({
         securityTokenSymbol,
         storageWalletAddress,
+      })
+    );
+  };
+
+  public changeWalletAddress = (storageWalletAddress: string) => {
+    const { dispatch, securityTokenSymbol } = this.props;
+
+    dispatch(
+      setDividendsWalletStart({
+        securityTokenSymbol,
+        dividendType: DividendModuleTypes.Erc20,
+        walletAddress: storageWalletAddress,
       })
     );
   };

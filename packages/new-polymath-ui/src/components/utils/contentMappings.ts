@@ -360,6 +360,15 @@ export const getTransactionQueueContent = (
         description: 'Push Dividend Payment',
       };
     }
+    case types.ProcedureTypes.SetDividendsWallet: {
+      const args: ProcedureArguments[types.ProcedureTypes.SetDividendsWallet] =
+        queue.args;
+
+      return {
+        title: 'Set Dividends Wallet',
+        description: 'Set Dividends Wallet',
+      };
+    }
     case types.ProcedureTypes.UnnamedProcedure:
     default: {
       return {
@@ -453,6 +462,12 @@ export const getTransactionTitle = (
         transaction.args;
 
       return 'Push Dividend Payment';
+    }
+    case types.PolyTransactionTags.SetDividendsWallet: {
+      const args: TransactionArguments[types.PolyTransactionTags.SetDividendsWallet] =
+        transaction.args;
+
+      return 'Set Dividends Wallet';
     }
     default: {
       return '';
@@ -583,6 +598,15 @@ export const getTransactionContent = (
         description: 'Push Dividends Payment',
       };
     }
+    case types.PolyTransactionTags.SetDividendsWallet: {
+      const args: TransactionArguments[types.PolyTransactionTags.SetDividendsWallet] =
+        transaction.args;
+
+      return {
+        title: 'Set Dividends Wallet',
+        description: 'Set Dividends Wallet',
+      };
+    }
     default: {
       return {
         title: '',
@@ -609,4 +633,5 @@ export const getTransactionIcon = (transaction: types.TransactionPojo) =>
     [types.PolyTransactionTags.ReclaimDividendFunds]: SvgErc20,
     [types.PolyTransactionTags.WithdrawTaxWithholdings]: SvgErc20,
     [types.PolyTransactionTags.PushDividendPayment]: SvgErc20,
+    [types.PolyTransactionTags.SetDividendsWallet]: SvgErc20,
   }[transaction.tag]);
