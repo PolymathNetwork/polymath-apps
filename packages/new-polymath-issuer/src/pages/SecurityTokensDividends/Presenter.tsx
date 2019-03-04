@@ -203,10 +203,14 @@ export const Presenter: FC<Props> = ({
             maxWidth={500}
           >
             <ModalConfirm.Header>
-              Wallet Address to Receive Tax Withholdings
+              Edit Wallet Address for Tax Withholdings
             </ModalConfirm.Header>
             <Paragraph fontSize={2}>
-              This is the explanation of what is going on here.
+              Taxes will be withheld by the dividends smart contract at the time
+              dividends are distributed. Withholdings can be subsequently
+              withdrawn into a designated wallet for tax payments. Enter the
+              address of the wallet designated to receive the tax withholdings
+              funds when withdrawn.
             </Paragraph>
             <Grid>
               <FormItem name="walletAddress">
