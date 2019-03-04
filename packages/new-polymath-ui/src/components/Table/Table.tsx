@@ -9,6 +9,7 @@ import {
   useFlexLayout,
   useExpanded,
   Column,
+  Row,
 } from 'react-table';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.css';
@@ -44,7 +45,7 @@ export const TableComponent: FC<Props> = ({
         data-testid="select-all-rows"
       />
     ),
-    Cell: ({ row }) => (
+    Cell: ({ row }: { row: Row }) => (
       <Checkbox
         onChange={row.toggleSelected}
         checked={row.isSelected}
