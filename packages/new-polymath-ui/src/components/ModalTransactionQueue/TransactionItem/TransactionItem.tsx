@@ -89,7 +89,6 @@ const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
               <Link
                 href={utils.toEtherscanUrl(txHash, {
                   subdomain: transactionLinkSubdomain,
-                  type: 'address',
                 })}
               >
                 <TextEllipsis size={28}>{txHash}</TextEllipsis>

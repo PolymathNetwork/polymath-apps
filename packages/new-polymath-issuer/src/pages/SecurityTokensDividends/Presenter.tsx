@@ -140,6 +140,7 @@ export const Presenter: FC<Props> = ({
                     <Link
                       href={utils.toEtherscanUrl(dividendsModule.address, {
                         subdomain,
+                        type: 'address',
                       })}
                     >
                       {formatters.toShortAddress(dividendsModule.address)}
