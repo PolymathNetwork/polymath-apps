@@ -29,6 +29,7 @@ export interface Props {
   onCreateCheckpoint: () => void;
   dividendsModule?: types.Erc20DividendsModulePojo;
   defaultWalletAddress: string;
+  subdomain?: string;
 }
 
 // TODO @grsmto: move this to external form utils
@@ -46,6 +47,7 @@ export const Presenter: FC<Props> = ({
   onCreateCheckpoint,
   dividendsModule,
   defaultWalletAddress,
+  subdomain,
 }) => {
   const [walletAddress, setWalletAddress] = useState(defaultWalletAddress);
   const [isEditingAddress, setEditAddressState] = useState(false);
@@ -135,7 +137,11 @@ export const Presenter: FC<Props> = ({
                 <CardPrimary>
                   <Paragraph fontSize={0}>
                     Dividends contract address:{' '}
-                    <Link href={utils.toEtherscanUrl(dividendsModule.address)}>
+                    <Link
+                      href={utils.toEtherscanUrl(dividendsModule.address, {
+                        subdomain,
+                      })}
+                    >
                       {formatters.toShortAddress(dividendsModule.address)}
                     </Link>
                   </Paragraph>

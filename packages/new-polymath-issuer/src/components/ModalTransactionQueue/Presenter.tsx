@@ -10,6 +10,7 @@ export interface Props {
   onContinue: () => void;
   onConfirm: () => void;
   onClose: () => void;
+  transactionLinkSubdomain: string;
 }
 
 export class ModalTransactionQueuePresenter extends Component<Props> {
@@ -26,7 +27,7 @@ export class ModalTransactionQueuePresenter extends Component<Props> {
   };
 
   public render() {
-    const { transactionQueue, onClose } = this.props;
+    const { transactionQueue, onClose, transactionLinkSubdomain } = this.props;
     const { isConfirmed } = this.state;
 
     if (!transactionQueue) {
@@ -45,6 +46,7 @@ export class ModalTransactionQueuePresenter extends Component<Props> {
           isOpen={!!transactionQueue && isConfirmed}
           transactionQueue={transactionQueue}
           onContinue={this.props.onContinue}
+          transactionLinkSubdomain={transactionLinkSubdomain}
         />
       </Fragment>
     );

@@ -6,6 +6,7 @@
 
 import Web3 from 'web3';
 import { polyClient } from '@polymathnetwork/new-issuer/lib/polyClient';
+import { setNetworkId } from '@polymathnetwork/new-issuer/state/actions/app';
 
 import { getNetworkInfo } from './networks';
 import {
@@ -189,6 +190,8 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     dispatch,
     polymathRegistryAddress: network.polymathRegistryAddress,
   });
+
+  dispatch(setNetworkId(parseInt(networkId, 10)));
 
   // TODO @grsmto: Do proper dependency injection instead of sharing web3 instance via Redux state
   return dispatch(connected(networkParams));

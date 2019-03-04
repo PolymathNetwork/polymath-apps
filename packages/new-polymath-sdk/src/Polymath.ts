@@ -293,7 +293,7 @@ export class Polymath {
     const procedure = new SetDividendsWallet(args, this.context);
     return await procedure.prepare();
   };
-  
+
   /**
    * Withdraw taxes from a dividend distribution
    */

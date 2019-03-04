@@ -41,6 +41,7 @@ export interface ModalTransactionQueueProps extends ModalProps {
   continueButtonText?: string;
   getTitle: (queue: types.TransactionQueuePojo) => string;
   getTransactionTitle?: (transaction: types.TransactionPojo) => string;
+  transactionLinkSubdomain?: string;
 }
 
 export class ModalTransactionQueue extends Component<
@@ -60,6 +61,7 @@ export class ModalTransactionQueue extends Component<
       onContinue,
       getTitle,
       getTransactionTitle,
+      transactionLinkSubdomain,
     } = this.props;
 
     const { transactions, status } = transactionQueue;
@@ -87,6 +89,7 @@ export class ModalTransactionQueue extends Component<
             key={transaction.uid}
             transaction={transaction}
             getTitle={getTransactionTitle}
+            transactionLinkSubdomain={transactionLinkSubdomain}
           />
         ))}
 
