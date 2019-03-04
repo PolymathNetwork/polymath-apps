@@ -28,6 +28,9 @@ const getStep = (stepIndex: number) => {
     case 0: {
       return Step1;
     }
+    default: {
+      return Step1;
+    }
     // case 1:
     //   return <Step2 />;
     // case 2:
