@@ -72,7 +72,7 @@ export const Presenter: FC<Props> = ({
       walletAddress: validator
         .string()
         .required()
-        .isAddress(),
+        .isEthereumAddress(),
     });
     return validateFormWithSchema(schema, values);
   }, []);

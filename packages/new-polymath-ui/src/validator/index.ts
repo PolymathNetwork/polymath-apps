@@ -11,7 +11,7 @@ type ValidatorFn<T> = (
 ) => T;
 
 interface CustomStringSchema extends Yup.StringSchema {
-  isAddress: ValidatorFn<this>;
+  isEthereumAddress: ValidatorFn<this>;
   required: ValidatorFn<this>;
 }
 
@@ -39,8 +39,10 @@ yupValidator.addMethod(Yup.mixed, 'isRequired', function(message) {
   return this.required(message).typeError(message);
 });
 
-yupValidator.addMethod(yupValidator.string, 'isAddress', function(message) {
-  return this.test('validateIsAddress', message, function(value) {
+yupValidator.addMethod(yupValidator.string, 'isEthereumAddress', function(
+  message
+) {
+  return this.test('validateIsEthereumAddress', message, function(value) {
     if (!isValidAddress(value)) {
       return this.createError({
         message,
