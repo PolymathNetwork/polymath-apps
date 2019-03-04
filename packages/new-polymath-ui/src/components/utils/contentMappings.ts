@@ -1,6 +1,8 @@
 import { types } from '@polymathnetwork/new-shared';
 import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
+import { DividendModuleTypes } from '@polymathnetwork/sdk/build/dist/LowLevel/types';
+import { PolyTransactionTags } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 // TODO @monitz87: use actual text. The arguments are already there and typesafe
 export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
@@ -29,21 +31,20 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.CreateCheckpoint: {
-      const args: ProcedureArguments[types.ProcedureTypes.CreateCheckpoint] =
-        queue.args;
+      const content = 'with the Creation of a Dividend Checkpoint';
 
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
-          return 'An error ocurred while Creating Checkpoint';
+          return `An error ocurred ${content}`;
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Create Checkpoint';
+          return `Proceed ${content}`;
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Create Checkpoint';
+          return `Proceeding ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Create Checkpoint was successfully submitted';
+          return 'Created a Dividend Checkpoint';
         }
         default: {
           return '';
@@ -51,21 +52,20 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.CreateErc20DividendDistribution: {
-      const args: ProcedureArguments[types.ProcedureTypes.CreateErc20DividendDistribution] =
-        queue.args;
+      const content = 'Your Dividend Configuration';
 
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
-          return 'An error ocurred while Creating ERC20 Dividend Distribution';
+          return `An error ocurred with ${content}`;
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Create ERC20 Dividend Distribution';
+          return `Proceed with ${content}`;
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Create ERC20 Dividend Distribution';
+          return `Proceeding with ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Create ERC20 Dividend Distribution was successfully submitted';
+          return `${content} was successfully submitted`;
         }
         default: {
           return '';
@@ -117,21 +117,19 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.EnableDividendModules: {
-      const args: ProcedureArguments[types.ProcedureTypes.EnableDividendModules] =
-        queue.args;
-
+      const content = 'the Ability to Distribute Dividends';
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
-          return 'An error ocurred while Enabling Dividend Modules';
+          return `An error ocurred while Enabling ${content}`;
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Enable Dividend Modules';
+          return `Enable ${content}`;
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Enable Dividend Modules';
+          return `Enabling ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Enable Dividend Modules was successfully submitted';
+          return `Enabled ${content}`;
         }
         default: {
           return '';
@@ -183,21 +181,20 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.WithdrawTaxes: {
-      const args: ProcedureArguments[types.ProcedureTypes.WithdrawTaxes] =
-        queue.args;
+      const content = 'Withdrawing Withheld Taxes';
 
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
-          return 'An error ocurred while Withdrawing Funds';
+          return `An error ocurred while ${content}`;
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Withdraw Funds';
+          return `Proceed with ${content}`;
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Withdraw Funds';
+          return `Proceeding with ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Withdraw Funds was successfully submitted';
+          return 'Withheld Taxes were successfully withdrawn';
         }
         default: {
           return '';
@@ -205,21 +202,19 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.SetDividendsTaxWithholdingList: {
-      const args: ProcedureArguments[types.ProcedureTypes.SetDividendsTaxWithholdingList] =
-        queue.args;
-
+      const content = 'with Synchronization of the Tax Withholdings List';
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
-          return 'An error ocurred while Setting Tax Withholdings';
+          return `An error ocurred ${content}`;
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Set Tax Withholdings';
+          return `Proceed ${content}`;
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Set Tax Withholdings';
+          return `Proceeding ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Set Tax Withholdings was successfully submitted';
+          return `The Tax Withholdings List was successfully Synchronized`;
         }
         default: {
           return '';
@@ -227,21 +222,20 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.PushDividendPayment: {
-      const args: ProcedureArguments[types.ProcedureTypes.PushDividendPayment] =
-        queue.args;
+      const content = 'Your Dividend Distribution';
 
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
-          return 'An error ocurred while Pushing ERC20 Dividends Payments';
+          return `${content} was partially submitted`;
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Push ERC20 Dividends Payments';
+          return `Proceed with ${content}`;
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Push ERC20 Dividends Payments';
+          return `Proceeding with ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Push ERC20 Dividends Payments was successfully submitted';
+          return `${content} was successfully submitted`;
         }
         default: {
           return '';
@@ -271,21 +265,17 @@ export const getTransactionQueueContent = (
       };
     }
     case types.ProcedureTypes.CreateCheckpoint: {
-      const args: ProcedureArguments[types.ProcedureTypes.CreateCheckpoint] =
-        queue.args;
-
       return {
-        title: 'Create Checkpoint',
-        description: 'Create Checkpoint',
+        title: 'Create Dividend Checkpoint',
+        description: `A Dividend Checkpoint will provide you with a snapshot of your token's distribution \
+amongst shareholders at the time of its creation. This checkpoint can subsequently be used to determine how \
+dividends are distributed and how applicable taxes are withheld. Creating a checkpoint will require one wallet \
+transaction.`,
       };
     }
     case types.ProcedureTypes.CreateErc20DividendDistribution: {
-      const args: ProcedureArguments[types.ProcedureTypes.CreateErc20DividendDistribution] =
-        queue.args;
-
       return {
-        title: 'Create ERC20 Dividend Distribution',
-        description: 'Create ERC20 Dividend Distribution',
+        title: 'Proceed with Your Dividend Configuration',
       };
     }
     case types.ProcedureTypes.CreateEtherDividendDistribution: {
@@ -307,12 +297,8 @@ export const getTransactionQueueContent = (
       };
     }
     case types.ProcedureTypes.EnableDividendModules: {
-      const args: ProcedureArguments[types.ProcedureTypes.EnableDividendModules] =
-        queue.args;
-
       return {
-        title: 'Enable Dividend Modules',
-        description: 'Enable Dividend Modules',
+        title: 'Enable the Ability to Distribute Dividends',
       };
     }
     case types.ProcedureTypes.ReclaimFunds: {
@@ -334,30 +320,36 @@ export const getTransactionQueueContent = (
       };
     }
     case types.ProcedureTypes.WithdrawTaxes: {
-      const args: ProcedureArguments[types.ProcedureTypes.WithdrawTaxes] =
-        queue.args;
-
       return {
-        title: 'Withdraw Taxes',
-        description: 'Withdraw Taxes',
+        title: 'Withdraw Withheld Taxes',
       };
     }
     case types.ProcedureTypes.SetDividendsTaxWithholdingList: {
-      const args: ProcedureArguments[types.ProcedureTypes.SetDividendsTaxWithholdingList] =
-        queue.args;
-
       return {
-        title: 'Set Tax Withholding',
-        description: 'Set Tax Withholding',
+        title: 'Synchronize Tax Withholdings List',
       };
     }
     case types.ProcedureTypes.PushDividendPayment: {
-      const args: ProcedureArguments[types.ProcedureTypes.PushDividendPayment] =
-        queue.args;
+      const { transactions } = queue;
+
+      let investorCount = 0;
+
+      transactions.forEach(transaction => {
+        const txArgs: TransactionArguments[types.PolyTransactionTags.PushDividendPayment] =
+          transaction.args;
+
+        investorCount += txArgs.investorAddresses!.length;
+      });
 
       return {
-        title: 'Push Dividend Payment',
-        description: 'Push Dividend Payment',
+        title: 'Proceed with the Dividend Distribution',
+        description: `Dividends will be distributed to ${investorCount} investors.
+
+This operation will require ${transactions.length} wallet transactions.
+
+Each transaction will be used to distribute dividends to up to 100 investors at a time.
+
+Transactions may be resubmitted at a later time should a cancellation or error occur.`,
       };
     }
     case types.ProcedureTypes.SetDividendsWallet: {
@@ -398,16 +390,10 @@ export const getTransactionTitle = (
       return 'Approve';
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
-      const args: TransactionArguments[types.PolyTransactionTags.CreateCheckpoint] =
-        transaction.args;
-
-      return 'Create Checkpoint';
+      return 'Creating a Dividend Checkpoint';
     }
     case types.PolyTransactionTags.CreateErc20DividendDistribution: {
-      const args: TransactionArguments[types.PolyTransactionTags.CreateErc20DividendDistribution] =
-        transaction.args;
-
-      return 'Create Erc20 Dividend Distribution';
+      return 'Configuring Dividend Distribution';
     }
     case types.PolyTransactionTags.CreateSecurityToken: {
       const args: TransactionArguments[types.PolyTransactionTags.CreateSecurityToken] =
@@ -419,7 +405,11 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.EnableDividends] =
         transaction.args;
 
-      return 'Enable Dividends';
+      if (args.type === DividendModuleTypes.Erc20) {
+        return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and stable coins.';
+      }
+
+      return 'Enable Dividends Module';
     }
     case types.PolyTransactionTags.GetTokens: {
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
@@ -440,28 +430,34 @@ export const getTransactionTitle = (
       return 'Reserve Security Token';
     }
     case types.PolyTransactionTags.SetErc20TaxWithholding: {
-      const args: TransactionArguments[types.PolyTransactionTags.SetErc20TaxWithholding] =
-        transaction.args;
-
-      return 'Set ERC20 Tax Withholding';
+      return 'Updating Tax Withholdings List';
     }
     case types.PolyTransactionTags.SetEtherTaxWithholding: {
-      const args: TransactionArguments[types.PolyTransactionTags.SetEtherTaxWithholding] =
-        transaction.args;
-
-      return 'Set ETH tax Withholding';
+      return 'Updating Tax Withholdings List';
     }
     case types.PolyTransactionTags.WithdrawTaxWithholdings: {
-      const args: TransactionArguments[types.PolyTransactionTags.WithdrawTaxWithholdings] =
-        transaction.args;
-
-      return 'Withdraw Tax Withholdings';
+      return 'Withdraw Withheld Taxes';
     }
     case types.PolyTransactionTags.PushDividendPayment: {
-      const args: TransactionArguments[types.PolyTransactionTags.PushDividendPayment] =
-        transaction.args;
+      let paymentTxCount = 0;
+      let thisIndex = 0;
+      let indexFound = false;
 
-      return 'Push Dividend Payment';
+      transactions.forEach(tx => {
+        if (tx.tag === PolyTransactionTags.PushDividendPayment) {
+          paymentTxCount += 1;
+
+          if (!indexFound) {
+            thisIndex += 1;
+          }
+
+          if (tx.uid === transaction.uid) {
+            indexFound = true;
+          }
+        }
+      });
+
+      return `Dividend Distribution #${thisIndex} of ${paymentTxCount}`;
     }
     case types.PolyTransactionTags.SetDividendsWallet: {
       const args: TransactionArguments[types.PolyTransactionTags.SetDividendsWallet] =
@@ -500,21 +496,16 @@ export const getTransactionContent = (
       };
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
-      const args: TransactionArguments[types.PolyTransactionTags.CreateCheckpoint] =
-        transaction.args;
-
       return {
-        title: 'Create Checkpoint',
-        description: 'Create Checkpoint',
+        title: 'This transaction will be used to create a Dividend Checkpoint.',
+        description: 'Dividend Checkpoint',
       };
     }
     case types.PolyTransactionTags.CreateErc20DividendDistribution: {
-      const args: TransactionArguments[types.PolyTransactionTags.CreateErc20DividendDistribution] =
-        transaction.args;
-
       return {
-        title: 'Create Erc20 Dividend Distribution',
-        description: 'Create Erc20 Dividend Distribution',
+        title:
+          'This transaction will be used to configure the Dividend Distribution.',
+        description: 'Dividend Distribution Configuration',
       };
     }
     case types.PolyTransactionTags.CreateSecurityToken: {
@@ -531,8 +522,9 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Enable Dividends',
-        description: 'Enable Dividends',
+        title:
+          'Enable the distribution of dividends in ERC20 Tokens, including POLY and stable coins.',
+        description: 'Enable Dividend Distribution',
       };
     }
     case types.PolyTransactionTags.GetTokens: {
@@ -563,12 +555,10 @@ export const getTransactionContent = (
       };
     }
     case types.PolyTransactionTags.SetErc20TaxWithholding: {
-      const args: TransactionArguments[types.PolyTransactionTags.SetErc20TaxWithholding] =
-        transaction.args;
-
       return {
-        title: 'Set ERC20 Tax Withholding',
-        description: 'Set ERC20 Tax Withholding',
+        title:
+          'This transaction will be used to apply the submitted changes to the Tax Withholdings List.',
+        description: 'Update Tax Withholdings List',
       };
     }
     case types.PolyTransactionTags.SetEtherTaxWithholding: {
@@ -585,13 +575,17 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Withdraw Tax Withholdings',
-        description: 'Withdraw Tax Withholdings',
+        title:
+          'This transaction will be used to withdraw taxes withheld during the dividends distribution.',
+        description: 'Withdraw Withheld Taxes',
       };
     }
     case types.PolyTransactionTags.PushDividendPayment: {
       const args: TransactionArguments[types.PolyTransactionTags.PushDividendPayment] =
         transaction.args;
+
+      // TODO @monitz87: deal with this after we decide how to handle "batching" multiple transactions into
+      // one item.
 
       return {
         title: 'Push Dividends Payment',
