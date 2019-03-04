@@ -585,9 +585,27 @@ export const getTransactionContent = (
       // TODO @monitz87: deal with this after we decide how to handle "batching" multiple transactions into
       // one item.
 
+      let paymentTxCount = 0;
+      let thisIndex = 0;
+      let indexFound = false;
+
+      transactions.forEach(tx => {
+        if (tx.tag === types.PolyTransactionTags.PushDividendPayment) {
+          paymentTxCount += 1;
+
+          if (!indexFound) {
+            thisIndex += 1;
+          }
+
+          if (tx.uid === transaction.uid) {
+            indexFound = true;
+          }
+        }
+      });
+
       return {
-        title: 'Push Dividends Payment',
-        description: 'Push Dividends Payment',
+        title: 'Distribute Dividends',
+        description: `#${thisIndex} of ${paymentTxCount}`,
       };
     }
     case types.PolyTransactionTags.SetDividendsWallet: {
