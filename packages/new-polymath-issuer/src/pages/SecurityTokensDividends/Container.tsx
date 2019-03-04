@@ -90,7 +90,11 @@ export class ContainerBase extends Component<Props> {
                 onEnableDividends={this.enableErc20DividendsModule}
                 onChangeWalletAddress={this.changeWalletAddress}
                 dividendsModule={erc20DividendsModule}
-                defaultWalletAddress={walletAddress}
+                defaultWalletAddress={
+                  erc20DividendsModule
+                    ? erc20DividendsModule.storageWalletAddress
+                    : walletAddress
+                }
               />
             );
           }}
