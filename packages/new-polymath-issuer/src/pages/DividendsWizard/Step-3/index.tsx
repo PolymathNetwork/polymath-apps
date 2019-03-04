@@ -67,7 +67,7 @@ export const Step3 = ({  }: Props) => (
                 <FormItem.Input
                   component={TextInput}
                   placeholder="Enter the value"
-                  unit="POLY"
+                  inputProps={{ unit: 'POLY' }}
                 />
                 <FormItem.Error />
               </FormItem>

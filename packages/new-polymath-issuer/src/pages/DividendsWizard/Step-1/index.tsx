@@ -52,13 +52,15 @@ export const Step1 = ({  }: Props) => (
         noWalletExcluded: false,
       }}
       onSubmit={() => {}}
-      render={({ handleSubmit, isValid }) => (
+      render={() => (
         <Fragment>
           <FormItem name="walletAddress">
             <FormItem.Input
               component={Checkbox}
-              label="I confirm that no wallets must be excluded from the dividends
-                  distribution."
+              inputProps={{
+                label:
+                  'I confirm that no wallets must be excluded from the dividends distribution.',
+              }}
             />
             <FormItem.Error />
           </FormItem>
