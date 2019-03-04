@@ -25,6 +25,11 @@ export const GlobalStyles = createGlobalStyle`
     background-color: white;
     color: ${({ theme }) => theme.colors.baseText};
     font-family: ${({ theme }) => theme.fontFamilies.baseText};
+    font-weight: ${({ theme }) => theme.fontWeights.normal};
+  }
+
+  strong {
+    font-weight: ${({ theme }) => theme.fontWeights.strong};
   }
 
   button,

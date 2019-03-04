@@ -5,6 +5,11 @@ import { IconCircled } from '~/components/IconCircled';
 export const IconOutlined = styled(IconCircled).attrs({
   bg: 'transparent',
 })`
-  border: 2px solid;
+  border-style: solid;
+  border-width: ${({ borderWidth }) => borderWidth};
   ${({ color, theme }) => borderColor({ borderColor: color, theme })};
 `;
+
+IconOutlined.defaultProps = {
+  borderWidth: '2px',
+};

@@ -119,10 +119,6 @@ export const CloseButton = styled(IconButton)`
   position: absolute;
   top: 0;
   right: 0;
-  color: ${({ theme }) => theme.colors.gray[2]};
-  height: 44px;
-  width: 44px;
-  padding: 17px;
   overflow: hidden;
   cursor: pointer;
 
