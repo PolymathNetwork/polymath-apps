@@ -85,7 +85,7 @@ const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
             &nbsp;
             {txHash && (
               <Link href={utils.toEtherscanUrl(txHash)}>
-                <TextEllipsis size={28}>{txHash}</TextEllipsis>
+                <TextEllipsis size={26}>{txHash}</TextEllipsis>
               </Link>
             )}
           </Paragraph>
