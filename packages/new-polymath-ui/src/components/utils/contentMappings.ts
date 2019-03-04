@@ -1,8 +1,6 @@
 import { types } from '@polymathnetwork/new-shared';
 import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
-import { DividendModuleTypes } from '@polymathnetwork/sdk/build/dist/LowLevel/types';
-import { PolyTransactionTags } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 // TODO @monitz87: use actual text. The arguments are already there and typesafe
 export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
@@ -405,7 +403,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.EnableDividends] =
         transaction.args;
 
-      if (args.type === DividendModuleTypes.Erc20) {
+      if (args.type === types.DividendModuleTypes.Erc20) {
         return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and stable coins.';
       }
 
@@ -444,7 +442,7 @@ export const getTransactionTitle = (
       let indexFound = false;
 
       transactions.forEach(tx => {
-        if (tx.tag === PolyTransactionTags.PushDividendPayment) {
+        if (tx.tag === types.PolyTransactionTags.PushDividendPayment) {
           paymentTxCount += 1;
 
           if (!indexFound) {
