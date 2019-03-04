@@ -54,7 +54,12 @@ export const DividendListPresenter = ({
           </sc.NewDividendButton>
         </Fragment>
       ) : (
-        <sc.PlaceholderButton RouterLink={Link} href={newDividendUrl}>
+        <sc.PlaceholderButton
+          RouterLink={Link}
+          href={newDividendUrl}
+          variant="ghost"
+          iconPosition="top"
+        >
           <IconOutlined
             Asset={icons.SvgPlus}
             width={25}
