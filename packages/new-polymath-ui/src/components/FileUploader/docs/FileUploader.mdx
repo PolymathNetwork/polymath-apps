@@ -1,0 +1,36 @@
+---
+name: FileUploader
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Formik } from 'formik';
+
+import { FormItem } from '~/components/FormItem';
+import { FileUploaderPrimitive, FileUploader } from '../';
+
+# FileUploader
+
+<PropsTable of={FileUploader} />
+
+## Basic usage
+
+<Playground>
+  <FileUploaderPrimitive />
+</Playground>
+
+## As Formik component
+
+<Playground style={{ minHeight: '400px' }}>
+  <Formik
+    initialValues={{ myFile: null }}
+    render={formValues => (
+      <form>
+        <pre>{JSON.stringify(formValues.values, null, 2)}</pre>
+        <FormItem name="myFile">
+          <FormItem.Input component={FileUploader} />
+        </FormItem>
+      </form>
+    )}
+  />
+</Playground>
