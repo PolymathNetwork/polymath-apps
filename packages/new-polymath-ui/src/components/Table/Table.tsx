@@ -8,34 +8,38 @@ import {
   usePagination,
   useFlexLayout,
   useExpanded,
-  Column,
+  HeaderColumn,
 } from 'react-table';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.css';
 import { Icon } from '~/components/Icon';
 import { CheckboxPrimitive as Checkbox } from '~/components/inputs/Checkbox';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
-import { useSelectRow } from './hooks';
+import { useCsvParser } from './useCsvParser';
+import { useSelectRow } from './useSelectRow';
 import { Context } from './Context';
 import { Pagination } from './Pagination';
 import { BatchActionsToolbar } from './BatchActionsToolbar';
 import { Rows } from './Rows';
+import { Row as RowType } from './index';
 import * as sc from './styles';
 
 interface Props {
-  columns: Column[];
+  columns: HeaderColumn[];
   data: any[];
   selectable?: boolean;
+  csvParserData?: any[];
 }
 
 export const TableComponent: FC<Props> = ({
   columns,
   data,
   selectable,
+  csvParserData,
   children,
 }) => {
   const tableEl = useRef(null);
-  const selectRowColumn: Column = {
+  const selectRowColumn: HeaderColumn = {
     accessor: 'selectRow',
     Header: ({ getSelectRowToggleProps }) => (
       <Checkbox
@@ -44,9 +48,9 @@ export const TableComponent: FC<Props> = ({
         data-testid="select-all-rows"
       />
     ),
-    Cell: ({ row }) => (
+    Cell: ({ row }: { row: RowType }) => (
       <Checkbox
-        onChange={row.toggleSelected}
+        onChange={row.toggleSelected ? row.toggleSelected : () => {}}
         checked={row.isSelected}
         aria-label="Select row"
         data-testid="select-row"
@@ -54,11 +58,8 @@ export const TableComponent: FC<Props> = ({
     ),
     width: 60,
   };
-  const instance = useTable(
-    {
-      columns: selectable ? [selectRowColumn, ...columns] : columns,
-      data,
-    },
+  // Define plugins we want to support
+  const plugins: any[] = [
     useColumns,
     useRows,
     useFilters,
@@ -66,7 +67,24 @@ export const TableComponent: FC<Props> = ({
     useExpanded,
     usePagination,
     useFlexLayout,
-    useSelectRow
+  ];
+
+  // If Table is selectable, add SelectRow plugin
+  if (selectable) {
+    plugins.push(useSelectRow);
+  }
+
+  // If Table has Csv parser data, add CsvParser plugin
+  if (csvParserData) {
+    plugins.push(useCsvParser(csvParserData));
+  }
+
+  const instance = useTable(
+    {
+      columns: selectable ? [selectRowColumn, ...columns] : columns,
+      data,
+    },
+    ...plugins
   );
   const { getTableProps, headerGroups } = instance;
 

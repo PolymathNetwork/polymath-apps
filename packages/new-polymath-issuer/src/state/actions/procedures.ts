@@ -46,10 +46,28 @@ const pushDividendPaymentStart = createStandardAction(
   dividendIndex: number;
 }>();
 
+const setDividendsWalletStart = createStandardAction(
+  'PROCEDURES/SET_DIVIDENDS_WALLET_START'
+)<{
+  securityTokenSymbol: string;
+  dividendType: DividendModuleTypes;
+  walletAddress: string;
+}>();
+
+const withdrawDividendTaxesStart = createStandardAction(
+  'PROCEDURES/WITHDRAW_DIVIDEND_TAXES_START'
+)<{
+  securityTokenSymbol: string;
+  dividendType: DividendModuleTypes;
+  dividendIndex: number;
+}>();
+
 export {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
   updateTaxWithholdingListStart,
   pushDividendPaymentStart,
+  setDividendsWalletStart,
+  withdrawDividendTaxesStart,
   createErc20DividendDistributionStart,
 };

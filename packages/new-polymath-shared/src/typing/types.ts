@@ -35,6 +35,7 @@ export enum ProcedureTypes {
   ReserveSecurityToken = 'ReserveSecurityToken',
   WithdrawTaxes = 'WithdrawTaxes',
   SetDividendsTaxWithholdingList = 'SetDividendsTaxWithholdingList',
+  SetDividendsWallet = 'SetDividendsWallet',
   PushDividendPayment = 'PushDividendPayment',
 }
 
@@ -53,6 +54,7 @@ export enum PolyTransactionTags {
   ReclaimDividendFunds = 'ReclaimDividendFunds',
   WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
   PushDividendPayment = 'PushDividendPayment',
+  SetDividendsWallet = 'SetDividendsWallet',
 }
 
 export enum TransactionStatus {

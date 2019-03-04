@@ -1,4 +1,5 @@
 import { DividendsModule } from './DividendsModule';
+import { Polymath } from '~/Polymath';
 
 interface Params {
   address: string;
@@ -9,7 +10,7 @@ interface Params {
 export class Erc20DividendsModule extends DividendsModule {
   public entityType: string = 'erc20DividendsModule';
 
-  constructor(params: Params) {
-    super(params);
+  constructor(params: Params, polyClient?: Polymath) {
+    super(params, polyClient);
   }
 }

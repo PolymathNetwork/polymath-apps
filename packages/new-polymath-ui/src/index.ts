@@ -92,3 +92,5 @@ export const icons = {
   SvgPlusPlain,
   SvgWarning,
 };
+
+export { validator } from './validator';
