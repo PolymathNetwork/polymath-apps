@@ -60,9 +60,12 @@ export const Presenter: FC<Props> = ({
     setEditAddressState(false);
   }, []);
 
-  const handleEnableDividendsClick = useCallback(() => {
-    onEnableDividends(walletAddress);
-  }, []);
+  const handleEnableDividendsClick = useCallback(
+    () => {
+      onEnableDividends(walletAddress);
+    },
+    [walletAddress]
+  );
 
   const handleAddressChange = useCallback(values => {
     if (dividendsModule) {
