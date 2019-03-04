@@ -66,14 +66,14 @@ export const columns: Column[] = [
       <RowActions>
         <IconButton
           Asset={SvgPen}
-          width="1.5rem"
-          height="1.5rem"
+          width="1.4rem"
+          height="1.4rem"
           color="gray.2"
         />
         <IconButton
           Asset={SvgDelete}
-          width="1.5rem"
-          height="1.5rem"
+          width="1.4rem"
+          height="1.4rem"
           color="gray.2"
         />
       </RowActions>
