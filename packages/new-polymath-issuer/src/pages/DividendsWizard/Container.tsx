@@ -153,7 +153,7 @@ export class ContainerBase extends Component<Props, State> {
           }: {
             taxWithholdings: types.TaxWithholdingEntity[];
           }) => {
-            return <Presenter stepIndex={step} />;
+            return <Presenter stepIndex={step} onNextStep={this.nextStep} />;
           }}
         />
       </Page>
