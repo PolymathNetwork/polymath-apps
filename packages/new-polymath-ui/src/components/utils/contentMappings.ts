@@ -125,13 +125,13 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
           return 'An error ocurred while Enabling Dividend Modules';
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Enable Dividend Modules';
+          return 'Proceed with Enabling the Ability to Distribute Dividends';
         }
         case types.TransactionQueueStatus.Running: {
           return 'Proceeding with Enable Dividend Modules';
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Enable Dividend Modules was successfully submitted';
+          return 'Enabled the Ability to Distribute Dividends';
         }
         default: {
           return '';
@@ -315,8 +315,8 @@ export const getTransactionQueueContent = (
         queue.args;
 
       return {
-        title: 'Enable Dividend Modules',
-        description: 'Enable Dividend Modules',
+        title: 'Enable the Ability to Distribute Dividends',
+        description: '',
       };
     }
     case types.ProcedureTypes.ReclaimFunds: {
@@ -423,7 +423,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.EnableDividends] =
         transaction.args;
 
-      return 'Enable Dividends';
+      return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and Stablecoins';
     }
     case types.PolyTransactionTags.GetTokens: {
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
@@ -535,8 +535,9 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Enable Dividends',
-        description: 'Enable Dividends',
+        title:
+          'Enabling the distribution of dividends in ERC20 Tokens, including POLY and Stablecoins',
+        description: 'The Dividends Distribution',
       };
     }
     case types.PolyTransactionTags.GetTokens: {
