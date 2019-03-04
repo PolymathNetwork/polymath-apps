@@ -66,7 +66,7 @@ export const Presenter = ({ stepIndex, onNextStep }: Props) => (
       </GridRow.Col>
       <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
         <Box height={250} mb="xl">
-          <sc.WizardProgress currentIndex={stepIndex} vertical ordered>
+          <sc.WizardProgress currentIndex={stepIndex - 1} vertical ordered>
             <ProgressIndicator.Step label="Dividends Exclusion List" />
             <ProgressIndicator.Step label="Tax Withholdings List" />
             <ProgressIndicator.Step label="Dividends Distribution Parameters" />
