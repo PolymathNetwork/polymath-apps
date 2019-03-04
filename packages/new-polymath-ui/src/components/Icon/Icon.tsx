@@ -38,7 +38,7 @@ export const Icon = styled(IconComponent)<IconProps>`
     display: block;
     width: 100%;
     height: 100%;
-    padding: ${({ scale }) => `${(1 - scale!) * 100 + 10}%`};
+    padding: ${({ scale }) => `${(1 - scale!) * 100}%`};
   }
 `;
 

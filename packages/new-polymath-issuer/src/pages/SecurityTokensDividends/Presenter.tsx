@@ -120,7 +120,7 @@ export const Presenter: FC<Props> = ({
                       height={16}
                       bg="inactive"
                       color="white"
-                      scale={0.9}
+                      scale={0.8}
                     />
                     Enabled
                   </ButtonLarge>
