@@ -9,7 +9,7 @@ export const isString = (value: any) => typeof value === 'string';
 
 export const isInt = (value: any) => Number.isInteger(value);
 
-export const isAddress = (value: any) => Web3.utils.isAddress(value);
+export const isEthereumAddress = (value: any) => Web3.utils.isAddress(value);
 
 export const isDate = (value: any) =>
   new Date(value).toString() !== 'Invalid Date';
