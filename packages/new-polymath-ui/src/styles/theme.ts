@@ -37,9 +37,10 @@ const lineHeights = {
 };
 
 const fontWeights = {
-  light: 300,
-  normal: 400,
-  bold: 600,
+  light: 200,
+  normal: 300,
+  bold: 500,
+  strong: 600,
 };
 
 const space: Scale<string> = {
