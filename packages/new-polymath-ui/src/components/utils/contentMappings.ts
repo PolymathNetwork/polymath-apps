@@ -244,18 +244,20 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       const args: ProcedureArguments[types.ProcedureTypes.SetDividendsWallet] =
         queue.args;
 
+      const content = 'Editing Storage Wallet Address';
+
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
-          return 'An error ocurred while Setting Dividends Wallet';
+          return `An error ocurred while ${content}`;
         }
         case types.TransactionQueueStatus.Idle: {
-          return 'Proceed with Set Dividends Wallet';
+          return `Proceed with ${content}`;
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Set Dividends Wallet';
+          return `Proceeding with ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Set Dividends Wallet was successfully submitted';
+          return `Storage Wallet Address updated`;
         }
         default: {
           return '';
