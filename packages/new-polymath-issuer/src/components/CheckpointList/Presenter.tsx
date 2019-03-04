@@ -83,7 +83,7 @@ export const CheckpointListPresenter = ({
                               Asset={icons.SvgCheckmark}
                               width={iconSize}
                               height={iconSize}
-                              scale={0.9}
+                              scale={0.8}
                               color="primary"
                             />
                           </sc.ProgressIndicator>

@@ -44,7 +44,7 @@ export const DividendListPresenter = ({
               Asset={icons.SvgPlus}
               width={25}
               height={25}
-              scale={0.9}
+              scale={0.8}
             />
             Add new <br /> dividend <br /> distribution
             <TooltipPrimary>
@@ -64,7 +64,7 @@ export const DividendListPresenter = ({
             Asset={icons.SvgPlus}
             width={25}
             height={25}
-            scale={0.9}
+            scale={0.8}
           />
           Add new <br /> dividend <br /> distribution
         </sc.PlaceholderButton>
