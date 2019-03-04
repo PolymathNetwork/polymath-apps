@@ -33,7 +33,6 @@ const columns = [
     Header: 'Investor Wallet Address',
     accessor: 'investorWalletAddress',
     Cell: ({ value }) => {
-      console.log(value);
       return <Link href="#">{value}</Link>;
     },
   },
@@ -56,7 +55,7 @@ const columns = [
   {
     Header: 'Status of Payment',
     accessor: 'statusOfPayment',
-    Cell: props => <Label color="green.1">{props.value}</Label>,
+    Cell: ({ value }) => <Label color="green.1">{value}</Label>,
   },
 ];
 
