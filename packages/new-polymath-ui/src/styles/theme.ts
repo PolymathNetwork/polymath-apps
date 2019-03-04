@@ -118,7 +118,7 @@ const buttons = {
     backgroundColor: colors.primary,
     borderColor: 'transparent',
     color: '#fff',
-    '&:hover, &:focus': {
+    '&:hover': {
       backgroundColor: transparentize(0.2, colors.primary),
     },
   },
@@ -126,7 +126,7 @@ const buttons = {
     backgroundColor: 'transparent',
     borderColor: colors.primary,
     color: colors.primary,
-    '&:hover, &:focus': {
+    '&:hover': {
       color: '#fff',
       backgroundColor: colors.primary,
     },
@@ -135,7 +135,7 @@ const buttons = {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     color: 'currentColor',
-    '&:hover, &:focus': {
+    '&:hover': {
       color: '#fff',
       backgroundColor: colors.secondary,
     },
