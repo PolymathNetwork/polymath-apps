@@ -8,7 +8,7 @@ export interface Props
   FormikComponent: React.ComponentType<FieldConfig>;
   placeholder?: string;
   component: React.ComponentType<any>;
-  inputProps: {
+  inputProps?: {
     [key: string]: any;
   };
 }
@@ -16,12 +16,11 @@ export interface Props
 export class InputBase extends Component<Props> {
   public render() {
     const { FormikComponent, component, inputProps, ...props } = this.props;
-
     return (
       <Context.Consumer>
         {({ name }) => (
           <FormikComponent
-            {...inputProps}
+            {...inputProps || {}}
             {...props}
             name={name}
             component={component}
