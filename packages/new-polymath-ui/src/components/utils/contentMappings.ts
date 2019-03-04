@@ -40,10 +40,10 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
           return 'Proceed with Create Checkpoint';
         }
         case types.TransactionQueueStatus.Running: {
-          return 'Proceeding with Create Checkpoint';
+          return 'Proceeding with Creation of a Dividend Checkpoint';
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return 'Create Checkpoint was successfully submitted';
+          return 'Created Dividend Checkpoint';
         }
         default: {
           return '';
@@ -275,8 +275,12 @@ export const getTransactionQueueContent = (
         queue.args;
 
       return {
-        title: 'Create Checkpoint',
-        description: 'Create Checkpoint',
+        title: 'Create Dividend Checkpoint',
+        description:
+          'The Dividend Checkpoint will provide you with ownership distribution at the time of the checkpoint. ' +
+          'This checkpoint can subsequently be used to determine how dividends are distributed, including how ' +
+          'applicable taxes are withheald. Completion of the Create Dividend Checkpoint will require one wallet ' +
+          'transaction.',
       };
     }
     case types.ProcedureTypes.CreateErc20DividendDistribution: {
@@ -401,7 +405,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.CreateCheckpoint] =
         transaction.args;
 
-      return 'Create Checkpoint';
+      return 'Creating a Dividend Checkpoint';
     }
     case types.PolyTransactionTags.CreateErc20DividendDistribution: {
       const args: TransactionArguments[types.PolyTransactionTags.CreateErc20DividendDistribution] =
@@ -504,8 +508,8 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Create Checkpoint',
-        description: 'Create Checkpoint',
+        title: 'This transaction will be used to create a Dividend Checkpoint',
+        description: 'Dividend Checkpoint',
       };
     }
     case types.PolyTransactionTags.CreateErc20DividendDistribution: {
