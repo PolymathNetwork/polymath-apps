@@ -96,3 +96,5 @@ export const icons = {
   SvgWarning,
   SvgTaxes,
 };
+
+export { validator } from './validator';

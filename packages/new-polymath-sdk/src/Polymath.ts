@@ -293,7 +293,7 @@ export class Polymath {
     const procedure = new SetDividendsWallet(args, this.context);
     return await procedure.prepare();
   };
-  
+
   /**
    * Withdraw taxes from a dividend distribution
    */
@@ -336,9 +336,28 @@ export class Polymath {
 
     const checkpointIndex = await securityToken.currentCheckpointId();
 
-    return await dividendsModule.getTaxWithholdingList({
+    const taxWithholdings = await dividendsModule.getTaxWithholdingList({
       checkpointIndex,
     });
+
+    const name = await securityToken.name();
+
+    const emptySecurityToken = new this.SecurityToken({
+      symbol: securityTokenSymbol,
+      address: securityToken.address,
+      name,
+    });
+
+    return taxWithholdings.map(
+      ({ address, percentage }) =>
+        new this.TaxWithholding({
+          investorAddress: address,
+          percentage,
+          securityTokenSymbol,
+          securityTokenId: emptySecurityToken.uid,
+          dividendType,
+        })
+    );
   };
 
   /**

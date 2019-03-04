@@ -11,10 +11,10 @@ describe('Validator', () => {
   });
   test('tests addresses correctly', () => {
     expect(
-      validators.isAddress('0x07889A89C6854bb4Ec445825E680255b17751192')
+      validators.isEthereumAddress('0x07889A89C6854bb4Ec445825E680255b17751192')
     ).toBe(true);
     expect(
-      validators.isAddress('0x07889A89C6854bb4Ec445825E680255b17751193')
+      validators.isEthereumAddress('0x07889A89C6854bb4Ec445825E680255b17751193')
     ).toBe(false);
   });
   test('tests isNotEmpty correctly', () => {
