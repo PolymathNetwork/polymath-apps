@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Box,
   Button,
+  Form,
   Icon,
   icons,
   Heading,
@@ -19,12 +20,13 @@ import { Step1 } from './Step-1';
 
 export interface Props {
   stepIndex: number;
+  onNextStep: () => void;
 }
 
 const getStep = (stepIndex: number) => {
   switch (stepIndex) {
     case 0: {
-      return <Step1 />;
+      return Step1;
     }
     // case 1:
     //   return <Step2 />;
@@ -33,7 +35,7 @@ const getStep = (stepIndex: number) => {
   }
 };
 
-export const Presenter = ({ stepIndex }: Props) => (
+export const Presenter = ({ stepIndex, onNextStep }: Props) => (
   <div>
     <Text color="primary">
       <Button variant="ghostSecondary" iconPosition="right">
@@ -46,7 +48,18 @@ export const Presenter = ({ stepIndex }: Props) => (
     </Heading>
     <GridRow>
       <GridRow.Col gridSpan={{ sm: 12, lg: 8 }}>
-        {getStep(stepIndex)}
+        <Form
+          initialValues={{
+            noWalletExcluded: false,
+            excludedWalletsCsv: null,
+          }}
+          onSubmit={() => {}}
+          render={props => {
+            const Step = getStep(stepIndex);
+
+            return <Step {...props} onSubmitStep={onNextStep} />;
+          }}
+        />
       </GridRow.Col>
       <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
         <Box height={250} mb="xl">
