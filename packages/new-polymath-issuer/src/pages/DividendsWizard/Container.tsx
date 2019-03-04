@@ -144,6 +144,7 @@ export class ContainerBase extends Component<Props, State> {
         fetchers={[
           createTaxWithholdingListBySymbolFetcher({
             securityTokenSymbol,
+            dividendType: DividendModuleTypes.Erc20,
           }),
         ]}
         render={({

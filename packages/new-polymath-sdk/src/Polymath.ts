@@ -28,12 +28,14 @@ import {
   CreateEtherDividendDistribution,
   SetDividendsTaxWithholdingList,
   PushDividendPayment,
+  WithdrawTaxes,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
 import { PolymathNetworkParams } from '~/types';
 import BigNumber from 'bignumber.js';
 import { includes } from 'lodash';
+import { SetDividendsWallet } from '~/procedures/SetDividendsWallet';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -277,6 +279,30 @@ export class Polymath {
     dividendId: number;
   }) => {
     const procedure = new PushDividendPayment(args, this.context);
+    return await procedure.prepare();
+  };
+
+  /**
+   * Change dividends module reclaiming wallet address
+   */
+  public setDividendsWallet = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    address: string;
+  }) => {
+    const procedure = new SetDividendsWallet(args, this.context);
+    return await procedure.prepare();
+  };
+  
+  /**
+   * Withdraw taxes from a dividend distribution
+   */
+  public withdrawTaxes = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    dividendIndex: number;
+  }) => {
+    const procedure = new WithdrawTaxes(args, this.context);
     return await procedure.prepare();
   };
 
@@ -536,7 +562,7 @@ export class Polymath {
   };
 
   public isValidErc20 = async (args: { address: string }) => {
-    const { address } = args;
+    const { address } = args;
     return this.lowLevel.isValidErc20({ address });
   };
 
