@@ -121,10 +121,10 @@ export const Presenter = ({ symbol, dividends }: Props) => (
             </Box>
             <Box>
               <Hr />
-              <Box mb="m" mt="s">
+              <Box mt="s" mb="l">
                 <Text>0 Remaining number of transactions</Text>
               </Box>
-              <ButtonFluid mt="l" disabled>
+              <ButtonFluid disabled>
                 Submit Outstanding Transactions
               </ButtonFluid>
             </Box>
@@ -224,9 +224,7 @@ export const Presenter = ({ symbol, dividends }: Props) => (
                   </li>
                 </List>
               </Box>
-              <ButtonFluid variant="secondary" mt="l">
-                Withdraw Taxes
-              </ButtonFluid>
+              <ButtonFluid variant="secondary">Withdraw Taxes</ButtonFluid>
             </Box>
           </Grid>
         </Card>
