@@ -17,7 +17,7 @@ interface Props {
    */
   checked?: boolean;
   name?: React.AllHTMLAttributes<HTMLInputElement>['name'];
-  label?: React.ComponentType;
+  label?: React.ComponentType | string;
 }
 
 export const CheckboxPrimitive: FC<Props> = ({
