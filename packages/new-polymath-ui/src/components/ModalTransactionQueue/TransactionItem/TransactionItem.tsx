@@ -83,10 +83,12 @@ const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
           <Paragraph as={Flex} fontSize={0}>
             <sc.Label>Transaction details on Etherscan: </sc.Label>
             &nbsp;
-            {txHash && (
+            {txHash ? (
               <Link href={utils.toEtherscanUrl(txHash)}>
                 <TextEllipsis size={26}>{txHash}</TextEllipsis>
               </Link>
+            ) : (
+              '…'
             )}
           </Paragraph>
         </CardPrimary>
