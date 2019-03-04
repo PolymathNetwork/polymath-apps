@@ -1,10 +1,4 @@
-import { DividendsModule } from './DividendsModule';
-
-interface Params {
-  address: string;
-  securityTokenSymbol: string;
-  securityTokenId: string;
-}
+import { DividendsModule, Params } from './DividendsModule';
 
 export class EthDividendsModule extends DividendsModule {
   public entityType: string = 'ethDividendsModule';
