@@ -49,7 +49,7 @@ export const Presenter: FC<Props> = ({
   dividendsModule,
   defaultWalletAddress,
 }) => {
-  const [walletAddress, setWalletAddress] = useState(defaultWalletAddress);
+  const [walletAddress, setWalletAddress] = useState(dividendsModule ? dividendsModule.storageWalletAddress : defaultWalletAddress);
   const [isEditingAddress, setEditAddressState] = useState(false);
 
   const handleAddressModalOpen = useCallback(() => {
