@@ -88,6 +88,7 @@ export class ContainerBase extends Component<Props> {
               <Presenter
                 onCreateCheckpoint={this.createCheckpoint}
                 onEnableDividends={this.enableErc20DividendsModule}
+                onChangeWalletAddress={this.changeWalletAddress}
                 dividendsModule={erc20DividendsModule}
                 defaultWalletAddress={walletAddress}
               />
