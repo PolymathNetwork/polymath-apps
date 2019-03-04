@@ -5,6 +5,8 @@
 // TypeScript Version: 3.0
 declare module 'react-table' {
   export type Cell = {
+    row: Row;
+    value: string;
     render: (type: string) => any;
     getCellProps: () => any;
   };
@@ -27,6 +29,7 @@ declare module 'react-table' {
       | string
       | (({ value }: { value: string }) => JSX.Element)
       | (({ row }: { row: Row }) => JSX.Element);
+    //| ((cell: Cell) => JSX.Element);
     id?: string | number;
     minWidth?: string | number;
     maxWidth?: string | number;
