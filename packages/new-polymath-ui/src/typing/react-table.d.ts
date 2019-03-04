@@ -21,20 +21,16 @@ declare module 'react-table' {
     originalRow: any;
   };
 
-  export interface Column {
+  export type Column = {
     accessor: string | ((originalRow: any) => string);
     Header?: string | ((props: Api) => JSX.Element);
     Filter?: string | ((props: Api) => JSX.Element);
-    Cell?:
-      | string
-      | (({ value }: { value: string }) => JSX.Element)
-      | (({ row }: { row: Row }) => JSX.Element);
-    //| ((cell: Cell) => JSX.Element);
+    Cell?: string | ((cell: Cell) => JSX.Element);
     id?: string | number;
     minWidth?: string | number;
     maxWidth?: string | number;
     width?: string | number;
-  }
+  };
 
   export type Page = Row[];
 
