@@ -240,6 +240,28 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
         }
       }
     }
+    case types.ProcedureTypes.SetDividendsWallet: {
+      const args: ProcedureArguments[types.ProcedureTypes.SetDividendsWallet] =
+        queue.args;
+
+      switch (status) {
+        case types.TransactionQueueStatus.Failed: {
+          return 'An error ocurred while Setting Dividends Wallet';
+        }
+        case types.TransactionQueueStatus.Idle: {
+          return 'Proceed with Set Dividends Wallet';
+        }
+        case types.TransactionQueueStatus.Running: {
+          return 'Proceeding with Set Dividends Wallet';
+        }
+        case types.TransactionQueueStatus.Succeeded: {
+          return 'Set Dividends Wallet was successfully submitted';
+        }
+        default: {
+          return '';
+        }
+      }
+    }
     case types.ProcedureTypes.UnnamedProcedure:
     default: {
       return 'Unnamed Procedure';
