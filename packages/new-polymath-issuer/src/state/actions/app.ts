@@ -23,3 +23,7 @@ export const initializePolyClientFailure = createStandardAction(
 export const setChangingRoute = createStandardAction('APP/SET_CHANGING_ROUTE')<
   boolean
 >();
+
+export const setNetworkId = createStandardAction('APP/SET_NETWORK_ID')<
+  number
+>();

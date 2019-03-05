@@ -2,11 +2,13 @@ import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import * as actions from '~/state/actions/app';
 import { AppActions } from '~/state/actions/types';
+import { constants } from '@polymathnetwork/new-shared';
 
 export interface AppState {
   activeTransactionQueue?: string;
   polyClientInitialized: boolean;
   changingRoute: boolean;
+  networkId?: constants.NetworkIds;
 }
 const initialState: AppState = {
   polyClientInitialized: false,
@@ -40,6 +42,12 @@ export const reducer: Reducer<AppState, AppActions> = (
       return {
         ...state,
         changingRoute: action.payload,
+      };
+    }
+    case getType(actions.setNetworkId): {
+      return {
+        ...state,
+        networkId: action.payload,
       };
     }
     default: {
