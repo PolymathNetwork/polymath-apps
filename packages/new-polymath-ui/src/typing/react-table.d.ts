@@ -10,9 +10,7 @@ declare module 'react-table' {
     render: (type: string) => any;
     getCellProps: () => any;
     column: Column;
-    row: Row;
     state: any;
-    value: any;
   };
 
   export type Row = {
