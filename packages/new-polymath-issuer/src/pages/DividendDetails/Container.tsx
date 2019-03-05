@@ -77,7 +77,11 @@ export class ContainerBase extends Component<Props> {
             } = data;
 
             return (
-              <Presenter symbol={securityTokenSymbol} dividend={dividend} />
+              <Presenter
+                symbol={securityTokenSymbol}
+                dividend={dividend}
+                taxWithholdings={taxWithholdings}
+              />
             );
           }}
         />

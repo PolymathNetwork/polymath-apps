@@ -25,6 +25,7 @@ import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
   dividend: types.DividendEntity;
+  taxWithholdings: types.TaxWithholdingEntity[];
   symbol: string;
 }
 
