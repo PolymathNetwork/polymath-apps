@@ -29,13 +29,13 @@ const redirectors = [
   },
   
   */
-  {
-    pattern: /securityTokens\/(.+)\/checkpoints\/(.+)\/dividends\/new/,
-    makeRoute: (params: string[]) => {
-      const [securityTokenSymbol, checkpointId, dividendId] = params;
-      return `/dashboard/${securityTokenSymbol}/checkpoints/${checkpointId}/dividends/new`;
-    },
-  },
+  // {
+  //   pattern: /securityTokens\/(.+)\/checkpoints\/(.+)\/dividends\/new/,
+  //   makeRoute: (params: string[]) => {
+  //     const [securityTokenSymbol, checkpointId, dividendId] = params;
+  //     return `/dashboard/${securityTokenSymbol}/checkpoints/${checkpointId}/dividends/new`;
+  //   },
+  // },
 ];
 
 /**

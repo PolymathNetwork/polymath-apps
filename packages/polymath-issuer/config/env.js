@@ -85,6 +85,7 @@ function getClientEnvironment(publicUrl) {
     POLYMATH_REGISTRY_ADDRESS_LOCAL:
       raw.REACT_APP_POLYMATH_REGISTRY_ADDRESS_LOCAL,
     DEPLOYMENT_STAGE: raw.REACT_APP_DEPLOYMENT_STAGE,
+    IS_LEGACY: 'true',
   });
 
   // Stringify all values so we can feed into Webpack DefinePlugin

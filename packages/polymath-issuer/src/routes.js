@@ -1,5 +1,7 @@
 // @flow
+import React from 'react';
 import { NotFoundPage, MaintenancePage } from '@polymathnetwork/ui';
+import { Redirect } from 'react-router-dom';
 
 import App from './components/App';
 import Dashboard from './components/Dashboard';
@@ -11,7 +13,6 @@ import TokenPage from './pages/token/TokenPage';
 import STOPage from './pages/sto/STOPage';
 import DividendsPage from './pages/dividends/DividendsPage';
 import DividendsWizardPage from './pages/dividends/DividendsWizardPage';
-import Reloader from './pages/Reloader';
 
 export default [
   {
@@ -57,14 +58,21 @@ export default [
             exact: true,
           },
           {
-            path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
-            component: Reloader,
-            exact: true,
-          },
-          {
             component: NotFoundPage,
           },
         ],
+      },
+      {
+        path: '/securityTokens/:id/checkpoints/:checkpointIndex/dividends/new',
+        component: props => {
+          const { id, checkpointIndex } = props.match.params;
+          return (
+            <Redirect
+              to={`/dashboard/${id}/checkpoints/${checkpointIndex}/dividends/new`}
+            />
+          );
+        },
+        exact: true,
       },
       {
         path: '/maintenance',
