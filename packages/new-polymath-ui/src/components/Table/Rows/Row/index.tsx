@@ -12,7 +12,7 @@ export const Row: FC<Props> = ({ row, small }) => {
     <sc.Row
       {...row.getRowProps()}
       selected={row.isSelected}
-      hasError={!row.isValid}
+      hasError={row.isValid === false}
     >
       {row.cells.map((cell: CellType, i: number) => (
         <sc.Cell
@@ -20,7 +20,7 @@ export const Row: FC<Props> = ({ row, small }) => {
           {...cell.getCellProps()}
           style={{ ...cell.getCellProps().style, display: 'flex' }}
           small={small}
-          hasError={!cell.isValid}
+          hasError={cell.isValid === false}
         >
           {cell.render('Cell')}
         </sc.Cell>
