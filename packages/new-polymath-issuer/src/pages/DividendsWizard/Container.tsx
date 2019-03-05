@@ -16,6 +16,7 @@ import {
 import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
+import { Page } from '@polymathnetwork/new-ui';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -144,33 +145,37 @@ export class ContainerBase extends Component<Props, State> {
     const { securityTokenSymbol, checkpointIndex } = this.props;
     const { step } = this.state;
     return (
-      <DataFetcher
-        fetchers={[
-          createTaxWithholdingListBySymbolFetcher({
-            securityTokenSymbol,
-            dividendType: DividendModuleTypes.Erc20,
-          }),
-          createCheckpointBySymbolAndIdFetcher({
-            securityTokenSymbol,
-            checkpointIndex: parseInt(checkpointIndex, 10),
-          }),
-        ]}
-        render={({
-          taxWithholdings,
-          checkpoints: [checkpoint],
-        }: {
-          taxWithholdings: types.TaxWithholdingEntity[];
-          checkpoints: types.CheckpointEntity[];
-        }) => {
-          return (
-            <Presenter
-              stepIndex={step}
-              securityTokenSymbol={securityTokenSymbol}
-              checkpoint={checkpoint}
-            />
-          );
-        }}
-      />
+      <Page title="Create New Dividend Distribution">
+        <DataFetcher
+          fetchers={[
+            createTaxWithholdingListBySymbolFetcher({
+              securityTokenSymbol,
+              dividendType: DividendModuleTypes.Erc20,
+            }),
+            createCheckpointBySymbolAndIdFetcher({
+              securityTokenSymbol,
+              checkpointIndex: parseInt(checkpointIndex, 10),
+            }),
+          ]}
+          render={({
+            taxWithholdings,
+            checkpoints: [checkpoint],
+          }: {
+            taxWithholdings: types.TaxWithholdingEntity[];
+            checkpoints: types.CheckpointEntity[];
+          }) => {
+            return (
+              <Presenter
+                stepIndex={step}
+                securityTokenSymbol={securityTokenSymbol}
+                checkpoint={checkpoint}
+                onNextStep={this.nextStep}
+                taxWithholdings={taxWithholdings}
+              />
+            );
+          }}
+        />
+      </Page>
     );
   }
 }

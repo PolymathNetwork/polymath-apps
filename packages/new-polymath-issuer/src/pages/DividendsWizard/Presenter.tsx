@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Box,
+  Form,
   Icon,
   icons,
   Heading,
@@ -22,12 +23,17 @@ export interface Props {
   stepIndex: number;
   securityTokenSymbol: string;
   checkpoint: types.CheckpointEntity;
+  onNextStep: () => void;
+  taxWithholdings: types.TaxWithholdingEntity[];
 }
 
 const getStep = (stepIndex: number) => {
   switch (stepIndex) {
     case 0: {
-      return <Step1 />;
+      return Step1;
+    }
+    default: {
+      return Step1;
     }
     // case 1:
     //   return <Step2 />;
@@ -36,7 +42,12 @@ const getStep = (stepIndex: number) => {
   }
 };
 
-export const Presenter = ({ stepIndex, securityTokenSymbol, checkpoint }: Props) => (
+export const Presenter = ({
+  stepIndex,
+  securityTokenSymbol,
+  checkpoint,
+  onNextStep,
+}: Props) => (
   <div>
     <Text color="primary">
       <ButtonLink
@@ -53,7 +64,18 @@ export const Presenter = ({ stepIndex, securityTokenSymbol, checkpoint }: Props)
     </Heading>
     <GridRow>
       <GridRow.Col gridSpan={{ sm: 12, lg: 8 }}>
-        {getStep(stepIndex)}
+        <Form
+          initialValues={{
+            noWalletExcluded: false,
+            excludedWalletsCsv: null,
+          }}
+          onSubmit={() => {}}
+          render={props => {
+            const Step = getStep(stepIndex);
+
+            return <Step {...props} onSubmitStep={onNextStep} />;
+          }}
+        />
       </GridRow.Col>
       <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
         <Box height={250} mb="xl">
@@ -81,8 +103,8 @@ export const Presenter = ({ stepIndex, securityTokenSymbol, checkpoint }: Props)
                   />
                 </Flex>
                 <Paragraph>
-                  <Text as="strong">{checkpoint.investorBalances.length}</Text> Investors held the token at
-                  checkpoint time
+                  <Text as="strong">{checkpoint.investorBalances.length}</Text>{' '}
+                  Investors held the token at checkpoint time
                 </Paragraph>
               </Flex>
             </List>
