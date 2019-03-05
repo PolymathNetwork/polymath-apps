@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
-import { createTaxWithholdingListBySymbolFetcher } from '~/state/fetchers';
+import {
+  createTaxWithholdingListBySymbolFetcher,
+  createCheckpointBySymbolAndIdFetcher,
+} from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
 import { DateTime } from 'luxon';
 import {
@@ -22,7 +25,7 @@ const actions = {
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
-  checkpointIndex: number;
+  checkpointIndex: string;
 }
 
 interface State {
@@ -60,6 +63,8 @@ export class ContainerBase extends Component<Props, State> {
   }) => {
     const { dispatch, securityTokenSymbol, checkpointIndex } = this.props;
 
+    const checkpointId = parseInt(checkpointIndex, 10);
+
     const maturityDate = new Date();
     const expiryDate = new Date(
       maturityDate.getFullYear() + 1000,
@@ -74,7 +79,7 @@ export class ContainerBase extends Component<Props, State> {
         expiryDate,
         erc20Address,
         amount,
-        checkpointId: checkpointIndex,
+        checkpointId,
         name,
         excludedAddresses,
         pushPaymentsWhenComplete: true,
@@ -136,7 +141,7 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public render() {
-    const { securityTokenSymbol } = this.props;
+    const { securityTokenSymbol, checkpointIndex } = this.props;
     const { step } = this.state;
     return (
       <DataFetcher
@@ -145,13 +150,25 @@ export class ContainerBase extends Component<Props, State> {
             securityTokenSymbol,
             dividendType: DividendModuleTypes.Erc20,
           }),
+          createCheckpointBySymbolAndIdFetcher({
+            securityTokenSymbol,
+            checkpointIndex: parseInt(checkpointIndex, 10),
+          }),
         ]}
         render={({
           taxWithholdings,
+          checkpoints: [checkpoint],
         }: {
           taxWithholdings: types.TaxWithholdingEntity[];
+          checkpoints: types.CheckpointEntity[];
         }) => {
-          return <Presenter stepIndex={step} securityTokenSymbol={securityTokenSymbol} />;
+          return (
+            <Presenter
+              stepIndex={step}
+              securityTokenSymbol={securityTokenSymbol}
+              checkpoint={checkpoint}
+            />
+          );
         }}
       />
     );

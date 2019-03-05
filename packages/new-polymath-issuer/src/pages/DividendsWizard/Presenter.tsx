@@ -16,10 +16,12 @@ import {
 } from '@polymathnetwork/new-ui';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
+import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
   stepIndex: number;
   securityTokenSymbol: string;
+  checkpoint: types.CheckpointEntity;
 }
 
 const getStep = (stepIndex: number) => {
@@ -34,7 +36,7 @@ const getStep = (stepIndex: number) => {
   }
 };
 
-export const Presenter = ({ stepIndex, securityTokenSymbol }: Props) => (
+export const Presenter = ({ stepIndex, securityTokenSymbol, checkpoint }: Props) => (
   <div>
     <Text color="primary">
       <ButtonLink
@@ -79,7 +81,7 @@ export const Presenter = ({ stepIndex, securityTokenSymbol }: Props) => (
                   />
                 </Flex>
                 <Paragraph>
-                  <Text as="strong">1400</Text> Investors held the token at
+                  <Text as="strong">{checkpoint.investorBalances.length}</Text> Investors held the token at
                   checkpoint time
                 </Paragraph>
               </Flex>
