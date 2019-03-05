@@ -49,9 +49,6 @@ export const routes = {
             Page: DividendsWizardPage,
             handler: handleDividendsRoute,
           },
-          '/details': {
-            Page: DividendDetailsPage,
-          },
         },
         '/checkpoints/:checkpointIndex/dividends/new': {
           Page: DividendsWizardPage,
