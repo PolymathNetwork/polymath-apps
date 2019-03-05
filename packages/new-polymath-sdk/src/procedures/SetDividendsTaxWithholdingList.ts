@@ -2,10 +2,10 @@ import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
 import { types } from '@polymathnetwork/new-shared';
-import { SetDividendsTaxWithholdingListArgs } from '~/types';
+import { SetDividendsTaxWithholdingListProcedureArgs } from '~/types';
 
 export class SetDividendsTaxWithholdingList extends Procedure<
-  SetDividendsTaxWithholdingListArgs
+  SetDividendsTaxWithholdingListProcedureArgs
 > {
   public type = types.ProcedureTypes.SetDividendsTaxWithholdingList;
   public async prepareTransactions() {

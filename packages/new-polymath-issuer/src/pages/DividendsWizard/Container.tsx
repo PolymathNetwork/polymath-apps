@@ -5,6 +5,7 @@ import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createTaxWithholdingListBySymbolFetcher } from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
+import { Page } from '@polymathnetwork/new-ui';
 import { DateTime } from 'luxon';
 import {
   updateTaxWithholdingListStart,
@@ -139,20 +140,23 @@ export class ContainerBase extends Component<Props, State> {
     const { securityTokenSymbol } = this.props;
     const { step } = this.state;
     return (
-      <DataFetcher
-        fetchers={[
-          createTaxWithholdingListBySymbolFetcher({
-            securityTokenSymbol,
-          }),
-        ]}
-        render={({
-          taxWithholdings,
-        }: {
-          taxWithholdings: types.TaxWithholdingEntity[];
-        }) => {
-          return <Presenter />;
-        }}
-      />
+      <Page title="Create New Dividend Distribution">
+        <DataFetcher
+          fetchers={[
+            createTaxWithholdingListBySymbolFetcher({
+              securityTokenSymbol,
+              dividendType: DividendModuleTypes.Erc20,
+            }),
+          ]}
+          render={({
+            taxWithholdings,
+          }: {
+            taxWithholdings: types.TaxWithholdingEntity[];
+          }) => {
+            return <Presenter stepIndex={step} onNextStep={this.nextStep} />;
+          }}
+        />
+      </Page>
     );
   }
 }

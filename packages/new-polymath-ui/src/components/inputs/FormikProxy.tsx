@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { FieldProps, FormikProps } from 'formik';
+import { FieldProps, FormikProps, FieldConfig } from 'formik';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 
 export interface RenderProps<Value> {

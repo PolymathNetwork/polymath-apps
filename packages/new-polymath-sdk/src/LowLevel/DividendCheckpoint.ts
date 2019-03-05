@@ -15,6 +15,7 @@ import {
   GetDividendInvestorsArgs,
   GetDividendsByCheckpointArgs,
   GetDividendArgs,
+  SetDividendsWalletArgs,
 } from './types';
 import { fromUnixTimestamp, fromWei, toWei } from './utils';
 import { TaxWithholding, DividendModuleTypes } from './types';
@@ -95,6 +96,7 @@ interface DividendCheckpointContract<T extends GenericContract> {
       dividendIndex: number,
       investorAddresses: string[]
     ): TransactionObject<void>;
+    changeWallet(wallet: string): TransactionObject<void>;
   } & T['methods'];
   getPastEvents: T['getPastEvents'];
 }
@@ -282,6 +284,13 @@ export abstract class DividendCheckpoint<
     return () =>
       this.contract.methods
         .pushDividendPaymentToAddresses(dividendIndex, investorAddresses)
+        .send({ from: this.context.account });
+  };
+
+  public setWallet = async ({ address }: SetDividendsWalletArgs) => {
+    return () =>
+      this.contract.methods
+        .changeWallet(address)
         .send({ from: this.context.account });
   };
 }

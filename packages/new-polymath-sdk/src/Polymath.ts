@@ -28,12 +28,14 @@ import {
   CreateEtherDividendDistribution,
   SetDividendsTaxWithholdingList,
   PushDividendPayment,
+  WithdrawTaxes,
 } from './procedures';
 import { CreateSecurityToken } from '~/procedures/CreateSecurityToken';
 import { Entity } from '~/entities/Entity';
 import { PolymathNetworkParams } from '~/types';
 import BigNumber from 'bignumber.js';
 import { includes } from 'lodash';
+import { SetDividendsWallet } from '~/procedures/SetDividendsWallet';
 
 // TODO @RafaelVidaurre: Type this correctly. It should return a contextualized
 // version of T
@@ -281,6 +283,30 @@ export class Polymath {
   };
 
   /**
+   * Change dividends module reclaiming wallet address
+   */
+  public setDividendsWallet = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    address: string;
+  }) => {
+    const procedure = new SetDividendsWallet(args, this.context);
+    return await procedure.prepare();
+  };
+
+  /**
+   * Withdraw taxes from a dividend distribution
+   */
+  public withdrawTaxes = async (args: {
+    symbol: string;
+    dividendType: DividendModuleTypes;
+    dividendIndex: number;
+  }) => {
+    const procedure = new WithdrawTaxes(args, this.context);
+    return await procedure.prepare();
+  };
+
+  /**
    * Retrieve a list of investor addresses and their corresponding tax withholding
    * percentages
    */
@@ -310,9 +336,28 @@ export class Polymath {
 
     const checkpointIndex = await securityToken.currentCheckpointId();
 
-    return await dividendsModule.getTaxWithholdingList({
+    const taxWithholdings = await dividendsModule.getTaxWithholdingList({
       checkpointIndex,
     });
+
+    const name = await securityToken.name();
+
+    const emptySecurityToken = new this.SecurityToken({
+      symbol: securityTokenSymbol,
+      address: securityToken.address,
+      name,
+    });
+
+    return taxWithholdings.map(
+      ({ address, percentage }) =>
+        new this.TaxWithholding({
+          investorAddress: address,
+          percentage,
+          securityTokenSymbol,
+          securityTokenId: emptySecurityToken.uid,
+          dividendType,
+        })
+    );
   };
 
   /**
@@ -536,7 +581,7 @@ export class Polymath {
   };
 
   public isValidErc20 = async (args: { address: string }) => {
-    const { address } = args;
+    const { address } = args;
     return this.lowLevel.isValidErc20({ address });
   };
 
