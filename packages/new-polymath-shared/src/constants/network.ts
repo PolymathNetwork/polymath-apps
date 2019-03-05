@@ -6,3 +6,13 @@ export enum NetworkIds {
   Ropsten = 3,
   Rinkeby = 4,
 }
+
+export const EtherscanSubdomains: {
+  [key: number]: string;
+} = {
+  [NetworkIds.Kovan]: 'kovan',
+  [NetworkIds.Ropsten]: 'ropsten',
+  [NetworkIds.Mainnet]: '',
+  [NetworkIds.Local]: 'localhost',
+  [NetworkIds.LocalVm]: 'localhost',
+};
