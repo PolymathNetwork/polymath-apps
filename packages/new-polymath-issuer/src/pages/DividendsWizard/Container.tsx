@@ -5,7 +5,6 @@ import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import { createTaxWithholdingListBySymbolFetcher } from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
-import { Page } from '@polymathnetwork/new-ui';
 import { DateTime } from 'luxon';
 import {
   updateTaxWithholdingListStart,

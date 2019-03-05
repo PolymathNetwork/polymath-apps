@@ -10,6 +10,8 @@ import ProvidersPage from './pages/providers/ProvidersPage';
 import TokenPage from './pages/token/TokenPage';
 import STOPage from './pages/sto/STOPage';
 import DividendsPage from './pages/dividends/DividendsPage';
+import DividendsWizardPage from './pages/dividends/DividendsWizardPage';
+import Reloader from './pages/Reloader';
 
 export default [
   {
@@ -47,6 +49,16 @@ export default [
           {
             path: '/dashboard/:id/dividends',
             component: DividendsPage,
+            exact: true,
+          },
+          {
+            path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
+            component: DividendsWizardPage,
+            exact: true,
+          },
+          {
+            path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
+            component: Reloader,
             exact: true,
           },
           {

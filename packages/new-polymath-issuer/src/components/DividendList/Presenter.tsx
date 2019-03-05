@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link } from 'redux-little-router';
+// import { Link } from 'redux-little-router';
 import {
   List,
   icons,
@@ -15,6 +15,8 @@ export interface Props {
   securityTokenSymbol: string;
   checkpointIndex: number;
 }
+
+const Link = props => <a {...props} />;
 
 export const DividendListPresenter = ({
   securityTokenSymbol,
