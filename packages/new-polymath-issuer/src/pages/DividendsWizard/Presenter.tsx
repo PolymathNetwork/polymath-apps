@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Button,
   Form,
   Icon,
   icons,
@@ -14,13 +13,18 @@ import {
   ProgressIndicator,
   CardPrimary,
   IconCircled,
+  ButtonLink,
 } from '@polymathnetwork/new-ui';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
+import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
   stepIndex: number;
+  securityTokenSymbol: string;
+  checkpoint: types.CheckpointEntity;
   onNextStep: () => void;
+  taxWithholdings: types.TaxWithholdingEntity[];
 }
 
 const getStep = (stepIndex: number) => {
@@ -38,13 +42,22 @@ const getStep = (stepIndex: number) => {
   }
 };
 
-export const Presenter = ({ stepIndex, onNextStep }: Props) => (
+export const Presenter = ({
+  stepIndex,
+  securityTokenSymbol,
+  checkpoint,
+  onNextStep,
+}: Props) => (
   <div>
     <Text color="primary">
-      <Button variant="ghostSecondary" iconPosition="right">
+      <ButtonLink
+        variant="ghostSecondary"
+        iconPosition="right"
+        href={`/securityTokens/${securityTokenSymbol}/dividends`}
+      >
         Go back
         <Icon Asset={icons.SvgArrow} width={18} height={18} />
-      </Button>
+      </ButtonLink>
     </Text>
     <Heading variant="h1" as="h1">
       Create New Dividend Distribution
@@ -90,8 +103,8 @@ export const Presenter = ({ stepIndex, onNextStep }: Props) => (
                   />
                 </Flex>
                 <Paragraph>
-                  <Text as="strong">1400</Text> Investors held the token at
-                  checkpoint time
+                  <Text as="strong">{checkpoint.investorBalances.length}</Text>{' '}
+                  Investors held the token at checkpoint time
                 </Paragraph>
               </Flex>
             </List>
