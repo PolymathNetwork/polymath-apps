@@ -40,6 +40,7 @@ export { ButtonLink } from './components/ButtonLink';
 export { Card } from './components/Card';
 export { CardPrimary } from './components/CardPrimary';
 export { CardFeatureState } from './components/CardFeatureState';
+export { CsvUploader } from './components/CsvUploader';
 export { ErrorBoundary } from './components/ErrorBoundary';
 export { Footer } from './components/Footer';
 export { Form } from './components/Form';

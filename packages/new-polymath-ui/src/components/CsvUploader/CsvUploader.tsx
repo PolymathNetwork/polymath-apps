@@ -1,5 +1,5 @@
-import React, { FC, useCallback } from 'react';
-import { typeHelpers } from '@polymathnetwork/new-shared';
+import React, { FC, useCallback, useEffect } from 'react';
+import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import {
   FormikProxy,
@@ -12,7 +12,7 @@ import { CsvErrors } from './CsvErrors';
 import { CsvPreview } from './CsvPreview';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
-type Value = File | File[] | null;
+type Value = csvParser.ResultRow[] | csvParser.ResultProps[][] | null;
 
 interface ComponentProps extends ParseCsvRenderProps {
   onChange: (value: Value) => void;
@@ -30,8 +30,18 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
   const handleFileUploaderChange = useCallback(file => {
     clearFile();
     setFile(file);
-    onChange(file);
   }, []);
+
+  useEffect(
+    () => {
+      if (data.isFileValid) {
+        onChange(data.result);
+      } else {
+        onChange(null);
+      }
+    },
+    [data.isFileValid]
+  );
 
   const isFullyInvalid =
     data.errorRows === data.totalRows || data.errorRows === csvConfig.maxRows;

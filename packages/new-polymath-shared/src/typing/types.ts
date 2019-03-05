@@ -143,6 +143,7 @@ export interface Erc20DividendsModuleEntity extends Entity {
   address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
+  storageWalletAddress: string;
 }
 
 export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
