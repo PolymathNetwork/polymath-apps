@@ -19,7 +19,7 @@ interface Config {
   header?: boolean;
   maxRows?: number;
   strict?: boolean;
-  parseErrorMessage: string;
+  parseErrorMessage?: string;
   missingRequiredColumnsErrorMessage?: string;
   extraColumnsErrorMessage?: string;
   rowsExceedMaxLimitErrorMessage?: string;
