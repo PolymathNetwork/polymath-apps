@@ -140,21 +140,23 @@ export class ContainerBase extends Component<Props, State> {
     const { securityTokenSymbol } = this.props;
     const { step } = this.state;
     return (
-      <DataFetcher
-        fetchers={[
-          createTaxWithholdingListBySymbolFetcher({
-            securityTokenSymbol,
-            dividendType: DividendModuleTypes.Erc20,
-          }),
-        ]}
-        render={({
-          taxWithholdings,
-        }: {
-          taxWithholdings: types.TaxWithholdingEntity[];
-        }) => {
-          return <Presenter stepIndex={step} />;
-        }}
-      />
+      <Page title="Create New Dividend Distribution">
+        <DataFetcher
+          fetchers={[
+            createTaxWithholdingListBySymbolFetcher({
+              securityTokenSymbol,
+              dividendType: DividendModuleTypes.Erc20,
+            }),
+          ]}
+          render={({
+            taxWithholdings,
+          }: {
+            taxWithholdings: types.TaxWithholdingEntity[];
+          }) => {
+            return <Presenter stepIndex={step} onNextStep={this.nextStep} />;
+          }}
+        />
+      </Page>
     );
   }
 }
