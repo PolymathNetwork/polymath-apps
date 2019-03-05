@@ -16,8 +16,6 @@ export interface Props {
   checkpointIndex: number;
 }
 
-const Link = props => <a {...props} />;
-
 export const DividendListPresenter = ({
   securityTokenSymbol,
   dividends,
@@ -37,7 +35,6 @@ export const DividendListPresenter = ({
             </li>
           ))}
           <sc.NewDividendButton
-            RouterLink={Link}
             href={newDividendUrl}
             variant="ghost"
             iconPosition="top"
@@ -56,7 +53,7 @@ export const DividendListPresenter = ({
           </sc.NewDividendButton>
         </Fragment>
       ) : (
-        <sc.PlaceholderButton RouterLink={Link} href={newDividendUrl}>
+        <sc.PlaceholderButton href={newDividendUrl}>
           <IconOutlined
             Asset={icons.SvgPlus}
             width={25}
