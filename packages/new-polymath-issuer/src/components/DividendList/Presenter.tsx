@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-// import { Link } from 'redux-little-router';
 import {
   List,
   icons,
