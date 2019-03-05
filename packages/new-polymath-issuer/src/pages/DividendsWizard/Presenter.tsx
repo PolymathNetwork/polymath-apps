@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Button,
   Icon,
   icons,
   Heading,
@@ -13,12 +12,14 @@ import {
   ProgressIndicator,
   CardPrimary,
   IconCircled,
+  ButtonLink,
 } from '@polymathnetwork/new-ui';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
 
 export interface Props {
   stepIndex: number;
+  securityTokenSymbol: string;
 }
 
 const getStep = (stepIndex: number) => {
@@ -33,13 +34,17 @@ const getStep = (stepIndex: number) => {
   }
 };
 
-export const Presenter = ({ stepIndex }: Props) => (
+export const Presenter = ({ stepIndex, securityTokenSymbol }: Props) => (
   <div>
     <Text color="primary">
-      <Button variant="ghostSecondary" iconPosition="right">
+      <ButtonLink
+        variant="ghostSecondary"
+        iconPosition="right"
+        href={`/securityTokens/${securityTokenSymbol}/dividends`}
+      >
         Go back
         <Icon Asset={icons.SvgArrow} width={18} height={18} />
-      </Button>
+      </ButtonLink>
     </Text>
     <Heading variant="h1" as="h1">
       Create New Dividend Distribution
