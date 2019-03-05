@@ -9,19 +9,20 @@ declare module 'react-table' {
     value: string;
     render: (type: string) => any;
     getCellProps: () => any;
+    column: Column;
+    row: Row;
+    state: any;
+    value: any;
   };
 
   export type Row = {
     index: number;
     cells: Cell[];
     getRowProps: () => any;
-    getSelectToggleProps: () => any;
-    toggleSelected: (index: number) => any;
-    isSelected: boolean;
     originalRow: any;
   };
 
-  export type Column = {
+  export interface HeaderColumn {
     accessor: string | ((originalRow: any) => string);
     Header?: string | ((props: Api) => JSX.Element);
     Filter?: string | ((props: Api) => JSX.Element);
@@ -30,7 +31,11 @@ declare module 'react-table' {
     minWidth?: string | number;
     maxWidth?: string | number;
     width?: string | number;
-  };
+  }
+
+  export interface Column extends HeaderColumn {
+    id: string | number;
+  }
 
   export type Page = Row[];
 
@@ -81,7 +86,7 @@ declare module 'react-table' {
 
   export interface TableProps {
     data: any[];
-    columns: Column[];
+    columns: HeaderColumn[];
     state?: any;
     debug?: boolean;
   }

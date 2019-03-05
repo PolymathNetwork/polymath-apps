@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { csvParser } from '@polymathnetwork/new-shared';
 
 export interface RenderProps {
@@ -64,6 +64,7 @@ export class ParseCsv extends Component<Props, State> {
         rowsExceedMaxLimit: rowsExceedMaxLimitErrorMessage || '',
       },
     };
+    console.log(file);
     try {
       const parseResult = await csvParser.parseCsv(fileProps);
       this.setState({ data: parseResult });

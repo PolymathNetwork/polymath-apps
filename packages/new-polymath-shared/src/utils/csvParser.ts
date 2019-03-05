@@ -34,9 +34,12 @@ export interface Column {
   required?: boolean;
 }
 
-interface ResultRow {
+export interface ResultRow {
   data: {
-    [key: string]: any;
+    [key: string]: {
+      isColumnValid: boolean;
+      value: any;
+    };
   };
   isRowValid: boolean;
 }
