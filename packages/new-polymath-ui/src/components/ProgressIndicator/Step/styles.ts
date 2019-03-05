@@ -5,7 +5,7 @@ import { StepProps } from './';
 
 type Props = Pick<StepProps, 'isComplete' | 'isCurrent' | 'isVertical'>;
 
-export const iconsSize = '1.3em';
+export const iconsSize = '1.6em';
 
 export const ProgressLine = styled.span`
   position: absolute;

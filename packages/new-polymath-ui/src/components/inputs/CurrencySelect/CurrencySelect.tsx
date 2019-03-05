@@ -27,8 +27,7 @@ interface OptionType {
 
 interface ExternalProps extends FormikExternalProps {
   theme: ThemeInterface;
-  placeholder: string;
-  type: types.Tokens;
+  placeholder?: string;
 }
 
 type Value = types.Tokens | types.Tokens[];
@@ -52,12 +51,14 @@ export const CURRENCY_OPTIONS: OptionType[] = [
   },
 ];
 
-interface SelectProps extends InputProps {
+interface SelectProps
+  extends Pick<InputProps, 'onChange' | 'error' | 'name' | 'autoComplete'> {
   options: types.Tokens[];
   theme: ThemeInterface;
   value: types.Tokens | types.Tokens[];
   // Override because ReactSelect does not provide the event
   onBlur: () => void;
+  placeholder?: string;
 }
 
 const getStyles = (theme: ThemeInterface): Styles => ({
