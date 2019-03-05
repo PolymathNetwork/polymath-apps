@@ -12,6 +12,7 @@ import {
   Form,
   FormItem,
   Checkbox,
+  List,
 } from '@polymathnetwork/new-ui';
 
 export interface Props {}
@@ -19,12 +20,19 @@ export interface Props {}
 export const Step2 = ({  }: Props) => (
   <Card p="gridGap" boxShadow={1}>
     <Heading variant="h2" mb="l">
-      1. Exclude Wallets from the Dividends Calculation
+      2. Add/Update Tax Withholdings List
     </Heading>
     <Paragraph>
-      Optionally exclude specific investor wallet addresses from the dividends
-      calculation and distribution by uploading their address via a CSV which
-      includes one wallet (ETH) address per line.
+      Optionally withhold taxes for applicable investor wallet addresses by
+      uploading a CSV which includes, for investors subject to tax withholdings:{' '}
+      <List vertical gridGap={0}>
+        <li>— Investor wallet's ETH Address;</li>
+        <li>
+          — % tax witholding for associated ETH address. The exact amount of
+          funds to be withheld will be automatically calculated prior to
+          distribution.
+        </li>
+      </List>
     </Paragraph>
     <Paragraph>
       You can download{' '}
