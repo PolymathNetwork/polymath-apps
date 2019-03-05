@@ -66,6 +66,7 @@ export {
 export { Page } from './components/Page';
 export { PageCentered } from './components/PageCentered';
 export { ProgressIndicator } from './components/ProgressIndicator';
+export { Remark } from './components/Remark';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
 export { Tooltip } from './components/Tooltip';
@@ -91,3 +92,5 @@ export const icons = {
   SvgPlusPlain,
   SvgWarning,
 };
+
+export { validator } from './validator';

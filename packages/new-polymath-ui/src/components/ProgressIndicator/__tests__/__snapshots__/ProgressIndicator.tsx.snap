@@ -10,10 +10,11 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   display: inline-block;
   vertical-align: middle;
   background-color: transparent;
-  width: 1.3em;
-  height: 1.3em;
+  width: 1.6em;
+  height: 1.6em;
   border-radius: 50%;
-  border: 2px solid;
+  border-style: solid;
+  border-width: 2px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -38,13 +39,13 @@ exports[`ProgressIndicator renders without crashing 1`] = `
 .c4 {
   box-sizing: border-box;
   margin-bottom: 0;
-  margin-left: calc(1.3em / 2);
+  margin-left: calc(1.6em / 2);
   margin-top: 0;
   font-weight: 600;
   line-height: 1.5;
   font-size: inherit;
   overflow-wrap: break-word;
-  line-height: 1.3em;
+  line-height: 1.6em;
   color: currentColor;
 }
 
@@ -84,10 +85,10 @@ exports[`ProgressIndicator renders without crashing 1`] = `
 }
 
 .c1 .c5 {
-  left: calc(1.3em / 2);
+  left: calc(1.6em / 2);
   top: 0;
   width: 2px;
-  height: calc(100% - 1.3em);
+  height: calc(100% - 1.6em);
 }
 
 .c1 .c2 {
@@ -138,7 +139,6 @@ exports[`ProgressIndicator renders without crashing 1`] = `
         class="c3"
       >
         <svg
-          bg="blue[0]"
           role="img"
           viewBox="0 0 24 24"
         >

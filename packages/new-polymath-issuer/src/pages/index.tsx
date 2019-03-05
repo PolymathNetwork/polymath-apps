@@ -18,6 +18,7 @@ export { MetamaskLockedPage } from './MetamaskLocked';
 export { SecurityTokensIndexPage } from './SecurityTokensIndex';
 export { SecurityTokensReservePage } from './SecurityTokensReserve';
 export { SecurityTokensDividendsPage } from './SecurityTokensDividends';
+export { DividendsWizardPage } from './DividendsWizard';
 export { NotFoundPage } from './NotFound';
 
 interface StateProps {
