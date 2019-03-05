@@ -9,7 +9,7 @@ import { ModalTransactionQueueContainer as Container } from '../Container';
 import { getType } from 'typesafe-actions';
 
 jest.mock('~/state/selectors', () => {
-  const original = require.requireActual('@polymathnetwork/sdk');
+  const original = require.requireActual('~/state/selectors');
 
   return {
     ...original,

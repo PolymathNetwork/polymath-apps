@@ -97,6 +97,7 @@ interface DividendCheckpointContract<T extends GenericContract> {
       investorAddresses: string[]
     ): TransactionObject<void>;
     changeWallet(wallet: string): TransactionObject<void>;
+    wallet(): TransactionObject<string>;
   } & T['methods'];
   getPastEvents: T['getPastEvents'];
 }
@@ -248,6 +249,10 @@ export abstract class DividendCheckpoint<
 
     return dividends;
   }
+
+  public getStorageWallet = async () => {
+    return this.contract.methods.wallet().call();
+  };
 
   public setWithholding = async ({
     investors,
