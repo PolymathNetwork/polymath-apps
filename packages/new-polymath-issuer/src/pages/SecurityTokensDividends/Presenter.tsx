@@ -26,9 +26,11 @@ import { WalletAddress } from './WalletAddress';
 
 export interface Props {
   onEnableDividends: (walletAddress: string) => void;
+  onChangeWalletAddress: (walletAddress: string) => void;
   onCreateCheckpoint: () => void;
   dividendsModule?: types.Erc20DividendsModulePojo;
   defaultWalletAddress: string;
+  subdomain?: string;
 }
 
 // TODO @grsmto: move this to external form utils
@@ -44,8 +46,10 @@ export const validateFormWithSchema = (validationSchema: any, values: any) => {
 export const Presenter: FC<Props> = ({
   onEnableDividends,
   onCreateCheckpoint,
+  onChangeWalletAddress,
   dividendsModule,
   defaultWalletAddress,
+  subdomain,
 }) => {
   const [walletAddress, setWalletAddress] = useState(defaultWalletAddress);
   const [isEditingAddress, setEditAddressState] = useState(false);
@@ -58,12 +62,20 @@ export const Presenter: FC<Props> = ({
     setEditAddressState(false);
   }, []);
 
-  const handleEnableDividendsClick = useCallback(() => {
-    onEnableDividends(walletAddress);
-  }, []);
+  const handleEnableDividendsClick = useCallback(
+    () => {
+      onEnableDividends(walletAddress);
+    },
+    [walletAddress]
+  );
 
   const handleAddressChange = useCallback(values => {
-    setWalletAddress(values.walletAddress);
+    if (dividendsModule) {
+      onChangeWalletAddress(values.walletAddress);
+    } else {
+      setWalletAddress(values.walletAddress);
+    }
+
     setEditAddressState(false);
   }, []);
 
@@ -129,13 +141,25 @@ export const Presenter: FC<Props> = ({
                   </ButtonLarge>
                 </Paragraph>
                 <WalletAddress
-                  walletAddress={walletAddress}
+                  walletAddress={
+                    dividendsModule.storageWalletAddress || walletAddress
+                  }
                   defaultWalletAddress={defaultWalletAddress}
                 />
+                <Paragraph mb="l">
+                  <LinkButton onClick={handleAddressModalOpen}>
+                    Edit address
+                  </LinkButton>
+                </Paragraph>
                 <CardPrimary>
                   <Paragraph fontSize={0}>
                     Dividends contract address:{' '}
-                    <Link href={utils.toEtherscanUrl(dividendsModule.address)}>
+                    <Link
+                      href={utils.toEtherscanUrl(dividendsModule.address, {
+                        subdomain,
+                        type: 'address',
+                      })}
+                    >
                       {formatters.toShortAddress(dividendsModule.address)}
                     </Link>
                   </Paragraph>
@@ -179,17 +203,21 @@ export const Presenter: FC<Props> = ({
         validate={handleAddressValidation}
         render={({ handleSubmit, isValid }) => (
           <ModalConfirm
-            isOpen={isEditingAddress && !dividendsModule}
+            isOpen={isEditingAddress}
             onSubmit={handleSubmit}
             onClose={handleAddressModalClose}
             isActionDisabled={!isValid}
             maxWidth={500}
           >
             <ModalConfirm.Header>
-              Wallet Address to Receive Tax Withholdings
+              Edit Wallet Address for Tax Withholdings
             </ModalConfirm.Header>
             <Paragraph fontSize={2}>
-              This is the explanation of what is going on here.
+              Taxes will be withheld by the dividends smart contract at the time
+              dividends are distributed. Withholdings can be subsequently
+              withdrawn into a designated wallet for tax payments. Enter the
+              address of the wallet designated to receive the tax withholdings
+              funds when withdrawn.
             </Paragraph>
             <Grid>
               <FormItem name="walletAddress">

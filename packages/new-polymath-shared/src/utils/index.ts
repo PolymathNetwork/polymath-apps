@@ -38,8 +38,8 @@ export function hashObj(args: Pojo): string {
 
 export const toEtherscanUrl = (
   value: string,
-  { network, type = 'tx' }: { network?: string; type?: string } = {}
-) => `https://${network ? network + '.' : ''}etherscan.io/${type}/${value}`;
+  { subdomain, type = 'tx' }: { subdomain?: string; type?: string } = {}
+) => `https://${subdomain ? subdomain + '.' : ''}etherscan.io/${type}/${value}`;
 
 /**
  * Generates a CSV file from JSON data and triggers a download in the client
