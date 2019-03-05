@@ -13,6 +13,7 @@ import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
+type TableProps = typeHelpers.GetProps<typeof Table>;
 
 type Value = File | File[] | null;
 
@@ -38,14 +39,16 @@ const csvColumnsToTableColumns = (
 
 interface ComponentProps extends ParseCsvRenderProps {
   onChange: (value: Value) => void;
-  config: ParseCsvProps['config'];
+  csvConfig: ParseCsvProps['config'];
+  tableConfig: typeHelpers.Omit<TableProps, 'data' | 'csvParserData'>;
 }
 
 const CsvUploaderComponent: FC<ComponentProps> = ({
   clearFile,
   setFile,
   data,
-  config,
+  csvConfig,
+  tableConfig,
   onChange,
 }) => {
   const handleFileUploaderChange = useCallback(file => {
@@ -55,7 +58,7 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
   }, []);
 
   const isFullyInvalid =
-    data.errorRows === data.totalRows || data.errorRows === config.maxRows;
+    data.errorRows === data.totalRows || data.errorRows === csvConfig.maxRows;
   const errorCount = data.result.reduce((acc, cur) => {
     acc += Object.values(cur.data).filter((cell: any) => !cell.isColumnValid)
       .length;
@@ -68,14 +71,14 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
       {!!data.result.length ? (
         <Fragment>
           <sc.ErrorsWrapper>
-            {config.maxRows && data.totalRows > config.maxRows && (
+            {csvConfig.maxRows && data.totalRows > csvConfig.maxRows && (
               <Notification
                 status="warning"
-                title={`More Than ${config.maxRows} Records Found`}
+                title={`More Than ${csvConfig.maxRows} Records Found`}
                 description={`Only ${
-                  config.maxRows
+                  csvConfig.maxRows
                 } records can be uploaded at a time. Any records above ${
-                  config.maxRows
+                  csvConfig.maxRows
                 } limit will not be added.`}
               />
             )}
@@ -98,10 +101,12 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
             <Box mt="m">
               <Table
                 data={parsedCsvToTable(data.result)}
-                columns={csvColumnsToTableColumns(config.columns)}
+                columns={csvColumnsToTableColumns(csvConfig.columns)}
                 csvParserData={data.result}
+                {...tableConfig}
               >
                 <Table.Rows small />
+                <Table.Pagination />
               </Table>
             </Box>
           )}
@@ -111,20 +116,25 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
   );
 };
 
-interface PrimitiveProps extends FormikProxyRenderProps<Value> {
-  config: ParseCsvProps['config'];
+interface PrimitiveProps {
+  csvConfig: ParseCsvProps['config'];
+  tableConfig: typeHelpers.Omit<TableProps, 'data' | 'csvParserData'>;
+  onChange: (value: Value) => void;
+  name?: string;
+  value?: Value;
+  onBlur?: () => void;
 }
 
 export const CsvUploaderPrimitive: FC<PrimitiveProps> = ({
-  config,
+  csvConfig,
   ...formikProps
 }) => {
   return (
     <ParseCsv
-      config={config}
+      config={csvConfig}
       render={parseCsvProps => (
         <CsvUploaderComponent
-          config={config}
+          csvConfig={csvConfig}
           {...parseCsvProps}
           {...formikProps}
         />
@@ -134,7 +144,8 @@ export const CsvUploaderPrimitive: FC<PrimitiveProps> = ({
 };
 
 interface Props extends FormikExternalProps {
-  config: ParseCsvProps['config'];
+  csvConfig: ParseCsvProps['config'];
+  tableConfig: typeHelpers.Omit<TableProps, 'data' | 'csvParserData'>;
 }
 
 export const CsvUploader: FC<Props> = ({ field, form, ...rest }) => (
