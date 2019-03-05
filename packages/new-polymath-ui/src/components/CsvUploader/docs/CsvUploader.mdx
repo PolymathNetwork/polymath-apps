@@ -35,25 +35,30 @@ import { CsvUploader, CsvUploaderPrimitive } from '../';
       ],
       header: true,
     }}
-    tableConfig={{
-      columns: [
-        {
-          accessor: 'Address',
-          Header: 'Address',
-          Cell: ({ value }) => formatters.toShortAddress(value, { size: 26 }),
-        },
-        {
-          accessor: 'Sale Lockup',
-          Header: 'Sale Lockup',
-        },
-        {
-          accessor: 'Purchase Lockup',
-          Header: 'Purchase Lockup',
-        },
-      ],
-    }}
     onChange={() => {}}
-  />
+  >
+    <CsvUploaderPrimitive.CsvErrors />
+    <CsvUploaderPrimitive.CsvPreview
+      tableConfig={{
+        columns: [
+          {
+            accessor: 'Address',
+            Header: 'Address',
+            Cell: ({ value }) => formatters.toShortAddress(value, { size: 26 }),
+          },
+          {
+            accessor: 'Sale Lockup',
+            Header: 'Sale Lockup',
+          },
+          {
+            accessor: 'Purchase Lockup',
+            Header: 'Purchase Lockup',
+          },
+        ],
+      }}
+      height={200}
+    />
+  </CsvUploaderPrimitive>
 </Playground>
 
 ## As Formik component

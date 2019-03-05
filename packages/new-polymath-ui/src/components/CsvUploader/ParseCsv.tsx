@@ -14,7 +14,7 @@ export interface ParseResult {
   warnings: string[];
 }
 
-interface Config {
+export interface Config {
   columns: Array<csvParser.Column>;
   header?: boolean;
   maxRows?: number;
