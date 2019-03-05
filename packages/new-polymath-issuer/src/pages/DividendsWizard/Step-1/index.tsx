@@ -75,28 +75,31 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
           <FormItem name="excludedWalletsCsv">
             <FormItem.Input
               component={CsvUploader}
-              config={{
-                columns: [
-                  {
-                    name: 'Address',
-                    validators: [validators.isString, validators.isNotEmpty],
-                  },
-                  {
-                    name: 'Sale Lockup',
-                    validators: [validators.isDate, validators.isNotEmpty],
-                  },
-                  {
-                    name: 'Purchase Lockup',
-                    validators: [validators.isDate, validators.isNotEmpty],
-                  },
-                ],
-                header: true,
-                maxRows: 3,
-                missingRequiredColumnsErrorMessage:
-                  'Some required columns do not exist in the CSV',
-                extraColumnsErrorMessage: 'the CSV file contains extra columns',
-                rowsExceedMaxLimitErrorMessage:
-                  'The CSV file contains more columns than the maximum limit',
+              inputProps={{
+                config: {
+                  columns: [
+                    {
+                      name: 'Address',
+                      validators: [validators.isString, validators.isNotEmpty],
+                    },
+                    {
+                      name: 'Sale Lockup',
+                      validators: [validators.isDate, validators.isNotEmpty],
+                    },
+                    {
+                      name: 'Purchase Lockup',
+                      validators: [validators.isDate, validators.isNotEmpty],
+                    },
+                  ],
+                  header: true,
+                  maxRows: 3,
+                  missingRequiredColumnsErrorMessage:
+                    'Some required columns do not exist in the CSV',
+                  extraColumnsErrorMessage:
+                    'the CSV file contains extra columns',
+                  rowsExceedMaxLimitErrorMessage:
+                    'The CSV file contains more columns than the maximum limit',
+                },
               }}
             />
             <FormItem.Error />
@@ -120,8 +123,10 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
       <FormItem name="noWalletExcluded">
         <FormItem.Input
           component={Checkbox}
-          label="I confirm that no wallets must be excluded from the dividends
-                distribution."
+          inputProps={{
+            label:
+              'I confirm that no wallets must be excluded from the dividends distribution.',
+          }}
         />
         <FormItem.Error />
       </FormItem>
