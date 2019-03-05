@@ -9,7 +9,6 @@ import {
   SecurityTokensIndexPage,
   HomePage,
   NotFoundPage,
-  DividendsDetails,
 } from '~/pages';
 
 import {
@@ -51,7 +50,7 @@ export const routes = {
             handler: handleDividendsRoute,
           },
           '/details': {
-            Page: DividendsDetails,
+            Page: DividendDetailsPage,
           },
         },
         '/checkpoints/:checkpointIndex/dividends/new': {

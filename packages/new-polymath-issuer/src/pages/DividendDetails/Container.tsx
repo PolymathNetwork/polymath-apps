@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { ActionType } from 'typesafe-actions/dist/types';
 import { types } from '@polymathnetwork/new-shared';
 import { Page } from '@polymathnetwork/new-ui';
-import { DividendDetailsPagePresenter } from './Presenter';
+import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import {
   createTaxWithholdingListBySymbolFetcher,
@@ -76,7 +76,9 @@ export class ContainerBase extends Component<Props> {
               dividends: [dividend],
             } = data;
 
-            return <DividendDetailsPagePresenter />;
+            return (
+              <Presenter symbol={securityTokenSymbol} dividend={dividend} />
+            );
           }}
         />
       </Page>
