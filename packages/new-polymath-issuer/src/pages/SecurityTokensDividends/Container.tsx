@@ -74,14 +74,7 @@ export class ContainerBase extends Component<Props> {
   public render() {
     const { securityTokenSymbol, walletAddress, networkId } = this.props;
 
-    let subdomain: string;
-
-    if (
-      typeof networkId === 'string' &&
-      constants.EtherscanSubdomains[networkId]
-    ) {
-      subdomain = constants.EtherscanSubdomains[networkId];
-    }
+    const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
 
     return (
       <Page title="Dividends">
