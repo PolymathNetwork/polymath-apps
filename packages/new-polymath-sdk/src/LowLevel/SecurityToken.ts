@@ -19,7 +19,6 @@ import { EtherDividendCheckpoint } from './EtherDividendCheckpoint';
 import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
 import { DividendCheckpointAbi } from './abis/DividendCheckpointAbi';
 import { Contract } from './Contract';
-import P from 'bluebird';
 
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenContract extends GenericContract {
@@ -142,7 +141,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
 
     const checkpointTimes = await methods.getCheckpointTimes().call();
 
-    const checkpoints: Checkpoint[] = await P.all(
+    const checkpoints: Checkpoint[] = await Promise.all(
       checkpointTimes.map((timestamp, index) =>
         this.getCheckpointData({ checkpointId: index + 1, timestamp })
       )
@@ -177,7 +176,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     const totalSupplyInWei = await methods.totalSupplyAt(checkpointId).call();
     const investorAddresses = await methods.getInvestorsAt(checkpointId).call();
 
-    const investorBalances: InvestorBalance[] = await P.all(
+    const investorBalances: InvestorBalance[] = await Promise.all(
       investorAddresses.map(investorAddress =>
         this.getInvestorBalance({ investorAddress, checkpointId })
       )
