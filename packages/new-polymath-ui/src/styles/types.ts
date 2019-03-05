@@ -13,6 +13,7 @@ export interface Buttons {
   primary: {};
   secondary: {};
   ghost: {};
+  ghostSecondary: {};
   raw: {};
 }
 
