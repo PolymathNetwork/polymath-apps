@@ -57,7 +57,9 @@ export const txContinue = () => async (
     }
     //TODO @grsmto: UI components should not call any history change directly. That should be handled with a callback not by this component directly.
     if (continueRoute) {
+      // NOTE @RafaelVidaurre: Hack to get programatical route changes working
       // $FlowFixMe
+      getState().pui.common.history.push(continueRoute);
       getState().pui.common.history.push(continueRoute);
     }
   } else {
