@@ -1,7 +1,8 @@
 import React from 'react';
-import { IconCircled, icons, styled } from '@polymathnetwork/new-ui';
+import styled from 'styled-components';
+import { IconCircled, icons } from '@polymathnetwork/new-ui';
 
-export const ListIcon = styled(({ active, ...otherProps }) => (
+const ListIconBase = ({ active, ...otherProps }: { active?: boolean }) => (
   <IconCircled
     Asset={icons.SvgCaretDown2}
     bg="inactive"
@@ -11,7 +12,9 @@ export const ListIcon = styled(({ active, ...otherProps }) => (
     scale={0.75}
     {...otherProps}
   />
-))`
+);
+
+export const ListIcon = styled(ListIconBase)`
   transform: rotateZ(0.75turn);
   opacity: ${({ active }) => (active ? 1 : 0.5)};
 `;
