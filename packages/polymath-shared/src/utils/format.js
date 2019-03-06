@@ -95,5 +95,5 @@ export const toTokens = (
   }
   return new BigNumber(number.toPrecision(precision))
     .toFormat(decimals, 1)
-    .replace(/\.?0+$/, '');
+    .replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1');
 };
