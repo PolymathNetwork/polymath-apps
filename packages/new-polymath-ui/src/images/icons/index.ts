@@ -7,6 +7,7 @@ export * from './generated/CaretDown';
 export * from './generated/CaretDown2';
 export * from './generated/Checkmark';
 export * from './generated/Checklist';
+export * from './generated/Cycle';
 export * from './generated/Dai';
 export * from './generated/Dot';
 export * from './generated/Delete';
