@@ -23,7 +23,10 @@ import {
 import {
   MAINNET_NETWORK_ID,
   KOVAN_NETWORK_ID,
+  EtherscanSubdomains,
 } from '@polymathnetwork/shared/constants';
+import { ModalTransactionQueue } from '@polymathnetwork/new-issuer/components/ModalTransactionQueue';
+import { ThemeProvider, GlobalStyles } from '@polymathnetwork/new-ui';
 
 import HomePage from '../pages/home';
 
@@ -39,6 +42,7 @@ type DispatchProps = {|
 const mapStateToProps = (state): StateProps => ({
   isNotice: state.pui.notice.isOpen,
   location: state.router.location,
+  transactionLinkSubdomain: EtherscanSubdomains[state.network.id],
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -59,7 +63,7 @@ class Root extends Component<Props> {
   }
 
   render() {
-    const { routes, location } = this.props;
+    const { routes, location, transactionLinkSubdomain } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
     const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
 
@@ -67,8 +71,10 @@ class Root extends Component<Props> {
     if (window.location.pathname === '/maintenance') {
       return <MaintenancePage />;
     }
+
     return (
       <ErrorBoundary>
+        <GlobalStyles />
         {isMobile || isUnsupportedBrowser ? (
           <NotSupportedPage />
         ) : location.pathname === '/' ? (
@@ -93,6 +99,11 @@ class Root extends Component<Props> {
             )}
           >
             {renderRoutes(routes)}
+            <ThemeProvider>
+              <ModalTransactionQueue
+                transactionLinkSubdomain={transactionLinkSubdomain}
+              />
+            </ThemeProvider>
           </EthNetworkWrapper>
         )}
       </ErrorBoundary>

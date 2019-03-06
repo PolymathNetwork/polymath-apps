@@ -4,6 +4,8 @@ import {
   MetamaskLockedPage,
   MetamaskGetPage,
   SecurityTokensDividendsPage,
+  DividendsWizardPage,
+  DividendDetailsPage,
   SecurityTokensIndexPage,
   HomePage,
   NotFoundPage,
@@ -14,6 +16,8 @@ import {
   handleLoginRoute,
   handleSecurityTokensRoute,
   handleDividendsRoute,
+  handleDividendsWizardRoute,
+  handleDividendDetailsRoute,
 } from '~/state/sagas/router';
 import { DashboardLayout, HomeLayout } from '~/layouts';
 
@@ -35,8 +39,20 @@ export const routes = {
       Page: SecurityTokensIndexPage,
       '/:securityTokenSymbol': {
         '/dividends': {
+          '/:dividendIndex': {
+            Page: DividendDetailsPage,
+            handler: handleDividendDetailsRoute,
+          },
           Page: SecurityTokensDividendsPage,
           handler: handleDividendsRoute,
+          '/new': {
+            Page: DividendsWizardPage,
+            handler: handleDividendsRoute,
+          },
+        },
+        '/checkpoints/:checkpointIndex/dividends/new': {
+          Page: DividendsWizardPage,
+          handler: handleDividendsWizardRoute,
         },
       },
       handler: handleSecurityTokensRoute,

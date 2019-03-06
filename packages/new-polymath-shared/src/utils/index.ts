@@ -1,3 +1,5 @@
+import { saveAs } from 'file-saver';
+import { parse, json2csv } from 'json2csv';
 import { Pojo, isPojo } from '~/typing/types';
 import _ from 'lodash';
 
@@ -36,5 +38,24 @@ export function hashObj(args: Pojo): string {
 
 export const toEtherscanUrl = (
   value: string,
-  { network, type = 'tx' }: { network?: string; type?: string } = {}
-) => `https://${network ? network + '.' : ''}etherscan.io/${type}/${value}`;
+  { subdomain, type = 'tx' }: { subdomain?: string; type?: string } = {}
+) => `https://${subdomain ? subdomain + '.' : ''}etherscan.io/${type}/${value}`;
+
+/**
+ * Generates a CSV file from JSON data and triggers a download in the client
+ *
+ * @param data json2csv data, see https://www.npmjs.com/package/json2csv#javascript-module-examples
+ * @param fileName name of the downloaded file
+ * @param opts json2csv options, see https://www.npmjs.com/package/json2csv#available-options
+ */
+export const downloadCsvFile = <T>(
+  data: Readonly<T> | ReadonlyArray<T>,
+  fileName: string,
+  opts?: json2csv.Options<T>
+) => {
+  const csvOutput = parse(data, opts);
+
+  const blob = new Blob([csvOutput], { type: 'text/csv' });
+
+  saveAs(blob, fileName);
+};

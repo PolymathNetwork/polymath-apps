@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "echo \"Skipping investor builds\"",
     "test": "echo \"No tests yet. Change the 'test' command to 'node scripts/test.js' if you want to enable tests in this repository\"",
     "typecheck": "flow --show-all-branches"
   },
@@ -35,7 +35,7 @@
     "flow-bin": "^0.81.0",
     "html-webpack-plugin": "3.2.0",
     "image-webpack-loader": "^4.3.1",
-    "jest": "22.4.3",
+    "jest": "^24.1.0",
     "loader-utils": "^1.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.3",

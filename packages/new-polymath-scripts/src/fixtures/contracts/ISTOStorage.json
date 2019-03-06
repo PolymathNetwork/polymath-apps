@@ -1,0 +1,714 @@
+{
+  "contractName": "ISTOStorage",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "endTime",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "wallet",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalTokensSold",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "startTime",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "pausedTime",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "name": "fundsRaised",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "name": "fundRaiseTypes",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "investorCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b50610222806100206000396000f30060806040526004361061008d5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633197cbb68114610092578063521eb273146100b957806363b20117146100f757806378e979251461010c578063b2cca39d14610121578063c4d2c6bd14610136578063d143a37914610151578063d7e64c0014610180575b600080fd5b34801561009e57600080fd5b506100a7610195565b60408051918252519081900360200190f35b3480156100c557600080fd5b506100ce61019b565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561010357600080fd5b506100a76101b7565b34801561011857600080fd5b506100a76101bd565b34801561012d57600080fd5b506100a76101c3565b34801561014257600080fd5b506100a760ff600435166101c9565b34801561015d57600080fd5b5061016c60ff600435166101db565b604080519115158252519081900360200190f35b34801561018c57600080fd5b506100a76101f0565b60035481565b60065473ffffffffffffffffffffffffffffffffffffffff1681565b60075481565b60025481565b60045481565b60016020526000908152604090205481565b60006020819052908152604090205460ff1681565b600554815600a165627a7a723058203c0c07be9eb05c732ab9b0999ab96b4027eda09d9f5afe31b0338408eb9472fd0029",
+  "deployedBytecode": "0x60806040526004361061008d5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633197cbb68114610092578063521eb273146100b957806363b20117146100f757806378e979251461010c578063b2cca39d14610121578063c4d2c6bd14610136578063d143a37914610151578063d7e64c0014610180575b600080fd5b34801561009e57600080fd5b506100a7610195565b60408051918252519081900360200190f35b3480156100c557600080fd5b506100ce61019b565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561010357600080fd5b506100a76101b7565b34801561011857600080fd5b506100a76101bd565b34801561012d57600080fd5b506100a76101c3565b34801561014257600080fd5b506100a760ff600435166101c9565b34801561015d57600080fd5b5061016c60ff600435166101db565b604080519115158252519081900360200190f35b34801561018c57600080fd5b506100a76101f0565b60035481565b60065473ffffffffffffffffffffffffffffffffffffffff1681565b60075481565b60025481565b60045481565b60016020526000908152604090205481565b60006020819052908152604090205460ff1681565b600554815600a165627a7a723058203c0c07be9eb05c732ab9b0999ab96b4027eda09d9f5afe31b0338408eb9472fd0029",
+  "sourceMap": "81:524:73:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;81:524:73;;;;;;;",
+  "deployedSourceMap": "81:524:73:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;298:22;;8:9:-1;5:2;;;30:1;27;20:12;5:2;298:22:73;;;;;;;;;;;;;;;;;;;;508:21;;8:9:-1;5:2;;;30:1;27;20:12;5:2;508:21:73;;;;;;;;;;;;;;;;;;;;;;;571:30;;8:9:-1;5:2;;;30:1;27;20:12;5:2;571:30:73;;;;241:24;;8:9:-1;5:2;;;30:1;27;20:12;5:2;241:24:73;;;;353:25;;8:9:-1;5:2;;;30:1;27;20:12;5:2;353:25:73;;;;160:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;160:45:73;;;;;;;109;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;109:45:73;;;;;;;;;;;;;;;;;;;;;;;;;422:28;;8:9:-1;5:2;;;30:1;27;20:12;5:2;422:28:73;;;;298:22;;;;:::o;508:21::-;;;;;;:::o;571:30::-;;;;:::o;241:24::-;;;;:::o;353:25::-;;;;:::o;160:45::-;;;;;;;;;;;;;:::o;109:::-;;;;;;;;;;;;;;;;:::o;422:28::-;;;;:::o",
+  "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Storage layout for the ISTO contract\n */\ncontract ISTOStorage {\n\n    mapping (uint8 => bool) public fundRaiseTypes;\n    mapping (uint8 => uint256) public fundsRaised;\n\n    // Start time of the STO\n    uint256 public startTime;\n    // End time of the STO\n    uint256 public endTime;\n    // Time STO was paused\n    uint256 public pausedTime;\n    // Number of individual investors\n    uint256 public investorCount;\n    // Address where ETH & POLY funds are delivered\n    address public wallet;\n     // Final amount of tokens sold\n    uint256 public totalTokensSold;\n\n}",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/STO/ISTOStorage.sol",
+  "ast": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/STO/ISTOStorage.sol",
+    "exportedSymbols": {
+      "ISTOStorage": [
+        28653
+      ]
+    },
+    "id": 28654,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 28632,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:73"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Storage layout for the ISTO contract",
+        "fullyImplemented": true,
+        "id": 28653,
+        "linearizedBaseContracts": [
+          28653
+        ],
+        "name": "ISTOStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 28636,
+            "name": "fundRaiseTypes",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "109:45:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint8_$_t_bool_$",
+              "typeString": "mapping(uint8 => bool)"
+            },
+            "typeName": {
+              "id": 28635,
+              "keyType": {
+                "id": 28633,
+                "name": "uint8",
+                "nodeType": "ElementaryTypeName",
+                "src": "118:5:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "109:23:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint8_$_t_bool_$",
+                "typeString": "mapping(uint8 => bool)"
+              },
+              "valueType": {
+                "id": 28634,
+                "name": "bool",
+                "nodeType": "ElementaryTypeName",
+                "src": "127:4:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28640,
+            "name": "fundsRaised",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "160:45:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint8_$_t_uint256_$",
+              "typeString": "mapping(uint8 => uint256)"
+            },
+            "typeName": {
+              "id": 28639,
+              "keyType": {
+                "id": 28637,
+                "name": "uint8",
+                "nodeType": "ElementaryTypeName",
+                "src": "169:5:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "160:26:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint8_$_t_uint256_$",
+                "typeString": "mapping(uint8 => uint256)"
+              },
+              "valueType": {
+                "id": 28638,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "178:7:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28642,
+            "name": "startTime",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "241:24:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28641,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "241:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28644,
+            "name": "endTime",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "298:22:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28643,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "298:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28646,
+            "name": "pausedTime",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "353:25:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28645,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "353:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28648,
+            "name": "investorCount",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "422:28:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28647,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "422:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28650,
+            "name": "wallet",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "508:21:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28649,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "508:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28652,
+            "name": "totalTokensSold",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "571:30:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28651,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "571:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 28654,
+        "src": "81:524:73"
+      }
+    ],
+    "src": "0:605:73"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/modules/STO/ISTOStorage.sol",
+    "exportedSymbols": {
+      "ISTOStorage": [
+        28653
+      ]
+    },
+    "id": 28654,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 28632,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:73"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Storage layout for the ISTO contract",
+        "fullyImplemented": true,
+        "id": 28653,
+        "linearizedBaseContracts": [
+          28653
+        ],
+        "name": "ISTOStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 28636,
+            "name": "fundRaiseTypes",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "109:45:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint8_$_t_bool_$",
+              "typeString": "mapping(uint8 => bool)"
+            },
+            "typeName": {
+              "id": 28635,
+              "keyType": {
+                "id": 28633,
+                "name": "uint8",
+                "nodeType": "ElementaryTypeName",
+                "src": "118:5:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "109:23:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint8_$_t_bool_$",
+                "typeString": "mapping(uint8 => bool)"
+              },
+              "valueType": {
+                "id": 28634,
+                "name": "bool",
+                "nodeType": "ElementaryTypeName",
+                "src": "127:4:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28640,
+            "name": "fundsRaised",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "160:45:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint8_$_t_uint256_$",
+              "typeString": "mapping(uint8 => uint256)"
+            },
+            "typeName": {
+              "id": 28639,
+              "keyType": {
+                "id": 28637,
+                "name": "uint8",
+                "nodeType": "ElementaryTypeName",
+                "src": "169:5:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "160:26:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint8_$_t_uint256_$",
+                "typeString": "mapping(uint8 => uint256)"
+              },
+              "valueType": {
+                "id": 28638,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "178:7:73",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28642,
+            "name": "startTime",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "241:24:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28641,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "241:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28644,
+            "name": "endTime",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "298:22:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28643,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "298:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28646,
+            "name": "pausedTime",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "353:25:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28645,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "353:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28648,
+            "name": "investorCount",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "422:28:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28647,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "422:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28650,
+            "name": "wallet",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "508:21:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 28649,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "508:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 28652,
+            "name": "totalTokensSold",
+            "nodeType": "VariableDeclaration",
+            "scope": 28653,
+            "src": "571:30:73",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 28651,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "571:7:73",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 28654,
+        "src": "81:524:73"
+      }
+    ],
+    "src": "0:605:73"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2019-02-06T16:02:05.553Z"
+}

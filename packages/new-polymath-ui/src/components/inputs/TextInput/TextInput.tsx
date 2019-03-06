@@ -2,9 +2,13 @@ import React, { FC } from 'react';
 
 import { BaseInput } from '../BaseInput';
 
-import { formikProxy } from '~/components/inputs/formikProxy';
+import {
+  FormikExternalProps,
+  FormikProxy,
+} from '~/components/inputs/FormikProxy';
 
 interface Props {
+  onChange: (e: any) => void;
   name: string;
   value: string;
 }
@@ -15,16 +19,36 @@ export type TextInputProps = JSX.LibraryManagedAttributes<
 >;
 
 export const TextInputPrimitive: FC<Props> = props => {
-  const { name, ...otherProps } = props;
+  const { name, onChange, ...otherProps } = props;
 
-  return <BaseInput type="text" {...otherProps} id={name} />;
+  return (
+    <BaseInput
+      type="text"
+      {...otherProps}
+      id={name}
+      onChange={e => {
+        onChange(e.target.value);
+      }}
+    />
+  );
 };
 
 TextInputPrimitive.defaultProps = {
   value: '',
 };
 
-const EnhancedTextInput = formikProxy(TextInputPrimitive);
+const EnhancedTextInput: FC<FormikExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<string>
+    field={field}
+    form={form}
+    render={formikProps => <TextInputPrimitive {...rest} {...formikProps} />}
+  />
+);
+
 export const TextInput = Object.assign(EnhancedTextInput, {
   defaultProps: TextInputPrimitive.defaultProps,
 });

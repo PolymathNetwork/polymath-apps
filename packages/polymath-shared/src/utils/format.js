@@ -69,7 +69,6 @@ export const toPercent = (
 
 type ToTokensOpts = {
   decimals: number,
-  precision: number,
 };
 /**
  * Converts a number into a string representing an amount of tokens
@@ -79,16 +78,21 @@ type ToTokensOpts = {
  */
 export const toTokens = (
   value: number,
-  { decimals = 0, precision = 20 }: ToTokensOpts = {}
+  { decimals = 0 }: ToTokensOpts = {}
 ) => {
   const isValid = value !== null && (isNumber(value) || isBigNumber(value));
   if (!isValid) {
     return `-`;
   }
-  const number = new BigNumber(value);
-  if (number.toString().length > precision) {
-    return new BigNumber(number.toPrecision(precision)).toExponential(decimals);
+
+  let number;
+
+  if (typeof value === 'number') {
+    number = new BigNumber(`${value}`);
   } else {
-    return new BigNumber(number.toPrecision(precision)).decimalPlaces(decimals);
+    number = new BigNumber(value);
   }
+  return number
+    .toFormat(decimals, 1)
+    .replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1');
 };

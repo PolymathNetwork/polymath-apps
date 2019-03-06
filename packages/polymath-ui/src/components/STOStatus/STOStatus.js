@@ -40,37 +40,73 @@ const dateFormat = (date: Date) =>
     day: 'numeric',
   });
 
-const getCountdownProps = (
-  startDate: Date,
-  endDate: Date,
-  isStoPaused: boolean
-): ?CountdownProps => {
-  const now = new Date();
-  if (now < startDate) {
-    return {
-      deadline: startDate,
-      title: 'Time Left Until the Offering Starts',
-      isPaused: isStoPaused,
-    };
-  } else if (now < endDate) {
-    return {
-      deadline: endDate,
-      title: 'Time Left Until the Offering Ends',
-      isPaused: isStoPaused,
-    };
-  }
-  return null;
-};
-
 export default class STOStatus extends Component<Props> {
+  state = {
+    countdownProps: {},
+  };
+
+  getCountdownProps = (
+    startDate: Date,
+    endDate: Date,
+    isStoPaused: boolean
+  ): ?CountdownProps => {
+    const now = new Date();
+    if (now < startDate) {
+      const timeUntilStart = startDate - now;
+
+      setTimeout(() => {
+        this.setState({
+          countdownProps: this.getCountdownProps(
+            startDate,
+            endDate,
+            this.props.isStoPaused
+          ),
+        });
+      }, timeUntilStart);
+
+      return {
+        deadline: startDate,
+        title: 'Time Left Until the Offering Starts',
+        isPaused: isStoPaused,
+      };
+    } else if (now < endDate) {
+      const timeUntilEnd = endDate - now;
+
+      setTimeout(() => {
+        this.setState({
+          countdownProps: this.getCountdownProps(
+            startDate,
+            endDate,
+            this.props.isStoPaused
+          ),
+        });
+      }, timeUntilEnd);
+
+      return {
+        deadline: endDate,
+        title: 'Time Left Until the Offering Ends',
+        isPaused: isStoPaused,
+      };
+    }
+
+    return null;
+  };
+
+  componentWillMount() {
+    const { details } = this.props;
+
+    this.setState({
+      countdownProps: this.getCountdownProps(
+        details.start,
+        details.end,
+        this.props.isStoPaused
+      ),
+    });
+  }
+
   render() {
     const { token, details, notPausable } = this.props;
-
-    const countdownProps = getCountdownProps(
-      details.start,
-      details.end,
-      this.props.isStoPaused
-    );
+    const { countdownProps } = this.state;
 
     const symbol = details.isPolyFundraise ? 'POLY' : 'ETH';
 
@@ -161,25 +197,45 @@ export default class STOStatus extends Component<Props> {
                 </Heading>
               </ContentBox>
             </div>
+          ) : countdownProps != null ? (
+            <div className="pui-countdown-container">
+              <Countdown
+                deadline={countdownProps.deadline}
+                title={countdownProps.title}
+                buttonTitle={
+                  notPausable
+                    ? undefined
+                    : this.props.isStoPaused
+                    ? 'RESUME STO'
+                    : 'PAUSE STO'
+                }
+                handleButtonClick={this.props.toggleStoPause}
+                isPaused={this.props.isStoPaused}
+                pausable={!notPausable}
+              />
+            </div>
           ) : (
-            countdownProps != null && (
-              <div className="pui-countdown-container">
-                <Countdown
-                  deadline={countdownProps.deadline}
-                  title={countdownProps.title}
-                  buttonTitle={
-                    notPausable
-                      ? undefined
-                      : this.props.isStoPaused
-                      ? 'RESUME STO'
-                      : 'PAUSE STO'
-                  }
-                  handleButtonClick={this.props.toggleStoPause}
-                  isPaused={this.props.isStoPaused}
-                  pausable={!notPausable}
-                />
-              </div>
-            )
+            <div className="pui-countdown-container">
+              <ContentBox
+                style={{
+                  borderRadius: '10px',
+                  borderTop: '15px solid #00AA5E',
+                  width: '350px',
+                }}
+              >
+                <Paragraph textAlign="center">
+                  <Icon
+                    name="checkmark--outline"
+                    fill="#00AA5E"
+                    width="64"
+                    height="64"
+                  />
+                </Paragraph>
+                <Heading variant="h3" textAlign="center">
+                  The Sale is Closed
+                </Heading>
+              </ContentBox>
+            </div>
           )}
         </Grid>
       </div>

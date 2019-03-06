@@ -1,7 +1,7 @@
-import { reducer } from '../dataRequests';
+import { utils } from '@polymathnetwork/new-shared';
 import * as actions from '~/state/actions/dataRequests';
 import { RequestKeys } from '~/types';
-import { utils } from '@polymathnetwork/new-shared';
+import { reducer } from '../dataRequests';
 
 describe('Reducer: dataRequests', () => {
   test('initialState', () => {
@@ -23,6 +23,8 @@ describe('Reducer: dataRequests', () => {
     [RequestKeys.GetSecurityTokenBySymbol]: {},
     [RequestKeys.GetDividendsByCheckpoint]: {},
     [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
+    [RequestKeys.GetTaxWithholdingListBySymbol]: {},
+    [RequestKeys.GetDividendBySymbolAndId]: {},
   };
 
   test('invalidateRequest invalidates cache for all requests of a certain type', () => {
@@ -75,6 +77,32 @@ describe('Reducer: dataRequests', () => {
     expect(result[RequestKeys.GetCheckpointsBySymbol][argsHash]).toEqual({
       fetchedIds,
       fetching: false,
+    });
+  });
+
+  test('fetchDataFail marks the request as failed', () => {
+    const errorMessage = 'Some error';
+    const error = new Error(errorMessage);
+    const prevState = reducer(
+      undefined,
+      actions.fetchDataStart({
+        requestKey: RequestKeys.GetCheckpointsBySymbol,
+        args,
+      })
+    );
+
+    const result = reducer(
+      prevState,
+      actions.fetchDataFail({
+        errorMessage: error.message,
+        requestKey: RequestKeys.GetCheckpointsBySymbol,
+        args,
+      })
+    );
+
+    expect(result[RequestKeys.GetCheckpointsBySymbol][argsHash]).toEqual({
+      fetching: false,
+      errorMessage,
     });
   });
 });

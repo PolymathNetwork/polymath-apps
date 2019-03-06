@@ -20,7 +20,14 @@ const { TransactionStatus } = types;
 
 interface TransactionItemProps {
   transaction: types.TransactionPojo;
-  getTitle: (transaction: types.TransactionPojo) => string;
+  transactionLinkSubdomain?: string;
+  getTitle: (
+    transaction: types.TransactionPojo,
+    index: number,
+    transactions: types.TransactionPojo[]
+  ) => string;
+  index: number;
+  allTransactions: types.TransactionPojo[];
 }
 
 const getIcon = (transaction: types.TransactionPojo) => {
@@ -55,8 +62,11 @@ interface StaticProps {
 const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
   transaction,
   getTitle,
+  index,
+  allTransactions,
+  transactionLinkSubdomain,
 }) => {
-  const title = getTitle(transaction);
+  const title = getTitle(transaction, index, allTransactions);
   const { txHash } = transaction;
 
   return (
@@ -76,7 +86,11 @@ const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
             <sc.Label>Transaction details on Etherscan: </sc.Label>
             &nbsp;
             {txHash && (
-              <Link href={utils.toEtherscanUrl(txHash)}>
+              <Link
+                href={utils.toEtherscanUrl(txHash, {
+                  subdomain: transactionLinkSubdomain,
+                })}
+              >
                 <TextEllipsis size={28}>{txHash}</TextEllipsis>
               </Link>
             )}

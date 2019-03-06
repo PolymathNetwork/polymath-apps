@@ -1,10 +1,10 @@
-import { put, take } from 'redux-saga/effects';
+import { put, take, takeEvery } from 'redux-saga/effects';
 import {
   createAction,
   updateAction,
   newTransaction,
 } from '~/state/actions/transactions';
-import { takeEvery, eventChannel } from 'redux-saga';
+import { eventChannel } from 'redux-saga';
 import { getType, ActionType } from 'typesafe-actions';
 import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '@polymathnetwork/sdk';

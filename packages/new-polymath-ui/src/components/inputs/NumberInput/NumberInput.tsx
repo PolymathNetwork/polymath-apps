@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import BigNumber from 'bignumber.js';
 import { constants } from '@polymathnetwork/new-shared';
 
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, FormikExternalProps } from '../FormikProxy';
 import { BaseInput } from '../BaseInput';
 
 type Value = number | BigNumber | null;
 
-export interface NumberInputProps {
+interface Props {
   max: number | BigNumber;
   min: number | BigNumber;
   maxDecimals: number;
@@ -40,7 +40,7 @@ const startsWithDotRegex = /^\.\d+$/;
 // FIXME @monitz87: right now if the user inputs ".0" it gets changed back to "0".
 // It should support consecutive zeroes after the decimal point until the user inputs another
 // number
-export class NumberInputPrimitive extends Component<NumberInputProps, State> {
+export class NumberInputPrimitive extends Component<Props, State> {
   public static defaultProps = {
     onChange: () => {},
     onBlur: () => {},
@@ -52,7 +52,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     name: 'unnamed',
   };
 
-  public static getDisplayValue(value: Value, props: NumberInputProps) {
+  public static getDisplayValue(value: Value, props: Props) {
     if (value === null) {
       return '';
     }
@@ -64,10 +64,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
     return value.isBigNumber || value._isBigNumber;
   }
 
-  public static getDerivedStateFromProps(
-    props: NumberInputProps,
-    state: State
-  ) {
+  public static getDerivedStateFromProps(props: Props, state: State) {
     const { oldValue } = state;
     const { value, useBigNumbers, min, max, name } = props;
     const propsValueChanged = oldValue !== value;
@@ -107,7 +104,7 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
    */
   public static toBigNumber(
     v: number | string | BigNumber,
-    { min, max, useBigNumbers, maxDecimals }: NumberInputProps
+    { min, max, useBigNumbers, maxDecimals }: Props
   ) {
     let value: number | string | BigNumber = v;
     if (typeof value === 'string') {
@@ -263,7 +260,17 @@ export class NumberInputPrimitive extends Component<NumberInputProps, State> {
   }
 }
 
-const EnhancedNumberInput = formikProxy(NumberInputPrimitive);
+const EnhancedNumberInput: FC<FormikExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    render={formikProps => <NumberInputPrimitive {...rest} {...formikProps} />}
+  />
+);
 
 export const NumberInput = Object.assign(EnhancedNumberInput, {
   defaultProps: NumberInputPrimitive.defaultProps,

@@ -7,18 +7,22 @@ import { RootState } from '~/state/store';
 import {
   createGetEntitiesFromCache,
   createGetLoadingStatus,
+  createGetFetchersErrorMessages,
 } from '~/state/selectors';
 import { requestData } from '~/state/actions/dataRequests';
 import { Fetcher, FetchedData } from '~/types';
 
 interface OwnProps {
   fetchers: Fetcher[];
+  renderLoading: () => ReactNode;
+  renderError: (errors: string[]) => ReactNode;
   render(props: FetchedData): ReactNode;
 }
 
 interface StateProps {
   fetchedData: FetchedData;
   loading: boolean;
+  errors: string[];
 }
 
 interface DispatchProps {
@@ -30,20 +34,29 @@ type Props = OwnProps & StateProps & DispatchProps;
 const mapStateToProps = () => {
   const getEntitiesFromCache = createGetEntitiesFromCache();
   const getLoadingStatus = createGetLoadingStatus();
+  const getErrorMessages = createGetFetchersErrorMessages();
 
   return (state: RootState, props: OwnProps): StateProps => {
     const fetchedData = getEntitiesFromCache(state, props);
-
     const loading = getLoadingStatus(state, props);
+    const errors = getErrorMessages(state, props);
 
     return {
       fetchedData,
       loading,
+      errors,
     };
   };
 };
 
 class DataFetcherBase extends Component<Props> {
+  public static defaultProps = {
+    // NOTE @RafaelVidaurre: Hardcoding this for now until we have an error
+    // component for this
+    renderError: (errors: string[]) => <div>{errors[0]}</div>,
+    renderLoading: () => <Loading />,
+  };
+
   public getData() {
     const { dispatch, fetchers } = this.props;
 
@@ -91,14 +104,28 @@ class DataFetcherBase extends Component<Props> {
     );
   }
   public render() {
-    const { render, fetchedData, loading } = this.props;
+    const {
+      render,
+      fetchedData,
+      renderLoading,
+      renderError,
+      errors,
+      loading,
+    } = this.props;
 
+    if (errors.length) {
+      return renderError(errors);
+    }
     if (loading) {
-      return <Loading />;
+      return renderLoading();
     }
 
     return render(fetchedData);
   }
 }
 
-export const DataFetcher = connect(mapStateToProps)(DataFetcherBase);
+const EnhancedDataFetcher = connect(mapStateToProps)(DataFetcherBase);
+
+export const DataFetcher = Object.assign(EnhancedDataFetcher, {
+  defaultProps: DataFetcherBase.defaultProps,
+});

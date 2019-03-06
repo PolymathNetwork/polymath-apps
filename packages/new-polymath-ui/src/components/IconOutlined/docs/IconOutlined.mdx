@@ -1,0 +1,33 @@
+---
+name: IconOutlined
+menu: Components
+---
+
+import { Playground } from 'docz';
+
+import { IconOutlined } from '../';
+import { SvgEth } from '~/images/icons/Eth';
+import { SvgPoly } from '~/images/icons/Poly';
+import { SvgAccount } from '~/images/icons/Account';
+import { SvgToken } from '~/images/icons/Token';
+
+## Basic usage
+
+<Playground>
+  <IconOutlined
+    Asset={SvgEth}
+    color="primary"
+    width={30}
+    height={30}
+    borderWidth="4px"
+  />
+  <IconOutlined Asset={SvgPoly} color="primary" width={30} height={30} />
+  <IconOutlined Asset={SvgAccount} color="primary" width={30} height={30} />
+  <IconOutlined
+    Asset={SvgToken}
+    color="primary"
+    width={30}
+    height={30}
+    scale={0.95}
+  />
+</Playground>

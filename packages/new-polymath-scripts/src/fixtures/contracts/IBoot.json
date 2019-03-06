@@ -1,0 +1,226 @@
+{
+  "contractName": "IBoot",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInitFunction",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\n\ninterface IBoot {\n\n    /**\n     * @notice This function returns the signature of configure function\n     * @return bytes4 Configure function signature\n     */\n    function getInitFunction() external pure returns(bytes4);\n}",
+  "sourcePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IBoot.sol",
+  "ast": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IBoot.sol",
+    "exportedSymbols": {
+      "IBoot": [
+        10725
+      ]
+    },
+    "id": 10726,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10719,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:11"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 10725,
+        "linearizedBaseContracts": [
+          10725
+        ],
+        "name": "IBoot",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@notice This function returns the signature of configure function\n@return bytes4 Configure function signature",
+            "id": 10724,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getInitFunction",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10720,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "213:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10723,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10722,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10724,
+                  "src": "238:6:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 10721,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "238:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "237:8:11"
+            },
+            "scope": 10725,
+            "src": "189:57:11",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 10726,
+        "src": "26:222:11"
+      }
+    ],
+    "src": "0:248:11"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/IBoot.sol",
+    "exportedSymbols": {
+      "IBoot": [
+        10725
+      ]
+    },
+    "id": 10726,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10719,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:11"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 10725,
+        "linearizedBaseContracts": [
+          10725
+        ],
+        "name": "IBoot",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@notice This function returns the signature of configure function\n@return bytes4 Configure function signature",
+            "id": 10724,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getInitFunction",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10720,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "213:2:11"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 10723,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10722,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10724,
+                  "src": "238:6:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 10721,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "238:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "237:8:11"
+            },
+            "scope": 10725,
+            "src": "189:57:11",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 10726,
+        "src": "26:222:11"
+      }
+    ],
+    "src": "0:248:11"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2019-02-06T16:02:05.124Z"
+}

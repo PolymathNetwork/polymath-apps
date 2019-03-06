@@ -34,6 +34,9 @@ export enum ProcedureTypes {
   ReclaimFunds = 'ReclaimFunds',
   ReserveSecurityToken = 'ReserveSecurityToken',
   WithdrawTaxes = 'WithdrawTaxes',
+  SetDividendsTaxWithholdingList = 'SetDividendsTaxWithholdingList',
+  SetDividendsWallet = 'SetDividendsWallet',
+  PushDividendPayment = 'PushDividendPayment',
 }
 
 export enum PolyTransactionTags {
@@ -50,6 +53,8 @@ export enum PolyTransactionTags {
   EnableDividends = 'EnableDividends',
   ReclaimDividendFunds = 'ReclaimDividendFunds',
   WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
+  PushDividendPayment = 'PushDividendPayment',
+  SetDividendsWallet = 'SetDividendsWallet',
 }
 
 export enum TransactionStatus {
@@ -87,11 +92,21 @@ export interface TransactionEntity extends Entity {
 
 export interface TransactionPojo extends TransactionEntity {}
 
+export interface DividendInvestorStatus {
+  address: string;
+  paymentReceived: boolean;
+  excluded: boolean;
+  withheldTax: BigNumber;
+  amountReceived: BigNumber;
+  balance: BigNumber;
+}
+
 export interface DividendEntity extends Entity {
   index: number;
   securityTokenSymbol: string;
   securityTokenId: string;
   checkpointId: string;
+  dividendType: DividendModuleTypes;
   created: Date;
   maturity: Date;
   expiry: Date;
@@ -101,6 +116,7 @@ export interface DividendEntity extends Entity {
   reclaimed: boolean;
   dividendWithheld: BigNumber;
   dividendWithheldReclaimed: BigNumber;
+  investors: DividendInvestorStatus[];
   name: string;
   currency: string | null;
 }
@@ -127,9 +143,25 @@ export interface Erc20DividendsModuleEntity extends Entity {
   address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
+  storageWalletAddress: string;
 }
 
 export interface Erc20DividendsModulePojo extends Erc20DividendsModuleEntity {}
+
+export enum DividendModuleTypes {
+  Erc20 = 'erc20',
+  Eth = 'eth',
+}
+
+export interface TaxWithholdingEntity extends Entity {
+  securityTokenSymbol: string;
+  securityTokenId: string;
+  dividendType: DividendModuleTypes;
+  investorAddress: string;
+  percentage: number;
+}
+
+export interface TaxWithholdingPojo extends TaxWithholdingEntity {}
 
 export interface TransactionQueueEntity extends Entity {
   status: TransactionQueueStatus;

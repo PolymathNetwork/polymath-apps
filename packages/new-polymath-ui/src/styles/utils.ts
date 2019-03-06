@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { darken, lighten, getLuminance } from 'polished';
 
 export const ellipsis = `
   white-space: nowrap;
@@ -19,3 +20,20 @@ export const textLinkInverted = `
     text-decoration: underline;
   }
 `;
+
+export const ulReset = `
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+export const buttonReset = `
+  padding: 0;
+  background: none;
+  text-transform: none;
+  letter-spacing: normal;
+  border: none;
+`;
+
+export const getHoverColor = (color: string) =>
+  getLuminance(color) > 0.5 ? darken(0.2, color) : lighten(0.2, color);

@@ -9,14 +9,20 @@ import {
   FlexProps as CSSFlexProps,
   flexWrap,
   FlexWrapProps,
+  flexDirection,
+  FlexDirectionProps,
+  alignSelf,
+  AlignSelfProps,
 } from 'styled-system';
 
 import { Box, BoxProps } from '~/components/Box';
 
 export type FlexProps = BoxProps &
   AlignItemsProps &
+  AlignSelfProps &
   JustifyContentProps &
   CSSFlexProps &
+  FlexDirectionProps &
   FlexWrapProps;
 
 export const Flex = styled(Box)<FlexProps>`
@@ -24,7 +30,9 @@ export const Flex = styled(Box)<FlexProps>`
 
   ${flex};
   ${flexWrap};
+  ${alignSelf};
   ${alignItems};
+  ${flexDirection};
   ${justifyContent};
 `;
 

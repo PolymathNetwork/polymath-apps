@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import { isNumber } from 'lodash';
 import numeral from 'numeral';
 
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, FormikExternalProps } from '../FormikProxy';
 import { BaseInput } from '../BaseInput';
 
-export interface PercentageInputProps {
+interface Props {
   onChange: (value: number) => void;
   name: string;
   value: number;
 }
 
-export class PercentageInputPrimitive extends Component<PercentageInputProps> {
+export class PercentageInputPrimitive extends Component<Props> {
   public static formatValue = (value: any) => {
     if (!isNumber(value) || isNaN(value)) {
       return '';
@@ -58,4 +58,18 @@ export class PercentageInputPrimitive extends Component<PercentageInputProps> {
   }
 }
 
-export const PercentageInput = formikProxy(PercentageInputPrimitive);
+const EnhancedPercentageInput: FC<FormikExternalProps> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<number>
+    field={field}
+    form={form}
+    render={formikProps => (
+      <PercentageInputPrimitive {...rest} {...formikProps} />
+    )}
+  />
+);
+
+export const PercentageInput = EnhancedPercentageInput;

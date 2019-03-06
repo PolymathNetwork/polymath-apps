@@ -82,35 +82,35 @@ export class SecurityToken extends Entity {
     >
   ) => this.polyClient.createCheckpoint({ ...args, symbol: this.symbol });
 
-  public distributePolyDividends = (
+  public createPolyDividendDistribution = (
     args: typeHelpers.OmitFromProcedureArgs<
-      Polymath['distributePolyDividends'],
+      Polymath['createPolyDividendDistribution'],
       ExcludedArgs
     >
   ) =>
-    this.polyClient.distributePolyDividends({
+    this.polyClient.createPolyDividendDistribution({
       ...args,
       symbol: this.symbol,
     });
 
-  public distributeErc20Dividends = (
+  public createErc20DividendDistribution = (
     args: typeHelpers.OmitFromProcedureArgs<
-      Polymath['distributeErc20Dividends'],
+      Polymath['createErc20DividendDistribution'],
       ExcludedArgs
     >
   ) =>
-    this.polyClient.distributeErc20Dividends({
+    this.polyClient.createErc20DividendDistribution({
       ...args,
       symbol: this.symbol,
     });
 
-  public distributeEtherDividends = (
+  public createEthDividendDistribution = (
     args: typeHelpers.OmitFromProcedureArgs<
-      Polymath['distributeEtherDividends'],
+      Polymath['createEthDividendDistribution'],
       ExcludedArgs
     >
   ) =>
-    this.polyClient.distributeEtherDividends({
+    this.polyClient.createEthDividendDistribution({
       ...args,
       symbol: this.symbol,
     });

@@ -29,6 +29,7 @@ import {
   REQUIRED_MESSAGE,
   MORE_THAN_MESSAGE,
   ADDRESS_MESSAGE,
+  MAX_DIGITS_MESSAGE,
 } from '../../validators';
 import { toWei } from '../../../../../../utils/contracts';
 import { FUND_RAISE_TYPES } from '../../../../../../constants';
@@ -57,10 +58,12 @@ const formSchema = validator.object().shape({
   cap: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .moreThan(0, MORE_THAN_MESSAGE),
   rate: validator
     .bigNumber()
     .isRequired(REQUIRED_MESSAGE)
+    .maxDigits(21, MAX_DIGITS_MESSAGE)
     .moreThan(0, MORE_THAN_MESSAGE),
   receiverAddress: validator
     .string()
@@ -192,12 +195,11 @@ export const CappedSTOFormComponent = ({
           <FormItem.Error />
         </FormItem>
         <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-          <Grid.Item gridColumn="span 3 / 5">
+          <Grid.Item gridColumn="span 2 / 4">
             <RaisedAmount
               title="Amount Of Funds the STO Will Raise"
               primaryAmount={format.toTokens(totalRaiseAmount, {
                 decimals: 6,
-                precision: 20,
               })}
               primaryUnit={currency}
               tokenAmount={totalTokensAmount}
@@ -262,7 +264,7 @@ const formikEnhancer = withFormik({
         moment(values.date.startDate).unix() * 1000 + values.date.startTime,
       endsAt: moment(values.date.endDate).unix() * 1000 + values.date.endTime,
       cap: toWei(values.cap),
-      rate: values.rate.toString(),
+      rate: toWei(values.rate.toString()),
       currencies: [FUND_RAISE_TYPES[values.currency]],
       receiverAddress: values.receiverAddress,
     };

@@ -1,21 +1,33 @@
 // @flow
-
+import createSagaMiddleware from 'redux-saga';
 import { compose, applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-
-import reducer from './reducer';
+import { rootSaga } from '@polymathnetwork/new-issuer/state/sagas/root';
+import createRootReducer from './reducer';
+import modernAdapter from '../modernAdapters/reduxMiddleware';
 
 export const history = createBrowserHistory();
+const sagaMiddleware = createSagaMiddleware();
+
+const middleware = [
+  thunk,
+  routerMiddleware(history),
+  sagaMiddleware,
+  modernAdapter,
+];
 
 const store = createStore(
-  connectRouter(history)(reducer),
+  createRootReducer(history),
   {}, // initial state
   compose(
-    applyMiddleware(thunk, routerMiddleware(history)),
+    applyMiddleware(...middleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );
+
+// Initialize Modern dApp's Sagas
+sagaMiddleware.run(rootSaga);
 
 export default store;

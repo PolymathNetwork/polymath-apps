@@ -124,16 +124,19 @@ const providers: Array<ServiceProvider> = [
   {
     id: 5,
     cat: 1,
-    title: 'Homeier Law PC',
+    title: 'Lexcuity PC',
     logo: '/providers/legal/homierlaw.png',
     background: '/providers/legal/bg/img-homier.png',
-    desc:
-      'Homeier Law PC is a securities and corporate law firm with deep experience in exemptions as well as ' +
-      'SEC-registered alternative finance offerings, having advised on hundreds of private offerings that have ' +
-      'raised billions of dollars for developers and entrepreneurs over the past decade.  As a leader and ' +
-      'pioneer ininvestment crowdfunding, Homeier Law serves the emerging blockchain and cryptocurrency industries ' +
-      'in structuring and documenting initial coin offerings (ICOs), tokenized security offerings and ' +
-      'other capital-raising initiatives.',
+    desc: `Lexcuity PC is a securities and corporate law firm with deep experience in exempt as well as 
+      SEC-registered alternative finance offerings, having advised on hundreds of private offerings 
+      that have raised billions of dollars for developers and entrepreneurs over the past decade. 
+      As a leader and pioneer in investment crowdfunding, Lexcuity serves the emerging blockchain 
+      and cryptocurrency industries in structuring and documenting security token offerings (STOs), 
+      initial coin offerings (ICOs) and other capital-raising initiatives. Never satisfied with 
+      rote “compliance documents,” Lexcuity prides itself on helping clients effectively tell 
+      their stories to investors while satisfying all regulatory compliance requirements. 
+      We also contribute our insights to the blockchain community to help build the industry’s 
+      best practices.`,
   },
   {
     id: 18,
@@ -235,6 +238,18 @@ const providers: Array<ServiceProvider> = [
       'partners to collect any kind of identity information seamlessly, in 60 seconds or less, and receive that ' +
       'information in a number of formats. Glyph has been described as the most customizable and beautiful KYC check ' +
       'available. ',
+  },
+  {
+    id: 24,
+    cat: 2,
+    title: 'Netki',
+    logo: '/providers/kyc/netki.png',
+    background: '/providers/kyc/bg/img-netki.png',
+    desc: `Netki provides bank-grade KYC/AML on-boarding from your customer's phone in under a minute. By leveraging 
+      machine-learning and computer vision tools, Netki is able to automate customer verification with a fully 
+      customizable platform that is configurable to meet any compliance requirements. With KYC, AML, Accredited 
+      Investor verification and corporate on-boarding tools, Netki can help you streamline your compliance 
+      program while preventing fraud and balancing end-user experience`,
   },
 
   // MARKETING

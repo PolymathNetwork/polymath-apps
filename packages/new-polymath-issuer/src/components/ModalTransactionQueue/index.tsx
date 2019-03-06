@@ -1,3 +1,3 @@
-import { Container } from './Container';
+import { ModalTransactionQueueContainer } from './Container';
 
-export const ModalTransactionQueue = Container;
+export const ModalTransactionQueue = ModalTransactionQueueContainer;

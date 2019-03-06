@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressIndicator renders without crashing 1`] = `
+.c6 {
+  position: absolute;
+  background-color: currentColor;
+}
+
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: transparent;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 2px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c3 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 20%;
+}
+
+.c4 {
+  box-sizing: border-box;
+  margin-bottom: 0;
+  margin-left: calc(1.6em / 2);
+  margin-top: 0;
+  font-weight: 600;
+  line-height: 1.5;
+  font-size: inherit;
+  overflow-wrap: break-word;
+  line-height: 1.6em;
+  color: currentColor;
+}
+
+.c4 > * {
+  vertical-align: middle;
+}
+
+.c4:last-child {
+  margin-bottom: 0;
+}
+
+.c1 {
+  position: relative;
+  text-align: center;
+  min-width: 7rem;
+  -webkit-transition: 250ms all cubic-bezier(0.5,0,0.1,1);
+  transition: 250ms all cubic-bezier(0.5,0,0.1,1);
+  overflow: visible;
+  color: #252D6B;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-end;
+  -webkit-box-align: flex-end;
+  -ms-flex-align: flex-end;
+  align-items: flex-end;
+}
+
+.c1:first-child {
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+}
+
+.c1 .c5 {
+  left: calc(1.6em / 2);
+  top: 0;
+  width: 2px;
+  height: calc(100% - 1.6em);
+}
+
+.c1 .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1:first-child .c5 {
+  display: none;
+}
+
+.c0 {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  font-size: 0.875rem;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+<ul
+  class="c0"
+>
+  <li
+    class="c1"
+  >
+    <div
+      class="c2 "
+    >
+      <span
+        class="c3"
+      >
+        <svg
+          role="img"
+          viewBox="0 0 24 24"
+        >
+          <title>
+            Current step
+          </title>
+          <circle
+            cx="12"
+            cy="12"
+            fill="currentColor"
+            r="8"
+          />
+        </svg>
+      </span>
+      <p
+        class="c4"
+        font-size="inherit"
+        font-weight="bold"
+      >
+        foo
+      </p>
+    </div>
+    <span
+      class="c5 c6"
+    />
+  </li>
+</ul>
+`;

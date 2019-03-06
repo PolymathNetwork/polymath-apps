@@ -1,14 +1,15 @@
 import BigNumber from 'bignumber.js';
 import numeral from 'numeral';
 import { times, isNumber } from 'lodash';
+import { DateTime, DateTimeFormatOptions } from 'luxon';
 
 /**
  * Wether a value is a BigNumber instance or not
  * NOTE @RafaelVidaurre: We cannot use instanceof here since we are handling
  * multiple versions of BigNumber
  */
-function isBigNumber(value: any) {
-  return typeof value === 'object';
+function isBigNumber(value: any): value is BigNumber {
+  return typeof value === 'object' && (value.isBigNumber || value._isBigNumber);
 }
 
 /**
@@ -72,7 +73,15 @@ export const toTokens = (
   if (!isValid) {
     return `-`;
   }
-  const num = new BigNumber(value);
+
+  let num: BigNumber;
+
+  if (isBigNumber(value)) {
+    num = new BigNumber(value);
+  } else {
+    num = new BigNumber(`${value}`);
+  }
+
   return num.toFormat(decimals);
 };
 
@@ -94,3 +103,15 @@ export const toShortAddress = (
     -portionSize
   )}`;
 };
+
+export const date = DateTime;
+
+export const toDateFormat = (
+  inputDate: Date,
+  { format = DateTime.DATE_FULL }: { format?: DateTimeFormatOptions } = {}
+) => DateTime.fromJSDate(inputDate).toLocaleString(format);
+
+export const toTimeFormat = (
+  inputDate: Date,
+  { format = DateTime.TIME_SIMPLE }: { format?: DateTimeFormatOptions } = {}
+) => DateTime.fromJSDate(inputDate).toLocaleString(format);
