@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useCallback } from 'react';
-import { validators, formatters } from '@polymathnetwork/new-shared';
-
+import { validators, formatters, types } from '@polymathnetwork/new-shared';
 import {
   Box,
   Button,
@@ -18,9 +17,8 @@ import {
   CsvUploader,
   ModalConfirm,
   Table,
-  Label,
+  Link,
   LinkButton,
-  Text,
 } from '@polymathnetwork/new-ui';
 
 export interface Props {
@@ -95,13 +93,24 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
           </li>
         </List>
       </Paragraph>
-      <Paragraph>
-        You can download{' '}
-        <LinkButton onClick={downloadExistingWithholdings}>
-          <Icon Asset={icons.SvgDownload} /> Existing-Withholdings-Tax-List.csv
-        </LinkButton>{' '}
-        file and edit it.
-      </Paragraph>
+      {withholdingList.length ? (
+        <Paragraph>
+          You can download{' '}
+          <LinkButton onClick={downloadExistingWithholdings}>
+            <Icon Asset={icons.SvgDownload} />{' '}
+            Existing-Withholdings-Tax-List.csv
+          </LinkButton>{' '}
+          file and edit it.
+        </Paragraph>
+      ) : (
+        <Paragraph>
+          You can download{' '}
+          <Link href="" download>
+            <Icon Asset={icons.SvgDownload} /> Sample-Withholdings-Tax-List.csv
+          </Link>{' '}
+          example file and edit it.
+        </Paragraph>
+      )}
       <Button
         variant="ghostSecondary"
         iconPosition="right"
@@ -137,7 +146,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                 csvConfig: {
                   columns: [
                     {
-                      name: columns[0].Header,
+                      name: columns[0].accessor,
                       validators: [
                         validators.isEthereumAddress,
                         validators.isNotEmpty,
@@ -145,7 +154,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                       required: true,
                     },
                     {
-                      name: columns[1].Header,
+                      name: columns[1].accessor,
                       validators: [validators.isString, validators.isNotEmpty],
                       required: true,
                     },
@@ -160,13 +169,13 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                 tableConfig={{
                   columns: [
                     {
-                      accessor: columns[0].Header,
+                      accessor: columns[0].accessor,
                       Header: columns[0].Header,
                       Cell: ({ value }) =>
                         formatters.toShortAddress(value, { size: 26 }),
                     },
                     {
-                      accessor: columns[1].Header,
+                      accessor: columns[1].accessor,
                       Header: columns[1].Header,
                     },
                   ],
@@ -188,17 +197,19 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         breakdown the list in 200 wallets increments and upload them one at a
         time.
       </Remark>
-      <Box mt="m" mb="m">
-        <Table columns={columns} data={withholdingList} selectable>
-          <Table.BatchActionsToolbar>
-            <Button variant="ghost" iconPosition="right" onClick={() => {}}>
-              Delete <Icon Asset={icons.SvgDelete} />
-            </Button>
-          </Table.BatchActionsToolbar>
-          <Table.Rows />
-          <Table.Pagination />
-        </Table>
-      </Box>
+      {!!withholdingList.length && (
+        <Box mt="m" mb="m">
+          <Table columns={columns} data={withholdingList} selectable>
+            <Table.BatchActionsToolbar>
+              <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+                Delete <Icon Asset={icons.SvgDelete} />
+              </Button>
+            </Table.BatchActionsToolbar>
+            <Table.Rows />
+            <Table.Pagination />
+          </Table>
+        </Box>
+      )}
       <Heading variant="h3" mt="m">
         No Changes Required
       </Heading>

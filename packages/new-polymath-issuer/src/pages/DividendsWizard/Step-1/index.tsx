@@ -48,7 +48,7 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
         <Link href="" download>
           <Icon Asset={icons.SvgDownload} /> Sample-Excluding-List.csv
         </Link>{' '}
-        file and edit it.
+        example file and edit it.
       </Paragraph>
       <Button
         variant="ghostSecondary"
