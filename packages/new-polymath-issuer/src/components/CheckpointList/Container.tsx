@@ -71,9 +71,14 @@ export class CheckpointListContainerBase extends Component<Props> {
         render={(data: { checkpoints: types.CheckpointEntity[] }) => {
           const { checkpoints } = data;
 
+          // this spread is necessary because sort mutates the original array and that causes a rerender of the DataFetcher
+          const sortedCheckpoints = [...checkpoints].sort(
+            (a, b) => b.index - a.index
+          );
+
           return (
             <CheckpointListPresenter
-              checkpoints={checkpoints}
+              checkpoints={sortedCheckpoints}
               securityTokenSymbol={securityTokenSymbol}
               downloadOwnershipList={this.downloadOwnershipList}
             />
