@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useCallback } from 'react';
-import { validators } from '@polymathnetwork/new-shared';
+import { validators, types, utils } from '@polymathnetwork/new-shared';
 
 import {
   Box,
@@ -9,7 +9,6 @@ import {
   Heading,
   Card,
   Paragraph,
-  Link,
   Remark,
   Form,
   FormItem,
@@ -20,47 +19,37 @@ import {
   ModalConfirm,
   Table,
   Label,
+  LinkButton,
+  Text,
 } from '@polymathnetwork/new-ui';
 
 export interface Props {
   onSubmitStep: () => void;
   values: any;
+  taxWithholdings: types.TaxWithholdingEntity[];
 }
 
-export const Step2 = ({ onSubmitStep, values }: Props) => {
+export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
-  const [isResultsShown, setResultsShown] = useState(false);
+  const [withholdingList, setWithholdingList] = useState(
+    taxWithholdings
+      ? taxWithholdings.map(item => {
+          return {
+            'Investor ETH Address': item.investorAddress,
+            '% Tax Witholding for Associated ETH Address': item.percentage,
+          };
+        })
+      : []
+  );
 
   const columns = [
     {
-      Header: 'Investor Wallet Address',
+      Header: 'Investor ETH Address',
       accessor: 'investorWalletAddress',
-      Cell: ({ value }: { value: string }) => {
-        return <Link href="#">{value}</Link>;
-      },
     },
     {
-      Header: 'Dividends Pre-Tax',
-      accessor: 'dividendsPreTax',
-    },
-    {
-      Header: 'Taxes Withheld (%)',
-      accessor: 'taxesWithheldPercent',
-    },
-    {
-      Header: 'Taxes Withheld (TOKEN)',
-      accessor: 'taxesWithheldTokens',
-    },
-    {
-      Header: 'Dividends Paid',
-      accessor: 'dividendsPaid',
-    },
-    {
-      Header: 'Status of Payment',
-      accessor: 'statusOfPayment',
-      Cell: ({ value }: { value: string }) => (
-        <Label color="green.1">{value}</Label>
-      ),
+      Header: '% Tax Witholding for Associated ETH Address',
+      accessor: 'withholdingPercent',
     },
   ];
 
@@ -73,9 +62,20 @@ export const Step2 = ({ onSubmitStep, values }: Props) => {
   }, []);
 
   const handleCsvModalConfirm = useCallback(() => {
-    setResultsShown(true);
+    const addedEntries = values.map(csvRow => {
+      return { investorWalletAddress: 1, withholdingPercent: 13 };
+    });
+    setWithholdingList({ ...withholdingList, ...addedEntries });
     setCsvModalState(false);
   }, []);
+
+  const downloadExistingWithholdings = () => {
+    utils.downloadCsvFile(
+      withholdingList,
+      ' Existing-Withholdings-Tax-List.csv',
+      { fields: ['Investor ETH Address', '% of Tax Withholding'] }
+    );
+  };
 
   console.log(values);
   return (
@@ -98,9 +98,9 @@ export const Step2 = ({ onSubmitStep, values }: Props) => {
       </Paragraph>
       <Paragraph>
         You can download{' '}
-        <Link href="" download>
-          <Icon Asset={icons.SvgDownload} /> Sample-Excluding-List.csv
-        </Link>{' '}
+        <LinkButton onClick={downloadExistingWithholdings}>
+          <Icon Asset={icons.SvgDownload} /> Existing-Withholdings-Tax-List.csv
+        </LinkButton>{' '}
         file and edit it.
       </Paragraph>
       <Button
@@ -177,7 +177,17 @@ export const Step2 = ({ onSubmitStep, values }: Props) => {
         breakdown the list in 200 wallets increments and upload them one at a
         time.
       </Remark>
-      {isResultsShown && <Table columns={columns} />}
+      <Box mt="m" mb="m">
+        <Table columns={columns} data={withholdingList} selectable>
+          <Table.BatchActionsToolbar>
+            <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+              Delete <Icon Asset={icons.SvgDelete} />
+            </Button>
+          </Table.BatchActionsToolbar>
+          <Table.Rows />
+          <Table.Pagination />
+        </Table>
+      </Box>
       <Heading variant="h3" mt="m">
         No Changes Required
       </Heading>
