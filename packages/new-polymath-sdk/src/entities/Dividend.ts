@@ -17,8 +17,8 @@ interface Params {
   claimedAmount: BigNumber;
   totalSupply: BigNumber;
   reclaimed: boolean;
-  dividendWithheld: BigNumber;
-  dividendWithheldReclaimed: BigNumber;
+  totalWithheld: BigNumber;
+  totalWithheldWithdrawn: BigNumber;
   investors: DividendInvestorStatus[];
   name: string;
   currency: string | null;
@@ -39,8 +39,8 @@ export class Dividend extends Entity {
   public claimedAmount: BigNumber;
   public totalSupply: BigNumber;
   public reclaimed: boolean;
-  public dividendWithheld: BigNumber;
-  public dividendWithheldReclaimed: BigNumber;
+  public totalWithheld: BigNumber;
+  public totalWithheldWithdrawn: BigNumber;
   public investors: DividendInvestorStatus[];
   public name: string;
   public currency: string | null;
@@ -61,8 +61,8 @@ export class Dividend extends Entity {
       claimedAmount,
       totalSupply,
       reclaimed,
-      dividendWithheld,
-      dividendWithheldReclaimed,
+      totalWithheld,
+      totalWithheldWithdrawn,
       investors,
       name,
       currency,
@@ -80,8 +80,8 @@ export class Dividend extends Entity {
     this.claimedAmount = claimedAmount;
     this.totalSupply = totalSupply;
     this.reclaimed = reclaimed;
-    this.dividendWithheld = dividendWithheld;
-    this.dividendWithheldReclaimed = dividendWithheldReclaimed;
+    this.totalWithheld = totalWithheld;
+    this.totalWithheldWithdrawn = totalWithheldWithdrawn;
     this.name = name;
     this.investors = investors;
     this.currency = currency;
@@ -103,8 +103,8 @@ export class Dividend extends Entity {
       claimedAmount,
       totalSupply,
       reclaimed,
-      dividendWithheld,
-      dividendWithheldReclaimed,
+      totalWithheld,
+      totalWithheldWithdrawn,
       investors,
       name,
       currency,
@@ -124,8 +124,8 @@ export class Dividend extends Entity {
       claimedAmount,
       totalSupply,
       reclaimed,
-      dividendWithheld,
-      dividendWithheldReclaimed,
+      totalWithheld,
+      totalWithheldWithdrawn,
       investors,
       name,
       currency,

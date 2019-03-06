@@ -23,15 +23,15 @@ import { Contract } from './Contract';
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenContract extends GenericContract {
   methods: {
-    createCheckpoint(): TransactionObject<number>;
-    getCheckpointTimes(): TransactionObject<number[]>;
-    totalSupplyAt(checkpointId: number): TransactionObject<number>;
+    createCheckpoint(): TransactionObject<void>;
+    getCheckpointTimes(): TransactionObject<string[]>;
+    totalSupplyAt(checkpointId: number): TransactionObject<string>;
     balanceOfAt(
       investorAddress: string,
       checkpointId: number
-    ): TransactionObject<number>;
+    ): TransactionObject<string>;
     getInvestorsAt(checkpointId: number): TransactionObject<string[]>;
-    currentCheckpointId(): TransactionObject<number>;
+    currentCheckpointId(): TransactionObject<string>;
     addModule(
       address: string,
       data: string,
@@ -56,7 +56,11 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public async currentCheckpointId() {
-    return this.contract.methods.currentCheckpointId().call();
+    const currentCheckpointId = await this.contract.methods
+      .currentCheckpointId()
+      .call();
+
+    return parseInt(currentCheckpointId, 10);
   }
 
   public addDividendsModule = async ({
@@ -163,7 +167,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
         index: checkpointId,
         totalSupply: fromWei(totalSupplyInWei),
         investorBalances,
-        createdAt: fromUnixTimestamp(timestamp),
+        createdAt: fromUnixTimestamp(parseInt(timestamp, 10)),
       });
     }
 

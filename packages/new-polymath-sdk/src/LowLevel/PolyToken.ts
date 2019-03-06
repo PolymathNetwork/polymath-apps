@@ -19,11 +19,11 @@ interface PolyTokenContract extends GenericContract {
       amount: BigNumber,
       recipient: string
     ) => TransactionObject<boolean>;
-    balanceOf: (address: string) => TransactionObject<number>;
+    balanceOf: (address: string) => TransactionObject<string>;
     allowance: (
       tokenOwner: string,
       spender: string
-    ) => TransactionObject<number>;
+    ) => TransactionObject<string>;
     approve: (spender: string, amount: BigNumber) => TransactionObject<boolean>;
   };
 }
