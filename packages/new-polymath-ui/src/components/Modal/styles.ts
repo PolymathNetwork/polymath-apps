@@ -111,6 +111,7 @@ export const modalStyle = css<StyleProps>`
 export const Inner = styled.div`
   display: flex;
   overflow-y: auto;
+  overflow-x: visible;
   flex-direction: column;
   flex-grow: 1;
 `;

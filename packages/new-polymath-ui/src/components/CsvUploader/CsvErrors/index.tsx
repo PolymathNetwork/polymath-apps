@@ -19,7 +19,7 @@ const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
 
   return (
     <sc.Wrapper className={className}>
-      {csvConfig.maxRows && data.totalRows > csvConfig.maxRows && (
+      {!!csvConfig.maxRows && data.totalRows > csvConfig.maxRows && (
         <Notification
           status="warning"
           title={`More Than ${csvConfig.maxRows} Records Found`}
@@ -37,7 +37,7 @@ const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
           description="Please make sure your .csv file follows the format of our sample file."
         />
       )}
-      {!isFullyInvalid && errorCount && (
+      {!isFullyInvalid && !!errorCount && (
         <Notification
           status="alert"
           title={`${errorCount} Errors in Your .csv File`}

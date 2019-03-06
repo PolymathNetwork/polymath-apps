@@ -27,7 +27,6 @@ export const InputBase: FC<Props> = ({
       {({ name }) => (
         <FormikComponent
           name={name}
-          component={component}
           render={formikProps => (
             <Component {...formikProps} {...inputProps} {...props}>
               {children}
