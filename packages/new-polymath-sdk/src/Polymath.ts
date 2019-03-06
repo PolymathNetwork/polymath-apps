@@ -340,15 +340,15 @@ export class Polymath {
     const taxWithholdings = await dividendsModule.getTaxWithholdingList({
       checkpointIndex,
     });
-    
+
     const { address } = securityToken;
 
     const securityTokenId = this.SecurityToken.generateId({ address });
 
     return taxWithholdings.map(
-      ({ address, percentage }) =>
+      ({ address: investorAddress, percentage }) =>
         new this.TaxWithholding({
-          investorAddress: address,
+          investorAddress,
           percentage,
           securityTokenSymbol,
           securityTokenId,
@@ -417,28 +417,11 @@ export class Polymath {
       ticker: securityTokenSymbol,
     });
 
-    const checkpointDividends = [];
-
-    if (includes(dividendTypes, DividendModuleTypes.Erc20)) {
-      const erc20Module = await securityToken.getErc20DividendModule();
-
-      if (erc20Module) {
-        const erc20Dividends = await erc20Module.getDividendsByCheckpoint({
-          checkpointIndex,
-        });
-        checkpointDividends.push(...erc20Dividends);
-      }
-    }
-    if (includes(dividendTypes, DividendModuleTypes.Eth)) {
-      const etherModule = await securityToken.getEtherDividendModule();
-
-      if (etherModule) {
-        const etherDividends = await etherModule.getDividendsByCheckpoint({
-          checkpointIndex,
-        });
-        checkpointDividends.push(...etherDividends);
-      }
-    }
+    const checkpointDividends = await this.getAllDividends({
+      securityToken,
+      checkpointIndex,
+      dividendTypes,
+    });
 
     const checkpoint: LowLevelCheckpoint = await securityToken.getCheckpoint({
       checkpointId: checkpointIndex,
@@ -467,32 +450,15 @@ export class Polymath {
       dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
     } = args;
 
-    const checkpointDividends = [];
-
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
     });
 
-    if (includes(dividendTypes, DividendModuleTypes.Erc20)) {
-      const erc20Module = await securityToken.getErc20DividendModule();
-
-      if (erc20Module) {
-        const erc20Dividends = await erc20Module.getDividendsByCheckpoint({
-          checkpointIndex,
-        });
-        checkpointDividends.push(...erc20Dividends);
-      }
-    }
-    if (includes(dividendTypes, DividendModuleTypes.Eth)) {
-      const etherModule = await securityToken.getEtherDividendModule();
-
-      if (etherModule) {
-        const etherDividends = await etherModule.getDividendsByCheckpoint({
-          checkpointIndex,
-        });
-        checkpointDividends.push(...etherDividends);
-      }
-    }
+    const checkpointDividends = await this.getAllDividends({
+      securityToken,
+      checkpointIndex,
+      dividendTypes,
+    });
 
     const checkpointId = this.Checkpoint.generateId({
       securityTokenSymbol: symbol,
@@ -682,9 +648,11 @@ export class Polymath {
 
   private getAllDividends = async ({
     securityToken,
+    checkpointIndex,
     dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
   }: {
     securityToken: SecurityToken;
+    checkpointIndex?: number;
     dividendTypes?: DividendModuleTypes[];
   }) => {
     const dividends = [];
@@ -693,7 +661,9 @@ export class Polymath {
       const erc20Module = await securityToken.getErc20DividendModule();
 
       if (erc20Module) {
-        const erc20Dividends = await erc20Module.getDividends();
+        const erc20Dividends = await (checkpointIndex !== undefined
+          ? erc20Module.getDividendsByCheckpoint({ checkpointIndex })
+          : erc20Module.getDividends());
         dividends.push(...erc20Dividends);
       }
     }
@@ -702,7 +672,9 @@ export class Polymath {
       const etherModule = await securityToken.getEtherDividendModule();
 
       if (etherModule) {
-        const etherDividends = await etherModule.getDividends();
+        const etherDividends = await (checkpointIndex !== undefined
+          ? etherModule.getDividendsByCheckpoint({ checkpointIndex })
+          : etherModule.getDividends());
         dividends.push(...etherDividends);
       }
     }
