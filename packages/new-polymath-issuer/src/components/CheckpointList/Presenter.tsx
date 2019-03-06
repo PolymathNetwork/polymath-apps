@@ -63,13 +63,10 @@ export const CheckpointListPresenter = ({
                           <br />
                           {formatters.toTimeFormat(checkpoint.createdAt)}
                         </Paragraph>
-                        <Paragraph
-                          color="primary"
-                          textAlign="right"
-                          mr="calc(-1rem - 2px)" // Button padding
-                        >
+                        <Paragraph color="primary" textAlign="right">
                           <Button
-                            variant="ghost"
+                            variant="ghostSecondary"
+                            iconPosition="right"
                             onClick={() => downloadOwnershipList(checkpoint)}
                           >
                             Ownership list <Icon Asset={icons.SvgDownload} />
@@ -83,7 +80,7 @@ export const CheckpointListPresenter = ({
                               Asset={icons.SvgCheckmark}
                               width={iconSize}
                               height={iconSize}
-                              scale={0.9}
+                              scale={0.8}
                               color="primary"
                             />
                           </sc.ProgressIndicator>

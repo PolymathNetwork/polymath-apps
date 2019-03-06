@@ -4,6 +4,7 @@ import { SvgAccount } from './images/icons/generated/Account';
 import { SvgArrow } from './images/icons/generated/Arrow';
 import { SvgCalendar } from './images/icons/generated/Calendar';
 import { SvgCaretDown } from './images/icons/generated/CaretDown';
+import { SvgCaretDown2 } from './images/icons/generated/CaretDown2';
 import { SvgDot } from './images/icons/generated/Dot';
 import { SvgDownload } from './images/icons/generated/Download';
 import { SvgErc20 } from './images/icons/generated/Erc20';
@@ -41,6 +42,7 @@ export { ButtonLink } from './components/ButtonLink';
 export { Card } from './components/Card';
 export { CardPrimary } from './components/CardPrimary';
 export { CardFeatureState } from './components/CardFeatureState';
+export { CsvUploader } from './components/CsvUploader';
 export { ErrorBoundary } from './components/ErrorBoundary';
 export { Footer } from './components/Footer';
 export { Form } from './components/Form';
@@ -83,6 +85,7 @@ export const icons = {
   SvgArrow,
   SvgCalendar,
   SvgCaretDown,
+  SvgCaretDown2,
   SvgDot,
   SvgDownload,
   SvgErc20,

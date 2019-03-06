@@ -37,9 +37,10 @@ const lineHeights = {
 };
 
 const fontWeights = {
-  light: 300,
-  normal: 400,
-  bold: 600,
+  light: 200,
+  normal: 300,
+  bold: 500,
+  strong: 600,
 };
 
 const space: Scale<string> = {
@@ -119,7 +120,7 @@ const buttons = {
     backgroundColor: colors.primary,
     borderColor: 'transparent',
     color: '#fff',
-    '&:hover, &:focus': {
+    '&:hover': {
       backgroundColor: transparentize(0.2, colors.primary),
     },
   },
@@ -127,7 +128,7 @@ const buttons = {
     backgroundColor: 'transparent',
     borderColor: colors.primary,
     color: colors.primary,
-    '&:hover, &:focus': {
+    '&:hover': {
       color: '#fff',
       backgroundColor: colors.primary,
     },
@@ -136,7 +137,7 @@ const buttons = {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     color: 'currentColor',
-    '&:hover, &:focus': {
+    '&:hover': {
       color: '#fff',
       backgroundColor: colors.secondary,
     },
@@ -149,10 +150,10 @@ const buttons = {
     borderColor: 'transparent',
     color: 'currentColor',
     padding: 0,
-    '&:hover, &:focus': {
+    '&:hover': {
       backgroundColor: 'transparent',
       color: 'currentColor',
-      textDecoration: 'underline',
+      opacity: 0.5,
     },
     '&:disabled': {
       opacity: 1,

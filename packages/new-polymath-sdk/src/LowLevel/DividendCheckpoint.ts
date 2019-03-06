@@ -19,7 +19,7 @@ import {
 } from './types';
 import { fromUnixTimestamp, fromWei, toWei } from './utils';
 import { TaxWithholding, DividendModuleTypes } from './types';
-import { zipWith } from 'lodash';
+import { zipWith, range, flatten } from 'lodash';
 
 interface InternalDividend {
   checkpointId: string;
@@ -214,16 +214,13 @@ export abstract class DividendCheckpoint<
       .getDividendIndex(checkpointIndex)
       .call();
 
-    const dividends = [];
-    for (const dividendIndex of dividendIndexes) {
-      const dividend = await this.getDividend({
-        dividendIndex: parseInt(dividendIndex, 10),
-      });
+    const dividends = await Promise.all(
+      dividendIndexes.map(dividendIndex =>
+        this.getDividend({ dividendIndex: parseInt(dividendIndex, 10) })
+      )
+    );
 
-      dividends.push(dividend);
-    }
-
-    return dividends;
+    return dividends.sort((a, b) => a.index - b.index);
   }
 
   public async getDividends() {
@@ -233,23 +230,15 @@ export abstract class DividendCheckpoint<
       context: this.context,
     });
 
-    const currentCheckpointId = await securityToken.currentCheckpointId();
+    const currentCheckpointIndex = await securityToken.currentCheckpointId();
+    const checkpointIndexes = range(1, currentCheckpointIndex + 1);
+    const dividends = await Promise.all(
+      checkpointIndexes.map(checkpointIndex =>
+        this.getDividendsByCheckpoint({ checkpointIndex })
+      )
+    );
 
-    const dividends = [];
-
-    for (
-      let checkpointId = 1;
-      checkpointId <= currentCheckpointId;
-      ++checkpointId
-    ) {
-      const dividend = await this.getDividendsByCheckpoint({
-        checkpointIndex: checkpointId,
-      });
-
-      dividends.push(...dividend);
-    }
-
-    return dividends;
+    return flatten(dividends).sort((a, b) => a.index - b.index);
   }
 
   public getStorageWallet = async () => {

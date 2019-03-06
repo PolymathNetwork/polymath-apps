@@ -24,10 +24,15 @@ export class DividendListContainerBase extends Component<Props> {
           }),
         ]}
         render={({ dividends }: { dividends: types.DividendEntity[] }) => {
+          // this spread is necessary because sort mutates the original array and that causes a rerender of the DataFetcher
+          const sortedDividends = [...dividends].sort(
+            (a, b) => b.index - a.index
+          );
+
           return (
             <DividendListPresenter
               securityTokenSymbol={securityTokenSymbol}
-              dividends={dividends}
+              dividends={sortedDividends}
               checkpointIndex={checkpointIndex}
             />
           );

@@ -41,7 +41,7 @@ const getIcon = (transaction: types.TransactionPojo) => {
   }
 
   if (status === TransactionStatus.Unapproved) {
-    return <Icon Asset={SvgPending} color="gray.1" width={32} height={24} />;
+    return <Icon Asset={SvgPending} color="gray.2" width={32} height={24} />;
   }
 
   if (status === TransactionStatus.Running) {
@@ -85,15 +85,15 @@ const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
           <Paragraph as={Flex} fontSize={0}>
             <sc.Label>Transaction details on Etherscan: </sc.Label>
             &nbsp;
-            {txHash && (
+            {txHash ? (
               <Link
                 href={utils.toEtherscanUrl(txHash, {
                   subdomain: transactionLinkSubdomain,
                 })}
               >
-                <TextEllipsis size={28}>{txHash}</TextEllipsis>
+                <TextEllipsis size={26}>{txHash}</TextEllipsis>
               </Link>
-            )}
+            ) : null}
           </Paragraph>
         </CardPrimary>
       </sc.Info>

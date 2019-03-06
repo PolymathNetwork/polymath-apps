@@ -6,6 +6,7 @@ import {
   FormikProxy,
   FormikExternalProps,
 } from '~/components/inputs/FormikProxy';
+import { styled } from '~/styles';
 import * as sc from './styles';
 
 type Value = File | File[] | null;
@@ -24,7 +25,7 @@ interface State {
   isFocused: boolean;
 }
 
-export class FileUploaderPrimitive extends React.Component<Props, State> {
+class FileUploaderComponent extends React.Component<Props, State> {
   public static defaultProps = {
     multiple: false, // only single file supported in this implementation
     onTouch: () => {},
@@ -116,9 +117,6 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
   }
 
   public renderInput() {
-    const { onChange, onTouch, uploadTo, ...domProps } = this.props;
-    const { isFocused } = this.state;
-
     // If in progress
     if (this.state.progress > -1 && this.state.progress < 100) {
       return (
@@ -137,7 +135,7 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
             Asset={SvgClose}
-            scale={0.8}
+            scale={0.75}
             width={18}
             height={18}
           />
@@ -159,7 +157,7 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
               onFocus={this.handleInputFocus}
               onBlur={this.handleInputBlur}
               Asset={SvgClose}
-              scale={0.8}
+              scale={0.75}
               width={18}
               height={18}
             />
@@ -174,7 +172,6 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
         onDrop={this.onDrop}
         onFocus={this.handleInputFocus}
         onBlur={this.handleInputBlur}
-        {...domProps}
       >
         {({ getRootProps, getInputProps, isDragActive }) => (
           <sc.Dropzone {...getRootProps()} isDragActive={isDragActive}>
@@ -189,11 +186,22 @@ export class FileUploaderPrimitive extends React.Component<Props, State> {
   }
 
   public render() {
-    return <div>{this.renderInput()}</div>;
+    const {
+      onChange,
+      onTouch,
+      onError,
+      multiple,
+      uploadTo,
+      ...otherProps
+    } = this.props;
+
+    return <div {...otherProps}>{this.renderInput()}</div>;
   }
 }
 
-export const FileUploader: FC<FormikExternalProps> = ({
+export const FileUploaderPrimitive = styled(FileUploaderComponent)``;
+
+const FileUploaderWithFormik: FC<FormikExternalProps> = ({
   field,
   form,
   ...rest
@@ -204,3 +212,5 @@ export const FileUploader: FC<FormikExternalProps> = ({
     render={formikProps => <FileUploaderPrimitive {...rest} {...formikProps} />}
   />
 );
+
+export const FileUploader = styled(FileUploaderWithFormik)``;

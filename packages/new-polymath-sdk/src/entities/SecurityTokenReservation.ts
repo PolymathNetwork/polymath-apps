@@ -13,8 +13,12 @@ interface ExcludedArgs {
 }
 
 export class SecurityTokenReservation extends Entity {
+  public static generateId({ symbol }: { symbol: string }) {
+    return serialize('securityTokenReservation', {
+      symbol,
+    });
+  }
   public uid: string;
-  public entityType = 'securityTokenReservation';
   public symbol: string;
   public name: string;
 
@@ -25,7 +29,7 @@ export class SecurityTokenReservation extends Entity {
 
     this.symbol = symbol;
     this.name = name;
-    this.uid = this.generateId();
+    this.uid = SecurityTokenReservation.generateId({ symbol });
   }
 
   public reserve = (
@@ -56,13 +60,5 @@ export class SecurityTokenReservation extends Entity {
     const { uid, symbol, name } = this;
 
     return { uid, symbol, name };
-  }
-
-  protected generateId() {
-    const { symbol, entityType } = this;
-
-    return serialize(entityType, {
-      symbol,
-    });
   }
 }

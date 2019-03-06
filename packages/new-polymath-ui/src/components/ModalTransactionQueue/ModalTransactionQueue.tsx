@@ -95,7 +95,7 @@ export class ModalTransactionQueue extends Component<
         ))}
 
         {isSuccess && withEmail && (
-          <Flex mt="gridGap">
+          <Flex mt="auto" pt="gridGap">
             <Box minWidth={50} mt={1}>
               <Icon Asset={SvgPaperplane} width="30" height="30" />
             </Box>
@@ -107,7 +107,7 @@ export class ModalTransactionQueue extends Component<
         )}
 
         {(isSuccess || isRejected) && (
-          <Paragraph textAlign="center" mt="gridGap">
+          <Paragraph textAlign="center" mt="auto" pt="gridGap">
             <Button onClick={onContinue}>{continueButtonText}</Button>
           </Paragraph>
         )}

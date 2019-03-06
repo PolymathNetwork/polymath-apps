@@ -37,6 +37,7 @@ export const TableComponent: FC<Props> = ({
   selectable,
   csvParserData,
   children,
+  ...otherProps
 }) => {
   const tableEl = useRef(null);
   const selectRowColumn: HeaderColumn = {
@@ -89,7 +90,7 @@ export const TableComponent: FC<Props> = ({
   const { getTableProps, headerGroups } = instance;
 
   return (
-    <sc.Table {...getTableProps()} selectable={selectable}>
+    <sc.Table {...getTableProps()} selectable={selectable} {...otherProps}>
       <sc.Inner>
         <SimpleBar>
           <sc.Body ref={tableEl}>

@@ -76,7 +76,7 @@ export const Step: FC<StepProps> = ({
           Asset={CurrentSvg || CompleteSvg || IncompleteSvg}
           width={iconsSize}
           height={iconsSize}
-          scale={0.9}
+          scale={0.8}
         />
         {!!label && (
           <sc.Label

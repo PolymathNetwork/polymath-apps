@@ -14,8 +14,12 @@ interface ExcludedArgs {
 }
 
 export class SecurityToken extends Entity {
+  public static generateId({ address }: { address: string }) {
+    return serialize('securityToken', {
+      address,
+    });
+  }
   public uid: string;
-  public entityType: string = 'securityToken';
   public symbol: string;
   public name: string;
   public address: string;
@@ -28,7 +32,7 @@ export class SecurityToken extends Entity {
     this.symbol = symbol;
     this.name = name;
     this.address = address;
-    this.uid = this.generateId();
+    this.uid = SecurityToken.generateId({ address });
   }
 
   public getErc20DividendsModule = (
@@ -119,12 +123,5 @@ export class SecurityToken extends Entity {
     const { uid, symbol, name, address } = this;
 
     return { uid, symbol, name, address };
-  }
-
-  protected generateId() {
-    const { entityType, address } = this;
-    return serialize(entityType, {
-      address,
-    });
   }
 }

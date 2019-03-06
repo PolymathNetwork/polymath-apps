@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
-import { createTaxWithholdingListBySymbolFetcher } from '~/state/fetchers';
+import {
+  createTaxWithholdingListBySymbolFetcher,
+  createCheckpointBySymbolAndIdFetcher,
+} from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
-import { Page } from '@polymathnetwork/new-ui';
 import { DateTime } from 'luxon';
 import {
   updateTaxWithholdingListStart,
@@ -14,6 +16,7 @@ import {
 import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
+import { Page } from '@polymathnetwork/new-ui';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -23,7 +26,7 @@ const actions = {
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
-  checkpointIndex: number;
+  checkpointIndex: string;
 }
 
 interface State {
@@ -37,7 +40,7 @@ interface Row {
 
 export class ContainerBase extends Component<Props, State> {
   public state = {
-    step: 1,
+    step: 0,
   };
 
   public nextStep = () => {
@@ -61,6 +64,8 @@ export class ContainerBase extends Component<Props, State> {
   }) => {
     const { dispatch, securityTokenSymbol, checkpointIndex } = this.props;
 
+    const checkpointId = parseInt(checkpointIndex, 10);
+
     const maturityDate = new Date();
     const expiryDate = new Date(
       maturityDate.getFullYear() + 1000,
@@ -75,7 +80,7 @@ export class ContainerBase extends Component<Props, State> {
         expiryDate,
         erc20Address,
         amount,
-        checkpointId: checkpointIndex,
+        checkpointId,
         name,
         excludedAddresses,
         pushPaymentsWhenComplete: true,
@@ -137,24 +142,40 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public render() {
-    const { securityTokenSymbol } = this.props;
+    const { securityTokenSymbol, checkpointIndex } = this.props;
     const { step } = this.state;
     return (
-      <DataFetcher
-        fetchers={[
-          createTaxWithholdingListBySymbolFetcher({
-            securityTokenSymbol,
-            dividendType: DividendModuleTypes.Erc20,
-          }),
-        ]}
-        render={({
-          taxWithholdings,
-        }: {
-          taxWithholdings: types.TaxWithholdingEntity[];
-        }) => {
-          return <Presenter stepIndex={step} />;
-        }}
-      />
+      <Page title="Create New Dividend Distribution">
+        <DataFetcher
+          fetchers={[
+            createTaxWithholdingListBySymbolFetcher({
+              securityTokenSymbol,
+              dividendType: DividendModuleTypes.Erc20,
+            }),
+            createCheckpointBySymbolAndIdFetcher({
+              securityTokenSymbol,
+              checkpointIndex: parseInt(checkpointIndex, 10),
+            }),
+          ]}
+          render={({
+            taxWithholdings,
+            checkpoints: [checkpoint],
+          }: {
+            taxWithholdings: types.TaxWithholdingEntity[];
+            checkpoints: types.CheckpointEntity[];
+          }) => {
+            return (
+              <Presenter
+                stepIndex={step}
+                securityTokenSymbol={securityTokenSymbol}
+                checkpoint={checkpoint}
+                onNextStep={this.nextStep}
+                taxWithholdings={taxWithholdings}
+              />
+            );
+          }}
+        />
+      </Page>
     );
   }
 }

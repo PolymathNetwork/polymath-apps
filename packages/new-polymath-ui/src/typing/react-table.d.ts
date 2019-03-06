@@ -5,12 +5,12 @@
 // TypeScript Version: 3.0
 declare module 'react-table' {
   export type Cell = {
-    row: Row;
-    value: string;
     render: (type: string) => any;
     getCellProps: () => any;
     column: Column;
+    row: Row;
     state: any;
+    value: any;
   };
 
   export type Row = {
@@ -22,9 +22,9 @@ declare module 'react-table' {
 
   export interface HeaderColumn {
     accessor: string | ((originalRow: any) => string);
-    Header?: string | ((props: Api) => JSX.Element);
-    Filter?: string | ((props: Api) => JSX.Element);
-    Cell?: string | ((cell: Cell) => JSX.Element);
+    Header?: string | ((props: Api) => JSX.Element | string);
+    Filter?: string | ((props: Api) => JSX.Element | string);
+    Cell?: string | ((cell: Cell) => JSX.Element | string);
     id?: string | number;
     minWidth?: string | number;
     maxWidth?: string | number;

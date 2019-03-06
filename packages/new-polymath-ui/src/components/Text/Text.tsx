@@ -32,10 +32,6 @@ export const Text = styled(Box)<Props>`
   ${fontSize};
   ${props => props.bold && fontWeight({ ...props, fontWeight: 'bold' })};
   overflow-wrap: break-word;
-
-  > * {
-    vertical-align: middle;
-  }
 `;
 
 export const TextDocz: FC<Props> = (props: any) => {

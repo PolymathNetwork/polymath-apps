@@ -44,7 +44,7 @@ export const DividendListPresenter = ({
               Asset={icons.SvgPlus}
               width={25}
               height={25}
-              scale={0.9}
+              scale={0.8}
             />
             Add new <br /> dividend <br /> distribution
             <TooltipPrimary>
@@ -54,12 +54,17 @@ export const DividendListPresenter = ({
           </sc.NewDividendButton>
         </Fragment>
       ) : (
-        <sc.PlaceholderButton RouterLink={Link} href={newDividendUrl}>
+        <sc.PlaceholderButton
+          RouterLink={Link}
+          href={newDividendUrl}
+          variant="ghost"
+          iconPosition="top"
+        >
           <IconOutlined
             Asset={icons.SvgPlus}
             width={25}
             height={25}
-            scale={0.9}
+            scale={0.8}
           />
           Add new <br /> dividend <br /> distribution
         </sc.PlaceholderButton>

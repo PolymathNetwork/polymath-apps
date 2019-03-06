@@ -6,8 +6,7 @@ menu: Components
 import { Playground, PropsTable } from 'docz';
 
 import { Icon, IconDocz } from '../';
-import { SvgDot } from '~/images/icons/Dot';
-import { SvgPoly } from '~/images/icons/Poly';
+import * as icons from '~/images/icons';
 
 # FormItem
 
@@ -16,6 +15,7 @@ import { SvgPoly } from '~/images/icons/Poly';
 ## Basic usage
 
 <Playground>
-  <Icon Asset={SvgDot} />
-  <Icon Asset={SvgPoly} />
+  <Icon Asset={icons.SvgDot} />
+  <Icon Asset={icons.SvgAlert} rotate="0.5turn" />
+  <Icon Asset={icon.SvgChecklist} scale="0.5" />
 </Playground>

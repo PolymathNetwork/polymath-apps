@@ -51,7 +51,7 @@ export const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
           bg="secondary"
           width={32}
           height={32}
-          scale={0.95}
+          scale={0.9}
         />
       </Box>
       <sc.Info>

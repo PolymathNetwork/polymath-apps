@@ -1,4 +1,5 @@
 import { styled, css, ThemeInterface } from '~/styles';
+import { Box } from '~/components/Box';
 import { Flex } from '~/components/Flex';
 import { Icon } from '~/components/Icon';
 import { Button } from '~/components/Button';
@@ -8,11 +9,10 @@ export const rowHeight = css(
     small ? theme.space.l : theme.space.xl
 );
 
-export const Table = styled.div<{ selectable?: boolean }>`
+export const Table = styled(Box)<{ selectable?: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: inherit;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   padding-top: ${({ selectable }) => selectable && rowHeight};
 `;

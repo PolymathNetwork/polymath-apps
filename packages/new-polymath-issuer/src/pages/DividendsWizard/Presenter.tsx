@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Box,
-  Button,
+  Form,
   Icon,
   icons,
   Heading,
@@ -12,19 +12,28 @@ import {
   Text,
   ProgressIndicator,
   CardPrimary,
-  IconCircled,
+  ButtonLink,
 } from '@polymathnetwork/new-ui';
+import { ListIcon } from '~/components/ListIcon';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
+import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
   stepIndex: number;
+  securityTokenSymbol: string;
+  checkpoint: types.CheckpointEntity;
+  onNextStep: () => void;
+  taxWithholdings: types.TaxWithholdingEntity[];
 }
 
 const getStep = (stepIndex: number) => {
   switch (stepIndex) {
     case 0: {
-      return <Step1 />;
+      return Step1;
+    }
+    default: {
+      return Step1;
     }
     // case 1:
     //   return <Step2 />;
@@ -33,20 +42,40 @@ const getStep = (stepIndex: number) => {
   }
 };
 
-export const Presenter = ({ stepIndex }: Props) => (
+export const Presenter = ({
+  stepIndex,
+  securityTokenSymbol,
+  checkpoint,
+  onNextStep,
+}: Props) => (
   <div>
     <Text color="primary">
-      <Button variant="ghostSecondary" iconPosition="right">
+      <ButtonLink
+        variant="ghostSecondary"
+        iconPosition="right"
+        href={`/securityTokens/${securityTokenSymbol}/dividends`}
+      >
         Go back
         <Icon Asset={icons.SvgArrow} width={18} height={18} />
-      </Button>
+      </ButtonLink>
     </Text>
     <Heading variant="h1" as="h1">
       Create New Dividend Distribution
     </Heading>
     <GridRow>
       <GridRow.Col gridSpan={{ sm: 12, lg: 8 }}>
-        {getStep(stepIndex)}
+        <Form
+          initialValues={{
+            noWalletExcluded: false,
+            excludedWalletsCsv: null,
+          }}
+          onSubmit={() => {}}
+          render={props => {
+            const Step = getStep(stepIndex);
+
+            return <Step {...props} onSubmitStep={onNextStep} />;
+          }}
+        />
       </GridRow.Col>
       <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
         <Box height={250} mb="xl">
@@ -64,18 +93,11 @@ export const Presenter = ({ stepIndex }: Props) => (
             <List vertical>
               <Flex as="li">
                 <Flex flex="0" alignSelf="flex-start" mr="s">
-                  <IconCircled
-                    Asset={icons.SvgCheckmark}
-                    bg="inactive"
-                    color="gray.1"
-                    width={24}
-                    height={24}
-                    scale={0.9}
-                  />
+                  <ListIcon />
                 </Flex>
                 <Paragraph>
-                  <Text as="strong">1400</Text> Investors held the token at
-                  checkpoint time
+                  <Text as="strong">{checkpoint.investorBalances.length}</Text>{' '}
+                  Investors held the token at checkpoint time
                 </Paragraph>
               </Flex>
             </List>

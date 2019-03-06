@@ -40,7 +40,7 @@ yupValidator.addMethod(Yup.mixed, 'isRequired', function(message) {
 });
 
 yupValidator.addMethod(yupValidator.string, 'isEthereumAddress', function(
-  message
+  message = 'Address is invalid'
 ) {
   return this.test('validateIsEthereumAddress', message, function(value) {
     if (!isValidAddress(value)) {
