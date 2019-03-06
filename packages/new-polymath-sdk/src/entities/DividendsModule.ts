@@ -1,6 +1,5 @@
 import { Polymath } from '~/Polymath';
 import { Entity } from './Entity';
-import { serialize } from '~/utils';
 
 export interface Params {
   address: string;
@@ -30,7 +29,6 @@ export abstract class DividendsModule extends Entity {
     this.securityTokenSymbol = securityTokenSymbol;
     this.securityTokenId = securityTokenId;
     this.storageWalletAddress = storageWalletAddress;
-    this.uid = this.generateId();
   }
 
   public toPojo() {

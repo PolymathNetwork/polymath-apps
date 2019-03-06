@@ -6,6 +6,7 @@ interface Params {
   address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
+  storageWalletAddress: string;
 }
 
 export class EthDividendsModule extends DividendsModule {
