@@ -12,9 +12,9 @@ import {
   Text,
   ProgressIndicator,
   CardPrimary,
-  IconCircled,
   ButtonLink,
 } from '@polymathnetwork/new-ui';
+import { ListIcon } from '~/components/ListIcon';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
 import { Step2 } from './Step-2';
@@ -97,14 +97,7 @@ export const Presenter = ({
             <List vertical>
               <Flex as="li">
                 <Flex flex="0" alignSelf="flex-start" mr="s">
-                  <IconCircled
-                    Asset={icons.SvgCheckmark}
-                    bg="inactive"
-                    color="gray.1"
-                    width={24}
-                    height={24}
-                    scale={0.9}
-                  />
+                  <ListIcon />
                 </Flex>
                 <Paragraph>
                   <Text as="strong">{checkpoint.investorBalances.length}</Text>{' '}

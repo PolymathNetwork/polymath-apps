@@ -3,6 +3,7 @@ import { PolyToken } from '~/LowLevel/PolyToken';
 import { LowLevel } from '~/LowLevel';
 import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
 import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
+import { SecurityToken } from '~/LowLevel/SecurityToken';
 import { Context } from '~/Context';
 import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
 import { TaxWithholdingEntry } from '~/types';
@@ -340,21 +341,17 @@ export class Polymath {
       checkpointIndex,
     });
 
-    const name = await securityToken.name();
+    const { address } = securityToken;
 
-    const emptySecurityToken = new this.SecurityToken({
-      symbol: securityTokenSymbol,
-      address: securityToken.address,
-      name,
-    });
+    const securityTokenId = this.SecurityToken.generateId({ address });
 
     return taxWithholdings.map(
-      ({ address, percentage }) =>
+      ({ address: investorAddress, percentage }) =>
         new this.TaxWithholding({
-          investorAddress: address,
+          investorAddress,
           percentage,
           securityTokenSymbol,
-          securityTokenId: emptySecurityToken.uid,
+          securityTokenId,
           dividendType,
         })
     );
@@ -378,55 +375,29 @@ export class Polymath {
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: securityTokenSymbol,
     });
-    const erc20Module = await securityToken.getErc20DividendModule();
-    const etherModule = await securityToken.getEtherDividendModule();
 
-    let erc20Dividends: LowLevelDividend[] = [];
-    let etherDividends: LowLevelDividend[] = [];
-
-    if (erc20Module && includes(dividendTypes, DividendModuleTypes.Erc20)) {
-      erc20Dividends = await erc20Module.getDividends();
-    }
-    if (etherModule && includes(dividendTypes, DividendModuleTypes.Eth)) {
-      etherDividends = await etherModule.getDividends();
-    }
+    const allDividends = await this.getAllDividends({
+      securityToken,
+      dividendTypes,
+    });
 
     const checkpoints: LowLevelCheckpoint[] = await securityToken.getCheckpoints();
 
     const address = securityToken.address;
-    const name = await securityToken.name();
-    const stEntity = new this.SecurityToken({
-      symbol: securityTokenSymbol,
-      name,
-      address,
-    });
-    const securityTokenId = stEntity.uid;
+
+    const securityTokenId = this.SecurityToken.generateId({ address });
 
     return checkpoints.map(checkpoint => {
-      const checkpointDividends = [...erc20Dividends, ...etherDividends].filter(
+      const checkpointDividends = allDividends.filter(
         dividend => dividend.checkpointId === checkpoint.index
       );
 
-      const emptyCheckpoint = new this.Checkpoint({
-        ...checkpoint,
+      return this.assembleCheckpoint({
         securityTokenId,
         securityTokenSymbol,
-        dividends: [],
+        checkpoint,
+        checkpointDividends,
       });
-
-      const dividends = checkpointDividends.map(
-        dividend =>
-          new this.Dividend({
-            ...dividend,
-            checkpointId: emptyCheckpoint.uid,
-            securityTokenSymbol,
-            securityTokenId,
-          })
-      );
-
-      emptyCheckpoint.dividends = dividends;
-
-      return emptyCheckpoint;
     });
   };
 
@@ -435,21 +406,36 @@ export class Polymath {
     checkpointIndex: number;
     dividendTypes?: DividendModuleTypes[];
   }) => {
+    const { securityTokenRegistry } = this.context;
     const {
-      symbol,
+      symbol: securityTokenSymbol,
       checkpointIndex,
       dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
     } = args;
-    const checkpoints = await this.getCheckpoints({
-      symbol,
+
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: securityTokenSymbol,
+    });
+
+    const checkpointDividends = await this.getAllDividends({
+      securityToken,
+      checkpointIndex,
       dividendTypes,
     });
 
-    const thisCheckpoint = checkpoints.find(
-      checkpoint => checkpoint.index === checkpointIndex
-    );
+    const checkpoint: LowLevelCheckpoint = await securityToken.getCheckpoint({
+      checkpointId: checkpointIndex,
+    });
 
-    return thisCheckpoint || null;
+    const address = securityToken.address;
+    const securityTokenId = this.SecurityToken.generateId({ address });
+
+    return this.assembleCheckpoint({
+      securityTokenId,
+      securityTokenSymbol,
+      checkpoint,
+      checkpointDividends,
+    });
   };
 
   public getDividends = async (args: {
@@ -457,23 +443,42 @@ export class Polymath {
     checkpointIndex: number;
     dividendTypes?: DividendModuleTypes[];
   }) => {
+    const { securityTokenRegistry } = this.context;
     const {
       symbol,
       checkpointIndex,
       dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
     } = args;
 
-    const thisCheckpoint = await this.getCheckpoint({
-      symbol,
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
+
+    const checkpointDividends = await this.getAllDividends({
+      securityToken,
       checkpointIndex,
       dividendTypes,
     });
 
-    if (thisCheckpoint) {
-      return thisCheckpoint.dividends;
-    }
+    const checkpointId = this.Checkpoint.generateId({
+      securityTokenSymbol: symbol,
+      index: checkpointIndex,
+    });
 
-    return [];
+    const address = securityToken.address;
+    const securityTokenId = this.SecurityToken.generateId({ address });
+
+    const dividends = checkpointDividends.map(
+      dividend =>
+        new this.Dividend({
+          ...dividend,
+          checkpointId,
+          securityTokenSymbol: symbol,
+          securityTokenId,
+        })
+    );
+
+    return dividends;
   };
 
   public getDividend = async (args: {
@@ -516,17 +521,13 @@ export class Polymath {
       ticker: securityTokenSymbol,
     });
 
-    const name = await securityToken.name();
+    const { address } = securityToken;
 
-    const securityTokenEntity = new this.SecurityToken({
-      address: securityToken.address,
-      symbol: securityTokenSymbol,
-      name,
-    });
+    const securityTokenId = this.SecurityToken.generateId({ address });
 
     const constructorData = {
       securityTokenSymbol,
-      securityTokenId: securityTokenEntity.uid,
+      securityTokenId,
     };
 
     let dividendsModule;
@@ -612,4 +613,76 @@ export class Polymath {
   get TaxWithholding() {
     return this.entities.TaxWithholding;
   }
+
+  private assembleCheckpoint = ({
+    securityTokenId,
+    securityTokenSymbol,
+    checkpoint,
+    checkpointDividends,
+  }: {
+    securityTokenId: string;
+    securityTokenSymbol: string;
+    checkpoint: LowLevelCheckpoint;
+    checkpointDividends: LowLevelDividend[];
+  }) => {
+    const checkpointId = this.Checkpoint.generateId({
+      securityTokenSymbol,
+      index: checkpoint.index,
+    });
+
+    const dividends = checkpointDividends.map(
+      dividend =>
+        new this.Dividend({
+          ...dividend,
+          checkpointId,
+          securityTokenSymbol,
+          securityTokenId,
+        })
+    );
+
+    const checkpointEntity = new this.Checkpoint({
+      ...checkpoint,
+      securityTokenId,
+      securityTokenSymbol,
+      dividends,
+    });
+
+    return checkpointEntity;
+  };
+
+  private getAllDividends = async ({
+    securityToken,
+    checkpointIndex,
+    dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
+  }: {
+    securityToken: SecurityToken;
+    checkpointIndex?: number;
+    dividendTypes?: DividendModuleTypes[];
+  }) => {
+    const dividends = [];
+
+    if (includes(dividendTypes, DividendModuleTypes.Erc20)) {
+      const erc20Module = await securityToken.getErc20DividendModule();
+
+      if (erc20Module) {
+        const erc20Dividends = await (checkpointIndex !== undefined
+          ? erc20Module.getDividendsByCheckpoint({ checkpointIndex })
+          : erc20Module.getDividends());
+        dividends.push(...erc20Dividends);
+      }
+    }
+
+    if (includes(dividendTypes, DividendModuleTypes.Eth)) {
+      const etherModule = await securityToken.getEtherDividendModule();
+
+      if (etherModule) {
+        const etherDividends = await (checkpointIndex !== undefined
+          ? etherModule.getDividendsByCheckpoint({ checkpointIndex })
+          : etherModule.getDividends());
+        dividends.push(...etherDividends);
+      }
+    }
+
+    return dividends;
+  };
 }

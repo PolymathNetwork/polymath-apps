@@ -88,7 +88,7 @@ class ModalBase extends Component<Props, State> {
             height={44}
             width={44}
             color="gray.2"
-            scale={0.72}
+            scale={0.62}
           />
         )}
         <sc.Inner>{children}</sc.Inner>

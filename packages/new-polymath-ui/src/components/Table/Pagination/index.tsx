@@ -58,7 +58,7 @@ export const Pagination: FC<Props> = props => {
           variant="ghost"
           aria-label="Previous page"
         >
-          <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
+          <Icon Asset={SvgCaretDown2} width="0.9em" height="0.9em" />
         </sc.ButtonPreviousPage>
         <Select
           variant="ghost"
@@ -76,7 +76,7 @@ export const Pagination: FC<Props> = props => {
           variant="ghost"
           aria-label="Next page"
         >
-          <Icon Asset={SvgCaretDown2} width="1em" height="1em" />
+          <Icon Asset={SvgCaretDown2} width="0.9em" height="0.9em" />
         </sc.ButtonNextPage>
       </Flex>
     </sc.Pagination>

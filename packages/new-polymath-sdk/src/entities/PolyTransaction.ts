@@ -10,6 +10,8 @@ import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
 import { TransactionQueue } from '~/entities/TransactionQueue';
+import { serialize } from '~/utils';
+import v4 from 'uuid/v4';
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -25,7 +27,11 @@ const mapValuesDeep = (
   );
 
 export class PolyTransaction<Args = any, R = any> extends Entity {
-  public entityType = 'transaction';
+  public static generateId() {
+    return serialize('transaction', {
+      random: v4(),
+    });
+  }
   public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
   public transactionQueue: TransactionQueue;
@@ -60,7 +66,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
       this.resolve = res;
       this.reject = rej;
     });
-    this.uid = this.generateId();
+    this.uid = PolyTransaction.generateId();
   }
 
   public toPojo() {

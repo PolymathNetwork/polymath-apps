@@ -56,7 +56,12 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
         onClick={handleCsvModalOpen}
       >
         Upload CSV of ETH Addresses to exclude
-        <Icon Asset={icons.SvgDownload} width={18} height={18} />
+        <Icon
+          Asset={icons.SvgDownload}
+          width={18}
+          height={18}
+          rotate="0.5turn"
+        />
       </Button>
       <ModalConfirm
         isOpen={isCsvModalOpen}

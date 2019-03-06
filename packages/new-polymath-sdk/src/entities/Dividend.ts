@@ -25,8 +25,22 @@ interface Params {
 }
 
 export class Dividend extends Entity {
+  public static generateId({
+    securityTokenSymbol,
+    dividendType,
+    index,
+  }: {
+    securityTokenSymbol: string;
+    dividendType: DividendModuleTypes;
+    index: number;
+  }) {
+    return serialize('dividend', {
+      securityTokenSymbol,
+      dividendType,
+      index,
+    });
+  }
   public uid: string;
-  public entityType: string = 'dividend';
   public index: number;
   public checkpointId: string;
   public dividendType: DividendModuleTypes;
@@ -85,7 +99,12 @@ export class Dividend extends Entity {
     this.name = name;
     this.investors = investors;
     this.currency = currency;
-    this.uid = this.generateId();
+
+    this.uid = Dividend.generateId({
+      securityTokenSymbol,
+      dividendType,
+      index,
+    });
   }
 
   public toPojo() {
@@ -130,15 +149,5 @@ export class Dividend extends Entity {
       name,
       currency,
     };
-  }
-
-  protected generateId() {
-    const { securityTokenSymbol, dividendType, index, entityType } = this;
-
-    return serialize(entityType, {
-      securityTokenSymbol,
-      dividendType,
-      index,
-    });
   }
 }

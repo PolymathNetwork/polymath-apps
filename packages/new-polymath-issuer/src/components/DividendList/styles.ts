@@ -29,10 +29,7 @@ type PlaceholderButtonType = StyledComponent<
 
 export const PlaceholderButtonBase: PlaceholderButtonType = styled(
   NewDividendButton
-).attrs({
-  variant: 'ghost',
-  iconPosition: 'top',
-})`
+)`
   width: 300px;
   height: 370px;
   border: 1px dashed ${({ theme }) => theme.colors.primary};

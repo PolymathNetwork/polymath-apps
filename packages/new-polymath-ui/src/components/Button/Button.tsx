@@ -55,12 +55,11 @@ const ButtonBase = styled.button.attrs<Props>(({ href }) => ({
   text-transform: uppercase;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: ${({ theme }) => theme.lineHeights.tight};
   transition-duration: ${({ theme }) => theme.transitions.hover.ms}ms;
-  transition-property: background, color, border-color;
+  transition-property: background, color, border-color, opacity;
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -72,10 +71,6 @@ const ButtonBase = styled.button.attrs<Props>(({ href }) => ({
   &input[type='reset'],
   &input[type='file'] {
     border-radius: 0;
-  }
-
-  &:focus {
-    border-color: #f4f7fb;
   }
 
   &:disabled {
