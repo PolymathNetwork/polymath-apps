@@ -98,8 +98,10 @@ export const Step2 = ({  }: Props) => (
           <FormItem name="walletAddress">
             <FormItem.Input
               component={Checkbox}
-              label="I confirm that no wallets must be excluded from the dividends
-                  distribution."
+              inputProps={{
+                label:
+                  'I confirm that no wallets must be excluded from the dividends distribution.',
+              }}
             />
             <FormItem.Error />
           </FormItem>
