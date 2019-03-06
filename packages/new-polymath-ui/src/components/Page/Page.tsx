@@ -6,7 +6,7 @@ import { PageWrapProps } from '../PageWrap';
 export interface PageProps extends PageWrapProps {
   title?: string;
   children: React.ReactNode;
-  scrollToTopOnMount: boolean;
+  scrollToTopOnMount?: boolean;
 }
 
 const appTitle = 'Polymath';
