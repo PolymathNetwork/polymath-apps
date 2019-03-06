@@ -100,6 +100,26 @@ export const Presenter = ({
                   Investors held the token at checkpoint time
                 </Paragraph>
               </Flex>
+              <Flex as="li">
+                <Flex flex="0" alignSelf="flex-start" mr="s">
+                  <ListIcon />
+                </Flex>
+                <Paragraph>
+                  <Text as="strong">0</Text> Investors are excluded from the
+                  dividends distribution
+                </Paragraph>
+              </Flex>
+            </List>
+            <hr />
+            <List vertical>
+              <Flex as="li">
+                <Flex flex="0" alignSelf="flex-start" mr="s">
+                  <ListIcon />
+                </Flex>
+                <Paragraph>
+                  <Text as="strong">0</Text> Investors will receive dividends
+                </Paragraph>
+              </Flex>
             </List>
           </Box>
           <Text as="strong" mt="m">
