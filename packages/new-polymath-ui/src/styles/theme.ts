@@ -150,10 +150,10 @@ const buttons = {
     borderColor: 'transparent',
     color: 'currentColor',
     padding: 0,
-    '&:hover, &:focus': {
+    '&:hover': {
       backgroundColor: 'transparent',
       color: 'currentColor',
-      textDecoration: 'underline',
+      opacity: 0.5,
     },
     '&:disabled': {
       opacity: 1,
