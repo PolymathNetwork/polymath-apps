@@ -44,11 +44,9 @@ yupValidator.addMethod(yupValidator.string, 'isEthereumAddress', function(
 ) {
   return this.test('validateIsEthereumAddress', message, function(value) {
     if (!isValidAddress(value)) {
-      const err = this.createError({
+      this.createError({
         message,
       });
-
-      return err;
     }
 
     return true;
