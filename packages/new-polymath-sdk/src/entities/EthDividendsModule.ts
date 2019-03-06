@@ -1,6 +1,6 @@
-import { DividendsModule } from './DividendsModule';
 import { Polymath } from '~/Polymath';
 import { serialize } from '~/utils';
+import { DividendsModule } from './DividendsModule';
 
 interface Params {
   address: string;

@@ -32,3 +32,8 @@ export const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 export const MAX_SAFE_NUMBER = 99999999999999;
 export const MIN_SAFE_NUMBER = -99999999999999;
+
+export const EtherscanSubdomains = {
+  [KOVAN_NETWORK_ID]: 'kovan',
+  [LOCAL_NETWORK_ID]: 'localhost',
+};

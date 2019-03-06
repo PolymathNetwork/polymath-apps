@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useCallback } from 'react';
+import React, { FC, Fragment, useCallback, useEffect } from 'react';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import { Notification } from '~/components/Notification';
@@ -9,16 +9,15 @@ import {
   FormikExternalProps,
   RenderProps as FormikProxyRenderProps,
 } from '~/components/inputs/FormikProxy';
+import { csvParser } from '@polymathnetwork/new-shared';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
 
-type Value = File | File[] | null;
+type Value = csvParser.ResultRow[] | csvParser.ResultProps[][] | null;
 
-const parsedCsvToTable = (
-  parsedCsvRows: ParseCsvRenderProps['data']['result']
-) => {
+const parsedCsvToTable = (parsedCsvRows: csvParser.ResultRow[]) => {
   return parsedCsvRows.map(parsedCsvRow =>
     Object.keys(parsedCsvRow.data).reduce((acc, curr) => {
       return { ...acc, [curr]: parsedCsvRow.data[curr].value };
@@ -51,8 +50,18 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
   const handleFileUploaderChange = useCallback(file => {
     clearFile();
     setFile(file);
-    onChange(file);
   }, []);
+
+  useEffect(
+    () => {
+      if (data.isFileValid) {
+        onChange(data.result);
+      } else {
+        onChange(null);
+      }
+    },
+    [data.isFileValid]
+  );
 
   const isFullyInvalid =
     data.errorRows === data.totalRows || data.errorRows === config.maxRows;
@@ -86,7 +95,7 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
                 description="Please make sure your .csv file follows the format of format our sample file."
               />
             )}
-            {errorCount && (
+            {!!errorCount && (
               <Notification
                 status="alert"
                 title={`${errorCount} Errors in Your .csv File`}

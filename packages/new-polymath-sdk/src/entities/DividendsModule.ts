@@ -2,10 +2,11 @@ import { Polymath } from '~/Polymath';
 import { Entity } from './Entity';
 import { serialize } from '~/utils';
 
-interface Params {
+export interface Params {
   address: string;
   securityTokenSymbol: string;
   securityTokenId: string;
+  storageWalletAddress: string;
 }
 
 export abstract class DividendsModule extends Entity {
@@ -13,25 +14,40 @@ export abstract class DividendsModule extends Entity {
   public address: string;
   public securityTokenSymbol: string;
   public securityTokenId: string;
+  public storageWalletAddress: string;
 
   constructor(params: Params, polyClient?: Polymath) {
     super(polyClient);
 
-    const { address, securityTokenSymbol, securityTokenId } = params;
+    const {
+      address,
+      securityTokenSymbol,
+      securityTokenId,
+      storageWalletAddress,
+    } = params;
 
     this.address = address;
     this.securityTokenSymbol = securityTokenSymbol;
     this.securityTokenId = securityTokenId;
+    this.storageWalletAddress = storageWalletAddress;
+    this.uid = this.generateId();
   }
 
   public toPojo() {
-    const { uid, address, securityTokenSymbol, securityTokenId } = this;
+    const {
+      uid,
+      address,
+      securityTokenSymbol,
+      securityTokenId,
+      storageWalletAddress,
+    } = this;
 
     return {
       uid,
       address,
       securityTokenSymbol,
       securityTokenId,
+      storageWalletAddress,
     };
   }
 }

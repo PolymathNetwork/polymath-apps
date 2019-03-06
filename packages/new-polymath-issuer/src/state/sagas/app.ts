@@ -4,6 +4,7 @@ import {
   initializePolyClientStart,
   initializePolyClientFailure,
   initializePolyClientSuccess,
+  setNetworkId,
 } from '~/state/actions/app';
 import { polyClient } from '~/lib/polyClient';
 import { NETWORK } from '~/constants';
@@ -18,6 +19,7 @@ export function* initializePolyClient() {
       throw new Error('Network ID could not be optioned');
     }
     yield call(polyClient.connect, NETWORK.POLY_CLIENT_PARAMS[networkId]);
+    yield put(setNetworkId(networkId));
     yield put(initializePolyClientSuccess());
   } catch (error) {
     yield put(initializePolyClientFailure(error.message));

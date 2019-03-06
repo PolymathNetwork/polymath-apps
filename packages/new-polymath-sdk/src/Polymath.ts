@@ -537,8 +537,10 @@ export class Polymath {
         dividendsModule = await securityToken.getErc20DividendModule();
 
         if (dividendsModule) {
+          const storageWalletAddress = await dividendsModule.getStorageWallet();
           return new this.Erc20DividendsModule({
             address: dividendsModule.address,
+            storageWalletAddress,
             ...constructorData,
           });
         }
@@ -549,8 +551,10 @@ export class Polymath {
         dividendsModule = await securityToken.getEtherDividendModule();
 
         if (dividendsModule) {
+          const storageWalletAddress = await dividendsModule.getStorageWallet();
           return new this.EthDividendsModule({
             address: dividendsModule.address,
+            storageWalletAddress,
             ...constructorData,
           });
         }

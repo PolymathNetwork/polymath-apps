@@ -19,6 +19,7 @@ export { SecurityTokensIndexPage } from './SecurityTokensIndex';
 export { SecurityTokensReservePage } from './SecurityTokensReserve';
 export { SecurityTokensDividendsPage } from './SecurityTokensDividends';
 export { DividendsWizardPage } from './DividendsWizard';
+export { DividendDetailsPage } from './DividendDetails';
 export { NotFoundPage } from './NotFound';
 
 interface StateProps {

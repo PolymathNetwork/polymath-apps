@@ -5,6 +5,7 @@ import { mockEthereumBrowser } from './helpers';
 
 // Avoid breaking tests trying to import third party css
 jest.mock('typeface-overpass', () => ({}));
+jest.mock('simplebar/dist/simplebar.css', () => ({}));
 
 const res = dotenv.config({ path: './config/.env.tests' });
 

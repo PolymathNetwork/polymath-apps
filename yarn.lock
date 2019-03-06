@@ -3006,6 +3006,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/history@*":
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
+  integrity sha512-ui3WwXmjTaY73fOQ3/m3nnajU/Orhi6cEu5rzX+BrAAJxa3eITXZ5ch9suPqtM03OWhAHhPSyBGCN4UKoxO20Q==
+
 "@types/jest@^23.3.10":
   version "23.3.10"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
@@ -3095,6 +3100,23 @@
     "@types/react" "*"
     redux "^4.0.0"
 
+"@types/react-router-dom@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.3.1.tgz#71fe2918f8f60474a891520def40a63997dafe04"
+  integrity sha512-GbztJAScOmQ/7RsQfO4cd55RuH1W4g6V1gDW3j4riLlt+8yxYLqqsiMzmyuXBLzdFmDtX/uU2Bpcm0cmudv44A==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.4.4.tgz#4dbd5588ea6024e0c04519bd8aabe74c0a2b77e5"
+  integrity sha512-TZVfpT6nvUv/lbho/nRtckEtgkhspOQr3qxrnpXixwgQRKKyg5PvDfNKc8Uend/p/Pi70614VCmC0NPAKWF+0g==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
 "@types/react-select@2.0.11":
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/@types/react-select/-/react-select-2.0.11.tgz#9b2b1fdb12b67a5a617c5f572e15617636cc65af"
@@ -3122,6 +3144,13 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/redux-little-router@^15.1.0":
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/@types/redux-little-router/-/redux-little-router-15.1.0.tgz#f30a6442b5d667dd6839d280e59de51694d6843b"
+  integrity sha512-q4hZVm94bT6129kl2HCG0B71sLJdG/6ozF3dCHxGVL3m3RVIMYGnna4noGn1l0Nx26pvI4yxZGAKBjiMdstOIQ==
+  dependencies:
+    redux-little-router "*"
 
 "@types/redux-mock-store@^1.0.0":
   version "1.0.0"
@@ -3757,6 +3786,7 @@ ansi-regex@^4.0.0:
 ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
+  integrity sha1-tDLdM1i2NM914eRmQ2gkBTPB3b4=
 
 ansi-styles@^3.1.0, ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   version "3.2.1"
@@ -8744,9 +8774,9 @@ eslint@4.19.1, eslint@^4.0.0, eslint@^4.5.0:
     text-table "~0.2.0"
 
 esm@^3.0.82:
-  version "3.2.7"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.7.tgz#5fcb7649cce55323bce9ac02496e89339df86f9f"
-  integrity sha512-zsyD5gO8CY9dpK3IrdC4WHtvtHGXEFOpYA4zB+6p+Kygf3vv/6kF3YMEQLOArwKPPNvKt8gjI8UYhQW8bXM/YQ==
+  version "3.2.10"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.10.tgz#fea61120e0d89b87897756f506f169c2fb0ca78e"
+  integrity sha512-r6v4kFfezz5/Qo6Q5ThaNPPUi7a2E3J4ZWxFuohhxJRAa6X7hg6Ca7GRPaixsi5ALcokhif/04Ys4zAxab4Edw==
 
 esm@^3.0.84:
   version "3.0.84"
@@ -17129,6 +17159,7 @@ react-router-config@1.0.0-beta.4, react-router-config@^1.0.0-beta.4:
 react-router-dom@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.3.1.tgz#4c2619fc24c4fa87c9fd18f4fb4a43fe63fbd5c6"
+  integrity sha512-c/MlywfxDdCp7EnB7YfPMOfMD3tOtIjrQlj/CKfNMBxdmpJP8xcz5P/UAFn3JbnQCNUxsHyVVqllF9LhgVyFCA==
   dependencies:
     history "^4.7.2"
     invariant "^2.2.4"
@@ -17582,9 +17613,10 @@ redux-form@^8.1.0:
     react-is "^16.7.0"
     react-lifecycles-compat "^3.0.4"
 
-redux-little-router@^15.1.2:
+redux-little-router@*, redux-little-router@^15.1.2:
   version "15.1.2"
   resolved "https://registry.yarnpkg.com/redux-little-router/-/redux-little-router-15.1.2.tgz#07809ff39b5c640decc5daace822c18a568b21a8"
+  integrity sha512-AdF7BME193gYBvNfIXYBuVGyD6dPQgWyI7CbsCgCWnFO1JZYIqYn8PJuiSqplUBcMObdnIr+lVgA6t0SBuAOew==
   dependencies:
     history "^4.6.1"
     lodash.assign "^4.2.0"

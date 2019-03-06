@@ -1,12 +1,6 @@
-import { DividendsModule } from './DividendsModule';
+import { DividendsModule, Params } from './DividendsModule';
 import { Polymath } from '~/Polymath';
 import { serialize } from '~/utils';
-
-interface Params {
-  address: string;
-  securityTokenSymbol: string;
-  securityTokenId: string;
-}
 
 export class Erc20DividendsModule extends DividendsModule {
   public static generateId({
