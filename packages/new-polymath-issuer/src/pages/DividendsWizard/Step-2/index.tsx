@@ -107,7 +107,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         iconPosition="right"
         onClick={handleCsvModalOpen}
       >
-        Upload Tax Withholings List
+        Upload Tax Withholdings List
         <Icon Asset={icons.SvgDownload} width={18} height={18} />
       </Button>
       <ModalConfirm
