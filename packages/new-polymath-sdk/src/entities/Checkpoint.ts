@@ -16,8 +16,19 @@ interface Params {
 }
 
 export class Checkpoint extends Entity {
+  public static generateId({
+    securityTokenSymbol,
+    index,
+  }: {
+    securityTokenSymbol: string;
+    index: number;
+  }) {
+    return serialize('checkpoint', {
+      securityTokenSymbol,
+      index,
+    });
+  }
   public uid: string;
-  public entityType: string = 'checkpoint';
   public dividends: Dividend[];
   public securityTokenSymbol: string;
   public securityTokenId: string;
@@ -46,7 +57,7 @@ export class Checkpoint extends Entity {
     this.investorBalances = investorBalances;
     this.totalSupply = totalSupply;
     this.createdAt = createdAt;
-    this.uid = this.generateId();
+    this.uid = Checkpoint.generateId({ securityTokenSymbol, index });
   }
 
   public toPojo() {
@@ -71,13 +82,5 @@ export class Checkpoint extends Entity {
       totalSupply,
       createdAt,
     };
-  }
-
-  protected generateId() {
-    const { securityTokenSymbol, index, entityType } = this;
-    return serialize(entityType, {
-      securityTokenSymbol,
-      index,
-    });
   }
 }
