@@ -41,16 +41,12 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   margin-bottom: 0;
   margin-left: calc(1.6em / 2);
   margin-top: 0;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
   font-size: inherit;
   overflow-wrap: break-word;
   line-height: 1.6em;
   color: currentColor;
-}
-
-.c4 > * {
-  vertical-align: middle;
 }
 
 .c4:last-child {

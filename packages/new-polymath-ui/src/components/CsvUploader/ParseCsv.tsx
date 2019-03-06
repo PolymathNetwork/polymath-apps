@@ -64,17 +64,19 @@ export class ParseCsv extends Component<Props, State> {
         rowsExceedMaxLimit: rowsExceedMaxLimitErrorMessage || '',
       },
     };
-    console.log(file);
+
     try {
       const parseResult = await csvParser.parseCsv(fileProps);
       this.setState({ data: parseResult });
     } catch {
-      this.setState(prevState => ({
-        data: {
-          ...prevState.data,
-          errors: [this.props.config.parseErrorMessage],
-        },
-      }));
+      if (this.props.config.parseErrorMessage) {
+        this.setState({
+          data: {
+            ...this.state.data,
+            errors: [this.props.config.parseErrorMessage],
+          },
+        });
+      }
     }
   };
 
