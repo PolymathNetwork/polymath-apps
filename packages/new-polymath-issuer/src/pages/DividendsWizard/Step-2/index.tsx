@@ -195,7 +195,10 @@ export const Step2 = ({ onSubmitStep, values }: Props) => {
             <FormItem name="walletAddress">
               <FormItem.Input
                 component={Checkbox}
-                label="I’m sure I don’t need any adds/updates to the Tax Withholdings List."
+                inputProps={{
+                  label:
+                    'I’m sure I don’t need any adds/updates to the Tax Withholdings List.',
+                }}
               />
               <FormItem.Error />
             </FormItem>
