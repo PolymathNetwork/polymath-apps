@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { SecurityTokensDividendsPage } from '@polymathnetwork/new-issuer/pages';
-import { Page } from '@polymathnetwork/ui';
+import { Page, NewIssuerAdapter } from '@polymathnetwork/ui';
 import { ThemeProvider } from '@polymathnetwork/new-ui';
 
 const AdapterContainer = props => {
@@ -9,15 +9,13 @@ const AdapterContainer = props => {
   const securityTokenSymbol = id.toUpperCase();
 
   return (
-    <Fragment>
+    <NewIssuerAdapter>
       <ThemeProvider>
-        <Page title="Dividends Distributions">
-          <SecurityTokensDividendsPage
-            securityTokenSymbol={securityTokenSymbol}
-          />
-        </Page>
+        <SecurityTokensDividendsPage
+          securityTokenSymbol={securityTokenSymbol}
+        />
       </ThemeProvider>
-    </Fragment>
+    </NewIssuerAdapter>
   );
 };
 
