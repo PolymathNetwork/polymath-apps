@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useCallback } from 'react';
-import { validators, types, utils } from '@polymathnetwork/new-shared';
+import { validators, formatters } from '@polymathnetwork/new-shared';
 
 import {
   Box,
@@ -77,7 +77,6 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     );
   };
 
-  console.log(values);
   return (
     <Card p="gridGap" boxShadow={1}>
       <Heading variant="h2" mb="l">
@@ -135,10 +134,10 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
             <FormItem.Input
               component={CsvUploader}
               inputProps={{
-                config: {
+                csvConfig: {
                   columns: [
                     {
-                      name: 'Investor Eth Address',
+                      name: columns[0].Header,
                       validators: [
                         validators.isEthereumAddress,
                         validators.isNotEmpty,
@@ -146,22 +145,34 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                       required: true,
                     },
                     {
-                      name: '% of Tax Withholding',
+                      name: columns[1].Header,
                       validators: [validators.isString, validators.isNotEmpty],
                       required: true,
                     },
                   ],
                   header: true,
                   maxRows: 200,
-                  missingRequiredColumnsErrorMessage:
-                    'Some required columns do not exist in the CSV',
-                  extraColumnsErrorMessage:
-                    'the CSV file contains extra columns',
-                  rowsExceedMaxLimitErrorMessage:
-                    'The CSV file contains more columns than the maximum limit',
                 },
               }}
-            />
+            >
+              <CsvUploader.CsvErrors />
+              <CsvUploader.CsvPreview
+                tableConfig={{
+                  columns: [
+                    {
+                      accessor: columns[0].Header,
+                      Header: columns[0].Header,
+                      Cell: ({ value }) =>
+                        formatters.toShortAddress(value, { size: 26 }),
+                    },
+                    {
+                      accessor: columns[1].Header,
+                      Header: columns[1].Header,
+                    },
+                  ],
+                }}
+              />
+            </FormItem.Input>
             <FormItem.Error />
           </FormItem>
         </Grid>
