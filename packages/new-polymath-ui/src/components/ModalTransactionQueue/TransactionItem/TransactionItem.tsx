@@ -41,7 +41,7 @@ const getIcon = (transaction: types.TransactionPojo) => {
   }
 
   if (status === TransactionStatus.Unapproved) {
-    return <Icon Asset={SvgPending} color="gray.1" width={32} height={24} />;
+    return <Icon Asset={SvgPending} color="gray.2" width={32} height={24} />;
   }
 
   if (status === TransactionStatus.Running) {
@@ -93,9 +93,7 @@ const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
               >
                 <TextEllipsis size={26}>{txHash}</TextEllipsis>
               </Link>
-            ) : (
-              null
-            )}
+            ) : null}
           </Paragraph>
         </CardPrimary>
       </sc.Info>
