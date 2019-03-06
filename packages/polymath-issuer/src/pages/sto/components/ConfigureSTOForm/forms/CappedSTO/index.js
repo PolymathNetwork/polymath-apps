@@ -195,7 +195,7 @@ export const CappedSTOFormComponent = ({
           <FormItem.Error />
         </FormItem>
         <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-          <Grid.Item gridColumn="span 3 / 5">
+          <Grid.Item gridColumn="span 1 / 4">
             <RaisedAmount
               title="Amount Of Funds the STO Will Raise"
               primaryAmount={format.toTokens(totalRaiseAmount, {
