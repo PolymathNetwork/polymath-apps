@@ -23,6 +23,7 @@ export class CheckpointListContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
     const { securityTokenSymbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
+
     const data: Row[] = investorBalances.map(({ balance, address }) => {
       const percentage = balance
         .div(totalSupply)
