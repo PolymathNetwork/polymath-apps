@@ -4,6 +4,8 @@ import { TransactionSpec, MaybeResolver } from '~/types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
 import { isPostTransactionResolver } from '~/PostTransactionResolver';
+import { serialize } from '~/utils';
+import v4 from 'uuid/v4';
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -14,6 +16,11 @@ export class TransactionQueue<
   Args extends any = any,
   ReturnType = any
 > extends Entity {
+  public static generateId() {
+    return serialize('transaction', {
+      random: v4(),
+    });
+  }
   public readonly entityType: string = 'transactionQueue';
   public procedureType: types.ProcedureTypes;
   public uid: string;
@@ -61,7 +68,7 @@ export class TransactionQueue<
       return txn;
     });
 
-    this.uid = this.generateId();
+    this.uid = TransactionQueue.generateId();
   }
 
   public toPojo() {

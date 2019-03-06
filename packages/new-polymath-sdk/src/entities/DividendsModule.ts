@@ -9,8 +9,7 @@ interface Params {
 }
 
 export abstract class DividendsModule extends Entity {
-  public uid: string;
-  public abstract entityType: string;
+  public abstract uid: string;
   public address: string;
   public securityTokenSymbol: string;
   public securityTokenId: string;
@@ -23,7 +22,6 @@ export abstract class DividendsModule extends Entity {
     this.address = address;
     this.securityTokenSymbol = securityTokenSymbol;
     this.securityTokenId = securityTokenId;
-    this.uid = this.generateId();
   }
 
   public toPojo() {
@@ -35,12 +33,5 @@ export abstract class DividendsModule extends Entity {
       securityTokenSymbol,
       securityTokenId,
     };
-  }
-
-  protected generateId() {
-    const { securityTokenSymbol, entityType } = this;
-    return serialize(entityType, {
-      securityTokenSymbol,
-    });
   }
 }

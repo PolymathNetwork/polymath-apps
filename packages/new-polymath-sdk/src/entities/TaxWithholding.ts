@@ -12,8 +12,22 @@ interface Params {
 }
 
 export class TaxWithholding extends Entity {
+  public static generateId({
+    securityTokenSymbol,
+    dividendType,
+    investorAddress,
+  }: {
+    securityTokenSymbol: string;
+    dividendType: DividendModuleTypes;
+    investorAddress: string;
+  }) {
+    return serialize('taxWithholding', {
+      securityTokenSymbol,
+      dividendType,
+      investorAddress,
+    });
+  }
   public uid: string;
-  public entityType: string = 'taxWithholding';
   public securityTokenSymbol: string;
   public securityTokenId: string;
   public dividendType: DividendModuleTypes;
@@ -36,7 +50,11 @@ export class TaxWithholding extends Entity {
     this.dividendType = dividendType;
     this.investorAddress = investorAddress;
     this.percentage = percentage;
-    this.uid = this.generateId();
+    this.uid = TaxWithholding.generateId({
+      securityTokenSymbol,
+      investorAddress,
+      dividendType,
+    });
   }
 
   public toPojo() {
@@ -57,20 +75,5 @@ export class TaxWithholding extends Entity {
       investorAddress,
       percentage,
     };
-  }
-
-  protected generateId() {
-    const {
-      entityType,
-      securityTokenSymbol,
-      dividendType,
-      investorAddress,
-    } = this;
-
-    return serialize(entityType, {
-      securityTokenSymbol,
-      dividendType,
-      investorAddress,
-    });
   }
 }
