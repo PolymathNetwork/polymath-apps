@@ -22,9 +22,9 @@ declare module 'react-table' {
 
   export interface HeaderColumn {
     accessor: string | ((originalRow: any) => string);
-    Header?: string | ((props: Api) => JSX.Element);
-    Filter?: string | ((props: Api) => JSX.Element);
-    Cell?: string | (({ row }: { row: Row }) => JSX.Element);
+    Header?: string | ((props: Api) => JSX.Element | string);
+    Filter?: string | ((props: Api) => JSX.Element | string);
+    Cell?: string | ((cell: Cell) => JSX.Element | string);
     id?: string | number;
     minWidth?: string | number;
     maxWidth?: string | number;

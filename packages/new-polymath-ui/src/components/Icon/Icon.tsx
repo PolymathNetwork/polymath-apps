@@ -8,6 +8,7 @@ export interface IconProps extends StyledProps<any> {
   height: TLengthStyledSystem;
   color?: string;
   scale?: number;
+  rotate?: string;
 }
 
 const IconComponent: FC<IconProps> = ({
@@ -16,6 +17,7 @@ const IconComponent: FC<IconProps> = ({
   width,
   height,
   scale,
+  rotate,
   bg, // Filter out prop coming from IconCircled component
   borderWidth, // Filter out prop coming from IconOutlined component
   className,
@@ -40,14 +42,14 @@ export const Icon = styled(IconComponent)<IconProps>`
     display: block;
     width: 100%;
     height: 100%;
-    padding: ${({ scale }) => `${(1 - scale!) * 100 + 10}%`};
+    padding: ${({ scale }) => scale && `${(1 - scale!) * 100}%`};
+    transform: ${({ rotate }) => rotate && `rotateZ(${rotate})`};
   }
 `;
 
 Icon.defaultProps = {
   width: '1em',
   height: '1em',
-  scale: 1,
 };
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved

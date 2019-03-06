@@ -12,7 +12,6 @@ exports[`Table renders without crashing 1`] = `
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10%;
 }
 
 .c22 {
@@ -26,21 +25,19 @@ exports[`Table renders without crashing 1`] = `
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10%;
 }
 
 .c26 {
   display: inline-block;
   vertical-align: middle;
-  width: 1em;
-  height: 1em;
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .c26 svg {
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10%;
 }
 
 .c17 {
@@ -97,24 +94,22 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
 }
 
-.c18:hover,
-.c18:focus {
+.c18:hover {
   color: #fff;
   background-color: #5596E6;
 }
@@ -131,16 +126,13 @@ exports[`Table renders without crashing 1`] = `
   border-radius: 0;
 }
 
-.c18:focus {
-  border-color: #f4f7fb;
-}
-
 .c18:disabled:hover {
   background-color: transparent;
   color: currentColor;
 }
 
 .c0 {
+  box-sizing: border-box;
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -149,7 +141,6 @@ exports[`Table renders without crashing 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  height: inherit;
   font-size: 0.875rem;
 }
 
@@ -199,7 +190,6 @@ exports[`Table renders without crashing 1`] = `
   align-items: center;
   padding: 0.6em;
   height: 30px;
-  color: #e0182d;
 }
 
 .c11:first-child {
@@ -222,7 +212,7 @@ exports[`Table renders without crashing 1`] = `
   align-items: center;
   padding: 0.6em;
   height: 48px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .c5:first-child {
@@ -259,17 +249,16 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 0;
   background: none;
   text-transform: none;
@@ -286,10 +275,6 @@ exports[`Table renders without crashing 1`] = `
 .c6input[type='reset'],
 .c6input[type='file'] {
   border-radius: 0;
-}
-
-.c6:focus {
-  border-color: #f4f7fb;
 }
 
 .c6 .c7 {
@@ -352,17 +337,16 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -375,8 +359,7 @@ exports[`Table renders without crashing 1`] = `
   padding-right: 0.8rem;
 }
 
-.c25:hover,
-.c25:focus {
+.c25:hover {
   color: #fff;
   background-color: #5596E6;
 }
@@ -391,10 +374,6 @@ exports[`Table renders without crashing 1`] = `
 .c25input[type='reset'],
 .c25input[type='file'] {
   border-radius: 0;
-}
-
-.c25:focus {
-  border-color: #f4f7fb;
 }
 
 .c25:disabled:hover {
@@ -438,17 +417,16 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -461,8 +439,7 @@ exports[`Table renders without crashing 1`] = `
   padding-right: 0.8rem;
 }
 
-.c27:hover,
-.c27:focus {
+.c27:hover {
   color: #fff;
   background-color: #5596E6;
 }
@@ -477,10 +454,6 @@ exports[`Table renders without crashing 1`] = `
 .c27input[type='reset'],
 .c27input[type='file'] {
   border-radius: 0;
-}
-
-.c27:focus {
-  border-color: #f4f7fb;
 }
 
 .c27:disabled:hover {
@@ -538,7 +511,6 @@ exports[`Table renders without crashing 1`] = `
   -ms-flex-align: center;
   align-items: center;
   border: solid 1px #ddd;
-  background: #f9cbd0;
 }
 
 .c10 + .c9 {
@@ -564,8 +536,8 @@ exports[`Table renders without crashing 1`] = `
   display: inline-block;
   vertical-align: middle;
   color: #8C9BA5;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
   display: block;
 }
 
@@ -573,7 +545,6 @@ exports[`Table renders without crashing 1`] = `
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10%;
 }
 
 .c14:hover {
@@ -1867,7 +1838,7 @@ exports[`Table renders without crashing 1`] = `
           class="css-6o5gw2"
         >
           <div
-            class="css-1kygr5d"
+            class="css-1crx08z"
           >
             10
           </div>
@@ -1952,7 +1923,7 @@ exports[`Table renders without crashing 1`] = `
             class="css-6o5gw2"
           >
             <div
-              class="css-1kygr5d"
+              class="css-1crx08z"
             >
               1
             </div>
