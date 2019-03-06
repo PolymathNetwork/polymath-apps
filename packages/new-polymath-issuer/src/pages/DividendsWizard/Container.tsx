@@ -40,7 +40,7 @@ interface Row {
 
 export class ContainerBase extends Component<Props, State> {
   public state = {
-    step: 0,
+    step: 1,
   };
 
   public nextStep = () => {
