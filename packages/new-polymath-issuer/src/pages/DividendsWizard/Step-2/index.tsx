@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import { validators } from '@polymathnetwork/new-shared';
+
 import {
   Box,
   Button,
@@ -13,6 +15,8 @@ import {
   FormItem,
   Checkbox,
   List,
+  Grid,
+  CsvUploader,
 } from '@polymathnetwork/new-ui';
 
 export interface Props {}
@@ -41,6 +45,35 @@ export const Step2 = ({  }: Props) => (
       </Link>{' '}
       file and edit it.
     </Paragraph>
+    <Grid mb="gridGap">
+      <FormItem name="excludedWalletsCsv">
+        <FormItem.Input
+          component={CsvUploader}
+          inputProps={{
+            config: {
+              columns: [
+                {
+                  name: 'Investor Eth Address',
+                  validators: [validators.isString, validators.isNotEmpty],
+                },
+                {
+                  name: '% of Tax Withholding',
+                  validators: [validators.isDate, validators.isNotEmpty],
+                },
+              ],
+              header: true,
+              maxRows: 75,
+              missingRequiredColumnsErrorMessage:
+                'Some required columns do not exist in the CSV',
+              extraColumnsErrorMessage: 'the CSV file contains extra columns',
+              rowsExceedMaxLimitErrorMessage:
+                'The CSV file contains more columns than the maximum limit',
+            },
+          }}
+        />
+        <FormItem.Error />
+      </FormItem>
+    </Grid>
     <Remark>
       The number of tokens contained in the wallets excluded from the dividends
       calculation and distribution will be deducted from the total supply before
