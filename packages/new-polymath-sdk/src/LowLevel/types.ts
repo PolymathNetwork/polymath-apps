@@ -29,14 +29,14 @@ export interface GenericContract {
 
 export interface Erc20DividendDepositedEvent {
   _depositor: string;
-  _checkpointId: number;
-  _created: number;
-  _maturity: number;
-  _expiry: number;
+  _checkpointId: string;
+  _created: string;
+  _maturity: string;
+  _expiry: string;
   _token: string;
-  _amount: number;
-  _totalSupply: number;
-  _dividendIndex: number;
+  _amount: string;
+  _totalSupply: string;
+  _dividendIndex: string;
   _name: string;
 }
 
@@ -73,8 +73,8 @@ export interface Dividend {
   claimedAmount: BigNumber;
   totalSupply: BigNumber;
   reclaimed: boolean;
-  dividendWithheld: BigNumber;
-  dividendWithheldReclaimed: BigNumber;
+  totalWithheld: BigNumber;
+  totalWithheldWithdrawn: BigNumber;
   name: string;
   currency: string | null;
   investors: DividendInvestorStatus[];

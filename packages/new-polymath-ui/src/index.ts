@@ -16,6 +16,7 @@ import { SvgPen } from './images/icons/generated/Pen';
 import { SvgPlus } from './images/icons/generated/Plus';
 import { SvgPlusPlain } from './images/icons/generated/PlusPlain';
 import { SvgWarning } from './images/icons/generated/Warning';
+import { SvgTaxes } from './images/icons/generated/Taxes';
 import { SvgDelete } from './images/icons/generated/Delete';
 
 // Styles
@@ -76,6 +77,7 @@ export { Table } from './components/Table';
 export { Tooltip } from './components/Tooltip';
 export { TooltipIcon } from './components/TooltipIcon';
 export { TooltipPrimary } from './components/TooltipPrimary';
+export { Hr } from './components/Hr';
 export * from './components/inputs';
 
 // Icons
@@ -96,6 +98,7 @@ export const icons = {
   SvgPlus,
   SvgPlusPlain,
   SvgWarning,
+  SvgTaxes,
   SvgDelete,
 };
 

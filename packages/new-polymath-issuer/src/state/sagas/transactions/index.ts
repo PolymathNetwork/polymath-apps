@@ -2,16 +2,13 @@ import { put, take, takeEvery } from 'redux-saga/effects';
 import {
   createAction,
   updateAction,
-  newTransaction,
 } from '~/state/actions/transactions';
 import { eventChannel } from 'redux-saga';
-import { getType, ActionType } from 'typesafe-actions';
 import { types } from '@polymathnetwork/new-shared';
 import { PolyTransaction } from '@polymathnetwork/sdk';
 
-export function* watchTransaction({
-  payload: transaction,
-}: ActionType<typeof newTransaction>) {
+export function* watchTransaction(
+  transaction: PolyTransaction) {
   const transactionEntity: types.TransactionEntity = {
     ...transaction.toPojo(),
   };
@@ -41,8 +38,4 @@ export function* watchTransaction({
       return;
     }
   }
-}
-
-export function* transactionWatcher() {
-  yield takeEvery(getType(newTransaction), watchTransaction);
 }

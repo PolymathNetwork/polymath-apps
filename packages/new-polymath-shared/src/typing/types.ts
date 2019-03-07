@@ -114,8 +114,8 @@ export interface DividendEntity extends Entity {
   claimedAmount: BigNumber;
   totalSupply: BigNumber;
   reclaimed: boolean;
-  dividendWithheld: BigNumber;
-  dividendWithheldReclaimed: BigNumber;
+  totalWithheld: BigNumber;
+  totalWithheldWithdrawn: BigNumber;
   investors: DividendInvestorStatus[];
   name: string;
   currency: string | null;

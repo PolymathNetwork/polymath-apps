@@ -22,16 +22,16 @@ import { TaxWithholding, DividendModuleTypes } from './types';
 import { zipWith, range, flatten } from 'lodash';
 
 interface InternalDividend {
-  checkpointId: number;
-  created: number;
-  maturity: number;
-  expiry: number;
-  amount: number;
-  claimedAmount: number;
-  totalSupply: number;
+  checkpointId: string;
+  created: string;
+  maturity: string;
+  expiry: string;
+  amount: string;
+  claimedAmount: string;
+  totalSupply: string;
   reclaimed: boolean;
-  dividendWithheld: number;
-  dividendWithheldReclaimed: number;
+  totalWithheld: string;
+  totalWithheldWithdrawn: string;
   name: string;
 }
 
@@ -66,22 +66,22 @@ interface DividendProgress {
   /**
    * withheld tax amount
    */
-  3: number[];
+  3: string[];
   /**
    * paid amount
    */
-  4: number[];
+  4: string[];
   /**
    * token balances of investors
    */
-  5: number[];
+  5: string[];
 }
 
 // This type should be obtained from a library (must match ABI)
 interface DividendCheckpointContract<T extends GenericContract> {
   methods: {
     getCheckpointData(checkpointId: number): TransactionObject<CheckpointData>;
-    getDividendIndex(checkpointId: number): TransactionObject<number[]>;
+    getDividendIndex(checkpointId: number): TransactionObject<string[]>;
     getDividendProgress(
       dividendIndex: number
     ): TransactionObject<DividendProgress>;
@@ -183,24 +183,24 @@ export abstract class DividendCheckpoint<
       claimedAmount,
       totalSupply,
       reclaimed,
-      dividendWithheld,
-      dividendWithheldReclaimed,
+      totalWithheld,
+      totalWithheldWithdrawn,
       name,
     } = dividend;
 
     return {
       index: dividendIndex,
-      checkpointId,
+      checkpointId: parseInt(checkpointId, 10),
       dividendType: this.dividendType,
-      created: fromUnixTimestamp(created),
-      maturity: fromUnixTimestamp(maturity),
-      expiry: fromUnixTimestamp(expiry),
+      created: fromUnixTimestamp(parseInt(created, 10)),
+      maturity: fromUnixTimestamp(parseInt(maturity, 10)),
+      expiry: fromUnixTimestamp(parseInt(expiry, 10)),
       amount: fromWei(amount),
       claimedAmount: fromWei(claimedAmount),
       totalSupply: fromWei(totalSupply),
       reclaimed,
-      dividendWithheld: fromWei(dividendWithheld),
-      dividendWithheldReclaimed: fromWei(dividendWithheldReclaimed),
+      totalWithheld: fromWei(totalWithheld),
+      totalWithheldWithdrawn: fromWei(totalWithheldWithdrawn),
       name: toAscii(name),
       currency: null,
       investors,
@@ -215,7 +215,9 @@ export abstract class DividendCheckpoint<
       .call();
 
     const dividends = await Promise.all(
-      dividendIndexes.map(dividendIndex => this.getDividend({ dividendIndex }))
+      dividendIndexes.map(dividendIndex =>
+        this.getDividend({ dividendIndex: parseInt(dividendIndex, 10) })
+      )
     );
 
     return dividends.sort((a, b) => a.index - b.index);
