@@ -95,7 +95,7 @@ export const Presenter = ({
                 <Flex flex="0" alignSelf="flex-start" mr="s">
                   <ListIcon />
                 </Flex>
-                <Paragraph>
+                <Paragraph color="#5A6872">
                   <Text as="strong">{checkpoint.investorBalances.length}</Text>{' '}
                   Investors held the token at checkpoint time
                 </Paragraph>
@@ -104,7 +104,7 @@ export const Presenter = ({
                 <Flex flex="0" alignSelf="flex-start" mr="s">
                   <ListIcon />
                 </Flex>
-                <Paragraph>
+                <Paragraph color="#5A6872">
                   <Text as="strong">0</Text> Investors are excluded from the
                   dividends distribution
                 </Paragraph>
@@ -116,7 +116,7 @@ export const Presenter = ({
                 <Flex flex="0" alignSelf="flex-start" mr="s">
                   <ListIcon />
                 </Flex>
-                <Paragraph>
+                <Paragraph color="#5A6872">
                   <Text as="strong">0</Text> Investors will receive dividends
                 </Paragraph>
               </Flex>
