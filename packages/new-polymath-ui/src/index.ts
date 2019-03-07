@@ -73,7 +73,7 @@ export { ProgressIndicator } from './components/ProgressIndicator';
 export { Remark } from './components/Remark';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
-export { Table } from './components/Table';
+export * from './components/Table';
 export { Tooltip } from './components/Tooltip';
 export { TooltipIcon } from './components/TooltipIcon';
 export { TooltipPrimary } from './components/TooltipPrimary';
