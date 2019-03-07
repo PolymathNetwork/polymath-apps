@@ -52,26 +52,21 @@ export function* fetchDividendBySymbolAndId(args: {
   dividendType: DividendModuleTypes;
 }) {
   const { securityTokenSymbol, dividendIndex, dividendType } = args;
-  const dividends: Dividend[] = yield call(polyClient.getDividend, {
+  const dividend: Dividend = yield call(polyClient.getDividend, {
     symbol: securityTokenSymbol,
     dividendType,
     dividendIndex,
   });
 
-  const fetchedIds: string[] = [];
+  const dividendPojo = dividend.toPojo();
 
-  const dividendPojos = dividends.map(dividend => dividend.toPojo());
-  for (const dividend of dividendPojos) {
-    fetchedIds.push(dividend.uid);
-
-    yield put(createDividend(dividend));
-  }
+  yield put(createDividend(dividendPojo));
 
   yield put(
     cacheData({
       requestKey: RequestKeys.GetDividendBySymbolAndId,
       args,
-      fetchedIds,
+      fetchedIds: [dividendPojo.uid],
     })
   );
 }

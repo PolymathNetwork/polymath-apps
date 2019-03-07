@@ -64,27 +64,6 @@ class FileUploaderComponent extends React.Component<Props, State> {
 
       return;
     }
-
-    // const file = acceptedFiles[0];
-    // const data = new FormData();
-    // const CancelToken = axios.CancelToken;
-    // this.axiosRequest = CancelToken.source();
-
-    // data.append('file', file);
-
-    // const apiConfig = {
-    //   cancelToken: this.axiosRequest.token,
-    //   onUploadProgress: p => {
-    //     this.setState({ progress: Math.round((p.loaded * 100) / p.total) });
-    //   },
-    // };
-
-    // axios
-    //   .post(this.props.uploadTo, data, apiConfig)
-    //   .then(res => {
-    //     this.props.onChange(res.data.files[0].url);
-    //   })
-    //   .catch(this.props.onError);
   };
 
   public handleRemoveFile = () => {

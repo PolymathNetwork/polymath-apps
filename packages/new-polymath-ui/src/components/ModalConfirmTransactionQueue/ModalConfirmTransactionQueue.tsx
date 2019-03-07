@@ -33,8 +33,8 @@ const ModalConfirmTransactionQueue: FC<Props> & {
       <ModalConfirm.Header>{title}</ModalConfirm.Header>
       {description ? <Paragraph fontSize={2}>{description}</Paragraph> : null}
       <div>
-        {transactionQueue.transactions.map(transaction => (
-          <TransactionItem key={transaction.uid} transaction={transaction} />
+        {transactionQueue.transactions.map((transaction, _index, allTransactions) => (
+          <TransactionItem key={transaction.uid} transaction={transaction} allTransactions={allTransactions} />
         ))}
       </div>
     </ModalConfirm>

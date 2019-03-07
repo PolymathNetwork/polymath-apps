@@ -84,11 +84,12 @@ export class ModalTransactionQueue extends Component<
           {getTitle(transactionQueue)}
         </Modal.Header>
 
-        {transactions.map(transaction => (
+        {transactions.map((transaction, _index, allTransactions) => (
           <TransactionItem
             key={transaction.uid}
             transaction={transaction}
             getTitle={getTransactionTitle}
+            allTransactions={allTransactions}
             transactionLinkSubdomain={transactionLinkSubdomain}
           />
         ))}

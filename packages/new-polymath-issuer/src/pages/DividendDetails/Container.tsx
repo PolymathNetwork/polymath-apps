@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { ActionType } from 'typesafe-actions/dist/types';
 import { types } from '@polymathnetwork/new-shared';
 import { Page } from '@polymathnetwork/new-ui';
-import { DividendDetailsPagePresenter } from './Presenter';
+import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import {
   createTaxWithholdingListBySymbolFetcher,
@@ -24,7 +24,7 @@ const actions = {
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
-  dividendIndex: number;
+  dividendIndex: string;
 }
 
 export class ContainerBase extends Component<Props> {
@@ -35,7 +35,7 @@ export class ContainerBase extends Component<Props> {
       pushDividendPaymentStart({
         securityTokenSymbol,
         dividendType: DividendModuleTypes.Erc20,
-        dividendIndex,
+        dividendIndex: parseInt(dividendIndex, 10),
       })
     );
   };
@@ -46,7 +46,7 @@ export class ContainerBase extends Component<Props> {
       withdrawDividendTaxesStart({
         securityTokenSymbol,
         dividendType: DividendModuleTypes.Erc20,
-        dividendIndex,
+        dividendIndex: parseInt(dividendIndex, 10),
       })
     );
   };
@@ -64,7 +64,7 @@ export class ContainerBase extends Component<Props> {
             createDividendBySymbolAndIdFetcher({
               securityTokenSymbol,
               dividendType: DividendModuleTypes.Erc20,
-              dividendIndex,
+              dividendIndex: parseInt(dividendIndex, 10),
             }),
           ]}
           render={(data: {
@@ -76,7 +76,13 @@ export class ContainerBase extends Component<Props> {
               dividends: [dividend],
             } = data;
 
-            return <DividendDetailsPagePresenter />;
+            return (
+              <Presenter
+                symbol={securityTokenSymbol}
+                dividend={dividend}
+                taxWithholdings={taxWithholdings}
+              />
+            );
           }}
         />
       </Page>
