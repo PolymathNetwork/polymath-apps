@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'redux-little-router';
 import {
   List,
   icons,
@@ -35,7 +34,6 @@ export const DividendListPresenter = ({
             </li>
           ))}
           <sc.NewDividendButton
-            RouterLink={Link}
             href={newDividendUrl}
             variant="ghost"
             iconPosition="top"
@@ -55,7 +53,6 @@ export const DividendListPresenter = ({
         </Fragment>
       ) : (
         <sc.PlaceholderButton
-          RouterLink={Link}
           href={newDividendUrl}
           variant="ghost"
           iconPosition="top"

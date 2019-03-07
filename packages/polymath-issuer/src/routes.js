@@ -66,6 +66,7 @@ export default [
         path: '/securityTokens/:id/checkpoints/:checkpointIndex/dividends/new',
         component: props => {
           const { id, checkpointIndex } = props.match.params;
+
           return (
             <Redirect
               to={`/dashboard/${id}/checkpoints/${checkpointIndex}/dividends/new`}
