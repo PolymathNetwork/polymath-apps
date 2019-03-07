@@ -4,12 +4,12 @@ import { Paragraph, Label } from '@polymathnetwork/new-ui';
 
 interface Props {
   walletAddress: string;
-  defaultWalletAddress: string;
+  userWalletAddress: string;
 }
 
 export const WalletAddress: FC<Props> = ({
   walletAddress,
-  defaultWalletAddress,
+  userWalletAddress,
 }) => {
   return (
     <Fragment>
@@ -21,10 +21,12 @@ export const WalletAddress: FC<Props> = ({
           size: 26,
         })}
         <br />
-        {walletAddress === defaultWalletAddress && (
+        {walletAddress === userWalletAddress ? (
           <Label color="baseText" bg="gray.1">
             Current Wallet Address
           </Label>
+        ) : (
+          <Label color="#9e36c7">Custom Wallet Address</Label>
         )}
       </Paragraph>
     </Fragment>
