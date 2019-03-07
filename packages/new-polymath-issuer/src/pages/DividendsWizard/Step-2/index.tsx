@@ -98,7 +98,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     utils.downloadCsvFile(
       withholdingList,
       ' Existing-Withholdings-Tax-List.csv',
-      { fields: ['Investor ETH Address', '% of Tax Withholding'] }
+      { fields: ['investorWalletAddress', 'withholdingPercent'] }
     );
   };
 
@@ -240,7 +240,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                 variant="ghost"
                 iconPosition="right"
                 onClick={e => {
-                  console.log(e);
+                  console.log('Delete');
                 }}
               >
                 Delete <Icon Asset={icons.SvgDelete} />
