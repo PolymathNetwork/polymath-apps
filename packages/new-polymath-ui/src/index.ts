@@ -16,6 +16,7 @@ import { SvgPen } from './images/icons/generated/Pen';
 import { SvgPlus } from './images/icons/generated/Plus';
 import { SvgPlusPlain } from './images/icons/generated/PlusPlain';
 import { SvgWarning } from './images/icons/generated/Warning';
+import { SvgDelete } from './images/icons/generated/Delete';
 
 // Styles
 export * from './styles';
@@ -71,6 +72,7 @@ export { ProgressIndicator } from './components/ProgressIndicator';
 export { Remark } from './components/Remark';
 export { StickyTop } from './components/StickyTop';
 export { Sidebar } from './components/Sidebar';
+export { Table } from './components/Table';
 export { Tooltip } from './components/Tooltip';
 export { TooltipIcon } from './components/TooltipIcon';
 export { TooltipPrimary } from './components/TooltipPrimary';
@@ -94,6 +96,7 @@ export const icons = {
   SvgPlus,
   SvgPlusPlain,
   SvgWarning,
+  SvgDelete,
 };
 
 export { validator } from './validator';
