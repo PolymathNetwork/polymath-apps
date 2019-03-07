@@ -17,6 +17,8 @@ import {
 import { ListIcon } from '~/components/ListIcon';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
+import { Step2 } from './Step-2';
+import { Step3 } from './Step-3';
 import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
@@ -32,13 +34,15 @@ const getStep = (stepIndex: number) => {
     case 0: {
       return Step1;
     }
+    case 1: {
+      return Step2;
+    }
+    case 2: {
+      return Step3;
+    }
     default: {
       return Step1;
     }
-    // case 1:
-    //   return <Step2 />;
-    // case 2:
-    //   return <Step3 />;
   }
 };
 
@@ -47,6 +51,7 @@ export const Presenter = ({
   securityTokenSymbol,
   checkpoint,
   onNextStep,
+  taxWithholdings,
 }: Props) => (
   <div>
     <Text color="primary">
@@ -67,13 +72,21 @@ export const Presenter = ({
         <Form
           initialValues={{
             noWalletExcluded: false,
+            isTaxWithholdingConfirmed: false,
             excludedWalletsCsv: null,
+            taxWithholdingsCsv: null,
           }}
           onSubmit={() => {}}
           render={props => {
             const Step = getStep(stepIndex);
 
-            return <Step {...props} onSubmitStep={onNextStep} />;
+            return (
+              <Step
+                {...props}
+                onSubmitStep={onNextStep}
+                taxWithholdings={taxWithholdings}
+              />
+            );
           }}
         />
       </GridRow.Col>

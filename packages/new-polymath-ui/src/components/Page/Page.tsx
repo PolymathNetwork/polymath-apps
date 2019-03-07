@@ -6,13 +6,21 @@ import { PageWrapProps } from '../PageWrap';
 export interface PageProps extends PageWrapProps {
   title?: string;
   children: React.ReactNode;
+  scrollToTopOnMount?: boolean;
 }
 
 const appTitle = 'Polymath';
 
 export class Page extends Component<PageProps> {
+  public static defaultProps = {
+    scrollToTopOnMount: true,
+  };
+
   public componentWillMount() {
     this.update(this.props);
+    if (this.props.scrollToTopOnMount) {
+      window.scrollTo(0, 0);
+    }
   }
 
   public componentDidUpdate() {

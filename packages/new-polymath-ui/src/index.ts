@@ -17,6 +17,7 @@ import { SvgPlus } from './images/icons/generated/Plus';
 import { SvgPlusPlain } from './images/icons/generated/PlusPlain';
 import { SvgWarning } from './images/icons/generated/Warning';
 import { SvgTaxes } from './images/icons/generated/Taxes';
+import { SvgDelete } from './images/icons/generated/Delete';
 
 // Styles
 export * from './styles';
@@ -98,6 +99,7 @@ export const icons = {
   SvgPlusPlain,
   SvgWarning,
   SvgTaxes,
+  SvgDelete,
 };
 
 export { validator } from './validator';

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { validators } from '@polymathnetwork/new-shared';
+import { validators, formatters } from '@polymathnetwork/new-shared';
 import {
   Box,
   Button,
@@ -48,7 +48,7 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
         <Link href="" download>
           <Icon Asset={icons.SvgDownload} /> Sample-Excluding-List.csv
         </Link>{' '}
-        file and edit it.
+        example file and edit it.
       </Paragraph>
       <Button
         variant="ghostSecondary"
@@ -81,7 +81,7 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
             <FormItem.Input
               component={CsvUploader}
               inputProps={{
-                config: {
+                csvConfig: {
                   columns: [
                     {
                       name: 'Address',
@@ -98,15 +98,31 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
                   ],
                   header: true,
                   maxRows: 3,
-                  missingRequiredColumnsErrorMessage:
-                    'Some required columns do not exist in the CSV',
-                  extraColumnsErrorMessage:
-                    'the CSV file contains extra columns',
-                  rowsExceedMaxLimitErrorMessage:
-                    'The CSV file contains more columns than the maximum limit',
                 },
               }}
-            />
+            >
+              <CsvUploader.CsvErrors />
+              <CsvUploader.CsvPreview
+                tableConfig={{
+                  columns: [
+                    {
+                      accessor: 'Address',
+                      Header: 'Address',
+                      Cell: ({ value }) =>
+                        formatters.toShortAddress(value, { size: 26 }),
+                    },
+                    {
+                      accessor: 'Sale Lockup',
+                      Header: 'Sale Lockup',
+                    },
+                    {
+                      accessor: 'Purchase Lockup',
+                      Header: 'Purchase Lockup',
+                    },
+                  ],
+                }}
+              />
+            </FormItem.Input>
             <FormItem.Error />
           </FormItem>
         </Grid>
