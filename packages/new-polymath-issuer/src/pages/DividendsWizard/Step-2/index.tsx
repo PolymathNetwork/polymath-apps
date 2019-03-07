@@ -38,14 +38,12 @@ export interface Props {
 export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
   const [withholdingList, setWithholdingList] = useState(
-    taxWithholdings
-      ? taxWithholdings.map(item => {
-          return {
-            investorWalletAddress: item.investorAddress,
-            withholdingPercent: item.percentage,
-          };
-        })
-      : []
+    taxWithholdings.map(item => {
+      return {
+        investorWalletAddress: item.investorAddress,
+        withholdingPercent: item.percentage,
+      };
+    })
   );
 
   const columns: HeaderColumn[] = [
