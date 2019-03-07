@@ -236,15 +236,32 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         <Box mt="m" mb="m">
           <Table columns={columns} data={withholdingList} selectable>
             <Table.BatchActionsToolbar>
-              <Button
-                variant="ghost"
-                iconPosition="right"
-                onClick={e => {
-                  console.log('Delete');
-                }}
-              >
-                Delete <Icon Asset={icons.SvgDelete} />
-              </Button>
+              {batchActionProps => {
+                const handleDeleteRows = () => {
+                  setWithholdingList(
+                    _.remove(withholdingList, item => {
+                      return _.find(batchActionProps.selectedRows, o => {
+                        return (
+                          o.values.investorWalletAddress !==
+                          item.investorWalletAddress
+                        );
+                      });
+                    })
+                  );
+                };
+
+                return (
+                  <Fragment>
+                    <Button
+                      variant="ghost"
+                      iconPosition="right"
+                      onClick={handleDeleteRows}
+                    >
+                      Delete <Icon Asset={icons.SvgDelete} />
+                    </Button>
+                  </Fragment>
+                );
+              }}
             </Table.BatchActionsToolbar>
             <Table.Rows />
             <Table.Pagination />
