@@ -17,6 +17,7 @@ import {
   CsvUploader,
   ModalConfirm,
   Table,
+  Text,
   Link,
   LinkButton,
 } from '@polymathnetwork/new-ui';
@@ -33,8 +34,8 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     taxWithholdings
       ? taxWithholdings.map(item => {
           return {
-            'Investor ETH Address': item.investorAddress,
-            '% Tax Witholding for Associated ETH Address': item.percentage,
+            investorWalletAddress: item.investorAddress,
+            withholdingPercent: item.percentage,
           };
         })
       : []
@@ -48,6 +49,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     {
       Header: '% Tax Witholding for Associated ETH Address',
       accessor: 'withholdingPercent',
+      Cell: ({ value }) => `${value}%`,
     },
   ];
 
@@ -59,13 +61,17 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     setCsvModalState(false);
   }, []);
 
-  const handleCsvModalConfirm = useCallback(() => {
-    const addedEntries = values.map(csvRow => {
-      return { investorWalletAddress: 1, withholdingPercent: 13 };
-    });
-    setWithholdingList({ ...withholdingList, ...addedEntries });
-    setCsvModalState(false);
-  }, []);
+  const handleCsvModalConfirm = useCallback(
+    () => {
+      const addedEntries = values.taxWithholdingsCsv.map(csvRow => ({
+        investorWalletAddress: csvRow.data.investorWalletAddress.value,
+        withholdingPercent: csvRow.data.withholdingPercent.value,
+      }));
+      setWithholdingList([...withholdingList, ...addedEntries]);
+      setCsvModalState(false);
+    },
+    [values]
+  );
 
   const downloadExistingWithholdings = () => {
     utils.downloadCsvFile(
@@ -84,15 +90,19 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         Optionally withhold taxes for applicable investor wallet addresses by
         uploading a CSV which includes, for investors subject to tax
         withholdings:{' '}
-        <List vertical gridGap={0}>
-          <li>— Investor wallet's ETH Address;</li>
-          <li>
+      </Paragraph>
+      <List vertical gridGap={0}>
+        <li>
+          <Text>— Investor wallet's ETH Address;</Text>
+        </li>
+        <li>
+          <Text>
             — % tax witholding for associated ETH address. The exact amount of
             funds to be withheld will be automatically calculated prior to
             distribution.
-          </li>
-        </List>
-      </Paragraph>
+          </Text>
+        </li>
+      </List>
       {withholdingList.length ? (
         <Paragraph>
           You can download{' '}
@@ -124,22 +134,26 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         onSubmit={handleCsvModalConfirm}
         onClose={handleCsvModalClose}
         actionButtonText="Confirm"
-        isActionDisabled={!values.excludedWalletsCsv}
+        isActionDisabled={!values.taxWithholdingsCsv}
       >
         <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
-        <Paragraph fontSize={2}>
+        <Paragraph mb={0}>
           For tax withholdings, the format should be as follows:
-          <List vertical gridGap={0}>
-            <li>— Investor wallet's ETH Address;</li>
-            <li>
+        </Paragraph>
+        <List vertical gridGap={0}>
+          <li>
+            <Text>— Investor wallet's ETH Address;</Text>
+          </li>
+          <li>
+            <Text>
               — % tax witholding for associated ETH address. The exact amount of
               funds to be withheld will be automatically calculated prior to
               distribution.
-            </li>
-          </List>
-        </Paragraph>
-        <Grid>
-          <FormItem name="excludedWalletsCsv">
+            </Text>
+          </li>
+        </List>
+        <Grid mt="gridGap">
+          <FormItem name="taxWithholdingsCsv">
             <FormItem.Input
               component={CsvUploader}
               inputProps={{

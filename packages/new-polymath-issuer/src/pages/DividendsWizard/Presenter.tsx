@@ -51,6 +51,7 @@ export const Presenter = ({
   securityTokenSymbol,
   checkpoint,
   onNextStep,
+  taxWithholdings,
 }: Props) => (
   <div>
     <Text color="primary">
@@ -72,12 +73,19 @@ export const Presenter = ({
           initialValues={{
             noWalletExcluded: false,
             excludedWalletsCsv: null,
+            taxWithholdingsCsv: null,
           }}
           onSubmit={() => {}}
           render={props => {
             const Step = getStep(stepIndex);
 
-            return <Step {...props} onSubmitStep={onNextStep} />;
+            return (
+              <Step
+                {...props}
+                onSubmitStep={onNextStep}
+                taxWithholdings={taxWithholdings}
+              />
+            );
           }}
         />
       </GridRow.Col>
