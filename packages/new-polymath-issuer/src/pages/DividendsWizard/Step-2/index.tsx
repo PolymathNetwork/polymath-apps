@@ -356,7 +356,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         <Box mt="m" mb="m">
           <Table columns={columns} data={withholdingList} selectable>
             <Table.BatchActionsToolbar>
-              {batchActionProps => {
+              {(batchActionProps: any) => {
                 const handleDeleteRows = () => {
                   setWithholdingList(
                     _.remove(withholdingList, item => {
