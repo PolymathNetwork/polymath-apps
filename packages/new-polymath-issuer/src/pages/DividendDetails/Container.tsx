@@ -81,6 +81,8 @@ export class ContainerBase extends Component<Props> {
                 symbol={securityTokenSymbol}
                 dividend={dividend}
                 taxWithholdings={taxWithholdings}
+                pushDividendPayments={this.pushDividendPayments}
+                withdrawTaxes={this.withdrawTaxes}
               />
             );
           }}

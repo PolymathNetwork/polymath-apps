@@ -24,102 +24,172 @@ import { types, formatters } from '@polymathnetwork/new-shared';
 import _ from 'lodash';
 import BigNumber from 'bignumber.js';
 import { ListIcon } from '~/components/ListIcon';
+import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 
 export interface Props {
   dividend: types.DividendEntity;
   taxWithholdings: types.TaxWithholdingEntity[];
   symbol: string;
+  pushDividendPayments: () => void;
+  withdrawTaxes: () => void;
 }
 
-const columns = [
-  {
-    Header: 'Investor Wallet Address',
-    accessor: 'investorWalletAddress',
-    Cell: ({ value }: { value: string }) => {
-      return <Link href="#">{value}</Link>;
-    },
-  },
-  {
-    Header: 'Dividends Pre-Tax',
-    accessor: 'dividendsPreTax',
-  },
-  {
-    Header: 'Taxes Withheld (%)',
-    accessor: 'taxesWithheldPercent',
-  },
-  {
-    Header: 'Taxes Withheld (TOKEN)',
-    accessor: 'taxesWithheldTokens',
-  },
-  {
-    Header: 'Dividends Paid',
-    accessor: 'dividendsPaid',
-  },
-  {
-    Header: 'Status of Payment',
-    accessor: 'statusOfPayment',
-    Cell: ({ value }: { value: string }) => (
-      <Label color="green.1">{value}</Label>
-    ),
-  },
-];
+enum PaymentStatus {
+  Completed = 'Completed',
+  Incomplete = 'Incomplete',
+}
 
-export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
-  const processedTransactions = _.sumBy(
-    dividend.investors,
-    (i: types.DividendInvestorStatus) => Number(i.paymentReceived)
+export const Presenter = ({
+  symbol,
+  dividend,
+  taxWithholdings,
+  pushDividendPayments,
+  withdrawTaxes,
+}: Props) => {
+  const {
+    investors,
+    amount,
+    totalSupply,
+    currency = 'UNNAMED TOKEN',
+    created,
+    name,
+    claimedAmount,
+    totalWithheld,
+    totalWithheldWithdrawn,
+  } = dividend;
+
+  const amountToPay = (investor: types.DividendInvestorStatus) => {
+    const { balance } = investor;
+
+    return amount.times(balance.dividedBy(totalSupply));
+  };
+
+  const columns = [
+    {
+      Header: 'Investor Wallet Address',
+      accessor: 'investorWalletAddress',
+      Cell: ({ value }: { value: string }) => {
+        return <Link href="#">{value}</Link>;
+      },
+    },
+    {
+      Header: 'Dividends Pre-Tax',
+      accessor: 'dividendsPreTax',
+    },
+    {
+      Header: 'Taxes Withheld (%)',
+      accessor: 'taxesWithheldPercent',
+    },
+    {
+      Header: `Taxes Withheld (${currency})`,
+      accessor: 'taxesWithheldTokens',
+    },
+    {
+      Header: 'Dividends Paid',
+      accessor: 'dividendsPaid',
+    },
+    {
+      Header: 'Status of Payment',
+      accessor: 'statusOfPayment',
+      Cell: ({ value }: { value: PaymentStatus }) => {
+        // TODO @monitz87: select color depending on the status
+        return <Label color="green.1">{value}</Label>;
+      },
+    },
+  ];
+
+  const excludedInvestors = investors.filter(investor => investor.excluded);
+  const nonExcludedInvestors = investors.filter(investor => !investor.excluded);
+  const paidInvestorsAmount = _.sumBy(nonExcludedInvestors, investor =>
+    Number(investor.paymentReceived)
   );
-  const totalTransactions = _.size(dividend.investors);
-  const totalInvestors = _.size(dividend.investors);
-  const excludedInvestors = _.sumBy(
-    dividend.investors,
-    (i: types.DividendInvestorStatus) => Number(i.excluded)
+  const totalPayments = _.size(nonExcludedInvestors);
+  const pendingPayments = totalPayments - paidInvestorsAmount;
+  const totalTransactions = Math.ceil(
+    totalPayments / DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
   );
-  const investorsReceivedPayment = _.sumBy(
-    dividend.investors,
-    (i: types.DividendInvestorStatus) => Number(i.paymentReceived)
+  const pendingTransactions = Math.ceil(
+    pendingPayments / DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
   );
-  const investorsHadTaxesWithheld = _.sumBy(
-    dividend.investors,
+  const totalInvestorsAmount = _.size(investors);
+  const excludedInvestorAmount = _.size(excludedInvestors);
+  const investorsReceivedPayment = nonExcludedInvestors.filter(
+    investor => investor.paymentReceived
+  );
+  const investorsReceivedPaymentAmount = _.size(investorsReceivedPayment);
+  const investorsHadTaxesWithheldAmount = _.sumBy(
+    investorsReceivedPayment,
     (i: types.DividendInvestorStatus) => Number(!i.withheldTax.isEqualTo(0))
   );
-  const totalTaxesWithheld: BigNumber = _.reduce(
-    dividend.investors,
-    (total: BigNumber, cur: types.DividendInvestorStatus) =>
-      total.plus(cur.withheldTax),
+  const positiveTaxWithholdings = taxWithholdings.filter(
+    taxWithholding => !!taxWithholding.percentage
+  );
+
+  const unpaidInvestors = nonExcludedInvestors.filter(
+    investor => !investor.paymentReceived
+  );
+
+  const unwithdrawnTaxes = totalWithheld.minus(totalWithheldWithdrawn);
+
+  const unwithheldTaxes = _.reduce(
+    unpaidInvestors,
+    (currentSum, investor) => {
+      const { address } = investor;
+      const investorWithholding = positiveTaxWithholdings.find(
+        taxWithholding => taxWithholding.investorAddress === address
+      );
+
+      let taxesToWithhold = new BigNumber(0);
+
+      if (investorWithholding) {
+        taxesToWithhold = amountToPay(investor).times(
+          new BigNumber(investorWithholding.percentage)
+        );
+      }
+
+      return currentSum.plus(taxesToWithhold);
+    },
     new BigNumber(0)
   );
 
   // Transactions
-  const transactions = dividend.investors.map((investor, key) => ({
-    investorWalletAddress: formatters.toShortAddress(investor.address),
-    dividendsPreTax: `${formatters.toTokens(
-      investor.amountReceived.plus(investor.withheldTax)
-    )}  ${dividend.securityTokenSymbol}`,
-    taxesWithheldPercent: formatters.toPercent(
-      investor.withheldTax.dividedBy(investor.amountReceived)
-    ),
-    taxesWithheldTokens: `${formatters.toTokens(investor.withheldTax)} ${
-      dividend.securityTokenSymbol
-    }`,
-    dividendsPaid: `${formatters.toPercent(investor.amountReceived)} ${
-      dividend.securityTokenSymbol
-    }`,
-    statusOfPayment: investor.paymentReceived ? 'Completed' : 'Incomplete',
-  }));
+  const transactions = nonExcludedInvestors.map(investor => {
+    const { address, withheldTax, amountReceived, paymentReceived } = investor;
+
+    const preTaxPayment = amountToPay(investor);
+
+    return {
+      investorWalletAddress: formatters.toShortAddress(address),
+      dividendsPreTax: `${formatters.toTokens(preTaxPayment)} ${currency}`,
+      taxesWithheldPercent: formatters.toPercent(
+        paymentReceived
+          ? withheldTax.dividedBy(preTaxPayment)
+          : new BigNumber(0)
+      ),
+      taxesWithheldTokens: `${formatters.toTokens(
+        paymentReceived ? withheldTax : new BigNumber(0)
+      )} ${currency}`,
+      dividendsPaid: `${formatters.toTokens(
+        paymentReceived ? amountReceived : new BigNumber(0)
+      )} ${currency}`,
+      statusOfPayment: paymentReceived
+        ? PaymentStatus.Completed
+        : PaymentStatus.Incomplete,
+    };
+  });
 
   return (
     <div>
       <ButtonLink
         variant="ghostSecondary"
         iconPosition="right"
-        href={`/securityTokens/${dividend.securityTokenSymbol}/dividends`}
+        href={`/securityTokens/${symbol}/dividends`}
       >
         Go back
         <Icon Asset={icons.SvgArrow} width={18} height={18} />
       </ButtonLink>
       <Heading variant="h1" as="h1">
-        Stunning Dividend Distribution Title Example
+        {name}
       </Heading>
       <GridRow>
         <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
@@ -132,7 +202,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   gridGap={0}
                   gridAutoColumns="auto 1fr"
                 >
-                  {processedTransactions === totalTransactions && (
+                  {!pendingPayments && (
                     <IconOutlined
                       Asset={icons.SvgCheckmark}
                       width={64}
@@ -142,7 +212,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                       borderWidth="5px"
                     />
                   )}
-                  {processedTransactions !== totalTransactions && (
+                  {!!pendingPayments && (
                     <IconOutlined
                       Asset={icons.SvgWarning}
                       width={64}
@@ -155,19 +225,19 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   <Box ml="m">
                     <Text color="highlightText" fontSize={6} fontWeight={0}>
                       {formatters.toPercent(
-                        processedTransactions / totalTransactions
+                        1 - pendingTransactions / totalTransactions
                       )}
                     </Text>
-                    <Paragraph>transactions are completed</Paragraph>
+                    <Paragraph>Transactions are completed</Paragraph>
                   </Box>
                 </Grid>
-                {processedTransactions === totalTransactions && (
+                {!pendingPayments && (
                   <Paragraph>
                     Dividends were successfully distributed to all applicable
                     Investors.
                   </Paragraph>
                 )}
-                {processedTransactions !== totalTransactions && (
+                {!!pendingPayments && (
                   <Paragraph>
                     Dividends are automatically distributed to your Investor
                     wallets. Should any transaction fail to complete, you can
@@ -179,12 +249,12 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
               <Box>
                 <Hr />
                 <Box mt="s" mb="l">
-                  <Text>
-                    {totalTransactions - processedTransactions} Remaining number
-                    of transactions
-                  </Text>
+                  <Text>{pendingTransactions} remaining transactions</Text>
                 </Box>
-                <ButtonFluid disabled>
+                <ButtonFluid
+                  disabled={!pendingPayments}
+                  onClick={pushDividendPayments}
+                >
                   Submit Outstanding Transactions
                 </ButtonFluid>
               </Box>
@@ -210,10 +280,10 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   />
                   <Box ml="m">
                     <Text color="highlightText" fontSize={6} fontWeight={0}>
-                      0.00 {symbol}
+                      {formatters.toTokens(unwithdrawnTaxes)} {currency}
                     </Text>
                     <Paragraph>
-                      tax withholdings left to withdraw from the dividends smart
+                      Tax withholdings left to withdraw from the dividends smart
                       contract escrow
                     </Paragraph>
                   </Box>
@@ -235,8 +305,10 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                           <ListIcon />
                         </Flex>
                         <Paragraph>
-                          <Text as="strong">5,000.00 {symbol}</Text> Taxes to
-                          withhold
+                          <Text as="strong">
+                            {formatters.toTokens(unwithheldTaxes)} {currency}
+                          </Text>{' '}
+                          Taxes to withhold
                         </Paragraph>
                       </Flex>
                     </li>
@@ -247,7 +319,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                         </Flex>
                         <Paragraph>
                           <Text as="strong">
-                            {formatters.toTokens(5000)} {symbol}
+                            {formatters.toTokens(totalWithheld)} {currency}
                           </Text>{' '}
                           Taxes withheld to-date.
                         </Paragraph>
@@ -260,7 +332,8 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                         </Flex>
                         <Paragraph>
                           <Text as="strong">
-                            {formatters.toTokens(totalTaxesWithheld)} {symbol}
+                            {formatters.toTokens(totalWithheldWithdrawn)}{' '}
+                            {currency}
                           </Text>{' '}
                           Taxes withholdings withdrawn to-date
                         </Paragraph>
@@ -268,7 +341,13 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                     </li>
                   </List>
                 </Box>
-                <ButtonFluid variant="secondary">Withdraw Taxes</ButtonFluid>
+                <ButtonFluid
+                  variant="secondary"
+                  disabled={unwithdrawnTaxes.eq(new BigNumber(0))}
+                  onClick={withdrawTaxes}
+                >
+                  Withdraw Taxes
+                </ButtonFluid>
               </Box>
             </Grid>
           </Card>
@@ -285,9 +364,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   <Text as="strong" ml={1}>
                     Date Created
                   </Text>
-                  <Text ml={1}>
-                    {formatters.toDateFormat(dividend.created)}
-                  </Text>
+                  <Text ml={1}>{formatters.toDateFormat(created)}</Text>
                 </Flex>
                 <List vertical gridGap="m">
                   <li>
@@ -296,8 +373,8 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                         <ListIcon />
                       </Flex>
                       <Paragraph>
-                        <Text as="strong">{totalInvestors}</Text> Investors held
-                        the token at checkpoint time
+                        <Text as="strong">{totalInvestorsAmount}</Text>{' '}
+                        Investors held the token at checkpoint time
                       </Paragraph>
                     </Flex>
                   </li>
@@ -307,8 +384,8 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                         <ListIcon />
                       </Flex>
                       <Paragraph>
-                        <Text as="strong">{excludedInvestors}</Text> Investors
-                        were excluded from the dividends distribution
+                        <Text as="strong">{excludedInvestorAmount}</Text>{' '}
+                        Investors were excluded from the dividends distribution
                       </Paragraph>
                     </Flex>
                   </li>
@@ -318,7 +395,9 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                         <ListIcon />
                       </Flex>
                       <Paragraph>
-                        <Text as="strong">{_.size(taxWithholdings)}</Text>{' '}
+                        <Text as="strong">
+                          {_.size(positiveTaxWithholdings)}
+                        </Text>{' '}
                         Investors included for tax withholding
                       </Paragraph>
                     </Flex>
@@ -332,7 +411,9 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                         <ListIcon active />
                       </Flex>
                       <Paragraph>
-                        <Text as="strong">{investorsReceivedPayment}</Text>{' '}
+                        <Text as="strong">
+                          {investorsReceivedPaymentAmount}
+                        </Text>{' '}
                         Investors received dividends
                       </Paragraph>
                     </Flex>
@@ -343,7 +424,9 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                         <ListIcon active />
                       </Flex>
                       <Paragraph>
-                        <Text as="strong">{investorsHadTaxesWithheld}</Text>{' '}
+                        <Text as="strong">
+                          {investorsHadTaxesWithheldAmount}
+                        </Text>{' '}
                         Investors had their taxes withheld
                       </Paragraph>
                     </Flex>
@@ -352,11 +435,11 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
               </Box>
               <Box>
                 <Text as="strong" mt="m">
-                  Total Dividend Distribution
+                  Total Dividends Distributed
                 </Text>
                 <br />
                 <Text fontSize={6}>
-                  {formatters.toTokens(dividend.claimedAmount)} {symbol}
+                  {formatters.toTokens(claimedAmount)} {currency}
                 </Text>
               </Box>
             </Grid>
