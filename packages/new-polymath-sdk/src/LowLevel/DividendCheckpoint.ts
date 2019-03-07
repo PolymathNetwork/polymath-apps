@@ -47,7 +47,7 @@ interface CheckpointData {
   /**
    * percentages
    */
-  2: number[];
+  2: string[];
 }
 
 interface DividendProgress {
@@ -128,7 +128,7 @@ export abstract class DividendCheckpoint<
 
     return zipWith(investors, percentages, (address, percentage) => ({
       address,
-      percentage,
+      percentage: fromWei(percentage).toNumber(),
     }));
   }
 
