@@ -13,7 +13,7 @@ import { requestData } from '~/state/actions/dataRequests';
 import { Fetcher, FetchedData } from '~/types';
 
 interface OwnProps {
-  watchProps: { [key: string]: any };
+  watchProps?: { [key: string]: any };
   fetchers: Fetcher[];
   renderLoading: () => ReactNode;
   renderError: (errors: string[]) => ReactNode;

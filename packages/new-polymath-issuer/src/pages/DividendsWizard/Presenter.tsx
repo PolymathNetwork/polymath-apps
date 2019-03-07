@@ -30,7 +30,6 @@ export interface Props {
 }
 
 const getStepComponent = (stepIndex: number) => {
-  console.log('Step ', stepIndex);
   switch (stepIndex) {
     case 0: {
       return Step1;
