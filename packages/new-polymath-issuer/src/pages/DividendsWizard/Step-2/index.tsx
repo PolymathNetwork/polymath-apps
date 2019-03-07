@@ -1,5 +1,11 @@
 import React, { Fragment, useState, useCallback } from 'react';
-import { validators, formatters, types } from '@polymathnetwork/new-shared';
+import {
+  validators,
+  formatters,
+  csvParser,
+  utils,
+  types,
+} from '@polymathnetwork/new-shared';
 import {
   Box,
   Button,
@@ -21,6 +27,7 @@ import {
   Link,
   LinkButton,
 } from '@polymathnetwork/new-ui';
+import { HeaderColumn } from 'react-table';
 
 export interface Props {
   onSubmitStep: () => void;
@@ -41,7 +48,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       : []
   );
 
-  const columns = [
+  const columns: HeaderColumn[] = [
     {
       Header: 'Investor ETH Address',
       accessor: 'investorWalletAddress',
@@ -63,10 +70,12 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const handleCsvModalConfirm = useCallback(
     () => {
-      const addedEntries = values.taxWithholdingsCsv.map(csvRow => ({
-        investorWalletAddress: csvRow.data.investorWalletAddress.value,
-        withholdingPercent: csvRow.data.withholdingPercent.value,
-      }));
+      const addedEntries = values.taxWithholdingsCsv.map(
+        (csvRow: csvParser.ResultRow) => ({
+          investorWalletAddress: csvRow.data.investorWalletAddress.value,
+          withholdingPercent: csvRow.data.withholdingPercent.value,
+        })
+      );
       setWithholdingList([...withholdingList, ...addedEntries]);
       setCsvModalState(false);
     },
@@ -225,37 +234,30 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         </Box>
       )}
       <Heading variant="h3" mt="m">
-        No Changes Required
+        Confirm Tax Withholdings
       </Heading>
       <Paragraph>
         Please make sure to confirm no changes are required by downloading and
         reviewing the current configuration.
       </Paragraph>
-      <Form
-        initialValues={{
-          noWalletExcluded: false,
-        }}
-        onSubmit={() => {}}
-        render={({ handleSubmit, isValid }) => (
-          <Fragment>
-            <FormItem name="walletAddress">
-              <FormItem.Input
-                component={Checkbox}
-                inputProps={{
-                  label:
-                    'I’m sure I don’t need any adds/updates to the Tax Withholdings List.',
-                }}
-              />
-              <FormItem.Error />
-            </FormItem>
-            <Box mt="xl">
-              <Button onClick={onSubmitStep}>
-                Update list and proceed to the next step
-              </Button>
-            </Box>
-          </Fragment>
-        )}
-      />
+      <FormItem name="isTaxWithholdingConfirmed">
+        <FormItem.Input
+          component={Checkbox}
+          inputProps={{
+            label:
+              'I’m sure I don’t need any adds/updates to the Tax Withholdings List.',
+          }}
+        />
+        <FormItem.Error />
+      </FormItem>
+      <Box mt="xl">
+        <Button
+          onClick={onSubmitStep}
+          disabled={!values.isTaxWithholdingConfirmed}
+        >
+          Update list and proceed to the next step
+        </Button>
+      </Box>
     </Card>
   );
 };

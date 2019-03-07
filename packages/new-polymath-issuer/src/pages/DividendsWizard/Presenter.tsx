@@ -72,6 +72,7 @@ export const Presenter = ({
         <Form
           initialValues={{
             noWalletExcluded: false,
+            isTaxWithholdingConfirmed: false,
             excludedWalletsCsv: null,
             taxWithholdingsCsv: null,
           }}
