@@ -3,6 +3,7 @@ name: Table
 menu: Components
 ---
 
+import { Fragment } from 'react';
 import { Playground, PropsTable } from 'docz';
 import { Box } from '~/components/Box';
 import { Button } from '~/components/Button';
@@ -76,14 +77,29 @@ import { columns, data } from './data';
     selectable
   >
     <Table.BatchActionsToolbar>
-      <Button variant="ghost" iconPosition="right" onClick={() => {}}>
-        Delete <Icon Asset={SvgDelete} />
-      </Button>
-      <Button variant="ghost" iconPosition="right" onClick={() => {}}>
-        Edit <Icon Asset={SvgDelete} />
-      </Button>
+      {(batchActionProps) => {
+        const handleDeleteRows = () => {
+          console.log(`delete ${batchActionProps.selectedRows.length}`);
+        };
+
+        const handleEditRows = () => {
+          console.log(`edit ${batchActionProps.selectedRows.length}`);
+        };
+
+        return (
+          <Fragment>
+            <Button variant="ghost" iconPosition="right" onClick={handleDeleteRows}>
+              Delete <Icon Asset={SvgDelete} />
+            </Button>
+            <Button variant="ghost" iconPosition="right" onClick={handleEditRows}>
+              Edit <Icon Asset={SvgDelete} />
+            </Button>
+          </Fragment>
+        );
+      }}
     </Table.BatchActionsToolbar>
     <Table.Rows />
     <Table.Pagination />
+
   </Table>
 </Playground>
