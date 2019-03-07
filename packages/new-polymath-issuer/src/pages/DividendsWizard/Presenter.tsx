@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import {
   Box,
   Form,
@@ -15,6 +15,7 @@ import {
   ButtonLink,
 } from '@polymathnetwork/new-ui';
 import { ListIcon } from '~/components/ListIcon';
+import { CreateDividendDistributionParams } from './Container';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
 import { Step2 } from './Step-2';
@@ -27,7 +28,22 @@ export interface Props {
   checkpoint: types.CheckpointEntity;
   onNextStep: () => void;
   taxWithholdings: types.TaxWithholdingEntity[];
+  createDividendDistribution: (
+    params: CreateDividendDistributionParams
+  ) => void;
 }
+
+const isStep1 = (Step: any, stepIndex: number): Step is typeof Step1 => {
+  return stepIndex === 0;
+};
+
+const isStep2 = (Step: any, stepIndex: number): Step is typeof Step2 => {
+  return stepIndex === 1;
+};
+
+const isStep3 = (Step: any, stepIndex: number): Step is typeof Step3 => {
+  return stepIndex === 2;
+};
 
 const getStepComponent = (stepIndex: number) => {
   switch (stepIndex) {
@@ -52,6 +68,7 @@ export const Presenter = ({
   checkpoint,
   onNextStep,
   taxWithholdings,
+  createDividendDistribution,
 }: Props) => (
   <div>
     <Text color="primary">
@@ -80,11 +97,20 @@ export const Presenter = ({
           render={props => {
             const Step = getStepComponent(stepIndex);
 
+            const commonProps = {
+              onSubmitStep: onNextStep,
+              taxWithholdings,
+              ...props,
+            };
+
+            if (isStep1(Step, stepIndex) || isStep2(Step, stepIndex)) {
+              return <Step {...commonProps} />;
+            }
+
             return (
               <Step
-                {...props}
-                onSubmitStep={onNextStep}
-                taxWithholdings={taxWithholdings}
+                {...commonProps}
+                createDividendDistribution={createDividendDistribution}
               />
             );
           }}

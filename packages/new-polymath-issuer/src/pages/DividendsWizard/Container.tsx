@@ -27,6 +27,9 @@ export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
   checkpointIndex: string;
+  createDividendDistribution: (
+    params: CreateDividendDistributionParams
+  ) => void;
 }
 
 interface State {
@@ -36,6 +39,13 @@ interface State {
 interface Row {
   investorAddress: string;
   percentage: number;
+}
+
+export interface CreateDividendDistributionParams {
+  erc20Address: string;
+  amount: BigNumber;
+  name: string;
+  excludedAddresses: string[];
 }
 
 export class ContainerBase extends Component<Props, State> {
@@ -56,12 +66,7 @@ export class ContainerBase extends Component<Props, State> {
     amount,
     name,
     excludedAddresses,
-  }: {
-    erc20Address: string;
-    amount: BigNumber;
-    name: string;
-    excludedAddresses: string[];
-  }) => {
+  }: CreateDividendDistributionParams) => {
     const { dispatch, securityTokenSymbol, checkpointIndex } = this.props;
 
     const checkpointId = parseInt(checkpointIndex, 10);
@@ -167,6 +172,7 @@ export class ContainerBase extends Component<Props, State> {
           }) => {
             return (
               <Presenter
+                createDividendDistribution={this.createDividendDistribution}
                 stepIndex={step}
                 securityTokenSymbol={securityTokenSymbol}
                 checkpoint={checkpoint}
