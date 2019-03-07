@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Button,
   ButtonFluid,
+  ButtonLink,
   Icon,
   IconOutlined,
-  IconCircled,
   icons,
   Heading,
   GridRow,
@@ -21,10 +20,10 @@ import {
   Link,
   Hr,
 } from '@polymathnetwork/new-ui';
-import { types } from '@polymathnetwork/new-shared';
-import { formatters } from '@polymathnetwork/new-shared';
+import { types, formatters } from '@polymathnetwork/new-shared';
 import _ from 'lodash';
 import BigNumber from 'bignumber.js';
+import { ListIcon } from '~/components/ListIcon';
 
 export interface Props {
   dividend: types.DividendEntity;
@@ -66,7 +65,7 @@ const columns = [
 ];
 
 export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
-  const processedTransacrions = _.sumBy(
+  const processedTransactions = _.sumBy(
     dividend.investors,
     (i: types.DividendInvestorStatus) => Number(i.paymentReceived)
   );
@@ -111,10 +110,14 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
 
   return (
     <div>
-      <Button variant="ghost" iconPosition="right">
+      <ButtonLink
+        variant="ghostSecondary"
+        iconPosition="right"
+        href={`/securityTokens/${dividend.securityTokenSymbol}/dividends`}
+      >
         Go back
-        <Icon Asset={icons.SvgArrow} width={18} height={17} />
-      </Button>
+        <Icon Asset={icons.SvgArrow} width={18} height={18} />
+      </ButtonLink>
       <Heading variant="h1" as="h1">
         Stunning Dividend Distribution Title Example
       </Heading>
@@ -129,42 +132,42 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   gridGap={0}
                   gridAutoColumns="auto 1fr"
                 >
-                  {processedTransacrions === totalTransactions && (
+                  {processedTransactions === totalTransactions && (
                     <IconOutlined
                       Asset={icons.SvgCheckmark}
                       width={64}
                       height={64}
                       color="success"
-                      scale={0.9}
+                      scale={0.8}
                       borderWidth="5px"
                     />
                   )}
-                  {processedTransacrions !== totalTransactions && (
+                  {processedTransactions !== totalTransactions && (
                     <IconOutlined
                       Asset={icons.SvgWarning}
                       width={64}
                       height={64}
                       color="warning"
-                      scale={0.9}
+                      scale={0.8}
                       borderWidth="5px"
                     />
                   )}
                   <Box ml="m">
                     <Text color="highlightText" fontSize={6} fontWeight={0}>
                       {formatters.toPercent(
-                        processedTransacrions / totalTransactions
+                        processedTransactions / totalTransactions
                       )}
                     </Text>
                     <Paragraph>transactions are completed</Paragraph>
                   </Box>
                 </Grid>
-                {processedTransacrions === totalTransactions && (
+                {processedTransactions === totalTransactions && (
                   <Paragraph>
                     Dividends were successfully distributed to all applicable
                     Investors.
                   </Paragraph>
                 )}
-                {processedTransacrions !== totalTransactions && (
+                {processedTransactions !== totalTransactions && (
                   <Paragraph>
                     Dividends are automatically distributed to your Investor
                     wallets. Should any transaction fail to complete, you can
@@ -177,7 +180,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                 <Hr />
                 <Box mt="s" mb="l">
                   <Text>
-                    {totalTransactions - processedTransacrions} Remaining number
+                    {totalTransactions - processedTransactions} Remaining number
                     of transactions
                   </Text>
                 </Box>
@@ -222,21 +225,14 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   contract.
                 </Paragraph>
               </Box>
+              <Hr />
               <Box>
-                <Hr />
                 <Box mb="s" mt={0}>
                   <List vertical gridGap="s">
                     <li>
                       <Flex>
                         <Flex flex="0" alignSelf="flex-start" mr="s">
-                          <IconCircled
-                            Asset={icons.SvgCheckmark}
-                            bg="gray.2"
-                            color="gray.0"
-                            width={24}
-                            height={24}
-                            scale={0.9}
-                          />
+                          <ListIcon />
                         </Flex>
                         <Paragraph>
                           <Text as="strong">5,000.00 {symbol}</Text> Taxes to
@@ -247,36 +243,24 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                     <li>
                       <Flex>
                         <Flex flex="0" alignSelf="flex-start" mr="s">
-                          <IconCircled
-                            Asset={icons.SvgCheckmark}
-                            bg="gray.2"
-                            color="gray.0"
-                            width={24}
-                            height={24}
-                            scale={0.9}
-                          />
+                          <ListIcon />
                         </Flex>
                         <Paragraph>
-                          <Text as="strong">5,000.00 {symbol}</Text> Taxes
-                          withheld to-date.
+                          <Text as="strong">
+                            {formatters.toTokens(5000)} {symbol}
+                          </Text>{' '}
+                          Taxes withheld to-date.
                         </Paragraph>
                       </Flex>
                     </li>
                     <li>
                       <Flex>
                         <Flex flex="0" alignSelf="flex-start" mr="s">
-                          <IconCircled
-                            Asset={icons.SvgCheckmark}
-                            bg="gray.2"
-                            color="gray.0"
-                            width={24}
-                            height={24}
-                            scale={0.9}
-                          />
+                          <ListIcon />
                         </Flex>
                         <Paragraph>
                           <Text as="strong">
-                            {totalTaxesWithheld} {symbol}
+                            {formatters.toTokens(totalTaxesWithheld)} {symbol}
                           </Text>{' '}
                           Taxes withholdings withdrawn to-date
                         </Paragraph>
@@ -305,18 +289,11 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                     {formatters.toDateFormat(dividend.created)}
                   </Text>
                 </Flex>
-                <List vertical gridGap="m" p="l">
+                <List vertical gridGap="m">
                   <li>
                     <Flex>
                       <Flex flex="0" alignSelf="flex-start" mr="s">
-                        <IconCircled
-                          Asset={icons.SvgCheckmark}
-                          bg="inactive"
-                          color="gray.0"
-                          width={24}
-                          height={24}
-                          scale={0.9}
-                        />
+                        <ListIcon />
                       </Flex>
                       <Paragraph>
                         <Text as="strong">{totalInvestors}</Text> Investors held
@@ -327,14 +304,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   <li>
                     <Flex>
                       <Flex flex="0" alignSelf="flex-start" mr="s">
-                        <IconCircled
-                          Asset={icons.SvgCheckmark}
-                          bg="inactive"
-                          color="gray.0"
-                          width={24}
-                          height={24}
-                          scale={0.9}
-                        />
+                        <ListIcon />
                       </Flex>
                       <Paragraph>
                         <Text as="strong">{excludedInvestors}</Text> Investors
@@ -345,14 +315,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   <li>
                     <Flex>
                       <Flex flex="0" alignSelf="flex-start" mr="s">
-                        <IconCircled
-                          Asset={icons.SvgCheckmark}
-                          bg="inactive"
-                          color="gray.0"
-                          width={24}
-                          height={24}
-                          scale={0.9}
-                        />
+                        <ListIcon />
                       </Flex>
                       <Paragraph>
                         <Text as="strong">{_.size(taxWithholdings)}</Text>{' '}
@@ -360,18 +323,13 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                       </Paragraph>
                     </Flex>
                   </li>
+                </List>
+                <Hr color="gray.2" />
+                <List vertical gridGap="m">
                   <li>
-                    <Hr />
                     <Flex>
                       <Flex flex="0" alignSelf="flex-start" mr="s">
-                        <IconCircled
-                          Asset={icons.SvgCheckmark}
-                          bg="gray.3"
-                          color="gray.0"
-                          width={24}
-                          height={24}
-                          scale={0.9}
-                        />
+                        <ListIcon active />
                       </Flex>
                       <Paragraph>
                         <Text as="strong">{investorsReceivedPayment}</Text>{' '}
@@ -382,14 +340,7 @@ export const Presenter = ({ symbol, dividend, taxWithholdings }: Props) => {
                   <li>
                     <Flex>
                       <Flex flex="0" alignSelf="flex-start" mr="s">
-                        <IconCircled
-                          Asset={icons.SvgCheckmark}
-                          bg="gray.3"
-                          color="gray.0"
-                          width={24}
-                          height={24}
-                          scale={0.9}
-                        />
+                        <ListIcon active />
                       </Flex>
                       <Paragraph>
                         <Text as="strong">{investorsHadTaxesWithheld}</Text>{' '}
