@@ -29,7 +29,8 @@ export interface Props {
   taxWithholdings: types.TaxWithholdingEntity[];
 }
 
-const getStep = (stepIndex: number) => {
+const getStepComponent = (stepIndex: number) => {
+  console.log('Step ', stepIndex);
   switch (stepIndex) {
     case 0: {
       return Step1;
@@ -78,7 +79,7 @@ export const Presenter = ({
           }}
           onSubmit={() => {}}
           render={props => {
-            const Step = getStep(stepIndex);
+            const Step = getStepComponent(stepIndex);
 
             return (
               <Step
