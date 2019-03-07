@@ -27,6 +27,7 @@ import {
   Link,
   LinkButton,
 } from '@polymathnetwork/new-ui';
+import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
 
 export interface Props {
@@ -76,7 +77,18 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
           withholdingPercent: csvRow.data.withholdingPercent.value,
         })
       );
-      setWithholdingList([...withholdingList, ...addedEntries]);
+      // Existing tax withholding should be only added if they are not overwritten
+      withholdingList.map(item => {
+        if (
+          !_.find(
+            addedEntries,
+            o => o.investorWalletAddress === item.investorWalletAddress
+          )
+        ) {
+          addedEntries.push(item);
+        }
+      });
+      setWithholdingList(addedEntries);
       setCsvModalState(false);
     },
     [values]
@@ -224,7 +236,13 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         <Box mt="m" mb="m">
           <Table columns={columns} data={withholdingList} selectable>
             <Table.BatchActionsToolbar>
-              <Button variant="ghost" iconPosition="right" onClick={() => {}}>
+              <Button
+                variant="ghost"
+                iconPosition="right"
+                onClick={e => {
+                  console.log(e);
+                }}
+              >
                 Delete <Icon Asset={icons.SvgDelete} />
               </Button>
             </Table.BatchActionsToolbar>
