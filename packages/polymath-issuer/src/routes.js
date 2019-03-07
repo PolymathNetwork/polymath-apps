@@ -75,6 +75,14 @@ export default [
         exact: true,
       },
       {
+        path: '/securityTokens/:id/dividends',
+        component: props => {
+          const { id, checkpointIndex } = props.match.params;
+          return <Redirect to={`/dashboard/${id}/dividends`} />;
+        },
+        exact: true,
+      },
+      {
         path: '/maintenance',
         component: MaintenancePage,
         exact: true,
