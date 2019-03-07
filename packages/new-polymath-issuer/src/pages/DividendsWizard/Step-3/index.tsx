@@ -13,9 +13,7 @@ import {
   TooltipIcon,
 } from '@polymathnetwork/new-ui';
 
-export interface Props {}
-
-export const Step3 = ({  }: Props) => (
+export const Step3 = () => (
   <Card p="gridGap">
     <Heading variant="h2" mb="l">
       3. Set Dividends Distribution Parameters
