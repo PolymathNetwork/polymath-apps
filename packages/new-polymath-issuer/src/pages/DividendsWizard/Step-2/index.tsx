@@ -28,6 +28,7 @@ import {
   LinkButton,
   RowActions,
   IconButton,
+  TextInput,
 } from '@polymathnetwork/new-ui';
 import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
@@ -40,6 +41,7 @@ export interface Props {
 
 export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
+  const [isEditModalOpen, setEditModalState] = useState(false);
   const [withholdingList, setWithholdingList] = useState(
     taxWithholdings
       ? taxWithholdings.map(item => {
@@ -51,12 +53,25 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       : []
   );
 
+  const [investorTaxWithholding, setInvestorTaxWithholding] = useState({
+    withholdingPercent: '',
+    investorETHAddress: '',
+  });
+
   const deleteRow = (investorAddress: string) => {
     setWithholdingList(
       _.remove(withholdingList, item => {
         return item.investorWalletAddress !== investorAddress;
       })
     );
+  };
+
+  const editRow = (rowValues: any) => {
+    setEditModalState(true);
+    setInvestorTaxWithholding({
+      investorETHAddress: rowValues.investorWalletAddress,
+      withholdingPercent: rowValues.withholdingPercent,
+    });
   };
 
   const columns: HeaderColumn[] = [
@@ -67,6 +82,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     {
       Header: '% Tax Witholding for Associated ETH Address',
       accessor: 'withholdingPercent',
+      width: 250,
       Cell: ({ value }) => `${value}%`,
     },
     {
@@ -79,6 +95,9 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
             width="1.4rem"
             height="1.4rem"
             color="gray.2"
+            onClick={() => {
+              editRow(cell.row.values);
+            }}
           />
           <IconButton
             Asset={icons.SvgDelete}
@@ -94,6 +113,23 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const handleCsvModalOpen = useCallback(() => {
     setCsvModalState(true);
+  }, []);
+
+  const handleEditModalConfirm = useCallback(formProps => {
+    const modifiedWithholdings = [...withholdingList];
+    const index = _.findIndex(modifiedWithholdings, {
+      investorWalletAddress: investorTaxWithholding.investorETHAddress,
+    });
+    modifiedWithholdings.splice(index, 1, {
+      investorWalletAddress: formProps.investorETHAddress,
+      withholdingPercent: formProps.withholdingPercent,
+    });
+    setWithholdingList(modifiedWithholdings);
+    setEditModalState(false);
+  }, []);
+
+  const handleEditModalClose = useCallback(() => {
+    setEditModalState(false);
   }, []);
 
   const handleCsvModalClose = useCallback(() => {
@@ -263,6 +299,59 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         breakdown the list in 200 wallets increments and upload them one at a
         time.
       </Remark>
+
+      <Form
+        initialValues={{
+          investorETHAddress: investorTaxWithholding.investorETHAddress,
+          withholdingPercent: investorTaxWithholding.withholdingPercent,
+        }}
+        onSubmit={() => {}}
+        render={props => {
+          return (
+            <ModalConfirm
+              isOpen={isEditModalOpen}
+              onSubmit={() => {
+                handleEditModalConfirm(props.values);
+              }}
+              onClose={handleEditModalClose}
+              actionButtonText="Confirm"
+            >
+              <ModalConfirm.Header>
+                Add Tax Withholding for Specific Investor
+              </ModalConfirm.Header>
+              <Paragraph mb={0}>
+                Specify the Investor's wallet address and its associated tax
+                withholdings. The specified percentage will be withheld at the
+                time dividends are paid.
+              </Paragraph>
+              <Grid mt="gridGap">
+                <Fragment>
+                  <FormItem name="investorETHAddress">
+                    <FormItem.Input
+                      component={TextInput}
+                      inputProps={{
+                        label: 'Investor ETH Address',
+                      }}
+                    />
+                    <FormItem.Error />
+                  </FormItem>
+                  <FormItem name="withholdingPercent">
+                    <FormItem.Input
+                      component={TextInput}
+                      inputProps={{
+                        unit: '%',
+                        label: '% Tax Witholding for Associated ETH Address',
+                      }}
+                    />
+                    <FormItem.Error />
+                  </FormItem>
+                </Fragment>
+              </Grid>
+            </ModalConfirm>
+          );
+        }}
+      />
+
       {!!withholdingList.length && (
         <Box mt="m" mb="m">
           <Table columns={columns} data={withholdingList} selectable>
