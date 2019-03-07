@@ -26,6 +26,8 @@ import {
   Text,
   Link,
   LinkButton,
+  RowActions,
+  IconButton,
 } from '@polymathnetwork/new-ui';
 import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
@@ -49,6 +51,14 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       : []
   );
 
+  const deleteRow = (investorAddress: string) => {
+    setWithholdingList(
+      _.remove(withholdingList, item => {
+        return item.investorWalletAddress !== investorAddress;
+      })
+    );
+  };
+
   const columns: HeaderColumn[] = [
     {
       Header: 'Investor ETH Address',
@@ -58,6 +68,27 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       Header: '% Tax Witholding for Associated ETH Address',
       accessor: 'withholdingPercent',
       Cell: ({ value }) => `${value}%`,
+    },
+    {
+      accessor: 'actions',
+      width: 80,
+      Cell: cell => (
+        <RowActions>
+          <IconButton
+            Asset={icons.SvgPen}
+            width="1.4rem"
+            height="1.4rem"
+            color="gray.2"
+          />
+          <IconButton
+            Asset={icons.SvgDelete}
+            width="1.4rem"
+            height="1.4rem"
+            color="gray.2"
+            onClick={() => deleteRow(cell.row.values.investorWalletAddress)}
+          />
+        </RowActions>
+      ),
     },
   ];
 
