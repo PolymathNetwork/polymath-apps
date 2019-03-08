@@ -176,7 +176,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                     },
                     {
                       name: columns[1].accessor,
-                      validators: [validators.isString, validators.isNotEmpty],
+                      validators: [validators.isNotEmpty],
                       required: true,
                     },
                   ],
@@ -193,7 +193,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                       accessor: columns[0].accessor,
                       Header: columns[0].Header,
                       Cell: ({ value }) =>
-                        formatters.toShortAddress(value, { size: 26 }),
+                        value && formatters.toShortAddress(value, { size: 26 }),
                     },
                     {
                       accessor: columns[1].accessor,
