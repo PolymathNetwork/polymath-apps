@@ -41,6 +41,11 @@ interface Row {
   percentage: number;
 }
 
+// TODO: Values should be typed here
+export interface FormValues {
+  distributionName?: string;
+}
+
 export interface CreateDividendDistributionParams {
   erc20Address: string;
   amount: BigNumber;
