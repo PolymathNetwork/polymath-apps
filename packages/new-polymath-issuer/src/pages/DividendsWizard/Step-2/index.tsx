@@ -50,6 +50,8 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     {
       Header: 'Investor ETH Address',
       accessor: 'investorWalletAddress',
+      Cell: ({ value }) =>
+        value && formatters.toShortAddress(value, { size: 26 }),
     },
     {
       Header: '% Tax Witholding for Associated ETH Address',
