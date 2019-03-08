@@ -15,7 +15,7 @@ import {
   ButtonLink,
 } from '@polymathnetwork/new-ui';
 import { ListIcon } from '~/components/ListIcon';
-import { CreateDividendDistributionParams } from './Container';
+import { CreateDividendDistributionParams, FormValues } from './Container';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
 import { Step2 } from './Step-2';
@@ -51,7 +51,7 @@ const getStepComponent = (stepIndex: number) => {
 };
 
 export class Presenter extends Component<Props> {
-  public handleSubmit = (values: any) => {
+  public handleSubmit = (values: FormValues) => {
     const { createDividendDistribution } = this.props;
 
     // NOTE: FORMAT HERE
@@ -59,6 +59,9 @@ export class Presenter extends Component<Props> {
 
     createDividendDistribution(values);
   };
+
+  public handleValidation = (value: FormValues) => {};
+
   public render() {
     const {
       stepIndex,
@@ -91,6 +94,7 @@ export class Presenter extends Component<Props> {
                 excludedWalletsCsv: null,
                 taxWithholdingsCsv: null,
               }}
+              validate={this.handleValidation}
               onSubmit={this.handleSubmit}
               render={formProps => {
                 const StepComponent = getStepComponent(stepIndex);
