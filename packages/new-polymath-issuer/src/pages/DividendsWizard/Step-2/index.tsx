@@ -387,7 +387,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         </Box>
       )}
       <Heading variant="h3" mt="m">
-        Confirm Tax Withholdings
+        No Changes Required
       </Heading>
       <Paragraph>
         Please make sure to confirm no changes are required by downloading and
