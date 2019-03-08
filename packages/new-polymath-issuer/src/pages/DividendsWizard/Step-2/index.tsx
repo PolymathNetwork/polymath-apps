@@ -9,12 +9,14 @@ import {
 import {
   Box,
   Button,
+  ButtonSmall,
   Icon,
   icons,
   Heading,
   Card,
   Paragraph,
   Remark,
+  Flex,
   Form,
   FormItem,
   Checkbox,
@@ -353,6 +355,30 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       {!!withholdingList.length && (
         <Box mt="m" mb="m">
           <Table columns={columns} data={withholdingList} selectable>
+            <Table.Toolbar>
+              {() => {
+                const handleAddNew = () => {
+                  console.log(`add new row`);
+                };
+
+                return (
+                  <Flex>
+                    <Box ml="auto">
+                      <ButtonSmall
+                        variant="secondary"
+                        iconPosition="right"
+                        onClick={handleAddNew}
+                      >
+                        Update <Icon Asset={icons.SvgPlusPlain} />
+                      </ButtonSmall>
+                      <ButtonSmall iconPosition="right" onClick={handleAddNew}>
+                        Add new <Icon Asset={icons.SvgPlusPlain} />
+                      </ButtonSmall>
+                    </Box>
+                  </Flex>
+                );
+              }}
+            </Table.Toolbar>
             <Table.BatchActionsToolbar>
               {(batchActionProps: any) => {
                 const handleDeleteRows = () => {
