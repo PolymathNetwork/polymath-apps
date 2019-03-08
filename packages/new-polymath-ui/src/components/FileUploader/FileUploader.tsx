@@ -127,10 +127,10 @@ class FileUploaderComponent extends React.Component<Props, State> {
       if (this.props.multiple) {
       } else {
         return (
-          <sc.File minWidth={270}>
-            <Text fontSize={1} mr="auto">
+          <sc.File minWidth={270} maxWidth="100%">
+            <sc.FileName fontSize={1} mr="auto">
               {this.state.files[0].name}
-            </Text>
+            </sc.FileName>
             <sc.FileRemoveButton
               onClick={this.handleRemoveFile}
               onFocus={this.handleInputFocus}
