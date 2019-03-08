@@ -29,7 +29,7 @@ export interface Props {
   onChangeWalletAddress: (walletAddress: string) => void;
   onCreateCheckpoint: () => void;
   dividendsModule?: types.Erc20DividendsModulePojo;
-  defaultWalletAddress: string;
+  userWalletAddress: string;
   subdomain?: string;
 }
 
@@ -48,10 +48,12 @@ export const Presenter: FC<Props> = ({
   onCreateCheckpoint,
   onChangeWalletAddress,
   dividendsModule,
-  defaultWalletAddress,
+  userWalletAddress,
   subdomain,
 }) => {
-  const [walletAddress, setWalletAddress] = useState(defaultWalletAddress);
+  const [walletAddress, setWalletAddress] = useState(
+    dividendsModule ? dividendsModule.storageWalletAddress : userWalletAddress
+  );
   const [isEditingAddress, setEditAddressState] = useState(false);
 
   const handleAddressModalOpen = useCallback(() => {
@@ -144,7 +146,7 @@ export const Presenter: FC<Props> = ({
                   walletAddress={
                     dividendsModule.storageWalletAddress || walletAddress
                   }
-                  defaultWalletAddress={defaultWalletAddress}
+                  userWalletAddress={userWalletAddress}
                 />
                 <Paragraph mb="l">
                   <LinkButton onClick={handleAddressModalOpen}>
@@ -169,7 +171,7 @@ export const Presenter: FC<Props> = ({
               <Fragment>
                 <WalletAddress
                   walletAddress={walletAddress}
-                  defaultWalletAddress={defaultWalletAddress}
+                  userWalletAddress={userWalletAddress}
                 />
                 <Paragraph mb="l">
                   <LinkButton onClick={handleAddressModalOpen}>
