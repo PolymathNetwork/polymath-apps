@@ -54,7 +54,10 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
 
   return (
     <sc.Wrapper>
-      <FileUploaderPrimitive onChange={handleFileUploaderChange} />
+      <FileUploaderPrimitive
+        accept=".csv"
+        onChange={handleFileUploaderChange}
+      />
       {!!data.result.length ? (
         <Context.Provider
           value={{ isFullyInvalid, errorCount, data, csvConfig }}

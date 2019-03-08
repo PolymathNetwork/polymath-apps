@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import Dropzone from 'react-dropzone';
+import Dropzone, { DropzoneProps } from 'react-dropzone';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Text } from '~/components/Text';
 import { SvgClose } from '~/images/icons';
 import {
@@ -11,12 +12,14 @@ import * as sc from './styles';
 
 type Value = File | File[] | null;
 
-interface Props {
+interface Props extends typeHelpers.Omit<DropzoneProps, 'children'> {
   onChange: (value: Value) => void;
   multiple?: boolean;
   uploadTo?: string;
   onTouch?: () => void;
   onError?: () => void;
+  className?: string;
+  style?: any;
 }
 
 interface State {
@@ -96,6 +99,8 @@ class FileUploaderComponent extends React.Component<Props, State> {
   }
 
   public renderInput() {
+    const { className, style, ...otherProps } = this.props;
+
     // If in progress
     if (this.state.progress > -1 && this.state.progress < 100) {
       return (
@@ -151,6 +156,7 @@ class FileUploaderComponent extends React.Component<Props, State> {
         onDrop={this.onDrop}
         onFocus={this.handleInputFocus}
         onBlur={this.handleInputBlur}
+        {...otherProps}
       >
         {({ getRootProps, getInputProps, isDragActive }) => (
           <sc.Dropzone {...getRootProps()} isDragActive={isDragActive}>
@@ -166,15 +172,11 @@ class FileUploaderComponent extends React.Component<Props, State> {
 
   public render() {
     const {
-      onChange,
-      onTouch,
-      onError,
-      multiple,
-      uploadTo,
-      ...otherProps
+      className,
+      style,
     } = this.props;
 
-    return <div {...otherProps}>{this.renderInput()}</div>;
+    return <div className={className} style={style}>{this.renderInput()}</div>;
   }
 }
 
