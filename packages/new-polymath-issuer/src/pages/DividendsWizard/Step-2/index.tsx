@@ -55,7 +55,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const [investorTaxWithholding, setInvestorTaxWithholding] = useState({
     withholdingPercent: '',
-    investorETHAddress: '',
+    investorETHAddress: 0,
   });
 
   const deleteRow = (investorAddress: string) => {
@@ -117,8 +117,10 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const handleEditModalConfirm = (formProps: any) => {
     const modifiedWithholdings = [...withholdingList];
-    const index = _.findIndex(modifiedWithholdings, {
-      investorWalletAddress: investorTaxWithholding.investorETHAddress,
+    const index: number = _.findIndex(modifiedWithholdings, (item: any) => {
+      return (
+        item.investorWalletAddress === investorTaxWithholding.investorETHAddress
+      );
     });
     modifiedWithholdings.splice(index, 1, {
       investorWalletAddress: formProps.investorETHAddress,
