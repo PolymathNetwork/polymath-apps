@@ -124,7 +124,7 @@ export function isGetDividendBySymbolAndIdArgs(
   return (
     typeof securityTokenSymbol === 'string' &&
     typeof dividendIndex === 'number' &&
-    typeof dividendIndex === 'string' &&
+    typeof dividendType === 'string' &&
     includes([DividendModuleTypes.Erc20, DividendModuleTypes.Eth], dividendType)
   );
 }

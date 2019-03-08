@@ -5,7 +5,7 @@ import { Context } from '../Context';
 import * as sc from './styles';
 
 export interface Props {
-  className: string;
+  className?: string;
 }
 
 const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
@@ -17,13 +17,9 @@ const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
 
   const { isFullyInvalid, errorCount, data, csvConfig } = context;
 
-  if (isFullyInvalid) {
-    return null;
-  }
-
   return (
     <sc.Wrapper className={className}>
-      {csvConfig.maxRows && data.totalRows > csvConfig.maxRows && (
+      {!!csvConfig.maxRows && data.totalRows > csvConfig.maxRows && (
         <Notification
           status="warning"
           title={`More Than ${csvConfig.maxRows} Records Found`}
@@ -37,15 +33,15 @@ const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
       {isFullyInvalid && (
         <Notification
           status="alert"
-          title="Your .csv is Invalid"
-          description="Please make sure your .csv file follows the format of format our sample file."
+          title="Your .csv structure is Invalid"
+          description="Please make sure your .csv file follows the format of our sample file."
         />
       )}
-      {errorCount && (
+      {!isFullyInvalid && !!errorCount && (
         <Notification
           status="alert"
           title={`${errorCount} Errors in Your .csv File`}
-          description="Please note that the entries below contains error that prevent their content to be committed to the blockchain. Entries were automatically deselected so they are not submitted to the blockchain and may be edited separately. You can also elect to cancel the minting operation to review the csv file offline."
+          description="Please note that the entries below contains error that prevent their content to be committed to the blockchain. Entries were automatically deselected so they are not submitted to the blockchain and may be edited separately."
         />
       )}
     </sc.Wrapper>

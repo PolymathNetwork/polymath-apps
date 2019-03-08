@@ -105,7 +105,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
       const { currency, ...rest } = dividend;
       const depositEvent = events.find(event => {
         const { _dividendIndex } = event.returnValues;
-        return _dividendIndex === i;
+        return parseInt(_dividendIndex, 10) === i;
       });
 
       if (!depositEvent) {

@@ -13,6 +13,7 @@ import { requestData } from '~/state/actions/dataRequests';
 import { Fetcher, FetchedData } from '~/types';
 
 interface OwnProps {
+  watchProps?: { [key: string]: any };
   fetchers: Fetcher[];
   renderLoading: () => ReactNode;
   renderError: (errors: string[]) => ReactNode;
@@ -81,7 +82,7 @@ class DataFetcherBase extends Component<Props> {
    * Only update if the fetchers change
    */
   public shouldComponentUpdate(nextProps: Props) {
-    const { fetchers, loading, fetchedData } = this.props;
+    const { fetchers, loading, fetchedData, watchProps } = this.props;
     const {
       fetchers: newFetchers,
       loading: newLoading,
@@ -98,9 +99,12 @@ class DataFetcherBase extends Component<Props> {
       isEqual
     );
 
+    const watchPropsUpdated = !isEqual(watchProps, nextProps.watchProps);
+
     return (
       fetcherIntersection.length !== fetchers.length ||
-      !isEqual(fetchedData, newFetchedData)
+      !isEqual(fetchedData, newFetchedData) ||
+      watchPropsUpdated
     );
   }
   public render() {

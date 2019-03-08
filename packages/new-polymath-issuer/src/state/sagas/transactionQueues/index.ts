@@ -1,7 +1,6 @@
-import { call, put, take, race, all } from 'redux-saga/effects';
+import { call, put, take, race, all, fork } from 'redux-saga/effects';
 import { TransactionQueue } from '@polymathnetwork/sdk';
 import { setActiveTransactionQueue } from '~/state/actions/app';
-import { newTransaction } from '~/state/actions/transactions';
 import { getType, ActionType } from 'typesafe-actions';
 import {
   confirmTransactionQueue,
@@ -12,6 +11,7 @@ import {
 import { eventChannel } from 'redux-saga';
 import { types } from '@polymathnetwork/new-shared';
 import { QueueStatus } from '~/types';
+import { watchTransaction } from '~/state/sagas/transactions';
 
 /**
  * Populates the state with the current transactions in the queue and the queue itself,
@@ -27,7 +27,7 @@ export function* runTransactionQueue<Args, ReturnType>(
   const transactionsToRun = transactionQueueToRun.transactions;
 
   for (const transaction of transactionsToRun) {
-    yield put(newTransaction(transaction));
+    yield fork(watchTransaction, transaction);
   }
 
   const { uid } = transactionQueue;

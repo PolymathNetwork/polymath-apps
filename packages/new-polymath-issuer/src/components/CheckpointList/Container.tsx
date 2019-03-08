@@ -23,6 +23,7 @@ export class CheckpointListContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
     const { securityTokenSymbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
+
     const data: Row[] = investorBalances.map(({ balance, address }) => {
       const percentage = balance
         .div(totalSupply)
@@ -35,8 +36,8 @@ export class CheckpointListContainerBase extends Component<Props> {
         percentage,
       };
     });
-
-    const fileName = `checkpoint_${securityTokenSymbol.toUpperCase()}_${formatters.toDateFormat(
+    const sanitizedName = securityTokenSymbol.replace('.', '-').toUpperCase();
+    const fileName = `checkpoint_${sanitizedName}_${formatters.toDateFormat(
       createdAt,
       { format: DateTime.DATE_SHORT }
     )}_${totalSupply}`;

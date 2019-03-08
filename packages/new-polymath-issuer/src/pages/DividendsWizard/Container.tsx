@@ -147,6 +147,7 @@ export class ContainerBase extends Component<Props, State> {
     return (
       <Page title="Create New Dividend Distribution">
         <DataFetcher
+          watchProps={this.state}
           fetchers={[
             createTaxWithholdingListBySymbolFetcher({
               securityTokenSymbol,

@@ -56,6 +56,9 @@ export const downloadCsvFile = <T>(
   const csvOutput = parse(data, opts);
 
   const blob = new Blob([csvOutput], { type: 'text/csv' });
+  const formattedFilename = fileName.endsWith('.csv')
+    ? fileName
+    : `${fileName}.csv`;
 
-  saveAs(blob, fileName);
+  saveAs(blob, formattedFilename);
 };
