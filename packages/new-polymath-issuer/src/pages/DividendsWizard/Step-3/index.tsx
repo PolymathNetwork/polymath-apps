@@ -72,9 +72,7 @@ export class Step3 extends Component<Props> {
             </Box>
           </Grid>
           <Box mt="xl">
-            <Button type="submit" onClick={handleSubmit}>
-              Configure Dividends
-            </Button>
+            <Button type="submit">Configure Dividends</Button>
           </Box>
         </Fragment>
       </Card>

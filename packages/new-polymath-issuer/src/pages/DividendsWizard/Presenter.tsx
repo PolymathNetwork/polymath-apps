@@ -33,18 +33,6 @@ export interface Props {
   ) => void;
 }
 
-const isStep1 = (Step: any, stepIndex: number): Step is typeof Step1 => {
-  return stepIndex === 0;
-};
-
-const isStep2 = (Step: any, stepIndex: number): Step is typeof Step2 => {
-  return stepIndex === 1;
-};
-
-const isStep3 = (Step: any, stepIndex: number): Step is typeof Step3 => {
-  return stepIndex === 2;
-};
-
 const getStepComponent = (stepIndex: number) => {
   switch (stepIndex) {
     case 0: {
@@ -67,6 +55,7 @@ export class Presenter extends Component<Props> {
     const { createDividendDistribution } = this.props;
 
     // NOTE: FORMAT HERE
+    console.log('SUBMITTING');
 
     createDividendDistribution(values);
   };
@@ -103,20 +92,20 @@ export class Presenter extends Component<Props> {
                 taxWithholdingsCsv: null,
               }}
               onSubmit={this.handleSubmit}
-              render={props => {
-                const Step = getStepComponent(stepIndex);
+              render={formProps => {
+                const StepComponent = getStepComponent(stepIndex);
 
                 const commonProps = {
                   onSubmitStep: onNextStep,
                   taxWithholdings,
-                  ...props,
+                  ...formProps,
                 };
 
-                if (isStep1(Step, stepIndex) || isStep2(Step, stepIndex)) {
-                  return <Step {...commonProps} />;
-                }
-
-                return <Step {...commonProps} />;
+                return (
+                  <form onSubmit={formProps.handleSubmit}>
+                    <StepComponent {...commonProps} />
+                  </form>
+                );
               }}
             />
           </GridRow.Col>
