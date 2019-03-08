@@ -45,12 +45,12 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
   const [isEditModalOpen, setEditModalState] = useState(false);
   const [withholdingList, setWithholdingList] = useState(
-    taxWithholdings.map(item => {
-      return {
-        investorWalletAddress: item.investorAddress,
-        withholdingPercent: item.percentage,
-      };
-    })
+    taxWithholdings.reduce((result: any[], element) => {
+      if (element.percentage > 0) {
+        result.push(element);
+      }
+      return result;
+    }, [])
   );
 
   const [investorTaxWithholding, setInvestorTaxWithholding] = useState({
