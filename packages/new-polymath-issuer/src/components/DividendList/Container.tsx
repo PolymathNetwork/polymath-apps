@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { DividendListPresenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
-import {
-  createDividendsByCheckpointFetcher,
-  createTaxWithholdingListBySymbolFetcher,
-} from '~/state/fetchers';
+import { createDividendsByCheckpointFetcher } from '~/state/fetchers';
 import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
