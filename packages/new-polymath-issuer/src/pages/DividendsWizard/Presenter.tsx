@@ -8,6 +8,7 @@ import {
   GridRow,
   Paragraph,
   List,
+  Hr,
   Flex,
   Text,
   ProgressIndicator,
@@ -108,7 +109,7 @@ export const Presenter = ({
                 <Flex flex="0" alignSelf="flex-start" mr="s">
                   <ListIcon />
                 </Flex>
-                <Paragraph color="#5A6872">
+                <Paragraph color="gray.3">
                   <Text as="strong">{checkpoint.investorBalances.length}</Text>{' '}
                   Investors held the token at checkpoint time
                 </Paragraph>
@@ -117,19 +118,19 @@ export const Presenter = ({
                 <Flex flex="0" alignSelf="flex-start" mr="s">
                   <ListIcon />
                 </Flex>
-                <Paragraph color="#5A6872">
+                <Paragraph color="gray.3">
                   <Text as="strong">0</Text> Investors are excluded from the
                   dividends distribution
                 </Paragraph>
               </Flex>
             </List>
-            <hr />
+            <Hr color="gray.2" />
             <List vertical>
               <Flex as="li">
                 <Flex flex="0" alignSelf="flex-start" mr="s">
                   <ListIcon />
                 </Flex>
-                <Paragraph color="#5A6872">
+                <Paragraph color="gray.3">
                   <Text as="strong">0</Text> Investors will receive dividends
                 </Paragraph>
               </Flex>

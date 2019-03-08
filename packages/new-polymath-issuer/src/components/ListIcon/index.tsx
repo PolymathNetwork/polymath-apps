@@ -4,7 +4,7 @@ import { IconCircled, icons } from '@polymathnetwork/new-ui';
 
 const ListIconBase = ({ active, ...otherProps }: { active?: boolean }) => (
   <IconCircled
-    Asset={icons.SvgCheckmark}
+    Asset={icons.SvgCaretDown2}
     bg="inactive"
     color="gray.1"
     width={24}
@@ -15,6 +15,6 @@ const ListIconBase = ({ active, ...otherProps }: { active?: boolean }) => (
 );
 
 export const ListIcon = styled(ListIconBase)`
-  // transform: rotateZ(0.75turn);
+  transform: rotateZ(0.75turn);
   opacity: ${({ active }) => (active ? 1 : 0.5)};
 `;
