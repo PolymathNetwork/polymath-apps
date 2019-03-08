@@ -29,9 +29,11 @@ import {
   RowActions,
   IconButton,
   TextInput,
+  validator,
 } from '@polymathnetwork/new-ui';
 import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
+import { validateYupSchema, yupToFormErrors } from 'formik';
 
 export interface Props {
   onSubmitStep: () => void;
@@ -167,6 +169,28 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     );
   };
 
+  const validateFormWithSchema = (
+    validationSchema: any,
+    validationValues: any
+  ) => {
+    try {
+      validateYupSchema(validationValues, validationSchema, true);
+    } catch (err) {
+      return yupToFormErrors(err);
+    }
+    return {};
+  };
+
+  const handleWithholdingValidation = useCallback((validationValues: any) => {
+    const schema = validator.object().shape({
+      walletAddress: validator
+        .string()
+        .required()
+        .isEthereumAddress(),
+    });
+    return validateFormWithSchema(schema, validationValues);
+  }, []);
+
   return (
     <Card p="gridGap" boxShadow={1}>
       <Heading variant="h2" mb="l">
@@ -299,6 +323,19 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       </Remark>
 
       <Form
+        validate={handleWithholdingValidation}
+        validationSchema={validator.object().shape({
+          investorETHAddress: validator
+            .string()
+            .required('Investor ETH address is required')
+            .isEthereumAddress('Invalid Ethereum Address'),
+          withholdingPercent: validator
+            .number()
+            .typeError('Invalid value')
+            .min(0, 'Invalid value')
+            .max(100, 'Invalid value')
+            .required('Tax withholsing percent is required'),
+        })}
         initialValues={{
           investorETHAddress: investorTaxWithholding.investorETHAddress,
           withholdingPercent: investorTaxWithholding.withholdingPercent,
