@@ -12,7 +12,7 @@ import {
   CurrencySelect,
   TooltipIcon,
 } from '@polymathnetwork/new-ui';
-import { Field } from 'formik';
+import { Field, Formik } from 'formik';
 import { valueFocusAriaMessage } from 'react-select/lib/accessibility';
 
 export const Step3 = () => (
@@ -20,7 +20,7 @@ export const Step3 = () => (
     <Heading variant="h2" mb="l">
       3. Set Dividends Distribution Parameters
     </Heading>
-    <Form
+    <Formik
       initialValues={{
         noWalletExcluded: false,
       }}
@@ -57,6 +57,7 @@ export const Step3 = () => (
             <FormItem name="currency">
               <FormItem.Label>Issue in</FormItem.Label>
               <FormItem.Input
+                FormikComponent={Field}
                 component={CurrencySelect}
                 placeholder="Choose currency"
               />
