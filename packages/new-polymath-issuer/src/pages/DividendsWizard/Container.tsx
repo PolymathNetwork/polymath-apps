@@ -44,6 +44,11 @@ interface Row {
 // TODO: Values should be typed here
 export interface FormValues {
   distributionName?: string;
+  noWalletExcluded?: boolean;
+  isTaxWithholdingConfirmed?: boolean;
+  // Type these properly
+  excludedWalletsCsv?: null | any[];
+  taxWithholdingsCsv?: null | any[];
 }
 
 export interface CreateDividendDistributionParams {
