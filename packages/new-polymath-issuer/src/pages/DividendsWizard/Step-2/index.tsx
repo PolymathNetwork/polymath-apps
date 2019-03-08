@@ -83,7 +83,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const downloadExistingWithholdings = () => {
     utils.downloadCsvFile(
       withholdingList,
-      ' Existing-Withholdings-Tax-List.csv',
+      'Existing-Withholdings-Tax-List.csv',
       { fields: ['Investor ETH Address', '% of Tax Withholding'] }
     );
   };
