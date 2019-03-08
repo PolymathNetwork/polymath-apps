@@ -2,12 +2,15 @@ import { Procedure } from './Procedure';
 import { DividendModuleTypes } from '~/LowLevel/types';
 import { DividendCheckpoint } from '~/LowLevel/DividendCheckpoint';
 import { types } from '@polymathnetwork/new-shared';
-import { SetDividendsTaxWithholdingListProcedureArgs } from '~/types';
+import { UpdateDividendsTaxWithholdingListProcedureArgs } from '~/types';
+import { chunk } from 'lodash';
 
-export class SetDividendsTaxWithholdingList extends Procedure<
-  SetDividendsTaxWithholdingListProcedureArgs
+const CHUNK_SIZE = 200;
+
+export class UpdateDividendsTaxWithholdingList extends Procedure<
+  UpdateDividendsTaxWithholdingListProcedureArgs
 > {
-  public type = types.ProcedureTypes.SetDividendsTaxWithholdingList;
+  public type = types.ProcedureTypes.UpdateDividendsTaxWithholdingList;
   public async prepareTransactions() {
     const {
       symbol,
@@ -37,8 +40,16 @@ export class SetDividendsTaxWithholdingList extends Procedure<
       );
     }
 
-    await this.addTransaction(dividendModule.setWithholding, {
-      tag: types.PolyTransactionTags.SetErc20TaxWithholding,
-    })({ investors, percentages });
+    const investorAddressChunks = chunk(investors, CHUNK_SIZE);
+    const percentageChunks = chunk(percentages, CHUNK_SIZE);
+
+    for (let index = 0; index < investorAddressChunks.length; index += 1) {
+      await this.addTransaction(dividendModule.setWithholding, {
+        tag: types.PolyTransactionTags.SetErc20TaxWithholding,
+      })({
+        investors: investorAddressChunks[index],
+        percentages: percentageChunks[index],
+      });
+    }
   }
 }

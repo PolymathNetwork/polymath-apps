@@ -27,7 +27,7 @@ import {
   CreateCheckpoint,
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
-  SetDividendsTaxWithholdingList,
+  UpdateDividendsTaxWithholdingList,
   PushDividendPayment,
   WithdrawTaxes,
 } from './procedures';
@@ -205,7 +205,7 @@ export class Polymath {
     maturityDate: Date;
     expiryDate: Date;
     amount: BigNumber;
-    checkpointId: number;
+    checkpointIndex: number;
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
@@ -231,7 +231,7 @@ export class Polymath {
     expiryDate: Date;
     erc20Address: string;
     amount: BigNumber;
-    checkpointId: number;
+    checkpointIndex: number;
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
@@ -249,7 +249,7 @@ export class Polymath {
     expiryDate: Date;
     erc20Address: string;
     amount: BigNumber;
-    checkpointId: number;
+    checkpointIndex: number;
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
@@ -261,13 +261,13 @@ export class Polymath {
   /**
    * Set tax withtholding list for a type of dividends
    */
-  public setDividendsTaxWithholdingList = async (args: {
+  public updateDividendsTaxWithholdingList = async (args: {
     symbol: string;
     dividendType: DividendModuleTypes;
     investorAddresses: string[];
     percentages: number[];
   }) => {
-    const procedure = new SetDividendsTaxWithholdingList(args, this.context);
+    const procedure = new UpdateDividendsTaxWithholdingList(args, this.context);
     return await procedure.prepare();
   };
 
@@ -277,7 +277,7 @@ export class Polymath {
   public pushDividendPayment = async (args: {
     symbol: string;
     dividendType: DividendModuleTypes;
-    dividendId: number;
+    dividendIndex: number;
   }) => {
     const procedure = new PushDividendPayment(args, this.context);
     return await procedure.prepare();
