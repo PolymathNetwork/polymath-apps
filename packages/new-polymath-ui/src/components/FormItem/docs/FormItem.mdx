@@ -4,9 +4,10 @@ menu: Components
 ---
 
 import { PropsTable, Playground } from 'docz';
-import { Formik, FastField } from 'formik';
+import { Field, FastField } from 'formik';
 import * as Yup from 'yup';
 
+import { Form } from '~/components/Form';
 import { TextInput } from '~/components/inputs/TextInput';
 import { FormItem } from '../';
 
@@ -17,7 +18,7 @@ import { FormItem } from '../';
 ## Basic usage
 
 <Playground>
-  <Formik
+  <Form
     validationSchema={Yup.object().shape({
       textInput: Yup.string().required(),
     })}
@@ -25,7 +26,7 @@ import { FormItem } from '../';
       <FormItem name="textInput">
         <FormItem.Label>The label</FormItem.Label>
         <FormItem.Input
-          formikComponent={FastField}
+          FormikComponent={FastField}
           component={TextInput}
           placeholder="Placeholder"
         />
