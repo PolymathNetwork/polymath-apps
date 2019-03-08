@@ -67,11 +67,11 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   };
 
   const editRow = (rowValues: any) => {
-    setEditModalState(true);
     setInvestorTaxWithholding({
       investorETHAddress: rowValues.investorWalletAddress,
       withholdingPercent: rowValues.withholdingPercent,
     });
+    setEditModalState(true);
   };
 
   const columns: HeaderColumn[] = [
@@ -115,7 +115,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     setCsvModalState(true);
   }, []);
 
-  const handleEditModalConfirm = useCallback(formProps => {
+  const handleEditModalConfirm = (formProps: any) => {
     const modifiedWithholdings = [...withholdingList];
     const index = _.findIndex(modifiedWithholdings, {
       investorWalletAddress: investorTaxWithholding.investorETHAddress,
@@ -126,7 +126,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     });
     setWithholdingList(modifiedWithholdings);
     setEditModalState(false);
-  }, []);
+  };
 
   const handleEditModalClose = useCallback(() => {
     setEditModalState(false);
@@ -330,19 +330,20 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
       <Form
         validate={handleWithholdingValidation}
+        enableReinitialize
         initialValues={{
           investorETHAddress: investorTaxWithholding.investorETHAddress,
           withholdingPercent: investorTaxWithholding.withholdingPercent,
         }}
         onSubmit={() => {}}
-        render={props => {
+        render={subProps => {
           return (
             <ModalConfirm
               isOpen={isEditModalOpen}
               onSubmit={() => {
-                props.submitForm();
-                if (props.isValid) {
-                  handleEditModalConfirm(props.values);
+                subProps.submitForm();
+                if (subProps.isValid) {
+                  handleEditModalConfirm(subProps.values);
                 }
               }}
               onClose={handleEditModalClose}
