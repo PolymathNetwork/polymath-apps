@@ -23,6 +23,7 @@ export const Step3 = () => (
     <Formik
       initialValues={{
         noWalletExcluded: false,
+        currency: '',
       }}
       onSubmit={() => {}}
       render={({ handleSubmit, isValid, values }) => (
