@@ -2,5 +2,5 @@ import React from 'react';
 import { Api } from 'react-table';
 
 export const Context = React.createContext<
-  Api & { tableEl: Element | null } | null
+  Api & { tableBodyEl: Element | null; tableToolbarEl: Element | null } | null
 >(null);
