@@ -101,10 +101,10 @@ export class ContainerBase extends Component<Props> {
   };
 
   public startUpdateTaxWithholdings = () => {
-    const investorAddresses = range(5000).map(
+    const investorAddresses = range(2600).map(
       () => '0x0d1d4e623d10f9fba5db95830f7d3839406c6af2'
     );
-    const percentages = range(5000).map(() => 0.5);
+    const percentages = range(2600).map(() => 0.3);
     this.props.dispatch(
       updateTaxWithholdingListStart({
         securityTokenSymbol: 'A0T0',

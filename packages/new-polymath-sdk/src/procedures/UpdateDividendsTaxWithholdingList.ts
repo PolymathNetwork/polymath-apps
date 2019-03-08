@@ -40,8 +40,32 @@ export class UpdateDividendsTaxWithholdingList extends Procedure<
       );
     }
 
-    const investorAddressChunks = chunk(investors, CHUNK_SIZE);
-    const percentageChunks = chunk(percentages, CHUNK_SIZE);
+    const checkpointIndex = await securityToken.currentCheckpointId();
+    const currentWithholdings = await dividendModule.getTaxWithholdingList({
+      checkpointIndex,
+    });
+
+    // ignore entries that don't change anything
+    const investorsToUpdate: string[] = [];
+    const percentagesToUpdate: number[] = [];
+    investors.forEach((address, index) => {
+      const investorWithholding = currentWithholdings.find(
+        withholding =>
+          withholding.address.toUpperCase() === address.toUpperCase()
+      );
+      const percentage = percentages[index];
+
+      if (
+        !investorWithholding ||
+        percentage !== investorWithholding.percentage
+      ) {
+        investorsToUpdate[index] = address;
+        percentagesToUpdate[index] = percentage;
+      }
+    });
+
+    const investorAddressChunks = chunk(investorsToUpdate, CHUNK_SIZE);
+    const percentageChunks = chunk(percentagesToUpdate, CHUNK_SIZE);
 
     for (let index = 0; index < investorAddressChunks.length; index += 1) {
       await this.addTransaction(dividendModule.setWithholding, {

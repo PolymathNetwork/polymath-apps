@@ -49,7 +49,7 @@ export function* createErc20DividendsDistribution(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
@@ -123,7 +123,7 @@ export function* updateTaxWithholdingList(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
@@ -170,17 +170,19 @@ export function* pushDividendPayment(
       return;
     }
 
-    // Invalidate cache
-    yield put(
-      invalidateRequest({
-        requestKey: RequestKeys.GetDividendBySymbolAndId,
-        args: {
-          securityTokenSymbol,
-          dividendIndex,
-          dividendType,
-        },
-      })
-    );
+    if (queueStatus !== QueueStatus.Empty) {
+      // Invalidate cache
+      yield put(
+        invalidateRequest({
+          requestKey: RequestKeys.GetDividendBySymbolAndId,
+          args: {
+            securityTokenSymbol,
+            dividendIndex,
+            dividendType,
+          },
+        })
+      );
+    }
 
     yield take(getType(finishTransactionQueue));
 
@@ -213,7 +215,7 @@ export function* setDividendsWallet(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
@@ -262,7 +264,7 @@ export function* withdrawDividendTaxes(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
