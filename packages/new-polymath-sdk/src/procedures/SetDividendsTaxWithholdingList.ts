@@ -38,7 +38,7 @@ export class SetDividendsTaxWithholdingList extends Procedure<
     }
 
     await this.addTransaction(dividendModule.setWithholding, {
-      tag: types.PolyTransactionTags.WithdrawTaxWithholdings,
+      tag: types.PolyTransactionTags.SetErc20TaxWithholding,
     })({ investors, percentages });
   }
 }

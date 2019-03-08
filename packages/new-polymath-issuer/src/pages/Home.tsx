@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component, Dispatch, Fragment } from 'react';
-import { browserUtils } from '@polymathnetwork/sdk';
+import { browserUtils, DividendModuleTypes } from '@polymathnetwork/sdk';
 import { Page, Button, Loading } from '@polymathnetwork/new-ui';
 import { polyClient } from '~/lib/polyClient';
 import { ModalTransactionQueue } from '~/components';
@@ -8,6 +8,7 @@ import {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
   createErc20DividendDistributionStart,
+  updateTaxWithholdingListStart,
 } from '~/state/actions/procedures';
 import { ActionType } from 'typesafe-actions';
 import { NETWORK } from '~/constants';
@@ -17,6 +18,7 @@ const actions = {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
   createErc20DividendDistributionStart,
+  updateTaxWithholdingListStart,
 };
 
 export interface DispatchProps {
@@ -90,8 +92,20 @@ export class ContainerBase extends Component<Props> {
         name: 'My Dividend Distribution',
         amount: new BigNumber('10000'),
         checkpointId: 1,
-        excludedAddresses: [],
+        excludedAddresses: ['0x821aea9a577a9b44299b9c15c88cf3087f3b5544'],
+        // excludedAddresses: [],
         pushPaymentsWhenComplete: true,
+      })
+    );
+  };
+
+  public startUpdateTaxWithholdings = () => {
+    this.props.dispatch(
+      updateTaxWithholdingListStart({
+        securityTokenSymbol: 'A0T0',
+        dividendType: DividendModuleTypes.Erc20,
+        investorAddresses: ['0x0d1d4e623d10f9fba5db95830f7d3839406c6af2'],
+        percentages: [0.5],
       })
     );
   };
@@ -136,6 +150,9 @@ export class ContainerBase extends Component<Props> {
             <Button onClick={this.checkForValidity}>
               Check if 0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0 is a valid
               ERC20
+            </Button>
+            <Button onClick={this.startUpdateTaxWithholdings}>
+              Update Tax Withholding List (Test)
             </Button>
           </Fragment>
         ) : (
