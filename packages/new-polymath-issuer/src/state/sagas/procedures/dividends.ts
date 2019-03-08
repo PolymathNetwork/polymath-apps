@@ -24,7 +24,7 @@ export function* createErc20DividendsDistribution(
     expiryDate,
     erc20Address,
     amount,
-    checkpointId,
+    checkpointIndex,
     name,
     excludedAddresses,
     pushPaymentsWhenComplete,
@@ -37,7 +37,7 @@ export function* createErc20DividendsDistribution(
       expiryDate,
       erc20Address,
       amount,
-      checkpointId,
+      checkpointIndex,
       name,
       excludedAddresses,
     }
@@ -60,7 +60,7 @@ export function* createErc20DividendsDistribution(
         requestKey: RequestKeys.GetDividendsByCheckpoint,
         args: {
           securityTokenSymbol,
-          checkpointIndex: checkpointId,
+          checkpointIndex,
         },
       })
     );
@@ -70,7 +70,7 @@ export function* createErc20DividendsDistribution(
         requestKey: RequestKeys.GetCheckpointBySymbolAndId,
         args: {
           securityTokenSymbol,
-          checkpointIndex: checkpointId,
+          checkpointIndex,
         },
       })
     );
@@ -108,7 +108,7 @@ export function* updateTaxWithholdingList(
     percentages,
   } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
-    polyClient.setDividendsTaxWithholdingList,
+    polyClient.updateDividendsTaxWithholdingList,
     {
       symbol: securityTokenSymbol,
       dividendType,
@@ -154,7 +154,7 @@ export function* pushDividendPayment(
     {
       symbol: securityTokenSymbol,
       dividendType,
-      dividendId: dividendIndex,
+      dividendIndex,
     }
   );
 

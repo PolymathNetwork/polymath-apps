@@ -64,7 +64,7 @@ export class ContainerBase extends Component<Props, State> {
   }) => {
     const { dispatch, securityTokenSymbol, checkpointIndex } = this.props;
 
-    const checkpointId = parseInt(checkpointIndex, 10);
+    const parsedCheckpointIndex = parseInt(checkpointIndex, 10);
 
     const maturityDate = new Date();
     const expiryDate = new Date(
@@ -80,7 +80,7 @@ export class ContainerBase extends Component<Props, State> {
         expiryDate,
         erc20Address,
         amount,
-        checkpointId,
+        checkpointIndex: parsedCheckpointIndex,
         name,
         excludedAddresses,
         pushPaymentsWhenComplete: true,
