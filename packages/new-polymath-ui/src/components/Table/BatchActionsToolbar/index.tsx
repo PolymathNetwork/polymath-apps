@@ -20,7 +20,9 @@ export const BatchActionsToolbar: FC<Props> = props => {
 
   return (
     <sc.BatchActionsToolbar hidden={!selectedRows.length}>
-      {children}
+      {typeof children === 'function'
+        ? children({ ...context, selectedRows })
+        : children}
       <Box ml="auto">
         {selectedRows.length} items selected
         <Button

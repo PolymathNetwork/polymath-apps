@@ -18,6 +18,7 @@ declare module 'react-table' {
     cells: Cell[];
     getRowProps: () => any;
     originalRow: any;
+    values: any;
   };
 
   export interface HeaderColumn {
