@@ -285,7 +285,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                     },
                     {
                       name: columns[1].accessor,
-                      validators: [validators.isString, validators.isNotEmpty],
+                      validators: [validators.isInt, validators.isNotEmpty],
                       required: true,
                     },
                   ],
