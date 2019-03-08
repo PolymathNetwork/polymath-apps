@@ -183,10 +183,16 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const handleWithholdingValidation = useCallback((validationValues: any) => {
     const schema = validator.object().shape({
-      walletAddress: validator
+      investorETHAddress: validator
         .string()
-        .required()
-        .isEthereumAddress(),
+        .required('Investor ETH address is required')
+        .isEthereumAddress('Invalid Ethereum Address'),
+      withholdingPercent: validator
+        .number()
+        .typeError('Invalid value')
+        .min(0, 'Invalid value')
+        .max(100, 'Invalid value')
+        .required('Tax withholsing percent is required'),
     });
     return validateFormWithSchema(schema, validationValues);
   }, []);
@@ -324,18 +330,6 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
       <Form
         validate={handleWithholdingValidation}
-        validationSchema={validator.object().shape({
-          investorETHAddress: validator
-            .string()
-            .required('Investor ETH address is required')
-            .isEthereumAddress('Invalid Ethereum Address'),
-          withholdingPercent: validator
-            .number()
-            .typeError('Invalid value')
-            .min(0, 'Invalid value')
-            .max(100, 'Invalid value')
-            .required('Tax withholsing percent is required'),
-        })}
         initialValues={{
           investorETHAddress: investorTaxWithholding.investorETHAddress,
           withholdingPercent: investorTaxWithholding.withholdingPercent,
@@ -346,7 +340,10 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
             <ModalConfirm
               isOpen={isEditModalOpen}
               onSubmit={() => {
-                handleEditModalConfirm(props.values);
+                props.submitForm();
+                if (props.isValid) {
+                  handleEditModalConfirm(props.values);
+                }
               }}
               onClose={handleEditModalClose}
               actionButtonText="Confirm"
