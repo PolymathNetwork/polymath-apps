@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FastField, FieldConfig } from 'formik';
+import { FieldConfig, Field } from 'formik';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 import { Context } from '../Context';
 
@@ -40,6 +40,8 @@ export const InputBase: FC<Props> = ({
 
 export const Input = Object.assign(InputBase, {
   defaultProps: {
-    FormikComponent: FastField,
+    // FIXME @RafaelVidaurre: This prop is unusable, the form breaks
+    // Switched to Field component as a safer default
+    FormikComponent: Field,
   },
 });
