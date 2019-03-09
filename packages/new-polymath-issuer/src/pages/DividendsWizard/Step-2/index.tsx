@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback } from 'react';
+import React, { Fragment, useState, useCallback, FC } from 'react';
 import {
   validators,
   formatters,
@@ -39,12 +39,23 @@ import { HeaderColumn } from 'react-table';
 import { validateYupSchema, yupToFormErrors } from 'formik';
 
 export interface Props {
-  onSubmitStep: () => void;
+  onNextStep: () => void;
   values: any;
   taxWithholdings: types.TaxWithholdingEntity[];
+  downloadTaxWithholdingList: (
+    taxWithholdings: types.TaxWithholdingPojo[]
+  ) => void;
 }
 
-export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
+const csvEthAddressKey = 'Investor ETH Address';
+const csvTaxWithholdingKey = '% Tax Withholding';
+
+const Step2Presenter = ({
+  onNextStep,
+  values,
+  taxWithholdings,
+  downloadTaxWithholdingList,
+}: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
   const [isEditModalOpen, setEditModalState] = useState(false);
   const [isAddModalOpen, setAddModalState] = useState(false);
@@ -80,14 +91,14 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const columns: HeaderColumn[] = [
     {
-      Header: 'Investor ETH Address',
-      accessor: 'investorWalletAddress',
+      Header: csvEthAddressKey,
+      accessor: csvEthAddressKey,
       Cell: ({ value }) =>
         value && formatters.toShortAddress(value, { size: 26 }),
     },
     {
       Header: '% Tax Witholding for Associated ETH Address',
-      accessor: 'withholdingPercent',
+      accessor: csvTaxWithholdingKey,
       width: 250,
       Cell: ({ value }) => `${value}%`,
     },
@@ -154,10 +165,11 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const handleCsvModalConfirm = useCallback(
     () => {
+      console.log('values.taxWithholdingsCsv', values.taxWithholdingsCsv);
       const addedEntries = values.taxWithholdingsCsv.map(
         (csvRow: csvParser.ResultRow) => ({
-          investorWalletAddress: csvRow.data.investorWalletAddress.value,
-          withholdingPercent: csvRow.data.withholdingPercent.value,
+          investorWalletAddress: csvRow.data[csvEthAddressKey].value,
+          withholdingPercent: csvRow.data[csvTaxWithholdingKey].value,
         })
       );
       // Existing tax withholding should be only added if they are not overwritten
@@ -186,7 +198,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     utils.downloadCsvFile(
       withholdingList,
       'Existing-Withholdings-Tax-List.csv',
-      { fields: ['investorWalletAddress', 'withholdingPercent'] }
+      { fields: [csvEthAddressKey, csvTaxWithholdingKey] }
     );
   };
 
@@ -217,6 +229,13 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     });
     return validateFormWithSchema(schema, validationValues);
   }, []);
+
+  const handleSampleCsvDownload = useCallback(
+    () => {
+      downloadTaxWithholdingList(taxWithholdings);
+    },
+    [taxWithholdings]
+  );
 
   return (
     <Card p="gridGap" boxShadow={1}>
@@ -252,9 +271,9 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       ) : (
         <Paragraph>
           You can download{' '}
-          <Link href="" download>
+          <button onClick={handleSampleCsvDownload}>
             <Icon Asset={icons.SvgDownload} /> Sample-Withholdings-Tax-List.csv
-          </Link>{' '}
+          </button>{' '}
           example file and edit it.
         </Paragraph>
       )}
@@ -298,7 +317,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                 csvConfig: {
                   columns: [
                     {
-                      name: columns[0].accessor,
+                      name: csvEthAddressKey,
                       validators: [
                         validators.isEthereumAddress,
                         validators.isNotEmpty,
@@ -306,7 +325,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                       required: true,
                     },
                     {
-                      name: columns[1].accessor,
+                      name: csvTaxWithholdingKey,
                       validators: [validators.isNotEmpty],
                       required: true,
                     },
@@ -480,7 +499,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       </FormItem>
       <Box mt="xl">
         <Button
-          onClick={onSubmitStep}
+          onClick={onNextStep}
           disabled={!values.isTaxWithholdingConfirmed}
         >
           Update list and proceed to the next step
@@ -531,5 +550,33 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         )}
       />
     </Card>
+  );
+};
+
+export const Step2: FC<{
+  onNextStep: () => void;
+  taxWithholdings: types.TaxWithholdingPojo[];
+  downloadTaxWithholdingList: (
+    taxWithholdings: types.TaxWithholdingPojo[]
+  ) => void;
+}> = ({ onNextStep, taxWithholdings, downloadTaxWithholdingList }) => {
+  return (
+    <Form
+      onSubmit={(values: any) => {
+        console.log('Submitting step 2', values);
+      }}
+      initialValues={{
+        taxWithholdingsCsv: null,
+        isTaxWithholdingConfirmed: false,
+      }}
+      render={({ values }) => (
+        <Step2Presenter
+          taxWithholdings={taxWithholdings}
+          onNextStep={onNextStep}
+          downloadTaxWithholdingList={downloadTaxWithholdingList}
+          values={values}
+        />
+      )}
+    />
   );
 };

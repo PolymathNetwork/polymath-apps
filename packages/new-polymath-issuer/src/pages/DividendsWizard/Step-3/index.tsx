@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, Component, FC } from 'react';
 import {
   Box,
   Button,
@@ -14,7 +14,9 @@ import {
 } from '@polymathnetwork/new-ui';
 import { Field } from 'formik';
 
-export const Step3 = () => (
+interface Props {}
+
+export const Step3: FC<Props> = () => (
   <Card p="gridGap">
     <Heading variant="h2" mb="l">
       3. Set Dividends Distribution Parameters

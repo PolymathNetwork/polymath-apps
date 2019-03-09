@@ -22,6 +22,7 @@ import { Step1 } from './Step-1';
 import { Step2 } from './Step-2';
 import { Step3 } from './Step-3';
 import { types } from '@polymathnetwork/new-shared';
+import { TaxWithholdingPojo } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 export interface Props {
   stepIndex: number;
@@ -29,10 +30,34 @@ export interface Props {
   checkpoint: types.CheckpointEntity;
   onNextStep: () => void;
   taxWithholdings: types.TaxWithholdingEntity[];
+  downloadTaxWithholdingList: (taxWithholdings: TaxWithholdingPojo[]) => void;
   createDividendDistribution: (
     params: CreateDividendDistributionParams
   ) => void;
 }
+
+export interface State {
+  excludedWalletsCsv: any;
+}
+
+const isStep1 = (
+  StepComponent: typeof Step1 | typeof Step2 | typeof Step3,
+  stepIndex: number
+): StepComponent is typeof Step1 => stepIndex === 0;
+
+const isStep2 = (
+  StepComponent: typeof Step1 | typeof Step2 | typeof Step3,
+  stepIndex: number
+): StepComponent is typeof Step2 => stepIndex === 1;
+
+// Form values
+
+// {
+//   noWalletExcluded: false,
+//   isTaxWithholdingConfirmed: false,
+//   excludedWalletsCsv: null,
+//   taxWithholdingsCsv: null,
+// }
 
 const getStepComponent = (stepIndex: number) => {
   switch (stepIndex) {
@@ -52,25 +77,61 @@ const getStepComponent = (stepIndex: number) => {
 };
 
 export class Presenter extends Component<Props> {
-  public handleSubmit = (values: FormValues) => {
-    const { createDividendDistribution } = this.props;
+  // public handleSubmit = (values: FormValues) => {
+  //   const { createDividendDistribution } = this.props;
 
-    // NOTE: FORMAT HERE
-    console.log('SUBMITTING');
+  //   // NOTE: FORMAT HERE
+  //   console.log('SUBMITTING');
 
-    createDividendDistribution(values);
+  //   createDividendDistribution(values);
+  // };
+
+  // public handleValidation = (value: FormValues) => {};
+
+  public state = {
+    excludedWalletsCsv: null,
   };
 
-  public handleValidation = (value: FormValues) => {};
+  public setExcludedWalletsCsv = (excludedWalletsCsv: any) => {
+    this.setState({ excludedWalletsCsv });
+  };
 
-  public render() {
+  public renderStepComponent = () => {
     const {
       stepIndex,
-      securityTokenSymbol,
-      checkpoint,
       onNextStep,
       taxWithholdings,
+      downloadTaxWithholdingList,
     } = this.props;
+    const { excludedWalletsCsv } = this.state;
+    const StepComponent = getStepComponent(stepIndex);
+
+    if (isStep1(StepComponent, stepIndex)) {
+      return (
+        <StepComponent
+          onNextStep={onNextStep}
+          excludedWalletsCsv={excludedWalletsCsv}
+          setExcludedWalletsCsv={this.setExcludedWalletsCsv}
+        />
+      );
+    }
+
+    if (isStep2(StepComponent, stepIndex)) {
+      return (
+        <StepComponent
+          downloadTaxWithholdingList={downloadTaxWithholdingList}
+          taxWithholdings={taxWithholdings}
+          onNextStep={onNextStep}
+        />
+      );
+    }
+
+    return <StepComponent />;
+  };
+
+  public render() {
+    const { stepIndex, securityTokenSymbol, checkpoint } = this.props;
+
     return (
       <div>
         <Text color="primary">
@@ -88,13 +149,7 @@ export class Presenter extends Component<Props> {
         </Heading>
         <GridRow>
           <GridRow.Col gridSpan={{ sm: 12, lg: 8 }}>
-            <Form
-              initialValues={{
-                noWalletExcluded: false,
-                isTaxWithholdingConfirmed: false,
-                excludedWalletsCsv: null,
-                taxWithholdingsCsv: null,
-              }}
+            {/* <Form
               validate={this.handleValidation}
               onSubmit={this.handleSubmit}
               render={formProps => {
@@ -112,7 +167,8 @@ export class Presenter extends Component<Props> {
                   </form>
                 );
               }}
-            />
+            /> */}
+            {this.renderStepComponent()}
           </GridRow.Col>
           <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
             <Box height={250} mb="xl">

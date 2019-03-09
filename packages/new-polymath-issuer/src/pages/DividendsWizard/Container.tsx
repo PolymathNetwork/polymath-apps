@@ -188,6 +188,7 @@ export class ContainerBase extends Component<Props, State> {
                 checkpoint={checkpoint}
                 onNextStep={this.nextStep}
                 taxWithholdings={taxWithholdings}
+                downloadTaxWithholdingList={this.downloadTaxWithholdingList}
               />
             );
           }}
