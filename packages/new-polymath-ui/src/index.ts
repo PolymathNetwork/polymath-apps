@@ -5,6 +5,7 @@ import { SvgArrow } from './images/icons/generated/Arrow';
 import { SvgCalendar } from './images/icons/generated/Calendar';
 import { SvgCaretDown } from './images/icons/generated/CaretDown';
 import { SvgCaretDown2 } from './images/icons/generated/CaretDown2';
+import { SvgCycle } from './images/icons/generated/Cycle';
 import { SvgDot } from './images/icons/generated/Dot';
 import { SvgDownload } from './images/icons/generated/Download';
 import { SvgErc20 } from './images/icons/generated/Erc20';
@@ -87,6 +88,7 @@ export const icons = {
   SvgCalendar,
   SvgCaretDown,
   SvgCaretDown2,
+  SvgCycle,
   SvgDot,
   SvgDownload,
   SvgErc20,

@@ -17,6 +17,7 @@ import {
   Paragraph,
   Remark,
   Flex,
+  InlineFlex,
   Form,
   FormItem,
   Checkbox,
@@ -28,9 +29,9 @@ import {
   Text,
   Link,
   LinkButton,
-  RowActions,
   IconButton,
   TextInput,
+  PercentageInput,
 } from '@polymathnetwork/new-ui';
 import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
@@ -44,6 +45,7 @@ export interface Props {
 export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
   const [isEditModalOpen, setEditModalState] = useState(false);
+  const [isAddModalOpen, setAddModalState] = useState(false);
   const [withholdingList, setWithholdingList] = useState(
     taxWithholdings.map(item => {
       return {
@@ -89,7 +91,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       accessor: 'actions',
       width: 80,
       Cell: cell => (
-        <RowActions>
+        <Table.RowActions>
           <IconButton
             Asset={icons.SvgPen}
             width="1.4rem"
@@ -106,7 +108,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
             color="gray.2"
             onClick={() => deleteRow(cell.row.values.investorWalletAddress)}
           />
-        </RowActions>
+        </Table.RowActions>
       ),
     },
   ];
@@ -128,12 +130,20 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     setEditModalState(false);
   }, []);
 
+  const handleAddNewOpen = () => {
+    setAddModalState(true);
+  };
+
   const handleEditModalClose = useCallback(() => {
     setEditModalState(false);
   }, []);
 
   const handleCsvModalClose = useCallback(() => {
     setCsvModalState(false);
+  }, []);
+
+  const handleAddModalClose = useCallback(() => {
+    setAddModalState(false);
   }, []);
 
   const handleCsvModalConfirm = useCallback(
@@ -160,6 +170,11 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     },
     [values]
   );
+
+  const handleAddSubmit = useCallback(formData => {
+    setWithholdingList([...withholdingList, formData]);
+    setAddModalState(false);
+  }, []);
 
   const downloadExistingWithholdings = () => {
     utils.downloadCsvFile(
@@ -223,6 +238,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         onClose={handleCsvModalClose}
         actionButtonText="Confirm"
         isActionDisabled={!values.taxWithholdingsCsv}
+        maxWidth={500}
       >
         <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
         <Paragraph mb={0}>
@@ -327,22 +343,15 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
               <Grid mt="gridGap">
                 <Fragment>
                   <FormItem name="investorETHAddress">
-                    <FormItem.Input
-                      component={TextInput}
-                      inputProps={{
-                        label: 'Investor ETH Address',
-                      }}
-                    />
+                    <FormItem.Label>Investor ETH Address</FormItem.Label>
+                    <FormItem.Input component={TextInput} />
                     <FormItem.Error />
                   </FormItem>
                   <FormItem name="withholdingPercent">
-                    <FormItem.Input
-                      component={TextInput}
-                      inputProps={{
-                        unit: '%',
-                        label: '% Tax Witholding for Associated ETH Address',
-                      }}
-                    />
+                    <FormItem.Label>
+                      % Tax Witholding for Associated ETH Address
+                    </FormItem.Label>
+                    <FormItem.Input component={PercentageInput} />
                     <FormItem.Error />
                   </FormItem>
                 </Fragment>
@@ -357,23 +366,24 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
           <Table columns={columns} data={withholdingList} selectable>
             <Table.Toolbar>
               {() => {
-                const handleAddNew = () => {
-                  console.log(`add new row`);
-                };
-
                 return (
                   <Flex>
                     <Box ml="auto">
                       <ButtonSmall
                         variant="secondary"
                         iconPosition="right"
-                        onClick={handleAddNew}
+                        onClick={handleAddNewOpen}
                       >
-                        Update <Icon Asset={icons.SvgPlusPlain} />
+                        Update <Icon Asset={icons.SvgCycle} />
                       </ButtonSmall>
-                      <ButtonSmall iconPosition="right" onClick={handleAddNew}>
-                        Add new <Icon Asset={icons.SvgPlusPlain} />
-                      </ButtonSmall>
+                      <InlineFlex ml="m">
+                        <ButtonSmall
+                          iconPosition="right"
+                          onClick={handleAddNewOpen}
+                        >
+                          Add new <Icon Asset={icons.SvgPlusPlain} />
+                        </ButtonSmall>
+                      </InlineFlex>
                     </Box>
                   </Flex>
                 );
@@ -437,6 +447,50 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
           Update list and proceed to the next step
         </Button>
       </Box>
+      <Form
+        initialValues={{
+          investorWalletAddress: '',
+          withholdingPercent: 0,
+        }}
+        onSubmit={handleAddSubmit}
+        render={({ handleSubmit, isValid }) => (
+          <ModalConfirm
+            isOpen={isAddModalOpen}
+            onSubmit={handleSubmit}
+            onClose={handleAddModalClose}
+            actionButtonText="Confirm"
+            isActionDisabled={!isValid}
+            maxWidth={500}
+          >
+            <ModalConfirm.Header>
+              Add Taxwithholding for Specific investor
+            </ModalConfirm.Header>
+            <Paragraph mb={0}>
+              Specify the Investor's wallet address and its associated tax
+              withholdings. The specified percentage will be withheld at the
+              time dividends are paid.
+            </Paragraph>
+            <form onSubmit={handleSubmit}>
+              <Grid mt="gridGap">
+                <FormItem name="investorWalletAddress">
+                  <FormItem.Label>Investor ETH Address</FormItem.Label>
+                  <FormItem.Input component={TextInput} />
+                  <FormItem.Error />
+                </FormItem>
+                <FormItem name="withholdingPercent">
+                  <FormItem.Label>
+                    % Tax Withholding for Associated ETH Address
+                  </FormItem.Label>
+                  <Box maxWidth={100}>
+                    <FormItem.Input component={PercentageInput} />
+                  </Box>
+                  <FormItem.Error />
+                </FormItem>
+              </Grid>
+            </form>
+          </ModalConfirm>
+        )}
+      />
     </Card>
   );
 };

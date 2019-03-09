@@ -22,6 +22,7 @@ import { Pagination } from './Pagination';
 import { BatchActionsToolbar } from './BatchActionsToolbar';
 import { Toolbar } from './Toolbar';
 import { Rows } from './Rows';
+import { RowActions } from './RowActions';
 import { Row as RowType } from './index';
 import * as sc from './styles';
 
@@ -143,5 +144,6 @@ export const Table = Object.assign(TableComponent, {
   Pagination,
   BatchActionsToolbar,
   Rows,
+  RowActions,
   Toolbar,
 });
