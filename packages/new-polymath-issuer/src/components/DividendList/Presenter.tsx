@@ -8,9 +8,10 @@ import {
 import { types } from '@polymathnetwork/new-shared';
 import { DividendCard } from '~/components/DividendCard';
 import * as sc from './styles';
+import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 
 export interface Props {
-  dividends: types.DividendPojo[];
+  dividends: types.DividendEntity[];
   securityTokenSymbol: string;
   checkpointIndex: number;
 }
@@ -20,7 +21,28 @@ export const DividendListPresenter = ({
   dividends,
   checkpointIndex,
 }: Props) => {
-  const newDividendUrl = `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
+  const allDividendsCompleted = dividends.every(dividend => {
+    const {
+      investors,
+      expiry,
+      totalWithheld,
+      totalWithheldWithdrawn,
+    } = dividend;
+    const remainingPayments = investors.filter(
+      investor => !investor.paymentReceived && !investor.excluded
+    ).length;
+    const remainingTransactions = Math.ceil(
+      remainingPayments / DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
+    );
+    const unwithdrawnTaxes = totalWithheld.minus(totalWithheldWithdrawn);
+    return (
+      expiry <= new Date() ||
+      (remainingTransactions === 0 && unwithdrawnTaxes.eq(0))
+    );
+  });
+  const newDividendUrl = !allDividendsCompleted
+    ? '#'
+    : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
   return (
     <List>
       {dividends.length ? (
@@ -35,6 +57,7 @@ export const DividendListPresenter = ({
           ))}
           <sc.NewDividendButton
             href={newDividendUrl}
+            disabled={!allDividendsCompleted}
             variant="ghost"
             iconPosition="top"
           >
@@ -46,8 +69,8 @@ export const DividendListPresenter = ({
             />
             Add new <br /> dividend <br /> distribution
             <TooltipPrimary>
-              You can add new dividend distribution if previous dividend has
-              been completed/expired.
+              You can add a new dividend distribution if the previous
+              distribution has been completed/expired.
             </TooltipPrimary>
           </sc.NewDividendButton>
         </Fragment>
