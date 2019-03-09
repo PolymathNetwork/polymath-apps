@@ -3,10 +3,14 @@ name: Table
 menu: Components
 ---
 
+import { Fragment } from 'react';
 import { Playground, PropsTable } from 'docz';
 import { Box } from '~/components/Box';
 import { Button } from '~/components/Button';
+import { ButtonSmall } from '~/components/ButtonSmall';
 import { Icon } from '~/components/Icon';
+import { IconCircled } from '~/components/IconCircled';
+import { SvgPlus } from '~/images/icons/Plus';
 import { SvgDelete } from '~/images/icons/Delete';
 import { Table } from '../Table';
 import { columns, data } from './data';
@@ -26,10 +30,28 @@ import { columns, data } from './data';
           columns,
         }}
       >
+        <Table.Toolbar>
+          {toolbarProps => {
+            const handleAddNew = () => {
+              console.log(`add new row`);
+            };
+
+            return (
+              <ButtonSmall
+                iconPosition="right"
+                onClick={handleAddNew}
+              >
+                Add new <IconCircled Asset={SvgPlus} width="16px" height="16px" bg="white" color="primary" />
+              </ButtonSmall>
+            );
+          }}
+        </Table.Toolbar>
         <Table.Rows />
       </Table>
     );
-  }}
+
+}}
+
 </Playground>
 
 ## With small Rows + scrollable area
@@ -75,15 +97,47 @@ import { columns, data } from './data';
     }}
     selectable
   >
+    <Table.Toolbar>
+      {toolbarProps => {
+        const handleAddNew = () => {
+          console.log(`add new row`);
+        };
+
+        return (
+          <Button
+            variant="ghost"
+            iconPosition="right"
+            onClick={handleAddNew}
+          >
+            Add new <Icon Asset={SvgPlus} />
+          </Button>
+        );
+      }}
+    </Table.Toolbar>
     <Table.BatchActionsToolbar>
-      <Button variant="ghost" iconPosition="right" onClick={() => {}}>
-        Delete <Icon Asset={SvgDelete} />
-      </Button>
-      <Button variant="ghost" iconPosition="right" onClick={() => {}}>
-        Edit <Icon Asset={SvgDelete} />
-      </Button>
+      {(batchActionProps) => {
+        const handleDeleteRows = () => {
+          console.log(`delete ${batchActionProps.selectedRows.length}`);
+        };
+
+        const handleEditRows = () => {
+          console.log(`edit ${batchActionProps.selectedRows.length}`);
+        };
+
+        return (
+          <Fragment>
+            <Button variant="ghost" iconPosition="right" onClick={handleDeleteRows}>
+              Delete <Icon Asset={SvgDelete} />
+            </Button>
+            <Button variant="ghost" iconPosition="right" onClick={handleEditRows}>
+              Edit <Icon Asset={SvgDelete} />
+            </Button>
+          </Fragment>
+        );
+      }}
     </Table.BatchActionsToolbar>
     <Table.Rows />
     <Table.Pagination />
+
   </Table>
 </Playground>

@@ -8,6 +8,7 @@ import {
   GridRow,
   Paragraph,
   List,
+  Hr,
   Flex,
   Text,
   ProgressIndicator,
@@ -138,12 +139,36 @@ export class Presenter extends Component<Props> {
                       Investors held the token at checkpoint time
                     </Paragraph>
                   </Flex>
+                  <Flex as="li">
+                    <Flex flex="0" alignSelf="flex-start" mr="s">
+                      <ListIcon />
+                    </Flex>
+                    <Paragraph color="baseText">
+                      {/* NOTE: Mock data */}
+                      <Text as="strong">0</Text> Investors are excluded from the
+                      dividends distribution
+                    </Paragraph>
+                  </Flex>
+                </List>
+                <Hr color="gray.2" />
+                <List vertical>
+                  <Flex as="li">
+                    <Flex flex="0" alignSelf="flex-start" mr="s">
+                      <ListIcon />
+                    </Flex>
+                    <Paragraph color="baseText">
+                      {/* NOTE: Mock data */}
+                      <Text as="strong">0</Text> Investors will receive
+                      dividends
+                    </Paragraph>
+                  </Flex>
                 </List>
               </Box>
               <Text as="strong" mt="m">
                 Total Dividend Distribution
               </Text>
               <br />
+              {/* NOTE: Mock data */}
               <Text fontSize={6}>0.00 -</Text>
             </CardPrimary>
           </GridRow.Col>

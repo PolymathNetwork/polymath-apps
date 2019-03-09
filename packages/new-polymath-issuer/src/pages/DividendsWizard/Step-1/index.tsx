@@ -76,67 +76,68 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
         <Paragraph fontSize={2}>
           This is the explanation of what is going on here.
         </Paragraph>
-        <Grid>
-          <FormItem name="excludedWalletsCsv">
-            <FormItem.Input
-              component={CsvUploader}
-              inputProps={{
-                csvConfig: {
-                  columns: [
-                    {
-                      name: 'Address',
-                      validators: [validators.isString, validators.isNotEmpty],
-                    },
-                    {
-                      name: 'Sale Lockup',
-                      validators: [validators.isDate, validators.isNotEmpty],
-                    },
-                    {
-                      name: 'Purchase Lockup',
-                      validators: [validators.isDate, validators.isNotEmpty],
-                    },
-                  ],
-                  header: true,
-                  maxRows: 3,
-                },
+        <FormItem name="excludedWalletsCsv">
+          <FormItem.Input
+            component={CsvUploader}
+            inputProps={{
+              csvConfig: {
+                columns: [
+                  {
+                    name: 'Address',
+                    validators: [validators.isString, validators.isNotEmpty],
+                    required: true,
+                  },
+                  {
+                    name: 'Sale Lockup',
+                    validators: [validators.isDate, validators.isNotEmpty],
+                    required: true,
+                  },
+                  {
+                    name: 'Purchase Lockup',
+                    validators: [validators.isDate, validators.isNotEmpty],
+                    required: true,
+                  },
+                ],
+                header: true,
+                maxRows: 3,
+              },
+            }}
+          >
+            <CsvUploader.CsvErrors />
+            <CsvUploader.CsvPreview
+              tableConfig={{
+                columns: [
+                  {
+                    accessor: 'Address',
+                    Header: 'Address',
+                    Cell: ({ value }) =>
+                      value && formatters.toShortAddress(value, { size: 26 }),
+                  },
+                  {
+                    accessor: 'Sale Lockup',
+                    Header: 'Sale Lockup',
+                  },
+                  {
+                    accessor: 'Purchase Lockup',
+                    Header: 'Purchase Lockup',
+                  },
+                ],
               }}
-            >
-              <CsvUploader.CsvErrors />
-              <CsvUploader.CsvPreview
-                tableConfig={{
-                  columns: [
-                    {
-                      accessor: 'Address',
-                      Header: 'Address',
-                      Cell: ({ value }) =>
-                        formatters.toShortAddress(value, { size: 26 }),
-                    },
-                    {
-                      accessor: 'Sale Lockup',
-                      Header: 'Sale Lockup',
-                    },
-                    {
-                      accessor: 'Purchase Lockup',
-                      Header: 'Purchase Lockup',
-                    },
-                  ],
-                }}
-              />
-            </FormItem.Input>
-            <FormItem.Error />
-          </FormItem>
-        </Grid>
+            />
+          </FormItem.Input>
+          <FormItem.Error />
+        </FormItem>
       </ModalConfirm>
       <Remark>
-        The number of tokens contained in the wallets excluded from the
+        The number of tokens contained in the wallets that are excluded from the
         dividends calculation and distribution will be deducted from the total
-        supply before the final percentages are calculated. For example if 10
-        wallets each contain 1 tokens and 2 wallets are excluded from dividends,
-        each wallet will receive 1/8 of the dividends.
+        supply before the final percentages are calculated. For example, if 10
+        wallets each contain 1 token and 2 wallets are excluded from dividends,
+        each of the remaining 8 wallets will receive 1/8 of the dividends
         <br />
-        <strong>Maximum number of addresses per transaction is 100.</strong>
-        <br /> If you want to exclude more than 100 wallets, please breakdown
-        the list in 100 wallets increments and upload them one at a time.
+        <strong>
+          The maximum number of addresses that can be excluded is 100.
+        </strong>
       </Remark>
       <Heading variant="h3" mt="m">
         No Dividends Exclusion Required

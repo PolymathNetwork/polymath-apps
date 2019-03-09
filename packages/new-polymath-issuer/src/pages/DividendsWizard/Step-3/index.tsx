@@ -10,20 +10,22 @@ import {
   TextInput,
   CurrencySelect,
   TooltipIcon,
+  Form,
 } from '@polymathnetwork/new-ui';
-import { FormValues } from '../Container';
-import { FormikProps } from 'formik';
+import { Field } from 'formik';
 
-interface Props extends FormikProps<FormValues> {}
-
-export class Step3 extends Component<Props> {
-  public render() {
-    const { handleSubmit } = this.props;
-    return (
-      <Card p="gridGap">
-        <Heading variant="h2" mb="l">
-          3. Set Dividends Distribution Parameters
-        </Heading>
+export const Step3 = () => (
+  <Card p="gridGap">
+    <Heading variant="h2" mb="l">
+      3. Set Dividends Distribution Parameters
+    </Heading>
+    <Form
+      initialValues={{
+        noWalletExcluded: false,
+        currency: '',
+      }}
+      onSubmit={() => {}}
+      render={({ handleSubmit, isValid, values }) => (
         <Fragment>
           <Grid gridGap="gridGap" gridAutoFlow="row" width={512}>
             <FormItem name="distributionName">
@@ -55,6 +57,7 @@ export class Step3 extends Component<Props> {
             <FormItem name="currency">
               <FormItem.Label>Issue in</FormItem.Label>
               <FormItem.Input
+                FormikComponent={Field}
                 component={CurrencySelect}
                 placeholder="Choose currency"
               />
@@ -63,9 +66,10 @@ export class Step3 extends Component<Props> {
               <FormItem name="value">
                 <FormItem.Label>Dividend Amount</FormItem.Label>
                 <FormItem.Input
+                  FormikComponent={Field}
                   component={TextInput}
                   placeholder="Enter the value"
-                  inputProps={{ unit: 'POLY' }}
+                  inputProps={{ unit: values.currency }}
                 />
                 <FormItem.Error />
               </FormItem>
@@ -75,7 +79,7 @@ export class Step3 extends Component<Props> {
             <Button type="submit">Configure Dividends</Button>
           </Box>
         </Fragment>
-      </Card>
-    );
-  }
-}
+      )}
+    />
+  </Card>
+);
