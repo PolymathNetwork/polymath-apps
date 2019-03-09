@@ -12,6 +12,7 @@ import {
   CurrencySelect,
   TooltipIcon,
 } from '@polymathnetwork/new-ui';
+import { Field } from 'formik';
 
 export const Step3 = () => (
   <Card p="gridGap">
@@ -21,9 +22,10 @@ export const Step3 = () => (
     <Form
       initialValues={{
         noWalletExcluded: false,
+        currency: '',
       }}
       onSubmit={() => {}}
-      render={({ handleSubmit, isValid }) => (
+      render={({ handleSubmit, isValid, values }) => (
         <Fragment>
           <Grid gridGap="gridGap" gridAutoFlow="row" width={512}>
             <FormItem name="distributionName">
@@ -55,6 +57,7 @@ export const Step3 = () => (
             <FormItem name="currency">
               <FormItem.Label>Issue in</FormItem.Label>
               <FormItem.Input
+                FormikComponent={Field}
                 component={CurrencySelect}
                 placeholder="Choose currency"
               />
@@ -63,9 +66,10 @@ export const Step3 = () => (
               <FormItem name="value">
                 <FormItem.Label>Dividend Amount</FormItem.Label>
                 <FormItem.Input
+                  FormikComponent={Field}
                   component={TextInput}
                   placeholder="Enter the value"
-                  inputProps={{ unit: 'POLY' }}
+                  inputProps={{ unit: values.currency }}
                 />
                 <FormItem.Error />
               </FormItem>
