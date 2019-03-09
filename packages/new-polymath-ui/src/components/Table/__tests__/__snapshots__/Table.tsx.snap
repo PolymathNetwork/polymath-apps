@@ -527,6 +527,25 @@ exports[`Table renders without crashing 1`] = `
   border-color: #3D70B2;
 }
 
+.c13 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.c10:hover .c13 {
+  visibility: visible;
+  opacity: 1;
+}
+
 .c14 {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -553,25 +572,6 @@ exports[`Table renders without crashing 1`] = `
 
 .c15:hover {
   color: #c5cdd2;
-}
-
-.c13 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.c10:hover .c13 {
-  visibility: visible;
-  opacity: 1;
 }
 
 <div
