@@ -12,15 +12,14 @@ import {
   CurrencySelect,
   TooltipIcon,
 } from '@polymathnetwork/new-ui';
-import { Field, Formik } from 'formik';
-import { valueFocusAriaMessage } from 'react-select/lib/accessibility';
+import { Field } from 'formik';
 
 export const Step3 = () => (
   <Card p="gridGap">
     <Heading variant="h2" mb="l">
       3. Set Dividends Distribution Parameters
     </Heading>
-    <Formik
+    <Form
       initialValues={{
         noWalletExcluded: false,
         currency: '',
