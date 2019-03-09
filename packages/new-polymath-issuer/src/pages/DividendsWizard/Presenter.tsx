@@ -50,15 +50,6 @@ const isStep2 = (
   stepIndex: number
 ): StepComponent is typeof Step2 => stepIndex === 1;
 
-// Form values
-
-// {
-//   noWalletExcluded: false,
-//   isTaxWithholdingConfirmed: false,
-//   excludedWalletsCsv: null,
-//   taxWithholdingsCsv: null,
-// }
-
 const getStepComponent = (stepIndex: number) => {
   switch (stepIndex) {
     case 0: {
@@ -120,7 +111,7 @@ export class Presenter extends Component<Props> {
       return (
         <StepComponent
           downloadTaxWithholdingList={downloadTaxWithholdingList}
-          taxWithholdings={taxWithholdings}
+          existingTaxWithholdings={taxWithholdings}
           onNextStep={onNextStep}
         />
       );
