@@ -18,7 +18,6 @@ const Input = styled.input<BaseInputProps & StyledProps<any>>`
   width: 100%;
   box-sizing: border-box;
   height: 2.5rem;
-  min-width: 18.75rem;
   padding: 0 1rem;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
   color: ${({ theme }) => theme.colors.baseText};
@@ -37,7 +36,7 @@ const Input = styled.input<BaseInputProps & StyledProps<any>>`
   /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */
   /* Only on desktop */
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
     -moz-appearance: textfield;
 
     ::-webkit-inner-spin-button,
