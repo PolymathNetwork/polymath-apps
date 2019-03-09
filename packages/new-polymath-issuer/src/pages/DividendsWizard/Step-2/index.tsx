@@ -29,9 +29,11 @@ import {
   RowActions,
   IconButton,
   TextInput,
+  validator,
 } from '@polymathnetwork/new-ui';
 import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
+import { validateYupSchema, yupToFormErrors } from 'formik';
 
 export interface Props {
   onSubmitStep: () => void;
@@ -43,17 +45,17 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
   const [isEditModalOpen, setEditModalState] = useState(false);
   const [withholdingList, setWithholdingList] = useState(
-    taxWithholdings.map(item => {
-      return {
-        investorWalletAddress: item.investorAddress,
-        withholdingPercent: item.percentage,
-      };
-    })
+    taxWithholdings.reduce((result: any[], element) => {
+      if (element.percentage > 0) {
+        result.push(element);
+      }
+      return result;
+    }, [])
   );
 
   const [investorTaxWithholding, setInvestorTaxWithholding] = useState({
     withholdingPercent: '',
-    investorETHAddress: '',
+    investorETHAddress: 0,
   });
 
   const deleteRow = (investorAddress: string) => {
@@ -65,11 +67,11 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   };
 
   const editRow = (rowValues: any) => {
-    setEditModalState(true);
     setInvestorTaxWithholding({
       investorETHAddress: rowValues.investorWalletAddress,
       withholdingPercent: rowValues.withholdingPercent,
     });
+    setEditModalState(true);
   };
 
   const columns: HeaderColumn[] = [
@@ -115,10 +117,12 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     setCsvModalState(true);
   }, []);
 
-  const handleEditModalConfirm = useCallback(formProps => {
+  const handleEditModalConfirm = (formProps: any) => {
     const modifiedWithholdings = [...withholdingList];
-    const index = _.findIndex(modifiedWithholdings, {
-      investorWalletAddress: investorTaxWithholding.investorETHAddress,
+    const index: number = _.findIndex(modifiedWithholdings, (item: any) => {
+      return (
+        item.investorWalletAddress === investorTaxWithholding.investorETHAddress
+      );
     });
     modifiedWithholdings.splice(index, 1, {
       investorWalletAddress: formProps.investorETHAddress,
@@ -126,7 +130,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     });
     setWithholdingList(modifiedWithholdings);
     setEditModalState(false);
-  }, []);
+  };
 
   const handleEditModalClose = useCallback(() => {
     setEditModalState(false);
@@ -168,6 +172,34 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       { fields: ['investorWalletAddress', 'withholdingPercent'] }
     );
   };
+
+  const validateFormWithSchema = (
+    validationSchema: any,
+    validationValues: any
+  ) => {
+    try {
+      validateYupSchema(validationValues, validationSchema, true);
+    } catch (err) {
+      return yupToFormErrors(err);
+    }
+    return {};
+  };
+
+  const handleWithholdingValidation = useCallback((validationValues: any) => {
+    const schema = validator.object().shape({
+      investorETHAddress: validator
+        .string()
+        .required('Investor ETH address is required')
+        .isEthereumAddress('Invalid Ethereum Address'),
+      withholdingPercent: validator
+        .number()
+        .typeError('Invalid value')
+        .min(0, 'Invalid value')
+        .max(100, 'Invalid value')
+        .required('Tax withholsing percent is required'),
+    });
+    return validateFormWithSchema(schema, validationValues);
+  }, []);
 
   return (
     <Card p="gridGap" boxShadow={1}>
@@ -301,17 +333,22 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
       </Remark>
 
       <Form
+        validate={handleWithholdingValidation}
+        enableReinitialize
         initialValues={{
           investorETHAddress: investorTaxWithholding.investorETHAddress,
           withholdingPercent: investorTaxWithholding.withholdingPercent,
         }}
         onSubmit={() => {}}
-        render={props => {
+        render={subProps => {
           return (
             <ModalConfirm
               isOpen={isEditModalOpen}
               onSubmit={() => {
-                handleEditModalConfirm(props.values);
+                subProps.submitForm();
+                if (subProps.isValid) {
+                  handleEditModalConfirm(subProps.values);
+                }
               }}
               onClose={handleEditModalClose}
               actionButtonText="Confirm"
