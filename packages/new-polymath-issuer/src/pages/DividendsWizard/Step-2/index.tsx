@@ -45,17 +45,17 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
   const [isEditModalOpen, setEditModalState] = useState(false);
   const [withholdingList, setWithholdingList] = useState(
-    taxWithholdings.map(item => {
-      return {
-        investorWalletAddress: item.investorAddress,
-        withholdingPercent: item.percentage,
-      };
-    })
+    taxWithholdings.reduce((result: any[], element) => {
+      if (element.percentage > 0) {
+        result.push(element);
+      }
+      return result;
+    }, [])
   );
 
   const [investorTaxWithholding, setInvestorTaxWithholding] = useState({
     withholdingPercent: '',
-    investorETHAddress: '',
+    investorETHAddress: 0,
   });
 
   const deleteRow = (investorAddress: string) => {
@@ -117,8 +117,10 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
 
   const handleEditModalConfirm = (formProps: any) => {
     const modifiedWithholdings = [...withholdingList];
-    const index = _.findIndex(modifiedWithholdings, {
-      investorWalletAddress: investorTaxWithholding.investorETHAddress,
+    const index: number = _.findIndex(modifiedWithholdings, (item: any) => {
+      return (
+        item.investorWalletAddress === investorTaxWithholding.investorETHAddress
+      );
     });
     modifiedWithholdings.splice(index, 1, {
       investorWalletAddress: formProps.investorETHAddress,
@@ -285,7 +287,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                     },
                     {
                       name: columns[1].accessor,
-                      validators: [validators.isString, validators.isNotEmpty],
+                      validators: [validators.isInt, validators.isNotEmpty],
                       required: true,
                     },
                   ],
