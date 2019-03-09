@@ -26,8 +26,14 @@ import {
   Text,
   Link,
   LinkButton,
+  RowActions,
+  IconButton,
+  TextInput,
+  validator,
 } from '@polymathnetwork/new-ui';
+import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
+import { validateYupSchema, yupToFormErrors } from 'formik';
 
 export interface Props {
   onSubmitStep: () => void;
@@ -37,6 +43,7 @@ export interface Props {
 
 export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
+  const [isEditModalOpen, setEditModalState] = useState(false);
   const [withholdingList, setWithholdingList] = useState(
     taxWithholdings.map(item => {
       return {
@@ -46,6 +53,27 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     })
   );
 
+  const [investorTaxWithholding, setInvestorTaxWithholding] = useState({
+    withholdingPercent: '',
+    investorETHAddress: '',
+  });
+
+  const deleteRow = (investorAddress: string) => {
+    setWithholdingList(
+      _.remove(withholdingList, item => {
+        return item.investorWalletAddress !== investorAddress;
+      })
+    );
+  };
+
+  const editRow = (rowValues: any) => {
+    setInvestorTaxWithholding({
+      investorETHAddress: rowValues.investorWalletAddress,
+      withholdingPercent: rowValues.withholdingPercent,
+    });
+    setEditModalState(true);
+  };
+
   const columns: HeaderColumn[] = [
     {
       Header: 'Investor ETH Address',
@@ -54,12 +82,54 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     {
       Header: '% Tax Witholding for Associated ETH Address',
       accessor: 'withholdingPercent',
+      width: 250,
       Cell: ({ value }) => `${value}%`,
+    },
+    {
+      accessor: 'actions',
+      width: 80,
+      Cell: cell => (
+        <RowActions>
+          <IconButton
+            Asset={icons.SvgPen}
+            width="1.4rem"
+            height="1.4rem"
+            color="gray.2"
+            onClick={() => {
+              editRow(cell.row.values);
+            }}
+          />
+          <IconButton
+            Asset={icons.SvgDelete}
+            width="1.4rem"
+            height="1.4rem"
+            color="gray.2"
+            onClick={() => deleteRow(cell.row.values.investorWalletAddress)}
+          />
+        </RowActions>
+      ),
     },
   ];
 
   const handleCsvModalOpen = useCallback(() => {
     setCsvModalState(true);
+  }, []);
+
+  const handleEditModalConfirm = (formProps: any) => {
+    const modifiedWithholdings = [...withholdingList];
+    const index = _.findIndex(modifiedWithholdings, {
+      investorWalletAddress: investorTaxWithholding.investorETHAddress,
+    });
+    modifiedWithholdings.splice(index, 1, {
+      investorWalletAddress: formProps.investorETHAddress,
+      withholdingPercent: formProps.withholdingPercent,
+    });
+    setWithholdingList(modifiedWithholdings);
+    setEditModalState(false);
+  };
+
+  const handleEditModalClose = useCallback(() => {
+    setEditModalState(false);
   }, []);
 
   const handleCsvModalClose = useCallback(() => {
@@ -74,7 +144,18 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
           withholdingPercent: csvRow.data.withholdingPercent.value,
         })
       );
-      setWithholdingList([...withholdingList, ...addedEntries]);
+      // Existing tax withholding should be only added if they are not overwritten
+      withholdingList.map(item => {
+        if (
+          !_.find(
+            addedEntries,
+            o => o.investorWalletAddress === item.investorWalletAddress
+          )
+        ) {
+          addedEntries.push(item);
+        }
+      });
+      setWithholdingList(addedEntries);
       setCsvModalState(false);
     },
     [values]
@@ -84,9 +165,37 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     utils.downloadCsvFile(
       withholdingList,
       ' Existing-Withholdings-Tax-List.csv',
-      { fields: ['Investor ETH Address', '% of Tax Withholding'] }
+      { fields: ['investorWalletAddress', 'withholdingPercent'] }
     );
   };
+
+  const validateFormWithSchema = (
+    validationSchema: any,
+    validationValues: any
+  ) => {
+    try {
+      validateYupSchema(validationValues, validationSchema, true);
+    } catch (err) {
+      return yupToFormErrors(err);
+    }
+    return {};
+  };
+
+  const handleWithholdingValidation = useCallback((validationValues: any) => {
+    const schema = validator.object().shape({
+      investorETHAddress: validator
+        .string()
+        .required('Investor ETH address is required')
+        .isEthereumAddress('Invalid Ethereum Address'),
+      withholdingPercent: validator
+        .number()
+        .typeError('Invalid value')
+        .min(0, 'Invalid value')
+        .max(100, 'Invalid value')
+        .required('Tax withholsing percent is required'),
+    });
+    return validateFormWithSchema(schema, validationValues);
+  }, []);
 
   return (
     <Card p="gridGap" boxShadow={1}>
@@ -218,13 +327,94 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
         breakdown the list in 200 wallets increments and upload them one at a
         time.
       </Remark>
+
+      <Form
+        validate={handleWithholdingValidation}
+        enableReinitialize
+        initialValues={{
+          investorETHAddress: investorTaxWithholding.investorETHAddress,
+          withholdingPercent: investorTaxWithholding.withholdingPercent,
+        }}
+        onSubmit={() => {}}
+        render={subProps => {
+          return (
+            <ModalConfirm
+              isOpen={isEditModalOpen}
+              onSubmit={() => {
+                subProps.submitForm();
+                if (subProps.isValid) {
+                  handleEditModalConfirm(subProps.values);
+                }
+              }}
+              onClose={handleEditModalClose}
+              actionButtonText="Confirm"
+            >
+              <ModalConfirm.Header>
+                Add Tax Withholding for Specific Investor
+              </ModalConfirm.Header>
+              <Paragraph mb={0}>
+                Specify the Investor's wallet address and its associated tax
+                withholdings. The specified percentage will be withheld at the
+                time dividends are paid.
+              </Paragraph>
+              <Grid mt="gridGap">
+                <Fragment>
+                  <FormItem name="investorETHAddress">
+                    <FormItem.Input
+                      component={TextInput}
+                      inputProps={{
+                        label: 'Investor ETH Address',
+                      }}
+                    />
+                    <FormItem.Error />
+                  </FormItem>
+                  <FormItem name="withholdingPercent">
+                    <FormItem.Input
+                      component={TextInput}
+                      inputProps={{
+                        unit: '%',
+                        label: '% Tax Witholding for Associated ETH Address',
+                      }}
+                    />
+                    <FormItem.Error />
+                  </FormItem>
+                </Fragment>
+              </Grid>
+            </ModalConfirm>
+          );
+        }}
+      />
+
       {!!withholdingList.length && (
         <Box mt="m" mb="m">
           <Table columns={columns} data={withholdingList} selectable>
             <Table.BatchActionsToolbar>
-              <Button variant="ghost" iconPosition="right" onClick={() => {}}>
-                Delete <Icon Asset={icons.SvgDelete} />
-              </Button>
+              {(batchActionProps: any) => {
+                const handleDeleteRows = () => {
+                  setWithholdingList(
+                    _.remove(withholdingList, item => {
+                      return _.find(batchActionProps.selectedRows, o => {
+                        return (
+                          o.values.investorWalletAddress !==
+                          item.investorWalletAddress
+                        );
+                      });
+                    })
+                  );
+                };
+
+                return (
+                  <Fragment>
+                    <Button
+                      variant="ghost"
+                      iconPosition="right"
+                      onClick={handleDeleteRows}
+                    >
+                      Delete <Icon Asset={icons.SvgDelete} />
+                    </Button>
+                  </Fragment>
+                );
+              }}
             </Table.BatchActionsToolbar>
             <Table.Rows />
             <Table.Pagination />
