@@ -44,7 +44,8 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
   );
 
   const isFullyInvalid =
-    data.errorRows === data.totalRows || data.errorRows === csvConfig.maxRows;
+    !data.isFileValid &&
+    (data.errorRows === data.totalRows || data.errorRows === csvConfig.maxRows);
   const errorCount = data.result.reduce((acc, cur) => {
     acc += Object.values(cur.data).filter((cell: any) => !cell.isColumnValid)
       .length;
@@ -53,7 +54,10 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
 
   return (
     <sc.Wrapper>
-      <FileUploaderPrimitive onChange={handleFileUploaderChange} />
+      <FileUploaderPrimitive
+        accept=".csv"
+        onChange={handleFileUploaderChange}
+      />
       {!!data.result.length ? (
         <Context.Provider
           value={{ isFullyInvalid, errorCount, data, csvConfig }}

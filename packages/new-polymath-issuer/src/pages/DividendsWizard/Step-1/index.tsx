@@ -76,56 +76,57 @@ export const Step1 = ({ onSubmitStep, values }: Props) => {
         <Paragraph fontSize={2}>
           This is the explanation of what is going on here.
         </Paragraph>
-        <Grid>
-          <FormItem name="excludedWalletsCsv">
-            <FormItem.Input
-              component={CsvUploader}
-              inputProps={{
-                csvConfig: {
-                  columns: [
-                    {
-                      name: 'Address',
-                      validators: [validators.isString, validators.isNotEmpty],
-                    },
-                    {
-                      name: 'Sale Lockup',
-                      validators: [validators.isDate, validators.isNotEmpty],
-                    },
-                    {
-                      name: 'Purchase Lockup',
-                      validators: [validators.isDate, validators.isNotEmpty],
-                    },
-                  ],
-                  header: true,
-                  maxRows: 3,
-                },
+        <FormItem name="excludedWalletsCsv">
+          <FormItem.Input
+            component={CsvUploader}
+            inputProps={{
+              csvConfig: {
+                columns: [
+                  {
+                    name: 'Address',
+                    validators: [validators.isString, validators.isNotEmpty],
+                    required: true,
+                  },
+                  {
+                    name: 'Sale Lockup',
+                    validators: [validators.isDate, validators.isNotEmpty],
+                    required: true,
+                  },
+                  {
+                    name: 'Purchase Lockup',
+                    validators: [validators.isDate, validators.isNotEmpty],
+                    required: true,
+                  },
+                ],
+                header: true,
+                maxRows: 3,
+              },
+            }}
+          >
+            <CsvUploader.CsvErrors />
+            <CsvUploader.CsvPreview
+              tableConfig={{
+                columns: [
+                  {
+                    accessor: 'Address',
+                    Header: 'Address',
+                    Cell: ({ value }) =>
+                      value && formatters.toShortAddress(value, { size: 26 }),
+                  },
+                  {
+                    accessor: 'Sale Lockup',
+                    Header: 'Sale Lockup',
+                  },
+                  {
+                    accessor: 'Purchase Lockup',
+                    Header: 'Purchase Lockup',
+                  },
+                ],
               }}
-            >
-              <CsvUploader.CsvErrors />
-              <CsvUploader.CsvPreview
-                tableConfig={{
-                  columns: [
-                    {
-                      accessor: 'Address',
-                      Header: 'Address',
-                      Cell: ({ value }) =>
-                        formatters.toShortAddress(value, { size: 26 }),
-                    },
-                    {
-                      accessor: 'Sale Lockup',
-                      Header: 'Sale Lockup',
-                    },
-                    {
-                      accessor: 'Purchase Lockup',
-                      Header: 'Purchase Lockup',
-                    },
-                  ],
-                }}
-              />
-            </FormItem.Input>
-            <FormItem.Error />
-          </FormItem>
-        </Grid>
+            />
+          </FormItem.Input>
+          <FormItem.Error />
+        </FormItem>
       </ModalConfirm>
       <Remark>
         The number of tokens contained in the wallets that are excluded from the

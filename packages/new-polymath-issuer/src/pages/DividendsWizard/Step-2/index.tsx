@@ -78,6 +78,8 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
     {
       Header: 'Investor ETH Address',
       accessor: 'investorWalletAddress',
+      Cell: ({ value }) =>
+        value && formatters.toShortAddress(value, { size: 26 }),
     },
     {
       Header: '% Tax Witholding for Associated ETH Address',
@@ -166,7 +168,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
   const downloadExistingWithholdings = () => {
     utils.downloadCsvFile(
       withholdingList,
-      ' Existing-Withholdings-Tax-List.csv',
+      'Existing-Withholdings-Tax-List.csv',
       { fields: ['investorWalletAddress', 'withholdingPercent'] }
     );
   };
@@ -287,7 +289,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                     },
                     {
                       name: columns[1].accessor,
-                      validators: [validators.isInt, validators.isNotEmpty],
+                      validators: [validators.isNotEmpty],
                       required: true,
                     },
                   ],
@@ -304,7 +306,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
                       accessor: columns[0].accessor,
                       Header: columns[0].Header,
                       Cell: ({ value }) =>
-                        formatters.toShortAddress(value, { size: 26 }),
+                        value && formatters.toShortAddress(value, { size: 26 }),
                     },
                     {
                       accessor: columns[1].accessor,

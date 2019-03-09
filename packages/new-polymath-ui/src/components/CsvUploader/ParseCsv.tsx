@@ -19,10 +19,6 @@ export interface Config {
   header?: boolean;
   maxRows?: number;
   strict?: boolean;
-  parseErrorMessage?: string;
-  missingRequiredColumnsErrorMessage?: string;
-  extraColumnsErrorMessage?: string;
-  rowsExceedMaxLimitErrorMessage?: string;
 }
 
 interface Props {
@@ -48,35 +44,16 @@ export class ParseCsv extends Component<Props, State> {
   };
 
   public setFile = async (file: string | File) => {
-    const {
-      missingRequiredColumnsErrorMessage,
-      extraColumnsErrorMessage,
-      rowsExceedMaxLimitErrorMessage,
-      parseErrorMessage,
-      ...csvConfig
-    } = this.props.config;
     const fileProps: csvParser.Props = {
       data: file,
-      ...csvConfig,
-      errorMessages: {
-        missingRequiredColumns: missingRequiredColumnsErrorMessage || '',
-        extraColumns: extraColumnsErrorMessage || '',
-        rowsExceedMaxLimit: rowsExceedMaxLimitErrorMessage || '',
-      },
+      ...this.props.config,
     };
 
     try {
       const parseResult = await csvParser.parseCsv(fileProps);
       this.setState({ data: parseResult });
     } catch {
-      if (this.props.config.parseErrorMessage) {
-        this.setState({
-          data: {
-            ...this.state.data,
-            errors: [this.props.config.parseErrorMessage],
-          },
-        });
-      }
+      // We swallow the error has they are already appended to the result.
     }
   };
 
