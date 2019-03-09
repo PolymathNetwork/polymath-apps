@@ -20,7 +20,9 @@ import { useSelectRow } from './useSelectRow';
 import { Context } from './Context';
 import { Pagination } from './Pagination';
 import { BatchActionsToolbar } from './BatchActionsToolbar';
+import { Toolbar } from './Toolbar';
 import { Rows } from './Rows';
+import { RowActions } from './RowActions';
 import { Row as RowType } from './index';
 import * as sc from './styles';
 
@@ -39,7 +41,8 @@ export const TableComponent: FC<Props> = ({
   children,
   ...otherProps
 }) => {
-  const tableEl = useRef(null);
+  const tableToolbarEl = useRef(null);
+  const tableBodyEl = useRef(null);
   const selectRowColumn: HeaderColumn = {
     accessor: 'selectRow',
     Header: ({ getSelectRowToggleProps }) => (
@@ -91,9 +94,10 @@ export const TableComponent: FC<Props> = ({
 
   return (
     <sc.Table {...getTableProps()} selectable={selectable} {...otherProps}>
+      <sc.Toolbar ref={tableToolbarEl} />
       <sc.Inner>
         <SimpleBar>
-          <sc.Body ref={tableEl}>
+          <sc.Body ref={tableBodyEl}>
             {headerGroups.map(headerGroup => (
               <sc.HeaderRow {...headerGroup.getRowProps()}>
                 {headerGroup.headers.map((column, i) => (
@@ -123,7 +127,13 @@ export const TableComponent: FC<Props> = ({
           </sc.Body>
         </SimpleBar>
       </sc.Inner>
-      <Context.Provider value={{ ...instance, tableEl: tableEl.current }}>
+      <Context.Provider
+        value={{
+          ...instance,
+          tableToolbarEl: tableToolbarEl.current,
+          tableBodyEl: tableBodyEl.current,
+        }}
+      >
         {children}
       </Context.Provider>
     </sc.Table>
@@ -134,4 +144,6 @@ export const Table = Object.assign(TableComponent, {
   Pagination,
   BatchActionsToolbar,
   Rows,
+  RowActions,
+  Toolbar,
 });

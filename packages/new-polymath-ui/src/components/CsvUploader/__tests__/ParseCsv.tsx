@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, wait } from 'react-testing-library';
 import { ParseCsv } from '../';
-import { validators } from '@polymathnetwork/new-shared';
+import { validators, csvParser } from '@polymathnetwork/new-shared';
 
 describe('ParseCsv component', () => {
   it('calls the render function', () => {
@@ -44,7 +44,6 @@ describe('ParseCsv component', () => {
       ],
       header: true,
       maxRows: 2,
-      parseErrorMessage: 'Parsing Error',
     };
     render(
       <ParseCsv
@@ -83,7 +82,6 @@ describe('ParseCsv component', () => {
       ],
       header: true,
       maxRows: 2,
-      parseErrorMessage: 'Parsing Error',
     };
     render(
       <ParseCsv
@@ -112,6 +110,7 @@ describe('ParseCsv component', () => {
         {
           name: 'column 1',
           validators: [validators.isString, validators.isNotEmpty],
+          required: true,
         },
         {
           name: 'column 2',
@@ -120,7 +119,6 @@ describe('ParseCsv component', () => {
       ],
       header: true,
       maxRows: 2,
-      parseErrorMessage: 'Parsing Error',
     };
     render(
       <ParseCsv
@@ -133,10 +131,8 @@ describe('ParseCsv component', () => {
       />
     );
 
-    setFile({
-      data: null,
-      columns: [],
-    });
-    await wait(() => expect(errors[0]).toBe('Parsing Error'));
+    setFile(`column 2
+    value 2`);
+    await wait(() => expect(errors).toContain(csvParser.ErrorCodes.missingRequiredColumns));
   });
 });
