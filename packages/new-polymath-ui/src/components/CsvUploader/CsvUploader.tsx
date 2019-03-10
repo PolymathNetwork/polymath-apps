@@ -5,11 +5,11 @@ import {
   FormikProxy,
   FormikExternalProps,
 } from '~/components/inputs/FormikProxy';
+import { getContext } from '~/components/CsvUploader/Context';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
 import { CsvErrors } from './CsvErrors';
 import { CsvPreview } from './CsvPreview';
-import { getContext } from '~/components/CsvUploader/Context';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
 type Value<Output extends csvParser.Output> =
@@ -36,10 +36,18 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
     }
   };
 
-  public componentDidUpdate() {
-    const { data: { isFileValid, result }, onChange } = this.props;
+  public componentDidUpdate(prevProps: ComponentProps<Output>) {
+    const {
+      data: { isFileValid, result },
+      onChange,
+    } = this.props;
+
+    if (isFileValid === prevProps.data.isFileValid) {
+      return;
+    }
 
     if (isFileValid) {
+      console.log('result', result);
       onChange(result);
     } else {
       onChange(null);
@@ -47,11 +55,7 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
   }
 
   public render() {
-    const {
-      data,
-      csvConfig,
-      children,
-    } = this.props;
+    const { data, csvConfig, children } = this.props;
 
     const Context = getContext();
 

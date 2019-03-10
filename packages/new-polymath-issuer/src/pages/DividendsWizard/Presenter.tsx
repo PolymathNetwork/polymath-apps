@@ -45,27 +45,7 @@ export interface State {
   excludedWallets: null | ExclusionEntry[];
 }
 
-// Form values
-
-// {
-//   noWalletExcluded: false,
-//   isTaxWithholdingConfirmed: false,
-//   excludedWallets: null,
-//   taxWithholdingsCsv: null,
-// }
-
 export class Presenter extends Component<Props> {
-  // public handleSubmit = (values: FormValues) => {
-  //   const { createDividendDistribution } = this.props;
-
-  //   // NOTE: FORMAT HERE
-  //   console.log('SUBMITTING');
-
-  //   createDividendDistribution(values);
-  // };
-
-  // public handleValidation = (value: FormValues) => {};
-
   public state = {
     excludedWallets: null,
   };
@@ -90,7 +70,7 @@ export class Presenter extends Component<Props> {
         return (
           <Step2
             downloadTaxWithholdingList={downloadTaxWithholdingList}
-            taxWithholdings={taxWithholdings}
+            existingTaxWithholdings={taxWithholdings}
             onNextStep={onNextStep}
           />
         );
