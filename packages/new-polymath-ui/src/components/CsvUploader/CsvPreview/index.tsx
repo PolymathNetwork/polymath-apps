@@ -1,4 +1,4 @@
-import React, { useContext, Component } from 'react';
+import React, { Component } from 'react';
 import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { styled } from '~/styles';
 import { Table } from '~/components/Table';
@@ -6,7 +6,7 @@ import {
   RenderProps as ParseCsvRenderProps,
   Props as ParseCsvProps,
 } from '../ParseCsv';
-import { getContext } from '../Context';
+import { getContext, CsvContext } from '../Context';
 
 type TableProps = typeHelpers.GetProps<typeof Table>;
 
@@ -40,8 +40,10 @@ export interface Props {
 export class CsvPreviewComponent<
   Output extends csvParser.Output
 > extends Component<Props> {
+  static contextType = getContext();
+
   public render() {
-    const context = useContext(getContext<Output>());
+    const context: CsvContext<Output> = this.context;
 
     if (!context) {
       return null;
