@@ -5,7 +5,7 @@ import {
   yupToFormErrors,
 } from 'formik';
 import React, { Fragment, useState, useCallback, FC } from 'react';
-import { map, find, filter, includes } from 'lodash';
+import { map, find, each, filter, includes } from 'lodash';
 import {
   validators,
   formatters,
@@ -49,8 +49,8 @@ import {
   TaxWithholdingsItem,
   csvEthAddressKey,
   csvTaxWithholdingKey,
-  PartialTaxWithholdingsItem,
   FormValues,
+  TaxWithholdingStatuses,
 } from './shared';
 
 interface Props {
@@ -58,6 +58,12 @@ interface Props {
   existingTaxWithholdings: types.TaxWithholdingPojo[];
   downloadTaxWithholdingList: (
     taxWithholdings: types.TaxWithholdingPojo[]
+  ) => void;
+  updateTaxWithholdingList: (
+    values: Array<{
+      investorAddress: string;
+      percentage: number;
+    }>
   ) => void;
 }
 
@@ -76,22 +82,41 @@ const schema = validator.object().shape({
   }),
 });
 
+/**
+ * - Deleted rows of existing tax withholdings are edited to 0 instead
+ * - Filter 0% rows unless their existing value != 0 (these are marked as updated in the table)
+ * -
+ */
+
 export const Step2: FC<Props> = ({
   onNextStep,
   existingTaxWithholdings,
   downloadTaxWithholdingList,
+  updateTaxWithholdingList,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
 
-  const onSubmit = (values: FormValues) => {
-    console.log('values', values);
+  const onSubmit = ({ taxWithholdings }: FormValues) => {
+    const fieldsToSubmit = [];
+    const formattedValues: Array<{
+      investorAddress: string;
+      percentage: number;
+    }> = map(taxWithholdings, value => ({
+      investorAddress: value[csvEthAddressKey],
+      percentage: value[csvTaxWithholdingKey],
+    }));
+
+    console.log('SUBMITTING!', formattedValues);
+
+    updateTaxWithholdingList(formattedValues);
   };
   const downloadExistingTaxWithholdings = () => {
     downloadTaxWithholdingList(existingTaxWithholdings);
   };
-  // NOTE: This never happens since by default two taxWithholdings already exist
+  // NOTE: At this point this never happens since by default two
+  // taxWithholdings already exist
   const downloadSampleTaxWithholdings = () => {
     downloadTaxWithholdingList([]);
   };
@@ -155,13 +180,28 @@ export const Step2: FC<Props> = ({
         };
 
         const handleDelete = (addresses: string[]) => {
-          const modifiedTaxWithholdings = filter(
+          // Remove all matching items
+          const modifiedItems = filter(
             values.taxWithholdings,
             taxWithholding =>
-              includes(addresses, taxWithholding[csvEthAddressKey])
+              !includes(addresses, taxWithholding[csvEthAddressKey])
           );
+          // Add back items that already existed, but marked as 0%
+          each(existingTaxWithholdings, taxWithholding => {
+            const exists = includes(addresses, taxWithholding.investorAddress);
 
-          setFieldValue('taxWithholdings', modifiedTaxWithholdings);
+            if (!exists) {
+              return;
+            }
+
+            modifiedItems.unshift({
+              status: TaxWithholdingStatuses.Updated,
+              [csvEthAddressKey]: taxWithholding.investorAddress,
+              [csvTaxWithholdingKey]: 0,
+            });
+          });
+
+          setFieldValue('taxWithholdings', modifiedItems);
         };
 
         return (
@@ -198,10 +238,10 @@ export const Step2: FC<Props> = ({
             ) : (
               <Paragraph>
                 You can download{' '}
-                <button onClick={downloadSampleTaxWithholdings}>
+                <LinkButton onClick={downloadSampleTaxWithholdings}>
                   <Icon Asset={icons.SvgDownload} />{' '}
                   Sample-Withholdings-Tax-List.csv
-                </button>{' '}
+                </LinkButton>{' '}
                 example file and edit it.
               </Paragraph>
             )}
@@ -251,6 +291,9 @@ export const Step2: FC<Props> = ({
               )}
             />
             <TaxWithholdingsTable
+              onSubmit={() => {
+                onSubmit(values);
+              }}
               onEdit={handleEdit}
               onAddNewOpen={openTaxWithhholdingModal}
               taxWithholdings={values.taxWithholdings}

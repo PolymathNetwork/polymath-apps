@@ -37,6 +37,7 @@ import {
 import _ from 'lodash';
 import { HeaderColumn } from 'react-table';
 import { validateYupSchema, yupToFormErrors } from 'formik';
+import { TaxWithholdingsItem } from '~/pages/DividendsWizard/Step-2/shared';
 
 export interface Props {
   onNextStep: () => void;
@@ -64,7 +65,9 @@ const Step2Presenter = ({
   const [isCsvModalOpen, setCsvModalState] = useState(false);
   const [isEditModalOpen, setEditModalState] = useState(false);
   const [isAddModalOpen, setAddModalState] = useState(false);
-  const [withholdingList, setWithholdingList] = useState<csvParser.ResultRow[]>(
+  const [withholdingList, setWithholdingList] = useState<
+    csvParser.ResultRow<TaxWithholdingsItem>[]
+  >(
     taxWithholdings.reduce((result: any[], element) => {
       if (element.percentage > 0) {
         result.push(element);

@@ -17,16 +17,15 @@ import {
   csvEthAddressKey,
   csvTaxWithholdingKey,
   TaxWithholdingsItem,
+  TaxWithholdingStatuses,
 } from './shared';
-
-// Show updated fields always even if zero
-// On submission send only delta
 
 interface Props {
   taxWithholdings: TaxWithholdingsItem[];
   onAddNewOpen: () => void;
   onEdit: (csvEthAddress: string) => void;
   onDelete: (addresses: string[]) => void;
+  onSubmit: () => void;
 }
 
 const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
@@ -71,10 +70,11 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
 ];
 
 export const TaxWithholdingsTable: FC<Props> = props => {
-  const { onAddNewOpen, taxWithholdings, onDelete } = props;
+  const { onAddNewOpen, taxWithholdings, onDelete, onSubmit } = props;
   const filteredTaxWithholdings = filter(
     taxWithholdings,
-    taxWithholding => taxWithholding[csvTaxWithholdingKey] > 0
+    taxWithholding =>
+      taxWithholding[csvTaxWithholdingKey] > 0 || taxWithholding.status
   );
 
   const columnsConfig = makeColumnsConfig(props);
@@ -89,7 +89,9 @@ export const TaxWithholdingsTable: FC<Props> = props => {
                 <ButtonSmall
                   variant="secondary"
                   iconPosition="right"
-                  onClick={() => {}}
+                  onClick={() => {
+                    onSubmit();
+                  }}
                 >
                   Update <Icon Asset={icons.SvgCycle} />
                 </ButtonSmall>

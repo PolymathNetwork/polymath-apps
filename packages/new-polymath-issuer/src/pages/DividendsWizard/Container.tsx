@@ -104,7 +104,10 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public updateTaxWithholdingList = (
-    taxWithholdings: types.TaxWithholdingPojo[]
+    taxWithholdings: Array<{
+      investorAddress: string;
+      percentage: number;
+    }>
   ) => {
     const { securityTokenSymbol, dispatch } = this.props;
     const investorAddresses: string[] = [];
@@ -183,6 +186,7 @@ export class ContainerBase extends Component<Props, State> {
             return (
               <Presenter
                 createDividendDistribution={this.createDividendDistribution}
+                updateTaxWithholdingList={this.updateTaxWithholdingList}
                 stepIndex={step}
                 securityTokenSymbol={securityTokenSymbol}
                 checkpoint={checkpoint}

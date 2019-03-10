@@ -16,6 +16,7 @@ import {
   Checkbox,
   CsvUploader,
   Form,
+  LinkButton,
 } from '@polymathnetwork/new-ui';
 
 export interface Step1Props {
@@ -69,13 +70,13 @@ export const Step1: FC<Step1Props> = ({
           </Paragraph>
           <Paragraph>
             You can download
-            <Link
+            <LinkButton
               onClick={() => {
                 /* NOTE: Pending functionality */
               }}
             >
               <Icon Asset={icons.SvgDownload} /> Sample-Excluding-List.csv
-            </Link>{' '}
+            </LinkButton>{' '}
             example file and edit it.
           </Paragraph>
           <Button

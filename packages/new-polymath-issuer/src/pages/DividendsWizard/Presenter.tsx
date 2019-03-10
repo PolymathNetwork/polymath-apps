@@ -29,6 +29,12 @@ export interface Props {
   securityTokenSymbol: string;
   checkpoint: types.CheckpointEntity;
   onNextStep: () => void;
+  updateTaxWithholdingList: (
+    values: Array<{
+      investorAddress: string;
+      percentage: number;
+    }>
+  ) => void;
   taxWithholdings: types.TaxWithholdingEntity[];
   downloadTaxWithholdingList: (taxWithholdings: TaxWithholdingPojo[]) => void;
   createDividendDistribution: (
@@ -68,17 +74,6 @@ const getStepComponent = (stepIndex: number) => {
 };
 
 export class Presenter extends Component<Props> {
-  // public handleSubmit = (values: FormValues) => {
-  //   const { createDividendDistribution } = this.props;
-
-  //   // NOTE: FORMAT HERE
-  //   console.log('SUBMITTING');
-
-  //   createDividendDistribution(values);
-  // };
-
-  // public handleValidation = (value: FormValues) => {};
-
   public state = {
     excludedWalletsCsv: null,
   };
@@ -93,6 +88,7 @@ export class Presenter extends Component<Props> {
       onNextStep,
       taxWithholdings,
       downloadTaxWithholdingList,
+      updateTaxWithholdingList,
     } = this.props;
     const { excludedWalletsCsv } = this.state;
     const StepComponent = getStepComponent(stepIndex);
@@ -112,6 +108,7 @@ export class Presenter extends Component<Props> {
         <StepComponent
           downloadTaxWithholdingList={downloadTaxWithholdingList}
           existingTaxWithholdings={taxWithholdings}
+          updateTaxWithholdingList={updateTaxWithholdingList}
           onNextStep={onNextStep}
         />
       );
@@ -140,25 +137,6 @@ export class Presenter extends Component<Props> {
         </Heading>
         <GridRow>
           <GridRow.Col gridSpan={{ sm: 12, lg: 8 }}>
-            {/* <Form
-              validate={this.handleValidation}
-              onSubmit={this.handleSubmit}
-              render={formProps => {
-                const StepComponent = getStepComponent(stepIndex);
-
-                const commonProps = {
-                  onSubmitStep: onNextStep,
-                  taxWithholdings,
-                  ...formProps,
-                };
-
-                return (
-                  <form onSubmit={formProps.handleSubmit}>
-                    <StepComponent {...commonProps} />
-                  </form>
-                );
-              }}
-            /> */}
             {this.renderStepComponent()}
           </GridRow.Col>
           <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
