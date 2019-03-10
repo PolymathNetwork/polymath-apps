@@ -40,6 +40,7 @@ export const CsvModal: FC<Props> = ({
 
   const onChangeCsv = (result: TaxWithholdingsItem[] | null) => {
     if (result) {
+      // TODO: Mark statuses of fields
       const formattedValues = result.map((value: TaxWithholdingsItem) => ({
         ...value,
         [csvTaxWithholdingKey]: value[csvTaxWithholdingKey] / 100,

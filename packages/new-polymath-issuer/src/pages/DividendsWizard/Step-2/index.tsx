@@ -5,7 +5,7 @@ import {
   yupToFormErrors,
 } from 'formik';
 import React, { Fragment, useState, useCallback, FC } from 'react';
-import { map, find, each, filter, includes } from 'lodash';
+import { map, find, each, some, filter, includes } from 'lodash';
 import {
   validators,
   formatters,
@@ -99,16 +99,18 @@ export const Step2: FC<Props> = ({
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
 
   const onSubmit = ({ taxWithholdings }: FormValues) => {
-    const fieldsToSubmit = [];
+    const filteredTaxWithholdings = filter(
+      taxWithholdings,
+      ({ status }) => !!status
+    );
+
     const formattedValues: Array<{
       investorAddress: string;
       percentage: number;
-    }> = map(taxWithholdings, value => ({
+    }> = map(filteredTaxWithholdings, value => ({
       investorAddress: value[csvEthAddressKey],
       percentage: value[csvTaxWithholdingKey],
     }));
-
-    console.log('SUBMITTING!', formattedValues);
 
     updateTaxWithholdingList(formattedValues);
   };
@@ -283,6 +285,7 @@ export const Step2: FC<Props> = ({
               name="currentTaxWithholding"
               render={(fieldProps: FieldProps<TaxWithholdingsItem>) => (
                 <TaxWithholdingModal
+                  existingTaxWithholdings={existingTaxWithholdings}
                   fieldProps={fieldProps}
                   isOpen={taxWithholdingModalOpen}
                   onClose={closeTaxWithhholdingModal}

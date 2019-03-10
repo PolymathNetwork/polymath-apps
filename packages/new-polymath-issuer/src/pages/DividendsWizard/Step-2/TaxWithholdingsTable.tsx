@@ -12,6 +12,7 @@ import {
   InlineFlex,
   Icon,
   Button,
+  Label,
 } from '@polymathnetwork/new-ui';
 import {
   csvEthAddressKey,
@@ -40,6 +41,16 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
     accessor: csvTaxWithholdingKey,
     width: 250,
     Cell: ({ value }) => formatters.toPercent(value),
+  },
+  {
+    Header: '',
+    accessor: 'status',
+    width: 150,
+    Cell: ({ value }) => {
+      // TODO @RafaelVidaurre: Use proper component for this
+      // TODO @RafaelVidaurre: Confirm we want to use different text for different statuses
+      return value && <Label color="secondary">{value}</Label>;
+    },
   },
   {
     accessor: 'actions',
