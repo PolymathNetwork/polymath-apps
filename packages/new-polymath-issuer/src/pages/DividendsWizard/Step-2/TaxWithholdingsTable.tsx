@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { HeaderColumn } from 'react-table';
+import { filter } from 'lodash';
 import { types, formatters } from '@polymathnetwork/new-shared';
 import {
   Table,
@@ -67,6 +68,15 @@ export const TaxWithholdingsTable: FC<Props> = ({
   handleAddNewOpen,
   taxWithholdings,
 }) => {
+  const filteredTaxWithholdings = filter(
+    taxWithholdings,
+    taxWithholding => taxWithholding['% Tax Withholding'] > 0
+  );
+  // TODO @RafaelVidaurre: Confirm this is actually expected behavior.
+  if (!filteredTaxWithholdings.length) {
+    return null;
+  }
+
   return (
     <Table columns={columnsConfig} data={taxWithholdings} selectable>
       <Table.Toolbar>

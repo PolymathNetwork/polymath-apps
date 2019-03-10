@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, Fragment } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 import { TaxWithholdingsItem } from '~/pages/DividendsWizard/Step-2/shared';
 import {
@@ -9,7 +9,6 @@ import {
   TextInput,
   PercentageInput,
 } from '@polymathnetwork/new-ui';
-import { Fragment } from 'redux-little-router';
 
 interface Props {
   isOpen: boolean;

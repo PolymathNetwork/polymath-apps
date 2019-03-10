@@ -44,6 +44,7 @@ import {
   TaxWithholdingsItem,
   csvEthAddressKey,
   csvTaxWithholdingKey,
+  PartialTaxWithholdingsItem,
 } from './shared';
 
 interface Props {
@@ -56,7 +57,7 @@ interface Props {
 
 interface Values {
   taxWithholdings: TaxWithholdingsItem[];
-  newTaxWithholding: TaxWithholdingsItem;
+  newTaxWithholding: PartialTaxWithholdingsItem;
 }
 
 /**
@@ -119,6 +120,7 @@ export const Step2: FC<Props> = ({
         },
       }}
       render={({ values, setFieldValue }) => {
+        console.log('values', values);
         const addTaxWithholding = () => {
           // setFieldValue();
         };
