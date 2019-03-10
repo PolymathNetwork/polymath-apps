@@ -53,10 +53,7 @@ export const TaxWithholdingModal: FC<Props> = ({
     const alreadyExists = matchingIndex !== -1;
 
     if (isEditing || alreadyExists) {
-      console.log('Value to add', value);
       formTaxWithholdings.splice(matchingIndex, 1, value);
-      // formTaxWithholdings[matchingIndex] = value;
-
       form.setFieldValue('taxWithholdings', formTaxWithholdings);
     } else {
       form.setFieldValue('taxWithholdings', [
@@ -81,16 +78,7 @@ export const TaxWithholdingModal: FC<Props> = ({
       }
 
       form.setFieldTouched(field.name, false);
-      // if (taxWithholdingData) {
-      //   form.setFieldValue(field.name, {
-      //     ...taxWithholdingData,
-      //   });
-      // } else {
-      //   form.setFieldValue(field.name, {
-      //     [csvEthAddressKey]: '',
-      //     [csvTaxWithholdingKey]: null,
-      //   });
-      // }
+
       if (!isEditing) {
         form.setFieldValue(field.name, {
           [csvEthAddressKey]: '',
