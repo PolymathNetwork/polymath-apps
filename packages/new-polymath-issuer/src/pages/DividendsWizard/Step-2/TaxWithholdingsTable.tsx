@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { HeaderColumn } from 'react-table';
 import { filter } from 'lodash';
 import { types, formatters } from '@polymathnetwork/new-shared';
@@ -11,6 +11,7 @@ import {
   icons,
   InlineFlex,
   Icon,
+  Button,
 } from '@polymathnetwork/new-ui';
 import {
   csvEthAddressKey,
@@ -72,13 +73,9 @@ export const TaxWithholdingsTable: FC<Props> = ({
     taxWithholdings,
     taxWithholding => taxWithholding['% Tax Withholding'] > 0
   );
-  // TODO @RafaelVidaurre: Confirm this is actually expected behavior.
-  if (!filteredTaxWithholdings.length) {
-    return null;
-  }
 
   return (
-    <Table columns={columnsConfig} data={taxWithholdings} selectable>
+    <Table columns={columnsConfig} data={filteredTaxWithholdings} selectable>
       <Table.Toolbar>
         {() => {
           return (
@@ -87,7 +84,7 @@ export const TaxWithholdingsTable: FC<Props> = ({
                 <ButtonSmall
                   variant="secondary"
                   iconPosition="right"
-                  onClick={handleAddNewOpen}
+                  onClick={() => {}}
                 >
                   Update <Icon Asset={icons.SvgCycle} />
                 </ButtonSmall>
@@ -101,6 +98,36 @@ export const TaxWithholdingsTable: FC<Props> = ({
           );
         }}
       </Table.Toolbar>
+      <Table.BatchActionsToolbar>
+        {(batchActionProps: any) => {
+          const handleDeleteRows = () => {
+            // setWithholdingList(
+            //   _.remove(withholdingList, item => {
+            //     return _.find(batchActionProps.selectedRows, o => {
+            //       return (
+            //         o.values.investorWalletAddress !==
+            //         item.investorWalletAddress
+            //       );
+            //     });
+            //   })
+            // );
+          };
+
+          return (
+            <Fragment>
+              <Button
+                variant="ghost"
+                iconPosition="right"
+                onClick={handleDeleteRows}
+              >
+                Delete <Icon Asset={icons.SvgDelete} />
+              </Button>
+            </Fragment>
+          );
+        }}
+      </Table.BatchActionsToolbar>
+      <Table.Rows />
+      <Table.Pagination />
     </Table>
   );
 };

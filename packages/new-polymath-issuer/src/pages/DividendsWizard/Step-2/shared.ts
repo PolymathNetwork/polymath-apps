@@ -10,3 +10,9 @@ export interface PartialTaxWithholdingsItem {
   ['Investor ETH Address']?: string;
   ['% Tax Withholding']: number | null;
 }
+
+export interface FormValues {
+  taxWithholdings: TaxWithholdingsItem[];
+  currentTaxWithholding: PartialTaxWithholdingsItem;
+  isTaxWithholdingConfirmed: boolean;
+}

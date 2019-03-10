@@ -1,4 +1,9 @@
-import { FieldProps } from 'formik';
+import {
+  FieldProps,
+  FieldArray,
+  validateYupSchema,
+  yupToFormErrors,
+} from 'formik';
 import React, { Fragment, useState, useCallback, FC } from 'react';
 import { map } from 'lodash';
 import {
@@ -45,6 +50,7 @@ import {
   csvEthAddressKey,
   csvTaxWithholdingKey,
   PartialTaxWithholdingsItem,
+  FormValues,
 } from './shared';
 
 interface Props {
@@ -55,37 +61,39 @@ interface Props {
   ) => void;
 }
 
-interface Values {
-  taxWithholdings: TaxWithholdingsItem[];
-  newTaxWithholding: PartialTaxWithholdingsItem;
-}
-
-/**
- * 1. There is ONE taxWithholdings list that we manage
- * 2. This list is values.taxWithholdings list
- */
+const schema = validator.object().shape({
+  currentTaxWithholding: validator.object().shape({
+    [csvEthAddressKey]: validator
+      .string()
+      .required('Investor ETH address is required')
+      .isEthereumAddress('Invalid Ethereum Address'),
+    [csvTaxWithholdingKey]: validator
+      .number()
+      .typeError('Invalid value')
+      .min(0, 'Invalid value')
+      .max(100, 'Invalid value')
+      .required('Tax withholding percent is required'),
+  }),
+});
 
 export const Step2: FC<Props> = ({
   onNextStep,
   existingTaxWithholdings,
   downloadTaxWithholdingList,
 }) => {
-  const onSubmit = (values: Values) => {
+  const [csvModalOpen, setCsvModalOpen] = useState(false);
+  const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
+
+  const onSubmit = (values: FormValues) => {
     console.log('values', values);
   };
-
   const downloadExistingTaxWithholdings = () => {
     downloadTaxWithholdingList(existingTaxWithholdings);
   };
-
   // NOTE: This never happens since by default two taxWithholdings already exist
   const downloadSampleTaxWithholdings = () => {
     downloadTaxWithholdingList([]);
   };
-
-  const [csvModalOpen, setCsvModalOpen] = useState(false);
-  const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
-
   const openCsvModal = () => {
     setCsvModalOpen(true);
   };
@@ -97,6 +105,17 @@ export const Step2: FC<Props> = ({
   };
   const closeTaxWithhholdingModal = () => {
     setTaxWithholdingModalOpen(false);
+  };
+  const handleValidation = (values: FormValues) => {
+    console.log('values', values);
+
+    try {
+      validateYupSchema(values, schema, true);
+    } catch (err) {
+      const errors = yupToFormErrors(err);
+      console.log('errors', errors);
+      return errors;
+    }
   };
 
   const initialTaxWithholdings = map(
@@ -110,17 +129,20 @@ export const Step2: FC<Props> = ({
   );
 
   return (
-    <Form<Values>
+    <Form<FormValues>
       onSubmit={onSubmit}
+      validate={handleValidation}
       initialValues={{
         taxWithholdings: initialTaxWithholdings,
-        newTaxWithholding: {
-          '% Tax Withholding': null,
-          'Investor ETH Address': '',
+        isTaxWithholdingConfirmed: false,
+        currentTaxWithholding: {
+          [csvEthAddressKey]: '',
+          [csvTaxWithholdingKey]: null,
         },
       }}
-      render={({ values, setFieldValue }) => {
-        console.log('values', values);
+      render={({ values, touched, setFieldValue }) => {
+        const canProceedToNextStep = values.isTaxWithholdingConfirmed;
+
         const addTaxWithholding = () => {
           // setFieldValue();
         };
@@ -175,7 +197,7 @@ export const Step2: FC<Props> = ({
             </Button>
             <Field
               name="taxWithholdings"
-              render={({ field, form }: FieldProps) => (
+              render={({ field, form }: FieldProps<TaxWithholdingsItem>) => (
                 <CsvModal
                   onConfirm={value => {
                     form.setFieldValue(field.name, value);
@@ -200,25 +222,41 @@ export const Step2: FC<Props> = ({
             </Remark>
 
             <Field
-              name="newTaxWithholding"
-              render={({
-                field,
-                form,
-              }: FieldProps<Values['newTaxWithholding']>) => (
+              name="currentTaxWithholding"
+              render={(fieldProps: FieldProps<TaxWithholdingsItem>) => (
                 <TaxWithholdingModal
-                  onConfirm={value => {
-                    form.setFieldValue(field.name, value);
-                  }}
+                  fieldProps={fieldProps}
                   isOpen={taxWithholdingModalOpen}
                   onClose={closeTaxWithhholdingModal}
                 />
               )}
             />
-
             <TaxWithholdingsTable
               handleAddNewOpen={openTaxWithhholdingModal}
               taxWithholdings={values.taxWithholdings}
             />
+            <Heading variant="h3" mt="m">
+              Confirm Tax Withholdings
+            </Heading>
+            <Paragraph>
+              Please make sure to confirm no changes are required by downloading
+              and reviewing the current configuration.
+            </Paragraph>
+            <FormItem name="isTaxWithholdingConfirmed">
+              <FormItem.Input
+                component={Checkbox}
+                inputProps={{
+                  label:
+                    'I’m sure I don’t need any adds/updates to the Tax Withholdings List.',
+                }}
+              />
+              <FormItem.Error />
+            </FormItem>
+            <Box mt="xl">
+              <Button onClick={onNextStep} disabled={!canProceedToNextStep}>
+                Update list and proceed to the next step
+              </Button>
+            </Box>
           </Card>
         );
       }}
