@@ -17,8 +17,8 @@ export interface Props {
   strict?: boolean;
 }
 
-export interface ResultProps {
-  result: ResultRow[];
+export interface ResultProps<R> {
+  result: ResultRow<R>[];
   totalRows: number;
   validRows: number;
   errorRows: number;
@@ -33,15 +33,30 @@ export interface Column {
   required?: boolean;
 }
 
-export interface ResultRow {
-  data: {
-    [key: string]: {
-      isColumnValid: boolean;
-      value: any;
-    };
-  };
+export interface Output {
+  [key: string]: any;
+}
+
+export type RowData<Row extends Output> = {
+  [K in keyof Row]: {
+    isColumnValid: boolean;
+    value: Row[K];
+  }
+};
+
+export interface ResultRow<Row extends Output> {
+  data: RowData<Row>;
   isRowValid: boolean;
 }
+// export interface ResultRow {
+//   data: {
+//     [key: string]: {
+//       isColumnValid: boolean;
+//       value: any;
+//     };
+//   };
+//   isRowValid: boolean;
+// }
 
 /**
  * Parses a CSV file or string and returns array of parsed objects
@@ -81,10 +96,12 @@ export interface ResultRow {
  * @param props.validateRow custom function to perform custom validation on each row
  * @param props.strict Strict mode: if set to true, file will be marked as invalid if the CSV data contain any extra column(s)
  */
-export const parseCsv = async (props: Props): Promise<ResultProps> => {
+export const parseCsv = async <R extends Output>(
+  props: Props
+): Promise<ResultProps<R>> => {
   return new Promise(resolve => {
     // Prepare the data and errors arrays
-    const result: ResultRow[] = [];
+    const result: ResultRow<R>[] = [];
     const errors: string[] = [];
     let indexedColumns: Array<Column & { index: number }>;
     let totalRows: number = 0;
@@ -96,14 +113,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
     let hasExtraRows: boolean = false;
     let hasExtraColumns: boolean = false;
 
-    const {
-      header,
-      data,
-      columns,
-      maxRows,
-      validateRow,
-      strict,
-    } = props;
+    const { header, data, columns, maxRows, validateRow, strict } = props;
 
     if (!header) {
       indexedColumns = columns.map((column, index) => ({
@@ -163,9 +173,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
         if (maxRows !== undefined && maxRows > 0 && totalRows > maxRows) {
           ignoredRows++;
 
-          if (
-            !hasExtraRows
-          ) {
+          if (!hasExtraRows) {
             hasExtraRows = true;
             errors.push(ErrorCodes.rowsExceedMaxLimit);
           }
@@ -173,9 +181,9 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
           return;
         }
 
-        const resultRow: ResultRow = {
+        const resultRow: ResultRow<R> = {
           isRowValid: true,
-          data: {},
+          data: {} as RowData<R>,
         };
 
         for (const column of indexedColumns) {
