@@ -128,13 +128,15 @@ export class Presenter extends Component<Props> {
 
     const backLinkProps: {
       onClick?: () => void;
-      href?: string;
-    } = {};
+      href: string;
+    } = {
+      href: `/securityTokens/${securityTokenSymbol}/dividends`,
+    };
 
-    if (stepIndex === 0) {
-      backLinkProps.href = `/securityTokens/${securityTokenSymbol}/dividends`;
-    } else {
-      backLinkProps.onClick = onPreviousStep;
+    if (stepIndex > 0) {
+      backLinkProps.onClick = () => {
+        this.setState({ stepIndex });
+      };
     }
 
     return (
