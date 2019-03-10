@@ -1,14 +1,14 @@
 import { Component, ReactNode } from 'react';
 import { csvParser } from '@polymathnetwork/new-shared';
 
-export interface RenderProps {
-  data: csvParser.ResultProps;
+export interface RenderProps<Output extends csvParser.Output> {
+  data: csvParser.ResultProps<Output>;
   setFile(file: File): void;
   clearFile(): void;
 }
 
-export interface ParseResult {
-  data: csvParser.ResultProps;
+export interface ParseResult<Output extends csvParser.Output> {
+  data: csvParser.ResultProps<Output>;
   config: Config;
   errors: string[];
   warnings: string[];
@@ -21,16 +21,19 @@ export interface Config {
   strict?: boolean;
 }
 
-interface Props {
+export interface Props<Output extends csvParser.Output> {
   config: Config;
-  render(output: RenderProps): ReactNode;
+  render(output: RenderProps<Output>): ReactNode;
 }
 
-interface State {
-  data: csvParser.ResultProps;
+interface State<Output extends csvParser.Output> {
+  data: csvParser.ResultProps<Output>;
 }
 
-export class ParseCsv extends Component<Props, State> {
+export class ParseCsv<Output extends csvParser.Output> extends Component<
+  Props<Output>,
+  State<Output>
+> {
   public state = {
     data: {
       result: [],
@@ -50,7 +53,7 @@ export class ParseCsv extends Component<Props, State> {
     };
 
     try {
-      const parseResult = await csvParser.parseCsv(fileProps);
+      const parseResult = await csvParser.parseCsv<Output>(fileProps);
       this.setState({ data: parseResult });
     } catch {
       // We swallow the error has they are already appended to the result.

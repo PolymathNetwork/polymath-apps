@@ -1,111 +1,122 @@
-import React, { FC, useCallback, useEffect } from 'react';
-import { each, map } from 'lodash';
+import React, { useCallback, useEffect, Component } from 'react';
 import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import {
   FormikProxy,
   FormikExternalProps,
 } from '~/components/inputs/FormikProxy';
+import { getContext } from '~/components/CsvUploader/Context';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
 import * as sc from './styles';
-import { Context } from './Context';
 import { CsvErrors } from './CsvErrors';
 import { CsvPreview } from './CsvPreview';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
-type Value = csvParser.ResultRow[] | csvParser.ResultProps[][] | null;
+type Value<Output extends csvParser.Output> =
+  | csvParser.ResultRow<Output>[]
+  | csvParser.ResultProps<Output>[][]
+  | null;
 
-interface ComponentProps extends ParseCsvRenderProps {
-  onChange: (value: any) => void;
+interface ComponentProps<Output extends csvParser.Output>
+  extends ParseCsvRenderProps<Output> {
+  onChange: (value: Value<Output>) => void;
   csvConfig: ParseCsvProps['config'];
 }
 
-const CsvUploaderComponent: FC<ComponentProps> = ({
-  clearFile,
-  setFile,
-  data,
-  csvConfig,
-  onChange,
-  children,
-}) => {
-  const handleFileUploaderChange = useCallback(file => {
-    clearFile();
-    setFile(file);
-  }, []);
+class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
+  ComponentProps<Output>
+> {
+  public render() {
+    const {
+      clearFile,
+      setFile,
+      data,
+      csvConfig,
+      onChange,
+      children,
+    } = this.props;
 
-  useEffect(
-    () => {
-      if (data.isFileValid) {
-        const extractValues = map(data.result, (result, key) => {
-          const item: {
-            [key: string]: any;
-          } = {};
-          each(result.data, (value, resultKey) => {
-            item[resultKey] = value.value;
-          });
+    const handleFileUploaderChange = useCallback(
+      (file: File | File[] | null) => {
+        clearFile();
+        if (file instanceof File) {
+          setFile(file);
+        } else {
+          throw new Error('Must supply a single file to the CSV uploader.');
+        }
+      },
+      []
+    );
 
-          return item;
-          // const item = {};
-        });
-        onChange(extractValues);
-      } else {
-        onChange(null);
-      }
-    },
-    [data.isFileValid]
-  );
+    useEffect(
+      () => {
+        if (data.isFileValid) {
+          onChange(data.result);
+        } else {
+          onChange(null);
+        }
+      },
+      [data.isFileValid]
+    );
 
-  const isFullyInvalid =
-    !data.isFileValid &&
-    (data.errorRows === data.totalRows || data.errorRows === csvConfig.maxRows);
-  const errorCount = data.result.reduce((acc, cur) => {
-    acc += Object.values(cur.data).filter((cell: any) => !cell.isColumnValid)
-      .length;
-    return acc;
-  }, 0);
+    const Context = getContext();
 
-  return (
-    <sc.Wrapper>
-      <FileUploaderPrimitive
-        accept=".csv"
-        onChange={handleFileUploaderChange}
-      />
-      {!!data.result.length ? (
-        <Context.Provider
-          value={{ isFullyInvalid, errorCount, data, csvConfig }}
-        >
-          {children}
-        </Context.Provider>
-      ) : null}
-    </sc.Wrapper>
-  );
-};
+    const isFullyInvalid =
+      !data.isFileValid &&
+      (data.errorRows === data.totalRows ||
+        data.errorRows === csvConfig.maxRows);
+    const errorCount = data.result.reduce((acc, cur) => {
+      acc += Object.values(cur.data).filter((cell: any) => !cell.isColumnValid)
+        .length;
+      return acc;
+    }, 0);
 
-interface PrimitiveProps {
+    return (
+      <sc.Wrapper>
+        <FileUploaderPrimitive
+          accept=".csv"
+          onChange={handleFileUploaderChange}
+        />
+        {!!data.result.length ? (
+          <Context.Provider
+            value={{ isFullyInvalid, errorCount, data, csvConfig }}
+          >
+            {children}
+          </Context.Provider>
+        ) : null}
+      </sc.Wrapper>
+    );
+  }
+}
+
+interface PrimitiveProps<Output extends csvParser.Output> {
   csvConfig: ParseCsvProps['config'];
-  onChange: (value: Value) => void;
+  onChange: (value: Value<Output>) => void;
   name?: string;
-  value?: Value;
+  value?: Value<Output>;
   onBlur?: () => void;
 }
 
-const CsvUploaderPrimitiveComponent: FC<PrimitiveProps> = ({
-  csvConfig,
-  ...rest
-}) => {
-  return (
-    <ParseCsv
-      config={csvConfig}
-      render={parseCsvProps => (
-        <CsvUploaderComponent
-          csvConfig={csvConfig}
-          {...parseCsvProps}
-          {...rest}
-        />
-      )}
-    />
-  );
-};
+class CsvUploaderPrimitiveComponent<
+  Output extends csvParser.Output
+> extends Component<PrimitiveProps<Output>> {
+  public render() {
+    const { csvConfig, ...formikProps } = this.props;
+
+    return (
+      <ParseCsv<Output>
+        config={csvConfig}
+        render={parseCsvProps => (
+          <CsvUploaderComponent<Output>
+            csvConfig={csvConfig}
+            {...parseCsvProps}
+            {...formikProps}
+          />
+        )}
+      />
+    );
+  }
+}
 
 export const CsvUploaderPrimitive = Object.assign(
   CsvUploaderPrimitiveComponent,
@@ -119,13 +130,23 @@ interface Props extends FormikExternalProps {
   csvConfig: ParseCsvProps['config'];
 }
 
-const CsvUploaderWithFormik: FC<Props> = ({ field, form, ...rest }) => (
-  <FormikProxy<Value>
-    field={field}
-    form={form}
-    render={formikProps => <CsvUploaderPrimitive {...rest} {...formikProps} />}
-  />
-);
+class CsvUploaderWithFormik<Output extends csvParser.Output> extends Component<
+  Props
+> {
+  public render() {
+    const { field, form, ...rest } = this.props;
+
+    return (
+      <FormikProxy<Value<Output>>
+        field={field}
+        form={form}
+        render={formikProps => (
+          <CsvUploaderPrimitive<Output> {...rest} {...formikProps} />
+        )}
+      />
+    );
+  }
+}
 
 export const CsvUploader = Object.assign(CsvUploaderWithFormik, {
   CsvErrors,
