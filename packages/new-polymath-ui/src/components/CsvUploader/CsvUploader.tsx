@@ -36,10 +36,18 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
     }
   };
 
-  public componentDidUpdate() {
-    const { data: { isFileValid, result }, onChange } = this.props;
+  public componentDidUpdate(prevProps: ComponentProps<Output>) {
+    const {
+      data: { isFileValid, result },
+      onChange,
+    } = this.props;
+
+    if (isFileValid === prevProps.data.isFileValid) {
+      return;
+    }
 
     if (isFileValid) {
+      console.log('result', result);
       onChange(result);
     } else {
       onChange(null);
@@ -47,11 +55,7 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
   }
 
   public render() {
-    const {
-      data,
-      csvConfig,
-      children,
-    } = this.props;
+    const { data, csvConfig, children } = this.props;
 
     const Context = getContext();
 
