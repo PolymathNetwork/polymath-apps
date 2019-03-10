@@ -56,6 +56,7 @@ interface Props {
 
 interface Values {
   taxWithholdings: TaxWithholdingsItem[];
+  newTaxWithholding: TaxWithholdingsItem;
 }
 
 /**
@@ -112,6 +113,10 @@ export const Step2: FC<Props> = ({
       onSubmit={onSubmit}
       initialValues={{
         taxWithholdings: initialTaxWithholdings,
+        newTaxWithholding: {
+          '% Tax Withholding': null,
+          'Investor ETH Address': '',
+        },
       }}
       render={({ values, setFieldValue }) => {
         const addTaxWithholding = () => {
@@ -192,14 +197,24 @@ export const Step2: FC<Props> = ({
               at a time.
             </Remark>
 
-            <TaxWithholdingModal
-              isOpen={taxWithholdingModalOpen}
-              onClose={closeTaxWithhholdingModal}
-              taxWithholdings={values.taxWithholdings}
+            <Field
+              name="newTaxWithholding"
+              render={({
+                field,
+                form,
+              }: FieldProps<Values['newTaxWithholding']>) => (
+                <TaxWithholdingModal
+                  onConfirm={value => {
+                    form.setFieldValue(field.name, value);
+                  }}
+                  isOpen={taxWithholdingModalOpen}
+                  onClose={closeTaxWithhholdingModal}
+                />
+              )}
             />
 
             <TaxWithholdingsTable
-              handleAddNewOpen={() => {}}
+              handleAddNewOpen={openTaxWithhholdingModal}
               taxWithholdings={values.taxWithholdings}
             />
           </Card>
