@@ -854,6 +854,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -874,6 +875,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -952,6 +954,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -972,6 +975,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1050,6 +1054,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1070,6 +1075,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1148,6 +1154,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1168,6 +1175,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1246,6 +1254,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1266,6 +1275,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1344,6 +1354,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1364,6 +1375,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1442,6 +1454,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1462,6 +1475,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1540,6 +1554,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1560,6 +1575,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1638,6 +1654,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1658,6 +1675,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1736,6 +1754,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"
@@ -1756,6 +1775,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c14"
+                        type="button"
                       >
                         <span
                           class="c8 c15"

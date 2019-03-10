@@ -2,15 +2,15 @@ import React, { FC, useContext } from 'react';
 import { csvParser } from '@polymathnetwork/new-shared';
 import { styled } from '~/styles';
 import { Notification } from '~/components/Notification';
-import { Context } from '../Context';
+import { getContext } from '../Context';
 import * as sc from './styles';
 
 export interface Props {
   className?: string;
 }
 
-const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
-  const context = useContext(Context);
+const CsvErrorsComponent: FC<Props> = ({ className }) => {
+  const context = useContext(getContext());
 
   if (!context) {
     return null;
