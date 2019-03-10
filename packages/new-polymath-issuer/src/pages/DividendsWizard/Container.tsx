@@ -7,7 +7,12 @@ import {
   createTaxWithholdingListBySymbolFetcher,
   createCheckpointBySymbolAndIdFetcher,
 } from '~/state/fetchers';
-import { types, formatters, utils } from '@polymathnetwork/new-shared';
+import {
+  types,
+  formatters,
+  utils,
+  constants,
+} from '@polymathnetwork/new-shared';
 import { DateTime } from 'luxon';
 import {
   updateTaxWithholdingListStart,
@@ -17,6 +22,7 @@ import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
+import { range } from 'lodash';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -41,16 +47,6 @@ interface Row {
   percentage: number;
 }
 
-// TODO: Values should be typed here
-export interface FormValues {
-  distributionName?: string;
-  noWalletExcluded?: boolean;
-  isTaxWithholdingConfirmed?: boolean;
-  // Type these properly
-  excludedWalletsCsv?: null | any[];
-  taxWithholdingsCsv?: null | any[];
-}
-
 export interface CreateDividendDistributionParams {
   erc20Address: string;
   amount: BigNumber;
@@ -60,7 +56,7 @@ export interface CreateDividendDistributionParams {
 
 export class ContainerBase extends Component<Props, State> {
   public state = {
-    step: 2, // TODO: REMOVE
+    step: 0,
   };
 
   public nextStep = () => {
@@ -126,7 +122,7 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public downloadTaxWithholdingList = (
-    taxWithholdings: types.TaxWithholdingPojo[]
+    taxWithholdings: types.TaxWithholdingEntity[]
   ) => {
     const { securityTokenSymbol } = this.props;
 
@@ -155,6 +151,23 @@ export class ContainerBase extends Component<Props, State> {
       ],
     });
   };
+
+  public downloadSampleExclusionList() {
+    const fileName = 'Sample-Exclusion-List.csv';
+
+    utils.downloadCsvFile(
+      range(10).map(() => ({ investorAddress: constants.EMPTY_ADDRESS })),
+      fileName,
+      {
+        fields: [
+          {
+            label: 'Investor ETH Address',
+            value: 'investorAddress',
+          },
+        ],
+      }
+    );
+  }
 
   public render() {
     const { securityTokenSymbol, checkpointIndex } = this.props;
@@ -189,6 +202,7 @@ export class ContainerBase extends Component<Props, State> {
                 onNextStep={this.nextStep}
                 taxWithholdings={taxWithholdings}
                 downloadTaxWithholdingList={this.downloadTaxWithholdingList}
+                downloadSampleExclusionList={this.downloadSampleExclusionList}
               />
             );
           }}

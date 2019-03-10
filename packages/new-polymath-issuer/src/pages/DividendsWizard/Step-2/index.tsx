@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
+import { types } from '@polymathnetwork/new-shared';
 
 interface Props {
   onNextStep: () => void;
+  downloadTaxWithholdingList: (
+    taxWithholdings: types.TaxWithholdingEntity[]
+  ) => void;
+  taxWithholdings: types.TaxWithholdingEntity[];
 }
 
 /**

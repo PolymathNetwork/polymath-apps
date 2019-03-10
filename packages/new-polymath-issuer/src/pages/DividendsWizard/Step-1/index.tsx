@@ -17,22 +17,25 @@ import {
   CsvUploader,
   Form,
 } from '@polymathnetwork/new-ui';
+import { ExclusionEntry } from '../Presenter';
 
 export interface Step1Props {
   onNextStep: (values: Values) => void;
-  excludedWalletsCsv: null | any[];
-  setExcludedWalletsCsv: (csv: this['excludedWalletsCsv']) => void;
+  excludedWallets: null | ExclusionEntry[];
+  setExcludedWallets: (csv: this['excludedWallets']) => void;
+  downloadSampleExclusionList: () => void;
 }
 
 interface Values {
-  excludedWalletsCsv: null | any[];
+  excludedWallets: null | ExclusionEntry[];
   noWalletExcluded: boolean;
 }
 
 export const Step1: FC<Step1Props> = ({
   onNextStep,
-  excludedWalletsCsv,
-  setExcludedWalletsCsv,
+  excludedWallets,
+  setExcludedWallets,
+  downloadSampleExclusionList,
 }) => {
   const [isCsvModalOpen, setCsvModalState] = useState(false);
 
@@ -46,7 +49,7 @@ export const Step1: FC<Step1Props> = ({
 
   const handleSubmit = (values: Values) => {
     // Set csv file
-    setExcludedWalletsCsv(values.excludedWalletsCsv);
+    setExcludedWallets(values.excludedWallets);
     onNextStep(values);
   };
 
@@ -54,7 +57,7 @@ export const Step1: FC<Step1Props> = ({
     <Form<Values>
       initialValues={{
         noWalletExcluded: false,
-        excludedWalletsCsv,
+        excludedWallets,
       }}
       onSubmit={handleSubmit}
       render={({ values, submitForm }) => (
@@ -69,12 +72,8 @@ export const Step1: FC<Step1Props> = ({
           </Paragraph>
           <Paragraph>
             You can download
-            <Link
-              onClick={() => {
-                /* NOTE: Pending functionality */
-              }}
-            >
-              <Icon Asset={icons.SvgDownload} /> Sample-Excluding-List.csv
+            <Link onClick={downloadSampleExclusionList}>
+              <Icon Asset={icons.SvgDownload} /> Sample-Exclusion-List.csv
             </Link>{' '}
             example file and edit it.
           </Paragraph>
@@ -96,7 +95,7 @@ export const Step1: FC<Step1Props> = ({
             onSubmit={submitForm}
             onClose={handleCsvModalClose}
             actionButtonText="Update list and proceed to the next step"
-            isActionDisabled={!values.excludedWalletsCsv}
+            isActionDisabled={!values.excludedWallets}
           >
             <ModalConfirm.Header>
               Upload CSV of ETH Addresses to exclude
@@ -104,7 +103,7 @@ export const Step1: FC<Step1Props> = ({
             <Paragraph fontSize={2}>
               This is the explanation of what is going on here.
             </Paragraph>
-            <FormItem name="excludedWalletsCsv">
+            <FormItem name="excludedWallets">
               <FormItem.Input
                 component={CsvUploader}
                 inputProps={{
