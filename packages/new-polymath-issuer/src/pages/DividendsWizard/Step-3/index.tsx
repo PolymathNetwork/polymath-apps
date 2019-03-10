@@ -48,7 +48,6 @@ const Step3Base: FC<Props> = ({
 }) => {
   const onSubmit = (values: Values) => {
     const { currency, distributionName, dividendAmount, tokenAddress } = values;
-    console.log('SUBMITTING');
     if (!networkId) {
       throw new Error("Couldn't obtain network id");
     }
@@ -73,13 +72,6 @@ const Step3Base: FC<Props> = ({
     const excludedAddresses = (excludedWallets || []).map(
       excluded => excluded['Investor ETH Address']
     );
-
-    console.log({
-      erc20Address,
-      excludedAddresses,
-      amount: dividendAmount!, // asserted because it has to have been validated previously
-      name: distributionName,
-    });
 
     createDividendDistribution({
       erc20Address,
