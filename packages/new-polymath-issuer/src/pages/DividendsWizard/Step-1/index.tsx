@@ -25,7 +25,7 @@ export interface Step1Props {
 }
 
 interface Values {
-  excludedWalletsCsv: null | any[];
+  excludedWalletsCsv: null | Array<{}>;
   noWalletExcluded: boolean;
 }
 

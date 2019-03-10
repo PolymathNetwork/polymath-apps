@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useEffect } from 'react';
+import { each, map } from 'lodash';
 import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import {
@@ -15,7 +16,7 @@ type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
 type Value = csvParser.ResultRow[] | csvParser.ResultProps[][] | null;
 
 interface ComponentProps extends ParseCsvRenderProps {
-  onChange: (value: Value) => void;
+  onChange: (value: any) => void;
   csvConfig: ParseCsvProps['config'];
 }
 
@@ -35,7 +36,18 @@ const CsvUploaderComponent: FC<ComponentProps> = ({
   useEffect(
     () => {
       if (data.isFileValid) {
-        onChange(data.result);
+        const extractValues = map(data.result, (result, key) => {
+          const item: {
+            [key: string]: any;
+          } = {};
+          each(result.data, (value, resultKey) => {
+            item[resultKey] = value.value;
+          });
+
+          return item;
+          // const item = {};
+        });
+        onChange(extractValues);
       } else {
         onChange(null);
       }
@@ -79,7 +91,7 @@ interface PrimitiveProps {
 
 const CsvUploaderPrimitiveComponent: FC<PrimitiveProps> = ({
   csvConfig,
-  ...formikProps
+  ...rest
 }) => {
   return (
     <ParseCsv
@@ -88,7 +100,7 @@ const CsvUploaderPrimitiveComponent: FC<PrimitiveProps> = ({
         <CsvUploaderComponent
           csvConfig={csvConfig}
           {...parseCsvProps}
-          {...formikProps}
+          {...rest}
         />
       )}
     />

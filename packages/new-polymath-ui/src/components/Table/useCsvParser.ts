@@ -25,11 +25,6 @@ export const useCsvParser = (csvParserData: csvParser.ResultRow[]) => (
       rows.forEach((row: Row) => {
         row.isValid = csvParserData[row.index].isRowValid;
         row.cells.forEach((cell: Cell) => {
-          console.log(
-            'csvParserData[row.index].data[cell.column.id]',
-            csvParserData[row.index].data[cell.column.id]
-          );
-          console.log('csvParserData[row.index]', csvParserData[row.index]);
           cell.isValid =
             csvParserData[row.index].data[cell.column.id].isColumnValid;
         });

@@ -1,4 +1,6 @@
+import { FieldProps } from 'formik';
 import React, { Fragment, useState, useCallback, FC } from 'react';
+import { map } from 'lodash';
 import {
   validators,
   formatters,
@@ -33,7 +35,16 @@ import {
   TextInput,
   PercentageInput,
   validator,
+  Field,
 } from '@polymathnetwork/new-ui';
+import { CsvModal } from './CsvModal';
+import { TaxWithholdingModal } from './TaxWithholdingModal';
+import { TaxWithholdingsTable } from './TaxWithholdingsTable';
+import {
+  TaxWithholdingsItem,
+  csvEthAddressKey,
+  csvTaxWithholdingKey,
+} from './shared';
 
 interface Props {
   onNextStep: () => void;
@@ -44,7 +55,7 @@ interface Props {
 }
 
 interface Values {
-  taxWithholdings: types.TaxWithholdingPojo[];
+  taxWithholdings: TaxWithholdingsItem[];
 }
 
 /**
@@ -65,13 +76,47 @@ export const Step2: FC<Props> = ({
     downloadTaxWithholdingList(existingTaxWithholdings);
   };
 
+  // NOTE: This never happens since by default two taxWithholdings already exist
+  const downloadSampleTaxWithholdings = () => {
+    downloadTaxWithholdingList([]);
+  };
+
+  const [csvModalOpen, setCsvModalOpen] = useState(false);
+  const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
+
+  const openCsvModal = () => {
+    setCsvModalOpen(true);
+  };
+  const closeCsvModal = () => {
+    setCsvModalOpen(false);
+  };
+  const openTaxWithhholdingModal = () => {
+    setTaxWithholdingModalOpen(true);
+  };
+  const closeTaxWithhholdingModal = () => {
+    setTaxWithholdingModalOpen(false);
+  };
+
+  const initialTaxWithholdings = map(
+    existingTaxWithholdings,
+    taxWithhholdingItem => {
+      return {
+        [csvEthAddressKey]: taxWithhholdingItem.investorAddress,
+        [csvTaxWithholdingKey]: taxWithhholdingItem.percentage,
+      };
+    }
+  );
+
   return (
     <Form<Values>
       onSubmit={onSubmit}
       initialValues={{
-        taxWithholdings: existingTaxWithholdings,
+        taxWithholdings: initialTaxWithholdings,
       }}
-      render={({ values }) => {
+      render={({ values, setFieldValue }) => {
+        const addTaxWithholding = () => {
+          // setFieldValue();
+        };
         return (
           <Card p="gridGap" boxShadow={1}>
             <Heading variant="h2" mb="l">
@@ -106,17 +151,57 @@ export const Step2: FC<Props> = ({
             ) : (
               <Paragraph>
                 You can download{' '}
-                <button
-                  onClick={() => {
-                    // TODO: Add sample file download
-                  }}
-                >
+                <button onClick={downloadSampleTaxWithholdings}>
                   <Icon Asset={icons.SvgDownload} />{' '}
                   Sample-Withholdings-Tax-List.csv
                 </button>{' '}
                 example file and edit it.
               </Paragraph>
             )}
+            <Button
+              variant="ghostSecondary"
+              iconPosition="right"
+              onClick={openCsvModal}
+            >
+              Upload Tax Withholdings List
+              <Icon Asset={icons.SvgDownload} width={18} height={18} />
+            </Button>
+            <Field
+              name="taxWithholdings"
+              render={({ field, form }: FieldProps) => (
+                <CsvModal
+                  onConfirm={value => {
+                    form.setFieldValue(field.name, value);
+                    closeCsvModal();
+                  }}
+                  isOpen={csvModalOpen}
+                  onClose={closeCsvModal}
+                  formTaxWithholdings={field.value}
+                />
+              )}
+            />
+            <Remark>
+              Taxes will be withheld by the dividends smart contract at the time
+              dividends are distributed. Withholdings can subsequently be
+              withdrawn into a designated wallet for tax payments.
+              <br />
+              <strong>Maximum number of entries per transaction is 200.</strong>
+              <br />
+              If you want to withhold taxes for more than 200 wallets, please
+              breakdown the list in 200 wallets increments and upload them one
+              at a time.
+            </Remark>
+
+            <TaxWithholdingModal
+              isOpen={taxWithholdingModalOpen}
+              onClose={closeTaxWithhholdingModal}
+              taxWithholdings={values.taxWithholdings}
+            />
+
+            <TaxWithholdingsTable
+              handleAddNewOpen={() => {}}
+              taxWithholdings={values.taxWithholdings}
+            />
           </Card>
         );
       }}

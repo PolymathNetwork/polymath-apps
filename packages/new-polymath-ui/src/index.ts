@@ -1,3 +1,5 @@
+import { Field, FastField } from 'formik';
+
 import { theme } from './styles/theme';
 
 import { SvgAccount } from './images/icons/generated/Account';
@@ -19,6 +21,8 @@ import { SvgPlusPlain } from './images/icons/generated/PlusPlain';
 import { SvgWarning } from './images/icons/generated/Warning';
 import { SvgTaxes } from './images/icons/generated/Taxes';
 import { SvgDelete } from './images/icons/generated/Delete';
+
+export { Field, FastField };
 
 // Styles
 export * from './styles';
@@ -44,7 +48,11 @@ export { ButtonLink } from './components/ButtonLink';
 export { Card } from './components/Card';
 export { CardPrimary } from './components/CardPrimary';
 export { CardFeatureState } from './components/CardFeatureState';
-export { CsvUploader } from './components/CsvUploader';
+export {
+  CsvUploader,
+  ParseCsv,
+  CsvUploaderPrimitive,
+} from './components/CsvUploader';
 export { ErrorBoundary } from './components/ErrorBoundary';
 export { Footer } from './components/Footer';
 export { Form } from './components/Form';
