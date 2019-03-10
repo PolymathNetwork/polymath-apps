@@ -29,8 +29,6 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
     clearFile();
     if (file instanceof File) {
       setFile(file);
-    } else {
-      throw new Error('Must supply a single file to the CSV uploader.');
     }
   };
 
@@ -46,7 +44,7 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
 
     if (isFileValid) {
       const formattedResult = map(result, ({ data }) => {
-        const res: any = {};
+        const res = {} as Output;
 
         each(data, (item, key) => {
           res[key] = item.value;

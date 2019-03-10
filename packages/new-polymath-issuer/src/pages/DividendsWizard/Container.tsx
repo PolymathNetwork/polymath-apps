@@ -17,6 +17,7 @@ import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
+import { range, padStart } from 'lodash';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -39,16 +40,6 @@ interface State {
 interface Row {
   investorAddress: string;
   percentage: number;
-}
-
-// TODO: Values should be typed here
-export interface FormValues {
-  distributionName?: string;
-  noWalletExcluded?: boolean;
-  isTaxWithholdingConfirmed?: boolean;
-  // Type these properly
-  excludedWalletsCsv?: null | any[];
-  taxWithholdingsCsv?: null | any[];
 }
 
 export interface CreateDividendDistributionParams {
@@ -137,7 +128,7 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public downloadTaxWithholdingList = (
-    taxWithholdings: types.TaxWithholdingPojo[]
+    taxWithholdings: types.TaxWithholdingEntity[]
   ) => {
     const { securityTokenSymbol } = this.props;
 
@@ -166,6 +157,25 @@ export class ContainerBase extends Component<Props, State> {
       ],
     });
   };
+
+  public downloadSampleExclusionList() {
+    const fileName = 'Sample-Exclusion-List.csv';
+
+    utils.downloadCsvFile(
+      range(10).map(i => ({
+        investorAddress: `0x${padStart(`${i + 1}`, 40, '0')}`,
+      })),
+      fileName,
+      {
+        fields: [
+          {
+            label: 'Investor ETH Address',
+            value: 'investorAddress',
+          },
+        ],
+      }
+    );
+  }
 
   public render() {
     const { securityTokenSymbol, checkpointIndex } = this.props;
@@ -202,6 +212,7 @@ export class ContainerBase extends Component<Props, State> {
                 onPreviousStep={this.previousStep}
                 taxWithholdings={taxWithholdings}
                 downloadTaxWithholdingList={this.downloadTaxWithholdingList}
+                downloadSampleExclusionList={this.downloadSampleExclusionList}
               />
             );
           }}

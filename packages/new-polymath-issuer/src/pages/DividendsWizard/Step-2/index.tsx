@@ -55,9 +55,9 @@ import {
 
 interface Props {
   onNextStep: () => void;
-  existingTaxWithholdings: types.TaxWithholdingPojo[];
+  existingTaxWithholdings: types.TaxWithholdingEntity[];
   downloadTaxWithholdingList: (
-    taxWithholdings: types.TaxWithholdingPojo[]
+    taxWithholdings: types.TaxWithholdingEntity[]
   ) => void;
   updateTaxWithholdingList: (
     values: Array<{

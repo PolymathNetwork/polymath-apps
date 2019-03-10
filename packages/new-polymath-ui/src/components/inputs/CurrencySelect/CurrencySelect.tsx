@@ -13,6 +13,7 @@ import { SvgClose } from '~/images/icons/Close';
 import { SvgEth } from '~/images/icons/Eth';
 import { SvgPoly } from '~/images/icons/Poly';
 import { SvgDai } from '~/images/icons/Dai';
+import { SvgErc20 } from '~/images/icons/Erc20';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
@@ -48,6 +49,12 @@ export const CURRENCY_OPTIONS: OptionType[] = [
   {
     value: types.Tokens.Dai,
     label: <Label text="Dai (DAI)" Asset={SvgDai} token={types.Tokens.Dai} />,
+  },
+  {
+    value: types.Tokens.Erc20,
+    label: (
+      <Label text="ERC20 Token" Asset={SvgErc20} token={types.Tokens.Erc20} />
+    ),
   },
 ];
 
@@ -167,7 +174,10 @@ class SelectValue extends React.Component<SelectValueProps> {
     return (
       <sc.ValueWrapper>
         <sc.ValueLabel>{this.props.label}</sc.ValueLabel>
-        <sc.ValueRemoveButton Asset={SvgClose} onClick={this.handleRemove} />
+        <sc.ValueRemoveButton
+          Asset={SvgClose}          
+          onClick={this.handleRemove}
+        />
       </sc.ValueWrapper>
     );
   }

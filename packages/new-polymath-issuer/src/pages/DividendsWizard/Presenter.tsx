@@ -1,7 +1,6 @@
-import React, { ComponentType, Component } from 'react';
+import React, { Component } from 'react';
 import {
   Box,
-  Form,
   Icon,
   icons,
   Heading,
@@ -16,13 +15,16 @@ import {
   ButtonLink,
 } from '@polymathnetwork/new-ui';
 import { ListIcon } from '~/components/ListIcon';
-import { CreateDividendDistributionParams, FormValues } from './Container';
+import { CreateDividendDistributionParams } from './Container';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
 import { Step2 } from './Step-2';
 import { Step3 } from './Step-3';
 import { types } from '@polymathnetwork/new-shared';
-import { TaxWithholdingPojo } from '@polymathnetwork/new-shared/build/dist/typing/types';
+
+export interface ExclusionEntry {
+  ['Investor ETH Address']: string;
+}
 
 export interface Props {
   stepIndex: number;
@@ -37,50 +39,26 @@ export interface Props {
     }>
   ) => void;
   taxWithholdings: types.TaxWithholdingEntity[];
-  downloadTaxWithholdingList: (taxWithholdings: TaxWithholdingPojo[]) => void;
+  downloadTaxWithholdingList: (
+    taxWithholdings: types.TaxWithholdingEntity[]
+  ) => void;
   createDividendDistribution: (
     params: CreateDividendDistributionParams
   ) => void;
+  downloadSampleExclusionList: () => void;
 }
 
 export interface State {
-  excludedWalletsCsv: any;
+  excludedWallets: null | ExclusionEntry[];
 }
-
-const isStep1 = (
-  StepComponent: typeof Step1 | typeof Step2 | typeof Step3,
-  stepIndex: number
-): StepComponent is typeof Step1 => stepIndex === 0;
-
-const isStep2 = (
-  StepComponent: typeof Step1 | typeof Step2 | typeof Step3,
-  stepIndex: number
-): StepComponent is typeof Step2 => stepIndex === 1;
-
-const getStepComponent = (stepIndex: number) => {
-  switch (stepIndex) {
-    case 0: {
-      return Step1;
-    }
-    case 1: {
-      return Step2;
-    }
-    case 2: {
-      return Step3;
-    }
-    default: {
-      return Step1;
-    }
-  }
-};
 
 export class Presenter extends Component<Props> {
   public state = {
-    excludedWalletsCsv: null,
+    excludedWallets: null,
   };
 
-  public setExcludedWalletsCsv = (excludedWalletsCsv: any) => {
-    this.setState({ excludedWalletsCsv });
+  public setExcludedWallets = (excludedWallets: any) => {
+    this.setState({ excludedWallets });
   };
 
   public renderStepComponent = () => {
@@ -89,33 +67,43 @@ export class Presenter extends Component<Props> {
       onNextStep,
       taxWithholdings,
       downloadTaxWithholdingList,
+      createDividendDistribution,
+      downloadSampleExclusionList,
       updateTaxWithholdingList,
     } = this.props;
-    const { excludedWalletsCsv } = this.state;
-    const StepComponent = getStepComponent(stepIndex);
+    const { excludedWallets } = this.state;
 
-    if (isStep1(StepComponent, stepIndex)) {
-      return (
-        <StepComponent
-          onNextStep={onNextStep}
-          excludedWalletsCsv={excludedWalletsCsv}
-          setExcludedWalletsCsv={this.setExcludedWalletsCsv}
-        />
-      );
+    switch (stepIndex) {
+      case 1: {
+        return (
+          <Step2
+            downloadTaxWithholdingList={downloadTaxWithholdingList}
+            existingTaxWithholdings={taxWithholdings}
+            updateTaxWithholdingList={updateTaxWithholdingList}
+            onNextStep={onNextStep}
+          />
+        );
+      }
+      case 2: {
+        return (
+          <Step3
+            excludedWallets={excludedWallets}
+            createDividendDistribution={createDividendDistribution}
+          />
+        );
+      }
+      case 0:
+      default: {
+        return (
+          <Step1
+            downloadSampleExclusionList={downloadSampleExclusionList}
+            onNextStep={onNextStep}
+            excludedWallets={excludedWallets}
+            setExcludedWallets={this.setExcludedWallets}
+          />
+        );
+      }
     }
-
-    if (isStep2(StepComponent, stepIndex)) {
-      return (
-        <StepComponent
-          downloadTaxWithholdingList={downloadTaxWithholdingList}
-          existingTaxWithholdings={taxWithholdings}
-          updateTaxWithholdingList={updateTaxWithholdingList}
-          onNextStep={onNextStep}
-        />
-      );
-    }
-
-    return <StepComponent />;
   };
 
   public render() {

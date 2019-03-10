@@ -91,6 +91,10 @@ export function* createErc20DividendsDistribution(
         })
       );
     }
+
+    yield put(
+      push(`/securityTokens/${securityTokenSymbol}/dividends/${result}`)
+    );
   } catch (err) {
     if (!err.code) {
       throw err;
@@ -165,7 +169,7 @@ export function* pushDividendPayment(
     );
 
     // Queue was canceled
-    // (if it failed we still redirect and invalidate cache because some of the payments could have been pushed successfully)
+    // (if it failed we still invalidate cache because some of the payments could have been pushed successfully)
     if (queueStatus === QueueStatus.Canceled) {
       return;
     }
@@ -180,12 +184,6 @@ export function* pushDividendPayment(
           dividendType,
         },
       })
-    );
-
-    yield take(getType(finishTransactionQueue));
-
-    yield put(
-      push(`/securityTokens/${securityTokenSymbol}/dividends/${dividendIndex}`)
     );
   } catch (err) {
     if (!err.code) {

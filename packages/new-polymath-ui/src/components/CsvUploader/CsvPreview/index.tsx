@@ -40,7 +40,7 @@ export interface Props {
 export class CsvPreviewComponent<
   Output extends csvParser.Output
 > extends Component<Props> {
-  static contextType = getContext();
+  public static contextType = getContext();
 
   public render() {
     const context: CsvContext<Output> = this.context;
