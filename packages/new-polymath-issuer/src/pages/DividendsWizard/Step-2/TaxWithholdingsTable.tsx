@@ -19,12 +19,16 @@ import {
   TaxWithholdingsItem,
 } from './shared';
 
+// Show updated fields always even if zero
+// On submission send only delta
+
 interface Props {
   taxWithholdings: TaxWithholdingsItem[];
   handleAddNewOpen: () => void;
+  handleEdit: (csvEthAddress: string) => void;
 }
 
-const columnsConfig: HeaderColumn[] = [
+const makeColumnsConfig = ({ handleEdit }: Props): HeaderColumn[] => [
   {
     Header: 'Investor ETH Address',
     accessor: csvEthAddressKey,
@@ -48,7 +52,7 @@ const columnsConfig: HeaderColumn[] = [
           height="1.4rem"
           color="gray.2"
           onClick={() => {
-            // editRow(cell.row.values);
+            handleEdit(cell.row.values[csvEthAddressKey]);
           }}
         />
         <IconButton
@@ -65,14 +69,14 @@ const columnsConfig: HeaderColumn[] = [
   },
 ];
 
-export const TaxWithholdingsTable: FC<Props> = ({
-  handleAddNewOpen,
-  taxWithholdings,
-}) => {
+export const TaxWithholdingsTable: FC<Props> = props => {
+  const { handleAddNewOpen, taxWithholdings } = props;
   const filteredTaxWithholdings = filter(
     taxWithholdings,
-    taxWithholding => taxWithholding['% Tax Withholding'] > 0
+    taxWithholding => taxWithholding[csvTaxWithholdingKey] > 0
   );
+
+  const columnsConfig = makeColumnsConfig(props);
 
   return (
     <Table columns={columnsConfig} data={filteredTaxWithholdings} selectable>

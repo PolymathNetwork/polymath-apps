@@ -5,7 +5,7 @@ import {
   yupToFormErrors,
 } from 'formik';
 import React, { Fragment, useState, useCallback, FC } from 'react';
-import { map } from 'lodash';
+import { map, find } from 'lodash';
 import {
   validators,
   formatters,
@@ -82,6 +82,7 @@ export const Step2: FC<Props> = ({
   downloadTaxWithholdingList,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
 
   const onSubmit = (values: FormValues) => {
@@ -105,6 +106,7 @@ export const Step2: FC<Props> = ({
   };
   const closeTaxWithhholdingModal = () => {
     setTaxWithholdingModalOpen(false);
+    setIsEditing(false);
   };
   const handleValidation = (values: FormValues) => {
     console.log('values', values);
@@ -140,12 +142,21 @@ export const Step2: FC<Props> = ({
           [csvTaxWithholdingKey]: null,
         },
       }}
-      render={({ values, touched, setFieldValue }) => {
+      render={({ values, setFieldValue }) => {
         const canProceedToNextStep = values.isTaxWithholdingConfirmed;
 
-        const addTaxWithholding = () => {
-          // setFieldValue();
+        const onEditTaxWithholding = (ethAddress: string) => {
+          const taxWithholding = find(
+            values.taxWithholdings,
+            item => item[csvEthAddressKey] === ethAddress
+          );
+
+          setFieldValue('currentTaxWithholding', taxWithholding);
+          setIsEditing(true);
+
+          openTaxWithhholdingModal();
         };
+
         return (
           <Card p="gridGap" boxShadow={1}>
             <Heading variant="h2" mb="l">
@@ -228,10 +239,12 @@ export const Step2: FC<Props> = ({
                   fieldProps={fieldProps}
                   isOpen={taxWithholdingModalOpen}
                   onClose={closeTaxWithhholdingModal}
+                  isEditing={isEditing}
                 />
               )}
             />
             <TaxWithholdingsTable
+              handleEdit={onEditTaxWithholding}
               handleAddNewOpen={openTaxWithhholdingModal}
               taxWithholdings={values.taxWithholdings}
             />

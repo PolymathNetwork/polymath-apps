@@ -9,7 +9,11 @@ import {
   Grid,
 } from '@polymathnetwork/new-ui';
 import { validators, formatters, types } from '@polymathnetwork/new-shared';
-import { csvEthAddressKey, csvTaxWithholdingKey } from './shared';
+import {
+  csvEthAddressKey,
+  csvTaxWithholdingKey,
+  TaxWithholdingsItem,
+} from './shared';
 
 interface Props {
   isOpen: boolean;
@@ -34,9 +38,13 @@ export const CsvModal: FC<Props> = ({
     onConfirm(taxWithholdings);
   };
 
-  const onChangeCsv = (result: any[] | null) => {
+  const onChangeCsv = (result: TaxWithholdingsItem[] | null) => {
     if (result) {
-      setTaxWithholdings(result);
+      const formattedValues = result.map((value: TaxWithholdingsItem) => ({
+        ...value,
+        [csvTaxWithholdingKey]: value[csvTaxWithholdingKey] / 100,
+      }));
+      setTaxWithholdings(formattedValues);
     }
   };
 

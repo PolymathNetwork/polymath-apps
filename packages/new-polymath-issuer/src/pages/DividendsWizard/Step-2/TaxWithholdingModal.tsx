@@ -18,6 +18,7 @@ import { FieldProps } from 'formik';
 
 interface Props {
   isOpen: boolean;
+  isEditing: boolean;
   onClose: () => void;
   taxWithholdingData?: TaxWithholdingsItem;
   fieldProps: FieldProps<any>;
@@ -26,11 +27,11 @@ interface Props {
 export const TaxWithholdingModal: FC<Props> = ({
   isOpen,
   onClose,
-  taxWithholdingData,
+  // taxWithholdingData,
+  isEditing,
   fieldProps,
 }) => {
   const { field, form } = fieldProps;
-  const isEditing = !!taxWithholdingData;
 
   const onSubmit = () => {
     const isValid = !get(form.errors, field.name);
@@ -39,8 +40,9 @@ export const TaxWithholdingModal: FC<Props> = ({
     }
 
     const value = field.value as TaxWithholdingsItem;
-    const formTaxWithholdings = form.values
-      .taxWithholdings as TaxWithholdingsItem[];
+    const formTaxWithholdings = [
+      ...form.values.taxWithholdings,
+    ] as TaxWithholdingsItem[];
 
     const matchingIndex = findIndex(
       formTaxWithholdings,
@@ -51,25 +53,24 @@ export const TaxWithholdingModal: FC<Props> = ({
     const alreadyExists = matchingIndex !== -1;
 
     if (isEditing || alreadyExists) {
-      const editedTaxWithholdings = formTaxWithholdings.splice(
-        matchingIndex,
-        1,
-        value
-      );
+      console.log('Value to add', value);
+      formTaxWithholdings.splice(matchingIndex, 1, value);
+      // formTaxWithholdings[matchingIndex] = value;
 
-      form.setFieldValue('taxWithholdings', editedTaxWithholdings);
-      form.setFieldValue(field.name, null);
-      form.setFieldTouched(field.name, false);
-      onClose();
+      form.setFieldValue('taxWithholdings', formTaxWithholdings);
     } else {
       form.setFieldValue('taxWithholdings', [
         ...formTaxWithholdings,
         field.value,
       ]);
-      form.setFieldValue(field.name, null);
-      form.setFieldTouched(field.name, false);
-      onClose();
     }
+
+    form.setFieldValue(field.name, {
+      [csvTaxWithholdingKey]: null,
+      [csvEthAddressKey]: '',
+    });
+    form.setFieldTouched(field.name, false);
+    onClose();
   };
 
   // NOTE @RafaelVidaurre: Workaround to avoid broken dirty-checking
@@ -80,11 +81,17 @@ export const TaxWithholdingModal: FC<Props> = ({
       }
 
       form.setFieldTouched(field.name, false);
-      if (taxWithholdingData) {
-        form.setFieldValue(field.name, {
-          ...taxWithholdingData,
-        });
-      } else {
+      // if (taxWithholdingData) {
+      //   form.setFieldValue(field.name, {
+      //     ...taxWithholdingData,
+      //   });
+      // } else {
+      //   form.setFieldValue(field.name, {
+      //     [csvEthAddressKey]: '',
+      //     [csvTaxWithholdingKey]: null,
+      //   });
+      // }
+      if (!isEditing) {
         form.setFieldValue(field.name, {
           [csvEthAddressKey]: '',
           [csvTaxWithholdingKey]: null,

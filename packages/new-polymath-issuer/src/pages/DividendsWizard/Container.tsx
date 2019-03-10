@@ -60,7 +60,7 @@ export interface CreateDividendDistributionParams {
 
 export class ContainerBase extends Component<Props, State> {
   public state = {
-    step: 1,
+    step: 0,
   };
 
   public nextStep = () => {
