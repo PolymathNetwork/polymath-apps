@@ -5,7 +5,7 @@ import {
   yupToFormErrors,
 } from 'formik';
 import React, { Fragment, useState, useCallback, FC } from 'react';
-import { map, find, each, some, filter, includes } from 'lodash';
+import { map, find, each, filter, includes } from 'lodash';
 import {
   validators,
   formatters,
@@ -263,9 +263,9 @@ export const Step2: FC<Props> = ({
                     form.setFieldValue(field.name, value);
                     closeCsvModal();
                   }}
+                  existingTaxWithholdings={existingTaxWithholdings}
                   isOpen={csvModalOpen}
                   onClose={closeCsvModal}
-                  formTaxWithholdings={field.value}
                 />
               )}
             />
