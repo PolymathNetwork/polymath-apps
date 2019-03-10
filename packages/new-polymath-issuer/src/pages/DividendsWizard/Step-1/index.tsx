@@ -6,16 +6,15 @@ import {
   Icon,
   icons,
   Heading,
-  Grid,
   Card,
   Paragraph,
-  Link,
   Remark,
   ModalConfirm,
   FormItem,
   Checkbox,
   CsvUploader,
   Form,
+  LinkButton,
 } from '@polymathnetwork/new-ui';
 import { ExclusionEntry } from '../Presenter';
 
@@ -72,9 +71,9 @@ export const Step1: FC<Step1Props> = ({
           </Paragraph>
           <Paragraph>
             You can download
-            <Link onClick={downloadSampleExclusionList}>
+            <LinkButton onClick={downloadSampleExclusionList}>
               <Icon Asset={icons.SvgDownload} /> Sample-Exclusion-List.csv
-            </Link>{' '}
+            </LinkButton>{' '}
             example file and edit it.
           </Paragraph>
           <Button

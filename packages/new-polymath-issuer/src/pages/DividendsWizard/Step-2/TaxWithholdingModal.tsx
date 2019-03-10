@@ -1,10 +1,11 @@
 import React, { FC, useState, Fragment, useEffect } from 'react';
 import { types } from '@polymathnetwork/new-shared';
-import { get, findIndex } from 'lodash';
+import { get, some, findIndex } from 'lodash';
 import {
   TaxWithholdingsItem,
   csvEthAddressKey,
   csvTaxWithholdingKey,
+  TaxWithholdingStatuses,
 } from '~/pages/DividendsWizard/Step-2/shared';
 import {
   ModalConfirm,
@@ -21,6 +22,7 @@ interface Props {
   isEditing: boolean;
   onClose: () => void;
   taxWithholdingData?: TaxWithholdingsItem;
+  existingTaxWithholdings: types.TaxWithholdingPojo[];
   fieldProps: FieldProps<any>;
 }
 
@@ -28,6 +30,7 @@ export const TaxWithholdingModal: FC<Props> = ({
   isOpen,
   onClose,
   // taxWithholdingData,
+  existingTaxWithholdings,
   isEditing,
   fieldProps,
 }) => {
@@ -53,12 +56,34 @@ export const TaxWithholdingModal: FC<Props> = ({
     const alreadyExists = matchingIndex !== -1;
 
     if (isEditing || alreadyExists) {
-      formTaxWithholdings.splice(matchingIndex, 1, value);
+      // Mark as updated if the entry already existed and was actually updated
+      const isUpdated = some(
+        existingTaxWithholdings,
+        existingTaxWithholding => {
+          return (
+            existingTaxWithholding.investorAddress ===
+              value[csvEthAddressKey] &&
+            value[csvTaxWithholdingKey] !== existingTaxWithholding.percentage
+          );
+        }
+      );
+
+      const finalValue = { ...value };
+
+      if (isUpdated) {
+        finalValue.status = TaxWithholdingStatuses.Updated;
+      } else if (finalValue.status === TaxWithholdingStatuses.Updated) {
+        delete finalValue.status;
+      }
+
+      formTaxWithholdings.splice(matchingIndex, 1, finalValue);
       form.setFieldValue('taxWithholdings', formTaxWithholdings);
     } else {
+      const finalValue = { ...value, status: TaxWithholdingStatuses.New };
+
       form.setFieldValue('taxWithholdings', [
         ...formTaxWithholdings,
-        field.value,
+        finalValue,
       ]);
     }
 

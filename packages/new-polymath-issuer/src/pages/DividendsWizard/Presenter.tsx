@@ -31,6 +31,13 @@ export interface Props {
   securityTokenSymbol: string;
   checkpoint: types.CheckpointEntity;
   onNextStep: () => void;
+  onPreviousStep: () => void;
+  updateTaxWithholdingList: (
+    values: Array<{
+      investorAddress: string;
+      percentage: number;
+    }>
+  ) => void;
   taxWithholdings: types.TaxWithholdingEntity[];
   downloadTaxWithholdingList: (
     taxWithholdings: types.TaxWithholdingEntity[]
@@ -62,6 +69,7 @@ export class Presenter extends Component<Props> {
       downloadTaxWithholdingList,
       createDividendDistribution,
       downloadSampleExclusionList,
+      updateTaxWithholdingList,
     } = this.props;
     const { excludedWallets } = this.state;
 
@@ -71,6 +79,7 @@ export class Presenter extends Component<Props> {
           <Step2
             downloadTaxWithholdingList={downloadTaxWithholdingList}
             existingTaxWithholdings={taxWithholdings}
+            updateTaxWithholdingList={updateTaxWithholdingList}
             onNextStep={onNextStep}
           />
         );
@@ -98,7 +107,25 @@ export class Presenter extends Component<Props> {
   };
 
   public render() {
-    const { stepIndex, securityTokenSymbol, checkpoint } = this.props;
+    const {
+      stepIndex,
+      securityTokenSymbol,
+      checkpoint,
+      onPreviousStep,
+    } = this.props;
+
+    const backLinkProps: {
+      onClick?: () => void;
+      href: string;
+    } = {
+      href: `/securityTokens/${securityTokenSymbol}/dividends`,
+    };
+
+    if (stepIndex > 0) {
+      backLinkProps.onClick = () => {
+        this.setState({ stepIndex });
+      };
+    }
 
     return (
       <div>
@@ -106,7 +133,7 @@ export class Presenter extends Component<Props> {
           <ButtonLink
             variant="ghostSecondary"
             iconPosition="right"
-            href={`/securityTokens/${securityTokenSymbol}/dividends`}
+            {...backLinkProps}
           >
             Go back
             <Icon Asset={icons.SvgArrow} width={18} height={18} />
@@ -117,25 +144,6 @@ export class Presenter extends Component<Props> {
         </Heading>
         <GridRow>
           <GridRow.Col gridSpan={{ sm: 12, lg: 8 }}>
-            {/* <Form
-              validate={this.handleValidation}
-              onSubmit={this.handleSubmit}
-              render={formProps => {
-                const StepComponent = getStepComponent(stepIndex);
-
-                const commonProps = {
-                  onSubmitStep: onNextStep,
-                  taxWithholdings,
-                  ...formProps,
-                };
-
-                return (
-                  <form onSubmit={formProps.handleSubmit}>
-                    <StepComponent {...commonProps} />
-                  </form>
-                );
-              }}
-            /> */}
             {this.renderStepComponent()}
           </GridRow.Col>
           <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>

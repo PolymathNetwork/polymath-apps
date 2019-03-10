@@ -7,12 +7,7 @@ import {
   createTaxWithholdingListBySymbolFetcher,
   createCheckpointBySymbolAndIdFetcher,
 } from '~/state/fetchers';
-import {
-  types,
-  formatters,
-  utils,
-  constants,
-} from '@polymathnetwork/new-shared';
+import { types, formatters, utils } from '@polymathnetwork/new-shared';
 import { DateTime } from 'luxon';
 import {
   updateTaxWithholdingListStart,
@@ -67,6 +62,14 @@ export class ContainerBase extends Component<Props, State> {
     });
   };
 
+  public previousStep = () => {
+    const { step } = this.state;
+
+    this.setState({
+      step: step - 1,
+    });
+  };
+
   public createDividendDistribution = ({
     erc20Address,
     amount,
@@ -100,7 +103,10 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public updateTaxWithholdingList = (
-    taxWithholdings: types.TaxWithholdingPojo[]
+    taxWithholdings: Array<{
+      investorAddress: string;
+      percentage: number;
+    }>
   ) => {
     const { securityTokenSymbol, dispatch } = this.props;
     const investorAddresses: string[] = [];
@@ -198,10 +204,12 @@ export class ContainerBase extends Component<Props, State> {
             return (
               <Presenter
                 createDividendDistribution={this.createDividendDistribution}
+                updateTaxWithholdingList={this.updateTaxWithholdingList}
                 stepIndex={step}
                 securityTokenSymbol={securityTokenSymbol}
                 checkpoint={checkpoint}
                 onNextStep={this.nextStep}
+                onPreviousStep={this.previousStep}
                 taxWithholdings={taxWithholdings}
                 downloadTaxWithholdingList={this.downloadTaxWithholdingList}
                 downloadSampleExclusionList={this.downloadSampleExclusionList}

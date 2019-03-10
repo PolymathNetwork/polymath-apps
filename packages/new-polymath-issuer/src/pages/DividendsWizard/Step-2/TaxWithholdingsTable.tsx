@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from 'react';
 import { HeaderColumn } from 'react-table';
-import { filter } from 'lodash';
-import { types, formatters } from '@polymathnetwork/new-shared';
+import { filter, remove, find, map } from 'lodash';
+import { formatters } from '@polymathnetwork/new-shared';
 import {
   Table,
   Flex,
@@ -12,23 +12,24 @@ import {
   InlineFlex,
   Icon,
   Button,
+  Label,
 } from '@polymathnetwork/new-ui';
 import {
   csvEthAddressKey,
   csvTaxWithholdingKey,
   TaxWithholdingsItem,
+  TaxWithholdingStatuses,
 } from './shared';
-
-// Show updated fields always even if zero
-// On submission send only delta
 
 interface Props {
   taxWithholdings: TaxWithholdingsItem[];
-  handleAddNewOpen: () => void;
-  handleEdit: (csvEthAddress: string) => void;
+  onAddNewOpen: () => void;
+  onEdit: (csvEthAddress: string) => void;
+  onDelete: (addresses: string[]) => void;
+  onSubmit: () => void;
 }
 
-const makeColumnsConfig = ({ handleEdit }: Props): HeaderColumn[] => [
+const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
   {
     Header: 'Investor ETH Address',
     accessor: csvEthAddressKey,
@@ -39,7 +40,17 @@ const makeColumnsConfig = ({ handleEdit }: Props): HeaderColumn[] => [
     Header: '% Tax Witholding for Associated ETH Address',
     accessor: csvTaxWithholdingKey,
     width: 250,
-    Cell: ({ value }) => `${value}%`,
+    Cell: ({ value }) => formatters.toPercent(value),
+  },
+  {
+    Header: '',
+    accessor: 'status',
+    width: 150,
+    Cell: ({ value }) => {
+      // TODO @RafaelVidaurre: Use proper component for this
+      // TODO @RafaelVidaurre: Confirm we want to use different text for different statuses
+      return value && <Label color="secondary">{value}</Label>;
+    },
   },
   {
     accessor: 'actions',
@@ -52,7 +63,7 @@ const makeColumnsConfig = ({ handleEdit }: Props): HeaderColumn[] => [
           height="1.4rem"
           color="gray.2"
           onClick={() => {
-            handleEdit(cell.row.values[csvEthAddressKey]);
+            onEdit(cell.row.values[csvEthAddressKey]);
           }}
         />
         <IconButton
@@ -61,7 +72,7 @@ const makeColumnsConfig = ({ handleEdit }: Props): HeaderColumn[] => [
           height="1.4rem"
           color="gray.2"
           onClick={() => {
-            // deleteRow(cell.row.values.investorWalletAddress)
+            onDelete([cell.row.values[csvEthAddressKey]]);
           }}
         />
       </Table.RowActions>
@@ -70,10 +81,11 @@ const makeColumnsConfig = ({ handleEdit }: Props): HeaderColumn[] => [
 ];
 
 export const TaxWithholdingsTable: FC<Props> = props => {
-  const { handleAddNewOpen, taxWithholdings } = props;
+  const { onAddNewOpen, taxWithholdings, onDelete, onSubmit } = props;
   const filteredTaxWithholdings = filter(
     taxWithholdings,
-    taxWithholding => taxWithholding[csvTaxWithholdingKey] > 0
+    taxWithholding =>
+      taxWithholding[csvTaxWithholdingKey] > 0 || taxWithholding.status
   );
 
   const columnsConfig = makeColumnsConfig(props);
@@ -88,12 +100,14 @@ export const TaxWithholdingsTable: FC<Props> = props => {
                 <ButtonSmall
                   variant="secondary"
                   iconPosition="right"
-                  onClick={() => {}}
+                  onClick={() => {
+                    onSubmit();
+                  }}
                 >
                   Update <Icon Asset={icons.SvgCycle} />
                 </ButtonSmall>
                 <InlineFlex ml="m">
-                  <ButtonSmall iconPosition="right" onClick={handleAddNewOpen}>
+                  <ButtonSmall iconPosition="right" onClick={onAddNewOpen}>
                     Add new <Icon Asset={icons.SvgPlusPlain} />
                   </ButtonSmall>
                 </InlineFlex>
@@ -105,16 +119,12 @@ export const TaxWithholdingsTable: FC<Props> = props => {
       <Table.BatchActionsToolbar>
         {(batchActionProps: any) => {
           const handleDeleteRows = () => {
-            // setWithholdingList(
-            //   _.remove(withholdingList, item => {
-            //     return _.find(batchActionProps.selectedRows, o => {
-            //       return (
-            //         o.values.investorWalletAddress !==
-            //         item.investorWalletAddress
-            //       );
-            //     });
-            //   })
-            // );
+            const addresses = map(
+              batchActionProps.selectedRows,
+              (row: any) => row.values[csvEthAddressKey]
+            );
+
+            onDelete(addresses);
           };
 
           return (
