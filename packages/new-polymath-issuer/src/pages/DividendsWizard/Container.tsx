@@ -22,7 +22,7 @@ import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
-import { range } from 'lodash';
+import { range, padStart } from 'lodash';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -156,7 +156,9 @@ export class ContainerBase extends Component<Props, State> {
     const fileName = 'Sample-Exclusion-List.csv';
 
     utils.downloadCsvFile(
-      range(10).map(() => ({ investorAddress: constants.EMPTY_ADDRESS })),
+      range(10).map(i => ({
+        investorAddress: `0x${padStart(`${i + 1}`, 40, '0')}`,
+      })),
       fileName,
       {
         fields: [

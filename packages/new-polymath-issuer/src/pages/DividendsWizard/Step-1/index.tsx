@@ -110,26 +110,17 @@ export const Step1: FC<Step1Props> = ({
                   csvConfig: {
                     columns: [
                       {
-                        name: 'Address',
+                        name: 'Investor ETH Address',
                         validators: [
                           validators.isString,
+                          validators.isEthereumAddress,
                           validators.isNotEmpty,
                         ],
                         required: true,
                       },
-                      {
-                        name: 'Sale Lockup',
-                        validators: [validators.isDate, validators.isNotEmpty],
-                        required: true,
-                      },
-                      {
-                        name: 'Purchase Lockup',
-                        validators: [validators.isDate, validators.isNotEmpty],
-                        required: true,
-                      },
                     ],
                     header: true,
-                    maxRows: 3,
+                    maxRows: 100,
                   },
                 }}
               >
@@ -138,19 +129,11 @@ export const Step1: FC<Step1Props> = ({
                   tableConfig={{
                     columns: [
                       {
-                        accessor: 'Address',
-                        Header: 'Address',
+                        accessor: 'Investor ETH Address',
+                        Header: 'Investor ETH Address',
                         Cell: ({ value }) =>
                           value &&
                           formatters.toShortAddress(value, { size: 26 }),
-                      },
-                      {
-                        accessor: 'Sale Lockup',
-                        Header: 'Sale Lockup',
-                      },
-                      {
-                        accessor: 'Purchase Lockup',
-                        Header: 'Purchase Lockup',
                       },
                     ],
                   }}
