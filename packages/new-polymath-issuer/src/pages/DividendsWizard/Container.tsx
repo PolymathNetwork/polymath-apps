@@ -71,6 +71,14 @@ export class ContainerBase extends Component<Props, State> {
     });
   };
 
+  public previousStep = () => {
+    const { step } = this.state;
+
+    this.setState({
+      step: step - 1,
+    });
+  };
+
   public createDividendDistribution = ({
     erc20Address,
     amount,
@@ -191,6 +199,7 @@ export class ContainerBase extends Component<Props, State> {
                 securityTokenSymbol={securityTokenSymbol}
                 checkpoint={checkpoint}
                 onNextStep={this.nextStep}
+                onPreviousStep={this.previousStep}
                 taxWithholdings={taxWithholdings}
                 downloadTaxWithholdingList={this.downloadTaxWithholdingList}
               />

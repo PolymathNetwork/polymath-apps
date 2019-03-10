@@ -29,6 +29,7 @@ export interface Props {
   securityTokenSymbol: string;
   checkpoint: types.CheckpointEntity;
   onNextStep: () => void;
+  onPreviousStep: () => void;
   updateTaxWithholdingList: (
     values: Array<{
       investorAddress: string;
@@ -118,7 +119,23 @@ export class Presenter extends Component<Props> {
   };
 
   public render() {
-    const { stepIndex, securityTokenSymbol, checkpoint } = this.props;
+    const {
+      stepIndex,
+      securityTokenSymbol,
+      checkpoint,
+      onPreviousStep,
+    } = this.props;
+
+    const backLinkProps: {
+      onClick?: () => void;
+      href?: string;
+    } = {};
+
+    if (stepIndex === 0) {
+      backLinkProps.href = `/securityTokens/${securityTokenSymbol}/dividends`;
+    } else {
+      backLinkProps.onClick = onPreviousStep;
+    }
 
     return (
       <div>
@@ -126,7 +143,7 @@ export class Presenter extends Component<Props> {
           <ButtonLink
             variant="ghostSecondary"
             iconPosition="right"
-            href={`/securityTokens/${securityTokenSymbol}/dividends`}
+            {...backLinkProps}
           >
             Go back
             <Icon Asset={icons.SvgArrow} width={18} height={18} />
