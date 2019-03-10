@@ -199,7 +199,7 @@ export class ContainerBase extends Component<Props, State> {
                 securityTokenSymbol={securityTokenSymbol}
                 checkpoint={checkpoint}
                 onNextStep={this.nextStep}
-                // onPreviousStep={this.previousStep}
+                onPreviousStep={this.previousStep}
                 taxWithholdings={taxWithholdings}
                 downloadTaxWithholdingList={this.downloadTaxWithholdingList}
               />

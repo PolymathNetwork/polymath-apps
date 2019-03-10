@@ -126,26 +126,23 @@ export class Presenter extends Component<Props> {
       onPreviousStep,
     } = this.props;
 
-    const backLinkProps: {
-      onClick?: () => void;
-      href: string;
-    } = {
-      href: `/securityTokens/${securityTokenSymbol}/dividends`,
-    };
-
-    if (stepIndex > 0) {
-      backLinkProps.onClick = () => {
-        this.setState({ stepIndex });
-      };
-    }
-
     return (
       <div>
         <Text color="primary">
           <ButtonLink
             variant="ghostSecondary"
             iconPosition="right"
-            {...backLinkProps}
+            href={`/securityTokens/${securityTokenSymbol}/dividends`}
+            onClick={(
+              event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+            ) => {
+              // TODO @RafaelVidaurre: Fix this by using the right component
+              if (stepIndex > 0) {
+                onPreviousStep();
+                event.preventDefault();
+                event.stopPropagation();
+              }
+            }}
           >
             Go back
             <Icon Asset={icons.SvgArrow} width={18} height={18} />
