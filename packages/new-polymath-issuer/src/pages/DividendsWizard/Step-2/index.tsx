@@ -5,7 +5,7 @@ import {
   yupToFormErrors,
 } from 'formik';
 import React, { Fragment, useState, useCallback, FC } from 'react';
-import { map, find } from 'lodash';
+import { map, find, filter, includes } from 'lodash';
 import {
   validators,
   formatters,
@@ -109,13 +109,10 @@ export const Step2: FC<Props> = ({
     setIsEditing(false);
   };
   const handleValidation = (values: FormValues) => {
-    console.log('values', values);
-
     try {
       validateYupSchema(values, schema, true);
     } catch (err) {
       const errors = yupToFormErrors(err);
-      console.log('errors', errors);
       return errors;
     }
   };
@@ -145,7 +142,7 @@ export const Step2: FC<Props> = ({
       render={({ values, setFieldValue }) => {
         const canProceedToNextStep = values.isTaxWithholdingConfirmed;
 
-        const onEditTaxWithholding = (ethAddress: string) => {
+        const handleEdit = (ethAddress: string) => {
           const taxWithholding = find(
             values.taxWithholdings,
             item => item[csvEthAddressKey] === ethAddress
@@ -155,6 +152,16 @@ export const Step2: FC<Props> = ({
           setIsEditing(true);
 
           openTaxWithhholdingModal();
+        };
+
+        const handleDelete = (addresses: string[]) => {
+          const modifiedTaxWithholdings = filter(
+            values.taxWithholdings,
+            taxWithholding =>
+              includes(addresses, taxWithholding[csvEthAddressKey])
+          );
+
+          setFieldValue('taxWithholdings', modifiedTaxWithholdings);
         };
 
         return (
@@ -244,9 +251,10 @@ export const Step2: FC<Props> = ({
               )}
             />
             <TaxWithholdingsTable
-              handleEdit={onEditTaxWithholding}
-              handleAddNewOpen={openTaxWithhholdingModal}
+              onEdit={handleEdit}
+              onAddNewOpen={openTaxWithhholdingModal}
               taxWithholdings={values.taxWithholdings}
+              onDelete={handleDelete}
             />
             <Heading variant="h3" mt="m">
               Confirm Tax Withholdings

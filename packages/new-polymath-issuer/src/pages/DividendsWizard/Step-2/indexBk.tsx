@@ -243,11 +243,6 @@ const Step2Presenter = ({
     [taxWithholdings]
   );
 
-  console.log(
-    'values.isTaxWithholdingConfirmed',
-    values.isTaxWithholdingConfirmed
-  );
-
   const canProceedToNextStep =
     values.isTaxWithholdingConfirmed ||
     (values.taxWithholdingsCsv && values.taxWithholdingsCsv.length);
