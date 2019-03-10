@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { map, each } from 'lodash';
 import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import {
@@ -12,10 +13,7 @@ import { CsvErrors } from './CsvErrors';
 import { CsvPreview } from './CsvPreview';
 
 type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
-type Value<Output extends csvParser.Output> =
-  | csvParser.ResultRow<Output>[]
-  | csvParser.ResultProps<Output>[][]
-  | null;
+type Value<Output extends csvParser.Output> = Output[] | null;
 
 interface ComponentProps<Output extends csvParser.Output>
   extends ParseCsvRenderProps<Output> {
@@ -47,8 +45,17 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
     }
 
     if (isFileValid) {
-      console.log('result', result);
-      onChange(result);
+      const formattedResult = map(result, ({ data }) => {
+        const res: any = {};
+
+        each(data, (item, key) => {
+          res[key] = item.value;
+        });
+
+        return res;
+      });
+
+      onChange(formattedResult);
     } else {
       onChange(null);
     }
