@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, Component } from 'react';
+import React, { Component } from 'react';
 import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import {
@@ -26,38 +26,32 @@ interface ComponentProps<Output extends csvParser.Output>
 class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
   ComponentProps<Output>
 > {
+  public handleFileUploaderChange = (file: File | File[] | null) => {
+    const { setFile, clearFile } = this.props;
+    clearFile();
+    if (file instanceof File) {
+      setFile(file);
+    } else {
+      throw new Error('Must supply a single file to the CSV uploader.');
+    }
+  };
+
+  public componentDidUpdate() {
+    const { data: { isFileValid, result }, onChange } = this.props;
+
+    if (isFileValid) {
+      onChange(result);
+    } else {
+      onChange(null);
+    }
+  }
+
   public render() {
     const {
-      clearFile,
-      setFile,
       data,
       csvConfig,
-      onChange,
       children,
     } = this.props;
-
-    const handleFileUploaderChange = useCallback(
-      (file: File | File[] | null) => {
-        clearFile();
-        if (file instanceof File) {
-          setFile(file);
-        } else {
-          throw new Error('Must supply a single file to the CSV uploader.');
-        }
-      },
-      []
-    );
-
-    useEffect(
-      () => {
-        if (data.isFileValid) {
-          onChange(data.result);
-        } else {
-          onChange(null);
-        }
-      },
-      [data.isFileValid]
-    );
 
     const Context = getContext();
 
@@ -75,7 +69,7 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
       <sc.Wrapper>
         <FileUploaderPrimitive
           accept=".csv"
-          onChange={handleFileUploaderChange}
+          onChange={this.handleFileUploaderChange}
         />
         {!!data.result.length ? (
           <Context.Provider
