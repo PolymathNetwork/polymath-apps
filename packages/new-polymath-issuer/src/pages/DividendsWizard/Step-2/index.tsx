@@ -154,8 +154,6 @@ export const Step2: FC<Props> = ({
     }
   );
 
-  console.log('existingTaxWithholdings', existingTaxWithholdings);
-
   return (
     <Form<FormValues>
       onSubmit={onSubmit}
