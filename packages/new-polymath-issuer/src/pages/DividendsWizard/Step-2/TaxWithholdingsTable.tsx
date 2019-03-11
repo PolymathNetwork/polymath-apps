@@ -91,7 +91,20 @@ export const TaxWithholdingsTable: FC<Props> = props => {
   const columnsConfig = makeColumnsConfig(props);
 
   return (
-    <Table columns={columnsConfig} data={filteredTaxWithholdings} selectable>
+    <Table
+      columns={columnsConfig}
+      data={
+        filteredTaxWithholdings.length
+          ? filteredTaxWithholdings
+          : [
+              {
+                [csvEthAddressKey]: null,
+                [csvTaxWithholdingKey]: null,
+              },
+            ]
+      }
+      selectable
+    >
       <Table.Toolbar>
         {() => {
           return (

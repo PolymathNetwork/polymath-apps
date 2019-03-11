@@ -22,7 +22,11 @@ export const Row: FC<Props> = ({ row, small }) => {
           small={small}
           hasError={cell.isValid === false}
         >
-          {cell.render('Cell')}
+          {typeof cell.value === 'undefined' // if explicitly `null`, display "-"
+            ? null
+            : cell.value === null
+            ? '-'
+            : cell.render('Cell')}
         </sc.Cell>
       ))}
     </sc.Row>

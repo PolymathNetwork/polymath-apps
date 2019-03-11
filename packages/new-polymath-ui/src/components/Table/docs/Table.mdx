@@ -141,3 +141,29 @@ import { columns, data } from './data';
 
   </Table>
 </Playground>
+
+## Empty state
+
+<Playground>
+  {() => {
+    return (
+      <Table
+        {...{
+          data: [
+            {
+              firstName: null,
+              lastName: null,
+              age: null,
+              visits: null,
+              status: null,
+            },
+          ],
+          columns,
+        }}
+      >
+        <Table.Rows />
+        <Table.Pagination />
+      </Table>
+    );
+  }}
+</Playground>
