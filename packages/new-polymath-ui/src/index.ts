@@ -1,3 +1,5 @@
+import { Field, FastField } from 'formik';
+
 import { theme } from './styles/theme';
 
 import { SvgAccount } from './images/icons/generated/Account';
@@ -5,6 +7,7 @@ import { SvgArrow } from './images/icons/generated/Arrow';
 import { SvgCalendar } from './images/icons/generated/Calendar';
 import { SvgCaretDown } from './images/icons/generated/CaretDown';
 import { SvgCaretDown2 } from './images/icons/generated/CaretDown2';
+import { SvgCycle } from './images/icons/generated/Cycle';
 import { SvgDot } from './images/icons/generated/Dot';
 import { SvgDownload } from './images/icons/generated/Download';
 import { SvgErc20 } from './images/icons/generated/Erc20';
@@ -18,6 +21,8 @@ import { SvgPlusPlain } from './images/icons/generated/PlusPlain';
 import { SvgWarning } from './images/icons/generated/Warning';
 import { SvgTaxes } from './images/icons/generated/Taxes';
 import { SvgDelete } from './images/icons/generated/Delete';
+
+export { Field, FastField };
 
 // Styles
 export * from './styles';
@@ -43,7 +48,11 @@ export { ButtonLink } from './components/ButtonLink';
 export { Card } from './components/Card';
 export { CardPrimary } from './components/CardPrimary';
 export { CardFeatureState } from './components/CardFeatureState';
-export { CsvUploader } from './components/CsvUploader';
+export {
+  CsvUploader,
+  ParseCsv,
+  CsvUploaderPrimitive,
+} from './components/CsvUploader';
 export { ErrorBoundary } from './components/ErrorBoundary';
 export { Footer } from './components/Footer';
 export { Form } from './components/Form';
@@ -87,6 +96,7 @@ export const icons = {
   SvgCalendar,
   SvgCaretDown,
   SvgCaretDown2,
+  SvgCycle,
   SvgDot,
   SvgDownload,
   SvgErc20,

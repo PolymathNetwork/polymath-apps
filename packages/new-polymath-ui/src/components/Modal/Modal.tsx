@@ -68,6 +68,7 @@ class ModalBase extends Component<Props, State> {
         isOpen={isOpen}
         contentLabel="Modal"
         closeTimeoutMS={theme.transitions.modal.ms}
+        ariaHideApp={false}
         className={{
           base: 'pui-modal',
           afterOpen: 'pui-modal--after-open',

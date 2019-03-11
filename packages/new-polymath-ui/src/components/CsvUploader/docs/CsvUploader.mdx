@@ -34,6 +34,7 @@ import { CsvUploader, CsvUploaderPrimitive } from '../';
         },
       ],
       header: true,
+      strict: true,
     }}
     onChange={() => {}}
   >
@@ -85,11 +86,6 @@ import { CsvUploader, CsvUploaderPrimitive } from '../';
               ],
               header: true,
               maxRows: 2,
-              missingRequiredColumnsErrorMessage:
-                'Some required columns do not exist in the CSV',
-              extraColumnsErrorMessage: 'the CSV file contains extra columns',
-              rowsExceedMaxLimitErrorMessage:
-                'The CSV file contains more columns than the maximum limit',
             }}
           />
         </FormItem>

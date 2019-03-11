@@ -1,4 +1,5 @@
 import { styled } from '~/styles';
+import { Text } from '~/components/Text';
 import { Box } from '~/components/Box';
 import { InlineFlex } from '~/components/InlineFlex';
 import { IconButton } from '~/components/IconButton';
@@ -22,6 +23,12 @@ export const Dropzone = styled(Box)`
 export const File = styled(InlineFlex)`
   background-color: ${({ theme }) => theme.colors.gray[1]};
   padding: ${({ theme }) => theme.space.s};
+`;
+
+export const FileName = styled(Text)`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 export const FileRemoveButton = styled(IconButton)`
