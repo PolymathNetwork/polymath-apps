@@ -27,7 +27,7 @@ export function* enableErc20DividendsModule(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
