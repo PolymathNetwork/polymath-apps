@@ -269,17 +269,21 @@ export const Step2: FC<Props> = ({
                 />
               )}
             />
-            <Remark>
-              Taxes will be withheld by the dividends smart contract at the time
-              dividends are distributed. Withholdings can subsequently be
-              withdrawn into a designated wallet for tax payments.
-              <br />
-              <strong>Maximum number of entries per transaction is 200.</strong>
-              <br />
-              If you want to withhold taxes for more than 200 wallets, please
-              breakdown the list in 200 wallets increments and upload them one
-              at a time.
-            </Remark>
+            <Box mt="m">
+              <Remark>
+                Taxes will be withheld by the dividends smart contract at the
+                time dividends are distributed. Withholdings can subsequently be
+                withdrawn into a designated wallet for tax payments.
+                <br />
+                <strong>
+                  Maximum number of entries per transaction is 200.
+                </strong>
+                <br />
+                If you want to withhold taxes for more than 200 wallets, please
+                breakdown the list in 200 wallets increments and upload them one
+                at a time.
+              </Remark>
+            </Box>
 
             <Field
               name="currentTaxWithholding"
@@ -306,7 +310,7 @@ export const Step2: FC<Props> = ({
               taxWithholdings={values.taxWithholdings}
               onDelete={handleDelete}
             />
-            <Heading variant="h3" mt="m">
+            <Heading variant="h3" mt="4">
               Confirm Tax Withholdings
             </Heading>
             <Paragraph>

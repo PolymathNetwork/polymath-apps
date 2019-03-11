@@ -93,28 +93,24 @@ export const TaxWithholdingsTable: FC<Props> = props => {
   return (
     <Table columns={columnsConfig} data={filteredTaxWithholdings} selectable>
       <Table.Toolbar>
-        {() => {
-          return (
-            <Flex>
-              <Box ml="auto">
-                <ButtonSmall
-                  variant="secondary"
-                  iconPosition="right"
-                  onClick={() => {
-                    onSubmit();
-                  }}
-                >
-                  Update <Icon Asset={icons.SvgCycle} />
-                </ButtonSmall>
-                <InlineFlex ml="m">
-                  <ButtonSmall iconPosition="right" onClick={onAddNewOpen}>
-                    Add new <Icon Asset={icons.SvgPlusPlain} />
-                  </ButtonSmall>
-                </InlineFlex>
-              </Box>
-            </Flex>
-          );
-        }}
+        {() => (
+          <Box ml="auto">
+            <ButtonSmall
+              variant="secondary"
+              iconPosition="right"
+              onClick={() => {
+                onSubmit();
+              }}
+            >
+              Update <Icon Asset={icons.SvgCycle} />
+            </ButtonSmall>
+            <InlineFlex ml="m">
+              <ButtonSmall iconPosition="right" onClick={onAddNewOpen}>
+                Add new <Icon Asset={icons.SvgPlusPlain} />
+              </ButtonSmall>
+            </InlineFlex>
+          </Box>
+        )}
       </Table.Toolbar>
       <Table.BatchActionsToolbar>
         {(batchActionProps: any) => {

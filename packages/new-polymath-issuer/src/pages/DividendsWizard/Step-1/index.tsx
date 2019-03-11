@@ -141,19 +141,21 @@ export const Step1: FC<Step1Props> = ({
               <FormItem.Error />
             </FormItem>
           </ModalConfirm>
-          <Remark>
-            The number of tokens contained in the wallets that are excluded from
-            the dividends calculation and distribution will be deducted from the
-            total supply before the final percentages are calculated. For
-            example, if 10 wallets each contain 1 token and 2 wallets are
-            excluded from dividends, each of the remaining 8 wallets will
-            receive 1/8 of the dividends
-            <br />
-            <strong>
-              The maximum number of addresses that can be excluded is 100.
-            </strong>
-          </Remark>
-          <Heading variant="h3" mt="m">
+          <Box mt="m">
+            <Remark>
+              The number of tokens contained in the wallets that are excluded
+              from the dividends calculation and distribution will be deducted
+              from the total supply before the final percentages are calculated.
+              For example, if 10 wallets each contain 1 token and 2 wallets are
+              excluded from dividends, each of the remaining 8 wallets will
+              receive 1/8 of the dividends
+              <br />
+              <strong>
+                The maximum number of addresses that can be excluded is 100.
+              </strong>
+            </Remark>
+          </Box>
+          <Heading variant="h3" mt="4">
             No Dividends Exclusion Required
           </Heading>
           <FormItem name="noWalletExcluded">
