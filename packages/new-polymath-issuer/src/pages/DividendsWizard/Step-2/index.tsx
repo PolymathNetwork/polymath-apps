@@ -398,7 +398,7 @@ export const Step2 = ({ onSubmitStep, values, taxWithholdings }: Props) => {
           component={Checkbox}
           inputProps={{
             label:
-              'I’m sure I don’t need any adds/updates to the Tax Withholdings List.',
+              'I confirm that the Tax Withholdings above are correct and should be applied to this dividends distribution',
           }}
         />
         <FormItem.Error />
