@@ -73,8 +73,7 @@ export class Presenter extends Component<Props> {
     this.setState({ dividendAmount });
   };
 
-  public setPositiveWithholdingAmount = (positiveWithholdingAmount: number) => {
-    console.log('SETTING POSITIVE WITHHOLDING AMOUNT', positiveWithholdingAmount);
+  public setPositiveWithholdingAmount = (positiveWithholdingAmount: number) => {    
     this.setState({ positiveWithholdingAmount });
   };
 
