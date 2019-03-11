@@ -47,9 +47,13 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
     accessor: 'status',
     width: 150,
     Cell: ({ value }) => {
-      // TODO @RafaelVidaurre: Use proper component for this
-      // TODO @RafaelVidaurre: Confirm we want to use different text for different statuses
-      return value && <Label color="secondary">{value}</Label>;
+      return (
+        value && (
+          <Label color="greyBlue.1" bg="greyBlue.0">
+            {value}
+          </Label>
+        )
+      );
     },
   },
   {
