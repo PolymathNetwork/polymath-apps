@@ -123,24 +123,29 @@ export const CsvModal: FC<Props> = ({
             header: true,
             maxRows: 200,
           }}
-        />
-        <CsvUploader.CsvErrors />
-        <CsvUploader.CsvPreview
-          tableConfig={{
-            columns: [
-              {
-                accessor: csvEthAddressKey,
-                Header: csvEthAddressKey,
-                Cell: ({ value }) =>
-                  value && formatters.toShortAddress(value, { size: 26 }),
-              },
-              {
-                accessor: csvTaxWithholdingKey,
-                Header: csvTaxWithholdingKey,
-              },
-            ],
-          }}
-        />
+        >
+          <CsvUploader.CsvErrors />
+          <CsvUploader.CsvPreview
+            tableConfig={{
+              columns: [
+                {
+                  accessor: csvEthAddressKey,
+                  Header: csvEthAddressKey,
+                  Cell: ({ value }) => {
+                    console.log('value', value);
+                    return (
+                      value && formatters.toShortAddress(value, { size: 26 })
+                    );
+                  },
+                },
+                {
+                  accessor: csvTaxWithholdingKey,
+                  Header: csvTaxWithholdingKey,
+                },
+              ],
+            }}
+          />
+        </CsvUploaderPrimitive>
       </Grid>
     </ModalConfirm>
   );
