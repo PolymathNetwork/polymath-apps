@@ -4,8 +4,9 @@ order: 0
 ---
 
 import { Playground, Link } from 'docz';
-import { Formik, FastField } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
+import { Form } from '~/components/Form';
 import { Grid } from '~/components/Grid';
 import { Button } from '~/components/Button';
 import { TextInput } from '~/components/inputs/TextInput';
@@ -21,7 +22,7 @@ Forms are built using the [Formik library](https://jaredpalmer.com/formik/). Eac
 You can use the [`Grid`](/src-components-grid-docs-grid) component to compose the layout easily and handle the horizontal and vertical flow.
 
 <Playground>
-  <Formik
+  <Form
     validationSchema={Yup.object().shape({
       textInput: Yup.string().required(),
     })}
@@ -82,4 +83,17 @@ You can use the [`Grid`](/src-components-grid-docs-grid) component to compose th
 
 />
 
+</Playground>
+
+By default the `FormItem` component use Formik's `FastField`. This is important to understand the difference between Formik's `Field` and `FastField` components.
+You can switch to `Field` this way:
+
+<Playground>
+  <Form
+    render={() => (
+      <FormItem name="cap">
+        <FormItem.Input component={NumberInput} FormikComponent={Field} />
+      </FormItem>
+    )}
+  />
 </Playground>
