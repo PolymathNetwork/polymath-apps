@@ -132,7 +132,7 @@ export interface CreateErc20DividendDistributionProcedureArgs {
   expiryDate: Date;
   erc20Address: string;
   amount: BigNumber;
-  checkpointId: number;
+  checkpointIndex: number;
   name: string;
   excludedAddresses?: string[];
   taxWithholdings?: TaxWithholdingEntry[];
@@ -143,7 +143,7 @@ export interface CreateEtherDividendDistributionProcedureArgs {
   maturityDate: Date;
   expiryDate: Date;
   amount: BigNumber;
-  checkpointId: number;
+  checkpointIndex: number;
   name: string;
   excludedAddresses?: string[];
   taxWithholdings?: TaxWithholdingEntry[];
@@ -151,7 +151,7 @@ export interface CreateEtherDividendDistributionProcedureArgs {
 
 export interface PushDividendPaymentProcedureArgs {
   symbol: string;
-  dividendId: number;
+  dividendIndex: number;
   dividendType: DividendModuleTypes;
   investorAddresses?: string[];
 }
@@ -186,7 +186,7 @@ export interface WithdrawTaxesProcedureArgs {
   dividendType: DividendModuleTypes;
 }
 
-export interface SetDividendsTaxWithholdingListProcedureArgs {
+export interface UpdateDividendsTaxWithholdingListProcedureArgs {
   symbol: string;
   dividendType: DividendModuleTypes;
   investorAddresses: string[];
@@ -214,7 +214,7 @@ export interface ProcedureArguments {
     .ReserveSecurityToken]: ReserveSecurityTokenProcedureArgs;
   [types.ProcedureTypes.WithdrawTaxes]: WithdrawTaxesProcedureArgs;
   [types.ProcedureTypes
-    .SetDividendsTaxWithholdingList]: SetDividendsTaxWithholdingListProcedureArgs;
+    .UpdateDividendsTaxWithholdingList]: UpdateDividendsTaxWithholdingListProcedureArgs;
   [types.ProcedureTypes.PushDividendPayment]: PushDividendPaymentProcedureArgs;
   [types.ProcedureTypes.SetDividendsWallet]: SetDividendsWalletProcedureArgs;
   [types.ProcedureTypes.UnnamedProcedure]: {};

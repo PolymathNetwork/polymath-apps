@@ -34,7 +34,7 @@ export enum ProcedureTypes {
   ReclaimFunds = 'ReclaimFunds',
   ReserveSecurityToken = 'ReserveSecurityToken',
   WithdrawTaxes = 'WithdrawTaxes',
-  SetDividendsTaxWithholdingList = 'SetDividendsTaxWithholdingList',
+  UpdateDividendsTaxWithholdingList = 'UpdateDividendsTaxWithholdingList',
   SetDividendsWallet = 'SetDividendsWallet',
   PushDividendPayment = 'PushDividendPayment',
 }
