@@ -132,7 +132,6 @@ export const CsvModal: FC<Props> = ({
                   accessor: csvEthAddressKey,
                   Header: csvEthAddressKey,
                   Cell: ({ value }) => {
-                    console.log('value', value);
                     return (
                       value && formatters.toShortAddress(value, { size: 26 })
                     );
