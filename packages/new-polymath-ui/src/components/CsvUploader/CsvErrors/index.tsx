@@ -36,8 +36,16 @@ const CsvErrorsComponent: FC<Props> = ({ className }) => {
       {data.errors.includes(csvParser.ErrorCodes.customValidationFailed) && (
         <Notification
           status="alert"
-          title={csvConfig.customValidationErrorMessage.header}
-          description={csvConfig.customValidationErrorMessage.body}
+          title={
+            csvConfig.customValidationErrorMessage
+              ? csvConfig.customValidationErrorMessage.header
+              : 'Invalid File'
+          }
+          description={
+            csvConfig.customValidationErrorMessage
+              ? csvConfig.customValidationErrorMessage.body
+              : 'File validation failed'
+          }
         />
       )}
       {!isFullyInvalid && !!errorCount && (

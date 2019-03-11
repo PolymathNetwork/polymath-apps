@@ -49,6 +49,7 @@ export class ParseCsv<Output extends csvParser.Output> extends Component<
       errorRows: 0,
       ignoredRows: 0,
       isFileValid: false,
+      isCustomValidationFailed: false,
       errors: [],
     },
   };
@@ -77,6 +78,7 @@ export class ParseCsv<Output extends csvParser.Output> extends Component<
         errorRows: 0,
         ignoredRows: 0,
         isFileValid: false,
+        isCustomValidationFailed: false,
         errors: [],
       },
     });
