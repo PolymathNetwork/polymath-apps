@@ -16,6 +16,8 @@ export const Icon = styled(IconOutlined)`
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: flex-start;
+  flex-shrink: 0;
 `;
 
 export const Label = styled(Paragraph)`
@@ -27,7 +29,6 @@ export const Inner = styled.div``;
 
 export const Container = styled.li<Props>`
   position: relative;
-  text-align: center;
   min-width: 7rem;
   transition: 250ms all cubic-bezier(0.5, 0, 0.1, 1);
   overflow: visible;
@@ -40,7 +41,7 @@ export const Container = styled.li<Props>`
     isVertical
       ? `
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
 
       &:first-child {
         flex: none;
@@ -48,9 +49,9 @@ export const Container = styled.li<Props>`
 
       ${ProgressLine} {
         left: calc(${iconsSize} / 2);
-        top: 0;
+        top: ${iconsSize};
+        bottom: 0;
         width: 2px;
-        height: calc(100% - ${iconsSize});
       }
 
       ${Inner} {
@@ -59,9 +60,11 @@ export const Container = styled.li<Props>`
       }
       `
       : `
+      text-align: center;
+
       ${ProgressLine} {
         top: calc(${iconsSize} / 2);
-        right: calc(50% + (${iconsSize} / 2));
+        left: calc(50% + (${iconsSize} / 2));
         height: 2px;
         width: calc(100% - ${iconsSize});
       }
@@ -71,7 +74,7 @@ export const Container = styled.li<Props>`
       }
     `};
 
-  &:first-child ${ProgressLine} {
+  &:last-child ${ProgressLine} {
     display: none;
   }
 `;
