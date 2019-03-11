@@ -303,7 +303,7 @@ export const Step2: FC<Props> = ({
               onDelete={handleDelete}
             />
             <Heading variant="h3" mt="m">
-              Confirm Tax Withholdings
+              No Changes Required
             </Heading>
             <Paragraph>
               Please make sure to confirm no changes are required by downloading
@@ -314,7 +314,7 @@ export const Step2: FC<Props> = ({
                 component={Checkbox}
                 inputProps={{
                   label:
-                    'I’m sure I don’t need any adds/updates to the Tax Withholdings List.',
+                    'I confirm that the Tax Withholdings above are correct and should be applied to this dividends distribution.',
                 }}
               />
               <FormItem.Error />
