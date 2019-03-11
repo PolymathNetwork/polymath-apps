@@ -293,6 +293,10 @@ export const Step2: FC<Props> = ({
                 />
               )}
             />
+
+            <Heading variant="h3" mt="4">
+              Tax Withholdings List
+            </Heading>
             <TaxWithholdingsTable
               onSubmit={() => {
                 onSubmit(values);
