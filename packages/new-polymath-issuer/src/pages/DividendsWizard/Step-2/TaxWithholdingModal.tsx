@@ -37,6 +37,11 @@ export const TaxWithholdingModal: FC<Props> = ({
   const { field, form } = fieldProps;
 
   const onSubmit = () => {
+    for (const key of Object.keys(
+      fieldProps.form.errors[`${field.name}`] || {}
+    )) {
+      fieldProps.form.setFieldTouched(`${field.name}.${key}`, true, true);
+    }
     const isValid = !get(form.errors, field.name);
     if (!isValid) {
       return;
