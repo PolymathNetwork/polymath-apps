@@ -9,19 +9,17 @@ export const rowHeight = css(
     small ? theme.space.l : theme.space.xl
 );
 
-export const Table = styled(Box)<{ selectable?: boolean }>`
+export const Table = styled(Box)`
   position: relative;
   display: flex;
   flex-direction: column;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
-  padding-top: ${({ selectable }) => selectable && rowHeight};
 `;
 
-export const Inner = styled.div<{ selectable?: boolean }>`
+export const Inner = styled.div`
   display: flex;
   width: 100%;
-  height: ${({ selectable }) =>
-    selectable ? `calc(100% - ${rowHeight})` : '100%'};
+  height: 100%;
 `;
 
 export const RowBase = styled(Flex)`
@@ -121,6 +119,10 @@ export const ButtonNextPage = styled(ButtonPagination)`
   ${Icon} {
     transform: rotateZ(-0.25turn);
   }
+`;
+
+export const Toolbar = styled.div`
+  height: ${rowHeight};
 `;
 
 export const Body = styled.div`

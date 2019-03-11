@@ -8,6 +8,7 @@ import {
   createAction as createTransactionQueue,
   cancelTransactionQueue,
 } from '~/state/actions/transactionQueues';
+import { createAction as createTransaction } from '~/state/actions/transactions';
 import { eventChannel } from 'redux-saga';
 import { types } from '@polymathnetwork/new-shared';
 import { QueueStatus } from '~/types';
@@ -26,11 +27,15 @@ export function* runTransactionQueue<Args, ReturnType>(
 
   const transactionsToRun = transactionQueueToRun.transactions;
 
-  for (const transaction of transactionsToRun) {
-    yield fork(watchTransaction, transaction);
-  }
-
   const { uid } = transactionQueue;
+
+  const transactionEntities: types.TransactionEntity[] = transactionsToRun.map(
+    transaction => transaction.toPojo()
+  );
+
+  for (const transaction of transactionEntities) {
+    yield put(createTransaction(transaction));
+  }
 
   yield put(createTransactionQueue(transactionQueue));
   yield put(setActiveTransactionQueue(uid));
@@ -41,13 +46,19 @@ export function* runTransactionQueue<Args, ReturnType>(
   }: {
     canceled: ActionType<typeof cancelTransactionQueue>;
   } = yield race({
-    confirmed: take(getType(confirmTransactionQueue)),
     canceled: take(getType(cancelTransactionQueue)),
+    confirmed: take(getType(confirmTransactionQueue)),
   });
 
   // Stop the saga and return false if the transactions weren't confirmed
   if (canceled) {
-    return QueueStatus.Canceled;
+    return {
+      queueStatus: QueueStatus.Canceled,
+    };
+  }
+
+  for (const transaction of transactionsToRun) {
+    yield fork(watchTransaction, transaction);
   }
 
   /**

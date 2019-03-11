@@ -17,6 +17,7 @@ import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
+import { range, padStart } from 'lodash';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -27,6 +28,9 @@ export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
   checkpointIndex: string;
+  createDividendDistribution: (
+    params: CreateDividendDistributionParams
+  ) => void;
 }
 
 interface State {
@@ -36,6 +40,13 @@ interface State {
 interface Row {
   investorAddress: string;
   percentage: number;
+}
+
+export interface CreateDividendDistributionParams {
+  erc20Address: string;
+  amount: BigNumber;
+  name: string;
+  excludedAddresses: string[];
 }
 
 export class ContainerBase extends Component<Props, State> {
@@ -51,17 +62,20 @@ export class ContainerBase extends Component<Props, State> {
     });
   };
 
+  public previousStep = () => {
+    const { step } = this.state;
+
+    this.setState({
+      step: step - 1,
+    });
+  };
+
   public createDividendDistribution = ({
     erc20Address,
     amount,
     name,
     excludedAddresses,
-  }: {
-    erc20Address: string;
-    amount: BigNumber;
-    name: string;
-    excludedAddresses: string[];
-  }) => {
+  }: CreateDividendDistributionParams) => {
     const { dispatch, securityTokenSymbol, checkpointIndex } = this.props;
 
     const checkpointId = parseInt(checkpointIndex, 10);
@@ -89,7 +103,10 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public updateTaxWithholdingList = (
-    taxWithholdings: types.TaxWithholdingPojo[]
+    taxWithholdings: Array<{
+      investorAddress: string;
+      percentage: number;
+    }>
   ) => {
     const { securityTokenSymbol, dispatch } = this.props;
     const investorAddresses: string[] = [];
@@ -111,7 +128,7 @@ export class ContainerBase extends Component<Props, State> {
   };
 
   public downloadTaxWithholdingList = (
-    taxWithholdings: types.TaxWithholdingPojo[]
+    taxWithholdings: types.TaxWithholdingEntity[]
   ) => {
     const { securityTokenSymbol } = this.props;
 
@@ -141,6 +158,25 @@ export class ContainerBase extends Component<Props, State> {
     });
   };
 
+  public downloadSampleExclusionList() {
+    const fileName = 'Sample-Exclusion-List.csv';
+
+    utils.downloadCsvFile(
+      range(10).map(i => ({
+        investorAddress: `0x${padStart(`${i + 1}`, 40, '0')}`,
+      })),
+      fileName,
+      {
+        fields: [
+          {
+            label: 'Investor ETH Address',
+            value: 'investorAddress',
+          },
+        ],
+      }
+    );
+  }
+
   public render() {
     const { securityTokenSymbol, checkpointIndex } = this.props;
     const { step } = this.state;
@@ -167,11 +203,16 @@ export class ContainerBase extends Component<Props, State> {
           }) => {
             return (
               <Presenter
+                createDividendDistribution={this.createDividendDistribution}
+                updateTaxWithholdingList={this.updateTaxWithholdingList}
                 stepIndex={step}
                 securityTokenSymbol={securityTokenSymbol}
                 checkpoint={checkpoint}
                 onNextStep={this.nextStep}
+                onPreviousStep={this.previousStep}
                 taxWithholdings={taxWithholdings}
+                downloadTaxWithholdingList={this.downloadTaxWithholdingList}
+                downloadSampleExclusionList={this.downloadSampleExclusionList}
               />
             );
           }}

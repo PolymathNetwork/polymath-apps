@@ -2,10 +2,10 @@ import _ from 'lodash';
 import Papa, { ParseResult } from 'papaparse';
 import * as validators from './validators';
 
-export interface ErrorMessages {
-  missingRequiredColumns: string;
-  extraColumns: string;
-  rowsExceedMaxLimit: string;
+export enum ErrorCodes {
+  missingRequiredColumns = 'missingRequiredColumns',
+  extraColumns = 'extraColumns',
+  rowsExceedMaxLimit = 'rowsExceedMaxLimit',
 }
 
 export interface Props {
@@ -15,11 +15,10 @@ export interface Props {
   maxRows?: number;
   validateRow?: (rowData: Array<any>) => boolean;
   strict?: boolean;
-  errorMessages?: ErrorMessages;
 }
 
-export interface ResultProps {
-  result: ResultRow[];
+export interface ResultProps<R> {
+  result: ResultRow<R>[];
   totalRows: number;
   validRows: number;
   errorRows: number;
@@ -34,15 +33,30 @@ export interface Column {
   required?: boolean;
 }
 
-export interface ResultRow {
-  data: {
-    [key: string]: {
-      isColumnValid: boolean;
-      value: any;
-    };
-  };
+export interface Output {
+  [key: string]: any;
+}
+
+export type RowData<Row extends Output> = {
+  [K in keyof Row]: {
+    isColumnValid: boolean;
+    value: Row[K];
+  }
+};
+
+export interface ResultRow<Row extends Output> {
+  data: RowData<Row>;
   isRowValid: boolean;
 }
+// export interface ResultRow {
+//   data: {
+//     [key: string]: {
+//       isColumnValid: boolean;
+//       value: any;
+//     };
+//   };
+//   isRowValid: boolean;
+// }
 
 /**
  * Parses a CSV file or string and returns array of parsed objects
@@ -68,11 +82,6 @@ export interface ResultRow {
  *    header: true,
  *    maxRows: 2,
  *    strict: true,
- *    errorMessages: {
- *      missingRequiredColumns: 'Some required columns do not exist in the CSV',
- *      extraColumns: 'the CSV file contains extra columns'
- *      rowsExceedMaxLimit: 'The CSV file contains more columns than the maximum limit'
- *    }
  *  }
  * )
  * .then((parseResult => {
@@ -86,12 +95,13 @@ export interface ResultRow {
  * @param props.maxRows Maximum number of rows to parse from the file, any rows beyond that will be ignored
  * @param props.validateRow custom function to perform custom validation on each row
  * @param props.strict Strict mode: if set to true, file will be marked as invalid if the CSV data contain any extra column(s)
- * @param props.errorMessages Specifies the error messages to be returned by the parse if the data has issues
  */
-export const parseCsv = async (props: Props): Promise<ResultProps> => {
+export const parseCsv = async <R extends Output>(
+  props: Props
+): Promise<ResultProps<R>> => {
   return new Promise(resolve => {
     // Prepare the data and errors arrays
-    const result: ResultRow[] = [];
+    const result: ResultRow<R>[] = [];
     const errors: string[] = [];
     let indexedColumns: Array<Column & { index: number }>;
     let totalRows: number = 0;
@@ -103,15 +113,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
     let hasExtraRows: boolean = false;
     let hasExtraColumns: boolean = false;
 
-    const {
-      header,
-      data,
-      columns,
-      errorMessages,
-      maxRows,
-      validateRow,
-      strict,
-    } = props;
+    const { header, data, columns, maxRows, validateRow, strict } = props;
 
     if (!header) {
       indexedColumns = columns.map((column, index) => ({
@@ -142,13 +144,9 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
               if (strict) {
                 isFileValid = false;
 
-                if (
-                  errorMessages &&
-                  errorMessages.extraColumns &&
-                  !hasExtraColumns
-                ) {
+                if (!hasExtraColumns) {
                   hasExtraColumns = true;
-                  errors.push(errorMessages.extraColumns);
+                  errors.push(ErrorCodes.extraColumns);
                 }
               }
             }
@@ -161,9 +159,7 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
           ) {
             isFileValid = false;
 
-            if (errorMessages && errorMessages.missingRequiredColumns) {
-              errors.push(errorMessages.missingRequiredColumns);
-            }
+            errors.push(ErrorCodes.missingRequiredColumns);
           }
 
           return;
@@ -177,21 +173,17 @@ export const parseCsv = async (props: Props): Promise<ResultProps> => {
         if (maxRows !== undefined && maxRows > 0 && totalRows > maxRows) {
           ignoredRows++;
 
-          if (
-            errorMessages &&
-            errorMessages.rowsExceedMaxLimit &&
-            !hasExtraRows
-          ) {
+          if (!hasExtraRows) {
             hasExtraRows = true;
-            errors.push(errorMessages.rowsExceedMaxLimit);
+            errors.push(ErrorCodes.rowsExceedMaxLimit);
           }
 
           return;
         }
 
-        const resultRow: ResultRow = {
+        const resultRow: ResultRow<R> = {
           isRowValid: true,
-          data: {},
+          data: {} as RowData<R>,
         };
 
         for (const column of indexedColumns) {

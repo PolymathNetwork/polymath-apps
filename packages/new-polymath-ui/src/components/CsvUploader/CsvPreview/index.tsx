@@ -1,25 +1,30 @@
-import React, { FC, useContext } from 'react';
-import { typeHelpers } from '@polymathnetwork/new-shared';
+import React, { Component } from 'react';
+import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { styled } from '~/styles';
 import { Table } from '~/components/Table';
-import { ParseCsv, RenderProps as ParseCsvRenderProps } from '../ParseCsv';
-import { Context } from '../Context';
+import {
+  RenderProps as ParseCsvRenderProps,
+  Props as ParseCsvProps,
+} from '../ParseCsv';
+import { getContext, CsvContext } from '../Context';
 
-type ParseCsvProps = typeHelpers.GetProps<typeof ParseCsv>;
 type TableProps = typeHelpers.GetProps<typeof Table>;
 
-const parsedCsvToTable = (
-  parsedCsvRows: ParseCsvRenderProps['data']['result']
+const parsedCsvToTable = <Output extends csvParser.Output>(
+  parsedCsvRows: ParseCsvRenderProps<Output>['data']['result']
 ) => {
   return parsedCsvRows.map(parsedCsvRow =>
-    Object.keys(parsedCsvRow.data).reduce((acc, curr) => {
-      return { ...acc, [curr]: parsedCsvRow.data[curr].value };
-    }, {})
+    Object.keys(parsedCsvRow.data).reduce<Output>(
+      (acc, curr) => {
+        return { ...acc, [curr]: parsedCsvRow.data[curr].value };
+      },
+      {} as Output
+    )
   );
 };
 
-const csvColumnsToTableColumns = (
-  csvColumns: ParseCsvProps['config']['columns']
+const csvColumnsToTableColumns = <Output extends csvParser.Output>(
+  csvColumns: ParseCsvProps<Output>['config']['columns']
 ) => {
   return csvColumns.map(csvColumn => ({
     ...csvColumn,
@@ -32,32 +37,38 @@ export interface Props {
   tableConfig: typeHelpers.Omit<TableProps, 'data' | 'csvParserData'>;
 }
 
-const CsvPreviewComponent: FC<Props> = props => {
-  const context = useContext(Context);
+export class CsvPreviewComponent<
+  Output extends csvParser.Output
+> extends Component<Props> {
+  public static contextType = getContext();
 
-  if (!context) {
-    return null;
+  public render() {
+    const context: CsvContext<Output> = this.context;
+
+    if (!context) {
+      return null;
+    }
+
+    const { isFullyInvalid, data, csvConfig } = context;
+    const { tableConfig, ...otherProps } = this.props;
+
+    if (isFullyInvalid) {
+      return null;
+    }
+
+    return (
+      <Table
+        data={parsedCsvToTable<Output>(data.result)}
+        columns={csvColumnsToTableColumns<Output>(csvConfig.columns)}
+        csvParserData={data.result}
+        {...tableConfig}
+        {...otherProps}
+      >
+        <Table.Rows small />
+        <Table.Pagination />
+      </Table>
+    );
   }
-
-  const { isFullyInvalid, data, csvConfig } = context;
-  const { tableConfig, ...otherProps } = props;
-
-  if (isFullyInvalid) {
-    return null;
-  }
-
-  return (
-    <Table
-      data={parsedCsvToTable(data.result)}
-      columns={csvColumnsToTableColumns(csvConfig.columns)}
-      csvParserData={data.result}
-      {...tableConfig}
-      {...otherProps}
-    >
-      <Table.Rows small />
-      <Table.Pagination />
-    </Table>
-  );
-};
+}
 
 export const CsvPreview = styled(CsvPreviewComponent)``;

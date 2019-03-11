@@ -1,3 +1,5 @@
+import { types } from '~/index';
+
 export enum NetworkIds {
   Local = 15,
   LocalVm = 16,
@@ -15,4 +17,30 @@ export const EtherscanSubdomains: {
   [NetworkIds.Mainnet]: '',
   [NetworkIds.Local]: 'localhost',
   [NetworkIds.LocalVm]: 'localhost',
+};
+
+const localTokens = {
+  [types.Tokens.Dai]: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
+  [types.Tokens.Poly]: '0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0',
+};
+
+export const TokenAddresses = {
+  [NetworkIds.Local]: localTokens,
+  [NetworkIds.LocalVm]: localTokens,
+  [NetworkIds.Kovan]: {
+    [types.Tokens.Dai]: '0xc4375b7de8af5a38a93548eb8453a498222c4ff2',
+    [types.Tokens.Poly]: '0xB347b9f5B56b431B2CF4e1d90a5995f7519ca792',
+  },
+  [NetworkIds.Mainnet]: {
+    [types.Tokens.Dai]: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+    [types.Tokens.Poly]: '0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec',
+  },
+  [NetworkIds.Ropsten]: {
+    [types.Tokens.Dai]: '0x0',
+    [types.Tokens.Poly]: '0x0',
+  },
+  [NetworkIds.Rinkeby]: {
+    [types.Tokens.Dai]: '0x0',
+    [types.Tokens.Poly]: '0x0',
+  },
 };

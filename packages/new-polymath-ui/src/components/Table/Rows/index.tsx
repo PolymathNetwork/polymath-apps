@@ -15,9 +15,9 @@ export const Rows: FC<Props> = props => {
     return null;
   }
 
-  const { page, prepareRow, tableEl } = context;
+  const { page, prepareRow, tableBodyEl } = context;
 
-  return tableEl && page && page.length
+  return tableBodyEl && page && page.length
     ? ReactDOM.createPortal(
         page.map(row => {
           if (!row) {
@@ -28,7 +28,7 @@ export const Rows: FC<Props> = props => {
 
           return <Row key={row.index} row={row} small={small} />;
         }),
-        tableEl
+        tableBodyEl
       )
     : null;
 };

@@ -1,15 +1,16 @@
 import React, { FC, useContext } from 'react';
+import { csvParser } from '@polymathnetwork/new-shared';
 import { styled } from '~/styles';
 import { Notification } from '~/components/Notification';
-import { Context } from '../Context';
+import { getContext } from '../Context';
 import * as sc from './styles';
 
 export interface Props {
   className?: string;
 }
 
-const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
-  const context = useContext(Context);
+const CsvErrorsComponent: FC<Props> = ({ className }) => {
+  const context = useContext(getContext());
 
   if (!context) {
     return null;
@@ -19,6 +20,27 @@ const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
 
   return (
     <sc.Wrapper className={className}>
+      {isFullyInvalid && (
+        <Notification
+          status="alert"
+          title="Your .csv structure is Invalid"
+          description="Please make sure your .csv file follows the format of our sample file."
+        />
+      )}
+      {data.errors.includes(csvParser.ErrorCodes.missingRequiredColumns) && (
+        <Notification
+          status="alert"
+          title={`Missing Required Columns`}
+          description="Your .csv file is missing some columns that are required."
+        />
+      )}
+      {!isFullyInvalid && !!errorCount && (
+        <Notification
+          status="alert"
+          title={`${errorCount} Errors in Your .csv File`}
+          description="Please note that the entries below contains error that prevent their content to be committed to the blockchain. Entries were automatically deselected so they are not submitted to the blockchain and may be edited separately."
+        />
+      )}
       {!!csvConfig.maxRows && data.totalRows > csvConfig.maxRows && (
         <Notification
           status="warning"
@@ -30,18 +52,11 @@ const CsvErrorsComponent: FC<Props> = ({ className, ...props }) => {
           } limit will not be added.`}
         />
       )}
-      {isFullyInvalid && (
+      {data.errors.includes(csvParser.ErrorCodes.extraColumns) && (
         <Notification
-          status="alert"
-          title="Your .csv structure is Invalid"
-          description="Please make sure your .csv file follows the format of our sample file."
-        />
-      )}
-      {!isFullyInvalid && !!errorCount && (
-        <Notification
-          status="alert"
-          title={`${errorCount} Errors in Your .csv File`}
-          description="Please note that the entries below contains error that prevent their content to be committed to the blockchain. Entries were automatically deselected so they are not submitted to the blockchain and may be edited separately."
+          status="warning"
+          title="Your .csv has extra columns"
+          description="Only the columns listed below will be used. Make sure your .csv format is correct."
         />
       )}
     </sc.Wrapper>
