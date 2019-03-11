@@ -8,6 +8,7 @@ import {
   TaxWithholdingStatuses,
 } from '~/pages/DividendsWizard/Step-2/shared';
 import {
+  Box,
   ModalConfirm,
   Paragraph,
   FormItem,
@@ -35,9 +36,9 @@ export const TaxWithholdingModal: FC<Props> = ({
   fieldProps,
 }) => {
   const { field, form } = fieldProps;
+  const isValid = !get(form.errors, field.name);
 
   const onSubmit = () => {
-    const isValid = !get(form.errors, field.name);
     if (!isValid) {
       return;
     }
@@ -120,6 +121,8 @@ export const TaxWithholdingModal: FC<Props> = ({
       onSubmit={onSubmit}
       onClose={onClose}
       actionButtonText="Confirm"
+      isActionDisabled={!isValid}
+      maxWidth={500}
     >
       <ModalConfirm.Header>
         {isEditing ? 'Edit' : 'Add'} Tax Withholding for Specific Investor
@@ -140,7 +143,9 @@ export const TaxWithholdingModal: FC<Props> = ({
             <FormItem.Label>
               % Tax Witholding for Associated ETH Address
             </FormItem.Label>
-            <FormItem.Input component={PercentageInput} />
+            <Box maxWidth={100}>
+              <FormItem.Input component={PercentageInput} />
+            </Box>
             <FormItem.Error />
           </FormItem>
         </Fragment>

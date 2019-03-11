@@ -121,9 +121,7 @@ export const ButtonNextPage = styled(ButtonPagination)`
   }
 `;
 
-export const Toolbar = styled.div`
-  height: ${rowHeight};
-`;
+export const Toolbar = styled.div``;
 
 export const Body = styled.div`
   min-height: 200px;
