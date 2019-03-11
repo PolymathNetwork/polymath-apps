@@ -26,7 +26,7 @@ export class BigNumberSchema extends Yup.mixed {
     return value && (value.isBigNumber || value._isBigNumber);
   }
 
-  public min(min: number, message: string) {
+  public min(min: number | BigNumber, message: string) {
     return this.test({
       message,
       name: 'min',
@@ -40,7 +40,7 @@ export class BigNumberSchema extends Yup.mixed {
     });
   }
 
-  public max(max: number, message: string) {
+  public max(max: number | BigNumber, message: string) {
     return this.test({
       message,
       name: 'max',
