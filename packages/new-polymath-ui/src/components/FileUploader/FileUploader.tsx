@@ -5,7 +5,7 @@ import { Text } from '~/components/Text';
 import { SvgClose } from '~/images/icons';
 import {
   FormikProxy,
-  FormikExternalProps,
+  EnhancedComponentProps,
 } from '~/components/inputs/FormikProxy';
 import { styled } from '~/styles';
 import * as sc from './styles';
@@ -171,25 +171,28 @@ class FileUploaderComponent extends React.Component<Props, State> {
   }
 
   public render() {
-    const {
-      className,
-      style,
-    } = this.props;
+    const { className, style } = this.props;
 
-    return <div className={className} style={style}>{this.renderInput()}</div>;
+    return (
+      <div className={className} style={style}>
+        {this.renderInput()}
+      </div>
+    );
   }
 }
 
 export const FileUploaderPrimitive = styled(FileUploaderComponent)``;
 
-const FileUploaderWithFormik: FC<FormikExternalProps> = ({
+const FileUploaderWithFormik: FC<EnhancedComponentProps<Value>> = ({
   field,
   form,
+  onChange,
   ...rest
 }) => (
   <FormikProxy<Value>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => <FileUploaderPrimitive {...rest} {...formikProps} />}
   />
 );

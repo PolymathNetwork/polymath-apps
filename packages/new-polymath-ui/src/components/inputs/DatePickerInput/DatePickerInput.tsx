@@ -4,18 +4,18 @@ import flatpickr from 'flatpickr';
 import l10n from 'flatpickr/dist/l10n/index';
 
 import { BaseInput } from '../BaseInput';
-import { FormikProxy, FormikExternalProps } from '../FormikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 import * as sc from './styles';
 
 import { SvgCalendar } from '~/images/icons/Calendar';
 import { BaseOptions } from 'flatpickr/dist/types/options';
 
-interface ExternalProps extends FormikExternalProps {
+type Value = Date | Date[] | undefined;
+
+interface ExternalProps extends EnhancedComponentProps<Value> {
   minDate: string;
   maxDate: string;
 }
-
-type Value = Date | Date[] | undefined;
 
 // TODO @RafaelVidaurre: This component could definitely get some love
 
@@ -238,11 +238,13 @@ export class DatePickerInputComponent extends Component<Props> {
 const EnhancedDatePickerInput: FC<ExternalProps> = ({
   field,
   form,
+  onChange,
   ...rest
 }) => (
   <FormikProxy<Value>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => (
       <DatePickerInputComponent {...rest} {...formikProps} />
     )}

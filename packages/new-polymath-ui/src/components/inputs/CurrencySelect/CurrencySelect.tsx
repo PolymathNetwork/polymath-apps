@@ -6,7 +6,7 @@ import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import {
   FormikProxy,
-  FormikExternalProps,
+  EnhancedComponentProps,
 } from '~/components/inputs/FormikProxy';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { SvgClose } from '~/images/icons/Close';
@@ -26,12 +26,12 @@ interface OptionType {
   label: ReactNode;
 }
 
-interface ExternalProps extends FormikExternalProps {
+type Value = types.Tokens | types.Tokens[];
+
+interface ExternalProps extends EnhancedComponentProps<Value> {
   theme: ThemeInterface;
   placeholder?: string;
 }
-
-type Value = types.Tokens | types.Tokens[];
 
 export const CURRENCY_OPTIONS: OptionType[] = [
   {
@@ -174,10 +174,7 @@ class SelectValue extends React.Component<SelectValueProps> {
     return (
       <sc.ValueWrapper>
         <sc.ValueLabel>{this.props.label}</sc.ValueLabel>
-        <sc.ValueRemoveButton
-          Asset={SvgClose}          
-          onClick={this.handleRemove}
-        />
+        <sc.ValueRemoveButton Asset={SvgClose} onClick={this.handleRemove} />
       </sc.ValueWrapper>
     );
   }
@@ -286,11 +283,13 @@ export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
 const EnhancedCurrencySelectPrimitive: FC<ExternalProps> = ({
   field,
   form,
+  onChange,
   ...rest
 }) => (
   <FormikProxy<Value>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => (
       <CurrencySelectPrimitiveBase {...rest} {...formikProps} />
     )}

@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { BaseInput } from '../BaseInput';
 
 import {
-  FormikExternalProps,
+  EnhancedComponentProps,
   FormikProxy,
 } from '~/components/inputs/FormikProxy';
 
@@ -37,14 +37,16 @@ TextInputPrimitive.defaultProps = {
   value: '',
 };
 
-const EnhancedTextInput: FC<FormikExternalProps> = ({
+const EnhancedTextInput: FC<EnhancedComponentProps<string>> = ({
   field,
   form,
+  onChange,
   ...rest
 }) => (
   <FormikProxy<string>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => <TextInputPrimitive {...rest} {...formikProps} />}
   />
 );

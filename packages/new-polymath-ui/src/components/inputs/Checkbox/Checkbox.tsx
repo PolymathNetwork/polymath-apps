@@ -2,7 +2,7 @@ import React, { FC, useState, Fragment } from 'react';
 import { uniqueId } from 'lodash';
 import { InlineFlex } from '~/components/InlineFlex';
 import { SvgCheckmark } from '~/images/icons/Checkmark';
-import { FormikProxy, FormikExternalProps } from '../FormikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 import * as sc from './styles';
 import { Label } from './Label';
 
@@ -68,14 +68,16 @@ export const CheckboxPrimitive: FC<Props> = ({
   );
 };
 
-const EnhancedCheckbox: FC<FormikExternalProps> = ({
+const EnhancedCheckbox: FC<EnhancedComponentProps<boolean>> = ({
   field,
   form,
+  onChange,
   ...rest
 }) => (
   <FormikProxy<boolean>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => <CheckboxPrimitive {...rest} {...formikProps} />}
   />
 );
