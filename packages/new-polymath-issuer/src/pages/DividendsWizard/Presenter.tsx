@@ -73,7 +73,7 @@ export class Presenter extends Component<Props> {
     this.setState({ dividendAmount });
   };
 
-  public setPositiveWithholdingAmount = (positiveWithholdingAmount: number) => {    
+  public setPositiveWithholdingAmount = (positiveWithholdingAmount: number) => {
     this.setState({ positiveWithholdingAmount });
   };
 
@@ -83,6 +83,14 @@ export class Presenter extends Component<Props> {
     return (excludedWallets || []).map(wallet =>
       wallet['Investor ETH Address'].toUpperCase()
     );
+  };
+
+  public getInvestorAddresses = () => {
+    const {
+      checkpoint: { investorBalances },
+    } = this.props;
+
+    return investorBalances.map(({ address }) => address.toUpperCase());
   };
 
   public renderStepComponent = () => {
@@ -97,10 +105,9 @@ export class Presenter extends Component<Props> {
       checkpoint,
     } = this.props;
     const { excludedWallets } = this.state;
-    const { investorBalances } = checkpoint;
     const exclusionList = this.getExcludedAddresses();
     const nonExcludedInvestors = difference(
-      investorBalances.map(({ address }) => address.toUpperCase()),
+      this.getInvestorAddresses(),
       exclusionList
     );
 
@@ -154,12 +161,8 @@ export class Presenter extends Component<Props> {
       positiveWithholdingAmount,
     } = this.state;
     const { investorBalances } = checkpoint;
-    const exclusionList = (excludedWallets || []).map(wallet =>
-      wallet['Investor ETH Address'].toUpperCase()
-    );
-    const investors = investorBalances.map(({ address }) =>
-      address.toUpperCase()
-    );
+    const exclusionList = this.getExcludedAddresses();
+    const investors = this.getInvestorAddresses();
     const excludedInvestors = intersection(investors, exclusionList);
     const excludedAmount = excludedInvestors.length;
     const investorAmount = investorBalances.length;
