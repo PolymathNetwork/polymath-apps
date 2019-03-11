@@ -7,6 +7,23 @@ export interface Props {
   small?: boolean;
 }
 
+function renderCell(cell: CellType) {
+  if (cell.column.id === 'selectRow') {
+    return cell.render('Cell');
+  } else {
+    if (typeof cell.value === 'undefined') {
+      return null;
+    } else {
+      // if explicitly `null`, it's an empty state, display "-"
+      if (cell.value === null) {
+        return '-';
+      }
+    }
+  }
+
+  return cell.render('Cell');
+}
+
 export const Row: FC<Props> = ({ row, small }) => {
   return (
     <sc.Row
@@ -22,11 +39,7 @@ export const Row: FC<Props> = ({ row, small }) => {
           small={small}
           hasError={cell.isValid === false}
         >
-          {typeof cell.value === 'undefined' // if explicitly `null`, display "-"
-            ? null
-            : cell.value === null
-            ? '-'
-            : cell.render('Cell')}
+          {renderCell(cell)}
         </sc.Cell>
       ))}
     </sc.Row>

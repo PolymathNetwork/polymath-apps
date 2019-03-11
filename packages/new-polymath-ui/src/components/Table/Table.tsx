@@ -43,15 +43,20 @@ export const TableComponent: FC<Props> = ({
 }) => {
   const tableToolbarEl = useRef(null);
   const tableBodyEl = useRef(null);
+  const isEmpty =
+    data.length === 1 && !Object.values(data[0]).find(value => !!value);
   const selectRowColumn: HeaderColumn = {
     accessor: 'selectRow',
-    Header: ({ getSelectRowToggleProps }) => (
-      <Checkbox
-        {...getSelectRowToggleProps()}
-        aria-label="Select all rows"
-        data-testid="select-all-rows"
-      />
-    ),
+    Header: ({ getSelectRowToggleProps }) =>
+      isEmpty ? (
+        ''
+      ) : (
+        <Checkbox
+          {...getSelectRowToggleProps()}
+          aria-label="Select all rows"
+          data-testid="select-all-rows"
+        />
+      ),
     Cell: ({ row }: { row: RowType }) => (
       <Checkbox
         onChange={row.toggleSelected ? row.toggleSelected : () => {}}
