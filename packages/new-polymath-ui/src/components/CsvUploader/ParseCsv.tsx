@@ -19,6 +19,13 @@ export interface Config {
   header?: boolean;
   maxRows?: number;
   strict?: boolean;
+  validateFile?: (data: Array<any>) => boolean;
+  customValidationErrorMessage?: CustomValidationError;
+}
+
+export interface CustomValidationError {
+  header: string;
+  body: string;
 }
 
 export interface Props<Output extends csvParser.Output> {

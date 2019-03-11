@@ -1,11 +1,13 @@
 import _ from 'lodash';
 import Papa, { ParseResult } from 'papaparse';
 import * as validators from './validators';
+import { string } from 'yup';
 
 export enum ErrorCodes {
   missingRequiredColumns = 'missingRequiredColumns',
   extraColumns = 'extraColumns',
   rowsExceedMaxLimit = 'rowsExceedMaxLimit',
+  customValidationFailed = 'customValidationFailed',
 }
 
 export interface Props {
@@ -14,6 +16,7 @@ export interface Props {
   header?: boolean;
   maxRows?: number;
   validateRow?: (rowData: Array<any>) => boolean;
+  validateFile?: (data: Array<any>) => boolean;
   strict?: boolean;
 }
 
@@ -24,6 +27,7 @@ export interface ResultProps<R> {
   errorRows: number;
   ignoredRows: number;
   isFileValid: boolean;
+  isCustomValidationFailed: boolean;
   errors: Array<string>;
 }
 
@@ -112,8 +116,17 @@ export const parseCsv = async <R extends Output>(
     let isFileValid: boolean = true;
     let hasExtraRows: boolean = false;
     let hasExtraColumns: boolean = false;
+    let isCustomValidationFailed: boolean = false;
 
-    const { header, data, columns, maxRows, validateRow, strict } = props;
+    const {
+      header,
+      data,
+      columns,
+      maxRows,
+      validateRow,
+      validateFile,
+      strict,
+    } = props;
 
     if (!header) {
       indexedColumns = columns.map((column, index) => ({
@@ -233,6 +246,11 @@ export const parseCsv = async <R extends Output>(
     };
 
     const complete = () => {
+      // Validate the file
+      if (validateFile && !validateFile(result)) {
+        errors.push(ErrorCodes.customValidationFailed);
+        isCustomValidationFailed = true;
+      }
       resolve({
         result,
         totalRows,
@@ -240,9 +258,11 @@ export const parseCsv = async <R extends Output>(
         errorRows,
         ignoredRows,
         isFileValid,
+        isCustomValidationFailed,
         errors,
       });
     };
+
     const config = {
       dynamicTyping: true,
       skipEmptyLines: true,
