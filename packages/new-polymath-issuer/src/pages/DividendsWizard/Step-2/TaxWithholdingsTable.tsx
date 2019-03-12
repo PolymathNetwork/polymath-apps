@@ -37,7 +37,7 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
       value && formatters.toShortAddress(value, { size: 26 }),
   },
   {
-    Header: '% Tax Witholding for Associated ETH Address',
+    Header: '% Tax Withholding for Associated ETH Address',
     accessor: csvTaxWithholdingKey,
     width: 250,
     Cell: ({ value }) => formatters.toPercent(value),
