@@ -2,7 +2,7 @@ import React, { Component, ChangeEvent, FC } from 'react';
 import styled from 'styled-components';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 
-import { FormikProxy, FormikExternalProps } from '../FormikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 
 export interface TextAreaProps
   extends typeHelpers.Omit<
@@ -56,14 +56,16 @@ export class TextAreaPrimitive extends Component<TextAreaProps> {
   }
 }
 
-const EnhancedTextArea: FC<FormikExternalProps> = ({
+const EnhancedTextArea: FC<EnhancedComponentProps<Value>> = ({
   field,
   form,
+  onChange,
   ...rest
 }) => (
   <FormikProxy<Value>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => <TextAreaPrimitive {...rest} {...formikProps} />}
   />
 );

@@ -44,6 +44,8 @@ interface Props {
       percentage: number;
     }>
   ) => void;
+  nonExcludedInvestors: string[];
+  onTaxWithholdingListChange: (amountOfInvestors: number) => void;
 }
 
 const schema = validator.object().shape({
@@ -72,6 +74,8 @@ export const Step2: FC<Props> = ({
   existingTaxWithholdings,
   downloadTaxWithholdingList,
   updateTaxWithholdingList,
+  nonExcludedInvestors,
+  onTaxWithholdingListChange,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -98,8 +102,6 @@ export const Step2: FC<Props> = ({
   const downloadExistingTaxWithholdings = () => {
     downloadTaxWithholdingList(existingTaxWithholdings);
   };
-  // NOTE: At this point this never happens since by default two
-  // taxWithholdings already exist
   const downloadSampleTaxWithholdings = () => {
     downloadTaxWithholdingList([]);
   };
@@ -130,6 +132,58 @@ export const Step2: FC<Props> = ({
       return errors;
     }
   };
+  const isTaxWithholdingsItemArray = (
+    entries: any
+  ): entries is TaxWithholdingsItem[] => {
+    return (
+      Array.isArray(entries) &&
+      entries.every(
+        entry =>
+          (typeof entry[csvEthAddressKey] === 'string' &&
+            typeof entry[csvTaxWithholdingKey] === 'number' &&
+            !entry.status) ||
+          typeof entry.status === 'string'
+      )
+    );
+  };
+
+  const handleFieldChange = (field: string, value: any) => {
+    if (field !== 'taxWithholdings') {
+      return;
+    }
+
+    if (isTaxWithholdingsItemArray(value)) {
+      let count = 0;
+
+      nonExcludedInvestors.forEach(address => {
+        const investorEntry = value.find(
+          entry =>
+            address.toUpperCase() === entry[csvEthAddressKey].toUpperCase()
+        );
+
+        if (investorEntry) {
+          if (investorEntry[csvTaxWithholdingKey] > 0) {
+            count += 1;
+          }
+
+          return;
+        }
+
+        const originalTaxWithholding = existingTaxWithholdings.find(
+          ({ investorAddress }) =>
+            investorAddress.toUpperCase() === address.toUpperCase()
+        );
+
+        if (originalTaxWithholding && originalTaxWithholding.percentage > 0) {
+          count += 1;
+        }
+      });
+
+      onTaxWithholdingListChange(count);
+    } else {
+      throw new Error('Invalid Tax Withholding format');
+    }
+  };
 
   const initialTaxWithholdings = map(
     existingTaxWithholdings,
@@ -144,6 +198,7 @@ export const Step2: FC<Props> = ({
   return (
     <Form<FormValues>
       onSubmit={onSubmit}
+      onFieldChange={handleFieldChange}
       validate={handleValidation}
       initialValues={{
         taxWithholdings: initialTaxWithholdings,
@@ -182,7 +237,9 @@ export const Step2: FC<Props> = ({
           );
           // Add back items that already existed, but marked as 0%
           each(existingTaxWithholdings, taxWithholding => {
-            const exists = includes(addresses, taxWithholding.investorAddress);
+            const { investorAddress, percentage } = taxWithholding;
+            const exists =
+              includes(addresses, investorAddress) && percentage > 0;
 
             if (!exists) {
               return;
@@ -190,7 +247,7 @@ export const Step2: FC<Props> = ({
 
             modifiedItems.unshift({
               status: TaxWithholdingStatuses.Updated,
-              [csvEthAddressKey]: taxWithholding.investorAddress,
+              [csvEthAddressKey]: investorAddress,
               [csvTaxWithholdingKey]: 0,
             });
           });
@@ -215,7 +272,7 @@ export const Step2: FC<Props> = ({
               </li>
               <li>
                 <Text>
-                  — % tax witholding for associated ETH address. The exact
+                  — % tax withholding for associated ETH address. The exact
                   amount of funds to be withheld will be automatically
                   calculated prior to distribution.
                 </Text>

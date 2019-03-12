@@ -2,7 +2,7 @@ import React, { Component, FC } from 'react';
 import { isNumber } from 'lodash';
 import numeral from 'numeral';
 
-import { FormikProxy, FormikExternalProps } from '../FormikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 import { BaseInput } from '../BaseInput';
 
 interface Props {
@@ -58,7 +58,7 @@ export class PercentageInputPrimitive extends Component<Props> {
   }
 }
 
-const EnhancedPercentageInput: FC<FormikExternalProps> = ({
+const EnhancedPercentageInput: FC<EnhancedComponentProps<number>> = ({
   field,
   form,
   ...rest

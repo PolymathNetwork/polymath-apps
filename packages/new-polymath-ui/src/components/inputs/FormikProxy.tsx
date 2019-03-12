@@ -1,6 +1,5 @@
-import React, { Component, ReactNode } from 'react';
-import { FieldProps, FormikProps, FieldConfig } from 'formik';
-import { typeHelpers } from '@polymathnetwork/new-shared';
+import { Component, ReactNode } from 'react';
+import { FieldProps, FormikProps } from 'formik';
 
 export interface RenderProps<Value> {
   value: Value;
@@ -9,12 +8,16 @@ export interface RenderProps<Value> {
   onBlur: () => void;
 }
 
-export interface FormikExternalProps {
+interface FormikExternalProps {
   field: Pick<FieldProps['field'], 'name' | 'value'>;
   form: Pick<FormikProps<any>, 'setFieldValue' | 'setFieldTouched'>;
 }
 
-interface Props<ValueType> extends FormikExternalProps {
+export interface EnhancedComponentProps<ValueType> extends FormikExternalProps {
+  onChange?: (value: ValueType) => void;
+}
+
+interface Props<ValueType> extends EnhancedComponentProps<ValueType> {
   render: (props: RenderProps<ValueType>) => ReactNode;
 }
 
@@ -22,6 +25,11 @@ export class FormikProxy<ValueType> extends Component<Props<ValueType>> {
   public handleChange = (newValue: ValueType) => {
     const { setFieldValue } = this.props.form;
     const { name } = this.props.field;
+    const { onChange } = this.props;
+
+    if (onChange) {
+      onChange(newValue);
+    }
 
     setFieldValue(name, newValue);
   };

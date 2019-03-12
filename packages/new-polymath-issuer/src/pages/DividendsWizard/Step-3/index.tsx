@@ -26,6 +26,7 @@ interface Props {
     params: CreateDividendDistributionParams
   ) => void;
   networkId?: constants.NetworkIds;
+  updateDividendAmount: (dividendAmount: BigNumber) => void;
 }
 interface Values {
   currency: types.Tokens | null;
@@ -44,6 +45,7 @@ const Step3Base: FC<Props> = ({
   excludedWallets,
   createDividendDistribution,
   networkId,
+  updateDividendAmount,
 }) => {
   const onSubmit = (values: Values) => {
     const { currency, distributionName, dividendAmount, tokenAddress } = values;
@@ -142,6 +144,7 @@ const Step3Base: FC<Props> = ({
                         unit: values.currency,
                         useBignumbers: true,
                       }}
+                      onChange={updateDividendAmount}
                     />
                     <FormItem.Error />
                   </FormItem>

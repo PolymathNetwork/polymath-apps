@@ -1,8 +1,9 @@
 import React, { Component, FC } from 'react';
 import styled from 'styled-components';
 
-import { FormikProxy, FormikExternalProps } from '../FormikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 import { InputProps } from '../types';
+import { typeHelpers } from '@polymathnetwork/new-shared';
 
 export interface ToggleInputProps extends InputProps {
   /**
@@ -24,7 +25,7 @@ export interface ToggleInputProps extends InputProps {
   checked: boolean;
 }
 
-interface ExternalProps extends ToggleInputProps, FormikExternalProps {}
+interface ExternalProps extends typeHelpers.Omit<ToggleInputProps, 'onChange'>, EnhancedComponentProps<boolean> {}
 
 const Input = styled.input`
   position: absolute;
@@ -142,10 +143,11 @@ export class ToggleInputPrimitive extends Component<ToggleInputProps> {
   }
 }
 
-const EnhancedToggleInput: FC<ExternalProps> = ({ field, form, ...rest }) => (
+const EnhancedToggleInput: FC<ExternalProps> = ({ field, form, onChange, ...rest }) => (
   <FormikProxy<boolean>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => <ToggleInputPrimitive {...rest} {...formikProps} />}
   />
 );

@@ -19,7 +19,7 @@ import {
 import { ExclusionEntry } from '../Presenter';
 
 export interface Step1Props {
-  onNextStep: (values: Values) => void;
+  onNextStep: () => void;
   excludedWallets: null | ExclusionEntry[];
   setExcludedWallets: (csv: this['excludedWallets']) => void;
   downloadSampleExclusionList: () => void;
@@ -49,7 +49,7 @@ export const Step1: FC<Step1Props> = ({
   const handleSubmit = (values: Values) => {
     // Set csv file
     setExcludedWallets(values.excludedWallets);
-    onNextStep(values);
+    onNextStep();
   };
 
   return (
@@ -59,7 +59,7 @@ export const Step1: FC<Step1Props> = ({
         excludedWallets,
       }}
       onSubmit={handleSubmit}
-      render={({ values, submitForm }) => (
+      render={({ values, submitForm, setFieldValue }) => (
         <Card p="gridGap" boxShadow={1}>
           <Heading variant="h2" mb="l">
             1. Exclude Wallets from the Dividends Calculation
@@ -92,7 +92,10 @@ export const Step1: FC<Step1Props> = ({
           <ModalConfirm
             isOpen={isCsvModalOpen}
             onSubmit={submitForm}
-            onClose={handleCsvModalClose}
+            onClose={() => {
+              handleCsvModalClose();
+              setFieldValue('excludedWallets', null);
+            }}
             actionButtonText="Update list and proceed to the next step"
             isActionDisabled={!values.excludedWallets}
           >

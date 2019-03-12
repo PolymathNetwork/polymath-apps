@@ -5,7 +5,7 @@ import moment from 'moment';
 import { SelectPrimitive, SelectProps } from '../Select';
 import {
   FormikProxy,
-  FormikExternalProps,
+  EnhancedComponentProps,
 } from '~/components/inputs/FormikProxy';
 
 export type TimePickerSelectProps = SelectProps & {
@@ -16,7 +16,7 @@ export type TimePickerSelectProps = SelectProps & {
   onMenuClose: () => void;
 };
 
-interface ExternalProps extends FormikExternalProps {
+interface ExternalProps extends EnhancedComponentProps<number> {
   format: string;
   onMenuClose: () => void;
 }
@@ -78,11 +78,13 @@ class TimePickerSelectBase extends Component<TimePickerSelectProps> {
 const EnhancedTimePickerSelect: FC<ExternalProps> = ({
   field,
   form,
+  onChange,
   ...rest
 }) => (
   <FormikProxy<number>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => (
       <TimePickerSelectBase
         field={field}
