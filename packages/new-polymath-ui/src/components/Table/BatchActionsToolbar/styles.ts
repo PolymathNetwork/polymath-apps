@@ -5,6 +5,7 @@ export const BatchActionsToolbar = styled(RowBase)`
   position: absolute;
   top: 0;
   width: 100%;
+  padding: 1em;
   background: ${({ theme }) => theme.colors.primary};
   color: white;
   height: ${rowHeight};

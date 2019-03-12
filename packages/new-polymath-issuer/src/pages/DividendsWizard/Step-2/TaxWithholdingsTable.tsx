@@ -129,13 +129,13 @@ export const TaxWithholdingsTable: FC<Props> = props => {
 
           return (
             <Fragment>
-              <Button
+              <ButtonSmall
                 variant="ghost"
                 iconPosition="right"
                 onClick={handleDeleteRows}
               >
                 Delete <Icon Asset={icons.SvgDelete} />
-              </Button>
+              </ButtonSmall>
             </Fragment>
           );
         }}

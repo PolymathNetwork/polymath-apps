@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Box } from '~/components/Box';
-import { Button } from '~/components/Button';
+import { ButtonSmall } from '~/components/ButtonSmall';
 import { Context } from '../Context';
 import * as sc from './styles';
 import { Row } from '../index';
@@ -25,12 +25,12 @@ export const BatchActionsToolbar: FC<Props> = props => {
         : children}
       <Box ml="auto">
         {selectedRows.length} items selected
-        <Button
+        <ButtonSmall
           variant="ghost"
           onClick={() => toggleSelectAll && toggleSelectAll(false)}
         >
           Cancel
-        </Button>
+        </ButtonSmall>
       </Box>
     </sc.BatchActionsToolbar>
   );
