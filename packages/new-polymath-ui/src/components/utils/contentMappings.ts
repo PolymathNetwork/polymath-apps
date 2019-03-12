@@ -307,8 +307,8 @@ export const getTransactionQueueContent = (
       const args: ProcedureArguments[types.ProcedureTypes.Approve] = queue.args;
 
       return {
-        title: 'Approve',
-        description: 'Approve',
+        title: 'Approve POLY Spend',
+        description: 'Approve POLY Spend',
       };
     }
     case types.ProcedureTypes.CreateCheckpoint: {
@@ -593,7 +593,7 @@ export const getTransactionContent = (
       const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetErc20TaxWithholding);
       return {
         title:
-          'Update Tax Withholding List.',
+          'This transaction will be used to apply the changes submitted to the Tax Withholding List.',
         description: `#${position} of ${total}`,
       };
     }
@@ -601,7 +601,7 @@ export const getTransactionContent = (
       const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetEtherTaxWithholding);
       return {
         title:
-          'Update Tax Withholding List.',
+          'This transaction will be used to apply the changes submitted to the Tax Withholding List.',
         description: `#${position} of ${total}`,
       };
     }
