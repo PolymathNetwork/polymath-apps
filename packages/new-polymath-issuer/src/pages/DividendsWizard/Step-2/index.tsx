@@ -45,6 +45,7 @@ interface Props {
     }>
   ) => void;
   nonExcludedInvestors: string[];
+  exclusionList: string[];
   onTaxWithholdingListChange: (amountOfInvestors: number) => void;
 }
 
@@ -75,6 +76,7 @@ export const Step2: FC<Props> = ({
   downloadTaxWithholdingList,
   updateTaxWithholdingList,
   nonExcludedInvestors,
+  exclusionList,
   onTaxWithholdingListChange,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
@@ -185,14 +187,14 @@ export const Step2: FC<Props> = ({
     }
   };
 
-  const initialTaxWithholdings = map(
-    existingTaxWithholdings,
-    taxWithhholdingItem => {
+  const initialTaxWithholdings = filter(
+    map(existingTaxWithholdings, taxWithhholdingItem => {
       return {
         [csvEthAddressKey]: taxWithhholdingItem.investorAddress,
         [csvTaxWithholdingKey]: taxWithhholdingItem.percentage,
       };
-    }
+    }),
+    item => !includes(exclusionList, item[csvEthAddressKey].toUpperCase())
   );
 
   return (
