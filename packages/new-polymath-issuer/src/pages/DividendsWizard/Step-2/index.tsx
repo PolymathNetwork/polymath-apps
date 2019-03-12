@@ -1,48 +1,27 @@
-import {
-  FieldProps,
-  FieldArray,
-  validateYupSchema,
-  yupToFormErrors,
-} from 'formik';
-import React, { Fragment, useState, useCallback, FC } from 'react';
+import { FieldProps, validateYupSchema, yupToFormErrors } from 'formik';
+import React, { useState, FC } from 'react';
 import { map, find, each, filter, includes } from 'lodash';
-import {
-  validators,
-  formatters,
-  csvParser,
-  utils,
-  types,
-} from '@polymathnetwork/new-shared';
+import { types } from '@polymathnetwork/new-shared';
 import {
   Box,
   Button,
-  ButtonSmall,
   Icon,
   icons,
   Heading,
   Card,
   Paragraph,
   Remark,
-  Flex,
-  InlineFlex,
   Form,
   FormItem,
   Checkbox,
   List,
-  Grid,
-  CsvUploader,
-  ModalConfirm,
-  Table,
   Text,
-  Link,
   LinkButton,
-  IconButton,
-  TextInput,
-  PercentageInput,
   validator,
   Field,
 } from '@polymathnetwork/new-ui';
 import { CsvModal } from './CsvModal';
+import { DeleteConfirmModal } from './DeleteConfirmModal';
 import { TaxWithholdingModal } from './TaxWithholdingModal';
 import { TaxWithholdingsTable } from './TaxWithholdingsTable';
 import {
@@ -97,6 +76,8 @@ export const Step2: FC<Props> = ({
   const [csvModalOpen, setCsvModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+  const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
 
   const onSubmit = ({ taxWithholdings }: FormValues) => {
     const filteredTaxWithholdings = filter(
@@ -134,6 +115,12 @@ export const Step2: FC<Props> = ({
   const closeTaxWithhholdingModal = () => {
     setTaxWithholdingModalOpen(false);
     setIsEditing(false);
+  };
+  const closeConfirmDeleteModal = () => {
+    setConfirmDeleteModalOpen(false);
+  };
+  const openConfirmDeleteModal = () => {
+    setConfirmDeleteModalOpen(true);
   };
   const handleValidation = (values: FormValues) => {
     try {
@@ -181,6 +168,11 @@ export const Step2: FC<Props> = ({
           openTaxWithhholdingModal();
         };
 
+        const confirmDelete = (addresses: string[]) => {
+          setAddressesToDelete(addresses);
+          openConfirmDeleteModal();
+        };
+
         const handleDelete = (addresses: string[]) => {
           // Remove all matching items
           const modifiedItems = filter(
@@ -204,6 +196,7 @@ export const Step2: FC<Props> = ({
           });
 
           setFieldValue('taxWithholdings', modifiedItems);
+          closeConfirmDeleteModal();
         };
 
         return (
@@ -298,6 +291,13 @@ export const Step2: FC<Props> = ({
               )}
             />
 
+            <DeleteConfirmModal
+              isOpen={confirmDeleteModalOpen}
+              onConfirm={() => handleDelete(addressesToDelete)}
+              onClose={closeConfirmDeleteModal}
+              addresses={addressesToDelete}
+            />
+
             <Heading variant="h3" mt="4">
               Tax Withholdings List
             </Heading>
@@ -308,7 +308,7 @@ export const Step2: FC<Props> = ({
               onEdit={handleEdit}
               onAddNewOpen={openTaxWithhholdingModal}
               taxWithholdings={values.taxWithholdings}
-              onDelete={handleDelete}
+              onDelete={confirmDelete}
             />
             <Heading variant="h3" mt="4">
               No Changes Required
