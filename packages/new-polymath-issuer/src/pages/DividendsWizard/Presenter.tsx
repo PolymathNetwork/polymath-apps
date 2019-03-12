@@ -56,7 +56,7 @@ export interface State {
   positiveWithholdingAmount: number;
 }
 
-export class Presenter extends Component<Props> {
+export class Presenter extends Component<Props, State> {
   public state: State = {
     excludedWallets: null,
     dividendAmount: new BigNumber(0),
@@ -102,7 +102,6 @@ export class Presenter extends Component<Props> {
       createDividendDistribution,
       downloadSampleExclusionList,
       updateTaxWithholdingList,
-      checkpoint,
     } = this.props;
     const { excludedWallets } = this.state;
     const exclusionList = this.getExcludedAddresses();
@@ -155,11 +154,7 @@ export class Presenter extends Component<Props> {
       onPreviousStep,
     } = this.props;
 
-    const {
-      excludedWallets,
-      dividendAmount,
-      positiveWithholdingAmount,
-    } = this.state;
+    const { dividendAmount, positiveWithholdingAmount } = this.state;
     const { investorBalances } = checkpoint;
     const exclusionList = this.getExcludedAddresses();
     const investors = this.getInvestorAddresses();
@@ -258,7 +253,6 @@ export class Presenter extends Component<Props> {
                 Total Dividend Distribution
               </Text>
               <br />
-              {/* NOTE: Mock data */}
               <Text fontSize={6}>{formatters.toTokens(dividendAmount)} -</Text>
             </CardPrimary>
           </GridRow.Col>
