@@ -4,7 +4,7 @@ import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import {
   FormikProxy,
-  FormikExternalProps,
+  EnhancedComponentProps,
 } from '~/components/inputs/FormikProxy';
 import { getContext } from '~/components/CsvUploader/Context';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
@@ -137,20 +137,22 @@ export const CsvUploaderPrimitive = Object.assign(
   }
 );
 
-interface Props extends FormikExternalProps {
+interface Props<Output extends csvParser.Output>
+  extends EnhancedComponentProps<Value<Output>> {
   csvConfig: ParseCsvProps['config'];
 }
 
 class CsvUploaderWithFormik<Output extends csvParser.Output> extends Component<
-  Props
+  Props<Output>
 > {
   public render() {
-    const { field, form, ...rest } = this.props;
+    const { field, form, onChange, ...rest } = this.props;
 
     return (
       <FormikProxy<Value<Output>>
         field={field}
         form={form}
+        onChange={onChange}
         render={formikProps => (
           <CsvUploaderPrimitive<Output> {...rest} {...formikProps} />
         )}

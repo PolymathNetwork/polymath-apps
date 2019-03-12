@@ -1,4 +1,4 @@
-import React, { Fragment, Component, FC } from 'react';
+import React, { Fragment, Component, FC, useCallback } from 'react';
 import {
   Box,
   Button,
@@ -11,14 +11,16 @@ import {
   TooltipIcon,
   Form,
   NumberInput,
+  validator,
 } from '@polymathnetwork/new-ui';
-import { types, constants } from '@polymathnetwork/new-shared';
+import { types, constants, validators } from '@polymathnetwork/new-shared';
 import BigNumber from 'bignumber.js';
 import { ExclusionEntry } from '~/pages/DividendsWizard/Presenter';
 import { CreateDividendDistributionParams } from '~/pages/DividendsWizard/Container';
 import { RootState } from '~/state/store';
 import { getApp } from '~/state/selectors';
 import { connect } from 'react-redux';
+import { validateYupSchema, yupToFormErrors, FormikErrors } from 'formik';
 
 interface Props {
   excludedWallets: null | ExclusionEntry[];
@@ -26,6 +28,7 @@ interface Props {
     params: CreateDividendDistributionParams
   ) => void;
   networkId?: constants.NetworkIds;
+  updateDividendAmount: (dividendAmount: BigNumber) => void;
 }
 interface Values {
   currency: types.Tokens | null;
@@ -33,6 +36,20 @@ interface Values {
   dividendAmount: BigNumber | null;
   tokenAddress: string;
 }
+
+const schema = validator.object().shape({
+  currency: validator.string().required('Currency is required'),
+  distributionName: validator
+    .string()
+    .nullable(true)
+    .required('Distribution name is required'),
+  dividendAmount: validator
+    .bigNumber()
+    .min(0, 'Amount cannot be less than 0')
+    .max(new BigNumber('1000000000000000000'), 'Amount exceeds maximum')
+    .required('Amount is required'),
+  tokenAddress: validator.string(),
+});
 
 const mapStateToProps = (state: RootState) => {
   const { networkId } = getApp(state);
@@ -44,6 +61,7 @@ const Step3Base: FC<Props> = ({
   excludedWallets,
   createDividendDistribution,
   networkId,
+  updateDividendAmount,
 }) => {
   const onSubmit = (values: Values) => {
     const { currency, distributionName, dividendAmount, tokenAddress } = values;
@@ -80,6 +98,37 @@ const Step3Base: FC<Props> = ({
     });
   };
 
+  const handleValidation = (values: Values) => {
+    const errors: {
+      [key: string]: string | FormikErrors<any>;
+    } = {};
+    let schemaErrors = {};
+
+    // Validate custom ERC20 token address if required
+    if (values.currency === types.Tokens.Erc20) {
+      if (!values.tokenAddress) {
+        errors.tokenAddress = 'Token address is required';
+      }
+      if (!validators.isEthereumAddress(values.tokenAddress)) {
+        errors.tokenAddress = 'Token address is invalid';
+      }
+    }
+    try {
+      validateYupSchema(values, schema, true);
+    } catch (err) {
+      schemaErrors = yupToFormErrors(err);
+    }
+
+    const allErrors = {
+      ...errors,
+      ...schemaErrors,
+    };
+
+    if (Object.keys(allErrors).length) {
+      return allErrors;
+    }
+  };
+
   return (
     <Card p="gridGap">
       <Heading variant="h2" mb="l">
@@ -93,8 +142,9 @@ const Step3Base: FC<Props> = ({
           dividendAmount: null,
           tokenAddress: '',
         }}
+        validate={handleValidation}
         onSubmit={onSubmit}
-        render={({ handleSubmit, isValid, values }) => {
+        render={({ handleSubmit, values }) => {
           const { currency } = values;
           return (
             <form onSubmit={handleSubmit}>
@@ -120,6 +170,7 @@ const Step3Base: FC<Props> = ({
                     }}
                     placeholder="Choose currency"
                   />
+                  <FormItem.Error />
                 </FormItem>
                 {currency === types.Tokens.Erc20 && (
                   <FormItem name="tokenAddress">
@@ -128,6 +179,7 @@ const Step3Base: FC<Props> = ({
                       component={TextInput}
                       placeholder={'Enter ERC20 token contract address'}
                     />
+                    <FormItem.Error />
                   </FormItem>
                 )}
                 <Box width="336px" mt={0}>
@@ -140,8 +192,9 @@ const Step3Base: FC<Props> = ({
                         min: new BigNumber(0),
                         max: new BigNumber('1000000000000000000'),
                         unit: values.currency,
-                        useBignumbers: true,
+                        useBigNumbers: true,
                       }}
+                      onChange={updateDividendAmount}
                     />
                     <FormItem.Error />
                   </FormItem>

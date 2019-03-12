@@ -19,7 +19,7 @@ import {
 import { ExclusionEntry } from '../Presenter';
 
 export interface Step1Props {
-  onNextStep: (values: Values) => void;
+  onNextStep: () => void;
   excludedWallets: null | ExclusionEntry[];
   setExcludedWallets: (csv: this['excludedWallets']) => void;
   downloadSampleExclusionList: () => void;
@@ -49,7 +49,7 @@ export const Step1: FC<Step1Props> = ({
   const handleSubmit = (values: Values) => {
     // Set csv file
     setExcludedWallets(values.excludedWallets);
-    onNextStep(values);
+    onNextStep();
   };
 
   return (
@@ -59,7 +59,7 @@ export const Step1: FC<Step1Props> = ({
         excludedWallets,
       }}
       onSubmit={handleSubmit}
-      render={({ values, submitForm }) => (
+      render={({ values, submitForm, setFieldValue }) => (
         <Card p="gridGap" boxShadow={1}>
           <Heading variant="h2" mb="l">
             1. Exclude Wallets from the Dividends Calculation
@@ -92,15 +92,28 @@ export const Step1: FC<Step1Props> = ({
           <ModalConfirm
             isOpen={isCsvModalOpen}
             onSubmit={submitForm}
-            onClose={handleCsvModalClose}
+            onClose={() => {
+              handleCsvModalClose();
+              setFieldValue('excludedWallets', null);
+            }}
             actionButtonText="Update list and proceed to the next step"
             isActionDisabled={!values.excludedWallets}
           >
             <ModalConfirm.Header>
-              Upload CSV of ETH Addresses to exclude
+              Update Wallets Exclusion List
             </ModalConfirm.Header>
             <Paragraph fontSize={2}>
-              This is the explanation of what is going on here.
+              Update the wallets exclusion list by uploading a comma separated
+              .CSV file. The format should be as follows:
+              <br />
+              - Investor wallet address
+              <br />
+              <br />
+              You can download{' '}
+              <LinkButton onClick={downloadSampleExclusionList}>
+                <Icon Asset={icons.SvgDownload} /> Sample-Exclusion-List.csv
+              </LinkButton>{' '}
+              file and edit it
             </Paragraph>
             <FormItem name="excludedWallets">
               <FormItem.Input
@@ -152,6 +165,13 @@ export const Step1: FC<Step1Props> = ({
               <br />
               <strong>
                 The maximum number of addresses that can be excluded is 100.
+              </strong>
+              <br />
+              <strong>
+                The wallets of Investors whose KYC/AML have expired are not 
+                automatically excluded and will receive dividends. These Investors 
+                can be excluded from the dividends calculation and distribution by 
+                adding their wallet address to the exclusion list.
               </strong>
             </Remark>
           </Box>

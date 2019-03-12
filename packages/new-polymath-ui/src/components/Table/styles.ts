@@ -14,6 +14,7 @@ export const Table = styled(Box)`
   display: flex;
   flex-direction: column;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
+  height: 100%;
 `;
 
 export const Inner = styled.div`
@@ -123,6 +124,4 @@ export const ButtonNextPage = styled(ButtonPagination)`
 
 export const Toolbar = styled.div``;
 
-export const Body = styled.div`
-  min-height: 200px;
-`;
+export const Body = styled.div``;
