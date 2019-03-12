@@ -61,8 +61,8 @@ export const TaxWithholdingModal: FC<Props> = ({
         existingTaxWithholdings,
         existingTaxWithholding => {
           return (
-            existingTaxWithholding.investorAddress ===
-              value[csvEthAddressKey] &&
+            existingTaxWithholding.investorAddress.toUpperCase() ===
+              value[csvEthAddressKey].toUpperCase() &&
             value[csvTaxWithholdingKey] !== existingTaxWithholding.percentage
           );
         }
