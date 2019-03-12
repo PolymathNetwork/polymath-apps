@@ -14,48 +14,50 @@ exports[`Table renders without crashing 1`] = `
   height: 100%;
 }
 
-.c22 {
+.c20 {
   display: inline-block;
   vertical-align: middle;
   width: 10px;
   height: 10px;
 }
 
-.c22 svg {
+.c20 svg {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.c26 {
+.c24 {
   display: inline-block;
   vertical-align: middle;
   width: 0.9em;
   height: 0.9em;
 }
 
-.c26 svg {
+.c24 svg {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.c17 {
+.c14 {
   box-sizing: border-box;
+  height: 100%;
+  text-align: right;
   margin-left: auto;
 }
 
-.c21 {
+.c19 {
   box-sizing: border-box;
   margin-left: 16px;
 }
 
-.c24 {
+.c22 {
   box-sizing: border-box;
   margin-right: 16px;
 }
 
-.c23 {
+.c21 {
   box-sizing: border-box;
   margin-left: auto;
   display: -webkit-box;
@@ -68,7 +70,7 @@ exports[`Table renders without crashing 1`] = `
   align-items: center;
 }
 
-.c18 {
+.c16 {
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -109,24 +111,24 @@ exports[`Table renders without crashing 1`] = `
   color: currentColor;
 }
 
-.c18:hover {
+.c16:hover {
   color: #fff;
   background-color: #5596E6;
 }
 
-.c18:disabled {
+.c16:disabled {
   opacity: 1;
 }
 
-.c18button,
-.c18input[type='button'],
-.c18input[type='submit'],
-.c18input[type='reset'],
-.c18input[type='file'] {
+.c16button,
+.c16input[type='button'],
+.c16input[type='submit'],
+.c16input[type='reset'],
+.c16input[type='file'] {
   border-radius: 0;
 }
 
-.c18:disabled:hover {
+.c16:disabled:hover {
   background-color: transparent;
   color: currentColor;
 }
@@ -142,6 +144,7 @@ exports[`Table renders without crashing 1`] = `
   -ms-flex-direction: column;
   flex-direction: column;
   font-size: 0.875rem;
+  height: 100%;
 }
 
 .c1 {
@@ -153,7 +156,7 @@ exports[`Table renders without crashing 1`] = `
   height: 100%;
 }
 
-.c4 {
+.c3 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -174,7 +177,7 @@ exports[`Table renders without crashing 1`] = `
   border-bottom: none;
 }
 
-.c4 + .c3 {
+.c3 + .c2 {
   margin-top: -1px;
 }
 
@@ -200,7 +203,7 @@ exports[`Table renders without crashing 1`] = `
   padding-right: 23px;
 }
 
-.c5 {
+.c4 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -215,11 +218,11 @@ exports[`Table renders without crashing 1`] = `
   font-weight: 500;
 }
 
-.c5:first-child {
+.c4:first-child {
   padding-left: 23px;
 }
 
-.c5:last-child {
+.c4:last-child {
   padding-right: 23px;
 }
 
@@ -291,11 +294,7 @@ exports[`Table renders without crashing 1`] = `
   visibility: hidden;
 }
 
-.c2 {
-  min-height: 200px;
-}
-
-.c20 {
+.c18 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -312,8 +311,88 @@ exports[`Table renders without crashing 1`] = `
   color: #5A6872;
 }
 
-.c20 + .c19 {
+.c18 + .c17 {
   margin-top: -1px;
+}
+
+.c23 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  border: 2px solid transparent;
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
+  line-height: 1.15;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
+  font-family: 'Overpass',sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: transparent;
+  border-color: transparent;
+  color: currentColor;
+  color: #3D70B2;
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  border-top: none;
+  border-bottom: none;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+}
+
+.c23:hover {
+  color: #fff;
+  background-color: #5596E6;
+}
+
+.c23:disabled {
+  opacity: 1;
+}
+
+.c23button,
+.c23input[type='button'],
+.c23input[type='submit'],
+.c23input[type='reset'],
+.c23input[type='file'] {
+  border-radius: 0;
+}
+
+.c23:disabled:hover {
+  background-color: transparent;
+  color: currentColor;
+}
+
+.c23:last-child {
+  border-right: none;
+}
+
+.c23 .c7 {
+  -webkit-transform: rotateZ(0.25turn);
+  -ms-transform: rotateZ(0.25turn);
+  transform: rotateZ(0.25turn);
 }
 
 .c25 {
@@ -391,92 +470,20 @@ exports[`Table renders without crashing 1`] = `
 }
 
 .c25 .c7 {
-  -webkit-transform: rotateZ(0.25turn);
-  -ms-transform: rotateZ(0.25turn);
-  transform: rotateZ(0.25turn);
-}
-
-.c27 {
-  position: relative;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-transform: uppercase;
-  -webkit-letter-spacing: 1px;
-  -moz-letter-spacing: 1px;
-  -ms-letter-spacing: 1px;
-  letter-spacing: 1px;
-  border: 2px solid transparent;
-  padding: 0.5rem 1rem;
-  min-height: 2.5rem;
-  line-height: 1.15;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color,opacity;
-  transition-property: background,color,border-color,opacity;
-  font-family: 'Overpass',sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  background-color: transparent;
-  border-color: transparent;
-  color: currentColor;
-  color: #3D70B2;
-  border-left: solid 1px #ddd;
-  border-right: solid 1px #ddd;
-  border-top: none;
-  border-bottom: none;
-  padding-left: 0.8rem;
-  padding-right: 0.8rem;
-}
-
-.c27:hover {
-  color: #fff;
-  background-color: #5596E6;
-}
-
-.c27:disabled {
-  opacity: 1;
-}
-
-.c27button,
-.c27input[type='button'],
-.c27input[type='submit'],
-.c27input[type='reset'],
-.c27input[type='file'] {
-  border-radius: 0;
-}
-
-.c27:disabled:hover {
-  background-color: transparent;
-  color: currentColor;
-}
-
-.c27:last-child {
-  border-right: none;
-}
-
-.c27 .c7 {
   -webkit-transform: rotateZ(-0.25turn);
   -ms-transform: rotateZ(-0.25turn);
   transform: rotateZ(-0.25turn);
 }
 
-.c16 {
+.c15 {
+  box-sizing: border-box;
+  margin-right: 16px;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  overflow-wrap: break-word;
+}
+
+.c13 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -496,13 +503,17 @@ exports[`Table renders without crashing 1`] = `
   border: none;
 }
 
-.c16 + .c15 {
+.c13 + .c12 {
   margin-top: -1px;
 }
 
-.c16[hidden] {
+.c13[hidden] {
   visibility: hidden;
   opacity: 0;
+}
+
+.c13 .c5 {
+  height: 100%;
 }
 
 .c10 {
@@ -526,53 +537,6 @@ exports[`Table renders without crashing 1`] = `
   position: relative;
   background: #e0e8f3;
   border-color: #3D70B2;
-}
-
-.c12 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.c9:hover .c12 {
-  visibility: visible;
-  opacity: 1;
-}
-
-.c13 {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  padding: 0;
-  background-color: transparent;
-}
-
-.c14 {
-  display: inline-block;
-  vertical-align: middle;
-  color: #8C9BA5;
-  width: 1.4rem;
-  height: 1.4rem;
-  display: block;
-}
-
-.c14 svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.c14:hover {
-  color: #c5cdd2;
 }
 
 <div
@@ -607,18 +571,18 @@ exports[`Table renders without crashing 1`] = `
               class="simplebar-content"
             >
               <div
-                class="c2"
+                class=""
               >
                 <div
-                  class="c3 c4"
+                  class="c2 c3"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -646,11 +610,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -678,11 +642,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -710,11 +674,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -742,11 +706,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -774,11 +738,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -849,60 +813,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -949,60 +860,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1049,60 +907,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1149,60 +954,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1249,60 +1001,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1349,60 +1048,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1449,60 +1095,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1549,60 +1142,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1649,60 +1189,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
                 <div
                   class="c9 c10"
@@ -1749,60 +1236,7 @@ exports[`Table renders without crashing 1`] = `
                   <div
                     class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
-                  >
-                    <div
-                      class="c12"
-                    >
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 12"
-                            width="1em"
-                          >
-                            <path
-                              d="M1.354 7.707L6.681 2.38l1.98 1.98-5.327 5.327zm6.01-5.94l1.32-1.32 1.98 1.98-1.32 1.32zM0 11.09l2-.666L.667 9.091z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        class="c13"
-                        type="button"
-                      >
-                        <span
-                          class="c7 c14"
-                        >
-                          <svg
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 11 16"
-                            width="1em"
-                          >
-                            <g
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            >
-                              <path
-                                d="M2.667 0H8v1.333H2.667zM0 2v2.667h.667V16H10V4.667h.667V2H0zm8.667 12H2V5.333h6.667V14z"
-                              />
-                              <path
-                                d="M3.333 6.667h1.333v6H3.333zm2.667 0h1.333v6H6z"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                  />
                 </div>
               </div>
             </div>
@@ -1829,16 +1263,22 @@ exports[`Table renders without crashing 1`] = `
     </div>
   </div>
   <div
-    class="c15 c16"
+    class="c12 c13"
     hidden=""
   >
     <div
-      class="c17"
+      class="c14"
+      height="100%"
     >
-      0
-       items selected
+      <span
+        class="c15"
+        font-size="baseText"
+      >
+        0
+         items selected
+      </span>
       <button
-        class="c18"
+        class="c5 c16"
         tabindex="0"
         type="button"
       >
@@ -1847,10 +1287,10 @@ exports[`Table renders without crashing 1`] = `
     </div>
   </div>
   <div
-    class="c19 c20"
+    class="c17 c18"
   >
     <label
-      class="c21"
+      class="c19"
       for="1"
     >
       Items per page
@@ -1886,7 +1326,7 @@ exports[`Table renders without crashing 1`] = `
             class="css-767nh9"
           >
             <span
-              class="c7 c22"
+              class="c7 c20"
             >
               <svg
                 fill-rule="evenodd"
@@ -1906,10 +1346,10 @@ exports[`Table renders without crashing 1`] = `
       </div>
     </div>
     <div
-      class="c23"
+      class="c21"
     >
       <label
-        class="c24"
+        class="c22"
         for="2"
       >
         Page 
@@ -1919,13 +1359,13 @@ exports[`Table renders without crashing 1`] = `
       </label>
       <button
         aria-label="Previous page"
-        class="c25"
+        class="c5 c23"
         disabled=""
         tabindex="0"
         type="button"
       >
         <span
-          class="c7 c26"
+          class="c7 c24"
         >
           <svg
             height="1em"
@@ -1971,7 +1411,7 @@ exports[`Table renders without crashing 1`] = `
               class="css-767nh9"
             >
               <span
-                class="c7 c22"
+                class="c7 c20"
               >
                 <svg
                   fill-rule="evenodd"
@@ -1992,12 +1432,12 @@ exports[`Table renders without crashing 1`] = `
       </div>
       <button
         aria-label="Next page"
-        class="c27"
+        class="c5 c25"
         tabindex="0"
         type="button"
       >
         <span
-          class="c7 c26"
+          class="c7 c24"
         >
           <svg
             height="1em"
