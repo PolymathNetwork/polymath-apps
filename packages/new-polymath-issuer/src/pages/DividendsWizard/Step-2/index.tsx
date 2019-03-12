@@ -43,6 +43,7 @@ import {
   Field,
 } from '@polymathnetwork/new-ui';
 import { CsvModal } from './CsvModal';
+import { DeleteConfirmModal } from './DeleteConfirmModal';
 import { TaxWithholdingModal } from './TaxWithholdingModal';
 import { TaxWithholdingsTable } from './TaxWithholdingsTable';
 import {
@@ -97,6 +98,8 @@ export const Step2: FC<Props> = ({
   const [csvModalOpen, setCsvModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+  const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
 
   const onSubmit = ({ taxWithholdings }: FormValues) => {
     const filteredTaxWithholdings = filter(
@@ -134,6 +137,12 @@ export const Step2: FC<Props> = ({
   const closeTaxWithhholdingModal = () => {
     setTaxWithholdingModalOpen(false);
     setIsEditing(false);
+  };
+  const closeConfirmDeleteModal = () => {
+    setConfirmDeleteModalOpen(false);
+  };
+  const openConfirmDeleteModal = () => {
+    setConfirmDeleteModalOpen(true);
   };
   const handleValidation = (values: FormValues) => {
     try {
@@ -182,7 +191,8 @@ export const Step2: FC<Props> = ({
         };
 
         const confirmDelete = (addresses: string[]) => {
-          console.log('confirming delete');
+          setAddressesToDelete(addresses);
+          openConfirmDeleteModal();
         };
 
         const handleDelete = (addresses: string[]) => {
@@ -208,6 +218,7 @@ export const Step2: FC<Props> = ({
           });
 
           setFieldValue('taxWithholdings', modifiedItems);
+          closeConfirmDeleteModal();
         };
 
         return (
@@ -300,6 +311,13 @@ export const Step2: FC<Props> = ({
                   isEditing={isEditing}
                 />
               )}
+            />
+
+            <DeleteConfirmModal
+              isOpen={confirmDeleteModalOpen}
+              onConfirm={() => handleDelete(addressesToDelete)}
+              onClose={closeConfirmDeleteModal}
+              addresses={addressesToDelete}
             />
 
             <Heading variant="h3" mt="4">

@@ -25,7 +25,7 @@ interface Props {
   taxWithholdings: TaxWithholdingsItem[];
   onAddNewOpen: () => void;
   onEdit: (csvEthAddress: string) => void;
-  onDelete: (addresses: string[]) => void;
+  onDelete: (addresses: string[], isBatch: boolean) => void;
   onSubmit: () => void;
 }
 
@@ -76,7 +76,7 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
           height="1.4rem"
           color="gray.2"
           onClick={() => {
-            onDelete([cell.row.values[csvEthAddressKey]]);
+            onDelete([cell.row.values[csvEthAddressKey]], false);
           }}
         />
       </Table.RowActions>
@@ -124,7 +124,7 @@ export const TaxWithholdingsTable: FC<Props> = props => {
               (row: any) => row.values[csvEthAddressKey]
             );
 
-            onDelete(addresses);
+            onDelete(addresses, true);
           };
 
           return (
