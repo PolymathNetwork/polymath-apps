@@ -120,6 +120,7 @@ export class Presenter extends Component<Props, State> {
             onNextStep={onNextStep}
             onTaxWithholdingListChange={this.setPositiveWithholdingAmount}
             nonExcludedInvestors={nonExcludedInvestors}
+            exclusionList={exclusionList}
           />
         );
       }
