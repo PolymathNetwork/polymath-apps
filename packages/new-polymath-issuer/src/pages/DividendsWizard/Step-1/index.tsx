@@ -97,10 +97,20 @@ export const Step1: FC<Step1Props> = ({
             isActionDisabled={!values.excludedWallets}
           >
             <ModalConfirm.Header>
-              Upload CSV of ETH Addresses to exclude
+              Update Wallets Exclusion List
             </ModalConfirm.Header>
             <Paragraph fontSize={2}>
-              This is the explanation of what is going on here.
+              Update the wallets exclusion list by uploading a comma separated
+              .CSV file. The format should be as follows:
+              <br />
+              - Investor wallet address
+              <br />
+              <br />
+              You can download{' '}
+              <LinkButton onClick={downloadSampleExclusionList}>
+                <Icon Asset={icons.SvgDownload} /> Sample-Exclusion-List.csv
+              </LinkButton>{' '}
+              file and edit it
             </Paragraph>
             <FormItem name="excludedWallets">
               <FormItem.Input
