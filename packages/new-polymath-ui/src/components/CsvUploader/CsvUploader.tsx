@@ -34,15 +34,14 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
 
   public componentDidUpdate(prevProps: ComponentProps<Output>) {
     const {
-      data: { isFileValid, result },
+      data: { isFileValid, result, isCustomValidationFailed },
       onChange,
     } = this.props;
 
     if (isFileValid === prevProps.data.isFileValid) {
       return;
     }
-
-    if (isFileValid) {
+    if (isFileValid && !isCustomValidationFailed) {
       const formattedResult = map(result, ({ data }) => {
         const res = {} as Output;
 
