@@ -156,7 +156,6 @@ export const Step2: FC<Props> = ({
 
     if (isTaxWithholdingsItemArray(value)) {
       let count = 0;
-
       nonExcludedInvestors.forEach(address => {
         const investorEntry = value.find(
           entry =>
