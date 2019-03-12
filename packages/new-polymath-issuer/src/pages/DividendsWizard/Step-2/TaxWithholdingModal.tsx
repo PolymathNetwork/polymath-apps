@@ -30,7 +30,6 @@ interface Props {
 export const TaxWithholdingModal: FC<Props> = ({
   isOpen,
   onClose,
-  // taxWithholdingData,
   existingTaxWithholdings,
   isEditing,
   fieldProps,
@@ -49,10 +48,11 @@ export const TaxWithholdingModal: FC<Props> = ({
       return;
     }
 
-    const value = field.value as TaxWithholdingsItem;
     const formTaxWithholdings = [
       ...form.values.taxWithholdings,
     ] as TaxWithholdingsItem[];
+
+    const value = field.value as TaxWithholdingsItem;
 
     const matchingIndex = findIndex(
       formTaxWithholdings,
@@ -68,8 +68,8 @@ export const TaxWithholdingModal: FC<Props> = ({
         existingTaxWithholdings,
         existingTaxWithholding => {
           return (
-            existingTaxWithholding.investorAddress ===
-              value[csvEthAddressKey] &&
+            existingTaxWithholding.investorAddress.toUpperCase() ===
+              value[csvEthAddressKey].toUpperCase() &&
             value[csvTaxWithholdingKey] !== existingTaxWithholding.percentage
           );
         }

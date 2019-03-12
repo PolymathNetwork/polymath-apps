@@ -47,9 +47,11 @@ export const CsvModal: FC<Props> = ({
         const isUpdated = some(
           existingTaxWithholdings,
           existingTaxWithholding => {
-            alreadyExists =
-              existingTaxWithholding.investorAddress ===
-              value[csvEthAddressKey];
+            if (
+              existingTaxWithholding.investorAddress === value[csvEthAddressKey]
+            ) {
+              alreadyExists = true;
+            }
 
             return (
               alreadyExists &&
