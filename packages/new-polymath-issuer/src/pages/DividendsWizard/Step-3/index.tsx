@@ -174,7 +174,13 @@ const Step3Base: FC<Props> = ({
                 </FormItem>
                 {currency === types.Tokens.Erc20 && (
                   <FormItem name="tokenAddress">
-                    <FormItem.Label>Token Contract Address</FormItem.Label>
+                    <FormItem.Label>Token Contract Address{" "}
+                      <TooltipIcon>
+                        Enter the contract address of the custom token that will be used to 
+                        distribute dividends. This custom token can be any ST20 or ERC20 
+                        compatible token, including stablecoins.
+                      </TooltipIcon>
+                    </FormItem.Label>
                     <FormItem.Input
                       component={TextInput}
                       placeholder={'Enter ERC20 token contract address'}
