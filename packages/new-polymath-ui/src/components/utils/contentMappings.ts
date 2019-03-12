@@ -1,4 +1,4 @@
-import { types } from '@polymathnetwork/new-shared';
+import { types, formatters } from '@polymathnetwork/new-shared';
 import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
 
@@ -434,7 +434,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
-      return `Approving ${args.amount} POLY spend`;
+      return `Approving ${formatters.toTokens(args.amount)} POLY spend`;
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
