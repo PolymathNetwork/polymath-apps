@@ -145,7 +145,9 @@ class Dashboard extends Component<Props> {
         id: 'dividends-nav-link',
         icon: icoDividends,
         to: `${tokenUrl}/dividends`,
-        isActive: location.slice(-10) === '/dividends',
+        isActive:
+          location.slice(-10) === '/dividends' ||
+          location.includes('/checkpoints'),
         isDisabled: !token || !token.address,
       },
     ];
