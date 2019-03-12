@@ -40,9 +40,7 @@ export class Demo extends React.Component<ModalProps, State> {
           onClose={this.handleModalClose}
           {...this.props}
         >
-          <Modal.Header variant="alert" label="Confirmation required">
-            Modal test
-          </Modal.Header>
+          <Modal.Header label="Confirmation required">Modal test</Modal.Header>
           <Modal.Body>
             <p>
               Completion of your token symbol reservation will require two
@@ -52,7 +50,7 @@ export class Demo extends React.Component<ModalProps, State> {
               • The first transaction will be used to pay for the token symbol
               reservation cost of:
             </p>
-            <div class="bx--details poly-cost">250 POLY</div>
+            <strong>250 POLY</strong>
             <p>
               • The second transaction will be used to pay the mining fee (aka
               gas fee) to complete the reservation of your token symbol.
