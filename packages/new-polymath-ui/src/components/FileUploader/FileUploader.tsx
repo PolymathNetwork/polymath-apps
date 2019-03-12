@@ -162,7 +162,7 @@ class FileUploaderComponent extends React.Component<Props, State> {
           <sc.Dropzone {...getRootProps()} isDragActive={isDragActive}>
             <input {...getInputProps()} />
             <Text fontSize={6} fontWeight="light" color="gray.2">
-              Drop file here
+              Drop file or click here
             </Text>
           </sc.Dropzone>
         )}
