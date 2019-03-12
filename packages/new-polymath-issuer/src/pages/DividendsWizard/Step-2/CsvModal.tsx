@@ -123,7 +123,7 @@ export const CsvModal: FC<Props> = ({
               },
             ],
             header: true,
-            maxRows: 200,
+            maxRows: 10000,
           }}
         >
           <CsvUploader.CsvErrors />
