@@ -181,6 +181,10 @@ export const Step2: FC<Props> = ({
           openTaxWithhholdingModal();
         };
 
+        const confirmDelete = (addresses: string[]) => {
+          console.log('confirming delete');
+        };
+
         const handleDelete = (addresses: string[]) => {
           // Remove all matching items
           const modifiedItems = filter(
@@ -308,7 +312,7 @@ export const Step2: FC<Props> = ({
               onEdit={handleEdit}
               onAddNewOpen={openTaxWithhholdingModal}
               taxWithholdings={values.taxWithholdings}
-              onDelete={handleDelete}
+              onDelete={confirmDelete}
             />
             <Heading variant="h3" mt="4">
               No Changes Required
