@@ -94,7 +94,8 @@ export const TaxWithholdingsTable: FC<Props> = props => {
   );
 
   const columnsConfig = makeColumnsConfig(props);
-
+  const hasPendingTransactions =
+    filter(taxWithholdings, ({ status }) => !!status).length > 0;
   return (
     <Table
       columns={columnsConfig}
@@ -114,6 +115,7 @@ export const TaxWithholdingsTable: FC<Props> = props => {
         {() => (
           <Box ml="auto">
             <ButtonSmall
+              disabled={!hasPendingTransactions}
               variant="secondary"
               iconPosition="right"
               onClick={() => {
