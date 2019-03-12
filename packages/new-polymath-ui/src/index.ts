@@ -70,7 +70,7 @@ export { LinkButton } from './components/LinkButton';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
 export { Text } from './components/Text';
-export { Modal } from './components/Modal';
+export { Modal, ModalStatus } from './components/Modal';
 export { ModalConfirm } from './components/ModalConfirm';
 export { ModalTransactionQueue } from './components/ModalTransactionQueue';
 export {
