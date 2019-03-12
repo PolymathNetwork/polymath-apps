@@ -17,7 +17,6 @@ const CsvErrorsComponent: FC<Props> = ({ className }) => {
   }
 
   const { isFullyInvalid, errorCount, data, csvConfig } = context;
-
   return (
     <sc.Wrapper className={className}>
       {isFullyInvalid && (
@@ -32,6 +31,21 @@ const CsvErrorsComponent: FC<Props> = ({ className }) => {
           status="alert"
           title={`Missing Required Columns`}
           description="Your .csv file is missing some columns that are required."
+        />
+      )}
+      {data.errors.includes(csvParser.ErrorCodes.customValidationFailed) && (
+        <Notification
+          status="alert"
+          title={
+            csvConfig.customValidationErrorMessage
+              ? csvConfig.customValidationErrorMessage.header
+              : 'Invalid File'
+          }
+          description={
+            csvConfig.customValidationErrorMessage
+              ? csvConfig.customValidationErrorMessage.body
+              : 'File validation failed'
+          }
         />
       )}
       {!isFullyInvalid && !!errorCount && (

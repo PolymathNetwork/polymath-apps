@@ -74,6 +74,8 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
       return acc;
     }, 0);
 
+    const { isCustomValidationFailed } = data;
+
     return (
       <sc.Wrapper>
         <FileUploaderPrimitive
@@ -82,7 +84,13 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
         />
         {!!data.result.length ? (
           <Context.Provider
-            value={{ isFullyInvalid, errorCount, data, csvConfig }}
+            value={{
+              isFullyInvalid,
+              errorCount,
+              data,
+              csvConfig,
+              isCustomValidationFailed,
+            }}
           >
             {children}
           </Context.Provider>
