@@ -154,7 +154,6 @@ export const Step2: FC<Props> = ({
 
     if (isTaxWithholdingsItemArray(value)) {
       let count = 0;
-
       nonExcludedInvestors.forEach(address => {
         const investorEntry = value.find(
           entry =>
@@ -303,7 +302,12 @@ export const Step2: FC<Props> = ({
               onClick={openCsvModal}
             >
               Upload Tax Withholdings List
-              <Icon Asset={icons.SvgDownload} width={18} height={18} rotate="0.5turn" />
+              <Icon
+                Asset={icons.SvgDownload}
+                width={18}
+                height={18}
+                rotate="0.5turn"
+              />
             </Button>
             <Field
               name="taxWithholdings"

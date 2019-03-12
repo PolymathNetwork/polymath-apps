@@ -85,12 +85,14 @@ export class Presenter extends Component<Props, State> {
     );
   };
 
-  public getInvestorAddresses = () => {
+  public getTokenHolderAddresses = () => {
     const {
       checkpoint: { investorBalances },
     } = this.props;
 
-    return investorBalances.map(({ address }) => address.toUpperCase());
+    const tokenHolders = investorBalances.filter(({ balance }) => balance.gt(0));
+
+    return tokenHolders.map(({ address }) => address.toUpperCase());
   };
 
   public renderStepComponent = () => {
@@ -106,7 +108,7 @@ export class Presenter extends Component<Props, State> {
     const { excludedWallets } = this.state;
     const exclusionList = this.getExcludedAddresses();
     const nonExcludedInvestors = difference(
-      this.getInvestorAddresses(),
+      this.getTokenHolderAddresses(),
       exclusionList
     );
 
@@ -157,8 +159,8 @@ export class Presenter extends Component<Props, State> {
     const { dividendAmount, positiveWithholdingAmount } = this.state;
     const { investorBalances } = checkpoint;
     const exclusionList = this.getExcludedAddresses();
-    const investors = this.getInvestorAddresses();
-    const excludedInvestors = intersection(investors, exclusionList);
+    const tokenHolders = this.getTokenHolderAddresses();
+    const excludedInvestors = intersection(tokenHolders, exclusionList);
     const excludedAmount = excludedInvestors.length;
     const investorAmount = investorBalances.length;
     const nonExcludedAmount = investorAmount - excludedAmount;
