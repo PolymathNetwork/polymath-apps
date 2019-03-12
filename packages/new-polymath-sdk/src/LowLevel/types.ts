@@ -185,6 +185,7 @@ export interface AllowanceArgs {
 export interface GetTokensArgs {
   amount: BigNumber;
   recipient: string;
+  symbol: string | null;
 }
 
 export interface BalanceOfArgs {
@@ -194,6 +195,7 @@ export interface BalanceOfArgs {
 export interface ApproveArgs {
   spender: string;
   amount: BigNumber;
+  symbol: string | null;
 }
 
 export interface AddDividendsModuleArgs {
