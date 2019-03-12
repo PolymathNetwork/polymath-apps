@@ -434,7 +434,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
-      return `Approving ${formatters.toTokens(args.amount)} POLY spend`;
+      return args.amount ?`Approving ${formatters.toTokens(args.amount)} POLY spend`:'';
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
