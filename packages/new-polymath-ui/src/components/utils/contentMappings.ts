@@ -2,7 +2,11 @@ import { types } from '@polymathnetwork/new-shared';
 import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
 
-const getTransactionPositionData = (transaction: types.TransactionPojo, transactions: types.TransactionPojo[], tag: types.PolyTransactionTags) => {
+const getTransactionPositionData = (
+  transaction: types.TransactionPojo,
+  transactions: types.TransactionPojo[],
+  tag: types.PolyTransactionTags
+) => {
   let total = 0;
   let position = 0;
   let indexFound = false;
@@ -25,7 +29,7 @@ const getTransactionPositionData = (transaction: types.TransactionPojo, transact
     total,
     position,
   };
-}
+};
 
 // TODO @monitz87: use actual text. The arguments are already there and typesafe
 export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
@@ -434,7 +438,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
-      return `Approving ${args.amount} POLY spend`;
+      return `Approving ${args.amount} ${args.symbol} spend`;
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
@@ -453,7 +457,7 @@ export const getTransactionTitle = (
         transaction.args;
 
       if (args.type === types.DividendModuleTypes.Erc20) {
-        return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and stable coins.';
+        return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and stable coins';
       }
 
       return 'Enable Dividends Module';
@@ -462,7 +466,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
         transaction.args;
 
-      return 'Get Tokens';
+      return `Get ${args.amount} ${args.symbol} from faucet`;
     }
     case types.PolyTransactionTags.ReclaimDividendFunds: {
       const args: TransactionArguments[types.PolyTransactionTags.ReclaimDividendFunds] =
@@ -477,12 +481,20 @@ export const getTransactionTitle = (
       return 'Reserve Security Token';
     }
     case types.PolyTransactionTags.SetErc20TaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetErc20TaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetErc20TaxWithholding
+      );
 
       return `Tax Withholding List Update #${position} of ${total}`;
     }
     case types.PolyTransactionTags.SetEtherTaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetEtherTaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetEtherTaxWithholding
+      );
 
       return `Tax Withholding List Update #${position} of ${total}`;
     }
@@ -490,7 +502,11 @@ export const getTransactionTitle = (
       return 'Withdraw Withheld Taxes';
     }
     case types.PolyTransactionTags.PushDividendPayment: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.PushDividendPayment);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.PushDividendPayment
+      );
 
       return `Dividend Distribution #${position} of ${total}`;
     }
@@ -567,7 +583,7 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Get Tokens',
+        title: `Get ${args.amount} ${args.symbol} from faucet.`,
         description: 'Get Tokens',
       };
     }
@@ -590,18 +606,24 @@ export const getTransactionContent = (
       };
     }
     case types.PolyTransactionTags.SetErc20TaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetErc20TaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetErc20TaxWithholding
+      );
       return {
-        title:
-          'Update Tax Withholding List.',
+        title: 'Update Tax Withholding List.',
         description: `#${position} of ${total}`,
       };
     }
     case types.PolyTransactionTags.SetEtherTaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetEtherTaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetEtherTaxWithholding
+      );
       return {
-        title:
-          'Update Tax Withholding List.',
+        title: 'Update Tax Withholding List.',
         description: `#${position} of ${total}`,
       };
     }
@@ -622,7 +644,11 @@ export const getTransactionContent = (
       // TODO @monitz87: deal with this after we decide how to handle "batching" multiple transactions into
       // one item.
 
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.PushDividendPayment);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.PushDividendPayment
+      );
 
       return {
         title: 'Distribute Dividends',
