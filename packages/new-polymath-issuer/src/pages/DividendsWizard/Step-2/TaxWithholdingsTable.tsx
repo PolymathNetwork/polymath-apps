@@ -33,19 +33,20 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
   {
     Header: 'Investor ETH Address',
     accessor: csvEthAddressKey,
+    minWidth: 250,
     Cell: ({ value }) =>
       value && formatters.toShortAddress(value, { size: 26 }),
   },
   {
     Header: '% Tax Witholding for Associated ETH Address',
     accessor: csvTaxWithholdingKey,
-    width: 250,
+    minWidth: 230,
     Cell: ({ value }) => formatters.toPercent(value),
   },
   {
     Header: '',
     accessor: 'status',
-    width: 150,
+    width: 80,
     Cell: ({ value }) => {
       return (
         value && (
@@ -147,7 +148,7 @@ export const TaxWithholdingsTable: FC<Props> = props => {
                 iconPosition="right"
                 onClick={handleDeleteRows}
               >
-                Delete <Icon Asset={icons.SvgDelete} />
+                Delete <Icon Asset={icons.SvgDelete} width="0.7em" />
               </Button>
             </Fragment>
           );
