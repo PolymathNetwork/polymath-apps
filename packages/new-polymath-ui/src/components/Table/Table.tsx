@@ -135,6 +135,7 @@ export const TableComponent: FC<Props> = ({
       <Context.Provider
         value={{
           ...instance,
+          isTableEmpty: isEmpty,
           tableToolbarEl: tableToolbarEl.current,
           tableBodyEl: tableBodyEl.current,
         }}

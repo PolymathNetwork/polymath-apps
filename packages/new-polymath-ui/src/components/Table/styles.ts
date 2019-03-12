@@ -124,6 +124,4 @@ export const ButtonNextPage = styled(ButtonPagination)`
 
 export const Toolbar = styled.div``;
 
-export const Body = styled.div`
-  min-height: 200px;
-`;
+export const Body = styled.div``;
