@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import {
   List,
+  inputs,
   icons,
   IconOutlined,
   TooltipPrimary,
@@ -14,12 +15,14 @@ export interface Props {
   dividends: types.DividendEntity[];
   securityTokenSymbol: string;
   checkpointIndex: number;
+  filterNameBy: string;
 }
 
 export const DividendListPresenter = ({
   securityTokenSymbol,
   dividends,
   checkpointIndex,
+  filterNameBy,
 }: Props) => {
   const allDividendsCompleted = dividends.every(dividend => {
     const {
@@ -43,18 +46,23 @@ export const DividendListPresenter = ({
   const newDividendUrl = !allDividendsCompleted
     ? '#'
     : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
+
+  console.log(filterNameBy);
+  console.log(dividends);
   return (
     <List>
       {dividends.length ? (
         <Fragment>
-          {dividends.map(dividend => (
-            <li key={dividend.uid}>
-              <DividendCard
-                dividend={dividend}
-                securityTokenSymbol={securityTokenSymbol}
-              />
-            </li>
-          ))}
+          {dividends
+            .filter(item => item.name.includes(filterNameBy))
+            .map(dividend => (
+              <li key={dividend.uid}>
+                <DividendCard
+                  dividend={dividend}
+                  securityTokenSymbol={securityTokenSymbol}
+                />
+              </li>
+            ))}
           <sc.NewDividendButton
             href={newDividendUrl}
             disabled={!allDividendsCompleted}

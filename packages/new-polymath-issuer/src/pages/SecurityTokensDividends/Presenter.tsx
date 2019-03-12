@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState, useCallback } from 'react';
+import React, { FC, Fragment, useState, useCallback, useEffect } from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import { validator } from '@polymathnetwork/new-ui';
 import { validateYupSchema, yupToFormErrors } from 'formik';
@@ -56,6 +56,15 @@ export const Presenter: FC<Props> = ({
   );
   const [isEditingAddress, setEditAddressState] = useState(false);
 
+  const [searchName, setSearchName] = useState('First');
+  let filterString = '';
+
+  useEffect(() => {
+    console.log(searchName);
+    // Update the document title using the browser API
+    filterString = searchName;
+  });
+
   const handleAddressModalOpen = useCallback(() => {
     setEditAddressState(true);
   }, []);
@@ -70,6 +79,11 @@ export const Presenter: FC<Props> = ({
     },
     [walletAddress]
   );
+
+  const handleSearchChange = useCallback(values => {
+    console.log(values);
+    setSearchName(values.searchName);
+  }, []);
 
   const handleAddressChange = useCallback(values => {
     if (dividendsModule) {
@@ -188,10 +202,22 @@ export const Presenter: FC<Props> = ({
             )}
           </CardFeatureState>
         </GridRow.Col>
+        <GridRow.Col gridSpan={4}>
+          <input
+            type="text"
+            onChange={e => {
+              console.log(e.target.value);
+              setSearchName(e.target.value);
+            }}
+            placeholder="Search by Name"
+          />
+        </GridRow.Col>
+        <GridRow.Col gridSpan={4}>{searchName}</GridRow.Col>
         <GridRow.Col gridSpan={12}>
           {dividendsModule ? (
             <CheckpointList
               securityTokenSymbol={dividendsModule.securityTokenSymbol}
+              filterDividends={searchName}
             />
           ) : null}
         </GridRow.Col>

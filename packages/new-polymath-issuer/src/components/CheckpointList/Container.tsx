@@ -11,6 +11,7 @@ import { DateTime } from 'luxon';
 export interface Props {
   dispatch: Dispatch<any>;
   securityTokenSymbol: string;
+  filterDividends: string;
 }
 
 interface Row {
@@ -21,7 +22,7 @@ interface Row {
 
 export class CheckpointListContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
-    const { securityTokenSymbol } = this.props;
+    const { securityTokenSymbol, filterDividends } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
 
     const data: Row[] = investorBalances.map(({ balance, address }) => {
@@ -61,7 +62,7 @@ export class CheckpointListContainerBase extends Component<Props> {
   };
 
   public render() {
-    const { securityTokenSymbol } = this.props;
+    const { securityTokenSymbol, filterDividends } = this.props;
     return (
       <DataFetcher
         fetchers={[
@@ -81,6 +82,7 @@ export class CheckpointListContainerBase extends Component<Props> {
             <CheckpointListPresenter
               checkpoints={sortedCheckpoints}
               securityTokenSymbol={securityTokenSymbol}
+              filterDividends={filterDividends}
               downloadOwnershipList={this.downloadOwnershipList}
             />
           );

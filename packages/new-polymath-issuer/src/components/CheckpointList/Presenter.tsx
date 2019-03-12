@@ -18,16 +18,20 @@ export interface Props {
   checkpoints: types.CheckpointEntity[];
   securityTokenSymbol: string;
   downloadOwnershipList: (checkpoint: types.CheckpointEntity) => void;
+  filterDividends: string;
 }
 
 export const CheckpointListPresenter = ({
   checkpoints,
   securityTokenSymbol,
   downloadOwnershipList,
+  filterDividends,
 }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
   );
+
+  console.log(filterDividends);
 
   return (
     <sc.Container alignItems="flex-start" vertical gridGap={7}>
@@ -87,6 +91,7 @@ export const CheckpointListPresenter = ({
                           <DividendList
                             checkpointIndex={checkpoint.index}
                             securityTokenSymbol={securityTokenSymbol}
+                            filterNameBy={filterDividends}
                           />
                         </sc.Dividends>
                       </Grid.Item>
