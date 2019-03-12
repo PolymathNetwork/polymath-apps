@@ -1,4 +1,5 @@
 import { styled } from '~/styles';
+import { Button } from '~/components/Button';
 import { rowHeight, RowBase } from '../styles';
 
 export const BatchActionsToolbar = styled(RowBase)`
@@ -13,5 +14,9 @@ export const BatchActionsToolbar = styled(RowBase)`
   &[hidden] {
     visibility: hidden;
     opacity: 0;
+  }
+
+  & ${Button} {
+    height: 100%;
   }
 `;

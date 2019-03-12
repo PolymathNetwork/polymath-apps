@@ -14,6 +14,7 @@ export const Table = styled(Box)`
   display: flex;
   flex-direction: column;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
+  height: 100%;
 `;
 
 export const Inner = styled.div`
