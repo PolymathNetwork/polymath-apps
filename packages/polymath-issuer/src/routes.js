@@ -13,6 +13,7 @@ import TokenPage from './pages/token/TokenPage';
 import STOPage from './pages/sto/STOPage';
 import DividendsPage from './pages/dividends/DividendsPage';
 import DividendsWizardPage from './pages/dividends/DividendsWizardPage';
+import DividendDetailsPage from './pages/dividends/DividendDetailsPage';
 
 export default [
   {
@@ -53,6 +54,11 @@ export default [
             exact: true,
           },
           {
+            path: '/dashboard/:id/dividends/:dividendIndex',
+            component: DividendDetailsPage,
+            exact: true,
+          },
+          {
             path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
             component: DividendsWizardPage,
             exact: true,
@@ -78,8 +84,16 @@ export default [
       {
         path: '/securityTokens/:id/dividends',
         component: props => {
-          const { id, checkpointIndex } = props.match.params;
+          const { id } = props.match.params;
           return <Redirect to={`/dashboard/${id}/dividends`} />;
+        },
+        exact: true,
+      },
+      {
+        path: '/securityTokens/:id/dividends/:dividendId',
+        component: props => {
+          const { id, dividendId } = props.match.params;
+          return <Redirect to={`/dashboard/${id}/dividends/${dividendId}`} />;
         },
         exact: true,
       },

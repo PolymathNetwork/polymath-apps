@@ -52,7 +52,7 @@ export class PushDividendPayment extends Procedure<
         status => status.address === investorAddress
       );
 
-      return !!investorStatus && investorStatus.paymentReceived;
+      return !!investorStatus && !investorStatus.paymentReceived;
     });
 
     const investorAddressChunks = chunk(unpaidInvestors, CHUNK_SIZE);
