@@ -34,6 +34,10 @@ export class PercentageInputPrimitive extends Component<Props> {
     if (!(target instanceof HTMLInputElement)) {
       return;
     }
+    if (parseFloat(target.value) > 100) {
+      return;
+    }
+
     const normalizedValue = parseFloat(target.value) / 100;
     onChange(normalizedValue);
   };
