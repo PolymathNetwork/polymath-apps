@@ -225,7 +225,7 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.UpdateDividendsTaxWithholdingList: {
-      const content = 'with Synchronization of the Tax Withholdings List';
+      const content = 'with updating of the Tax Withholdings List';
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
           return `An error ocurred ${content}`;
@@ -237,7 +237,7 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
           return `Proceeding ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return `The Tax Withholdings List was successfully Synchronized`;
+          return `The Tax Withholdings List was successfully updated`;
         }
         default: {
           return '';
@@ -373,7 +373,7 @@ transaction.`,
     }
     case types.ProcedureTypes.UpdateDividendsTaxWithholdingList: {
       return {
-        title: 'Synchronize Tax Withholdings List',
+        title: 'Update Tax Withholdings List',
       };
     }
     case types.ProcedureTypes.PushDividendPayment: {
