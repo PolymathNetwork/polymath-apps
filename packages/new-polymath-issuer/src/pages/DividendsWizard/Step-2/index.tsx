@@ -1,44 +1,22 @@
-import {
-  FieldProps,
-  FieldArray,
-  validateYupSchema,
-  yupToFormErrors,
-} from 'formik';
-import React, { Fragment, useState, useCallback, FC } from 'react';
+import { FieldProps, validateYupSchema, yupToFormErrors } from 'formik';
+import React, { useState, FC } from 'react';
 import { map, find, each, filter, includes } from 'lodash';
-import {
-  validators,
-  formatters,
-  csvParser,
-  utils,
-  types,
-} from '@polymathnetwork/new-shared';
+import { types } from '@polymathnetwork/new-shared';
 import {
   Box,
   Button,
-  ButtonSmall,
   Icon,
   icons,
   Heading,
   Card,
   Paragraph,
   Remark,
-  Flex,
-  InlineFlex,
   Form,
   FormItem,
   Checkbox,
   List,
-  Grid,
-  CsvUploader,
-  ModalConfirm,
-  Table,
   Text,
-  Link,
   LinkButton,
-  IconButton,
-  TextInput,
-  PercentageInput,
   validator,
   Field,
 } from '@polymathnetwork/new-ui';
