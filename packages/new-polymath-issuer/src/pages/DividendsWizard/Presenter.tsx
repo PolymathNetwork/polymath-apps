@@ -183,7 +183,7 @@ export class Presenter extends Component<Props> {
                 <List vertical>
                   <Flex as="li">
                     <Flex flex="0" alignSelf="flex-start" mr="s">
-                      <ListIcon />
+                      <ListIcon active />
                     </Flex>
                     <Paragraph color="baseText">
                       {/* NOTE: Mock data */}
