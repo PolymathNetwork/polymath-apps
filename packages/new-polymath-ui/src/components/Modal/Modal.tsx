@@ -62,8 +62,6 @@ export const ModalBase: FC<Props> = ({
         beforeClose: 'pui-modal__overlay--before-close',
       }}
       onRequestClose={handleCloseRequest}
-      // overlayRef={node => (overlayRef = node)}
-      // contentRef={node => (contentRef = node)}
     >
       {!!status && <sc.StatusBar status={status} />}
       {isCloseable && (
