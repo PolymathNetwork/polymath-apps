@@ -24,7 +24,7 @@ export function* createErc20DividendsDistribution(
     expiryDate,
     erc20Address,
     amount,
-    checkpointId,
+    checkpointIndex,
     name,
     excludedAddresses,
     pushPaymentsWhenComplete,
@@ -37,7 +37,7 @@ export function* createErc20DividendsDistribution(
       expiryDate,
       erc20Address,
       amount,
-      checkpointId,
+      checkpointIndex,
       name,
       excludedAddresses,
     }
@@ -49,7 +49,7 @@ export function* createErc20DividendsDistribution(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
@@ -60,7 +60,7 @@ export function* createErc20DividendsDistribution(
         requestKey: RequestKeys.GetDividendsByCheckpoint,
         args: {
           securityTokenSymbol,
-          checkpointIndex: checkpointId,
+          checkpointIndex,
         },
       })
     );
@@ -70,7 +70,7 @@ export function* createErc20DividendsDistribution(
         requestKey: RequestKeys.GetCheckpointBySymbolAndId,
         args: {
           securityTokenSymbol,
-          checkpointIndex: checkpointId,
+          checkpointIndex,
         },
       })
     );
@@ -112,7 +112,7 @@ export function* updateTaxWithholdingList(
     percentages,
   } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
-    polyClient.setDividendsTaxWithholdingList,
+    polyClient.updateDividendsTaxWithholdingList,
     {
       symbol: securityTokenSymbol,
       dividendType,
@@ -127,7 +127,7 @@ export function* updateTaxWithholdingList(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
@@ -158,7 +158,7 @@ export function* pushDividendPayment(
     {
       symbol: securityTokenSymbol,
       dividendType,
-      dividendId: dividendIndex,
+      dividendIndex,
     }
   );
 
@@ -174,17 +174,19 @@ export function* pushDividendPayment(
       return;
     }
 
-    // Invalidate cache
-    yield put(
-      invalidateRequest({
-        requestKey: RequestKeys.GetDividendBySymbolAndId,
-        args: {
-          securityTokenSymbol,
-          dividendIndex,
-          dividendType,
-        },
-      })
-    );
+    if (queueStatus !== QueueStatus.Empty) {
+      // Invalidate cache
+      yield put(
+        invalidateRequest({
+          requestKey: RequestKeys.GetDividendBySymbolAndId,
+          args: {
+            securityTokenSymbol,
+            dividendIndex,
+            dividendType,
+          },
+        })
+      );
+    }
   } catch (err) {
     if (!err.code) {
       throw err;
@@ -211,7 +213,7 @@ export function* setDividendsWallet(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
@@ -260,7 +262,7 @@ export function* withdrawDividendTaxes(
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
+    // Queue was canceled, empty or failed
     if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
