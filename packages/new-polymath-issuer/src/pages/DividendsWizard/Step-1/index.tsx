@@ -153,6 +153,13 @@ export const Step1: FC<Step1Props> = ({
               <strong>
                 The maximum number of addresses that can be excluded is 100.
               </strong>
+              <br />
+              <strong>
+                The wallets of Investors whose KYC/AML have expired are not 
+                automatically excluded and will receive dividends. These Investors 
+                can be excluded from the dividends calculation and distribution by 
+                adding their wallet address to the exclusion list.
+              </strong>
             </Remark>
           </Box>
           <Heading variant="h3" mt="4">
