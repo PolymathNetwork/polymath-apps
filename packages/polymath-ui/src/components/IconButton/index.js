@@ -14,13 +14,11 @@ const Button = styled(Box)`
 
 const StyledIcon = styled(BaseIcon)`
   display: block;
-  width: 100%;
-  height: 100%;
 `;
 
-const IconButton = ({ Icon, ...props }) => (
+const IconButton = ({ Icon, width, height, ...props }) => (
   <Button as="button" {...props}>
-    <StyledIcon Icon={Icon} />
+    <StyledIcon Icon={Icon} width={width} height={height} />
   </Button>
 );
 

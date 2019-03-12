@@ -11,7 +11,7 @@ import {
 import { createAction as createTransaction } from '~/state/actions/transactions';
 import { eventChannel } from 'redux-saga';
 import { types } from '@polymathnetwork/new-shared';
-import { QueueStatus } from '~/types';
+import { QueueStatus, TransactionQueueResult } from '~/types';
 import { watchTransaction } from '~/state/sagas/transactions';
 
 /**
@@ -24,6 +24,13 @@ export function* runTransactionQueue<Args, ReturnType>(
   transactionQueueToRun: TransactionQueue<Args, ReturnType>
 ) {
   const { transactions, ...transactionQueue } = transactionQueueToRun.toPojo();
+
+  // if the queue is empty we abort
+  if (!transactions.length) {
+    return {
+      queueStatus: QueueStatus.Empty,
+    };
+  }
 
   const transactionsToRun = transactionQueueToRun.transactions;
 

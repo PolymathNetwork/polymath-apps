@@ -47,9 +47,13 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
     accessor: 'status',
     width: 150,
     Cell: ({ value }) => {
-      // TODO @RafaelVidaurre: Use proper component for this
-      // TODO @RafaelVidaurre: Confirm we want to use different text for different statuses
-      return value && <Label color="secondary">{value}</Label>;
+      return (
+        value && (
+          <Label color="greyBlue.1" bg="greyBlue.0">
+            {value}
+          </Label>
+        )
+      );
     },
   },
   {
@@ -93,28 +97,24 @@ export const TaxWithholdingsTable: FC<Props> = props => {
   return (
     <Table columns={columnsConfig} data={filteredTaxWithholdings} selectable>
       <Table.Toolbar>
-        {() => {
-          return (
-            <Flex>
-              <Box ml="auto">
-                <ButtonSmall
-                  variant="secondary"
-                  iconPosition="right"
-                  onClick={() => {
-                    onSubmit();
-                  }}
-                >
-                  Update <Icon Asset={icons.SvgCycle} />
-                </ButtonSmall>
-                <InlineFlex ml="m">
-                  <ButtonSmall iconPosition="right" onClick={onAddNewOpen}>
-                    Add new <Icon Asset={icons.SvgPlusPlain} />
-                  </ButtonSmall>
-                </InlineFlex>
-              </Box>
-            </Flex>
-          );
-        }}
+        {() => (
+          <Box ml="auto">
+            <ButtonSmall
+              variant="secondary"
+              iconPosition="right"
+              onClick={() => {
+                onSubmit();
+              }}
+            >
+              Update <Icon Asset={icons.SvgCycle} />
+            </ButtonSmall>
+            <InlineFlex ml="m">
+              <ButtonSmall iconPosition="right" onClick={onAddNewOpen}>
+                Add new <Icon Asset={icons.SvgPlusPlain} />
+              </ButtonSmall>
+            </InlineFlex>
+          </Box>
+        )}
       </Table.Toolbar>
       <Table.BatchActionsToolbar>
         {(batchActionProps: any) => {

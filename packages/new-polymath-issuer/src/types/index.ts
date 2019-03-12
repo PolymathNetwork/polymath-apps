@@ -17,6 +17,7 @@ export enum QueueStatus {
   Canceled = 'canceled',
   Failed = 'failed',
   Succeeded = 'succeeded',
+  Empty = 'empty',
 }
 
 export enum SessionRoles {

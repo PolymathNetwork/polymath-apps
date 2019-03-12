@@ -10,7 +10,12 @@ export class PushDividendPayment extends Procedure<
 > {
   public type = types.ProcedureTypes.PushDividendPayment;
   public async prepareTransactions() {
-    const { symbol, dividendId, investorAddresses, dividendType } = this.args;
+    const {
+      symbol,
+      dividendIndex,
+      investorAddresses,
+      dividendType,
+    } = this.args;
     const { securityTokenRegistry } = this.context;
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
@@ -35,17 +40,28 @@ export class PushDividendPayment extends Procedure<
       investors = investorAddresses;
     } else {
       investors = await dividendsModule.getInvestors({
-        dividendIndex: dividendId,
+        dividendIndex,
       });
     }
 
-    const investorAddressChunks = chunk(investors, CHUNK_SIZE);
+    const dividend = await dividendsModule.getDividend({ dividendIndex });
+    const { investors: investorStatuses } = dividend;
+
+    const unpaidInvestors = investors.filter(investorAddress => {
+      const investorStatus = investorStatuses.find(
+        status => status.address === investorAddress
+      );
+
+      return !!investorStatus && investorStatus.paymentReceived;
+    });
+
+    const investorAddressChunks = chunk(unpaidInvestors, CHUNK_SIZE);
 
     for (const addresses of investorAddressChunks) {
       await this.addTransaction(dividendsModule.pushDividendPayment, {
         tag: types.PolyTransactionTags.PushDividendPayment,
       })({
-        dividendIndex: dividendId,
+        dividendIndex,
         investorAddresses: addresses,
       });
     }

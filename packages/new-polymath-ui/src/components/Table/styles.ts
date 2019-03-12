@@ -82,6 +82,10 @@ export const ButtonSort = styled(Button)<{
   sorted: boolean;
   sortedDesc: boolean;
 }>`
+  white-space: normal;
+  flex-shrink: 1;
+  text-align: left;
+
   ${Icon} {
     color: ${({ theme }) => theme.colors.gray[3]};
     ${props =>
@@ -117,9 +121,7 @@ export const ButtonNextPage = styled(ButtonPagination)`
   }
 `;
 
-export const Toolbar = styled.div`
-  height: ${rowHeight};
-`;
+export const Toolbar = styled.div``;
 
 export const Body = styled.div`
   min-height: 200px;

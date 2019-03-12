@@ -269,17 +269,21 @@ export const Step2: FC<Props> = ({
                 />
               )}
             />
-            <Remark>
-              Taxes will be withheld by the dividends smart contract at the time
-              dividends are distributed. Withholdings can subsequently be
-              withdrawn into a designated wallet for tax payments.
-              <br />
-              <strong>Maximum number of entries per transaction is 200.</strong>
-              <br />
-              If you want to withhold taxes for more than 200 wallets, please
-              breakdown the list in 200 wallets increments and upload them one
-              at a time.
-            </Remark>
+            <Box mt="m">
+              <Remark>
+                Taxes will be withheld by the dividends smart contract at the
+                time dividends are distributed. Withholdings can subsequently be
+                withdrawn into a designated wallet for tax payments.
+                <br />
+                <strong>
+                  Maximum number of entries per transaction is 200.
+                </strong>
+                <br />
+                If you want to withhold taxes for more than 200 wallets, please
+                breakdown the list in 200 wallets increments and upload them one
+                at a time.
+              </Remark>
+            </Box>
 
             <Field
               name="currentTaxWithholding"
@@ -293,6 +297,10 @@ export const Step2: FC<Props> = ({
                 />
               )}
             />
+
+            <Heading variant="h3" mt="4">
+              Tax Withholdings List
+            </Heading>
             <TaxWithholdingsTable
               onSubmit={() => {
                 onSubmit(values);
@@ -302,8 +310,8 @@ export const Step2: FC<Props> = ({
               taxWithholdings={values.taxWithholdings}
               onDelete={handleDelete}
             />
-            <Heading variant="h3" mt="m">
-              Confirm Tax Withholdings
+            <Heading variant="h3" mt="4">
+              No Changes Required
             </Heading>
             <Paragraph>
               Please make sure to confirm no changes are required by downloading
@@ -314,7 +322,7 @@ export const Step2: FC<Props> = ({
                 component={Checkbox}
                 inputProps={{
                   label:
-                    'I’m sure I don’t need any adds/updates to the Tax Withholdings List.',
+                    'I confirm that the Tax Withholdings above are correct and should be applied to this dividends distribution.',
                 }}
               />
               <FormItem.Error />
