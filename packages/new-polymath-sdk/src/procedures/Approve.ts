@@ -1,7 +1,7 @@
 import { Procedure } from './Procedure';
 import { types } from '@polymathnetwork/new-shared';
-import { ApproveProcedureArgs } from '~/types';
-import { PolyToken } from '~/LowLevel/PolyToken';
+import { ApproveProcedureArgs, ErrorCodes } from '~/types';
+import { PolymathError } from '~/PolymathError';
 
 export class Approve extends Procedure<ApproveProcedureArgs> {
   public type = types.ProcedureTypes.Approve;
@@ -33,17 +33,24 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
 
     const balance = await token.balanceOf({ address });
 
+    const symbol = await token.symbol();
+
     if (balance.lt(amount)) {
-      if (isTestnet && token instanceof PolyToken) {
-        await this.addTransaction(token.getTokens, {
-          tag: types.PolyTransactionTags.GetTokens,
-        })({ amount, recipient: address });
+      if (isTestnet) {
+        if (token.address.toUpperCase() === polyToken.address.toUpperCase()) {
+          token = polyToken;
+          await this.addTransaction(token.getTokens, {
+            tag: types.PolyTransactionTags.GetTokens,
+          })({ amount: amount.minus(balance), recipient: address, symbol });
+        }
       } else {
-        throw new Error('Not enough balance');
+        // TODO @monitz87: uncomment when we handle transaction errors properly in the Tx modal
+        // throw new PolymathError({ code: ErrorCodes.ProcedureValidationError, message: 'Not enough funds.' });
       }
     }
+
     await this.addTransaction(token.approve, {
       tag: types.PolyTransactionTags.Approve,
-    })({ spender, amount });
+    })({ spender, amount, symbol });
   }
 }

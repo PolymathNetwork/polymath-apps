@@ -6,6 +6,7 @@ Object {
   "getCheckpointsBySymbol": Object {},
   "getDividendBySymbolAndId": Object {},
   "getDividendsByCheckpoint": Object {},
+  "getErc20BalanceByAddressAndWallet": Object {},
   "getErc20DividendsModuleBySymbol": Object {},
   "getSecurityTokenBySymbol": Object {},
   "getTaxWithholdingListBySymbol": Object {},

@@ -73,4 +73,8 @@ export class PolyToken extends Contract<PolyTokenContract> {
         .approve(spender, amountInWei)
         .send({ from: this.context.account });
   };
+
+  public symbol = async () => {
+    return 'POLY';
+  };
 }

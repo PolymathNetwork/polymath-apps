@@ -3,11 +3,11 @@ import { cacheData } from '~/state/actions/dataRequests';
 import { createAction as createErc20DividendsModule } from '~/state/actions/erc20DividendsModule';
 import { call, put } from 'redux-saga/effects';
 import { Erc20DividendsModule } from '@polymathnetwork/sdk';
-import { RequestKeys } from '~/types';
+import { RequestKeys, GetErc20DividendsModuleBySymbolArgs } from '~/types';
 
-export function* fetchErc20DividendsModuleBySymbol(args: {
-  securityTokenSymbol: string;
-}) {
+export function* fetchErc20DividendsModuleBySymbol(
+  args: GetErc20DividendsModuleBySymbolArgs
+) {
   const { securityTokenSymbol } = args;
   const dividendsModule: Erc20DividendsModule = yield call(
     polyClient.getErc20DividendsModule,

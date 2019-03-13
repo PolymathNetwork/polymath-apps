@@ -142,9 +142,6 @@ const buttons = {
       color: '#fff',
       backgroundColor: colors.secondary,
     },
-    '&:disabled': {
-      opacity: 1,
-    },
   },
   ghostSecondary: {
     backgroundColor: 'transparent',

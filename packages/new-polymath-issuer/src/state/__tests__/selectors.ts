@@ -20,11 +20,11 @@ import { AppState } from '~/state/reducers/app';
 import { SessionState } from '~/state/reducers/session';
 import { EntitiesState } from '~/state/reducers/entities';
 
-const requestArgs: types.Pojo[] = [
-  { foo: 'Foo', bar: 'Bar' },
-  { baz: 'baz' },
-  { boris: 'sucks' },
-];
+const firstRequestArgs = { securityTokenSymbol: 'FOO' };
+const secondRequestArgs = { securityTokenSymbol: 'BAR' };
+const thirdRequestArgs = { securityTokenSymbol: 'BAZ' };
+const firstInvalidArgs = { securityTokenSymbol: 'NOT_CACHED' };
+const secondInvalidArgs = { securityTokenSymbol: 'NOT_CACHED_EITHER' };
 
 const appState: AppState = {
   polyClientInitialized: true,
@@ -149,6 +149,11 @@ const transactionQueues = {
   allIds: ['tq0', 'tq1'],
 };
 
+const erc20TokenBalances = {
+  byId: {},
+  allIds: [],
+};
+
 const entitiesState: EntitiesState = {
   checkpoints,
   dividends,
@@ -156,13 +161,14 @@ const entitiesState: EntitiesState = {
   erc20DividendsModules,
   taxWithholdings,
   transactionQueues,
+  erc20TokenBalances,
 };
 
 const dataRequestsState = {
   [RequestKeys.GetCheckpointsBySymbol]: {
-    [utils.hashObj(requestArgs[0])]: { fetching: false, fetchedIds: ['c0'] },
-    [utils.hashObj(requestArgs[1])]: { fetching: false, fetchedIds: ['c1'] },
-    [utils.hashObj(requestArgs[2])]: {
+    [utils.hashObj(firstRequestArgs)]: { fetching: false, fetchedIds: ['c0'] },
+    [utils.hashObj(secondRequestArgs)]: { fetching: false, fetchedIds: ['c1'] },
+    [utils.hashObj(thirdRequestArgs)]: {
       fetching: false,
       fetchedIds: ['c0', 'c1'],
     },
@@ -173,6 +179,7 @@ const dataRequestsState = {
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
   [RequestKeys.GetTaxWithholdingListBySymbol]: {},
   [RequestKeys.GetDividendBySymbolAndId]: {},
+  [RequestKeys.GetErc20BalanceByAddressAndWallet]: {},
 };
 
 const mockState: RootState = {
@@ -279,56 +286,56 @@ describe('Selectors', () => {
     });
   });
 
-  const fetcher1: Fetcher = {
+  const fetcher1: Fetcher<typeof firstRequestArgs> = {
     entity: Entities.Checkpoints,
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: requestArgs[0],
+    args: firstRequestArgs,
   };
-  const fetcher2: Fetcher = {
+  const fetcher2: Fetcher<typeof secondRequestArgs> = {
     entity: Entities.Checkpoints,
     propKey: 'otherCheckpoints',
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: requestArgs[1],
+    args: secondRequestArgs,
   };
-  const fetcher3: Fetcher = {
+  const fetcher3: Fetcher<typeof thirdRequestArgs> = {
     entity: Entities.Checkpoints,
     propKey: 'stillOtherCheckpoints',
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: requestArgs[2],
+    args: thirdRequestArgs,
   };
 
-  const invalidFetcher1: Fetcher = {
+  const invalidFetcher1: Fetcher<typeof firstInvalidArgs> = {
     entity: Entities.Checkpoints,
     propKey: 'moreCheckpoints',
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: { invalid: 'These args have not been cached' },
+    args: firstInvalidArgs,
   };
 
-  const invalidFetcher2: Fetcher = {
+  const invalidFetcher2: Fetcher<typeof secondInvalidArgs> = {
     entity: Entities.Checkpoints,
     propKey: 'evenMoreCheckpoints',
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: { invalid: 'These args have not been cached either' },
+    args: secondInvalidArgs,
   };
 
-  const sameEntityAsFetcher1: Fetcher = {
+  const sameEntityAsFetcher1: Fetcher<typeof secondRequestArgs> = {
     entity: Entities.Checkpoints,
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: requestArgs[1],
+    args: secondRequestArgs,
   };
 
-  const samePropKeyAsFetcher2: Fetcher = {
+  const samePropKeyAsFetcher2: Fetcher<typeof firstRequestArgs> = {
     entity: Entities.Checkpoints,
     propKey: 'otherCheckpoints',
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: requestArgs[0],
+    args: firstRequestArgs,
   };
 
-  const samePropKeyAsFetcher1Entity: Fetcher = {
+  const samePropKeyAsFetcher1Entity: Fetcher<typeof secondRequestArgs> = {
     entity: Entities.Checkpoints,
     propKey: 'checkpoints',
     requestKey: RequestKeys.GetCheckpointsBySymbol,
-    args: requestArgs[1],
+    args: secondRequestArgs,
   };
 
   describe('checkFetchersForDuplicates', () => {
@@ -456,7 +463,7 @@ not passing two fetchers with the same `requestKey` and arguments';
           ...dataRequestsState,
           [RequestKeys.GetCheckpointsBySymbol]: {
             ...dataRequestsState[RequestKeys.GetCheckpointsBySymbol],
-            [utils.hashObj(requestArgs[0])]: {
+            [utils.hashObj(firstRequestArgs)]: {
               fetching: true,
               fetchedIds: ['c0'],
             },

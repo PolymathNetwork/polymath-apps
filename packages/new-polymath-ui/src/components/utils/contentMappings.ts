@@ -438,9 +438,11 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
-      return args.amount
-        ? `Approving ${formatters.toTokens(args.amount)} POLY spend`
-        : '';
+      const { amount, symbol } = args;
+
+      return `Approving ${amount ? formatters.toTokens(amount) : ''}${
+        amount ? ' ' : ''
+      }${symbol || 'TOKEN'} spend`;
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
@@ -459,7 +461,7 @@ export const getTransactionTitle = (
         transaction.args;
 
       if (args.type === types.DividendModuleTypes.Erc20) {
-        return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and stable coins.';
+        return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and stable coins';
       }
 
       return 'Enable Dividends Module';
@@ -468,7 +470,7 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
         transaction.args;
 
-      return 'Get Tokens';
+      return `Get ${args.amount} ${args.symbol} from faucet`;
     }
     case types.PolyTransactionTags.ReclaimDividendFunds: {
       const args: TransactionArguments[types.PolyTransactionTags.ReclaimDividendFunds] =
@@ -543,9 +545,13 @@ export const getTransactionContent = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
+      const { amount, symbol } = args;
+
       return {
-        title: 'Approve',
-        description: 'Approve',
+        title: `Approve ${amount ? formatters.toTokens(amount) : ''}${
+          amount ? ' ' : ''
+        }${symbol || 'TOKEN'} spend`,
+        description: 'Approve Spend',
       };
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
@@ -585,7 +591,7 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Get Tokens',
+        title: `Get ${args.amount} ${args.symbol} from faucet.`,
         description: 'Get Tokens',
       };
     }

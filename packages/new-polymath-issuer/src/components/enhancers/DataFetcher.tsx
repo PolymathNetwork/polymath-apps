@@ -14,9 +14,10 @@ import { Fetcher, FetchedData } from '~/types';
 
 interface OwnProps {
   watchProps?: { [key: string]: any };
-  fetchers: Fetcher[];
+  fetchers: Fetcher<any>[];
   renderLoading: () => ReactNode;
   renderError: (errors: string[]) => ReactNode;
+  onDataFetched(data: FetchedData): void;
   render(props: FetchedData): ReactNode;
 }
 
@@ -52,6 +53,7 @@ const mapStateToProps = () => {
 
 class DataFetcherBase extends Component<Props> {
   public static defaultProps = {
+    onDataFetched: (data: FetchedData) => {},
     // NOTE @RafaelVidaurre: Hardcoding this for now until we have an error
     // component for this
     renderError: (errors: string[]) => <div>{errors[0]}</div>,
@@ -74,8 +76,13 @@ class DataFetcherBase extends Component<Props> {
     this.getData();
   }
 
-  public componentDidUpdate() {
+  public componentDidUpdate(prevProps: Props) {
     this.getData();
+    const { loading: prevLoading } = prevProps;
+    const { loading, onDataFetched, fetchedData, errors } = this.props;
+    if (!loading && prevLoading && onDataFetched && !errors.length) {
+      onDataFetched(fetchedData);
+    }
   }
 
   /**

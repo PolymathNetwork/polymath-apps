@@ -35,6 +35,7 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
   const currencyLabel = (currency || 'UNNAMED TOKEN').toUpperCase();
   let currencyType: string;
   let currencyColor: string;
+  let currencyBgColor: string;
 
   const remainingPayments = investors.filter(
     investor => !investor.paymentReceived && !investor.excluded
@@ -51,11 +52,13 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
     case types.Tokens.Dai:
     case types.Tokens.Poly: {
       currencyColor = theme.tokens[currencyLabel].color;
+      currencyBgColor = theme.tokens[currencyLabel].backgroundColor;
       currencyType = currencyLabel;
       break;
     }
     default: {
       currencyColor = theme.tokens[types.Tokens.Erc20].color;
+      currencyBgColor = theme.tokens[types.Tokens.Erc20].backgroundColor;
       currencyType = 'ERC20';
       break;
     }
@@ -86,7 +89,9 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
         <Heading mt="m" mb={1}>
           {dividend.name}
         </Heading>
-        <Label color={currencyColor}>Issued in {currencyType}</Label>
+        <Label color={currencyColor} bg={currencyBgColor}>
+          Issued in {currencyType}
+        </Label>
         {!dividendComplete && (
           <Flex mt="m">
             <Flex flex="0" mr="s">
@@ -96,7 +101,7 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
                 height={26}
                 color="white"
                 bg="warning"
-                scale={0.9}
+                scale={0.8}
               />
             </Flex>
             {remainingTransactions > 0 && (

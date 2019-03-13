@@ -67,7 +67,7 @@ export const toPercent = (
  */
 export const toTokens = (
   value: number | BigNumber,
-  { decimals = 0 }: { decimals?: number } = {}
+  { decimals = 1 }: { decimals?: number } = {}
 ) => {
   const isValid = value !== null && (isNumber(value) || isBigNumber(value));
   if (!isValid) {
@@ -82,7 +82,7 @@ export const toTokens = (
     num = new BigNumber(`${value}`);
   }
 
-  return num.toFormat(decimals);
+  return num.precision(18).decimalPlaces(decimals).toFormat();
 };
 
 /**

@@ -18,6 +18,8 @@ export const InputBase: FC<Props> = ({
   inputProps,
   children,
   onChange,
+  validate,
+  innerRef,
   ...props
 }: Props) => {
   const Component = component;
@@ -27,6 +29,8 @@ export const InputBase: FC<Props> = ({
       {({ name }) => (
         <FormikComponent
           name={name}
+          validate={validate}
+          innerRef={innerRef}
           render={formikProps => (
             <Component
               {...formikProps}

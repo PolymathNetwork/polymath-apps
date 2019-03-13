@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver';
 import { parse, json2csv } from 'json2csv';
-import { Pojo, isPojo } from '~/typing/types';
+import { isPojo } from '~/typing/types';
 import _ from 'lodash';
 
 export const delay = async (amount: number) => {
@@ -16,7 +16,7 @@ export const delay = async (amount: number) => {
  *
  * @param args arguments to hash
  */
-export function hashObj(args: Pojo): string {
+export function hashObj(args: any): string {
   const sortedKeyArray = _.keys(args).sort();
 
   return _.join(

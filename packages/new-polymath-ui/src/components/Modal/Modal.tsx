@@ -1,7 +1,6 @@
-import React, { FC, useState, useLayoutEffect } from 'react';
+import React, { FC } from 'react';
 import ReactModal from 'react-modal';
 import { withTheme, ThemeInterface, styled } from '~/styles';
-import { useLockScroll } from '~/components/utils/hooks';
 import { Header } from './Header';
 import { Body } from './Body';
 import { Footer } from './Footer';
@@ -25,16 +24,12 @@ export const ModalBase: FC<Props> = ({
   className,
   isOpen,
   isCloseable,
+  isCentered,
   onClose,
   theme,
   status,
 }) => {
-
-  useLockScroll(isOpen, {
-    el: document.body,
-    delay: theme.transitions.modal.ms,
-  });
-
+  let overlayRef: HTMLDivElement | null = null;
   const handleCloseRequest = () => {
     if (!isCloseable) {
       return;
@@ -45,12 +40,19 @@ export const ModalBase: FC<Props> = ({
     }
   };
 
+  // As modal is focused on open, we scroll it up to make sure we're at the top
+  const handleAfterOpen = () => {
+    if (overlayRef) {
+      overlayRef.scroll(0, 0);
+    }
+  };
+
   return (
     <ReactModal
       isOpen={isOpen}
+      appElement={document.getElementById('root') || undefined}
       contentLabel="Modal"
       closeTimeoutMS={theme.transitions.modal.ms}
-      ariaHideApp={false}
       className={{
         base: 'pui-modal',
         afterOpen: 'pui-modal--after-open',
@@ -61,7 +63,9 @@ export const ModalBase: FC<Props> = ({
         afterOpen: 'pui-modal__overlay--after-open',
         beforeClose: 'pui-modal__overlay--before-close',
       }}
+      onAfterOpen={handleAfterOpen}
       onRequestClose={handleCloseRequest}
+      overlayRef={node => (overlayRef = node)}
     >
       {!!status && <sc.StatusBar status={status} />}
       {isCloseable && (
@@ -74,7 +78,7 @@ export const ModalBase: FC<Props> = ({
           scale={0.62}
         />
       )}
-      <sc.Inner>{children}</sc.Inner>
+      <sc.Inner isCentered={isCentered}>{children}</sc.Inner>
     </ReactModal>
   );
 };
