@@ -35,8 +35,6 @@ export class PercentageInputPrimitive extends Component<Props> {
   };
 
   public handlePaste = (event: React.ClipboardEvent) => {
-    //event.preventDefault();
-    console.log('paste');
     const str = event.clipboardData.getData('Text');
     const newStr = str.replace(/[^0-9+.]/g, '');
     if (str !== newStr || !isNumber(str)) {
