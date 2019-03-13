@@ -28,6 +28,22 @@ export class PercentageInputPrimitive extends Component<Props> {
     );
   };
 
+  public handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'e' || event.key === '-') {
+      event.preventDefault();
+    }
+  };
+
+  public handlePaste = (event: React.ClipboardEvent) => {
+    //event.preventDefault();
+    console.log('paste');
+    const str = event.clipboardData.getData('Text');
+    const newStr = str.replace(/[^0-9+.]/g, '');
+    if (str !== newStr || !isNumber(str)) {
+      event.preventDefault();
+    }
+  };
+
   public handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { onChange } = this.props;
     const { target } = event;
@@ -54,6 +70,8 @@ export class PercentageInputPrimitive extends Component<Props> {
         max={100}
         id={name}
         name={name}
+        onKeyPress={this.handleKeyPress}
+        onPaste={this.handlePaste}
         value={formattedValue}
         {...otherProps}
         onChange={this.handleChange}
