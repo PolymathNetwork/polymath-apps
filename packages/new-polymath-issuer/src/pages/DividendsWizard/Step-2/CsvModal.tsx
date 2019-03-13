@@ -16,6 +16,7 @@ import {
   TaxWithholdingsItem,
   TaxWithholdingStatuses,
 } from './shared';
+import { boolean } from 'yup';
 
 interface Props {
   isOpen: boolean;
@@ -78,6 +79,17 @@ export const CsvModal: FC<Props> = ({
     }
   };
 
+  const validateFile = (data: Array<any>) => {
+    const seen: { [key: string]: boolean } = {};
+    const hasDuplicates = data.some(currentObject => {
+      return (
+        seen.hasOwnProperty(currentObject.data['Investor ETH Address'].value) ||
+        (seen[currentObject.data['Investor ETH Address'].value] = false)
+      );
+    });
+    return !hasDuplicates;
+  };
+
   return (
     <ModalConfirm
       isOpen={isOpen}
@@ -89,7 +101,8 @@ export const CsvModal: FC<Props> = ({
     >
       <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
       <Paragraph mb={0}>
-        Update tax withholdings by uploading a comma separated .CSV file. The format should be as follows:
+        Update tax withholdings by uploading a comma separated .CSV file. The
+        format should be as follows:
       </Paragraph>
       <List vertical gridGap={0}>
         <li>
@@ -124,6 +137,12 @@ export const CsvModal: FC<Props> = ({
             ],
             header: true,
             maxRows: 10000,
+            validateFile,
+            customValidationErrorMessage: {
+              header: 'Duplicate Entries',
+              body:
+                'The uploaded file contains duplicate entries, please edit the file and make sure to remove the duplicate entries',
+            },
           }}
         >
           <CsvUploader.CsvErrors />

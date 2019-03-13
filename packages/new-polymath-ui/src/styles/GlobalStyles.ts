@@ -2,6 +2,7 @@ import { normalize } from 'polished';
 import fontFaceDefinition from 'typeface-overpass';
 import * as styledComponents from 'styled-components';
 import { ThemedStyledComponentsModule } from 'styled-components';
+import scrollbarWidth from 'scrollbarwidth';
 import { ThemeInterface } from './types';
 
 const { createGlobalStyle } = styledComponents as ThemedStyledComponentsModule<
@@ -26,6 +27,11 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.colors.baseText};
     font-family: ${({ theme }) => theme.fontFamilies.baseText};
     font-weight: ${({ theme }) => theme.fontWeights.normal};
+
+    &.ReactModal__Body--open {
+      overflow: hidden;
+      padding-right: ${scrollbarWidth()}px;
+    }
   }
 
   strong {
