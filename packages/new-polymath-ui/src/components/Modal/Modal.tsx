@@ -28,7 +28,7 @@ export const ModalBase: FC<Props> = ({
   theme,
   status,
 }) => {
-  const overlayRef = useRef<HTMLDivElement>(null);
+  let overlayRef: HTMLDivElement | null = null;
   const handleCloseRequest = () => {
     if (!isCloseable) {
       return;
@@ -41,8 +41,8 @@ export const ModalBase: FC<Props> = ({
 
   // As modal is focused on open, we scroll it up to make sure we're at the top
   const handleAfterOpen = () => {
-    if (overlayRef && overlayRef.current) {
-      overlayRef.current.scroll(0, 0);
+    if (overlayRef) {
+      overlayRef.scroll(0, 0);
     }
   };
 
@@ -64,7 +64,7 @@ export const ModalBase: FC<Props> = ({
       }}
       onAfterOpen={handleAfterOpen}
       onRequestClose={handleCloseRequest}
-      overlayRef={node => (overlayRef.current = node)}
+      overlayRef={node => (overlayRef = node)}
     >
       {!!status && <sc.StatusBar status={status} />}
       {isCloseable && (
