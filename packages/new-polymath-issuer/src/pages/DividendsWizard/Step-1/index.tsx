@@ -13,7 +13,7 @@ import {
   FormItem,
   Checkbox,
   CsvUploader,
-  Form,
+  FormWrapper,
   LinkButton,
 } from '@polymathnetwork/new-ui';
 import { ExclusionEntry } from '../Presenter';
@@ -64,7 +64,7 @@ export const Step1: FC<Step1Props> = ({
   };
 
   return (
-    <Form<Values>
+    <FormWrapper<Values>
       initialValues={{
         noWalletExcluded: false,
         excludedWallets,

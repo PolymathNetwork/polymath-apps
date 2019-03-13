@@ -18,6 +18,8 @@ import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
 import { range, padStart } from 'lodash';
+import { polyClient } from '~/lib/polyClient';
+import { GetErc20BalanceByAddressAndWalletArgs } from '~/types';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -68,6 +70,28 @@ export class ContainerBase extends Component<Props, State> {
     this.setState({
       step: step - 1,
     });
+  };
+
+  public fetchBalance = async ({
+    tokenAddress,
+    walletAddress,
+  }: GetErc20BalanceByAddressAndWalletArgs): Promise<
+    types.Erc20TokenBalancePojo
+  > => {
+    const tokenBalance = await polyClient.getErc20TokenBalance({
+      tokenAddress,
+      walletAddress,
+    });
+
+    return tokenBalance.toPojo();
+  };
+
+  public fetchIsValidToken = async ({
+    tokenAddress,
+  }: {
+    tokenAddress: string;
+  }) => {
+    return polyClient.isValidErc20({ address: tokenAddress });
   };
 
   public createDividendDistribution = ({
@@ -213,6 +237,8 @@ export class ContainerBase extends Component<Props, State> {
                 taxWithholdings={taxWithholdings}
                 downloadTaxWithholdingList={this.downloadTaxWithholdingList}
                 downloadSampleExclusionList={this.downloadSampleExclusionList}
+                fetchBalance={this.fetchBalance}
+                fetchIsValidToken={this.fetchIsValidToken}
               />
             );
           }}

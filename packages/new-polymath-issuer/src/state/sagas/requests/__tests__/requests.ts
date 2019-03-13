@@ -1,11 +1,9 @@
 import { runSaga } from 'redux-saga';
-// import * as sagas from '~/state/sagas/accessControl';
 import * as sagas from '~/state/sagas/requests';
 import * as dataRequestsActions from '~/state/actions/dataRequests';
 import { fetchCheckpointsBySymbol } from '~/state/sagas/requests/checkpoints';
 import { createCheckpointsBySymbolFetcher } from '~/state/fetchers';
 import { MockedStore } from '~/testUtils/helpers';
-import { getType } from 'typesafe-actions';
 
 jest.mock('~/state/sagas/requests/checkpoints', () => {
   return {

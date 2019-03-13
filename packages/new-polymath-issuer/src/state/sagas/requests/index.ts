@@ -14,6 +14,8 @@ import {
   CacheStatus,
   isGetTaxWithholdingsListBySymbolArgs,
   isGetDividendBySymbolAndIdArgs,
+  RequestArgs,
+  isGetErc20BalanceByAddressAndWalletArgs,
 } from '~/types';
 import {
   fetchCheckpointsBySymbol,
@@ -26,9 +28,9 @@ import {
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
 import { fetchTaxWithholdingListBySymbol } from '~/state/sagas/requests/taxWithholdings';
 import { createGetCacheStatus } from '~/state/selectors';
-import { types } from '@polymathnetwork/new-shared';
+import { fetchErc20TokenBalanceByAddressAndWallet } from '~/state/sagas/requests/erc20TokenBalances';
 
-function* runDataRequest(requestKey: RequestKeys, args: types.Pojo) {
+function* runDataRequest(requestKey: RequestKeys, args: RequestArgs) {
   switch (requestKey) {
     case RequestKeys.GetCheckpointsBySymbol: {
       if (isGetCheckpointsBySymbolArgs(args)) {
@@ -79,6 +81,14 @@ function* runDataRequest(requestKey: RequestKeys, args: types.Pojo) {
         throw new Error(
           'Invalid arguments passed for fetching tax withholding list.'
         );
+      }
+      break;
+    }
+    case RequestKeys.GetErc20BalanceByAddressAndWallet: {
+      if (isGetErc20BalanceByAddressAndWalletArgs(args)) {
+        yield call(fetchErc20TokenBalanceByAddressAndWallet, args);
+      } else {
+        throw new Error('Invalid arguments passed for fetching token balance.');
       }
       break;
     }

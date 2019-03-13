@@ -23,6 +23,7 @@ export interface DataRequestsState {
   [RequestKeys.GetDividendBySymbolAndId]: DataRequestResults;
   [RequestKeys.GetErc20DividendsModuleBySymbol]: DataRequestResults;
   [RequestKeys.GetTaxWithholdingListBySymbol]: DataRequestResults;
+  [RequestKeys.GetErc20BalanceByAddressAndWallet]: DataRequestResults;
 }
 
 const initialState: DataRequestsState = {
@@ -33,6 +34,7 @@ const initialState: DataRequestsState = {
   [RequestKeys.GetDividendBySymbolAndId]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
   [RequestKeys.GetTaxWithholdingListBySymbol]: {},
+  [RequestKeys.GetErc20BalanceByAddressAndWallet]: {},
 };
 
 export const reducer: Reducer<DataRequestsState, DataRequestsActions> = (
