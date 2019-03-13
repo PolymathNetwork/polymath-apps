@@ -28,9 +28,11 @@ const StyledIcon = styled(Icon)`
 export const IconButton: FC<IconButtonProps> = ({
   Asset,
   children,
+  className,
+  style,
   ...props
 }) => (
-  <Button type="button">
+  <Button type="button" className={className} style={style}>
     <StyledIcon Asset={Asset} {...props} />
     {children}
   </Button>
