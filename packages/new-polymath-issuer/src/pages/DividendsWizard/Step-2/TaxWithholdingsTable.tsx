@@ -13,6 +13,7 @@ import {
   Icon,
   Button,
   Label,
+  TooltipPrimary,
 } from '@polymathnetwork/new-ui';
 import {
   csvEthAddressKey,
@@ -27,9 +28,26 @@ interface Props {
   onEdit: (csvEthAddress: string) => void;
   onDelete: (addresses: string[]) => void;
   onSubmit: () => void;
+  transactionLimitReached?: boolean;
 }
 
-const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
+const limitReachedTooltip = () => (
+  <TooltipPrimary>
+    The maximum transaction limit
+    <br />
+    is reached, you have to click
+    <br />
+    on Update if you want to make
+    <br />
+    any more changes
+  </TooltipPrimary>
+);
+
+const makeColumnsConfig = ({
+  onEdit,
+  onDelete,
+  transactionLimitReached,
+}: Props): HeaderColumn[] => [
   {
     Header: 'Investor ETH Address',
     accessor: csvEthAddressKey,
@@ -62,24 +80,34 @@ const makeColumnsConfig = ({ onEdit, onDelete }: Props): HeaderColumn[] => [
     width: 80,
     Cell: cell => (
       <Table.RowActions>
-        <IconButton
-          Asset={icons.SvgPen}
-          width="1.4rem"
-          height="1.4rem"
-          color="gray.2"
-          onClick={() => {
-            onEdit(cell.row.values[csvEthAddressKey]);
-          }}
-        />
-        <IconButton
-          Asset={icons.SvgDelete}
-          width="1.4rem"
-          height="1.4rem"
-          color="gray.2"
-          onClick={() => {
-            onDelete([cell.row.values[csvEthAddressKey]]);
-          }}
-        />
+        <Box>
+          <IconButton
+            Asset={icons.SvgPen}
+            width="1.4rem"
+            height="1.4rem"
+            color="gray.2"
+            onClick={() => {
+              transactionLimitReached ||
+                onEdit(cell.row.values[csvEthAddressKey]);
+            }}
+            disabled={transactionLimitReached}
+          />
+          {transactionLimitReached && limitReachedTooltip()}
+        </Box>
+        <Box>
+          <IconButton
+            Asset={icons.SvgDelete}
+            width="1.4rem"
+            height="1.4rem"
+            color="gray.2"
+            onClick={() => {
+              transactionLimitReached ||
+                onDelete([cell.row.values[csvEthAddressKey]]);
+            }}
+            disabled={transactionLimitReached}
+          />
+          {transactionLimitReached && limitReachedTooltip()}
+        </Box>
       </Table.RowActions>
     ),
   },
@@ -92,10 +120,13 @@ export const TaxWithholdingsTable: FC<Props> = props => {
     taxWithholding =>
       taxWithholding[csvTaxWithholdingKey] > 0 || taxWithholding.status
   );
-
-  const columnsConfig = makeColumnsConfig(props);
-  const hasPendingTransactions =
-    filter(taxWithholdings, ({ status }) => !!status).length > 0;
+  const pendingTransactions = filter(taxWithholdings, ({ status }) => !!status)
+    .length;
+  const transactionLimitReached = pendingTransactions >= 10000;
+  const columnsConfig = makeColumnsConfig({
+    ...props,
+    transactionLimitReached,
+  });
   return (
     <Table
       columns={columnsConfig}
@@ -115,7 +146,7 @@ export const TaxWithholdingsTable: FC<Props> = props => {
         {() => (
           <Box ml="auto">
             <ButtonSmall
-              disabled={!hasPendingTransactions}
+              disabled={pendingTransactions === 0}
               variant="secondary"
               iconPosition="right"
               onClick={() => {
@@ -125,7 +156,12 @@ export const TaxWithholdingsTable: FC<Props> = props => {
               Update <Icon Asset={icons.SvgCycle} />
             </ButtonSmall>
             <InlineFlex ml="m">
-              <ButtonSmall iconPosition="right" onClick={onAddNewOpen}>
+              {transactionLimitReached && limitReachedTooltip()}
+              <ButtonSmall
+                iconPosition="right"
+                onClick={onAddNewOpen}
+                disabled={transactionLimitReached}
+              >
                 Add new <Icon Asset={icons.SvgPlusPlain} />
               </ButtonSmall>
             </InlineFlex>
@@ -145,13 +181,17 @@ export const TaxWithholdingsTable: FC<Props> = props => {
 
           return (
             <Fragment>
-              <Button
-                variant="ghost"
-                iconPosition="right"
-                onClick={handleDeleteRows}
-              >
-                Delete <Icon Asset={icons.SvgDelete} width="0.7em" />
-              </Button>
+              <Box>
+                <Button
+                  variant="ghost"
+                  iconPosition="right"
+                  onClick={handleDeleteRows}
+                  disabled={transactionLimitReached}
+                >
+                  Delete <Icon Asset={icons.SvgDelete} width="0.7em" />
+                </Button>
+                {transactionLimitReached && limitReachedTooltip()}
+              </Box>
             </Fragment>
           );
         }}

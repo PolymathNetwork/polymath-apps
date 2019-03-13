@@ -1,4 +1,4 @@
-import { types } from '@polymathnetwork/new-shared';
+import { types, formatters } from '@polymathnetwork/new-shared';
 import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
 
@@ -229,7 +229,7 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
       }
     }
     case types.ProcedureTypes.UpdateDividendsTaxWithholdingList: {
-      const content = 'with Synchronization of the Tax Withholdings List';
+      const content = 'with updating of the Tax Withholdings List';
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
           return `An error ocurred ${content}`;
@@ -241,7 +241,7 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
           return `Proceeding ${content}`;
         }
         case types.TransactionQueueStatus.Succeeded: {
-          return `The Tax Withholdings List was successfully Synchronized`;
+          return `The Tax Withholdings List was successfully updated`;
         }
         default: {
           return '';
@@ -311,8 +311,8 @@ export const getTransactionQueueContent = (
       const args: ProcedureArguments[types.ProcedureTypes.Approve] = queue.args;
 
       return {
-        title: 'Approve',
-        description: 'Approve',
+        title: 'Approve POLY Spend',
+        description: 'Approve POLY Spend',
       };
     }
     case types.ProcedureTypes.CreateCheckpoint: {
@@ -377,7 +377,7 @@ transaction.`,
     }
     case types.ProcedureTypes.UpdateDividendsTaxWithholdingList: {
       return {
-        title: 'Synchronize Tax Withholdings List',
+        title: 'Update Tax Withholdings List',
       };
     }
     case types.ProcedureTypes.PushDividendPayment: {
@@ -438,7 +438,11 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
-      return `Approving ${args.amount} ${args.symbol} spend`;
+      const { amount, symbol } = args;
+
+      return `Approving ${amount ? formatters.toTokens(amount) : ''}${
+        amount ? ' ' : ''
+      }${symbol || 'TOKEN'} spend`;
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
@@ -541,9 +545,13 @@ export const getTransactionContent = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
+      const { amount, symbol } = args;
+
       return {
-        title: 'Approve',
-        description: 'Approve',
+        title: `Approve ${amount ? formatters.toTokens(amount) : ''}${
+          amount ? ' ' : ''
+        }${symbol || 'TOKEN'} spend`,
+        description: 'Approve Spend',
       };
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
@@ -612,7 +620,8 @@ export const getTransactionContent = (
         types.PolyTransactionTags.SetErc20TaxWithholding
       );
       return {
-        title: 'Update Tax Withholding List.',
+        title:
+          'This transaction will be used to apply the changes submitted to the Tax Withholding List.',
         description: `#${position} of ${total}`,
       };
     }
@@ -623,7 +632,8 @@ export const getTransactionContent = (
         types.PolyTransactionTags.SetEtherTaxWithholding
       );
       return {
-        title: 'Update Tax Withholding List.',
+        title:
+          'This transaction will be used to apply the changes submitted to the Tax Withholding List.',
         description: `#${position} of ${total}`,
       };
     }

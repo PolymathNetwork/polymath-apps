@@ -43,8 +43,8 @@ export const TaxWithholdingModal: FC<Props> = ({
     )) {
       fieldProps.form.setFieldTouched(`${field.name}.${key}`, true, true);
     }
-    const isValid = !get(form.errors, field.name);
-    if (!isValid) {
+    const fieldIsValid = !get(form.errors, field.name);
+    if (!fieldIsValid) {
       return;
     }
 
@@ -54,10 +54,13 @@ export const TaxWithholdingModal: FC<Props> = ({
 
     const value = field.value as TaxWithholdingsItem;
 
+    const valueAddress = value[csvEthAddressKey].toUpperCase();
+    const valuePercentage = value[csvTaxWithholdingKey];
+
     const matchingIndex = findIndex(
       formTaxWithholdings,
       taxWithholding =>
-        taxWithholding[csvEthAddressKey] === value[csvEthAddressKey]
+        taxWithholding[csvEthAddressKey].toUpperCase() === valueAddress
     );
 
     const alreadyExists = matchingIndex !== -1;
@@ -67,10 +70,10 @@ export const TaxWithholdingModal: FC<Props> = ({
       const isUpdated = some(
         existingTaxWithholdings,
         existingTaxWithholding => {
+          const { investorAddress, percentage } = existingTaxWithholding;
           return (
-            existingTaxWithholding.investorAddress.toUpperCase() ===
-              value[csvEthAddressKey].toUpperCase() &&
-            value[csvTaxWithholdingKey] !== existingTaxWithholding.percentage
+            investorAddress.toUpperCase() === valueAddress &&
+            valuePercentage !== percentage
           );
         }
       );
