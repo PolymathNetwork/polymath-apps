@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useLayoutEffect, useRef } from 'react';
 import ReactModal from 'react-modal';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Header } from './Header';
@@ -28,6 +28,7 @@ export const ModalBase: FC<Props> = ({
   theme,
   status,
 }) => {
+  const overlayRef = useRef();
   const handleCloseRequest = () => {
     if (!isCloseable) {
       return;
@@ -35,6 +36,13 @@ export const ModalBase: FC<Props> = ({
 
     if (onClose) {
       onClose();
+    }
+  };
+
+  // As modal is focused on open, we scroll it up to make sure we're at the top
+  const handleAfterOpen = () => {
+    if (overlayRef.current) {
+      overlayRef.current.scroll(0, 0);
     }
   };
 
@@ -54,7 +62,9 @@ export const ModalBase: FC<Props> = ({
         afterOpen: 'pui-modal__overlay--after-open',
         beforeClose: 'pui-modal__overlay--before-close',
       }}
+      onAfterOpen={handleAfterOpen}
       onRequestClose={handleCloseRequest}
+      overlayRef={node => (overlayRef.current = node)}
     >
       {!!status && <sc.StatusBar status={status} />}
       {isCloseable && (
