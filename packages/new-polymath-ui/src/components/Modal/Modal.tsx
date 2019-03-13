@@ -28,7 +28,7 @@ export const ModalBase: FC<Props> = ({
   theme,
   status,
 }) => {
-  const overlayRef = useRef();
+  const overlayRef = useRef(null);
   const handleCloseRequest = () => {
     if (!isCloseable) {
       return;
@@ -42,7 +42,11 @@ export const ModalBase: FC<Props> = ({
   // As modal is focused on open, we scroll it up to make sure we're at the top
   const handleAfterOpen = () => {
     if (overlayRef.current) {
-      overlayRef.current.scroll(0, 0);
+      const current = overlayRef.current;
+      if (current !== null) {
+        const el: HTMLElement = current;
+        el.scroll(0, 0);
+      }
     }
   };
 
