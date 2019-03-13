@@ -19,6 +19,7 @@ import {
   SecurityToken as SecurityTokenEntity,
   Erc20DividendsModule as Erc20DividendsModuleEntity,
   EthDividendsModule as EthDividendsModuleEntity,
+  Erc20TokenBalance as Erc20TokenBalanceEntity,
 } from '~/entities';
 
 import {
@@ -60,6 +61,7 @@ interface ContextualizedEntities {
   Erc20DividendsModule: typeof Erc20DividendsModuleEntity;
   EthDividendsModule: typeof EthDividendsModuleEntity;
   TaxWithholding: typeof TaxWithholdingEntity;
+  Erc20TokenBalance: typeof Erc20TokenBalanceEntity;
 }
 
 export class Polymath {
@@ -92,6 +94,10 @@ export class Polymath {
       Checkpoint: createContextualizedEntity(CheckpointEntity as any, this),
       TaxWithholding: createContextualizedEntity(
         TaxWithholdingEntity as any,
+        this
+      ),
+      Erc20TokenBalance: createContextualizedEntity(
+        Erc20TokenBalanceEntity as any,
         this
       ),
     };
@@ -590,6 +596,24 @@ export class Polymath {
     return this.lowLevel.isValidErc20({ address });
   };
 
+  public getErc20TokenBalance = async (args: {
+    tokenAddress: string;
+    walletAddress: string;
+  }) => {
+    const { tokenAddress, walletAddress } = args;
+    const token = await this.lowLevel.getErc20Token({ address: tokenAddress });
+    const [symbol, balance] = await Promise.all([
+      token.symbol(),
+      token.balanceOf({ address: walletAddress }),
+    ]);
+
+    return new this.Erc20TokenBalance({
+      tokenSymbol: symbol,
+      tokenAddress,
+      balance,
+    });
+  };
+
   get SecurityToken() {
     return this.entities.SecurityToken;
   }
@@ -612,6 +636,10 @@ export class Polymath {
 
   get TaxWithholding() {
     return this.entities.TaxWithholding;
+  }
+
+  get Erc20TokenBalance() {
+    return this.entities.Erc20TokenBalance;
   }
 
   private assembleCheckpoint = ({

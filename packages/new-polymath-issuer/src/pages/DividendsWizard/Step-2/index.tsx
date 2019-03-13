@@ -11,7 +11,7 @@ import {
   Card,
   Paragraph,
   Remark,
-  Form,
+  FormWrapper,
   FormItem,
   Checkbox,
   List,
@@ -58,7 +58,7 @@ const schema = validator.object().shape({
     [csvTaxWithholdingKey]: validator
       .number()
       .typeError('Invalid value')
-      .min(0, 'Invalid value')
+      .moreThan(0, 'Invalid value')
       .max(100, 'Invalid value')
       .required('Tax withholding percent is required'),
   }),
@@ -197,7 +197,7 @@ export const Step2: FC<Props> = ({
   );
 
   return (
-    <Form<FormValues>
+    <FormWrapper<FormValues>
       onSubmit={onSubmit}
       onFieldChange={handleFieldChange}
       validate={handleValidation}

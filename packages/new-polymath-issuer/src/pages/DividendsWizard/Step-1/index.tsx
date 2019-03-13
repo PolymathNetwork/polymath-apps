@@ -13,7 +13,7 @@ import {
   FormItem,
   Checkbox,
   CsvUploader,
-  Form,
+  FormWrapper,
   LinkButton,
 } from '@polymathnetwork/new-ui';
 import { ExclusionEntry } from '../Presenter';
@@ -52,8 +52,19 @@ export const Step1: FC<Step1Props> = ({
     onNextStep();
   };
 
+  const validateFile = (data: Array<any>) => {
+    const seen: { [key: string]: boolean } = {};
+    const hasDuplicates = data.some(currentObject => {
+      return (
+        seen.hasOwnProperty(currentObject.data['Investor ETH Address'].value) ||
+        (seen[currentObject.data['Investor ETH Address'].value] = false)
+      );
+    });
+    return !hasDuplicates;
+  };
+
   return (
-    <Form<Values>
+    <FormWrapper<Values>
       initialValues={{
         noWalletExcluded: false,
         excludedWallets,
@@ -133,6 +144,12 @@ export const Step1: FC<Step1Props> = ({
                     ],
                     header: true,
                     maxRows: 100,
+                    validateFile,
+                    customValidationErrorMessage: {
+                      header: 'Duplicate Entries',
+                      body:
+                        'The uploaded file contains duplicate entries, please edit the file and make sure to remove the duplicate entries',
+                    },
                   },
                 }}
               >
@@ -168,10 +185,11 @@ export const Step1: FC<Step1Props> = ({
               </strong>
               <br />
               <strong>
-                The wallets of Investors whose KYC/AML have expired are not 
-                automatically excluded and will receive dividends. These Investors 
-                can be excluded from the dividends calculation and distribution by 
-                adding their wallet address to the exclusion list.
+                The wallets of Investors whose KYC/AML have expired are not
+                automatically excluded and will receive dividends. These
+                Investors can be excluded from the dividends calculation and
+                distribution by adding their wallet address to the exclusion
+                list.
               </strong>
             </Remark>
           </Box>

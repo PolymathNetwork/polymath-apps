@@ -23,6 +23,10 @@ import { Step3 } from './Step-3';
 import { types, formatters } from '@polymathnetwork/new-shared';
 import BigNumber from 'bignumber.js';
 import { difference, intersection } from 'lodash';
+import {
+  GetErc20BalanceByAddressAndWalletArgs,
+  GetIsValidErc20ByAddressArgs,
+} from '~/types';
 
 export interface ExclusionEntry {
   ['Investor ETH Address']: string;
@@ -48,6 +52,10 @@ export interface Props {
     params: CreateDividendDistributionParams
   ) => void;
   downloadSampleExclusionList: () => void;
+  fetchBalance: (
+    args: GetErc20BalanceByAddressAndWalletArgs
+  ) => Promise<types.Erc20TokenBalancePojo>;
+  fetchIsValidToken: (args: GetIsValidErc20ByAddressArgs) => Promise<boolean>;
 }
 
 export interface State {
@@ -90,7 +98,9 @@ export class Presenter extends Component<Props, State> {
       checkpoint: { investorBalances },
     } = this.props;
 
-    const tokenHolders = investorBalances.filter(({ balance }) => balance.gt(0));
+    const tokenHolders = investorBalances.filter(({ balance }) =>
+      balance.gt(0)
+    );
 
     return tokenHolders.map(({ address }) => address.toUpperCase());
   };
@@ -104,6 +114,8 @@ export class Presenter extends Component<Props, State> {
       createDividendDistribution,
       downloadSampleExclusionList,
       updateTaxWithholdingList,
+      fetchBalance,
+      fetchIsValidToken,
     } = this.props;
     const { excludedWallets } = this.state;
     const exclusionList = this.getExcludedAddresses();
@@ -132,6 +144,8 @@ export class Presenter extends Component<Props, State> {
             excludedWallets={excludedWallets}
             updateDividendAmount={this.setDividendAmount}
             createDividendDistribution={createDividendDistribution}
+            fetchBalance={fetchBalance}
+            fetchIsValidToken={fetchIsValidToken}
           />
         );
       }

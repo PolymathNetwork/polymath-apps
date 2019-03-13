@@ -10,11 +10,16 @@ export interface Props {
   dispatch: Dispatch<any>;
   securityTokenSymbol: string;
   checkpointIndex: number;
+  allDividendsCompleted: boolean;
 }
 
 export class DividendListContainerBase extends Component<Props> {
   public render() {
-    const { securityTokenSymbol, checkpointIndex } = this.props;
+    const {
+      securityTokenSymbol,
+      checkpointIndex,
+      allDividendsCompleted,
+    } = this.props;
     return (
       <DataFetcher
         fetchers={[
@@ -34,6 +39,7 @@ export class DividendListContainerBase extends Component<Props> {
               securityTokenSymbol={securityTokenSymbol}
               dividends={sortedDividends}
               checkpointIndex={checkpointIndex}
+              allDividendsCompleted={allDividendsCompleted}
             />
           );
         }}

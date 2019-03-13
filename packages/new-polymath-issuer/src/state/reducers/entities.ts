@@ -12,6 +12,7 @@ export interface EntitiesState {
   erc20DividendsModules: EntityState<types.Erc20DividendsModuleEntity>;
   transactionQueues: EntityState<types.TransactionQueueEntity>;
   taxWithholdings: EntityState<types.TaxWithholdingEntity>;
+  erc20TokenBalances: EntityState<types.Erc20TokenBalanceEntity>;
 }
 
 export const reducer = combineReducers<EntitiesState>({
@@ -26,5 +27,8 @@ export const reducer = combineReducers<EntitiesState>({
   ),
   taxWithholdings: createEntityReducer<types.TaxWithholdingEntity>(
     'TAX_WITHHOLDINGS'
+  ),
+  erc20TokenBalances: createEntityReducer<types.Erc20TokenBalanceEntity>(
+    'ERC20_TOKEN_BALANCES'
   ),
 });

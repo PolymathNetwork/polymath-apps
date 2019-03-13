@@ -7,3 +7,4 @@ export { Checkpoint } from './Checkpoint';
 export { TaxWithholding } from './TaxWithholding';
 export { PolyTransaction } from './PolyTransaction';
 export { TransactionQueue } from './TransactionQueue';
+export { Erc20TokenBalance } from './Erc20TokenBalance';
