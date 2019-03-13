@@ -25,6 +25,14 @@ export function* fetchErc20TokenBalanceByAddressAndWallet(
     fetchedIds.push(balancePojo.uid);
   }
 
-  // NOTE @monitz87: we don't cache the balances since we don't have control
-  // over them
+  yield put(
+    cacheData({
+      requestKey: RequestKeys.GetErc20BalanceByAddressAndWallet,
+      args: {
+        tokenAddress,
+        walletAddress,
+      },
+      fetchedIds,
+    })
+  );
 }
