@@ -68,7 +68,7 @@ export const DividendListPresenter = ({
               scale={0.8}
             />
             Add new <br /> dividend <br /> distribution
-            <TooltipPrimary>
+            <TooltipPrimary placement="top-start">
               You can add a new dividend distribution if the previous
               distribution has been completed/expired.
             </TooltipPrimary>
