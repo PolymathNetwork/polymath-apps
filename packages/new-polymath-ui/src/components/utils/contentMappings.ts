@@ -2,7 +2,11 @@ import { types, formatters } from '@polymathnetwork/new-shared';
 import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
 
-const getTransactionPositionData = (transaction: types.TransactionPojo, transactions: types.TransactionPojo[], tag: types.PolyTransactionTags) => {
+const getTransactionPositionData = (
+  transaction: types.TransactionPojo,
+  transactions: types.TransactionPojo[],
+  tag: types.PolyTransactionTags
+) => {
   let total = 0;
   let position = 0;
   let indexFound = false;
@@ -25,7 +29,7 @@ const getTransactionPositionData = (transaction: types.TransactionPojo, transact
     total,
     position,
   };
-}
+};
 
 // TODO @monitz87: use actual text. The arguments are already there and typesafe
 export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
@@ -404,8 +408,8 @@ Transactions may be resubmitted at a later time should a cancellation or error o
         queue.args;
 
       return {
-        title: 'Set Dividends Wallet',
-        description: 'Set Dividends Wallet',
+        title: 'Edit Wallet Address for Dividends',
+        description: '',
       };
     }
     case types.ProcedureTypes.UnnamedProcedure:
@@ -434,7 +438,9 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.Approve] =
         transaction.args;
 
-      return args.amount ?`Approving ${formatters.toTokens(args.amount)} POLY spend`:'';
+      return args.amount
+        ? `Approving ${formatters.toTokens(args.amount)} POLY spend`
+        : '';
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
@@ -477,12 +483,20 @@ export const getTransactionTitle = (
       return 'Reserve Security Token';
     }
     case types.PolyTransactionTags.SetErc20TaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetErc20TaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetErc20TaxWithholding
+      );
 
       return `Tax Withholding List Update #${position} of ${total}`;
     }
     case types.PolyTransactionTags.SetEtherTaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetEtherTaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetEtherTaxWithholding
+      );
 
       return `Tax Withholding List Update #${position} of ${total}`;
     }
@@ -490,7 +504,11 @@ export const getTransactionTitle = (
       return 'Withdraw Withheld Taxes';
     }
     case types.PolyTransactionTags.PushDividendPayment: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.PushDividendPayment);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.PushDividendPayment
+      );
 
       return `Dividend Distribution #${position} of ${total}`;
     }
@@ -590,7 +608,11 @@ export const getTransactionContent = (
       };
     }
     case types.PolyTransactionTags.SetErc20TaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetErc20TaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetErc20TaxWithholding
+      );
       return {
         title:
           'This transaction will be used to apply the changes submitted to the Tax Withholding List.',
@@ -598,7 +620,11 @@ export const getTransactionContent = (
       };
     }
     case types.PolyTransactionTags.SetEtherTaxWithholding: {
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.SetEtherTaxWithholding);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.SetEtherTaxWithholding
+      );
       return {
         title:
           'This transaction will be used to apply the changes submitted to the Tax Withholding List.',
@@ -622,7 +648,11 @@ export const getTransactionContent = (
       // TODO @monitz87: deal with this after we decide how to handle "batching" multiple transactions into
       // one item.
 
-      const {position, total} = getTransactionPositionData(transaction, transactions, types.PolyTransactionTags.PushDividendPayment);
+      const { position, total } = getTransactionPositionData(
+        transaction,
+        transactions,
+        types.PolyTransactionTags.PushDividendPayment
+      );
 
       return {
         title: 'Distribute Dividends',
@@ -634,7 +664,7 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Set Dividends Wallet',
+        title: 'Editing Wallet Address for Dividends',
         description: 'Set Dividends Wallet',
       };
     }
