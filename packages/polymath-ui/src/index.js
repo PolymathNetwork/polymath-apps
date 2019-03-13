@@ -61,6 +61,7 @@ export { default as TierStatus } from './components/TierStatus';
 export { default as StickyTop } from './components/StickyTop';
 export { default as TooltipChild } from './components/TooltipChild';
 export { default as Tooltip } from './components/Tooltip';
+export { default as NewIssuerAdapter } from './components/NewIssuerAdapter';
 
 /**
  * Redux

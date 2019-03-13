@@ -41,6 +41,7 @@ export interface ModalTransactionQueueProps extends ModalProps {
   continueButtonText?: string;
   getTitle: (queue: types.TransactionQueuePojo) => string;
   getTransactionTitle?: (transaction: types.TransactionPojo) => string;
+  transactionLinkSubdomain?: string;
 }
 
 export class ModalTransactionQueue extends Component<
@@ -60,6 +61,7 @@ export class ModalTransactionQueue extends Component<
       onContinue,
       getTitle,
       getTransactionTitle,
+      transactionLinkSubdomain,
     } = this.props;
 
     const { transactions, status } = transactionQueue;
@@ -82,16 +84,18 @@ export class ModalTransactionQueue extends Component<
           {getTitle(transactionQueue)}
         </Modal.Header>
 
-        {transactions.map(transaction => (
+        {transactions.map((transaction, _index, allTransactions) => (
           <TransactionItem
             key={transaction.uid}
             transaction={transaction}
             getTitle={getTransactionTitle}
+            allTransactions={allTransactions}
+            transactionLinkSubdomain={transactionLinkSubdomain}
           />
         ))}
 
         {isSuccess && withEmail && (
-          <Flex mt="gridGap">
+          <Flex mt="auto" pt="gridGap">
             <Box minWidth={50} mt={1}>
               <Icon Asset={SvgPaperplane} width="30" height="30" />
             </Box>
@@ -103,7 +107,7 @@ export class ModalTransactionQueue extends Component<
         )}
 
         {(isSuccess || isRejected) && (
-          <Paragraph textAlign="center" mt="gridGap">
+          <Paragraph textAlign="center" mt="auto" pt="gridGap">
             <Button onClick={onContinue}>{continueButtonText}</Button>
           </Paragraph>
         )}

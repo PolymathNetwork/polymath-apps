@@ -11,6 +11,7 @@ import {
   GenericContract,
   Erc20DividendDepositedEvent,
   CreateErc20DividendArgs,
+  DividendModuleTypes,
 } from './types';
 
 // This type should be obtained from a library (must match ABI)
@@ -39,6 +40,7 @@ interface Erc20DividendCheckpointContract extends GenericContract {
 export class Erc20DividendCheckpoint extends DividendCheckpoint<
   Erc20DividendCheckpointContract
 > {
+  public dividendType = DividendModuleTypes.Erc20;
   constructor({ address, context }: { address: string; context: Context }) {
     super({ address, abi: ERC20DividendCheckpointAbi.abi, context });
   }
@@ -103,7 +105,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
       const { currency, ...rest } = dividend;
       const depositEvent = events.find(event => {
         const { _dividendIndex } = event.returnValues;
-        return _dividendIndex === i;
+        return parseInt(_dividendIndex, 10) === i;
       });
 
       if (!depositEvent) {

@@ -12,53 +12,52 @@ exports[`Table renders without crashing 1`] = `
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10%;
 }
 
-.c22 {
+.c23 {
   display: inline-block;
   vertical-align: middle;
   width: 10px;
   height: 10px;
 }
 
-.c22 svg {
+.c23 svg {
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10%;
 }
 
-.c26 {
+.c27 {
   display: inline-block;
   vertical-align: middle;
-  width: 1em;
-  height: 1em;
+  width: 0.9em;
+  height: 0.9em;
 }
 
-.c26 svg {
+.c27 svg {
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10%;
 }
 
 .c17 {
   box-sizing: border-box;
+  height: 100%;
+  text-align: right;
   margin-left: auto;
 }
 
-.c21 {
+.c22 {
   box-sizing: border-box;
   margin-left: 16px;
 }
 
-.c24 {
+.c25 {
   box-sizing: border-box;
   margin-right: 16px;
 }
 
-.c23 {
+.c24 {
   box-sizing: border-box;
   margin-left: auto;
   display: -webkit-box;
@@ -71,7 +70,7 @@ exports[`Table renders without crashing 1`] = `
   align-items: center;
 }
 
-.c18 {
+.c19 {
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -97,50 +96,45 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
 }
 
-.c18:hover,
-.c18:focus {
+.c19:hover {
   color: #fff;
   background-color: #5596E6;
 }
 
-.c18:disabled {
+.c19:disabled {
   opacity: 1;
 }
 
-.c18button,
-.c18input[type='button'],
-.c18input[type='submit'],
-.c18input[type='reset'],
-.c18input[type='file'] {
+.c19button,
+.c19input[type='button'],
+.c19input[type='submit'],
+.c19input[type='reset'],
+.c19input[type='file'] {
   border-radius: 0;
 }
 
-.c18:focus {
-  border-color: #f4f7fb;
-}
-
-.c18:disabled:hover {
+.c19:disabled:hover {
   background-color: transparent;
   color: currentColor;
 }
 
 .c0 {
+  box-sizing: border-box;
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -149,8 +143,8 @@ exports[`Table renders without crashing 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  height: inherit;
   font-size: 0.875rem;
+  height: 100%;
 }
 
 .c1 {
@@ -162,7 +156,7 @@ exports[`Table renders without crashing 1`] = `
   height: 100%;
 }
 
-.c4 {
+.c3 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -183,7 +177,7 @@ exports[`Table renders without crashing 1`] = `
   border-bottom: none;
 }
 
-.c4 + .c3 {
+.c3 + .c2 {
   margin-top: -1px;
 }
 
@@ -209,7 +203,7 @@ exports[`Table renders without crashing 1`] = `
   padding-right: 23px;
 }
 
-.c5 {
+.c4 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -221,14 +215,14 @@ exports[`Table renders without crashing 1`] = `
   align-items: center;
   padding: 0.6em;
   height: 48px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
-.c5:first-child {
+.c4:first-child {
   padding-left: 23px;
 }
 
-.c5:last-child {
+.c4:last-child {
   padding-right: 23px;
 }
 
@@ -258,17 +252,16 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 0;
   background: none;
   text-transform: none;
@@ -277,6 +270,11 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: normal;
   letter-spacing: normal;
   border: none;
+  white-space: normal;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  text-align: left;
 }
 
 .c6button,
@@ -285,10 +283,6 @@ exports[`Table renders without crashing 1`] = `
 .c6input[type='reset'],
 .c6input[type='file'] {
   border-radius: 0;
-}
-
-.c6:focus {
-  border-color: #f4f7fb;
 }
 
 .c6 .c7 {
@@ -300,11 +294,7 @@ exports[`Table renders without crashing 1`] = `
   visibility: hidden;
 }
 
-.c2 {
-  min-height: 200px;
-}
-
-.c20 {
+.c21 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -321,11 +311,11 @@ exports[`Table renders without crashing 1`] = `
   color: #5A6872;
 }
 
-.c20 + .c19 {
+.c21 + .c20 {
   margin-top: -1px;
 }
 
-.c25 {
+.c26 {
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -351,17 +341,16 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -374,44 +363,39 @@ exports[`Table renders without crashing 1`] = `
   padding-right: 0.8rem;
 }
 
-.c25:hover,
-.c25:focus {
+.c26:hover {
   color: #fff;
   background-color: #5596E6;
 }
 
-.c25:disabled {
+.c26:disabled {
   opacity: 1;
 }
 
-.c25button,
-.c25input[type='button'],
-.c25input[type='submit'],
-.c25input[type='reset'],
-.c25input[type='file'] {
+.c26button,
+.c26input[type='button'],
+.c26input[type='submit'],
+.c26input[type='reset'],
+.c26input[type='file'] {
   border-radius: 0;
 }
 
-.c25:focus {
-  border-color: #f4f7fb;
-}
-
-.c25:disabled:hover {
+.c26:disabled:hover {
   background-color: transparent;
   color: currentColor;
 }
 
-.c25:last-child {
+.c26:last-child {
   border-right: none;
 }
 
-.c25 .c7 {
+.c26 .c7 {
   -webkit-transform: rotateZ(0.25turn);
   -ms-transform: rotateZ(0.25turn);
   transform: rotateZ(0.25turn);
 }
 
-.c27 {
+.c28 {
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -437,17 +421,16 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  outline: none;
   padding: 0.5rem 1rem;
   min-height: 2.5rem;
   line-height: 1.15;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
-  -webkit-transition-property: background,color,border-color;
-  transition-property: background,color,border-color;
+  -webkit-transition-property: background,color,border-color,opacity;
+  transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -460,41 +443,44 @@ exports[`Table renders without crashing 1`] = `
   padding-right: 0.8rem;
 }
 
-.c27:hover,
-.c27:focus {
+.c28:hover {
   color: #fff;
   background-color: #5596E6;
 }
 
-.c27:disabled {
+.c28:disabled {
   opacity: 1;
 }
 
-.c27button,
-.c27input[type='button'],
-.c27input[type='submit'],
-.c27input[type='reset'],
-.c27input[type='file'] {
+.c28button,
+.c28input[type='button'],
+.c28input[type='submit'],
+.c28input[type='reset'],
+.c28input[type='file'] {
   border-radius: 0;
 }
 
-.c27:focus {
-  border-color: #f4f7fb;
-}
-
-.c27:disabled:hover {
+.c28:disabled:hover {
   background-color: transparent;
   color: currentColor;
 }
 
-.c27:last-child {
+.c28:last-child {
   border-right: none;
 }
 
-.c27 .c7 {
+.c28 .c7 {
   -webkit-transform: rotateZ(-0.25turn);
   -ms-transform: rotateZ(-0.25turn);
   transform: rotateZ(-0.25turn);
+}
+
+.c18 {
+  box-sizing: border-box;
+  margin-right: 16px;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  overflow-wrap: break-word;
 }
 
 .c16 {
@@ -526,6 +512,10 @@ exports[`Table renders without crashing 1`] = `
   opacity: 0;
 }
 
+.c16 .c5 {
+  height: 100%;
+}
+
 .c10 {
   box-sizing: border-box;
   display: -webkit-box;
@@ -549,35 +539,6 @@ exports[`Table renders without crashing 1`] = `
   border-color: #3D70B2;
 }
 
-.c13 {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  padding: 0;
-  background-color: transparent;
-}
-
-.c14 {
-  display: inline-block;
-  vertical-align: middle;
-  color: #8C9BA5;
-  width: 1.5rem;
-  height: 1.5rem;
-  display: block;
-}
-
-.c14 svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 10%;
-}
-
-.c14:hover {
-  color: #c5cdd2;
-}
-
 .c12 {
   box-sizing: border-box;
   display: -webkit-box;
@@ -597,9 +558,40 @@ exports[`Table renders without crashing 1`] = `
   opacity: 1;
 }
 
+.c13 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.c14 {
+  display: inline-block;
+  vertical-align: middle;
+  color: #8C9BA5;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: block;
+}
+
+.c14 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.c14:hover {
+  color: #c5cdd2;
+}
+
 <div
   class="c0"
 >
+  <div
+    class=""
+  />
   <div
     class="c1"
   >
@@ -626,18 +618,18 @@ exports[`Table renders without crashing 1`] = `
               class="simplebar-content"
             >
               <div
-                class="c2"
+                class=""
               >
                 <div
-                  class="c3 c4"
+                  class="c2 c3"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -665,11 +657,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -697,11 +689,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -729,11 +721,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -761,11 +753,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -793,11 +785,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c5"
+                    class="c4"
                     style="box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c6"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -874,6 +866,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -894,6 +887,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -972,6 +966,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -992,6 +987,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1070,6 +1066,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1090,6 +1087,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1168,6 +1166,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1188,6 +1187,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1266,6 +1266,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1286,6 +1287,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1364,6 +1366,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1384,6 +1387,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1462,6 +1466,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1482,6 +1487,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1560,6 +1566,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1580,6 +1587,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1658,6 +1666,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1678,6 +1687,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1756,6 +1766,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1776,6 +1787,7 @@ exports[`Table renders without crashing 1`] = `
                       </button>
                       <button
                         class="c13"
+                        type="button"
                       >
                         <span
                           class="c7 c14"
@@ -1833,11 +1845,17 @@ exports[`Table renders without crashing 1`] = `
   >
     <div
       class="c17"
+      height="100%"
     >
-      0
-       items selected
-      <button
+      <span
         class="c18"
+        font-size="baseText"
+      >
+        0
+         items selected
+      </span>
+      <button
+        class="c5 c19"
         tabindex="0"
         type="button"
       >
@@ -1846,10 +1864,10 @@ exports[`Table renders without crashing 1`] = `
     </div>
   </div>
   <div
-    class="c19 c20"
+    class="c20 c21"
   >
     <label
-      class="c21"
+      class="c22"
       for="1"
     >
       Items per page
@@ -1865,7 +1883,7 @@ exports[`Table renders without crashing 1`] = `
           class="css-6o5gw2"
         >
           <div
-            class="css-1kygr5d"
+            class="css-1crx08z"
           >
             10
           </div>
@@ -1885,7 +1903,7 @@ exports[`Table renders without crashing 1`] = `
             class="css-767nh9"
           >
             <span
-              class="c7 c22"
+              class="c7 c23"
             >
               <svg
                 fill-rule="evenodd"
@@ -1905,10 +1923,10 @@ exports[`Table renders without crashing 1`] = `
       </div>
     </div>
     <div
-      class="c23"
+      class="c24"
     >
       <label
-        class="c24"
+        class="c25"
         for="2"
       >
         Page 
@@ -1918,13 +1936,13 @@ exports[`Table renders without crashing 1`] = `
       </label>
       <button
         aria-label="Previous page"
-        class="c25"
+        class="c5 c26"
         disabled=""
         tabindex="0"
         type="button"
       >
         <span
-          class="c7 c26"
+          class="c7 c27"
         >
           <svg
             height="1em"
@@ -1950,7 +1968,7 @@ exports[`Table renders without crashing 1`] = `
             class="css-6o5gw2"
           >
             <div
-              class="css-1kygr5d"
+              class="css-1crx08z"
             >
               1
             </div>
@@ -1970,7 +1988,7 @@ exports[`Table renders without crashing 1`] = `
               class="css-767nh9"
             >
               <span
-                class="c7 c22"
+                class="c7 c23"
               >
                 <svg
                   fill-rule="evenodd"
@@ -1991,12 +2009,12 @@ exports[`Table renders without crashing 1`] = `
       </div>
       <button
         aria-label="Next page"
-        class="c27"
+        class="c5 c28"
         tabindex="0"
         type="button"
       >
         <span
-          class="c7 c26"
+          class="c7 c27"
         >
           <svg
             height="1em"

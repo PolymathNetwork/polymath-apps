@@ -1,5 +1,7 @@
 // @flow
+import React from 'react';
 import { NotFoundPage, MaintenancePage } from '@polymathnetwork/ui';
+import { Redirect } from 'react-router-dom';
 
 import App from './components/App';
 import Dashboard from './components/Dashboard';
@@ -10,6 +12,8 @@ import ProvidersPage from './pages/providers/ProvidersPage';
 import TokenPage from './pages/token/TokenPage';
 import STOPage from './pages/sto/STOPage';
 import DividendsPage from './pages/dividends/DividendsPage';
+import DividendsWizardPage from './pages/dividends/DividendsWizardPage';
+import DividendDetailsPage from './pages/dividends/DividendDetailsPage';
 
 export default [
   {
@@ -50,9 +54,48 @@ export default [
             exact: true,
           },
           {
+            path: '/dashboard/:id/dividends/:dividendIndex',
+            component: DividendDetailsPage,
+            exact: true,
+          },
+          {
+            path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
+            component: DividendsWizardPage,
+            exact: true,
+          },
+          {
             component: NotFoundPage,
           },
         ],
+      },
+      {
+        path: '/securityTokens/:id/checkpoints/:checkpointIndex/dividends/new',
+        component: props => {
+          const { id, checkpointIndex } = props.match.params;
+
+          return (
+            <Redirect
+              to={`/dashboard/${id}/checkpoints/${checkpointIndex}/dividends/new`}
+            />
+          );
+        },
+        exact: true,
+      },
+      {
+        path: '/securityTokens/:id/dividends',
+        component: props => {
+          const { id } = props.match.params;
+          return <Redirect to={`/dashboard/${id}/dividends`} />;
+        },
+        exact: true,
+      },
+      {
+        path: '/securityTokens/:id/dividends/:dividendId',
+        component: props => {
+          const { id, dividendId } = props.match.params;
+          return <Redirect to={`/dashboard/${id}/dividends/${dividendId}`} />;
+        },
+        exact: true,
       },
       {
         path: '/maintenance',

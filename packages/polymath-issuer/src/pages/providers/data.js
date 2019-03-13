@@ -125,18 +125,19 @@ const providers: Array<ServiceProvider> = [
     id: 5,
     cat: 1,
     title: 'Lexcuity PC',
-    logo: '/providers/legal/homierlaw.png',
-    background: '/providers/legal/bg/img-homier.png',
-    desc: `Lexcuity PC is a securities and corporate law firm with deep experience in exempt as well as 
-      SEC-registered alternative finance offerings, having advised on hundreds of private offerings 
-      that have raised billions of dollars for developers and entrepreneurs over the past decade. 
-      As a leader and pioneer in investment crowdfunding, Lexcuity serves the emerging blockchain 
-      and cryptocurrency industries in structuring and documenting security token offerings (STOs), 
-      initial coin offerings (ICOs) and other capital-raising initiatives. Never satisfied with 
-      rote “compliance documents,” Lexcuity prides itself on helping clients effectively tell 
-      their stories to investors while satisfying all regulatory compliance requirements. 
-      We also contribute our insights to the blockchain community to help build the industry’s 
-      best practices.`,
+    logo: '/providers/legal/lexcuity.png',
+    background: '/providers/legal/bg/img-lexcuity.png',
+    desc:
+      'Lexcuity PC is a securities and corporate law firm with deep experience in exempt as well as ' +
+      'SEC-registered alternative finance offerings, having advised on hundreds of private offerings  ' +
+      'that have raised billions of dollars for developers and entrepreneurs over the past decade. ' +
+      'As a leader and pioneer in investment crowdfunding, Lexcuity serves the emerging blockchain ' +
+      'and cryptocurrency industries in structuring and documenting security token offerings (STOs), ' +
+      'initial coin offerings (ICOs) and other capital-raising initiatives. Never satisfied with ' +
+      'rote “compliance documents,” Lexcuity prides itself on helping clients effectively tell ' +
+      'their stories to investors while satisfying all regulatory compliance requirements. ' +
+      'We also contribute our insights to the blockchain community to help build the industry’s ' +
+      'best practices.',
   },
   {
     id: 18,
@@ -245,11 +246,24 @@ const providers: Array<ServiceProvider> = [
     title: 'Netki',
     logo: '/providers/kyc/netki.png',
     background: '/providers/kyc/bg/img-netki.png',
-    desc: `Netki provides bank-grade KYC/AML on-boarding from your customer's phone in under a minute. By leveraging 
-      machine-learning and computer vision tools, Netki is able to automate customer verification with a fully 
-      customizable platform that is configurable to meet any compliance requirements. With KYC, AML, Accredited 
-      Investor verification and corporate on-boarding tools, Netki can help you streamline your compliance 
-      program while preventing fraud and balancing end-user experience`,
+    desc:
+      "Netki provides bank-grade KYC/AML on-boarding from your customer's phone in under a minute. By leveraging " +
+      'machine-learning and computer vision tools, Netki is able to automate customer verification with a fully ' +
+      'customizable platform that is configurable to meet any compliance requirements. With KYC, AML, Accredited ' +
+      'Investor verification and corporate on-boarding tools, Netki can help you streamline your compliance ' +
+      'program while preventing fraud and balancing end-user experience',
+  },
+  {
+    id: 25,
+    cat: 2,
+    title: 'IdentityMind Global',
+    logo: '/providers/kyc/identitymind.png',
+    background: '/providers/kyc/bg/img-identitymind.png',
+    desc:
+      'All the regulatory services you need including KYC, Transaction Monitoring, and Accredited Investor ' +
+      'Validation. In addition, only IdentityMind provides you with an integrated blockchain explorer to ' +
+      'alert you of the risk of incoming digital currency. IdentityMind Global has helped over 200 ICOs/STOs ' +
+      'from all over the world automate their compliance',
   },
 
   // MARKETING

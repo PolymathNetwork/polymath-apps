@@ -100,7 +100,7 @@ export const Header: FC<HeaderProps> & {
                       color="white"
                       width={26}
                       height={26}
-                      scale={0.95}
+                      scale={0.85}
                     />
                     <InlineFlex ml="s">{symbol}</InlineFlex>
                   </IconText>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column } from 'react-table';
+import { HeaderColumn } from 'react-table';
 import { SvgDelete } from '~/images/icons/Delete';
 import { SvgPen } from '~/images/icons/Pen';
 import { IconButton } from '~/components/IconButton';
@@ -8,7 +8,7 @@ import { makeData } from './makeData';
 
 export const data = makeData(1000);
 
-export const columns: Column[] = [
+export const columns: HeaderColumn[] = [
   {
     Header: 'First Name',
     accessor: 'firstName',
@@ -66,14 +66,14 @@ export const columns: Column[] = [
       <RowActions>
         <IconButton
           Asset={SvgPen}
-          width="1.5rem"
-          height="1.5rem"
+          width="1.4rem"
+          height="1.4rem"
           color="gray.2"
         />
         <IconButton
           Asset={SvgDelete}
-          width="1.5rem"
-          height="1.5rem"
+          width="1.4rem"
+          height="1.4rem"
           color="gray.2"
         />
       </RowActions>

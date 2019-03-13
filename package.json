@@ -13,7 +13,6 @@
   "scripts": {
     "changelog": "node ./config/changelog.js",
     "commit": "commit",
-    "typecheck": "lerna run --parallel typecheck ",
     "clean:builds": "lerna exec --parallel --stream --scope=@polymathnetwork/{new-issuer,new-ui,investor,sdk,shared,new-shared} -- rm -rf ./build",
     "clean:node_modules": "lerna exec --parallel --stream -- rm -rf ./node_modules",
     "start:investor": "lerna exec --scope=@polymathnetwork/investor -- yarn start",
@@ -21,6 +20,7 @@
     "start:new-issuer": "lerna exec --scope=@polymathnetwork/new-issuer -- yarn start",
     "start:offchain": "lerna exec --scope=@polymathnetwork/offchain -- yarn start",
     "start:dev": "ttsc -b packages --watch",
+    "start:local-blockchain": "yarn local-blockchain:start",
     "build:typedefs": "yarn build:shared-typedefs && yarn build:sdk-typedefs && yarn build:ui-typedefs && yarn build:issuer-typedefs",
     "build:shared-typedefs": "ttsc -b packages/new-polymath-shared",
     "build:sdk-typedefs": "ttsc -b packages/new-polymath-sdk",
@@ -39,7 +39,7 @@
     "test:sdk": "lerna exec --stream --scope=@polymathnetwork/sdk -- yarn test",
     "local-blockchain:start": "lerna run --stream --scope=@polymathnetwork/polymath-scripts local-blockchain:start -- --",
     "build": "lerna run --parallel --stream build",
-    "build:apps": "lerna run --parallel --stream --scope=@polymathnetwork/{issuer,investor,offchain} build",
+    "build:apps": "lerna run --parallel --stream --scope=@polymathnetwork/{issuer,offchain} build",
     "build:issuer": "lerna run --stream --scope=@polymathnetwork/issuer build",
     "build:new-issuer": "lerna run --stream --scope=@polymathnetwork/new-issuer build",
     "build:libs": "lerna run --parallel --stream --scope=@polymathnetwork/{auth,ui,js} build",
@@ -90,9 +90,9 @@
     "tsconfig-paths": "^3.7.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint-react": "^3.6.0",
-    "ttypescript": "^1.5.5",
+    "ttypescript": "1.5.6",
     "typechain": "^0.3.9",
-    "typescript": "^3.2.1"
+    "typescript": "3.2.4"
   },
   "husky": {
     "hooks": {

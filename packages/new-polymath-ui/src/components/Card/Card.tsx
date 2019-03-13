@@ -18,7 +18,7 @@ export const StyledCard = styled(Box)<CardProps>`
 export const Card = Object.assign(StyledCard, {
   defaultProps: {
     rounded: false,
-    boxShadow: 1,
+    boxShadow: 2,
     p: 'xl',
   },
 });

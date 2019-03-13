@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ActionType } from 'typesafe-actions/dist/types';
-import { types } from '@polymathnetwork/new-shared';
+import { types, constants } from '@polymathnetwork/new-shared';
 import { Page } from '@polymathnetwork/new-ui';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
@@ -10,41 +10,57 @@ import { createErc20DividendsModuleBySymbolFetcher } from '~/state/fetchers';
 import {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
+  setDividendsWalletStart,
 } from '~/state/actions/procedures';
 import { RootState } from '~/state/store';
-import { getSession } from '~/state/selectors';
+import { getSession, getApp } from '~/state/selectors';
+import { DividendModuleTypes } from '@polymathnetwork/sdk';
 
 const actions = {
   enableErc20DividendsModuleStart,
   createCheckpointStart,
+  setDividendsWalletStart,
 };
 
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
   walletAddress: string;
+  networkId?: number;
 }
 
 const mapStateToProps = (state: RootState) => {
   const { wallet } = getSession(state);
+  const { networkId } = getApp(state);
   let walletAddress = '';
 
   if (wallet) {
     walletAddress = wallet.address;
   }
 
-  return { walletAddress };
+  return { walletAddress, networkId };
 };
 
 export class ContainerBase extends Component<Props> {
   public enableErc20DividendsModule = (storageWalletAddress: string) => {
     const { dispatch, securityTokenSymbol } = this.props;
 
-    // TODO @monitz87: change the wallet address to the one supplied by the user when we implement the form
     dispatch(
       enableErc20DividendsModuleStart({
         securityTokenSymbol,
         storageWalletAddress,
+      })
+    );
+  };
+
+  public changeWalletAddress = (storageWalletAddress: string) => {
+    const { dispatch, securityTokenSymbol } = this.props;
+
+    dispatch(
+      setDividendsWalletStart({
+        securityTokenSymbol,
+        dividendType: DividendModuleTypes.Erc20,
+        walletAddress: storageWalletAddress,
       })
     );
   };
@@ -56,7 +72,10 @@ export class ContainerBase extends Component<Props> {
   };
 
   public render() {
-    const { securityTokenSymbol, walletAddress } = this.props;
+    const { securityTokenSymbol, walletAddress, networkId } = this.props;
+
+    const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
+
     return (
       <Page title="Dividends">
         <DataFetcher
@@ -72,10 +91,12 @@ export class ContainerBase extends Component<Props> {
 
             return (
               <Presenter
+                subdomain={subdomain}
                 onCreateCheckpoint={this.createCheckpoint}
                 onEnableDividends={this.enableErc20DividendsModule}
+                onChangeWalletAddress={this.changeWalletAddress}
                 dividendsModule={erc20DividendsModule}
-                defaultWalletAddress={walletAddress}
+                userWalletAddress={walletAddress}
               />
             );
           }}

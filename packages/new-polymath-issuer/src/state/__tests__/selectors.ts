@@ -66,6 +66,7 @@ const dividends = {
       uid: 'd0',
       index: 0,
       created: new Date(),
+      dividendType: types.DividendModuleTypes.Erc20,
       securityTokenId: 's0',
       securityTokenSymbol: 'S',
       checkpointId: 'c0',
@@ -75,8 +76,9 @@ const dividends = {
       claimedAmount: new BigNumber('500'),
       totalSupply: new BigNumber('1000000'),
       reclaimed: false,
-      dividendWithheld: new BigNumber('500'),
-      dividendWithheldReclaimed: new BigNumber('250'),
+      totalWithheld: new BigNumber('500'),
+      totalWithheldWithdrawn: new BigNumber('250'),
+      investors: [],
       name: 'Dividend0',
       currency: 'POLY',
     },
@@ -124,6 +126,11 @@ const erc20DividendsModules = {
   allIds: [],
 };
 
+const taxWithholdings = {
+  byId: {},
+  allIds: [],
+};
+
 const transactionQueues = {
   byId: {
     tq0: {
@@ -147,6 +154,7 @@ const entitiesState: EntitiesState = {
   dividends,
   transactions,
   erc20DividendsModules,
+  taxWithholdings,
   transactionQueues,
 };
 
@@ -163,6 +171,8 @@ const dataRequestsState = {
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
+  [RequestKeys.GetTaxWithholdingListBySymbol]: {},
+  [RequestKeys.GetDividendBySymbolAndId]: {},
 };
 
 const mockState: RootState = {

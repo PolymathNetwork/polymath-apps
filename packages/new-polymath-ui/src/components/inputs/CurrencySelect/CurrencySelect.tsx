@@ -4,12 +4,16 @@ import { IndicatorProps } from 'react-select/lib/components/indicators';
 import { Styles } from 'react-select/lib/styles';
 import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
-import { formikProxy } from '~/components/inputs/formikProxy';
+import {
+  FormikProxy,
+  EnhancedComponentProps,
+} from '~/components/inputs/FormikProxy';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { SvgClose } from '~/images/icons/Close';
 import { SvgEth } from '~/images/icons/Eth';
 import { SvgPoly } from '~/images/icons/Poly';
 import { SvgDai } from '~/images/icons/Dai';
+import { SvgErc20 } from '~/images/icons/Erc20';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
@@ -20,6 +24,13 @@ import * as sc from './styles';
 interface OptionType {
   value: types.Tokens;
   label: ReactNode;
+}
+
+type Value = types.Tokens | types.Tokens[];
+
+interface ExternalProps extends EnhancedComponentProps<Value> {
+  theme: ThemeInterface;
+  placeholder?: string;
 }
 
 export const CURRENCY_OPTIONS: OptionType[] = [
@@ -39,14 +50,22 @@ export const CURRENCY_OPTIONS: OptionType[] = [
     value: types.Tokens.Dai,
     label: <Label text="Dai (DAI)" Asset={SvgDai} token={types.Tokens.Dai} />,
   },
+  {
+    value: types.Tokens.Erc20,
+    label: (
+      <Label text="ERC20 Token" Asset={SvgErc20} token={types.Tokens.Erc20} />
+    ),
+  },
 ];
 
-interface SelectProps extends InputProps {
+interface SelectProps
+  extends Pick<InputProps, 'onChange' | 'error' | 'name' | 'autoComplete'> {
   options: types.Tokens[];
   theme: ThemeInterface;
   value: types.Tokens | types.Tokens[];
   // Override because ReactSelect does not provide the event
   onBlur: () => void;
+  placeholder?: string;
 }
 
 const getStyles = (theme: ThemeInterface): Styles => ({
@@ -261,5 +280,20 @@ export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   }
 }
 
-export const CurrencySelectPrimitive = formikProxy(CurrencySelectPrimitiveBase);
-export const CurrencySelect = withTheme(CurrencySelectPrimitive);
+const EnhancedCurrencySelectPrimitive: FC<ExternalProps> = ({
+  field,
+  form,
+  onChange,
+  ...rest
+}) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    onChange={onChange}
+    render={formikProps => (
+      <CurrencySelectPrimitiveBase {...rest} {...formikProps} />
+    )}
+  />
+);
+
+export const CurrencySelect = withTheme(EnhancedCurrencySelectPrimitive);

@@ -29,14 +29,14 @@ export interface GenericContract {
 
 export interface Erc20DividendDepositedEvent {
   _depositor: string;
-  _checkpointId: number;
-  _created: number;
-  _maturity: number;
-  _expiry: number;
+  _checkpointId: string;
+  _created: string;
+  _maturity: string;
+  _expiry: string;
   _token: string;
-  _amount: number;
-  _totalSupply: number;
-  _dividendIndex: number;
+  _amount: string;
+  _totalSupply: string;
+  _dividendIndex: string;
   _name: string;
 }
 
@@ -53,9 +53,19 @@ export enum ModuleTypes {
   Burn,
 }
 
+export interface DividendInvestorStatus {
+  address: string;
+  paymentReceived: boolean;
+  excluded: boolean;
+  withheldTax: BigNumber;
+  amountReceived: BigNumber;
+  balance: BigNumber;
+}
+
 export interface Dividend {
   index: number;
   checkpointId: number;
+  dividendType: DividendModuleTypes;
   created: Date;
   maturity: Date;
   expiry: Date;
@@ -63,10 +73,11 @@ export interface Dividend {
   claimedAmount: BigNumber;
   totalSupply: BigNumber;
   reclaimed: boolean;
-  dividendWithheld: BigNumber;
-  dividendWithheldReclaimed: BigNumber;
+  totalWithheld: BigNumber;
+  totalWithheldWithdrawn: BigNumber;
   name: string;
   currency: string | null;
+  investors: DividendInvestorStatus[];
 }
 
 export interface InvestorBalance {
@@ -79,6 +90,33 @@ export interface Checkpoint {
   investorBalances: InvestorBalance[];
   totalSupply: BigNumber;
   createdAt: Date;
+}
+
+export interface TaxWithholding {
+  address: string;
+  percentage: number;
+}
+
+// Call argument types
+
+export interface GetExclusionListArgs {
+  dividendIndex: number;
+}
+
+export interface GetTaxWithholdingListArgs {
+  checkpointIndex: number;
+}
+
+export interface GetDividendInvestorsArgs {
+  dividendIndex: number;
+}
+
+export interface GetDividendsByCheckpointArgs {
+  checkpointIndex: number;
+}
+
+export interface GetDividendArgs {
+  dividendIndex: number;
 }
 
 // Transaction argument types
@@ -94,6 +132,15 @@ export interface ReclaimDividendArgs {
 
 export interface WithdrawWithholdingArgs {
   dividendIndex: number;
+}
+
+export interface PushDividendPaymentArgs {
+  dividendIndex: number;
+  investorAddresses: string[];
+}
+
+export interface SetDividendsWalletArgs {
+  address: string;
 }
 
 export interface CreateErc20DividendArgs {
@@ -156,6 +203,10 @@ export interface AddDividendsModuleArgs {
 
 export interface GetModuleAddressArgs {
   name: string;
+}
+
+export interface GetCheckpointArgs {
+  checkpointId: number;
 }
 
 export interface RegisterTickerArgs {

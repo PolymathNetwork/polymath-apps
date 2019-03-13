@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import ReactSelect, { components } from 'react-select';
 import { Props as ReactSelectProps } from 'react-select/lib/Select';
 import { typeHelpers } from '@polymathnetwork/new-shared';
@@ -6,7 +6,7 @@ import { withTheme, ThemeInterface } from '~/styles';
 import { Selects } from '~/styles/types';
 import { Icon } from '~/components/Icon';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 
 interface Props<OptT extends any = any>
   extends typeHelpers.Omit<
@@ -149,7 +149,14 @@ export const SelectPrimitive = Object.assign(ThemedSelectPrimitive, {
   defaultProps: SelectPrimitiveBase.defaultProps,
 });
 
-const EnhancedSelect = formikProxy(SelectPrimitive);
+const EnhancedSelect: FC<EnhancedComponentProps<any>> = ({ field, form, onChange, ...rest }) => (
+  <FormikProxy<any>
+    field={field}
+    form={form}
+    onChange={onChange}
+    render={formikProps => <SelectPrimitive {...rest} {...formikProps} />}
+  />
+);
 
 export const Select = Object.assign(EnhancedSelect, {
   defaultProps: SelectPrimitive.defaultProps,

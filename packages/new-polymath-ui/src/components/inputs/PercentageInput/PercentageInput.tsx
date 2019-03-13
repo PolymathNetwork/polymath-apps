@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import { isNumber } from 'lodash';
 import numeral from 'numeral';
 
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 import { BaseInput } from '../BaseInput';
 
 interface Props {
@@ -58,4 +58,18 @@ export class PercentageInputPrimitive extends Component<Props> {
   }
 }
 
-export const PercentageInput = formikProxy(PercentageInputPrimitive);
+const EnhancedPercentageInput: FC<EnhancedComponentProps<number>> = ({
+  field,
+  form,
+  ...rest
+}) => (
+  <FormikProxy<number>
+    field={field}
+    form={form}
+    render={formikProps => (
+      <PercentageInputPrimitive {...rest} {...formikProps} />
+    )}
+  />
+);
+
+export const PercentageInput = EnhancedPercentageInput;

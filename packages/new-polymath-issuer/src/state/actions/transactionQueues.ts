@@ -10,6 +10,10 @@ const cancelTransactionQueue = createStandardAction(
   'TRANSACTION_QUEUES/CANCEL'
 )();
 
+const finishTransactionQueue = createStandardAction(
+  'TRANSACTION_QUEUES/FINISH'
+)();
+
 const { createAction, updateAction, deleteAction } = createEntityActions<
   types.TransactionQueueEntity
 >('TRANSACTION_QUEUES');
@@ -20,4 +24,5 @@ export {
   deleteAction,
   confirmTransactionQueue,
   cancelTransactionQueue,
+  finishTransactionQueue,
 };

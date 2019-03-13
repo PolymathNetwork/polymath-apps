@@ -20,7 +20,14 @@ const { TransactionStatus } = types;
 
 interface TransactionItemProps {
   transaction: types.TransactionPojo;
-  getTitle: (transaction: types.TransactionPojo) => string;
+  transactionLinkSubdomain?: string;
+  getTitle: (
+    transaction: types.TransactionPojo,
+    index: number,
+    transactions: types.TransactionPojo[]
+  ) => string;
+  index: number;
+  allTransactions: types.TransactionPojo[];
 }
 
 const getIcon = (transaction: types.TransactionPojo) => {
@@ -34,7 +41,7 @@ const getIcon = (transaction: types.TransactionPojo) => {
   }
 
   if (status === TransactionStatus.Unapproved) {
-    return <Icon Asset={SvgPending} color="gray.1" width={32} height={24} />;
+    return <Icon Asset={SvgPending} color="gray.2" width={32} height={24} />;
   }
 
   if (status === TransactionStatus.Running) {
@@ -55,8 +62,11 @@ interface StaticProps {
 const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
   transaction,
   getTitle,
+  index,
+  allTransactions,
+  transactionLinkSubdomain,
 }) => {
-  const title = getTitle(transaction);
+  const title = getTitle(transaction, index, allTransactions);
   const { txHash } = transaction;
 
   return (
@@ -75,11 +85,15 @@ const TransactionItem: FC<TransactionItemProps> & StaticProps = ({
           <Paragraph as={Flex} fontSize={0}>
             <sc.Label>Transaction details on Etherscan: </sc.Label>
             &nbsp;
-            {txHash && (
-              <Link href={utils.toEtherscanUrl(txHash)}>
-                <TextEllipsis size={28}>{txHash}</TextEllipsis>
+            {txHash ? (
+              <Link
+                href={utils.toEtherscanUrl(txHash, {
+                  subdomain: transactionLinkSubdomain,
+                })}
+              >
+                <TextEllipsis size={26}>{txHash}</TextEllipsis>
               </Link>
-            )}
+            ) : null}
           </Paragraph>
         </CardPrimary>
       </sc.Info>

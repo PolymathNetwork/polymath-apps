@@ -298,6 +298,8 @@ export default class InvestmentTiers extends React.Component<Props, State> {
                                   <IconButton
                                     Icon={EditIcon}
                                     color="#000000"
+                                    width={16}
+                                    height={16}
                                     onClick={() => {
                                       this.handleEditTierModal(
                                         row.id - 1,
@@ -310,6 +312,8 @@ export default class InvestmentTiers extends React.Component<Props, State> {
                                   <IconButton
                                     Icon={DeleteIcon}
                                     color="#000000"
+                                    width={16}
+                                    height={16}
                                     onClick={() => {
                                       this.handleRemoveTier(index);
                                     }}

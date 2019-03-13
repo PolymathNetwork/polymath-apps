@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useState, useCallback } from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
-import * as Yup from 'yup';
+import { validator } from '@polymathnetwork/new-ui';
 import { validateYupSchema, yupToFormErrors } from 'formik';
 import {
   Heading,
@@ -26,9 +26,11 @@ import { WalletAddress } from './WalletAddress';
 
 export interface Props {
   onEnableDividends: (walletAddress: string) => void;
+  onChangeWalletAddress: (walletAddress: string) => void;
   onCreateCheckpoint: () => void;
   dividendsModule?: types.Erc20DividendsModulePojo;
-  defaultWalletAddress: string;
+  userWalletAddress: string;
+  subdomain?: string;
 }
 
 // TODO @grsmto: move this to external form utils
@@ -44,10 +46,14 @@ export const validateFormWithSchema = (validationSchema: any, values: any) => {
 export const Presenter: FC<Props> = ({
   onEnableDividends,
   onCreateCheckpoint,
+  onChangeWalletAddress,
   dividendsModule,
-  defaultWalletAddress,
+  userWalletAddress,
+  subdomain,
 }) => {
-  const [walletAddress, setWalletAddress] = useState(defaultWalletAddress);
+  const [walletAddress, setWalletAddress] = useState(
+    dividendsModule ? dividendsModule.storageWalletAddress : userWalletAddress
+  );
   const [isEditingAddress, setEditAddressState] = useState(false);
 
   const handleAddressModalOpen = useCallback(() => {
@@ -58,18 +64,29 @@ export const Presenter: FC<Props> = ({
     setEditAddressState(false);
   }, []);
 
-  const handleEnableDividendsClick = useCallback(() => {
-    onEnableDividends(walletAddress);
-  }, []);
+  const handleEnableDividendsClick = useCallback(
+    () => {
+      onEnableDividends(walletAddress);
+    },
+    [walletAddress]
+  );
 
   const handleAddressChange = useCallback(values => {
-    setWalletAddress(values.walletAddress);
+    if (dividendsModule) {
+      onChangeWalletAddress(values.walletAddress);
+    } else {
+      setWalletAddress(values.walletAddress);
+    }
+
     setEditAddressState(false);
   }, []);
 
   const handleAddressValidation = useCallback(values => {
-    const schema = Yup.object().shape({
-      walletAddress: Yup.string().required(),
+    const schema = validator.object().shape({
+      walletAddress: validator
+        .string()
+        .required()
+        .isEthereumAddress(),
     });
     return validateFormWithSchema(schema, values);
   }, []);
@@ -120,19 +137,31 @@ export const Presenter: FC<Props> = ({
                       height={16}
                       bg="inactive"
                       color="white"
-                      scale={0.9}
+                      scale={0.8}
                     />
                     Enabled
                   </ButtonLarge>
                 </Paragraph>
                 <WalletAddress
-                  walletAddress={walletAddress}
-                  defaultWalletAddress={defaultWalletAddress}
+                  walletAddress={
+                    dividendsModule.storageWalletAddress || walletAddress
+                  }
+                  userWalletAddress={userWalletAddress}
                 />
+                <Paragraph mb="l">
+                  <LinkButton onClick={handleAddressModalOpen}>
+                    Edit address
+                  </LinkButton>
+                </Paragraph>
                 <CardPrimary>
                   <Paragraph fontSize={0}>
                     Dividends contract address:{' '}
-                    <Link href={utils.toEtherscanUrl(dividendsModule.address)}>
+                    <Link
+                      href={utils.toEtherscanUrl(dividendsModule.address, {
+                        subdomain,
+                        type: 'address',
+                      })}
+                    >
                       {formatters.toShortAddress(dividendsModule.address)}
                     </Link>
                   </Paragraph>
@@ -142,7 +171,7 @@ export const Presenter: FC<Props> = ({
               <Fragment>
                 <WalletAddress
                   walletAddress={walletAddress}
-                  defaultWalletAddress={defaultWalletAddress}
+                  userWalletAddress={userWalletAddress}
                 />
                 <Paragraph mb="l">
                   <LinkButton onClick={handleAddressModalOpen}>
@@ -168,6 +197,7 @@ export const Presenter: FC<Props> = ({
         </GridRow.Col>
       </GridRow>
       <Form
+        enableReinitialize
         initialValues={{
           walletAddress,
         }}
@@ -175,17 +205,21 @@ export const Presenter: FC<Props> = ({
         validate={handleAddressValidation}
         render={({ handleSubmit, isValid }) => (
           <ModalConfirm
-            isOpen={isEditingAddress && !dividendsModule}
+            isOpen={isEditingAddress}
             onSubmit={handleSubmit}
             onClose={handleAddressModalClose}
             isActionDisabled={!isValid}
             maxWidth={500}
           >
             <ModalConfirm.Header>
-              Wallet Address to Receive Tax Withholdings
+              Edit Wallet Address for Tax Withholdings
             </ModalConfirm.Header>
             <Paragraph fontSize={2}>
-              This is the explanation of what is going on here.
+              Taxes will be withheld by the dividends smart contract at the time
+              dividends are distributed. Withholdings can be subsequently
+              withdrawn into a designated wallet for tax payments. Enter the
+              address of the wallet designated to receive the tax withholdings
+              funds when withdrawn.
             </Paragraph>
             <Grid>
               <FormItem name="walletAddress">

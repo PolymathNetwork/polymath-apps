@@ -1,4 +1,5 @@
 import { styled, css, ThemeInterface } from '~/styles';
+import { Box } from '~/components/Box';
 import { Flex } from '~/components/Flex';
 import { Icon } from '~/components/Icon';
 import { Button } from '~/components/Button';
@@ -8,20 +9,18 @@ export const rowHeight = css(
     small ? theme.space.l : theme.space.xl
 );
 
-export const Table = styled.div<{ selectable?: boolean }>`
+export const Table = styled(Box)`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: inherit;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
-  padding-top: ${({ selectable }) => selectable && rowHeight};
+  height: 100%;
 `;
 
-export const Inner = styled.div<{ selectable?: boolean }>`
+export const Inner = styled.div`
   display: flex;
   width: 100%;
-  height: ${({ selectable }) =>
-    selectable ? `calc(100% - ${rowHeight})` : '100%'};
+  height: 100%;
 `;
 
 export const RowBase = styled(Flex)`
@@ -45,6 +44,7 @@ export const HeaderRow = styled(RowBase)`
 export const Cell = styled(Flex)`
   padding: 0.6em;
   height: ${rowHeight};
+  color: ${({ hasError, theme }) => hasError && theme.colors.alert};
 
   &:first-child {
     padding-left: ${({ theme }) => theme.space.gridGap};
@@ -83,6 +83,10 @@ export const ButtonSort = styled(Button)<{
   sorted: boolean;
   sortedDesc: boolean;
 }>`
+  white-space: normal;
+  flex-shrink: 1;
+  text-align: left;
+
   ${Icon} {
     color: ${({ theme }) => theme.colors.gray[3]};
     ${props =>
@@ -118,6 +122,6 @@ export const ButtonNextPage = styled(ButtonPagination)`
   }
 `;
 
-export const Body = styled.div`
-  min-height: 200px;
-`;
+export const Toolbar = styled.div``;
+
+export const Body = styled.div``;

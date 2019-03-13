@@ -1,11 +1,11 @@
 import { polyClient } from '~/lib/polyClient';
 import { call, put } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
-import { TransactionQueue } from '@polymathnetwork/sdk';
+import { TransactionQueue, DividendModuleTypes } from '@polymathnetwork/sdk';
 import { createCheckpointStart } from '~/state/actions/procedures';
 import { runTransactionQueue } from '~/state/sagas/transactionQueues';
 import { invalidateRequest } from '~/state/actions/dataRequests';
-import { RequestKeys } from '~/types';
+import { RequestKeys, TransactionQueueResult, QueueStatus } from '~/types';
 
 export function* createCheckpoint(
   action: ActionType<typeof createCheckpointStart>
@@ -19,13 +19,13 @@ export function* createCheckpoint(
   );
 
   try {
-    const queueSucceeded: boolean = yield call(
+    const { queueStatus }: TransactionQueueResult = yield call(
       runTransactionQueue,
       transactionQueueToRun
     );
 
-    // Queue was canceled or failed
-    if (!queueSucceeded) {
+    // Queue was canceled, empty or failed
+    if (queueStatus !== QueueStatus.Succeeded) {
       return;
     }
 
@@ -35,6 +35,28 @@ export function* createCheckpoint(
         requestKey: RequestKeys.GetCheckpointsBySymbol,
         args: {
           securityTokenSymbol,
+        },
+      })
+    );
+
+    // TODO @monitz87: move these tax withholding cache invalidations to the minting procedure
+    // saga when it is implemented
+    yield put(
+      invalidateRequest({
+        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+        args: {
+          securityTokenSymbol,
+          dividendType: DividendModuleTypes.Erc20,
+        },
+      })
+    );
+
+    yield put(
+      invalidateRequest({
+        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+        args: {
+          securityTokenSymbol,
+          dividendType: DividendModuleTypes.Eth,
         },
       })
     );

@@ -23,6 +23,7 @@ export class CheckpointListContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
     const { securityTokenSymbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
+
     const data: Row[] = investorBalances.map(({ balance, address }) => {
       const percentage = balance
         .div(totalSupply)
@@ -35,8 +36,8 @@ export class CheckpointListContainerBase extends Component<Props> {
         percentage,
       };
     });
-
-    const fileName = `checkpoint_${securityTokenSymbol.toUpperCase()}_${formatters.toDateFormat(
+    const sanitizedName = securityTokenSymbol.replace('.', '-').toUpperCase();
+    const fileName = `checkpoint_${sanitizedName}_${formatters.toDateFormat(
       createdAt,
       { format: DateTime.DATE_SHORT }
     )}_${totalSupply}`;
@@ -71,9 +72,14 @@ export class CheckpointListContainerBase extends Component<Props> {
         render={(data: { checkpoints: types.CheckpointEntity[] }) => {
           const { checkpoints } = data;
 
+          // this spread is necessary because sort mutates the original array and that causes a rerender of the DataFetcher
+          const sortedCheckpoints = [...checkpoints].sort(
+            (a, b) => b.index - a.index
+          );
+
           return (
             <CheckpointListPresenter
-              checkpoints={checkpoints}
+              checkpoints={sortedCheckpoints}
               securityTokenSymbol={securityTokenSymbol}
               downloadOwnershipList={this.downloadOwnershipList}
             />

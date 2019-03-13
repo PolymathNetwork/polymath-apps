@@ -1,13 +1,14 @@
 import React, { Component, Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { ActionType } from 'typesafe-actions';
-import { types } from '@polymathnetwork/new-shared';
+import { types, constants } from '@polymathnetwork/new-shared';
 import { RootState } from '~/state/store';
-import { createGetActiveTransactionQueue } from '~/state/selectors';
+import { createGetActiveTransactionQueue, getApp } from '~/state/selectors';
 import { unsetActiveTransactionQueue } from '~/state/actions/app';
 import {
   confirmTransactionQueue,
   cancelTransactionQueue,
+  finishTransactionQueue,
 } from '~/state/actions/transactionQueues';
 import { ModalTransactionQueuePresenter } from './Presenter';
 
@@ -15,10 +16,12 @@ const actions = {
   unsetActiveTransactionQueue,
   confirmTransactionQueue,
   cancelTransactionQueue,
+  finishTransactionQueue,
 };
 
 export interface StateProps {
   transactionQueue: types.TransactionQueuePojo | null;
+  networkId?: constants.NetworkIds;
 }
 
 export interface DispatchProps {
@@ -32,8 +35,8 @@ const mapStateToProps = () => {
 
   return (state: RootState): StateProps => {
     const transactionQueue = getActiveTransactionQueue(state);
-
-    return { transactionQueue };
+    const { networkId } = getApp(state);
+    return { transactionQueue, networkId };
   };
 };
 
@@ -42,6 +45,14 @@ export class ModalTransactionQueueContainerBase extends Component<Props> {
     const { dispatch } = this.props;
 
     dispatch(unsetActiveTransactionQueue());
+  };
+
+  public onContinue = () => {
+    const { dispatch } = this.props;
+
+    this.onFinish();
+
+    dispatch(finishTransactionQueue());
   };
 
   public onClose = () => {
@@ -59,8 +70,12 @@ export class ModalTransactionQueueContainerBase extends Component<Props> {
   };
 
   public render() {
-    const { transactionQueue } = this.props;
-    const { onFinish, onConfirm, onClose } = this;
+    const { transactionQueue, networkId } = this.props;
+    const { onContinue, onConfirm, onClose } = this;
+
+    const transactionLinkSubdomain = networkId
+      ? constants.EtherscanSubdomains[networkId]
+      : '';
 
     if (!transactionQueue) {
       return null;
@@ -68,8 +83,9 @@ export class ModalTransactionQueueContainerBase extends Component<Props> {
 
     return (
       <ModalTransactionQueuePresenter
+        transactionLinkSubdomain={transactionLinkSubdomain}
         transactionQueue={transactionQueue}
-        onContinue={onFinish}
+        onContinue={onContinue}
         onClose={onClose}
         onConfirm={onConfirm}
       />

@@ -1,21 +1,20 @@
 import _ from 'lodash';
 import { EventEmitter } from 'events';
 import { types } from '@polymathnetwork/new-shared';
-import { PostTransactionResolver } from '~/PostTransactionResolver';
+import {
+  PostTransactionResolver,
+  isPostTransactionResolver,
+} from '~/PostTransactionResolver';
 import { TransactionSpec, ErrorCodes } from '~/types';
 import { PolymathError } from '~/PolymathError';
 import { TransactionReceipt } from 'web3/types';
 import { Entity } from '~/entities/Entity';
 import { TransactionQueue } from '~/entities/TransactionQueue';
+import { serialize } from '~/utils';
+import v4 from 'uuid/v4';
 
 enum Events {
   StatusChange = 'StatusChange',
-}
-
-function isPostTransactionResolver<T = any>(
-  val: any
-): val is PostTransactionResolver<T> {
-  return val instanceof PostTransactionResolver;
 }
 
 // TODO @RafaelVidaurre: Cleanup code
@@ -28,7 +27,11 @@ const mapValuesDeep = (
   );
 
 export class PolyTransaction<Args = any, R = any> extends Entity {
-  public entityType = 'transaction';
+  public static generateId() {
+    return serialize('transaction', {
+      random: v4(),
+    });
+  }
   public uid: string;
   public status: types.TransactionStatus = types.TransactionStatus.Idle;
   public transactionQueue: TransactionQueue;
@@ -63,7 +66,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
       this.resolve = res;
       this.reject = rej;
     });
-    this.uid = this.generateId();
+    this.uid = PolyTransaction.generateId();
   }
 
   public toPojo() {
@@ -140,7 +143,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
       this.updateStatus(types.TransactionStatus.Running);
     });
 
-    let result;
+    let result: TransactionReceipt;
 
     try {
       result = await promiEvent;
@@ -160,7 +163,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
       throw this.error;
     }
 
-    await this.postResolver.run();
+    await this.postResolver.run(result);
 
     return result;
   }

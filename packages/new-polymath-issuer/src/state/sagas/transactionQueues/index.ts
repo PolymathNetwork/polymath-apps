@@ -1,7 +1,6 @@
-import { call, put, take, race, all } from 'redux-saga/effects';
+import { call, put, take, race, all, fork } from 'redux-saga/effects';
 import { TransactionQueue } from '@polymathnetwork/sdk';
 import { setActiveTransactionQueue } from '~/state/actions/app';
-import { newTransaction } from '~/state/actions/transactions';
 import { getType, ActionType } from 'typesafe-actions';
 import {
   confirmTransactionQueue,
@@ -9,25 +8,41 @@ import {
   createAction as createTransactionQueue,
   cancelTransactionQueue,
 } from '~/state/actions/transactionQueues';
+import { createAction as createTransaction } from '~/state/actions/transactions';
 import { eventChannel } from 'redux-saga';
 import { types } from '@polymathnetwork/new-shared';
+import { QueueStatus, TransactionQueueResult } from '~/types';
+import { watchTransaction } from '~/state/sagas/transactions';
 
 /**
  * Populates the state with the current transactions in the queue and the queue itself,
  * waits for confirmation (or cancellation) and runs the queue
  *
- * @returns true if running the queue succeeded, false if it was canceled or failed
+ * @returns an object containing the status of the queue (if it was canceled, failed or succeeded), and the return value of the queue
  */
-export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
+export function* runTransactionQueue<Args, ReturnType>(
+  transactionQueueToRun: TransactionQueue<Args, ReturnType>
+) {
   const { transactions, ...transactionQueue } = transactionQueueToRun.toPojo();
+
+  // if the queue is empty we abort
+  if (!transactions.length) {
+    return {
+      queueStatus: QueueStatus.Empty,
+    };
+  }
 
   const transactionsToRun = transactionQueueToRun.transactions;
 
-  for (const transaction of transactionsToRun) {
-    yield put(newTransaction(transaction));
-  }
-
   const { uid } = transactionQueue;
+
+  const transactionEntities: types.TransactionEntity[] = transactionsToRun.map(
+    transaction => transaction.toPojo()
+  );
+
+  for (const transaction of transactionEntities) {
+    yield put(createTransaction(transaction));
+  }
 
   yield put(createTransactionQueue(transactionQueue));
   yield put(setActiveTransactionQueue(uid));
@@ -38,13 +53,19 @@ export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
   }: {
     canceled: ActionType<typeof cancelTransactionQueue>;
   } = yield race({
-    confirmed: take(getType(confirmTransactionQueue)),
     canceled: take(getType(cancelTransactionQueue)),
+    confirmed: take(getType(confirmTransactionQueue)),
   });
 
   // Stop the saga and return false if the transactions weren't confirmed
   if (canceled) {
-    return false;
+    return {
+      queueStatus: QueueStatus.Canceled,
+    };
+  }
+
+  for (const transaction of transactionsToRun) {
+    yield fork(watchTransaction, transaction);
   }
 
   /**
@@ -54,13 +75,17 @@ export function* runTransactionQueue(transactionQueueToRun: TransactionQueue) {
    * since we need to start listening to status changes BEFORE the queue starts to run,
    * or we cannot catch the change from 'IDLE' to 'RUNNING'
    */
-  let queueSucceeded: boolean;
-  [queueSucceeded] = yield all([
+  let queueStatus: QueueStatus;
+  let result: ReturnType;
+  [queueStatus, result] = yield all([
     call(watchQueueStatus, transactionQueueToRun),
     call(transactionQueueToRun.run),
   ]);
 
-  return queueSucceeded;
+  return {
+    queueStatus,
+    result,
+  };
 }
 
 /**
@@ -91,10 +116,10 @@ export function* watchQueueStatus(transactionQueue: TransactionQueue) {
       statusChangeChannel.close();
 
       if (failed) {
-        return false;
+        return QueueStatus.Failed;
       }
 
-      return true;
+      return QueueStatus.Succeeded;
     }
   }
 }

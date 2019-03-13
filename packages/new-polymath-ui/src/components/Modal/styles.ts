@@ -19,26 +19,26 @@ export const modalStyle = css<StyleProps>`
     flex-direction: column;
     background-color: white;
     min-width: 100%;
-    max-height: 100%;
     min-height: 350px;
     height: 100%;
     padding: 3%;
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
     outline: none;
-    margin-top: ${({ isCentered }) => (isCentered ? '0' : '20vh')};
+    margin: ${({ isCentered }) => (isCentered ? '0 auto' : '15vh auto')};
+    max-height: ${({ isCentered }) => (isCentered ? '100%' : 'none')};
 
     @media (min-width: 600px) {
       height: auto;
       min-width: 500px;
       max-width: 75%;
-      max-height: 90%;
+      max-height: ${({ isCentered }) => (isCentered ? '90%' : 'none')};
       padding: ${({ theme }) =>
         `calc(${theme.space.xl} - 10px) ${theme.space.xl}`};
     }
 
     @media (min-width: 1024px) {
       ${props => (props.maxWidth ? maxWidth(props) : 'max-width: 50%')};
-      max-height: 80%;
+      max-height: ${({ isCentered }) => (isCentered ? '80%' : 'none')};
     }
 
     .bx--modal-header__heading {
@@ -95,6 +95,7 @@ export const modalStyle = css<StyleProps>`
     justify-content: center;
     opacity: 0;
     background-color: rgba(223, 227, 230, 0.5);
+    overflow-y: auto;
 
     &.pui-modal__overlay--after-open {
       opacity: 1;
@@ -110,7 +111,6 @@ export const modalStyle = css<StyleProps>`
 
 export const Inner = styled.div`
   display: flex;
-  overflow-y: auto;
   flex-direction: column;
   flex-grow: 1;
 `;
@@ -119,10 +119,6 @@ export const CloseButton = styled(IconButton)`
   position: absolute;
   top: 0;
   right: 0;
-  color: ${({ theme }) => theme.colors.gray[2]};
-  height: 44px;
-  width: 44px;
-  padding: 17px;
   overflow: hidden;
   cursor: pointer;
 

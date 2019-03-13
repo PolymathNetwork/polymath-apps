@@ -1,31 +1,44 @@
 import { EventEmitter } from 'events';
 import { types } from '@polymathnetwork/new-shared';
-import { TransactionSpec } from '~/types';
+import { TransactionSpec, MaybeResolver } from '~/types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
+import { isPostTransactionResolver } from '~/PostTransactionResolver';
+import { serialize } from '~/utils';
+import v4 from 'uuid/v4';
 
 enum Events {
   StatusChange = 'StatusChange',
   TransactionStatusChange = 'TransactionStatusChange',
 }
 
-export class TransactionQueue<Args extends any = any> extends Entity {
+export class TransactionQueue<
+  Args extends any = any,
+  ReturnType = any
+> extends Entity {
+  public static generateId() {
+    return serialize('transaction', {
+      random: v4(),
+    });
+  }
   public readonly entityType: string = 'transactionQueue';
   public procedureType: types.ProcedureTypes;
   public uid: string;
   public transactions: PolyTransaction[];
-  public promise: Promise<any>;
+  public promise: Promise<ReturnType | undefined>;
   public status: types.TransactionQueueStatus =
     types.TransactionQueueStatus.Idle;
   public args: Args;
   public error?: Error;
   private queue: PolyTransaction[] = [];
+  private returnValue?: MaybeResolver<ReturnType | undefined>;
   private emitter: EventEmitter;
 
   constructor(
     transactions: TransactionSpec[],
     procedureType: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure,
-    args: Args = {} as Args
+    args: Args = {} as Args,
+    returnValue?: MaybeResolver<ReturnType | undefined>
   ) {
     super(undefined, false);
 
@@ -36,6 +49,7 @@ export class TransactionQueue<Args extends any = any> extends Entity {
       this.reject = rej;
     });
     this.args = args;
+    this.returnValue = returnValue;
 
     this.transactions = transactions.map(transaction => {
       const txn = new PolyTransaction<typeof transaction.args>(
@@ -54,7 +68,7 @@ export class TransactionQueue<Args extends any = any> extends Entity {
       return txn;
     });
 
-    this.uid = this.generateId();
+    this.uid = TransactionQueue.generateId();
   }
 
   public toPojo() {
@@ -74,8 +88,17 @@ export class TransactionQueue<Args extends any = any> extends Entity {
     this.updateStatus(types.TransactionQueueStatus.Running);
 
     try {
-      const res = await this.executeTransactionQueue();
+      await this.executeTransactionQueue();
       this.updateStatus(types.TransactionQueueStatus.Succeeded);
+      const { returnValue } = this;
+      let res;
+
+      if (isPostTransactionResolver(returnValue)) {
+        res = returnValue.result;
+      } else {
+        res = returnValue;
+      }
+
       this.resolve(res);
     } catch (err) {
       this.error = err;
@@ -83,7 +106,7 @@ export class TransactionQueue<Args extends any = any> extends Entity {
       this.reject(err);
     }
 
-    await this.promise;
+    return this.promise;
   };
 
   public onStatusChange(listener: (transactionQueue: this) => void) {
@@ -104,7 +127,7 @@ export class TransactionQueue<Args extends any = any> extends Entity {
     };
   }
 
-  protected resolve: (val?: any) => void = () => {};
+  protected resolve: (val?: ReturnType) => void = () => {};
   protected reject: (reason?: any) => void = () => {};
 
   private updateStatus = (status: types.TransactionQueueStatus) => {
@@ -130,17 +153,11 @@ export class TransactionQueue<Args extends any = any> extends Entity {
     const nextTransaction = this.queue.shift();
 
     if (!nextTransaction) {
-      this.finish();
       return;
     }
 
     await nextTransaction.run();
 
     await this.executeTransactionQueue();
-  }
-
-  private finish() {
-    this.status = types.TransactionQueueStatus.Succeeded;
-    this.resolve();
   }
 }

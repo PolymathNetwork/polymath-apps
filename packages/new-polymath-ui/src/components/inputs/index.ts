@@ -1,3 +1,4 @@
+export * from './Checkbox';
 export * from './CurrencySelect';
 export * from './DatePickerInput';
 export * from './NumberInput';

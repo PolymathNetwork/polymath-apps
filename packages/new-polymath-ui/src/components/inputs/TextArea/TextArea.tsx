@@ -1,8 +1,8 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { Component, ChangeEvent, FC } from 'react';
 import styled from 'styled-components';
 import { typeHelpers } from '@polymathnetwork/new-shared';
 
-import { formikProxy } from '../formikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 
 export interface TextAreaProps
   extends typeHelpers.Omit<
@@ -12,6 +12,8 @@ export interface TextAreaProps
   error?: string;
   onChange: (value?: string) => void;
 }
+
+type Value = string | undefined;
 
 const StyledTextArea = styled.textarea`
   width: 100%;
@@ -54,7 +56,20 @@ export class TextAreaPrimitive extends Component<TextAreaProps> {
   }
 }
 
-const EnhancedTextArea = formikProxy(TextAreaPrimitive);
+const EnhancedTextArea: FC<EnhancedComponentProps<Value>> = ({
+  field,
+  form,
+  onChange,
+  ...rest
+}) => (
+  <FormikProxy<Value>
+    field={field}
+    form={form}
+    onChange={onChange}
+    render={formikProps => <TextAreaPrimitive {...rest} {...formikProps} />}
+  />
+);
+
 export const TextArea = Object.assign(EnhancedTextArea, {
   defaultProps: TextAreaPrimitive.defaultProps,
 });

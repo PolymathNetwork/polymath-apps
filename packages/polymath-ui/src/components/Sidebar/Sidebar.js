@@ -31,21 +31,20 @@ export default class Sidebar extends Component<Props> {
   items(items: Array<MenuItem>) {
     return (
       <ul>
-        {items.map(
-          (item: MenuItem) =>
-            item.isDisabled ? (
-              <li key={item.to} className="disabled" id={item.id}>
+        {items.map((item: MenuItem) =>
+          item.isDisabled ? (
+            <li key={item.to} className="disabled" id={item.id}>
+              {item.icon}
+              <p>{item.title}</p>
+            </li>
+          ) : (
+            <Link key={item.to} to={item.to} id={item.id}>
+              <li className={item.isActive ? 'active' : ''}>
                 {item.icon}
                 <p>{item.title}</p>
               </li>
-            ) : (
-              <Link key={item.to} to={item.to} id={item.id}>
-                <li className={item.isActive ? 'active' : ''}>
-                  {item.icon}
-                  <p>{item.title}</p>
-                </li>
-              </Link>
-            )
+            </Link>
+          )
         )}
       </ul>
     );

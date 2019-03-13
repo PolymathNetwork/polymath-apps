@@ -1,0 +1,27 @@
+---
+name: Notification
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Notification } from '../';
+
+# Notification
+
+<PropsTable of={Notification} />
+
+## Basic usage
+
+<Playground>
+  <Notification title="the title" description="the description" />
+  <Notification
+    status="alert"
+    title="the title"
+    description="the description"
+  />
+  <Notification
+    status="warning"
+    title="the title"
+    description="the description"
+  />
+</Playground>

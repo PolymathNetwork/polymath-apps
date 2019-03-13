@@ -12,6 +12,7 @@ export const IconCircled = styled(Icon)<IconProps>`
 IconCircled.defaultProps = {
   ...Icon.defaultProps,
   bg: 'blue[0]',
+  scale: 0.9,
 };
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved

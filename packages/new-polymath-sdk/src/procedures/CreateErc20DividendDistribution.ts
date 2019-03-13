@@ -1,9 +1,11 @@
 import { Procedure } from './Procedure';
 import { types } from '@polymathnetwork/new-shared';
 import { CreateErc20DividendDistributionProcedureArgs } from '~/types';
+import { Approve } from '~/procedures/Approve';
 
 export class CreateErc20DividendDistribution extends Procedure<
-  CreateErc20DividendDistributionProcedureArgs
+  CreateErc20DividendDistributionProcedureArgs,
+  number
 > {
   public type = types.ProcedureTypes.CreateErc20DividendDistribution;
   public async prepareTransactions() {
@@ -13,7 +15,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       expiryDate,
       erc20Address,
       amount,
-      checkpointId,
+      checkpointIndex,
       name,
       excludedAddresses,
       taxWithholdings = [],
@@ -31,14 +33,40 @@ export class CreateErc20DividendDistribution extends Procedure<
       );
     }
 
-    await this.addTransaction(erc20Module.createDividend, {
-      tag: types.PolyTransactionTags.CreateErc20DividendDistribution,
-    })({
+    await this.addTransaction(Approve)({
+      amount,
+      spender: erc20Module.address,
+      tokenAddress: erc20Address,
+    });
+
+    const dividendIndex = await this.addTransaction(
+      erc20Module.createDividend,
+      {
+        tag: types.PolyTransactionTags.CreateErc20DividendDistribution,
+        // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
+        // the contract-wrappers package
+        resolver: async receipt => {
+          const { events } = receipt;
+
+          if (events) {
+            const { ERC20DividendDeposited } = events;
+
+            const {
+              _dividendIndex,
+            }: {
+              _dividendIndex: string;
+            } = ERC20DividendDeposited.returnValues;
+
+            return parseInt(_dividendIndex, 10);
+          }
+        },
+      }
+    )({
       maturityDate,
       expiryDate,
       tokenAddress: erc20Address,
       amount,
-      checkpointId,
+      checkpointId: checkpointIndex,
       name,
       excludedAddresses,
     });
@@ -56,5 +84,7 @@ export class CreateErc20DividendDistribution extends Procedure<
         tag: types.PolyTransactionTags.SetErc20TaxWithholding,
       })({ investors, percentages });
     }
+
+    return dividendIndex;
   }
 }

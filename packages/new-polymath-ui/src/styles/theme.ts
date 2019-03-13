@@ -37,9 +37,10 @@ const lineHeights = {
 };
 
 const fontWeights = {
-  light: 300,
-  normal: 400,
-  bold: 600,
+  light: 200,
+  normal: 300,
+  bold: 500,
+  strong: 600,
 };
 
 const space: Scale<string> = {
@@ -76,7 +77,8 @@ const colors = {
   placeholder: '#5A6872',
   gray: ['#F5F7FA', '#EBF0F7', '#8C9BA5', '#5A6872'],
   blue: ['#5596E6', '#3D70B2', '#252D6B'],
-  green: ['#00AA5E'],
+  greyBlue: ['#b5ddfc', '#416d95'],
+  green: ['#00AA5E', '#0B6B40'],
   red: ['#e0182d'],
   inactive: '#8F9BA4',
   idle: '#5596E6',
@@ -86,8 +88,9 @@ const colors = {
 };
 
 const shadows = {
-  0: '0 2px 6px 0 rgba(0, 0, 0, 0.1)',
-  1: '0 8px 24px 0 rgba(0, 0, 0, 0.1)',
+  0: '',
+  1: '0 2px 6px 0 rgba(0, 0, 0, 0.1)',
+  2: '0 8px 24px 0 rgba(0, 0, 0, 0.1)',
 };
 
 const headings = {
@@ -118,7 +121,7 @@ const buttons = {
     backgroundColor: colors.primary,
     borderColor: 'transparent',
     color: '#fff',
-    '&:hover, &:focus': {
+    '&:hover': {
       backgroundColor: transparentize(0.2, colors.primary),
     },
   },
@@ -126,7 +129,7 @@ const buttons = {
     backgroundColor: 'transparent',
     borderColor: colors.primary,
     color: colors.primary,
-    '&:hover, &:focus': {
+    '&:hover': {
       color: '#fff',
       backgroundColor: colors.primary,
     },
@@ -135,9 +138,23 @@ const buttons = {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     color: 'currentColor',
-    '&:hover, &:focus': {
+    '&:hover': {
       color: '#fff',
       backgroundColor: colors.secondary,
+    },
+    '&:disabled': {
+      opacity: 1,
+    },
+  },
+  ghostSecondary: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    color: 'currentColor',
+    padding: 0,
+    '&:hover': {
+      backgroundColor: 'transparent',
+      color: 'currentColor',
+      opacity: 0.5,
     },
     '&:disabled': {
       opacity: 1,

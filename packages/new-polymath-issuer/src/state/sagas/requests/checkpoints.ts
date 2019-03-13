@@ -1,5 +1,5 @@
 import { polyClient } from '~/lib/polyClient';
-import { cacheData, fetchDataFail } from '~/state/actions/dataRequests';
+import { cacheData } from '~/state/actions/dataRequests';
 import { createAction as createCheckpoint } from '~/state/actions/checkpoints';
 import { createAction as createDividend } from '~/state/actions/dividends';
 import { call, put } from 'redux-saga/effects';
@@ -15,7 +15,7 @@ import { types } from '@polymathnetwork/new-shared';
  */
 export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
   const { dividends, ...rest } = checkpoint;
-  const { securityTokenSymbol, uid, index } = checkpoint;
+  const { securityTokenSymbol, uid, index: checkpointIndex } = checkpoint;
 
   const fetchedDividendIds: string[] = [];
 
@@ -29,12 +29,20 @@ export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
   yield put(
     cacheData({
       requestKey: RequestKeys.GetDividendsByCheckpoint,
-      args: { securityTokenSymbol, checkpointIndex: index },
+      args: { securityTokenSymbol, checkpointIndex },
       fetchedIds: fetchedDividendIds,
     })
   );
 
   yield put(createCheckpoint(rest));
+
+  yield put(
+    cacheData({
+      requestKey: RequestKeys.GetCheckpointBySymbolAndId,
+      args: { securityTokenSymbol, checkpointIndex },
+      fetchedIds: [uid],
+    })
+  );
 }
 
 /**
@@ -52,22 +60,11 @@ export function* fetchCheckpointBySymbolAndId(args: {
     checkpointIndex,
   });
 
-  const fetchedCheckpointIds: string[] = [];
-
   if (checkpoint) {
     const checkpointPojo = checkpoint.toPojo();
-    fetchedCheckpointIds.push(checkpoint.uid);
 
     yield call(saveCheckpoint, checkpointPojo);
   }
-
-  yield put(
-    cacheData({
-      requestKey: RequestKeys.GetCheckpointBySymbolAndId,
-      args,
-      fetchedIds: fetchedCheckpointIds,
-    })
-  );
 }
 
 /**

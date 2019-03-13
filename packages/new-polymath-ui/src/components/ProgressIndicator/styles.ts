@@ -3,19 +3,21 @@ import { ulReset } from '~/styles/utils';
 
 export const Container = styled.ul<{ vertical: boolean }>`
   ${ulReset};
-  display: flex;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
   list-style: none;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
 
   ${({ vertical }) =>
     vertical
       ? `
-      flex-direction: column;
+      grid-auto-flow: row;
       height: 100%;
       justify-content: space-between;
       `
       : `
-      flex-direction: row;
+      grid-auto-flow: column;
       height: auto;
     `};
 `;

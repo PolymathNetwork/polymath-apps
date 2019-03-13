@@ -10,6 +10,7 @@ import {
   ModuleTypes,
   AddDividendsModuleArgs,
   GetModuleAddressArgs,
+  GetCheckpointArgs,
 } from './types';
 import { Context } from './LowLevel';
 import { fromUnixTimestamp, fromWei } from './utils';
@@ -22,15 +23,15 @@ import { Contract } from './Contract';
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenContract extends GenericContract {
   methods: {
-    createCheckpoint(): TransactionObject<number>;
-    getCheckpointTimes(): TransactionObject<number[]>;
-    totalSupplyAt(checkpointId: number): TransactionObject<number>;
+    createCheckpoint(): TransactionObject<void>;
+    getCheckpointTimes(): TransactionObject<string[]>;
+    totalSupplyAt(checkpointId: number): TransactionObject<string>;
     balanceOfAt(
       investorAddress: string,
       checkpointId: number
-    ): TransactionObject<number>;
+    ): TransactionObject<string>;
     getInvestorsAt(checkpointId: number): TransactionObject<string[]>;
-    currentCheckpointId(): TransactionObject<number>;
+    currentCheckpointId(): TransactionObject<string>;
     addModule(
       address: string,
       data: string,
@@ -55,7 +56,11 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public async currentCheckpointId() {
-    return this.contract.methods.currentCheckpointId().call();
+    const currentCheckpointId = await this.contract.methods
+      .currentCheckpointId()
+      .call();
+
+    return parseInt(currentCheckpointId, 10);
   }
 
   public addDividendsModule = async ({
@@ -100,7 +105,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
         .send({ from: this.context.account });
   };
 
-  public async getErc20DividendModule() {
+  public getErc20DividendModule = async () => {
     const address = await this.getModuleAddress({
       name: 'ERC20DividendCheckpoint',
     });
@@ -110,7 +115,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     }
 
     return new Erc20DividendCheckpoint({ address, context: this.context });
-  }
+  };
 
   public async getEtherDividendModule() {
     const address = await this.getModuleAddress({
@@ -124,43 +129,34 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     return new EtherDividendCheckpoint({ address, context: this.context });
   }
 
+  public getCheckpoint = async ({ checkpointId }: GetCheckpointArgs) => {
+    const { methods } = this.contract;
+
+    const checkpointTimes = await methods.getCheckpointTimes().call();
+
+    return this.getCheckpointData({
+      checkpointId,
+      timestamp: parseInt(checkpointTimes[checkpointId], 10),
+    });
+  };
+
   public async getCheckpoints() {
     const { methods } = this.contract;
 
     const checkpointTimes = await methods.getCheckpointTimes().call();
 
-    const checkpoints: Checkpoint[] = [];
+    const checkpoints: Checkpoint[] = await Promise.all(
+      checkpointTimes.map((timestamp, index) =>
+        this.getCheckpointData({
+          checkpointId: index + 1,
+          timestamp: parseInt(timestamp, 10),
+        })
+      )
+    );
 
-    for (let i = 0; i < checkpointTimes.length; i += 1) {
-      const checkpointId = i + 1;
-      const timestamp = checkpointTimes[i];
-      const totalSupplyInWei = await methods.totalSupplyAt(checkpointId).call();
-      const investorAddresses = await methods
-        .getInvestorsAt(checkpointId)
-        .call();
-
-      const investorBalances: InvestorBalance[] = [];
-
-      for (const investorAddress of investorAddresses) {
-        const balanceInWei = await methods
-          .balanceOfAt(investorAddress, checkpointId)
-          .call();
-
-        investorBalances.push({
-          balance: fromWei(balanceInWei),
-          address: investorAddress,
-        });
-      }
-
-      checkpoints.push({
-        index: checkpointId,
-        totalSupply: fromWei(totalSupplyInWei),
-        investorBalances,
-        createdAt: fromUnixTimestamp(timestamp),
-      });
-    }
-
-    return checkpoints;
+    return checkpoints.sort((a, b) => {
+      return a.index - b.index;
+    });
   }
 
   public async name() {
@@ -175,4 +171,46 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
 
     return moduleAddresses[0] || null;
   }
+
+  private getCheckpointData = async ({
+    checkpointId,
+    timestamp,
+  }: {
+    checkpointId: number;
+    timestamp: number;
+  }): Promise<Checkpoint> => {
+    const { methods } = this.contract;
+    const totalSupplyInWei = await methods.totalSupplyAt(checkpointId).call();
+    const investorAddresses = await methods.getInvestorsAt(checkpointId).call();
+
+    const investorBalances: InvestorBalance[] = await Promise.all(
+      investorAddresses.map(investorAddress =>
+        this.getInvestorBalance({ investorAddress, checkpointId })
+      )
+    );
+
+    return {
+      index: checkpointId,
+      totalSupply: fromWei(totalSupplyInWei),
+      investorBalances,
+      createdAt: fromUnixTimestamp(timestamp),
+    };
+  };
+
+  private getInvestorBalance = async ({
+    investorAddress,
+    checkpointId,
+  }: {
+    investorAddress: string;
+    checkpointId: number;
+  }): Promise<InvestorBalance> => {
+    const balanceInWei = await this.contract.methods
+      .balanceOfAt(investorAddress, checkpointId)
+      .call();
+
+    return {
+      balance: fromWei(balanceInWei),
+      address: investorAddress,
+    };
+  };
 }

@@ -10,10 +10,11 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   display: inline-block;
   vertical-align: middle;
   background-color: transparent;
-  width: 1.3em;
-  height: 1.3em;
+  width: 1.6em;
+  height: 1.6em;
   border-radius: 50%;
-  border: 2px solid;
+  border-style: solid;
+  border-width: 2px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,30 +27,32 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c3 svg {
   display: block;
   width: 100%;
   height: 100%;
-  padding: 20%;
+  padding: 19.999999999999996%;
 }
 
 .c4 {
   box-sizing: border-box;
   margin-bottom: 0;
-  margin-left: calc(1.3em / 2);
+  margin-left: calc(1.6em / 2);
   margin-top: 0;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
   font-size: inherit;
   overflow-wrap: break-word;
-  line-height: 1.3em;
+  line-height: 1.6em;
   color: currentColor;
-}
-
-.c4 > * {
-  vertical-align: middle;
 }
 
 .c4:last-child {
@@ -58,7 +61,6 @@ exports[`ProgressIndicator renders without crashing 1`] = `
 
 .c1 {
   position: relative;
-  text-align: center;
   min-width: 7rem;
   -webkit-transition: 250ms all cubic-bezier(0.5,0,0.1,1);
   transition: 250ms all cubic-bezier(0.5,0,0.1,1);
@@ -71,10 +73,10 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: flex-end;
-  -webkit-box-align: flex-end;
-  -ms-flex-align: flex-end;
-  align-items: flex-end;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
 }
 
 .c1:first-child {
@@ -84,10 +86,10 @@ exports[`ProgressIndicator renders without crashing 1`] = `
 }
 
 .c1 .c5 {
-  left: calc(1.3em / 2);
-  top: 0;
+  left: calc(1.6em / 2);
+  top: 1.6em;
+  bottom: 0;
   width: 2px;
-  height: calc(100% - 1.3em);
 }
 
 .c1 .c2 {
@@ -101,7 +103,7 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   align-items: center;
 }
 
-.c1:first-child .c5 {
+.c1:last-child .c5 {
   display: none;
 }
 
@@ -109,15 +111,12 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   list-style: none;
   padding: 0;
   margin: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
   list-style: none;
   font-size: 0.875rem;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  grid-auto-flow: row;
   height: 100%;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -138,7 +137,6 @@ exports[`ProgressIndicator renders without crashing 1`] = `
         class="c3"
       >
         <svg
-          bg="blue[0]"
           role="img"
           viewBox="0 0 24 24"
         >
