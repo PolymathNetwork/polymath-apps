@@ -113,6 +113,7 @@ export const Inner = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow-y: auto;
 `;
 
 export const CloseButton = styled(IconButton)`
