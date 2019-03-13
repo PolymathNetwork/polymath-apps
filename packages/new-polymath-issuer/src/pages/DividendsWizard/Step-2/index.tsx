@@ -45,6 +45,7 @@ interface Props {
     }>
   ) => void;
   nonExcludedInvestors: string[];
+  exclusionList: string[];
   onTaxWithholdingListChange: (amountOfInvestors: number) => void;
 }
 
@@ -75,6 +76,7 @@ export const Step2: FC<Props> = ({
   downloadTaxWithholdingList,
   updateTaxWithholdingList,
   nonExcludedInvestors,
+  exclusionList,
   onTaxWithholdingListChange,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
@@ -154,7 +156,6 @@ export const Step2: FC<Props> = ({
 
     if (isTaxWithholdingsItemArray(value)) {
       let count = 0;
-
       nonExcludedInvestors.forEach(address => {
         const investorEntry = value.find(
           entry =>
@@ -185,14 +186,14 @@ export const Step2: FC<Props> = ({
     }
   };
 
-  const initialTaxWithholdings = map(
-    existingTaxWithholdings,
-    taxWithhholdingItem => {
+  const initialTaxWithholdings = filter(
+    map(existingTaxWithholdings, taxWithhholdingItem => {
       return {
         [csvEthAddressKey]: taxWithhholdingItem.investorAddress,
         [csvTaxWithholdingKey]: taxWithhholdingItem.percentage,
       };
-    }
+    }),
+    item => !includes(exclusionList, item[csvEthAddressKey].toUpperCase())
   );
 
   return (
@@ -303,7 +304,12 @@ export const Step2: FC<Props> = ({
               onClick={openCsvModal}
             >
               Upload Tax Withholdings List
-              <Icon Asset={icons.SvgDownload} width={18} height={18} rotate="0.5turn" />
+              <Icon
+                Asset={icons.SvgDownload}
+                width={18}
+                height={18}
+                rotate="0.5turn"
+              />
             </Button>
             <Field
               name="taxWithholdings"
@@ -326,12 +332,12 @@ export const Step2: FC<Props> = ({
                 withdrawn into a designated wallet for tax payments.
                 <br />
                 <strong>
-                  Maximum number of entries per transaction is 200.
+                  Maximum number of entries per transaction is 10,000.
                 </strong>
                 <br />
-                If you want to withhold taxes for more than 200 wallets, please
-                breakdown the list in 200 wallets increments and upload them one
-                at a time.
+                If you want to withhold taxes for more than 10,000 wallets,
+                please breakdown the list in 10,000 wallets increments and
+                upload them one at a time.
               </Remark>
             </Box>
 

@@ -89,7 +89,7 @@ export const CsvModal: FC<Props> = ({
     >
       <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
       <Paragraph mb={0}>
-        For tax withholdings, the format should be as follows:
+        Update tax withholdings by uploading a comma separated .CSV file. The format should be as follows:
       </Paragraph>
       <List vertical gridGap={0}>
         <li>
@@ -123,7 +123,7 @@ export const CsvModal: FC<Props> = ({
               },
             ],
             header: true,
-            maxRows: 200,
+            maxRows: 10000,
           }}
         >
           <CsvUploader.CsvErrors />

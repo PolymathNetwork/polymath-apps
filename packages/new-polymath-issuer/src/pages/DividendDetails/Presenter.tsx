@@ -193,7 +193,7 @@ export const Presenter = ({
       </Heading>
       <GridRow>
         <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
-          <Card p="gridGap" height={425}>
+          <Card p="gridGap" height="100%">
             <Grid height="100%" gridAutoRows="1fr auto">
               <Box>
                 <Grid
@@ -262,8 +262,8 @@ export const Presenter = ({
           </Card>
         </GridRow.Col>
         <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
-          <Card p="gridGap" height={425}>
-            <Grid height="100%" gridAutoRows="1fr auto" gridGap="s">
+          <Card p="gridGap" height="100%">
+            <Grid height="100%" gridAutoRows="1fr auto auto" gridGap="s">
               <Box>
                 <Grid
                   mb={4}
@@ -353,7 +353,7 @@ export const Presenter = ({
           </Card>
         </GridRow.Col>
         <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
-          <CardPrimary as="section" p="m" height={425}>
+          <CardPrimary as="section" p="m" height="100%">
             <Grid height="100%" gridAutoRows="1fr auto" gridGap="s">
               <Box>
                 <Heading variant="h3" mb="s">
