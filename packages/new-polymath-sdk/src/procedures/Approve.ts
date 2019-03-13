@@ -37,7 +37,7 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
 
     if (balance.lt(amount)) {
       if (isTestnet) {
-        if (symbol === 'POLY') {
+        if (token.address.toUpperCase() === polyToken.address.toUpperCase()) {
           token = polyToken;
           await this.addTransaction(token.getTokens, {
             tag: types.PolyTransactionTags.GetTokens,
