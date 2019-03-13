@@ -58,7 +58,7 @@ const schema = validator.object().shape({
     [csvTaxWithholdingKey]: validator
       .number()
       .typeError('Invalid value')
-      .min(0, 'Invalid value')
+      .moreThan(0, 'Invalid value')
       .max(100, 'Invalid value')
       .required('Tax withholding percent is required'),
   }),
