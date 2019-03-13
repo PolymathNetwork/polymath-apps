@@ -408,8 +408,8 @@ Transactions may be resubmitted at a later time should a cancellation or error o
         queue.args;
 
       return {
-        title: 'Set Dividends Wallet',
-        description: 'Set Dividends Wallet',
+        title: 'Edit Wallet Address for Dividends',
+        description: '',
       };
     }
     case types.ProcedureTypes.UnnamedProcedure:
@@ -670,7 +670,7 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Set Dividends Wallet',
+        title: 'Editing Wallet Address for Dividends',
         description: 'Set Dividends Wallet',
       };
     }
