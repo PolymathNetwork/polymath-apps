@@ -30,6 +30,7 @@ type Value = types.Tokens | types.Tokens[];
 
 interface ExternalProps extends EnhancedComponentProps<Value> {
   theme: ThemeInterface;
+  options: types.Tokens[];
   placeholder?: string;
 }
 
@@ -60,8 +61,8 @@ export const CURRENCY_OPTIONS: OptionType[] = [
 
 interface SelectProps
   extends Pick<InputProps, 'onChange' | 'error' | 'name' | 'autoComplete'> {
-  options: types.Tokens[];
   theme: ThemeInterface;
+  options: types.Tokens[];
   value: types.Tokens | types.Tokens[];
   // Override because ReactSelect does not provide the event
   onBlur: () => void;
@@ -174,13 +175,19 @@ class SelectValue extends React.Component<SelectValueProps> {
     return (
       <sc.ValueWrapper>
         <sc.ValueLabel>{this.props.label}</sc.ValueLabel>
-        <sc.ValueRemoveButton Asset={SvgClose} onClick={this.handleRemove} />
+        <sc.ValueRemoveButton
+          Asset={SvgClose}
+          onClick={this.handleRemove}
+          height={15}
+          width={15}
+          scale={0.75}
+        />
       </sc.ValueWrapper>
     );
   }
 }
 
-export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
+class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   public static defaultProps = {
     options: CURRENCY_OPTIONS.map(option => option.value),
     onBlur: () => {},
@@ -280,10 +287,13 @@ export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   }
 }
 
+export const CurrencySelectPrimitive = withTheme(CurrencySelectPrimitiveBase);
+
 const EnhancedCurrencySelectPrimitive: FC<ExternalProps> = ({
   field,
   form,
   onChange,
+  options,
   ...rest
 }) => (
   <FormikProxy<Value>
@@ -291,9 +301,9 @@ const EnhancedCurrencySelectPrimitive: FC<ExternalProps> = ({
     form={form}
     onChange={onChange}
     render={formikProps => (
-      <CurrencySelectPrimitiveBase {...rest} {...formikProps} />
+      <CurrencySelectPrimitive options={options} {...rest} {...formikProps} />
     )}
   />
 );
 
-export const CurrencySelect = withTheme(EnhancedCurrencySelectPrimitive);
+export const CurrencySelect = EnhancedCurrencySelectPrimitive;

@@ -109,10 +109,11 @@ export const modalStyle = css<StyleProps>`
   }
 `;
 
-export const Inner = styled.div`
+export const Inner = styled.div<StyleProps>`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow-y: ${({ isCentered }) => (isCentered ? 'auto' : 'visible')};
 `;
 
 export const CloseButton = styled(IconButton)`

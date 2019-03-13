@@ -160,17 +160,21 @@ export const Presenter = ({
 
     return {
       investorWalletAddress: formatters.toShortAddress(address),
-      dividendsPreTax: `${formatters.toTokens(preTaxPayment)} ${currency}`,
+      dividendsPreTax: `${formatters.toTokens(preTaxPayment, {
+        decimals: 6,
+      })} ${currency}`,
       taxesWithheldPercent: formatters.toPercent(
         paymentReceived
           ? withheldTax.dividedBy(preTaxPayment)
           : new BigNumber(0)
       ),
       taxesWithheldTokens: `${formatters.toTokens(
-        paymentReceived ? withheldTax : new BigNumber(0)
+        paymentReceived ? withheldTax : new BigNumber(0),
+        { decimals: 6 }
       )} ${currency}`,
       dividendsPaid: `${formatters.toTokens(
-        paymentReceived ? amountReceived : new BigNumber(0)
+        paymentReceived ? amountReceived : new BigNumber(0),
+        { decimals: 6 }
       )} ${currency}`,
       statusOfPayment: paymentReceived
         ? PaymentStatus.Completed
@@ -439,7 +443,8 @@ export const Presenter = ({
                 </Text>
                 <br />
                 <Text fontSize={6}>
-                  {formatters.toTokens(claimedAmount)} {currency}
+                  {formatters.toTokens(claimedAmount, { decimals: 6 })}{' '}
+                  {currency}
                 </Text>
               </Box>
             </Grid>

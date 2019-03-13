@@ -1,4 +1,4 @@
-import React, { FC, useLayoutEffect, useRef } from 'react';
+import React, { FC } from 'react';
 import ReactModal from 'react-modal';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Header } from './Header';
@@ -24,6 +24,7 @@ export const ModalBase: FC<Props> = ({
   className,
   isOpen,
   isCloseable,
+  isCentered,
   onClose,
   theme,
   status,
@@ -77,7 +78,7 @@ export const ModalBase: FC<Props> = ({
           scale={0.62}
         />
       )}
-      <sc.Inner>{children}</sc.Inner>
+      <sc.Inner isCentered={isCentered}>{children}</sc.Inner>
     </ReactModal>
   );
 };

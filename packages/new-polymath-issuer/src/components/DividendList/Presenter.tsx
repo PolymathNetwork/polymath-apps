@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import {
   List,
+  ButtonLink,
+  Button,
   icons,
   IconOutlined,
   TooltipPrimary,
@@ -56,8 +58,9 @@ export const DividendListPresenter = ({
             </li>
           ))}
           <sc.NewDividendButton
-            href={newDividendUrl}
+            as={allDividendsCompleted ? ButtonLink : Button}
             disabled={!allDividendsCompleted}
+            href={newDividendUrl}
             variant="ghost"
             iconPosition="top"
           >
@@ -68,10 +71,12 @@ export const DividendListPresenter = ({
               scale={0.8}
             />
             Add new <br /> dividend <br /> distribution
-            <TooltipPrimary>
-              You can add a new dividend distribution if the previous
-              distribution has been completed/expired.
-            </TooltipPrimary>
+            {!allDividendsCompleted && (
+              <TooltipPrimary placement="top-start">
+                You can add a new dividend distribution if the previous
+                distribution has been completed/expired.
+              </TooltipPrimary>
+            )}
           </sc.NewDividendButton>
         </Fragment>
       ) : (

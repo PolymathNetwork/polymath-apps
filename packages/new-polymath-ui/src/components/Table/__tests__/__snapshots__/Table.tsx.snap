@@ -116,10 +116,6 @@ exports[`Table renders without crashing 1`] = `
   background-color: #5596E6;
 }
 
-.c19:disabled {
-  opacity: 1;
-}
-
 .c19button,
 .c19input[type='button'],
 .c19input[type='submit'],
@@ -368,10 +364,6 @@ exports[`Table renders without crashing 1`] = `
   background-color: #5596E6;
 }
 
-.c26:disabled {
-  opacity: 1;
-}
-
 .c26button,
 .c26input[type='button'],
 .c26input[type='submit'],
@@ -446,10 +438,6 @@ exports[`Table renders without crashing 1`] = `
 .c28:hover {
   color: #fff;
   background-color: #5596E6;
-}
-
-.c28:disabled {
-  opacity: 1;
 }
 
 .c28button,
