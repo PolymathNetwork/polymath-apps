@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import {
   List,
+  ButtonLink,
+  Button,
   icons,
   IconOutlined,
   TooltipPrimary,
@@ -56,8 +58,9 @@ export const DividendListPresenter = ({
             </li>
           ))}
           <sc.NewDividendButton
-            href={newDividendUrl}
+            as={allDividendsCompleted ? ButtonLink : Button}
             disabled={!allDividendsCompleted}
+            href={newDividendUrl}
             variant="ghost"
             iconPosition="top"
           >

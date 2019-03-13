@@ -23,6 +23,7 @@ import {
 } from '@polymathnetwork/new-ui';
 import { CheckpointList } from '~/components';
 import { WalletAddress } from './WalletAddress';
+import * as sc from './styles';
 
 export interface Props {
   onEnableDividends: (walletAddress: string) => void;
@@ -130,7 +131,11 @@ export const Presenter: FC<Props> = ({
             {dividendsModule ? (
               <Fragment>
                 <Paragraph color="inactive">
-                  <ButtonLarge variant="ghost" iconPosition="left" disabled>
+                  <sc.DisabledModuleButton
+                    variant="ghost"
+                    iconPosition="left"
+                    disabled
+                  >
                     <IconCircled
                       Asset={icons.SvgCheckmark}
                       width={16}
@@ -140,7 +145,7 @@ export const Presenter: FC<Props> = ({
                       scale={0.8}
                     />
                     Enabled
-                  </ButtonLarge>
+                  </sc.DisabledModuleButton>
                 </Paragraph>
                 <WalletAddress
                   walletAddress={
