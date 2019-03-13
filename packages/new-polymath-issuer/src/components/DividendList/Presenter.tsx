@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, FC } from 'react';
 import {
   List,
   ButtonLink,
@@ -16,32 +16,15 @@ export interface Props {
   dividends: types.DividendEntity[];
   securityTokenSymbol: string;
   checkpointIndex: number;
+  allDividendsCompleted: boolean;
 }
 
-export const DividendListPresenter = ({
+export const DividendListPresenter: FC<Props> = ({
   securityTokenSymbol,
   dividends,
   checkpointIndex,
-}: Props) => {
-  const allDividendsCompleted = dividends.every(dividend => {
-    const {
-      investors,
-      expiry,
-      totalWithheld,
-      totalWithheldWithdrawn,
-    } = dividend;
-    const remainingPayments = investors.filter(
-      investor => !investor.paymentReceived && !investor.excluded
-    ).length;
-    const remainingTransactions = Math.ceil(
-      remainingPayments / DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
-    );
-    const unwithdrawnTaxes = totalWithheld.minus(totalWithheldWithdrawn);
-    return (
-      expiry <= new Date() ||
-      (remainingTransactions === 0 && unwithdrawnTaxes.eq(0))
-    );
-  });
+  allDividendsCompleted,
+}) => {
   const newDividendUrl = !allDividendsCompleted
     ? '#'
     : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;

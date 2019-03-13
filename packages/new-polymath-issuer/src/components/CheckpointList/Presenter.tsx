@@ -18,12 +18,14 @@ export interface Props {
   checkpoints: types.CheckpointEntity[];
   securityTokenSymbol: string;
   downloadOwnershipList: (checkpoint: types.CheckpointEntity) => void;
+  allDividendsCompleted: boolean;
 }
 
 export const CheckpointListPresenter = ({
   checkpoints,
   securityTokenSymbol,
   downloadOwnershipList,
+  allDividendsCompleted,
 }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
@@ -85,6 +87,7 @@ export const CheckpointListPresenter = ({
                             />
                           </sc.ProgressIndicator>
                           <DividendList
+                            allDividendsCompleted={allDividendsCompleted}
                             checkpointIndex={checkpoint.index}
                             securityTokenSymbol={securityTokenSymbol}
                           />
