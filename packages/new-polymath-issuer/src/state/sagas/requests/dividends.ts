@@ -2,13 +2,16 @@ import { polyClient } from '~/lib/polyClient';
 import { cacheData } from '~/state/actions/dataRequests';
 import { createAction as createDividend } from '~/state/actions/dividends';
 import { call, put } from 'redux-saga/effects';
-import { Dividend, DividendModuleTypes } from '@polymathnetwork/sdk';
-import { RequestKeys } from '~/types';
+import { Dividend } from '@polymathnetwork/sdk';
+import {
+  RequestKeys,
+  GetDividendsByCheckpointArgs,
+  GetDividendBySymbolAndIdArgs,
+} from '~/types';
 
-export function* fetchDividendsByCheckpoint(args: {
-  securityTokenSymbol: string;
-  checkpointIndex: number;
-}) {
+export function* fetchDividendsByCheckpoint(
+  args: GetDividendsByCheckpointArgs
+) {
   const { securityTokenSymbol, checkpointIndex } = args;
   const dividends: Dividend[] = yield call(polyClient.getDividends, {
     symbol: securityTokenSymbol,
@@ -28,7 +31,7 @@ export function* fetchDividendsByCheckpoint(args: {
       cacheData({
         requestKey: RequestKeys.GetDividendBySymbolAndId,
         args: {
-          symbol: securityTokenSymbol,
+          securityTokenSymbol,
           dividendIndex: index,
           dividendType,
         },
@@ -46,11 +49,9 @@ export function* fetchDividendsByCheckpoint(args: {
   );
 }
 
-export function* fetchDividendBySymbolAndId(args: {
-  securityTokenSymbol: string;
-  dividendIndex: number;
-  dividendType: DividendModuleTypes;
-}) {
+export function* fetchDividendBySymbolAndId(
+  args: GetDividendBySymbolAndIdArgs
+) {
   const { securityTokenSymbol, dividendIndex, dividendType } = args;
   const dividend: Dividend = yield call(polyClient.getDividend, {
     symbol: securityTokenSymbol,

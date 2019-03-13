@@ -173,6 +173,14 @@ export interface TransactionQueuePojo extends TransactionQueueEntity {
   transactions: TransactionPojo[];
 }
 
+export interface Erc20TokenBalanceEntity extends Entity {
+  tokenSymbol: string | null;
+  tokenAddress: string;
+  balance: BigNumber;
+}
+
+export interface Erc20TokenBalancePojo extends Erc20TokenBalanceEntity {}
+
 export function isPojo(pojo: any): pojo is Pojo {
   if (!pojo) {
     return false;

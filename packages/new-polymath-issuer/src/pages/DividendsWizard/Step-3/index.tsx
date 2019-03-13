@@ -1,4 +1,4 @@
-import React, { Fragment, Component, FC, useCallback } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,7 +10,6 @@ import {
   CurrencySelect,
   TooltipIcon,
   Form,
-  NumberInput,
   validator,
 } from '@polymathnetwork/new-ui';
 import { types, constants, validators } from '@polymathnetwork/new-shared';
@@ -18,9 +17,11 @@ import BigNumber from 'bignumber.js';
 import { ExclusionEntry } from '~/pages/DividendsWizard/Presenter';
 import { CreateDividendDistributionParams } from '~/pages/DividendsWizard/Container';
 import { RootState } from '~/state/store';
-import { getApp } from '~/state/selectors';
+import { getApp, getSession } from '~/state/selectors';
 import { connect } from 'react-redux';
 import { validateYupSchema, yupToFormErrors, FormikErrors } from 'formik';
+import { DividendAmountInput } from '~/pages/DividendsWizard/Step-3/DividendAmountInput';
+import { Wallet } from '~/types';
 
 interface Props {
   excludedWallets: null | ExclusionEntry[];
@@ -28,6 +29,7 @@ interface Props {
     params: CreateDividendDistributionParams
   ) => void;
   networkId?: constants.NetworkIds;
+  wallet?: Wallet;
   updateDividendAmount: (dividendAmount: BigNumber) => void;
 }
 interface Values {
@@ -53,38 +55,49 @@ const schema = validator.object().shape({
 
 const mapStateToProps = (state: RootState) => {
   const { networkId } = getApp(state);
+  const { wallet } = getSession(state);
 
-  return { networkId };
+  return { networkId, wallet };
 };
 
 const Step3Base: FC<Props> = ({
   excludedWallets,
   createDividendDistribution,
   networkId,
+  wallet,
   updateDividendAmount,
 }) => {
-  const onSubmit = (values: Values) => {
-    const { currency, distributionName, dividendAmount, tokenAddress } = values;
-    if (!networkId) {
-      throw new Error("Couldn't obtain network id");
-    }
+  const [{ balance, tokenSymbol }, setTokenData] = useState<{
+    balance: BigNumber;
+    tokenSymbol: string | null;
+  }>({ balance: new BigNumber(0), tokenSymbol: null });
 
-    let erc20Address: string;
+  if (!networkId) {
+    throw new Error("Couldn't obtain network id");
+  }
 
+  const getTokenAddress = (
+    currency: types.Tokens | null,
+    inputAddress: string
+  ) => {
     switch (currency) {
       case types.Tokens.Erc20: {
-        erc20Address = tokenAddress;
-        break;
+        return inputAddress;
       }
       case types.Tokens.Dai:
       case types.Tokens.Poly: {
-        erc20Address = constants.TokenAddresses[networkId][currency];
-        break;
+        return constants.TokenAddresses[networkId][currency];
       }
       default: {
         throw new Error('Unsupported token');
       }
     }
+  };
+
+  const onSubmit = (values: Values) => {
+    const { currency, distributionName, dividendAmount, tokenAddress } = values;
+
+    const erc20Address = getTokenAddress(currency, tokenAddress);
 
     const excludedAddresses = (excludedWallets || []).map(
       excluded => excluded['Investor ETH Address']
@@ -104,15 +117,33 @@ const Step3Base: FC<Props> = ({
     } = {};
     let schemaErrors = {};
 
+    const { currency, dividendAmount, tokenAddress } = values;
+
     // Validate custom ERC20 token address if required
-    if (values.currency === types.Tokens.Erc20) {
-      if (!values.tokenAddress) {
+    if (currency === types.Tokens.Erc20) {
+      if (!tokenAddress) {
         errors.tokenAddress = 'Token address is required';
       }
-      if (!validators.isEthereumAddress(values.tokenAddress)) {
+      if (!validators.isEthereumAddress(tokenAddress)) {
         errors.tokenAddress = 'Token address is invalid';
       }
     }
+
+    const isTestNet = [
+      constants.NetworkIds.Kovan,
+      constants.NetworkIds.Local,
+      constants.NetworkIds.LocalVm,
+    ].includes(networkId!);
+    const shouldValidateAmount = !isTestNet || currency !== types.Tokens.Poly;
+
+    // Validate that the issuer has enough balance of the selected token
+    // Skip validation if on testnet and POLY was chosen as the currency
+    if (dividendAmount && shouldValidateAmount) {
+      if (dividendAmount.gt(balance)) {
+        errors.dividendAmount = `Not enough ${tokenSymbol || 'TOKEN'} funds`;
+      }
+    }
+
     try {
       validateYupSchema(values, schema, true);
     } catch (err) {
@@ -144,8 +175,12 @@ const Step3Base: FC<Props> = ({
         }}
         validate={handleValidation}
         onSubmit={onSubmit}
-        render={({ handleSubmit, values }) => {
-          const { currency } = values;
+        render={({ handleSubmit, values, errors, touched }) => {
+          const { currency, tokenAddress } = values;
+
+          const validTokenAddress =
+            !errors.tokenAddress && touched.tokenAddress;
+
           return (
             <form onSubmit={handleSubmit}>
               <Grid gridGap="gridGap" gridAutoFlow="row" width={512}>
@@ -183,21 +218,18 @@ const Step3Base: FC<Props> = ({
                   </FormItem>
                 )}
                 <Box width="336px" mt={0}>
-                  <FormItem name="dividendAmount">
-                    <FormItem.Label>Dividend Amount</FormItem.Label>
-                    <FormItem.Input
-                      component={NumberInput}
-                      placeholder="Enter the value"
-                      inputProps={{
-                        min: new BigNumber(0),
-                        max: new BigNumber('1000000000000000000'),
-                        unit: values.currency,
-                        useBigNumbers: true,
-                      }}
-                      onChange={updateDividendAmount}
-                    />
-                    <FormItem.Error />
-                  </FormItem>
+                  {currency &&
+                    ((currency === types.Tokens.Erc20 && validTokenAddress) ||
+                      currency !== types.Tokens.Erc20) &&
+                    wallet && (
+                      <DividendAmountInput
+                        currency={currency}
+                        tokenAddress={getTokenAddress(currency, tokenAddress)}
+                        onBalanceFetched={setTokenData}
+                        updateDividendAmount={updateDividendAmount}
+                        walletAddress={wallet.address}
+                      />
+                    )}
                 </Box>
               </Grid>
               <Box mt="xl">

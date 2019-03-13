@@ -34,6 +34,7 @@ export enum Entities {
   Erc20DividendsModules = 'erc20DividendsModules',
   TransactionQueues = 'transactionQueues',
   TaxWithholdings = 'taxWithholdings',
+  Erc20TokenBalances = 'erc20TokenBalances',
 }
 
 export enum RequestKeys {
@@ -44,6 +45,7 @@ export enum RequestKeys {
   GetCheckpointBySymbolAndId = 'getCheckpointBySymbolAndId',
   GetErc20DividendsModuleBySymbol = 'getErc20DividendsModuleBySymbol',
   GetTaxWithholdingListBySymbol = 'getTaxWithholdingListBySymbol',
+  GetErc20BalanceByAddressAndWallet = 'getErc20BalanceByAddressAndWallet',
 }
 
 export interface GetCheckpointsBySymbolArgs {
@@ -64,7 +66,7 @@ export interface GetDividendsByCheckpointArgs {
   checkpointIndex: number;
 }
 
-export interface GetDividendsBySymbolAndIdArgs {
+export interface GetDividendBySymbolAndIdArgs {
   securityTokenSymbol: string;
   dividendIndex: number;
   dividendType: DividendModuleTypes;
@@ -78,6 +80,21 @@ export interface GetTaxWithholdingListBySymbolArgs {
   securityTokenSymbol: string;
   dividendType: DividendModuleTypes;
 }
+
+export interface GetErc20BalanceByAddressAndWalletArgs {
+  tokenAddress: string;
+  walletAddress: string;
+}
+
+export type RequestArgs =
+  | GetCheckpointBySymbolAndIdArgs
+  | GetCheckpointsBySymbolArgs
+  | GetSecurityTokenBySymbolArgs
+  | GetDividendBySymbolAndIdArgs
+  | GetDividendsByCheckpointArgs
+  | GetErc20DividendsModuleBySymbolArgs
+  | GetTaxWithholdingListBySymbolArgs
+  | GetErc20BalanceByAddressAndWalletArgs;
 
 export function isGetCheckpointsBySymbolArgs(
   args: any
@@ -119,7 +136,7 @@ export function isGetDividendsByCheckpointArgs(
 
 export function isGetDividendBySymbolAndIdArgs(
   args: any
-): args is GetDividendsBySymbolAndIdArgs {
+): args is GetDividendBySymbolAndIdArgs {
   const { securityTokenSymbol, dividendIndex, dividendType } = args;
 
   return (
@@ -151,11 +168,19 @@ export function isGetTaxWithholdingsListBySymbolArgs(
   );
 }
 
-export interface Fetcher {
+export function isGetErc20BalanceByAddressAndWalletArgs(
+  args: any
+): args is GetErc20BalanceByAddressAndWalletArgs {
+  const { tokenAddress, walletAddress } = args;
+
+  return typeof tokenAddress === 'string' && typeof walletAddress === 'string';
+}
+
+export interface Fetcher<Args extends {}> {
   propKey?: string;
   entity: Entities;
   requestKey: RequestKeys;
-  args: types.Pojo;
+  args: Args;
 }
 
 export interface FetchedData {
@@ -163,7 +188,7 @@ export interface FetchedData {
 }
 
 export interface CacheStatus {
-  args: types.Pojo;
+  args: RequestArgs;
   requestKey: RequestKeys;
   mustBeFetched: boolean;
 }
