@@ -13,7 +13,7 @@ import {
   FormItem,
   Checkbox,
   CsvUploader,
-  Form,
+  FormWrapper,
   LinkButton,
 } from '@polymathnetwork/new-ui';
 import { ExclusionEntry } from '../Presenter';
@@ -53,7 +53,7 @@ export const Step1: FC<Step1Props> = ({
   };
 
   return (
-    <Form<Values>
+    <FormWrapper<Values>
       initialValues={{
         noWalletExcluded: false,
         excludedWallets,
@@ -168,10 +168,11 @@ export const Step1: FC<Step1Props> = ({
               </strong>
               <br />
               <strong>
-                The wallets of Investors whose KYC/AML have expired are not 
-                automatically excluded and will receive dividends. These Investors 
-                can be excluded from the dividends calculation and distribution by 
-                adding their wallet address to the exclusion list.
+                The wallets of Investors whose KYC/AML have expired are not
+                automatically excluded and will receive dividends. These
+                Investors can be excluded from the dividends calculation and
+                distribution by adding their wallet address to the exclusion
+                list.
               </strong>
             </Remark>
           </Box>

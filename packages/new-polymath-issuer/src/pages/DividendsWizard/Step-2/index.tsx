@@ -11,7 +11,7 @@ import {
   Card,
   Paragraph,
   Remark,
-  Form,
+  FormWrapper,
   FormItem,
   Checkbox,
   List,
@@ -197,7 +197,7 @@ export const Step2: FC<Props> = ({
   );
 
   return (
-    <Form<FormValues>
+    <FormWrapper<FormValues>
       onSubmit={onSubmit}
       onFieldChange={handleFieldChange}
       validate={handleValidation}

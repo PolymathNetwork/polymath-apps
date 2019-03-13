@@ -16,7 +16,7 @@ import {
   Icon,
   IconCircled,
   icons,
-  Form,
+  FormWrapper,
   FormItem,
   TextInput,
   ModalConfirm,
@@ -31,6 +31,10 @@ export interface Props {
   dividendsModule?: types.Erc20DividendsModulePojo;
   userWalletAddress: string;
   subdomain?: string;
+}
+
+interface Values {
+  walletAddress: string;
 }
 
 // TODO @grsmto: move this to external form utils
@@ -196,7 +200,7 @@ export const Presenter: FC<Props> = ({
           ) : null}
         </GridRow.Col>
       </GridRow>
-      <Form
+      <FormWrapper<Values>
         enableReinitialize
         initialValues={{
           walletAddress,

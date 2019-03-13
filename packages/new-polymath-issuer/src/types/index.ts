@@ -86,6 +86,10 @@ export interface GetErc20BalanceByAddressAndWalletArgs {
   walletAddress: string;
 }
 
+export interface GetIsValidErc20ByAddressArgs {
+  tokenAddress: string;
+}
+
 export type RequestArgs =
   | GetCheckpointBySymbolAndIdArgs
   | GetCheckpointsBySymbolArgs
@@ -94,7 +98,8 @@ export type RequestArgs =
   | GetDividendsByCheckpointArgs
   | GetErc20DividendsModuleBySymbolArgs
   | GetTaxWithholdingListBySymbolArgs
-  | GetErc20BalanceByAddressAndWalletArgs;
+  | GetErc20BalanceByAddressAndWalletArgs
+  | GetIsValidErc20ByAddressArgs;
 
 export function isGetCheckpointsBySymbolArgs(
   args: any
@@ -174,6 +179,14 @@ export function isGetErc20BalanceByAddressAndWalletArgs(
   const { tokenAddress, walletAddress } = args;
 
   return typeof tokenAddress === 'string' && typeof walletAddress === 'string';
+}
+
+export function isGetIsValidErc20TokenBalanceByAddressArgs(
+  args: any
+): args is GetIsValidErc20ByAddressArgs {
+  const { tokenAddress } = args;
+
+  return typeof tokenAddress === 'string';
 }
 
 export interface Fetcher<Args extends {}> {
