@@ -55,7 +55,7 @@ export {
 } from './components/CsvUploader';
 export { ErrorBoundary } from './components/ErrorBoundary';
 export { Footer } from './components/Footer';
-export { Form } from './components/Form';
+export { FormWrapper } from './components/FormWrapper';
 export { FormItem } from './components/FormItem';
 export { Header } from './components/Header';
 export { Icon } from './components/Icon';
