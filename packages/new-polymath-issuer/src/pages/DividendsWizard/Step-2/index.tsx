@@ -298,19 +298,21 @@ export const Step2: FC<Props> = ({
                 example file and edit it.
               </Paragraph>
             )}
-            <Button
-              variant="ghostSecondary"
-              iconPosition="right"
-              onClick={openCsvModal}
-            >
-              Upload Tax Withholdings List
-              <Icon
-                Asset={icons.SvgDownload}
-                width={18}
-                height={18}
-                rotate="0.5turn"
-              />
-            </Button>
+            <Text color="primary">
+              <Button
+                variant="ghostSecondary"
+                iconPosition="right"
+                onClick={openCsvModal}
+              >
+                Upload Tax Withholdings List
+                <Icon
+                  Asset={icons.SvgDownload}
+                  width={14}
+                  height={16}
+                  rotate="0.5turn"
+                />
+              </Button>
+            </Text>
             <Field
               name="taxWithholdings"
               render={({ field, form }: FieldProps<TaxWithholdingsItem>) => (
