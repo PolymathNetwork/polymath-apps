@@ -9,9 +9,9 @@ import { Context } from './LowLevel';
 import {
   Dividend,
   GenericContract,
-  Erc20DividendDepositedEvent,
   CreateErc20DividendArgs,
   DividendModuleTypes,
+  GetDividendArgs,
 } from './types';
 
 // This type should be obtained from a library (must match ABI)
@@ -34,6 +34,7 @@ interface Erc20DividendCheckpointContract extends GenericContract {
       checkpointId: number,
       name: string
     ): TransactionObject<void>;
+    dividendTokens(dividendIndex: number): TransactionObject<string>;
   };
 }
 
@@ -87,44 +88,18 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
         .send({ from: this.context.account });
   };
 
-  public async getDividends() {
-    const dividends = await super.getDividends();
+  public async getDividend({
+    dividendIndex,
+  }: GetDividendArgs): Promise<Dividend> {
+    const tokenAddress = await this.contract.methods
+      .dividendTokens(dividendIndex)
+      .call();
 
-    // The currency used for the dividend has to be retrieved from events
-    const events = await this.contract.getPastEvents<
-      Erc20DividendDepositedEvent
-    >('ERC20DividendDeposited', {
-      fromBlock: 'earliest',
-      toBlock: 'latest',
-    });
+    const token = new Erc20({ address: tokenAddress, context: this.context });
 
-    const dividendsWithCurrency: Dividend[] = [];
+    const symbol = await token.symbol();
+    const decimals = await token.decimals();
 
-    for (let i = 0; i < dividends.length; i += 1) {
-      const dividend = dividends[i];
-      const { currency, ...rest } = dividend;
-      const depositEvent = events.find(event => {
-        const { _dividendIndex } = event.returnValues;
-        return parseInt(_dividendIndex, 10) === i;
-      });
-
-      if (!depositEvent) {
-        dividendsWithCurrency.push(dividend);
-        continue;
-      }
-
-      const { _token: tokenAddress } = depositEvent.returnValues;
-
-      const token = new Erc20({ address: tokenAddress, context: this.context });
-
-      const symbol = await token.symbol();
-
-      dividendsWithCurrency.push({
-        currency: symbol,
-        ...rest,
-      });
-    }
-
-    return dividendsWithCurrency;
+    return this._getDividend({ dividendIndex, symbol, decimals });
   }
 }

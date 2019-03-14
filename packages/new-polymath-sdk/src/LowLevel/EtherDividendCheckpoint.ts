@@ -9,6 +9,7 @@ import {
   GenericContract,
   CreateEtherDividendArgs,
   DividendModuleTypes,
+  GetDividendArgs,
 } from './types';
 
 // This type should be obtained from a library (must match ABI)
@@ -73,6 +74,10 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
         )
         .send({ value: amountInWei });
   };
+
+  public async getDividend({ dividendIndex }: GetDividendArgs) {
+    return this._getDividend({ dividendIndex, symbol: 'ETH', decimals: 18 });
+  }
 
   public async getDividends() {
     const dividends = await super.getDividends();
