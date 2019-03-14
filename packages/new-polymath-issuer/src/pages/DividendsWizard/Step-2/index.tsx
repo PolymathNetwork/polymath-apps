@@ -376,12 +376,8 @@ export const Step2: FC<Props> = ({
               onDelete={confirmDelete}
             />
             <Heading variant="h3" mt="4">
-              No Changes Required
+              Confirm Tax Withholdings
             </Heading>
-            <Paragraph>
-              Please make sure to confirm no changes are required by downloading
-              and reviewing the current configuration.
-            </Paragraph>
             <FormItem name="isTaxWithholdingConfirmed">
               <FormItem.Input
                 component={Checkbox}
