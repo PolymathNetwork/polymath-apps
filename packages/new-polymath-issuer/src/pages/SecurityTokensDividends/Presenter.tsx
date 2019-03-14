@@ -25,8 +25,10 @@ import {
   FormWrapper,
   FormItem,
   TextInput,
+  BaseInput,
   ModalConfirm,
 } from '@polymathnetwork/new-ui';
+// import { BaseInput } from '@polymathnetwork/new-ui/src/components/inputs/BaseInput';
 import { CheckpointList } from '~/components';
 import { WalletAddress } from './WalletAddress';
 import * as sc from './styles';
@@ -67,11 +69,11 @@ export const Presenter: FC<Props> = ({
   );
   const [isEditingAddress, setEditAddressState] = useState(false);
 
-  const [searchName, setSearchName] = useState('Rand');
+  const [searchName, setSearchName] = useState('Som');
 
-  useLayoutEffect(() => {
-    console.log('field updated', searchName);
-  });
+  // useLayoutEffect(() => {
+  //   console.log('field updated', searchName);
+  // });
 
   const handleAddressModalOpen = useCallback(() => {
     setEditAddressState(true);
@@ -88,9 +90,13 @@ export const Presenter: FC<Props> = ({
     [walletAddress]
   );
 
-  const handleSearchChange = useCallback(values => {
-    setSearchName(values.searchName);
-  }, []);
+  // const handleSearchChange = useCallback(values => {
+  //   setSearchName(values.searchName);
+  // }, []);
+
+  const handleSearchChange = e => {
+    setSearchName(e.target.value);
+  };
 
   const handleAddressChange = useCallback(values => {
     if (dividendsModule) {
@@ -214,28 +220,14 @@ export const Presenter: FC<Props> = ({
           </CardFeatureState>
         </GridRow.Col>
         <GridRow.Col gridSpan={4}>
-          <FormWrapper<Values>
-            // enableReinitialize
-            initialValues={{
-              searchName,
-            }}
-            // onChange={handleSearchChange}
-            render={({ values }) => (
-              <FormItem name="searchName">
-                <FormItem.Label>Search Text</FormItem.Label>
-                <FormItem.Input
-                  component={TextInput}
-                  onChange={() => {
-                    handleSearchChange(values);
-                  }}
-                  placeholder="Search Text"
-                />
-                <FormItem.Error />
-              </FormItem>
-            )}
+          <BaseInput
+            name="search_text"
+            onChange={handleSearchChange}
+            value={searchName}
+            placeholder="Search Text"
           />
         </GridRow.Col>
-        {/* <GridRow.Col gridSpan={4}>{searchName}</GridRow.Col> */}
+        <GridRow.Col gridSpan={4}>{searchName}</GridRow.Col>
         <GridRow.Col gridSpan={12}>
           {dividendsModule ? (
             <CheckpointList

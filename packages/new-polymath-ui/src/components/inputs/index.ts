@@ -6,5 +6,6 @@ export * from './PercentageInput';
 export * from './Select';
 export * from './TextArea';
 export * from './TextInput';
+export * from './BaseInput';
 export * from './TimePickerSelect';
 export * from './ToggleInput';
