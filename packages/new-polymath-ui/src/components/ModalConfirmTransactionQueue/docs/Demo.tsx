@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Button } from '~/components/Button';
-import { GridRow } from '~/components/GridRow';
 import { mockTransactionQueue } from '~/components/ModalTransactionQueue/docs/Demo';
 import { ModalConfirmTransactionQueue } from '../ModalConfirmTransactionQueue';
 
