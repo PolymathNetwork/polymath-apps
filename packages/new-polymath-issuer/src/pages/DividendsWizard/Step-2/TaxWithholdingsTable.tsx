@@ -93,7 +93,7 @@ const makeColumnsConfig = ({
           />
           {transactionLimitReached && limitReachedTooltip()}
         </Box>
-        <Box>
+        <Box ml="s">
           <IconButton
             Asset={icons.SvgDelete}
             width="1.4em"

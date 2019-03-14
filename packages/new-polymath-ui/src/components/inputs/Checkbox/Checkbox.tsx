@@ -54,8 +54,8 @@ export const CheckboxPrimitive: FC<Props> = ({
           <sc.CheckIcon
             Asset={SvgCheckmark}
             color="white"
-            width="0.9rem"
-            height="0.9rem"
+            width="0.85em"
+            height="0.85em"
           />
         </sc.CheckboxInput>
         {label && (
