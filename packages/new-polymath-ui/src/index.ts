@@ -55,7 +55,7 @@ export {
 } from './components/CsvUploader';
 export { ErrorBoundary } from './components/ErrorBoundary';
 export { Footer } from './components/Footer';
-export { Form } from './components/Form';
+export { FormWrapper } from './components/FormWrapper';
 export { FormItem } from './components/FormItem';
 export { Header } from './components/Header';
 export { Icon } from './components/Icon';
@@ -70,7 +70,7 @@ export { LinkButton } from './components/LinkButton';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
 export { Text } from './components/Text';
-export { Modal } from './components/Modal';
+export { Modal, ModalStatus } from './components/Modal';
 export { ModalConfirm } from './components/ModalConfirm';
 export { ModalTransactionQueue } from './components/ModalTransactionQueue';
 export {

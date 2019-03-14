@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Api as ReactTableApi, Row as ReactTableRow } from 'react-table';
 
 export interface SelectRowProps extends ReactTableApi {}
@@ -9,9 +9,14 @@ export interface Row extends ReactTableRow {
 }
 
 export const useSelectRow = (props: SelectRowProps) => {
-  const { columns, rows } = props;
+  const { columns, rows, data } = props;
   const initialState: number[] = [];
   const [selected, setSelected] = useState(initialState);
+
+  useEffect(() => {
+    setSelected([]);
+  },
+  [data]);
 
   const toggleSelectAll: ReactTableApi['toggleSelectAll'] = forcedState => {
     return setSelected(state => {

@@ -13,6 +13,7 @@ import {
 import { ActionType } from 'typesafe-actions';
 import { NETWORK } from '~/constants';
 import BigNumber from 'bignumber.js';
+import { range } from 'lodash';
 
 const actions = {
   enableErc20DividendsModuleStart,
@@ -91,7 +92,7 @@ export class ContainerBase extends Component<Props> {
         erc20Address: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
         name: 'My Dividend Distribution',
         amount: new BigNumber('10000'),
-        checkpointId: 1,
+        checkpointIndex: 1,
         excludedAddresses: ['0x821aea9a577a9b44299b9c15c88cf3087f3b5544'],
         // excludedAddresses: [],
         pushPaymentsWhenComplete: true,
@@ -100,12 +101,16 @@ export class ContainerBase extends Component<Props> {
   };
 
   public startUpdateTaxWithholdings = () => {
+    const investorAddresses = range(2600).map(
+      () => '0x0d1d4e623d10f9fba5db95830f7d3839406c6af2'
+    );
+    const percentages = range(2600).map(() => 0.3);
     this.props.dispatch(
       updateTaxWithholdingListStart({
         securityTokenSymbol: 'A0T0',
         dividendType: DividendModuleTypes.Erc20,
-        investorAddresses: ['0x0d1d4e623d10f9fba5db95830f7d3839406c6af2'],
-        percentages: [0.5],
+        investorAddresses,
+        percentages,
       })
     );
   };

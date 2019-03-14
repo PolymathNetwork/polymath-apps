@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, FC } from 'react';
 import {
   List,
-  inputs,
+  ButtonLink,
+  Button,
   icons,
   IconOutlined,
   TooltipPrimary,
@@ -14,47 +15,31 @@ import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 export interface Props {
   dividends: types.DividendEntity[];
   securityTokenSymbol: string;
+  filterDividends: string;
   checkpointIndex: number;
-  filterNameBy: string;
+  allDividendsCompleted: boolean;
 }
 
-export const DividendListPresenter = ({
+export const DividendListPresenter: FC<Props> = ({
   securityTokenSymbol,
   dividends,
   checkpointIndex,
-  filterNameBy,
-}: Props) => {
-  const allDividendsCompleted = dividends.every(dividend => {
-    const {
-      investors,
-      expiry,
-      totalWithheld,
-      totalWithheldWithdrawn,
-    } = dividend;
-    const remainingPayments = investors.filter(
-      investor => !investor.paymentReceived && !investor.excluded
-    ).length;
-    const remainingTransactions = Math.ceil(
-      remainingPayments / DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
-    );
-    const unwithdrawnTaxes = totalWithheld.minus(totalWithheldWithdrawn);
-    return (
-      expiry <= new Date() ||
-      (remainingTransactions === 0 && unwithdrawnTaxes.eq(0))
-    );
-  });
+  filterDividends,
+  allDividendsCompleted,
+}) => {
   const newDividendUrl = !allDividendsCompleted
     ? '#'
     : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
 
-  console.log(filterNameBy);
-  console.log(dividends);
+  // filterDividends = 'Some';
+  console.log(filterDividends);
+
   return (
     <List>
       {dividends.length ? (
         <Fragment>
           {dividends
-            .filter(item => item.name.includes(filterNameBy))
+            .filter(dividend => dividend.name.includes(filterDividends))
             .map(dividend => (
               <li key={dividend.uid}>
                 <DividendCard
@@ -64,8 +49,9 @@ export const DividendListPresenter = ({
               </li>
             ))}
           <sc.NewDividendButton
-            href={newDividendUrl}
+            as={allDividendsCompleted ? ButtonLink : Button}
             disabled={!allDividendsCompleted}
+            href={newDividendUrl}
             variant="ghost"
             iconPosition="top"
           >
@@ -76,10 +62,12 @@ export const DividendListPresenter = ({
               scale={0.8}
             />
             Add new <br /> dividend <br /> distribution
-            <TooltipPrimary>
-              You can add a new dividend distribution if the previous
-              distribution has been completed/expired.
-            </TooltipPrimary>
+            {!allDividendsCompleted && (
+              <TooltipPrimary placement="top-start">
+                You can add a new dividend distribution if the previous
+                distribution has been completed/expired.
+              </TooltipPrimary>
+            )}
           </sc.NewDividendButton>
         </Fragment>
       ) : (

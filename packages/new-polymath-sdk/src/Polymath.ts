@@ -19,6 +19,7 @@ import {
   SecurityToken as SecurityTokenEntity,
   Erc20DividendsModule as Erc20DividendsModuleEntity,
   EthDividendsModule as EthDividendsModuleEntity,
+  Erc20TokenBalance as Erc20TokenBalanceEntity,
 } from '~/entities';
 
 import {
@@ -27,7 +28,7 @@ import {
   CreateCheckpoint,
   CreateErc20DividendDistribution,
   CreateEtherDividendDistribution,
-  SetDividendsTaxWithholdingList,
+  UpdateDividendsTaxWithholdingList,
   PushDividendPayment,
   WithdrawTaxes,
 } from './procedures';
@@ -60,6 +61,7 @@ interface ContextualizedEntities {
   Erc20DividendsModule: typeof Erc20DividendsModuleEntity;
   EthDividendsModule: typeof EthDividendsModuleEntity;
   TaxWithholding: typeof TaxWithholdingEntity;
+  Erc20TokenBalance: typeof Erc20TokenBalanceEntity;
 }
 
 export class Polymath {
@@ -92,6 +94,10 @@ export class Polymath {
       Checkpoint: createContextualizedEntity(CheckpointEntity as any, this),
       TaxWithholding: createContextualizedEntity(
         TaxWithholdingEntity as any,
+        this
+      ),
+      Erc20TokenBalance: createContextualizedEntity(
+        Erc20TokenBalanceEntity as any,
         this
       ),
     };
@@ -205,7 +211,7 @@ export class Polymath {
     maturityDate: Date;
     expiryDate: Date;
     amount: BigNumber;
-    checkpointId: number;
+    checkpointIndex: number;
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
@@ -231,7 +237,7 @@ export class Polymath {
     expiryDate: Date;
     erc20Address: string;
     amount: BigNumber;
-    checkpointId: number;
+    checkpointIndex: number;
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
@@ -249,7 +255,7 @@ export class Polymath {
     expiryDate: Date;
     erc20Address: string;
     amount: BigNumber;
-    checkpointId: number;
+    checkpointIndex: number;
     name: string;
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
@@ -261,13 +267,13 @@ export class Polymath {
   /**
    * Set tax withtholding list for a type of dividends
    */
-  public setDividendsTaxWithholdingList = async (args: {
+  public updateDividendsTaxWithholdingList = async (args: {
     symbol: string;
     dividendType: DividendModuleTypes;
     investorAddresses: string[];
     percentages: number[];
   }) => {
-    const procedure = new SetDividendsTaxWithholdingList(args, this.context);
+    const procedure = new UpdateDividendsTaxWithholdingList(args, this.context);
     return await procedure.prepare();
   };
 
@@ -277,7 +283,7 @@ export class Polymath {
   public pushDividendPayment = async (args: {
     symbol: string;
     dividendType: DividendModuleTypes;
-    dividendId: number;
+    dividendIndex: number;
   }) => {
     const procedure = new PushDividendPayment(args, this.context);
     return await procedure.prepare();
@@ -590,6 +596,24 @@ export class Polymath {
     return this.lowLevel.isValidErc20({ address });
   };
 
+  public getErc20TokenBalance = async (args: {
+    tokenAddress: string;
+    walletAddress: string;
+  }) => {
+    const { tokenAddress, walletAddress } = args;
+    const token = await this.lowLevel.getErc20Token({ address: tokenAddress });
+    const [symbol, balance] = await Promise.all([
+      token.symbol(),
+      token.balanceOf({ address: walletAddress }),
+    ]);
+
+    return new this.Erc20TokenBalance({
+      tokenSymbol: symbol,
+      tokenAddress,
+      balance,
+    });
+  };
+
   get SecurityToken() {
     return this.entities.SecurityToken;
   }
@@ -612,6 +636,10 @@ export class Polymath {
 
   get TaxWithholding() {
     return this.entities.TaxWithholding;
+  }
+
+  get Erc20TokenBalance() {
+    return this.entities.Erc20TokenBalance;
   }
 
   private assembleCheckpoint = ({

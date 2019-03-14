@@ -1,6 +1,7 @@
-import { FC, useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { Context } from '../Context';
+import * as sc from './styles';
 
 export interface Props {}
 
@@ -17,7 +18,9 @@ export const Toolbar: FC<Props> = props => {
   return (
     tableToolbarEl &&
     ReactDOM.createPortal(
-      typeof children === 'function' ? children({ ...context }) : children,
+      <sc.Toolbar>
+        {typeof children === 'function' ? children({ ...context }) : children}
+      </sc.Toolbar>,
       tableToolbarEl
     )
   );

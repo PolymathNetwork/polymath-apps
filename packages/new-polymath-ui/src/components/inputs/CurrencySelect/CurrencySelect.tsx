@@ -6,7 +6,7 @@ import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import {
   FormikProxy,
-  FormikExternalProps,
+  EnhancedComponentProps,
 } from '~/components/inputs/FormikProxy';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
 import { SvgClose } from '~/images/icons/Close';
@@ -26,12 +26,13 @@ interface OptionType {
   label: ReactNode;
 }
 
-interface ExternalProps extends FormikExternalProps {
+type Value = types.Tokens | types.Tokens[];
+
+interface ExternalProps extends EnhancedComponentProps<Value> {
   theme: ThemeInterface;
+  options: types.Tokens[];
   placeholder?: string;
 }
-
-type Value = types.Tokens | types.Tokens[];
 
 export const CURRENCY_OPTIONS: OptionType[] = [
   {
@@ -60,8 +61,8 @@ export const CURRENCY_OPTIONS: OptionType[] = [
 
 interface SelectProps
   extends Pick<InputProps, 'onChange' | 'error' | 'name' | 'autoComplete'> {
-  options: types.Tokens[];
   theme: ThemeInterface;
+  options: types.Tokens[];
   value: types.Tokens | types.Tokens[];
   // Override because ReactSelect does not provide the event
   onBlur: () => void;
@@ -175,15 +176,18 @@ class SelectValue extends React.Component<SelectValueProps> {
       <sc.ValueWrapper>
         <sc.ValueLabel>{this.props.label}</sc.ValueLabel>
         <sc.ValueRemoveButton
-          Asset={SvgClose}          
+          Asset={SvgClose}
           onClick={this.handleRemove}
+          height={15}
+          width={15}
+          scale={0.75}
         />
       </sc.ValueWrapper>
     );
   }
 }
 
-export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
+class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   public static defaultProps = {
     options: CURRENCY_OPTIONS.map(option => option.value),
     onBlur: () => {},
@@ -283,18 +287,23 @@ export class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   }
 }
 
+export const CurrencySelectPrimitive = withTheme(CurrencySelectPrimitiveBase);
+
 const EnhancedCurrencySelectPrimitive: FC<ExternalProps> = ({
   field,
   form,
+  onChange,
+  options,
   ...rest
 }) => (
   <FormikProxy<Value>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => (
-      <CurrencySelectPrimitiveBase {...rest} {...formikProps} />
+      <CurrencySelectPrimitive options={options} {...rest} {...formikProps} />
     )}
   />
 );
 
-export const CurrencySelect = withTheme(EnhancedCurrencySelectPrimitive);
+export const CurrencySelect = EnhancedCurrencySelectPrimitive;

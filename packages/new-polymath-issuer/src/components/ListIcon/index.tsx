@@ -5,8 +5,8 @@ import { IconCircled, icons } from '@polymathnetwork/new-ui';
 const ListIconBase = ({ active, ...otherProps }: { active?: boolean }) => (
   <IconCircled
     Asset={icons.SvgCaretDown2}
-    bg="inactive"
-    color="gray.1"
+    bg="gray.2"
+    color="white"
     width={24}
     height={24}
     scale={0.75}

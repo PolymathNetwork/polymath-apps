@@ -35,6 +35,12 @@ export const PlaceholderButtonBase: PlaceholderButtonType = styled(
   border: 1px dashed ${({ theme }) => theme.colors.primary};
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.primary};
+
+  &:hover {
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const PlaceholderButton: PlaceholderButtonType = Object.assign(

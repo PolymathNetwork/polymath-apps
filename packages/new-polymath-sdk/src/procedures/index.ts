@@ -12,6 +12,6 @@ export { CreateCheckpoint } from './CreateCheckpoint';
 export { ReclaimFunds } from './ReclaimFunds';
 export { WithdrawTaxes } from './WithdrawTaxes';
 export {
-  SetDividendsTaxWithholdingList,
-} from './SetDividendsTaxWithholdingList';
+  UpdateDividendsTaxWithholdingList,
+} from './UpdateDividendsTaxWithholdingList';
 export { PushDividendPayment } from './PushDividendPayment';

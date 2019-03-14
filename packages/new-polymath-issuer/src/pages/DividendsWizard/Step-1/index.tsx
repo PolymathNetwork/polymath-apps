@@ -13,13 +13,13 @@ import {
   FormItem,
   Checkbox,
   CsvUploader,
-  Form,
+  FormWrapper,
   LinkButton,
 } from '@polymathnetwork/new-ui';
 import { ExclusionEntry } from '../Presenter';
 
 export interface Step1Props {
-  onNextStep: (values: Values) => void;
+  onNextStep: () => void;
   excludedWallets: null | ExclusionEntry[];
   setExcludedWallets: (csv: this['excludedWallets']) => void;
   downloadSampleExclusionList: () => void;
@@ -49,17 +49,28 @@ export const Step1: FC<Step1Props> = ({
   const handleSubmit = (values: Values) => {
     // Set csv file
     setExcludedWallets(values.excludedWallets);
-    onNextStep(values);
+    onNextStep();
+  };
+
+  const validateFile = (data: Array<any>) => {
+    const seen: { [key: string]: boolean } = {};
+    const hasDuplicates = data.some(currentObject => {
+      return (
+        seen.hasOwnProperty(currentObject.data['Investor ETH Address'].value) ||
+        (seen[currentObject.data['Investor ETH Address'].value] = false)
+      );
+    });
+    return !hasDuplicates;
   };
 
   return (
-    <Form<Values>
+    <FormWrapper<Values>
       initialValues={{
         noWalletExcluded: false,
         excludedWallets,
       }}
       onSubmit={handleSubmit}
-      render={({ values, submitForm }) => (
+      render={({ values, submitForm, setFieldValue }) => (
         <Card p="gridGap" boxShadow={1}>
           <Heading variant="h2" mb="l">
             1. Exclude Wallets from the Dividends Calculation
@@ -92,15 +103,28 @@ export const Step1: FC<Step1Props> = ({
           <ModalConfirm
             isOpen={isCsvModalOpen}
             onSubmit={submitForm}
-            onClose={handleCsvModalClose}
+            onClose={() => {
+              handleCsvModalClose();
+              setFieldValue('excludedWallets', null);
+            }}
             actionButtonText="Update list and proceed to the next step"
             isActionDisabled={!values.excludedWallets}
           >
             <ModalConfirm.Header>
-              Upload CSV of ETH Addresses to exclude
+              Update Wallets Exclusion List
             </ModalConfirm.Header>
             <Paragraph fontSize={2}>
-              This is the explanation of what is going on here.
+              Update the wallets exclusion list by uploading a comma separated
+              .CSV file. The format should be as follows:
+              <br />
+              - Investor wallet address
+              <br />
+              <br />
+              You can download{' '}
+              <LinkButton onClick={downloadSampleExclusionList}>
+                <Icon Asset={icons.SvgDownload} /> Sample-Exclusion-List.csv
+              </LinkButton>{' '}
+              file and edit it
             </Paragraph>
             <FormItem name="excludedWallets">
               <FormItem.Input
@@ -120,6 +144,12 @@ export const Step1: FC<Step1Props> = ({
                     ],
                     header: true,
                     maxRows: 100,
+                    validateFile,
+                    customValidationErrorMessage: {
+                      header: 'Duplicate Entries',
+                      body:
+                        'The uploaded file contains duplicate entries, please edit the file and make sure to remove the duplicate entries',
+                    },
                   },
                 }}
               >
@@ -141,19 +171,29 @@ export const Step1: FC<Step1Props> = ({
               <FormItem.Error />
             </FormItem>
           </ModalConfirm>
-          <Remark>
-            The number of tokens contained in the wallets that are excluded from
-            the dividends calculation and distribution will be deducted from the
-            total supply before the final percentages are calculated. For
-            example, if 10 wallets each contain 1 token and 2 wallets are
-            excluded from dividends, each of the remaining 8 wallets will
-            receive 1/8 of the dividends
-            <br />
-            <strong>
-              The maximum number of addresses that can be excluded is 100.
-            </strong>
-          </Remark>
-          <Heading variant="h3" mt="m">
+          <Box mt="m">
+            <Remark>
+              The number of tokens contained in the wallets that are excluded
+              from the dividends calculation and distribution will be deducted
+              from the total supply before the final percentages are calculated.
+              For example, if 10 wallets each contain 1 token and 2 wallets are
+              excluded from dividends, each of the remaining 8 wallets will
+              receive 1/8 of the dividends
+              <br />
+              <strong>
+                The maximum number of addresses that can be excluded is 100.
+              </strong>
+              <br />
+              <strong>
+                The wallets of Investors whose KYC/AML have expired are not
+                automatically excluded and will receive dividends. These
+                Investors can be excluded from the dividends calculation and
+                distribution by adding their wallet address to the exclusion
+                list.
+              </strong>
+            </Remark>
+          </Box>
+          <Heading variant="h3" mt="4">
             No Dividends Exclusion Required
           </Heading>
           <FormItem name="noWalletExcluded">

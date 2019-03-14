@@ -11,6 +11,7 @@ import { Context } from '~/Context';
 import { PostTransactionResolver } from '~/PostTransactionResolver';
 import { types } from '@polymathnetwork/new-shared';
 import { TransactionReceipt } from 'web3/types';
+import { PolymathError } from '~/PolymathError';
 
 function isProcedure<T>(value: any): value is ProcedureType<T> {
   return value.prototype instanceof Procedure;
@@ -87,6 +88,11 @@ export abstract class Procedure<Args, ReturnType = any> {
           // already propagated on the outside
           if (err.code === ErrorCodes.ProcedureValidationError) {
             throw err;
+          } else if (!err.code) {
+            throw new PolymathError({
+              code: ErrorCodes.FatalError,
+              message: err.message,
+            });
           }
         }
         const transactions = operation.transactions;

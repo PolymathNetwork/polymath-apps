@@ -1,10 +1,20 @@
-import { Fetcher, Entities, RequestKeys } from '~/types';
-import { DividendModuleTypes } from '@polymathnetwork/sdk';
+import {
+  Fetcher,
+  Entities,
+  RequestKeys,
+  GetCheckpointBySymbolAndIdArgs,
+  GetDividendsByCheckpointArgs,
+  GetDividendBySymbolAndIdArgs,
+  GetErc20DividendsModuleBySymbolArgs,
+  GetCheckpointsBySymbolArgs,
+  GetTaxWithholdingListBySymbolArgs,
+  GetErc20BalanceByAddressAndWalletArgs,
+} from '~/types';
 
 export const createCheckpointsBySymbolFetcher = (
-  args: { securityTokenSymbol: string },
+  args: GetCheckpointsBySymbolArgs,
   opts: { propKey?: string } = {}
-): Fetcher => {
+): Fetcher<GetCheckpointsBySymbolArgs> => {
   return {
     propKey: opts.propKey,
     entity: Entities.Checkpoints,
@@ -14,9 +24,9 @@ export const createCheckpointsBySymbolFetcher = (
 };
 
 export const createCheckpointBySymbolAndIdFetcher = (
-  args: { securityTokenSymbol: string; checkpointIndex: number },
+  args: GetCheckpointBySymbolAndIdArgs,
   opts: { propKey?: string } = {}
-): Fetcher => {
+): Fetcher<GetCheckpointBySymbolAndIdArgs> => {
   return {
     propKey: opts.propKey,
     entity: Entities.Checkpoints,
@@ -26,9 +36,9 @@ export const createCheckpointBySymbolAndIdFetcher = (
 };
 
 export const createDividendsByCheckpointFetcher = (
-  args: { securityTokenSymbol: string; checkpointIndex: number },
+  args: GetDividendsByCheckpointArgs,
   opts: { propKey?: string } = {}
-): Fetcher => {
+): Fetcher<GetDividendsByCheckpointArgs> => {
   return {
     propKey: opts.propKey,
     entity: Entities.Dividends,
@@ -38,9 +48,9 @@ export const createDividendsByCheckpointFetcher = (
 };
 
 export const createErc20DividendsModuleBySymbolFetcher = (
-  args: { securityTokenSymbol: string },
+  args: GetErc20DividendsModuleBySymbolArgs,
   opts: { propKey?: string } = {}
-): Fetcher => {
+): Fetcher<GetErc20DividendsModuleBySymbolArgs> => {
   return {
     propKey: opts.propKey,
     entity: Entities.Erc20DividendsModules,
@@ -50,9 +60,9 @@ export const createErc20DividendsModuleBySymbolFetcher = (
 };
 
 export const createTaxWithholdingListBySymbolFetcher = (
-  args: { securityTokenSymbol: string; dividendType: DividendModuleTypes },
+  args: GetTaxWithholdingListBySymbolArgs,
   opts: { propKey?: string } = {}
-): Fetcher => {
+): Fetcher<GetTaxWithholdingListBySymbolArgs> => {
   return {
     propKey: opts.propKey,
     entity: Entities.TaxWithholdings,
@@ -62,17 +72,25 @@ export const createTaxWithholdingListBySymbolFetcher = (
 };
 
 export const createDividendBySymbolAndIdFetcher = (
-  args: {
-    securityTokenSymbol: string;
-    dividendIndex: number;
-    dividendType: DividendModuleTypes;
-  },
+  args: GetDividendBySymbolAndIdArgs,
   opts: { propKey?: string } = {}
-): Fetcher => {
+): Fetcher<GetDividendBySymbolAndIdArgs> => {
   return {
     propKey: opts.propKey,
     entity: Entities.Dividends,
     requestKey: RequestKeys.GetDividendBySymbolAndId,
+    args,
+  };
+};
+
+export const createErc20TokenBalanceByAddressAndWalletFetcher = (
+  args: GetErc20BalanceByAddressAndWalletArgs,
+  opts: { propKey?: string } = {}
+): Fetcher<GetErc20BalanceByAddressAndWalletArgs> => {
+  return {
+    propKey: opts.propKey,
+    entity: Entities.Erc20TokenBalances,
+    requestKey: RequestKeys.GetErc20BalanceByAddressAndWallet,
     args,
   };
 };

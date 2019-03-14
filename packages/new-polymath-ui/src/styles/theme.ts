@@ -77,6 +77,7 @@ const colors = {
   placeholder: '#5A6872',
   gray: ['#F5F7FA', '#EBF0F7', '#8C9BA5', '#5A6872'],
   blue: ['#5596E6', '#3D70B2', '#252D6B'],
+  greyBlue: ['#b5ddfc', '#416d95'],
   green: ['#00AA5E', '#0B6B40'],
   red: ['#e0182d'],
   inactive: '#8F9BA4',
@@ -140,9 +141,6 @@ const buttons = {
     '&:hover': {
       color: '#fff',
       backgroundColor: colors.secondary,
-    },
-    '&:disabled': {
-      opacity: 1,
     },
   },
   ghostSecondary: {

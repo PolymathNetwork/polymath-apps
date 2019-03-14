@@ -1,7 +1,13 @@
 import { RootState } from '~/state/store';
 import { createSelector } from 'reselect';
 import { filter, zipWith, forEach, includes, compact } from 'lodash';
-import { Fetcher, RequestKeys, FetchedData, CacheStatus } from '~/types';
+import {
+  Fetcher,
+  RequestKeys,
+  FetchedData,
+  CacheStatus,
+  RequestArgs,
+} from '~/types';
 import { types, utils } from '@polymathnetwork/new-shared';
 import { DataRequestResults } from '~/state/reducers/dataRequests';
 
@@ -26,14 +32,14 @@ const getTransactions = createSelector(
 );
 
 interface FetcherProps {
-  fetchers: Fetcher[];
+  fetchers: Fetcher<RequestArgs>[];
 }
 
 interface CachedResults {
   cachedData: DataRequestResults[''];
   key: string;
   requestKey: RequestKeys;
-  args: types.Pojo;
+  args: RequestArgs;
 }
 
 const getEntityStoresPerFetcher = (

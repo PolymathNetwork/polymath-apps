@@ -32,7 +32,7 @@ const createErc20DividendDistributionStart = createStandardAction(
   expiryDate: Date;
   erc20Address: string;
   amount: BigNumber;
-  checkpointId: number;
+  checkpointIndex: number;
   name: string;
   excludedAddresses: string[];
   pushPaymentsWhenComplete: boolean;

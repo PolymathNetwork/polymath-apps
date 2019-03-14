@@ -15,7 +15,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       expiryDate,
       erc20Address,
       amount,
-      checkpointId,
+      checkpointIndex,
       name,
       excludedAddresses,
       taxWithholdings = [],
@@ -66,7 +66,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       expiryDate,
       tokenAddress: erc20Address,
       amount,
-      checkpointId,
+      checkpointId: checkpointIndex,
       name,
       excludedAddresses,
     });

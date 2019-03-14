@@ -17,21 +17,23 @@ import { iconSize } from './styles';
 export interface Props {
   checkpoints: types.CheckpointEntity[];
   securityTokenSymbol: string;
-  downloadOwnershipList: (checkpoint: types.CheckpointEntity) => void;
   filterDividends: string;
+  downloadOwnershipList: (checkpoint: types.CheckpointEntity) => void;
+  allDividendsCompleted: boolean;
 }
 
 export const CheckpointListPresenter = ({
   checkpoints,
   securityTokenSymbol,
-  downloadOwnershipList,
   filterDividends,
+  downloadOwnershipList,
+  allDividendsCompleted,
 }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
     checkpoint.createdAt.getFullYear()
   );
 
-  console.log(filterDividends);
+  console.log(filterDividends, checkpoints);
 
   return (
     <sc.Container alignItems="flex-start" vertical gridGap={7}>
@@ -89,9 +91,10 @@ export const CheckpointListPresenter = ({
                             />
                           </sc.ProgressIndicator>
                           <DividendList
+                            allDividendsCompleted={allDividendsCompleted}
                             checkpointIndex={checkpoint.index}
                             securityTokenSymbol={securityTokenSymbol}
-                            filterNameBy={filterDividends}
+                            filterDividends={filterDividends}
                           />
                         </sc.Dividends>
                       </Grid.Item>

@@ -18,6 +18,8 @@ import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
 import { range, padStart } from 'lodash';
+import { polyClient } from '~/lib/polyClient';
+import { GetErc20BalanceByAddressAndWalletArgs } from '~/types';
 
 const actions = {
   updateTaxWithholdingListStart,
@@ -70,6 +72,28 @@ export class ContainerBase extends Component<Props, State> {
     });
   };
 
+  public fetchBalance = async ({
+    tokenAddress,
+    walletAddress,
+  }: GetErc20BalanceByAddressAndWalletArgs): Promise<
+    types.Erc20TokenBalancePojo
+  > => {
+    const tokenBalance = await polyClient.getErc20TokenBalance({
+      tokenAddress,
+      walletAddress,
+    });
+
+    return tokenBalance.toPojo();
+  };
+
+  public fetchIsValidToken = async ({
+    tokenAddress,
+  }: {
+    tokenAddress: string;
+  }) => {
+    return polyClient.isValidErc20({ address: tokenAddress });
+  };
+
   public createDividendDistribution = ({
     erc20Address,
     amount,
@@ -78,7 +102,7 @@ export class ContainerBase extends Component<Props, State> {
   }: CreateDividendDistributionParams) => {
     const { dispatch, securityTokenSymbol, checkpointIndex } = this.props;
 
-    const checkpointId = parseInt(checkpointIndex, 10);
+    const parsedCheckpointIndex = parseInt(checkpointIndex, 10);
 
     const maturityDate = new Date();
     const expiryDate = new Date(
@@ -94,7 +118,7 @@ export class ContainerBase extends Component<Props, State> {
         expiryDate,
         erc20Address,
         amount,
-        checkpointId,
+        checkpointIndex: parsedCheckpointIndex,
         name,
         excludedAddresses,
         pushPaymentsWhenComplete: true,
@@ -213,6 +237,8 @@ export class ContainerBase extends Component<Props, State> {
                 taxWithholdings={taxWithholdings}
                 downloadTaxWithholdingList={this.downloadTaxWithholdingList}
                 downloadSampleExclusionList={this.downloadSampleExclusionList}
+                fetchBalance={this.fetchBalance}
+                fetchIsValidToken={this.fetchIsValidToken}
               />
             );
           }}

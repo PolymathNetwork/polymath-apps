@@ -10,9 +10,16 @@ type ValidatorFn<T> = (
     | undefined
 ) => T;
 
-interface CustomStringSchema extends Yup.StringSchema {
+interface CustomSchema {
+  isRequired: ValidatorFn<this>;
+}
+
+interface CustomStringSchema extends Yup.StringSchema, CustomSchema {
   isEthereumAddress: ValidatorFn<this>;
+  isRequired: ValidatorFn<this>;
   required: ValidatorFn<this>;
+  isEmail: ValidatorFn<this>;
+  isUrl: ValidatorFn<this>;
 }
 
 interface CustomStringSchemaConstructor extends Yup.StringSchemaConstructor {
@@ -20,13 +27,24 @@ interface CustomStringSchemaConstructor extends Yup.StringSchemaConstructor {
   new (): CustomStringSchema;
 }
 
-type ExtendedYupType = typeHelpers.Omit<typeof Yup, 'string'> & {
+interface CustomMixedSchema extends Yup.MixedSchema, CustomSchema {}
+
+interface CustomMixedSchemaConstructor extends Yup.MixedSchemaConstructor {
+  (): CustomMixedSchema;
+  new (): CustomMixedSchema;
+}
+
+interface CustomBigNumberSchema extends BigNumberSchema, CustomSchema {}
+
+type ExtendedYupType = typeHelpers.Omit<typeof Yup, 'string' | 'mixed'> & {
   string: CustomStringSchemaConstructor;
-  bigNumber: () => BigNumberSchema;
+  mixed: CustomMixedSchemaConstructor;
+  bigNumber: () => CustomBigNumberSchema;
 };
 
 const yupValidator: (typeof Yup) & {
   string: Yup.StringSchemaConstructor;
+  mixed: Yup.MixedSchemaConstructor;
   bigNumber(): BigNumberSchema;
 } = {
   ...Yup,

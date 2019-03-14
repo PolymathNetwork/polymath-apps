@@ -2,7 +2,7 @@ import React, { Component, FC } from 'react';
 import { isNumber } from 'lodash';
 import numeral from 'numeral';
 
-import { FormikProxy, FormikExternalProps } from '../FormikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 import { BaseInput } from '../BaseInput';
 
 interface Props {
@@ -28,12 +28,30 @@ export class PercentageInputPrimitive extends Component<Props> {
     );
   };
 
+  public handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'e' || event.key === '-') {
+      event.preventDefault();
+    }
+  };
+
+  public handlePaste = (event: React.ClipboardEvent) => {
+    const str = event.clipboardData.getData('Text');
+    const newStr = str.replace(/[^0-9+.]/g, '');
+    if (str !== newStr || !isNumber(str)) {
+      event.preventDefault();
+    }
+  };
+
   public handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { onChange } = this.props;
     const { target } = event;
     if (!(target instanceof HTMLInputElement)) {
       return;
     }
+    if (parseFloat(target.value) > 100) {
+      return;
+    }
+
     const normalizedValue = parseFloat(target.value) / 100;
     onChange(normalizedValue);
   };
@@ -50,6 +68,8 @@ export class PercentageInputPrimitive extends Component<Props> {
         max={100}
         id={name}
         name={name}
+        onKeyPress={this.handleKeyPress}
+        onPaste={this.handlePaste}
         value={formattedValue}
         {...otherProps}
         onChange={this.handleChange}
@@ -58,7 +78,7 @@ export class PercentageInputPrimitive extends Component<Props> {
   }
 }
 
-const EnhancedPercentageInput: FC<FormikExternalProps> = ({
+const EnhancedPercentageInput: FC<EnhancedComponentProps<number>> = ({
   field,
   form,
   ...rest

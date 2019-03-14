@@ -160,17 +160,21 @@ export const Presenter = ({
 
     return {
       investorWalletAddress: formatters.toShortAddress(address),
-      dividendsPreTax: `${formatters.toTokens(preTaxPayment)} ${currency}`,
+      dividendsPreTax: `${formatters.toTokens(preTaxPayment, {
+        decimals: 6,
+      })} ${currency}`,
       taxesWithheldPercent: formatters.toPercent(
         paymentReceived
           ? withheldTax.dividedBy(preTaxPayment)
           : new BigNumber(0)
       ),
       taxesWithheldTokens: `${formatters.toTokens(
-        paymentReceived ? withheldTax : new BigNumber(0)
+        paymentReceived ? withheldTax : new BigNumber(0),
+        { decimals: 6 }
       )} ${currency}`,
       dividendsPaid: `${formatters.toTokens(
-        paymentReceived ? amountReceived : new BigNumber(0)
+        paymentReceived ? amountReceived : new BigNumber(0),
+        { decimals: 6 }
       )} ${currency}`,
       statusOfPayment: paymentReceived
         ? PaymentStatus.Completed
@@ -193,7 +197,7 @@ export const Presenter = ({
       </Heading>
       <GridRow>
         <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
-          <Card p="gridGap" height={425}>
+          <Card p="gridGap" height="100%">
             <Grid height="100%" gridAutoRows="1fr auto">
               <Box>
                 <Grid
@@ -262,8 +266,8 @@ export const Presenter = ({
           </Card>
         </GridRow.Col>
         <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
-          <Card p="gridGap" height={425}>
-            <Grid height="100%" gridAutoRows="1fr auto" gridGap="s">
+          <Card p="gridGap" height="100%">
+            <Grid height="100%" gridAutoRows="1fr auto auto" gridGap="s">
               <Box>
                 <Grid
                   mb={4}
@@ -353,7 +357,7 @@ export const Presenter = ({
           </Card>
         </GridRow.Col>
         <GridRow.Col gridSpan={{ sm: 12, lg: 4 }}>
-          <CardPrimary as="section" p="m" height={425}>
+          <CardPrimary as="section" p="m" height="100%">
             <Grid height="100%" gridAutoRows="1fr auto" gridGap="s">
               <Box>
                 <Heading variant="h3" mb="s">
@@ -439,7 +443,8 @@ export const Presenter = ({
                 </Text>
                 <br />
                 <Text fontSize={6}>
-                  {formatters.toTokens(claimedAmount)} {currency}
+                  {formatters.toTokens(claimedAmount, { decimals: 6 })}{' '}
+                  {currency}
                 </Text>
               </Box>
             </Grid>

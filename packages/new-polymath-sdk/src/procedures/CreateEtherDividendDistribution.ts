@@ -12,7 +12,7 @@ export class CreateEtherDividendDistribution extends Procedure<
       maturityDate,
       expiryDate,
       amount,
-      checkpointId,
+      checkpointIndex,
       name,
       excludedAddresses,
       taxWithholdings = [],
@@ -36,7 +36,7 @@ export class CreateEtherDividendDistribution extends Procedure<
       maturityDate,
       expiryDate,
       amount,
-      checkpointId,
+      checkpointId: checkpointIndex,
       name,
       excludedAddresses,
     });

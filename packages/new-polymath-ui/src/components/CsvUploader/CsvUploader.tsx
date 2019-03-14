@@ -4,7 +4,7 @@ import { typeHelpers, csvParser } from '@polymathnetwork/new-shared';
 import { FileUploaderPrimitive } from '~/components/FileUploader';
 import {
   FormikProxy,
-  FormikExternalProps,
+  EnhancedComponentProps,
 } from '~/components/inputs/FormikProxy';
 import { getContext } from '~/components/CsvUploader/Context';
 import { ParseCsv, RenderProps as ParseCsvRenderProps } from './ParseCsv';
@@ -34,15 +34,14 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
 
   public componentDidUpdate(prevProps: ComponentProps<Output>) {
     const {
-      data: { isFileValid, result },
+      data: { isFileValid, result, isCustomValidationFailed },
       onChange,
     } = this.props;
 
     if (isFileValid === prevProps.data.isFileValid) {
       return;
     }
-
-    if (isFileValid) {
+    if (isFileValid && !isCustomValidationFailed) {
       const formattedResult = map(result, ({ data }) => {
         const res = {} as Output;
 
@@ -74,6 +73,8 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
       return acc;
     }, 0);
 
+    const { isCustomValidationFailed } = data;
+
     return (
       <sc.Wrapper>
         <FileUploaderPrimitive
@@ -82,7 +83,13 @@ class CsvUploaderComponent<Output extends csvParser.Output> extends Component<
         />
         {!!data.result.length ? (
           <Context.Provider
-            value={{ isFullyInvalid, errorCount, data, csvConfig }}
+            value={{
+              isFullyInvalid,
+              errorCount,
+              data,
+              csvConfig,
+              isCustomValidationFailed,
+            }}
           >
             {children}
           </Context.Provider>
@@ -129,20 +136,22 @@ export const CsvUploaderPrimitive = Object.assign(
   }
 );
 
-interface Props extends FormikExternalProps {
+interface Props<Output extends csvParser.Output>
+  extends EnhancedComponentProps<Value<Output>> {
   csvConfig: ParseCsvProps['config'];
 }
 
 class CsvUploaderWithFormik<Output extends csvParser.Output> extends Component<
-  Props
+  Props<Output>
 > {
   public render() {
-    const { field, form, ...rest } = this.props;
+    const { field, form, onChange, ...rest } = this.props;
 
     return (
       <FormikProxy<Value<Output>>
         field={field}
         form={form}
+        onChange={onChange}
         render={formikProps => (
           <CsvUploaderPrimitive<Output> {...rest} {...formikProps} />
         )}

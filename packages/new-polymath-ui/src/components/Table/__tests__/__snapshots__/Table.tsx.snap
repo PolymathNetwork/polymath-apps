@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Table renders without crashing 1`] = `
-.c9 {
+.c8 {
   display: inline-block;
   vertical-align: middle;
   width: 0.7em;
   height: 0.7em;
 }
 
-.c9 svg {
+.c8 svg {
   display: block;
   width: 100%;
   height: 100%;
@@ -40,8 +40,10 @@ exports[`Table renders without crashing 1`] = `
   height: 100%;
 }
 
-.c18 {
+.c17 {
   box-sizing: border-box;
+  height: 100%;
+  text-align: right;
   margin-left: auto;
 }
 
@@ -114,10 +116,6 @@ exports[`Table renders without crashing 1`] = `
   background-color: #5596E6;
 }
 
-.c19:disabled {
-  opacity: 1;
-}
-
 .c19button,
 .c19input[type='button'],
 .c19input[type='submit'],
@@ -142,9 +140,10 @@ exports[`Table renders without crashing 1`] = `
   -ms-flex-direction: column;
   flex-direction: column;
   font-size: 0.875rem;
+  height: 100%;
 }
 
-.c2 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -153,7 +152,7 @@ exports[`Table renders without crashing 1`] = `
   height: 100%;
 }
 
-.c5 {
+.c3 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -174,11 +173,11 @@ exports[`Table renders without crashing 1`] = `
   border-bottom: none;
 }
 
-.c5 + .c4 {
+.c3 + .c2 {
   margin-top: -1px;
 }
 
-.c12 {
+.c11 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -192,15 +191,15 @@ exports[`Table renders without crashing 1`] = `
   height: 30px;
 }
 
-.c12:first-child {
+.c11:first-child {
   padding-left: 23px;
 }
 
-.c12:last-child {
+.c11:last-child {
   padding-right: 23px;
 }
 
-.c6 {
+.c4 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -215,15 +214,15 @@ exports[`Table renders without crashing 1`] = `
   font-weight: 500;
 }
 
-.c6:first-child {
+.c4:first-child {
   padding-left: 23px;
 }
 
-.c6:last-child {
+.c4:last-child {
   padding-right: 23px;
 }
 
-.c7 {
+.c6 {
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -267,31 +266,28 @@ exports[`Table renders without crashing 1`] = `
   -ms-letter-spacing: normal;
   letter-spacing: normal;
   border: none;
+  white-space: normal;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  text-align: left;
 }
 
-.c7button,
-.c7input[type='button'],
-.c7input[type='submit'],
-.c7input[type='reset'],
-.c7input[type='file'] {
+.c6button,
+.c6input[type='button'],
+.c6input[type='submit'],
+.c6input[type='reset'],
+.c6input[type='file'] {
   border-radius: 0;
 }
 
-.c7 .c8 {
+.c6 .c7 {
   margin-left: 10px;
 }
 
-.c7 .c8 {
+.c6 .c7 {
   color: #5A6872;
   visibility: hidden;
-}
-
-.c1 {
-  height: 48px;
-}
-
-.c3 {
-  min-height: 200px;
 }
 
 .c21 {
@@ -368,10 +364,6 @@ exports[`Table renders without crashing 1`] = `
   background-color: #5596E6;
 }
 
-.c26:disabled {
-  opacity: 1;
-}
-
 .c26button,
 .c26input[type='button'],
 .c26input[type='submit'],
@@ -389,7 +381,7 @@ exports[`Table renders without crashing 1`] = `
   border-right: none;
 }
 
-.c26 .c8 {
+.c26 .c7 {
   -webkit-transform: rotateZ(0.25turn);
   -ms-transform: rotateZ(0.25turn);
   transform: rotateZ(0.25turn);
@@ -448,10 +440,6 @@ exports[`Table renders without crashing 1`] = `
   background-color: #5596E6;
 }
 
-.c28:disabled {
-  opacity: 1;
-}
-
 .c28button,
 .c28input[type='button'],
 .c28input[type='submit'],
@@ -469,13 +457,21 @@ exports[`Table renders without crashing 1`] = `
   border-right: none;
 }
 
-.c28 .c8 {
+.c28 .c7 {
   -webkit-transform: rotateZ(-0.25turn);
   -ms-transform: rotateZ(-0.25turn);
   transform: rotateZ(-0.25turn);
 }
 
-.c17 {
+.c18 {
+  box-sizing: border-box;
+  margin-right: 16px;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  overflow-wrap: break-word;
+}
+
+.c16 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -495,16 +491,20 @@ exports[`Table renders without crashing 1`] = `
   border: none;
 }
 
-.c17 + .c16 {
+.c16 + .c15 {
   margin-top: -1px;
 }
 
-.c17[hidden] {
+.c16[hidden] {
   visibility: hidden;
   opacity: 0;
 }
 
-.c11 {
+.c16 .c5 {
+  height: 100%;
+}
+
+.c10 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -517,17 +517,17 @@ exports[`Table renders without crashing 1`] = `
   border: solid 1px #ddd;
 }
 
-.c11 + .c10 {
+.c10 + .c9 {
   margin-top: -1px;
 }
 
-.c11:hover {
+.c10:hover {
   position: relative;
   background: #e0e8f3;
   border-color: #3D70B2;
 }
 
-.c13 {
+.c12 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -541,12 +541,12 @@ exports[`Table renders without crashing 1`] = `
   opacity: 0;
 }
 
-.c10:hover .c13 {
+.c9:hover .c12 {
   visibility: visible;
   opacity: 1;
 }
 
-.c14 {
+.c13 {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -555,7 +555,7 @@ exports[`Table renders without crashing 1`] = `
   background-color: transparent;
 }
 
-.c15 {
+.c14 {
   display: inline-block;
   vertical-align: middle;
   color: #8C9BA5;
@@ -564,13 +564,13 @@ exports[`Table renders without crashing 1`] = `
   display: block;
 }
 
-.c15 svg {
+.c14 svg {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.c15:hover {
+.c14:hover {
   color: #c5cdd2;
 }
 
@@ -578,10 +578,10 @@ exports[`Table renders without crashing 1`] = `
   class="c0"
 >
   <div
-    class="c1"
+    class=""
   />
   <div
-    class="c2"
+    class="c1"
   >
     <div
       data-simplebar="true"
@@ -606,18 +606,18 @@ exports[`Table renders without crashing 1`] = `
               class="simplebar-content"
             >
               <div
-                class="c3"
+                class=""
               >
                 <div
-                  class="c4 c5"
+                  class="c2 c3"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c6"
+                    class="c4"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="c7"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -627,7 +627,7 @@ exports[`Table renders without crashing 1`] = `
                         First Name
                       </span>
                       <span
-                        class="c8 c9"
+                        class="c7 c8"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -645,11 +645,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c6"
+                    class="c4"
                     style="box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     <button
-                      class="c7"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -659,7 +659,7 @@ exports[`Table renders without crashing 1`] = `
                         Last Name
                       </span>
                       <span
-                        class="c8 c9"
+                        class="c7 c8"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -677,11 +677,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c6"
+                    class="c4"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c7"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -691,7 +691,7 @@ exports[`Table renders without crashing 1`] = `
                         Age
                       </span>
                       <span
-                        class="c8 c9"
+                        class="c7 c8"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -709,11 +709,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c6"
+                    class="c4"
                     style="box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c7"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -723,7 +723,7 @@ exports[`Table renders without crashing 1`] = `
                         Visits
                       </span>
                       <span
-                        class="c8 c9"
+                        class="c7 c8"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -741,11 +741,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c6"
+                    class="c4"
                     style="box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c7"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -755,7 +755,7 @@ exports[`Table renders without crashing 1`] = `
                         Status
                       </span>
                       <span
-                        class="c8 c9"
+                        class="c7 c8"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -773,11 +773,11 @@ exports[`Table renders without crashing 1`] = `
                     </button>
                   </div>
                   <div
-                    class="c6"
+                    class="c4"
                     style="box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <button
-                      class="c7"
+                      class="c5 c6"
                       style="cursor: pointer;"
                       tabindex="0"
                       title="Toggle SortBy"
@@ -785,7 +785,7 @@ exports[`Table renders without crashing 1`] = `
                     >
                       <span />
                       <span
-                        class="c8 c9"
+                        class="c7 c8"
                       >
                         <svg
                           fill-rule="evenodd"
@@ -804,35 +804,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     fishing
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     historian
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     20
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     60
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -846,18 +846,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -874,11 +874,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -904,35 +904,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     physics
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     quality
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     11
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     90
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -946,18 +946,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -974,11 +974,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1004,35 +1004,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     burn
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     ship
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     10
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     52
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1046,18 +1046,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1074,11 +1074,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1104,35 +1104,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     wine
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     reading
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     18
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     34
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1146,18 +1146,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1174,11 +1174,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1204,35 +1204,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     hospital
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     low
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     23
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     93
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1246,18 +1246,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1274,11 +1274,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1304,35 +1304,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     reaction
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     category
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     17
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     56
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1346,18 +1346,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1374,11 +1374,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1404,35 +1404,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     letter
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     produce
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     6
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     12
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1446,18 +1446,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1474,11 +1474,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1504,35 +1504,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     skirt
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     impulse
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     16
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     52
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1546,18 +1546,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1574,11 +1574,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1604,35 +1604,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     police
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     desire
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     5
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     13
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1646,18 +1646,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1674,11 +1674,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1704,35 +1704,35 @@ exports[`Table renders without crashing 1`] = `
                   </div>
                 </div>
                 <div
-                  class="c10 c11"
+                  class="c9 c10"
                   style="display: flex; min-width: 680px;"
                 >
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     delivery
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 140px; max-width: 200px;"
                   >
                     art
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     21
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 100px; max-width: undefinedpx;"
                   >
                     63
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 120px; max-width: undefinedpx;"
                   >
                     <span>
@@ -1746,18 +1746,18 @@ exports[`Table renders without crashing 1`] = `
                     </span>
                   </div>
                   <div
-                    class="c12"
+                    class="c11"
                     style="display: flex; box-sizing: border-box; width: 80px; max-width: undefinedpx;"
                   >
                     <div
-                      class="c13"
+                      class="c12"
                     >
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1774,11 +1774,11 @@ exports[`Table renders without crashing 1`] = `
                         </span>
                       </button>
                       <button
-                        class="c14"
+                        class="c13"
                         type="button"
                       >
                         <span
-                          class="c8 c15"
+                          class="c7 c14"
                         >
                           <svg
                             height="1em"
@@ -1828,16 +1828,22 @@ exports[`Table renders without crashing 1`] = `
     </div>
   </div>
   <div
-    class="c16 c17"
+    class="c15 c16"
     hidden=""
   >
     <div
-      class="c18"
+      class="c17"
+      height="100%"
     >
-      0
-       items selected
+      <span
+        class="c18"
+        font-size="baseText"
+      >
+        0
+         items selected
+      </span>
       <button
-        class="c19"
+        class="c5 c19"
         tabindex="0"
         type="button"
       >
@@ -1885,7 +1891,7 @@ exports[`Table renders without crashing 1`] = `
             class="css-767nh9"
           >
             <span
-              class="c8 c23"
+              class="c7 c23"
             >
               <svg
                 fill-rule="evenodd"
@@ -1918,13 +1924,13 @@ exports[`Table renders without crashing 1`] = `
       </label>
       <button
         aria-label="Previous page"
-        class="c26"
+        class="c5 c26"
         disabled=""
         tabindex="0"
         type="button"
       >
         <span
-          class="c8 c27"
+          class="c7 c27"
         >
           <svg
             height="1em"
@@ -1970,7 +1976,7 @@ exports[`Table renders without crashing 1`] = `
               class="css-767nh9"
             >
               <span
-                class="c8 c23"
+                class="c7 c23"
               >
                 <svg
                   fill-rule="evenodd"
@@ -1991,12 +1997,12 @@ exports[`Table renders without crashing 1`] = `
       </div>
       <button
         aria-label="Next page"
-        class="c28"
+        class="c5 c28"
         tabindex="0"
         type="button"
       >
         <span
-          class="c8 c27"
+          class="c7 c27"
         >
           <svg
             height="1em"

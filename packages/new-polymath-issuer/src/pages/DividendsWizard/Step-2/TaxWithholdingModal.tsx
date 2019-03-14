@@ -8,6 +8,7 @@ import {
   TaxWithholdingStatuses,
 } from '~/pages/DividendsWizard/Step-2/shared';
 import {
+  Box,
   ModalConfirm,
   Paragraph,
   FormItem,
@@ -29,28 +30,37 @@ interface Props {
 export const TaxWithholdingModal: FC<Props> = ({
   isOpen,
   onClose,
-  // taxWithholdingData,
   existingTaxWithholdings,
   isEditing,
   fieldProps,
 }) => {
   const { field, form } = fieldProps;
+  const isValid = !get(form.errors, field.name);
 
   const onSubmit = () => {
-    const isValid = !get(form.errors, field.name);
-    if (!isValid) {
+    for (const key of Object.keys(
+      fieldProps.form.errors[`${field.name}`] || {}
+    )) {
+      fieldProps.form.setFieldTouched(`${field.name}.${key}`, true, true);
+    }
+    const fieldIsValid = !get(form.errors, field.name);
+    if (!fieldIsValid) {
       return;
     }
 
-    const value = field.value as TaxWithholdingsItem;
     const formTaxWithholdings = [
       ...form.values.taxWithholdings,
     ] as TaxWithholdingsItem[];
 
+    const value = field.value as TaxWithholdingsItem;
+
+    const valueAddress = value[csvEthAddressKey].toUpperCase();
+    const valuePercentage = value[csvTaxWithholdingKey];
+
     const matchingIndex = findIndex(
       formTaxWithholdings,
       taxWithholding =>
-        taxWithholding[csvEthAddressKey] === value[csvEthAddressKey]
+        taxWithholding[csvEthAddressKey].toUpperCase() === valueAddress
     );
 
     const alreadyExists = matchingIndex !== -1;
@@ -60,10 +70,10 @@ export const TaxWithholdingModal: FC<Props> = ({
       const isUpdated = some(
         existingTaxWithholdings,
         existingTaxWithholding => {
+          const { investorAddress, percentage } = existingTaxWithholding;
           return (
-            existingTaxWithholding.investorAddress ===
-              value[csvEthAddressKey] &&
-            value[csvTaxWithholdingKey] !== existingTaxWithholding.percentage
+            investorAddress.toUpperCase() === valueAddress &&
+            valuePercentage !== percentage
           );
         }
       );
@@ -120,6 +130,8 @@ export const TaxWithholdingModal: FC<Props> = ({
       onSubmit={onSubmit}
       onClose={onClose}
       actionButtonText="Confirm"
+      isActionDisabled={!isValid}
+      maxWidth={500}
     >
       <ModalConfirm.Header>
         {isEditing ? 'Edit' : 'Add'} Tax Withholding for Specific Investor
@@ -140,7 +152,9 @@ export const TaxWithholdingModal: FC<Props> = ({
             <FormItem.Label>
               % Tax Witholding for Associated ETH Address
             </FormItem.Label>
-            <FormItem.Input component={PercentageInput} />
+            <Box maxWidth={100}>
+              <FormItem.Input component={PercentageInput} />
+            </Box>
             <FormItem.Error />
           </FormItem>
         </Fragment>

@@ -23,9 +23,6 @@ export const ValueRemoveButton = styled(IconButton)`
   background-color: ${({ theme }) => theme.colors.gray[2]};
   color: ${({ theme }) => theme.inputs.backgroundColor};
   box-sizing: border-box;
-  padding: 4px;
-  height: 15px;
-  width: 15px;
   border-radius: 10px;
 
   :hover {

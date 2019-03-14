@@ -1,4 +1,10 @@
-import React, { FC, Fragment, useState, useCallback, useEffect } from 'react';
+import React, {
+  FC,
+  Fragment,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import { validator } from '@polymathnetwork/new-ui';
 import { validateYupSchema, yupToFormErrors } from 'formik';
@@ -16,13 +22,14 @@ import {
   Icon,
   IconCircled,
   icons,
-  Form,
+  FormWrapper,
   FormItem,
   TextInput,
   ModalConfirm,
 } from '@polymathnetwork/new-ui';
 import { CheckpointList } from '~/components';
 import { WalletAddress } from './WalletAddress';
+import * as sc from './styles';
 
 export interface Props {
   onEnableDividends: (walletAddress: string) => void;
@@ -31,6 +38,10 @@ export interface Props {
   dividendsModule?: types.Erc20DividendsModulePojo;
   userWalletAddress: string;
   subdomain?: string;
+}
+
+interface Values {
+  walletAddress: string;
 }
 
 // TODO @grsmto: move this to external form utils
@@ -56,13 +67,10 @@ export const Presenter: FC<Props> = ({
   );
   const [isEditingAddress, setEditAddressState] = useState(false);
 
-  const [searchName, setSearchName] = useState('First');
-  let filterString = '';
+  const [searchName, setSearchName] = useState('Rand');
 
-  useEffect(() => {
-    console.log(searchName);
-    // Update the document title using the browser API
-    filterString = searchName;
+  useLayoutEffect(() => {
+    console.log('field updated', searchName);
   });
 
   const handleAddressModalOpen = useCallback(() => {
@@ -81,7 +89,6 @@ export const Presenter: FC<Props> = ({
   );
 
   const handleSearchChange = useCallback(values => {
-    console.log(values);
     setSearchName(values.searchName);
   }, []);
 
@@ -144,7 +151,11 @@ export const Presenter: FC<Props> = ({
             {dividendsModule ? (
               <Fragment>
                 <Paragraph color="inactive">
-                  <ButtonLarge variant="ghost" iconPosition="left" disabled>
+                  <sc.DisabledModuleButton
+                    variant="ghost"
+                    iconPosition="left"
+                    disabled
+                  >
                     <IconCircled
                       Asset={icons.SvgCheckmark}
                       width={16}
@@ -154,7 +165,7 @@ export const Presenter: FC<Props> = ({
                       scale={0.8}
                     />
                     Enabled
-                  </ButtonLarge>
+                  </sc.DisabledModuleButton>
                 </Paragraph>
                 <WalletAddress
                   walletAddress={
@@ -203,16 +214,28 @@ export const Presenter: FC<Props> = ({
           </CardFeatureState>
         </GridRow.Col>
         <GridRow.Col gridSpan={4}>
-          <input
-            type="text"
-            onChange={e => {
-              console.log(e.target.value);
-              setSearchName(e.target.value);
+          <FormWrapper<Values>
+            // enableReinitialize
+            initialValues={{
+              searchName,
             }}
-            placeholder="Search by Name"
+            // onChange={handleSearchChange}
+            render={({ values }) => (
+              <FormItem name="searchName">
+                <FormItem.Label>Search Text</FormItem.Label>
+                <FormItem.Input
+                  component={TextInput}
+                  onChange={() => {
+                    handleSearchChange(values);
+                  }}
+                  placeholder="Search Text"
+                />
+                <FormItem.Error />
+              </FormItem>
+            )}
           />
         </GridRow.Col>
-        <GridRow.Col gridSpan={4}>{searchName}</GridRow.Col>
+        {/* <GridRow.Col gridSpan={4}>{searchName}</GridRow.Col> */}
         <GridRow.Col gridSpan={12}>
           {dividendsModule ? (
             <CheckpointList
@@ -222,7 +245,7 @@ export const Presenter: FC<Props> = ({
           ) : null}
         </GridRow.Col>
       </GridRow>
-      <Form
+      <FormWrapper<Values>
         enableReinitialize
         initialValues={{
           walletAddress,

@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 import ReactModal from 'react-modal';
-
 import { withTheme, ThemeInterface, styled } from '~/styles';
-
 import { Header } from './Header';
 import { Body } from './Body';
 import { Footer } from './Footer';
@@ -21,82 +19,75 @@ interface Props {
   theme: ThemeInterface;
 }
 
-interface State {
-  forceClose: boolean;
-  isOpen: boolean;
-}
-
-class ModalBase extends Component<Props, State> {
-  public static Header = Header;
-  public static Body = Body;
-  public static Footer = Footer;
-  public static defaultProps = {
-    isOpen: false,
-    isCloseable: true,
-    isCentered: true,
-  };
-
-  public static getDerivedStateFromProps(nextProps: any, prevState: State) {
-    return {
-      isOpen: !prevState.forceClose && nextProps.isOpen,
-    };
-  }
-
-  public state = {
-    forceClose: false,
-    isOpen: false,
-  };
-
-  public handleCloseRequest = () => {
-    if (!this.props.isCloseable) {
+export const ModalBase: FC<Props> = ({
+  children,
+  className,
+  isOpen,
+  isCloseable,
+  isCentered,
+  onClose,
+  theme,
+  status,
+}) => {
+  let overlayRef: HTMLDivElement | null = null;
+  const handleCloseRequest = () => {
+    if (!isCloseable) {
       return;
     }
 
-    if (this.props.onClose) {
-      this.props.onClose();
-    } else {
-      this.setState({ forceClose: true });
+    if (onClose) {
+      onClose();
     }
   };
 
-  public render() {
-    const { children, className, isCloseable, theme, status } = this.props;
-    const { isOpen } = this.state;
+  // As modal is focused on open, we scroll it up to make sure we're at the top
+  const handleAfterOpen = () => {
+    if (overlayRef) {
+      overlayRef.scroll(0, 0);
+    }
+  };
 
-    return (
-      <ReactModal
-        isOpen={isOpen}
-        contentLabel="Modal"
-        closeTimeoutMS={theme.transitions.modal.ms}
-        ariaHideApp={false}
-        className={{
-          base: 'pui-modal',
-          afterOpen: 'pui-modal--after-open',
-          beforeClose: 'pui-modal--before-close',
-        }}
-        overlayClassName={{
-          base: `pui-modal__overlay ${className}`,
-          afterOpen: 'pui-modal__overlay--after-open',
-          beforeClose: 'pui-modal__overlay--before-close',
-        }}
-        onRequestClose={this.handleCloseRequest}
-      >
-        {!!status && <sc.StatusBar status={status} />}
-        {isCloseable && (
-          <sc.CloseButton
-            Asset={SvgClose}
-            onClick={this.handleCloseRequest}
-            height={44}
-            width={44}
-            color="gray.2"
-            scale={0.62}
-          />
-        )}
-        <sc.Inner>{children}</sc.Inner>
-      </ReactModal>
-    );
-  }
-}
+  return (
+    <ReactModal
+      isOpen={isOpen}
+      appElement={document.getElementById('root') || undefined}
+      contentLabel="Modal"
+      closeTimeoutMS={theme.transitions.modal.ms}
+      className={{
+        base: 'pui-modal',
+        afterOpen: 'pui-modal--after-open',
+        beforeClose: 'pui-modal--before-close',
+      }}
+      overlayClassName={{
+        base: `pui-modal__overlay ${className}`,
+        afterOpen: 'pui-modal__overlay--after-open',
+        beforeClose: 'pui-modal__overlay--before-close',
+      }}
+      onAfterOpen={handleAfterOpen}
+      onRequestClose={handleCloseRequest}
+      overlayRef={node => (overlayRef = node)}
+    >
+      {!!status && <sc.StatusBar status={status} />}
+      {isCloseable && (
+        <sc.CloseButton
+          Asset={SvgClose}
+          onClick={handleCloseRequest}
+          height={44}
+          width={44}
+          color="gray.2"
+          scale={0.62}
+        />
+      )}
+      <sc.Inner isCentered={isCentered}>{children}</sc.Inner>
+    </ReactModal>
+  );
+};
+
+ModalBase.defaultProps = {
+  isOpen: false,
+  isCloseable: true,
+  isCentered: true,
+};
 
 const EnhancedModal = styled(withTheme(ModalBase))`
   ${sc.modalStyle};

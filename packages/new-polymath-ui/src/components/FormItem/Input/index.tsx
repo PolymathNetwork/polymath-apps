@@ -8,9 +8,8 @@ export interface Props
   FormikComponent: React.ComponentType<FieldConfig>;
   placeholder?: string;
   component: React.ComponentType<any>;
-  inputProps?: {
-    [key: string]: any;
-  };
+  inputProps?: { [key: string]: any };
+  onChange?: (value: any) => void;
 }
 
 export const InputBase: FC<Props> = ({
@@ -18,8 +17,11 @@ export const InputBase: FC<Props> = ({
   component,
   inputProps,
   children,
+  onChange,
+  validate,
+  innerRef,
   ...props
-}) => {
+}: Props) => {
   const Component = component;
 
   return (
@@ -27,8 +29,15 @@ export const InputBase: FC<Props> = ({
       {({ name }) => (
         <FormikComponent
           name={name}
+          validate={validate}
+          innerRef={innerRef}
           render={formikProps => (
-            <Component {...formikProps} {...inputProps} {...props}>
+            <Component
+              {...formikProps}
+              {...inputProps}
+              {...props}
+              onChange={onChange}
+            >
               {children}
             </Component>
           )}

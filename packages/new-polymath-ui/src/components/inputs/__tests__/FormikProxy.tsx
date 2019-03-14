@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 import { fireEvent } from 'react-testing-library';
-import { FormikProxy, RenderProps, FormikExternalProps } from '../FormikProxy';
+import {
+  FormikProxy,
+  RenderProps,
+  EnhancedComponentProps,
+} from '../FormikProxy';
 import { render } from '~/testUtils/helpers';
 
 const MockInput: FC<RenderProps<string>> = ({
@@ -20,7 +24,7 @@ const MockInput: FC<RenderProps<string>> = ({
 );
 
 describe('FormikProxy Enhancer', () => {
-  let props: FormikExternalProps;
+  let props: EnhancedComponentProps<string>;
   let Input: FC;
 
   beforeEach(() => {
@@ -33,6 +37,7 @@ describe('FormikProxy Enhancer', () => {
         setFieldValue: jest.fn(),
         setFieldTouched: jest.fn(),
       },
+      onChange: jest.fn(),
     };
 
     Input = () => (
@@ -41,6 +46,15 @@ describe('FormikProxy Enhancer', () => {
         render={formikProps => <MockInput {...formikProps} />}
       />
     );
+  });
+
+  test('calls custom onChange function on change', () => {
+    const { getByTestId } = render(<Input />);
+    const input = getByTestId('mock-input');
+
+    fireEvent.change(input, { target: { value: 'newValue' } });
+
+    expect(props.onChange).toHaveBeenCalledWith('newValue');
   });
 
   test('sets field value on change', () => {

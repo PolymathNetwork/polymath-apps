@@ -6,7 +6,7 @@ import { withTheme, ThemeInterface } from '~/styles';
 import { Selects } from '~/styles/types';
 import { Icon } from '~/components/Icon';
 import { SvgCaretDown } from '~/images/icons/CaretDown';
-import { FormikProxy, FormikExternalProps } from '../FormikProxy';
+import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 
 interface Props<OptT extends any = any>
   extends typeHelpers.Omit<
@@ -149,10 +149,11 @@ export const SelectPrimitive = Object.assign(ThemedSelectPrimitive, {
   defaultProps: SelectPrimitiveBase.defaultProps,
 });
 
-const EnhancedSelect: FC<FormikExternalProps> = ({ field, form, ...rest }) => (
+const EnhancedSelect: FC<EnhancedComponentProps<any>> = ({ field, form, onChange, ...rest }) => (
   <FormikProxy<any>
     field={field}
     form={form}
+    onChange={onChange}
     render={formikProps => <SelectPrimitive {...rest} {...formikProps} />}
   />
 );

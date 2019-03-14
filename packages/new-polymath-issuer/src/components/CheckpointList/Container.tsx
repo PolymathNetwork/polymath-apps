@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import { flatten, map, every } from 'lodash';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { CheckpointListPresenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
-import { createCheckpointsBySymbolFetcher } from '~/state/fetchers';
+import {
+  createCheckpointsBySymbolFetcher,
+  createDividendsByCheckpointFetcher,
+} from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
 import { BigNumber } from 'bignumber.js';
 import { DateTime } from 'luxon';
+import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 
 export interface Props {
   dispatch: Dispatch<any>;
@@ -63,6 +68,7 @@ export class CheckpointListContainerBase extends Component<Props> {
 
   public render() {
     const { securityTokenSymbol, filterDividends } = this.props;
+    console.log(filterDividends);
     return (
       <DataFetcher
         fetchers={[
@@ -73,17 +79,71 @@ export class CheckpointListContainerBase extends Component<Props> {
         render={(data: { checkpoints: types.CheckpointEntity[] }) => {
           const { checkpoints } = data;
 
-          // this spread is necessary because sort mutates the original array and that causes a rerender of the DataFetcher
-          const sortedCheckpoints = [...checkpoints].sort(
-            (a, b) => b.index - a.index
+          const fetchers = checkpoints.map(({ index }) =>
+            createDividendsByCheckpointFetcher(
+              {
+                securityTokenSymbol,
+                checkpointIndex: index,
+              },
+              { propKey: `${index}` }
+            )
           );
 
           return (
-            <CheckpointListPresenter
-              checkpoints={sortedCheckpoints}
-              securityTokenSymbol={securityTokenSymbol}
-              filterDividends={filterDividends}
-              downloadOwnershipList={this.downloadOwnershipList}
+            <DataFetcher
+              fetchers={fetchers}
+              render={(dividendsData: {
+                [key: string]: types.DividendEntity[];
+              }) => {
+                const allDividendsCompleted = every(
+                  flatten(
+                    map(dividendsData, dividends =>
+                      map(dividends, dividend => {
+                        const {
+                          totalWithheldWithdrawn,
+                          totalWithheld,
+                          expiry,
+                          investors,
+                        } = dividend;
+                        const unwithdrawnTaxes = totalWithheld.minus(
+                          totalWithheldWithdrawn
+                        );
+                        const remainingPayments = investors.filter(
+                          investor =>
+                            !investor.paymentReceived && !investor.excluded
+                        ).length;
+
+                        const remainingTransactions = Math.ceil(
+                          remainingPayments /
+                            DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
+                        );
+
+                        return (
+                          expiry <= new Date() ||
+                          (remainingTransactions === 0 &&
+                            unwithdrawnTaxes.eq(0))
+                        );
+                      })
+                    )
+                  ),
+                  (complete: boolean) => complete
+                );
+
+                // this spread is necessary because sort mutates the original array and that causes a rerender of the DataFetcher
+                const sortedCheckpoints = [...checkpoints].sort(
+                  (a, b) => b.index - a.index
+                );
+
+                return (
+                  <CheckpointListPresenter
+                    allDividendsCompleted={allDividendsCompleted}
+                    checkpoints={sortedCheckpoints}
+                    securityTokenSymbol={securityTokenSymbol}
+                    filterDividends={filterDividends}
+                    downloadOwnershipList={this.downloadOwnershipList}
+                  />
+                );
+              }}
             />
           );
         }}

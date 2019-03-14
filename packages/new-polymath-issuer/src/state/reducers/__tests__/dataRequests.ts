@@ -9,8 +9,7 @@ describe('Reducer: dataRequests', () => {
   });
 
   const args = {
-    foo: 'Foo',
-    bar: 'Bar',
+    securityTokenSymbol: 'FOO',
   };
   const fetchedIds = ['0', '1', '2'];
   const argsHash = utils.hashObj(args);
@@ -25,6 +24,7 @@ describe('Reducer: dataRequests', () => {
     [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
     [RequestKeys.GetTaxWithholdingListBySymbol]: {},
     [RequestKeys.GetDividendBySymbolAndId]: {},
+    [RequestKeys.GetErc20BalanceByAddressAndWallet]: {},
   };
 
   test('invalidateRequest invalidates cache for all requests of a certain type', () => {

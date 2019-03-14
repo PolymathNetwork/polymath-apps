@@ -4,7 +4,11 @@ import { createAction as createCheckpoint } from '~/state/actions/checkpoints';
 import { createAction as createDividend } from '~/state/actions/dividends';
 import { call, put } from 'redux-saga/effects';
 import { Checkpoint } from '@polymathnetwork/sdk';
-import { RequestKeys } from '~/types';
+import {
+  RequestKeys,
+  GetCheckpointBySymbolAndIdArgs,
+  GetCheckpointsBySymbolArgs,
+} from '~/types';
 import { types } from '@polymathnetwork/new-shared';
 
 /**
@@ -50,10 +54,9 @@ export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
  *
  * @param args request arguments
  */
-export function* fetchCheckpointBySymbolAndId(args: {
-  securityTokenSymbol: string;
-  checkpointIndex: number;
-}) {
+export function* fetchCheckpointBySymbolAndId(
+  args: GetCheckpointBySymbolAndIdArgs
+) {
   const { securityTokenSymbol, checkpointIndex } = args;
   const checkpoint: Checkpoint | null = yield call(polyClient.getCheckpoint, {
     symbol: securityTokenSymbol,
@@ -73,9 +76,7 @@ export function* fetchCheckpointBySymbolAndId(args: {
  *
  * @param args request arguments
  */
-export function* fetchCheckpointsBySymbol(args: {
-  securityTokenSymbol: string;
-}) {
+export function* fetchCheckpointsBySymbol(args: GetCheckpointsBySymbolArgs) {
   const { securityTokenSymbol } = args;
   const checkpoints: Checkpoint[] = yield call(polyClient.getCheckpoints, {
     symbol: securityTokenSymbol,
