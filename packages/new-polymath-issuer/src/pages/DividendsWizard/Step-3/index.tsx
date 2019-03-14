@@ -279,7 +279,11 @@ const Step3Base: FC<Props> = ({
                       options: [
                         types.Tokens.Erc20,
                         types.Tokens.Dai,
+                        types.Tokens.Gusd,
+                        types.Tokens.Pax,
                         types.Tokens.Poly,
+                        types.Tokens.Usdc,
+                        types.Tokens.Usdt,
                       ],
                     }}
                     placeholder="Choose currency"
