@@ -27,7 +27,6 @@ import {
   GetErc20BalanceByAddressAndWalletArgs,
   GetIsValidErc20ByAddressArgs,
 } from '~/types';
-import { string } from 'prop-types';
 
 export interface ExclusionEntry {
   ['Investor ETH Address']: string;
