@@ -20,6 +20,7 @@ export const CheckIcon = styled(Icon)`
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
+  margin: auto;
 `;
 
 export const CheckboxInput = styled.label`

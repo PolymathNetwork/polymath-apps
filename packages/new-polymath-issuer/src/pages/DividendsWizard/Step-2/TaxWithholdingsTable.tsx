@@ -19,7 +19,6 @@ import {
   csvEthAddressKey,
   csvTaxWithholdingKey,
   TaxWithholdingsItem,
-  TaxWithholdingStatuses,
 } from './shared';
 
 interface Props {
@@ -83,8 +82,8 @@ const makeColumnsConfig = ({
         <Box>
           <IconButton
             Asset={icons.SvgPen}
-            width="1.4rem"
-            height="1.4rem"
+            width="1.4em"
+            height="1.4em"
             color="gray.2"
             onClick={() => {
               transactionLimitReached ||
@@ -94,11 +93,11 @@ const makeColumnsConfig = ({
           />
           {transactionLimitReached && limitReachedTooltip()}
         </Box>
-        <Box>
+        <Box ml="s">
           <IconButton
             Asset={icons.SvgDelete}
-            width="1.4rem"
-            height="1.4rem"
+            width="1.4em"
+            height="1.4em"
             color="gray.2"
             onClick={() => {
               transactionLimitReached ||
@@ -181,17 +180,15 @@ export const TaxWithholdingsTable: FC<Props> = props => {
 
           return (
             <Fragment>
-              <Box>
-                <Button
-                  variant="ghost"
-                  iconPosition="right"
-                  onClick={handleDeleteRows}
-                  disabled={transactionLimitReached}
-                >
-                  Delete <Icon Asset={icons.SvgDelete} width="0.7em" />
-                </Button>
-                {transactionLimitReached && limitReachedTooltip()}
-              </Box>
+              <Button
+                variant="ghost"
+                iconPosition="right"
+                onClick={handleDeleteRows}
+                disabled={transactionLimitReached}
+              >
+                Delete <Icon Asset={icons.SvgDelete} width="0.7em" />
+              </Button>
+              {transactionLimitReached && limitReachedTooltip()}
             </Fragment>
           );
         }}
