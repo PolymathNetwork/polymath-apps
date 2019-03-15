@@ -35,7 +35,8 @@ interface Props {
   networkId?: constants.NetworkIds;
   wallet?: Wallet;
   updateDividendAmount: (dividendAmount: BigNumber) => void;
-  updateTokenSymbol: (tokenSymbol: string) => void;
+  updateCurrencySymbol: (currencySymbol: string) => void;
+  securityTokenSymbol: string;
   fetchBalance: (
     args: GetErc20BalanceByAddressAndWalletArgs
   ) => Promise<types.Erc20TokenBalancePojo>;
@@ -84,7 +85,8 @@ const Step3Base: FC<Props> = ({
   fetchBalance,
   fetchIsValidToken,
   updateDividendAmount,
-  updateTokenSymbol,
+  updateCurrencySymbol,
+  securityTokenSymbol,
 }) => {
   if (!networkId) {
     throw new Error("Couldn't obtain network id");
@@ -285,7 +287,11 @@ const Step3Base: FC<Props> = ({
                       ],
                     }}
                     onChange={(selectedCurrency: string) =>
-                      updateTokenSymbol(selectedCurrency)
+                      updateCurrencySymbol(
+                        selectedCurrency === 'ERC20'
+                          ? securityTokenSymbol
+                          : selectedCurrency
+                      )
                     }
                     placeholder="Choose currency"
                   />
@@ -318,7 +324,8 @@ const Step3Base: FC<Props> = ({
                       inputProps={{
                         min: new BigNumber(0),
                         max: new BigNumber('1000000000000000000'),
-                        unit: currency,
+                        unit:
+                          currency === 'ERC20' ? securityTokenSymbol : currency,
                         useBigNumbers: true,
                       }}
                       onChange={updateDividendAmount}

@@ -123,6 +123,7 @@ export class Presenter extends Component<Props, State> {
       updateTaxWithholdingList,
       fetchBalance,
       fetchIsValidToken,
+      securityTokenSymbol,
     } = this.props;
     const { excludedWallets } = this.state;
     const exclusionList = this.getExcludedAddresses();
@@ -150,10 +151,11 @@ export class Presenter extends Component<Props, State> {
           <Step3
             excludedWallets={excludedWallets}
             updateDividendAmount={this.setDividendAmount}
-            updateTokenSymbol={this.setTokenSymbol}
+            updateCurrencySymbol={this.setTokenSymbol}
             createDividendDistribution={createDividendDistribution}
             fetchBalance={fetchBalance}
             fetchIsValidToken={fetchIsValidToken}
+            securityTokenSymbol={securityTokenSymbol}
           />
         );
       }
