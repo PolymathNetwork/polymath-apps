@@ -94,9 +94,15 @@ export class Erc20 extends Contract<Erc20Contract> {
       return decimalPlaces;
     }
 
-    const decimals = await this.contract.methods.decimals().call();
+    let result = 18;
 
-    const result = parseInt(decimals, 10);
+    try {
+      const decimals = await this.contract.methods.decimals().call();
+
+      result = parseInt(decimals, 10);
+    } catch (err) {
+      // do nothing
+    }
 
     return (this.decimalPlaces = result);
   };
