@@ -35,6 +35,7 @@ interface Props {
   networkId?: constants.NetworkIds;
   wallet?: Wallet;
   updateDividendAmount: (dividendAmount: BigNumber) => void;
+  updateTokenSymbol: (tokenSymbol: string) => void;
   fetchBalance: (
     args: GetErc20BalanceByAddressAndWalletArgs
   ) => Promise<types.Erc20TokenBalancePojo>;
@@ -83,6 +84,7 @@ const Step3Base: FC<Props> = ({
   fetchBalance,
   fetchIsValidToken,
   updateDividendAmount,
+  updateTokenSymbol,
 }) => {
   if (!networkId) {
     throw new Error("Couldn't obtain network id");
@@ -282,6 +284,9 @@ const Step3Base: FC<Props> = ({
                         types.Tokens.Poly,
                       ],
                     }}
+                    onChange={(selectedCurrency: string) =>
+                      updateTokenSymbol(selectedCurrency)
+                    }
                     placeholder="Choose currency"
                   />
                   <FormItem.Error />
