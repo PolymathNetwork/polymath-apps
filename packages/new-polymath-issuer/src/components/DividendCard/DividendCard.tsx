@@ -90,7 +90,7 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
           {dividend.name}
         </Heading>
         <Label color={currencyColor} bg={currencyBgColor}>
-          Issued in
+          Issued in {currencyType}
         </Label>
         {!dividendComplete && (
           <Flex mt="m">
