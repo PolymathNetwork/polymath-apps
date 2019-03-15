@@ -6,6 +6,7 @@ import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { rootSaga } from '@polymathnetwork/new-issuer/state/sagas/root';
 import createRootReducer from './reducer';
+import { modernRouterMiddleware } from './modernRouterMiddleware';
 import modernAdapter from '../modernAdapters/reduxMiddleware';
 
 export const history = createBrowserHistory();
@@ -13,6 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const middleware = [
   thunk,
+  modernRouterMiddleware,
   routerMiddleware(history),
   sagaMiddleware,
   modernAdapter,
