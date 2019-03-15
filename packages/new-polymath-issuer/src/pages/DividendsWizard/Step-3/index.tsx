@@ -262,12 +262,15 @@ const Step3Base: FC<Props> = ({
                 });
               }}
             >
-              <Grid gridGap="gridGap" gridAutoFlow="row" width={512}>
+              <Grid gridGap="gridGap" gridAutoFlow="row" maxWidth={512}>
                 <FormItem name="distributionName">
                   <FormItem.Label>Dividend Distribution Name</FormItem.Label>
                   <FormItem.Input
                     component={TextInput}
                     placeholder="Enter the name"
+                    inputProps={{
+                      maxLength: 32,
+                    }}
                   />
                   <FormItem.Error />
                 </FormItem>
