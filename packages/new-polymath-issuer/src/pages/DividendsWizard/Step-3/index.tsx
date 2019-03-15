@@ -209,7 +209,8 @@ const Step3Base: FC<Props> = ({
           });
 
           if (balance.lt(dividendAmount)) {
-            asyncErrors.dividendAmount = `Insufficient ${tokenSymbol} funds`;
+            asyncErrors.dividendAmount = `Insufficient ${currency ||
+              tokenSymbol} funds`;
           }
         } catch (err) {
           asyncErrors.dividendAmount =
