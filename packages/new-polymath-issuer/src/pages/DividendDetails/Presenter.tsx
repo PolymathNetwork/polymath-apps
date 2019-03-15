@@ -184,14 +184,16 @@ export const Presenter = ({
 
   return (
     <div>
-      <ButtonLink
-        variant="ghostSecondary"
-        iconPosition="right"
-        href={`/securityTokens/${symbol}/dividends`}
-      >
-        Go back
-        <Icon Asset={icons.SvgArrow} width={18} height={18} />
-      </ButtonLink>
+      <Text color="primary">
+        <ButtonLink
+          variant="ghostSecondary"
+          iconPosition="right"
+          href={`/securityTokens/${symbol}/dividends`}
+        >
+          Go back
+          <Icon Asset={icons.SvgArrow} width={18} height={18} />
+        </ButtonLink>
+      </Text>
       <Heading variant="h1" as="h1">
         {name}
       </Heading>
