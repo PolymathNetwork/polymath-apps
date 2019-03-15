@@ -47,13 +47,15 @@ interface Values {
   tokenAddress: string;
 }
 
+const dividendsTitleLength = 32;
+
 const schema = validator.object().shape({
   currency: validator.string().isRequired('Currency is required'),
   distributionName: validator
     .string()
     .isRequired('Distribution name is required')
     .nullable(true)
-    .max(100, 'Character limit exceeded'),
+    .max(dividendsTitleLength, 'Character limit exceeded'),
   dividendAmount: validator
     .bigNumber()
     .isRequired('Amount is required')
@@ -269,7 +271,7 @@ const Step3Base: FC<Props> = ({
                     component={TextInput}
                     placeholder="Enter the name"
                     inputProps={{
-                      maxLength: 32,
+                      maxLength: dividendsTitleLength,
                     }}
                   />
                   <FormItem.Error />
