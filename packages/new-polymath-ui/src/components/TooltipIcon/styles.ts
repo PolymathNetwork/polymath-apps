@@ -8,10 +8,10 @@ import { ReactNode } from 'react';
 
 export const Icon = styled(IconButton)`
   transition: ${({ theme }) => `color ${theme.transitions.hover.ms}ms`};
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.blue[1]};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.blue[0]};
+    color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 
@@ -30,5 +30,5 @@ export const Tooltip = styled(TooltipComponent)<Props>`
   border: 1px solid #dfe3e6;
   word-wrap: break-word;
   font-weight: normal;
-  font-size: ${({ theme }) => theme.fontSizes.baseText};
+  font-size: ${({ theme }) => theme.fontSizes[2]};
 `;
