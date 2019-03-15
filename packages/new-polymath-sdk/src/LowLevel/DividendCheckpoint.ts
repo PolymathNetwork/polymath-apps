@@ -35,31 +35,6 @@ interface InternalDividend {
   name: string;
 }
 
-export interface RawDividend {
-  index: number;
-  dividendType: DividendModuleTypes;
-  checkpointId: number;
-  created: Date;
-  maturity: Date;
-  expiry: Date;
-  amount: string;
-  claimedAmount: string;
-  totalSupply: BigNumber;
-  reclaimed: boolean;
-  totalWithheld: string;
-  totalWithheldWithdrawn: string;
-  name: string;
-  currency: string | null;
-  investors: Array<{
-    address: string;
-    paymentReceived: boolean;
-    excluded: boolean;
-    withheldTax: string;
-    amountReceived: string;
-    balance: BigNumber;
-  }>;
-}
-
 interface CheckpointData {
   /**
    * investor addresses
