@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { ERC20DividendCheckpointAbi } from './abis/ERC20DividendCheckpointAbi';
-import { toUnixTimestamp, toWei } from './utils';
+import { toUnixTimestamp, toDivisible } from './utils';
 import { TransactionObject } from 'web3/eth/types';
 import { DividendCheckpoint } from './DividendCheckpoint';
 import { Erc20 } from './Erc20';
@@ -57,8 +57,12 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
   }: CreateErc20DividendArgs) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const { asciiToHex } = Web3.utils;
-    const amountInWei = toWei(amount);
+
+    const token = this.context.getErc20Token({ address: tokenAddress });
+    const decimals = await token.decimals();
+
     const nameInBytes = asciiToHex(name);
+    const divisibleAmount = toDivisible(amount, decimals);
 
     if (excludedAddresses) {
       return () =>
@@ -67,7 +71,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
             maturity,
             expiry,
             tokenAddress,
-            amountInWei,
+            divisibleAmount,
             checkpointId,
             excludedAddresses,
             nameInBytes
@@ -81,7 +85,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
           maturity,
           expiry,
           tokenAddress,
-          amountInWei,
+          divisibleAmount,
           checkpointId,
           nameInBytes
         )
