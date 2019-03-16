@@ -1,6 +1,14 @@
 import { types, formatters } from '@polymathnetwork/new-shared';
-import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
+import {
+  SvgErc20,
+  SvgCalendar,
+  SvgCog,
+  SvgDownload2,
+  SvgWallet,
+  SvgPoly,
+} from '~/images/icons';
+import { SvgCheckmark } from '~/images/icons/Checkmark';
 
 const getTransactionPositionData = (
   transaction: types.TransactionPojo,
@@ -408,8 +416,8 @@ Transactions may be resubmitted at a later time should a cancellation or error o
         queue.args;
 
       return {
-        title: 'Set Dividends Wallet',
-        description: 'Set Dividends Wallet',
+        title: 'Edit Wallet Address for Dividends',
+        description: '',
       };
     }
     case types.ProcedureTypes.UnnamedProcedure:
@@ -670,7 +678,7 @@ export const getTransactionContent = (
         transaction.args;
 
       return {
-        title: 'Set Dividends Wallet',
+        title: 'Editing Wallet Address for Dividends',
         description: 'Set Dividends Wallet',
       };
     }
@@ -686,19 +694,19 @@ export const getTransactionContent = (
 // TODO @grsmto: update with the actual icons
 export const getTransactionIcon = (transaction: types.TransactionPojo) =>
   ({
-    [types.PolyTransactionTags.Any]: SvgErc20,
-    [types.PolyTransactionTags.Approve]: SvgErc20,
-    [types.PolyTransactionTags.GetTokens]: SvgErc20,
-    [types.PolyTransactionTags.ReserveSecurityToken]: SvgErc20,
-    [types.PolyTransactionTags.CreateSecurityToken]: SvgErc20,
-    [types.PolyTransactionTags.CreateCheckpoint]: SvgErc20,
-    [types.PolyTransactionTags.CreateErc20DividendDistribution]: SvgErc20,
+    [types.PolyTransactionTags.Any]: SvgCog,
+    [types.PolyTransactionTags.Approve]: SvgCheckmark,
+    [types.PolyTransactionTags.GetTokens]: SvgPoly,
+    [types.PolyTransactionTags.ReserveSecurityToken]: SvgPoly,
+    [types.PolyTransactionTags.CreateSecurityToken]: SvgPoly,
+    [types.PolyTransactionTags.CreateCheckpoint]: SvgCalendar,
+    [types.PolyTransactionTags.CreateErc20DividendDistribution]: SvgCog,
     [types.PolyTransactionTags.CreateEtherDividendDistribution]: SvgErc20,
     [types.PolyTransactionTags.SetErc20TaxWithholding]: SvgErc20,
     [types.PolyTransactionTags.SetEtherTaxWithholding]: SvgErc20,
     [types.PolyTransactionTags.EnableDividends]: SvgErc20,
     [types.PolyTransactionTags.ReclaimDividendFunds]: SvgErc20,
-    [types.PolyTransactionTags.WithdrawTaxWithholdings]: SvgErc20,
+    [types.PolyTransactionTags.WithdrawTaxWithholdings]: SvgDownload2,
     [types.PolyTransactionTags.PushDividendPayment]: SvgErc20,
-    [types.PolyTransactionTags.SetDividendsWallet]: SvgErc20,
+    [types.PolyTransactionTags.SetDividendsWallet]: SvgWallet,
   }[transaction.tag]);

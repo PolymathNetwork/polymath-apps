@@ -97,12 +97,11 @@ export const CsvModal: FC<Props> = ({
       onClose={onClose}
       actionButtonText="Confirm"
       isActionDisabled={!taxWithholdings}
-      maxWidth={500}
     >
       <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
       <Paragraph mb={0}>
-        Update tax withholdings by uploading a comma separated .CSV file. The
-        format should be as follows:
+        Update tax withholdings by uploading a comma separated .CSV file.
+        <br /> The format should be as follows:
       </Paragraph>
       <List vertical gridGap={0}>
         <li>
