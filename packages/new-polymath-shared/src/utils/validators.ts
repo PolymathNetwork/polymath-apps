@@ -20,9 +20,8 @@ interface NumericalityOpts {
   lte?: number;
 }
 
-export const numericality = (
-  value: number,
-  { gt, gte, lt, lte }: NumericalityOpts
+export const numericality = ({ gt, gte, lt, lte }: NumericalityOpts) => (
+  value: number
 ) => {
   if (gt && value <= gt) {
     return false;

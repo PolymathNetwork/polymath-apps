@@ -47,27 +47,27 @@ describe('Validator', () => {
 
   describe('.numericality', () => {
     test('correctly tests gt', () => {
-      expect(validators.numericality(4, { gt: 5 })).toBe(false);
-      expect(validators.numericality(4, { gt: 3 })).toBe(true);
-      expect(validators.numericality(2, { gt: 2 })).toBe(false);
+      expect(validators.numericality({ gt: 5 })(4)).toBe(false);
+      expect(validators.numericality({ gt: 3 })(4)).toBe(true);
+      expect(validators.numericality({ gt: 2 })(2)).toBe(false);
     });
 
     test('correctly tests gte', () => {
-      expect(validators.numericality(4, { gte: 5 })).toBe(false);
-      expect(validators.numericality(2, { gte: 2 })).toBe(true);
-      expect(validators.numericality(4, { gte: 2 })).toBe(true);
+      expect(validators.numericality({ gte: 5 })(4)).toBe(false);
+      expect(validators.numericality({ gte: 2 })(2)).toBe(true);
+      expect(validators.numericality({ gte: 2 })(4)).toBe(true);
     });
 
     test('correctly tests lt', () => {
-      expect(validators.numericality(3, { lt: 2 })).toBe(false);
-      expect(validators.numericality(2, { lt: 4 })).toBe(true);
-      expect(validators.numericality(2, { lt: 2 })).toBe(false);
+      expect(validators.numericality({ lt: 2 })(3)).toBe(false);
+      expect(validators.numericality({ lt: 4 })(2)).toBe(true);
+      expect(validators.numericality({ lt: 2 })(2)).toBe(false);
     });
 
     test('correctly tests lte', () => {
-      expect(validators.numericality(4, { lte: 2 })).toBe(false);
-      expect(validators.numericality(2, { lte: 2 })).toBe(true);
-      expect(validators.numericality(2, { lte: 10 })).toBe(true);
+      expect(validators.numericality({ lte: 2 })(4)).toBe(false);
+      expect(validators.numericality({ lte: 2 })(2)).toBe(true);
+      expect(validators.numericality({ lte: 10 })(2)).toBe(true);
     });
   });
 });
