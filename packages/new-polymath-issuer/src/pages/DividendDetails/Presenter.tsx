@@ -130,7 +130,11 @@ export const Presenter = ({
     (i: types.DividendInvestorStatus) => Number(!i.withheldTax.isEqualTo(0))
   );
   const positiveTaxWithholdings = taxWithholdings.filter(
-    taxWithholding => !!taxWithholding.percentage
+    taxWithholding =>
+      !!taxWithholding.percentage &&
+      !excludedInvestors.find(
+        ({ address }) => address === taxWithholding.investorAddress
+      )
   );
 
   const unpaidInvestors = nonExcludedInvestors.filter(
