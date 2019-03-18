@@ -352,7 +352,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         !isInvalidExpiry &&
         parseFloat(tokensVal) > 0
       ) {
-        if (investors.length === 75) {
+        if (investors.length >= 40) {
           isTooMany = true;
           continue;
         }
