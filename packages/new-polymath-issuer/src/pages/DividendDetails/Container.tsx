@@ -10,6 +10,7 @@ import {
   createTaxWithholdingListBySymbolFetcher,
   createDividendBySymbolAndIdFetcher,
 } from '~/state/fetchers';
+import { RootState } from '~/state/store';
 import { getSession, getApp } from '~/state/selectors';
 import {
   pushDividendPaymentStart,
@@ -30,15 +31,8 @@ export interface Props {
 }
 
 const mapStateToProps = (state: RootState) => {
-  const { wallet } = getSession(state);
   const { networkId } = getApp(state);
-  let walletAddress = '';
-
-  if (wallet) {
-    walletAddress = wallet.address;
-  }
-
-  return { walletAddress, networkId };
+  return { networkId };
 };
 
 export class ContainerBase extends Component<Props> {
