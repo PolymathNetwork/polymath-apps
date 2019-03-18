@@ -44,9 +44,7 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
     remainingPayments / DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
   );
   const unwithdrawnTaxes = totalWithheld.minus(totalWithheldWithdrawn);
-  const dividendComplete =
-    expiry <= new Date() ||
-    (remainingTransactions === 0 && unwithdrawnTaxes.eq(new BigNumber(0)));
+  const dividendComplete = expiry <= new Date() || remainingTransactions === 0;
 
   switch (currencyLabel) {
     case types.Tokens.Dai:

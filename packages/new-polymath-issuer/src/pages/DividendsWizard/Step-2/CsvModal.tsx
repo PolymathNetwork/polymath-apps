@@ -37,7 +37,9 @@ export const CsvModal: FC<Props> = ({
   >([]);
 
   const onSubmit = () => {
-    onConfirm(taxWithholdings);
+    if (taxWithholdings.length > 0) {
+      onConfirm(taxWithholdings);
+    }
   };
 
   const onChangeCsv = (result: TaxWithholdingsItem[] | null) => {
@@ -88,14 +90,13 @@ export const CsvModal: FC<Props> = ({
     });
     return !hasDuplicates;
   };
-
   return (
     <ModalConfirm
       isOpen={isOpen}
       onSubmit={onSubmit}
       onClose={onClose}
       actionButtonText="Confirm"
-      isActionDisabled={!taxWithholdings}
+      isActionDisabled={!taxWithholdings || taxWithholdings.length === 0}
     >
       <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
       <Paragraph mb={0}>
@@ -132,8 +133,7 @@ export const CsvModal: FC<Props> = ({
                 validators: [
                   validators.isNotEmpty,
                   validators.isNumber,
-                  validators.isLowerThanOrEquals(99),
-                  validators.isGreaterThanOrEquals(0),
+                  validators.numericality({ lte: 99, gte: 0 }),
                 ],
                 required: true,
               },

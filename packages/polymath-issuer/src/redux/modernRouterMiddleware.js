@@ -5,6 +5,10 @@ import { push } from 'react-router-redux';
 // be serviceable for now
 export const modernRouterMiddleware = store => next => action => {
   if (action.type === 'ROUTER_PUSH') {
+    // NOTE @RafaelVidaurre: This hack is required due to a bug on react-router-redux
+    // with the redux router config library. This is temporary and will not
+    // be required when we move away from legacy
+    store.dispatch(push(action.payload.pathname));
     return store.dispatch(push(action.payload.pathname));
   }
 
