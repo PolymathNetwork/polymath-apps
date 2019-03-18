@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import numeral from 'numeral';
-import { times, isNumber } from 'lodash';
+import { isNumber } from 'lodash';
 import { DateTime, DateTimeFormatOptions } from 'luxon';
 
 /**
@@ -38,9 +37,8 @@ export const toUSD = (
  */
 export const toPercent = (
   value: number | BigNumber,
-  { decimals = 0 }: { decimals?: number } = {}
+  { decimals = 2 }: { decimals?: number } = {}
 ) => {
-  let decimalsFormat = '';
   const isValid = value !== null && (isNumber(value) || isBigNumber(value));
 
   if (!isValid) {
@@ -49,14 +47,12 @@ export const toPercent = (
 
   const parsedValue = new BigNumber(value);
 
-  times(decimals, time => {
-    if (time === 0) {
-      decimalsFormat = '.';
-    }
-    decimalsFormat += '0';
-  });
-
-  return numeral(parsedValue.toFixed()).format(`0,0${decimalsFormat} %`);
+  return parsedValue
+    .toNumber()
+    .toLocaleString('en-US', {
+      style: 'percent',
+      minimumSignificantDigits: decimals,
+    });
 };
 
 /**
