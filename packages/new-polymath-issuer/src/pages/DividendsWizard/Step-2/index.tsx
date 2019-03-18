@@ -53,14 +53,14 @@ const schema = validator.object().shape({
   currentTaxWithholding: validator.object().shape({
     [csvEthAddressKey]: validator
       .string()
-      .required('Investor ETH address is required')
+      .isRequired('Investor ETH address is required')
       .isEthereumAddress('Invalid Ethereum Address'),
     [csvTaxWithholdingKey]: validator
       .number()
       .typeError('Invalid value')
-      .moreThan(0, 'Invalid value')
-      .max(100, 'Invalid value')
-      .required('Tax withholding percent is required'),
+      .isRequired('Tax withholding percent is required')
+      .min(0, 'Cannot be lower than ${min}')
+      .lessThan(1, 'Must be lower than 100'),
   }),
 });
 

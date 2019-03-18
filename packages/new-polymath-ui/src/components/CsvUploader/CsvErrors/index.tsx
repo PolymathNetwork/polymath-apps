@@ -52,7 +52,7 @@ const CsvErrorsComponent: FC<Props> = ({ className }) => {
         <Notification
           status="alert"
           title={`${errorCount} Errors in Your .csv File`}
-          description="Please note that the entries below contains error that prevent their content to be committed to the blockchain. Entries were automatically deselected so they are not submitted to the blockchain and may be edited separately."
+          description="Please note that the entries below contain errors that prevent their content to be committed to the blockchain. Entries were automatically deselected so they are not submitted to the blockchain and may be edited separately."
         />
       )}
       {!!csvConfig.maxRows && data.totalRows > csvConfig.maxRows && (
