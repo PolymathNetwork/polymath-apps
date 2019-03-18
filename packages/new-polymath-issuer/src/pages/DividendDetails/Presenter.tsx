@@ -261,7 +261,7 @@ export const Presenter = ({
                   disabled={!pendingPayments}
                   onClick={pushDividendPayments}
                 >
-                  Submit Outstanding Transactions
+                  Complete Transactions
                 </ButtonFluid>
               </Box>
             </Grid>
