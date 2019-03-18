@@ -75,6 +75,10 @@ export function* createErc20DividendsDistribution(
       })
     );
 
+    yield put(
+      push(`/securityTokens/${securityTokenSymbol}/dividends/${result}`)
+    );
+
     yield take(getType(finishTransactionQueue));
 
     if (pushPaymentsWhenComplete) {
@@ -91,10 +95,6 @@ export function* createErc20DividendsDistribution(
         })
       );
     }
-
-    yield put(
-      push(`/securityTokens/${securityTokenSymbol}/dividends/${result}`)
-    );
   } catch (err) {
     if (!err.code) {
       throw err;

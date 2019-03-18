@@ -35,6 +35,8 @@ interface Props {
   networkId?: constants.NetworkIds;
   wallet?: Wallet;
   updateDividendAmount: (dividendAmount: BigNumber) => void;
+  updateCurrencySymbol: (currencySymbol: string) => void;
+  securityTokenSymbol: string;
   fetchBalance: (
     args: GetErc20BalanceByAddressAndWalletArgs
   ) => Promise<types.Erc20TokenBalancePojo>;
@@ -47,13 +49,15 @@ interface Values {
   tokenAddress: string;
 }
 
+const dividendsTitleLength = 32;
+
 const schema = validator.object().shape({
   currency: validator.string().isRequired('Currency is required'),
   distributionName: validator
     .string()
     .isRequired('Distribution name is required')
     .nullable(true)
-    .max(100, 'Character limit exceeded'),
+    .max(dividendsTitleLength, 'Character limit exceeded'),
   dividendAmount: validator
     .bigNumber()
     .isRequired('Amount is required')
@@ -83,6 +87,8 @@ const Step3Base: FC<Props> = ({
   fetchBalance,
   fetchIsValidToken,
   updateDividendAmount,
+  updateCurrencySymbol,
+  securityTokenSymbol,
 }) => {
   if (!networkId) {
     throw new Error("Couldn't obtain network id");
@@ -209,7 +215,8 @@ const Step3Base: FC<Props> = ({
           });
 
           if (balance.lt(dividendAmount)) {
-            asyncErrors.dividendAmount = `Insufficient ${tokenSymbol} funds`;
+            asyncErrors.dividendAmount = `Insufficient ${currency ||
+              tokenSymbol} funds`;
           }
         } catch (err) {
           asyncErrors.dividendAmount =
@@ -262,12 +269,15 @@ const Step3Base: FC<Props> = ({
                 });
               }}
             >
-              <Grid gridGap="gridGap" gridAutoFlow="row" width={512}>
+              <Grid gridGap="gridGap" gridAutoFlow="row" maxWidth={512}>
                 <FormItem name="distributionName">
                   <FormItem.Label>Dividend Distribution Name</FormItem.Label>
                   <FormItem.Input
                     component={TextInput}
                     placeholder="Enter the name"
+                    inputProps={{
+                      maxLength: dividendsTitleLength,
+                    }}
                   />
                   <FormItem.Error />
                 </FormItem>
@@ -282,6 +292,13 @@ const Step3Base: FC<Props> = ({
                         types.Tokens.Poly,
                       ],
                     }}
+                    onChange={(selectedCurrency: string) =>
+                      updateCurrencySymbol(
+                        selectedCurrency === 'ERC20'
+                          ? securityTokenSymbol
+                          : selectedCurrency
+                      )
+                    }
                     placeholder="Choose currency"
                   />
                   <FormItem.Error />
@@ -313,7 +330,8 @@ const Step3Base: FC<Props> = ({
                       inputProps={{
                         min: new BigNumber(0),
                         max: new BigNumber('1000000000000000000'),
-                        unit: currency,
+                        unit:
+                          currency === 'ERC20' ? securityTokenSymbol : currency,
                         useBigNumbers: true,
                       }}
                       onChange={updateDividendAmount}
