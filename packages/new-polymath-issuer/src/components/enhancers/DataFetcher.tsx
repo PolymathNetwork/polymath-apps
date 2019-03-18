@@ -27,6 +27,11 @@ interface StateProps {
   errors: string[];
 }
 
+interface State {
+  dataToRender?: FetchedData;
+  prevLoadingState: boolean;
+}
+
 interface DispatchProps {
   dispatch: Dispatch<ActionType<typeof requestData>>;
 }
@@ -51,13 +56,34 @@ const mapStateToProps = () => {
   };
 };
 
-class DataFetcherBase extends Component<Props> {
+class DataFetcherBase extends Component<Props, State> {
   public static defaultProps = {
     onDataFetched: (data: FetchedData) => {},
     // NOTE @RafaelVidaurre: Hardcoding this for now until we have an error
     // component for this
     renderError: (errors: string[]) => <div>{errors[0]}</div>,
     renderLoading: () => <Loading />,
+  };
+
+  public static getDerivedStateFromProps(props: Props, state: State) {
+    const { prevLoadingState } = state;
+    const { loading, fetchedData } = props;
+
+    const newState: Partial<State> = {};
+
+    const finishedLoading = !prevLoadingState && loading;
+
+    if (finishedLoading) {
+      newState.dataToRender = fetchedData;
+    }
+
+    newState.prevLoadingState = loading;
+
+    return newState;
+  }
+
+  public state: State = {
+    prevLoadingState: true,
   };
 
   public getData() {
@@ -123,15 +149,23 @@ class DataFetcherBase extends Component<Props> {
       errors,
       loading,
     } = this.props;
+    const { dataToRender } = this.state;
 
     if (errors.length) {
       return renderError(errors);
     }
-    if (loading) {
+    if (loading && !dataToRender) {
       return renderLoading();
     }
 
-    return render(fetchedData);
+    // TODO @RafaelVidaurre: For better UX we should have a spinner on top of
+    // the rendered children when dataToRender exists and loading is true
+
+    if (!dataToRender) {
+      return render(fetchedData);
+    }
+
+    return render(dataToRender);
   }
 }
 
