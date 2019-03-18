@@ -267,7 +267,9 @@ class MintTokens extends Component<Props> {
             <br />• KYC/AML Expiry Date mm/dd/yyyy;
             <br />• Number of tokens to mint for the ETH address (integer).
             <br />
-            Maximum numbers of addresses per transaction is <strong>40</strong>.
+            <Remark title="Note">
+              40 is the maximum number of addresses per transaction.
+            </Remark>
           </h4>
           <h5 className="pui-h5">
             You can&nbsp;&nbsp;&nbsp;
