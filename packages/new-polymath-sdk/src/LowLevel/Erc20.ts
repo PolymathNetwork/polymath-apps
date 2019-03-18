@@ -90,7 +90,7 @@ export class Erc20 extends Contract<Erc20Contract> {
   public decimals = async () => {
     const { decimalPlaces } = this;
 
-    if (decimalPlaces) {
+    if (decimalPlaces !== null) {
       return decimalPlaces;
     }
 
