@@ -30,6 +30,6 @@ export const Tooltip = styled(TooltipComponent)<Props>`
   border: 1px solid #dfe3e6;
   word-wrap: break-word;
   font-weight: normal;
-  line-height: 21px;
+  line-height: ${({ theme }) => theme.lineHeights.normal};
   font-size: ${({ theme }) => theme.fontSizes.baseText};
 `;
