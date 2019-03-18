@@ -267,7 +267,7 @@ class MintTokens extends Component<Props> {
             <br />• KYC/AML Expiry Date mm/dd/yyyy;
             <br />• Number of tokens to mint for the ETH address (integer).
             <br />
-            Maximum numbers of addresses per transaction is <strong>75</strong>.
+            Maximum numbers of addresses per transaction is <strong>40</strong>.
           </h4>
           <h5 className="pui-h5">
             You can&nbsp;&nbsp;&nbsp;
@@ -315,8 +315,8 @@ class MintTokens extends Component<Props> {
           ) : isTooMany ? (
             <InlineNotification
               hideCloseButton
-              title="The file you uploaded contains more than 75 addresses"
-              subtitle="You can still continue, but only 75 first addresses will be submitted."
+              title="The file you uploaded contains more than 40 addresses"
+              subtitle="You can still continue, but only 40 first addresses will be submitted."
               kind="error"
             />
           ) : (
