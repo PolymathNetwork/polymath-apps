@@ -164,9 +164,6 @@ export const Step1: FC<Step1Props> = ({
                       {
                         accessor: 'Investor ETH Address',
                         Header: 'Investor ETH Address',
-                        Cell: ({ value }) =>
-                          value &&
-                          formatters.toShortAddress(value, { size: 26 }),
                       },
                     ],
                   }}
