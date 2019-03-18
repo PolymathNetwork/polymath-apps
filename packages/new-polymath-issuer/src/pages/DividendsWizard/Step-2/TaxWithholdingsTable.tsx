@@ -100,8 +100,9 @@ const makeColumnsConfig = ({
             height="1.4em"
             color="gray.2"
             onClick={() => {
-              transactionLimitReached ||
+              if (!transactionLimitReached) {
                 onDelete([cell.row.values[csvEthAddressKey]]);
+              }
             }}
             disabled={transactionLimitReached}
           />

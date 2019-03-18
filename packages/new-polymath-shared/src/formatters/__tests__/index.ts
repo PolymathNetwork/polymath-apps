@@ -37,4 +37,24 @@ describe('Formatters', () => {
       }).toThrow();
     });
   });
+
+  describe('toPercent', () => {
+    test('returns  pourcentage without decimals', () => {
+      const res = formatters.toPercent(0.1);
+
+      expect(res).toEqual('10%');
+    });
+
+    test('returns pourcentage with decimals', () => {
+      const res = formatters.toPercent(0.1521);
+
+      expect(res).toEqual('15.21%');
+    });
+
+    test('returns right pourcentage with small numbers', () => {
+      const res = formatters.toPercent(0.0133);
+
+      expect(res).toEqual('1.33%');
+    });
+  });
 });
