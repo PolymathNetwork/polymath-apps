@@ -131,7 +131,11 @@ export function parseWhitelistCsv(file: string) {
             return false;
           }
           if (value.split('/').length === 3) {
-            return moment(value, ['MM/DD/YY', 'MM/DD/YYYY']).toDate();
+            const year = value.split('/')[2];
+            if (year.length < 4) {
+              return false;
+            }
+            return moment(value, 'MM/DD/YYYY').toDate();
           }
           if (numericalRegex.test(value)) {
             return new BigNumber(value);
