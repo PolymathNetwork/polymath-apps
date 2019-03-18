@@ -27,6 +27,34 @@ interface CustomStringSchemaConstructor extends Yup.StringSchemaConstructor {
   new (): CustomStringSchema;
 }
 
+interface CustomNumberSchema extends Yup.NumberSchema, CustomSchema {}
+
+interface CustomNumberSchemaConstructor extends Yup.NumberSchemaConstructor {
+  (): CustomNumberSchema;
+  new (): CustomNumberSchema;
+}
+
+interface CustomDateSchema extends Yup.DateSchema, CustomSchema {}
+
+interface CustomDateSchemaConstructor extends Yup.DateSchemaConstructor {
+  (): CustomDateSchema;
+  new (): CustomDateSchema;
+}
+
+interface CustomBooleanSchema extends Yup.BooleanSchema, CustomSchema {}
+
+interface CustomBooleanSchemaConstructor extends Yup.BooleanSchemaConstructor {
+  (): CustomBooleanSchema;
+  new (): CustomBooleanSchema;
+}
+
+interface CustomArraySchema<T> extends Yup.ArraySchema<T>, CustomSchema {}
+
+interface CustomArraySchemaConstructor extends Yup.ArraySchemaConstructor {
+  <T>(schema?: Yup.Schema<T>): CustomArraySchema<T>;
+  new (): CustomArraySchema<{}>;
+}
+
 interface CustomMixedSchema extends Yup.MixedSchema, CustomSchema {}
 
 interface CustomMixedSchemaConstructor extends Yup.MixedSchemaConstructor {
@@ -36,22 +64,31 @@ interface CustomMixedSchemaConstructor extends Yup.MixedSchemaConstructor {
 
 interface CustomBigNumberSchema extends BigNumberSchema, CustomSchema {}
 
-type ExtendedYupType = typeHelpers.Omit<typeof Yup, 'string' | 'mixed'> & {
+type ExtendedYupType = typeHelpers.Omit<
+  typeof Yup,
+  'string' | 'mixed' | 'number' | 'date' | 'bool' | 'boolean' | 'array'
+> & {
+  array: CustomArraySchemaConstructor;
+  boolean: CustomBooleanSchemaConstructor;
+  bool: CustomBooleanSchemaConstructor;
   string: CustomStringSchemaConstructor;
   mixed: CustomMixedSchemaConstructor;
+  number: CustomNumberSchemaConstructor;
+  date: CustomDateSchemaConstructor;
   bigNumber: () => CustomBigNumberSchema;
 };
 
-const yupValidator: (typeof Yup) & {
-  string: Yup.StringSchemaConstructor;
-  mixed: Yup.MixedSchemaConstructor;
-  bigNumber(): BigNumberSchema;
-} = {
+const yupValidator: ExtendedYupType = {
   ...Yup,
-  bigNumber: () => new BigNumberSchema(),
+  bool: Yup.bool as CustomBooleanSchemaConstructor,
+  boolean: Yup.boolean as CustomBooleanSchemaConstructor,
+  array: Yup.array as CustomArraySchemaConstructor,
+  string: Yup.string as CustomStringSchemaConstructor,
+  mixed: Yup.mixed as CustomMixedSchemaConstructor,
+  number: Yup.number as CustomNumberSchemaConstructor,
+  date: Yup.date as CustomDateSchemaConstructor,
+  bigNumber: () => new BigNumberSchema() as CustomBigNumberSchema,
 };
-
-yupValidator.bigNumber = () => new BigNumberSchema();
 
 yupValidator.addMethod(Yup.mixed, 'isRequired', function(message) {
   return this.required(message).typeError(message);
@@ -95,6 +132,6 @@ yupValidator.addMethod(yupValidator.string, 'isUrl', function(message) {
   });
 });
 
-const validator = yupValidator as ExtendedYupType;
+const validator = yupValidator;
 
 export { validator };
