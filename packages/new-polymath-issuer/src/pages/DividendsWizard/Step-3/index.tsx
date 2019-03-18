@@ -49,13 +49,15 @@ interface Values {
   tokenAddress: string;
 }
 
+const dividendsTitleLength = 32;
+
 const schema = validator.object().shape({
   currency: validator.string().isRequired('Currency is required'),
   distributionName: validator
     .string()
     .isRequired('Distribution name is required')
     .nullable(true)
-    .max(100, 'Character limit exceeded'),
+    .max(dividendsTitleLength, 'Character limit exceeded'),
   dividendAmount: validator
     .bigNumber()
     .isRequired('Amount is required')
@@ -266,12 +268,15 @@ const Step3Base: FC<Props> = ({
                 });
               }}
             >
-              <Grid gridGap="gridGap" gridAutoFlow="row" width={512}>
+              <Grid gridGap="gridGap" gridAutoFlow="row" maxWidth={512}>
                 <FormItem name="distributionName">
                   <FormItem.Label>Dividend Distribution Name</FormItem.Label>
                   <FormItem.Input
                     component={TextInput}
                     placeholder="Enter the name"
+                    inputProps={{
+                      maxLength: dividendsTitleLength,
+                    }}
                   />
                   <FormItem.Error />
                 </FormItem>
