@@ -71,7 +71,7 @@ class DataFetcherBase extends Component<Props, State> {
 
     const newState: Partial<State> = {};
 
-    const finishedLoading = !prevLoadingState && loading;
+    const finishedLoading = prevLoadingState && !loading;
 
     if (finishedLoading) {
       newState.dataToRender = fetchedData;

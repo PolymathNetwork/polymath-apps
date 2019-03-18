@@ -110,7 +110,7 @@ export const CsvModal: FC<Props> = ({
           <Text>
             — % tax witholding for associated ETH address. The exact amount of
             funds to be withheld will be automatically calculated prior to
-            distribution.
+            distribution. This value must be at least 0 and less than 100.
           </Text>
         </li>
       </List>
@@ -129,7 +129,11 @@ export const CsvModal: FC<Props> = ({
               },
               {
                 name: csvTaxWithholdingKey,
-                validators: [validators.isNotEmpty],
+                validators: [
+                  validators.isNotEmpty,
+                  validators.isNumber,
+                  validators.numericality({ lte: 99, gte: 0 }),
+                ],
                 required: true,
               },
             ],
