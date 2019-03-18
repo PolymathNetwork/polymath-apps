@@ -16,7 +16,6 @@ import {
   TaxWithholdingsItem,
   TaxWithholdingStatuses,
 } from './shared';
-import { boolean } from 'yup';
 
 interface Props {
   isOpen: boolean;
