@@ -1,12 +1,6 @@
-import React, { FC, useState, Fragment, useEffect } from 'react';
-import { types } from '@polymathnetwork/new-shared';
-import { get, some, findIndex } from 'lodash';
-import {
-  TaxWithholdingsItem,
-  csvEthAddressKey,
-  csvTaxWithholdingKey,
-  TaxWithholdingStatuses,
-} from '~/pages/DividendsWizard/Step-2/shared';
+import React, { FC, Fragment, useEffect } from 'react';
+import { includes, get, findIndex } from 'lodash';
+import { FieldProps } from 'formik';
 import {
   Box,
   ModalConfirm,
@@ -16,7 +10,13 @@ import {
   TextInput,
   PercentageInput,
 } from '@polymathnetwork/new-ui';
-import { FieldProps } from 'formik';
+import { types } from '@polymathnetwork/new-shared';
+import {
+  TaxWithholdingsItem,
+  csvEthAddressKey,
+  csvTaxWithholdingKey,
+  TaxWithholdingStatuses,
+} from '~/pages/DividendsWizard/Step-2/shared';
 
 interface Props {
   isOpen: boolean;
@@ -24,6 +24,7 @@ interface Props {
   onClose: () => void;
   taxWithholdingData?: TaxWithholdingsItem;
   existingTaxWithholdings: types.TaxWithholdingPojo[];
+  exclusionList: string[];
   fieldProps: FieldProps<any>;
 }
 
@@ -33,9 +34,19 @@ export const TaxWithholdingModal: FC<Props> = ({
   existingTaxWithholdings,
   isEditing,
   fieldProps,
+  exclusionList,
 }) => {
   const { field, form } = fieldProps;
   const isValid = !get(form.errors, field.name);
+
+  const resetForm = () => {
+    form.setFieldValue(field.name, {
+      [csvTaxWithholdingKey]: null,
+      [csvEthAddressKey]: '',
+    });
+    form.setFieldTouched(field.name, false);
+    onClose();
+  };
 
   const onSubmit = () => {
     for (const key of Object.keys(
@@ -53,7 +64,6 @@ export const TaxWithholdingModal: FC<Props> = ({
     ] as TaxWithholdingsItem[];
 
     const value = field.value as TaxWithholdingsItem;
-
     const valueAddress = value[csvEthAddressKey].toUpperCase();
     const valuePercentage = value[csvTaxWithholdingKey];
 
@@ -64,6 +74,12 @@ export const TaxWithholdingModal: FC<Props> = ({
     );
 
     const alreadyExists = matchingIndex !== -1;
+    const isExcluded = includes(exclusionList, valueAddress);
+
+    if (isExcluded) {
+      resetForm();
+      return;
+    }
 
     if (isEditing || alreadyExists) {
       // Mark as updated if the entry already existed and was actually updated
@@ -94,12 +110,7 @@ export const TaxWithholdingModal: FC<Props> = ({
       ]);
     }
 
-    form.setFieldValue(field.name, {
-      [csvTaxWithholdingKey]: null,
-      [csvEthAddressKey]: '',
-    });
-    form.setFieldTouched(field.name, false);
-    onClose();
+    resetForm();
   };
 
   // NOTE @RafaelVidaurre: Workaround to avoid broken dirty-checking

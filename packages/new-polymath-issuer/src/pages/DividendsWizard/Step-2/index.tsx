@@ -362,6 +362,7 @@ export const Step2: FC<Props> = ({
               name="currentTaxWithholding"
               render={(fieldProps: FieldProps<TaxWithholdingsItem>) => (
                 <TaxWithholdingModal
+                  exclusionList={exclusionList}
                   existingTaxWithholdings={existingTaxWithholdings}
                   fieldProps={fieldProps}
                   isOpen={taxWithholdingModalOpen}
