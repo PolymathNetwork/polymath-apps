@@ -224,7 +224,7 @@ export const Step2: FC<Props> = ({
       render={({ values, setFieldValue }) => {
         const canProceedToNextStep = values.isTaxWithholdingConfirmed;
         const isDraft = !!values.taxWithholdings.find(
-          ({ status }: { status: TaxWithholdingStatuses }) => status
+          ({ status }: { status?: TaxWithholdingStatuses }) => !!status
         );
 
         const handleEdit = (ethAddress: string) => {
