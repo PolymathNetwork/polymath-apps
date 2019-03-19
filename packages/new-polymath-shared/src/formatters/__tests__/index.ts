@@ -56,5 +56,11 @@ describe('Formatters', () => {
 
       expect(res).toEqual('1.33%');
     });
+
+    test('returns right pourcentage with 2 decimals', () => {
+      const res = formatters.toPercent(0.01);
+
+      expect(res).toEqual('1%');
+    });
   });
 });
