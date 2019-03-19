@@ -25,12 +25,18 @@ import { CreateDividendDistributionParams } from '~/pages/DividendsWizard/Contai
 import { RootState } from '~/state/store';
 import { getApp, getSession } from '~/state/selectors';
 import { connect } from 'react-redux';
-import { validateYupSchema, yupToFormErrors, FormikErrors } from 'formik';
+import {
+  validateYupSchema,
+  yupToFormErrors,
+  FormikErrors,
+  FormikTouched,
+} from 'formik';
 import {
   Wallet,
   GetErc20BalanceByAddressAndWalletArgs,
   GetIsValidErc20ByAddressArgs,
 } from '~/types';
+import { Tokens } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 interface Props {
   excludedWallets: null | ExclusionEntry[];
@@ -54,6 +60,15 @@ interface Values {
   tokenAddress: string;
 }
 
+interface SubmitParams {
+  submitEvent: React.FormEvent<HTMLFormElement>;
+  currency: Tokens | null;
+  setFieldTouched: any;
+  isValid: boolean;
+  initialValues: Values;
+  touched: FormikTouched<Values>;
+}
+
 const dividendsTitleLength = 32;
 
 const schema = validator.object().shape({
@@ -66,7 +81,7 @@ const schema = validator.object().shape({
   dividendAmount: validator
     .bigNumber()
     .isRequired('Amount is required')
-    .min(0, 'Amount cannot be less than ${min}')
+    .moreThan(0, 'Amount should be more than 0')
     .max(new BigNumber('1000000000000000000'), 'Amount exceeds maximum'),
   tokenAddress: validator.string(),
 });
@@ -253,6 +268,33 @@ const Step3Base: FC<Props> = ({
     }
   };
 
+  const handleSubmit = (submitParams: SubmitParams) => {
+    const {
+      submitEvent,
+      currency,
+      setFieldTouched,
+      isValid,
+      initialValues,
+      touched,
+    } = submitParams;
+    submitEvent.preventDefault();
+    for (const key of Object.keys(initialValues || {})) {
+      if (Object.keys(touched).indexOf(key) === -1) {
+        if (key !== 'tokenAddress' || currency === types.Tokens.Erc20) {
+          setFieldTouched(`${key}`, true);
+        }
+      }
+    }
+    if (isValid) {
+      submitEvent.persist();
+      submitEvent.preventDefault();
+      setFormSubmissionStatus({
+        isSubmitting: true,
+        submitEvent,
+      });
+    }
+  };
+
   return (
     <Card p="gridGap">
       <Heading variant="h2" mb="l">
@@ -269,17 +311,24 @@ const Step3Base: FC<Props> = ({
         }}
         validate={handleValidation}
         onSubmit={onSubmit}
-        render={({ values }) => {
+        render={({
+          values,
+          setFieldTouched,
+          isValid,
+          initialValues,
+          touched,
+        }) => {
           const { currency } = values;
-
           return (
             <form
               onSubmit={submitEvent => {
-                submitEvent.persist();
-                submitEvent.preventDefault();
-                setFormSubmissionStatus({
-                  isSubmitting: true,
+                handleSubmit({
                   submitEvent,
+                  currency,
+                  setFieldTouched,
+                  isValid,
+                  initialValues,
+                  touched,
                 });
               }}
             >
