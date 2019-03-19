@@ -223,7 +223,9 @@ export const Step2: FC<Props> = ({
       }}
       render={({ values, setFieldValue }) => {
         const canProceedToNextStep = values.isTaxWithholdingConfirmed;
-        const isDraft = !!values.taxWithholdings.find(({ status }) => status);
+        const isDraft = !!values.taxWithholdings.find(
+          ({ status }: { status: TaxWithholdingStatuses }) => status
+        );
 
         const handleEdit = (ethAddress: string) => {
           const taxWithholding = find(
@@ -378,7 +380,7 @@ export const Step2: FC<Props> = ({
 
             <ConfirmModal
               isOpen={confirmModalOpen}
-              onConfirm={() => onNextStep()}
+              onConfirm={onNextStep}
               onClose={closeConfirmModal}
             />
 
