@@ -25,6 +25,7 @@ import type { InvestorCSVRow } from '../../../actions/token';
 
 type StateProps = {|
   isTooMany: boolean,
+  isInvalidFormat: boolean,
   isReady: boolean,
   isInvalid: boolean,
   isTransfersPaused: Boolean,
@@ -43,6 +44,7 @@ type DispatchProps = {|
 
 const mapStateToProps = (state: RootState): StateProps => ({
   isTooMany: state.token.mint.isTooMany,
+  isInvalidFormat: state.token.mint.isInvalidFormat,
   isReady: state.token.mint.uploaded.length > 0,
   isInvalid: state.token.mint.criticals.length > 0,
   isTransfersPaused: state.whitelist.freezeStatus,
@@ -216,6 +218,7 @@ class MintTokens extends Component<Props> {
   render() {
     const {
       isTooMany,
+      isInvalidFormat,
       isReady,
       isInvalid,
       isTransfersPaused,
@@ -307,7 +310,14 @@ class MintTokens extends Component<Props> {
             ref={this.fileUploaderRef}
             disabled={isTransfersPaused}
           />
-          {isInvalid && !isReady ? (
+          {isInvalidFormat ? (
+            <InlineNotification
+              hideCloseButton
+              title="Improper file format"
+              subtitle="Please export the information to CSV using a MS-DOS Comma Separated (.csv) file format and upload the new file"
+              kind="error"
+            />
+          ) : isInvalid && !isReady ? (
             <InlineNotification
               hideCloseButton
               title="The file you uploaded does not contain any valid values"
