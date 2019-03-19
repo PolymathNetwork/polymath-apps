@@ -66,19 +66,6 @@ const getCappedSTOContract = (address: string, networkId: string) => {
 };
 
 /**
- * Get a generic STO Factory contract
- *
- * @param {string} address
- * @param {string} networkId id of the network to which the contract is deployed
- *
- * @returns a generic web3 STO Module contract
- */
-const getGenericSTOFactoryContract = (address: string, networkId: string) => {
-  const client = web3Clients[networkId];
-  return new client.eth.Contract(STOModuleFactoryArtifacts.abi, address);
-};
-
-/**
  * Get the corresponding USD Tiered STO contract
  *
  * @param {string} address
@@ -186,13 +173,7 @@ const newProvider = async (networkId: string) => {
 const getCappedSTODetails = async (address: string, networkId: string) => {
   const contract = getCappedSTOContract(address, networkId);
 
-  const genericSTOModuleFactory = getGenericSTOFactoryContract(
-    address,
-    networkId
-  );
-
   try {
-    const version = await genericSTOModuleFactory.methods.version().call();
     const details = await contract.methods.getSTODetails().call();
     const fundsReceiver: string = await contract.methods.wallet().call();
 
@@ -207,16 +188,10 @@ const getCappedSTODetails = async (address: string, networkId: string) => {
      *
      * Start time is a UNIX timestamp (in seconds)
      */
-    const start: number = details[0];
-    const cap: number = Web3.utils.fromWei(details[2]);
-    let rate: number;
+    const start: number = parseInt(details[0], 10);
+    const cap: number = parseInt(Web3.utils.fromWei(details[2]), 10);
+    const rate = parseInt(Web3.utils.fromWei(details[3]), 10);
     const isPolyFundraise: boolean = details[7];
-
-    if (version !== '1.0.0') {
-      rate = Web3.utils.fromWei(rate).toNumber();
-    } else {
-      rate = parseInt(details[3], 10);
-    }
 
     return {
       start,
