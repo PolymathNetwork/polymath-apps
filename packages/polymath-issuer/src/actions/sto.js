@@ -271,11 +271,10 @@ export const configureSTO = (config: STOConfig, type: string) => async (
               const tokenAddress = token.address;
               switch (type) {
                 case 'CappedSTO': {
-                  await setupCappedSTOModule(
-                    stoModule,
-                    tokenAddress,
-                    stoModuleConfig
-                  );
+                  await setupCappedSTOModule(stoModule, tokenAddress, {
+                    ...stoModuleConfig,
+                    legacy: config.legacy,
+                  });
                   break;
                 }
                 case 'USDTieredSTO': {
