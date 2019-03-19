@@ -1,5 +1,5 @@
 import { FieldProps, validateYupSchema, yupToFormErrors } from 'formik';
-import React, { useState, FC } from 'react';
+import React, { useState, useMemo, FC } from 'react';
 import { map, find, each, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import {
@@ -210,7 +210,37 @@ export const Step2: FC<Props> = ({
         },
       }}
       render={({ values, setFieldValue }) => {
+        // console.log(existingTaxWithholdings);
+        // console.log(values.taxWithholdings);
         const canProceedToNextStep = values.isTaxWithholdingConfirmed;
+        const filteredTaxWithholdings = values.taxWithholdings.map(
+          taxWithholding => {
+            const existingTaxWithholding = existingTaxWithholdings.find(
+              currentExistingTaxWithholding =>
+                currentExistingTaxWithholding.investorAddress.toUpperCase() ===
+                taxWithholding[csvEthAddressKey].toUpperCase()
+            );
+
+            if (existingTaxWithholding) {
+              if (
+                existingTaxWithholding.percentage !==
+                taxWithholding[csvTaxWithholdingKey]
+              ) {
+                return {
+                  ...taxWithholding,
+                  status: TaxWithholdingStatuses.Updated,
+                };
+              }
+            } else {
+              return {
+                ...taxWithholding,
+                status: TaxWithholdingStatuses.New,
+              };
+            }
+
+            return taxWithholding;
+          }
+        );
 
         const handleEdit = (ethAddress: string) => {
           const taxWithholding = find(
@@ -368,11 +398,14 @@ export const Step2: FC<Props> = ({
             </Heading>
             <TaxWithholdingsTable
               onSubmit={() => {
-                onSubmit(values);
+                onSubmit({
+                  ...values,
+                  taxWithholdings: filteredTaxWithholdings,
+                });
               }}
               onEdit={handleEdit}
               onAddNewOpen={openTaxWithhholdingModal}
-              taxWithholdings={values.taxWithholdings}
+              taxWithholdings={filteredTaxWithholdings}
               onDelete={confirmDelete}
             />
             <Heading variant="h3" mt="4">
