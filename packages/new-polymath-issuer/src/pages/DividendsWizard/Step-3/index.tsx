@@ -61,7 +61,7 @@ const schema = validator.object().shape({
   dividendAmount: validator
     .bigNumber()
     .isRequired('Amount is required')
-    .min(0, 'Amount cannot be less than ${min}')
+    .moreThan(0, 'Amount should be more than 0')
     .max(new BigNumber('1000000000000000000'), 'Amount exceeds maximum'),
   tokenAddress: validator.string(),
 });
@@ -278,13 +278,7 @@ const Step3Base: FC<Props> = ({
                     }
                   }
                 }
-                if (
-                  values.dividendAmount &&
-                  values.dividendAmount.isEqualTo(0)
-                ) {
-                  setFieldError('dividendAmount', 'Invalid value.');
-                  submitEvent.preventDefault();
-                } else if (isValid) {
+                if (isValid) {
                   submitEvent.persist();
                   submitEvent.preventDefault();
                   setFormSubmissionStatus({
