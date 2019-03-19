@@ -47,12 +47,10 @@ export const toPercent = (
 
   const parsedValue = new BigNumber(value);
 
-  return parsedValue
-    .toNumber()
-    .toLocaleString('en-US', {
-      style: 'percent',
-      minimumSignificantDigits: decimals,
-    });
+  return parsedValue.toNumber().toLocaleString('en-US', {
+    style: 'percent',
+    maximumFractionDigits: decimals,
+  });
 };
 
 /**
@@ -78,7 +76,10 @@ export const toTokens = (
     num = new BigNumber(`${value}`);
   }
 
-  return num.precision(18).decimalPlaces(decimals).toFormat();
+  return num
+    .precision(18)
+    .decimalPlaces(decimals)
+    .toFormat();
 };
 
 /**
