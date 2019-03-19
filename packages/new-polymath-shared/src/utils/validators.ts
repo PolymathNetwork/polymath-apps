@@ -23,19 +23,19 @@ interface NumericalityOpts {
 export const numericality = ({ gt, gte, lt, lte }: NumericalityOpts) => (
   value: number
 ) => {
-  if (gt && value <= gt) {
+  if (gt !== undefined && value <= gt) {
     return false;
   }
 
-  if (gte && value < gte) {
+  if (gte !== undefined && value < gte) {
     return false;
   }
 
-  if (lt && value >= lt) {
+  if (lt !== undefined && value >= lt) {
     return false;
   }
 
-  if (lte && value > lte) {
+  if (lte !== undefined && value > lte) {
     return false;
   }
 
