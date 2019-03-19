@@ -255,18 +255,43 @@ const Step3Base: FC<Props> = ({
         }}
         validate={handleValidation}
         onSubmit={onSubmit}
-        render={({ values }) => {
+        render={({
+          values,
+          setFieldTouched,
+          setFieldError,
+          isValid,
+          initialValues,
+          touched,
+        }) => {
           const { currency } = values;
-
           return (
             <form
               onSubmit={submitEvent => {
-                submitEvent.persist();
                 submitEvent.preventDefault();
-                setFormSubmissionStatus({
-                  isSubmitting: true,
-                  submitEvent,
-                });
+                for (const key of Object.keys(initialValues || {})) {
+                  if (Object.keys(touched).indexOf(key) === -1) {
+                    if (
+                      key !== 'tokenAddress' ||
+                      currency === types.Tokens.Erc20
+                    ) {
+                      setFieldTouched(`${key}`, true);
+                    }
+                  }
+                }
+                if (
+                  values.dividendAmount &&
+                  values.dividendAmount.isEqualTo(new BigNumber(0))
+                ) {
+                  setFieldError('dividendAmount', 'Invalid value.');
+                  submitEvent.preventDefault();
+                } else if (isValid) {
+                  submitEvent.persist();
+                  submitEvent.preventDefault();
+                  setFormSubmissionStatus({
+                    isSubmitting: true,
+                    submitEvent,
+                  });
+                }
               }}
             >
               <Grid gridGap="gridGap" gridAutoFlow="row" maxWidth={512}>
