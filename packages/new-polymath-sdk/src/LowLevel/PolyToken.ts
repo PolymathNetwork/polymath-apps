@@ -46,9 +46,10 @@ export class PolyToken extends Contract<PolyTokenContract> {
     if (!this.isTestnet) {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
+    const amountInWei = toWei(amount);
     return () =>
       this.contract.methods
-        .getTokens(amount, recipient)
+        .getTokens(amountInWei, recipient)
         .send({ from: this.context.account });
   };
 
