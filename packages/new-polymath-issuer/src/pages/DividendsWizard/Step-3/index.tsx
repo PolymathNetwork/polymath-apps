@@ -13,7 +13,12 @@ import {
   validator,
   NumberInput,
 } from '@polymathnetwork/new-ui';
-import { types, constants, validators } from '@polymathnetwork/new-shared';
+import {
+  types,
+  constants,
+  validators,
+  formatters,
+} from '@polymathnetwork/new-shared';
 import BigNumber from 'bignumber.js';
 import { ExclusionEntry } from '~/pages/DividendsWizard/Presenter';
 import { CreateDividendDistributionParams } from '~/pages/DividendsWizard/Container';
@@ -198,25 +203,34 @@ const Step3Base: FC<Props> = ({
         }
       }
 
-      const isTestNet = [
-        constants.NetworkIds.Kovan,
-        constants.NetworkIds.Local,
-        constants.NetworkIds.LocalVm,
-      ].includes(networkId);
-      const shouldValidateAmount = !isTestNet || currency !== types.Tokens.Poly;
-
       const erc20Address = getTokenAddress(currency, tokenAddress);
-      // Only validate against balance if faucet cannot be used
-      if (dividendAmount && shouldValidateAmount && erc20Address) {
+
+      if (dividendAmount && erc20Address) {
         try {
           const { balance, tokenSymbol } = await fetchBalance({
             tokenAddress: erc20Address,
             walletAddress: wallet.address,
           });
 
-          if (balance.lt(dividendAmount)) {
-            asyncErrors.dividendAmount = `Insufficient ${currency ||
-              tokenSymbol} funds`;
+          const difference = dividendAmount.minus(balance);
+
+          const isTestNet = [
+            constants.NetworkIds.Kovan,
+            constants.NetworkIds.Local,
+            constants.NetworkIds.LocalVm,
+          ].includes(networkId);
+          const willUseFaucet = isTestNet && currency === types.Tokens.Poly;
+
+          if (!willUseFaucet && difference.gte(0)) {
+            asyncErrors.dividendAmount = `Insufficient funds. You need ${formatters.toTokens(
+              difference
+            )} more ${currency || tokenSymbol}`;
+          }
+
+          // The faucet reverts if more than 1,000,000 tokens are requested
+          if (willUseFaucet && difference.gte(1000000)) {
+            asyncErrors.dividendAmount =
+              'Cannot request more than 1,000,000 tokens from faucet. Try a smaller amount';
           }
         } catch (err) {
           asyncErrors.dividendAmount =
