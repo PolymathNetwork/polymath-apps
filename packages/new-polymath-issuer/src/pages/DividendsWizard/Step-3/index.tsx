@@ -280,7 +280,7 @@ const Step3Base: FC<Props> = ({
                 }
                 if (
                   values.dividendAmount &&
-                  values.dividendAmount.isEqualTo(new BigNumber(0))
+                  values.dividendAmount.isEqualTo(0)
                 ) {
                   setFieldError('dividendAmount', 'Invalid value.');
                   submitEvent.preventDefault();
