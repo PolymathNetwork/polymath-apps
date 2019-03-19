@@ -90,7 +90,7 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
         <Label color={currencyColor} bg={currencyBgColor}>
           Issued in {currencyType}
         </Label>
-        {!dividendComplete && (
+        {!dividendComplete ? (
           <Flex mt="m">
             <Flex flex="0" mr="s">
               <IconCircled
@@ -107,15 +107,18 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
                 <strong>{remainingTransactions}</strong> remaining transactions
               </Paragraph>
             )}
-            {remainingTransactions === 0 && (
+          </Flex>
+        ) : (
+          remainingTransactions === 0 && (
+            <Flex mt="m">
               <Paragraph fontSize={0}>
                 <strong>
                   {formatters.toTokens(unwithdrawnTaxes)} {currencyType}
                 </strong>{' '}
                 tax withholdings left to withdraw
               </Paragraph>
-            )}
-          </Flex>
+            </Flex>
+          )
         )}
         <Box mt="auto" minWidth="100%" textAlign="center">
           <ButtonFluid
