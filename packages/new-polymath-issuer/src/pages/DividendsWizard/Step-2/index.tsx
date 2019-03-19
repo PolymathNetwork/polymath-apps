@@ -336,6 +336,7 @@ export const Step2: FC<Props> = ({
                     form.setFieldValue(field.name, value);
                     closeCsvModal();
                   }}
+                  exclusionList={exclusionList}
                   existingTaxWithholdings={existingTaxWithholdings}
                   isOpen={csvModalOpen}
                   onClose={closeCsvModal}

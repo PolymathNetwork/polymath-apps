@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { some } from 'lodash';
+import { some, filter, includes } from 'lodash';
 import {
   ModalConfirm,
   CsvUploader,
@@ -22,6 +22,7 @@ interface Props {
   onClose: () => void;
   existingTaxWithholdings: types.TaxWithholdingPojo[];
   onConfirm: (values: TaxWithholdingsItem[]) => void;
+  exclusionList: string[];
 }
 
 type CsvTaxWithholdingsData = any;
@@ -31,6 +32,7 @@ export const CsvModal: FC<Props> = ({
   onClose,
   onConfirm,
   existingTaxWithholdings,
+  exclusionList,
 }) => {
   const [taxWithholdings, setTaxWithholdings] = useState<
     CsvTaxWithholdingsData[]
@@ -44,7 +46,7 @@ export const CsvModal: FC<Props> = ({
 
   const onChangeCsv = (result: TaxWithholdingsItem[] | null) => {
     if (result) {
-      const formattedValues = result.map((value: TaxWithholdingsItem) => {
+      let formattedValues = result.map((value: TaxWithholdingsItem) => {
         let alreadyExists = false;
         const isUpdated = some(
           existingTaxWithholdings,
@@ -76,6 +78,12 @@ export const CsvModal: FC<Props> = ({
           status,
         };
       });
+
+      formattedValues = filter(
+        formattedValues,
+        value => !includes(exclusionList, value[csvEthAddressKey].toUpperCase())
+      );
+
       setTaxWithholdings(formattedValues);
     }
   };
