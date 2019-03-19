@@ -133,7 +133,7 @@ export const CsvModal: FC<Props> = ({
                 validators: [
                   validators.isNotEmpty,
                   validators.isNumber,
-                  validators.numericality({ lte: 99, gte: 0 }),
+                  validators.numericality({ lt: 100, gte: 0 }),
                 ],
                 required: true,
               },
