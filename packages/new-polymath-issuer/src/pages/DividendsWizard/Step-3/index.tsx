@@ -258,7 +258,6 @@ const Step3Base: FC<Props> = ({
         render={({
           values,
           setFieldTouched,
-          setFieldError,
           isValid,
           initialValues,
           touched,
