@@ -76,7 +76,9 @@ export function* createErc20DividendsDistribution(
     );
 
     yield put(
-      push(`/securityTokens/${securityTokenSymbol}/dividends/${result}`)
+      push(
+        `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/${result}`
+      )
     );
 
     yield take(getType(finishTransactionQueue));
@@ -135,7 +137,7 @@ export function* updateTaxWithholdingList(
     // Invalidate cache
     yield put(
       invalidateRequest({
-        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+        requestKey: RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint,
         args: {
           securityTokenSymbol,
           dividendType,

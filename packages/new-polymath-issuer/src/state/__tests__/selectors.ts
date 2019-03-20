@@ -177,7 +177,7 @@ const dataRequestsState = {
   [RequestKeys.GetSecurityTokenBySymbol]: {},
   [RequestKeys.GetDividendsByCheckpoint]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
-  [RequestKeys.GetTaxWithholdingListBySymbol]: {},
+  [RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint]: {},
   [RequestKeys.GetDividendBySymbolAndId]: {},
   [RequestKeys.GetErc20BalanceByAddressAndWallet]: {},
 };
