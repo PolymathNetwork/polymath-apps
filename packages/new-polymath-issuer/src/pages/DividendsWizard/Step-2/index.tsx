@@ -416,18 +416,7 @@ const Form: FC<FormProps> = ({
           <CsvModal
             onConfirm={value => {
               // Merge CSV values with existing values
-              form.setFieldValue(
-                field.name,
-                values.taxWithholdings.map(taxWithholding => {
-                  return (
-                    value.find(
-                      csvTaxWithholding =>
-                        csvTaxWithholding[csvEthAddressKey] ===
-                        taxWithholding[csvEthAddressKey]
-                    ) || taxWithholding
-                  );
-                })
-              );
+              form.setFieldValue(field.name, value);
               closeCsvModal();
             }}
             isOpen={csvModalOpen}
