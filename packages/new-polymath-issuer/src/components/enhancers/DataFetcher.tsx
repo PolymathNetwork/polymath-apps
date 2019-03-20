@@ -18,7 +18,7 @@ interface OwnProps {
   renderLoading: () => ReactNode;
   renderError: (errors: string[]) => ReactNode;
   onDataFetched(data: FetchedData): void;
-  render(props: FetchedData): ReactNode;
+  render(props: FetchedData, loading: boolean): ReactNode;
 }
 
 interface StateProps {
@@ -162,10 +162,10 @@ class DataFetcherBase extends Component<Props, State> {
     // the rendered children when dataToRender exists and loading is true
 
     if (!dataToRender) {
-      return render(fetchedData);
+      return render(fetchedData, loading);
     }
 
-    return render(dataToRender);
+    return render(dataToRender, loading);
   }
 }
 

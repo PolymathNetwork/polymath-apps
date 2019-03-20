@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ActionType } from 'typesafe-actions/dist/types';
+import { ActionType } from 'typesafe-actions';
 import { types, constants } from '@polymathnetwork/new-shared';
 import { Page } from '@polymathnetwork/new-ui';
 import { Presenter } from './Presenter';

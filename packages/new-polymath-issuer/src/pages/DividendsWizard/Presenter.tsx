@@ -56,6 +56,7 @@ export interface Props {
     args: GetErc20BalanceByAddressAndWalletArgs
   ) => Promise<types.Erc20TokenBalancePojo>;
   fetchIsValidToken: (args: GetIsValidErc20ByAddressArgs) => Promise<boolean>;
+  isLoadingData: boolean;
 }
 
 export interface State {
@@ -123,6 +124,7 @@ export class Presenter extends Component<Props, State> {
       fetchBalance,
       fetchIsValidToken,
       securityTokenSymbol,
+      isLoadingData,
     } = this.props;
     const { excludedWallets } = this.state;
     const exclusionList = this.getExcludedAddresses();
@@ -142,6 +144,7 @@ export class Presenter extends Component<Props, State> {
             onTaxWithholdingListChange={this.setPositiveWithholdingAmount}
             nonExcludedInvestors={nonExcludedInvestors}
             exclusionList={exclusionList}
+            isLoadingData={isLoadingData}
           />
         );
       }

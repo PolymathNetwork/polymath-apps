@@ -52,6 +52,7 @@ interface Props {
   nonExcludedInvestors: string[];
   exclusionList: string[];
   onTaxWithholdingListChange: (amountOfInvestors: number) => void;
+  isLoadingData: boolean;
 }
 
 const schema = validator.object().shape({
@@ -83,6 +84,7 @@ export const Step2: FC<Props> = ({
   nonExcludedInvestors,
   exclusionList,
   onTaxWithholdingListChange,
+  isLoadingData,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
 
@@ -272,6 +274,7 @@ export const Step2: FC<Props> = ({
             existingTaxWithholdings={existingTaxWithholdings}
             csvModalOpen={csvModalOpen}
             closeCsvModal={closeCsvModal}
+            isLoadingData={isLoadingData}
           />
         )}
       />
@@ -287,6 +290,7 @@ interface FormProps {
   existingTaxWithholdings: types.TaxWithholdingEntity[];
   csvModalOpen: boolean;
   closeCsvModal: () => void;
+  isLoadingData: boolean;
 }
 
 const Form: FC<FormProps> = ({
@@ -297,6 +301,7 @@ const Form: FC<FormProps> = ({
   existingTaxWithholdings,
   csvModalOpen,
   closeCsvModal,
+  isLoadingData,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -469,6 +474,7 @@ const Form: FC<FormProps> = ({
         onAddNewOpen={openTaxWithhholdingModal}
         taxWithholdings={filteredTaxWithholdings}
         onDelete={confirmDelete}
+        isLoadingData={isLoadingData}
       />
       <Heading variant="h3" mt="4">
         Confirm Tax Withholdings
