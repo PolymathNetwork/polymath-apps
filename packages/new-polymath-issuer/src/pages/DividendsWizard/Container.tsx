@@ -218,13 +218,16 @@ export class ContainerBase extends Component<Props, State> {
               checkpointIndex: parseInt(checkpointIndex, 10),
             }),
           ]}
-          render={({
-            taxWithholdings,
-            checkpoints: [checkpoint],
-          }: {
-            taxWithholdings: types.TaxWithholdingEntity[];
-            checkpoints: types.CheckpointEntity[];
-          }) => {
+          render={(
+            {
+              taxWithholdings,
+              checkpoints: [checkpoint],
+            }: {
+              taxWithholdings: types.TaxWithholdingEntity[];
+              checkpoints: types.CheckpointEntity[];
+            },
+            loading: boolean
+          ) => {
             return (
               <Presenter
                 createDividendDistribution={this.createDividendDistribution}
@@ -239,6 +242,7 @@ export class ContainerBase extends Component<Props, State> {
                 downloadSampleExclusionList={this.downloadSampleExclusionList}
                 fetchBalance={this.fetchBalance}
                 fetchIsValidToken={this.fetchIsValidToken}
+                isLoadingData={loading}
               />
             );
           }}
