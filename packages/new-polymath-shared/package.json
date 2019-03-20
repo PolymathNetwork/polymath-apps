@@ -17,7 +17,6 @@
     "json2csv": "^4.3.3",
     "lodash": "^4.17.11",
     "luxon": "1.10.0",
-    "numeral": "^2.0.6",
     "papaparse": "^4.6.3",
     "web3": "1.0.0-beta.30"
   },
@@ -30,9 +29,9 @@
     "@types/luxon": "^1.10.2",
     "@types/node": "^10.12.12",
     "@types/papaparse": "^4.5.7",
-    "@types/web3": "^1.0.18",
     "@types/react": "16.8.3",
     "@types/react-dom": "16.8.2",
+    "@types/web3": "^1.0.18",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "8.0.2",
     "typescript": "3.2.4"

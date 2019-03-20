@@ -15,6 +15,12 @@ export function fromWei(value: number | string) {
   return new BigNumber(utils.fromWei(String(value)));
 }
 
+export function fromDivisible(value: number | string, decimals: number) {
+  const factor = new BigNumber(10).exponentiatedBy(decimals);
+
+  return new BigNumber(value).div(factor);
+}
+
 export function toWei(value: number | BigNumber) {
   let stringValue: string;
 
@@ -25,6 +31,28 @@ export function toWei(value: number | BigNumber) {
   }
 
   return new BigNumber(utils.toWei(stringValue));
+}
+
+export function toDivisible(value: number | BigNumber, decimals: number) {
+  let stringValue: string;
+
+  if (typeof value === 'number') {
+    stringValue = String(value);
+  } else {
+    stringValue = value.toFormat().replace(/,/g, '');
+  }
+
+  const factor = new BigNumber(10).exponentiatedBy(decimals);
+
+  const result = new BigNumber(stringValue).times(factor);
+
+  if (result.decimalPlaces() > 0) {
+    throw new Error(
+      `Supplied number has more than ${decimals} decimal places. This will result on a web3 error. Check that you're sending the correct values.`
+    );
+  }
+
+  return result;
 }
 
 export function isAddress(value: string) {

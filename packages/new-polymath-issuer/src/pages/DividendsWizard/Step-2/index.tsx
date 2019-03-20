@@ -22,6 +22,7 @@ import {
 } from '@polymathnetwork/new-ui';
 import { CsvModal } from './CsvModal';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
+import { ConfirmModal } from './ConfirmModal';
 import { TaxWithholdingModal } from './TaxWithholdingModal';
 import { TaxWithholdingsTable } from './TaxWithholdingsTable';
 import {
@@ -53,14 +54,14 @@ const schema = validator.object().shape({
   currentTaxWithholding: validator.object().shape({
     [csvEthAddressKey]: validator
       .string()
-      .required('Investor ETH address is required')
+      .isRequired('Investor ETH address is required')
       .isEthereumAddress('Invalid Ethereum Address'),
     [csvTaxWithholdingKey]: validator
       .number()
       .typeError('Invalid value')
-      .moreThan(0, 'Invalid value')
-      .max(100, 'Invalid value')
-      .required('Tax withholding percent is required'),
+      .isRequired('Tax withholding percent is required')
+      .min(0, 'Cannot be lower than ${min}')
+      .lessThan(1, 'Must be lower than 100'),
   }),
 });
 
@@ -83,8 +84,8 @@ export const Step2: FC<Props> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
   const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
-
   const onSubmit = ({ taxWithholdings }: FormValues) => {
     const filteredTaxWithholdings = filter(
       taxWithholdings,
@@ -186,6 +187,17 @@ export const Step2: FC<Props> = ({
     }
   };
 
+  const handleSubmit = (isDraft: boolean) => {
+    if (!isDraft) {
+      onNextStep();
+    } else {
+      setConfirmModalOpen(true);
+    }
+  };
+  const closeConfirmModal = () => {
+    setConfirmModalOpen(false);
+  };
+
   const initialTaxWithholdings = filter(
     map(existingTaxWithholdings, taxWithhholdingItem => {
       return {
@@ -211,6 +223,9 @@ export const Step2: FC<Props> = ({
       }}
       render={({ values, setFieldValue }) => {
         const canProceedToNextStep = values.isTaxWithholdingConfirmed;
+        const isDraft = !!values.taxWithholdings.find(
+          ({ status }: { status?: TaxWithholdingStatuses }) => !!status
+        );
 
         const handleEdit = (ethAddress: string) => {
           const taxWithholding = find(
@@ -363,6 +378,12 @@ export const Step2: FC<Props> = ({
               addresses={addressesToDelete}
             />
 
+            <ConfirmModal
+              isOpen={confirmModalOpen}
+              onConfirm={onNextStep}
+              onClose={closeConfirmModal}
+            />
+
             <Heading variant="h3" mt="4">
               Tax Withholdings List
             </Heading>
@@ -389,7 +410,10 @@ export const Step2: FC<Props> = ({
               <FormItem.Error />
             </FormItem>
             <Box mt="xl">
-              <Button onClick={onNextStep} disabled={!canProceedToNextStep}>
+              <Button
+                onClick={() => handleSubmit(isDraft)}
+                disabled={!canProceedToNextStep}
+              >
                 Update list and proceed to the next step
               </Button>
             </Box>

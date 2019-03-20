@@ -448,9 +448,9 @@ export const getTransactionTitle = (
 
       const { amount, symbol } = args;
 
-      return `Approving ${amount ? formatters.toTokens(amount) : ''}${
-        amount ? ' ' : ''
-      }${symbol || 'TOKEN'} spend`;
+      return `Approving ${
+        amount ? formatters.toTokens(amount, { decimals: 2 }) : ''
+      }${amount ? ' ' : ''}${symbol || 'TOKEN'} spend`;
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
@@ -478,7 +478,10 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
         transaction.args;
 
-      return `Get ${args.amount} ${args.symbol} from faucet`;
+      const { amount, symbol } = args;
+
+      return `Get ${amount ? formatters.toTokens(amount) : ''} ${symbol ||
+        'TOKEN'} from faucet`;
     }
     case types.PolyTransactionTags.ReclaimDividendFunds: {
       const args: TransactionArguments[types.PolyTransactionTags.ReclaimDividendFunds] =
@@ -556,9 +559,9 @@ export const getTransactionContent = (
       const { amount, symbol } = args;
 
       return {
-        title: `Approve ${amount ? formatters.toTokens(amount) : ''}${
-          amount ? ' ' : ''
-        }${symbol || 'TOKEN'} spend`,
+        title: `Approve ${
+          amount ? formatters.toTokens(amount, { decimals: 2 }) : ''
+        }${amount ? ' ' : ''}${symbol || 'TOKEN'} spend`,
         description: 'Approve Spend',
       };
     }
@@ -598,8 +601,11 @@ export const getTransactionContent = (
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
         transaction.args;
 
+      const { amount, symbol } = args;
+
       return {
-        title: `Get ${args.amount} ${args.symbol} from faucet.`,
+        title: `Get ${amount ? formatters.toTokens(amount) : ''} ${symbol ||
+          'TOKEN'} from faucet.`,
         description: 'Get Tokens',
       };
     }

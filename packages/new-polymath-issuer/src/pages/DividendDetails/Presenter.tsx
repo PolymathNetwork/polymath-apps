@@ -20,7 +20,7 @@ import {
   Link,
   Hr,
 } from '@polymathnetwork/new-ui';
-import { types, formatters } from '@polymathnetwork/new-shared';
+import { utils, types, formatters } from '@polymathnetwork/new-shared';
 import _ from 'lodash';
 import BigNumber from 'bignumber.js';
 import { ListIcon } from '~/components/ListIcon';
@@ -32,6 +32,7 @@ export interface Props {
   symbol: string;
   pushDividendPayments: () => void;
   withdrawTaxes: () => void;
+  subdomain?: string;
 }
 
 enum PaymentStatus {
@@ -45,6 +46,7 @@ export const Presenter = ({
   taxWithholdings,
   pushDividendPayments,
   withdrawTaxes,
+  subdomain,
 }: Props) => {
   const {
     investors,
@@ -69,7 +71,13 @@ export const Presenter = ({
       Header: 'Investor Wallet Address',
       accessor: 'investorWalletAddress',
       Cell: ({ value }: { value: string }) => {
-        return <Link href="#">{value}</Link>;
+        return (
+          <Link
+            href={utils.toEtherscanUrl(value, { subdomain, type: 'address' })}
+          >
+            {formatters.toShortAddress(value)}
+          </Link>
+        );
       },
     },
     {
@@ -122,7 +130,11 @@ export const Presenter = ({
     (i: types.DividendInvestorStatus) => Number(!i.withheldTax.isEqualTo(0))
   );
   const positiveTaxWithholdings = taxWithholdings.filter(
-    taxWithholding => !!taxWithholding.percentage
+    taxWithholding =>
+      !!taxWithholding.percentage &&
+      !excludedInvestors.find(
+        ({ address }) => address === taxWithholding.investorAddress
+      )
   );
 
   const unpaidInvestors = nonExcludedInvestors.filter(
@@ -159,7 +171,7 @@ export const Presenter = ({
     const preTaxPayment = amountToPay(investor);
 
     return {
-      investorWalletAddress: formatters.toShortAddress(address),
+      investorWalletAddress: address,
       dividendsPreTax: `${formatters.toTokens(preTaxPayment, {
         decimals: 6,
       })} ${currency}`,
@@ -261,7 +273,7 @@ export const Presenter = ({
                   disabled={!pendingPayments}
                   onClick={pushDividendPayments}
                 >
-                  Submit Outstanding Transactions
+                  Complete Transactions
                 </ButtonFluid>
               </Box>
             </Grid>
