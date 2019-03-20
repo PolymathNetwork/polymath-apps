@@ -235,7 +235,7 @@ const Step3Base: FC<Props> = ({
 
       if (dividendAmount && erc20Address) {
         try {
-          const { balance, tokenSymbol, ...rest } = await fetchBalance({
+          const { balance, tokenSymbol } = await fetchBalance({
             tokenAddress: erc20Address,
             walletAddress: wallet.address,
           });
