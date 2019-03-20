@@ -16,7 +16,6 @@ import {
   TaxWithholdingsItem,
   TaxWithholdingStatuses,
 } from './shared';
-import { boolean } from 'yup';
 
 interface Props {
   isOpen: boolean;
@@ -38,7 +37,9 @@ export const CsvModal: FC<Props> = ({
   >([]);
 
   const onSubmit = () => {
-    onConfirm(taxWithholdings);
+    if (taxWithholdings.length > 0) {
+      onConfirm(taxWithholdings);
+    }
   };
 
   const onChangeCsv = (result: TaxWithholdingsItem[] | null) => {
@@ -89,20 +90,18 @@ export const CsvModal: FC<Props> = ({
     });
     return !hasDuplicates;
   };
-
   return (
     <ModalConfirm
       isOpen={isOpen}
       onSubmit={onSubmit}
       onClose={onClose}
       actionButtonText="Confirm"
-      isActionDisabled={!taxWithholdings}
-      maxWidth={500}
+      isActionDisabled={!taxWithholdings || taxWithholdings.length === 0}
     >
       <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
       <Paragraph mb={0}>
-        Update tax withholdings by uploading a comma separated .CSV file. The
-        format should be as follows:
+        Update tax withholdings by uploading a comma separated .CSV file.
+        <br /> The format should be as follows:
       </Paragraph>
       <List vertical gridGap={0}>
         <li>
@@ -112,7 +111,7 @@ export const CsvModal: FC<Props> = ({
           <Text>
             — % tax witholding for associated ETH address. The exact amount of
             funds to be withheld will be automatically calculated prior to
-            distribution.
+            distribution. This value must be at least 0 and less than 100.
           </Text>
         </li>
       </List>
@@ -131,7 +130,11 @@ export const CsvModal: FC<Props> = ({
               },
               {
                 name: csvTaxWithholdingKey,
-                validators: [validators.isNotEmpty],
+                validators: [
+                  validators.isNotEmpty,
+                  validators.isNumber,
+                  validators.numericality({ lt: 100, gte: 0 }),
+                ],
                 required: true,
               },
             ],

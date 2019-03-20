@@ -191,8 +191,8 @@ class ImportWhitelistModal extends Component<Props> {
         ) : isTooMany ? (
           <InlineNotification
             hideCloseButton
-            title="The file you uploaded contains more than 75 investors"
-            subtitle="You can still continue, but only 75 first investors will be submitted."
+            title="The file you uploaded contains more than 40 investors"
+            subtitle="You can still continue, but only 40 first investors will be submitted."
             kind="error"
           />
         ) : (

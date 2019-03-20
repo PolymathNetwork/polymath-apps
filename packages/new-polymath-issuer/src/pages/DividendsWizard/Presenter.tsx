@@ -61,6 +61,7 @@ export interface Props {
 export interface State {
   excludedWallets: null | ExclusionEntry[];
   dividendAmount: BigNumber;
+  tokenSymbol: string;
   positiveWithholdingAmount: number;
 }
 
@@ -68,6 +69,7 @@ export class Presenter extends Component<Props, State> {
   public state: State = {
     excludedWallets: null,
     dividendAmount: new BigNumber(0),
+    tokenSymbol: '-',
     positiveWithholdingAmount: this.props.taxWithholdings.filter(
       ({ percentage }) => percentage > 0
     ).length,
@@ -79,6 +81,10 @@ export class Presenter extends Component<Props, State> {
 
   public setDividendAmount = (dividendAmount: BigNumber) => {
     this.setState({ dividendAmount });
+  };
+
+  public setTokenSymbol = (tokenSymbol: string) => {
+    this.setState({ tokenSymbol });
   };
 
   public setPositiveWithholdingAmount = (positiveWithholdingAmount: number) => {
@@ -116,6 +122,7 @@ export class Presenter extends Component<Props, State> {
       updateTaxWithholdingList,
       fetchBalance,
       fetchIsValidToken,
+      securityTokenSymbol,
     } = this.props;
     const { excludedWallets } = this.state;
     const exclusionList = this.getExcludedAddresses();
@@ -143,9 +150,11 @@ export class Presenter extends Component<Props, State> {
           <Step3
             excludedWallets={excludedWallets}
             updateDividendAmount={this.setDividendAmount}
+            updateCurrencySymbol={this.setTokenSymbol}
             createDividendDistribution={createDividendDistribution}
             fetchBalance={fetchBalance}
             fetchIsValidToken={fetchIsValidToken}
+            securityTokenSymbol={securityTokenSymbol}
           />
         );
       }
@@ -171,7 +180,11 @@ export class Presenter extends Component<Props, State> {
       onPreviousStep,
     } = this.props;
 
-    const { dividendAmount, positiveWithholdingAmount } = this.state;
+    const {
+      dividendAmount,
+      tokenSymbol,
+      positiveWithholdingAmount,
+    } = this.state;
     const { investorBalances } = checkpoint;
     const exclusionList = this.getExcludedAddresses();
     const tokenHolders = this.getTokenHolderAddresses();
@@ -270,7 +283,9 @@ export class Presenter extends Component<Props, State> {
                 Total Dividend Distribution
               </Text>
               <br />
-              <Text fontSize={6}>{formatters.toTokens(dividendAmount)} -</Text>
+              <Text fontSize={6}>
+                {formatters.toTokens(dividendAmount)} {tokenSymbol}
+              </Text>
             </CardPrimary>
           </GridRow.Col>
         </GridRow>

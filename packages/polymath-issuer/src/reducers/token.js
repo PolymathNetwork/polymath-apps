@@ -24,6 +24,7 @@ export type TokenState = {
     uploadedTokens: Array<number>,
     criticals: Array<InvestorCSVRow>,
     isTooMany: boolean,
+    isInvalidFormat: boolean,
   },
   countTM: {
     contract: ?CountTransferManager,
@@ -47,6 +48,7 @@ const defaultState: TokenState = {
     uploadedTokens: [],
     criticals: [],
     isTooMany: false,
+    isInvalidFormat: false,
   },
   countTM: {
     contract: null,
@@ -87,6 +89,7 @@ export default (state: TokenState = defaultState, action: Action) => {
           uploadedTokens: action.tokens,
           criticals: action.criticals,
           isTooMany: action.isTooMany,
+          isInvalidFormat: action.isInvalidFormat,
         },
       };
     case a.MINT_RESET_UPLOADED:

@@ -2,6 +2,7 @@ import { Procedure } from './Procedure';
 import { types } from '@polymathnetwork/new-shared';
 import { ApproveProcedureArgs, ErrorCodes } from '~/types';
 import { PolymathError } from '~/PolymathError';
+import { BigNumber } from 'bignumber.js';
 
 export class Approve extends Procedure<ApproveProcedureArgs> {
   public type = types.ProcedureTypes.Approve;
@@ -24,13 +25,6 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
       token = polyToken;
     }
 
-    const allowance = await token.allowance({ spender, tokenOwner: address });
-    const hasEnoughAllowance = allowance.gte(amount);
-
-    if (hasEnoughAllowance) {
-      return;
-    }
-
     const balance = await token.balanceOf({ address });
 
     const symbol = await token.symbol();
@@ -41,12 +35,25 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
           token = polyToken;
           await this.addTransaction(token.getTokens, {
             tag: types.PolyTransactionTags.GetTokens,
-          })({ amount: amount.minus(balance), recipient: address, symbol });
+          })({
+            amount: amount
+              .minus(balance)
+              .decimalPlaces(0, BigNumber.ROUND_HALF_UP),
+            recipient: address,
+            symbol,
+          });
         }
       } else {
         // TODO @monitz87: uncomment when we handle transaction errors properly in the Tx modal
         // throw new PolymathError({ code: ErrorCodes.ProcedureValidationError, message: 'Not enough funds.' });
       }
+    }
+
+    const allowance = await token.allowance({ spender, tokenOwner: address });
+    const hasEnoughAllowance = allowance.gte(amount);
+
+    if (hasEnoughAllowance) {
+      return;
     }
 
     await this.addTransaction(token.approve, {

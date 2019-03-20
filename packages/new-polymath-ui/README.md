@@ -13,6 +13,13 @@ Then run `docz:dev` to launch the component playground using [Docz](https://www.
 To run tests:
 `yarn test`
 
+## Deployment
+
+There is no auto deployment for now. Use the following commands:
+`yarn build:website`
+`cd .docz/dist`
+`netlify deploy`
+
 ## Add a new component
 
 ### New component should follow the following patterns

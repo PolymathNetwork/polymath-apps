@@ -67,23 +67,20 @@ export const TaxWithholdingModal: FC<Props> = ({
 
     if (isEditing || alreadyExists) {
       // Mark as updated if the entry already existed and was actually updated
-      const isUpdated = some(
-        existingTaxWithholdings,
-        existingTaxWithholding => {
-          const { investorAddress, percentage } = existingTaxWithholding;
-          return (
-            investorAddress.toUpperCase() === valueAddress &&
-            valuePercentage !== percentage
-          );
-        }
-      );
+      const isUpdated = existingTaxWithholdings.find(existingTaxWithholding => {
+        const { investorAddress, percentage } = existingTaxWithholding;
+        return (
+          investorAddress.toUpperCase() === valueAddress &&
+          valuePercentage !== percentage
+        );
+      });
 
       const finalValue = { ...value };
 
       if (isUpdated) {
         finalValue.status = TaxWithholdingStatuses.Updated;
-      } else if (finalValue.status === TaxWithholdingStatuses.Updated) {
-        delete finalValue.status;
+      } else {
+        finalValue.status = TaxWithholdingStatuses.New;
       }
 
       formTaxWithholdings.splice(matchingIndex, 1, finalValue);

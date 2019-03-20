@@ -35,6 +35,7 @@ export const FileRemoveButton = styled(IconButton)`
   background-color: ${({ theme }) => theme.colors.gray[2]};
   color: ${({ theme }) => theme.inputs.backgroundColor};
   border-radius: 50%;
+  margin-left: 10px;
 
   :hover {
     background-color: ${({ theme }) => theme.colors.gray[3]};
