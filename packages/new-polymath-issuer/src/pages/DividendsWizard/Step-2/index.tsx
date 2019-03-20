@@ -331,32 +331,27 @@ const Form: FC<FormProps> = ({
             taxWithholding[csvEthAddressKey].toUpperCase()
         );
 
-        // If investor was already in the blockchain
-        if (existingTaxWithholding) {
-          // ...but its percentage was set to 0
-          if (
-            existingTaxWithholding.percentage === 0 &&
-            taxWithholding[csvTaxWithholdingKey] !== 0
-          ) {
-            return {
-              ...taxWithholding,
-              status: TaxWithholdingStatuses.New,
-            };
-            // ...or it has a different percentage
-          } else if (
-            existingTaxWithholding.percentage !==
-            taxWithholding[csvTaxWithholdingKey]
-          ) {
-            return {
-              ...taxWithholding,
-              status: TaxWithholdingStatuses.Updated,
-            };
-          }
-        } else {
-          // if investor is not on the blockchain yet
+        if (!existingTaxWithholding) {
+          return taxWithholding;
+        }
+
+        // If investor percentage was set to 0
+        if (
+          existingTaxWithholding.percentage === 0 &&
+          taxWithholding[csvTaxWithholdingKey] !== 0
+        ) {
           return {
             ...taxWithholding,
             status: TaxWithholdingStatuses.New,
+          };
+          // ...or if investor already had a percentage set
+        } else if (
+          existingTaxWithholding.percentage !==
+          taxWithholding[csvTaxWithholdingKey]
+        ) {
+          return {
+            ...taxWithholding,
+            status: TaxWithholdingStatuses.Updated,
           };
         }
 
