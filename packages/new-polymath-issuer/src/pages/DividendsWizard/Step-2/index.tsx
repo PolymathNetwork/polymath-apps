@@ -1,6 +1,10 @@
-import { FieldProps, validateYupSchema, yupToFormErrors } from 'formik';
-import React, { useState, FC } from 'react';
-import { map, find, each, filter, includes } from 'lodash';
+import {
+  FieldProps,
+  FormikActions,
+  validateYupSchema,
+  yupToFormErrors,
+} from 'formik';
+import React, { Fragment, useState, useMemo, FC } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 import {
   Box,
@@ -81,26 +85,12 @@ export const Step2: FC<Props> = ({
   onTaxWithholdingListChange,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
-  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
-  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
-  const onSubmit = ({ taxWithholdings }: FormValues) => {
-    const filteredTaxWithholdings = filter(
-      taxWithholdings,
-      ({ status }) => !!status
-    );
 
-    const formattedValues: Array<{
-      investorAddress: string;
-      percentage: number;
-    }> = map(filteredTaxWithholdings, value => ({
-      investorAddress: value[csvEthAddressKey],
-      percentage: value[csvTaxWithholdingKey],
-    }));
-
-    updateTaxWithholdingList(formattedValues);
+  const openCsvModal = () => {
+    setCsvModalOpen(true);
+  };
+  const closeCsvModal = () => {
+    setCsvModalOpen(false);
   };
   const downloadExistingTaxWithholdings = () => {
     downloadTaxWithholdingList(existingTaxWithholdings);
@@ -108,25 +98,22 @@ export const Step2: FC<Props> = ({
   const downloadSampleTaxWithholdings = () => {
     downloadTaxWithholdingList([]);
   };
-  const openCsvModal = () => {
-    setCsvModalOpen(true);
+  const handleSubmit = ({ taxWithholdings }: FormValues) => {
+    const filteredTaxWithholdings = taxWithholdings.filter(
+      ({ status }) => !!status
+    );
+
+    const formattedValues: Array<{
+      investorAddress: string;
+      percentage: number;
+    }> = filteredTaxWithholdings.map(value => ({
+      investorAddress: value[csvEthAddressKey],
+      percentage: value[csvTaxWithholdingKey],
+    }));
+
+    updateTaxWithholdingList(formattedValues);
   };
-  const closeCsvModal = () => {
-    setCsvModalOpen(false);
-  };
-  const openTaxWithhholdingModal = () => {
-    setTaxWithholdingModalOpen(true);
-  };
-  const closeTaxWithhholdingModal = () => {
-    setTaxWithholdingModalOpen(false);
-    setIsEditing(false);
-  };
-  const closeConfirmDeleteModal = () => {
-    setConfirmDeleteModalOpen(false);
-  };
-  const openConfirmDeleteModal = () => {
-    setConfirmDeleteModalOpen(true);
-  };
+
   const handleValidation = (values: FormValues) => {
     try {
       validateYupSchema(values, schema, true);
@@ -187,239 +174,315 @@ export const Step2: FC<Props> = ({
     }
   };
 
-  const handleSubmit = (isDraft: boolean) => {
+  const initialTaxWithholdings = existingTaxWithholdings
+    .map(taxWithhholdingItem => {
+      return {
+        [csvEthAddressKey]: taxWithhholdingItem.investorAddress,
+        [csvTaxWithholdingKey]: taxWithhholdingItem.percentage,
+      };
+    })
+    .filter(
+      item => !exclusionList.includes(item[csvEthAddressKey].toUpperCase())
+    );
+  return (
+    <Card p="gridGap" boxShadow={1}>
+      <Heading variant="h2" mb="l">
+        2. Add/Update Tax Withholdings List
+      </Heading>
+      <Paragraph>
+        Optionally withhold taxes for applicable investor wallet addresses by
+        uploading a CSV which includes, for investors subject to tax
+        withholdings:{' '}
+      </Paragraph>
+      <List vertical gridGap={0}>
+        <li>
+          <Text>— Investor wallet's ETH Address;</Text>
+        </li>
+        <li>
+          <Text>
+            — % tax withholding for associated ETH address. The exact amount of
+            funds to be withheld will be automatically calculated prior to
+            distribution.
+          </Text>
+        </li>
+      </List>
+      {existingTaxWithholdings.length ? (
+        <Paragraph>
+          You can download{' '}
+          <LinkButton onClick={downloadExistingTaxWithholdings}>
+            <Icon Asset={icons.SvgDownload} />{' '}
+            Existing-Withholdings-Tax-List.csv
+          </LinkButton>{' '}
+          file and edit it.
+        </Paragraph>
+      ) : (
+        <Paragraph>
+          You can download{' '}
+          <LinkButton onClick={downloadSampleTaxWithholdings}>
+            <Icon Asset={icons.SvgDownload} /> Sample-Withholdings-Tax-List.csv
+          </LinkButton>{' '}
+          example file and edit it.
+        </Paragraph>
+      )}
+      <Text color="primary">
+        <Button
+          variant="ghostSecondary"
+          iconPosition="right"
+          onClick={openCsvModal}
+        >
+          Upload Tax Withholdings List
+          <Icon
+            Asset={icons.SvgDownload}
+            width={14}
+            height={16}
+            rotate="0.5turn"
+          />
+        </Button>
+      </Text>
+      <Box mt="m">
+        <Remark>
+          Taxes will be withheld by the dividends smart contract at the time
+          dividends are distributed. Withholdings can subsequently be withdrawn
+          into a designated wallet for tax payments.
+          <br />
+          <strong>Maximum number of entries per transaction is 10,000.</strong>
+          <br />
+          If you want to withhold taxes for more than 10,000 wallets, please
+          breakdown the list in 10,000 wallets increments and upload them one at
+          a time.
+        </Remark>
+      </Box>
+      <FormWrapper<FormValues>
+        onSubmit={handleSubmit}
+        onFieldChange={handleFieldChange}
+        validate={handleValidation}
+        initialValues={{
+          taxWithholdings: initialTaxWithholdings,
+          isTaxWithholdingConfirmed: false,
+          currentTaxWithholding: {
+            [csvEthAddressKey]: '',
+            [csvTaxWithholdingKey]: null,
+          },
+        }}
+        render={formikProps => (
+          <Form
+            {...formikProps}
+            onSubmit={handleSubmit}
+            onNextStep={onNextStep}
+            existingTaxWithholdings={existingTaxWithholdings}
+            csvModalOpen={csvModalOpen}
+            closeCsvModal={closeCsvModal}
+          />
+        )}
+      />
+    </Card>
+  );
+};
+
+interface FormProps {
+  values: FormValues;
+  setFieldValue: FormikActions<FormValues>['setFieldValue'];
+  onSubmit: (values: FormValues) => void;
+  onNextStep: () => void;
+  existingTaxWithholdings: types.TaxWithholdingEntity[];
+  csvModalOpen: boolean;
+  closeCsvModal: () => void;
+}
+
+const Form: FC<FormProps> = ({
+  values,
+  setFieldValue,
+  onNextStep,
+  onSubmit,
+  existingTaxWithholdings,
+  csvModalOpen,
+  closeCsvModal,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+  const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
+  const openTaxWithhholdingModal = () => {
+    setTaxWithholdingModalOpen(true);
+  };
+  const closeTaxWithhholdingModal = () => {
+    setTaxWithholdingModalOpen(false);
+    setIsEditing(false);
+  };
+  const closeConfirmDeleteModal = () => {
+    setConfirmDeleteModalOpen(false);
+  };
+  const openConfirmDeleteModal = () => {
+    setConfirmDeleteModalOpen(true);
+  };
+  const closeConfirmModal = () => {
+    setConfirmModalOpen(false);
+  };
+
+  const canProceedToNextStep = values.isTaxWithholdingConfirmed;
+
+  const filteredTaxWithholdings = useMemo(
+    () =>
+      values.taxWithholdings.map(taxWithholding => {
+        const existingTaxWithholding = existingTaxWithholdings.find(
+          currentExistingTaxWithholding =>
+            currentExistingTaxWithholding.investorAddress.toUpperCase() ===
+            taxWithholding[csvEthAddressKey].toUpperCase()
+        );
+
+        if (!existingTaxWithholding) {
+          return taxWithholding;
+        }
+
+        // If investor percentage was set to 0
+        if (
+          existingTaxWithholding.percentage === 0 &&
+          taxWithholding[csvTaxWithholdingKey] !== 0
+        ) {
+          return {
+            ...taxWithholding,
+            status: TaxWithholdingStatuses.New,
+          };
+          // ...or if investor already had a percentage set
+        } else if (
+          existingTaxWithholding.percentage !==
+          taxWithholding[csvTaxWithholdingKey]
+        ) {
+          return {
+            ...taxWithholding,
+            status: TaxWithholdingStatuses.Updated,
+          };
+        }
+
+        return taxWithholding;
+      }),
+    [values.taxWithholdings, existingTaxWithholdings]
+  );
+  const isDraft = !!filteredTaxWithholdings.find(
+    ({ status }: { status?: TaxWithholdingStatuses }) => !!status
+  );
+
+  const handleEdit = (ethAddress: string) => {
+    const taxWithholding = values.taxWithholdings.find(
+      item => item[csvEthAddressKey] === ethAddress
+    );
+
+    setFieldValue('currentTaxWithholding', taxWithholding);
+    setIsEditing(true);
+
+    openTaxWithhholdingModal();
+  };
+
+  const confirmDelete = (addresses: string[]) => {
+    setAddressesToDelete(addresses);
+    openConfirmDeleteModal();
+  };
+
+  const handleDelete = (addresses: string[]) => {
+    // Remove all matching items
+    const taxWithholdingAfterDelete = values.taxWithholdings.map(
+      taxWithholding => {
+        const toDelete = addresses.includes(taxWithholding[csvEthAddressKey]);
+
+        if (toDelete) {
+          return {
+            ...taxWithholding,
+            [csvTaxWithholdingKey]: 0,
+          };
+        } else {
+          return taxWithholding;
+        }
+      }
+    );
+
+    setFieldValue('taxWithholdings', taxWithholdingAfterDelete);
+    closeConfirmDeleteModal();
+  };
+
+  const handleNextStep = () => {
     if (!isDraft) {
       onNextStep();
     } else {
       setConfirmModalOpen(true);
     }
   };
-  const closeConfirmModal = () => {
-    setConfirmModalOpen(false);
-  };
-
-  const initialTaxWithholdings = filter(
-    map(existingTaxWithholdings, taxWithhholdingItem => {
-      return {
-        [csvEthAddressKey]: taxWithhholdingItem.investorAddress,
-        [csvTaxWithholdingKey]: taxWithhholdingItem.percentage,
-      };
-    }),
-    item => !includes(exclusionList, item[csvEthAddressKey].toUpperCase())
-  );
 
   return (
-    <FormWrapper<FormValues>
-      onSubmit={onSubmit}
-      onFieldChange={handleFieldChange}
-      validate={handleValidation}
-      initialValues={{
-        taxWithholdings: initialTaxWithholdings,
-        isTaxWithholdingConfirmed: false,
-        currentTaxWithholding: {
-          [csvEthAddressKey]: '',
-          [csvTaxWithholdingKey]: null,
-        },
-      }}
-      render={({ values, setFieldValue }) => {
-        const canProceedToNextStep = values.isTaxWithholdingConfirmed;
-        const isDraft = !!values.taxWithholdings.find(
-          ({ status }: { status?: TaxWithholdingStatuses }) => !!status
-        );
+    <Fragment>
+      <Field
+        name="taxWithholdings"
+        render={({ field, form }: FieldProps<TaxWithholdingsItem>) => (
+          <CsvModal
+            onConfirm={value => {
+              // Merge CSV values with existing values
+              form.setFieldValue(field.name, value);
+              closeCsvModal();
+            }}
+            isOpen={csvModalOpen}
+            onClose={closeCsvModal}
+          />
+        )}
+      />
 
-        const handleEdit = (ethAddress: string) => {
-          const taxWithholding = find(
-            values.taxWithholdings,
-            item => item[csvEthAddressKey] === ethAddress
-          );
+      <Field
+        name="currentTaxWithholding"
+        render={(fieldProps: FieldProps<TaxWithholdingsItem>) => (
+          <TaxWithholdingModal
+            fieldProps={fieldProps}
+            isOpen={taxWithholdingModalOpen}
+            onClose={closeTaxWithhholdingModal}
+            isEditing={isEditing}
+          />
+        )}
+      />
 
-          setFieldValue('currentTaxWithholding', taxWithholding);
-          setIsEditing(true);
+      <DeleteConfirmModal
+        isOpen={confirmDeleteModalOpen}
+        onConfirm={() => handleDelete(addressesToDelete)}
+        onClose={closeConfirmDeleteModal}
+        addresses={addressesToDelete}
+      />
 
-          openTaxWithhholdingModal();
-        };
-
-        const confirmDelete = (addresses: string[]) => {
-          setAddressesToDelete(addresses);
-          openConfirmDeleteModal();
-        };
-
-        const handleDelete = (addresses: string[]) => {
-          // Remove all matching items
-          const modifiedItems = filter(
-            values.taxWithholdings,
-            taxWithholding =>
-              !includes(addresses, taxWithholding[csvEthAddressKey])
-          );
-          // Add back items that already existed, but marked as 0%
-          each(existingTaxWithholdings, taxWithholding => {
-            const { investorAddress, percentage } = taxWithholding;
-            const exists =
-              includes(addresses, investorAddress) && percentage > 0;
-
-            if (!exists) {
-              return;
-            }
-
-            modifiedItems.unshift({
-              status: TaxWithholdingStatuses.Updated,
-              [csvEthAddressKey]: investorAddress,
-              [csvTaxWithholdingKey]: 0,
-            });
+      <Heading variant="h3" mt="4">
+        Tax Withholdings List
+      </Heading>
+      <TaxWithholdingsTable
+        onSubmit={() => {
+          onSubmit({
+            ...values,
+            taxWithholdings: filteredTaxWithholdings,
           });
+        }}
+        onEdit={handleEdit}
+        onAddNewOpen={openTaxWithhholdingModal}
+        taxWithholdings={filteredTaxWithholdings}
+        onDelete={confirmDelete}
+      />
+      <Heading variant="h3" mt="4">
+        Confirm Tax Withholdings
+      </Heading>
+      <FormItem name="isTaxWithholdingConfirmed">
+        <FormItem.Input
+          component={Checkbox}
+          inputProps={{
+            label:
+              'I confirm that the Tax Withholdings above are correct and should be applied to this dividends distribution.',
+          }}
+        />
+        <FormItem.Error />
+      </FormItem>
+      <Box mt="xl">
+        <Button onClick={handleNextStep} disabled={!canProceedToNextStep}>
+          Update list and proceed to the next step
+        </Button>
+      </Box>
 
-          setFieldValue('taxWithholdings', modifiedItems);
-          closeConfirmDeleteModal();
-        };
-
-        return (
-          <Card p="gridGap" boxShadow={1}>
-            <Heading variant="h2" mb="l">
-              2. Add/Update Tax Withholdings List
-            </Heading>
-            <Paragraph>
-              Optionally withhold taxes for applicable investor wallet addresses
-              by uploading a CSV which includes, for investors subject to tax
-              withholdings:{' '}
-            </Paragraph>
-            <List vertical gridGap={0}>
-              <li>
-                <Text>— Investor wallet's ETH Address;</Text>
-              </li>
-              <li>
-                <Text>
-                  — % tax withholding for associated ETH address. The exact
-                  amount of funds to be withheld will be automatically
-                  calculated prior to distribution.
-                </Text>
-              </li>
-            </List>
-            {existingTaxWithholdings.length ? (
-              <Paragraph>
-                You can download{' '}
-                <LinkButton onClick={downloadExistingTaxWithholdings}>
-                  <Icon Asset={icons.SvgDownload} />{' '}
-                  Existing-Withholdings-Tax-List.csv
-                </LinkButton>{' '}
-                file and edit it.
-              </Paragraph>
-            ) : (
-              <Paragraph>
-                You can download{' '}
-                <LinkButton onClick={downloadSampleTaxWithholdings}>
-                  <Icon Asset={icons.SvgDownload} />{' '}
-                  Sample-Withholdings-Tax-List.csv
-                </LinkButton>{' '}
-                example file and edit it.
-              </Paragraph>
-            )}
-            <Text color="primary">
-              <Button
-                variant="ghostSecondary"
-                iconPosition="right"
-                onClick={openCsvModal}
-              >
-                Upload Tax Withholdings List
-                <Icon
-                  Asset={icons.SvgDownload}
-                  width={14}
-                  height={16}
-                  rotate="0.5turn"
-                />
-              </Button>
-            </Text>
-            <Field
-              name="taxWithholdings"
-              render={({ field, form }: FieldProps<TaxWithholdingsItem>) => (
-                <CsvModal
-                  onConfirm={value => {
-                    form.setFieldValue(field.name, value);
-                    closeCsvModal();
-                  }}
-                  existingTaxWithholdings={existingTaxWithholdings}
-                  isOpen={csvModalOpen}
-                  onClose={closeCsvModal}
-                />
-              )}
-            />
-            <Box mt="m">
-              <Remark>
-                Taxes will be withheld by the dividends smart contract at the
-                time dividends are distributed. Withholdings can subsequently be
-                withdrawn into a designated wallet for tax payments.
-                <br />
-                <strong>
-                  Maximum number of entries per transaction is 10,000.
-                </strong>
-                <br />
-                If you want to withhold taxes for more than 10,000 wallets,
-                please breakdown the list in 10,000 wallets increments and
-                upload them one at a time.
-              </Remark>
-            </Box>
-
-            <Field
-              name="currentTaxWithholding"
-              render={(fieldProps: FieldProps<TaxWithholdingsItem>) => (
-                <TaxWithholdingModal
-                  existingTaxWithholdings={existingTaxWithholdings}
-                  fieldProps={fieldProps}
-                  isOpen={taxWithholdingModalOpen}
-                  onClose={closeTaxWithhholdingModal}
-                  isEditing={isEditing}
-                />
-              )}
-            />
-
-            <DeleteConfirmModal
-              isOpen={confirmDeleteModalOpen}
-              onConfirm={() => handleDelete(addressesToDelete)}
-              onClose={closeConfirmDeleteModal}
-              addresses={addressesToDelete}
-            />
-
-            <ConfirmModal
-              isOpen={confirmModalOpen}
-              onConfirm={onNextStep}
-              onClose={closeConfirmModal}
-            />
-
-            <Heading variant="h3" mt="4">
-              Tax Withholdings List
-            </Heading>
-            <TaxWithholdingsTable
-              onSubmit={() => {
-                onSubmit(values);
-              }}
-              onEdit={handleEdit}
-              onAddNewOpen={openTaxWithhholdingModal}
-              taxWithholdings={values.taxWithholdings}
-              onDelete={confirmDelete}
-            />
-            <Heading variant="h3" mt="4">
-              Confirm Tax Withholdings
-            </Heading>
-            <FormItem name="isTaxWithholdingConfirmed">
-              <FormItem.Input
-                component={Checkbox}
-                inputProps={{
-                  label:
-                    'I confirm that the Tax Withholdings above are correct and should be applied to this dividends distribution.',
-                }}
-              />
-              <FormItem.Error />
-            </FormItem>
-            <Box mt="xl">
-              <Button
-                onClick={() => handleSubmit(isDraft)}
-                disabled={!canProceedToNextStep}
-              >
-                Update list and proceed to the next step
-              </Button>
-            </Box>
-          </Card>
-        );
-      }}
-    />
+      <ConfirmModal
+        isOpen={confirmModalOpen}
+        onConfirm={onNextStep}
+        onClose={closeConfirmModal}
+      />
+    </Fragment>
   );
 };
