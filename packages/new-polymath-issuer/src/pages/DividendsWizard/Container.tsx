@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import {
-  createTaxWithholdingListBySymbolFetcher,
+  createTaxWithholdingListBySymbolAndCheckpointFetcher,
   createCheckpointBySymbolAndIdFetcher,
 } from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
@@ -204,18 +204,20 @@ export class ContainerBase extends Component<Props, State> {
   public render() {
     const { securityTokenSymbol, checkpointIndex } = this.props;
     const { step } = this.state;
+    const parsedCheckpointIndex = parseInt(checkpointIndex, 10);
     return (
       <Page title="Create New Dividend Distribution">
         <DataFetcher
           watchProps={this.state}
           fetchers={[
-            createTaxWithholdingListBySymbolFetcher({
+            createTaxWithholdingListBySymbolAndCheckpointFetcher({
               securityTokenSymbol,
+              checkpointIndex: parsedCheckpointIndex,
               dividendType: DividendModuleTypes.Erc20,
             }),
             createCheckpointBySymbolAndIdFetcher({
               securityTokenSymbol,
-              checkpointIndex: parseInt(checkpointIndex, 10),
+              checkpointIndex: parsedCheckpointIndex,
             }),
           ]}
           render={({

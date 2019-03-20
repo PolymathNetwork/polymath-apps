@@ -22,7 +22,7 @@ export interface DataRequestsState {
   [RequestKeys.GetDividendsByCheckpoint]: DataRequestResults;
   [RequestKeys.GetDividendBySymbolAndId]: DataRequestResults;
   [RequestKeys.GetErc20DividendsModuleBySymbol]: DataRequestResults;
-  [RequestKeys.GetTaxWithholdingListBySymbol]: DataRequestResults;
+  [RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint]: DataRequestResults;
   [RequestKeys.GetErc20BalanceByAddressAndWallet]: DataRequestResults;
 }
 
@@ -33,7 +33,7 @@ const initialState: DataRequestsState = {
   [RequestKeys.GetDividendsByCheckpoint]: {},
   [RequestKeys.GetDividendBySymbolAndId]: {},
   [RequestKeys.GetErc20DividendsModuleBySymbol]: {},
-  [RequestKeys.GetTaxWithholdingListBySymbol]: {},
+  [RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint]: {},
   [RequestKeys.GetErc20BalanceByAddressAndWallet]: {},
 };
 

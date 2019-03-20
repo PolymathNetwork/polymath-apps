@@ -3,16 +3,20 @@ import { cacheData } from '~/state/actions/dataRequests';
 import { createAction as createTaxWithholding } from '~/state/actions/taxWithholdings';
 import { call, put } from 'redux-saga/effects';
 import { TaxWithholding } from '@polymathnetwork/sdk';
-import { RequestKeys, GetTaxWithholdingListBySymbolArgs } from '~/types';
+import {
+  RequestKeys,
+  GetTaxWithholdingListBySymbolAndCheckpointArgs,
+} from '~/types';
 
-export function* fetchTaxWithholdingListBySymbol(
-  args: GetTaxWithholdingListBySymbolArgs
+export function* fetchTaxWithholdingListBySymbolAndCheckpoint(
+  args: GetTaxWithholdingListBySymbolAndCheckpointArgs
 ) {
-  const { securityTokenSymbol, dividendType } = args;
+  const { securityTokenSymbol, checkpointIndex, dividendType } = args;
   const taxWithholdingList: TaxWithholding[] = yield call(
     polyClient.getDividendsTaxWithholdingList,
     {
       symbol: securityTokenSymbol,
+      checkpointIndex,
       dividendType,
     }
   );
@@ -30,7 +34,7 @@ export function* fetchTaxWithholdingListBySymbol(
 
   yield put(
     cacheData({
-      requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+      requestKey: RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint,
       args,
       fetchedIds,
     })
