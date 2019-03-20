@@ -10,7 +10,6 @@ import {
 import { types } from '@polymathnetwork/new-shared';
 import { DividendCard } from '~/components/DividendCard';
 import * as sc from './styles';
-import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 
 export interface Props {
   dividends: types.DividendEntity[];
@@ -36,6 +35,7 @@ export const DividendListPresenter: FC<Props> = ({
             <li key={dividend.uid}>
               <DividendCard
                 dividend={dividend}
+                checkpointIndex={checkpointIndex}
                 securityTokenSymbol={securityTokenSymbol}
               />
             </li>

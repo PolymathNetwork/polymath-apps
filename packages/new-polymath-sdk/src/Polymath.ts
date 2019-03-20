@@ -320,9 +320,10 @@ export class Polymath {
   public getDividendsTaxWithholdingList = async (args: {
     symbol: string;
     dividendType: DividendModuleTypes;
+    checkpointIndex: number;
   }) => {
     const { securityTokenRegistry } = this.context;
-    const { symbol: securityTokenSymbol, dividendType } = args;
+    const { symbol: securityTokenSymbol, dividendType, checkpointIndex } = args;
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: securityTokenSymbol,
@@ -340,8 +341,6 @@ export class Polymath {
         'There is no attached dividend module of the specified type'
       );
     }
-
-    const checkpointIndex = await securityToken.currentCheckpointId();
 
     const taxWithholdings = await dividendsModule.getTaxWithholdingList({
       checkpointIndex,
