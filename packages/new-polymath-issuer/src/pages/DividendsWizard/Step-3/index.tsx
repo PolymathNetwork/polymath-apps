@@ -36,7 +36,6 @@ import {
   GetErc20BalanceByAddressAndWalletArgs,
   GetIsValidErc20ByAddressArgs,
 } from '~/types';
-import { Tokens } from '@polymathnetwork/new-shared/build/dist/typing/types';
 
 interface Props {
   excludedWallets: null | ExclusionEntry[];
@@ -62,7 +61,7 @@ interface Values {
 
 interface SubmitParams {
   submitEvent: React.FormEvent<HTMLFormElement>;
-  currency: Tokens | null;
+  currency: types.Tokens | null;
   setFieldTouched: any;
   isValid: boolean;
   initialValues: Values;
