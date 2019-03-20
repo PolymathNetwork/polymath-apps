@@ -332,8 +332,17 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         continue;
       }
       const [address, sale, purchase, expiryIn, tokensIn] = entry.split(',');
-      const handleDate = (d: string) =>
-        d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
+      const handleDate = (d: string) => {
+        let resultDate =
+          d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
+        if (d !== '') {
+          const [[], year] = d.split(/\/|-/);
+          if (year.length === 2 && resultDate.getFullYear() < 2000) {
+            resultDate.setFullYear(resultDate.getFullYear() + 100);
+          }
+        }
+        return resultDate;
+      };
       const from = handleDate(sale);
       const to = handleDate(purchase);
 
