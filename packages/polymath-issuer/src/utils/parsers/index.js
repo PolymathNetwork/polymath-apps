@@ -136,7 +136,6 @@ export function parseWhitelistCsv(file: string) {
             if (year.length === 2 && resultDate.getFullYear() < 2000) {
               resultDate.setFullYear(resultDate.getFullYear() + 100);
             }
-            console.log(resultDate);
             return resultDate;
           }
           if (numericalRegex.test(value)) {
