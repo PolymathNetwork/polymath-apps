@@ -9,6 +9,6 @@ Object {
   "getErc20BalanceByAddressAndWallet": Object {},
   "getErc20DividendsModuleBySymbol": Object {},
   "getSecurityTokenBySymbol": Object {},
-  "getTaxWithholdingListBySymbol": Object {},
+  "getTaxWithholdingListBySymbolAndCheckpoint": Object {},
 }
 `;

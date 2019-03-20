@@ -44,7 +44,7 @@ export enum RequestKeys {
   GetDividendBySymbolAndId = 'getDividendBySymbolAndId',
   GetCheckpointBySymbolAndId = 'getCheckpointBySymbolAndId',
   GetErc20DividendsModuleBySymbol = 'getErc20DividendsModuleBySymbol',
-  GetTaxWithholdingListBySymbol = 'getTaxWithholdingListBySymbol',
+  GetTaxWithholdingListBySymbolAndCheckpoint = 'getTaxWithholdingListBySymbolAndCheckpoint',
   GetErc20BalanceByAddressAndWallet = 'getErc20BalanceByAddressAndWallet',
 }
 
@@ -76,8 +76,9 @@ export interface GetErc20DividendsModuleBySymbolArgs {
   securityTokenSymbol: string;
 }
 
-export interface GetTaxWithholdingListBySymbolArgs {
+export interface GetTaxWithholdingListBySymbolAndCheckpointArgs {
   securityTokenSymbol: string;
+  checkpointIndex: number;
   dividendType: DividendModuleTypes;
 }
 
@@ -97,7 +98,7 @@ export type RequestArgs =
   | GetDividendBySymbolAndIdArgs
   | GetDividendsByCheckpointArgs
   | GetErc20DividendsModuleBySymbolArgs
-  | GetTaxWithholdingListBySymbolArgs
+  | GetTaxWithholdingListBySymbolAndCheckpointArgs
   | GetErc20BalanceByAddressAndWalletArgs
   | GetIsValidErc20ByAddressArgs;
 
@@ -160,13 +161,14 @@ export function isGetErc20DividendsModuleBySymbolArgs(
   return typeof securityTokenSymbol === 'string';
 }
 
-export function isGetTaxWithholdingsListBySymbolArgs(
+export function isGetTaxWithholdingListBySymbolAndCheckpointArgs(
   args: any
-): args is GetTaxWithholdingListBySymbolArgs {
-  const { securityTokenSymbol, dividendType } = args;
+): args is GetTaxWithholdingListBySymbolAndCheckpointArgs {
+  const { securityTokenSymbol, checkpointIndex, dividendType } = args;
 
   return (
     typeof securityTokenSymbol === 'string' &&
+    typeof checkpointIndex === 'number' &&
     typeof dividendType === 'string' &&
     (dividendType === DividendModuleTypes.Erc20 ||
       dividendType === DividendModuleTypes.Eth)

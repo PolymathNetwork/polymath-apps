@@ -43,7 +43,7 @@ export function* createCheckpoint(
     // saga when it is implemented
     yield put(
       invalidateRequest({
-        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+        requestKey: RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint,
         args: {
           securityTokenSymbol,
           dividendType: DividendModuleTypes.Erc20,
@@ -53,7 +53,7 @@ export function* createCheckpoint(
 
     yield put(
       invalidateRequest({
-        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+        requestKey: RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint,
         args: {
           securityTokenSymbol,
           dividendType: DividendModuleTypes.Eth,

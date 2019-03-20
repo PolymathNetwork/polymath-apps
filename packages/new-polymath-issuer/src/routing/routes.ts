@@ -39,20 +39,18 @@ export const routes = {
       Page: SecurityTokensIndexPage,
       '/:securityTokenSymbol': {
         '/dividends': {
+          Page: SecurityTokensDividendsPage,
+          handler: handleDividendsRoute,
+        },
+        '/checkpoints/:checkpointIndex/dividends': {
+          '/new': {
+            Page: DividendsWizardPage,
+            handler: handleDividendsWizardRoute,
+          },
           '/:dividendIndex': {
             Page: DividendDetailsPage,
             handler: handleDividendDetailsRoute,
           },
-          Page: SecurityTokensDividendsPage,
-          handler: handleDividendsRoute,
-          '/new': {
-            Page: DividendsWizardPage,
-            handler: handleDividendsRoute,
-          },
-        },
-        '/checkpoints/:checkpointIndex/dividends/new': {
-          Page: DividendsWizardPage,
-          handler: handleDividendsWizardRoute,
         },
       },
       handler: handleSecurityTokensRoute,

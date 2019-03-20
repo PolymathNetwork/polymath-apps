@@ -7,7 +7,7 @@ import {
   GetDividendBySymbolAndIdArgs,
   GetErc20DividendsModuleBySymbolArgs,
   GetCheckpointsBySymbolArgs,
-  GetTaxWithholdingListBySymbolArgs,
+  GetTaxWithholdingListBySymbolAndCheckpointArgs,
   GetErc20BalanceByAddressAndWalletArgs,
 } from '~/types';
 
@@ -59,14 +59,14 @@ export const createErc20DividendsModuleBySymbolFetcher = (
   };
 };
 
-export const createTaxWithholdingListBySymbolFetcher = (
-  args: GetTaxWithholdingListBySymbolArgs,
+export const createTaxWithholdingListBySymbolAndCheckpointFetcher = (
+  args: GetTaxWithholdingListBySymbolAndCheckpointArgs,
   opts: { propKey?: string } = {}
-): Fetcher<GetTaxWithholdingListBySymbolArgs> => {
+): Fetcher<GetTaxWithholdingListBySymbolAndCheckpointArgs> => {
   return {
     propKey: opts.propKey,
     entity: Entities.TaxWithholdings,
-    requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
+    requestKey: RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint,
     args,
   };
 };

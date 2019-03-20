@@ -54,13 +54,14 @@ export default [
             exact: true,
           },
           {
-            path: '/dashboard/:id/dividends/:dividendIndex',
-            component: DividendDetailsPage,
+            path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
+            component: DividendsWizardPage,
             exact: true,
           },
           {
-            path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
-            component: DividendsWizardPage,
+            path:
+              '/dashboard/:id/checkpoints/:checkpointIndex/dividends/:dividendIndex',
+            component: DividendDetailsPage,
             exact: true,
           },
           {
@@ -85,15 +86,22 @@ export default [
         path: '/securityTokens/:id/dividends',
         component: props => {
           const { id } = props.match.params;
+
           return <Redirect to={`/dashboard/${id}/dividends`} />;
         },
         exact: true,
       },
       {
-        path: '/securityTokens/:id/dividends/:dividendId',
+        path:
+          '/securityTokens/:id/checkpoints/:checkpointIndex/dividends/:dividendIndex',
         component: props => {
-          const { id, dividendId } = props.match.params;
-          return <Redirect to={`/dashboard/${id}/dividends/${dividendId}`} />;
+          const { id, dividendIndex, checkpointIndex } = props.match.params;
+
+          return (
+            <Redirect
+              to={`/dashboard/${id}/checkpoints/${checkpointIndex}/dividends/${dividendIndex}`}
+            />
+          );
         },
         exact: true,
       },
