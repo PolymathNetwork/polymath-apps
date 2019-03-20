@@ -26,6 +26,7 @@ import {
 } from '@polymathnetwork/new-ui';
 import { CsvModal } from './CsvModal';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
+import { ConfirmModal } from './ConfirmModal';
 import { TaxWithholdingModal } from './TaxWithholdingModal';
 import { TaxWithholdingsTable } from './TaxWithholdingsTable';
 import {
@@ -84,6 +85,7 @@ export const Step2: FC<Props> = ({
   onTaxWithholdingListChange,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
+
   const openCsvModal = () => {
     setCsvModalOpen(true);
   };
@@ -108,7 +110,7 @@ export const Step2: FC<Props> = ({
       investorAddress: value[csvEthAddressKey],
       percentage: value[csvTaxWithholdingKey],
     }));
-    console.log(formattedValues);
+
     updateTaxWithholdingList(formattedValues);
   };
 
@@ -297,6 +299,7 @@ const Form: FC<FormProps> = ({
   closeCsvModal,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
   const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
   const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
@@ -313,8 +316,12 @@ const Form: FC<FormProps> = ({
   const openConfirmDeleteModal = () => {
     setConfirmDeleteModalOpen(true);
   };
+  const closeConfirmModal = () => {
+    setConfirmModalOpen(false);
+  };
 
   const canProceedToNextStep = values.isTaxWithholdingConfirmed;
+
   const filteredTaxWithholdings = useMemo(
     () =>
       values.taxWithholdings.map(taxWithholding => {
@@ -357,8 +364,9 @@ const Form: FC<FormProps> = ({
       }),
     [values.taxWithholdings, existingTaxWithholdings]
   );
-  console.log(existingTaxWithholdings);
-  console.log(values.taxWithholdings);
+  const isDraft = !!filteredTaxWithholdings.find(
+    ({ status }: { status?: TaxWithholdingStatuses }) => !!status
+  );
 
   const handleEdit = (ethAddress: string) => {
     const taxWithholding = values.taxWithholdings.find(
@@ -395,6 +403,14 @@ const Form: FC<FormProps> = ({
 
     setFieldValue('taxWithholdings', taxWithholdingAfterDelete);
     closeConfirmDeleteModal();
+  };
+
+  const handleNextStep = () => {
+    if (!isDraft) {
+      onNextStep();
+    } else {
+      setConfirmModalOpen(true);
+    }
   };
 
   return (
@@ -473,10 +489,16 @@ const Form: FC<FormProps> = ({
         <FormItem.Error />
       </FormItem>
       <Box mt="xl">
-        <Button onClick={onNextStep} disabled={!canProceedToNextStep}>
+        <Button onClick={handleNextStep} disabled={!canProceedToNextStep}>
           Update list and proceed to the next step
         </Button>
       </Box>
+
+      <ConfirmModal
+        isOpen={confirmModalOpen}
+        onConfirm={onNextStep}
+        onClose={closeConfirmModal}
+      />
     </Fragment>
   );
 };

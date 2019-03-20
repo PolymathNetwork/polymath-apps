@@ -252,7 +252,7 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
       <div>
         <SelectWrapper>
           <Select
-            closeMenuOnSelect={false}
+            closeMenuOnSelect={!valueIsArray}
             noOptionsMessage={() => null}
             isClearable={valueIsArray}
             isMulti={valueIsArray}

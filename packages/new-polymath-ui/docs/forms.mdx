@@ -6,7 +6,7 @@ order: 0
 import { Playground, Link } from 'docz';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import { Form } from '~/components/Form';
+import { FormWrapper } from '~/components/FormWrapper';
 import { Grid } from '~/components/Grid';
 import { Button } from '~/components/Button';
 import { TextInput } from '~/components/inputs/TextInput';
@@ -22,63 +22,66 @@ Forms are built using the [Formik library](https://jaredpalmer.com/formik/). Eac
 You can use the [`Grid`](/src-components-grid-docs-grid) component to compose the layout easily and handle the horizontal and vertical flow.
 
 <Playground>
-  <Form
+  <FormWrapper
     validationSchema={Yup.object().shape({
       textInput: Yup.string().required(),
     })}
-    render={() => (
-      <Grid>
-        <FormItem name="textInput">
-          <FormItem.Label>The label</FormItem.Label>
-          <FormItem.Input
-            formikComponent={FastField}
-            component={TextInput}
-            placeholder="Placeholder"
-          />
-          <FormItem.Error />
-        </FormItem>
-        <Grid gridAutoFlow="column" gridAutoColumns="1fr">
-          <FormItem name="minimumInvestment">
-            <FormItem.Label>
-              Minimum number
-            </FormItem.Label>
+    onSubmit={() => {}}
+    render={({ submitForm }) => (
+      <form onSubmit={submitForm}>
+        <Grid>
+          <FormItem name="textInput">
+            <FormItem.Label>The label</FormItem.Label>
             <FormItem.Input
-              component={NumberInput}
-              min={0}
-              maxDecimals={3}
-              placeholder="Enter amount"
-              unit="USD"
-              useBigNumbers
+              formikComponent={FastField}
+              component={TextInput}
+              placeholder="Placeholder"
             />
             <FormItem.Error />
           </FormItem>
+          <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+            <FormItem name="minimumInvestment">
+              <FormItem.Label>
+                Minimum number
+              </FormItem.Label>
+              <FormItem.Input
+                component={NumberInput}
+                min={0}
+                maxDecimals={3}
+                placeholder="Enter amount"
+                unit="USD"
+                useBigNumbers
+              />
+              <FormItem.Error />
+            </FormItem>
 
-          <FormItem name="nonAccreditedMax">
-            <FormItem.Label>
-              Max number
-            </FormItem.Label>
+            <FormItem name="nonAccreditedMax">
+              <FormItem.Label>
+                Max number
+              </FormItem.Label>
+              <FormItem.Input
+                component={NumberInput}
+                min={1}
+                maxDecimals={3}
+                placeholder="Enter amount"
+                unit="USD"
+                useBigNumbers
+              />
+              <FormItem.Error />
+            </FormItem>
+          </Grid>
+          <FormItem name="cap">
+            <FormItem.Label>Amount</FormItem.Label>
             <FormItem.Input
               component={NumberInput}
-              min={1}
-              maxDecimals={3}
               placeholder="Enter amount"
-              unit="USD"
               useBigNumbers
             />
             <FormItem.Error />
           </FormItem>
+          <Button type="submit">Submit</Button>
         </Grid>
-        <FormItem name="cap">
-          <FormItem.Label>Amount</FormItem.Label>
-          <FormItem.Input
-            component={NumberInput}
-            placeholder="Enter amount"
-            useBigNumbers
-          />
-          <FormItem.Error />
-        </FormItem>
-        <Button type="submit">Submit</Button>
-      </Grid>
+      </form>
     )}
 
 />
@@ -89,7 +92,7 @@ By default the `FormItem` component use Formik's `FastField`. This is important 
 You can switch to `Field` this way:
 
 <Playground>
-  <Form
+  <FormWrapper
     render={() => (
       <FormItem name="cap">
         <FormItem.Input component={NumberInput} FormikComponent={Field} />

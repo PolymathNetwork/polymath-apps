@@ -53,7 +53,7 @@ export class PercentageInputPrimitive extends Component<Props> {
     }
 
     const normalizedValue = target.value
-      ? numeral(parseFloat(target.value))
+      ? numeral(Math.floor(parseFloat(target.value) * 1000) / 1000)
           .divide(100)
           .value()
       : parseFloat(target.value);
