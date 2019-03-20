@@ -36,8 +36,6 @@ import {
   GetErc20BalanceByAddressAndWalletArgs,
   GetIsValidErc20ByAddressArgs,
 } from '~/types';
-import { Tokens } from '@polymathnetwork/new-shared/build/dist/typing/types';
-import { isValidAddress } from '@polymathnetwork/sdk';
 
 interface Props {
   excludedWallets: null | ExclusionEntry[];
@@ -63,7 +61,7 @@ interface Values {
 
 interface SubmitParams {
   submitEvent: React.FormEvent<HTMLFormElement>;
-  currency: Tokens | null;
+  currency: types.Tokens | null;
   setFieldTouched: any;
   isValid: boolean;
   initialValues: Values;
@@ -109,7 +107,6 @@ const Step3Base: FC<Props> = ({
   fetchIsValidToken,
   updateDividendAmount,
   updateCurrencySymbol,
-  securityTokenSymbol,
 }) => {
   if (!networkId) {
     throw new Error("Couldn't obtain network id");

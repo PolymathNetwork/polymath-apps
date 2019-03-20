@@ -8,7 +8,7 @@ const { PACKAGE_ROOT_DIR } = require('../constants');
 
   let [, , flag0, arg0, flag1, arg1] = process.argv;
 
-  if (flag1 && flag1 !== 'seedData') {
+  if (flag0 === '--seedData') {
     [flag0, flag1] = [flag1, flag0];
     [arg0, arg1] = [arg1, arg0];
   }

@@ -134,14 +134,10 @@ export function* updateTaxWithholdingList(
       return;
     }
 
-    // Invalidate cache
+    // Invalidate cache for all withholdings
     yield put(
       invalidateRequest({
         requestKey: RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint,
-        args: {
-          securityTokenSymbol,
-          dividendType,
-        },
       })
     );
   } catch (err) {
