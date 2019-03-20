@@ -8,6 +8,7 @@ import { GenericContract } from './types';
 interface ModuleFactoryContract extends GenericContract {
   methods: {
     name(): TransactionObject<string>;
+    version(): TransactionObject<string>;
   };
 }
 
@@ -18,5 +19,9 @@ export class ModuleFactory extends Contract<ModuleFactoryContract> {
 
   public async name() {
     return this.contract.methods.name().call();
+  }
+
+  public async version() {
+    return this.contract.methods.version().call();
   }
 }

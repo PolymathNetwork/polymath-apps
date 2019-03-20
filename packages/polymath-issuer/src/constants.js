@@ -38,6 +38,7 @@ export type STOModule = {|
   description: string,
   setupCost: number,
   address: string,
+  version: string,
 |};
 export type SecurityToken = {|
   ticker: string,
