@@ -1,10 +1,9 @@
 import React, { FC, Fragment } from 'react';
 import { HeaderColumn } from 'react-table';
-import { filter, remove, find, map } from 'lodash';
+import { filter, map } from 'lodash';
 import { formatters } from '@polymathnetwork/new-shared';
 import {
   Table,
-  Flex,
   Box,
   ButtonSmall,
   IconButton,
@@ -149,9 +148,7 @@ export const TaxWithholdingsTable: FC<Props> = props => {
               disabled={pendingTransactions === 0}
               variant="secondary"
               iconPosition="right"
-              onClick={() => {
-                onSubmit();
-              }}
+              onClick={onSubmit}
             >
               Update <Icon Asset={icons.SvgCycle} />
             </ButtonSmall>

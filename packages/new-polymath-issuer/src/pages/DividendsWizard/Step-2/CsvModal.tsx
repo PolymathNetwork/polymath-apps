@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { some } from 'lodash';
 import {
   ModalConfirm,
   CsvUploader,
@@ -14,24 +13,17 @@ import {
   csvEthAddressKey,
   csvTaxWithholdingKey,
   TaxWithholdingsItem,
-  TaxWithholdingStatuses,
 } from './shared';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  existingTaxWithholdings: types.TaxWithholdingPojo[];
   onConfirm: (values: TaxWithholdingsItem[]) => void;
 }
 
 type CsvTaxWithholdingsData = any;
 
-export const CsvModal: FC<Props> = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  existingTaxWithholdings,
-}) => {
+export const CsvModal: FC<Props> = ({ isOpen, onClose, onConfirm }) => {
   const [taxWithholdings, setTaxWithholdings] = useState<
     CsvTaxWithholdingsData[]
   >([]);
@@ -45,31 +37,6 @@ export const CsvModal: FC<Props> = ({
   const onChangeCsv = (result: TaxWithholdingsItem[] | null) => {
     if (result) {
       const formattedValues = result.map((value: TaxWithholdingsItem) => {
-        let alreadyExists = false;
-        const isUpdated = some(
-          existingTaxWithholdings,
-          existingTaxWithholding => {
-            if (
-              existingTaxWithholding.investorAddress === value[csvEthAddressKey]
-            ) {
-              alreadyExists = true;
-            }
-
-            return (
-              alreadyExists &&
-              value[csvTaxWithholdingKey] !== existingTaxWithholding.percentage
-            );
-          }
-        );
-
-        let status: TaxWithholdingStatuses | undefined;
-
-        if (isUpdated) {
-          status = TaxWithholdingStatuses.Updated;
-        } else if (!alreadyExists) {
-          status = TaxWithholdingStatuses.New;
-        }
-
         return {
           ...value,
           [csvTaxWithholdingKey]: value[csvTaxWithholdingKey] / 100,
