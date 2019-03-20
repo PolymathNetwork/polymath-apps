@@ -24,6 +24,7 @@ import {
 } from '@polymathnetwork/ui';
 import moment from 'moment';
 import type { SecurityToken } from '@polymathnetwork/js/types';
+import BigNumber from 'bignumber.js';
 
 import {
   unlimitNumberOfInvestors,
@@ -39,6 +40,7 @@ import Progress from './components/Progress';
 import type { RootState } from '../../redux/reducer';
 
 import './style.scss';
+import { isNumeric } from 'tslint';
 
 type StateProps = {|
   account: ?string,
@@ -118,13 +120,20 @@ class TokenPage extends Component<Props, State> {
   handleMaxHoldersCountChange = event => {
     if (event.target.value === '') {
       this.setState({ maxHoldersCount: undefined });
+    } else {
+      try {
+        let value = new BigNumber(event.target.value);
+        if (value.isNaN() || value.isLessThan(0)) {
+          event.preventDefault();
+          return;
+        }
+
+        this.setState({ maxHoldersCount: value.toFixed() });
+      } catch (e) {
+        event.preventDefault();
+        return;
+      }
     }
-    let value = parseInt(Number(event.target.value), 10);
-    if (!Number.isInteger(value) || value < 1) {
-      event.preventDefault();
-      return;
-    }
-    this.setState({ maxHoldersCount: value });
   };
 
   handleApplyMaxHoldersCount = () => {
