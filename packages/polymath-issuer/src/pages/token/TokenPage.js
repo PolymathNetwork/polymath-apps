@@ -40,7 +40,6 @@ import Progress from './components/Progress';
 import type { RootState } from '../../redux/reducer';
 
 import './style.scss';
-import { isNumeric } from 'tslint';
 
 type StateProps = {|
   account: ?string,
