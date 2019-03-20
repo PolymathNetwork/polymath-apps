@@ -27,6 +27,7 @@ interface Props {
   onDelete: (addresses: string[]) => void;
   onSubmit: () => void;
   transactionLimitReached?: boolean;
+  isLoadingData: boolean;
 }
 
 const limitReachedTooltip = () => (
@@ -113,7 +114,13 @@ const makeColumnsConfig = ({
 ];
 
 export const TaxWithholdingsTable: FC<Props> = props => {
-  const { onAddNewOpen, taxWithholdings, onDelete, onSubmit } = props;
+  const {
+    onAddNewOpen,
+    taxWithholdings,
+    onDelete,
+    onSubmit,
+    isLoadingData,
+  } = props;
   const filteredTaxWithholdings = filter(
     taxWithholdings,
     taxWithholding =>
@@ -145,12 +152,13 @@ export const TaxWithholdingsTable: FC<Props> = props => {
         {() => (
           <Box ml="auto">
             <ButtonSmall
-              disabled={pendingTransactions === 0}
+              disabled={pendingTransactions === 0 || isLoadingData}
               variant="secondary"
               iconPosition="right"
               onClick={onSubmit}
             >
-              Update <Icon Asset={icons.SvgCycle} />
+              {!isLoadingData ? 'Update' : 'Updating...'}{' '}
+              <Icon Asset={icons.SvgCycle} />
             </ButtonSmall>
             <InlineFlex ml="m">
               {transactionLimitReached && limitReachedTooltip()}

@@ -118,6 +118,13 @@ async function seedData(dataFile) {
     polyTokenAddress
   );
 
+  const registrationFee = await SecurityTokenRegistry.methods
+    .getTickerRegistrationFee()
+    .call();
+  const launchFee = await SecurityTokenRegistry.methods
+    .getSecurityTokenLaunchFee()
+    .call();
+
   const outputData = _.cloneDeep(accounts);
 
   console.log('Generating seed data...');
@@ -125,22 +132,19 @@ async function seedData(dataFile) {
     const account = accounts[i];
     const wallet = wallets[account.walletId];
     const { address, privateKey } = wallet;
+    const { polyBalance } = account;
 
     const userAccount = await web3.eth.accounts.privateKeyToAccount(privateKey);
 
-    const getPoly = PolyTokenFaucet.methods.getTokens(
-      web3.utils.toWei(String(account.polyBalance)),
-      address
-    );
+    if (polyBalance > 0) {
+      console.log(`\nTransferring ${polyBalance} POLY to ${address}\n`);
+      const getPoly = PolyTokenFaucet.methods.getTokens(
+        web3.utils.toWei(String(polyBalance)),
+        address
+      );
 
-    await sendTransaction(userAccount, getPoly, polyTokenAddress);
-
-    const registrationFee = await SecurityTokenRegistry.methods
-      .getTickerRegistrationFee()
-      .call();
-    const launchFee = await SecurityTokenRegistry.methods
-      .getSecurityTokenLaunchFee()
-      .call();
+      await sendTransaction(userAccount, getPoly, polyTokenAddress);
+    }
 
     const tokens = account.tokens;
 
@@ -151,6 +155,8 @@ async function seedData(dataFile) {
     for (let j = 0; j < tokens.length; ++j) {
       const token = tokens[j];
       const { name, symbol, divisible } = token;
+
+      console.log(`\nSeeding token ${symbol}\n`);
 
       let approveSpend = PolyTokenFaucet.methods.approve(
         strAddress,
@@ -223,32 +229,48 @@ async function seedData(dataFile) {
           symbol,
           amount,
         });
-
-        const now = new Date();
-        const oneYearFromNow = new Date(
-          now.getFullYear() + 1,
-          now.getMonth(),
-          now.getDate()
-        );
-        const oneYearFromNowTimestamp = Math.floor(
-          oneYearFromNow.getTime() / 1000
-        );
-        const modifyWhitelist = GeneralTransferManager.methods.modifyWhitelist(
-          shareholderAddress,
-          Math.floor(now.getTime() / 1000),
-          oneYearFromNowTimestamp,
-          oneYearFromNowTimestamp,
-          true
-        );
-
-        await sendTransaction(userAccount, modifyWhitelist, gtmAddress);
       }
-      const mintMulti = SecurityToken.methods.mintMulti(
-        addressesToMint,
-        amountsToMint
+      const now = new Date();
+      const oneYearFromNow = new Date(
+        now.getFullYear() + 1,
+        now.getMonth(),
+        now.getDate()
+      );
+      const nowTimestamp = Math.floor(now.getTime() / 1000);
+      const oneYearFromNowTimestamp = Math.floor(
+        oneYearFromNow.getTime() / 1000
       );
 
-      await sendTransaction(userAccount, mintMulti, tokenAddress);
+      const chunkedAddresses = _.chunk(addressesToMint, 40);
+      const chunkedAmounts = _.chunk(amountsToMint, 40);
+
+      console.log('\nMinting...\n');
+
+      for (let l = 0; l < chunkedAddresses.length; ++l) {
+        const addressChunk = chunkedAddresses[l];
+        const amountChunk = chunkedAmounts[l];
+        const range = _.range(addressChunk.length);
+        const fromTimes = range.map(() => nowTimestamp);
+        const toTimes = range.map(() => oneYearFromNowTimestamp);
+        const canBuyFromSTO = range.map(() => true);
+
+        const modifyWhitelistMulti = GeneralTransferManager.methods.modifyWhitelistMulti(
+          addressChunk,
+          fromTimes,
+          toTimes,
+          toTimes,
+          canBuyFromSTO
+        );
+
+        await sendTransaction(userAccount, modifyWhitelistMulti, gtmAddress);
+
+        const mintMulti = SecurityToken.methods.mintMulti(
+          addressChunk,
+          amountChunk
+        );
+
+        await sendTransaction(userAccount, mintMulti, tokenAddress);
+      }
     }
   }
 
