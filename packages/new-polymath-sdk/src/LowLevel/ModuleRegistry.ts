@@ -9,6 +9,7 @@ import {
   GetModuleFactoryAddressArgs,
   GetModulesByTypeAndTokenArgs,
 } from './types';
+import semver from 'semver';
 
 // This type should be obtained from a library (must match ABI)
 interface ModuleRegistryContract extends GenericContract {
@@ -50,6 +51,10 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
       tokenAddress,
     });
 
+    let address: string | null = null;
+    let latestVersion: string = '0.0.0';
+
+    // Get latest version of the module factory
     for (const moduleAddress of availableModules) {
       const moduleFactory = new ModuleFactory({
         address: moduleAddress,
@@ -59,8 +64,16 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
       const name = Web3.utils.toAscii(byteName);
 
       if (moduleName.localeCompare(name) === 0) {
-        return moduleAddress;
+        const version = await moduleFactory.version();
+        if (semver.gte(version, latestVersion)) {
+          latestVersion = version;
+          address = moduleAddress;
+        }
       }
+    }
+
+    if (address !== null) {
+      return address;
     }
 
     throw new Error(`Module factory for "${moduleName}" was not found.`);

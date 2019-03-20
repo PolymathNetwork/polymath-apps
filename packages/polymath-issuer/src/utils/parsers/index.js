@@ -131,7 +131,12 @@ export function parseWhitelistCsv(file: string) {
             return false;
           }
           if (value.split('/').length === 3) {
-            return moment(value, ['MM/DD/YY', 'MM/DD/YYYY']).toDate();
+            let resultDate = moment(value, ['MM/DD/YY', 'MM/DD/YYYY']).toDate();
+            const year = value.split(/\/|-/)[2];
+            if (year.length === 2 && resultDate.getFullYear() < 2000) {
+              resultDate.setFullYear(resultDate.getFullYear() + 100);
+            }
+            return resultDate;
           }
           if (numericalRegex.test(value)) {
             return new BigNumber(value);

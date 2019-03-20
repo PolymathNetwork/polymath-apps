@@ -115,6 +115,13 @@ class Input extends React.Component<Props> {
     options: currencyOptions.map(option => option.value),
   };
 
+  componentDidMount = () => {
+    currencyOptions.forEach(currency => {
+      const img = new Image();
+      img.src = currency.label.props.icon;
+    });
+  };
+
   handleRemove = (removedValue: string) => {
     const { value, onChange } = this.props;
     const newValue = Array.isArray(value)

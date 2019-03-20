@@ -77,6 +77,8 @@ export const CsvModal: FC<Props> = ({
         };
       });
       setTaxWithholdings(formattedValues);
+    } else {
+      setTaxWithholdings([]);
     }
   };
 
@@ -90,6 +92,7 @@ export const CsvModal: FC<Props> = ({
     });
     return !hasDuplicates;
   };
+
   return (
     <ModalConfirm
       isOpen={isOpen}
