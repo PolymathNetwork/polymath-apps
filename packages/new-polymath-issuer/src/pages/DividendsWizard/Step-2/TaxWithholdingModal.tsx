@@ -1,11 +1,9 @@
-import React, { FC, useState, Fragment, useEffect } from 'react';
-import { types } from '@polymathnetwork/new-shared';
-import { get, some, findIndex } from 'lodash';
+import React, { FC, Fragment, useEffect } from 'react';
+import { get, findIndex } from 'lodash';
 import {
   TaxWithholdingsItem,
   csvEthAddressKey,
   csvTaxWithholdingKey,
-  TaxWithholdingStatuses,
 } from '~/pages/DividendsWizard/Step-2/shared';
 import {
   Box,
@@ -23,14 +21,12 @@ interface Props {
   isEditing: boolean;
   onClose: () => void;
   taxWithholdingData?: TaxWithholdingsItem;
-  existingTaxWithholdings: types.TaxWithholdingPojo[];
   fieldProps: FieldProps<any>;
 }
 
 export const TaxWithholdingModal: FC<Props> = ({
   isOpen,
   onClose,
-  existingTaxWithholdings,
   isEditing,
   fieldProps,
 }) => {
@@ -70,7 +66,7 @@ export const TaxWithholdingModal: FC<Props> = ({
       formTaxWithholdings.splice(matchingIndex, 1, finalValue);
       form.setFieldValue('taxWithholdings', formTaxWithholdings);
     } else {
-      const finalValue = { ...value, status: TaxWithholdingStatuses.New };
+      const finalValue = { ...value };
 
       form.setFieldValue('taxWithholdings', [
         ...formTaxWithholdings,
