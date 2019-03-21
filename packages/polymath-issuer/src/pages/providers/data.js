@@ -207,6 +207,23 @@ const providers: Array<ServiceProvider> = [
       'technologies through blockchain infrastructures, such as tokenized-securities. The Firm focuses on bringing ' +
       'blockchain to commercial real estate and corporate business transactions',
   },
+  {
+    id: 26,
+    cat: 1,
+    title: 'Vistra Corporate Law',
+    logo: '/providers/legal/vistra.png',
+    background: '/providers/legal/bg/img-vistra.png',
+    desc:
+      'Vistra Corporate Law is an authorized and regulated law firm in England that helps businesses and ' +
+      'organizations to thrive by providing trusted, integrated legal services. Part of Vistra, a ' +
+      'multi-disciplined, multi-jurisdictional corporate service provider. So whatever challenges or ' +
+      'opportunities you’re presented with, you can be sure you’ve got the right people beside you ' +
+      'providing the very best insight, advice, and expertise. We are experts in advising fast-growth ' +
+      'tech and blockchain companies, including in connection with security token offerings. Wherever in ' +
+      'the world, you’re based, our expertise will help you to operate efficiently, decisively and effectively. ' +
+      'Turn to us for support with Corporate, Employment or Commercial law as well as Corporate Governance, ' +
+      'whether under English law or on multijurisdictional advice projects.',
+  },
 
   // KYC/AML
   {
@@ -265,6 +282,42 @@ const providers: Array<ServiceProvider> = [
       'alert you of the risk of incoming digital currency. IdentityMind Global has helped over 200 ICOs/STOs ' +
       'from all over the world automate their compliance',
   },
+  {
+    id: 28,
+    cat: 2,
+    title: 'Republic.co',
+    logo: '/providers/kyc/republic.png',
+    background: '/providers/kyc/bg/img-republic.png',
+    desc:
+      'Republic’s end-to-end compliance solution is a streamlined automated platform that ensures an efficient ' +
+      'online investor / participant verification and accreditation process at a highly competitive price. ' +
+      'KYC-AML due diligence services include:' +
+      '\n-Instant verification of (most) investors / participants:' +
+      '\n   -Verify scanned passport / license / identity and match to claimed identity' +
+      '\n   -Verify collected information against existing public records' +
+      '\n   -Verify provided information (i.e. EIN and ID numbers) and check good standing, and' +
+      '\n   -Review residence addresses, billing addresses, IP addresses' +
+      '\n-Check investors / participants against multiple government and financial industry AML watch-lists, ' +
+      'including, but not limited to, the United States’ Office of Foreign Assets Control (OFAC).Beneficial ' +
+      'ownership checks for domestic and international investors.' +
+      '\n-Live KYC-AML due diligence verification results dashboard' +
+      '\nSEC compliant Reg D investor accreditation services include:' +
+      '\n-Meets requirements of SEC Rule 501 of Reg D through the four “reasonable steps to verify” standards ' +
+      'including: 1) net income; 2) net wealth; 3) third party; or 4) pre-existing accredited investor verification' +
+      '\n-Reviewed by a team of licensed attorneys and/or CPAs' +
+      '\n-Live investor accreditation results dashboard' +
+      '\n\nOnce the questionnaire has been completed and evidence of accreditation provided, investors / participants’' +
+      'applications that are then authorized will be able to proceed to complete an investment / participation.' +
+      '\n\nRepublic will provide the Client with a single report to verify all investor accreditation or qualified ' +
+      'purchaser status, to ensure SEC standards are met.' +
+      '\n\nDocuments uploaded as evidence of KYC and accreditation are kept private and are only used to assess ' +
+      'investor / participant status.' +
+      '\n\nDeliverable to the Client: Republic will provide the Client with access to a live dashboard confirming ' +
+      'KYC-AML-Accreditation performed on each investor / participant including their status. Republic will also ' +
+      'send the Client a report including the status of all investors / participants during that preceding calendar ' +
+      'month. Republic will not provide any Personal Identifying Information (“PII”) not otherwise provided to the ' +
+      'Client through the Client’s on-boarding process.',
+  },
 
   // MARKETING
   {
@@ -277,6 +330,24 @@ const providers: Array<ServiceProvider> = [
       'Wachsman provides media relations, strategic communications, brand development, and corporate advisory ' +
       'services to many of the most indispensable companies in the financial technology, digital currency, and ' +
       'crypto-asset sectors.',
+  },
+  {
+    id: 27,
+    cat: 3,
+    title: 'Ideas By Nature',
+    logo: '/providers/marketing/ideasbynature.png',
+    background: '/providers/marketing/bg/img-ideasbynature.png',
+    desc:
+      'Ideas By Nature is the leading design and product development agency, focused entirely on blockchain ' +
+      'technology. Founded in 2011, Ideas By Nature has launched some of the most successful blockchain technology ' +
+      'and cryptocurrency products, user experiences, and brands. Our teams are well-crafted with elite designers, ' +
+      'engineers, leadership, and blockchain technology expertise.\n\nHaving the most experience working alongside ' +
+      'blockchain-based businesses and innovators, we understand this industry better than any agency. This focus ' +
+      'allows us to consistently develop the most intuitive user experiences and useful products. Here’s what we ' +
+      'do: \n -Branding & Visual Identity Design\n-Proof-of-Concept Product Design\n-Rapid Prototype Development ' +
+      '\n-MVP Application Build & Launch\n-Website & Marketing Collateral Design\n-User Experience & Interactive ' +
+      'Design\n-Mobile-First Blockchain Application Development\n\n“We build world class user-centered products ' +
+      'that leverage blockchain technology. Everyday.”',
   },
 
   // CUSTODY SERVICE
