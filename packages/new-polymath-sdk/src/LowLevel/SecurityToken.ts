@@ -136,7 +136,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
 
     return this.getCheckpointData({
       checkpointId,
-      timestamp: parseInt(checkpointTimes[checkpointId], 10),
+      timestamp: parseInt(checkpointTimes[checkpointId - 1], 10),
     });
   };
 
