@@ -30,8 +30,8 @@ const localTokens = {
 
 export const TokenAddresses: {
   [networkId: string]: {
-    [currency: string]: string
-  }
+    [currency: string]: string;
+  };
 } = {
   [NetworkIds.Local]: localTokens,
   [NetworkIds.LocalVm]: localTokens,

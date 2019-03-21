@@ -148,21 +148,21 @@ const Step3Base: FC<Props> = ({
     currency: types.Tokens | null,
     inputAddress: string
   ) => {
-    if (types.Tokens.Erc20) {
-      return inputAddress;
+    switch (currency) {
+      case types.Tokens.Erc20: {
+        return inputAddress;
+      }
+      case types.Tokens.Dai:
+      case types.Tokens.Gusd:
+      case types.Tokens.Usdc:
+      case types.Tokens.Usdt:
+      case types.Tokens.Poly: {
+        return constants.TokenAddresses[networkId][currency];
+      }
+      default: {
+        throw new Error('Unsupported token');
+      }
     }
-
-    if (currency === null) {
-      throw new Error('Unsupported token');
-    }
-
-    const address = constants.TokenAddresses[networkId][currency];
-
-    if (!address) {
-      throw new Error('Unsupported token');
-    }
-
-    return address;
   };
 
   const onSubmit = (values: Values) => {
