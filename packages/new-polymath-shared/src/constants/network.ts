@@ -28,7 +28,11 @@ const localTokens = {
   [types.Tokens.Usdt]: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
 };
 
-export const TokenAddresses = {
+export const TokenAddresses: {
+  [networkId: string]: {
+    [currency: string]: string
+  }
+} = {
   [NetworkIds.Local]: localTokens,
   [NetworkIds.LocalVm]: localTokens,
   [NetworkIds.Kovan]: {
