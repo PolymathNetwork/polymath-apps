@@ -12,8 +12,30 @@ export class CreateCheckpoint extends Procedure<CreateCheckpointProcedureArgs> {
       ticker: symbol,
     });
 
-    await this.addTransaction(securityToken.createCheckpoint, {
-      tag: types.PolyTransactionTags.CreateCheckpoint,
-    })();
+    const checkpointIndex = await this.addTransaction(
+      securityToken.createCheckpoint,
+      {
+        tag: types.PolyTransactionTags.CreateCheckpoint,
+        // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
+        // the contract-wrappers package
+        resolver: async receipt => {
+          const { events } = receipt;
+
+          if (events) {
+            const { CheckpointCreated } = events;
+
+            const {
+              _checkpointId,
+            }: {
+              _checkpointId: string;
+            } = CheckpointCreated.returnValues;
+
+            return parseInt(_checkpointId, 10);
+          }
+        },
+      }
+    )();
+
+    return checkpointIndex;
   }
 }
