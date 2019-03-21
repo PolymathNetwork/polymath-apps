@@ -386,7 +386,7 @@ export async function setupCappedSTOModule(
 
   await securityToken._tx(
     securityToken._methods.addModule(
-      isLegacySTO ? '0xe14D7DD044CC6CFe37548B6791416C59F19BFC0d' : address,
+      isLegacySTO ? '0xA4A24780b93a378eB25eC4bFbf93BC8e79D7EeEb' : address,
       encodedFunctionCall,
       toWei(setupCost),
       0
