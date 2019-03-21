@@ -133,7 +133,7 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
       params.fundRaiseTypes,
       params.wallet,
       params.reserveWallet,
-      [params.usdToken],
+      params.usdToken ? [params.usdToken] : [],
     ]
   );
 }

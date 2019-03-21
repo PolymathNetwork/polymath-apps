@@ -278,8 +278,13 @@ export const configureSTO = (config: STOConfig, type: string) => async (
                   break;
                 }
                 case 'USDTieredSTO': {
+                  const raisesInDai = includes(
+                    config.data.currencies,
+                    FUND_RAISE_TYPES.DAI
+                  );
                   const daiTokenAddress = DAI_ADDRESSES[String(networkId)];
-                  stoModuleConfig.usdTokenAddress = daiTokenAddress;
+                  const usdTokenAddress = raisesInDai ? daiTokenAddress : null;
+                  stoModuleConfig.usdTokenAddress = usdTokenAddress;
                   await setupUSDTieredSTOModule(
                     stoModule,
                     tokenAddress,
