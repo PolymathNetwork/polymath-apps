@@ -1,7 +1,9 @@
+import Web3 from 'web3';
 import { TransactionObject } from 'web3/eth/types';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
 import { ERC20Abi } from './abis/ERC20Abi';
+import { NonStandardERC20Abi } from './abis/NonStandardERC20Abi';
 import {
   GenericContract,
   ApproveArgs,
@@ -10,6 +12,7 @@ import {
 } from './types';
 import { fromDivisible, toDivisible } from './utils';
 import BigNumber from 'bignumber.js';
+import { web3 } from '~/LowLevel/web3Client';
 
 interface Erc20Contract extends GenericContract {
   methods: {
@@ -39,9 +42,15 @@ interface Erc20Contract extends GenericContract {
 export class Erc20 extends Contract<Erc20Contract> {
   private decimalPlaces: number | null = null;
   private tokenSymbol: string | null = null;
+  private nonStandardContract: Erc20Contract;
 
   constructor({ address, context }: { address: string; context: Context }) {
     super({ address, abi: ERC20Abi.abi, context });
+
+    this.nonStandardContract = (new web3.eth.Contract(
+      NonStandardERC20Abi.abi,
+      address
+    ) as unknown) as Erc20Contract;
   }
 
   public symbol = async () => {
@@ -56,6 +65,15 @@ export class Erc20 extends Contract<Erc20Contract> {
       symbol = await this.contract.methods.symbol().call();
     } catch (err) {
       // do nothing
+    }
+
+    if (!symbol) {
+      try {
+        symbol = await this.nonStandardContract.methods.symbol().call();
+        symbol = Web3.utils.toAscii(symbol);
+      } catch (err) {
+        // do nothing
+      }
     }
 
     return (this.tokenSymbol = symbol);
