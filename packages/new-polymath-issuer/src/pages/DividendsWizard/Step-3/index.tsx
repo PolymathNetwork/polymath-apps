@@ -107,7 +107,6 @@ const Step3Base: FC<Props> = ({
   fetchIsValidToken,
   updateDividendAmount,
   updateCurrencySymbol,
-  securityTokenSymbol,
 }) => {
   if (!networkId) {
     throw new Error("Couldn't obtain network id");
@@ -125,6 +124,8 @@ const Step3Base: FC<Props> = ({
   }>({
     isSubmitting: false,
   });
+
+  const [ercTokenName, setErcTokenName] = useState('');
 
   useEffect(
     () => {
@@ -193,6 +194,19 @@ const Step3Base: FC<Props> = ({
         errors.tokenAddress = 'Token address is required';
       } else if (!validators.isEthereumAddress(tokenAddress)) {
         errors.tokenAddress = 'Token address is invalid';
+      } else {
+        try {
+          const tokenDetails = await fetchBalance({
+            tokenAddress,
+            walletAddress: wallet.address,
+          });
+          setErcTokenName(tokenDetails.tokenSymbol || '');
+          updateCurrencySymbol(tokenDetails.tokenSymbol || '');
+        } catch (e) {
+          setErcTokenName('');
+          updateCurrencySymbol('');
+          asyncErrors.tokenAddress = 'Token address is invalid';
+        }
       }
     }
 
@@ -361,7 +375,7 @@ const Step3Base: FC<Props> = ({
                     onChange={(selectedCurrency: string) =>
                       updateCurrencySymbol(
                         selectedCurrency === 'ERC20'
-                          ? securityTokenSymbol
+                          ? ercTokenName
                           : selectedCurrency
                       )
                     }
@@ -396,8 +410,7 @@ const Step3Base: FC<Props> = ({
                       inputProps={{
                         min: new BigNumber(0),
                         max: new BigNumber('1000000000000000000'),
-                        unit:
-                          currency === 'ERC20' ? securityTokenSymbol : currency,
+                        unit: currency === 'ERC20' ? ercTokenName : currency,
                         useBigNumbers: true,
                       }}
                       onChange={updateDividendAmount}
