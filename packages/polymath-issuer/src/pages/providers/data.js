@@ -224,6 +224,33 @@ const providers: Array<ServiceProvider> = [
       'Turn to us for support with Corporate, Employment or Commercial law as well as Corporate Governance, ' +
       'whether under English law or on multijurisdictional advice projects.',
   },
+  {
+    id: 29,
+    cat: 1,
+    title: 'Hassans International Law Firm',
+    logo: '/providers/legal/hassans.png',
+    background: '/providers/legal/bg/img-hassans.png',
+    desc:
+      'Hassans International Law Firm is the largest and leading law firm in Gibraltar, offering a broad range ' +
+      'of legal services to clients both in Gibraltar and internationally. Consistently ranked as the leading law ' +
+      'firm in Gibraltar by Chambers &amp; Partners and by Legal 500, Hassans is an award-winning, market-leading ' +
+      'legal practice that focuses on the best-in-class client service delivery that provides expert commercial and ' +
+      'pragmatic advice and solutions to clients. \n\nEstablished in 1939 by Sir Joshua Hassan, the firm has grown in ' +
+      'size and standing to become one of the world’s leading full service law firms, comprising the largest number ' +
+      'of top-ranked legal experts in Gibraltar across all legal practice areas. \n\nOur team of Gibraltar lawyers possess ' +
+      'a wide range of legal expertise, including corporate &amp; commercial law, M & A, litigation, property law, ' +
+      'maritime law and ship registration, funds, trust management, tax law and FinTech. Hassans also has access to ' +
+      'an extensive network of global, tier- one professional advisors and intermediaries across many jurisdictions. ' +
+      '\n\nHassans has continually led the way in contributing to, and is credited with, the development and growth of ' +
+      'Gibraltar’s Financial Services, Funds, Insurance, Online Gaming, and Private Client sectors. The firm is ' +
+      'regularly instructed by HM Government of Gibraltar to assist with the drafting of key legislative enactments, ' +
+      'and we engage with Regulatory authorities to develop legal and regulatory frameworks in Gibraltar and assist ' +
+      'with the same internationally. Most recently, the Fintech team at Hassans has been involved in the development ' +
+      'of the Distributed Ledger Technology sector in Gibraltar, as well as assisting with the development of the Token ' +
+      'Sale regulatory framework. Possessing in-depth legal and technical expertise in Distributed Ledger Technology ' +
+      '(including blockchain), the Firm has attracted key players in the DLT industry to Gibraltar who have made ' +
+      'Gibraltar their home for their wide range of DLT-based businesses.',
+  },
 
   // KYC/AML
   {
