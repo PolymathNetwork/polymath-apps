@@ -40,12 +40,38 @@ export const DividendListPresenter: FC<Props> = ({
               />
             </li>
           ))}
-          <sc.NewDividendButton
+          <span>
+            <sc.NewDividendButton
+              as={allDividendsCompleted ? ButtonLink : Button}
+              disabled={!allDividendsCompleted}
+              href={newDividendUrl}
+              variant="ghost"
+              iconPosition="top"
+            >
+              <IconOutlined
+                Asset={icons.SvgPlus}
+                width={25}
+                height={25}
+                scale={0.8}
+              />
+              Add new <br /> dividend <br /> distribution
+            </sc.NewDividendButton>
+            {!allDividendsCompleted && (
+              <TooltipPrimary placement="top-start">
+                You can add a new dividend distribution if the previous
+                distribution has been completed/expired.
+              </TooltipPrimary>
+            )}
+          </span>
+        </Fragment>
+      ) : (
+        <span>
+          <sc.PlaceholderButton
             as={allDividendsCompleted ? ButtonLink : Button}
-            disabled={!allDividendsCompleted}
             href={newDividendUrl}
             variant="ghost"
             iconPosition="top"
+            disabled={!allDividendsCompleted}
           >
             <IconOutlined
               Asset={icons.SvgPlus}
@@ -54,28 +80,14 @@ export const DividendListPresenter: FC<Props> = ({
               scale={0.8}
             />
             Add new <br /> dividend <br /> distribution
-            {!allDividendsCompleted && (
-              <TooltipPrimary placement="top-start">
-                You can add a new dividend distribution if the previous
-                distribution has been completed/expired.
-              </TooltipPrimary>
-            )}
-          </sc.NewDividendButton>
-        </Fragment>
-      ) : (
-        <sc.PlaceholderButton
-          href={newDividendUrl}
-          variant="ghost"
-          iconPosition="top"
-        >
-          <IconOutlined
-            Asset={icons.SvgPlus}
-            width={25}
-            height={25}
-            scale={0.8}
-          />
-          Add new <br /> dividend <br /> distribution
-        </sc.PlaceholderButton>
+          </sc.PlaceholderButton>
+          {!allDividendsCompleted && (
+            <TooltipPrimary placement="top-start">
+              You can add a new dividend distribution if the previous
+              distribution has been completed/expired.
+            </TooltipPrimary>
+          )}
+        </span>
       )}
     </List>
   );
