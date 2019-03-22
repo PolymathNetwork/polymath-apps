@@ -208,7 +208,9 @@ export const Presenter: FC<Props> = ({
       <FormWrapper<Values>
         enableReinitialize
         initialValues={{
-          walletAddress,
+          walletAddress: dividendsModule
+            ? dividendsModule.storageWalletAddress || walletAddress
+            : walletAddress,
         }}
         onSubmit={handleAddressChange}
         validate={handleAddressValidation}
