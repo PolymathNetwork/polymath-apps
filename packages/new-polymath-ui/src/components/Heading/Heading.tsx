@@ -31,6 +31,8 @@ const StyledHeading = styled(Box)<HeadingProps>`
   ${fontWeight};
   ${lineHeight};
   ${fontSize};
+  width: 100%;
+  word-wrap: break-word;
 `;
 
 // TODO @grsmto: remove when https://github.com/pedronauck/docz/issues/337 is resolved
