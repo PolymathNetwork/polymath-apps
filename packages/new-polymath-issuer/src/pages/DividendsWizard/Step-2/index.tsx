@@ -491,7 +491,7 @@ const Form: FC<FormProps> = ({
       </FormItem>
       <Box mt="xl">
         <Button onClick={handleNextStep} disabled={!canProceedToNextStep}>
-          Update list and proceed to the next step
+          Proceed to the next step
         </Button>
       </Box>
 
