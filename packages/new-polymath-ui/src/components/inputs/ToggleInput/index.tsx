@@ -25,7 +25,9 @@ export interface ToggleInputProps extends InputProps {
   checked: boolean;
 }
 
-interface ExternalProps extends typeHelpers.Omit<ToggleInputProps, 'onChange'>, EnhancedComponentProps<boolean> {}
+interface ExternalProps
+  extends typeHelpers.Omit<ToggleInputProps, 'onChange' | 'onBlur'>,
+    EnhancedComponentProps<boolean> {}
 
 const Input = styled.input`
   position: absolute;
@@ -143,7 +145,12 @@ export class ToggleInputPrimitive extends Component<ToggleInputProps> {
   }
 }
 
-const EnhancedToggleInput: FC<ExternalProps> = ({ field, form, onChange, ...rest }) => (
+const EnhancedToggleInput: FC<ExternalProps> = ({
+  field,
+  form,
+  onChange,
+  ...rest
+}) => (
   <FormikProxy<boolean>
     field={field}
     form={form}

@@ -264,12 +264,14 @@ const EnhancedNumberInput: FC<EnhancedComponentProps<Value>> = ({
   field,
   form,
   onChange,
+  onBlur,
   ...rest
 }) => (
   <FormikProxy<Value>
     field={field}
     form={form}
     onChange={onChange}
+    onBlur={onBlur}
     render={formikProps => <NumberInputPrimitive {...rest} {...formikProps} />}
   />
 );
