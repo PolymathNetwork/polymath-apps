@@ -10,6 +10,7 @@ export interface Props
   component: React.ComponentType<any>;
   inputProps?: { [key: string]: any };
   onChange?: (value: any) => void;
+  onBlur?: () => void;
 }
 
 export const InputBase: FC<Props> = ({
@@ -18,6 +19,7 @@ export const InputBase: FC<Props> = ({
   inputProps,
   children,
   onChange,
+  onBlur,
   validate,
   innerRef,
   ...props
@@ -36,6 +38,7 @@ export const InputBase: FC<Props> = ({
               {...formikProps}
               {...inputProps}
               {...props}
+              onBlur={onBlur}
               onChange={onChange}
             >
               {children}

@@ -130,14 +130,15 @@ export class Erc20 extends Contract<Erc20Contract> {
     const { account } = this.context;
 
     const zeroValue = new BigNumber(0);
+    const callParams = { from: account };
 
     try {
       await Promise.all([
         methods.totalSupply().call(),
-        methods.approve(account, zeroValue).call(),
+        methods.approve(account, zeroValue).call(callParams),
         methods.allowance(account, account).call(),
-        methods.transferFrom(account, account, zeroValue).call(),
-        methods.transfer(account, zeroValue).call(),
+        methods.transferFrom(account, account, zeroValue).call(callParams),
+        methods.transfer(account, zeroValue).call(callParams),
         methods.balanceOf(account).call(),
       ]);
     } catch (_err) {

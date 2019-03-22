@@ -57,10 +57,14 @@ export const TableComponent: FC<Props> = ({
           data-testid="select-all-rows"
         />
       ),
-    Cell: ({ row }: { row: RowType }) => (
+    Cell: ({
+      row: { toggleSelected, isSelected, index },
+    }: {
+      row: RowType;
+    }) => (
       <Checkbox
-        onChange={row.toggleSelected ? row.toggleSelected : () => {}}
-        checked={row.isSelected}
+        onChange={toggleSelected ? () => toggleSelected(index) : () => {}}
+        checked={isSelected}
         aria-label="Select row"
         data-testid="select-row"
       />
