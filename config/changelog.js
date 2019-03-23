@@ -8,6 +8,6 @@ conventionalChangelogCore(
   { config: preset },
   {},
   {
-    from: 'v0.0.0',
+    from: 'v0.1.0',
   }
 ).pipe(wstream);

@@ -7,7 +7,7 @@ import * as sc from './styles';
 import { Label } from './Label';
 
 interface Props {
-  onChange: (e: any) => void;
+  onChange: (e: boolean) => void;
   /**
    * Specify whether the toggle should be on by default
    */
@@ -47,7 +47,7 @@ export const CheckboxPrimitive: FC<Props> = ({
           id={name || id}
           name={name || id}
           onChange={e => {
-            onChange(e.target.checked);
+            onChange(e.currentTarget.checked);
           }}
         />
         <sc.CheckboxInput htmlFor={name || id}>

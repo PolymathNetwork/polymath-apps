@@ -15,6 +15,7 @@ interface FormikExternalProps {
 
 export interface EnhancedComponentProps<ValueType> extends FormikExternalProps {
   onChange?: (value: ValueType) => void;
+  onBlur?: () => void;
 }
 
 interface Props<ValueType> extends EnhancedComponentProps<ValueType> {
@@ -37,6 +38,11 @@ export class FormikProxy<ValueType> extends Component<Props<ValueType>> {
   public handleBlur = () => {
     const { setFieldTouched } = this.props.form;
     const { name } = this.props.field;
+    const { onBlur } = this.props;
+
+    if (onBlur) {
+      onBlur();
+    }
 
     setFieldTouched(name, true);
   };
