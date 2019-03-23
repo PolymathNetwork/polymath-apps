@@ -76,7 +76,7 @@ export const toTokens = (
     num = new BigNumber(`${value}`);
   }
 
-  return num.precision(18).toFixed(decimals);
+  return num.precision(18).decimalPlaces(decimals,3).toFormat();
 };
 
 /**
