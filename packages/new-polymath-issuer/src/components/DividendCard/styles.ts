@@ -6,9 +6,7 @@ export const DividendHeading: StyledComponent<
   ThemeInterface,
   any,
   'variant'
-> = styled(Heading).attrs({
-  variant: 'h2',
-})`
+> = styled(Heading)`
   width: 100%;
   word-wrap: break-word;
 `;
