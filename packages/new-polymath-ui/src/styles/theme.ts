@@ -67,6 +67,8 @@ space.gridGap = space[4];
 const zIndexes = {
   header: 80,
   sidebar: 100,
+  modals: 120,
+  selects: 140,
 };
 
 const colors = {
