@@ -4,7 +4,7 @@ import {
   validateYupSchema,
   yupToFormErrors,
 } from 'formik';
-import React, { Fragment, useState, useMemo, FC } from 'react';
+import React, { Fragment, useState, useMemo, FC, useEffect } from 'react';
 import { types } from '@polymathnetwork/new-shared';
 import {
   Box,
@@ -36,6 +36,7 @@ import {
   FormValues,
   TaxWithholdingStatuses,
 } from './shared';
+import { filter } from 'lodash';
 
 interface Props {
   onNextStep: () => void;
@@ -53,6 +54,7 @@ interface Props {
   exclusionList: string[];
   onTaxWithholdingListChange: (amountOfInvestors: number) => void;
   isLoadingData: boolean;
+  setIsDirty: (isDirty: boolean) => void;
 }
 
 const schema = validator.object().shape({
@@ -85,6 +87,7 @@ export const Step2: FC<Props> = ({
   exclusionList,
   onTaxWithholdingListChange,
   isLoadingData,
+  setIsDirty,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
 
@@ -275,6 +278,7 @@ export const Step2: FC<Props> = ({
             csvModalOpen={csvModalOpen}
             closeCsvModal={closeCsvModal}
             isLoadingData={isLoadingData}
+            setIsDirty={setIsDirty}
           />
         )}
       />
@@ -291,6 +295,7 @@ interface FormProps {
   csvModalOpen: boolean;
   closeCsvModal: () => void;
   isLoadingData: boolean;
+  setIsDirty: (isDirty: boolean) => void;
 }
 
 const Form: FC<FormProps> = ({
@@ -302,12 +307,17 @@ const Form: FC<FormProps> = ({
   csvModalOpen,
   closeCsvModal,
   isLoadingData,
+  setIsDirty,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
   const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
   const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
+  useEffect(() => {
+    setIsDirty(isDraft);
+  });
+
   const openTaxWithhholdingModal = () => {
     setTaxWithholdingModalOpen(true);
   };

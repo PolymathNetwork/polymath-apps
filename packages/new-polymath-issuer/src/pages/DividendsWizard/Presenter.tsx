@@ -19,10 +19,11 @@ import { CreateDividendDistributionParams } from './Container';
 import * as sc from './styles';
 import { Step1 } from './Step-1';
 import { Step2 } from './Step-2';
+import { ConfirmModal } from './Step-2/ConfirmModal';
 import { Step3 } from './Step-3';
 import { types, formatters } from '@polymathnetwork/new-shared';
 import BigNumber from 'bignumber.js';
-import { difference, intersection } from 'lodash';
+import { difference, intersection, filter } from 'lodash';
 import {
   GetErc20BalanceByAddressAndWalletArgs,
   GetIsValidErc20ByAddressArgs,
@@ -64,6 +65,8 @@ export interface State {
   dividendAmount: BigNumber;
   tokenSymbol: string;
   positiveWithholdingAmount: number;
+  isDirty: boolean;
+  confirmModalOpen: boolean;
 }
 
 export class Presenter extends Component<Props, State> {
@@ -74,6 +77,8 @@ export class Presenter extends Component<Props, State> {
     positiveWithholdingAmount: this.props.taxWithholdings.filter(
       ({ percentage }) => percentage > 0
     ).length,
+    isDirty: false,
+    confirmModalOpen: false,
   };
 
   public setExcludedWallets = (excludedWallets: null | ExclusionEntry[]) => {
@@ -90,6 +95,25 @@ export class Presenter extends Component<Props, State> {
 
   public setPositiveWithholdingAmount = (positiveWithholdingAmount: number) => {
     this.setState({ positiveWithholdingAmount });
+  };
+
+  public setIsDirty = (isDirty: boolean) => {
+    if (isDirty !== this.state.isDirty) {
+      this.setState({ isDirty });
+    }
+  };
+
+  public closeConfirmModal = () => {
+    this.setState({ confirmModalOpen: false });
+  };
+
+  public openConfirmModal = () => {
+    this.setState({ confirmModalOpen: true });
+  };
+
+  public onConfirmBack = () => {
+    this.closeConfirmModal();
+    this.props.onPreviousStep();
   };
 
   public getExcludedAddresses = () => {
@@ -145,6 +169,7 @@ export class Presenter extends Component<Props, State> {
             nonExcludedInvestors={nonExcludedInvestors}
             exclusionList={exclusionList}
             isLoadingData={isLoadingData}
+            setIsDirty={this.setIsDirty}
           />
         );
       }
@@ -187,6 +212,7 @@ export class Presenter extends Component<Props, State> {
       dividendAmount,
       tokenSymbol,
       positiveWithholdingAmount,
+      confirmModalOpen,
     } = this.state;
     const { investorBalances } = checkpoint;
     const exclusionList = this.getExcludedAddresses();
@@ -208,9 +234,13 @@ export class Presenter extends Component<Props, State> {
             ) => {
               // TODO @RafaelVidaurre: Fix this by using the right component
               if (stepIndex > 0) {
-                onPreviousStep();
                 event.preventDefault();
                 event.stopPropagation();
+                if (this.state.isDirty) {
+                  this.openConfirmModal();
+                } else {
+                  onPreviousStep();
+                }
               }
             }}
           >
@@ -300,6 +330,11 @@ export class Presenter extends Component<Props, State> {
             </CardPrimary>
           </GridRow.Col>
         </GridRow>
+        <ConfirmModal
+          isOpen={confirmModalOpen}
+          onConfirm={this.onConfirmBack}
+          onClose={this.closeConfirmModal}
+        />
       </div>
     );
   }
