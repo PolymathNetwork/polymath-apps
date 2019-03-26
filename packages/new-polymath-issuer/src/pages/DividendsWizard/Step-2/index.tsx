@@ -127,24 +127,35 @@ export const Step2: FC<Props> = ({
       errors = { ...errors, ...yupToFormErrors(err) };
     }
 
-    // Make sure wallet is existing and whitelisted
-    if (
-      walletAddress &&
-      !has(errors, `currentTaxWithholding.${csvEthAddressKey}`) &&
-      !existingTaxWithholdings.find(existingTaxWithholding => {
-        return (
-          existingTaxWithholding.investorAddress.toUpperCase() ===
-          walletAddress.toUpperCase()
-        );
-      }) &&
-      !exclusionList.includes(walletAddress.toUpperCase())
-    ) {
-      merge(errors, {
-        currentTaxWithholding: {
-          [csvEthAddressKey]:
-            'This wallet address is not whitelisted yet. Please add it to the whitelist first.',
-        },
-      });
+    // If wallet address wasn't filled yet, skip this
+    if (walletAddress) {
+      // Make sure wallet is existing...
+      const isWalletExisting = !existingTaxWithholdings.find(
+        existingTaxWithholding => {
+          return (
+            existingTaxWithholding.investorAddress.toUpperCase() ===
+            walletAddress.toUpperCase()
+          );
+        }
+      );
+
+      // ...and whitelisted
+      const isWalletNotExcluded = !exclusionList.includes(
+        walletAddress.toUpperCase()
+      );
+
+      if (
+        !has(errors, `currentTaxWithholding.${csvEthAddressKey}`) &&
+        isWalletExisting &&
+        isWalletNotExcluded
+      ) {
+        merge(errors, {
+          currentTaxWithholding: {
+            [csvEthAddressKey]:
+              'This wallet address is not whitelisted yet. Please add it to the whitelist first.',
+          },
+        });
+      }
     }
 
     throw errors;
