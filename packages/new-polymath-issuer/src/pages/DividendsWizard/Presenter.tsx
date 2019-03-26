@@ -102,10 +102,17 @@ export class Presenter extends Component<Props, State> {
     if (isDirty !== this.state.isDirty) {
       this.setState({ isDirty });
       if (isDirty) {
+        // Block reload
         window.onbeforeunload = e => {
           e.preventDefault();
           return true;
         };
+        block(() => {
+          return (
+            'To apply your new/modified tax withholding entries, simply hit "CANCEL" and click on "UPDATE" above the Tax Withholdings table.\n' +
+            'To ignore the new/modified tax withholding entries, simply hit "PROCEED"'
+          );
+        });
       } else {
         window.onbeforeunload = null;
       }
