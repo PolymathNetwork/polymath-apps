@@ -23,7 +23,7 @@ import { ConfirmModal } from './Step-2/ConfirmModal';
 import { Step3 } from './Step-3';
 import { types, formatters } from '@polymathnetwork/new-shared';
 import BigNumber from 'bignumber.js';
-import { difference, intersection, filter } from 'lodash';
+import { difference, intersection } from 'lodash';
 import {
   GetErc20BalanceByAddressAndWalletArgs,
   GetIsValidErc20ByAddressArgs,
