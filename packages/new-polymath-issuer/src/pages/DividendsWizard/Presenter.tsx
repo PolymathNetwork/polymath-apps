@@ -28,6 +28,7 @@ import {
   GetErc20BalanceByAddressAndWalletArgs,
   GetIsValidErc20ByAddressArgs,
 } from '~/types';
+import { block, unblock } from 'redux-little-router';
 
 export interface ExclusionEntry {
   ['Investor ETH Address']: string;
@@ -100,6 +101,14 @@ export class Presenter extends Component<Props, State> {
   public setIsDirty = (isDirty: boolean) => {
     if (isDirty !== this.state.isDirty) {
       this.setState({ isDirty });
+      if (isDirty) {
+        window.onbeforeunload = e => {
+          e.preventDefault();
+          return true;
+        };
+      } else {
+        window.onbeforeunload = null;
+      }
     }
   };
 

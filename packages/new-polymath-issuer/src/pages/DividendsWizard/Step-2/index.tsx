@@ -36,7 +36,7 @@ import {
   FormValues,
   TaxWithholdingStatuses,
 } from './shared';
-import { filter } from 'lodash';
+import { unblock } from 'redux-little-router';
 
 interface Props {
   onNextStep: () => void;
@@ -317,6 +317,13 @@ const Form: FC<FormProps> = ({
   useEffect(() => {
     setIsDirty(isDraft);
   });
+
+  useEffect(() => {
+    return () => {
+      window.onbeforeunload = null;
+      unblock();
+    };
+  }, []);
 
   const openTaxWithhholdingModal = () => {
     setTaxWithholdingModalOpen(true);
