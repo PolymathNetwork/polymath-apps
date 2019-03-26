@@ -36,6 +36,7 @@ import {
   FormValues,
   TaxWithholdingStatuses,
 } from './shared';
+import { find } from 'lodash';
 
 interface Props {
   onNextStep: () => void;
@@ -275,6 +276,7 @@ export const Step2: FC<Props> = ({
             csvModalOpen={csvModalOpen}
             closeCsvModal={closeCsvModal}
             isLoadingData={isLoadingData}
+            exclusionList={exclusionList}
           />
         )}
       />
@@ -291,6 +293,7 @@ interface FormProps {
   csvModalOpen: boolean;
   closeCsvModal: () => void;
   isLoadingData: boolean;
+  exclusionList: string[];
 }
 
 const Form: FC<FormProps> = ({
@@ -302,6 +305,7 @@ const Form: FC<FormProps> = ({
   csvModalOpen,
   closeCsvModal,
   isLoadingData,
+  exclusionList,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -449,6 +453,7 @@ const Form: FC<FormProps> = ({
             isOpen={taxWithholdingModalOpen}
             onClose={closeTaxWithhholdingModal}
             isEditing={isEditing}
+            exclusionList={exclusionList}
           />
         )}
       />

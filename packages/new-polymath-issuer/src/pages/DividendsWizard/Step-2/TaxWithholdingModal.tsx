@@ -22,6 +22,7 @@ interface Props {
   onClose: () => void;
   taxWithholdingData?: TaxWithholdingsItem;
   fieldProps: FieldProps<any>;
+  exclusionList: string[];
 }
 
 export const TaxWithholdingModal: FC<Props> = ({
@@ -29,6 +30,7 @@ export const TaxWithholdingModal: FC<Props> = ({
   onClose,
   isEditing,
   fieldProps,
+  exclusionList,
 }) => {
   const { field, form } = fieldProps;
   const isValid = !get(form.errors, field.name);
@@ -52,34 +54,45 @@ export const TaxWithholdingModal: FC<Props> = ({
 
     const valueAddress = value[csvEthAddressKey].toUpperCase();
 
-    const matchingIndex = findIndex(
-      formTaxWithholdings,
-      taxWithholding =>
-        taxWithholding[csvEthAddressKey].toUpperCase() === valueAddress
-    );
-
-    const alreadyExists = matchingIndex !== -1;
-
-    if (isEditing || alreadyExists) {
-      const finalValue = { ...value };
-
-      formTaxWithholdings.splice(matchingIndex, 1, finalValue);
-      form.setFieldValue('taxWithholdings', formTaxWithholdings);
-    } else {
-      const finalValue = { ...value };
-
-      form.setFieldValue('taxWithholdings', [
-        ...formTaxWithholdings,
-        finalValue,
-      ]);
-    }
-
-    form.setFieldValue(field.name, {
-      [csvTaxWithholdingKey]: null,
-      [csvEthAddressKey]: '',
+    // Check if excluded
+    const excluded = exclusionList.find(address => {
+      return address === valueAddress;
     });
-    form.setFieldTouched(field.name, false);
-    onClose();
+
+    if (!excluded) {
+      const matchingIndex = findIndex(
+        formTaxWithholdings,
+        taxWithholding =>
+          taxWithholding[csvEthAddressKey].toUpperCase() === valueAddress
+      );
+
+      const alreadyExists = matchingIndex !== -1;
+
+      if (isEditing || alreadyExists) {
+        const finalValue = { ...value };
+
+        formTaxWithholdings.splice(matchingIndex, 1, finalValue);
+        form.setFieldValue('taxWithholdings', formTaxWithholdings);
+      } else {
+        const finalValue = { ...value };
+
+        form.setFieldValue('taxWithholdings', [
+          ...formTaxWithholdings,
+          finalValue,
+        ]);
+      }
+      form.setFieldValue(field.name, {
+        [csvTaxWithholdingKey]: null,
+        [csvEthAddressKey]: '',
+      });
+      form.setFieldTouched(field.name, false);
+      onClose();
+    } else {
+      form.setFieldError(
+        'currentTaxWithholding.Investor ETH Address',
+        'Address excluded'
+      );
+    }
   };
 
   // NOTE @RafaelVidaurre: Workaround to avoid broken dirty-checking
@@ -100,7 +113,6 @@ export const TaxWithholdingModal: FC<Props> = ({
     },
     [isOpen]
   );
-
   return (
     <ModalConfirm
       isOpen={isOpen}
