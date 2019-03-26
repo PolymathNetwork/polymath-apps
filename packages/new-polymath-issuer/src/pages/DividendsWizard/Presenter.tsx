@@ -115,6 +115,7 @@ export class Presenter extends Component<Props, State> {
         });
       } else {
         window.onbeforeunload = null;
+        unblock();
       }
     }
   };
