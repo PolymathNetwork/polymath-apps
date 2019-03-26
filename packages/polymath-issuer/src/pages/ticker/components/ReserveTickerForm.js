@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Form, Button } from 'carbon-components-react';
-import { FormItem, TextInput, Tooltip } from '@polymathnetwork/ui';
+import { FormItem, TextInput, Tooltip, Grid } from '@polymathnetwork/ui';
 import { reserve } from '../../../actions/ticker';
 
 import { connect } from 'react-redux';
@@ -60,50 +60,52 @@ const formSchema = validator.object().shape({
 
 export const ReserveTickerFormComponent = ({ handleSubmit }) => (
   <Form onSubmit={handleSubmit}>
-    <div className="ticker-field">
-      <FormItem name="ticker">
-        <FormItem.Label>Enter Token Symbol</FormItem.Label>
-        <FormItem.Input
-          component={TextInput}
-          placeholder="Up to 10 characters (example: TORO-A)"
-        />
+    <Grid>
+      <div className="ticker-field">
+        <FormItem name="ticker">
+          <FormItem.Label>Enter Token Symbol</FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Up to 10 characters (example: TORO-A)"
+          />
+          <FormItem.Error />
+        </FormItem>
+      </div>
+
+      <FormItem name="name">
+        <FormItem.Label>
+          <Tooltip triggerText="Token Name">
+            <p>
+              <strong>Token Name</strong>
+            </p>
+            <p>
+              This is the name of your token for display purposes.
+              <br />
+              For example: Toro Token
+            </p>
+          </Tooltip>
+        </FormItem.Label>
+        <FormItem.Input component={TextInput} placeholder="Enter Token Name" />
         <FormItem.Error />
       </FormItem>
-    </div>
 
-    <FormItem name="name">
-      <FormItem.Label>
-        <Tooltip triggerText="Token Name">
-          <p>
-            <strong>Token Name</strong>
-          </p>
-          <p>
-            This is the name of your token for display purposes.
-            <br />
-            For example: Toro Token
-          </p>
-        </Tooltip>
-      </FormItem.Label>
-      <FormItem.Input component={TextInput} placeholder="Enter Token Name" />
-      <FormItem.Error />
-    </FormItem>
-
-    <FormItem name="owner">
-      <FormItem.Label>
-        <Tooltip triggerText="Issuer's ETH Address">
-          <p>
-            <strong>Issuer&apos;s ETH Address</strong>
-          </p>
-          <p>
-            This ETH address was read from your MetaMask. Only this account will
-            be able to access dashboard and complete token issuance and STO.
-          </p>
-        </Tooltip>
-      </FormItem.Label>
-      <FormItem.Input component={TextInput} disabled />
-      <FormItem.Error />
-    </FormItem>
-
+      <FormItem name="owner">
+        <FormItem.Label>
+          <Tooltip triggerText="Issuer's ETH Address">
+            <p>
+              <strong>Issuer&apos;s ETH Address</strong>
+            </p>
+            <p>
+              This ETH address was read from your MetaMask. Only this account
+              will be able to access dashboard and complete token issuance and
+              STO.
+            </p>
+          </Tooltip>
+        </FormItem.Label>
+        <FormItem.Input component={TextInput} disabled />
+        <FormItem.Error />
+      </FormItem>
+    </Grid>
     <Button type="submit">Reserve token symbol</Button>
     <p className="pui-input-hint">
       By registering your token symbol with Polymath you agree to our&nbsp;
