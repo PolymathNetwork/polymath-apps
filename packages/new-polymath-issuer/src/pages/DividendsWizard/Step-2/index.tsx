@@ -5,6 +5,7 @@ import {
   yupToFormErrors,
 } from 'formik';
 import React, { Fragment, useState, useMemo, FC } from 'react';
+import { has, merge } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import {
   Box,
@@ -60,8 +61,8 @@ const schema = validator.object().shape({
   currentTaxWithholding: validator.object().shape({
     [csvEthAddressKey]: validator
       .string()
-      .isRequired('Investor ETH address is required')
-      .isEthereumAddress('Invalid Ethereum Address'),
+      .isEthereumAddress('Invalid Ethereum Address')
+      .isRequired('Investor ETH address is required'),
     [csvTaxWithholdingKey]: validator
       .number()
       .typeError('Invalid value')
@@ -117,14 +118,50 @@ export const Step2: FC<Props> = ({
     updateTaxWithholdingList(formattedValues);
   };
 
-  const handleValidation = (values: FormValues) => {
+  const handleValidation = async (values: FormValues) => {
+    const walletAddress = values.currentTaxWithholding[csvEthAddressKey];
+    let errors = {};
+
     try {
-      validateYupSchema(values, schema, true);
+      await validateYupSchema(values, schema, true);
     } catch (err) {
-      const errors = yupToFormErrors(err);
-      return errors;
+      errors = { ...errors, ...yupToFormErrors(err) };
     }
+
+    // If wallet address wasn't filled yet, skip this
+    if (walletAddress) {
+      // Make sure wallet is existing...
+      const isWalletExisting = !existingTaxWithholdings.find(
+        existingTaxWithholding => {
+          return (
+            existingTaxWithholding.investorAddress.toUpperCase() ===
+            walletAddress.toUpperCase()
+          );
+        }
+      );
+
+      // ...and whitelisted
+      const isWalletNotExcluded = !exclusionList.includes(
+        walletAddress.toUpperCase()
+      );
+
+      if (
+        !has(errors, `currentTaxWithholding.${csvEthAddressKey}`) &&
+        isWalletExisting &&
+        isWalletNotExcluded
+      ) {
+        merge(errors, {
+          currentTaxWithholding: {
+            [csvEthAddressKey]:
+              'This wallet address is not whitelisted yet. Please add it to the whitelist first.',
+          },
+        });
+      }
+    }
+
+    throw errors;
   };
+
   const isTaxWithholdingsItemArray = (
     entries: any
   ): entries is TaxWithholdingsItem[] => {

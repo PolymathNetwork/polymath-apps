@@ -17,6 +17,7 @@ import {
   ButtonFluid,
 } from '@polymathnetwork/new-ui';
 import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
+import * as sc from './styles';
 
 interface Props {
   dividend: types.DividendEntity;
@@ -88,9 +89,9 @@ export const DividendCard: FC<Props> = ({
             {formatters.toTokens(dividend.amount)} {currencyLabel}
           </Paragraph>
         </CardPrimary>
-        <Heading mt="m" mb={1}>
+        <sc.DividendHeading mt="m" mb={1}>
           {dividend.name}
-        </Heading>
+        </sc.DividendHeading>
         <Label color={currencyColor} bg={currencyBgColor}>
           Issued in {currencyType}
         </Label>

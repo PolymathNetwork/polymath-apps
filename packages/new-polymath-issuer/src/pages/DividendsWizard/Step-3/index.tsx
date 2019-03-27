@@ -202,7 +202,7 @@ const Step3Base: FC<Props> = ({
     }
 
     try {
-      validateYupSchema(values, schema, true);
+      await validateYupSchema(values, schema, true);
     } catch (err) {
       schemaErrors = yupToFormErrors<Values>(err);
     }
