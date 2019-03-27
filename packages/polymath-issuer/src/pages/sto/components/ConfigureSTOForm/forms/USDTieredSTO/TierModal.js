@@ -144,7 +144,7 @@ class TierModal extends Component {
               <FormItem.Input
                 component={NumberInput}
                 placeholder="Enter amount"
-                min={1}
+                min={0.01}
                 maxDecimals={3}
                 unit="USD"
                 useBigNumbers
