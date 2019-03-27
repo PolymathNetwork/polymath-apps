@@ -6,6 +6,8 @@ import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import {
   createTaxWithholdingListBySymbolAndCheckpointFetcher,
   createCheckpointBySymbolAndIdFetcher,
+  createCheckpointsBySymbolFetcher,
+  createDividendsByCheckpointFetcher,
 } from '~/state/fetchers';
 import { types, formatters, utils } from '@polymathnetwork/new-shared';
 import { DateTime } from 'luxon';
@@ -17,13 +19,16 @@ import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
-import { range, padStart } from 'lodash';
+import { range, padStart, flatten, map, every } from 'lodash';
 import { polyClient } from '~/lib/polyClient';
 import { GetErc20BalanceByAddressAndWalletArgs } from '~/types';
+import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
+import { push } from 'redux-little-router';
 
 const actions = {
   updateTaxWithholdingListStart,
   createErc20DividendDistributionStart,
+  push,
 };
 
 export interface Props {
@@ -203,48 +208,118 @@ export class ContainerBase extends Component<Props, State> {
 
   public render() {
     const { securityTokenSymbol, checkpointIndex } = this.props;
+    const fetcher = createCheckpointsBySymbolFetcher({
+      securityTokenSymbol,
+    });
+
     const { step } = this.state;
     const parsedCheckpointIndex = parseInt(checkpointIndex, 10);
     return (
       <Page title="Create New Dividend Distribution">
         <DataFetcher
           watchProps={this.state}
-          fetchers={[
-            createTaxWithholdingListBySymbolAndCheckpointFetcher({
-              securityTokenSymbol,
-              checkpointIndex: parsedCheckpointIndex,
-              dividendType: DividendModuleTypes.Erc20,
-            }),
-            createCheckpointBySymbolAndIdFetcher({
-              securityTokenSymbol,
-              checkpointIndex: parsedCheckpointIndex,
-            }),
-          ]}
-          render={(
-            {
-              taxWithholdings,
-              checkpoints: [checkpoint],
-            }: {
-              taxWithholdings: types.TaxWithholdingEntity[];
-              checkpoints: types.CheckpointEntity[];
-            },
-            loading: boolean
-          ) => {
+          fetchers={[fetcher]}
+          render={(data: { checkpoints: types.CheckpointEntity[] }) => {
+            const { checkpoints } = data;
+            const fetchers = checkpoints.map(({ index }) =>
+              createDividendsByCheckpointFetcher(
+                {
+                  securityTokenSymbol,
+                  checkpointIndex: index,
+                },
+                { propKey: `${index}` }
+              )
+            );
             return (
-              <Presenter
-                createDividendDistribution={this.createDividendDistribution}
-                updateTaxWithholdingList={this.updateTaxWithholdingList}
-                stepIndex={step}
-                securityTokenSymbol={securityTokenSymbol}
-                checkpoint={checkpoint}
-                onNextStep={this.nextStep}
-                onPreviousStep={this.previousStep}
-                taxWithholdings={taxWithholdings}
-                downloadTaxWithholdingList={this.downloadTaxWithholdingList}
-                downloadSampleExclusionList={this.downloadSampleExclusionList}
-                fetchBalance={this.fetchBalance}
-                fetchIsValidToken={this.fetchIsValidToken}
-                isLoadingData={loading}
+              <DataFetcher
+                watchProps={this.state}
+                fetchers={fetchers}
+                render={(dividendsData: {
+                  [key: string]: types.DividendEntity[];
+                }) => {
+                  const allDividendsCompleted = every(
+                    flatten(
+                      map(dividendsData, dividends =>
+                        map(dividends, dividend => {
+                          const { expiry, investors } = dividend;
+
+                          const remainingPayments = investors.filter(
+                            (investor: any) =>
+                              !investor.paymentReceived && !investor.excluded
+                          ).length;
+
+                          const remainingTransactions = Math.ceil(
+                            remainingPayments /
+                              DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
+                          );
+
+                          return (
+                            expiry <= new Date() || remainingTransactions === 0
+                          );
+                        })
+                      )
+                    ),
+                    (complete: boolean) => complete
+                  );
+                  if (!allDividendsCompleted) {
+                    // There are dividends with pending distribution
+                    const { dispatch } = this.props;
+                    const dividendsListUrl = `/securityTokens/${securityTokenSymbol}/dividends`;
+                    dispatch(push(dividendsListUrl));
+                  }
+                  return (
+                    <DataFetcher
+                      watchProps={this.state}
+                      fetchers={[
+                        createTaxWithholdingListBySymbolAndCheckpointFetcher({
+                          securityTokenSymbol,
+                          checkpointIndex: parsedCheckpointIndex,
+                          dividendType: DividendModuleTypes.Erc20,
+                        }),
+                        createCheckpointBySymbolAndIdFetcher({
+                          securityTokenSymbol,
+                          checkpointIndex: parsedCheckpointIndex,
+                        }),
+                      ]}
+                      render={(
+                        {
+                          taxWithholdings,
+                          checkpoints: [checkpoint],
+                        }: {
+                          taxWithholdings: types.TaxWithholdingEntity[];
+                          checkpoints: types.CheckpointEntity[];
+                        },
+                        loading: boolean
+                      ) => {
+                        return (
+                          <Presenter
+                            createDividendDistribution={
+                              this.createDividendDistribution
+                            }
+                            updateTaxWithholdingList={
+                              this.updateTaxWithholdingList
+                            }
+                            stepIndex={step}
+                            securityTokenSymbol={securityTokenSymbol}
+                            checkpoint={checkpoint}
+                            onNextStep={this.nextStep}
+                            onPreviousStep={this.previousStep}
+                            taxWithholdings={taxWithholdings}
+                            downloadTaxWithholdingList={
+                              this.downloadTaxWithholdingList
+                            }
+                            downloadSampleExclusionList={
+                              this.downloadSampleExclusionList
+                            }
+                            fetchBalance={this.fetchBalance}
+                            fetchIsValidToken={this.fetchIsValidToken}
+                            isLoadingData={loading}
+                          />
+                        );
+                      }}
+                    />
+                  );
+                }}
               />
             );
           }}
