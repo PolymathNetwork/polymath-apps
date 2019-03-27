@@ -56,10 +56,14 @@ export const TaxWithholdingModal: FC<Props> = ({
 
     // Check if excluded
     const excluded = exclusionList.find(address => {
-      return address === valueAddress;
+      return address.toUpperCase() === valueAddress;
     });
 
     if (!excluded) {
+      // Check if the address already exists in the tax withholding list
+      // if it is a new address, add it to list, otherwise if the address
+      // exists or if the user is editing an existing address, replace the
+      // item from the array with the new item.
       const matchingIndex = findIndex(
         formTaxWithholdings,
         taxWithholding =>
@@ -68,14 +72,11 @@ export const TaxWithholdingModal: FC<Props> = ({
 
       const alreadyExists = matchingIndex !== -1;
 
+      const finalValue = { ...value };
       if (isEditing || alreadyExists) {
-        const finalValue = { ...value };
-
         formTaxWithholdings.splice(matchingIndex, 1, finalValue);
         form.setFieldValue('taxWithholdings', formTaxWithholdings);
       } else {
-        const finalValue = { ...value };
-
         form.setFieldValue('taxWithholdings', [
           ...formTaxWithholdings,
           finalValue,
@@ -90,7 +91,7 @@ export const TaxWithholdingModal: FC<Props> = ({
     } else {
       form.setFieldError(
         'currentTaxWithholding.Investor ETH Address',
-        'Address excluded'
+        'This address was excluded in the previous step'
       );
     }
   };

@@ -37,7 +37,6 @@ import {
   FormValues,
   TaxWithholdingStatuses,
 } from './shared';
-import { find } from 'lodash';
 
 interface Props {
   onNextStep: () => void;
