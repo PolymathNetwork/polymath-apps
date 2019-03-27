@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Icon } from '~/components/Icon';
+import { InlineFlex } from '~/components/InlineFlex';
 
 export const Input = styled.input`
   position: absolute;
@@ -12,6 +13,10 @@ export const Input = styled.input`
   border: 0;
   visibility: visible;
   white-space: nowrap;
+`;
+
+export const CheckboxInlineFlex = styled(InlineFlex)`
+  line-height: 18px;
 `;
 
 export const CheckIcon = styled(Icon)`
@@ -34,6 +39,7 @@ export const CheckboxInput = styled.label`
   height: 1.125rem;
   background-color: #fff;
   user-select: none;
+  vertical-align: top;
 
   ${Input}:focus + & {
     border-color: ${({ theme }) => theme.colors.secondary};

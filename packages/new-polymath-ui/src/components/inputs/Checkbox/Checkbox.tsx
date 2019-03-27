@@ -39,7 +39,7 @@ export const CheckboxPrimitive: FC<Props> = ({
 
   return (
     <Fragment>
-      <InlineFlex>
+      <sc.CheckboxInlineFlex>
         <sc.Input
           {...other}
           {...checkedProps}
@@ -49,6 +49,7 @@ export const CheckboxPrimitive: FC<Props> = ({
           onChange={e => {
             onChange(e.target.checked);
           }}
+          style={{ border: 'red' }}
         />
         <sc.CheckboxInput htmlFor={name || id}>
           <sc.CheckIcon
@@ -63,7 +64,7 @@ export const CheckboxPrimitive: FC<Props> = ({
             <Label htmlFor={name || id}>{label}</Label>
           </InlineFlex>
         )}
-      </InlineFlex>
+      </sc.CheckboxInlineFlex>
     </Fragment>
   );
 };
