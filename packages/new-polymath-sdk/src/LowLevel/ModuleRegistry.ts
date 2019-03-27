@@ -1,15 +1,15 @@
-import Web3 from 'web3';
+import semver from 'semver';
+import { TransactionObject } from 'web3/eth/types';
 import { ModuleRegistryAbi } from './abis/ModuleRegistryAbi';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
-import { TransactionObject } from 'web3/eth/types';
 import { ModuleFactory } from './ModuleFactory';
 import {
   GenericContract,
   GetModuleFactoryAddressArgs,
   GetModulesByTypeAndTokenArgs,
 } from './types';
-import semver from 'semver';
+import { toAscii } from './utils';
 
 // This type should be obtained from a library (must match ABI)
 interface ModuleRegistryContract extends GenericContract {
@@ -61,7 +61,7 @@ export class ModuleRegistry extends Contract<ModuleRegistryContract> {
         context: this.context,
       });
       const byteName = await moduleFactory.name();
-      const name = Web3.utils.toAscii(byteName);
+      const name = toAscii(byteName);
 
       if (moduleName.localeCompare(name) === 0) {
         const version = await moduleFactory.version();
