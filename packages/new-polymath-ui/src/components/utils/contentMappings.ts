@@ -261,6 +261,10 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
 
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
+          if (queue.transactions.length === 1) {
+            return `An error occurred with ${content}`;
+          }
+
           return `${content} was partially submitted`;
         }
         case types.TransactionQueueStatus.Idle: {
