@@ -148,6 +148,7 @@ export const Step1: FC<Step1Props> = ({
                     ],
                     header: true,
                     maxRows: 100,
+                    strict: true,
                     validateFile,
                     customValidationErrorMessage: {
                       header: 'Duplicate Entries',
