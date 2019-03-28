@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import BigNumber, { ROUND_FLOOR } from 'bignumber.js';
 import { isNumber } from 'lodash';
 import { DateTime, DateTimeFormatOptions } from 'luxon';
 
@@ -76,7 +76,10 @@ export const toTokens = (
     num = new BigNumber(`${value}`);
   }
 
-  return num.precision(18).decimalPlaces(decimals,3).toFormat();
+  return num
+    .precision(18)
+    .decimalPlaces(decimals, ROUND_FLOOR)
+    .toFormat();
 };
 
 /**
