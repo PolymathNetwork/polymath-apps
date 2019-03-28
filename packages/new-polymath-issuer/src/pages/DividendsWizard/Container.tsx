@@ -22,7 +22,6 @@ import { Page } from '@polymathnetwork/new-ui';
 import { range, padStart, flatten, map, every } from 'lodash';
 import { polyClient } from '~/lib/polyClient';
 import { GetErc20BalanceByAddressAndWalletArgs } from '~/types';
-import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 import { push } from 'redux-little-router';
 
 const actions = {
@@ -237,6 +236,7 @@ export class ContainerBase extends Component<Props, State> {
                 render={(dividendsData: {
                   [key: string]: types.DividendEntity[];
                 }) => {
+                  console.log(dividendsData);
                   const allDividendsCompleted = every(
                     flatten(
                       map(dividendsData, dividends =>
@@ -248,13 +248,8 @@ export class ContainerBase extends Component<Props, State> {
                               !investor.paymentReceived && !investor.excluded
                           ).length;
 
-                          const remainingTransactions = Math.ceil(
-                            remainingPayments /
-                              DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
-                          );
-
                           return (
-                            expiry <= new Date() || remainingTransactions === 0
+                            expiry <= new Date() || remainingPayments === 0
                           );
                         })
                       )
