@@ -1,4 +1,3 @@
-import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { Module } from './Module';
 import { Context } from './LowLevel';
@@ -17,7 +16,13 @@ import {
   GetDividendArgs,
   SetDividendsWalletArgs,
 } from './types';
-import { fromUnixTimestamp, fromWei, toWei, fromDivisible } from './utils';
+import {
+  fromUnixTimestamp,
+  fromWei,
+  toWei,
+  fromDivisible,
+  toAscii,
+} from './utils';
 import { TaxWithholding, DividendModuleTypes } from './types';
 import { zipWith, range, flatten } from 'lodash';
 
@@ -267,8 +272,6 @@ export abstract class DividendCheckpoint<
         balance: fromWei(balances[i]),
       });
     }
-
-    const { toAscii } = Web3.utils;
 
     const {
       checkpointId,

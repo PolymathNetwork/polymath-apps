@@ -38,16 +38,6 @@ interface Values {
   walletAddress: string;
 }
 
-// TODO @grsmto: move this to external form utils
-export const validateFormWithSchema = (validationSchema: any, values: any) => {
-  try {
-    validateYupSchema(values, validationSchema, true);
-  } catch (err) {
-    return yupToFormErrors(err);
-  }
-  return {};
-};
-
 export const Presenter: FC<Props> = ({
   onEnableDividends,
   onCreateCheckpoint,
@@ -86,14 +76,21 @@ export const Presenter: FC<Props> = ({
     setEditAddressState(false);
   }, []);
 
-  const handleAddressValidation = useCallback(values => {
+  const handleAddressValidation = useCallback(async values => {
     const schema = validator.object().shape({
       walletAddress: validator
         .string()
-        .required()
+        .required('An Address is required')
         .isEthereumAddress(),
     });
-    return validateFormWithSchema(schema, values);
+
+    try {
+      await validateYupSchema(values, schema, true);
+    } catch (err) {
+      throw yupToFormErrors(err);
+    }
+
+    throw {};
   }, []);
 
   return (

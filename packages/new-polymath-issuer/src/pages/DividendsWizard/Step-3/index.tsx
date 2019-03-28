@@ -202,7 +202,7 @@ const Step3Base: FC<Props> = ({
     }
 
     try {
-      validateYupSchema(values, schema, true);
+      await validateYupSchema(values, schema, true);
     } catch (err) {
       schemaErrors = yupToFormErrors<Values>(err);
     }
@@ -423,6 +423,7 @@ const Step3Base: FC<Props> = ({
                       inputProps={{
                         min: new BigNumber(0),
                         max: new BigNumber('1000000000000000000'),
+                        maxDecimals:2,
                         unit:
                           currency === types.Tokens.Erc20
                             ? erc20TokenSymbol
