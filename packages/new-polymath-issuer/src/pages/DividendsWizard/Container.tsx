@@ -19,7 +19,7 @@ import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
-import { range, padStart, flatten, map, every } from 'lodash';
+import { range, padStart, flatten, map, every, values } from 'lodash';
 import { polyClient } from '~/lib/polyClient';
 import { GetErc20BalanceByAddressAndWalletArgs } from '~/types';
 import { push } from 'redux-little-router';
@@ -236,25 +236,21 @@ export class ContainerBase extends Component<Props, State> {
                 render={(dividendsData: {
                   [key: string]: types.DividendEntity[];
                 }) => {
+                  const dividends = flatten(values(dividendsData));
+                  const isCompleted = map(dividends, dividend => {
+                    const { expiry, investors } = dividend;
+                    const remainingPayments = investors.filter(
+                      (investor: any) =>
+                        !investor.paymentReceived && !investor.excluded
+                    ).length;
+
+                    return expiry <= new Date() || remainingPayments === 0;
+                  });
                   const allDividendsCompleted = every(
-                    flatten(
-                      map(dividendsData, dividends =>
-                        map(dividends, dividend => {
-                          const { expiry, investors } = dividend;
-
-                          const remainingPayments = investors.filter(
-                            (investor: any) =>
-                              !investor.paymentReceived && !investor.excluded
-                          ).length;
-
-                          return (
-                            expiry <= new Date() || remainingPayments === 0
-                          );
-                        })
-                      )
-                    ),
+                    isCompleted,
                     (complete: boolean) => complete
                   );
+
                   if (!allDividendsCompleted) {
                     // There are dividends with pending distribution
                     const { dispatch } = this.props;
