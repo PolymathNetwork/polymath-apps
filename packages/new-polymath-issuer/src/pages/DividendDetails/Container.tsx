@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ActionType } from 'typesafe-actions/dist/types';
+import { ActionType } from 'typesafe-actions';
 import { types, constants } from '@polymathnetwork/new-shared';
 import { Page } from '@polymathnetwork/new-ui';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import {
-  createTaxWithholdingListBySymbolFetcher,
+  createTaxWithholdingListBySymbolAndCheckpointFetcher,
   createDividendBySymbolAndIdFetcher,
 } from '~/state/fetchers';
 import { RootState } from '~/state/store';
-import { getSession, getApp } from '~/state/selectors';
+import { getApp } from '~/state/selectors';
 import {
   pushDividendPaymentStart,
   withdrawDividendTaxesStart,
@@ -27,6 +27,7 @@ export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
   dividendIndex: string;
+  checkpointIndex: string;
   networkId?: number;
 }
 
@@ -60,14 +61,20 @@ export class ContainerBase extends Component<Props> {
   };
 
   public render() {
-    const { securityTokenSymbol, dividendIndex, networkId } = this.props;
+    const {
+      securityTokenSymbol,
+      dividendIndex,
+      checkpointIndex,
+      networkId,
+    } = this.props;
     const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
     return (
       <Page title="Dividend Details">
         <DataFetcher
           fetchers={[
-            createTaxWithholdingListBySymbolFetcher({
+            createTaxWithholdingListBySymbolAndCheckpointFetcher({
               securityTokenSymbol,
+              checkpointIndex: parseInt(checkpointIndex, 10),
               dividendType: DividendModuleTypes.Erc20,
             }),
             createDividendBySymbolAndIdFetcher({

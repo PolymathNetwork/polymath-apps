@@ -17,14 +17,19 @@ import {
   ButtonFluid,
 } from '@polymathnetwork/new-ui';
 import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
-import BigNumber from 'bignumber.js';
+import * as sc from './styles';
 
 interface Props {
   dividend: types.DividendEntity;
+  checkpointIndex: number;
   securityTokenSymbol: string;
 }
 
-export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
+export const DividendCard: FC<Props> = ({
+  dividend,
+  securityTokenSymbol,
+  checkpointIndex,
+}) => {
   const {
     investors,
     currency,
@@ -84,9 +89,9 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
             {formatters.toTokens(dividend.amount)} {currencyLabel}
           </Paragraph>
         </CardPrimary>
-        <Heading mt="m" mb={1}>
+        <sc.DividendHeading mt="m" mb={1}>
           {dividend.name}
-        </Heading>
+        </sc.DividendHeading>
         <Label color={currencyColor} bg={currencyBgColor}>
           Issued in {currencyType}
         </Label>
@@ -123,7 +128,7 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
         <Box mt="auto" minWidth="100%" textAlign="center">
           <ButtonFluid
             as={ButtonLink}
-            href={`/securityTokens/${securityTokenSymbol}/dividends/${
+            href={`/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/${
               dividend.index
             }`}
             variant="secondary"

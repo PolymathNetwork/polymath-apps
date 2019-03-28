@@ -100,7 +100,7 @@ export const modalStyle = css<StyleProps>`
     &.pui-modal__overlay--after-open {
       opacity: 1;
       transition: all ${({ theme }) => theme.transitions.modal.ms}ms;
-      z-index: 9000;
+      z-index: ${({ theme }) => theme.zIndexes.modals};
     }
 
     &.pui-modal__overlay--before-close {

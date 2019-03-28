@@ -82,7 +82,7 @@ export const Step1: FC<Step1Props> = ({
             via a CSV which includes one wallet (ETH) address per line.
           </Paragraph>
           <Paragraph>
-            You can download
+            You can download{' '}
             <LinkButton onClick={downloadSampleExclusionList}>
               <Icon Asset={icons.SvgDownload} /> Sample-Exclusion-List.csv
             </LinkButton>{' '}
@@ -148,6 +148,7 @@ export const Step1: FC<Step1Props> = ({
                     ],
                     header: true,
                     maxRows: 100,
+                    strict: true,
                     validateFile,
                     customValidationErrorMessage: {
                       header: 'Duplicate Entries',

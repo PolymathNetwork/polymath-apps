@@ -1,16 +1,18 @@
+import Web3 from 'web3';
 import { TransactionObject } from 'web3/eth/types';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
 import { ERC20Abi } from './abis/ERC20Abi';
+import { NonStandardERC20Abi } from './abis/NonStandardERC20Abi';
 import {
   GenericContract,
   ApproveArgs,
   AllowanceArgs,
   BalanceOfArgs,
 } from './types';
-import { fromDivisible, toDivisible } from './utils';
+import { fromDivisible, toDivisible, toAscii } from './utils';
 import BigNumber from 'bignumber.js';
-import { constants } from '@polymathnetwork/new-shared';
+import { web3 } from '~/LowLevel/web3Client';
 
 interface Erc20Contract extends GenericContract {
   methods: {
@@ -40,9 +42,15 @@ interface Erc20Contract extends GenericContract {
 export class Erc20 extends Contract<Erc20Contract> {
   private decimalPlaces: number | null = null;
   private tokenSymbol: string | null = null;
+  private nonStandardContract: Erc20Contract;
 
   constructor({ address, context }: { address: string; context: Context }) {
     super({ address, abi: ERC20Abi.abi, context });
+
+    this.nonStandardContract = (new web3.eth.Contract(
+      NonStandardERC20Abi.abi,
+      address
+    ) as unknown) as Erc20Contract;
   }
 
   public symbol = async () => {
@@ -57,6 +65,15 @@ export class Erc20 extends Contract<Erc20Contract> {
       symbol = await this.contract.methods.symbol().call();
     } catch (err) {
       // do nothing
+    }
+
+    if (!symbol) {
+      try {
+        symbol = await this.nonStandardContract.methods.symbol().call();
+        symbol = toAscii(symbol);
+      } catch (err) {
+        // do nothing
+      }
     }
 
     return (this.tokenSymbol = symbol);
@@ -113,16 +130,16 @@ export class Erc20 extends Contract<Erc20Contract> {
     const { account } = this.context;
 
     const zeroValue = new BigNumber(0);
-    const { EMPTY_ADDRESS } = constants;
+    const callParams = { from: account };
 
     try {
       await Promise.all([
         methods.totalSupply().call(),
-        methods.approve(account, zeroValue).call(),
-        methods.allowance(account, EMPTY_ADDRESS).call(),
-        methods.transferFrom(EMPTY_ADDRESS, EMPTY_ADDRESS, zeroValue).call(),
-        methods.transfer(EMPTY_ADDRESS, zeroValue).call(),
-        methods.balanceOf(EMPTY_ADDRESS).call(),
+        methods.approve(account, zeroValue).call(callParams),
+        methods.allowance(account, account).call(),
+        methods.transferFrom(account, account, zeroValue).call(callParams),
+        methods.transfer(account, zeroValue).call(callParams),
+        methods.balanceOf(account).call(),
       ]);
     } catch (_err) {
       return false;

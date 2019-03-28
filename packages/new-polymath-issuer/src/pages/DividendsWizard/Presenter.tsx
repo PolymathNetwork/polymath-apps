@@ -56,6 +56,7 @@ export interface Props {
     args: GetErc20BalanceByAddressAndWalletArgs
   ) => Promise<types.Erc20TokenBalancePojo>;
   fetchIsValidToken: (args: GetIsValidErc20ByAddressArgs) => Promise<boolean>;
+  isLoadingData: boolean;
 }
 
 export interface State {
@@ -123,6 +124,7 @@ export class Presenter extends Component<Props, State> {
       fetchBalance,
       fetchIsValidToken,
       securityTokenSymbol,
+      isLoadingData,
     } = this.props;
     const { excludedWallets } = this.state;
     const exclusionList = this.getExcludedAddresses();
@@ -142,6 +144,7 @@ export class Presenter extends Component<Props, State> {
             onTaxWithholdingListChange={this.setPositiveWithholdingAmount}
             nonExcludedInvestors={nonExcludedInvestors}
             exclusionList={exclusionList}
+            isLoadingData={isLoadingData}
           />
         );
       }
@@ -240,9 +243,11 @@ export class Presenter extends Component<Props, State> {
                     <Flex flex="0" alignSelf="flex-start" mr="s">
                       <ListIcon />
                     </Flex>
-                    <Paragraph>
-                      <Text as="strong">{investorAmount}</Text> Investors held
-                      the token at checkpoint time
+                    <Paragraph color="baseText">
+                      <Text as="strong" color="highlightText">
+                        {investorAmount}
+                      </Text>{' '}
+                      Investors held the token at checkpoint time
                     </Paragraph>
                   </Flex>
                   <Flex as="li">
@@ -250,8 +255,10 @@ export class Presenter extends Component<Props, State> {
                       <ListIcon />
                     </Flex>
                     <Paragraph color="baseText">
-                      <Text as="strong">{excludedAmount}</Text> Investors are
-                      excluded from the dividends distribution
+                      <Text as="strong" color="highlightText">
+                        {excludedAmount}
+                      </Text>{' '}
+                      Investors are excluded from the dividends distribution
                     </Paragraph>
                   </Flex>
                 </List>
@@ -262,8 +269,10 @@ export class Presenter extends Component<Props, State> {
                       <ListIcon active />
                     </Flex>
                     <Paragraph color="baseText">
-                      <Text as="strong">{nonExcludedAmount}</Text> Investors
-                      will receive dividends
+                      <Text as="strong" color="highlightText">
+                        {nonExcludedAmount}
+                      </Text>{' '}
+                      Investors will receive dividends
                     </Paragraph>
                   </Flex>
                   {stepIndex > 0 && (
@@ -272,7 +281,9 @@ export class Presenter extends Component<Props, State> {
                         <ListIcon />
                       </Flex>
                       <Paragraph color="baseText">
-                        <Text as="strong">{positiveWithholdingAmount}</Text>{' '}
+                        <Text as="strong" color="highlightText">
+                          {positiveWithholdingAmount}
+                        </Text>{' '}
                         Investors will have their taxes withheld
                       </Paragraph>
                     </Flex>

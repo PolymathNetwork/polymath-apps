@@ -12,7 +12,7 @@ import {
   isGetErc20DividendsModuleBySymbolArgs,
   isGetCheckpointBySymbolAndIdArgs,
   CacheStatus,
-  isGetTaxWithholdingsListBySymbolArgs,
+  isGetTaxWithholdingListBySymbolAndCheckpointArgs,
   isGetDividendBySymbolAndIdArgs,
   RequestArgs,
   isGetErc20BalanceByAddressAndWalletArgs,
@@ -26,7 +26,7 @@ import {
   fetchDividendBySymbolAndId,
 } from './dividends';
 import { fetchErc20DividendsModuleBySymbol } from '~/state/sagas/requests/modules';
-import { fetchTaxWithholdingListBySymbol } from '~/state/sagas/requests/taxWithholdings';
+import { fetchTaxWithholdingListBySymbolAndCheckpoint } from '~/state/sagas/requests/taxWithholdings';
 import { createGetCacheStatus } from '~/state/selectors';
 import { fetchErc20TokenBalanceByAddressAndWallet } from '~/state/sagas/requests/erc20TokenBalances';
 
@@ -74,9 +74,9 @@ function* runDataRequest(requestKey: RequestKeys, args: RequestArgs) {
       }
       break;
     }
-    case RequestKeys.GetTaxWithholdingListBySymbol: {
-      if (isGetTaxWithholdingsListBySymbolArgs(args)) {
-        yield call(fetchTaxWithholdingListBySymbol, args);
+    case RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint: {
+      if (isGetTaxWithholdingListBySymbolAndCheckpointArgs(args)) {
+        yield call(fetchTaxWithholdingListBySymbolAndCheckpoint, args);
       } else {
         throw new Error(
           'Invalid arguments passed for fetching tax withholding list.'

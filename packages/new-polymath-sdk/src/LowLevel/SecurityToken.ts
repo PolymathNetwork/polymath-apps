@@ -20,6 +20,29 @@ import { SecurityTokenAbi } from './abis/SecurityTokenAbi';
 import { DividendCheckpointAbi } from './abis/DividendCheckpointAbi';
 import { Contract } from './Contract';
 
+interface ModuleData {
+  /**
+   * name in hex
+   */
+  0: string;
+  /**
+   * address
+   */
+  1: string;
+  /**
+   * factory address
+   */
+  2: string;
+  /**
+   * archived status
+   */
+  3: boolean;
+  /**
+   * module type
+   */
+  4: ModuleTypes;
+}
+
 // This type should be obtained from a library (must match ABI)
 interface SecurityTokenContract extends GenericContract {
   methods: {
@@ -40,6 +63,7 @@ interface SecurityTokenContract extends GenericContract {
     ): TransactionObject<void>;
     getModulesByName(name: string): TransactionObject<string[]>;
     name(): TransactionObject<string>;
+    getModule(address: string): TransactionObject<ModuleData>;
   };
 }
 
@@ -106,7 +130,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public getErc20DividendModule = async () => {
-    const address = await this.getModuleAddress({
+    const address = await this.getFirstUnarchivedModuleAddress({
       name: 'ERC20DividendCheckpoint',
     });
 
@@ -118,7 +142,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public async getEtherDividendModule() {
-    const address = await this.getModuleAddress({
+    const address = await this.getFirstUnarchivedModuleAddress({
       name: 'EtherDividendCheckpoint',
     });
 
@@ -136,7 +160,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
 
     return this.getCheckpointData({
       checkpointId,
-      timestamp: parseInt(checkpointTimes[checkpointId], 10),
+      timestamp: parseInt(checkpointTimes[checkpointId - 1], 10),
     });
   };
 
@@ -163,13 +187,23 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     return this.contract.methods.name().call();
   }
 
-  private async getModuleAddress({ name }: GetModuleAddressArgs) {
+  private async getFirstUnarchivedModuleAddress({ name }: GetModuleAddressArgs) {
     const hexName = Web3.utils.asciiToHex(name);
-    const moduleAddresses = await this.contract.methods
+    const { methods } = this.contract;
+    const moduleAddresses = await methods
       .getModulesByName(hexName)
       .call();
 
-    return moduleAddresses[0] || null;
+    
+    for (const address of moduleAddresses) {
+      const { 3: isArchived } = await methods.getModule(address).call();
+
+      if (!isArchived) {
+        return address;
+      }
+    }
+
+    return null;
   }
 
   private getCheckpointData = async ({
@@ -213,4 +247,6 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       address: investorAddress,
     };
   };
+
+
 }

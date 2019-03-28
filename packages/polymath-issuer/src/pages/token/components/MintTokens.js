@@ -336,7 +336,7 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            disabled={!isReady || stoInProgress}
+            disabled={!isReady || stoInProgress || isInvalidFormat}
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"

@@ -5,8 +5,8 @@ const BLOCKCHAIN_NETWORK_ID = 15;
 const BLOCKCHAIN_MNEMONIC =
   'candy maple cake sugar pudding cream honey rich smooth crumble sweet treat';
 const BLOCKCHAIN_URL = 'http://localhost:8545';
-const ACCOUNT_NUMBER = 20;
-const INITIAL_ETHER = 1000000;
+const ACCOUNT_NUMBER = 500;
+const INITIAL_ETHER = 10000000;
 const GAS_PRICE = 50000000000;
 const PACKAGE_ROOT_DIR = path.resolve(__dirname, '../');
 const TEMP_DIR = path.resolve(PACKAGE_ROOT_DIR, './temp');

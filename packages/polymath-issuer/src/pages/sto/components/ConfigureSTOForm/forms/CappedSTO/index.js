@@ -15,6 +15,7 @@ import {
   TimePickerSelect,
   NumberInput,
   CurrencySelect,
+  ToggleInput,
   Remark,
   RaisedAmount,
   Tooltip,
@@ -86,6 +87,7 @@ const initialValues = {
   cap: null,
   rate: null,
   receiverAddress: '',
+  deployLegacy: false,
 };
 
 export const CappedSTOFormComponent = ({
@@ -94,6 +96,7 @@ export const CappedSTOFormComponent = ({
   errors,
   touched,
   handleSubmit,
+  networkId,
 }) => {
   const { cap, rate, currency } = values;
 
@@ -236,6 +239,14 @@ export const CappedSTOFormComponent = ({
         />
         <FormItem.Error />
       </FormItem>
+      {networkId === 42 && (
+        <FormItem name="deployLegacy">
+          <FormItem.Label>
+            Deploy legacy version (for inner testing)
+          </FormItem.Label>
+          <FormItem.Input component={ToggleInput} />
+        </FormItem>
+      )}
       <Button type="submit">Confirm & launch STO</Button>
     </Form>
   );
@@ -248,7 +259,8 @@ const mapStateToProps = ({
   token: {
     token: { ticker },
   },
-}) => ({ address, ticker });
+  network: { id: networkId },
+}) => ({ address, ticker, networkId });
 
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
@@ -260,18 +272,22 @@ const formikEnhancer = withFormik({
   handleSubmit: (values, { props }) => {
     const { dispatch } = props;
 
+    const legacy = values.deployLegacy;
+    const rate = values.rate.toString();
+
     const formattedValues = {
       startsAt:
         moment(values.date.startDate).unix() * 1000 + values.date.startTime,
       endsAt: moment(values.date.endDate).unix() * 1000 + values.date.endTime,
       cap: toWei(values.cap),
-      rate: toWei(values.rate.toString()),
+      rate: legacy ? rate : toWei(rate),
       currencies: [FUND_RAISE_TYPES[values.currency]],
       receiverAddress: values.receiverAddress,
     };
 
     const config = {
       data: formattedValues,
+      legacy: values.deployLegacy,
     };
 
     dispatch(configureSTO(config, 'CappedSTO')).catch(error => {
