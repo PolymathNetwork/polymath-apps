@@ -1,10 +1,9 @@
-import React, { FC, useState, Fragment } from 'react';
+import React, { FC, useState } from 'react';
 import { uniqueId } from 'lodash';
 import { InlineFlex } from '~/components/InlineFlex';
 import { SvgCheckmark } from '~/images/icons/Checkmark';
 import { FormikProxy, EnhancedComponentProps } from '../FormikProxy';
 import * as sc from './styles';
-import { Label } from './Label';
 
 interface Props {
   onChange: (e: any) => void;
@@ -38,34 +37,31 @@ export const CheckboxPrimitive: FC<Props> = ({
   }
 
   return (
-    <Fragment>
-      <sc.CheckboxInlineFlex>
-        <sc.Input
-          {...other}
-          {...checkedProps}
-          type="checkbox"
-          id={name || id}
-          name={name || id}
-          onChange={e => {
-            onChange(e.target.checked);
-          }}
-          style={{ border: 'red' }}
+    <sc.CheckboxInlineFlex>
+      <sc.Input
+        {...other}
+        {...checkedProps}
+        type="checkbox"
+        id={name || id}
+        name={name || id}
+        onChange={e => {
+          onChange(e.target.checked);
+        }}
+      />
+      <sc.CheckboxInput htmlFor={name || id}>
+        <sc.CheckIcon
+          Asset={SvgCheckmark}
+          color="white"
+          width="0.85em"
+          height="0.85em"
         />
-        <sc.CheckboxInput htmlFor={name || id}>
-          <sc.CheckIcon
-            Asset={SvgCheckmark}
-            color="white"
-            width="0.85em"
-            height="0.85em"
-          />
-        </sc.CheckboxInput>
-        {label && (
-          <InlineFlex ml={2}>
-            <Label htmlFor={name || id}>{label}</Label>
-          </InlineFlex>
-        )}
-      </sc.CheckboxInlineFlex>
-    </Fragment>
+      </sc.CheckboxInput>
+      {label && (
+        <InlineFlex ml={2}>
+          <sc.CheckboxLabel htmlFor={name || id}>{label}</sc.CheckboxLabel>
+        </InlineFlex>
+      )}
+    </sc.CheckboxInlineFlex>
   );
 };
 
