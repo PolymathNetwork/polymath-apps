@@ -27,6 +27,7 @@ export class TooltipComponent extends React.Component<TooltipProps> {
       title: popover,
       html: true,
       container: document.body,
+      boundariesElement: 'viewport',
       popperOptions: {
         modifiers: {
           setState: {

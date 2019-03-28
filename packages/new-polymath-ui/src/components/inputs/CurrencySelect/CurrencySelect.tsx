@@ -21,6 +21,7 @@ import { SvgPax } from '~/images/icons/pax';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
+import { TooltipPrimary } from '~/components/TooltipPrimary';
 import { InputProps } from '~/components/inputs/types';
 import { Label } from './Label';
 import * as sc from './styles';
@@ -60,6 +61,7 @@ export const CURRENCY_OPTIONS: OptionType[] = [
     label: (
       <Label text="ERC20 Token" Asset={SvgErc20} token={types.Tokens.Erc20} />
     ),
+    isDisabled: true,
   },
   {
     value: types.Tokens.Gusd,
@@ -186,6 +188,17 @@ const ClearIndicator: FC<CustomIndicatorProps> = props => {
   );
 };
 
+const Option = ({ children, isDisabled, ...props }) => {
+  return (
+    <components.Option isDisabled={isDisabled} {...props}>
+      {children}
+      {isDisabled && (
+        <TooltipPrimary>Only available on Main Net.</TooltipPrimary>
+      )}
+    </components.Option>
+  );
+};
+
 interface SelectValueProps {
   label: ReactNode;
   value: types.Tokens;
@@ -287,6 +300,7 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
               DropdownIndicator,
               ClearIndicator,
               IndicatorSeparator: null,
+              Option,
             }}
             options={filteredOptions}
             value={selectedValues}
