@@ -236,7 +236,6 @@ export class ContainerBase extends Component<Props, State> {
                 render={(dividendsData: {
                   [key: string]: types.DividendEntity[];
                 }) => {
-                  console.log(dividendsData);
                   const allDividendsCompleted = every(
                     flatten(
                       map(dividendsData, dividends =>
