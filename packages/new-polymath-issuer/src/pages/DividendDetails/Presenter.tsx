@@ -19,12 +19,14 @@ import {
   Label,
   Link,
   Hr,
+  LoadingDots,
 } from '@polymathnetwork/new-ui';
 import { utils, types, formatters } from '@polymathnetwork/new-shared';
 import _ from 'lodash';
 import BigNumber from 'bignumber.js';
 import { ListIcon } from '~/components/ListIcon';
 import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
+import { boolean } from 'yup';
 
 export interface Props {
   dividend: types.DividendEntity;
@@ -33,6 +35,7 @@ export interface Props {
   pushDividendPayments: () => void;
   withdrawTaxes: () => void;
   subdomain?: string;
+  loading?: boolean;
 }
 
 enum PaymentStatus {
@@ -47,6 +50,7 @@ export const Presenter = ({
   pushDividendPayments,
   withdrawTaxes,
   subdomain,
+  loading,
 }: Props) => {
   const {
     investors,
@@ -241,11 +245,15 @@ export const Presenter = ({
                     />
                   )}
                   <Box ml="m">
-                    <Text color="highlightText" fontSize={6} fontWeight={0}>
-                      {formatters.toPercent(
-                        1 - pendingTransactions / (totalTransactions || 1)
-                      )}
-                    </Text>
+                    {loading ? (
+                      <LoadingDots />
+                    ) : (
+                      <Text color="highlightText" fontSize={6} fontWeight={0}>
+                        {formatters.toPercent(
+                          1 - pendingTransactions / (totalTransactions || 1)
+                        )}
+                      </Text>
+                    )}
                     <Paragraph>Transactions are completed</Paragraph>
                   </Box>
                 </Grid>
@@ -297,9 +305,13 @@ export const Presenter = ({
                     borderWidth="5px"
                   />
                   <Box ml="m">
-                    <Text color="highlightText" fontSize={6} fontWeight={0}>
-                      {formatters.toTokens(unwithdrawnTaxes)} {currency}
-                    </Text>
+                    {loading ? (
+                      <LoadingDots />
+                    ) : (
+                      <Text color="highlightText" fontSize={6} fontWeight={0}>
+                        {formatters.toTokens(unwithdrawnTaxes)} {currency}
+                      </Text>
+                    )}
                     <Paragraph>
                       Tax withholdings left to withdraw from the dividends smart
                       contract escrow
@@ -465,9 +477,15 @@ export const Presenter = ({
           </CardPrimary>
         </GridRow.Col>
       </GridRow>
-      <Heading variant="h2" mt="l" mb="m">
-        Transactions
-      </Heading>
+      {loading ? (
+        <Box mt="l" mb="m">
+          <LoadingDots />
+        </Box>
+      ) : (
+        <Heading variant="h2" mt="l" mb="m">
+          Transactions
+        </Heading>
+      )}
       <Table columns={columns} data={transactions}>
         <Table.Rows />
         <Table.Pagination />

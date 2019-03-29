@@ -83,15 +83,17 @@ export class ContainerBase extends Component<Props> {
               dividendIndex: parseInt(dividendIndex, 10),
             }),
           ]}
-          render={(data: {
-            taxWithholdings: types.TaxWithholdingEntity[];
-            dividends: types.DividendEntity[];
-          }) => {
+          render={(
+            data: {
+              taxWithholdings: types.TaxWithholdingEntity[];
+              dividends: types.DividendEntity[];
+            },
+            loading
+          ) => {
             const {
               taxWithholdings,
               dividends: [dividend],
             } = data;
-
             return (
               <Presenter
                 subdomain={subdomain}
@@ -100,6 +102,7 @@ export class ContainerBase extends Component<Props> {
                 taxWithholdings={taxWithholdings}
                 pushDividendPayments={this.pushDividendPayments}
                 withdrawTaxes={this.withdrawTaxes}
+                loading={loading}
               />
             );
           }}
