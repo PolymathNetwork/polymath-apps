@@ -343,14 +343,34 @@ const Step3Base: FC<Props> = ({
                     component={CurrencySelect}
                     inputProps={{
                       options: [
-                        types.Tokens.Erc20,
-                        types.Tokens.Dai,
-                        types.Tokens.Gusd,
-                        types.Tokens.Pax,
-                        types.Tokens.Poly,
-                        types.Tokens.Usdc,
-                        types.Tokens.Usdt,
+                        {
+                          value: types.Tokens.Erc20,
+                        },
+                        {
+                          value: types.Tokens.Dai,
+                        },
+                        {
+                          value: types.Tokens.Gusd,
+                          isDisabled: networkId === constants.NetworkIds.Kovan,
+                        },
+                        {
+                          value: types.Tokens.Pax,
+                          isDisabled: true,
+                        },
+                        {
+                          value: types.Tokens.Poly,
+                        },
+                        {
+                          value: types.Tokens.Usdc,
+                          isDisabled: networkId === constants.NetworkIds.Kovan,
+                        },
+                        {
+                          value: types.Tokens.Usdt,
+                          isDisabled: networkId === constants.NetworkIds.Kovan,
+                        },
                       ],
+                      placeholder: 'Choose currency',
+                      disabledOptionText: 'Not available on test network',
                     }}
                     onChange={(selectedCurrency: string) =>
                       updateCurrencySymbol(
