@@ -26,7 +26,6 @@ import _ from 'lodash';
 import BigNumber from 'bignumber.js';
 import { ListIcon } from '~/components/ListIcon';
 import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
-import { boolean } from 'yup';
 
 export interface Props {
   dividend: types.DividendEntity;
