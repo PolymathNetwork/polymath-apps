@@ -16,7 +16,8 @@ const bounce = keyframes`
 `;
 
 export const Wrapper = styled.div`
-  width: 70px;
+  width: 30px;
+  height: 35px;
   text-align: center;
 
   span:before {
