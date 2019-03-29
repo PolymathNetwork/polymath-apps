@@ -1,8 +1,8 @@
 import React, { FC, Fragment, ReactNode } from 'react';
 import Select, { components } from 'react-select';
 import { IndicatorProps } from 'react-select/lib/components/indicators';
+import { OptionProps } from 'react-select/lib/components/option';
 import { Styles } from 'react-select/lib/styles';
-import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import {
   FormikProxy,
@@ -29,13 +29,14 @@ import * as sc from './styles';
 interface OptionType {
   value: types.Tokens;
   label: ReactNode;
+  isDisabled?: boolean;
 }
 
 type Value = types.Tokens | types.Tokens[];
 
 interface ExternalProps extends EnhancedComponentProps<Value> {
   theme: ThemeInterface;
-  options: types.Tokens[];
+  options: OptionType[];
   placeholder?: string;
 }
 
@@ -61,7 +62,6 @@ export const CURRENCY_OPTIONS: OptionType[] = [
     label: (
       <Label text="ERC20 Token" Asset={SvgErc20} token={types.Tokens.Erc20} />
     ),
-    isDisabled: true,
   },
   {
     value: types.Tokens.Gusd,
@@ -90,11 +90,12 @@ export const CURRENCY_OPTIONS: OptionType[] = [
 interface SelectProps
   extends Pick<InputProps, 'onChange' | 'error' | 'name' | 'autoComplete'> {
   theme: ThemeInterface;
-  options: types.Tokens[];
+  options: OptionType[];
   value: types.Tokens | types.Tokens[];
   // Override because ReactSelect does not provide the event
   onBlur: () => void;
   placeholder?: string;
+  disabledOptionText?: string;
 }
 
 const getStyles = (theme: ThemeInterface): Styles => ({
@@ -188,12 +189,14 @@ const ClearIndicator: FC<CustomIndicatorProps> = props => {
   );
 };
 
-const Option = ({ children, isDisabled, ...props }) => {
+const Option: FC<OptionProps<OptionType>> = ({ children, ...props }) => {
   return (
-    <components.Option isDisabled={isDisabled} {...props}>
+    <components.Option {...props}>
       {children}
-      {isDisabled && (
-        <TooltipPrimary>Only available on Main Net.</TooltipPrimary>
+      {props.isDisabled && props.selectProps.disabledOptionText && (
+        <TooltipPrimary boundariesElement="viewport">
+          {props.selectProps.disabledOptionText}
+        </TooltipPrimary>
       )}
     </components.Option>
   );
@@ -266,13 +269,12 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   public render() {
     const { value, options, onChange, onBlur, theme, ...rest } = this.props;
 
-    const filteredOptions = intersectionWith(
-      CURRENCY_OPTIONS,
-      options,
-      (currency, symbol) => {
-        return currency.value === symbol;
-      }
-    );
+    const mergedOptions = options.map(option => {
+      return {
+        ...CURRENCY_OPTIONS.find(currency => option.value === currency.value),
+        ...option,
+      };
+    });
 
     const valueIsArray = Array.isArray(value);
     let arrayValue: types.Tokens[];
@@ -283,8 +285,8 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
       arrayValue = value;
     }
 
-    const selectedValues = filter(filteredOptions, ({ value: currencyType }) =>
-      includes(arrayValue, currencyType)
+    const selectedValues = mergedOptions.filter(({ value: currencyType }) =>
+      arrayValue.includes(currencyType)
     );
 
     return (
@@ -302,7 +304,7 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
               IndicatorSeparator: null,
               Option,
             }}
-            options={filteredOptions}
+            options={mergedOptions}
             value={selectedValues}
             onChange={this.handleChange}
             onMenuClose={onBlur}
@@ -310,7 +312,7 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
           />
         </SelectWrapper>
         {arrayValue.map(val => {
-          const option = filteredOptions.find(
+          const option = mergedOptions.find(
             ({ value: currencyType }) => currencyType === val
           );
           return option ? (
