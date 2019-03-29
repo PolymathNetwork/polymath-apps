@@ -1,7 +1,7 @@
 import React, { FC, Fragment, ReactNode } from 'react';
 import Select, { components } from 'react-select';
 import { IndicatorProps } from 'react-select/lib/components/indicators';
-import { OptionProps } from 'react-select/lib/components/option';
+import { OptionProps } from 'react-select/lib/components/Option';
 import { Styles } from 'react-select/lib/styles';
 import { types } from '@polymathnetwork/new-shared';
 import {
