@@ -74,9 +74,8 @@ export class CheckpointListContainerBase extends Component<Props> {
             securityTokenSymbol,
           }),
         ]}
-        render={(data: { checkpoints: types.CheckpointEntity[] }) => {
+        render={(data: { checkpoints: types.CheckpointEntity[] }, loading) => {
           const { checkpoints } = data;
-
           const fetchers = checkpoints.map(({ index }) =>
             createDividendsByCheckpointFetcher(
               {
@@ -89,6 +88,7 @@ export class CheckpointListContainerBase extends Component<Props> {
 
           return (
             <DataFetcher
+              watchProps={[loading]}
               fetchers={fetchers}
               render={(dividendsData: {
                 [key: string]: types.DividendEntity[];
@@ -129,6 +129,7 @@ export class CheckpointListContainerBase extends Component<Props> {
                     checkpoints={sortedCheckpoints}
                     securityTokenSymbol={securityTokenSymbol}
                     downloadOwnershipList={this.downloadOwnershipList}
+                    loading={loading}
                   />
                 );
               }}
