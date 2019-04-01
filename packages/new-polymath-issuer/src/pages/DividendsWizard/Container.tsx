@@ -236,7 +236,16 @@ export class ContainerBase extends Component<Props, State> {
                 render={(dividendsData: {
                   [key: string]: types.DividendEntity[];
                 }) => {
-                  const dividends = flatten(values(dividendsData));
+                  const { dispatch } = this.props;
+                  const dividendsListUrl = `/securityTokens/${securityTokenSymbol}/dividends`;
+
+                  const checkpointsList = values(dividendsData);
+                  if (checkpointsList.length === 0) {
+                    // No checkpoints exist
+                    dispatch(push(dividendsListUrl));
+                  }
+
+                  const dividends = flatten(checkpointsList);
                   const isCompleted = map(dividends, dividend => {
                     const { expiry, investors } = dividend;
                     const remainingPayments = investors.filter(
@@ -253,8 +262,6 @@ export class ContainerBase extends Component<Props, State> {
 
                   if (!allDividendsCompleted) {
                     // There are dividends with pending distribution
-                    const { dispatch } = this.props;
-                    const dividendsListUrl = `/securityTokens/${securityTokenSymbol}/dividends`;
                     dispatch(push(dividendsListUrl));
                   }
                   return (
