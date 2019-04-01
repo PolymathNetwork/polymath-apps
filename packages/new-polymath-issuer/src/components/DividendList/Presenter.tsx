@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { Fragment, FC, useContext } from 'react';
 import {
   List,
   ButtonLink,
@@ -10,6 +10,7 @@ import {
 import { types } from '@polymathnetwork/new-shared';
 import { DividendCard } from '~/components/DividendCard';
 import * as sc from './styles';
+import { FilterCtx } from '~/pages/SecurityTokensDividends/Presenter';
 
 export interface Props {
   dividends: types.DividendEntity[];
@@ -24,6 +25,7 @@ export const DividendListPresenter: FC<Props> = ({
   checkpointIndex,
   allDividendsCompleted,
 }) => {
+  const [searchName, setSearchName] = useContext(FilterCtx);
   const newDividendUrl = !allDividendsCompleted
     ? '#'
     : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
@@ -31,15 +33,19 @@ export const DividendListPresenter: FC<Props> = ({
     <List>
       {dividends.length ? (
         <Fragment>
-          {dividends.map(dividend => (
-            <li key={dividend.uid}>
-              <DividendCard
-                dividend={dividend}
-                checkpointIndex={checkpointIndex}
-                securityTokenSymbol={securityTokenSymbol}
-              />
-            </li>
-          ))}
+          {dividends
+            .filter(dividend =>
+              dividend.name.toLowerCase().includes(searchName)
+            )
+            .map(dividend => (
+              <li key={dividend.uid}>
+                <DividendCard
+                  dividend={dividend}
+                  checkpointIndex={checkpointIndex}
+                  securityTokenSymbol={securityTokenSymbol}
+                />
+              </li>
+            ))}
           <span>
             <sc.NewDividendButton
               as={allDividendsCompleted ? ButtonLink : Button}

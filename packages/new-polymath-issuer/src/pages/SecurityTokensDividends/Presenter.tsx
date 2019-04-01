@@ -33,7 +33,7 @@ import { CheckpointList } from '~/components';
 import { WalletAddress } from './WalletAddress';
 import * as sc from './styles';
 
-export const FilterCtx = createContext(['First', '']);
+export const FilterCtx = createContext(['', '']);
 
 export interface Props {
   onEnableDividends: (walletAddress: string) => void;
