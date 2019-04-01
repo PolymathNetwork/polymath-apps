@@ -68,9 +68,9 @@ const CsvErrorsComponent: FC<Props> = ({ className }) => {
       )}
       {data.errors.includes(csvParser.ErrorCodes.extraColumns) && (
         <Notification
-          status="warning"
+          status="alert"
           title="Your .csv has extra columns"
-          description="Only the columns listed below will be used. Make sure your .csv format is correct."
+          description="Only the columns listed below can be used. Make sure your .csv format is correct."
         />
       )}
     </sc.Wrapper>
