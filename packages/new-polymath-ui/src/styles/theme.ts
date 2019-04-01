@@ -67,6 +67,8 @@ space.gridGap = space[4];
 const zIndexes = {
   header: 80,
   sidebar: 100,
+  modals: 120,
+  selects: 140,
 };
 
 const colors = {
@@ -217,6 +219,22 @@ const tokens = {
   [types.Tokens.Erc20]: {
     color: '#007B66',
     backgroundColor: '#A7FAE6',
+  },
+  [types.Tokens.Gusd]: {
+    color: '#28BDDD',
+    backgroundColor: '#188AA1',
+  },
+  [types.Tokens.Usdc]: {
+    color: '#FFFFFF',
+    backgroundColor: '#2775CA',
+  },
+  [types.Tokens.Usdt]: {
+    color: '#FFFFFF',
+    backgroundColor: '#53AE94',
+  },
+  [types.Tokens.Pax]: {
+    color: '#FFFFFF',
+    backgroundColor: '#C8E5F6',
   },
 };
 

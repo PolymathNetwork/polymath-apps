@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { some } from 'lodash';
 import {
   ModalConfirm,
   CsvUploader,
@@ -14,61 +13,30 @@ import {
   csvEthAddressKey,
   csvTaxWithholdingKey,
   TaxWithholdingsItem,
-  TaxWithholdingStatuses,
 } from './shared';
-import { boolean } from 'yup';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  existingTaxWithholdings: types.TaxWithholdingPojo[];
   onConfirm: (values: TaxWithholdingsItem[]) => void;
 }
 
 type CsvTaxWithholdingsData = any;
 
-export const CsvModal: FC<Props> = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  existingTaxWithholdings,
-}) => {
+export const CsvModal: FC<Props> = ({ isOpen, onClose, onConfirm }) => {
   const [taxWithholdings, setTaxWithholdings] = useState<
     CsvTaxWithholdingsData[]
   >([]);
 
   const onSubmit = () => {
-    onConfirm(taxWithholdings);
+    if (taxWithholdings.length > 0) {
+      onConfirm(taxWithholdings);
+    }
   };
 
   const onChangeCsv = (result: TaxWithholdingsItem[] | null) => {
     if (result) {
       const formattedValues = result.map((value: TaxWithholdingsItem) => {
-        let alreadyExists = false;
-        const isUpdated = some(
-          existingTaxWithholdings,
-          existingTaxWithholding => {
-            if (
-              existingTaxWithholding.investorAddress === value[csvEthAddressKey]
-            ) {
-              alreadyExists = true;
-            }
-
-            return (
-              alreadyExists &&
-              value[csvTaxWithholdingKey] !== existingTaxWithholding.percentage
-            );
-          }
-        );
-
-        let status: TaxWithholdingStatuses | undefined;
-
-        if (isUpdated) {
-          status = TaxWithholdingStatuses.Updated;
-        } else if (!alreadyExists) {
-          status = TaxWithholdingStatuses.New;
-        }
-
         return {
           ...value,
           [csvTaxWithholdingKey]: value[csvTaxWithholdingKey] / 100,
@@ -76,6 +44,8 @@ export const CsvModal: FC<Props> = ({
         };
       });
       setTaxWithholdings(formattedValues);
+    } else {
+      setTaxWithholdings([]);
     }
   };
 
@@ -96,13 +66,12 @@ export const CsvModal: FC<Props> = ({
       onSubmit={onSubmit}
       onClose={onClose}
       actionButtonText="Confirm"
-      isActionDisabled={!taxWithholdings}
-      maxWidth={500}
+      isActionDisabled={!taxWithholdings || taxWithholdings.length === 0}
     >
       <ModalConfirm.Header>Upload Tax Withholding List</ModalConfirm.Header>
       <Paragraph mb={0}>
-        Update tax withholdings by uploading a comma separated .CSV file. The
-        format should be as follows:
+        Update tax withholdings by uploading a comma separated .CSV file.
+        <br /> The format should be as follows:
       </Paragraph>
       <List vertical gridGap={0}>
         <li>
@@ -112,7 +81,7 @@ export const CsvModal: FC<Props> = ({
           <Text>
             — % tax witholding for associated ETH address. The exact amount of
             funds to be withheld will be automatically calculated prior to
-            distribution.
+            distribution. This value must be at least 0 and less than 100.
           </Text>
         </li>
       </List>
@@ -131,7 +100,11 @@ export const CsvModal: FC<Props> = ({
               },
               {
                 name: csvTaxWithholdingKey,
-                validators: [validators.isNotEmpty],
+                validators: [
+                  validators.isNotEmpty,
+                  validators.isNumber,
+                  validators.numericality({ lt: 100, gte: 0 }),
+                ],
                 required: true,
               },
             ],

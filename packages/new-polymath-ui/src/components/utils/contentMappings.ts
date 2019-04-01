@@ -1,6 +1,14 @@
 import { types, formatters } from '@polymathnetwork/new-shared';
-import { SvgErc20 } from '~/images/icons/Erc20';
 import { ProcedureArguments, TransactionArguments } from '@polymathnetwork/sdk';
+import {
+  SvgErc20,
+  SvgCalendar,
+  SvgCog,
+  SvgDownload2,
+  SvgWallet,
+  SvgPoly,
+} from '~/images/icons';
+import { SvgCheckmark } from '~/images/icons/Checkmark';
 
 const getTransactionPositionData = (
   transaction: types.TransactionPojo,
@@ -253,6 +261,10 @@ export const getTransactionQueueTitle = (queue: types.TransactionQueuePojo) => {
 
       switch (status) {
         case types.TransactionQueueStatus.Failed: {
+          if (queue.transactions.length === 1) {
+            return `An error occurred with ${content}`;
+          }
+
           return `${content} was partially submitted`;
         }
         case types.TransactionQueueStatus.Idle: {
@@ -440,9 +452,9 @@ export const getTransactionTitle = (
 
       const { amount, symbol } = args;
 
-      return `Approving ${amount ? formatters.toTokens(amount) : ''}${
-        amount ? ' ' : ''
-      }${symbol || 'TOKEN'} spend`;
+      return `Approving ${
+        amount ? formatters.toTokens(amount, { decimals: 2 }) : ''
+      }${amount ? ' ' : ''}${symbol || 'TOKEN'} spend`;
     }
     case types.PolyTransactionTags.CreateCheckpoint: {
       return 'Creating a Dividend Checkpoint';
@@ -470,7 +482,10 @@ export const getTransactionTitle = (
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
         transaction.args;
 
-      return `Get ${args.amount} ${args.symbol} from faucet`;
+      const { amount, symbol } = args;
+
+      return `Get ${amount ? formatters.toTokens(amount) : ''} ${symbol ||
+        'TOKEN'} from faucet`;
     }
     case types.PolyTransactionTags.ReclaimDividendFunds: {
       const args: TransactionArguments[types.PolyTransactionTags.ReclaimDividendFunds] =
@@ -548,9 +563,9 @@ export const getTransactionContent = (
       const { amount, symbol } = args;
 
       return {
-        title: `Approve ${amount ? formatters.toTokens(amount) : ''}${
-          amount ? ' ' : ''
-        }${symbol || 'TOKEN'} spend`,
+        title: `Approve ${
+          amount ? formatters.toTokens(amount, { decimals: 2 }) : ''
+        }${amount ? ' ' : ''}${symbol || 'TOKEN'} spend`,
         description: 'Approve Spend',
       };
     }
@@ -590,8 +605,11 @@ export const getTransactionContent = (
       const args: TransactionArguments[types.PolyTransactionTags.GetTokens] =
         transaction.args;
 
+      const { amount, symbol } = args;
+
       return {
-        title: `Get ${args.amount} ${args.symbol} from faucet.`,
+        title: `Get ${amount ? formatters.toTokens(amount) : ''} ${symbol ||
+          'TOKEN'} from faucet.`,
         description: 'Get Tokens',
       };
     }
@@ -686,19 +704,19 @@ export const getTransactionContent = (
 // TODO @grsmto: update with the actual icons
 export const getTransactionIcon = (transaction: types.TransactionPojo) =>
   ({
-    [types.PolyTransactionTags.Any]: SvgErc20,
-    [types.PolyTransactionTags.Approve]: SvgErc20,
-    [types.PolyTransactionTags.GetTokens]: SvgErc20,
-    [types.PolyTransactionTags.ReserveSecurityToken]: SvgErc20,
-    [types.PolyTransactionTags.CreateSecurityToken]: SvgErc20,
-    [types.PolyTransactionTags.CreateCheckpoint]: SvgErc20,
-    [types.PolyTransactionTags.CreateErc20DividendDistribution]: SvgErc20,
+    [types.PolyTransactionTags.Any]: SvgCog,
+    [types.PolyTransactionTags.Approve]: SvgCheckmark,
+    [types.PolyTransactionTags.GetTokens]: SvgPoly,
+    [types.PolyTransactionTags.ReserveSecurityToken]: SvgPoly,
+    [types.PolyTransactionTags.CreateSecurityToken]: SvgPoly,
+    [types.PolyTransactionTags.CreateCheckpoint]: SvgCalendar,
+    [types.PolyTransactionTags.CreateErc20DividendDistribution]: SvgCog,
     [types.PolyTransactionTags.CreateEtherDividendDistribution]: SvgErc20,
     [types.PolyTransactionTags.SetErc20TaxWithholding]: SvgErc20,
     [types.PolyTransactionTags.SetEtherTaxWithholding]: SvgErc20,
     [types.PolyTransactionTags.EnableDividends]: SvgErc20,
     [types.PolyTransactionTags.ReclaimDividendFunds]: SvgErc20,
-    [types.PolyTransactionTags.WithdrawTaxWithholdings]: SvgErc20,
+    [types.PolyTransactionTags.WithdrawTaxWithholdings]: SvgDownload2,
     [types.PolyTransactionTags.PushDividendPayment]: SvgErc20,
-    [types.PolyTransactionTags.SetDividendsWallet]: SvgErc20,
+    [types.PolyTransactionTags.SetDividendsWallet]: SvgWallet,
   }[transaction.tag]);

@@ -38,28 +38,6 @@ export function* createCheckpoint(
         },
       })
     );
-
-    // TODO @monitz87: move these tax withholding cache invalidations to the minting procedure
-    // saga when it is implemented
-    yield put(
-      invalidateRequest({
-        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
-        args: {
-          securityTokenSymbol,
-          dividendType: DividendModuleTypes.Erc20,
-        },
-      })
-    );
-
-    yield put(
-      invalidateRequest({
-        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
-        args: {
-          securityTokenSymbol,
-          dividendType: DividendModuleTypes.Eth,
-        },
-      })
-    );
   } catch (err) {
     if (!err.code) {
       throw err;

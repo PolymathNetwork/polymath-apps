@@ -14,6 +14,10 @@ import { SvgEth } from '~/images/icons/Eth';
 import { SvgPoly } from '~/images/icons/Poly';
 import { SvgDai } from '~/images/icons/Dai';
 import { SvgErc20 } from '~/images/icons/Erc20';
+import { SvgGusd } from '~/images/icons/gusd';
+import { SvgUsdc } from '~/images/icons/usdc';
+import { SvgUsdt } from '~/images/icons/usdt';
+import { SvgPax } from '~/images/icons/pax';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
@@ -56,6 +60,28 @@ export const CURRENCY_OPTIONS: OptionType[] = [
     label: (
       <Label text="ERC20 Token" Asset={SvgErc20} token={types.Tokens.Erc20} />
     ),
+  },
+  {
+    value: types.Tokens.Gusd,
+    label: (
+      <Label text="GUSD Token" Asset={SvgGusd} token={types.Tokens.Gusd} />
+    ),
+  },
+  {
+    value: types.Tokens.Usdc,
+    label: (
+      <Label text="USDC Token" Asset={SvgUsdc} token={types.Tokens.Usdc} />
+    ),
+  },
+  {
+    value: types.Tokens.Usdt,
+    label: (
+      <Label text="USDT Token" Asset={SvgUsdt} token={types.Tokens.Usdt} />
+    ),
+  },
+  {
+    value: types.Tokens.Pax,
+    label: <Label text="PAX Token" Asset={SvgPax} token={types.Tokens.Pax} />,
   },
 ];
 
@@ -252,7 +278,7 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
       <div>
         <SelectWrapper>
           <Select
-            closeMenuOnSelect={false}
+            closeMenuOnSelect={!valueIsArray}
             noOptionsMessage={() => null}
             isClearable={valueIsArray}
             isMulti={valueIsArray}

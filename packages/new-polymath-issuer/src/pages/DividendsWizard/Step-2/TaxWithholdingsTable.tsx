@@ -1,10 +1,9 @@
 import React, { FC, Fragment } from 'react';
 import { HeaderColumn } from 'react-table';
-import { filter, remove, find, map } from 'lodash';
+import { filter, map } from 'lodash';
 import { formatters } from '@polymathnetwork/new-shared';
 import {
   Table,
-  Flex,
   Box,
   ButtonSmall,
   IconButton,
@@ -19,7 +18,6 @@ import {
   csvEthAddressKey,
   csvTaxWithholdingKey,
   TaxWithholdingsItem,
-  TaxWithholdingStatuses,
 } from './shared';
 
 interface Props {
@@ -29,6 +27,7 @@ interface Props {
   onDelete: (addresses: string[]) => void;
   onSubmit: () => void;
   transactionLimitReached?: boolean;
+  isLoadingData: boolean;
 }
 
 const limitReachedTooltip = () => (
@@ -83,8 +82,8 @@ const makeColumnsConfig = ({
         <Box>
           <IconButton
             Asset={icons.SvgPen}
-            width="1.4rem"
-            height="1.4rem"
+            width="1.4em"
+            height="1.4em"
             color="gray.2"
             onClick={() => {
               transactionLimitReached ||
@@ -94,15 +93,16 @@ const makeColumnsConfig = ({
           />
           {transactionLimitReached && limitReachedTooltip()}
         </Box>
-        <Box>
+        <Box ml="s">
           <IconButton
             Asset={icons.SvgDelete}
-            width="1.4rem"
-            height="1.4rem"
+            width="1.4em"
+            height="1.4em"
             color="gray.2"
             onClick={() => {
-              transactionLimitReached ||
+              if (!transactionLimitReached) {
                 onDelete([cell.row.values[csvEthAddressKey]]);
+              }
             }}
             disabled={transactionLimitReached}
           />
@@ -114,7 +114,13 @@ const makeColumnsConfig = ({
 ];
 
 export const TaxWithholdingsTable: FC<Props> = props => {
-  const { onAddNewOpen, taxWithholdings, onDelete, onSubmit } = props;
+  const {
+    onAddNewOpen,
+    taxWithholdings,
+    onDelete,
+    onSubmit,
+    isLoadingData,
+  } = props;
   const filteredTaxWithholdings = filter(
     taxWithholdings,
     taxWithholding =>
@@ -146,14 +152,13 @@ export const TaxWithholdingsTable: FC<Props> = props => {
         {() => (
           <Box ml="auto">
             <ButtonSmall
-              disabled={pendingTransactions === 0}
+              disabled={pendingTransactions === 0 || isLoadingData}
               variant="secondary"
               iconPosition="right"
-              onClick={() => {
-                onSubmit();
-              }}
+              onClick={onSubmit}
             >
-              Update <Icon Asset={icons.SvgCycle} />
+              {!isLoadingData ? 'Update' : 'Updating...'}{' '}
+              <Icon Asset={icons.SvgCycle} />
             </ButtonSmall>
             <InlineFlex ml="m">
               {transactionLimitReached && limitReachedTooltip()}
@@ -181,17 +186,15 @@ export const TaxWithholdingsTable: FC<Props> = props => {
 
           return (
             <Fragment>
-              <Box>
-                <Button
-                  variant="ghost"
-                  iconPosition="right"
-                  onClick={handleDeleteRows}
-                  disabled={transactionLimitReached}
-                >
-                  Delete <Icon Asset={icons.SvgDelete} width="0.7em" />
-                </Button>
-                {transactionLimitReached && limitReachedTooltip()}
-              </Box>
+              <Button
+                variant="ghost"
+                iconPosition="right"
+                onClick={handleDeleteRows}
+                disabled={transactionLimitReached}
+              >
+                Delete <Icon Asset={icons.SvgDelete} width="0.7em" />
+              </Button>
+              {transactionLimitReached && limitReachedTooltip()}
             </Fragment>
           );
         }}

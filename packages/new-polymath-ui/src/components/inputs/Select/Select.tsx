@@ -60,6 +60,12 @@ const getStyles = (theme: ThemeInterface, variant: keyof Selects) =>
         minHeight: theme.inputs.height,
         minWidth: '4rem',
       }),
+      menuPortal: (styles: any) => {
+        return {
+          ...styles,
+          zIndex: theme.zIndexes.selects,
+        };
+      },
       control: (styles: any) => {
         return {
           ...styles,
@@ -132,6 +138,7 @@ class SelectPrimitiveBase extends Component<Props> {
         isSearchable={false}
         onChange={this.handleChange}
         menuPlacement="auto"
+        menuPortalTarget={document.body}
         value={
           typeof value === 'object' || !options
             ? value
@@ -149,7 +156,12 @@ export const SelectPrimitive = Object.assign(ThemedSelectPrimitive, {
   defaultProps: SelectPrimitiveBase.defaultProps,
 });
 
-const EnhancedSelect: FC<EnhancedComponentProps<any>> = ({ field, form, onChange, ...rest }) => (
+const EnhancedSelect: FC<EnhancedComponentProps<any>> = ({
+  field,
+  form,
+  onChange,
+  ...rest
+}) => (
   <FormikProxy<any>
     field={field}
     form={form}

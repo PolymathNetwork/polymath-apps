@@ -271,11 +271,10 @@ export const configureSTO = (config: STOConfig, type: string) => async (
               const tokenAddress = token.address;
               switch (type) {
                 case 'CappedSTO': {
-                  await setupCappedSTOModule(
-                    stoModule,
-                    tokenAddress,
-                    stoModuleConfig
-                  );
+                  await setupCappedSTOModule(stoModule, tokenAddress, {
+                    ...stoModuleConfig,
+                    legacy: config.legacy,
+                  });
                   break;
                 }
                 case 'USDTieredSTO': {
@@ -284,9 +283,7 @@ export const configureSTO = (config: STOConfig, type: string) => async (
                     FUND_RAISE_TYPES.DAI
                   );
                   const daiTokenAddress = DAI_ADDRESSES[String(networkId)];
-                  const usdTokenAddress = raisesInDai
-                    ? daiTokenAddress
-                    : EMPTY_ADDRESS;
+                  const usdTokenAddress = raisesInDai ? daiTokenAddress : null;
                   stoModuleConfig.usdTokenAddress = usdTokenAddress;
                   await setupUSDTieredSTOModule(
                     stoModule,

@@ -17,14 +17,19 @@ import {
   ButtonFluid,
 } from '@polymathnetwork/new-ui';
 import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
-import BigNumber from 'bignumber.js';
+import * as sc from './styles';
 
 interface Props {
   dividend: types.DividendEntity;
+  checkpointIndex: number;
   securityTokenSymbol: string;
 }
 
-export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
+export const DividendCard: FC<Props> = ({
+  dividend,
+  securityTokenSymbol,
+  checkpointIndex,
+}) => {
   const {
     investors,
     currency,
@@ -44,9 +49,7 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
     remainingPayments / DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE
   );
   const unwithdrawnTaxes = totalWithheld.minus(totalWithheldWithdrawn);
-  const dividendComplete =
-    expiry <= new Date() ||
-    (remainingTransactions === 0 && unwithdrawnTaxes.eq(new BigNumber(0)));
+  const dividendComplete = expiry <= new Date() || remainingTransactions === 0;
 
   switch (currencyLabel) {
     case types.Tokens.Dai:
@@ -86,13 +89,13 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
             {formatters.toTokens(dividend.amount)} {currencyLabel}
           </Paragraph>
         </CardPrimary>
-        <Heading mt="m" mb={1}>
+        <sc.DividendHeading mt="m" mb={1}>
           {dividend.name}
-        </Heading>
+        </sc.DividendHeading>
         <Label color={currencyColor} bg={currencyBgColor}>
           Issued in {currencyType}
         </Label>
-        {!dividendComplete && (
+        {!dividendComplete ? (
           <Flex mt="m">
             <Flex flex="0" mr="s">
               <IconCircled
@@ -109,18 +112,23 @@ export const DividendCard: FC<Props> = ({ dividend, securityTokenSymbol }) => {
                 <strong>{remainingTransactions}</strong> remaining transactions
               </Paragraph>
             )}
-            {remainingTransactions === 0 && (
-              <Paragraph fontSize={0}>
-                <strong>{formatters.toTokens(unwithdrawnTaxes)}</strong> tax
-                withholdings left to withdraw
-              </Paragraph>
-            )}
           </Flex>
+        ) : (
+          remainingTransactions === 0 && (
+            <Flex mt="m">
+              <Paragraph fontSize={0}>
+                <strong>
+                  {formatters.toTokens(unwithdrawnTaxes)} {currencyType}
+                </strong>{' '}
+                tax withholdings left to withdraw
+              </Paragraph>
+            </Flex>
+          )
         )}
         <Box mt="auto" minWidth="100%" textAlign="center">
           <ButtonFluid
             as={ButtonLink}
-            href={`/securityTokens/${securityTokenSymbol}/dividends/${
+            href={`/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/${
               dividend.index
             }`}
             variant="secondary"

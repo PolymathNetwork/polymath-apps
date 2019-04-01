@@ -7,6 +7,10 @@ export enum Tokens {
   Dai = 'DAI',
   Ether = 'ETH',
   Erc20 = 'ERC20',
+  Gusd = 'GUSD',
+  Pax = 'PAX',
+  Usdc = 'USDC',
+  Usdt = 'USDT',
 }
 
 enum ErrorCodes {

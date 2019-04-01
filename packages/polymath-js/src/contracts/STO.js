@@ -97,6 +97,7 @@ export default class STO extends Contract {
       investorCount,
       isPolyFundraise,
       type: 'CappedSTO',
+      pauseStatus: isPaused,
     };
   }
 

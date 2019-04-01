@@ -97,15 +97,8 @@ export class CheckpointListContainerBase extends Component<Props> {
                   flatten(
                     map(dividendsData, dividends =>
                       map(dividends, dividend => {
-                        const {
-                          totalWithheldWithdrawn,
-                          totalWithheld,
-                          expiry,
-                          investors,
-                        } = dividend;
-                        const unwithdrawnTaxes = totalWithheld.minus(
-                          totalWithheldWithdrawn
-                        );
+                        const { expiry, investors } = dividend;
+
                         const remainingPayments = investors.filter(
                           investor =>
                             !investor.paymentReceived && !investor.excluded
@@ -117,9 +110,7 @@ export class CheckpointListContainerBase extends Component<Props> {
                         );
 
                         return (
-                          expiry <= new Date() ||
-                          (remainingTransactions === 0 &&
-                            unwithdrawnTaxes.eq(0))
+                          expiry <= new Date() || remainingTransactions === 0
                         );
                       })
                     )

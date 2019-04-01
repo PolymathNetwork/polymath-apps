@@ -20,7 +20,7 @@ import {
   Link,
   Hr,
 } from '@polymathnetwork/new-ui';
-import { types, formatters } from '@polymathnetwork/new-shared';
+import { utils, types, formatters } from '@polymathnetwork/new-shared';
 import _ from 'lodash';
 import BigNumber from 'bignumber.js';
 import { ListIcon } from '~/components/ListIcon';
@@ -32,6 +32,7 @@ export interface Props {
   symbol: string;
   pushDividendPayments: () => void;
   withdrawTaxes: () => void;
+  subdomain?: string;
 }
 
 enum PaymentStatus {
@@ -45,6 +46,7 @@ export const Presenter = ({
   taxWithholdings,
   pushDividendPayments,
   withdrawTaxes,
+  subdomain,
 }: Props) => {
   const {
     investors,
@@ -69,7 +71,13 @@ export const Presenter = ({
       Header: 'Investor Wallet Address',
       accessor: 'investorWalletAddress',
       Cell: ({ value }: { value: string }) => {
-        return <Link href="#">{value}</Link>;
+        return (
+          <Link
+            href={utils.toEtherscanUrl(value, { subdomain, type: 'address' })}
+          >
+            {formatters.toShortAddress(value)}
+          </Link>
+        );
       },
     },
     {
@@ -122,7 +130,11 @@ export const Presenter = ({
     (i: types.DividendInvestorStatus) => Number(!i.withheldTax.isEqualTo(0))
   );
   const positiveTaxWithholdings = taxWithholdings.filter(
-    taxWithholding => !!taxWithholding.percentage
+    taxWithholding =>
+      !!taxWithholding.percentage &&
+      !excludedInvestors.find(
+        ({ address }) => address === taxWithholding.investorAddress
+      )
   );
 
   const unpaidInvestors = nonExcludedInvestors.filter(
@@ -159,7 +171,7 @@ export const Presenter = ({
     const preTaxPayment = amountToPay(investor);
 
     return {
-      investorWalletAddress: formatters.toShortAddress(address),
+      investorWalletAddress: address,
       dividendsPreTax: `${formatters.toTokens(preTaxPayment, {
         decimals: 6,
       })} ${currency}`,
@@ -184,14 +196,16 @@ export const Presenter = ({
 
   return (
     <div>
-      <ButtonLink
-        variant="ghostSecondary"
-        iconPosition="right"
-        href={`/securityTokens/${symbol}/dividends`}
-      >
-        Go back
-        <Icon Asset={icons.SvgArrow} width={18} height={18} />
-      </ButtonLink>
+      <Text color="primary">
+        <ButtonLink
+          variant="ghostSecondary"
+          iconPosition="right"
+          href={`/securityTokens/${symbol}/dividends`}
+        >
+          Go back
+          <Icon Asset={icons.SvgArrow} width={18} height={18} />
+        </ButtonLink>
+      </Text>
       <Heading variant="h1" as="h1">
         {name}
       </Heading>
@@ -229,7 +243,7 @@ export const Presenter = ({
                   <Box ml="m">
                     <Text color="highlightText" fontSize={6} fontWeight={0}>
                       {formatters.toPercent(
-                        1 - pendingTransactions / totalTransactions
+                        1 - pendingTransactions / (totalTransactions || 1)
                       )}
                     </Text>
                     <Paragraph>Transactions are completed</Paragraph>
@@ -259,7 +273,7 @@ export const Presenter = ({
                   disabled={!pendingPayments}
                   onClick={pushDividendPayments}
                 >
-                  Submit Outstanding Transactions
+                  Complete Transactions
                 </ButtonFluid>
               </Box>
             </Grid>

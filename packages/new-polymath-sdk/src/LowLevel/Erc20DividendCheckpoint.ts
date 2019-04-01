@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { ERC20DividendCheckpointAbi } from './abis/ERC20DividendCheckpointAbi';
-import { toUnixTimestamp, toWei } from './utils';
+import { toUnixTimestamp, toDivisible } from './utils';
 import { TransactionObject } from 'web3/eth/types';
 import { DividendCheckpoint } from './DividendCheckpoint';
 import { Erc20 } from './Erc20';
@@ -9,9 +9,9 @@ import { Context } from './LowLevel';
 import {
   Dividend,
   GenericContract,
-  Erc20DividendDepositedEvent,
   CreateErc20DividendArgs,
   DividendModuleTypes,
+  GetDividendArgs,
 } from './types';
 
 // This type should be obtained from a library (must match ABI)
@@ -34,6 +34,7 @@ interface Erc20DividendCheckpointContract extends GenericContract {
       checkpointId: number,
       name: string
     ): TransactionObject<void>;
+    dividendTokens(dividendIndex: number): TransactionObject<string>;
   };
 }
 
@@ -56,8 +57,12 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
   }: CreateErc20DividendArgs) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const { asciiToHex } = Web3.utils;
-    const amountInWei = toWei(amount);
+
+    const token = this.context.getErc20Token({ address: tokenAddress });
+    const decimals = await token.decimals();
+
     const nameInBytes = asciiToHex(name);
+    const divisibleAmount = toDivisible(amount, decimals);
 
     if (excludedAddresses) {
       return () =>
@@ -66,7 +71,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
             maturity,
             expiry,
             tokenAddress,
-            amountInWei,
+            divisibleAmount,
             checkpointId,
             excludedAddresses,
             nameInBytes
@@ -80,51 +85,25 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
           maturity,
           expiry,
           tokenAddress,
-          amountInWei,
+          divisibleAmount,
           checkpointId,
           nameInBytes
         )
         .send({ from: this.context.account });
   };
 
-  public async getDividends() {
-    const dividends = await super.getDividends();
+  public async getDividend({
+    dividendIndex,
+  }: GetDividendArgs): Promise<Dividend> {
+    const tokenAddress = await this.contract.methods
+      .dividendTokens(dividendIndex)
+      .call();
 
-    // The currency used for the dividend has to be retrieved from events
-    const events = await this.contract.getPastEvents<
-      Erc20DividendDepositedEvent
-    >('ERC20DividendDeposited', {
-      fromBlock: 'earliest',
-      toBlock: 'latest',
-    });
+    const token = new Erc20({ address: tokenAddress, context: this.context });
 
-    const dividendsWithCurrency: Dividend[] = [];
+    const symbol = await token.symbol();
+    const decimals = await token.decimals();
 
-    for (let i = 0; i < dividends.length; i += 1) {
-      const dividend = dividends[i];
-      const { currency, ...rest } = dividend;
-      const depositEvent = events.find(event => {
-        const { _dividendIndex } = event.returnValues;
-        return parseInt(_dividendIndex, 10) === i;
-      });
-
-      if (!depositEvent) {
-        dividendsWithCurrency.push(dividend);
-        continue;
-      }
-
-      const { _token: tokenAddress } = depositEvent.returnValues;
-
-      const token = new Erc20({ address: tokenAddress, context: this.context });
-
-      const symbol = await token.symbol();
-
-      dividendsWithCurrency.push({
-        currency: symbol,
-        ...rest,
-      });
-    }
-
-    return dividendsWithCurrency;
+    return this._getDividend({ dividendIndex, symbol, decimals });
   }
 }

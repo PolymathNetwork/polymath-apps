@@ -21,6 +21,10 @@ import { SvgPlusPlain } from './images/icons/generated/PlusPlain';
 import { SvgWarning } from './images/icons/generated/Warning';
 import { SvgTaxes } from './images/icons/generated/Taxes';
 import { SvgDelete } from './images/icons/generated/Delete';
+import { SvgGusd } from './images/icons/generated/gusd';
+import { SvgUsdc } from './images/icons/generated/usdc';
+import { SvgUsdt } from './images/icons/generated/usdt';
+import { SvgPax } from './images/icons/generated/pax';
 
 export { Field, FastField };
 
@@ -110,6 +114,10 @@ export const icons = {
   SvgWarning,
   SvgTaxes,
   SvgDelete,
+  SvgGusd,
+  SvgUsdc,
+  SvgUsdt,
+  SvgPax,
 };
 
 export { validator } from './validator';

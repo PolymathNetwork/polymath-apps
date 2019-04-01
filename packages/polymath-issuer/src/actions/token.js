@@ -315,7 +315,16 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
     const tokens: Array<number> = [];
     let isTooMany = false;
     let string = 0;
+    let isInvalidFormat = false;
     // $FlowFixMe
+
+    // Check if the file was created on Excel for Mac
+    if (
+      reader.result.split(/\r\n|\n/).length < reader.result.split('\r').length
+    ) {
+      isInvalidFormat = true;
+    }
+
     for (let entry of reader.result.split(/\r\n|\n/)) {
       string++;
       //Ignore blank rows
@@ -323,8 +332,17 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         continue;
       }
       const [address, sale, purchase, expiryIn, tokensIn] = entry.split(',');
-      const handleDate = (d: string) =>
-        d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
+      const handleDate = (d: string) => {
+        let resultDate =
+          d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
+        if (d !== '') {
+          const [[], year] = d.split(/\/|-/);
+          if (year.length === 2 && resultDate.getFullYear() < 2000) {
+            resultDate.setFullYear(resultDate.getFullYear() + 100);
+          }
+        }
+        return resultDate;
+      };
       const from = handleDate(sale);
       const to = handleDate(purchase);
 
@@ -352,7 +370,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         !isInvalidExpiry &&
         parseFloat(tokensVal) > 0
       ) {
-        if (investors.length === 75) {
+        if (investors.length >= 40) {
           isTooMany = true;
           continue;
         }
@@ -362,7 +380,14 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         criticals.push([string, address, sale, purchase, expiryIn, tokensIn]);
       }
     }
-    dispatch({ type: MINT_UPLOADED, investors, tokens, criticals, isTooMany });
+    dispatch({
+      type: MINT_UPLOADED,
+      investors,
+      tokens,
+      criticals,
+      isTooMany,
+      isInvalidFormat,
+    });
   };
 };
 

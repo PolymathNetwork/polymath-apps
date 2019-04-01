@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ActionType } from 'typesafe-actions/dist/types';
-import { types } from '@polymathnetwork/new-shared';
+import { ActionType } from 'typesafe-actions';
+import { types, constants } from '@polymathnetwork/new-shared';
 import { Page } from '@polymathnetwork/new-ui';
 import { Presenter } from './Presenter';
 import { DataFetcher } from '~/components/enhancers/DataFetcher';
 import {
-  createTaxWithholdingListBySymbolFetcher,
+  createTaxWithholdingListBySymbolAndCheckpointFetcher,
   createDividendBySymbolAndIdFetcher,
 } from '~/state/fetchers';
+import { RootState } from '~/state/store';
+import { getApp } from '~/state/selectors';
 import {
   pushDividendPaymentStart,
   withdrawDividendTaxesStart,
@@ -25,7 +27,14 @@ export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   securityTokenSymbol: string;
   dividendIndex: string;
+  checkpointIndex: string;
+  networkId?: number;
 }
+
+const mapStateToProps = (state: RootState) => {
+  const { networkId } = getApp(state);
+  return { networkId };
+};
 
 export class ContainerBase extends Component<Props> {
   public pushDividendPayments = () => {
@@ -52,13 +61,20 @@ export class ContainerBase extends Component<Props> {
   };
 
   public render() {
-    const { securityTokenSymbol, dividendIndex } = this.props;
+    const {
+      securityTokenSymbol,
+      dividendIndex,
+      checkpointIndex,
+      networkId,
+    } = this.props;
+    const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
     return (
       <Page title="Dividend Details">
         <DataFetcher
           fetchers={[
-            createTaxWithholdingListBySymbolFetcher({
+            createTaxWithholdingListBySymbolAndCheckpointFetcher({
               securityTokenSymbol,
+              checkpointIndex: parseInt(checkpointIndex, 10),
               dividendType: DividendModuleTypes.Erc20,
             }),
             createDividendBySymbolAndIdFetcher({
@@ -78,6 +94,7 @@ export class ContainerBase extends Component<Props> {
 
             return (
               <Presenter
+                subdomain={subdomain}
                 symbol={securityTokenSymbol}
                 dividend={dividend}
                 taxWithholdings={taxWithholdings}
@@ -92,4 +109,4 @@ export class ContainerBase extends Component<Props> {
   }
 }
 
-export const Container = connect()(ContainerBase);
+export const Container = connect(mapStateToProps)(ContainerBase);

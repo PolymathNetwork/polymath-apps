@@ -14,6 +14,7 @@ import {
   Checkbox,
   CsvUploader,
   FormWrapper,
+  Text,
   LinkButton,
 } from '@polymathnetwork/new-ui';
 import { ExclusionEntry } from '../Presenter';
@@ -81,25 +82,27 @@ export const Step1: FC<Step1Props> = ({
             via a CSV which includes one wallet (ETH) address per line.
           </Paragraph>
           <Paragraph>
-            You can download
+            You can download{' '}
             <LinkButton onClick={downloadSampleExclusionList}>
               <Icon Asset={icons.SvgDownload} /> Sample-Exclusion-List.csv
             </LinkButton>{' '}
             example file and edit it.
           </Paragraph>
-          <Button
-            variant="ghostSecondary"
-            iconPosition="right"
-            onClick={handleCsvModalOpen}
-          >
-            Upload CSV of ETH Addresses to exclude
-            <Icon
-              Asset={icons.SvgDownload}
-              width={18}
-              height={18}
-              rotate="0.5turn"
-            />
-          </Button>
+          <Text color="primary">
+            <Button
+              variant="ghostSecondary"
+              iconPosition="right"
+              onClick={handleCsvModalOpen}
+            >
+              Upload CSV of ETH Addresses to exclude
+              <Icon
+                Asset={icons.SvgDownload}
+                width={14}
+                height={16}
+                rotate="0.5turn"
+              />
+            </Button>
+          </Text>
           <ModalConfirm
             isOpen={isCsvModalOpen}
             onSubmit={submitForm}
@@ -115,7 +118,8 @@ export const Step1: FC<Step1Props> = ({
             </ModalConfirm.Header>
             <Paragraph fontSize={2}>
               Update the wallets exclusion list by uploading a comma separated
-              .CSV file. The format should be as follows:
+              .CSV file.
+              <br /> The format should be as follows:
               <br />
               - Investor wallet address
               <br />
@@ -144,6 +148,7 @@ export const Step1: FC<Step1Props> = ({
                     ],
                     header: true,
                     maxRows: 100,
+                    strict: true,
                     validateFile,
                     customValidationErrorMessage: {
                       header: 'Duplicate Entries',
@@ -160,9 +165,6 @@ export const Step1: FC<Step1Props> = ({
                       {
                         accessor: 'Investor ETH Address',
                         Header: 'Investor ETH Address',
-                        Cell: ({ value }) =>
-                          value &&
-                          formatters.toShortAddress(value, { size: 26 }),
                       },
                     ],
                   }}

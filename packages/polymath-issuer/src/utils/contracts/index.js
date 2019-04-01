@@ -133,7 +133,7 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
       params.fundRaiseTypes,
       params.wallet,
       params.reserveWallet,
-      [params.usdToken],
+      params.usdToken ? [params.usdToken] : [],
     ]
   );
 }
@@ -263,12 +263,20 @@ export async function getSTOModule(address: string) {
   const fetchingTitle = ModuleFactory.methods.title().call();
   const fetchingOwner = ModuleFactory.methods.owner().call();
   const fetchingSetupCost = ModuleFactory.methods.setupCost().call();
+  const fetchingVersion = ModuleFactory.methods.version().call();
 
-  const [descriptionRes, titleRes, ownerRes, setupCostRes] = await Promise.all([
+  const [
+    descriptionRes,
+    titleRes,
+    ownerRes,
+    setupCostRes,
+    version,
+  ] = await Promise.all([
     fetchingDescription,
     fetchingTitle,
     fetchingOwner,
     fetchingSetupCost,
+    fetchingVersion,
   ]);
 
   const setupCost = PolyToken.removeDecimals(setupCostRes);
@@ -280,6 +288,7 @@ export async function getSTOModule(address: string) {
     address,
     ownerAddress: ownerRes,
     setupCost,
+    version,
   };
 
   return stoModuleData;
@@ -304,7 +313,7 @@ export async function getSTOModules(tokenAddress: string) {
 
   const stoModules: STOModule[] = await Promise.all(gettingSTOModulesData);
 
-  return stoModules;
+  return stoModules.filter(module => module.version !== '1.0.0');
 }
 
 async function paySetupCost(cost: number, tokenAddress: string) {
@@ -370,12 +379,14 @@ export async function setupCappedSTOModule(
     wallet: configValues.receiverAddress,
   };
 
+  const isLegacySTO = configValues.legacy;
+
   const securityToken = new SecurityToken(tokenAddress);
   const encodedFunctionCall = encodeCappedSTOSetupCall(encodeParams);
 
   await securityToken._tx(
     securityToken._methods.addModule(
-      address,
+      isLegacySTO ? '0xA4A24780b93a378eB25eC4bFbf93BC8e79D7EeEb' : address,
       encodedFunctionCall,
       toWei(setupCost),
       0

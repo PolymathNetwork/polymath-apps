@@ -1,11 +1,9 @@
-import React, { FC, useState, Fragment, useEffect } from 'react';
-import { types } from '@polymathnetwork/new-shared';
-import { get, some, findIndex } from 'lodash';
+import React, { FC, Fragment, useEffect } from 'react';
+import { get, findIndex } from 'lodash';
 import {
   TaxWithholdingsItem,
   csvEthAddressKey,
   csvTaxWithholdingKey,
-  TaxWithholdingStatuses,
 } from '~/pages/DividendsWizard/Step-2/shared';
 import {
   Box,
@@ -23,16 +21,16 @@ interface Props {
   isEditing: boolean;
   onClose: () => void;
   taxWithholdingData?: TaxWithholdingsItem;
-  existingTaxWithholdings: types.TaxWithholdingPojo[];
   fieldProps: FieldProps<any>;
+  exclusionList: string[];
 }
 
 export const TaxWithholdingModal: FC<Props> = ({
   isOpen,
   onClose,
-  existingTaxWithholdings,
   isEditing,
   fieldProps,
+  exclusionList,
 }) => {
   const { field, form } = fieldProps;
   const isValid = !get(form.errors, field.name);
@@ -55,54 +53,47 @@ export const TaxWithholdingModal: FC<Props> = ({
     const value = field.value as TaxWithholdingsItem;
 
     const valueAddress = value[csvEthAddressKey].toUpperCase();
-    const valuePercentage = value[csvTaxWithholdingKey];
 
-    const matchingIndex = findIndex(
-      formTaxWithholdings,
-      taxWithholding =>
-        taxWithholding[csvEthAddressKey].toUpperCase() === valueAddress
-    );
+    // Check if excluded
+    const excluded = exclusionList.find(address => {
+      return address.toUpperCase() === valueAddress;
+    });
 
-    const alreadyExists = matchingIndex !== -1;
-
-    if (isEditing || alreadyExists) {
-      // Mark as updated if the entry already existed and was actually updated
-      const isUpdated = some(
-        existingTaxWithholdings,
-        existingTaxWithholding => {
-          const { investorAddress, percentage } = existingTaxWithholding;
-          return (
-            investorAddress.toUpperCase() === valueAddress &&
-            valuePercentage !== percentage
-          );
-        }
+    if (!excluded) {
+      // Check if the address already exists in the tax withholding list
+      // if it is a new address, add it to list, otherwise if the address
+      // exists or if the user is editing an existing address, replace the
+      // item from the array with the new item.
+      const matchingIndex = findIndex(
+        formTaxWithholdings,
+        taxWithholding =>
+          taxWithholding[csvEthAddressKey].toUpperCase() === valueAddress
       );
 
+      const alreadyExists = matchingIndex !== -1;
+
       const finalValue = { ...value };
-
-      if (isUpdated) {
-        finalValue.status = TaxWithholdingStatuses.Updated;
-      } else if (finalValue.status === TaxWithholdingStatuses.Updated) {
-        delete finalValue.status;
+      if (isEditing || alreadyExists) {
+        formTaxWithholdings.splice(matchingIndex, 1, finalValue);
+        form.setFieldValue('taxWithholdings', formTaxWithholdings);
+      } else {
+        form.setFieldValue('taxWithholdings', [
+          ...formTaxWithholdings,
+          finalValue,
+        ]);
       }
-
-      formTaxWithholdings.splice(matchingIndex, 1, finalValue);
-      form.setFieldValue('taxWithholdings', formTaxWithholdings);
+      form.setFieldValue(field.name, {
+        [csvTaxWithholdingKey]: null,
+        [csvEthAddressKey]: '',
+      });
+      form.setFieldTouched(field.name, false);
+      onClose();
     } else {
-      const finalValue = { ...value, status: TaxWithholdingStatuses.New };
-
-      form.setFieldValue('taxWithholdings', [
-        ...formTaxWithholdings,
-        finalValue,
-      ]);
+      form.setFieldError(
+        'currentTaxWithholding.Investor ETH Address',
+        'This address was excluded in the previous step'
+      );
     }
-
-    form.setFieldValue(field.name, {
-      [csvTaxWithholdingKey]: null,
-      [csvEthAddressKey]: '',
-    });
-    form.setFieldTouched(field.name, false);
-    onClose();
   };
 
   // NOTE @RafaelVidaurre: Workaround to avoid broken dirty-checking
@@ -123,7 +114,6 @@ export const TaxWithholdingModal: FC<Props> = ({
     },
     [isOpen]
   );
-
   return (
     <ModalConfirm
       isOpen={isOpen}

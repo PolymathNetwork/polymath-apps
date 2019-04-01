@@ -1,4 +1,3 @@
-import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { Module } from './Module';
 import { Context } from './LowLevel';
@@ -17,7 +16,13 @@ import {
   GetDividendArgs,
   SetDividendsWalletArgs,
 } from './types';
-import { fromUnixTimestamp, fromWei, toWei } from './utils';
+import {
+  fromUnixTimestamp,
+  fromWei,
+  toWei,
+  fromDivisible,
+  toAscii,
+} from './utils';
 import { TaxWithholding, DividendModuleTypes } from './types';
 import { zipWith, range, flatten } from 'lodash';
 
@@ -140,72 +145,13 @@ export abstract class DividendCheckpoint<
     return investors;
   }
 
-  public async getDividend({
-    dividendIndex,
-  }: GetDividendArgs): Promise<Dividend> {
-    const { methods } = this.contract;
-    const dividend = await this.contract.methods
-      .dividends(dividendIndex)
-      .call();
-
-    const {
-      0: addresses,
-      1: claimedPayments,
-      2: exclusions,
-      3: withheldTaxes,
-      4: paidAmounts,
-      5: balances,
-    } = await methods.getDividendProgress(dividendIndex).call();
-
-    // NOTE @monitz87: this is done like this because lodash's zipWith function doesn't
-    // support more than 5 arrays in its type definition
-    const investors = [];
-
-    for (let i = 0; i < addresses.length; i += 1) {
-      investors.push({
-        address: addresses[i],
-        paymentReceived: claimedPayments[i],
-        excluded: exclusions[i],
-        withheldTax: fromWei(withheldTaxes[i]),
-        amountReceived: fromWei(paidAmounts[i]),
-        balance: fromWei(balances[i]),
-      });
-    }
-
-    const { toAscii } = Web3.utils;
-
-    const {
-      checkpointId,
-      created,
-      maturity,
-      expiry,
-      amount,
-      claimedAmount,
-      totalSupply,
-      reclaimed,
-      totalWithheld,
-      totalWithheldWithdrawn,
-      name,
-    } = dividend;
-
-    return {
-      index: dividendIndex,
-      checkpointId: parseInt(checkpointId, 10),
-      dividendType: this.dividendType,
-      created: fromUnixTimestamp(parseInt(created, 10)),
-      maturity: fromUnixTimestamp(parseInt(maturity, 10)),
-      expiry: fromUnixTimestamp(parseInt(expiry, 10)),
-      amount: fromWei(amount),
-      claimedAmount: fromWei(claimedAmount),
-      totalSupply: fromWei(totalSupply),
-      reclaimed,
-      totalWithheld: fromWei(totalWithheld),
-      totalWithheldWithdrawn: fromWei(totalWithheldWithdrawn),
-      name: toAscii(name),
-      currency: null,
-      investors,
-    };
+  public async fromDivisible(value: string) {
+    return fromDivisible(value, 18);
   }
+
+  public abstract getDividend({
+    dividendIndex,
+  }: GetDividendArgs): Promise<Dividend>;
 
   public async getDividendsByCheckpoint({
     checkpointIndex,
@@ -289,4 +235,74 @@ export abstract class DividendCheckpoint<
         .changeWallet(address)
         .send({ from: this.context.account });
   };
+
+  protected async _getDividend({
+    dividendIndex,
+    symbol,
+    decimals,
+  }: GetDividendArgs & {
+    symbol: string | null;
+    decimals: number;
+  }): Promise<Dividend> {
+    const { methods } = this.contract;
+    const dividend = await this.contract.methods
+      .dividends(dividendIndex)
+      .call();
+
+    const {
+      0: addresses,
+      1: claimedPayments,
+      2: exclusions,
+      3: withheldTaxes,
+      4: paidAmounts,
+      5: balances,
+    } = await methods.getDividendProgress(dividendIndex).call();
+
+    // NOTE @monitz87: this is done like this because lodash's zipWith function doesn't
+    // support more than 5 arrays in its type definition
+    const investors = [];
+
+    for (let i = 0; i < addresses.length; i += 1) {
+      investors.push({
+        address: addresses[i],
+        paymentReceived: claimedPayments[i],
+        excluded: exclusions[i],
+        withheldTax: fromDivisible(withheldTaxes[i], decimals),
+        amountReceived: fromDivisible(paidAmounts[i], decimals),
+        balance: fromWei(balances[i]),
+      });
+    }
+
+    const {
+      checkpointId,
+      created,
+      maturity,
+      expiry,
+      amount,
+      claimedAmount,
+      totalSupply,
+      reclaimed,
+      totalWithheld,
+      totalWithheldWithdrawn,
+      name,
+    } = dividend;
+
+    return {
+      index: dividendIndex,
+      checkpointId: parseInt(checkpointId, 10),
+      dividendType: this.dividendType,
+      created: fromUnixTimestamp(parseInt(created, 10)),
+      maturity: fromUnixTimestamp(parseInt(maturity, 10)),
+      expiry: fromUnixTimestamp(parseInt(expiry, 10)),
+      amount: fromDivisible(amount, decimals),
+      claimedAmount: fromDivisible(claimedAmount, decimals),
+      totalSupply: fromWei(totalSupply),
+      reclaimed,
+      totalWithheld: fromDivisible(totalWithheld, decimals),
+      totalWithheldWithdrawn: fromDivisible(totalWithheldWithdrawn, decimals),
+      name: toAscii(name),
+      currency: symbol,
+      investors,
+    };
+  }
 }

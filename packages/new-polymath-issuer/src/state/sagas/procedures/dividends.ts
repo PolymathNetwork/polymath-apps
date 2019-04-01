@@ -75,6 +75,12 @@ export function* createErc20DividendsDistribution(
       })
     );
 
+    yield put(
+      push(
+        `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/${result}`
+      )
+    );
+
     yield take(getType(finishTransactionQueue));
 
     if (pushPaymentsWhenComplete) {
@@ -91,10 +97,6 @@ export function* createErc20DividendsDistribution(
         })
       );
     }
-
-    yield put(
-      push(`/securityTokens/${securityTokenSymbol}/dividends/${result}`)
-    );
   } catch (err) {
     if (!err.code) {
       throw err;
@@ -132,14 +134,10 @@ export function* updateTaxWithholdingList(
       return;
     }
 
-    // Invalidate cache
+    // Invalidate cache for all withholdings
     yield put(
       invalidateRequest({
-        requestKey: RequestKeys.GetTaxWithholdingListBySymbol,
-        args: {
-          securityTokenSymbol,
-          dividendType,
-        },
+        requestKey: RequestKeys.GetTaxWithholdingListBySymbolAndCheckpoint,
       })
     );
   } catch (err) {
