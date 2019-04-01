@@ -66,15 +66,18 @@ export const Presenter: FC<Props> = ({
     [walletAddress]
   );
 
-  const handleAddressChange = useCallback(values => {
-    if (dividendsModule) {
-      onChangeWalletAddress(values.walletAddress);
-    } else {
-      setWalletAddress(values.walletAddress);
-    }
+  const handleAddressChange = useCallback(
+    values => {
+      if (dividendsModule) {
+        onChangeWalletAddress(values.walletAddress);
+      } else {
+        setWalletAddress(values.walletAddress);
+      }
 
-    setEditAddressState(false);
-  }, []);
+      setEditAddressState(false);
+    },
+    [dividendsModule]
+  );
 
   const handleAddressValidation = useCallback(async values => {
     const schema = validator.object().shape({
