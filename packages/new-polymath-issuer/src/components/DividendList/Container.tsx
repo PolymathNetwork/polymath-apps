@@ -10,7 +10,7 @@ export interface Props {
   dispatch: Dispatch<any>;
   securityTokenSymbol: string;
   checkpointIndex: number;
-  filterDividends: string;
+  // filterDividends: string;
   allDividendsCompleted: boolean;
 }
 
@@ -19,11 +19,12 @@ export class DividendListContainerBase extends Component<Props> {
     const {
       securityTokenSymbol,
       checkpointIndex,
-      filterDividends,
+      // filterDividends,
       allDividendsCompleted,
     } = this.props;
     // let filterSmth = 'Rand';
-    console.log(filterDividends);
+    // console.log(filterDividends);
+
     return (
       <DataFetcher
         fetchers={[
@@ -33,16 +34,19 @@ export class DividendListContainerBase extends Component<Props> {
           }),
         ]}
         render={({ dividends }: { dividends: types.DividendEntity[] }) => {
+          // console.log(dividends);
           // this spread is necessary because sort mutates the original array and that causes a rerender of the DataFetcher
           const sortedDividends = [...dividends].sort(
             (a, b) => b.index - a.index
           );
 
+          // console.log(sortedDividends);
+
           return (
             <DividendListPresenter
               securityTokenSymbol={securityTokenSymbol}
               dividends={sortedDividends}
-              filterDividends={filterDividends}
+              // filterDividends={filterDividends}
               checkpointIndex={checkpointIndex}
               allDividendsCompleted={allDividendsCompleted}
             />

@@ -3,7 +3,7 @@ import React, {
   Fragment,
   useState,
   useCallback,
-  useLayoutEffect,
+  createContext,
 } from 'react';
 import { utils, formatters, types } from '@polymathnetwork/new-shared';
 import { validator } from '@polymathnetwork/new-ui';
@@ -32,6 +32,8 @@ import {
 import { CheckpointList } from '~/components';
 import { WalletAddress } from './WalletAddress';
 import * as sc from './styles';
+
+export const FilterCtx = createContext(['First', '']);
 
 export interface Props {
   onEnableDividends: (walletAddress: string) => void;
@@ -69,7 +71,7 @@ export const Presenter: FC<Props> = ({
   );
   const [isEditingAddress, setEditAddressState] = useState(false);
 
-  const [searchName, setSearchName] = useState('Som');
+  const [searchName, setSearchName] = useState('');
 
   // useLayoutEffect(() => {
   //   console.log('field updated', searchName);
@@ -94,7 +96,7 @@ export const Presenter: FC<Props> = ({
   //   setSearchName(values.searchName);
   // }, []);
 
-  const handleSearchChange = e => {
+  const handleSearchChange = (e: any) => {
     setSearchName(e.target.value);
   };
 
@@ -219,21 +221,19 @@ export const Presenter: FC<Props> = ({
             )}
           </CardFeatureState>
         </GridRow.Col>
-        <GridRow.Col gridSpan={4}>
-          <BaseInput
-            name="search_text"
-            onChange={handleSearchChange}
-            value={searchName}
-            placeholder="Search Text"
-          />
-        </GridRow.Col>
-        <GridRow.Col gridSpan={4}>{searchName}</GridRow.Col>
         <GridRow.Col gridSpan={12}>
           {dividendsModule ? (
-            <CheckpointList
-              securityTokenSymbol={dividendsModule.securityTokenSymbol}
-              filterDividends={searchName}
-            />
+            <FilterCtx.Provider value={[searchName]}>
+              <BaseInput
+                name="search_text"
+                onChange={handleSearchChange}
+                value={searchName}
+                placeholder="Search Text"
+              />
+              <CheckpointList
+                securityTokenSymbol={dividendsModule.securityTokenSymbol}
+              />
+            </FilterCtx.Provider>
           ) : null}
         </GridRow.Col>
       </GridRow>

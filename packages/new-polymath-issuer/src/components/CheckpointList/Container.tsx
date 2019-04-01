@@ -16,7 +16,6 @@ import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 export interface Props {
   dispatch: Dispatch<any>;
   securityTokenSymbol: string;
-  filterDividends: string;
 }
 
 interface Row {
@@ -27,7 +26,7 @@ interface Row {
 
 export class CheckpointListContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
-    const { securityTokenSymbol, filterDividends } = this.props;
+    const { securityTokenSymbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
 
     const data: Row[] = investorBalances.map(({ balance, address }) => {
@@ -67,8 +66,7 @@ export class CheckpointListContainerBase extends Component<Props> {
   };
 
   public render() {
-    const { securityTokenSymbol, filterDividends } = this.props;
-    console.log(filterDividends);
+    const { securityTokenSymbol } = this.props;
     return (
       <DataFetcher
         fetchers={[
@@ -139,7 +137,6 @@ export class CheckpointListContainerBase extends Component<Props> {
                     allDividendsCompleted={allDividendsCompleted}
                     checkpoints={sortedCheckpoints}
                     securityTokenSymbol={securityTokenSymbol}
-                    filterDividends={filterDividends}
                     downloadOwnershipList={this.downloadOwnershipList}
                   />
                 );

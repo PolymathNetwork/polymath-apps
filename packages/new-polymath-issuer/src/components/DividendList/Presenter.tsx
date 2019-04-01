@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { Fragment, FC, useContext } from 'react';
 import {
   List,
   ButtonLink,
@@ -12,10 +12,12 @@ import { DividendCard } from '~/components/DividendCard';
 import * as sc from './styles';
 import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 
+import { FilterCtx } from '~/pages/SecurityTokensDividends/Presenter';
+
 export interface Props {
   dividends: types.DividendEntity[];
   securityTokenSymbol: string;
-  filterDividends: string;
+  // filterDividends: string;
   checkpointIndex: number;
   allDividendsCompleted: boolean;
 }
@@ -24,7 +26,7 @@ export const DividendListPresenter: FC<Props> = ({
   securityTokenSymbol,
   dividends,
   checkpointIndex,
-  filterDividends,
+  // filterDividends,
   allDividendsCompleted,
 }) => {
   const newDividendUrl = !allDividendsCompleted
@@ -32,14 +34,19 @@ export const DividendListPresenter: FC<Props> = ({
     : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
 
   // filterDividends = 'Some';
-  console.log(filterDividends);
+  // console.log(filterDividends);
+
+  const [search, setSearchName] = useContext(FilterCtx);
+  console.log(search);
+
+  const searchText = search !== null ? search : '';
 
   return (
     <List>
       {dividends.length ? (
         <Fragment>
           {dividends
-            .filter(dividend => dividend.name.includes(filterDividends))
+            .filter(dividend => dividend.name.toLowerCase().includes(search))
             .map(dividend => (
               <li key={dividend.uid}>
                 <DividendCard
