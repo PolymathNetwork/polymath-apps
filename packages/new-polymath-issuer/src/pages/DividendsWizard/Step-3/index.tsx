@@ -127,6 +127,12 @@ const Step3Base: FC<Props> = ({
 
   const [erc20TokenSymbol, setErc20TokenSymbol] = useState('');
 
+  const isTestNet = [
+    constants.NetworkIds.Kovan,
+    constants.NetworkIds.Local,
+    constants.NetworkIds.LocalVm,
+  ].includes(networkId);
+
   useEffect(
     () => {
       const { isSubmitting, submitEvent } = formSubmissionStatus;
@@ -218,12 +224,6 @@ const Step3Base: FC<Props> = ({
           });
 
           const difference = dividendAmount.minus(balance);
-
-          const isTestNet = [
-            constants.NetworkIds.Kovan,
-            constants.NetworkIds.Local,
-            constants.NetworkIds.LocalVm,
-          ].includes(networkId);
           const willUseFaucet = isTestNet && currency === types.Tokens.Poly;
 
           if (!willUseFaucet && difference.gte(0)) {
@@ -351,22 +351,22 @@ const Step3Base: FC<Props> = ({
                         },
                         {
                           value: types.Tokens.Gusd,
-                          isDisabled: networkId === constants.NetworkIds.Kovan,
+                          isDisabled: isTestNet,
                         },
                         {
                           value: types.Tokens.Pax,
-                          isDisabled: true,
+                          isDisabled: isTestNet,
                         },
                         {
                           value: types.Tokens.Poly,
                         },
                         {
                           value: types.Tokens.Usdc,
-                          isDisabled: networkId === constants.NetworkIds.Kovan,
+                          isDisabled: isTestNet,
                         },
                         {
                           value: types.Tokens.Usdt,
-                          isDisabled: networkId === constants.NetworkIds.Kovan,
+                          isDisabled: isTestNet,
                         },
                       ],
                       placeholder: 'Choose currency',
