@@ -47,7 +47,7 @@ exports[`ProgressIndicator renders without crashing 1`] = `
   margin-bottom: 0;
   margin-left: calc(1.6em / 2);
   margin-top: 0;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.5;
   font-size: inherit;
   overflow-wrap: break-word;
