@@ -19,7 +19,7 @@ import { ActionType } from 'typesafe-actions';
 import { DividendModuleTypes } from '@polymathnetwork/sdk';
 import { BigNumber } from 'bignumber.js';
 import { Page } from '@polymathnetwork/new-ui';
-import { range, padStart, flatten, map, every, values } from 'lodash';
+import { range, padStart, flatten, map, every, values, keys } from 'lodash';
 import { polyClient } from '~/lib/polyClient';
 import { GetErc20BalanceByAddressAndWalletArgs } from '~/types';
 import { push } from 'redux-little-router';
@@ -240,7 +240,12 @@ export class ContainerBase extends Component<Props, State> {
                   const dividendsListUrl = `/securityTokens/${securityTokenSymbol}/dividends`;
 
                   const checkpointsList = values(dividendsData);
-                  if (checkpointsList.length === 0) {
+                  if (
+                    checkpointsList.length === 0 ||
+                    !keys(dividendsData).find(checkpointId => {
+                      return checkpointId === checkpointIndex;
+                    })
+                  ) {
                     // No checkpoints exist
                     dispatch(push(dividendsListUrl));
                   }
