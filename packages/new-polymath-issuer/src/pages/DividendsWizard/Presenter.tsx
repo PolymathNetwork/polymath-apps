@@ -253,7 +253,7 @@ export class Presenter extends Component<Props, State> {
               if (stepIndex > 0) {
                 event.preventDefault();
                 event.stopPropagation();
-                if (this.state.isDirty) {
+                if (stepIndex === 1 && this.state.isDirty) {
                   this.openConfirmModal();
                 } else {
                   onPreviousStep();
