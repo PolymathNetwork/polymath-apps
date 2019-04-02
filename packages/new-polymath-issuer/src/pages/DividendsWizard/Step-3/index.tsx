@@ -125,7 +125,13 @@ const Step3Base: FC<Props> = ({
     isSubmitting: false,
   });
 
-  const [ercTokenName, setErcTokenName] = useState('');
+  const [erc20TokenSymbol, setErc20TokenSymbol] = useState('');
+
+  const isTestNet = [
+    constants.NetworkIds.Kovan,
+    constants.NetworkIds.Local,
+    constants.NetworkIds.LocalVm,
+  ].includes(networkId);
 
   useEffect(
     () => {
@@ -198,43 +204,16 @@ const Step3Base: FC<Props> = ({
         errors.tokenAddress = 'Token address is required';
       } else if (!validators.isEthereumAddress(tokenAddress)) {
         errors.tokenAddress = 'Token address is invalid';
-      } else {
-        try {
-          const tokenDetails = await fetchBalance({
-            tokenAddress,
-            walletAddress: wallet.address,
-          });
-          setErcTokenName(tokenDetails.tokenSymbol || '');
-          updateCurrencySymbol(tokenDetails.tokenSymbol || '');
-        } catch (e) {
-          setErcTokenName('');
-          updateCurrencySymbol('');
-          asyncErrors.tokenAddress = 'Token address is invalid';
-        }
       }
     }
 
     try {
-      validateYupSchema(values, schema, true);
+      await validateYupSchema(values, schema, true);
     } catch (err) {
       schemaErrors = yupToFormErrors<Values>(err);
     }
 
     if (formSubmissionStatus.isSubmitting) {
-      if (customTokenSelected && tokenAddress) {
-        try {
-          const isValidToken = await fetchIsValidToken({ tokenAddress });
-
-          if (!isValidToken) {
-            asyncErrors.tokenAddress =
-              'The supplied address does not correspond to a valid ERC20 token';
-          }
-        } catch (err) {
-          asyncErrors.tokenAddress =
-            'There was a problem while fetching selected token. Please try again later.';
-        }
-      }
-
       const erc20Address = getTokenAddress(currency, tokenAddress);
 
       if (dividendAmount && erc20Address) {
@@ -245,18 +224,14 @@ const Step3Base: FC<Props> = ({
           });
 
           const difference = dividendAmount.minus(balance);
-
-          const isTestNet = [
-            constants.NetworkIds.Kovan,
-            constants.NetworkIds.Local,
-            constants.NetworkIds.LocalVm,
-          ].includes(networkId);
           const willUseFaucet = isTestNet && currency === types.Tokens.Poly;
 
           if (!willUseFaucet && difference.gte(0)) {
             asyncErrors.dividendAmount = `Insufficient funds. You need ${formatters.toTokens(
               difference
-            )} more ${currency || tokenSymbol}`;
+            )} more ${
+              currency === types.Tokens.Erc20 ? tokenSymbol : currency
+            }`;
           }
 
           // The faucet reverts if more than 1,000,000 tokens are requested
@@ -333,9 +308,10 @@ const Step3Base: FC<Props> = ({
           setFieldTouched,
           isValid,
           initialValues,
+          setFieldError,
           touched,
         }) => {
-          const { currency } = values;
+          const { currency, tokenAddress } = values;
           return (
             <form
               onSubmit={submitEvent => {
@@ -354,9 +330,9 @@ const Step3Base: FC<Props> = ({
                   <FormItem.Label>Dividend Distribution Name</FormItem.Label>
                   <FormItem.Input
                     component={TextInput}
-                    placeholder="Enter the name"
                     inputProps={{
                       maxLength: dividendsTitleLength,
+                      placeholder: 'Enter the name',
                     }}
                   />
                   <FormItem.Error />
@@ -367,23 +343,42 @@ const Step3Base: FC<Props> = ({
                     component={CurrencySelect}
                     inputProps={{
                       options: [
-                        types.Tokens.Erc20,
-                        types.Tokens.Dai,
-                        types.Tokens.Gusd,
-                        types.Tokens.Pax,
-                        types.Tokens.Poly,
-                        types.Tokens.Usdc,
-                        types.Tokens.Usdt,
+                        {
+                          value: types.Tokens.Erc20,
+                        },
+                        {
+                          value: types.Tokens.Dai,
+                        },
+                        {
+                          value: types.Tokens.Gusd,
+                          isDisabled: isTestNet,
+                        },
+                        {
+                          value: types.Tokens.Pax,
+                          isDisabled: isTestNet,
+                        },
+                        {
+                          value: types.Tokens.Poly,
+                        },
+                        {
+                          value: types.Tokens.Usdc,
+                          isDisabled: isTestNet,
+                        },
+                        {
+                          value: types.Tokens.Usdt,
+                          isDisabled: isTestNet,
+                        },
                       ],
+                      placeholder: 'Choose currency',
+                      disabledOptionText: 'Not available on test network',
                     }}
                     onChange={(selectedCurrency: string) =>
                       updateCurrencySymbol(
-                        selectedCurrency === 'ERC20'
-                          ? ercTokenName
+                        selectedCurrency === types.Tokens.Erc20
+                          ? erc20TokenSymbol
                           : selectedCurrency
                       )
                     }
-                    placeholder="Choose currency"
                   />
                   <FormItem.Error />
                 </FormItem>
@@ -400,7 +395,42 @@ const Step3Base: FC<Props> = ({
                     </FormItem.Label>
                     <FormItem.Input
                       component={TextInput}
-                      placeholder={'Enter ERC20 token contract address'}
+                      onBlur={async () => {
+                        let isValidErc20 = false;
+
+                        setErc20TokenSymbol('');
+                        updateCurrencySymbol('');
+
+                        try {
+                          isValidErc20 = await fetchIsValidToken({
+                            tokenAddress,
+                          });
+                        } catch (e) {
+                          // do nothing
+                        }
+
+                        if (!isValidErc20) {
+                          setFieldError(
+                            'tokenAddress',
+                            'The supplied address does not correspond to a valid ERC20 token'
+                          );
+                          return;
+                        }
+
+                        try {
+                          const tokenDetails = await fetchBalance({
+                            tokenAddress,
+                            walletAddress: wallet.address,
+                          });
+                          setErc20TokenSymbol(tokenDetails.tokenSymbol || '');
+                          updateCurrencySymbol(tokenDetails.tokenSymbol || '');
+                        } catch (e) {
+                          // do nothing
+                        }
+                      }}
+                      inputProps={{
+                        placeholder: 'Enter ERC20 token contract address',
+                      }}
                     />
                     <FormItem.Error />
                   </FormItem>
@@ -410,12 +440,16 @@ const Step3Base: FC<Props> = ({
                     <FormItem.Label>Dividend Amount</FormItem.Label>
                     <FormItem.Input
                       component={NumberInput}
-                      placeholder="Enter the value"
                       inputProps={{
                         min: new BigNumber(0),
                         max: new BigNumber('1000000000000000000'),
-                        unit: currency === 'ERC20' ? ercTokenName : currency,
+                        maxDecimals: 2,
+                        unit:
+                          currency === types.Tokens.Erc20
+                            ? erc20TokenSymbol
+                            : currency,
                         useBigNumbers: true,
+                        placeholder: 'Enter the value',
                       }}
                       onChange={updateDividendAmount}
                     />

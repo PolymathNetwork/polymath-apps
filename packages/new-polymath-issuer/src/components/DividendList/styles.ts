@@ -11,6 +11,11 @@ type NewDividendButtonType = StyledComponent<
 export const NewDividendButtonBase: NewDividendButtonType = styled(ButtonLink)`
   flex-direction: column;
   align-items: center;
+  color: ${({ theme }) => theme.colors.primary};
+
+  &[disabled]:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const NewDividendButton: NewDividendButtonType = Object.assign(
@@ -34,11 +39,13 @@ export const PlaceholderButtonBase: PlaceholderButtonType = styled(
   height: 370px;
   border: 1px dashed ${({ theme }) => theme.colors.primary};
   border-radius: 5px;
-  color: ${({ theme }) => theme.colors.primary};
 
   &:hover {
-    background-color: transparent;
     color: ${({ theme }) => theme.colors.primary};
+  }
+
+  &:not([disabled]):hover {
+    background-color: transparent;
     border: 2px solid ${({ theme }) => theme.colors.primary};
   }
 `;

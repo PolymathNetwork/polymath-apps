@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { reduce } from 'lodash';
@@ -106,7 +106,24 @@ const USDTieredSTOOverviewComponent = ({
   sto,
 }: ComponentProps) => {
   const totalUsdRaised = sto.totalUsdRaised;
-  const countdownProps = getCountdownProps(sto);
+
+  const [countdownProps, setCountDown] = useState(getCountdownProps(sto));
+
+  useEffect(() => {
+    const now = new Date();
+    const { startDate, endDate } = sto;
+    if (now < startDate) {
+      const timeUntilStart = startDate - now;
+      setTimeout(() => {
+        setCountDown(getCountdownProps(sto));
+      }, timeUntilStart);
+    } else if (now < endDate) {
+      const timeUntilEnd = endDate - now;
+      setTimeout(() => {
+        setCountDown(getCountdownProps(sto));
+      }, timeUntilEnd);
+    }
+  });
   const totalUsdCap = reduce(
     sto.tiers,
     (total, { totalUsd }) => totalUsd.plus(total),

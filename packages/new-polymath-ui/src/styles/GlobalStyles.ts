@@ -51,4 +51,8 @@ export const GlobalStyles = createGlobalStyle`
       opacity: 0.5;
     }
   }
+
+  input {
+    font-weight: ${({ theme }) => theme.fontWeights.normal};
+  }
 `;

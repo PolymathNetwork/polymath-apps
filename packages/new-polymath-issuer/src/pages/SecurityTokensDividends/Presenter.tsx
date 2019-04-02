@@ -38,16 +38,6 @@ interface Values {
   walletAddress: string;
 }
 
-// TODO @grsmto: move this to external form utils
-export const validateFormWithSchema = (validationSchema: any, values: any) => {
-  try {
-    validateYupSchema(values, validationSchema, true);
-  } catch (err) {
-    return yupToFormErrors(err);
-  }
-  return {};
-};
-
 export const Presenter: FC<Props> = ({
   onEnableDividends,
   onCreateCheckpoint,
@@ -76,24 +66,34 @@ export const Presenter: FC<Props> = ({
     [walletAddress]
   );
 
-  const handleAddressChange = useCallback(values => {
-    if (dividendsModule) {
-      onChangeWalletAddress(values.walletAddress);
-    } else {
-      setWalletAddress(values.walletAddress);
-    }
+  const handleAddressChange = useCallback(
+    values => {
+      if (dividendsModule) {
+        onChangeWalletAddress(values.walletAddress);
+      } else {
+        setWalletAddress(values.walletAddress);
+      }
 
-    setEditAddressState(false);
-  }, []);
+      setEditAddressState(false);
+    },
+    [dividendsModule]
+  );
 
-  const handleAddressValidation = useCallback(values => {
+  const handleAddressValidation = useCallback(async values => {
     const schema = validator.object().shape({
       walletAddress: validator
         .string()
-        .required()
+        .required('An Address is required')
         .isEthereumAddress(),
     });
-    return validateFormWithSchema(schema, values);
+
+    try {
+      await validateYupSchema(values, schema, true);
+    } catch (err) {
+      throw yupToFormErrors(err);
+    }
+
+    throw {};
   }, []);
 
   return (
@@ -208,7 +208,9 @@ export const Presenter: FC<Props> = ({
       <FormWrapper<Values>
         enableReinitialize
         initialValues={{
-          walletAddress,
+          walletAddress: dividendsModule
+            ? dividendsModule.storageWalletAddress || walletAddress
+            : walletAddress,
         }}
         onSubmit={handleAddressChange}
         validate={handleAddressValidation}
@@ -235,7 +237,9 @@ export const Presenter: FC<Props> = ({
                 <FormItem.Label>Wallet Address</FormItem.Label>
                 <FormItem.Input
                   component={TextInput}
-                  placeholder="Wallet address"
+                  inputProps={{
+                    placeholder: 'Wallet address',
+                  }}
                 />
                 <FormItem.Error />
               </FormItem>

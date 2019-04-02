@@ -10,7 +10,7 @@ import {
   AllowanceArgs,
   BalanceOfArgs,
 } from './types';
-import { fromDivisible, toDivisible } from './utils';
+import { fromDivisible, toDivisible, toAscii } from './utils';
 import BigNumber from 'bignumber.js';
 import { web3 } from '~/LowLevel/web3Client';
 
@@ -70,7 +70,7 @@ export class Erc20 extends Contract<Erc20Contract> {
     if (!symbol) {
       try {
         symbol = await this.nonStandardContract.methods.symbol().call();
-        symbol = Web3.utils.toAscii(symbol);
+        symbol = toAscii(symbol);
       } catch (err) {
         // do nothing
       }
@@ -130,14 +130,15 @@ export class Erc20 extends Contract<Erc20Contract> {
     const { account } = this.context;
 
     const zeroValue = new BigNumber(0);
+    const callParams = { from: account };
 
     try {
       await Promise.all([
         methods.totalSupply().call(),
-        methods.approve(account, zeroValue).call(),
+        methods.approve(account, zeroValue).call(callParams),
         methods.allowance(account, account).call(),
-        methods.transferFrom(account, account, zeroValue).call(),
-        methods.transfer(account, zeroValue).call(),
+        methods.transferFrom(account, account, zeroValue).call(callParams),
+        methods.transfer(account, zeroValue).call(callParams),
         methods.balanceOf(account).call(),
       ]);
     } catch (_err) {

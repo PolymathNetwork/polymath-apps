@@ -8,7 +8,7 @@ import {
 } from '~/components/inputs/FormikProxy';
 
 interface Props {
-  onChange: (e: any) => void;
+  onChange: (e: string) => void;
   name: string;
   value: string;
 }
@@ -27,7 +27,7 @@ export const TextInputPrimitive: FC<Props> = props => {
       {...otherProps}
       id={name}
       onChange={e => {
-        onChange(e.target.value);
+        onChange(e.currentTarget.value);
       }}
     />
   );
@@ -41,12 +41,14 @@ const EnhancedTextInput: FC<EnhancedComponentProps<string>> = ({
   field,
   form,
   onChange,
+  onBlur,
   ...rest
 }) => (
   <FormikProxy<string>
     field={field}
     form={form}
     onChange={onChange}
+    onBlur={onBlur}
     render={formikProps => <TextInputPrimitive {...rest} {...formikProps} />}
   />
 );

@@ -4,7 +4,8 @@ import {
   validateYupSchema,
   yupToFormErrors,
 } from 'formik';
-import React, { Fragment, useState, useMemo, FC } from 'react';
+import React, { Fragment, useState, useMemo, FC, useEffect } from 'react';
+import { has, merge } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import {
   Box,
@@ -36,6 +37,7 @@ import {
   FormValues,
   TaxWithholdingStatuses,
 } from './shared';
+import { unblock } from 'redux-little-router';
 
 interface Props {
   onNextStep: () => void;
@@ -53,14 +55,15 @@ interface Props {
   exclusionList: string[];
   onTaxWithholdingListChange: (amountOfInvestors: number) => void;
   isLoadingData: boolean;
+  setIsDirty: (isDirty: boolean) => void;
 }
 
 const schema = validator.object().shape({
   currentTaxWithholding: validator.object().shape({
     [csvEthAddressKey]: validator
       .string()
-      .isRequired('Investor ETH address is required')
-      .isEthereumAddress('Invalid Ethereum Address'),
+      .isEthereumAddress('Invalid Ethereum Address')
+      .isRequired('Investor ETH address is required'),
     [csvTaxWithholdingKey]: validator
       .number()
       .typeError('Invalid value')
@@ -85,6 +88,7 @@ export const Step2: FC<Props> = ({
   exclusionList,
   onTaxWithholdingListChange,
   isLoadingData,
+  setIsDirty,
 }) => {
   const [csvModalOpen, setCsvModalOpen] = useState(false);
 
@@ -116,14 +120,50 @@ export const Step2: FC<Props> = ({
     updateTaxWithholdingList(formattedValues);
   };
 
-  const handleValidation = (values: FormValues) => {
+  const handleValidation = async (values: FormValues) => {
+    const walletAddress = values.currentTaxWithholding[csvEthAddressKey];
+    let errors = {};
+
     try {
-      validateYupSchema(values, schema, true);
+      await validateYupSchema(values, schema, true);
     } catch (err) {
-      const errors = yupToFormErrors(err);
-      return errors;
+      errors = { ...errors, ...yupToFormErrors(err) };
     }
+
+    // If wallet address wasn't filled yet, skip this
+    if (walletAddress) {
+      // Make sure wallet is existing...
+      const isWalletExisting = !existingTaxWithholdings.find(
+        existingTaxWithholding => {
+          return (
+            existingTaxWithholding.investorAddress.toUpperCase() ===
+            walletAddress.toUpperCase()
+          );
+        }
+      );
+
+      // ...and whitelisted
+      const isWalletNotExcluded = !exclusionList.includes(
+        walletAddress.toUpperCase()
+      );
+
+      if (
+        !has(errors, `currentTaxWithholding.${csvEthAddressKey}`) &&
+        isWalletExisting &&
+        isWalletNotExcluded
+      ) {
+        merge(errors, {
+          currentTaxWithholding: {
+            [csvEthAddressKey]:
+              'This wallet address is not whitelisted yet. Please add it to the whitelist first.',
+          },
+        });
+      }
+    }
+
+    throw errors;
   };
+
   const isTaxWithholdingsItemArray = (
     entries: any
   ): entries is TaxWithholdingsItem[] => {
@@ -275,6 +315,8 @@ export const Step2: FC<Props> = ({
             csvModalOpen={csvModalOpen}
             closeCsvModal={closeCsvModal}
             isLoadingData={isLoadingData}
+            setIsDirty={setIsDirty}
+            exclusionList={exclusionList}
           />
         )}
       />
@@ -291,6 +333,8 @@ interface FormProps {
   csvModalOpen: boolean;
   closeCsvModal: () => void;
   isLoadingData: boolean;
+  setIsDirty: (isDirty: boolean) => void;
+  exclusionList: string[];
 }
 
 const Form: FC<FormProps> = ({
@@ -302,12 +346,25 @@ const Form: FC<FormProps> = ({
   csvModalOpen,
   closeCsvModal,
   isLoadingData,
+  setIsDirty,
+  exclusionList,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [taxWithholdingModalOpen, setTaxWithholdingModalOpen] = useState(false);
   const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
   const [addressesToDelete, setAddressesToDelete] = useState<string[]>([]);
+  useEffect(() => {
+    setIsDirty(isDraft);
+  });
+
+  useEffect(() => {
+    return () => {
+      window.onbeforeunload = null;
+      unblock();
+    };
+  }, []);
+
   const openTaxWithhholdingModal = () => {
     setTaxWithholdingModalOpen(true);
   };
@@ -449,6 +506,7 @@ const Form: FC<FormProps> = ({
             isOpen={taxWithholdingModalOpen}
             onClose={closeTaxWithhholdingModal}
             isEditing={isEditing}
+            exclusionList={exclusionList}
           />
         )}
       />
@@ -491,7 +549,7 @@ const Form: FC<FormProps> = ({
       </FormItem>
       <Box mt="xl">
         <Button onClick={handleNextStep} disabled={!canProceedToNextStep}>
-          Update list and proceed to the next step
+          Proceed to the next step
         </Button>
       </Box>
 

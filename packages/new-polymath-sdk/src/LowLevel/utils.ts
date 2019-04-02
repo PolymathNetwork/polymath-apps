@@ -55,6 +55,11 @@ export function toDivisible(value: number | BigNumber, decimals: number) {
   return result;
 }
 
+// Remove `NULL` characters from bytes32 fields generating empty squares on some browsers.
+export function toAscii(value: string) {
+  return utils.toAscii(value).replace(/\u0000/g, '');
+}
+
 export function isAddress(value: string) {
   return utils.isAddress(value);
 }

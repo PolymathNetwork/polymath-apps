@@ -243,7 +243,7 @@ export const Presenter = ({
                   <Box ml="m">
                     <Text color="highlightText" fontSize={6} fontWeight={0}>
                       {formatters.toPercent(
-                        1 - pendingTransactions / totalTransactions
+                        1 - pendingTransactions / (totalTransactions || 1)
                       )}
                     </Text>
                     <Paragraph>Transactions are completed</Paragraph>
