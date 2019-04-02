@@ -35,7 +35,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   strong {
-    font-weight: ${({ theme }) => theme.fontWeights.strong};
+    font-weight: ${({ theme }) => theme.fontWeights.bolder};
   }
 
   button,
