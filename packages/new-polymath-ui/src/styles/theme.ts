@@ -69,6 +69,7 @@ const zIndexes = {
   sidebar: 100,
   modals: 120,
   selects: 140,
+  tooltips: 160,
 };
 
 const colors = {

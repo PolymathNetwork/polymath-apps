@@ -5,9 +5,10 @@ import TooltipJS, { Options } from 'tooltip.js';
 import { styled } from '~/styles';
 import * as sc from './styles';
 
-export interface TooltipProps {
+export interface TooltipProps extends Options {
   role?: string;
   placement?: PopperJS.Placement;
+  className?: string;
 }
 
 export class TooltipComponent extends React.Component<TooltipProps> {
@@ -19,7 +20,7 @@ export class TooltipComponent extends React.Component<TooltipProps> {
   private popper?: TooltipJS;
 
   public getOptions = (): Options => {
-    const { placement } = this.props;
+    const { placement, role, children, ...otherProps } = this.props;
     const popover = this.getPopover() as HTMLElement;
 
     return {
@@ -36,6 +37,7 @@ export class TooltipComponent extends React.Component<TooltipProps> {
           },
         },
       },
+      ...otherProps,
     };
   };
 
@@ -78,10 +80,13 @@ export class TooltipComponent extends React.Component<TooltipProps> {
   }
 
   public render() {
+    const { role, children, className } = this.props;
     return (
       <Fragment>
         <sc.GlobalStyles />
-        {<div {...this.props} />}
+        <div className={className} role={role}>
+          {children}
+        </div>
       </Fragment>
     );
   }
