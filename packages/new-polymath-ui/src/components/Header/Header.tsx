@@ -54,8 +54,8 @@ export const Header: FC<HeaderProps> & {
           </Link>
           {walletAddress ? (
             <Box ml="auto">
-              <List className="pui-header-menu">
-                <IconText>
+              <List horizontal className="pui-header-menu">
+                <IconText as="li">
                   <Icon
                     Asset={SvgDot}
                     aria-label="Active network"
@@ -65,7 +65,7 @@ export const Header: FC<HeaderProps> & {
                   />
                   <InlineFlex ml="s">{network}</InlineFlex>
                 </IconText>
-                <IconText>
+                <IconText as="li">
                   <IconCircled
                     Asset={SvgPoly}
                     aria-label="Your POLY balance"
@@ -78,7 +78,7 @@ export const Header: FC<HeaderProps> & {
                     {balance ? formatters.toTokens(balance) + ' POLY' : '...'}
                   </InlineFlex>
                 </IconText>
-                <IconText>
+                <IconText as="li">
                   <IconCircled
                     Asset={SvgAccount}
                     aria-label="Wallet address"
@@ -92,7 +92,7 @@ export const Header: FC<HeaderProps> & {
                   </InlineFlex>
                 </IconText>
                 {symbol ? (
-                  <IconText>
+                  <IconText as="li">
                     <IconCircled
                       Asset={SvgToken}
                       aria-label="Token"

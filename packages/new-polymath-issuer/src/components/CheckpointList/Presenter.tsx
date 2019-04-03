@@ -32,7 +32,7 @@ export const CheckpointListPresenter = ({
   );
 
   return (
-    <sc.Container alignItems="flex-start" vertical gridGap={7}>
+    <sc.Container alignItems="flex-start" gridGap={7}>
       {Object.keys(checkpointsByYear).map(year => {
         const yearCheckpoints = checkpointsByYear[year];
 
@@ -43,7 +43,7 @@ export const CheckpointListPresenter = ({
                 <sc.Year>{year}</sc.Year>
               </Grid.Item>
             </Grid>
-            <List vertical>
+            <List>
               {yearCheckpoints.map(checkpoint => {
                 const isLastDividend =
                   yearCheckpoints.indexOf(checkpoint) ===

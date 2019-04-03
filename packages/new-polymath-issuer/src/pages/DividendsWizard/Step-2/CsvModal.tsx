@@ -73,7 +73,7 @@ export const CsvModal: FC<Props> = ({ isOpen, onClose, onConfirm }) => {
         Update tax withholdings by uploading a comma separated .CSV file.
         <br /> The format should be as follows:
       </Paragraph>
-      <List vertical gridGap={0}>
+      <List gridGap={0}>
         <li>
           <Text>— Investor wallet's ETH Address;</Text>
         </li>

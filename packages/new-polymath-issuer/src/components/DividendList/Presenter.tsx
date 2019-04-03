@@ -28,7 +28,7 @@ export const DividendListPresenter: FC<Props> = ({
     ? '#'
     : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
   return (
-    <List>
+    <List horizontal>
       {dividends.length ? (
         <Fragment>
           {dividends.map(dividend => (

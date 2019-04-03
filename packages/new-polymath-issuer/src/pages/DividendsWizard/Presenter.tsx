@@ -285,7 +285,7 @@ export class Presenter extends Component<Props, State> {
                 New Dividends Distribution
               </Heading>
               <Box mb="l">
-                <List vertical>
+                <List>
                   <Flex as="li">
                     <Flex flex="0" alignSelf="flex-start" mr="s">
                       <ListIcon />
@@ -310,7 +310,7 @@ export class Presenter extends Component<Props, State> {
                   </Flex>
                 </List>
                 <Hr color="gray.2" />
-                <List vertical>
+                <List>
                   <Flex as="li">
                     <Flex flex="0" alignSelf="flex-start" mr="s">
                       <ListIcon active />

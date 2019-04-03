@@ -316,7 +316,7 @@ export const Presenter = ({
               <Hr />
               <Box>
                 <Box mb="s" mt={0}>
-                  <List vertical gridGap="s">
+                  <List gridGap="s">
                     <li>
                       <Flex>
                         <Flex flex="0" alignSelf="flex-start" mr="s">
@@ -384,7 +384,7 @@ export const Presenter = ({
                   </Text>
                   <Text ml={1}>{formatters.toDateFormat(created)}</Text>
                 </Flex>
-                <List vertical gridGap="m">
+                <List gridGap="m">
                   <li>
                     <Flex>
                       <Flex flex="0" alignSelf="flex-start" mr="s">
@@ -422,7 +422,7 @@ export const Presenter = ({
                   </li>
                 </List>
                 <Hr color="gray.2" />
-                <List vertical gridGap="m">
+                <List gridGap="m">
                   <li>
                     <Flex>
                       <Flex flex="0" alignSelf="flex-start" mr="s">

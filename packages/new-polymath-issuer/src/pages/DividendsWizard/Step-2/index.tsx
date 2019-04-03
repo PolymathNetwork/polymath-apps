@@ -236,7 +236,7 @@ export const Step2: FC<Props> = ({
         uploading a CSV which includes, for investors subject to tax
         withholdings:{' '}
       </Paragraph>
-      <List vertical gridGap={0}>
+      <List gridGap={0}>
         <li>
           <Text>— Investor wallet's ETH Address;</Text>
         </li>
