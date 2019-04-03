@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
+import scrollbarWidth from 'scrollbarwidth';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Header } from './Header';
 import { Body } from './Body';
@@ -19,6 +20,10 @@ interface Props {
   theme: ThemeInterface;
 }
 
+function hasScrollbar() {
+  return document.documentElement.scrollHeight > window.innerHeight;
+}
+
 export const ModalBase: FC<Props> = ({
   children,
   className,
@@ -30,6 +35,7 @@ export const ModalBase: FC<Props> = ({
   status,
 }) => {
   let overlayRef: HTMLDivElement | null = null;
+  const [prevOpen, setPrevOpen] = useState(false);
   const handleCloseRequest = () => {
     if (!isCloseable) {
       return;
@@ -46,6 +52,30 @@ export const ModalBase: FC<Props> = ({
       overlayRef.scroll(0, 0);
     }
   };
+
+  useEffect(
+    () => {
+      if (prevOpen !== isOpen) {
+        if (isOpen) {
+          if (hasScrollbar()) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollbarWidth()}px`;
+          }
+        } else {
+          document.body.style.overflow = null;
+          document.body.style.paddingRight = null;
+        }
+
+        setPrevOpen(isOpen);
+      }
+
+      return () => {
+        document.body.style.overflow = null;
+        document.body.style.paddingRight = null;
+      };
+    },
+    [isOpen]
+  );
 
   return (
     <ReactModal
