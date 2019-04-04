@@ -73,6 +73,7 @@ export { Link } from './components/Link';
 export { LinkButton } from './components/LinkButton';
 export { List } from './components/List';
 export { Loading } from './components/Loading';
+export { LoadingDots } from './components/LoadingDots';
 export { Text } from './components/Text';
 export { Modal, ModalStatus } from './components/Modal';
 export { ModalConfirm } from './components/ModalConfirm';
