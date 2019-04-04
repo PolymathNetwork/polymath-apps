@@ -476,19 +476,19 @@ export const Presenter = ({
           </CardPrimary>
         </GridRow.Col>
       </GridRow>
+      <Heading variant="h2" mt="l" mb="m">
+        Transactions
+      </Heading>
       {loading ? (
         <Box mt="l" mb="m">
           <LoadingDots />
         </Box>
       ) : (
-        <Heading variant="h2" mt="l" mb="m">
-          Transactions
-        </Heading>
+        <Table columns={columns} data={transactions}>
+          <Table.Rows />
+          <Table.Pagination />
+        </Table>
       )}
-      <Table columns={columns} data={transactions}>
-        <Table.Rows />
-        <Table.Pagination />
-      </Table>
     </div>
   );
 };
