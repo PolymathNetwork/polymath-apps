@@ -105,7 +105,7 @@ exports[`Table renders without crashing 1`] = `
   transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -211,7 +211,7 @@ exports[`Table renders without crashing 1`] = `
   align-items: center;
   padding: 0.6em;
   height: 48px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .c4:first-child {
@@ -257,7 +257,7 @@ exports[`Table renders without crashing 1`] = `
   transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   padding: 0;
   background: none;
   text-transform: none;
@@ -346,7 +346,7 @@ exports[`Table renders without crashing 1`] = `
   transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -422,7 +422,7 @@ exports[`Table renders without crashing 1`] = `
   transition-property: background,color,border-color,opacity;
   font-family: 'Overpass',sans-serif;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -1871,7 +1871,7 @@ exports[`Table renders without crashing 1`] = `
           class="css-6o5gw2"
         >
           <div
-            class="css-1crx08z"
+            class="css-1fdx8t6"
           >
             10
           </div>
@@ -1956,7 +1956,7 @@ exports[`Table renders without crashing 1`] = `
             class="css-6o5gw2"
           >
             <div
-              class="css-1crx08z"
+              class="css-1fdx8t6"
             >
               1
             </div>

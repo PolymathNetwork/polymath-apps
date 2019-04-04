@@ -127,6 +127,12 @@ const Step3Base: FC<Props> = ({
 
   const [erc20TokenSymbol, setErc20TokenSymbol] = useState('');
 
+  const isTestNet = [
+    constants.NetworkIds.Kovan,
+    constants.NetworkIds.Local,
+    constants.NetworkIds.LocalVm,
+  ].includes(networkId);
+
   useEffect(
     () => {
       const { isSubmitting, submitEvent } = formSubmissionStatus;
@@ -218,12 +224,6 @@ const Step3Base: FC<Props> = ({
           });
 
           const difference = dividendAmount.minus(balance);
-
-          const isTestNet = [
-            constants.NetworkIds.Kovan,
-            constants.NetworkIds.Local,
-            constants.NetworkIds.LocalVm,
-          ].includes(networkId);
           const willUseFaucet = isTestNet && currency === types.Tokens.Poly;
 
           if (!willUseFaucet && difference.gte(0)) {
@@ -330,9 +330,9 @@ const Step3Base: FC<Props> = ({
                   <FormItem.Label>Dividend Distribution Name</FormItem.Label>
                   <FormItem.Input
                     component={TextInput}
-                    placeholder="Enter the name"
                     inputProps={{
                       maxLength: dividendsTitleLength,
+                      placeholder: 'Enter the name',
                     }}
                   />
                   <FormItem.Error />
@@ -343,14 +343,34 @@ const Step3Base: FC<Props> = ({
                     component={CurrencySelect}
                     inputProps={{
                       options: [
-                        types.Tokens.Erc20,
-                        types.Tokens.Dai,
-                        types.Tokens.Gusd,
-                        types.Tokens.Pax,
-                        types.Tokens.Poly,
-                        types.Tokens.Usdc,
-                        types.Tokens.Usdt,
+                        {
+                          value: types.Tokens.Erc20,
+                        },
+                        {
+                          value: types.Tokens.Dai,
+                        },
+                        {
+                          value: types.Tokens.Gusd,
+                          isDisabled: isTestNet,
+                        },
+                        {
+                          value: types.Tokens.Pax,
+                          isDisabled: isTestNet,
+                        },
+                        {
+                          value: types.Tokens.Poly,
+                        },
+                        {
+                          value: types.Tokens.Usdc,
+                          isDisabled: isTestNet,
+                        },
+                        {
+                          value: types.Tokens.Usdt,
+                          isDisabled: isTestNet,
+                        },
                       ],
+                      placeholder: 'Choose currency',
+                      disabledOptionText: 'Not available on test network',
                     }}
                     onChange={(selectedCurrency: string) =>
                       updateCurrencySymbol(
@@ -359,7 +379,6 @@ const Step3Base: FC<Props> = ({
                           : selectedCurrency
                       )
                     }
-                    placeholder="Choose currency"
                   />
                   <FormItem.Error />
                 </FormItem>
@@ -409,7 +428,9 @@ const Step3Base: FC<Props> = ({
                           // do nothing
                         }
                       }}
-                      placeholder={'Enter ERC20 token contract address'}
+                      inputProps={{
+                        placeholder: 'Enter ERC20 token contract address',
+                      }}
                     />
                     <FormItem.Error />
                   </FormItem>
@@ -419,16 +440,16 @@ const Step3Base: FC<Props> = ({
                     <FormItem.Label>Dividend Amount</FormItem.Label>
                     <FormItem.Input
                       component={NumberInput}
-                      placeholder="Enter the value"
                       inputProps={{
                         min: new BigNumber(0),
                         max: new BigNumber('1000000000000000000'),
-                        maxDecimals:2,
+                        maxDecimals: 2,
                         unit:
                           currency === types.Tokens.Erc20
                             ? erc20TokenSymbol
                             : currency,
                         useBigNumbers: true,
+                        placeholder: 'Enter the value',
                       }}
                       onChange={updateDividendAmount}
                     />

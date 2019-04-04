@@ -20,7 +20,7 @@ const Input = styled.input<BaseInputProps & StyledProps<any>>`
   height: 2.5rem;
   padding: 0 1rem;
   font-size: ${({ theme }) => theme.fontSizes.baseText};
-  color: ${({ theme }) => theme.colors.baseText};
+  color: ${({ theme }) => theme.colors.highlightText};
   font-family: ${({ theme }) => theme.fontFamilies.baseText};
   background-color: ${({ theme }) => theme.colors.gray[1]};
   border: none;
@@ -31,6 +31,11 @@ const Input = styled.input<BaseInputProps & StyledProps<any>>`
 
   :focus {
     background-color: ${({ theme }) => theme.colors.gray[0]};
+  }
+
+  ::placeholder {
+    opacity: 1;
+    color: ${({ theme }) => theme.colors.baseText};
   }
 
   /* Remove ugly handles on Chrome/Mozilla for number inputs (until mouse hover) */

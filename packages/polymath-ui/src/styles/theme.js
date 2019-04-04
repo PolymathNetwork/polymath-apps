@@ -28,9 +28,9 @@ const lineHeights = {
 };
 
 const fontWeights = {
-  light: 300,
-  normal: 400,
-  bold: 600,
+  normal: 300,
+  bold: 400,
+  bolder: 600,
 };
 
 const space = [

@@ -6,7 +6,7 @@ exports[`renders without crashing 1`] = `
   line-height: 1.5;
   color: #152935;
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 <h2

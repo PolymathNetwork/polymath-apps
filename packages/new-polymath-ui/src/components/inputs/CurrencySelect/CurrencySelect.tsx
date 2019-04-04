@@ -1,8 +1,8 @@
 import React, { FC, Fragment, ReactNode } from 'react';
 import Select, { components } from 'react-select';
 import { IndicatorProps } from 'react-select/lib/components/indicators';
+import { OptionProps } from 'react-select/lib/components/Option';
 import { Styles } from 'react-select/lib/styles';
-import { intersectionWith, filter, includes } from 'lodash';
 import { types } from '@polymathnetwork/new-shared';
 import {
   FormikProxy,
@@ -21,6 +21,7 @@ import { SvgPax } from '~/images/icons/pax';
 import { withTheme, ThemeInterface, styled } from '~/styles';
 import { Box } from '~/components/Box';
 import { Icon } from '~/components/Icon';
+import { TooltipPrimary } from '~/components/TooltipPrimary';
 import { InputProps } from '~/components/inputs/types';
 import { Label } from './Label';
 import * as sc from './styles';
@@ -28,13 +29,14 @@ import * as sc from './styles';
 interface OptionType {
   value: types.Tokens;
   label: ReactNode;
+  isDisabled?: boolean;
 }
 
 type Value = types.Tokens | types.Tokens[];
 
 interface ExternalProps extends EnhancedComponentProps<Value> {
   theme: ThemeInterface;
-  options: types.Tokens[];
+  options: OptionType[];
   placeholder?: string;
 }
 
@@ -88,11 +90,12 @@ export const CURRENCY_OPTIONS: OptionType[] = [
 interface SelectProps
   extends Pick<InputProps, 'onChange' | 'error' | 'name' | 'autoComplete'> {
   theme: ThemeInterface;
-  options: types.Tokens[];
+  options: OptionType[];
   value: types.Tokens | types.Tokens[];
   // Override because ReactSelect does not provide the event
   onBlur: () => void;
   placeholder?: string;
+  disabledOptionText?: string;
 }
 
 const getStyles = (theme: ThemeInterface): Styles => ({
@@ -186,6 +189,19 @@ const ClearIndicator: FC<CustomIndicatorProps> = props => {
   );
 };
 
+const Option: FC<OptionProps<OptionType>> = ({ children, ...props }) => {
+  return (
+    <components.Option {...props}>
+      {children}
+      {props.isDisabled && props.selectProps.disabledOptionText && (
+        <TooltipPrimary boundariesElement="viewport">
+          {props.selectProps.disabledOptionText}
+        </TooltipPrimary>
+      )}
+    </components.Option>
+  );
+};
+
 interface SelectValueProps {
   label: ReactNode;
   value: types.Tokens;
@@ -253,13 +269,12 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
   public render() {
     const { value, options, onChange, onBlur, theme, ...rest } = this.props;
 
-    const filteredOptions = intersectionWith(
-      CURRENCY_OPTIONS,
-      options,
-      (currency, symbol) => {
-        return currency.value === symbol;
-      }
-    );
+    const mergedOptions = options.map(option => {
+      return {
+        ...CURRENCY_OPTIONS.find(currency => option.value === currency.value),
+        ...option,
+      };
+    });
 
     const valueIsArray = Array.isArray(value);
     let arrayValue: types.Tokens[];
@@ -270,8 +285,8 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
       arrayValue = value;
     }
 
-    const selectedValues = filter(filteredOptions, ({ value: currencyType }) =>
-      includes(arrayValue, currencyType)
+    const selectedValues = mergedOptions.filter(({ value: currencyType }) =>
+      arrayValue.includes(currencyType)
     );
 
     return (
@@ -287,8 +302,9 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
               DropdownIndicator,
               ClearIndicator,
               IndicatorSeparator: null,
+              Option,
             }}
-            options={filteredOptions}
+            options={mergedOptions}
             value={selectedValues}
             onChange={this.handleChange}
             onMenuClose={onBlur}
@@ -296,7 +312,7 @@ class CurrencySelectPrimitiveBase extends React.Component<SelectProps> {
           />
         </SelectWrapper>
         {arrayValue.map(val => {
-          const option = filteredOptions.find(
+          const option = mergedOptions.find(
             ({ value: currencyType }) => currencyType === val
           );
           return option ? (

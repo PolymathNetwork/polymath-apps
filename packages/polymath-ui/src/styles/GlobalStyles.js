@@ -25,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   strong {
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-weight: ${({ theme }) => theme.fontWeights.bolder};
   }
 
   img {

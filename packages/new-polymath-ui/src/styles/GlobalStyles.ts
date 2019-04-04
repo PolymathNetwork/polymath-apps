@@ -35,7 +35,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   strong {
-    font-weight: ${({ theme }) => theme.fontWeights.strong};
+    font-weight: ${({ theme }) => theme.fontWeights.bolder};
   }
 
   button,
@@ -50,5 +50,9 @@ export const GlobalStyles = createGlobalStyle`
       cursor: not-allowed;
       opacity: 0.5;
     }
+  }
+
+  input {
+    font-weight: ${({ theme }) => theme.fontWeights.normal};
   }
 `;

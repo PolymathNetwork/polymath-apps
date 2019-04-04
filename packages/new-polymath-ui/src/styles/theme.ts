@@ -37,10 +37,9 @@ const lineHeights = {
 };
 
 const fontWeights = {
-  light: 200,
   normal: 300,
-  bold: 500,
-  strong: 600,
+  bold: 400,
+  bolder: 600,
 };
 
 const space: Scale<string> = {
@@ -69,6 +68,7 @@ const zIndexes = {
   sidebar: 100,
   modals: 120,
   selects: 140,
+  tooltips: 160,
 };
 
 const colors = {

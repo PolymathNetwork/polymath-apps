@@ -6,7 +6,6 @@ import { Context } from '../Context';
 export interface Props
   extends typeHelpers.Omit<FieldConfig, 'name' | 'component'> {
   FormikComponent: React.ComponentType<FieldConfig>;
-  placeholder?: string;
   component: React.ComponentType<any>;
   inputProps?: { [key: string]: any };
   onChange?: (value: any) => void;
