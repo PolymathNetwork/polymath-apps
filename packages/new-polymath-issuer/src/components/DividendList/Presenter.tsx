@@ -13,6 +13,7 @@ import { DividendCard } from '~/components/DividendCard';
 import * as sc from './styles';
 
 export interface Props {
+  hasDividends: boolean;
   dividends: types.DividendEntity[];
   securityTokenSymbol: string;
   checkpointIndex: number;
@@ -23,9 +24,10 @@ export const DividendListPresenter: FC<Props> = ({
   securityTokenSymbol,
   dividends,
   checkpointIndex,
+  allDividendsCompleted,
+  hasDividends,
 }) => {
-  const allDividendsCompleted = false;
-  const NewDividendButton = dividends.length
+  const NewDividendButton = hasDividends
     ? sc.NewDividendButton
     : sc.PlaceholderButton;
 

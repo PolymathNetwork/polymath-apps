@@ -125,6 +125,7 @@ export class CheckpointListContainerBase extends Component<Props> {
 
                 return (
                   <CheckpointListPresenter
+                    hasDividends={!!Object.keys(dividendsData).length}
                     allDividendsCompleted={allDividendsCompleted}
                     checkpoints={sortedCheckpoints}
                     securityTokenSymbol={securityTokenSymbol}
