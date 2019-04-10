@@ -12,12 +12,14 @@ interface Props extends FlexProps {
 export const List = styled(Grid)<Props>`
   ${ulReset}
   grid-auto-flow: ${({ vertical }) => (vertical ? 'row' : 'column')};
+  grid-auto-rows: ${({ vertical }) =>
+    vertical && 'minmax(min-content, max-content)'};
+  grid-auto-columns: ${({ vertical }) =>
+    !vertical && 'minmax(min-content, max-content)'};
 `;
 
 List.defaultProps = {
   ...Grid.defaultProps,
   as: 'ul',
   alignItems: 'center',
-  gridAutoRows: 'minmax(min-content, max-content)',
-  gridAutoColumns: 'minmax(min-content, max-content)',
 };

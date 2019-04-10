@@ -13,6 +13,12 @@ export const NewDividendButtonBase: NewDividendButtonType = styled(ButtonLink)`
   align-items: center;
   color: ${({ theme }) => theme.colors.primary};
 
+  &:not([disabled]):hover {
+    opacity: 0.5;
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
   &[disabled]:hover {
     color: ${({ theme }) => theme.colors.primary};
   }
@@ -39,13 +45,10 @@ export const PlaceholderButtonBase: PlaceholderButtonType = styled(
   height: 370px;
   border: 1px dashed ${({ theme }) => theme.colors.primary};
   border-radius: 5px;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
+  color: ${({ theme }) => theme.colors.primary};
 
   &:not([disabled]):hover {
-    background-color: transparent;
+    opacity: 1;
     border: 2px solid ${({ theme }) => theme.colors.primary};
   }
 `;

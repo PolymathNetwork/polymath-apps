@@ -1,6 +1,7 @@
 import React, { Fragment, FC } from 'react';
 import {
   List,
+  Flex,
   ButtonLink,
   Button,
   icons,
@@ -12,6 +13,7 @@ import { DividendCard } from '~/components/DividendCard';
 import * as sc from './styles';
 
 export interface Props {
+  hasDividends: boolean;
   dividends: types.DividendEntity[];
   securityTokenSymbol: string;
   checkpointIndex: number;
@@ -23,55 +25,26 @@ export const DividendListPresenter: FC<Props> = ({
   dividends,
   checkpointIndex,
   allDividendsCompleted,
+  hasDividends,
 }) => {
-  const newDividendUrl = !allDividendsCompleted
-    ? '#'
-    : `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`;
+  const NewDividendButton = hasDividends
+    ? sc.NewDividendButton
+    : sc.PlaceholderButton;
+
   return (
-    <List>
-      {dividends.length ? (
-        <Fragment>
-          {dividends.map(dividend => (
-            <li key={dividend.uid}>
-              <DividendCard
-                dividend={dividend}
-                checkpointIndex={checkpointIndex}
-                securityTokenSymbol={securityTokenSymbol}
-              />
-            </li>
-          ))}
-          <span>
-            <sc.NewDividendButton
-              as={allDividendsCompleted ? ButtonLink : Button}
-              disabled={!allDividendsCompleted}
-              href={newDividendUrl}
-              variant="ghost"
-              iconPosition="top"
-            >
-              <IconOutlined
-                Asset={icons.SvgPlus}
-                width={25}
-                height={25}
-                scale={0.8}
-              />
-              Add new <br /> dividend <br /> distribution
-            </sc.NewDividendButton>
-            {!allDividendsCompleted && (
-              <TooltipPrimary placement="top-start">
-                You can add a new dividend distribution if the previous
-                distribution has been completed/expired.
-              </TooltipPrimary>
-            )}
-          </span>
-        </Fragment>
-      ) : (
+    <Fragment>
+      <Flex height={370} alignSelf="flex-start">
         <span>
-          <sc.PlaceholderButton
+          <NewDividendButton
             as={allDividendsCompleted ? ButtonLink : Button}
-            href={newDividendUrl}
+            disabled={!allDividendsCompleted}
+            href={
+              allDividendsCompleted
+                ? `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`
+                : undefined
+            }
             variant="ghost"
             iconPosition="top"
-            disabled={!allDividendsCompleted}
           >
             <IconOutlined
               Asset={icons.SvgPlus}
@@ -80,7 +53,7 @@ export const DividendListPresenter: FC<Props> = ({
               scale={0.8}
             />
             Add new <br /> dividend <br /> distribution
-          </sc.PlaceholderButton>
+          </NewDividendButton>
           {!allDividendsCompleted && (
             <TooltipPrimary placement="top-start">
               You can add a new dividend distribution if the previous
@@ -88,7 +61,22 @@ export const DividendListPresenter: FC<Props> = ({
             </TooltipPrimary>
           )}
         </span>
-      )}
-    </List>
+      </Flex>
+      <List
+        vertical
+        width="100%"
+        gridTemplateColumns="repeat(auto-fill, 300px)"
+      >
+        {dividends.map(dividend => (
+          <li key={dividend.uid}>
+            <DividendCard
+              dividend={dividend}
+              checkpointIndex={checkpointIndex}
+              securityTokenSymbol={securityTokenSymbol}
+            />
+          </li>
+        ))}
+      </List>
+    </Fragment>
   );
 };

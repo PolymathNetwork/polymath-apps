@@ -20,6 +20,7 @@ export interface Props {
   securityTokenSymbol: string;
   downloadOwnershipList: (checkpoint: types.CheckpointEntity) => void;
   allDividendsCompleted: boolean;
+  hasDividends: boolean;
   loading?: boolean;
 }
 
@@ -28,6 +29,7 @@ export const CheckpointListPresenter = ({
   securityTokenSymbol,
   downloadOwnershipList,
   allDividendsCompleted,
+  hasDividends,
   loading,
 }: Props) => {
   const checkpointsByYear = groupBy(checkpoints, checkpoint =>
@@ -95,6 +97,7 @@ export const CheckpointListPresenter = ({
                               />
                             </sc.ProgressIndicator>
                             <DividendList
+                              hasDividends={hasDividends}
                               allDividendsCompleted={allDividendsCompleted}
                               checkpointIndex={checkpoint.index}
                               securityTokenSymbol={securityTokenSymbol}
