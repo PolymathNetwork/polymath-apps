@@ -1,0 +1,12 @@
+{
+  "name": "@poly/tests-issuer",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "yarn lerna run -- --scope @poly/tests-frontend-core test --"
+  },
+  "dependencies": {
+    "@poly/tests-frontend-core": "*"
+  }
+}

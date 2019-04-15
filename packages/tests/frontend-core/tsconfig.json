@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "pretty": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "strict": false,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules",
+      "../../node_modules/@types",
+      "../../node_modules"
+    ],
+    "paths": {},
+    "types": []
+  },
+  "exclude": ["node_modules"],
+  "compileOnSave": false
+}

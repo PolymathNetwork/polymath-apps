@@ -1,0 +1,30 @@
+{
+  "name": "@poly/tests-frontend-core",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "node runner.js"
+  },
+  "main": "runner.js",
+  "dependencies": {
+    "@types/faker": "^4.1.5",
+    "@types/node": "^11.13.4",
+    "@types/puppeteer": "^1.12.3",
+    "@types/tmp": "^0.1.0",
+    "@types/unzipper": "^0.9.1",
+    "app-module-path": "^2.2.0",
+    "cheerio": "^1.0.0-rc.3",
+    "crx": "^4.0.1",
+    "faker": "^4.1.0",
+    "get-port": "^5.0.0",
+    "node-rsa": "^1.0.5",
+    "puppeteer": "^1.14.0",
+    "testcafe": "^1.1.1",
+    "testcafe-browser-provider-crossbrowsertesting": "^1.0.6",
+    "testcafe-browser-tools": "^1.6.8",
+    "testcafe-live": "^0.1.4",
+    "testcafe-react-selectors": "^3.1.0",
+    "tmp": "^0.1.0"
+  }
+}
