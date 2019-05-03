@@ -375,7 +375,7 @@ const providers: Array<ServiceProvider> = [
     cat: 2,
     title: 'EarlyIQ',
     logo: '/providers/kyc/earlyiq.png',
-    background: '/providers/kyc/bg/img-republic.png',
+    background: '/providers/kyc/bg/img-earlyiq.png',
     desc:
       'EarlyIQ is an industry-leading provider of Accredited Investor Verifications and issuer "Bad Actor" Background Checks.' +
       '\nEarlyIQ Accredited Investor Verifications are simple, safe, and secure. Confidently comply with SEC Reg D 506(c) ' +
