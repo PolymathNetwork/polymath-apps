@@ -119,6 +119,31 @@ const providers: Array<ServiceProvider> = [
       'Chain Partners is a blockchain company builder based in Seoul, Korea. We are a group of technologists, ' +
       'entrepreneurs, and engineers, building the infrastructure for a decentralized future.',
   },
+  {
+    id: 31,
+    cat: 0,
+    title: 'QRC',
+    logo: '/providers/advisory/qrc.png',
+    background: '/providers/advisory/bg/img-qrc.png',
+    desc:
+      'QRC is a Regtech consultancy based in Hong kong for the blockchain industry providing end-to-end ' +
+      'solutions for security token offerings and security token trading with a focus on Asia and South East ' +
+      'Asia region. QRC is a recognised thought leader in regtech working on international standards for security ' +
+      'tokens and partnering with academia including Taiwan Tech and the University of Malaya on regtech and the ' +
+      're-structuring of capital markets using blockchain. QRC has connections to local lawyers, corporate ' +
+      'finance agencies and broker distribution channels in the region. ',
+  },
+  {
+    id: 32,
+    cat: 0,
+    title: 'Athena Blockchain',
+    logo: '/providers/advisory/athena.png',
+    background: '/providers/advisory/bg/img-athena.png',
+    desc:
+      'With offices in Chicago, New York, Santa Monica, and Miami, Athena Blockchain provides advisory services ' +
+      'to issuers, sponsors, and promoters of tokenized securities by leveraging legal, compliance, technical, ' +
+      'and financial experience to structure offerings and provide an understanding of capital markets.',
+  },
 
   // LEGAL
   {
@@ -344,6 +369,24 @@ const providers: Array<ServiceProvider> = [
       'send the Client a report including the status of all investors / participants during that preceding calendar ' +
       'month. Republic will not provide any Personal Identifying Information (“PII”) not otherwise provided to the ' +
       'Client through the Client’s on-boarding process.',
+  },
+  {
+    id: 30,
+    cat: 2,
+    title: 'EarlyIQ',
+    logo: '/providers/kyc/earlyiq.png',
+    background: '/providers/kyc/bg/img-earlyiq.png',
+    desc:
+      'EarlyIQ is an industry-leading provider of Accredited Investor Verifications and issuer "Bad Actor" Background Checks.' +
+      '\nEarlyIQ Accredited Investor Verifications are simple, safe, and secure. Confidently comply with SEC Reg D 506(c) ' +
+      'reasonable steps. Includes Identity Verification and OFAC (Watchlist) check.' +
+      '\nEarlyIQ "Bad Actor" Background Reports eliminate complexity and deliver unprecedented visibility into the ' +
+      'background details of your target investment company. Through our proprietary process, we triangulate information from ' +
+      'public record, online, offline and self-reported information to give stakeholders actionable insight into both the ' +
+      'target organization and the team behind it. ' +
+      '\nOur solutions can be fully integrated with partner sites for seamless user ' +
+      'experience and can be customized to provide deeper levels of information beyond basic compliance requirements to ' +
+      'facilitate vetting and curating deal flow by the partners.',
   },
 
   // MARKETING
