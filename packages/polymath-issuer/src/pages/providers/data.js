@@ -67,6 +67,14 @@ export const categories: Array<SPCategory> = [
       'security tokens to be held for safekeeping and minimize the risk of theft or loss. Alternatively, ' +
       'you and/or your Investors can elect to self custody funds and security tokens.',
   },
+  {
+    id: 5,
+    title: 'Token Sale Platform',
+    desc:
+      "Apply for Custody services for the funds you raised and/or your investors' " +
+      'security tokens to be held for safekeeping and minimize the risk of theft or loss. Alternatively, ' +
+      'you and/or your Investors can elect to self custody funds and security tokens.',
+  },
 ];
 
 const providers: Array<ServiceProvider> = [
@@ -174,6 +182,24 @@ const providers: Array<ServiceProvider> = [
       '\n- Structuring - Design of digital assets including tokenomics.' +
       '\n- Business development -  Find partners who see value in emerging tech to improve their businesses.' +
       '\n- Valuation -  Provide independent valuation for underlying asset. ',
+  },
+  {
+    id: 39,
+    cat: 0,
+    title: 'DLA Piper',
+    logo: '/providers/advisory/dlapiper.png',
+    background: '/providers/advisory/bg/img-dlapiper.png',
+    desc:
+      'DLA Piper is a pioneer in serving technology clients and companies that use technology, having established a ' +
+      'presence in the heart of Silicon Valley over 50 years ago. Today, we have offices in over 40 countries throughout ' +
+      'the world – positioning us to assist companies with their legal needs wherever they are and wherever they would like to go.' +
+      '\nThrough our Blockchain and Digital Assets Practice Group, our team offers strategic advice on a global basis to address ' +
+      'the needs of companies implementing blockchain technology solutions and creating and deploying digital assets. We combine ' +
+      'a global network of attorneys with a wide range of relevant practices (including securities, IP protection and licensing, ' +
+      'commodities future trading regulations, privacy and money transmitter rules) to help companies take advantage of these new ' +
+      'opportunities and attain their strategic goals through the use of blockchain.\nWe assist companies at every stage of their ' +
+      'life cycle, from early-stage startups raising funds to build new blockchain technologies to Fortune 100 companies ' +
+      'implementing blockchain-based solutions. For more information, please email us Scott Thiel at Scott.Thiel@dlapiper.com',
   },
 
   // LEGAL
@@ -320,6 +346,20 @@ const providers: Array<ServiceProvider> = [
       'Sumsub among the leading players of the market. The company was founded in 2015 with the headquarter in London, ' +
       'United Kingdom. \n\nThe company was incorporated in 2015 and is headquartered in London, United Kingdom.',
   },
+  {
+    id: 37,
+    cat: 1,
+    title: 'L&Y Law',
+    logo: '/providers/legal/lylawoffice.png',
+    background: '/providers/legal/bg/img-lylawoffice.png',
+    desc:
+      'We are a full-service law firm, which offers a full range of legal services for both individuals and businesses, ' +
+      'ranging from Merger & Acquisitions (private and public), Corporate, Capital Markets (ECM & DCM), Banking & Finance, ' +
+      'Initial Coin Offering (ICO), Security Token Offering (STO), Cryptocurrency/Blockchain, Licensing, Smart Contracts, ' +
+      'Tech Startups, Fund Formation, Intellectual Properties, Dispute Resolution/Arbitration, SFC Investigation, Data ' +
+      'Protection, Privacy & Security, Competition Matters, General Commercial Matters, Escrow Services and Company ' +
+      'Secretarial Services.',
+  },
 
   // KYC/AML
   {
@@ -432,6 +472,17 @@ const providers: Array<ServiceProvider> = [
       'experience and can be customized to provide deeper levels of information beyond basic compliance requirements to ' +
       'facilitate vetting and curating deal flow by the partners.',
   },
+  {
+    id: 36,
+    cat: 2,
+    title: 'KABN',
+    logo: '/providers/kyc/kabn.png',
+    background: '/providers/kyc/bg/img-kabn.png',
+    desc:
+      'The KABN Network is an integrated suite of services that features KABN ID. This is KABN’s patent-pending, GDPR compliant, ' +
+      'Blockchain and biometrically-based, “Always On” KYC / AML validation and verification process. KABN ID supports Polymath ' +
+      'issuers to validate and verify identity and support investor qualification review.',
+  },
 
   // MARKETING
   {
@@ -491,6 +542,48 @@ const providers: Array<ServiceProvider> = [
       'digital economy. As a blockchain-based trust company our mission is to provide ICO and SCO issuers with ' +
       'the best-in-class solutions to frictionlessly meet the needs of their offerings and of exchanges ' +
       'and secondary markets.',
+  },
+  {
+    id: 38,
+    cat: 4,
+    title: 'Onchain',
+    logo: '/providers/custody/onchain.png',
+    background: '/providers/custody/bg/img-onchain.png',
+    desc:
+      'Headquartered in Singapore, Onchain Custodian (ONC) offers a global, standardised, resilient and compliant ' +
+      'custody service for the safekeeping of institutional digital asset investments with incomparable user ' +
+      "experience. ONC's solution is built with flexibility to meet the possible futures of crypto custody.",
+  },
+
+  // TOKEN SALE PLATFORMS
+  {
+    id: 40,
+    cat: 5,
+    title: 'CrowdEngine',
+    logo: '/providers/tokensale/crowdengine.png',
+    background: '/providers/tokensale/bg/img-crowdengine.png',
+    desc:
+      'CrowdEngine (https://www.crowdengine.com) provides white-label solutions that enables issuers to sell security ' +
+      'tokens online in a matter of weeks.  CrowdEngine supports all offering types including Reg. D, Reg. S, Reg. A+, ' +
+      'and Reg. CF, as well as cryptocurrency payments & escrow, KYC/AML, and investor accreditation.  CrowdEngine ' +
+      'increases speed to market and compliance while reducing startup costs.',
+  },
+  {
+    id: 41,
+    cat: 5,
+    title: 'SeriesOne',
+    logo: '/providers/tokensale/seriesone.png',
+    background: '/providers/tokensale/bg/img-seriesone.png',
+    desc:
+      'SeriesOne is a financial technology company designed to liberate corporate finance from the big banks and corporate ' +
+      'elites that have historically dominated the space. What this means for businesses and entrepreneurs is access to ' +
+      'capital they’ve never had before. It means giving investors access to investment opportunities, particularly in ' +
+      'innovative private companies, that they’ve never had before. And it means expanding financing and transaction ' +
+      'options for both. seriesOne enables businesses and entrepreneurs to raise money through digital securities which ' +
+      'are issued on a blockchain, as well as through traditional equity and debt securities. seriesOne also allows ' +
+      'investors to transfer funds in the way that works best for them: via cryptocurrencies as well as ACH or wire transfers. ' +
+      'All of this is financing unchained—a new world of freedom and opportunity for businesses, entrepreneurs, and investors. ' +
+      'This is seriesOne.',
   },
 ];
 
