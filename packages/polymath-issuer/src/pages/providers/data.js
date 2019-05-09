@@ -71,9 +71,9 @@ export const categories: Array<SPCategory> = [
     id: 5,
     title: 'Token Sale Platform',
     desc:
-      "Apply for Custody services for the funds you raised and/or your investors' " +
-      'security tokens to be held for safekeeping and minimize the risk of theft or loss. Alternatively, ' +
-      'you and/or your Investors can elect to self custody funds and security tokens.',
+      'Token Sale Platforms offer end-to-end Investor on-boarding services, allowing Issuers to ' +
+      'focus on their businesses rather than the technical integration details. Services typically ' +
+      'include KYC/AML/Accreditation, escrow, and fund collection (crypto and/or fiat), and token distribution.',
   },
 ];
 
