@@ -334,19 +334,6 @@ const providers: Array<ServiceProvider> = [
       'Gibraltar their home for their wide range of DLT-based businesses.',
   },
   {
-    id: 35,
-    cat: 1,
-    title: 'Sum & Substance',
-    logo: '/providers/legal/sumsub.png',
-    background: '/providers/legal/bg/img-sumsub.png',
-    desc:
-      'Sumsub is one answer to all onboarding and compliance challenges.\n\nSumsub AI-based solution automates identity ' +
-      'verification and antifraud, as well as provides bank-grade KYC (including STOs), KYB, KYT compliance, AML screening, ' +
-      'customer data storage to protect and enable regulated businesses online. 97% hit rate and strong legal expertise put ' +
-      'Sumsub among the leading players of the market. The company was founded in 2015 with the headquarter in London, ' +
-      'United Kingdom. \n\nThe company was incorporated in 2015 and is headquartered in London, United Kingdom.',
-  },
-  {
     id: 37,
     cat: 1,
     title: 'L&Y Law',
@@ -471,6 +458,19 @@ const providers: Array<ServiceProvider> = [
       '\nOur solutions can be fully integrated with partner sites for seamless user ' +
       'experience and can be customized to provide deeper levels of information beyond basic compliance requirements to ' +
       'facilitate vetting and curating deal flow by the partners.',
+  },
+  {
+    id: 35,
+    cat: 2,
+    title: 'Sum & Substance',
+    logo: '/providers/kyc/sumsub.png',
+    background: '/providers/kyc/bg/img-sumsub.png',
+    desc:
+      'Sumsub is one answer to all onboarding and compliance challenges.\n\nSumsub AI-based solution automates identity ' +
+      'verification and antifraud, as well as provides bank-grade KYC (including STOs), KYB, KYT compliance, AML screening, ' +
+      'customer data storage to protect and enable regulated businesses online. 97% hit rate and strong legal expertise put ' +
+      'Sumsub among the leading players of the market. The company was founded in 2015 with the headquarter in London, ' +
+      'United Kingdom. \n\nThe company was incorporated in 2015 and is headquartered in London, United Kingdom.',
   },
   {
     id: 36,
