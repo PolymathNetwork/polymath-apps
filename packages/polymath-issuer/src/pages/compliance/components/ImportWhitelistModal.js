@@ -107,7 +107,8 @@ class ImportWhitelistModal extends Component<Props> {
         <Modal.Header>Import Whitelist</Modal.Header>
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
-          .CSV file. The format should be as follows:
+          .CSV file. <strong>You may add up to 40 addresses per .CSV file</strong>. The
+          format should be as follows:
           <br />• ETH Address (address to whitelist);
           <br />• Sell Restriction Date: <strong>mm/dd/yyyy</strong> (date when
           the resale restrictions should be lifted for that address);
