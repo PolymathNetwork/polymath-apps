@@ -83,7 +83,7 @@ class TierModal extends Component {
   render() {
     const {
       field: { name, value },
-      form: { values },
+      form: { errors, values },
       ticker,
       isOpen,
       onClose,
@@ -104,6 +104,7 @@ class TierModal extends Component {
         onClose={onClose}
         actionButtonText={tierData ? `Save` : `Add new`}
         onSubmit={tierData ? this.handleOnEdit : this.handleOnAdd}
+        isActionDisabled={!!get(errors, name)}
         maxWidth={740}
       >
         <ActionModal.Header>
