@@ -118,7 +118,7 @@ class TierModal extends Component {
             token. Provide the necessary information below to add a new
             investment tier.
           </Paragraph>
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+          <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={4}>
             <FormItem name={`${name}.tokensAmount`}>
               <FormItem.Label>
                 <Tooltip triggerText="Number of tokens">
