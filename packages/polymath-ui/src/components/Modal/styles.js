@@ -74,6 +74,9 @@ export const modalStyle = css`
 
   // TODO @grsmto: remove hack once we refactored ConfirmModal Redux actions:
   // the action should not pass an hardcoded class name
+  &.pui-confirm-modal .pui-modal {
+    width: 500px;
+  }
   &.pui-large-confirm-modal .pui-modal {
     width: 700px;
   }
