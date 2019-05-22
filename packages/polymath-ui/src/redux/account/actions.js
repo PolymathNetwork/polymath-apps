@@ -368,6 +368,18 @@ export const faucet = (message: string, amount?: number = 100500) => async (
           &raquo; button below to receive {thousandsDelimiter(amount)} test POLY
           in your wallet.
         </p>
+        <p>
+          To receive your Kovan Testnet POLY, you’ll need a supply of KETH
+          (Kovan Testnet ETH) to pay for gas fees. To receive your KETH,{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/kovan-testnet/faucet#kovan-faucet"
+          >
+            click here
+          </a>{' '}
+          and follow the steps to receive your KETH.
+        </p>
         <br />
         <Remark title="Note">
           This option is not available on the Mainnet.
@@ -394,7 +406,7 @@ export const faucet = (message: string, amount?: number = 100500) => async (
       },
       title,
       buttonLabel,
-      '',
+      'pui-large-confirm-modal',
       headerLabel
     )
   );
