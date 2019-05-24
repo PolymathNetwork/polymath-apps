@@ -271,7 +271,7 @@ class MintTokens extends Component<Props> {
             <br />• Number of tokens to mint for the ETH address (integer).
             <br />
             <Remark title="Note">
-              40 is the maximum number of addresses per transaction.
+              Your file cannot exceed 40 addresses. If you have more than 40 addresses on your whitelist, upload multiple files.
             </Remark>
           </h4>
           <h5 className="pui-h5">

@@ -83,7 +83,7 @@ class TierModal extends Component {
   render() {
     const {
       field: { name, value },
-      form: { values },
+      form: { errors, values },
       ticker,
       isOpen,
       onClose,
@@ -104,6 +104,7 @@ class TierModal extends Component {
         onClose={onClose}
         actionButtonText={tierData ? `Save` : `Add new`}
         onSubmit={tierData ? this.handleOnEdit : this.handleOnAdd}
+        isActionDisabled={!!get(errors, name)}
         maxWidth={740}
       >
         <ActionModal.Header>
@@ -117,7 +118,7 @@ class TierModal extends Component {
             token. Provide the necessary information below to add a new
             investment tier.
           </Paragraph>
-          <Grid gridAutoFlow="column" gridAutoColumns="1fr">
+          <Grid gridAutoFlow="column" gridAutoColumns="1fr" mb={4}>
             <FormItem name={`${name}.tokensAmount`}>
               <FormItem.Label>
                 <Tooltip triggerText="Number of tokens">
