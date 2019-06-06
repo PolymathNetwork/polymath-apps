@@ -222,23 +222,6 @@ const providers: Array<ServiceProvider> = [
       'best practices.',
   },
   {
-    id: 18,
-    cat: 1,
-    title: 'Security Token Lawyers',
-    logo: '/providers/legal/STL.png',
-    background: '/providers/legal/bg/img-stlawyers.png',
-    desc:
-      'Security Token Lawyers is a partnership between US and Israeli legal experts.  We advise security ' +
-      'token issuers, exchanges and investors, bringing extensive securities and funds experience in the US and ' +
-      'Israel, a deep understanding of the technology and creativity and innovation to build a new type of ' +
-      'asset class in a new mark. Our counseling includes various regulatory matters, including compliance ' +
-      'with securities, privacy and AML/KYC. We are deeply connected within the international security token ' +
-      'ecosystem, including issuance platforms, exchanges, service providers and beyond.  This allows us to ' +
-      'help our clients through the entire process of a security token offering, from initial structuring ' +
-      'through issuance and closing and then beyond to exchange listing and trading. We are also very involved ' +
-      'Tel Aviv, Israel, with our New York office set to open in September 2018.',
-  },
-  {
     id: 19,
     cat: 1,
     title: 'Aird & Berlis',
