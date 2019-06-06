@@ -201,6 +201,49 @@ const providers: Array<ServiceProvider> = [
       'life cycle, from early-stage startups raising funds to build new blockchain technologies to Fortune 100 companies ' +
       'implementing blockchain-based solutions. For more information, please email us Scott Thiel at Scott.Thiel@dlapiper.com',
   },
+  {
+    id: 43,
+    cat: 0,
+    title: 'Afilexion Alliance',
+    logo: '/providers/advisory/afilexion.png',
+    background: '/providers/advisory/afilexion.png',
+    desc:
+      'Afilexion Alliance provides advisory and legal services for the technology sector, ensuring that any \
+    legal and regulatory issues where technology and innovation are involved are covered. Its services include the handling of \
+    the legal and regulatory criteria of Security Token Offerings (STOs), and of any licensable activity under traditional \
+    financial services legislation. The company also services its gaming clients by offering one of the most comprehensive \
+    advisory and support services portfolio for regulators and law makers, tech operators, telecoms, platform providers, \
+    affiliates, exchanges, and service providers to the IT, telecoms, media, fintech, gaming, blockchain and cryptocurrency \
+    sectors. The company is authorised to act as a Corporate Services Provider in Malta offering legal, corporate and accountancy \
+    services for the incorporation, redomiciliation and maintenance of companies in Malta. \
+    \n\n Afilexion is a sister company to law firm GTG Advocates and to Caledo VFA which is authorised by the MFSA \
+    to act as a VFA Agent for companies seeking to conduct an ICO in or from Malta or to get a licence for cryptocurrency \
+    related activities.',
+  },
+  {
+    id: 44,
+    cat: 0,
+    title: 'DLT Capital',
+    logo: '/providers/advisory/dltcapital.png',
+    background: '/providers/advisory/dltcapital.png',
+    desc:
+      'DLT Capital is an international blockchain and STO consultancy. The multi-skilled team is composed of industry \
+    specialists with vast knowledge in STOs, traditional finance, blockchain programming, VC, Fintech and other related fields. \
+    \n\nOur consultants and advisors are well - connected amongst investors, technical hubs and blockchain players internationally \
+    and see a local stronghold in Europe and Asia, where DLT Capital is positioned directly.We work closely together with a \
+    large number of institutions, business partners and research centers to provide ideal services to our clients.',
+  },
+  {
+    id: 46,
+    cat: 0,
+    title: 'BCW',
+    logo: '/providers/advisory/bcw.png',
+    background: '/providers/advisory/bcw.png',
+    desc:
+      'Business Model Design, Digital Asset Metrics/Design, Strategy Consulting, Brand Strategy, Due Diligence Documentation, \
+    Global Payments Processing, KYC/AML Forensics, KYC/AML Engine, Custody Services, OTC Services, Insurance Services, Legal Services, \
+    Tax Services, Liquidity Trading Technology Services, Prime Brokerage Services',
+  },
 
   // LEGAL
   {
@@ -329,6 +372,19 @@ const providers: Array<ServiceProvider> = [
       'Tech Startups, Fund Formation, Intellectual Properties, Dispute Resolution/Arbitration, SFC Investigation, Data ' +
       'Protection, Privacy & Security, Competition Matters, General Commercial Matters, Escrow Services and Company ' +
       'Secretarial Services.',
+  },
+  {
+    id: 47,
+    cat: 1,
+    title: 'AMT',
+    logo: '/providers/legal/amt.jpg',
+    background: '/providers/legal/amt.jpg',
+    desc:
+      'As a leading law firm in the field of corporate legal services in Japan for decades, we have the premier crypto assets \
+    practice as well as one of the most highly-rated capital markets practices in Japan.  Our services will include (i) legal advice \
+    regarding Japanese financial regulations on STOs, (ii) preparation of legal documentation that will be required to comply \
+    therewith, (iii) legal advice about matters to be reflected in programs used for STOs in the Japanese market in accordance with \
+    Japanese laws and regulations, and (iv) the full scope of related legal services to effectively provide (i), (ii) and (iii) above.',
   },
 
   // KYC/AML
@@ -466,6 +522,17 @@ const providers: Array<ServiceProvider> = [
       'Blockchain and biometrically-based, “Always On” KYC / AML validation and verification process. KABN ID supports Polymath ' +
       'issuers to validate and verify identity and support investor qualification review.',
   },
+  {
+    id: 42,
+    cat: 2,
+    title: 'Blockpass',
+    logo: '/providers/kyc/blockpass.png',
+    background: '/providers/kyc/blockpass.png',
+    desc:
+      'Blockpass is a leading RegTech and Compliance business which provides digital identity verification (KYC) as a service. \
+    Through its vast network of partners, Blockpass is creating an ecosystem of pre-verified customers for easy and seamless customer onboarding \
+    for any regulated business and industry.',
+  },
 
   // MARKETING
   {
@@ -536,6 +603,22 @@ const providers: Array<ServiceProvider> = [
       'Headquartered in Singapore, Onchain Custodian (ONC) offers a global, standardised, resilient and compliant ' +
       'custody service for the safekeeping of institutional digital asset investments with incomparable user ' +
       "experience. ONC's solution is built with flexibility to meet the possible futures of crypto custody.",
+  },
+  {
+    id: 45,
+    cat: 4,
+    title: 'Davos Custody',
+    logo: '/providers/custody/davoscustody.png',
+    background: '/providers/custody/davoscustody.png',
+    desc:
+      'DAVOS Custody is a qualified third-party custodian for digital and tangible assets, including cryptocurrencies, \
+    with tailored insurance coverages available. Founded by a team of experts in fund management, cybersecurity, and financial \
+    regulation, DAVOS was the first blockchain company to apply for the Capital Market Services license for Securities Custody in \
+    Singapore. \n\nClients of DAVOS retain full legal and beneficial title to the digital assets and securities in custody, and \
+    the custodian only acts on instructions from the client. DAVOS can hold most of the large-cap crypto assets, including ERC, \
+    Stellar and EOS tokens in safe custody, and provide additional services including NAV calculation, collateral management, \
+    wallet balancing and clearing of stablecoin trades. DAVOS operations are designed according to ISO 27001 standard and located \
+    in a high-security vault in Singapore. ',
   },
 
   // TOKEN SALE PLATFORMS
