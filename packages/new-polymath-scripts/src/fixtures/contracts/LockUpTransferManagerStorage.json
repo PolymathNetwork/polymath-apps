@@ -1,0 +1,36 @@
+{
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "lockups",
+      "outputs": [
+        {
+          "name": "lockupAmount",
+          "type": "uint256"
+        },
+        {
+          "name": "startTime",
+          "type": "uint256"
+        },
+        {
+          "name": "lockUpPeriodSeconds",
+          "type": "uint256"
+        },
+        {
+          "name": "releaseFrequencySeconds",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "networks": {}
+}

@@ -1,0 +1,59 @@
+{
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "implementation",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x5c60da1b"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_implementation",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor",
+      "signature": "constructor"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_securityToken",
+          "type": "address"
+        }
+      ],
+      "name": "generateDataStore",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x9422866c"
+    }
+  ],
+  "networks": {
+    "15": {
+      "events": {},
+      "links": {},
+      "address": "0xBd2c938B9F6Bfc1A66368D08CB44dC3EB2aE27bE",
+      "transactionHash": "0x0646a9643bad514c16ba632f8b1462c99a8fee22c9fed5d605f54023964d6006"
+    }
+  }
+}
