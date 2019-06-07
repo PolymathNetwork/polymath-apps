@@ -206,7 +206,7 @@ const providers: Array<ServiceProvider> = [
     cat: 0,
     title: 'Afilexion Alliance',
     logo: '/providers/advisory/afilexion.png',
-    background: '/providers/advisory/afilexion.png',
+    background: '/providers/advisory/bg/img-afilexion.png',
     desc:
       'Afilexion Alliance provides advisory and legal services for the technology sector, ensuring that any \
     legal and regulatory issues where technology and innovation are involved are covered. Its services include the handling of \
@@ -224,8 +224,8 @@ const providers: Array<ServiceProvider> = [
     id: 44,
     cat: 0,
     title: 'DLT Capital',
-    logo: '/providers/advisory/dltcapital.png',
-    background: '/providers/advisory/dltcapital.png',
+    logo: '/providers/advisory/dlt-capital.png',
+    background: '/providers/advisory/bg/img-dlt-capital.png',
     desc:
       'DLT Capital is an international blockchain and STO consultancy. The multi-skilled team is composed of industry \
     specialists with vast knowledge in STOs, traditional finance, blockchain programming, VC, Fintech and other related fields. \
@@ -238,7 +238,7 @@ const providers: Array<ServiceProvider> = [
     cat: 0,
     title: 'BCW',
     logo: '/providers/advisory/bcw.png',
-    background: '/providers/advisory/bcw.png',
+    background: '/providers/advisory/bg/img-bcw.png',
     desc:
       'Business Model Design, Digital Asset Metrics/Design, Strategy Consulting, Brand Strategy, Due Diligence Documentation, \
     Global Payments Processing, KYC/AML Forensics, KYC/AML Engine, Custody Services, OTC Services, Insurance Services, Legal Services, \
@@ -377,8 +377,8 @@ const providers: Array<ServiceProvider> = [
     id: 47,
     cat: 1,
     title: 'AMT',
-    logo: '/providers/legal/amt.jpg',
-    background: '/providers/legal/amt.jpg',
+    logo: '/providers/legal/anderson-mori.png',
+    background: '/providers/legal/bg/img-anderson-mori.png',
     desc:
       'As a leading law firm in the field of corporate legal services in Japan for decades, we have the premier crypto assets \
     practice as well as one of the most highly-rated capital markets practices in Japan.  Our services will include (i) legal advice \
@@ -527,7 +527,7 @@ const providers: Array<ServiceProvider> = [
     cat: 2,
     title: 'Blockpass',
     logo: '/providers/kyc/blockpass.png',
-    background: '/providers/kyc/blockpass.png',
+    background: '/providers/kyc/bg/img-blockpass.png',
     desc:
       'Blockpass is a leading RegTech and Compliance business which provides digital identity verification (KYC) as a service. \
     Through its vast network of partners, Blockpass is creating an ecosystem of pre-verified customers for easy and seamless customer onboarding \
@@ -608,8 +608,8 @@ const providers: Array<ServiceProvider> = [
     id: 45,
     cat: 4,
     title: 'Davos Custody',
-    logo: '/providers/custody/davoscustody.png',
-    background: '/providers/custody/davoscustody.png',
+    logo: '/providers/custody/davos.png',
+    background: '/providers/custody/bg/img-davos.png',
     desc:
       'DAVOS Custody is a qualified third-party custodian for digital and tangible assets, including cryptocurrencies, \
     with tailored insurance coverages available. Founded by a team of experts in fund management, cybersecurity, and financial \
