@@ -92,7 +92,7 @@ async function seedData(dataFile) {
   const PolymathRegistryArtifact = require('../fixtures/contracts/PolymathRegistry.json');
   const SecurityTokenRegistryArtifact = require('../fixtures/contracts/SecurityTokenRegistry.json');
   const PolyTokenFaucetArtifact = require('../fixtures/contracts/PolyTokenFaucet.json');
-  const SecurityTokenArtifact = require('../fixtures/contracts/SecurityToken.json');
+  const SecurityTokenArtifact = require('../fixtures/contracts/ISecurityToken.json');
   const GeneralTransferManagerArtifact = require('../fixtures/contracts/GeneralTransferManager.json');
 
   const PolymathRegistry = new web3.eth.Contract(

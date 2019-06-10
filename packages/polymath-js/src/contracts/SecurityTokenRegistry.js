@@ -1,7 +1,7 @@
 // @flow
 
 import BigNumber from 'bignumber.js';
-import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityTokenRegistry.json';
 
 import Contract from './Contract';
 import SecurityTokenContract from './SecurityToken';
@@ -136,7 +136,9 @@ class SecurityTokenRegistry extends Contract {
         token.name,
         token.ticker,
         token.details || '',
-        token.isDivisible
+        token.isDivisible,
+        this.account,
+        0 // if _protocolVersion == 0 then latest version of securityToken will be generated
       ),
       null,
       1.05,

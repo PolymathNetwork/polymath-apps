@@ -1,6 +1,6 @@
 // @flow
 
-import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityToken.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
 import moduleFactoryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import BigNumber from 'bignumber.js';
 

@@ -11,8 +11,8 @@ import logger from 'winston';
 import Web3 from 'web3';
 import { User } from '../models';
 import PolymathRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json';
-import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
-import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityToken.json';
+import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityTokenRegistry.json';
+import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
 import CappedSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
 import STOModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import USDTieredSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
@@ -438,7 +438,7 @@ export const registerTickerHandler = async (
  * @param {string} networkId id of the network to which this listener will be set
  */
 export const addTickerRegisterListener = async (networkId: string) => {
-  const contract = await getSTRContract(networkId);
+  const contract = await getSTRContract(networkId, false);
 
   contract.events.RegisterTicker({}, (error, result) =>
     registerTickerHandler(contract, networkId, error, result)
@@ -506,7 +506,7 @@ export const newSecurityTokenHandler = async (
  * @param {string} networkId id of the network to which this listener will be set
  */
 export const addTokenCreateListener = async (networkId: string) => {
-  const contract = await getSTRContract(networkId);
+  const contract = await getSTRContract(networkId, false);
 
   contract.events.NewSecurityToken({}, (error, result) =>
     newSecurityTokenHandler(contract, networkId, error, result)
@@ -524,7 +524,7 @@ export const addTokenCreateListener = async (networkId: string) => {
  * @param {string} networkId id of the network to which we will set the listeners
  */
 export const addSTOListeners = async (networkId: string) => {
-  const contract = await getSTRContract(networkId);
+  const contract = await getSTRContract(networkId, false);
   try {
     const previousTokenEvents = await contract.getPastEvents(
       'NewSecurityToken',

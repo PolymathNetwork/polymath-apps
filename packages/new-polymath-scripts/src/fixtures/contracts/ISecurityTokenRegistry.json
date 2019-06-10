@@ -536,6 +536,429 @@
       "payable": false,
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Pause",
+      "type": "event",
+      "signature": "0x5ee71a369c8672edded508e624ffc9257fa1ae6886ef32905c18e60196bca399"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpause",
+      "type": "event",
+      "signature": "0xaeb196d352664784d1900b0e7414a8face7d29f4dae8c4b0cf68ed477423bbf4"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_removedBy",
+          "type": "address"
+        }
+      ],
+      "name": "TickerRemoved",
+      "type": "event",
+      "signature": "0x9cf1be7eab8a674ff140d6ff508e301aa09860f9f7c8354db4bdc85fe8da6a2d"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_oldExpiry",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_newExpiry",
+          "type": "uint256"
+        }
+      ],
+      "name": "ChangeExpiryLimit",
+      "type": "event",
+      "signature": "0x7e1cc0e69ee3b84fb62bbb71687d2565bbb8ad1771bb3e3cd15cbed424c833c8"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_oldFee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_newFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "ChangeSecurityLaunchFee",
+      "type": "event",
+      "signature": "0x082ce758ae1784abd031015a0eac6700b941db0797e890ae7c4d326a5f8255c0"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_oldFee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_newFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "ChangeTickerRegistrationFee",
+      "type": "event",
+      "signature": "0x788dceb058391de5648d0deb9187656f8c46d3ee285c1077579adf642793f1f6"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_isFeeInPoly",
+          "type": "bool"
+        }
+      ],
+      "name": "ChangeFeeCurrency",
+      "type": "event",
+      "signature": "0x103d09c9ed33b1fba54990b33aeb93b42f957ef1bcea350e5ba6103213e375be"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event",
+      "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "_oldOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "ChangeTickerOwnership",
+      "type": "event",
+      "signature": "0x44ee9de70a04c2a46889521de8968f79b4ae423f078fbaec8c492d821154729c"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "_securityTokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_addedAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_registrant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_fromAdmin",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "_usdFee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_polyFee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_protocolVersion",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewSecurityTokenCreated",
+      "type": "event",
+      "signature": "0x641d4bfde0cee7c0d2ae73a08fe76339794caeab51493e9a3ab8ee4a8add18d1"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "_securityTokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_addedAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_registrant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_fromAdmin",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "_registrationFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewSecurityToken",
+      "type": "event",
+      "signature": "0x63d9fb58b25a396dc2ebc591bec9115d1eb9c722dd6cdfcc9be4144d39dc2c26"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "_registrationDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "_expiryDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_fromAdmin",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "_registrationFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "RegisterTicker",
+      "type": "event",
+      "signature": "0x2de60ed106ca2007f575a4a2ff327cdde9bf801386463689ccb784d8bd468562"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "_securityTokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_addedAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_registrant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_protocolVersion",
+          "type": "uint256"
+        }
+      ],
+      "name": "SecurityTokenRefreshed",
+      "type": "event",
+      "signature": "0xc7a825c502b5a99358e9ec1e69b7f437c96e8a390c18f23ad3aab1646b4ea923"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_STFactory",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_major",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "_minor",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "_patch",
+          "type": "uint8"
+        }
+      ],
+      "name": "ProtocolFactorySet",
+      "type": "event",
+      "signature": "0xff11f4313e25ec84748c64ef99baabff83b721e936e589effb745613302f3969"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_major",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "_minor",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "_patch",
+          "type": "uint8"
+        }
+      ],
+      "name": "LatestVersionSet",
+      "type": "event",
+      "signature": "0x9ab8e90191e448bebe0ce6be95b1f847fa9c711d9b27c284222a421caa8f0dc0"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_STFactory",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_major",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "_minor",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "_patch",
+          "type": "uint8"
+        }
+      ],
+      "name": "ProtocolFactoryRemoved",
+      "type": "event",
+      "signature": "0xd2a114f6c16a1bc2f027fda85bc9ac1b584a91dbd658eb295e09ed1b7b1b9bd7"
     }
   ],
   "networks": {}
