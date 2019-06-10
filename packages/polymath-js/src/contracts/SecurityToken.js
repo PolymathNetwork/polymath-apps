@@ -1,9 +1,11 @@
 // @flow
 
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken-2.x.json';
+
 import moduleFactoryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import BigNumber from 'bignumber.js';
-
+import semver from 'semver';
 import Contract from './Contract';
 import PermissionManager from './PermissionManager';
 import TransferManager from './TransferManager';
@@ -23,9 +25,12 @@ const MODULE_TYPES = {
 };
 
 const MINTED_EVENT = 'Minted';
+const ISSUED_EVENT = 'Issued';
+const LATEST_VERSION = '3.0.0';
 
 export default class SecurityToken extends Contract {
   decimals: number = 18;
+  version: number = 3;
 
   owner: () => Promise<Address>;
   name: () => Promise<string>;
@@ -38,12 +43,27 @@ export default class SecurityToken extends Contract {
   unfreezeTransfers: () => Promise<Web3Receipt>;
   updateTokenDetails: (newTokenDetails: string) => Promise<Web3Receipt>;
 
-  constructor(at: Address) {
+  constructor(at: Address, artifact?: any = artifact) {
     super(artifact, at);
   }
 
-  async securityTokenVersion(): Promise<string> {
-    return this._toAscii(await this._methods.securityTokenVersion().call());
+  /**
+   * This is a factory function that instanciates an ST object with its corresponding  artifacts.
+   */
+  static async create(at: Address): Promise<SecurityToken> {
+    let temp = new SecurityToken(at);
+    const version = await temp.getVersion();
+    if (semver.lt(version, LATEST_VERSION)) {
+      temp = new SecurityToken(at, artifact2);
+      temp.version = 2;
+      return temp;
+    }
+    return temp;
+  }
+
+  async getVersion(): Promise<string> {
+    const versionArray = await this._methods.getVersion().call();
+    return versionArray.join('.');
   }
 
   addDecimals(n: number | BigNumber): Promise<BigNumber> {
@@ -58,6 +78,8 @@ export default class SecurityToken extends Contract {
     return Number(await this.granularity()) === 1;
   }
 
+  // @NOTE this is not backward compatible with poly-core 3.x, but it's not being used execpt
+  // for in investors portal, which is obsolete.
   async verifyTransfer(
     from: Address,
     to: Address,
@@ -77,8 +99,18 @@ export default class SecurityToken extends Contract {
     return this._tx(this._methods.mint(investor, this.addDecimals(amount)));
   }
 
+  async issue(investor: Address, amount: BigNumber): Promise<Web3Receipt> {
+    if (this.version === 2) return this.mint(...arguments);
+    return this._tx(this._methods.mint(investor, this.addDecimals(amount)));
+  }
+
   async burn(amount: BigNumber): Promise<Web3Receipt> {
     return this._tx(this._methods.burn(this.addDecimals(amount)));
+  }
+
+  async redeem(amount: BigNumber): Promise<Web3Receipt> {
+    if (this.version === 2) return this.burn(...arguments);
+    return this._tx(this._methods.redeem(this.addDecimals(amount)));
   }
 
   async getModuleByName(name: string): Promise<Address> {
@@ -162,7 +194,22 @@ export default class SecurityToken extends Contract {
     for (let amount of amounts) {
       amountsFinal.push(this.addDecimals(amount));
     }
+
     return this._tx(this._methods.mintMulti(addresses, amountsFinal));
+  }
+
+  async issueMulti(
+    addresses: Array<Address>,
+    amounts: Array<number | BigNumber>
+  ): Promise<Web3Receipt> {
+    if (this.version === 2) return this.mintMulti(...arguments);
+
+    const amountsFinal = [];
+    for (let amount of amounts) {
+      amountsFinal.push(this.addDecimals(amount));
+    }
+
+    return this._tx(this._methods.issueMulti(addresses, amountsFinal));
   }
 
   async getMinted(): Promise<Array<Investor>> {
@@ -170,7 +217,8 @@ export default class SecurityToken extends Contract {
     const tm = await this.getTransferManager();
     const investors = await tm.getWhitelist(true);
 
-    const events = await this._contractWS.getPastEvents(MINTED_EVENT, {
+    const eventName = this.version === 2 ? MINTED_EVENT : ISSUED_EVENT;
+    const events = await this._contractWS.getPastEvents(eventName, {
       fromBlock: 0,
       toBlock: 'latest',
     });

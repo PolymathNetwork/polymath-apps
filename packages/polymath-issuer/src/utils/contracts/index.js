@@ -187,7 +187,7 @@ function encodeCappedSTOSetupCall(params: CappedSTOParams) {
 }
 
 export async function getTokenSTO(tokenAddress: string) {
-  const securityToken = new SecurityToken(tokenAddress);
+  const securityToken = await SecurityToken.create(tokenAddress);
 
   const [stoAddress] = await securityToken._methods
     .getModulesByType(MODULE_TYPES.STO)
@@ -348,7 +348,7 @@ export async function setupUSDTieredSTOModule(
     usdToken: configValues.usdTokenAddress,
   };
 
-  const securityToken = new SecurityToken(tokenAddress);
+  const securityToken = SecurityToken.new(tokenAddress);
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
 
   await securityToken._tx(
@@ -381,7 +381,7 @@ export async function setupCappedSTOModule(
 
   const isLegacySTO = configValues.legacy;
 
-  const securityToken = new SecurityToken(tokenAddress);
+  const securityToken = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeCappedSTOSetupCall(encodeParams);
 
   await securityToken._tx(

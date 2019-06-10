@@ -102,7 +102,7 @@ class SecurityTokenRegistry extends Contract {
     };
     if (details.status) {
       token.address = await this.getSecurityTokenAddress(ticker);
-      const contract = new SecurityTokenContract(token.address);
+      const contract = SecurityTokenContract.create(token.address);
       token.contract = contract;
       token.details = await contract.tokenDetails();
       token.isDivisible = await contract.isDivisible();

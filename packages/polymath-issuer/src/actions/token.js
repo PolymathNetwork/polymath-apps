@@ -88,6 +88,11 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
       });
 
       // $FlowFixMe
+      token.contract.subscribe('FreezeIssuance', {}, event => {
+        dispatch(mintingFrozen(true));
+      });
+
+      // $FlowFixMe
       token.contract.subscribe('FreezeTransfers', {}, event => {
         // eslint-disable-next-line
         dispatch({
@@ -411,7 +416,7 @@ export const mintTokens = () => async (
           addresses.push(investor.address);
         } // $FlowFixMe
 
-        await token.contract.mintMulti(addresses, uploadedTokens);
+        await token.contract.issueMulti(addresses, uploadedTokens);
       },
       'Tokens were successfully minted',
       () => {
