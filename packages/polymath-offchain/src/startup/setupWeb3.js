@@ -438,7 +438,7 @@ export const registerTickerHandler = async (
  * @param {string} networkId id of the network to which this listener will be set
  */
 export const addTickerRegisterListener = async (networkId: string) => {
-  const contract = await getSTRContract(networkId, false);
+  const contract = await getSTRContract(networkId);
 
   contract.events.RegisterTicker({}, (error, result) =>
     registerTickerHandler(contract, networkId, error, result)
@@ -506,9 +506,14 @@ export const newSecurityTokenHandler = async (
  * @param {string} networkId id of the network to which this listener will be set
  */
 export const addTokenCreateListener = async (networkId: string) => {
-  const contract = await getSTRContract(networkId, false);
+  const contract = await getSTRContract(networkId);
 
   contract.events.NewSecurityToken({}, (error, result) =>
+    newSecurityTokenHandler(contract, networkId, error, result)
+  );
+
+  // 3.x ST creation event.
+  contract.events.NewSecurityTokenCreated({}, (error, result) =>
     newSecurityTokenHandler(contract, networkId, error, result)
   );
 
@@ -524,15 +529,26 @@ export const addTokenCreateListener = async (networkId: string) => {
  * @param {string} networkId id of the network to which we will set the listeners
  */
 export const addSTOListeners = async (networkId: string) => {
-  const contract = await getSTRContract(networkId, false);
+  const contract = await getSTRContract(networkId);
   try {
-    const previousTokenEvents = await contract.getPastEvents(
+    const previousTokenEvents2 = await contract.getPastEvents(
       'NewSecurityToken',
       {
         fromBlock: 0,
         toBlock: 'latest',
       }
     );
+    const previousTokenEvents3 = await contract.getPastEvents(
+      'NewSecurityTokenCreated',
+      {
+        fromBlock: 0,
+        toBlock: 'latest',
+      }
+    );
+    const previousTokenEvents = [
+      ...previousTokenEvents2,
+      ...previousTokenEvents3,
+    ];
 
     for (let event of previousTokenEvents) {
       const {
