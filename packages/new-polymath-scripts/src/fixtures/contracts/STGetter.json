@@ -1,0 +1,964 @@
+{
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x06fdde03"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initialized",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x158ef93e"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "holderCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x1aab9a9f"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getterDelegate",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x2fb3b99d"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "decimals",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x313ce567"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "_totalSupply",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x3eaaf86b"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "currentCheckpointId",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x5488cc80"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "granularity",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x556f0dc7"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "dataStore",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x660d0d67"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "UNLOCKED",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x6c2f0d53"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "_balances",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x6ebcf607"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "polyToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x6faa22a5"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "polymathRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x77282b70"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "controllerDisabled",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x7a802c71"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x95d89b41"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "LOCKED",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa1422f69"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "_owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb2bdfa7b"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "moduleRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb95459e4"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "_allowed",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xba0fb861"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "securityTokenRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xce4dbdff"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenDetails",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xd6abe110"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "transfersFrozen",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xe45b8134"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenFactory",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xe77772fe"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "controller",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xf77c4791"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isIssuable",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x2f1cae85"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCheckpointTimes",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x4c6041d3"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInvestorCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x960524e3"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInvestors",
+      "outputs": [
+        {
+          "name": "investors",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb2f5a54c"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInvestorsAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x3f553586"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        },
+        {
+          "name": "_start",
+          "type": "uint256"
+        },
+        {
+          "name": "_end",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInvestorsSubsetAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xabe191c1"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_module",
+          "type": "address"
+        }
+      ],
+      "name": "getModule",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "name": "",
+          "type": "uint8[]"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb5de8d4c"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getModulesByName",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x764387bd"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_type",
+          "type": "uint8"
+        }
+      ],
+      "name": "getModulesByType",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xac90b422"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getTreasuryWallet",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x2c035b74"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_investor",
+          "type": "address"
+        },
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "balanceOfAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x4ee2cd7e"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "totalSupplyAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x981b24d0"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_start",
+          "type": "uint256"
+        },
+        {
+          "name": "_end",
+          "type": "uint256"
+        }
+      ],
+      "name": "iterateInvestors",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x3052eed8"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_delegate",
+          "type": "address"
+        },
+        {
+          "name": "_module",
+          "type": "address"
+        },
+        {
+          "name": "_perm",
+          "type": "bytes32"
+        }
+      ],
+      "name": "checkPermission",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x8658b8b9"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "name": "_tokenHolder",
+          "type": "address"
+        }
+      ],
+      "name": "isOperator",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb6363cf2"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_partition",
+          "type": "bytes32"
+        },
+        {
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "name": "_tokenHolder",
+          "type": "address"
+        }
+      ],
+      "name": "isOperatorForPartition",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x6d77cad6"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_tokenHolder",
+          "type": "address"
+        }
+      ],
+      "name": "partitionsOf",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x740ab8f4"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getVersion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x0d8e6e2c"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getDocument",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb10d6b41"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getAllDocuments",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x9fa5f50b"
+    }
+  ],
+  "networks": {
+    "15": {
+      "events": {
+        "0xedc6007cc44783a48ceb845386592c8d22e6e21f3acd887104ba49340ae8cc5d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleUpgraded",
+          "type": "event",
+          "signature": "0xedc6007cc44783a48ceb845386592c8d22e6e21f3acd887104ba49340ae8cc5d"
+        },
+        "0x78914da53c30c0667830d562877caed5c20adc645b8557fa64336c22a9b8ece6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleArchived",
+          "type": "event",
+          "signature": "0x78914da53c30c0667830d562877caed5c20adc645b8557fa64336c22a9b8ece6"
+        },
+        "0xe69e438aa3b4b943ac4c807820403a6e5815b8fbb7fccfac629fce87ff6d430d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleUnarchived",
+          "type": "event",
+          "signature": "0xe69e438aa3b4b943ac4c807820403a6e5815b8fbb7fccfac629fce87ff6d430d"
+        },
+        "0xf4e9f735975718dce0ac83fb73f88a1b19a48186af0f6348c04c6229eb4b86a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleRemoved",
+          "type": "event",
+          "signature": "0xf4e9f735975718dce0ac83fb73f88a1b19a48186af0f6348c04c6229eb4b86a0"
+        },
+        "0xa00a1c33ebb7433724919cb1059328c16265f935ef84a13442045da3e81c0ccc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_moduleTypes",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_oldBudget",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "_budget",
+              "type": "uint256"
+            }
+          ],
+          "name": "ModuleBudgetChanged",
+          "type": "event",
+          "signature": "0xa00a1c33ebb7433724919cb1059328c16265f935ef84a13442045da3e81c0ccc"
+        },
+        "0xb4c22d60cd550a815744f04e3ff5278bf19684565ee00e2b084041b6024bd6f6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_name",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "_uri",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "_documentHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "DocumentUpdated",
+          "type": "event",
+          "signature": "0xb4c22d60cd550a815744f04e3ff5278bf19684565ee00e2b084041b6024bd6f6"
+        },
+        "0x3d9bba27d3e360d8c80645beed7e991454a8271bf6f269a24f7782be0f0d0654": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_name",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "_uri",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "_documentHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "DocumentRemoved",
+          "type": "event",
+          "signature": "0x3d9bba27d3e360d8c80645beed7e991454a8271bf6f269a24f7782be0f0d0654"
+        }
+      },
+      "links": {
+        "TokenLib": "0x30753E4A8aad7F8597332E813735Def5dD395028"
+      },
+      "address": "0xcfeD223fAb2A41b5a5a5F9AaAe2D1e882cb6Fe2D",
+      "transactionHash": "0x3035a855befde9bccf5f386c6ed4d1dfbe79ea209d2289bf4fbccb40216f4c40"
+    }
+  }
+}
