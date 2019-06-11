@@ -205,7 +205,7 @@ export async function getTokenSTO(tokenAddress: string) {
     IModuleFactoryArtifacts.abi,
     factoryAddress
   );
-  const nameRes = await GenericModuleFactory.methods.getName().call();
+  const nameRes = await GenericModuleFactory.methods.name().call();
   const type: STOModuleType = Web3.utils.hexToUtf8(nameRes);
 
   let sto;
@@ -254,7 +254,7 @@ export async function getSTOModule(address: string) {
   );
 
   // Create a generic contract instance using the IModuleFactory abi
-  const nameRes = await GenericModuleFactory.methods.getName().call();
+  const nameRes = await GenericModuleFactory.methods.name().call();
   const type = Web3.utils.hexToUtf8(nameRes);
 
   const ModuleFactory = await getSTOModuleFactoryContract(type, address);
@@ -348,7 +348,7 @@ export async function setupUSDTieredSTOModule(
     usdToken: configValues.usdTokenAddress,
   };
 
-  const securityToken = SecurityToken.new(tokenAddress);
+  const securityToken = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
 
   await securityToken._tx(

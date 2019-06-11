@@ -219,7 +219,9 @@ export default class SecurityToken extends Contract {
     const tm = await this.getTransferManager();
     const investors = await tm.getWhitelist(true);
 
-    const eventName = this.version === 2 ? MINTED_EVENT : ISSUED_EVENT;
+    const eventName = semver.lt(this.version, LATEST_PROTOCOL_VERSION)
+      ? MINTED_EVENT
+      : ISSUED_EVENT;
     const events = await this._contractWS.getPastEvents(eventName, {
       fromBlock: 0,
       toBlock: 'latest',
@@ -250,6 +252,7 @@ export default class SecurityToken extends Contract {
   }
 
   async getModuleFactory(name: string, type: number) {
+    // NOTE: getModulesByTypeAndToken will return a module factory that's compatible with the token in hands.
     let availableModules = await ModuleRegistry._methods
       .getModulesByTypeAndToken(type, this.address)
       .call();
@@ -349,6 +352,8 @@ export default class SecurityToken extends Contract {
     );
   }
 
+  // @FIXME this function should be adding a USDTiered module instead of Capped. However,
+  // it's not used any where.
   async setUSDTieredSTO(): Promise<Web3Receipt> {
     const cappedSTOFactory = await this.getModuleFactory(
       'CappedSTO',

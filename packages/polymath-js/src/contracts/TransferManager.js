@@ -27,7 +27,7 @@ export default class TransferManager extends Contract {
     super(artifact, at);
   }
 
-  _mapLogsToInvestors(logs: Array<object>): Array<Investor> {
+  _mapLogsToInvestors(logs: Array<{}>): Array<Investor> {
     const investors = [];
     for (let i = 0; i < logs.length; i++) {
       const found = investors.some((el, index, array) => {
