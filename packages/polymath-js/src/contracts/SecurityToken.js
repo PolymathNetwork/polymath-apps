@@ -16,6 +16,7 @@ import IModuleFactory from './IModuleFactory';
 import PolyToken from './PolyToken';
 import STO, { FUNDRAISE_ETH, FUNDRAISE_POLY } from './STO';
 import type { Address, Web3Receipt, Investor } from '../types';
+import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 const MODULE_TYPES = {
   PERMISSION: 1,
@@ -26,11 +27,9 @@ const MODULE_TYPES = {
 
 const MINTED_EVENT = 'Minted';
 const ISSUED_EVENT = 'Issued';
-const LATEST_VERSION = '3.0.0';
 
 export default class SecurityToken extends Contract {
   decimals: number = 18;
-  version: number = 3;
 
   owner: () => Promise<Address>;
   name: () => Promise<string>;
@@ -48,14 +47,14 @@ export default class SecurityToken extends Contract {
   }
 
   /**
-   * This is a factory function that instanciates an ST object with its corresponding  artifacts.
+   * This is a factory function that instanciates an ST object with its corresponding, version-specific artifacts.
    */
   static async create(at: Address): Promise<SecurityToken> {
     let temp = new SecurityToken(at);
     const version = await temp.getVersion();
-    if (semver.lt(version, LATEST_VERSION)) {
+    temp.version = version;
+    if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
       temp = new SecurityToken(at, artifact2);
-      temp.version = 2;
       return temp;
     }
     return temp;
@@ -100,7 +99,8 @@ export default class SecurityToken extends Contract {
   }
 
   async issue(investor: Address, amount: BigNumber): Promise<Web3Receipt> {
-    if (this.version === 2) return this.mint(...arguments);
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.mint(...arguments);
     return this._tx(this._methods.mint(investor, this.addDecimals(amount)));
   }
 
@@ -109,7 +109,8 @@ export default class SecurityToken extends Contract {
   }
 
   async redeem(amount: BigNumber): Promise<Web3Receipt> {
-    if (this.version === 2) return this.burn(...arguments);
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.burn(...arguments);
     return this._tx(this._methods.redeem(this.addDecimals(amount)));
   }
 
@@ -126,7 +127,7 @@ export default class SecurityToken extends Contract {
   async getPermissionManager(): Promise<?PermissionManager> {
     try {
       const address = await this.getModuleByName('GeneralPermissionManager');
-      return new PermissionManager(address);
+      return new PermissionManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -202,7 +203,8 @@ export default class SecurityToken extends Contract {
     addresses: Array<Address>,
     amounts: Array<number | BigNumber>
   ): Promise<Web3Receipt> {
-    if (this.version === 2) return this.mintMulti(...arguments);
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.mintMulti(...arguments);
 
     const amountsFinal = [];
     for (let amount of amounts) {

@@ -1,6 +1,7 @@
 // @flow
 import BigNumber from 'bignumber.js';
 import { LOCAL_NETWORK_ID } from '@polymathnetwork/shared/constants';
+import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import type {
   NetworkParams,
@@ -20,6 +21,7 @@ export default class Contract {
   _contractWS: Web3Contract;
   _methods: Object;
   address: Address;
+  version: string = LATEST_PROTOCOL_VERSION;
 
   constructor(artifact: Artifact, at?: Address, artifactTestnet?: Artifact) {
     this._artifact = artifact;
