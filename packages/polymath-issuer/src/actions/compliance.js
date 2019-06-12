@@ -189,7 +189,7 @@ export const importWhitelist = () => async (
             }
           });
 
-          await sto.contract.changeAccredited(statusAddresses, statusValues);
+          await transferManager.changeAccredited(statusAddresses, statusValues);
 
           await sto.contract.changeNonAccreditedLimit(
             limitAddresses,
