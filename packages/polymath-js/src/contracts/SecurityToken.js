@@ -30,6 +30,7 @@ const ISSUED_EVENT = 'Issued';
 
 export default class SecurityToken extends Contract {
   decimals: number = 18;
+  version: string = LATEST_PROTOCOL_VERSION;
 
   owner: () => Promise<Address>;
   name: () => Promise<string>;
@@ -41,6 +42,7 @@ export default class SecurityToken extends Contract {
   freezeTransfers: () => Promise<Web3Receipt>;
   unfreezeTransfers: () => Promise<Web3Receipt>;
   updateTokenDetails: (newTokenDetails: string) => Promise<Web3Receipt>;
+  getTransferManager: () => Promise<TransferManager>;
 
   constructor(at: Address, artifact?: any = artifact) {
     super(artifact, at);

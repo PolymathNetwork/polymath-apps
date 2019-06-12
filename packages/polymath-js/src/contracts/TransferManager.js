@@ -99,6 +99,15 @@ export default class TransferManager extends Contract {
     );
   }
 
+  async changeAccredited(addresses: string[], values: boolean[]) {
+    const flags = Array(addresses.length).fill(0); // 0 = isAccredited
+    return this._tx(
+      this._methods.modifyInvestorFlagMulti(addresses, flags, values),
+      null,
+      2
+    );
+  }
+
   async modifyWhitelistMulti(investors: Array<Investor>): Promise<Web3Receipt> {
     const addresses: Array<string> = [];
     const fromTimes: Array<number> = [];

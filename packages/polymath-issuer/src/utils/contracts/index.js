@@ -210,7 +210,7 @@ export async function getTokenSTO(tokenAddress: string) {
 
   let sto;
   if (type === 'USDTieredSTO') {
-    sto = new USDTieredSTO(stoAddress);
+    sto = new USDTieredSTO(stoAddress, securityToken.version, securityToken);
   }
   if (type === 'CappedSTO') {
     sto = new STO(stoAddress, securityToken);
