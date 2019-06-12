@@ -44,8 +44,8 @@ export default class SecurityToken extends Contract {
   updateTokenDetails: (newTokenDetails: string) => Promise<Web3Receipt>;
   getTransferManager: () => Promise<TransferManager>;
 
-  constructor(at: Address, artifact?: any = artifact) {
-    super(artifact, at);
+  constructor(at: Address, art?: any = artifact) {
+    super(art, at);
   }
 
   /**
@@ -73,6 +73,10 @@ export default class SecurityToken extends Contract {
 
   removeDecimals(n: number | BigNumber): Promise<BigNumber> {
     return new BigNumber(n).div(new BigNumber(10).toPower(this.decimals));
+  }
+
+  async tokenDetails(): Promise<string> {
+    return this._methods.tokenDetails().call();
   }
 
   async isDivisible(): Promise<boolean> {

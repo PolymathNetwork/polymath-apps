@@ -67,6 +67,21 @@
       "signature": "0x4f5dc3feea8c186b1481cfe57c28df8871a61e3be16f7d65c60504cfd6344067"
     },
     {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenDetails",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xd6abe110"
+    },
+    {
       "anonymous": false,
       "inputs": [
         {

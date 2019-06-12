@@ -102,7 +102,7 @@ class SecurityTokenRegistry extends Contract {
     };
     if (details.status) {
       token.address = await this.getSecurityTokenAddress(ticker);
-      const contract = SecurityTokenContract.create(token.address);
+      const contract = await SecurityTokenContract.create(token.address);
       token.contract = contract;
       token.details = await contract.tokenDetails();
       token.isDivisible = await contract.isDivisible();
@@ -132,7 +132,7 @@ class SecurityTokenRegistry extends Contract {
       await PolyToken.approve(this.address, fee);
     }
     return await this._tx(
-      this._methods.generateSecurityToken(
+      this._methods.generateNewSecurityToken(
         token.name,
         token.ticker,
         token.details || '',
