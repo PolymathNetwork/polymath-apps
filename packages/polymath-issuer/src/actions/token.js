@@ -77,9 +77,7 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
         );
       }
       // $FlowFixMe
-      const isMintingFrozen = await token.contract._methods
-        .mintingFrozen()
-        .call();
+      const isMintingFrozen = await token.isIssuable();
       dispatch(mintingFrozen(isMintingFrozen));
 
       // $FlowFixMe

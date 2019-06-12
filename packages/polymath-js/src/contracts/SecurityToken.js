@@ -100,6 +100,17 @@ export default class SecurityToken extends Contract {
       .call();
   }
 
+  async mintingFrozen(): Promise<boolean> {
+    return this._methods.mintingFrozen().call();
+  }
+
+  async isIssuable(): Promise<boolean> {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.mintingFrozen();
+
+    return this.isIssuable().call();
+  }
+
   async mint(investor: Address, amount: BigNumber): Promise<Web3Receipt> {
     return this._tx(this._methods.mint(investor, this.addDecimals(amount)));
   }
