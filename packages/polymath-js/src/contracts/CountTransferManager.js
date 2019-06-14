@@ -15,13 +15,15 @@ export default class CountTransferManager extends Contract {
   pause: () => Promise<Web3Receipt>;
   unpause: () => Promise<Web3Receipt>;
 
+  version: string = LATEST_PROTOCOL_VERSION;
   constructor(at: Address, version?: string = LATEST_PROTOCOL_VERSION) {
-    if (semver.lt(version)) {
+    if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
       super(artifact2, at);
       return;
+    } else {
+      super(artifact, at);
     }
-
-    super(artifact, at);
+    version = version;
   }
 
   async changeHolderCount(count: number): Promise<Web3Receipt> {

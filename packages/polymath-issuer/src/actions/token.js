@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import semver from 'semver';
 import Contract, {
   PolyToken,
   SecurityTokenRegistry,
@@ -25,6 +26,7 @@ import type {
 // TODO @grsmto: This file shouldn't contain any React components as this is just triggering Redux actions. Consider moving them as separated component files.
 import { fetch as fetchSTO } from './sto';
 import { PERMANENT_LOCKUP_TS } from './compliance';
+import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import type { GetState } from '../redux/reducer';
 import type { ExtractReturn } from '../redux/helpers';
@@ -77,16 +79,15 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
         );
       }
       // $FlowFixMe
-      const isMintingFrozen = await token.isIssuable();
+      const isMintingFrozen = !(await token.contract.isIssuable());
       dispatch(mintingFrozen(isMintingFrozen));
 
       // $FlowFixMe
-      token.contract.subscribe('FreezeMinting', {}, event => {
-        dispatch(mintingFrozen(true));
-      });
+      let FREEZE_ISSUANCE = 'FreezeIssuance';
+      if (semver.lt(token.contract.version, LATEST_PROTOCOL_VERSION))
+        FREEZE_ISSUANCE = 'FreezeMinting';
 
-      // $FlowFixMe
-      token.contract.subscribe('FreezeIssuance', {}, event => {
+      token.contract.subscribe(FREEZE_ISSUANCE, {}, event => {
         dispatch(mintingFrozen(true));
       });
 
@@ -408,7 +409,7 @@ export const mintTokens = () => async (
     ui.tx(
       ['Whitelisting Addresses', 'Minting Tokens'],
       async () => {
-        await transferManager.modifyWhitelistMulti(uploaded, false);
+        await transferManager.modifyKYCDataMulti(uploaded);
         const addresses: Array<Address> = [];
         for (let investor: Investor of uploaded) {
           addresses.push(investor.address);

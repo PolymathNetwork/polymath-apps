@@ -23,7 +23,7 @@ export default class USDTieredSTO {
   address: string;
   contract: Object;
   wsContract: Object;
-  securityToken: SecurityToken;
+  token: SecurityToken;
   legacyContractInstance: {
     _tx: (method: Object) => Promise<Object>,
   };
@@ -31,7 +31,7 @@ export default class USDTieredSTO {
   constructor(
     address: string,
     version?: string = LATEST_PROTOCOL_VERSION,
-    securityToken: SecurityToken
+    token: SecurityToken
   ) {
     const web3Client = Contract._params.web3;
     const web3WsClient = Contract._params.web3WS;
@@ -47,7 +47,7 @@ export default class USDTieredSTO {
     this.contract = new web3Client.eth.Contract(artifacts.abi, address);
     this.wsContract = new web3WsClient.eth.Contract(artifacts.abi, address);
     this.address = address;
-    this.securityToken = securityToken;
+    this.token = token;
   }
 
   async getPurchases() {
@@ -120,7 +120,7 @@ export default class USDTieredSTO {
         1.15
       );
     } else {
-      const tm = await this.securityToken.getTransferManager();
+      const tm = await this.token.contract.getTransferManager();
       await tm.changeAccredited(addresses, statuses);
     }
   }

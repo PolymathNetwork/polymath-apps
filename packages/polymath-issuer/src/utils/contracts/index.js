@@ -15,7 +15,7 @@ import Contract, {
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import IModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/IModuleFactory.json';
-import ISTOArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISTO.json';
+import STOArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/STO.json';
 
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../../constants';
 import USDTieredSTO from './USDTieredSTO';
@@ -198,7 +198,7 @@ export async function getTokenSTO(tokenAddress: string) {
   }
 
   const web3Client = Contract._params.web3;
-  const GenericSTO = new web3Client.eth.Contract(ISTOArtifacts.abi, stoAddress);
+  const GenericSTO = new web3Client.eth.Contract(STOArtifacts.abi, stoAddress);
 
   const factoryAddress = await GenericSTO.methods.factory().call();
   const GenericModuleFactory = new web3Client.eth.Contract(
@@ -348,16 +348,15 @@ export async function setupUSDTieredSTOModule(
     usdToken: configValues.usdTokenAddress,
   };
 
-  const securityToken = await SecurityToken.create(tokenAddress);
+  const token = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
 
-  await securityToken._tx(
-    securityToken._methods.addModule(
-      address,
-      encodedFunctionCall,
-      toWei(setupCost),
-      0
-    )
+  await token.addModule(
+    address,
+    encodedFunctionCall,
+    toWei(setupCost),
+    0,
+    false
   );
 }
 
@@ -381,15 +380,14 @@ export async function setupCappedSTOModule(
 
   const isLegacySTO = configValues.legacy;
 
-  const securityToken = await SecurityToken.create(tokenAddress);
+  const token = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeCappedSTOSetupCall(encodeParams);
 
-  await securityToken._tx(
-    securityToken._methods.addModule(
-      isLegacySTO ? '0xA4A24780b93a378eB25eC4bFbf93BC8e79D7EeEb' : address,
-      encodedFunctionCall,
-      toWei(setupCost),
-      0
-    )
+  await token.addModule(
+    isLegacySTO ? '0xA4A24780b93a378eB25eC4bFbf93BC8e79D7EeEb' : address,
+    encodedFunctionCall,
+    toWei(setupCost),
+    0,
+    false
   );
 }

@@ -42,7 +42,6 @@ export default class SecurityToken extends Contract {
   freezeTransfers: () => Promise<Web3Receipt>;
   unfreezeTransfers: () => Promise<Web3Receipt>;
   updateTokenDetails: (newTokenDetails: string) => Promise<Web3Receipt>;
-  getTransferManager: () => Promise<TransferManager>;
 
   constructor(at: Address, art?: any = artifact) {
     super(art, at);
@@ -52,7 +51,7 @@ export default class SecurityToken extends Contract {
    * This is a factory function that instanciates an ST object with its corresponding, version-specific artifacts.
    */
   static async create(at: Address): Promise<SecurityToken> {
-    let temp = new SecurityToken(at);
+    let temp = new SecurityToken(at, artifact);
     const version = await temp.getVersion();
     temp.version = version;
     if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
@@ -108,7 +107,7 @@ export default class SecurityToken extends Contract {
     if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
       return this.mintingFrozen();
 
-    return this.isIssuable().call();
+    return this._methods.isIssuable().call();
   }
 
   async mint(investor: Address, amount: BigNumber): Promise<Web3Receipt> {
@@ -153,7 +152,7 @@ export default class SecurityToken extends Contract {
   async getTransferManager(): Promise<?TransferManager> {
     try {
       const address = await this.getModuleByName('GeneralTransferManager');
-      return new TransferManager(address);
+      return new TransferManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -171,7 +170,7 @@ export default class SecurityToken extends Contract {
   async getCountTM(): Promise<?CountTransferManager> {
     try {
       const address = await this.getModuleByName('CountTransferManager');
-      return new CountTransferManager(address);
+      return new CountTransferManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -268,6 +267,23 @@ export default class SecurityToken extends Contract {
     return result;
   }
 
+  async addModule(
+    address: string,
+    data: string,
+    maxCost: number,
+    budget: number,
+    isArchived: boolean = false
+  ) {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return await this._tx(
+        this._methods.addModule(address, data, maxCost, budget)
+      );
+
+    return await this._tx(
+      this._methods.addModule(address, data, maxCost, budget, isArchived)
+    );
+  }
+
   async getModuleFactory(name: string, type: number) {
     // NOTE: getModulesByTypeAndToken will return a module factory that's compatible with the token in hands.
     let availableModules = await ModuleRegistry._methods
@@ -357,15 +373,11 @@ export default class SecurityToken extends Contract {
         fundsReceiver,
       ]
     );
-    return this._tx(
-      this._methods.addModule(
-        cappedSTOFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      ),
-      null,
-      1.05
+    return this.addModule(
+      cappedSTOFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
     );
   }
 
@@ -418,15 +430,12 @@ export default class SecurityToken extends Contract {
         fundsReceiver,
       ]
     );
-    return this._tx(
-      this._methods.addModule(
-        cappedSTOFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      ),
-      null,
-      1.05
+    return this.addModule(
+      cappedSTOFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0,
+      false
     );
   }
 
@@ -453,13 +462,11 @@ export default class SecurityToken extends Contract {
       },
       [PercentageTransferManager.addDecimals(percentage), false]
     );
-    return this._tx(
-      this._methods.addModule(
-        percentageTransferManagerFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      )
+    return this.addModule(
+      percentageTransferManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
     );
   }
 
@@ -482,13 +489,11 @@ export default class SecurityToken extends Contract {
       },
       [count]
     );
-    return this._tx(
-      this._methods.addModule(
-        countTransferManagerFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      )
+    return this.addModule(
+      countTransferManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
     );
   }
 }
