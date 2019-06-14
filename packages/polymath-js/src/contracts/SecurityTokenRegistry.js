@@ -126,7 +126,8 @@ class SecurityTokenRegistry extends Contract {
           toBlock: 'latest',
         }
       );
-      const events = [...events2, events3];
+      const events = [...events2, ...events3];
+
       token.txHash = events[0].transactionHash;
       token.timestamp = await this._getBlockDate(events[0].blockNumber);
     }
