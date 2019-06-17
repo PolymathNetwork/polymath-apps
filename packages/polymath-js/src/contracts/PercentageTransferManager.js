@@ -3,7 +3,7 @@
 import semver from 'semver';
 import BigNumber from 'bignumber.js';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PercentageTransferManager.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/PercentageTransferManager-2.x.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/PercentageTransferManager.json';
 import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import Contract from './Contract';

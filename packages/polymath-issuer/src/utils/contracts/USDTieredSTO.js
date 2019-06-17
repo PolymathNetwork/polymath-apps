@@ -8,7 +8,7 @@ import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 import Contract, { SecurityToken } from '@polymathnetwork/js';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO-2.x.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/USDTieredSTO.json';
 import { FUND_RAISE_TYPES, EVENT_TYPES } from '../../constants';
 import { toWei } from './index';
 import { LATEST_PROTOCOL_VERSION } from '../../constants';

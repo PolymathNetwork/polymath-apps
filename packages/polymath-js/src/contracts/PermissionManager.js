@@ -1,7 +1,7 @@
 // @flow
 import semver from 'semver';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/GeneralPermissionManager.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/GeneralPermissionManager-2.x.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/GeneralPermissionManager.json';
 import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import Contract from './Contract';

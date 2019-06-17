@@ -2,7 +2,8 @@
 
 import semver from 'semver';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CountTransferManager.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/CountTransferManager-2.x.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/CountTransferManager.json';
+
 import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import Contract from './Contract';

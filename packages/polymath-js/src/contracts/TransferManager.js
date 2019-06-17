@@ -2,7 +2,7 @@
 
 import semver from 'semver';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/GeneralTransferManager.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/GeneralTransferManager-2.x.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/GeneralTransferManager.json';
 import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import Contract from './Contract';
