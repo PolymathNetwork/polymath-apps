@@ -157,8 +157,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       factoryAddress,
       configData,
       new BigNumber(0),
-      new BigNumber(0),
-      false
+      new BigNumber(0)
     );
     const options = await getOptions(method, { from: this.context.account });
     return () => method.send(options);
@@ -178,8 +177,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       factoryAddress,
       configData,
       new BigNumber(0),
-      new BigNumber(0),
-      false
+      new BigNumber(0)
     );
     const options = await getOptions(method, { from: this.context.account });
     return () => method.send(options);

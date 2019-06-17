@@ -80,7 +80,8 @@ interface SecurityTokenContract extends GenericContract {
       address: string,
       data: string,
       maxCost: BigNumber,
-      budget: BigNumber
+      budget: BigNumber,
+      isArchived: boolean
     ): TransactionObject<void>;
     controllerTransfer(
       from: string,
