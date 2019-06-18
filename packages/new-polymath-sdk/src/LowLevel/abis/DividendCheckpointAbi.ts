@@ -1,4 +1,4 @@
-// tslint:disable
+// eslint:disable
 export const DividendCheckpointAbi = {
   contractName: 'DividendCheckpoint',
   abi: [

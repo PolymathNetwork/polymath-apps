@@ -1,13 +1,19 @@
 import { Procedure } from './Procedure';
-import { types } from '@polymathnetwork/new-shared';
-import { CreateErc20DividendDistributionProcedureArgs } from '~/types';
-import { Approve } from '~/procedures/Approve';
+import {
+  CreateErc20DividendDistributionProcedureArgs,
+  ProcedureTypes,
+  PolyTransactionTags,
+  ErrorCodes,
+} from '../types';
+import { Approve } from '../procedures/Approve';
+import { PolymathError } from '../PolymathError';
 
 export class CreateErc20DividendDistribution extends Procedure<
   CreateErc20DividendDistributionProcedureArgs,
   number
 > {
-  public type = types.ProcedureTypes.CreateErc20DividendDistribution;
+  public type = ProcedureTypes.CreateErc20DividendDistribution;
+
   public async prepareTransactions() {
     const {
       symbol,
@@ -25,6 +31,14 @@ export class CreateErc20DividendDistribution extends Procedure<
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
     });
+
+    if (!securityToken) {
+      throw new PolymathError({
+        code: ErrorCodes.ProcedureValidationError,
+        message: `There is no Security Token with symbol ${symbol}`,
+      });
+    }
+
     const erc20Module = await securityToken.getErc20DividendModule();
 
     if (!erc20Module) {
@@ -39,29 +53,26 @@ export class CreateErc20DividendDistribution extends Procedure<
       tokenAddress: erc20Address,
     });
 
-    const dividendIndex = await this.addTransaction(
-      erc20Module.createDividend,
-      {
-        tag: types.PolyTransactionTags.CreateErc20DividendDistribution,
-        // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
-        // the contract-wrappers package
-        resolver: async receipt => {
-          const { events } = receipt;
+    const dividendIndex = await this.addTransaction(erc20Module.createDividend, {
+      tag: PolyTransactionTags.CreateErc20DividendDistribution,
+      // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
+      // the contract-wrappers package
+      resolver: async receipt => {
+        const { events } = receipt;
 
-          if (events) {
-            const { ERC20DividendDeposited } = events;
+        if (events) {
+          const { ERC20DividendDeposited } = events;
 
-            const {
-              _dividendIndex,
-            }: {
-              _dividendIndex: string;
-            } = ERC20DividendDeposited.returnValues;
+          const {
+            _dividendIndex,
+          }: {
+            _dividendIndex: string;
+          } = ERC20DividendDeposited.returnValues;
 
-            return parseInt(_dividendIndex, 10);
-          }
-        },
-      }
-    )({
+          return parseInt(_dividendIndex, 10);
+        }
+      },
+    })({
       maturityDate,
       expiryDate,
       tokenAddress: erc20Address,
@@ -81,7 +92,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       });
 
       await this.addTransaction(erc20Module.setWithholding, {
-        tag: types.PolyTransactionTags.SetErc20TaxWithholding,
+        tag: PolyTransactionTags.SetErc20TaxWithholding,
       })({ investors, percentages });
     }
 

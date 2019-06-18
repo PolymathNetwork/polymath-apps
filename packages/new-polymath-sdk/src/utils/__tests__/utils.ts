@@ -1,6 +1,6 @@
-import { serialize } from '../index';
+import { serialize, unserialize } from '../index';
 
-describe('serialize', () => {
+describe('serialize and unserialize', () => {
   const entityType = 'someEntity';
 
   const pojo1 = {
@@ -17,16 +17,19 @@ describe('serialize', () => {
     baz: 'baz',
   };
 
-  test('prefixes the unique id with the provided entity type', () => {
-    expect(serialize(entityType, pojo1)).toMatch(new RegExp(`^${entityType}:`));
+  test('serialize returns the same unique id for the same pojo', () => {
+    expect(serialize(entityType, pojo1)).toBe(serialize(entityType, pojo1));
+    expect(serialize(entityType, pojo1)).toBe(
+      serialize(entityType, inversePojo1)
+    );
   });
 
-  test('returns the same unique id for the same pojo', () => {
-    expect(serialize('', pojo1)).toBe(serialize('', pojo1));
-    expect(serialize('', pojo1)).toBe(serialize('', inversePojo1));
+  test('serialize returns a different unique id for different pojos', () => {
+    expect(serialize(entityType, pojo1)).not.toBe(serialize(entityType, pojo2));
   });
 
-  test('returns a different unique id for different pojos', () => {
-    expect(serialize('', pojo1)).not.toBe(serialize('', pojo2));
+  test('unserialize recovers the serialized object', () => {
+    expect(unserialize(serialize(entityType, pojo1))).toEqual(pojo1);
+    expect(unserialize(serialize(entityType, inversePojo1))).toEqual(pojo1);
   });
 });

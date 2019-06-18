@@ -1,12 +1,16 @@
 import { Procedure } from './Procedure';
-import { DividendModuleTypes } from '~/LowLevel/types';
-import { types as sharedTypes } from '@polymathnetwork/new-shared';
-import { EnableDividendModulesProcedureArgs } from '~/types';
+import { DividendModuleTypes } from '../LowLevel/types';
+import {
+  EnableDividendModulesProcedureArgs,
+  ProcedureTypes,
+  PolyTransactionTags,
+  ErrorCodes,
+} from '../types';
+import { PolymathError } from '../PolymathError';
 
-export class EnableDividendModules extends Procedure<
-  EnableDividendModulesProcedureArgs
-> {
-  public type = sharedTypes.ProcedureTypes.EnableDividendModules;
+export class EnableDividendModules extends Procedure<EnableDividendModulesProcedureArgs> {
+  public type = ProcedureTypes.EnableDividendModules;
+
   public async prepareTransactions() {
     const {
       symbol,
@@ -19,9 +23,16 @@ export class EnableDividendModules extends Procedure<
       ticker: symbol,
     });
 
+    if (!securityToken) {
+      throw new PolymathError({
+        code: ErrorCodes.ProcedureValidationError,
+        message: `There is no Security Token with symbol ${symbol}`,
+      });
+    }
+
     for (const type of types) {
       await this.addTransaction(securityToken.addDividendsModule, {
-        tag: sharedTypes.PolyTransactionTags.EnableDividends,
+        tag: PolyTransactionTags.EnableDividends,
       })({ type, wallet: storageWalletAddress });
     }
   }

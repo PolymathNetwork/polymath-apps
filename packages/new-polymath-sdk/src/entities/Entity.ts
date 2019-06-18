@@ -1,4 +1,4 @@
-import { Polymath } from '~/Polymath';
+import { Polymath } from '../Polymath';
 
 export abstract class Entity {
   public abstract uid: string;

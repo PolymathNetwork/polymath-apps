@@ -19,14 +19,7 @@ import {
 
 import { SecurityTokenAbi } from './2.0.0.abi';
 import { Context } from '../LowLevel';
-import {
-  fromUnixTimestamp,
-  fromWei,
-  getOptions,
-  toWei,
-  toAscii,
-  asciiToHex,
-} from '../utils';
+import { fromUnixTimestamp, fromWei, getOptions, toWei, toAscii, asciiToHex } from '../utils';
 import { Erc20DividendCheckpoint } from '../Erc20DividendCheckpoint';
 import { EtherDividendCheckpoint } from '../EtherDividendCheckpoint';
 import { DividendCheckpointAbi } from '../abis/DividendCheckpointAbi';
@@ -70,10 +63,7 @@ interface SecurityTokenContract extends GenericContract {
     getCheckpointTimes(): TransactionObject<string[]>;
     totalSupplyAt(checkpointId: number): TransactionObject<string>;
     balanceOf(address: string): TransactionObject<string>;
-    balanceOfAt(
-      investorAddress: string,
-      checkpointId: number
-    ): TransactionObject<string>;
+    balanceOfAt(investorAddress: string, checkpointId: number): TransactionObject<string>;
     getInvestorsAt(checkpointId: number): TransactionObject<string[]>;
     currentCheckpointId(): TransactionObject<string>;
     addModule(
@@ -116,43 +106,32 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public async currentCheckpointId() {
-    const currentCheckpointId = await this.contract.methods
-      .currentCheckpointId()
-      .call();
+    const currentCheckpointId = await this.contract.methods.currentCheckpointId().call();
 
     return parseInt(currentCheckpointId, 10);
   }
 
-  public addDividendsModule = async ({
-    type,
-    wallet,
-  }: AddDividendsModuleArgs) => {
+  public addDividendsModule = async ({ type, wallet }: AddDividendsModuleArgs) => {
     const factoryMappings = {
       [DividendModuleTypes.Erc20]: 'ERC20DividendCheckpoint',
       [DividendModuleTypes.Eth]: 'EtherDividendCheckpoint',
     };
 
-    const factoryAddress = await this.context.moduleRegistry.getModuleFactoryAddress(
-      {
-        moduleName: factoryMappings[type],
-        moduleType: ModuleTypes.Dividends,
-        tokenAddress: this.address,
-      }
-    );
+    const factoryAddress = await this.context.moduleRegistry.getModuleFactoryAddress({
+      moduleName: factoryMappings[type],
+      moduleType: ModuleTypes.Dividends,
+      tokenAddress: this.address,
+    });
 
     const configFunctionAbi = DividendCheckpointAbi.abi.find(
       prop => prop.name === 'configure' && prop.type === 'function'
     );
 
     if (!configFunctionAbi) {
-      throw new Error(
-        'Corrupt DividendCheckpoint ABI. No "configure" function found.'
-      );
+      throw new Error('Corrupt DividendCheckpoint ABI. No "configure" function found.');
     }
 
-    const configData = web3.eth.abi.encodeFunctionCall(configFunctionAbi, [
-      wallet,
-    ]);
+    const configData = web3.eth.abi.encodeFunctionCall(configFunctionAbi, [wallet]);
     const method = this.contract.methods.addModule(
       factoryAddress,
       configData,
@@ -164,13 +143,11 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   };
 
   public addGeneralPermissionManager = async () => {
-    const factoryAddress = await this.context.moduleRegistry.getModuleFactoryAddress(
-      {
-        moduleName: 'GeneralPermissionManager',
-        moduleType: ModuleTypes.Permission,
-        tokenAddress: this.address,
-      }
-    );
+    const factoryAddress = await this.context.moduleRegistry.getModuleFactoryAddress({
+      moduleName: 'GeneralPermissionManager',
+      moduleType: ModuleTypes.Permission,
+      tokenAddress: this.address,
+    });
 
     const configData = web3.utils.asciiToHex('');
     const method = this.contract.methods.addModule(
@@ -193,13 +170,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     data = asciiToHex(data);
     log = asciiToHex(log);
     value = toWei(value);
-    const method = this.contract.methods.forceTransfer(
-      from,
-      to,
-      value,
-      data,
-      log
-    );
+    const method = this.contract.methods.forceTransfer(from, to, value, data, log);
     const options = await getOptions(method, { from: this.context.account });
     return () => method.send(options);
   };
@@ -282,16 +253,12 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
   /**
    * Given STO module type and address, this function will return a generic, LowLevel Sto object.
    */
-  public getStoModule = async ({
-    address,
-  }: GetStoModuleArgs): Promise<Sto | null> => {
+  public getStoModule = async ({ address }: GetStoModuleArgs): Promise<Sto | null> => {
     const { context } = this;
     const { methods } = this.contract;
-    const {
-      0: moduleNameHex,
-      1: moduleAddress,
-      3: isArchived,
-    } = await methods.getModule(address).call();
+    const { 0: moduleNameHex, 1: moduleAddress, 3: isArchived } = await methods
+      .getModule(address)
+      .call();
 
     if (moduleAddress === ZERO_ADDRESS) {
       throw new PolymathError({
@@ -356,9 +323,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     return this.contract.methods.getVersion().call();
   };
 
-  private async getFirstUnarchivedModuleAddress({
-    name,
-  }: GetFirstUnarchivedModuleAddressArgs) {
+  private async getFirstUnarchivedModuleAddress({ name }: GetFirstUnarchivedModuleAddressArgs) {
     const hexName = asciiToHex(name);
     const { methods } = this.contract;
     const moduleAddresses = await methods.getModulesByName(hexName).call();
@@ -374,9 +339,7 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
     return null;
   }
 
-  private async getUnarchivedModuleAddresses({
-    name,
-  }: GetUnarchivedModuleAddressesArgs) {
+  private async getUnarchivedModuleAddresses({ name }: GetUnarchivedModuleAddressesArgs) {
     const hexName = asciiToHex(name);
     const { methods } = this.contract;
     const moduleAddresses = await methods.getModulesByName(hexName).call();

@@ -1,10 +1,9 @@
-import { types } from '@polymathnetwork/new-shared';
-import { PolyToken } from '~/LowLevel/PolyToken';
-import { PolymathRegistry } from '~/LowLevel/PolymathRegistry';
-import { SecurityTokenRegistry } from '~/LowLevel/SecurityTokenRegistry';
-import { ModuleRegistry } from '~/LowLevel/ModuleRegistry';
-import { Erc20 } from '~/LowLevel/Erc20';
-import { Wallet } from '~/Wallet';
+import { PolyToken } from './LowLevel/PolyToken';
+import { PolymathRegistry } from './LowLevel/PolymathRegistry';
+import { SecurityTokenRegistry } from './LowLevel/SecurityTokenRegistry';
+import { ModuleRegistry } from './LowLevel/ModuleRegistry';
+import { Erc20 } from './LowLevel/Erc20';
+import { Wallet } from './Wallet';
 
 interface Params {
   polyToken: PolyToken;
@@ -13,7 +12,7 @@ interface Params {
   moduleRegistry: ModuleRegistry;
   isTestnet: boolean;
   getErc20Token: (args: { address: string }) => Erc20;
-  accountAddress: string;
+  accountAddress?: string;
 }
 
 export class Context {
@@ -22,7 +21,7 @@ export class Context {
   public securityTokenRegistry: SecurityTokenRegistry;
   public moduleRegistry: ModuleRegistry;
   public isTestnet: boolean;
-  public currentWallet: Wallet;
+  public currentWallet?: Wallet;
   public getErc20Token: (args: { address: string }) => Erc20;
   constructor(params: Params) {
     const {
@@ -40,7 +39,9 @@ export class Context {
     this.securityTokenRegistry = securityTokenRegistry;
     this.moduleRegistry = moduleRegistry;
     this.isTestnet = isTestnet;
-    this.currentWallet = new Wallet({ address: accountAddress });
+    if (accountAddress) {
+      this.currentWallet = new Wallet({ address: accountAddress });
+    }
     this.getErc20Token = getErc20Token;
   }
 }

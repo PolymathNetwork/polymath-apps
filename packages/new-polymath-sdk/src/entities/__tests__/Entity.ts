@@ -1,4 +1,4 @@
-import { Entity } from '~/entities/Entity';
+import { Entity } from '../../entities/Entity';
 
 describe('Entity', () => {
   test('throws if polyClient is not passed', () => {

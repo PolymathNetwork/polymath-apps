@@ -1,5 +1,6 @@
 import { getNetworkId } from '../browserUtils';
-import { testUtils, utils } from '@polymathnetwork/new-shared';
+import { delay } from '../utils';
+import { mockEthereumBrowser } from '../testUtils';
 
 describe('browserUtils', () => {
   describe('.getNetworkId', () => {
@@ -9,7 +10,7 @@ describe('browserUtils', () => {
     };
 
     beforeEach(() => {
-      ethereumBrowserMock = testUtils.mockEthereumBrowser({
+      ethereumBrowserMock = mockEthereumBrowser({
         options: {
           networkId: 1,
           loaded: false,
@@ -23,13 +24,13 @@ describe('browserUtils', () => {
       promise.then(spy);
 
       // Force asyncrony
-      await utils.delay(0);
+      await delay(0);
 
       expect(spy).not.toHaveBeenCalled();
 
       ethereumBrowserMock.load();
 
-      await utils.delay(150);
+      await delay(150);
 
       expect(spy).toHaveBeenCalledWith(1);
     });

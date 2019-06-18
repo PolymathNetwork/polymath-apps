@@ -1,4 +1,4 @@
-// tslint:disable
+// eslint:disable
 export const ERC20DividendCheckpointAbi = {
   contractName: 'ERC20DividendCheckpoint',
   abi: [
