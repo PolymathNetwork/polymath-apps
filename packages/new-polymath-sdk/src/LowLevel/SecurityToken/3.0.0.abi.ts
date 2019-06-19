@@ -3,6 +3,50 @@ export const SecurityTokenAbi = [
     "anonymous": false,
     "inputs": [
       {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": false,
         "name": "_types",
         "type": "uint8[]"
@@ -44,37 +88,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "ModuleAdded",
-    "type": "event",
-    "signature": "0xfa9cc8faf0fe9bebcaababb6b67c5a679d4fdec88527e4ca823ee0f91e9c0928"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "name",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0x06fdde03"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "owner",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -91,23 +105,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "UpdateTokenDetails",
-    "type": "event",
-    "signature": "0x4f5dc3feea8c186b1481cfe57c28df8871a61e3be16f7d65c60504cfd6344067"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "tokenDetails",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0xd6abe110"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -124,8 +122,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "UpdateTokenName",
-    "type": "event",
-    "signature": "0x99b81fd13cfa16f6b748b388ac4e3059f0d9e1166c6c99b07ff0f4aa308ca43c"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -142,15 +139,13 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "GranularityChanged",
-    "type": "event",
-    "signature": "0x7728e5c461dd94b32a33e149f4ef6b674a7eff704cac77b26937eaced90f0038"
+    "type": "event"
   },
   {
     "anonymous": false,
     "inputs": [],
     "name": "FreezeIssuance",
-    "type": "event",
-    "signature": "0x9ea7d0a14bc31ddf4821c86966910e35bd82b51f74bde7d3704498e0fb92e1f1"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -162,8 +157,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "FreezeTransfers",
-    "type": "event",
-    "signature": "0xac199452244e92d1343195dfad0a5347b229c861e3a8f2fbf08ab519b1d55bc9"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -180,8 +174,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "CheckpointCreated",
-    "type": "event",
-    "signature": "0x624ea167e477f9d39f7f4094b9dfe2e6346eb4a7aada54338db51abd554c4b9f"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -198,8 +191,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "SetController",
-    "type": "event",
-    "signature": "0x9fdb07212c6f92fd298affc4000712177664bc3c4cae5f61098d42da6d05be1e"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -216,15 +208,13 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "TreasuryWalletChanged",
-    "type": "event",
-    "signature": "0x419d718138b0b65d09976f881eed8b8d7075d4b6092f74af0a0ec9b3417cdd12"
+    "type": "event"
   },
   {
     "anonymous": false,
     "inputs": [],
     "name": "DisableController",
-    "type": "event",
-    "signature": "0xf7ec83c37617f91085fc1725f4839e41a03238811eaebd2dbc4a405354cc958e"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -241,8 +231,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "OwnershipTransferred",
-    "type": "event",
-    "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -264,8 +253,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "TokenUpgraded",
-    "type": "event",
-    "signature": "0x23af9b477abf9645be8a074be19ae4a47e11abc43bd1aa47b16de7eb85609302"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -282,8 +270,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "ModuleArchived",
-    "type": "event",
-    "signature": "0x78914da53c30c0667830d562877caed5c20adc645b8557fa64336c22a9b8ece6"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -300,8 +287,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "ModuleUnarchived",
-    "type": "event",
-    "signature": "0xe69e438aa3b4b943ac4c807820403a6e5815b8fbb7fccfac629fce87ff6d430d"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -318,8 +304,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "ModuleRemoved",
-    "type": "event",
-    "signature": "0xf4e9f735975718dce0ac83fb73f88a1b19a48186af0f6348c04c6229eb4b86a0"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -346,8 +331,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "ModuleBudgetChanged",
-    "type": "event",
-    "signature": "0xa00a1c33ebb7433724919cb1059328c16265f935ef84a13442045da3e81c0ccc"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -389,8 +373,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "TransferByPartition",
-    "type": "event",
-    "signature": "0xff4e9a26af4eb73b8bacfaa4abd4fea03d9448e7b912dc5ff4019048875aa2d4"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -407,8 +390,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "AuthorizedOperator",
-    "type": "event",
-    "signature": "0xf4caeb2d6ca8932a215a353d0703c326ec2d81fc68170f320eb2ab49e9df61f9"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -425,8 +407,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "RevokedOperator",
-    "type": "event",
-    "signature": "0x50546e66e5f44d728365dc3908c63bc5cfeeab470722c1677e3073a6ac294aa1"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -448,8 +429,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "AuthorizedOperatorByPartition",
-    "type": "event",
-    "signature": "0x3646a897c70797ecc134b0adc32f471b07bf1d6f451133b0384badab531e3fd6"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -471,8 +451,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "RevokedOperatorByPartition",
-    "type": "event",
-    "signature": "0x3b287c4f1bab4df949b33bceacef984f544dc5d5479930d00e4ee8c9d8dd96f2"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -499,8 +478,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "IssuedByPartition",
-    "type": "event",
-    "signature": "0x6032e2468b0f94dfa63c61d6c8a84842a99c049263eae408a52b945020b6578d"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -537,8 +515,51 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "RedeemedByPartition",
-    "type": "event",
-    "signature": "0xa4f62471c9bdf88115b97203943c74c59b655913ee5ee592706d84ef53fb6be2"
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "_name",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "_uri",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "_documentHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "DocumentRemoved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "_name",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "_uri",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "_documentHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "DocumentUpdated",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -575,8 +596,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "ControllerTransfer",
-    "type": "event",
-    "signature": "0x6bf62b4b9c7b768275122bf70d429efc398a056d669b1efdf6c3976346246d7d"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -608,54 +628,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "ControllerRedemption",
-    "type": "event",
-    "signature": "0x876b7cb47aa150b3a5516188b19ed308752ad4d0ae9a702543353b78163f7589"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "_name",
-        "type": "bytes32"
-      },
-      {
-        "indexed": false,
-        "name": "_uri",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "name": "_documentHash",
-        "type": "bytes32"
-      }
-    ],
-    "name": "DocumentRemoved",
-    "type": "event",
-    "signature": "0x3d9bba27d3e360d8c80645beed7e991454a8271bf6f269a24f7782be0f0d0654"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "_name",
-        "type": "bytes32"
-      },
-      {
-        "indexed": false,
-        "name": "_uri",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "name": "_documentHash",
-        "type": "bytes32"
-      }
-    ],
-    "name": "DocumentUpdated",
-    "type": "event",
-    "signature": "0xb4c22d60cd550a815744f04e3ff5278bf19684565ee00e2b084041b6024bd6f6"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -682,8 +655,7 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "Issued",
-    "type": "event",
-    "signature": "0x0e9905d62635f049c2f4e11678ebf9dc3d1f8c4a653e290759b772e47ba00d00"
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -710,54 +682,35 @@ export const SecurityTokenAbi = [
       }
     ],
     "name": "Redeemed",
-    "type": "event",
-    "signature": "0xb7d0d6b60740753e9f16692a2f479472a1385aec2420fa43225b02f2ffa1afe7"
+    "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    "constant": true,
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
       {
-        "indexed": true,
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "value",
-        "type": "uint256"
+        "name": "",
+        "type": "string"
       }
     ],
-    "name": "Transfer",
-    "type": "event",
-    "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    "constant": true,
+    "inputs": [],
+    "name": "name",
+    "outputs": [
       {
-        "indexed": true,
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "value",
-        "type": "uint256"
+        "name": "",
+        "type": "string"
       }
     ],
-    "name": "Approval",
-    "type": "event",
-    "signature": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "constant": true,
@@ -791,7 +744,7 @@ export const SecurityTokenAbi = [
     "constant": true,
     "inputs": [
       {
-        "name": "_owner",
+        "name": "owner",
         "type": "address"
       }
     ],
@@ -810,11 +763,11 @@ export const SecurityTokenAbi = [
     "constant": true,
     "inputs": [
       {
-        "name": "_owner",
+        "name": "owner",
         "type": "address"
       },
       {
-        "name": "_spender",
+        "name": "spender",
         "type": "address"
       }
     ],
@@ -833,11 +786,11 @@ export const SecurityTokenAbi = [
     "constant": false,
     "inputs": [
       {
-        "name": "_to",
+        "name": "to",
         "type": "address"
       },
       {
-        "name": "_value",
+        "name": "value",
         "type": "uint256"
       }
     ],
@@ -856,15 +809,15 @@ export const SecurityTokenAbi = [
     "constant": false,
     "inputs": [
       {
-        "name": "_from",
+        "name": "from",
         "type": "address"
       },
       {
-        "name": "_to",
+        "name": "to",
         "type": "address"
       },
       {
-        "name": "_value",
+        "name": "value",
         "type": "uint256"
       }
     ],
@@ -883,11 +836,11 @@ export const SecurityTokenAbi = [
     "constant": false,
     "inputs": [
       {
-        "name": "_spender",
+        "name": "spender",
         "type": "address"
       },
       {
-        "name": "_value",
+        "name": "value",
         "type": "uint256"
       }
     ],
@@ -906,15 +859,15 @@ export const SecurityTokenAbi = [
     "constant": false,
     "inputs": [
       {
-        "name": "_spender",
+        "name": "spender",
         "type": "address"
       },
       {
-        "name": "_subtractedValue",
+        "name": "subtractedValue",
         "type": "uint256"
       }
     ],
-    "name": "decreaseApproval",
+    "name": "decreaseAllowance",
     "outputs": [
       {
         "name": "",
@@ -929,15 +882,15 @@ export const SecurityTokenAbi = [
     "constant": false,
     "inputs": [
       {
-        "name": "_spender",
+        "name": "spender",
         "type": "address"
       },
       {
-        "name": "_addedValue",
+        "name": "addedValue",
         "type": "uint256"
       }
     ],
-    "name": "increaseApproval",
+    "name": "increaseAllowance",
     "outputs": [
       {
         "name": "",
@@ -967,15 +920,11 @@ export const SecurityTokenAbi = [
     "name": "canTransfer",
     "outputs": [
       {
-        "name": "",
-        "type": "bool"
-      },
-      {
-        "name": "",
+        "name": "statusCode",
         "type": "bytes1"
       },
       {
-        "name": "",
+        "name": "reasonCode",
         "type": "bytes32"
       }
     ],
@@ -985,50 +934,16 @@ export const SecurityTokenAbi = [
   },
   {
     "constant": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "_getterDelegate",
+        "type": "address"
+      }
+    ],
     "name": "initialize",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_from",
-        "type": "address"
-      },
-      {
-        "name": "_to",
-        "type": "address"
-      },
-      {
-        "name": "_value",
-        "type": "uint256"
-      },
-      {
-        "name": "_data",
-        "type": "bytes"
-      }
-    ],
-    "name": "canTransferFrom",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      },
-      {
-        "name": "",
-        "type": "bytes1"
-      },
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1058,15 +973,50 @@ export const SecurityTokenAbi = [
     "name": "canTransferByPartition",
     "outputs": [
       {
-        "name": "",
+        "name": "statusCode",
         "type": "bytes1"
       },
       {
-        "name": "",
+        "name": "reasonCode",
         "type": "bytes32"
       },
       {
-        "name": "",
+        "name": "partition",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "canTransferFrom",
+    "outputs": [
+      {
+        "name": "statusCode",
+        "type": "bytes1"
+      },
+      {
+        "name": "reasonCode",
         "type": "bytes32"
       }
     ],
@@ -1121,15 +1071,15 @@ export const SecurityTokenAbi = [
     "name": "getDocument",
     "outputs": [
       {
-        "name": "",
+        "name": "documentUri",
         "type": "string"
       },
       {
-        "name": "",
+        "name": "documentHash",
         "type": "bytes32"
       },
       {
-        "name": "",
+        "name": "documentTime",
         "type": "uint256"
       }
     ],
@@ -1143,7 +1093,7 @@ export const SecurityTokenAbi = [
     "name": "getAllDocuments",
     "outputs": [
       {
-        "name": "",
+        "name": "documentNames",
         "type": "bytes32[]"
       }
     ],
@@ -1157,7 +1107,7 @@ export const SecurityTokenAbi = [
     "name": "isControllable",
     "outputs": [
       {
-        "name": "",
+        "name": "controlled",
         "type": "bool"
       }
     ],
@@ -1180,7 +1130,7 @@ export const SecurityTokenAbi = [
     "name": "isModule",
     "outputs": [
       {
-        "name": "",
+        "name": "isValid",
         "type": "bool"
       }
     ],
@@ -1365,7 +1315,7 @@ export const SecurityTokenAbi = [
     "name": "checkPermission",
     "outputs": [
       {
-        "name": "",
+        "name": "hasPermission",
         "type": "bool"
       }
     ],
@@ -1384,27 +1334,27 @@ export const SecurityTokenAbi = [
     "name": "getModule",
     "outputs": [
       {
-        "name": "",
+        "name": "moduleName",
         "type": "bytes32"
       },
       {
-        "name": "",
+        "name": "moduleAddress",
         "type": "address"
       },
       {
-        "name": "",
+        "name": "factoryAddress",
         "type": "address"
       },
       {
-        "name": "",
+        "name": "isArchived",
         "type": "bool"
       },
       {
-        "name": "",
+        "name": "moduleTypes",
         "type": "uint8[]"
       },
       {
-        "name": "",
+        "name": "moduleLabel",
         "type": "bytes32"
       }
     ],
@@ -1423,7 +1373,7 @@ export const SecurityTokenAbi = [
     "name": "getModulesByName",
     "outputs": [
       {
-        "name": "",
+        "name": "modules",
         "type": "address[]"
       }
     ],
@@ -1442,7 +1392,7 @@ export const SecurityTokenAbi = [
     "name": "getModulesByType",
     "outputs": [
       {
-        "name": "",
+        "name": "modules",
         "type": "address[]"
       }
     ],
@@ -1456,7 +1406,7 @@ export const SecurityTokenAbi = [
     "name": "getTreasuryWallet",
     "outputs": [
       {
-        "name": "",
+        "name": "treasuryWallet",
         "type": "address"
       }
     ],
@@ -1475,7 +1425,7 @@ export const SecurityTokenAbi = [
     "name": "totalSupplyAt",
     "outputs": [
       {
-        "name": "",
+        "name": "supply",
         "type": "uint256"
       }
     ],
@@ -1498,7 +1448,7 @@ export const SecurityTokenAbi = [
     "name": "balanceOfAt",
     "outputs": [
       {
-        "name": "",
+        "name": "balance",
         "type": "uint256"
       }
     ],
@@ -1512,7 +1462,7 @@ export const SecurityTokenAbi = [
     "name": "createCheckpoint",
     "outputs": [
       {
-        "name": "",
+        "name": "checkpointId",
         "type": "uint256"
       }
     ],
@@ -1526,7 +1476,7 @@ export const SecurityTokenAbi = [
     "name": "getCheckpointTimes",
     "outputs": [
       {
-        "name": "",
+        "name": "checkpointTimes",
         "type": "uint256[]"
       }
     ],
@@ -1540,7 +1490,7 @@ export const SecurityTokenAbi = [
     "name": "getInvestors",
     "outputs": [
       {
-        "name": "",
+        "name": "investors",
         "type": "address[]"
       }
     ],
@@ -1559,7 +1509,7 @@ export const SecurityTokenAbi = [
     "name": "getInvestorsAt",
     "outputs": [
       {
-        "name": "",
+        "name": "investors",
         "type": "address[]"
       }
     ],
@@ -1586,7 +1536,7 @@ export const SecurityTokenAbi = [
     "name": "getInvestorsSubsetAt",
     "outputs": [
       {
-        "name": "",
+        "name": "investors",
         "type": "address[]"
       }
     ],
@@ -1609,7 +1559,7 @@ export const SecurityTokenAbi = [
     "name": "iterateInvestors",
     "outputs": [
       {
-        "name": "",
+        "name": "investors",
         "type": "address[]"
       }
     ],
@@ -1623,7 +1573,7 @@ export const SecurityTokenAbi = [
     "name": "currentCheckpointId",
     "outputs": [
       {
-        "name": "",
+        "name": "checkpointId",
         "type": "uint256"
       }
     ],
@@ -1646,7 +1596,7 @@ export const SecurityTokenAbi = [
     "name": "isOperator",
     "outputs": [
       {
-        "name": "",
+        "name": "isValid",
         "type": "bool"
       }
     ],
@@ -1673,7 +1623,7 @@ export const SecurityTokenAbi = [
     "name": "isOperatorForPartition",
     "outputs": [
       {
-        "name": "",
+        "name": "isValid",
         "type": "bool"
       }
     ],
@@ -1692,7 +1642,7 @@ export const SecurityTokenAbi = [
     "name": "partitionsOf",
     "outputs": [
       {
-        "name": "",
+        "name": "partitions",
         "type": "bytes32[]"
       }
     ],
@@ -1706,7 +1656,7 @@ export const SecurityTokenAbi = [
     "name": "dataStore",
     "outputs": [
       {
-        "name": "",
+        "name": "dataStoreAddress",
         "type": "address"
       }
     ],
@@ -1844,7 +1794,12 @@ export const SecurityTokenAbi = [
   },
   {
     "constant": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "_signature",
+        "type": "bytes"
+      }
+    ],
     "name": "freezeIssuance",
     "outputs": [],
     "payable": false,
@@ -2029,7 +1984,12 @@ export const SecurityTokenAbi = [
   },
   {
     "constant": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "_signature",
+        "type": "bytes"
+      }
+    ],
     "name": "disableController",
     "outputs": [],
     "payable": false,
@@ -2042,7 +2002,7 @@ export const SecurityTokenAbi = [
     "name": "getVersion",
     "outputs": [
       {
-        "name": "",
+        "name": "version",
         "type": "uint8[]"
       }
     ],
@@ -2056,7 +2016,7 @@ export const SecurityTokenAbi = [
     "name": "getInvestorCount",
     "outputs": [
       {
-        "name": "",
+        "name": "investorCount",
         "type": "uint256"
       }
     ],
@@ -2070,7 +2030,7 @@ export const SecurityTokenAbi = [
     "name": "holderCount",
     "outputs": [
       {
-        "name": "",
+        "name": "count",
         "type": "uint256"
       }
     ],
@@ -2149,7 +2109,7 @@ export const SecurityTokenAbi = [
     "name": "transferByPartition",
     "outputs": [
       {
-        "name": "",
+        "name": "partition",
         "type": "bytes32"
       }
     ],
@@ -2172,7 +2132,7 @@ export const SecurityTokenAbi = [
     "name": "balanceOfByPartition",
     "outputs": [
       {
-        "name": "",
+        "name": "balance",
         "type": "uint256"
       }
     ],
@@ -2186,7 +2146,7 @@ export const SecurityTokenAbi = [
     "name": "granularity",
     "outputs": [
       {
-        "name": "",
+        "name": "granularityAmount",
         "type": "uint256"
       }
     ],
@@ -2200,7 +2160,7 @@ export const SecurityTokenAbi = [
     "name": "polymathRegistry",
     "outputs": [
       {
-        "name": "",
+        "name": "registryAddress",
         "type": "address"
       }
     ],
@@ -2237,7 +2197,7 @@ export const SecurityTokenAbi = [
     "name": "isIssuable",
     "outputs": [
       {
-        "name": "",
+        "name": "issuable",
         "type": "bool"
       }
     ],
@@ -2340,7 +2300,7 @@ export const SecurityTokenAbi = [
     "name": "operatorTransferByPartition",
     "outputs": [
       {
-        "name": "",
+        "name": "partition",
         "type": "bytes32"
       }
     ],
@@ -2354,12 +2314,189 @@ export const SecurityTokenAbi = [
     "name": "transfersFrozen",
     "outputs": [
       {
+        "name": "isFrozen",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "isOwner",
+    "outputs": [
+      {
         "name": "",
         "type": "bool"
       }
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "ownerAddress",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "controller",
+    "outputs": [
+      {
+        "name": "controllerAddress",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "moduleRegistry",
+    "outputs": [
+      {
+        "name": "moduleRegistryAddress",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "securityTokenRegistry",
+    "outputs": [
+      {
+        "name": "securityTokenRegistryAddress",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "polyToken",
+    "outputs": [
+      {
+        "name": "polyTokenAddress",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "tokenFactory",
+    "outputs": [
+      {
+        "name": "tokenFactoryAddress",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getterDelegate",
+    "outputs": [
+      {
+        "name": "delegate",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "controllerDisabled",
+    "outputs": [
+      {
+        "name": "isDisabled",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "initialized",
+    "outputs": [
+      {
+        "name": "isInitialized",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "tokenDetails",
+    "outputs": [
+      {
+        "name": "details",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "updateFromRegistry",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ];
