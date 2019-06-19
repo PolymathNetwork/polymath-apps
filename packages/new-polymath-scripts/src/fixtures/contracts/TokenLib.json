@@ -214,10 +214,6 @@
       "outputs": [
         {
           "name": "",
-          "type": "bool"
-        },
-        {
-          "name": "",
           "type": "bytes1"
         },
         {
@@ -383,7 +379,7 @@
       },
       "links": {},
       "address": "0x30753E4A8aad7F8597332E813735Def5dD395028",
-      "transactionHash": "0x56065cb5d28f6dd9c90d3d5140a2007cf96ea55107b00d72f421f9300745fa56"
+      "transactionHash": "0xde966dbe2694e268d8e666e09f4d12a0cebd914cfbdfa3501f4efb8837f210b1"
     }
   }
 }

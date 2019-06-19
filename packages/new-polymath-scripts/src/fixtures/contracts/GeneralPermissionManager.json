@@ -154,21 +154,6 @@
       "signature": "0x983d2737"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa00af9f3"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "securityToken",
@@ -560,7 +545,7 @@
       "events": {},
       "links": {},
       "address": "0xeec918d74c746167564401103096D45BbD494B74",
-      "transactionHash": "0xe886b04654f7394faaaaeb12a747848bf31b2032abdf340b6f7b93df17e8a313"
+      "transactionHash": "0x5432deb62550bb0d9a99c1612ac74dfccecbdec59ab04568c81d5756c02a470b"
     }
   }
 }

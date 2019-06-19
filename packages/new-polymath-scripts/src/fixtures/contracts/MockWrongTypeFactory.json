@@ -90,42 +90,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_usageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "changeUsageCost",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_setupCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_usageCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_isCostInPoly",
-          "type": "bool"
-        }
-      ],
-      "name": "changeCostsAndType",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "isCostInPoly",
@@ -289,29 +253,19 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "usageCost",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "constant": false,
-      "inputs": [],
-      "name": "usageCostInPoly",
-      "outputs": [
+      "inputs": [
         {
-          "name": "",
+          "name": "_setupCost",
           "type": "uint256"
+        },
+        {
+          "name": "_isCostInPoly",
+          "type": "bool"
         }
       ],
+      "name": "changeCostAndType",
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -383,10 +337,6 @@
           "type": "uint256"
         },
         {
-          "name": "_usageCost",
-          "type": "uint256"
-        },
-        {
           "name": "_polymathRegistry",
           "type": "address"
         },
@@ -448,23 +398,6 @@
         }
       ],
       "name": "ChangeCostType",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_oldUsageCost",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_newUsageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "ChangeUsageCost",
       "type": "event"
     },
     {

@@ -19,7 +19,7 @@
       "name": "checkPermission",
       "outputs": [
         {
-          "name": "",
+          "name": "hasPerm",
           "type": "bool"
         }
       ],

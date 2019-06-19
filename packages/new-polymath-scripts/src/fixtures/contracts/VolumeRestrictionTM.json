@@ -121,21 +121,6 @@
       "signature": "0x983d2737"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa00af9f3"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "LOCKED",
@@ -164,26 +149,6 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0xb84dfbd2"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "getPartitions",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32[]"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xbf450d2e"
     },
     {
       "constant": true,
@@ -241,7 +206,7 @@
         },
         {
           "indexed": false,
-          "name": "_change",
+          "name": "_exempted",
           "type": "bool"
         }
       ],
@@ -675,7 +640,7 @@
           "type": "address"
         },
         {
-          "name": "_change",
+          "name": "_exempted",
           "type": "bool"
         }
       ],
@@ -1492,7 +1457,7 @@
         "VolumeRestrictionLib": "0xFB88dE099e13c3ED21F80a7a1E49f8CAEcF10df6"
       },
       "address": "0xA4392264a2d8c998901D10C154C91725b1BF0158",
-      "transactionHash": "0x08e59ae874e378cc3e71333b0b721555dd9ed9c2b786cb7ce4863ed93208db8e"
+      "transactionHash": "0xa975697de9a70b4fa92a55c217936f39146dc2cc132c5b014fb2c89f5c227d49"
     }
   }
 }

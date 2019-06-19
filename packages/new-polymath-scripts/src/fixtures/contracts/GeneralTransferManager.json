@@ -175,21 +175,6 @@
       "signature": "0x9ba0b7c0"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa00af9f3"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "LOCKED",
@@ -248,26 +233,6 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0xbc293897"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "getPartitions",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32[]"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xbf450d2e"
     },
     {
       "constant": true,
@@ -981,26 +946,6 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "_investor",
-          "type": "address"
-        }
-      ],
-      "name": "_getInvestorFlags",
-      "outputs": [
-        {
-          "name": "flags",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x311d7fbf"
-    },
-    {
-      "constant": true,
       "inputs": [],
       "name": "getAllKYCData",
       "outputs": [
@@ -1118,7 +1063,7 @@
       "events": {},
       "links": {},
       "address": "0xdDA6327139485221633A1FcD65f4aC932E60A2e1",
-      "transactionHash": "0x3fc5f8ce0022cb30d37a85ed50cf616d3e51266397bcd9c5ee6e35296756a572"
+      "transactionHash": "0x11200a863a765ff0adc0cd976b49ac0617a1ead500222860ec28bc128ee77c11"
     }
   }
 }

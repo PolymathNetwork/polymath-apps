@@ -575,21 +575,6 @@
       "signature": "0x98b9a2dc"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa00af9f3"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "getDividendsData",
@@ -1262,7 +1247,7 @@
       "events": {},
       "links": {},
       "address": "0x4E72770760c011647D4873f60A3CF6cDeA896CD8",
-      "transactionHash": "0xbcad3e61ec19728d12ab34d8f8cc39385b15cb8b79366ab428786265b4bcd655"
+      "transactionHash": "0x3fde38dae3ca5c54a15e10b483dfc00b1b4426cd47227bfed427a06be2288c99"
     }
   }
 }

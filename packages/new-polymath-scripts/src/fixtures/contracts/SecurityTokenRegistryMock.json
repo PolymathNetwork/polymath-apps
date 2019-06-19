@@ -79,6 +79,66 @@
       "constant": false,
       "inputs": [
         {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "name": "_registrationDate",
+          "type": "uint256"
+        },
+        {
+          "name": "_expiryDate",
+          "type": "uint256"
+        },
+        {
+          "name": "_status",
+          "type": "bool"
+        }
+      ],
+      "name": "modifyExistingTicker",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_securityToken",
+          "type": "address"
+        },
+        {
+          "name": "_tokenDetails",
+          "type": "string"
+        },
+        {
+          "name": "_deployedAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "modifyExistingSecurityToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
           "name": "_newExpiry",
           "type": "uint256"
         }
@@ -189,6 +249,20 @@
     },
     {
       "constant": true,
+      "inputs": [],
+      "name": "someValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [
         {
           "name": "_variable",
@@ -224,7 +298,7 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_name",
+          "name": "",
           "type": "string"
         },
         {
@@ -465,6 +539,25 @@
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "tickerAvailable",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -517,6 +610,24 @@
         }
       ],
       "name": "setLatestVersion",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "registerNewTicker",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -999,6 +1110,48 @@
           "type": "string"
         },
         {
+          "indexed": true,
+          "name": "_registrationDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "_expiryDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_fromAdmin",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "_registrationFeePoly",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_registrationFeeUsd",
+          "type": "uint256"
+        }
+      ],
+      "name": "RegisterTicker",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
           "indexed": false,
           "name": "_name",
           "type": "string"
@@ -1149,15 +1302,25 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_ticker",
-          "type": "string"
-        },
-        {
-          "name": "_newSecurityTokenAddress",
-          "type": "address"
+          "name": "_newFee",
+          "type": "uint256"
         }
       ],
-      "name": "changeTheDeployedAddress",
+      "name": "changeTheFee",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_someValue",
+          "type": "uint256"
+        }
+      ],
+      "name": "configure",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",

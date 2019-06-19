@@ -6,7 +6,7 @@
       "name": "getCurrencyAddress",
       "outputs": [
         {
-          "name": "",
+          "name": "currency",
           "type": "address"
         }
       ],
@@ -20,7 +20,7 @@
       "name": "getCurrencySymbol",
       "outputs": [
         {
-          "name": "",
+          "name": "symbol",
           "type": "bytes32"
         }
       ],
@@ -34,7 +34,7 @@
       "name": "getCurrencyDenominated",
       "outputs": [
         {
-          "name": "",
+          "name": "denominatedCurrency",
           "type": "bytes32"
         }
       ],
@@ -48,7 +48,7 @@
       "name": "getPrice",
       "outputs": [
         {
-          "name": "",
+          "name": "price",
           "type": "uint256"
         }
       ],

@@ -15,7 +15,7 @@
       "name": "getInitFunction",
       "outputs": [
         {
-          "name": "",
+          "name": "initFunction",
           "type": "bytes4"
         }
       ],
@@ -112,20 +112,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "securityToken",
@@ -145,7 +131,7 @@
       "name": "getPermissions",
       "outputs": [
         {
-          "name": "",
+          "name": "permissions",
           "type": "bytes32[]"
         }
       ],

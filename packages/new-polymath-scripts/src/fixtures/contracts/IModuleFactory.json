@@ -39,23 +39,6 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "_oldUsageCost",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_newUsageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "ChangeUsageCost",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
           "name": "_module",
           "type": "address"
         },
@@ -126,7 +109,7 @@
       "name": "deploy",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleAddress",
           "type": "address"
         }
       ],
@@ -140,7 +123,7 @@
       "name": "version",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleVersion",
           "type": "string"
         }
       ],
@@ -154,7 +137,7 @@
       "name": "name",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleName",
           "type": "bytes32"
         }
       ],
@@ -168,7 +151,7 @@
       "name": "title",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleTitle",
           "type": "string"
         }
       ],
@@ -182,7 +165,7 @@
       "name": "description",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleDescription",
           "type": "string"
         }
       ],
@@ -193,24 +176,10 @@
     {
       "constant": false,
       "inputs": [],
-      "name": "usageCost",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
       "name": "setupCost",
       "outputs": [
         {
-          "name": "",
+          "name": "usdSetupCost",
           "type": "uint256"
         }
       ],
@@ -224,7 +193,7 @@
       "name": "types",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleTypes",
           "type": "uint8[]"
         }
       ],
@@ -238,7 +207,7 @@
       "name": "tags",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleTags",
           "type": "bytes32[]"
         }
       ],
@@ -264,25 +233,7 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_newUsageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "changeUsageCost",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
           "name": "_setupCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_usageCost",
           "type": "uint256"
         },
         {
@@ -290,7 +241,7 @@
           "type": "bool"
         }
       ],
-      "name": "changeCostsAndType",
+      "name": "changeCostAndType",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -317,24 +268,10 @@
     {
       "constant": false,
       "inputs": [],
-      "name": "usageCostInPoly",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
       "name": "setupCostInPoly",
       "outputs": [
         {
-          "name": "",
+          "name": "polySetupCost",
           "type": "uint256"
         }
       ],
@@ -348,7 +285,7 @@
       "name": "lowerSTVersionBounds",
       "outputs": [
         {
-          "name": "",
+          "name": "lowerBounds",
           "type": "uint8[]"
         }
       ],
@@ -362,12 +299,68 @@
       "name": "upperSTVersionBounds",
       "outputs": [
         {
-          "name": "",
+          "name": "upperBounds",
           "type": "uint8[]"
         }
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tagsData",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "changeTags",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "bytes32"
+        }
+      ],
+      "name": "changeName",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_description",
+          "type": "string"
+        }
+      ],
+      "name": "changeDescription",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_title",
+          "type": "string"
+        }
+      ],
+      "name": "changeTitle",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     }
   ],

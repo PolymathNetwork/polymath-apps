@@ -114,44 +114,6 @@
       "signature": "0x3c1fdaa5"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_usageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "changeUsageCost",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x3d6549dd"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_setupCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_usageCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_isCostInPoly",
-          "type": "bool"
-        }
-      ],
-      "name": "changeCostsAndType",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x43494d3b"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "isCostInPoly",
@@ -210,6 +172,34 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0x60fece01"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "logicContracts",
+      "outputs": [
+        {
+          "name": "version",
+          "type": "string"
+        },
+        {
+          "name": "logicContract",
+          "type": "address"
+        },
+        {
+          "name": "upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x6b68e144"
     },
     {
       "constant": true,
@@ -328,6 +318,50 @@
     },
     {
       "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "modules",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa01fe646"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "moduleToSecurityToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa76a0cad"
+    },
+    {
+      "constant": true,
       "inputs": [],
       "name": "upperSTVersionBounds",
       "outputs": [
@@ -340,6 +374,25 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0xaa934d0c"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_setupCost",
+          "type": "uint256"
+        },
+        {
+          "name": "_isCostInPoly",
+          "type": "bool"
+        }
+      ],
+      "name": "changeCostAndType",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xc97767f0"
     },
     {
       "constant": true,
@@ -357,34 +410,31 @@
       "signature": "0xccbff979"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "usageCost",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xd54c4726"
-    },
-    {
       "constant": false,
-      "inputs": [],
-      "name": "usageCostInPoly",
-      "outputs": [
+      "inputs": [
         {
-          "name": "",
+          "name": "_upgrade",
           "type": "uint256"
+        },
+        {
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "name": "_upgradeData",
+          "type": "bytes"
         }
       ],
+      "name": "updateLogicContract",
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0xdc265db8"
+      "signature": "0xd26633e0"
     },
     {
       "constant": true,
@@ -457,10 +507,6 @@
           "type": "uint256"
         },
         {
-          "name": "_usageCost",
-          "type": "uint256"
-        },
-        {
           "name": "_logicContract",
           "type": "address"
         },
@@ -488,6 +534,11 @@
         },
         {
           "indexed": false,
+          "name": "_upgrade",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
           "name": "_logicContract",
           "type": "address"
         },
@@ -499,7 +550,7 @@
       ],
       "name": "LogicContractSet",
       "type": "event",
-      "signature": "0x51c19ee9fedac3c51f8a59bf6a51b7d2f87397df658258eb02b56c7b19659ce6"
+      "signature": "0xbcda874f53511fb6338990baf12d53b3bcef8cb0247ba5f7673450267395515a"
     },
     {
       "anonymous": false,
@@ -577,24 +628,6 @@
       "name": "ChangeCostType",
       "type": "event",
       "signature": "0x243562d4d8acd21cf96c899dfa0c26774212a5181e5e40f852c7e6b66b7b96db"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_oldUsageCost",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_newUsageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "ChangeUsageCost",
-      "type": "event",
-      "signature": "0xd58fabc7bb036497979772cccb0640f763256c0802f15899ada53d85398ca6ab"
     },
     {
       "anonymous": false,
@@ -688,7 +721,7 @@
       "events": {},
       "links": {},
       "address": "0xdE5491f774F0Cb009ABcEA7326342E105dbb1B2E",
-      "transactionHash": "0x4f9dc48c1e1cbceab747dbe1a7f7bb60c31be2d77a90d1df6c4ccf221327f55d"
+      "transactionHash": "0xf8ce96351858fe0fe0756cbb53f6ebbfa4e775c97348b58e3e72bc2ce4ffe6b7"
     }
   }
 }

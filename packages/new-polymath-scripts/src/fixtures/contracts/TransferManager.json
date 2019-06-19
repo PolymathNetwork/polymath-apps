@@ -15,7 +15,7 @@
       "name": "getInitFunction",
       "outputs": [
         {
-          "name": "",
+          "name": "initFunction",
           "type": "bytes4"
         }
       ],
@@ -60,10 +60,19 @@
       "name": "executeTransfer",
       "outputs": [
         {
-          "name": "",
+          "name": "result",
           "type": "uint8"
         }
       ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -112,6 +121,15 @@
     },
     {
       "constant": false,
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
       "inputs": [
         {
           "name": "_tokenContract",
@@ -136,20 +154,6 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -186,7 +190,7 @@
       "name": "getPermissions",
       "outputs": [
         {
-          "name": "",
+          "name": "permissions",
           "type": "bytes32[]"
         }
       ],
@@ -231,11 +235,11 @@
       "name": "verifyTransfer",
       "outputs": [
         {
-          "name": "",
+          "name": "result",
           "type": "uint8"
         },
         {
-          "name": "",
+          "name": "partition",
           "type": "bytes32"
         }
       ],
@@ -282,32 +286,14 @@
       "type": "event"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "unpause",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "pause",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [
         {
-          "name": "",
+          "name": "_partition",
           "type": "bytes32"
         },
         {
-          "name": "",
+          "name": "_tokenHolder",
           "type": "address"
         },
         {
@@ -320,25 +306,6 @@
         {
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "getPartitions",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32[]"
         }
       ],
       "payable": false,

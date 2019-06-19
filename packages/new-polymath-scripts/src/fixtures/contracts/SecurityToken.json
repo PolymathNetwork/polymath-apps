@@ -447,6 +447,13 @@
       "signature": "0xf77c4791"
     },
     {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor",
+      "signature": "constructor"
+    },
+    {
       "payable": true,
       "stateMutability": "payable",
       "type": "fallback"
@@ -498,6 +505,24 @@
       "name": "ModuleAdded",
       "type": "event",
       "signature": "0xfa9cc8faf0fe9bebcaababb6b67c5a679d4fdec88527e4ca823ee0f91e9c0928"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_types",
+          "type": "uint8[]"
+        },
+        {
+          "indexed": false,
+          "name": "_module",
+          "type": "address"
+        }
+      ],
+      "name": "ModuleUpgraded",
+      "type": "event",
+      "signature": "0xedc6007cc44783a48ceb845386592c8d22e6e21f3acd887104ba49340ae8cc5d"
     },
     {
       "anonymous": false,
@@ -1990,10 +2015,6 @@
       "outputs": [
         {
           "name": "",
-          "type": "bool"
-        },
-        {
-          "name": "",
           "type": "bytes1"
         },
         {
@@ -2028,10 +2049,6 @@
       ],
       "name": "canTransferFrom",
       "outputs": [
-        {
-          "name": "success",
-          "type": "bool"
-        },
         {
           "name": "reasonCode",
           "type": "bytes1"
@@ -2073,7 +2090,7 @@
       "name": "canTransferByPartition",
       "outputs": [
         {
-          "name": "esc",
+          "name": "reasonCode",
           "type": "bytes1"
         },
         {
@@ -2255,6 +2272,26 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0xf2fde38b"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "status",
+          "type": "bytes1"
+        }
+      ],
+      "name": "isSuccess",
+      "outputs": [
+        {
+          "name": "successful",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function",
+      "signature": "0xac7b6a68"
     }
   ],
   "networks": {
@@ -2411,7 +2448,7 @@
         "TokenLib": "0x30753E4A8aad7F8597332E813735Def5dD395028"
       },
       "address": "0x2a504B5e7eC284ACa5b6f49716611237239F0b97",
-      "transactionHash": "0x3cc87122be74bb5cc3594ead0e994b072989605a063e1ad97706573bed7e3fbf"
+      "transactionHash": "0xd6b25ccd6137126a61c41acbdbfffb05843ae862cd0307bccb13ed4d7d78a47a"
     }
   }
 }

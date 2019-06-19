@@ -33,7 +33,7 @@
       "name": "getInitFunction",
       "outputs": [
         {
-          "name": "",
+          "name": "initFunction",
           "type": "bytes4"
         }
       ],
@@ -75,35 +75,35 @@
       "name": "getBallotDetails",
       "outputs": [
         {
-          "name": "",
+          "name": "quorum",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "totalSupplyAtCheckpoint",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "checkpointId",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "startTime",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "endTime",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "totalProposals",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "totalVoters",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "isActive",
           "type": "bool"
         }
       ],
@@ -200,20 +200,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "securityToken",
@@ -233,7 +219,7 @@
       "name": "getPermissions",
       "outputs": [
         {
-          "name": "",
+          "name": "permissions",
           "type": "bytes32[]"
         }
       ],
@@ -314,7 +300,7 @@
         },
         {
           "indexed": false,
-          "name": "_change",
+          "name": "_exempt",
           "type": "bool"
         }
       ],
@@ -353,7 +339,7 @@
           "type": "address"
         },
         {
-          "name": "_change",
+          "name": "_exempt",
           "type": "bool"
         }
       ],
@@ -371,7 +357,7 @@
           "type": "address[]"
         },
         {
-          "name": "_changes",
+          "name": "_exempts",
           "type": "bool[]"
         }
       ],

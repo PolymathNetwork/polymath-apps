@@ -78,21 +78,6 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "_totalSupply",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x3eaaf86b"
-    },
-    {
-      "constant": true,
-      "inputs": [],
       "name": "currentCheckpointId",
       "outputs": [
         {
@@ -149,26 +134,6 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0x6c2f0d53"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "_balances",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x6ebcf607"
     },
     {
       "constant": true,
@@ -274,30 +239,6 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0xb95459e4"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        },
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "_allowed",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xba0fb861"
     },
     {
       "constant": true,
@@ -729,7 +670,7 @@
       "constant": true,
       "inputs": [
         {
-          "name": "_tokenHolder",
+          "name": "",
           "type": "address"
         }
       ],
@@ -741,7 +682,7 @@
         }
       ],
       "payable": false,
-      "stateMutability": "view",
+      "stateMutability": "pure",
       "type": "function",
       "signature": "0x740ab8f4"
     },
@@ -958,7 +899,7 @@
         "TokenLib": "0x30753E4A8aad7F8597332E813735Def5dD395028"
       },
       "address": "0xcfeD223fAb2A41b5a5a5F9AaAe2D1e882cb6Fe2D",
-      "transactionHash": "0x3035a855befde9bccf5f386c6ed4d1dfbe79ea209d2289bf4fbccb40216f4c40"
+      "transactionHash": "0xea3eeb2baeb533c8efe096ced21622a9e687031b48fb83d36ac0af69dea13aac"
     }
   }
 }

@@ -11,7 +11,7 @@
       "name": "deploy",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleAddress",
           "type": "address"
         }
       ],
@@ -141,20 +141,6 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "usageCost",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "constant": false,
       "inputs": [
         {
@@ -172,10 +158,6 @@
       "inputs": [
         {
           "name": "_setupCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_usageCost",
           "type": "uint256"
         },
         {
@@ -240,23 +222,6 @@
         }
       ],
       "name": "ChangeCostType",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_oldUsageCost",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_newUsageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "ChangeUsageCost",
       "type": "event"
     },
     {
@@ -383,25 +348,7 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_usageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "changeUsageCost",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
           "name": "_setupCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_usageCost",
           "type": "uint256"
         },
         {
@@ -409,7 +356,7 @@
           "type": "bool"
         }
       ],
-      "name": "changeCostsAndType",
+      "name": "changeCostAndType",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -521,20 +468,6 @@
       "constant": false,
       "inputs": [],
       "name": "setupCostInPoly",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "usageCostInPoly",
       "outputs": [
         {
           "name": "",

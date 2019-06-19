@@ -11,7 +11,7 @@
       "name": "deploy",
       "outputs": [
         {
-          "name": "",
+          "name": "moduleAddress",
           "type": "address"
         }
       ],
@@ -90,42 +90,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_usageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "changeUsageCost",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_setupCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_usageCost",
-          "type": "uint256"
-        },
-        {
-          "name": "_isCostInPoly",
-          "type": "bool"
-        }
-      ],
-      "name": "changeCostsAndType",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "isCostInPoly",
@@ -161,6 +125,33 @@
         {
           "name": "",
           "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "logicContracts",
+      "outputs": [
+        {
+          "name": "version",
+          "type": "string"
+        },
+        {
+          "name": "logicContract",
+          "type": "address"
+        },
+        {
+          "name": "upgradeData",
+          "type": "bytes"
         }
       ],
       "payable": false,
@@ -276,6 +267,48 @@
     },
     {
       "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "modules",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "moduleToSecurityToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [],
       "name": "upperSTVersionBounds",
       "outputs": [
@@ -286,6 +319,24 @@
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_setupCost",
+          "type": "uint256"
+        },
+        {
+          "name": "_isCostInPoly",
+          "type": "bool"
+        }
+      ],
+      "name": "changeCostAndType",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -300,34 +351,6 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "usageCost",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "usageCostInPoly",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -401,10 +424,6 @@
           "type": "uint256"
         },
         {
-          "name": "_usageCost",
-          "type": "uint256"
-        },
-        {
           "name": "_logicContract",
           "type": "address"
         },
@@ -428,6 +447,11 @@
           "indexed": false,
           "name": "_version",
           "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_upgrade",
+          "type": "uint256"
         },
         {
           "indexed": false,
@@ -521,23 +545,6 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "_oldUsageCost",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "_newUsageCost",
-          "type": "uint256"
-        }
-      ],
-      "name": "ChangeUsageCost",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
           "name": "_module",
           "type": "address"
         },
@@ -614,6 +621,32 @@
         }
       ],
       "name": "setLogicContract",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_upgrade",
+          "type": "uint256"
+        },
+        {
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "name": "_upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "updateLogicContract",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",

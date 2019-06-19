@@ -29,11 +29,11 @@
       "constant": true,
       "inputs": [
         {
-          "name": "",
+          "name": "_partition",
           "type": "bytes32"
         },
         {
-          "name": "",
+          "name": "_tokenHolder",
           "type": "address"
         },
         {
@@ -199,21 +199,6 @@
       "signature": "0x9b19251a"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa00af9f3"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "LOCKED",
@@ -242,26 +227,6 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0xb84dfbd2"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "getPartitions",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32[]"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xbf450d2e"
     },
     {
       "constant": true,
@@ -580,7 +545,7 @@
       "events": {},
       "links": {},
       "address": "0x38cF23C52Bb4B13F051Aec09580a2dE845a7FA35",
-      "transactionHash": "0x8e97003bdec3c4a9212bb4de328106758ba3f498c3ebe2d87b68341bfc88673c"
+      "transactionHash": "0x999988cc4fae3e1300c11fbed21a8146dd0be388d6b5651775b8bed6ec5637a1"
     }
   }
 }

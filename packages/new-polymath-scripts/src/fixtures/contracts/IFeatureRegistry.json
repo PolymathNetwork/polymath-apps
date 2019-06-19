@@ -1,6 +1,41 @@
 {
   "abi": [
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_nameKey",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_newStatus",
+          "type": "bool"
+        }
+      ],
+      "name": "ChangeFeatureStatus",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_nameKey",
+          "type": "string"
+        },
+        {
+          "name": "_newStatus",
+          "type": "bool"
+        }
+      ],
+      "name": "setFeatureStatus",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [
         {
@@ -11,7 +46,7 @@
       "name": "getFeatureStatus",
       "outputs": [
         {
-          "name": "",
+          "name": "hasFeature",
           "type": "bool"
         }
       ],

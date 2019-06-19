@@ -345,21 +345,6 @@
       "signature": "0x9a7cc135"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa00af9f3"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "pausedTime",
@@ -615,24 +600,6 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "name": "_investor",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_accredited",
-          "type": "bool"
-        }
-      ],
-      "name": "SetAccredited",
-      "type": "event",
-      "signature": "0x5bc4e4d4bde98d5a327e2a911b87c042b79ec57d32ddca3bf73e76cdc77de7eb"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
           "indexed": true,
           "name": "_purchaser",
           "type": "address"
@@ -843,19 +810,6 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "_fundRaiseTypes",
-          "type": "uint8[]"
-        }
-      ],
-      "name": "SetFundRaiseTypes",
-      "type": "event",
-      "signature": "0xe5724f42dd9f217c97b3768212ed6d6692c0135e252387d61b98af28fecd9b02"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
           "name": "account",
           "type": "address"
         }
@@ -876,6 +830,19 @@
       "name": "Unpause",
       "type": "event",
       "signature": "0xaeb196d352664784d1900b0e7414a8face7d29f4dae8c4b0cf68ed477423bbf4"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_fundRaiseTypes",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "SetFundRaiseTypes",
+      "type": "event",
+      "signature": "0xe5724f42dd9f217c97b3768212ed6d6692c0135e252387d61b98af28fecd9b02"
     },
     {
       "constant": false,
@@ -1038,6 +1005,25 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0xa1530a44"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_fundRaiseType",
+          "type": "uint8"
+        },
+        {
+          "name": "_oracleAddress",
+          "type": "address"
+        }
+      ],
+      "name": "modifyOracle",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x8bdb1fe3"
     },
     {
       "constant": false,
@@ -1611,7 +1597,7 @@
       "events": {},
       "links": {},
       "address": "0x13274Fe19C0178208bCbee397af8167A7be27f6f",
-      "transactionHash": "0x91c5b7f4d29a71dbdfeec2512fe526dc2bea2ce22db3d8986fcc6cca95617992"
+      "transactionHash": "0x128e57a3cb2b8b638d674534036ee53c4f5fe33309373d517254c132bf09c810"
     }
   }
 }

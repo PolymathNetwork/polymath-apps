@@ -6,7 +6,7 @@
       "name": "owner",
       "outputs": [
         {
-          "name": "",
+          "name": "ownerAddress",
           "type": "address"
         }
       ],

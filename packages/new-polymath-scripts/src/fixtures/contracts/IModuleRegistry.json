@@ -1,6 +1,122 @@
 {
   "abi": [
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Pause",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpause",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_moduleFactory",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_securityToken",
+          "type": "address"
+        }
+      ],
+      "name": "ModuleUsed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_moduleFactory",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "ModuleRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_moduleFactory",
+          "type": "address"
+        }
+      ],
+      "name": "ModuleVerified",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_moduleFactory",
+          "type": "address"
+        }
+      ],
+      "name": "ModuleUnverified",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_moduleFactory",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_decisionMaker",
+          "type": "address"
+        }
+      ],
+      "name": "ModuleRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -61,7 +177,7 @@
       "name": "isCompatibleModule",
       "outputs": [
         {
-          "name": "",
+          "name": "isCompatible",
           "type": "bool"
         }
       ],
@@ -108,11 +224,15 @@
       "name": "getFactoryDetails",
       "outputs": [
         {
-          "name": "",
+          "name": "isVerified",
           "type": "bool"
         },
         {
-          "name": "",
+          "name": "factoryOwner",
+          "type": "address"
+        },
+        {
+          "name": "usingTokens",
           "type": "address[]"
         }
       ],
@@ -135,11 +255,11 @@
       "name": "getTagsByTypeAndToken",
       "outputs": [
         {
-          "name": "",
+          "name": "tags",
           "type": "bytes32[]"
         },
         {
-          "name": "",
+          "name": "factories",
           "type": "address[]"
         }
       ],
@@ -158,11 +278,30 @@
       "name": "getTagsByType",
       "outputs": [
         {
-          "name": "",
+          "name": "tags",
           "type": "bytes32[]"
         },
         {
-          "name": "",
+          "name": "factories",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_moduleType",
+          "type": "uint8"
+        }
+      ],
+      "name": "getAllModulesByType",
+      "outputs": [
+        {
+          "name": "factories",
           "type": "address[]"
         }
       ],
@@ -181,7 +320,7 @@
       "name": "getModulesByType",
       "outputs": [
         {
-          "name": "",
+          "name": "factories",
           "type": "address[]"
         }
       ],
@@ -204,7 +343,7 @@
       "name": "getModulesByTypeAndToken",
       "outputs": [
         {
-          "name": "",
+          "name": "factories",
           "type": "address[]"
         }
       ],
@@ -227,7 +366,7 @@
       "name": "owner",
       "outputs": [
         {
-          "name": "",
+          "name": "ownerAddress",
           "type": "address"
         }
       ],
@@ -241,12 +380,58 @@
       "name": "isPaused",
       "outputs": [
         {
-          "name": "",
+          "name": "paused",
           "type": "bool"
         }
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenContract",
+          "type": "address"
+        }
+      ],
+      "name": "reclaimERC20",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     }
   ],

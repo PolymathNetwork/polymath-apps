@@ -192,20 +192,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "pausedTime",
@@ -350,18 +336,6 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "_fundRaiseTypes",
-          "type": "uint8[]"
-        }
-      ],
-      "name": "SetFundRaiseTypes",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
           "name": "account",
           "type": "address"
         }
@@ -379,6 +353,18 @@
         }
       ],
       "name": "Unpause",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_fundRaiseTypes",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "SetFundRaiseTypes",
       "type": "event"
     },
     {

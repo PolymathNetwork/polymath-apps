@@ -1,34 +1,6 @@
 {
   "abi": [
     {
-      "constant": false,
-      "inputs": [],
-      "name": "proxyOwner",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "implementation",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "securityToken",
@@ -40,20 +12,6 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferProxyOwnership",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -75,23 +33,6 @@
       "payable": true,
       "stateMutability": "payable",
       "type": "fallback"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "ProxyOwnershipTransferred",
-      "type": "event"
     }
   ],
   "networks": {}

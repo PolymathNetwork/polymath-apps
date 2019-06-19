@@ -87,35 +87,35 @@
       "name": "getBallotDetails",
       "outputs": [
         {
-          "name": "",
+          "name": "quorum",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "totalSupplyAtCheckpoint",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "checkpointId",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "startTime",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "endTime",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "totalProposals",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "totalVoters",
           "type": "uint256"
         },
         {
-          "name": "",
+          "name": "isActive",
           "type": "bool"
         }
       ],

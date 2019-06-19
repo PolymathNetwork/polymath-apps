@@ -157,8 +157,18 @@
         },
         {
           "indexed": false,
+          "name": "_upgrade",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
           "name": "_logicContract",
           "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_initializationData",
+          "type": "bytes"
         },
         {
           "indexed": false,
@@ -168,7 +178,7 @@
       ],
       "name": "LogicContractSet",
       "type": "event",
-      "signature": "0x51c19ee9fedac3c51f8a59bf6a51b7d2f87397df658258eb02b56c7b19659ce6"
+      "signature": "0x4fc434dfefc5eedeea99194927c365b6caf396810f5fec02bbe5caa403a3482e"
     },
     {
       "anonymous": false,
@@ -228,6 +238,19 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": false,
+          "name": "_upgrade",
+          "type": "uint256"
+        }
+      ],
+      "name": "Log",
+      "type": "event",
+      "signature": "0x909c57d5c6ac08245cf2a6de3900e2b868513fa59099b92b27d8db823d92df9c"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": true,
           "name": "previousOwner",
           "type": "address"
@@ -241,6 +264,29 @@
       "name": "OwnershipTransferred",
       "type": "event",
       "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "LogicContractSet",
+      "type": "event",
+      "signature": "0x51c19ee9fedac3c51f8a59bf6a51b7d2f87397df658258eb02b56c7b19659ce6"
     },
     {
       "constant": false,
@@ -302,6 +348,10 @@
           "type": "address"
         },
         {
+          "name": "_initializationData",
+          "type": "bytes"
+        },
+        {
           "name": "_upgradeData",
           "type": "bytes"
         }
@@ -311,7 +361,38 @@
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0x3c1fdaa5"
+      "signature": "0x3bc7f70b"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_upgrade",
+          "type": "uint256"
+        },
+        {
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "name": "_initializationData",
+          "type": "bytes"
+        },
+        {
+          "name": "_upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "updateLogicContract",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xebc679a8"
     },
     {
       "constant": false,
@@ -364,7 +445,7 @@
       "events": {},
       "links": {},
       "address": "0x8273e4B8ED6c78e252a9fCa5563Adfcc75C91b2A",
-      "transactionHash": "0x2bb990e48ce9ae48533d992dae5e0eb6239cf2f8c52256741a13120e0208687d"
+      "transactionHash": "0x9771cff0d9fefac3961acd3b2212874503516eb795fef18c4a19933b2b1af438"
     }
   }
 }

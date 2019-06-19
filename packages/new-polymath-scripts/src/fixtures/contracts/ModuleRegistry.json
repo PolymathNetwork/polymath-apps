@@ -501,6 +501,10 @@
         },
         {
           "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
           "type": "address[]"
         }
       ],
@@ -528,6 +532,26 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0xac90b422"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_moduleType",
+          "type": "uint8"
+        }
+      ],
+      "name": "getAllModulesByType",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa1fe85dc"
     },
     {
       "constant": true,
@@ -774,7 +798,7 @@
       },
       "links": {},
       "address": "0xAa588d3737B611baFD7bD713445b314BD453a5C8",
-      "transactionHash": "0x4a26fe5e0d7f69c2deafa9475375a1995af440d179dcac48739e86722058e326"
+      "transactionHash": "0xe902909bcc1f91f2b7c68e3e58d73317d3e99d0537fbf33b5457a77c97071881"
     }
   }
 }

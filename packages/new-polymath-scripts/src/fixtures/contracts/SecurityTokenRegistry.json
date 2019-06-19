@@ -181,6 +181,13 @@
       "signature": "0xf6fcbee1"
     },
     {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor",
+      "signature": "constructor"
+    },
+    {
       "payable": true,
       "stateMutability": "payable",
       "type": "fallback"
@@ -442,6 +449,49 @@
       "name": "NewSecurityToken",
       "type": "event",
       "signature": "0x63d9fb58b25a396dc2ebc591bec9115d1eb9c722dd6cdfcc9be4144d39dc2c26"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "_registrationDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "_expiryDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_fromAdmin",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "name": "_registrationFeePoly",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_registrationFeeUsd",
+          "type": "uint256"
+        }
+      ],
+      "name": "RegisterTicker",
+      "type": "event",
+      "signature": "0x8863beb3f7041968ea881ebc3e9e7bd1e5ade81b66586f43524a264e849c6609"
     },
     {
       "anonymous": false,
@@ -728,6 +778,25 @@
         {
           "name": "_ticker",
           "type": "string"
+        }
+      ],
+      "name": "registerNewTicker",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xb9caf05a"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_ticker",
+          "type": "string"
         },
         {
           "name": "_tokenName",
@@ -740,6 +809,37 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0x321dff17"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "name": "_registrationDate",
+          "type": "uint256"
+        },
+        {
+          "name": "_expiryDate",
+          "type": "uint256"
+        },
+        {
+          "name": "_status",
+          "type": "bool"
+        }
+      ],
+      "name": "modifyExistingTicker",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x16034bf4"
     },
     {
       "constant": false,
@@ -790,6 +890,26 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0x972b3ab5"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "tickerAvailable",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa92a8226"
     },
     {
       "constant": false,
@@ -927,7 +1047,38 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_name",
+          "name": "_ticker",
+          "type": "string"
+        },
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_securityToken",
+          "type": "address"
+        },
+        {
+          "name": "_tokenDetails",
+          "type": "string"
+        },
+        {
+          "name": "_deployedAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "modifyExistingSecurityToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x1f9fbf2e"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "",
           "type": "string"
         },
         {
@@ -1461,6 +1612,49 @@
           "type": "event",
           "signature": "0x63d9fb58b25a396dc2ebc591bec9115d1eb9c722dd6cdfcc9be4144d39dc2c26"
         },
+        "0x8863beb3f7041968ea881ebc3e9e7bd1e5ade81b66586f43524a264e849c6609": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_ticker",
+              "type": "string"
+            },
+            {
+              "indexed": true,
+              "name": "_registrationDate",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "_expiryDate",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "_fromAdmin",
+              "type": "bool"
+            },
+            {
+              "indexed": false,
+              "name": "_registrationFeePoly",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "_registrationFeeUsd",
+              "type": "uint256"
+            }
+          ],
+          "name": "RegisterTicker",
+          "type": "event",
+          "signature": "0x8863beb3f7041968ea881ebc3e9e7bd1e5ade81b66586f43524a264e849c6609"
+        },
         "0x2de60ed106ca2007f575a4a2ff327cdde9bf801386463689ccb784d8bd468562": {
           "anonymous": false,
           "inputs": [
@@ -1629,7 +1823,7 @@
       },
       "links": {},
       "address": "0x98d9f9e8DEbd4A632682ba207670d2a5ACD3c489",
-      "transactionHash": "0x74aa2fdf3be6e2b6d54f9bb1da2750ff4e1e94a28087a17600d33ed318eff18b"
+      "transactionHash": "0xec949a2c9e02c8b342580425020bccb6ef67413c16a6f58d4480cf41e0c80f53"
     }
   }
 }

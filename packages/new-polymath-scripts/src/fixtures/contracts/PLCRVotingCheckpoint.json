@@ -17,7 +17,7 @@
           "type": "address[]"
         },
         {
-          "name": "_changes",
+          "name": "_exempts",
           "type": "bool[]"
         }
       ],
@@ -130,20 +130,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "securityToken",
@@ -179,7 +165,7 @@
           "type": "address"
         },
         {
-          "name": "_change",
+          "name": "_exempt",
           "type": "bool"
         }
       ],
@@ -317,7 +303,7 @@
         },
         {
           "indexed": false,
-          "name": "_proposedQuorum",
+          "name": "_quorumPercentage",
           "type": "uint256"
         }
       ],
@@ -356,7 +342,7 @@
         },
         {
           "indexed": false,
-          "name": "_change",
+          "name": "_exempt",
           "type": "bool"
         }
       ],
@@ -373,7 +359,7 @@
         },
         {
           "indexed": false,
-          "name": "_change",
+          "name": "_exempt",
           "type": "bool"
         }
       ],
@@ -420,7 +406,7 @@
           "type": "uint256"
         },
         {
-          "name": "_proposedQuorum",
+          "name": "_quorumPercentage",
           "type": "uint256"
         }
       ],
@@ -446,7 +432,7 @@
           "type": "uint256"
         },
         {
-          "name": "_proposedQuorum",
+          "name": "_quorumPercentage",
           "type": "uint256"
         },
         {
@@ -516,7 +502,7 @@
           "type": "address"
         },
         {
-          "name": "_change",
+          "name": "_exempt",
           "type": "bool"
         }
       ],
@@ -538,7 +524,7 @@
           "type": "address[]"
         },
         {
-          "name": "_changes",
+          "name": "_exempts",
           "type": "bool[]"
         }
       ],

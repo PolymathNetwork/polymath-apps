@@ -251,21 +251,6 @@
       "signature": "0x9a7cc135"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "takeUsageFee",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa00af9f3"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "pausedTime",
@@ -447,19 +432,6 @@
       "inputs": [
         {
           "indexed": false,
-          "name": "_fundRaiseTypes",
-          "type": "uint8[]"
-        }
-      ],
-      "name": "SetFundRaiseTypes",
-      "type": "event",
-      "signature": "0xe5724f42dd9f217c97b3768212ed6d6692c0135e252387d61b98af28fecd9b02"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
           "name": "account",
           "type": "address"
         }
@@ -480,6 +452,19 @@
       "name": "Unpause",
       "type": "event",
       "signature": "0xaeb196d352664784d1900b0e7414a8face7d29f4dae8c4b0cf68ed477423bbf4"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_fundRaiseTypes",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "SetFundRaiseTypes",
+      "type": "event",
+      "signature": "0xe5724f42dd9f217c97b3768212ed6d6692c0135e252387d61b98af28fecd9b02"
     },
     {
       "constant": false,
@@ -670,7 +655,7 @@
       "events": {},
       "links": {},
       "address": "0xB529f14AA8096f943177c09Ca294Ad66d2E08b1f",
-      "transactionHash": "0x2845c920e0a447a544882a8f4e162b00e7ca7a6f77cfd33541f743f893e257fe"
+      "transactionHash": "0xe7785d4c523880c5c7b40a04aaa94ab4af6e469e1c51575acd270cde679bc9e0"
     }
   }
 }

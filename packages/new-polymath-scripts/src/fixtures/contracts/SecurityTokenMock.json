@@ -118,10 +118,6 @@
       "name": "canTransferFrom",
       "outputs": [
         {
-          "name": "success",
-          "type": "bool"
-        },
-        {
           "name": "reasonCode",
           "type": "bytes1"
         },
@@ -256,10 +252,6 @@
       ],
       "name": "canTransfer",
       "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        },
         {
           "name": "",
           "type": "bytes1"
@@ -963,7 +955,7 @@
       "name": "canTransferByPartition",
       "outputs": [
         {
-          "name": "esc",
+          "name": "reasonCode",
           "type": "bytes1"
         },
         {
@@ -1113,6 +1105,25 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "status",
+          "type": "bytes1"
+        }
+      ],
+      "name": "isSuccess",
+      "outputs": [
+        {
+          "name": "successful",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
       "type": "function"
     },
     {
@@ -1492,6 +1503,23 @@
         }
       ],
       "name": "ModuleAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_types",
+          "type": "uint8[]"
+        },
+        {
+          "indexed": false,
+          "name": "_module",
+          "type": "address"
+        }
+      ],
+      "name": "ModuleUpgraded",
       "type": "event"
     },
     {

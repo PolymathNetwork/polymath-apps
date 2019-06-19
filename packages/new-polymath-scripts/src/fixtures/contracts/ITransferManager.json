@@ -23,7 +23,7 @@
       "name": "executeTransfer",
       "outputs": [
         {
-          "name": "",
+          "name": "result",
           "type": "uint8"
         }
       ],
@@ -54,11 +54,11 @@
       "name": "verifyTransfer",
       "outputs": [
         {
-          "name": "",
+          "name": "result",
           "type": "uint8"
         },
         {
-          "name": "",
+          "name": "partition",
           "type": "bytes32"
         }
       ],
@@ -85,27 +85,8 @@
       "name": "getTokensByPartition",
       "outputs": [
         {
-          "name": "",
+          "name": "amount",
           "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_tokenHolder",
-          "type": "address"
-        }
-      ],
-      "name": "getPartitions",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32[]"
         }
       ],
       "payable": false,

@@ -1,181 +1,14 @@
 {
   "abi": [
     {
-      "constant": false,
-      "inputs": [],
-      "name": "proxyOwner",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
-      "inputs": [],
-      "name": "name",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "initialized",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "holderCount",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getterDelegate",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "decimals",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "currentCheckpointId",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "version",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "granularity",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
       "inputs": [
         {
-          "name": "_newVersion",
-          "type": "string"
-        },
-        {
-          "name": "_newImplementation",
-          "type": "address"
+          "name": "_variable",
+          "type": "bytes32"
         }
       ],
-      "name": "upgradeTo",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "implementation",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "dataStore",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "UNLOCKED",
+      "name": "getBytes32Value",
       "outputs": [
         {
           "name": "",
@@ -189,11 +22,11 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "polyToken",
+      "name": "getExpiryLimit",
       "outputs": [
         {
           "name": "",
-          "type": "address"
+          "type": "uint256"
         }
       ],
       "payable": false,
@@ -202,86 +35,89 @@
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "polymathRegistry",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "controllerDisabled",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
       "inputs": [
         {
-          "name": "_newVersion",
-          "type": "string"
-        },
-        {
-          "name": "_newImplementation",
+          "name": "_owner",
           "type": "address"
-        },
+        }
+      ],
+      "name": "getTickersByOwner",
+      "outputs": [
         {
-          "name": "_data",
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "getTickerOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "getTokensByOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getBytesValue",
+      "outputs": [
+        {
+          "name": "",
           "type": "bytes"
         }
       ],
-      "name": "upgradeToAndCall",
-      "outputs": [],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "symbol",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "LOCKED",
-      "outputs": [
+      "inputs": [
         {
-          "name": "",
+          "name": "_variable",
           "type": "bytes32"
         }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "_owner",
+      "name": "getAddressValue",
       "outputs": [
         {
           "name": "",
@@ -294,50 +130,67 @@
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "moduleRegistry",
-      "outputs": [
+      "inputs": [
         {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "securityTokenRegistry",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "tokenDetails",
-      "outputs": [
-        {
-          "name": "",
+          "name": "_ticker",
           "type": "string"
         }
       ],
+      "name": "getTickerDetails",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "transfersFrozen",
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getArrayAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "getTickerStatus",
       "outputs": [
         {
           "name": "",
@@ -350,8 +203,63 @@
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "tokenFactory",
+      "inputs": [
+        {
+          "name": "_securityToken",
+          "type": "address"
+        }
+      ],
+      "name": "getSecurityTokenData",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getBoolValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_protocolVersion",
+          "type": "uint256"
+        }
+      ],
+      "name": "getSTFactoryAddressOfVersion",
       "outputs": [
         {
           "name": "",
@@ -363,23 +271,113 @@
       "type": "function"
     },
     {
-      "constant": false,
+      "constant": true,
       "inputs": [
         {
-          "name": "_newOwner",
-          "type": "address"
+          "name": "_variable",
+          "type": "bytes32"
         }
       ],
-      "name": "transferProxyOwnership",
-      "outputs": [],
+      "name": "getStringValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
       "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getArrayBytes32",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
-      "name": "controller",
+      "name": "getTokens",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getLatestProtocolVersion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_delegate",
+          "type": "address"
+        }
+      ],
+      "name": "getTokensByDelegate",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getUintValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getSTFactoryAddress",
       "outputs": [
         {
           "name": "",
@@ -391,74 +389,70 @@
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [],
+      "name": "getIsFeeInPoly",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [
         {
-          "name": "_name",
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getArrayUint",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
           "type": "string"
-        },
+        }
+      ],
+      "name": "getSecurityTokenAddress",
+      "outputs": [
         {
-          "name": "_symbol",
-          "type": "string"
-        },
-        {
-          "name": "_decimals",
-          "type": "uint8"
-        },
-        {
-          "name": "_granularity",
-          "type": "uint256"
-        },
-        {
-          "name": "_tokenDetails",
-          "type": "string"
-        },
-        {
-          "name": "_polymathRegistry",
+          "name": "",
           "type": "address"
         }
       ],
       "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "fallback"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
+      "constant": true,
+      "inputs": [],
+      "name": "newFunction",
+      "outputs": [
         {
-          "indexed": false,
-          "name": "_previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "_newOwner",
-          "type": "address"
+          "name": "",
+          "type": "uint256"
         }
       ],
-      "name": "ProxyOwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_newVersion",
-          "type": "string"
-        },
-        {
-          "indexed": true,
-          "name": "_newImplementation",
-          "type": "address"
-        }
-      ],
-      "name": "Upgraded",
-      "type": "event"
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
     }
   ],
   "networks": {}

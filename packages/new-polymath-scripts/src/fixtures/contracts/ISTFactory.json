@@ -1,6 +1,79 @@
 {
   "abi": [
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "LogicContractSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_securityToken",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_version",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenUpgraded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_oldTransferManagerFactory",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_newTransferManagerFactory",
+          "type": "address"
+        }
+      ],
+      "name": "DefaultTransferManagerUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_oldDataStoreFactory",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_newDataStoreFactory",
+          "type": "address"
+        }
+      ],
+      "name": "DefaultDataStoreUpdated",
+      "type": "event"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -39,10 +112,78 @@
       "name": "deployToken",
       "outputs": [
         {
-          "name": "",
+          "name": "tokenAddress",
           "type": "address"
         }
       ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "name": "_initializationData",
+          "type": "bytes"
+        },
+        {
+          "name": "_upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "setLogicContract",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_maxModuleType",
+          "type": "uint8"
+        }
+      ],
+      "name": "upgradeToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_transferManagerFactory",
+          "type": "address"
+        }
+      ],
+      "name": "updateDefaultTransferManager",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_dataStoreFactory",
+          "type": "address"
+        }
+      ],
+      "name": "updateDefaultDataStore",
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
