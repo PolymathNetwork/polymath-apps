@@ -8,8 +8,8 @@ import { types } from '@polymathnetwork/new-shared';
 
 export interface Props {
   dispatch: Dispatch<any>;
-  securityTokenSymbol: string;
-  checkpointIndex: number;
+  symbol: string;
+  checkpointId: number;
   allDividendsCompleted: boolean;
   hasDividends: boolean;
 }
@@ -17,17 +17,18 @@ export interface Props {
 export class DividendListContainerBase extends Component<Props> {
   public render() {
     const {
-      securityTokenSymbol,
-      checkpointIndex,
+      symbol,
+      checkpointId,
       allDividendsCompleted,
       hasDividends,
     } = this.props;
+    console.log('DividendListContainerBase');
     return (
       <DataFetcher
         fetchers={[
           createDividendsByCheckpointFetcher({
-            securityTokenSymbol,
-            checkpointIndex,
+            symbol,
+            checkpointId,
           }),
         ]}
         render={({ dividends }: { dividends: types.DividendEntity[] }) => {
@@ -38,10 +39,10 @@ export class DividendListContainerBase extends Component<Props> {
 
           return (
             <DividendListPresenter
-              securityTokenSymbol={securityTokenSymbol}
+              symbol={symbol}
               hasDividends={hasDividends}
               dividends={sortedDividends}
-              checkpointIndex={checkpointIndex}
+              checkpointId={checkpointId}
               allDividendsCompleted={allDividendsCompleted}
             />
           );

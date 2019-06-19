@@ -8,7 +8,12 @@ import { SecurityTokenRegistry } from './LowLevel/SecurityTokenRegistry';
 import { SecurityToken } from './LowLevel/SecurityToken';
 import { Context } from './Context';
 import { ModuleRegistry } from './LowLevel/ModuleRegistry';
-import { TaxWithholdingEntry, PolymathNetworkParams, ErrorCodes, ModuleOperations } from './types';
+import {
+  TaxWithholdingEntry,
+  PolymathNetworkParams,
+  ErrorCodes,
+  ModuleOperations,
+} from './types';
 import {
   Dividend as LowLevelDividend,
   Checkpoint as LowLevelCheckpoint,
@@ -103,19 +108,40 @@ export class Polymath {
   constructor() {
     // TODO @RafaelVidaurre: type this correctly
     this.entities = {
-      SecurityToken: createContextualizedEntity(SecurityTokenEntity as any, this),
-      Erc20DividendsModule: createContextualizedEntity(Erc20DividendsModuleEntity as any, this),
-      EthDividendsModule: createContextualizedEntity(EthDividendsModuleEntity as any, this),
+      SecurityToken: createContextualizedEntity(
+        SecurityTokenEntity as any,
+        this
+      ),
+      Erc20DividendsModule: createContextualizedEntity(
+        Erc20DividendsModuleEntity as any,
+        this
+      ),
+      EthDividendsModule: createContextualizedEntity(
+        EthDividendsModuleEntity as any,
+        this
+      ),
       Dividend: createContextualizedEntity(DividendEntity as any, this),
       Checkpoint: createContextualizedEntity(CheckpointEntity as any, this),
-      TaxWithholding: createContextualizedEntity(TaxWithholdingEntity as any, this),
-      Erc20TokenBalance: createContextualizedEntity(Erc20TokenBalanceEntity as any, this),
+      TaxWithholding: createContextualizedEntity(
+        TaxWithholdingEntity as any,
+        this
+      ),
+      Erc20TokenBalance: createContextualizedEntity(
+        Erc20TokenBalanceEntity as any,
+        this
+      ),
       SecurityTokenReservation: createContextualizedEntity(
         SecurityTokenReservationEntity as any,
         this
       ),
-      CappedStoModule: createContextualizedEntity(CappedStoModuleEntity as any, this),
-      UsdTieredStoModule: createContextualizedEntity(UsdTieredStoModuleEntity as any, this),
+      CappedStoModule: createContextualizedEntity(
+        CappedStoModuleEntity as any,
+        this
+      ),
+      UsdTieredStoModule: createContextualizedEntity(
+        UsdTieredStoModuleEntity as any,
+        this
+      ),
       Investment: createContextualizedEntity(InvestmentEntity as any, this),
       StoModule: createContextualizedEntity(StoModuleEntity as any, this),
     };
@@ -146,7 +172,11 @@ export class Polymath {
     const account = await lowLevel.getAccount();
 
     if (!polymathRegistryAddress) {
-      throw new Error(`Polymath registry address for network id "${this.networkId}" was not found`);
+      throw new Error(
+        `Polymath registry address for network id "${
+          this.networkId
+        }" was not found`
+      );
     }
 
     await lowLevel.initialize({ polymathRegistryAddress });
@@ -173,7 +203,9 @@ export class Polymath {
     divisible: boolean;
   }) => {
     const { securityTokenReservationId, ...rest } = args;
-    const { symbol } = this.SecurityTokenReservation.unserialize(securityTokenReservationId);
+    const { symbol } = this.SecurityTokenReservation.unserialize(
+      securityTokenReservationId
+    );
     const procedure = new CreateSecurityToken(
       {
         symbol,
@@ -187,7 +219,10 @@ export class Polymath {
   /**
    * Reserve a Security Token
    */
-  public reserveSecurityToken = async (args: { symbol: string; name: string }) => {
+  public reserveSecurityToken = async (args: {
+    symbol: string;
+    name: string;
+  }) => {
     const procedure = new ReserveSecurityToken(args, this.context);
     const transactionQueue = await procedure.prepare();
     return transactionQueue;
@@ -200,12 +235,11 @@ export class Polymath {
    * @param types array containing the types of dividend modules to enable (will enable all if not present)
    */
   public enableDividendModules = async (args: {
-    securityTokenId: string;
+    symbol: string;
     storageWalletAddress: string;
     types?: DividendModuleTypes[];
   }) => {
-    const { securityTokenId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol, ...rest } = args;
     const procedure = new EnableDividendModules(
       {
         symbol,
@@ -219,10 +253,10 @@ export class Polymath {
   /**
    * Enable General Permission Manager module
    *
-   * @param securityTokenId token uuid
+   * @param symbol token uuid
    */
-  public enablePermissionsModule = async (args: { securityTokenId: string }) => {
-    const { symbol } = this.SecurityToken.unserialize(args.securityTokenId);
+  public enablePermissionsModule = async (args: { symbol: string }) => {
+    const { symbol } = args;
     const procedure = new EnableGeneralPermissionManager(
       {
         symbol,
@@ -235,9 +269,8 @@ export class Polymath {
   /**
    * Create investor supply checkpoint at the current date
    */
-  public createCheckpoint = async (args: { securityTokenId: string }) => {
-    const { securityTokenId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+  public createCheckpoint = async (args: { symbol: string }) => {
+    const { symbol, ...rest } = args;
     const procedure = new CreateCheckpoint(
       {
         symbol,
@@ -252,8 +285,8 @@ export class Polymath {
    * Distribute dividends in POLY
    */
   public createPolyDividendDistribution = async (args: {
-    securityTokenId: string;
-    checkpointId: string;
+    symbol: string;
+    checkpointId: number;
     maturityDate: Date;
     expiryDate: Date;
     amount: BigNumber;
@@ -262,14 +295,12 @@ export class Polymath {
     taxWithholdings?: TaxWithholdingEntry[];
   }) => {
     const polyAddress = this.context.polyToken.address;
-    const { securityTokenId, checkpointId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
-    const { index: checkpointIndex } = this.Checkpoint.unserialize(checkpointId);
+    const { symbol, checkpointId, ...rest } = args;
     const procedure = new CreateErc20DividendDistribution(
       {
         erc20Address: polyAddress,
         symbol,
-        checkpointIndex,
+        checkpointId,
         ...rest,
       },
       this.context
@@ -282,8 +313,8 @@ export class Polymath {
    * Distribute dividends in a specified ERC20 token
    */
   public createErc20DividendDistribution = async (args: {
-    securityTokenId: string;
-    checkpointId: string;
+    symbol: string;
+    checkpointId: number;
     maturityDate: Date;
     expiryDate: Date;
     erc20Address: string;
@@ -292,13 +323,11 @@ export class Polymath {
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
   }) => {
-    const { securityTokenId, checkpointId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
-    const { index: checkpointIndex } = this.Checkpoint.unserialize(checkpointId);
+    const { symbol, checkpointId, ...rest } = args;
     const procedure = new CreateErc20DividendDistribution(
       {
         symbol,
-        checkpointIndex,
+        checkpointId,
         ...rest,
       },
       this.context
@@ -310,8 +339,8 @@ export class Polymath {
    * Distribute dividends in ETH
    */
   public createEthDividendDistribution = async (args: {
-    securityTokenId: string;
-    checkpointId: string;
+    symbol: string;
+    checkpointId: number;
     maturityDate: Date;
     expiryDate: Date;
     erc20Address: string;
@@ -320,13 +349,12 @@ export class Polymath {
     excludedAddresses?: string[];
     taxWithholdings?: TaxWithholdingEntry[];
   }) => {
-    const { securityTokenId, checkpointId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
-    const { index: checkpointIndex } = this.Checkpoint.unserialize(checkpointId);
+    const { symbol, checkpointId, ...rest } = args;
+
     const procedure = new CreateEtherDividendDistribution(
       {
         symbol,
-        checkpointIndex,
+        checkpointId,
         ...rest,
       },
       this.context
@@ -338,13 +366,12 @@ export class Polymath {
    * Set tax withtholding list for a type of dividends
    */
   public updateDividendsTaxWithholdingList = async (args: {
-    securityTokenId: string;
+    symbol: string;
     dividendType: DividendModuleTypes;
     investorAddresses: string[];
     percentages: number[];
   }) => {
-    const { securityTokenId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol, ...rest } = args;
     const procedure = new UpdateDividendsTaxWithholdingList(
       {
         symbol,
@@ -359,12 +386,11 @@ export class Polymath {
    * Push dividends payments for a dividend distribution
    */
   public pushDividendPayment = async (args: {
-    securityTokenId: string;
+    symbol: string;
     dividendType: DividendModuleTypes;
     dividendIndex: number;
   }) => {
-    const { securityTokenId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol, ...rest } = args;
     const procedure = new PushDividendPayment(
       {
         symbol,
@@ -379,12 +405,11 @@ export class Polymath {
    * Change dividends module reclaiming wallet address
    */
   public setDividendsWallet = async (args: {
-    securityTokenId: string;
+    symbol: string;
     dividendType: DividendModuleTypes;
     address: string;
   }) => {
-    const { securityTokenId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol, ...rest } = args;
     const procedure = new SetDividendsWallet(
       {
         symbol,
@@ -399,12 +424,11 @@ export class Polymath {
    * Withdraw taxes from a dividend distribution
    */
   public withdrawTaxes = async (args: {
-    securityTokenId: string;
+    symbol: string;
     dividendType: DividendModuleTypes;
     dividendIndex: number;
   }) => {
-    const { securityTokenId, ...rest } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol, ...rest } = args;
     const procedure = new WithdrawTaxes(
       {
         symbol,
@@ -419,14 +443,13 @@ export class Polymath {
    * Grant or revoke permission to a delegate address
    */
   public changeDelegatePermission = async (args: {
-    securityTokenId: string;
+    symbol: string;
     delegate: string;
     op: ModuleOperations;
     isGranted: boolean;
     details?: string;
   }) => {
-    const { securityTokenId, delegate, op, isGranted, details } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol, delegate, op, isGranted, details } = args;
 
     const procedure = new ChangeDelegatePermission(
       { symbol, delegate, op, isGranted, details },
@@ -437,15 +460,21 @@ export class Polymath {
   };
 
   public controllerTransfer = async (args: {
-    securityTokenId: string;
+    symbol: string;
     value: BigNumber;
     from: string;
     to: string;
     reason?: string;
     data?: string;
   }) => {
-    const { securityTokenId, value, from, to, reason: reason = '', data: data = '' } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const {
+      symbol,
+      value,
+      from,
+      to,
+      reason: reason = '',
+      data: data = '',
+    } = args;
 
     const procedure = new ControllerTransfer(
       { symbol, value, from, to, log: reason, data },
@@ -455,9 +484,11 @@ export class Polymath {
     return await procedure.prepare();
   };
 
-  public setTokenController = async (args: { securityTokenId: string; controller: string }) => {
-    const { securityTokenId, controller } = args;
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+  public setTokenController = async (args: {
+    symbol: string;
+    controller: string;
+  }) => {
+    const { symbol, controller } = args;
     const procedure = new SetController({ symbol, controller }, this.context);
 
     return await procedure.prepare();
@@ -465,10 +496,12 @@ export class Polymath {
 
   public pauseSto = async (args: { stoModuleId: string }) => {
     const { stoModuleId } = args;
-    const { securityTokenId, address } = this.StoModule.unserialize(stoModuleId);
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol, address } = this.StoModule.unserialize(stoModuleId);
 
-    const procedure = new PauseSto({ symbol, stoModuleAddress: address }, this.context);
+    const procedure = new PauseSto(
+      { symbol, stoModuleAddress: address },
+      this.context
+    );
 
     return await procedure.prepare();
   };
@@ -521,29 +554,14 @@ export class Polymath {
    * Retrieve a list of investor addresses and their corresponding tax withholding
    * percentages
    */
-  public getDividendsTaxWithholdingList = async (
-    args:
-      | {
-          securityTokenId: string;
-          checkpointId: string;
-          dividendType: DividendModuleTypes;
-        }
-      | string
-  ) => {
+  public getDividendsTaxWithholdingList = async (args: {
+    symbol: string;
+    checkpointId: number;
+    dividendType: DividendModuleTypes;
+  }) => {
     const { securityTokenRegistry } = this.context;
 
-    let securityTokenId: string;
-    let checkpointId: string;
-    let dividendType: DividendModuleTypes;
-
-    // fetch by UUID
-    if (typeof args === 'string') {
-      ({ securityTokenId, dividendType, checkpointId } = this.TaxWithholding.unserialize(args));
-    } else {
-      ({ securityTokenId, dividendType, checkpointId } = args);
-    }
-
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    let { symbol, dividendType, checkpointId } = args;
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
@@ -564,13 +582,13 @@ export class Polymath {
     }
 
     if (!dividendsModule) {
-      throw new Error('There is no attached dividend module of the specified type');
+      throw new Error(
+        'There is no attached dividend module of the specified type'
+      );
     }
 
-    const { index: checkpointIndex } = this.Checkpoint.unserialize(checkpointId);
-
     const taxWithholdings = await dividendsModule.getTaxWithholdingList({
-      checkpointIndex,
+      checkpointId,
     });
 
     return taxWithholdings.map(
@@ -578,11 +596,9 @@ export class Polymath {
         new this.TaxWithholding({
           investorAddress,
           percentage,
-          securityTokenSymbol: symbol,
+          symbol,
           checkpointId,
-          securityTokenId,
           dividendType,
-          checkpointIndex,
         })
     );
   };
@@ -594,14 +610,12 @@ export class Polymath {
    */
   public getCheckpoints = async (
     args: {
-      securityTokenId: string;
+      symbol: string;
     },
     opts?: { dividendTypes?: DividendModuleTypes[] }
   ): Promise<CheckpointEntity[]> => {
     const { securityTokenRegistry } = this.context;
-    const { securityTokenId } = args;
-
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol } = args;
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
@@ -633,8 +647,7 @@ export class Polymath {
       );
 
       return this.assembleCheckpoint({
-        securityTokenId,
-        securityTokenSymbol: symbol,
+        symbol,
         checkpoint,
         checkpointDividends,
       });
@@ -647,22 +660,22 @@ export class Polymath {
   public getCheckpoint = async (
     args:
       | {
-          securityTokenId: string;
-          checkpointIndex: number;
+          symbol: string;
+          checkpointId: number;
         }
       | string,
     opts?: { dividendTypes?: DividendModuleTypes[] }
   ) => {
     const { securityTokenRegistry } = this.context;
 
-    let securityTokenId: string;
-    let checkpointIndex: number;
+    let symbol: string;
+    let checkpointId: number;
 
     // fetch by UUID
     if (typeof args === 'string') {
-      ({ securityTokenId, index: checkpointIndex } = this.Checkpoint.unserialize(args));
+      ({ symbol, index: checkpointId } = this.Checkpoint.unserialize(args));
     } else {
-      ({ securityTokenId, checkpointIndex } = args);
+      ({ symbol, checkpointId } = args);
     }
 
     let dividendTypes: DividendModuleTypes[] | undefined;
@@ -670,52 +683,6 @@ export class Polymath {
     if (opts) {
       ({ dividendTypes } = opts);
     }
-
-    const { symbol: securityTokenSymbol } = this.SecurityToken.unserialize(securityTokenId);
-
-    const securityToken = await securityTokenRegistry.getSecurityToken({
-      ticker: securityTokenSymbol,
-    });
-
-    if (!securityToken) {
-      throw new PolymathError({
-        code: ErrorCodes.FetcherValidationError,
-        message: `There is no Security Token with symbol ${securityTokenSymbol}`,
-      });
-    }
-
-    const checkpointDividends = await this.getAllDividends({
-      securityToken,
-      checkpointIndex,
-      dividendTypes,
-    });
-
-    const checkpoint: LowLevelCheckpoint = await securityToken.getCheckpoint({
-      checkpointId: checkpointIndex,
-    });
-
-    return this.assembleCheckpoint({
-      securityTokenId,
-      securityTokenSymbol,
-      checkpoint,
-      checkpointDividends,
-    });
-  };
-
-  /**
-   * Retrieve all dividend distributions at a certain checkpoint
-   */
-  public getDividends = async (
-    args: {
-      securityTokenId: string;
-      checkpointId: string;
-    },
-    opts?: { dividendTypes?: DividendModuleTypes[] }
-  ) => {
-    const { securityTokenRegistry } = this.context;
-    const { securityTokenId, checkpointId } = args;
-
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
@@ -728,8 +695,46 @@ export class Polymath {
       });
     }
 
-    const { index: checkpointIndex } = this.Checkpoint.unserialize(checkpointId);
+    const checkpointDividends = await this.getAllDividends({
+      securityToken,
+      checkpointId,
+      dividendTypes,
+    });
 
+    const checkpoint: LowLevelCheckpoint = await securityToken.getCheckpoint({
+      checkpointId: checkpointId,
+    });
+
+    return this.assembleCheckpoint({
+      symbol,
+      checkpoint,
+      checkpointDividends,
+    });
+  };
+
+  /**
+   * Retrieve all dividend distributions at a certain checkpoint
+   */
+  public getDividends = async (
+    args: {
+      symbol: string;
+      checkpointId: number;
+    },
+    opts?: { dividendTypes?: DividendModuleTypes[] }
+  ) => {
+    const { securityTokenRegistry } = this.context;
+    const { symbol, checkpointId } = args;
+
+    const securityToken = await securityTokenRegistry.getSecurityToken({
+      ticker: symbol,
+    });
+
+    if (!securityToken) {
+      throw new PolymathError({
+        code: ErrorCodes.FetcherValidationError,
+        message: `There is no Security Token with symbol ${symbol}`,
+      });
+    }
     let dividendTypes: DividendModuleTypes[] | undefined;
 
     if (opts) {
@@ -738,7 +743,7 @@ export class Polymath {
 
     const checkpointDividends = await this.getAllDividends({
       securityToken,
-      checkpointIndex,
+      checkpointId,
       dividendTypes,
     });
 
@@ -747,8 +752,7 @@ export class Polymath {
         new this.Dividend({
           ...dividend,
           checkpointId,
-          securityTokenSymbol: symbol,
-          securityTokenId,
+          symbol,
         })
     );
 
@@ -761,26 +765,30 @@ export class Polymath {
   public getDividend = async (
     args:
       | {
-          securityTokenId: string;
+          symbol: string;
           dividendType: DividendModuleTypes;
           dividendIndex: number;
         }
       | string
   ) => {
-    let securityTokenId: string;
+    let symbol: string;
     let dividendType: DividendModuleTypes;
     let dividendIndex: number;
 
     // fetch by UUID
     if (typeof args === 'string') {
-      ({ securityTokenId, index: dividendIndex, dividendType } = this.Dividend.unserialize(args));
+      ({
+        symbol,
+        index: dividendIndex,
+        dividendType,
+      } = this.Dividend.unserialize(args));
     } else {
-      ({ securityTokenId, dividendType, dividendIndex } = args);
+      ({ symbol, dividendType, dividendIndex } = args);
     }
 
     const checkpoints = await this.getCheckpoints(
       {
-        securityTokenId,
+        symbol,
       },
       {
         dividendTypes: [dividendType],
@@ -790,14 +798,18 @@ export class Polymath {
     for (const checkpoint of checkpoints) {
       const { dividends } = checkpoint;
 
-      const result = dividends.find(dividend => dividend.index === dividendIndex);
+      const result = dividends.find(
+        dividend => dividend.index === dividendIndex
+      );
 
       if (result) {
         return result;
       }
     }
 
-    throw new Error('There is no dividend of the specified type with that index.');
+    throw new Error(
+      'There is no dividend of the specified type with that index.'
+    );
   };
 
   /**
@@ -805,7 +817,7 @@ export class Polymath {
    */
   public getStoModules = async (
     args: {
-      securityTokenId: string;
+      symbol: string;
     },
     opts: {
       stoModuleTypes: StoModuleTypes[];
@@ -815,24 +827,21 @@ export class Polymath {
   ) => {
     const { securityTokenRegistry } = this.context;
 
-    const { securityTokenId } = args;
-
-    const { symbol: securityTokenSymbol } = this.SecurityToken.unserialize(securityTokenId);
+    const { symbol } = args;
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
-      ticker: securityTokenSymbol,
+      ticker: symbol,
     });
 
     if (!securityToken) {
       throw new PolymathError({
         code: ErrorCodes.FetcherValidationError,
-        message: `There is no Security Token with symbol ${securityTokenSymbol}`,
+        message: `There is no Security Token with symbol ${symbol}`,
       });
     }
 
     const constructorData = {
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
     };
 
     const { stoModuleTypes } = opts;
@@ -851,12 +860,17 @@ export class Polymath {
           const paused = await module.paused();
           const capReached = await module.capReached();
           const stoModuleId = this.CappedStoModule.generateId({
-            securityTokenId,
+            symbol,
             stoType,
             address,
           });
           const investmentEntities = investments.map(
-            investment => new this.Investment({ ...investment, ...constructorData, stoModuleId })
+            investment =>
+              new this.Investment({
+                ...investment,
+                ...constructorData,
+                stoModuleId,
+              })
           );
 
           stoModules.push(
@@ -875,21 +889,33 @@ export class Polymath {
         fetchedModules = await securityToken.getUsdTieredStoModules();
 
         for (const module of fetchedModules) {
-          const { tokensPerTier, ratesPerTier, ...details } = await module.getDetails();
+          const {
+            tokensPerTier,
+            ratesPerTier,
+            ...details
+          } = await module.getDetails();
           const investments = await module.getInvestments();
           const { address } = module;
           const paused = await module.paused();
           const capReached = await module.capReached();
           const stoModuleId = this.UsdTieredStoModule.generateId({
-            securityTokenId,
+            symbol,
             stoType,
             address,
           });
           const investmentEntities = investments.map(
-            investment => new this.Investment({ ...investment, ...constructorData, stoModuleId })
+            investment =>
+              new this.Investment({
+                ...investment,
+                ...constructorData,
+                stoModuleId,
+              })
           );
 
-          const tiers = zipWith(tokensPerTier, ratesPerTier, (cap, rate) => ({ cap, rate }));
+          const tiers = zipWith(tokensPerTier, ratesPerTier, (cap, rate) => ({
+            cap,
+            rate,
+          }));
 
           stoModules.push(
             new this.UsdTieredStoModule({
@@ -921,24 +947,22 @@ export class Polymath {
   public getDividendsModule = async (
     args:
       | {
-          securityTokenId: string;
+          symbol: string;
           dividendType: DividendModuleTypes;
         }
       | string
   ) => {
     const { securityTokenRegistry } = this.context;
 
-    let securityTokenId: string;
+    let symbol: string;
     let dividendType: DividendModuleTypes;
-
+    console.log('getDividendsModule', args);
     // fetch by UUID
     if (typeof args === 'string') {
-      ({ securityTokenId, dividendType } = DividendsModule.unserialize(args));
+      ({ symbol, dividendType } = DividendsModule.unserialize(args));
     } else {
-      ({ securityTokenId, dividendType } = args);
+      ({ symbol, dividendType } = args);
     }
-
-    const { symbol } = this.SecurityToken.unserialize(securityTokenId);
 
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
@@ -952,8 +976,7 @@ export class Polymath {
     }
 
     const constructorData = {
-      securityTokenSymbol: symbol,
-      securityTokenId,
+      symbol,
     };
 
     let dividendsModule;
@@ -988,7 +1011,9 @@ export class Polymath {
         break;
       }
       default: {
-        throw new Error('Invalid dividend module type. Must be "Erc20" or "Eth".');
+        throw new Error(
+          'Invalid dividend module type. Must be "Erc20" or "Eth".'
+        );
       }
     }
 
@@ -998,14 +1023,16 @@ export class Polymath {
   /**
    * Retrieve the ERC20 dividends module attached to a security token
    */
-  public getErc20DividendsModule = async (args: { securityTokenId: string } | string) => {
+  public getErc20DividendsModule = async (
+    args: { symbol: string } | string
+  ) => {
     // fetch by UUID
     if (typeof args === 'string') {
       return this.getDividendsModule(args);
     }
 
     return this.getDividendsModule({
-      securityTokenId: args.securityTokenId,
+      symbol: args.symbol,
       dividendType: DividendModuleTypes.Erc20,
     });
   };
@@ -1013,14 +1040,14 @@ export class Polymath {
   /**
    * Retrieve the ETH dividends module attached to a security token
    */
-  public getEthDividendsModule = async (args: { securityTokenId: string } | string) => {
+  public getEthDividendsModule = async (args: { symbol: string } | string) => {
     // fetch by UUID
     if (typeof args === 'string') {
       return this.getDividendsModule(args);
     }
 
     return this.getDividendsModule({
-      securityTokenId: args.securityTokenId,
+      symbol: args.symbol,
       dividendType: DividendModuleTypes.Eth,
     });
   };
@@ -1046,7 +1073,9 @@ export class Polymath {
 
     // fetch by UUID
     if (typeof args === 'string') {
-      ({ tokenAddress, walletAddress } = this.Erc20TokenBalance.unserialize(args));
+      ({ tokenAddress, walletAddress } = this.Erc20TokenBalance.unserialize(
+        args
+      ));
     } else {
       ({ tokenAddress, walletAddress } = args);
     }
@@ -1121,35 +1150,28 @@ export class Polymath {
    * Auxiliary function to create a checkpoint entity
    */
   private assembleCheckpoint = ({
-    securityTokenId,
-    securityTokenSymbol,
+    symbol,
     checkpoint,
     checkpointDividends,
   }: {
-    securityTokenId: string;
-    securityTokenSymbol: string;
+    symbol: string;
     checkpoint: LowLevelCheckpoint;
     checkpointDividends: LowLevelDividend[];
   }) => {
-    const checkpointId = this.Checkpoint.generateId({
-      securityTokenId,
-      index: checkpoint.index,
-    });
+    const checkpointId = checkpoint.index;
 
     const dividends = checkpointDividends.map(
       dividend =>
         new this.Dividend({
           ...dividend,
           checkpointId,
-          securityTokenSymbol,
-          securityTokenId,
+          symbol,
         })
     );
 
     const checkpointEntity = new this.Checkpoint({
       ...checkpoint,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       dividends,
     });
 
@@ -1161,11 +1183,11 @@ export class Polymath {
    */
   private getAllDividends = async ({
     securityToken,
-    checkpointIndex,
+    checkpointId,
     dividendTypes = [DividendModuleTypes.Erc20, DividendModuleTypes.Eth],
   }: {
     securityToken: SecurityToken;
-    checkpointIndex?: number;
+    checkpointId?: number;
     dividendTypes?: DividendModuleTypes[];
   }) => {
     const dividends = [];
@@ -1174,8 +1196,8 @@ export class Polymath {
       const erc20Module = await securityToken.getErc20DividendModule();
 
       if (erc20Module) {
-        const erc20Dividends = await (checkpointIndex !== undefined
-          ? erc20Module.getDividendsByCheckpoint({ checkpointIndex })
+        const erc20Dividends = await (checkpointId !== undefined
+          ? erc20Module.getDividendsByCheckpoint({ checkpointId })
           : erc20Module.getDividends());
         dividends.push(...erc20Dividends);
       }
@@ -1185,8 +1207,8 @@ export class Polymath {
       const etherModule = await securityToken.getEtherDividendModule();
 
       if (etherModule) {
-        const etherDividends = await (checkpointIndex !== undefined
-          ? etherModule.getDividendsByCheckpoint({ checkpointIndex })
+        const etherDividends = await (checkpointId !== undefined
+          ? etherModule.getDividendsByCheckpoint({ checkpointId })
           : etherModule.getDividends());
         dividends.push(...etherDividends);
       }

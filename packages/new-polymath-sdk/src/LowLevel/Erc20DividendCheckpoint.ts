@@ -38,7 +38,9 @@ interface Erc20DividendCheckpointContract extends GenericContract {
   };
 }
 
-export class Erc20DividendCheckpoint extends DividendCheckpoint<Erc20DividendCheckpointContract> {
+export class Erc20DividendCheckpoint extends DividendCheckpoint<
+  Erc20DividendCheckpointContract
+> {
   public dividendType = DividendModuleTypes.Erc20;
 
   constructor({ address, context }: { address: string; context: Context }) {
@@ -52,7 +54,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<Erc20DividendChe
     amount,
     checkpointId,
     name,
-    excludedAddresses,
+    excludedAddresses = [],
   }: CreateErc20DividendArgs) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const { asciiToHex } = Web3.utils;
@@ -63,7 +65,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<Erc20DividendChe
     const nameInBytes = asciiToHex(name);
     const divisibleAmount = toDivisible(amount, decimals);
 
-    if (excludedAddresses) {
+    if (excludedAddresses.length) {
       const method = this.contract.methods.createDividendWithCheckpointAndExclusions(
         maturity,
         expiry,
@@ -89,8 +91,12 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<Erc20DividendChe
     return () => method.send(options);
   };
 
-  public async getDividend({ dividendIndex }: GetDividendArgs): Promise<Dividend> {
-    const tokenAddress = await this.contract.methods.dividendTokens(dividendIndex).call();
+  public async getDividend({
+    dividendIndex,
+  }: GetDividendArgs): Promise<Dividend> {
+    const tokenAddress = await this.contract.methods
+      .dividendTokens(dividendIndex)
+      .call();
 
     const token = new Erc20({ address: tokenAddress, context: this.context });
 

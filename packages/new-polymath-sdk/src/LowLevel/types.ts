@@ -29,7 +29,7 @@ export interface GenericContract {
 
 export interface Erc20DividendDepositedEvent {
   _depositor: string;
-  _checkpointId: string;
+  _checkpointId: number;
   _created: string;
   _maturity: string;
   _expiry: string;
@@ -130,7 +130,7 @@ export interface GetExclusionListArgs {
 }
 
 export interface GetTaxWithholdingListArgs {
-  checkpointIndex: number;
+  checkpointId: number;
 }
 
 export interface GetDividendInvestorsArgs {
@@ -138,7 +138,7 @@ export interface GetDividendInvestorsArgs {
 }
 
 export interface GetDividendsByCheckpointArgs {
-  checkpointIndex: number;
+  checkpointId: number;
 }
 
 export interface GetDividendArgs {

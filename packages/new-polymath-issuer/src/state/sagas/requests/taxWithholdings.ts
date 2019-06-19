@@ -11,12 +11,12 @@ import {
 export function* fetchTaxWithholdingListBySymbolAndCheckpoint(
   args: GetTaxWithholdingListBySymbolAndCheckpointArgs
 ) {
-  const { securityTokenSymbol, checkpointIndex, dividendType } = args;
+  const { symbol, checkpointId, dividendType } = args;
   const taxWithholdingList: TaxWithholding[] = yield call(
     polyClient.getDividendsTaxWithholdingList,
     {
-      symbol: securityTokenSymbol,
-      checkpointIndex,
+      symbol: symbol,
+      checkpointId,
       dividendType,
     }
   );

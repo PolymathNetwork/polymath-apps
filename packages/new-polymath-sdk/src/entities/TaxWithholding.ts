@@ -4,38 +4,40 @@ import { serialize, unserialize } from '../utils';
 import { DividendModuleTypes, isDividendModuleTypes } from '../types';
 
 interface UniqueIdentifiers {
-  securityTokenId: string;
-  checkpointId: string;
+  symbol: string;
+  checkpointId: number;
   dividendType: DividendModuleTypes;
   investorAddress: string;
 }
 
-function isUniqueIdentifiers(identifiers: any): identifiers is UniqueIdentifiers {
-  const { securityTokenId, dividendType, investorAddress, checkpointIndex } = identifiers;
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, dividendType, investorAddress, checkpointId } = identifiers;
 
   return (
-    typeof securityTokenId === 'string' &&
+    typeof symbol === 'string' &&
     isDividendModuleTypes(dividendType) &&
     typeof investorAddress === 'string' &&
-    typeof checkpointIndex === 'number'
+    typeof checkpointId === 'number'
   );
 }
 
 interface Params extends UniqueIdentifiers {
-  securityTokenSymbol: string;
-  checkpointIndex: number;
+  symbol: string;
+  checkpointId: number;
   percentage: number;
 }
 
 export class TaxWithholding extends Entity {
   public static generateId({
-    securityTokenId,
+    symbol,
     dividendType,
     investorAddress,
     checkpointId,
   }: UniqueIdentifiers) {
     return serialize('taxWithholding', {
-      securityTokenId,
+      symbol,
       dividendType,
       investorAddress,
       checkpointId,
@@ -54,17 +56,13 @@ export class TaxWithholding extends Entity {
 
   public uid: string;
 
-  public securityTokenSymbol: string;
-
-  public securityTokenId: string;
+  public symbol: string;
 
   public dividendType: DividendModuleTypes;
 
   public investorAddress: string;
 
-  public checkpointId: string;
-
-  public checkpointIndex: number;
+  public checkpointId: number;
 
   public percentage: number;
 
@@ -72,50 +70,36 @@ export class TaxWithholding extends Entity {
     super(polyClient);
 
     const {
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       dividendType,
       investorAddress,
       percentage,
-      checkpointIndex,
       checkpointId,
     } = params;
 
-    this.securityTokenId = securityTokenId;
-    this.securityTokenSymbol = securityTokenSymbol;
+    this.symbol = symbol;
     this.dividendType = dividendType;
     this.investorAddress = investorAddress;
     this.percentage = percentage;
-    this.checkpointIndex = checkpointIndex;
-    (this.checkpointId = checkpointId),
-      (this.uid = TaxWithholding.generateId({
-        securityTokenId,
-        investorAddress,
-        dividendType,
-        checkpointId,
-      }));
+    this.checkpointId = checkpointId;
   }
 
   public toPojo() {
     const {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       dividendType,
       investorAddress,
       percentage,
-      checkpointIndex,
       checkpointId,
     } = this;
 
     return {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       dividendType,
       investorAddress,
       percentage,
-      checkpointIndex,
       checkpointId,
     };
   }

@@ -185,7 +185,7 @@ export interface CreateErc20DividendDistributionProcedureArgs {
   expiryDate: Date;
   erc20Address: string;
   amount: BigNumber;
-  checkpointIndex: number;
+  checkpointId: number;
   name: string;
   excludedAddresses?: string[];
   taxWithholdings?: TaxWithholdingEntry[];
@@ -196,7 +196,7 @@ export interface CreateEtherDividendDistributionProcedureArgs {
   maturityDate: Date;
   expiryDate: Date;
   amount: BigNumber;
-  checkpointIndex: number;
+  checkpointId: number;
   name: string;
   excludedAddresses?: string[];
   taxWithholdings?: TaxWithholdingEntry[];

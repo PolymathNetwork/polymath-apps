@@ -37,12 +37,12 @@ export const routes = {
     '/securityTokens': {
       Layout: DashboardLayout,
       Page: SecurityTokensIndexPage,
-      '/:securityTokenSymbol': {
+      '/:symbol': {
         '/dividends': {
           Page: SecurityTokensDividendsPage,
           handler: handleDividendsRoute,
         },
-        '/checkpoints/:checkpointIndex/dividends': {
+        '/checkpoints/:checkpointId/dividends': {
           '/new': {
             Page: DividendsWizardPage,
             handler: handleDividendsWizardRoute,

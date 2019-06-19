@@ -5,16 +5,16 @@ import { NewIssuerAdapter } from '@polymathnetwork/ui';
 import { ThemeProvider } from '@polymathnetwork/new-ui';
 
 const AdapterContainer = props => {
-  const { id, dividendIndex, checkpointIndex } = props.match.params;
-  const securityTokenSymbol = id.toUpperCase();
+  const { id, dividendIndex, checkpointId } = props.match.params;
+  const symbol = id.toUpperCase();
 
   return (
     <NewIssuerAdapter>
       <ThemeProvider>
         <DividendDetailsPage
           dividendIndex={dividendIndex}
-          securityTokenSymbol={securityTokenSymbol}
-          checkpointIndex={checkpointIndex}
+          symbol={symbol}
+          checkpointId={checkpointId}
         />
       </ThemeProvider>
     </NewIssuerAdapter>

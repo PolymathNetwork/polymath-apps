@@ -9,9 +9,9 @@ interface Params extends StoParams {
 }
 
 export class CappedStoModule extends StoModule {
-  public static generateId({ securityTokenId, stoType, address }: UniqueIdentifiers) {
+  public static generateId({ symbol, stoType, address }: UniqueIdentifiers) {
     return serialize('cappedStoModule', {
-      securityTokenId,
+      symbol,
       stoType,
       address,
     });
@@ -28,11 +28,11 @@ export class CappedStoModule extends StoModule {
 
     super(rest, polyClient);
 
-    const { securityTokenId, address, stoType } = rest;
+    const { symbol, address, stoType } = rest;
 
     this.cap = cap;
     this.rate = rate;
-    this.uid = CappedStoModule.generateId({ address, stoType, securityTokenId });
+    this.uid = CappedStoModule.generateId({ address, stoType, symbol });
   }
 
   public toPojo() {

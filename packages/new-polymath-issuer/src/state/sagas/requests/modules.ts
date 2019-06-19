@@ -8,16 +8,17 @@ import { RequestKeys, GetErc20DividendsModuleBySymbolArgs } from '~/types';
 export function* fetchErc20DividendsModuleBySymbol(
   args: GetErc20DividendsModuleBySymbolArgs
 ) {
-  const { securityTokenSymbol } = args;
+  console.log('fetchErc20DividendsModuleBySymbol', args);
+  const { symbol } = args;
   const dividendsModule: Erc20DividendsModule = yield call(
     polyClient.getErc20DividendsModule,
     {
-      symbol: securityTokenSymbol,
+      symbol: symbol,
     }
   );
 
   const fetchedIds: string[] = [];
-
+  console.log('dividendsModule', dividendsModule);
   if (dividendsModule) {
     const modulePojo = dividendsModule.toPojo();
     yield put(createErc20DividendsModule(modulePojo));

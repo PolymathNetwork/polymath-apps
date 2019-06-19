@@ -6,28 +6,30 @@ import { Dividend } from './Dividend';
 import { InvestorBalance } from '../types';
 
 interface UniqueIdentifiers {
-  securityTokenId: string;
+  symbol: string;
   index: number;
 }
 
-function isUniqueIdentifiers(identifiers: any): identifiers is UniqueIdentifiers {
-  const { securityTokenSymbol, index } = identifiers;
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, index } = identifiers;
 
-  return typeof securityTokenSymbol === 'string' && typeof index === 'number';
+  return typeof symbol === 'string' && typeof index === 'number';
 }
 
 interface Params extends UniqueIdentifiers {
   dividends: Dividend[];
-  securityTokenSymbol: string;
+  symbol: string;
   investorBalances: InvestorBalance[];
   totalSupply: BigNumber;
   createdAt: Date;
 }
 
 export class Checkpoint extends Entity {
-  public static generateId({ securityTokenId, index }: UniqueIdentifiers) {
+  public static generateId({ symbol, index }: UniqueIdentifiers) {
     return serialize('checkpoint', {
-      securityTokenId,
+      symbol,
       index,
     });
   }
@@ -46,9 +48,7 @@ export class Checkpoint extends Entity {
 
   public dividends: Dividend[];
 
-  public securityTokenSymbol: string;
-
-  public securityTokenId: string;
+  public symbol: string;
 
   public index: number;
 
@@ -63,8 +63,7 @@ export class Checkpoint extends Entity {
 
     const {
       dividends,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       index,
       investorBalances,
       totalSupply,
@@ -72,21 +71,19 @@ export class Checkpoint extends Entity {
     } = params;
 
     this.dividends = dividends;
-    this.securityTokenSymbol = securityTokenSymbol;
-    this.securityTokenId = securityTokenId;
+    this.symbol = symbol;
     this.index = index;
     this.investorBalances = investorBalances;
     this.totalSupply = totalSupply;
     this.createdAt = createdAt;
-    this.uid = Checkpoint.generateId({ securityTokenId, index });
+    this.uid = Checkpoint.generateId({ symbol, index });
   }
 
   public toPojo() {
     const {
       uid,
       dividends,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       index,
       investorBalances,
       totalSupply,
@@ -96,8 +93,7 @@ export class Checkpoint extends Entity {
     return {
       uid,
       dividends: dividends.map(dividend => dividend.toPojo()),
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       index,
       investorBalances,
       totalSupply,

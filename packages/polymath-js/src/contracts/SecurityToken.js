@@ -222,6 +222,7 @@ export default class SecurityToken extends Contract {
     if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
       return this.mintMulti(...arguments);
 
+    console.log('inside issueMulti', addresses, amounts);
     const amountsFinal = [];
     for (let amount of amounts) {
       amountsFinal.push(this.addDecimals(amount));
@@ -234,7 +235,7 @@ export default class SecurityToken extends Contract {
     // $FlowFixMe
     const tm = await this.getTransferManager();
     const investors = await tm.getWhitelist(true);
-
+    console.log('Whitelisted investors', investors);
     const eventName = semver.lt(this.version, LATEST_PROTOCOL_VERSION)
       ? MINTED_EVENT
       : ISSUED_EVENT;
@@ -242,6 +243,8 @@ export default class SecurityToken extends Contract {
       fromBlock: 0,
       toBlock: 'latest',
     });
+
+    console.log(eventName, events);
 
     for (let event of events) {
       const amount = this.removeDecimals(event.returnValues._value);

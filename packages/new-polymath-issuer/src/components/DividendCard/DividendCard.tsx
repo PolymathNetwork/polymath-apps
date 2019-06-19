@@ -21,14 +21,14 @@ import * as sc from './styles';
 
 interface Props {
   dividend: types.DividendEntity;
-  checkpointIndex: number;
-  securityTokenSymbol: string;
+  checkpointId: number;
+  symbol: string;
 }
 
 export const DividendCard: FC<Props> = ({
   dividend,
-  securityTokenSymbol,
-  checkpointIndex,
+  symbol,
+  checkpointId,
 }) => {
   const {
     investors,
@@ -128,7 +128,7 @@ export const DividendCard: FC<Props> = ({
         <Box mt="auto" minWidth="100%" textAlign="center">
           <ButtonFluid
             as={ButtonLink}
-            href={`/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/${
+            href={`/securityTokens/${symbol}/checkpoints/${checkpointId}/dividends/${
               dividend.index
             }`}
             variant="secondary"

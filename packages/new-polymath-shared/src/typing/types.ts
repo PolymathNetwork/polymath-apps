@@ -109,7 +109,7 @@ export interface DividendEntity extends Entity {
   index: number;
   securityTokenSymbol: string;
   securityTokenId: string;
-  checkpointId: string;
+  checkpointId: number;
   dividendType: DividendModuleTypes;
   created: Date;
   maturity: Date;

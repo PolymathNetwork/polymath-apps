@@ -25,9 +25,9 @@ const actions = {
 
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
-  securityTokenSymbol: string;
+  symbol: string;
   dividendIndex: string;
-  checkpointIndex: string;
+  checkpointId: number;
   networkId?: number;
 }
 
@@ -38,22 +38,22 @@ const mapStateToProps = (state: RootState) => {
 
 export class ContainerBase extends Component<Props> {
   public pushDividendPayments = () => {
-    const { dispatch, securityTokenSymbol, dividendIndex } = this.props;
+    const { dispatch, symbol, dividendIndex } = this.props;
 
     dispatch(
       pushDividendPaymentStart({
-        securityTokenSymbol,
+        symbol,
         dividendType: DividendModuleTypes.Erc20,
         dividendIndex: parseInt(dividendIndex, 10),
       })
     );
   };
   public withdrawTaxes = () => {
-    const { dispatch, securityTokenSymbol, dividendIndex } = this.props;
+    const { dispatch, symbol, dividendIndex } = this.props;
 
     dispatch(
       withdrawDividendTaxesStart({
-        securityTokenSymbol,
+        symbol,
         dividendType: DividendModuleTypes.Erc20,
         dividendIndex: parseInt(dividendIndex, 10),
       })
@@ -61,10 +61,12 @@ export class ContainerBase extends Component<Props> {
   };
 
   public render() {
+    console.log('Dividand detail component');
+
     const {
-      securityTokenSymbol,
+      symbol,
       dividendIndex,
-      checkpointIndex,
+      checkpointId,
       networkId,
     } = this.props;
     const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
@@ -73,12 +75,12 @@ export class ContainerBase extends Component<Props> {
         <DataFetcher
           fetchers={[
             createTaxWithholdingListBySymbolAndCheckpointFetcher({
-              securityTokenSymbol,
-              checkpointIndex: parseInt(checkpointIndex, 10),
+              symbol,
+              checkpointId: parseInt(checkpointId, 10),
               dividendType: DividendModuleTypes.Erc20,
             }),
             createDividendBySymbolAndIdFetcher({
-              securityTokenSymbol,
+              symbol,
               dividendType: DividendModuleTypes.Erc20,
               dividendIndex: parseInt(dividendIndex, 10),
             }),
@@ -97,7 +99,7 @@ export class ContainerBase extends Component<Props> {
             return (
               <Presenter
                 subdomain={subdomain}
-                symbol={securityTokenSymbol}
+                symbol={symbol}
                 dividend={dividend}
                 taxWithholdings={taxWithholdings}
                 pushDividendPayments={this.pushDividendPayments}

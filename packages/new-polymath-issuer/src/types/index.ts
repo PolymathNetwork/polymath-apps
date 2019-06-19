@@ -49,36 +49,36 @@ export enum RequestKeys {
 }
 
 export interface GetCheckpointsBySymbolArgs {
-  securityTokenSymbol: string;
+  symbol: string;
 }
 
 export interface GetCheckpointBySymbolAndIdArgs {
-  securityTokenSymbol: string;
-  checkpointIndex: number;
+  symbol: string;
+  checkpointId: number;
 }
 
 export interface GetSecurityTokenBySymbolArgs {
-  securityTokenSymbol: string;
+  symbol: string;
 }
 
 export interface GetDividendsByCheckpointArgs {
-  securityTokenSymbol: string;
-  checkpointIndex: number;
+  symbol: string;
+  checkpointId: number;
 }
 
 export interface GetDividendBySymbolAndIdArgs {
-  securityTokenSymbol: string;
+  symbol: string;
   dividendIndex: number;
   dividendType: DividendModuleTypes;
 }
 
 export interface GetErc20DividendsModuleBySymbolArgs {
-  securityTokenSymbol: string;
+  symbol: string;
 }
 
 export interface GetTaxWithholdingListBySymbolAndCheckpointArgs {
-  securityTokenSymbol: string;
-  checkpointIndex: number;
+  symbol: string;
+  checkpointId: number;
   dividendType: DividendModuleTypes;
 }
 
@@ -105,48 +105,48 @@ export type RequestArgs =
 export function isGetCheckpointsBySymbolArgs(
   args: any
 ): args is GetCheckpointsBySymbolArgs {
-  const { securityTokenSymbol } = args;
+  const { symbol } = args;
 
-  return typeof securityTokenSymbol === 'string';
+  return typeof symbol === 'string';
 }
 
 export function isGetCheckpointBySymbolAndIdArgs(
   args: any
 ): args is GetCheckpointBySymbolAndIdArgs {
-  const { securityTokenSymbol, checkpointIndex } = args;
+  const { symbol, checkpointId } = args;
 
   return (
-    typeof securityTokenSymbol === 'string' &&
-    typeof checkpointIndex === 'number'
+    typeof symbol === 'string' &&
+    typeof checkpointId === 'number'
   );
 }
 
 export function isGetSecurityTokenBySymbolArgs(
   args: any
 ): args is GetSecurityTokenBySymbolArgs {
-  const { securityTokenSymbol } = args;
+  const { symbol } = args;
 
-  return typeof securityTokenSymbol === 'string';
+  return typeof symbol === 'string';
 }
 
 export function isGetDividendsByCheckpointArgs(
   args: any
 ): args is GetDividendsByCheckpointArgs {
-  const { securityTokenSymbol, checkpointIndex } = args;
+  const { symbol, checkpointId } = args;
 
   return (
-    typeof securityTokenSymbol === 'string' &&
-    typeof checkpointIndex === 'number'
+    typeof symbol === 'string' &&
+    typeof checkpointId === 'number'
   );
 }
 
 export function isGetDividendBySymbolAndIdArgs(
   args: any
 ): args is GetDividendBySymbolAndIdArgs {
-  const { securityTokenSymbol, dividendIndex, dividendType } = args;
+  const { symbol, dividendIndex, dividendType } = args;
 
   return (
-    typeof securityTokenSymbol === 'string' &&
+    typeof symbol === 'string' &&
     typeof dividendIndex === 'number' &&
     typeof dividendType === 'string' &&
     includes([DividendModuleTypes.Erc20, DividendModuleTypes.Eth], dividendType)
@@ -156,19 +156,19 @@ export function isGetDividendBySymbolAndIdArgs(
 export function isGetErc20DividendsModuleBySymbolArgs(
   args: any
 ): args is GetCheckpointsBySymbolArgs {
-  const { securityTokenSymbol } = args;
+  const { symbol } = args;
 
-  return typeof securityTokenSymbol === 'string';
+  return typeof symbol === 'string';
 }
 
 export function isGetTaxWithholdingListBySymbolAndCheckpointArgs(
   args: any
 ): args is GetTaxWithholdingListBySymbolAndCheckpointArgs {
-  const { securityTokenSymbol, checkpointIndex, dividendType } = args;
+  const { symbol, checkpointId, dividendType } = args;
 
   return (
-    typeof securityTokenSymbol === 'string' &&
-    typeof checkpointIndex === 'number' &&
+    typeof symbol === 'string' &&
+    typeof checkpointId === 'number' &&
     typeof dividendType === 'string' &&
     (dividendType === DividendModuleTypes.Erc20 ||
       dividendType === DividendModuleTypes.Eth)

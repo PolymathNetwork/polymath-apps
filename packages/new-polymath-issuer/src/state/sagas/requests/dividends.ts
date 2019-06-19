@@ -12,10 +12,11 @@ import {
 export function* fetchDividendsByCheckpoint(
   args: GetDividendsByCheckpointArgs
 ) {
-  const { securityTokenSymbol, checkpointIndex } = args;
+  const { symbol, checkpointId } = args;
+  console.log('fetchDividendsByCheckpoint');
   const dividends: Dividend[] = yield call(polyClient.getDividends, {
-    symbol: securityTokenSymbol,
-    checkpointIndex,
+    symbol: symbol,
+    checkpointId,
   });
 
   const fetchedIds: string[] = [];
@@ -31,7 +32,7 @@ export function* fetchDividendsByCheckpoint(
       cacheData({
         requestKey: RequestKeys.GetDividendBySymbolAndId,
         args: {
-          securityTokenSymbol,
+          symbol,
           dividendIndex: index,
           dividendType,
         },
@@ -52,9 +53,9 @@ export function* fetchDividendsByCheckpoint(
 export function* fetchDividendBySymbolAndId(
   args: GetDividendBySymbolAndIdArgs
 ) {
-  const { securityTokenSymbol, dividendIndex, dividendType } = args;
+  const { symbol, dividendIndex, dividendType } = args;
   const dividend: Dividend = yield call(polyClient.getDividend, {
-    symbol: securityTokenSymbol,
+    symbol: symbol,
     dividendType,
     dividendIndex,
   });

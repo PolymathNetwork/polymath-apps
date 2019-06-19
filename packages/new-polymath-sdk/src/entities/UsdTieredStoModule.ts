@@ -14,9 +14,9 @@ interface Params extends StoParams {
 }
 
 export class UsdTieredStoModule extends StoModule {
-  public static generateId({ securityTokenId, stoType, address }: UniqueIdentifiers) {
+  public static generateId({ symbol, stoType, address }: UniqueIdentifiers) {
     return serialize('usdTieredStoModule', {
-      securityTokenId,
+      symbol,
       stoType,
       address,
     });
@@ -33,11 +33,11 @@ export class UsdTieredStoModule extends StoModule {
 
     super(rest, polyClient);
 
-    const { securityTokenId, address, stoType } = rest;
+    const { symbol, address, stoType } = rest;
 
     this.currentTier = currentTier;
     this.tiers = tiers;
-    this.uid = UsdTieredStoModule.generateId({ address, stoType, securityTokenId });
+    this.uid = UsdTieredStoModule.generateId({ address, stoType, symbol });
   }
 
   public toPojo() {

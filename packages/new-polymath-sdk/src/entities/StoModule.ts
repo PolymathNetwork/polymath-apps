@@ -7,7 +7,7 @@ import { FundraiseTypes } from '../LowLevel/types';
 import { Investment } from './Investment';
 
 export interface UniqueIdentifiers {
-  securityTokenId: string;
+  symbol: string;
   stoType: StoModuleTypes;
   address: string;
 }
@@ -15,17 +15,17 @@ export interface UniqueIdentifiers {
 function isUniqueIdentifiers(
   identifiers: any
 ): identifiers is UniqueIdentifiers {
-  const { securityTokenId, stoType, address } = identifiers;
+  const { symbol, stoType, address } = identifiers;
 
   return (
-    typeof securityTokenId === 'string' &&
+    typeof symbol === 'string' &&
     typeof address === 'string' &&
     isStoModuleTypes(stoType)
   );
 }
 
 export interface Params extends UniqueIdentifiers {
-  securityTokenSymbol: string;
+  symbol: string;
   startTime: Date;
   endTime: Date;
   fundraiseTypes: FundraiseTypes[];
@@ -42,9 +42,7 @@ export abstract class StoModule extends Entity {
 
   public address: string;
 
-  public securityTokenSymbol: string;
-
-  public securityTokenId: string;
+  public symbol: string;
 
   public stoType: StoModuleTypes;
 
@@ -81,8 +79,7 @@ export abstract class StoModule extends Entity {
 
     const {
       address,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       stoType,
       fundraiseTypes,
       startTime,
@@ -96,8 +93,7 @@ export abstract class StoModule extends Entity {
     } = params;
 
     this.address = address;
-    this.securityTokenSymbol = securityTokenSymbol;
-    this.securityTokenId = securityTokenId;
+    this.symbol = symbol;
     this.stoType = stoType;
     this.startTime = startTime;
     this.endTime = endTime;
@@ -113,8 +109,7 @@ export abstract class StoModule extends Entity {
   public toPojo() {
     const {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       fundraiseTypes,
       raisedAmount,
       soldTokensAmount,
@@ -126,8 +121,7 @@ export abstract class StoModule extends Entity {
 
     return {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       fundraiseTypes,
       raisedAmount,
       soldTokensAmount,

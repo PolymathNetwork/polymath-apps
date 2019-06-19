@@ -23,7 +23,7 @@ import { fromUnixTimestamp, fromWei, toWei, fromDivisible, toAscii, getOptions }
 import { ContractWrapperFactory } from './ContractWrapperFactory';
 
 interface InternalDividend {
-  checkpointId: string;
+  checkpointId: number;
   created: string;
   maturity: string;
   expiry: string;
@@ -108,10 +108,10 @@ export abstract class DividendCheckpoint<
   }
 
   public async getTaxWithholdingList({
-    checkpointIndex,
+    checkpointId,
   }: GetTaxWithholdingListArgs): Promise<TaxWithholding[]> {
     const { 0: investors, 2: percentages } = await this.contract.methods
-      .getCheckpointData(checkpointIndex)
+      .getCheckpointData(checkpointId)
       .call();
 
     return zipWith(investors, percentages, (address, percentage) => ({
@@ -132,8 +132,8 @@ export abstract class DividendCheckpoint<
 
   public abstract getDividend({ dividendIndex }: GetDividendArgs): Promise<Dividend>;
 
-  public async getDividendsByCheckpoint({ checkpointIndex }: GetDividendsByCheckpointArgs) {
-    const dividendIndexes = await this.contract.methods.getDividendIndex(checkpointIndex).call();
+  public async getDividendsByCheckpoint({ checkpointId }: GetDividendsByCheckpointArgs) {
+    const dividendIndexes = await this.contract.methods.getDividendIndex(checkpointId).call();
 
     const dividends = await Promise.all(
       dividendIndexes.map(dividendIndex =>
@@ -151,7 +151,7 @@ export abstract class DividendCheckpoint<
     const currentCheckpointIndex = await securityToken.currentCheckpointId();
     const checkpointIndexes = range(1, currentCheckpointIndex + 1);
     const dividends = await Promise.all(
-      checkpointIndexes.map(checkpointIndex => this.getDividendsByCheckpoint({ checkpointIndex }))
+      checkpointIndexes.map(checkpointId => this.getDividendsByCheckpoint({ checkpointId }))
     );
 
     return flatten(dividends).sort((a, b) => a.index - b.index);

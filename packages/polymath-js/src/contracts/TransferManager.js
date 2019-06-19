@@ -149,15 +149,22 @@ export default class TransferManager extends Contract {
     const expiryTimes: Array<number> = [];
     const flags: Array<number> = [];
     const cannotBuyFromSTO: Array<boolean> = [];
-
+    console.log('investors', investors);
     for (let investor of investors) {
       addresses.push(investor.address); // $FlowFixMe
       fromTimes.push(this._toUnixTS(investor.from)); // $FlowFixMe
       toTimes.push(this._toUnixTS(investor.to)); // $FlowFixMe
       expiryTimes.push(this._toUnixTS(investor.expiry)); // $FlowFixMe
       flags.push(1); // 1 = 'canNotBuyFromSto'
-      cannotBuyFromSTO.push(!investor.canBuyFromSTO); // We're negating the value because 3.0 flag is negated too.
+      if (investor.hasOwnProperty('canBuyFromSTO')) {
+        // We're negating the value because 3.0 flag is negated too (ie can NOT buy from STO).
+        cannotBuyFromSTO.push(!investor.canBuyFromSTO);
+      } else {
+        cannotBuyFromSTO.push(false);
+      }
     }
+
+    console.log(addresses, flags, cannotBuyFromSTO);
 
     await this._tx(
       this._methods.modifyKYCDataMulti(
@@ -223,26 +230,28 @@ export default class TransferManager extends Contract {
       }
     );
 
-    if (events.length !== flagEvents.length)
-      throw new Error(
-        'Unexpected error occured while retrieving investors whitelist.'
-      );
+    // if (events.length !== flagEvents.length)
+    //   throw new Error(
+    //     'Unexpected error occured while retrieving investors whitelist.'
+    //   );
 
     for (let i = 0; i < events.length; i++) {
       const event = events[i];
-      const canBuyFromSTO = !flagEvents[i]._value;
+      // @TODO @remon-nashid fix (or explain) this hack.
+      if (!flagEvents[i]) continue;
+
+      const canBuyFromSTO = !flagEvents[i].returnValues._value;
 
       logs.push({
         address: event.returnValues._investor,
         addedBy: event.returnValues._addedBy,
-        added: this._toDate(event.returnValues._dateAdded),
-        from: this._toDate(event.returnValues._fromTime),
-        to: this._toDate(event.returnValues._toTime),
+        from: this._toDate(event.returnValues._canSendAfter),
+        to: this._toDate(event.returnValues._expiryTime),
         expiry: this._toDate(event.returnValues._expiryTime),
         canBuyFromSTO,
       });
     }
-
+    console.log('events, flagEvents, logs', events, flagEvents, logs);
     return this._mapLogsToInvestors(logs);
   }
 }

@@ -46,7 +46,7 @@ interface Props {
   wallet?: Wallet;
   updateDividendAmount: (dividendAmount: BigNumber) => void;
   updateCurrencySymbol: (currencySymbol: string) => void;
-  securityTokenSymbol: string;
+  symbol: string;
   fetchBalance: (
     args: GetErc20BalanceByAddressAndWalletArgs
   ) => Promise<types.Erc20TokenBalancePojo>;

@@ -1,2148 +1,2365 @@
 export const SecurityTokenAbi = [
   {
-    constant: true,
-    inputs: [],
-    name: 'name',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'string',
+        "indexed": false,
+        "name": "_types",
+        "type": "uint8[]"
       },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
       {
-        name: 'spender',
-        type: 'address',
+        "indexed": true,
+        "name": "_name",
+        "type": "bytes32"
       },
       {
-        name: 'value',
-        type: 'uint256',
+        "indexed": true,
+        "name": "_moduleFactory",
+        "type": "address"
       },
-    ],
-    name: 'approve',
-    outputs: [
       {
-        name: '',
-        type: 'bool',
+        "indexed": false,
+        "name": "_module",
+        "type": "address"
       },
-    ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'initialized',
-    outputs: [
+      {
+        "indexed": false,
+        "name": "_moduleCost",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "_budget",
+        "type": "uint256"
+      },
       {
-        name: '',
-        type: 'bool',
+        "indexed": false,
+        "name": "_label",
+        "type": "bytes32"
       },
+      {
+        "indexed": false,
+        "name": "_archived",
+        "type": "bool"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "ModuleAdded",
+    "type": "event",
+    "signature": "0xfa9cc8faf0fe9bebcaababb6b67c5a679d4fdec88527e4ca823ee0f91e9c0928"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'totalSupply',
-    outputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "name",
+    "outputs": [
       {
-        name: '',
-        type: 'uint256',
-      },
+        "name": "",
+        "type": "string"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x06fdde03"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'holderCount',
-    outputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
       {
-        name: '',
-        type: 'uint256',
-      },
+        "name": "",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'getterDelegate',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'address',
+        "indexed": false,
+        "name": "_oldDetails",
+        "type": "string"
       },
+      {
+        "indexed": false,
+        "name": "_newDetails",
+        "type": "string"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "UpdateTokenDetails",
+    "type": "event",
+    "signature": "0x4f5dc3feea8c186b1481cfe57c28df8871a61e3be16f7d65c60504cfd6344067"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'decimals',
-    outputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "tokenDetails",
+    "outputs": [
       {
-        name: '',
-        type: 'uint8',
-      },
+        "name": "",
+        "type": "string"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xd6abe110"
   },
   {
-    constant: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: 'spender',
-        type: 'address',
+        "indexed": false,
+        "name": "_oldName",
+        "type": "string"
       },
       {
-        name: 'addedValue',
-        type: 'uint256',
-      },
+        "indexed": false,
+        "name": "_newName",
+        "type": "string"
+      }
     ],
-    name: 'increaseAllowance',
-    outputs: [
+    "name": "UpdateTokenName",
+    "type": "event",
+    "signature": "0x99b81fd13cfa16f6b748b388ac4e3059f0d9e1166c6c99b07ff0f4aa308ca43c"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'bool',
+        "indexed": false,
+        "name": "_oldGranularity",
+        "type": "uint256"
       },
+      {
+        "indexed": false,
+        "name": "_newGranularity",
+        "type": "uint256"
+      }
     ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "GranularityChanged",
+    "type": "event",
+    "signature": "0x7728e5c461dd94b32a33e149f4ef6b674a7eff704cac77b26937eaced90f0038"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "FreezeIssuance",
+    "type": "event",
+    "signature": "0x9ea7d0a14bc31ddf4821c86966910e35bd82b51f74bde7d3704498e0fb92e1f1"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'currentCheckpointId',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'uint256',
-      },
+        "indexed": false,
+        "name": "_status",
+        "type": "bool"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "FreezeTransfers",
+    "type": "event",
+    "signature": "0xac199452244e92d1343195dfad0a5347b229c861e3a8f2fbf08ab519b1d55bc9"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'granularity',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'uint256',
+        "indexed": true,
+        "name": "_checkpointId",
+        "type": "uint256"
       },
+      {
+        "indexed": false,
+        "name": "_investorLength",
+        "type": "uint256"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "CheckpointCreated",
+    "type": "event",
+    "signature": "0x624ea167e477f9d39f7f4094b9dfe2e6346eb4a7aada54338db51abd554c4b9f"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'dataStore',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'address',
+        "indexed": true,
+        "name": "_oldController",
+        "type": "address"
       },
+      {
+        "indexed": true,
+        "name": "_newController",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "SetController",
+    "type": "event",
+    "signature": "0x9fdb07212c6f92fd298affc4000712177664bc3c4cae5f61098d42da6d05be1e"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'UNLOCKED',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'bytes32',
+        "indexed": false,
+        "name": "_oldTreasuryWallet",
+        "type": "address"
       },
+      {
+        "indexed": false,
+        "name": "_newTreasuryWallet",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "TreasuryWalletChanged",
+    "type": "event",
+    "signature": "0x419d718138b0b65d09976f881eed8b8d7075d4b6092f74af0a0ec9b3417cdd12"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'polyToken',
-    outputs: [
+    "anonymous": false,
+    "inputs": [],
+    "name": "DisableController",
+    "type": "event",
+    "signature": "0xf7ec83c37617f91085fc1725f4839e41a03238811eaebd2dbc4a405354cc958e"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'address',
+        "indexed": true,
+        "name": "previousOwner",
+        "type": "address"
       },
+      {
+        "indexed": true,
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "OwnershipTransferred",
+    "type": "event",
+    "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
   },
   {
-    constant: true,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: 'owner',
-        type: 'address',
+        "indexed": false,
+        "name": "_major",
+        "type": "uint8"
       },
-    ],
-    name: 'balanceOf',
-    outputs: [
       {
-        name: '',
-        type: 'uint256',
+        "indexed": false,
+        "name": "_minor",
+        "type": "uint8"
       },
+      {
+        "indexed": false,
+        "name": "_patch",
+        "type": "uint8"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "TokenUpgraded",
+    "type": "event",
+    "signature": "0x23af9b477abf9645be8a074be19ae4a47e11abc43bd1aa47b16de7eb85609302"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'polymathRegistry',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'address',
+        "indexed": false,
+        "name": "_types",
+        "type": "uint8[]"
       },
+      {
+        "indexed": false,
+        "name": "_module",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "ModuleArchived",
+    "type": "event",
+    "signature": "0x78914da53c30c0667830d562877caed5c20adc645b8557fa64336c22a9b8ece6"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'controllerDisabled',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'bool',
+        "indexed": false,
+        "name": "_types",
+        "type": "uint8[]"
       },
+      {
+        "indexed": false,
+        "name": "_module",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "ModuleUnarchived",
+    "type": "event",
+    "signature": "0xe69e438aa3b4b943ac4c807820403a6e5815b8fbb7fccfac629fce87ff6d430d"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'symbol',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'string',
+        "indexed": false,
+        "name": "_types",
+        "type": "uint8[]"
       },
+      {
+        "indexed": false,
+        "name": "_module",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "ModuleRemoved",
+    "type": "event",
+    "signature": "0xf4e9f735975718dce0ac83fb73f88a1b19a48186af0f6348c04c6229eb4b86a0"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'LOCKED',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "_moduleTypes",
+        "type": "uint8[]"
+      },
       {
-        name: '',
-        type: 'bytes32',
+        "indexed": false,
+        "name": "_module",
+        "type": "address"
       },
+      {
+        "indexed": false,
+        "name": "_oldBudget",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "_budget",
+        "type": "uint256"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "ModuleBudgetChanged",
+    "type": "event",
+    "signature": "0xa00a1c33ebb7433724919cb1059328c16265f935ef84a13442045da3e81c0ccc"
   },
   {
-    constant: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: 'spender',
-        type: 'address',
+        "indexed": true,
+        "name": "_fromPartition",
+        "type": "bytes32"
       },
       {
-        name: 'subtractedValue',
-        type: 'uint256',
+        "indexed": false,
+        "name": "_operator",
+        "type": "address"
       },
-    ],
-    name: 'decreaseAllowance',
-    outputs: [
       {
-        name: '',
-        type: 'bool',
+        "indexed": true,
+        "name": "_from",
+        "type": "address"
       },
-    ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: '_owner',
-    outputs: [
       {
-        name: '',
-        type: 'address',
+        "indexed": true,
+        "name": "_to",
+        "type": "address"
       },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'moduleRegistry',
-    outputs: [
+      {
+        "indexed": false,
+        "name": "_value",
+        "type": "uint256"
+      },
       {
-        name: '',
-        type: 'address',
+        "indexed": false,
+        "name": "_data",
+        "type": "bytes"
       },
+      {
+        "indexed": false,
+        "name": "_operatorData",
+        "type": "bytes"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "TransferByPartition",
+    "type": "event",
+    "signature": "0xff4e9a26af4eb73b8bacfaa4abd4fea03d9448e7b912dc5ff4019048875aa2d4"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'securityTokenRegistry',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'address',
+        "indexed": true,
+        "name": "operator",
+        "type": "address"
       },
+      {
+        "indexed": true,
+        "name": "tokenHolder",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "AuthorizedOperator",
+    "type": "event",
+    "signature": "0xf4caeb2d6ca8932a215a353d0703c326ec2d81fc68170f320eb2ab49e9df61f9"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'tokenDetails',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'string',
+        "indexed": true,
+        "name": "operator",
+        "type": "address"
       },
+      {
+        "indexed": true,
+        "name": "tokenHolder",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "RevokedOperator",
+    "type": "event",
+    "signature": "0x50546e66e5f44d728365dc3908c63bc5cfeeab470722c1677e3073a6ac294aa1"
   },
   {
-    constant: true,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: 'owner',
-        type: 'address',
+        "indexed": true,
+        "name": "partition",
+        "type": "bytes32"
       },
       {
-        name: 'spender',
-        type: 'address',
+        "indexed": true,
+        "name": "operator",
+        "type": "address"
       },
-    ],
-    name: 'allowance',
-    outputs: [
       {
-        name: '',
-        type: 'uint256',
-      },
+        "indexed": true,
+        "name": "tokenHolder",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "AuthorizedOperatorByPartition",
+    "type": "event",
+    "signature": "0x3646a897c70797ecc134b0adc32f471b07bf1d6f451133b0384badab531e3fd6"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'transfersFrozen',
-    outputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        name: '',
-        type: 'bool',
+        "indexed": true,
+        "name": "partition",
+        "type": "bytes32"
       },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'tokenFactory',
-    outputs: [
       {
-        name: '',
-        type: 'address',
+        "indexed": true,
+        "name": "operator",
+        "type": "address"
       },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'controller',
-    outputs: [
       {
-        name: '',
-        type: 'address',
-      },
+        "indexed": true,
+        "name": "tokenHolder",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "RevokedOperatorByPartition",
+    "type": "event",
+    "signature": "0x3b287c4f1bab4df949b33bceacef984f544dc5d5479930d00e4ee8c9d8dd96f2"
   },
   {
-    payable: true,
-    stateMutability: 'payable',
-    type: 'fallback',
-  },
-  {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_types',
-        type: 'uint8[]',
+        "indexed": true,
+        "name": "partition",
+        "type": "bytes32"
       },
       {
-        indexed: true,
-        name: '_name',
-        type: 'bytes32',
+        "indexed": true,
+        "name": "to",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: '_moduleFactory',
-        type: 'address',
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        name: '_module',
-        type: 'address',
-      },
+        "indexed": false,
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "IssuedByPartition",
+    "type": "event",
+    "signature": "0x6032e2468b0f94dfa63c61d6c8a84842a99c049263eae408a52b945020b6578d"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_moduleCost',
-        type: 'uint256',
+        "indexed": true,
+        "name": "partition",
+        "type": "bytes32"
       },
       {
-        indexed: false,
-        name: '_budget',
-        type: 'uint256',
+        "indexed": true,
+        "name": "operator",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_label',
-        type: 'bytes32',
+        "indexed": true,
+        "name": "from",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_archived',
-        type: 'bool',
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
       },
-    ],
-    name: 'ModuleAdded',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
       {
-        indexed: false,
-        name: '_oldDetails',
-        type: 'string',
+        "indexed": false,
+        "name": "data",
+        "type": "bytes"
       },
       {
-        indexed: false,
-        name: '_newDetails',
-        type: 'string',
-      },
+        "indexed": false,
+        "name": "operatorData",
+        "type": "bytes"
+      }
     ],
-    name: 'UpdateTokenDetails',
-    type: 'event',
+    "name": "RedeemedByPartition",
+    "type": "event",
+    "signature": "0xa4f62471c9bdf88115b97203943c74c59b655913ee5ee592706d84ef53fb6be2"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_oldName',
-        type: 'string',
+        "indexed": false,
+        "name": "_controller",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_newName',
-        type: 'string',
+        "indexed": true,
+        "name": "_from",
+        "type": "address"
       },
-    ],
-    name: 'UpdateTokenName',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
       {
-        indexed: false,
-        name: '_oldGranularity',
-        type: 'uint256',
+        "indexed": true,
+        "name": "_to",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_newGranularity',
-        type: 'uint256',
+        "indexed": false,
+        "name": "_value",
+        "type": "uint256"
       },
-    ],
-    name: 'GranularityChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [],
-    name: 'FreezeIssuance',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
       {
-        indexed: false,
-        name: '_status',
-        type: 'bool',
+        "indexed": false,
+        "name": "_data",
+        "type": "bytes"
       },
+      {
+        "indexed": false,
+        "name": "_operatorData",
+        "type": "bytes"
+      }
     ],
-    name: 'FreezeTransfers',
-    type: 'event',
+    "name": "ControllerTransfer",
+    "type": "event",
+    "signature": "0x6bf62b4b9c7b768275122bf70d429efc398a056d669b1efdf6c3976346246d7d"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        name: '_checkpointId',
-        type: 'uint256',
+        "indexed": false,
+        "name": "_controller",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_investorLength',
-        type: 'uint256',
+        "indexed": true,
+        "name": "_tokenHolder",
+        "type": "address"
       },
-    ],
-    name: 'CheckpointCreated',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
       {
-        indexed: true,
-        name: '_oldController',
-        type: 'address',
+        "indexed": false,
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        indexed: true,
-        name: '_newController',
-        type: 'address',
+        "indexed": false,
+        "name": "_data",
+        "type": "bytes"
       },
+      {
+        "indexed": false,
+        "name": "_operatorData",
+        "type": "bytes"
+      }
     ],
-    name: 'SetController',
-    type: 'event',
+    "name": "ControllerRedemption",
+    "type": "event",
+    "signature": "0x876b7cb47aa150b3a5516188b19ed308752ad4d0ae9a702543353b78163f7589"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_oldTreasuryWallet',
-        type: 'address',
+        "indexed": true,
+        "name": "_name",
+        "type": "bytes32"
       },
       {
-        indexed: false,
-        name: '_newTreasuryWallet',
-        type: 'address',
+        "indexed": false,
+        "name": "_uri",
+        "type": "string"
       },
+      {
+        "indexed": false,
+        "name": "_documentHash",
+        "type": "bytes32"
+      }
     ],
-    name: 'TreasuryWalletChanged',
-    type: 'event',
+    "name": "DocumentRemoved",
+    "type": "event",
+    "signature": "0x3d9bba27d3e360d8c80645beed7e991454a8271bf6f269a24f7782be0f0d0654"
   },
   {
-    anonymous: false,
-    inputs: [],
-    name: 'DisableController',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        name: 'previousOwner',
-        type: 'address',
+        "indexed": true,
+        "name": "_name",
+        "type": "bytes32"
       },
       {
-        indexed: true,
-        name: 'newOwner',
-        type: 'address',
+        "indexed": false,
+        "name": "_uri",
+        "type": "string"
       },
+      {
+        "indexed": false,
+        "name": "_documentHash",
+        "type": "bytes32"
+      }
     ],
-    name: 'OwnershipTransferred',
-    type: 'event',
+    "name": "DocumentUpdated",
+    "type": "event",
+    "signature": "0xb4c22d60cd550a815744f04e3ff5278bf19684565ee00e2b084041b6024bd6f6"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_major',
-        type: 'uint8',
+        "indexed": true,
+        "name": "_operator",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_minor',
-        type: 'uint8',
+        "indexed": true,
+        "name": "_to",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_patch',
-        type: 'uint8',
+        "indexed": false,
+        "name": "_value",
+        "type": "uint256"
       },
+      {
+        "indexed": false,
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    name: 'TokenUpgraded',
-    type: 'event',
+    "name": "Issued",
+    "type": "event",
+    "signature": "0x0e9905d62635f049c2f4e11678ebf9dc3d1f8c4a653e290759b772e47ba00d00"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "_operator",
+        "type": "address"
+      },
       {
-        indexed: false,
-        name: '_types',
-        type: 'uint8[]',
+        "indexed": true,
+        "name": "_from",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_module',
-        type: 'address',
+        "indexed": false,
+        "name": "_value",
+        "type": "uint256"
       },
+      {
+        "indexed": false,
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    name: 'ModuleArchived',
-    type: 'event',
+    "name": "Redeemed",
+    "type": "event",
+    "signature": "0xb7d0d6b60740753e9f16692a2f479472a1385aec2420fa43225b02f2ffa1afe7"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_types',
-        type: 'uint8[]',
+        "indexed": true,
+        "name": "from",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_module',
-        type: 'address',
+        "indexed": true,
+        "name": "to",
+        "type": "address"
       },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
     ],
-    name: 'ModuleUnarchived',
-    type: 'event',
+    "name": "Transfer",
+    "type": "event",
+    "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_types',
-        type: 'uint8[]',
+        "indexed": true,
+        "name": "owner",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_module',
-        type: 'address',
+        "indexed": true,
+        "name": "spender",
+        "type": "address"
       },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
     ],
-    name: 'ModuleRemoved',
-    type: 'event',
+    "name": "Approval",
+    "type": "event",
+    "signature": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
       {
-        indexed: false,
-        name: '_moduleTypes',
-        type: 'uint8[]',
-      },
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
       {
-        indexed: false,
-        name: '_module',
-        type: 'address',
-      },
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
       {
-        indexed: false,
-        name: '_oldBudget',
-        type: 'uint256',
-      },
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
       {
-        indexed: false,
-        name: '_budget',
-        type: 'uint256',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: 'ModuleBudgetChanged',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: '_fromPartition',
-        type: 'bytes32',
-      },
+    "constant": true,
+    "inputs": [
       {
-        indexed: false,
-        name: '_operator',
-        type: 'address',
+        "name": "_owner",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: '_from',
-        type: 'address',
-      },
+        "name": "_spender",
+        "type": "address"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
       {
-        indexed: true,
-        name: '_to',
-        type: 'address',
-      },
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_value',
-        type: 'uint256',
+        "name": "_to",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
       {
-        indexed: false,
-        name: '_operatorData',
-        type: 'bytes',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'TransferByPartition',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: true,
-        name: 'operator',
-        type: 'address',
+        "name": "_from",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: 'tokenHolder',
-        type: 'address',
+        "name": "_to",
+        "type": "address"
       },
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'AuthorizedOperator',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: true,
-        name: 'operator',
-        type: 'address',
+        "name": "_spender",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: 'tokenHolder',
-        type: 'address',
-      },
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'RevokedOperator',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: true,
-        name: 'partition',
-        type: 'bytes32',
+        "name": "_spender",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: 'operator',
-        type: 'address',
-      },
+        "name": "_subtractedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "decreaseApproval",
+    "outputs": [
       {
-        indexed: true,
-        name: 'tokenHolder',
-        type: 'address',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'AuthorizedOperatorByPartition',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: true,
-        name: 'partition',
-        type: 'bytes32',
+        "name": "_spender",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: 'operator',
-        type: 'address',
-      },
+        "name": "_addedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "increaseApproval",
+    "outputs": [
       {
-        indexed: true,
-        name: 'tokenHolder',
-        type: 'address',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'RevokedOperatorByPartition',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        indexed: true,
-        name: 'partition',
-        type: 'bytes32',
+        "name": "_to",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: 'to',
-        type: 'address',
+        "name": "_value",
+        "type": "uint256"
       },
+      {
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "canTransfer",
+    "outputs": [
       {
-        indexed: false,
-        name: 'value',
-        type: 'uint256',
+        "name": "",
+        "type": "bool"
       },
       {
-        indexed: false,
-        name: 'data',
-        type: 'bytes',
+        "name": "",
+        "type": "bytes1"
       },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
     ],
-    name: 'IssuedByPartition',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "initialize",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        indexed: true,
-        name: 'partition',
-        type: 'bytes32',
+        "name": "_from",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: 'operator',
-        type: 'address',
+        "name": "_to",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: 'from',
-        type: 'address',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        name: 'value',
-        type: 'uint256',
-      },
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "canTransferFrom",
+    "outputs": [
       {
-        indexed: false,
-        name: 'data',
-        type: 'bytes',
+        "name": "",
+        "type": "bool"
       },
       {
-        indexed: false,
-        name: 'operatorData',
-        type: 'bytes',
+        "name": "",
+        "type": "bytes1"
       },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
     ],
-    name: 'RedeemedByPartition',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        indexed: false,
-        name: '_controller',
-        type: 'address',
+        "name": "_from",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: '_from',
-        type: 'address',
+        "name": "_to",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: '_to',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        indexed: false,
-        name: '_value',
-        type: 'uint256',
+        "name": "_value",
+        "type": "uint256"
       },
+      {
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "canTransferByPartition",
+    "outputs": [
       {
-        indexed: false,
-        name: '_data',
-        type: 'bytes',
+        "name": "",
+        "type": "bytes1"
       },
       {
-        indexed: false,
-        name: '_operatorData',
-        type: 'bytes',
+        "name": "",
+        "type": "bytes32"
       },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
     ],
-    name: 'ControllerTransfer',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_controller',
-        type: 'address',
+        "name": "_name",
+        "type": "bytes32"
       },
       {
-        indexed: true,
-        name: '_tokenHolder',
-        type: 'address',
+        "name": "_uri",
+        "type": "string"
       },
       {
-        indexed: false,
-        name: '_value',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_documentHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setDocument",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_operatorData',
-        type: 'bytes',
-      },
+        "name": "_name",
+        "type": "bytes32"
+      }
     ],
-    name: 'ControllerRedemption',
-    type: 'event',
+    "name": "removeDocument",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        indexed: true,
-        name: '_name',
-        type: 'bytes32',
-      },
+        "name": "_name",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getDocument",
+    "outputs": [
       {
-        indexed: false,
-        name: '_uri',
-        type: 'string',
+        "name": "",
+        "type": "string"
       },
       {
-        indexed: false,
-        name: '_documentHash',
-        type: 'bytes32',
+        "name": "",
+        "type": "bytes32"
       },
+      {
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: 'DocumentRemoved',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: '_name',
-        type: 'bytes32',
-      },
-      {
-        indexed: false,
-        name: '_uri',
-        type: 'string',
-      },
+    "constant": true,
+    "inputs": [],
+    "name": "getAllDocuments",
+    "outputs": [
       {
-        indexed: false,
-        name: '_documentHash',
-        type: 'bytes32',
-      },
+        "name": "",
+        "type": "bytes32[]"
+      }
     ],
-    name: 'DocumentUpdated',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "isControllable",
+    "outputs": [
       {
-        indexed: true,
-        name: '_operator',
-        type: 'address',
-      },
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
       {
-        indexed: true,
-        name: '_to',
-        type: 'address',
+        "name": "_module",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: '_value',
-        type: 'uint256',
-      },
+        "name": "_type",
+        "type": "uint8"
+      }
+    ],
+    "name": "isModule",
+    "outputs": [
       {
-        indexed: false,
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'Issued',
-    type: 'event',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: true,
-        name: '_operator',
-        type: 'address',
+        "name": "_tokenHolder",
+        "type": "address"
       },
       {
-        indexed: true,
-        name: '_from',
-        type: 'address',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        name: '_value',
-        type: 'uint256',
-      },
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "issue",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        indexed: false,
-        name: '_data',
-        type: 'bytes',
+        "name": "_tokenHolders",
+        "type": "address[]"
       },
+      {
+        "name": "_values",
+        "type": "uint256[]"
+      }
     ],
-    name: 'Redeemed',
-    type: 'event',
+    "name": "issueMulti",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: true,
-        name: 'from',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        indexed: true,
-        name: 'to',
-        type: 'address',
+        "name": "_tokenHolder",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: 'value',
-        type: 'uint256',
+        "name": "_value",
+        "type": "uint256"
       },
+      {
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    name: 'Transfer',
-    type: 'event',
+    "name": "issueByPartition",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    anonymous: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        indexed: true,
-        name: 'owner',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        indexed: true,
-        name: 'spender',
-        type: 'address',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        name: 'value',
-        type: 'uint256',
-      },
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    name: 'Approval',
-    type: 'event',
+    "name": "redeemByPartition",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_getterDelegate',
-        type: 'address',
+        "name": "_value",
+        "type": "uint256"
       },
+      {
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    name: 'initialize',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "redeem",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_module',
-        type: 'address',
+        "name": "_tokenHolder",
+        "type": "address"
       },
       {
-        name: '_type',
-        type: 'uint8',
+        "name": "_value",
+        "type": "uint256"
       },
-    ],
-    name: 'isModule',
-    outputs: [
       {
-        name: '',
-        type: 'bool',
-      },
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "redeemFrom",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_moduleFactory',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "_tokenHolder",
+        "type": "address"
       },
       {
-        name: '_maxCost',
-        type: 'uint256',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        name: '_budget',
-        type: 'uint256',
+        "name": "_data",
+        "type": "bytes"
       },
+      {
+        "name": "_operatorData",
+        "type": "bytes"
+      }
+    ],
+    "name": "operatorRedeemByPartition",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
       {
-        name: '_label',
-        type: 'bytes32',
+        "name": "_delegate",
+        "type": "address"
       },
       {
-        name: '_archived',
-        type: 'bool',
+        "name": "_module",
+        "type": "address"
       },
+      {
+        "name": "_perm",
+        "type": "bytes32"
+      }
+    ],
+    "name": "checkPermission",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'addModuleWithLabel',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_module",
+        "type": "address"
+      }
+    ],
+    "name": "getModule",
+    "outputs": [
       {
-        name: '_moduleFactory',
-        type: 'address',
+        "name": "",
+        "type": "bytes32"
       },
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "",
+        "type": "address"
       },
       {
-        name: '_maxCost',
-        type: 'uint256',
+        "name": "",
+        "type": "address"
       },
       {
-        name: '_budget',
-        type: 'uint256',
+        "name": "",
+        "type": "bool"
       },
       {
-        name: '_archived',
-        type: 'bool',
+        "name": "",
+        "type": "uint8[]"
       },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
     ],
-    name: 'addModule',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_module',
-        type: 'address',
-      },
+        "name": "_name",
+        "type": "bytes32"
+      }
     ],
-    name: 'archiveModule',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
+    "name": "getModulesByName",
+    "outputs": [
       {
-        name: '_module',
-        type: 'address',
-      },
+        "name": "",
+        "type": "address[]"
+      }
     ],
-    name: 'upgradeModule',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [],
-    name: 'upgradeToken',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_module',
-        type: 'address',
-      },
+        "name": "_type",
+        "type": "uint8"
+      }
     ],
-    name: 'unarchiveModule',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "getModulesByType",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "getTreasuryWallet",
+    "outputs": [
       {
-        name: '_module',
-        type: 'address',
-      },
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: 'removeModule',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_tokenContract',
-        type: 'address',
-      },
+        "name": "_checkpointId",
+        "type": "uint256"
+      }
+    ],
+    "name": "totalSupplyAt",
+    "outputs": [
       {
-        name: '_value',
-        type: 'uint256',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: 'withdrawERC20',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_module',
-        type: 'address',
+        "name": "_investor",
+        "type": "address"
       },
       {
-        name: '_change',
-        type: 'uint256',
-      },
+        "name": "_checkpointId",
+        "type": "uint256"
+      }
+    ],
+    "name": "balanceOfAt",
+    "outputs": [
       {
-        name: '_increase',
-        type: 'bool',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: 'changeModuleBudget',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [],
+    "name": "createCheckpoint",
+    "outputs": [
       {
-        name: '_newTokenDetails',
-        type: 'string',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: 'updateTokenDetails',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "getCheckpointTimes",
+    "outputs": [
       {
-        name: '_granularity',
-        type: 'uint256',
-      },
+        "name": "",
+        "type": "uint256[]"
+      }
     ],
-    name: 'changeGranularity',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "getInvestors",
+    "outputs": [
       {
-        name: '_dataStore',
-        type: 'address',
-      },
+        "name": "",
+        "type": "address[]"
+      }
     ],
-    name: 'changeDataStore',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_name',
-        type: 'string',
-      },
+        "name": "_checkpointId",
+        "type": "uint256"
+      }
     ],
-    name: 'changeName',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
+    "name": "getInvestorsAt",
+    "outputs": [
       {
-        name: '_wallet',
-        type: 'address',
-      },
+        "name": "",
+        "type": "address[]"
+      }
     ],
-    name: 'changeTreasuryWallet',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: 'freezeTransfers',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [],
-    name: 'unfreezeTransfers',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_to',
-        type: 'address',
+        "name": "_checkpointId",
+        "type": "uint256"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_start",
+        "type": "uint256"
       },
+      {
+        "name": "_end",
+        "type": "uint256"
+      }
     ],
-    name: 'transfer',
-    outputs: [
+    "name": "getInvestorsSubsetAt",
+    "outputs": [
       {
-        name: 'success',
-        type: 'bool',
-      },
+        "name": "",
+        "type": "address[]"
+      }
     ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_to',
-        type: 'address',
+        "name": "_start",
+        "type": "uint256"
       },
       {
-        name: '_value',
-        type: 'uint256',
-      },
+        "name": "_end",
+        "type": "uint256"
+      }
+    ],
+    "name": "iterateInvestors",
+    "outputs": [
       {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "",
+        "type": "address[]"
+      }
     ],
-    name: 'transferWithData',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
-      {
-        name: '_from',
-        type: 'address',
-      },
-      {
-        name: '_to',
-        type: 'address',
-      },
+    "constant": true,
+    "inputs": [],
+    "name": "currentCheckpointId",
+    "outputs": [
       {
-        name: '_value',
-        type: 'uint256',
-      },
-    ],
-    name: 'transferFrom',
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
-      {
-        name: '_from',
-        type: 'address',
-      },
+    "constant": true,
+    "inputs": [
       {
-        name: '_to',
-        type: 'address',
+        "name": "_operator",
+        "type": "address"
       },
       {
-        name: '_value',
-        type: 'uint256',
-      },
+        "name": "_tokenHolder",
+        "type": "address"
+      }
+    ],
+    "name": "isOperator",
+    "outputs": [
       {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'transferFromWithData',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [
+    "constant": true,
+    "inputs": [
       {
-        name: '_partition',
-        type: 'bytes32',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        name: '_tokenHolder',
-        type: 'address',
+        "name": "_operator",
+        "type": "address"
       },
+      {
+        "name": "_tokenHolder",
+        "type": "address"
+      }
     ],
-    name: 'balanceOfByPartition',
-    outputs: [
+    "name": "isOperatorForPartition",
+    "outputs": [
       {
-        name: '',
-        type: 'uint256',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
-      {
-        name: '_partition',
-        type: 'bytes32',
-      },
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_value',
-        type: 'uint256',
-      },
+    "constant": true,
+    "inputs": [
       {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_tokenHolder",
+        "type": "address"
+      }
     ],
-    name: 'transferByPartition',
-    outputs: [
+    "name": "partitionsOf",
+    "outputs": [
       {
-        name: '',
-        type: 'bytes32',
-      },
+        "name": "",
+        "type": "bytes32[]"
+      }
     ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "dataStore",
+    "outputs": [
       {
-        name: '_operator',
-        type: 'address',
-      },
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: 'authorizeOperator',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_operator',
-        type: 'address',
-      },
+        "name": "_dataStore",
+        "type": "address"
+      }
     ],
-    name: 'revokeOperator',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "changeDataStore",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_partition',
-        type: 'bytes32',
-      },
-      {
-        name: '_operator',
-        type: 'address',
-      },
+        "name": "_wallet",
+        "type": "address"
+      }
     ],
-    name: 'authorizeOperatorByPartition',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "changeTreasuryWallet",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_partition',
-        type: 'bytes32',
+        "name": "_tokenContract",
+        "type": "address"
       },
       {
-        name: '_operator',
-        type: 'address',
-      },
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
-    name: 'revokeOperatorByPartition',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "withdrawERC20",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
-      {
-        name: '_partition',
-        type: 'bytes32',
-      },
+    "constant": false,
+    "inputs": [
       {
-        name: '_from',
-        type: 'address',
+        "name": "_module",
+        "type": "address"
       },
       {
-        name: '_to',
-        type: 'address',
+        "name": "_change",
+        "type": "uint256"
       },
       {
-        name: '_value',
-        type: 'uint256',
-      },
-      {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_increase",
+        "type": "bool"
+      }
+    ],
+    "name": "changeModuleBudget",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '_operatorData',
-        type: 'bytes',
-      },
+        "name": "_newTokenDetails",
+        "type": "string"
+      }
     ],
-    name: 'operatorTransferByPartition',
-    outputs: [
+    "name": "updateTokenDetails",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '',
-        type: 'bytes32',
-      },
+        "name": "_name",
+        "type": "string"
+      }
     ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "changeName",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_signature',
-        type: 'bytes',
-      },
+        "name": "_granularity",
+        "type": "uint256"
+      }
     ],
-    name: 'freezeIssuance',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "changeGranularity",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [],
+    "name": "freezeTransfers",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "unfreezeTransfers",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "freezeIssuance",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '_tokenHolder',
-        type: 'address',
+        "name": "_moduleFactory",
+        "type": "address"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_data",
+        "type": "bytes"
       },
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "_maxCost",
+        "type": "uint256"
       },
-    ],
-    name: 'issue',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
       {
-        name: '_tokenHolders',
-        type: 'address[]',
+        "name": "_budget",
+        "type": "uint256"
       },
       {
-        name: '_values',
-        type: 'uint256[]',
+        "name": "_label",
+        "type": "bytes32"
       },
+      {
+        "name": "_archived",
+        "type": "bool"
+      }
     ],
-    name: 'issueMulti',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "addModuleWithLabel",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_partition',
-        type: 'bytes32',
+        "name": "_moduleFactory",
+        "type": "address"
       },
       {
-        name: '_tokenHolder',
-        type: 'address',
+        "name": "_data",
+        "type": "bytes"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_maxCost",
+        "type": "uint256"
       },
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "_budget",
+        "type": "uint256"
       },
+      {
+        "name": "_archived",
+        "type": "bool"
+      }
     ],
-    name: 'issueByPartition',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "addModule",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
-      {
-        name: '_value',
-        type: 'uint256',
-      },
+    "constant": false,
+    "inputs": [
       {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_module",
+        "type": "address"
+      }
     ],
-    name: 'redeem',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "archiveModule",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_partition',
-        type: 'bytes32',
-      },
+        "name": "_module",
+        "type": "address"
+      }
+    ],
+    "name": "unarchiveModule",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '_value',
-        type: 'uint256',
-      },
+        "name": "_module",
+        "type": "address"
+      }
+    ],
+    "name": "removeModule",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_controller",
+        "type": "address"
+      }
     ],
-    name: 'redeemByPartition',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "setController",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_partition',
-        type: 'bytes32',
+        "name": "_from",
+        "type": "address"
       },
       {
-        name: '_tokenHolder',
-        type: 'address',
+        "name": "_to",
+        "type": "address"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "_data",
+        "type": "bytes"
       },
       {
-        name: '_operatorData',
-        type: 'bytes',
-      },
+        "name": "_operatorData",
+        "type": "bytes"
+      }
     ],
-    name: 'operatorRedeemByPartition',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "controllerTransfer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_tokenHolder',
-        type: 'address',
+        "name": "_tokenHolder",
+        "type": "address"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "_data",
+        "type": "bytes"
       },
+      {
+        "name": "_operatorData",
+        "type": "bytes"
+      }
     ],
-    name: 'redeemFrom',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "controllerRedeem",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "disableController",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [],
-    name: 'createCheckpoint',
-    outputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "getVersion",
+    "outputs": [
       {
-        name: '',
-        type: 'uint256',
-      },
+        "name": "",
+        "type": "uint8[]"
+      }
     ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "getInvestorCount",
+    "outputs": [
       {
-        name: '_controller',
-        type: 'address',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: 'setController',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "holderCount",
+    "outputs": [
       {
-        name: '_signature',
-        type: 'bytes',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: 'disableController',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_to',
-        type: 'address',
+        "name": "_to",
+        "type": "address"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    name: 'canTransfer',
-    outputs: [
+    "name": "transferWithData",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '',
-        type: 'bool',
+        "name": "_from",
+        "type": "address"
       },
       {
-        name: '',
-        type: 'bytes1',
+        "name": "_to",
+        "type": "address"
       },
       {
-        name: '',
-        type: 'bytes32',
+        "name": "_value",
+        "type": "uint256"
       },
+      {
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "transferFromWithData",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_from',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        name: '_to',
-        type: 'address',
+        "name": "_to",
+        "type": "address"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_value",
+        "type": "uint256"
       },
       {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
-    name: 'canTransferFrom',
-    outputs: [
-      {
-        name: 'success',
-        type: 'bool',
-      },
-      {
-        name: 'reasonCode',
-        type: 'bytes1',
-      },
+    "name": "transferByPartition",
+    "outputs": [
       {
-        name: 'appCode',
-        type: 'bytes32',
-      },
+        "name": "",
+        "type": "bytes32"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [
-      {
-        name: '_from',
-        type: 'address',
-      },
+    "constant": true,
+    "inputs": [
       {
-        name: '_to',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        name: '_partition',
-        type: 'bytes32',
-      },
-      {
-        name: '_value',
-        type: 'uint256',
-      },
-      {
-        name: '_data',
-        type: 'bytes',
-      },
+        "name": "_tokenHolder",
+        "type": "address"
+      }
     ],
-    name: 'canTransferByPartition',
-    outputs: [
+    "name": "balanceOfByPartition",
+    "outputs": [
       {
-        name: 'esc',
-        type: 'bytes1',
-      },
-      {
-        name: 'appStatusCode',
-        type: 'bytes32',
-      },
-      {
-        name: 'toPartition',
-        type: 'bytes32',
-      },
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "granularity",
+    "outputs": [
       {
-        name: '_name',
-        type: 'bytes32',
-      },
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "polymathRegistry",
+    "outputs": [
       {
-        name: '_uri',
-        type: 'string',
-      },
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '_documentHash',
-        type: 'bytes32',
-      },
+        "name": "_module",
+        "type": "address"
+      }
     ],
-    name: 'setDocument',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "upgradeModule",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "upgradeToken",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "isIssuable",
+    "outputs": [
       {
-        name: '_name',
-        type: 'bytes32',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'removeDocument',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'isControllable',
-    outputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '',
-        type: 'bool',
-      },
+        "name": "_operator",
+        "type": "address"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "name": "authorizeOperator",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_from',
-        type: 'address',
-      },
+        "name": "_operator",
+        "type": "address"
+      }
+    ],
+    "name": "revokeOperator",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '_to',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        name: '_value',
-        type: 'uint256',
-      },
+        "name": "_operator",
+        "type": "address"
+      }
+    ],
+    "name": "authorizeOperatorByPartition",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        name: '_operatorData',
-        type: 'bytes',
-      },
+        "name": "_operator",
+        "type": "address"
+      }
     ],
-    name: 'controllerTransfer',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "name": "revokeOperatorByPartition",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: '_tokenHolder',
-        type: 'address',
+        "name": "_partition",
+        "type": "bytes32"
       },
       {
-        name: '_value',
-        type: 'uint256',
+        "name": "_from",
+        "type": "address"
       },
       {
-        name: '_data',
-        type: 'bytes',
+        "name": "_to",
+        "type": "address"
       },
       {
-        name: '_operatorData',
-        type: 'bytes',
+        "name": "_value",
+        "type": "uint256"
       },
-    ],
-    name: 'controllerRedeem',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: 'updateFromRegistry',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'owner',
-    outputs: [
       {
-        name: '',
-        type: 'address',
+        "name": "_data",
+        "type": "bytes"
       },
+      {
+        "name": "_operatorData",
+        "type": "bytes"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'isOwner',
-    outputs: [
+    "name": "operatorTransferByPartition",
+    "outputs": [
       {
-        name: '',
-        type: 'bool',
-      },
+        "name": "",
+        "type": "bytes32"
+      }
     ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "transfersFrozen",
+    "outputs": [
       {
-        name: 'newOwner',
-        type: 'address',
-      },
+        "name": "",
+        "type": "bool"
+      }
     ],
-    name: 'transferOwnership',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }
 ];

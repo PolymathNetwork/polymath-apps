@@ -4,32 +4,38 @@ import { Entity } from './Entity';
 import { serialize, unserialize } from '../utils';
 
 interface UniqueIdentifiers {
-  securityTokenSymbol: string;
+  symbol: string;
   stoModuleId: string;
   index: number;
 }
 
-function isUniqueIdentifiers(identifiers: any): identifiers is UniqueIdentifiers {
-  const { securityTokenSymbol, stoModuleId, index } = identifiers;
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, stoModuleId, index } = identifiers;
 
   return (
-    typeof securityTokenSymbol === 'string' &&
+    typeof symbol === 'string' &&
     typeof stoModuleId === 'string' &&
     typeof index === 'number'
   );
 }
 
 interface Params extends UniqueIdentifiers {
-  securityTokenId: string;
+  symbol: string;
   address: string;
   tokenAmount: BigNumber;
   investedFunds: BigNumber;
 }
 
 export class Investment extends Entity {
-  public static generateId({ securityTokenSymbol, stoModuleId, index }: UniqueIdentifiers) {
+  public static generateId({
+    symbol,
+    stoModuleId,
+    index,
+  }: UniqueIdentifiers) {
     return serialize('investment', {
-      securityTokenSymbol,
+      symbol,
       stoModuleId,
       index,
     });
@@ -47,9 +53,7 @@ export class Investment extends Entity {
 
   public uid: string;
 
-  public securityTokenSymbol: string;
-
-  public securityTokenId: string;
+  public symbol: string;
 
   public stoModuleId: string;
 
@@ -65,8 +69,7 @@ export class Investment extends Entity {
     super(polyClient);
 
     const {
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       stoModuleId,
       address,
       index,
@@ -74,15 +77,14 @@ export class Investment extends Entity {
       investedFunds,
     } = params;
 
-    this.securityTokenId = securityTokenId;
-    this.securityTokenSymbol = securityTokenSymbol;
+    this.symbol = symbol;
     this.stoModuleId = stoModuleId;
     this.address = address;
     this.index = index;
     this.tokenAmount = tokenAmount;
     this.investedFunds = investedFunds;
     this.uid = Investment.generateId({
-      securityTokenSymbol,
+      symbol,
       stoModuleId,
       index,
     });
@@ -91,8 +93,7 @@ export class Investment extends Entity {
   public toPojo() {
     const {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       stoModuleId,
       address,
       index,
@@ -102,8 +103,7 @@ export class Investment extends Entity {
 
     return {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       stoModuleId,
       address,
       index,

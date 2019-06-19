@@ -21,7 +21,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       expiryDate,
       erc20Address,
       amount,
-      checkpointIndex,
+      checkpointId,
       name,
       excludedAddresses,
       taxWithholdings = [],
@@ -40,12 +40,12 @@ export class CreateErc20DividendDistribution extends Procedure<
     }
 
     const erc20Module = await securityToken.getErc20DividendModule();
-
     if (!erc20Module) {
       throw new Error(
         "Dividend modules haven't been enabled. Did you forget to call .enableDividendModules()?"
       );
     }
+    const eventParser = erc20Module.contract.events.ERC20DividendDeposited;
 
     await this.addTransaction(Approve)({
       amount,
@@ -53,31 +53,35 @@ export class CreateErc20DividendDistribution extends Procedure<
       tokenAddress: erc20Address,
     });
 
-    const dividendIndex = await this.addTransaction(erc20Module.createDividend, {
-      tag: PolyTransactionTags.CreateErc20DividendDistribution,
-      // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
-      // the contract-wrappers package
-      resolver: async receipt => {
-        const { events } = receipt;
+    const dividendIndex = await this.addTransaction(
+      erc20Module.createDividend,
+      {
+        tag: PolyTransactionTags.CreateErc20DividendDistribution,
+        // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
+        // the contract-wrappers package
+        resolver: async receipt => {
+          const { events } = receipt;
+          console.log('txreceipt erc20Module.createDividend', receipt);
 
-        if (events) {
-          const { ERC20DividendDeposited } = events;
+          if (events) {
+            const { ERC20DividendDeposited } = events;
 
-          const {
-            _dividendIndex,
-          }: {
-            _dividendIndex: string;
-          } = ERC20DividendDeposited.returnValues;
+            const {
+              _dividendIndex,
+            }: {
+              _dividendIndex: string;
+            } = ERC20DividendDeposited.returnValues;
 
-          return parseInt(_dividendIndex, 10);
-        }
-      },
-    })({
+            return parseInt(_dividendIndex, 10);
+          }
+        },
+      }
+    )({
       maturityDate,
       expiryDate,
       tokenAddress: erc20Address,
       amount,
-      checkpointId: checkpointIndex,
+      checkpointId,
       name,
       excludedAddresses,
     });

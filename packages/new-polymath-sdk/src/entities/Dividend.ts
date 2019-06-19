@@ -2,20 +2,26 @@ import BigNumber from 'bignumber.js';
 import { Polymath } from '../Polymath';
 import { Entity } from './Entity';
 import { serialize, unserialize } from '../utils';
-import { DividendModuleTypes, DividendInvestorStatus, isDividendModuleTypes } from '../types';
+import {
+  DividendModuleTypes,
+  DividendInvestorStatus,
+  isDividendModuleTypes,
+} from '../types';
 
 interface UniqueIdentifiers {
-  securityTokenId: string;
-  checkpointId: string;
+  symbol: string;
+  checkpointId: number;
   dividendType: DividendModuleTypes;
   index: number;
 }
 
-function isUniqueIdentifiers(identifiers: any): identifiers is UniqueIdentifiers {
-  const { securityTokenId, checkpointId, dividendType, index } = identifiers;
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, checkpointId, dividendType, index } = identifiers;
 
   return (
-    typeof securityTokenId === 'string' &&
+    typeof symbol === 'string' &&
     typeof checkpointId === 'string' &&
     typeof index === 'number' &&
     isDividendModuleTypes(dividendType)
@@ -23,7 +29,7 @@ function isUniqueIdentifiers(identifiers: any): identifiers is UniqueIdentifiers
 }
 
 interface Params extends UniqueIdentifiers {
-  securityTokenSymbol: string;
+  symbol: string;
   created: Date;
   maturity: Date;
   expiry: Date;
@@ -40,13 +46,13 @@ interface Params extends UniqueIdentifiers {
 
 export class Dividend extends Entity {
   public static generateId({
-    securityTokenId,
+    symbol,
     checkpointId,
     dividendType,
     index,
   }: UniqueIdentifiers) {
     return serialize('dividend', {
-      securityTokenId,
+      symbol,
       checkpointId,
       dividendType,
       index,
@@ -67,13 +73,11 @@ export class Dividend extends Entity {
 
   public index: number;
 
-  public checkpointId: string;
+  public checkpointId: number;
 
   public dividendType: DividendModuleTypes;
 
-  public securityTokenSymbol: string;
-
-  public securityTokenId: string;
+  public symbol: string;
 
   public created: Date;
 
@@ -106,8 +110,7 @@ export class Dividend extends Entity {
       index,
       checkpointId,
       dividendType,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       created,
       maturity,
       expiry,
@@ -125,8 +128,7 @@ export class Dividend extends Entity {
     this.index = index;
     this.checkpointId = checkpointId;
     this.dividendType = dividendType;
-    this.securityTokenSymbol = securityTokenSymbol;
-    this.securityTokenId = securityTokenId;
+    this.symbol = symbol;
     this.created = created;
     this.maturity = maturity;
     this.expiry = expiry;
@@ -141,7 +143,7 @@ export class Dividend extends Entity {
     this.currency = currency;
 
     this.uid = Dividend.generateId({
-      securityTokenId,
+      symbol,
       checkpointId,
       dividendType,
       index,
@@ -154,8 +156,7 @@ export class Dividend extends Entity {
       index,
       checkpointId,
       dividendType,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       created,
       maturity,
       expiry,
@@ -175,8 +176,7 @@ export class Dividend extends Entity {
       index,
       checkpointId,
       dividendType,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       created,
       maturity,
       expiry,

@@ -4,9 +4,9 @@ import { serialize } from '../utils';
 import { DividendModuleTypes, Omit } from '../types';
 
 export class Erc20DividendsModule extends DividendsModule {
-  public static generateId({ securityTokenId, dividendType }: UniqueIdentifiers) {
+  public static generateId({ symbol, dividendType }: UniqueIdentifiers) {
     return serialize('erc20DividendsModule', {
-      securityTokenId,
+      symbol,
       dividendType,
     });
   }
@@ -14,19 +14,13 @@ export class Erc20DividendsModule extends DividendsModule {
   public uid: string;
 
   constructor(
-    {
-      securityTokenSymbol,
-      securityTokenId,
-      address,
-      storageWalletAddress,
-    }: Omit<Params, 'dividendType'>,
+    { symbol, address, storageWalletAddress }: Omit<Params, 'dividendType'>,
     polyClient?: Polymath
   ) {
     const dividendType = DividendModuleTypes.Erc20;
     super(
       {
-        securityTokenId,
-        securityTokenSymbol,
+        symbol,
         address,
         storageWalletAddress,
         dividendType,
@@ -35,7 +29,7 @@ export class Erc20DividendsModule extends DividendsModule {
     );
 
     this.uid = Erc20DividendsModule.generateId({
-      securityTokenId,
+      symbol,
       dividendType,
     });
   }
