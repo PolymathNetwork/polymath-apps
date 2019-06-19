@@ -48,10 +48,6 @@ const formSchema = validator.object().shape({
 
       return true;
     }),
-  name: validator
-    .string()
-    .isRequired(requiredMessage)
-    .max(100, maxMessage),
   owner: validator
     .string()
     .isRequired(requiredMessage)
@@ -71,23 +67,6 @@ export const ReserveTickerFormComponent = ({ handleSubmit }) => (
           <FormItem.Error />
         </FormItem>
       </div>
-
-      <FormItem name="name">
-        <FormItem.Label>
-          <Tooltip triggerText="Token Name">
-            <p>
-              <strong>Token Name</strong>
-            </p>
-            <p>
-              This is the name of your token for display purposes.
-              <br />
-              For example: Toro Token
-            </p>
-          </Tooltip>
-        </FormItem.Label>
-        <FormItem.Input component={TextInput} placeholder="Enter Token Name" />
-        <FormItem.Error />
-      </FormItem>
 
       <FormItem name="owner">
         <FormItem.Label>
@@ -129,7 +108,6 @@ const formikEnhancer = withFormik({
   mapPropsToValues: ({ account }) => {
     return {
       ticker: '',
-      name: '',
       owner: account,
     };
   },

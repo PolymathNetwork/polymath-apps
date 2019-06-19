@@ -199,7 +199,7 @@ class SecurityTokenRegistry extends Contract {
     }
 
     return await this._tx(
-      this._methods.registerTicker(this.account, details.ticker, details.name),
+      this._methods.registerTicker(this.account, details.ticker, ''),
       null,
       1.15
     );
