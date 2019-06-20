@@ -33,7 +33,7 @@ const actions = {
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   symbol: string;
-  checkpointId: number;
+  checkpointId: string;
   createDividendDistribution: (
     params: CreateDividendDistributionParams
   ) => void;

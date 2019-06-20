@@ -40,7 +40,7 @@ export class CreateCheckpoint extends Procedure<CreateCheckpointProcedureArgs> {
             const {
               _checkpointId,
             }: {
-              _checkpointId: number;
+              _checkpointId: string;
             } = CheckpointCreated.returnValues;
 
             return parseInt(_checkpointId, 10);

@@ -19,11 +19,18 @@ import {
   TaxWithholding,
   DividendModuleTypes,
 } from './types';
-import { fromUnixTimestamp, fromWei, toWei, fromDivisible, toAscii, getOptions } from './utils';
+import {
+  fromUnixTimestamp,
+  fromWei,
+  toWei,
+  fromDivisible,
+  toAscii,
+  getOptions,
+} from './utils';
 import { ContractWrapperFactory } from './ContractWrapperFactory';
 
 interface InternalDividend {
-  checkpointId: number;
+  checkpointId: string;
   created: string;
   maturity: string;
   expiry: string;
@@ -83,9 +90,14 @@ interface DividendCheckpointContract<T extends GenericContract> {
   methods: {
     getCheckpointData(checkpointId: number): TransactionObject<CheckpointData>;
     getDividendIndex(checkpointId: number): TransactionObject<string[]>;
-    getDividendProgress(dividendIndex: number): TransactionObject<DividendProgress>;
+    getDividendProgress(
+      dividendIndex: number
+    ): TransactionObject<DividendProgress>;
     dividends(index: number): TransactionObject<InternalDividend>;
-    setWithholding(investors: string[], percentages: BigNumber[]): TransactionObject<void>;
+    setWithholding(
+      investors: string[],
+      percentages: BigNumber[]
+    ): TransactionObject<void>;
     reclaimDividend(dividendIndex: number): TransactionObject<void>;
     withdrawWithholding(dividendIndex: number): TransactionObject<void>;
     pushDividendPaymentToAddresses(
@@ -103,16 +115,25 @@ export abstract class DividendCheckpoint<
 > extends Module<DividendCheckpointContract<T>> {
   public abstract dividendType: DividendModuleTypes;
 
-  constructor({ address, abi, context }: { address: string; abi: any[]; context: Context }) {
+  constructor({
+    address,
+    abi,
+    context,
+  }: {
+    address: string;
+    abi: any[];
+    context: Context;
+  }) {
     super({ address, abi, context });
   }
 
   public async getTaxWithholdingList({
     checkpointId,
   }: GetTaxWithholdingListArgs): Promise<TaxWithholding[]> {
-    const { 0: investors, 2: percentages } = await this.contract.methods
-      .getCheckpointData(checkpointId)
-      .call();
+    const {
+      0: investors,
+      2: percentages,
+    } = await this.contract.methods.getCheckpointData(checkpointId).call();
 
     return zipWith(investors, percentages, (address, percentage) => ({
       address,
@@ -121,7 +142,9 @@ export abstract class DividendCheckpoint<
   }
 
   public async getInvestors({ dividendIndex }: GetDividendInvestorsArgs) {
-    const { 0: investors } = await this.contract.methods.getDividendProgress(dividendIndex).call();
+    const { 0: investors } = await this.contract.methods
+      .getDividendProgress(dividendIndex)
+      .call();
 
     return investors;
   }
@@ -130,10 +153,16 @@ export abstract class DividendCheckpoint<
     return fromDivisible(value, 18);
   }
 
-  public abstract getDividend({ dividendIndex }: GetDividendArgs): Promise<Dividend>;
+  public abstract getDividend({
+    dividendIndex,
+  }: GetDividendArgs): Promise<Dividend>;
 
-  public async getDividendsByCheckpoint({ checkpointId }: GetDividendsByCheckpointArgs) {
-    const dividendIndexes = await this.contract.methods.getDividendIndex(checkpointId).call();
+  public async getDividendsByCheckpoint({
+    checkpointId,
+  }: GetDividendsByCheckpointArgs) {
+    const dividendIndexes = await this.contract.methods
+      .getDividendIndex(checkpointId)
+      .call();
 
     const dividends = await Promise.all(
       dividendIndexes.map(dividendIndex =>
@@ -146,12 +175,17 @@ export abstract class DividendCheckpoint<
 
   public async getDividends() {
     const stAddress = await this.securityTokenAddress();
-    const securityToken = await ContractWrapperFactory.getSecurityToken(stAddress, this.context);
+    const securityToken = await ContractWrapperFactory.getSecurityToken(
+      stAddress,
+      this.context
+    );
 
     const currentCheckpointIndex = await securityToken.currentCheckpointId();
     const checkpointIndexes = range(1, currentCheckpointIndex + 1);
     const dividends = await Promise.all(
-      checkpointIndexes.map(checkpointId => this.getDividendsByCheckpoint({ checkpointId }))
+      checkpointIndexes.map(checkpointId =>
+        this.getDividendsByCheckpoint({ checkpointId })
+      )
     );
 
     return flatten(dividends).sort((a, b) => a.index - b.index);
@@ -161,10 +195,16 @@ export abstract class DividendCheckpoint<
     return this.contract.methods.wallet().call();
   };
 
-  public setWithholding = async ({ investors, percentages }: SetWithholdingArgs) => {
+  public setWithholding = async ({
+    investors,
+    percentages,
+  }: SetWithholdingArgs) => {
     const percentagesInWei = percentages.map(toWei);
 
-    const method = this.contract.methods.setWithholding(investors, percentagesInWei);
+    const method = this.contract.methods.setWithholding(
+      investors,
+      percentagesInWei
+    );
     const options = await getOptions(method, { from: this.context.account });
     return () => method.send(options);
   };
@@ -175,7 +215,9 @@ export abstract class DividendCheckpoint<
     return () => method.send(options);
   };
 
-  public withdrawWithholding = async ({ dividendIndex }: WithdrawWithholdingArgs) => {
+  public withdrawWithholding = async ({
+    dividendIndex,
+  }: WithdrawWithholdingArgs) => {
     const method = this.contract.methods.withdrawWithholding(dividendIndex);
     const options = await getOptions(method, { from: this.context.account });
     return () => method.send(options);
@@ -208,7 +250,9 @@ export abstract class DividendCheckpoint<
     decimals: number;
   }): Promise<Dividend> {
     const { methods } = this.contract;
-    const dividend = await this.contract.methods.dividends(dividendIndex).call();
+    const dividend = await this.contract.methods
+      .dividends(dividendIndex)
+      .call();
 
     const {
       0: addresses,

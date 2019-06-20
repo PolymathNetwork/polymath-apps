@@ -82,6 +82,12 @@ export class TaxWithholding extends Entity {
     this.investorAddress = investorAddress;
     this.percentage = percentage;
     this.checkpointId = checkpointId;
+    this.uid = TaxWithholding.generateId({
+      symbol,
+      investorAddress,
+      dividendType,
+      checkpointId,
+    });
   }
 
   public toPojo() {

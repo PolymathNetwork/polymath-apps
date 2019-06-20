@@ -27,7 +27,7 @@ export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
   symbol: string;
   dividendIndex: string;
-  checkpointId: number;
+  checkpointId: string;
   networkId?: number;
 }
 
