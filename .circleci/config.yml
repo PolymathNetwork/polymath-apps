@@ -1,6 +1,9 @@
 version: 2.1
 
 references:
+  node10_config: &node10_config
+    docker:
+      - image: 'circleci/node:10-stretch'
   container_config: &container_config
     docker:
       - image: 'circleci/node:8-stretch'
@@ -29,7 +32,7 @@ jobs:
       - *yarn_install
       - *save_cache
   new_issuer_tests:
-    <<: *container_config
+    <<: *node10_config
     steps:
       - checkout
       - *restore_yarn_cache
@@ -53,7 +56,7 @@ jobs:
       - *save_cache
       - run: yarn build:issuer
   issuer_tests:
-    <<: *container_config
+    <<: *node10_config
     steps:
       - checkout
       - *restore_yarn_cache
