@@ -61,14 +61,7 @@ export class ContainerBase extends Component<Props> {
   };
 
   public render() {
-    console.log('Dividand detail component');
-
-    const {
-      symbol,
-      dividendIndex,
-      checkpointId,
-      networkId,
-    } = this.props;
+    const { symbol, dividendIndex, checkpointId, networkId } = this.props;
     const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
     return (
       <Page title="Dividend Details">

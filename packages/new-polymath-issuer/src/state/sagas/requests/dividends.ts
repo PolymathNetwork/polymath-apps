@@ -13,7 +13,6 @@ export function* fetchDividendsByCheckpoint(
   args: GetDividendsByCheckpointArgs
 ) {
   const { symbol, checkpointId } = args;
-  console.log('fetchDividendsByCheckpoint');
   const dividends: Dividend[] = yield call(polyClient.getDividends, {
     symbol: symbol,
     checkpointId,

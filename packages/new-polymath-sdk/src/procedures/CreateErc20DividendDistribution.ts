@@ -45,7 +45,6 @@ export class CreateErc20DividendDistribution extends Procedure<
         "Dividend modules haven't been enabled. Did you forget to call .enableDividendModules()?"
       );
     }
-    const eventParser = erc20Module.contract.events.ERC20DividendDeposited;
 
     await this.addTransaction(Approve)({
       amount,
@@ -61,7 +60,6 @@ export class CreateErc20DividendDistribution extends Procedure<
         // the contract-wrappers package
         resolver: async receipt => {
           const { events } = receipt;
-          console.log('txreceipt erc20Module.createDividend', receipt);
 
           if (events) {
             const { ERC20DividendDeposited } = events;

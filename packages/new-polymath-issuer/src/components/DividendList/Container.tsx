@@ -22,7 +22,7 @@ export class DividendListContainerBase extends Component<Props> {
       allDividendsCompleted,
       hasDividends,
     } = this.props;
-    console.log('DividendListContainerBase');
+
     return (
       <DataFetcher
         fetchers={[

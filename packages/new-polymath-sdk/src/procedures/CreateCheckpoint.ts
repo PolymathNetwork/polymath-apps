@@ -33,7 +33,6 @@ export class CreateCheckpoint extends Procedure<CreateCheckpointProcedureArgs> {
         // the contract-wrappers package
         resolver: async receipt => {
           const { events } = receipt;
-          console.log('txreceipt securityToken.createCheckpoint', receipt);
 
           if (events) {
             const { CheckpointCreated } = events;

@@ -25,11 +25,7 @@ interface Props {
   symbol: string;
 }
 
-export const DividendCard: FC<Props> = ({
-  dividend,
-  symbol,
-  checkpointId,
-}) => {
+export const DividendCard: FC<Props> = ({ dividend, symbol, checkpointId }) => {
   const {
     investors,
     currency,

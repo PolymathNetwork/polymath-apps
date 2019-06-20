@@ -621,7 +621,6 @@ export const exportMintedTokensList = () => async (
         try {
           const { token } = getState().token; // $FlowFixMe
           const investors = await token.contract.getMinted();
-
           let csvContent =
             'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
           investors.forEach((investor: Investor) => {

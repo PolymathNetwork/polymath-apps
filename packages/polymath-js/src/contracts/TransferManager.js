@@ -149,7 +149,7 @@ export default class TransferManager extends Contract {
     const expiryTimes: Array<number> = [];
     const flags: Array<number> = [];
     const cannotBuyFromSTO: Array<boolean> = [];
-    console.log('investors', investors);
+
     for (let investor of investors) {
       addresses.push(investor.address); // $FlowFixMe
       fromTimes.push(this._toUnixTS(investor.from)); // $FlowFixMe
@@ -163,8 +163,6 @@ export default class TransferManager extends Contract {
         cannotBuyFromSTO.push(false);
       }
     }
-
-    console.log(addresses, flags, cannotBuyFromSTO);
 
     await this._tx(
       this._methods.modifyKYCDataMulti(
@@ -251,7 +249,6 @@ export default class TransferManager extends Contract {
         canBuyFromSTO,
       });
     }
-    console.log('events, flagEvents, logs', events, flagEvents, logs);
     return this._mapLogsToInvestors(logs);
   }
 }

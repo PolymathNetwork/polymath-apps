@@ -956,7 +956,7 @@ export class Polymath {
 
     let symbol: string;
     let dividendType: DividendModuleTypes;
-    console.log('getDividendsModule', args);
+
     // fetch by UUID
     if (typeof args === 'string') {
       ({ symbol, dividendType } = DividendsModule.unserialize(args));

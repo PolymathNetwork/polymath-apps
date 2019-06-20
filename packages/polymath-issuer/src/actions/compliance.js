@@ -108,7 +108,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
       investors: data,
       criticals: invalidRows,
       isTooMany,
-      parseError,
+      parseError: parseError | '',
     });
   };
 };

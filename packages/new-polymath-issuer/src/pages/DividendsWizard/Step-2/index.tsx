@@ -132,8 +132,6 @@ export const Step2: FC<Props> = ({
 
     // If wallet address wasn't filled yet, skip this
     if (walletAddress) {
-      console.log('walletAddress', walletAddress);
-      console.log('existingTaxWithholdings', existingTaxWithholdings);
       // Make sure wallet is existing...
       const isWalletExisting = !existingTaxWithholdings.find(
         existingTaxWithholding => {

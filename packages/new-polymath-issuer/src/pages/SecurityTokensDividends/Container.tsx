@@ -73,22 +73,12 @@ export class ContainerBase extends Component<Props> {
 
   public render() {
     const { symbol, walletAddress, networkId } = this.props;
-
-    console.log(
-      'securityTokensDividend',
-      symbol,
-      walletAddress,
-      networkId
-    );
-
     const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
 
     return (
       <Page title="Dividends">
         <DataFetcher
-          fetchers={[
-            createErc20DividendsModuleBySymbolFetcher({ symbol }),
-          ]}
+          fetchers={[createErc20DividendsModuleBySymbolFetcher({ symbol })]}
           render={(data: {
             erc20DividendsModules: types.Erc20DividendsModuleEntity[];
           }) => {

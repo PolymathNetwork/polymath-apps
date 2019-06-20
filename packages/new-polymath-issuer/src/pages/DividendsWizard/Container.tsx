@@ -207,8 +207,6 @@ export class ContainerBase extends Component<Props, State> {
 
   public render() {
     const { symbol, checkpointId } = this.props;
-    console.log('Dividand wizard component', symbol, checkpointId);
-
     const fetcher = createCheckpointsBySymbolFetcher({
       symbol,
     });

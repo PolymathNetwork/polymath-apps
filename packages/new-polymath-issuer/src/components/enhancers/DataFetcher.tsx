@@ -150,7 +150,7 @@ class DataFetcherBase extends Component<Props, State> {
       loading,
     } = this.props;
     const { dataToRender } = this.state;
-    console.log('errors', errors);
+
     if (errors.length) {
       return renderError(errors);
     }
