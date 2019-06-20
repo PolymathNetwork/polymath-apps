@@ -10,5 +10,6 @@ export function* processAddressChange(newAddress: string) {
 }
 
 export function* walletWatcher() {
+  // @ts-ignore
   yield all([takeLatest(addressChangeChannel, processAddressChange)]);
 }

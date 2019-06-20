@@ -107,8 +107,7 @@ export interface DividendInvestorStatus {
 
 export interface DividendEntity extends Entity {
   index: number;
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   checkpointId: number;
   dividendType: DividendModuleTypes;
   created: Date;
@@ -129,8 +128,7 @@ export interface DividendPojo extends DividendEntity {}
 
 export interface CheckpointEntity extends Entity {
   index: number;
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   investorBalances: Array<{
     address: string;
     balance: BigNumber;
@@ -145,8 +143,7 @@ export interface CheckpointPojo extends CheckpointEntity {
 
 export interface Erc20DividendsModuleEntity extends Entity {
   address: string;
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   storageWalletAddress: string;
 }
 
@@ -158,8 +155,7 @@ export enum DividendModuleTypes {
 }
 
 export interface TaxWithholdingEntity extends Entity {
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   dividendType: DividendModuleTypes;
   investorAddress: string;
   percentage: number;

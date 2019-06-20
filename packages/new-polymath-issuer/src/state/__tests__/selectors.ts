@@ -41,7 +41,6 @@ const checkpoints = {
     c0: {
       uid: 'c0',
       index: 0,
-      securityTokenId: 's0',
       symbol: 'S',
       investorBalances: [],
       totalSupply: new BigNumber('1000000'),
@@ -50,7 +49,6 @@ const checkpoints = {
     c1: {
       uid: 'c1',
       index: 2,
-      securityTokenId: 's0',
       symbol: 'S',
       investorBalances: [],
       totalSupply: new BigNumber('2000000'),
@@ -67,9 +65,8 @@ const dividends = {
       index: 0,
       created: new Date(),
       dividendType: types.DividendModuleTypes.Erc20,
-      securityTokenId: 's0',
       symbol: 'S',
-      checkpointId: 'c0',
+      checkpointId: 0,
       maturity: new Date(),
       expiry: new Date(),
       amount: new BigNumber('10000'),

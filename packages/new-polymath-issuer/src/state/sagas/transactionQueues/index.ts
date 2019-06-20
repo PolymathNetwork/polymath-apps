@@ -36,6 +36,7 @@ export function* runTransactionQueue<Args, ReturnType>(
 
   const { uid } = transactionQueue;
 
+  // @ts-ignore
   const transactionEntities: types.TransactionEntity[] = transactionsToRun.map(
     transaction => transaction.toPojo()
   );
@@ -44,6 +45,7 @@ export function* runTransactionQueue<Args, ReturnType>(
     yield put(createTransaction(transaction));
   }
 
+  // @ts-ignore
   yield put(createTransactionQueue(transactionQueue));
   yield put(setActiveTransactionQueue(uid));
 
@@ -106,6 +108,7 @@ export function* watchQueueStatus(transactionQueue: TransactionQueue) {
 
     const { transactions, ...rest } = changedQueue.toPojo();
 
+    // @ts-ignore
     yield put(updateTransactionQueue(rest));
 
     const { status } = rest;
