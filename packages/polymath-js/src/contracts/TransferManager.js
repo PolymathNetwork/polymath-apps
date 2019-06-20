@@ -228,16 +228,14 @@ export default class TransferManager extends Contract {
       }
     );
 
-    // if (events.length !== flagEvents.length)
-    //   throw new Error(
-    //     'Unexpected error occured while retrieving investors whitelist.'
-    //   );
+    if (events.length !== flagEvents.length) {
+      throw new Error(
+        'Unexpected error occured while retrieving investors whitelist. Please report this issue to Polymath team.'
+      );
+    }
 
     for (let i = 0; i < events.length; i++) {
       const event = events[i];
-      // @TODO @remon-nashid fix (or explain) this hack.
-      if (!flagEvents[i]) continue;
-
       const canBuyFromSTO = !flagEvents[i].returnValues._value;
 
       logs.push({
