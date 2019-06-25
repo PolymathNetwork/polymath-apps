@@ -1,6 +1,12 @@
 import BigNumber from 'bignumber.js';
 import _ from 'lodash';
 import { TransactionReceipt } from 'web3/types';
+import {
+  ProcedureTypes,
+  PolyTransactionTags,
+  PolymathError,
+} from '@polymathnetwork/sdk';
+export { ProcedureTypes, PolyTransactionTags, PolymathError };
 
 export enum Tokens {
   Poly = 'POLY',
@@ -11,54 +17,6 @@ export enum Tokens {
   Pax = 'PAX',
   Usdc = 'USDC',
   Usdt = 'USDT',
-}
-
-enum ErrorCodes {
-  IncompatibleBrowser = 'IncompatibleBrowser',
-  UserDeniedAccess = 'UserDeniedAccess',
-  WalletIsLocked = 'WalletIsLocked',
-  ProcedureValidationError = 'ProcedureValidationError',
-  TransactionRejectedByUser = 'TransactionRejectedByUser',
-  TransactionReverted = 'TransactionReverted',
-  FatalError = 'FatalError',
-}
-
-interface PolymathError {
-  code: ErrorCodes;
-}
-
-export enum ProcedureTypes {
-  UnnamedProcedure = 'UnnamedProcedure',
-  Approve = 'Approve',
-  CreateCheckpoint = 'CreateCheckpoint',
-  EnableDividendModules = 'EnableDividendModules',
-  CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
-  CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
-  CreateSecurityToken = 'CreateSecurityToken',
-  ReclaimFunds = 'ReclaimFunds',
-  ReserveSecurityToken = 'ReserveSecurityToken',
-  WithdrawTaxes = 'WithdrawTaxes',
-  UpdateDividendsTaxWithholdingList = 'UpdateDividendsTaxWithholdingList',
-  SetDividendsWallet = 'SetDividendsWallet',
-  PushDividendPayment = 'PushDividendPayment',
-}
-
-export enum PolyTransactionTags {
-  Any = 'Any',
-  Approve = 'Approve',
-  GetTokens = 'GetTokens',
-  ReserveSecurityToken = 'ReserveSecurityToken',
-  CreateSecurityToken = 'CreateSecurityToken',
-  CreateCheckpoint = 'CreateCheckpoint',
-  CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
-  CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
-  SetErc20TaxWithholding = 'SetErc20TaxWithholding',
-  SetEtherTaxWithholding = 'SetEtherTaxWithholding',
-  EnableDividends = 'EnableDividends',
-  ReclaimDividendFunds = 'ReclaimDividendFunds',
-  WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
-  PushDividendPayment = 'PushDividendPayment',
-  SetDividendsWallet = 'SetDividendsWallet',
 }
 
 export enum TransactionStatus {

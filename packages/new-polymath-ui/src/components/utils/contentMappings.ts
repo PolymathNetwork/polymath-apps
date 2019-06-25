@@ -719,4 +719,9 @@ export const getTransactionIcon = (transaction: types.TransactionPojo) =>
     [types.PolyTransactionTags.WithdrawTaxWithholdings]: SvgDownload2,
     [types.PolyTransactionTags.PushDividendPayment]: SvgErc20,
     [types.PolyTransactionTags.SetDividendsWallet]: SvgWallet,
+    [types.PolyTransactionTags.EnableGeneralPermissionManager]: SvgPoly,
+    [types.PolyTransactionTags.ChangeDelegatePermission]: SvgPoly,
+    [types.PolyTransactionTags.ControllerTransfer]: SvgPoly,
+    [types.PolyTransactionTags.PauseSto]: SvgPoly,
+    [types.PolyTransactionTags.SetController]: SvgPoly,
   }[transaction.tag]);

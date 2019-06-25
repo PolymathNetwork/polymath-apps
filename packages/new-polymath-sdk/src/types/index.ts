@@ -153,14 +153,22 @@ export interface TransactionArguments {
   [PolyTransactionTags.SetErc20TaxWithholding]: Partial<SetWithholdingArgs>;
   [PolyTransactionTags.SetEtherTaxWithholding]: Partial<SetWithholdingArgs>;
   [PolyTransactionTags.ReclaimDividendFunds]: Partial<ReclaimDividendArgs>;
-  [PolyTransactionTags.WithdrawTaxWithholdings]: Partial<WithdrawWithholdingArgs>;
-  [PolyTransactionTags.CreateErc20DividendDistribution]: Partial<CreateErc20DividendArgs>;
-  [PolyTransactionTags.CreateEtherDividendDistribution]: Partial<CreateEtherDividendArgs>;
+  [PolyTransactionTags.WithdrawTaxWithholdings]: Partial<
+    WithdrawWithholdingArgs
+  >;
+  [PolyTransactionTags.CreateErc20DividendDistribution]: Partial<
+    CreateErc20DividendArgs
+  >;
+  [PolyTransactionTags.CreateEtherDividendDistribution]: Partial<
+    CreateEtherDividendArgs
+  >;
   [PolyTransactionTags.GetTokens]: Partial<GetTokensArgs>;
   [PolyTransactionTags.Approve]: Partial<ApproveArgs>;
   [PolyTransactionTags.EnableDividends]: Partial<AddDividendsModuleArgs>;
   [PolyTransactionTags.ReserveSecurityToken]: Partial<RegisterTickerArgs>;
-  [PolyTransactionTags.CreateSecurityToken]: Partial<GenerateNewSecurityTokenArgs>;
+  [PolyTransactionTags.CreateSecurityToken]: Partial<
+    GenerateNewSecurityTokenArgs
+  >;
   [PolyTransactionTags.PushDividendPayment]: Partial<PushDividendPaymentArgs>;
   [PolyTransactionTags.SetDividendsWallet]: Partial<SetDividendsWalletArgs>;
   [PolyTransactionTags.CreateCheckpoint]: {};
