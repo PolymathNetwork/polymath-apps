@@ -29,7 +29,7 @@ export interface GenericContract {
 
 export interface Erc20DividendDepositedEvent {
   _depositor: string;
-  _checkpointId: number;
+  _checkpointId: string;
   _created: string;
   _maturity: string;
   _expiry: string;
