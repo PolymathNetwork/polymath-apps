@@ -1,12 +1,9 @@
 version: 2.1
 
 references:
-  node10_config: &node10_config
-    docker:
-      - image: 'circleci/node:10-stretch'
   container_config: &container_config
     docker:
-      - image: 'circleci/node:8-stretch'
+      - image: 'circleci/node:10-stretch'
   restore_yarn_cache: &restore_yarn_cache
     restore_cache:
       name: Restore Yarn Package Cache
@@ -32,7 +29,7 @@ jobs:
       - *yarn_install
       - *save_cache
   new_issuer_tests:
-    <<: *node10_config
+    <<: *container_config
     steps:
       - checkout
       - *restore_yarn_cache
@@ -56,7 +53,7 @@ jobs:
       - *save_cache
       - run: yarn build:issuer
   issuer_tests:
-    <<: *node10_config
+    <<: *container_config
     steps:
       - checkout
       - *restore_yarn_cache
