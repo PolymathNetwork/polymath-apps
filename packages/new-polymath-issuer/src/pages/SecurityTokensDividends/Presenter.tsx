@@ -200,7 +200,7 @@ export const Presenter: FC<Props> = ({
         <GridRow.Col gridSpan={12}>
           {dividendsModule ? (
             <CheckpointList
-              securityTokenSymbol={dividendsModule.securityTokenSymbol}
+              symbol={dividendsModule.symbol}
             />
           ) : null}
         </GridRow.Col>

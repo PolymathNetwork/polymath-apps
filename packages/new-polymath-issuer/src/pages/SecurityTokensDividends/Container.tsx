@@ -24,7 +24,7 @@ const actions = {
 
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
-  securityTokenSymbol: string;
+  symbol: string;
   walletAddress: string;
   networkId?: number;
 }
@@ -43,22 +43,22 @@ const mapStateToProps = (state: RootState) => {
 
 export class ContainerBase extends Component<Props> {
   public enableErc20DividendsModule = (storageWalletAddress: string) => {
-    const { dispatch, securityTokenSymbol } = this.props;
+    const { dispatch, symbol } = this.props;
 
     dispatch(
       enableErc20DividendsModuleStart({
-        securityTokenSymbol,
+        symbol,
         storageWalletAddress,
       })
     );
   };
 
   public changeWalletAddress = (storageWalletAddress: string) => {
-    const { dispatch, securityTokenSymbol } = this.props;
+    const { dispatch, symbol } = this.props;
 
     dispatch(
       setDividendsWalletStart({
-        securityTokenSymbol,
+        symbol,
         dividendType: DividendModuleTypes.Erc20,
         walletAddress: storageWalletAddress,
       })
@@ -66,22 +66,19 @@ export class ContainerBase extends Component<Props> {
   };
 
   public createCheckpoint = () => {
-    const { dispatch, securityTokenSymbol } = this.props;
+    const { dispatch, symbol } = this.props;
 
-    dispatch(createCheckpointStart({ securityTokenSymbol }));
+    dispatch(createCheckpointStart({ symbol }));
   };
 
   public render() {
-    const { securityTokenSymbol, walletAddress, networkId } = this.props;
-
+    const { symbol, walletAddress, networkId } = this.props;
     const subdomain = networkId ? constants.EtherscanSubdomains[networkId] : '';
 
     return (
       <Page title="Dividends">
         <DataFetcher
-          fetchers={[
-            createErc20DividendsModuleBySymbolFetcher({ securityTokenSymbol }),
-          ]}
+          fetchers={[createErc20DividendsModuleBySymbolFetcher({ symbol })]}
           render={(data: {
             erc20DividendsModules: types.Erc20DividendsModuleEntity[];
           }) => {

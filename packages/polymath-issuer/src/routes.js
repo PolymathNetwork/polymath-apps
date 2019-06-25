@@ -54,13 +54,13 @@ export default [
             exact: true,
           },
           {
-            path: '/dashboard/:id/checkpoints/:checkpointIndex/dividends/new',
+            path: '/dashboard/:id/checkpoints/:checkpointId/dividends/new',
             component: DividendsWizardPage,
             exact: true,
           },
           {
             path:
-              '/dashboard/:id/checkpoints/:checkpointIndex/dividends/:dividendIndex',
+              '/dashboard/:id/checkpoints/:checkpointId/dividends/:dividendIndex',
             component: DividendDetailsPage,
             exact: true,
           },
@@ -70,13 +70,13 @@ export default [
         ],
       },
       {
-        path: '/securityTokens/:id/checkpoints/:checkpointIndex/dividends/new',
+        path: '/securityTokens/:id/checkpoints/:checkpointId/dividends/new',
         component: props => {
-          const { id, checkpointIndex } = props.match.params;
+          const { id, checkpointId } = props.match.params;
 
           return (
             <Redirect
-              to={`/dashboard/${id}/checkpoints/${checkpointIndex}/dividends/new`}
+              to={`/dashboard/${id}/checkpoints/${checkpointId}/dividends/new`}
             />
           );
         },
@@ -93,13 +93,13 @@ export default [
       },
       {
         path:
-          '/securityTokens/:id/checkpoints/:checkpointIndex/dividends/:dividendIndex',
+          '/securityTokens/:id/checkpoints/:checkpointId/dividends/:dividendIndex',
         component: props => {
-          const { id, dividendIndex, checkpointIndex } = props.match.params;
+          const { id, dividendIndex, checkpointId } = props.match.params;
 
           return (
             <Redirect
-              to={`/dashboard/${id}/checkpoints/${checkpointIndex}/dividends/${dividendIndex}`}
+              to={`/dashboard/${id}/checkpoints/${checkpointId}/dividends/${dividendIndex}`}
             />
           );
         },

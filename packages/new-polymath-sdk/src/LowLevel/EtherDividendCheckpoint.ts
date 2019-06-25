@@ -1,8 +1,8 @@
 import Web3 from 'web3';
+import { TransactionObject } from 'web3/eth/types';
 import { EtherDividendCheckpointAbi } from './abis/EtherDividendCheckpointAbi';
 import { DividendCheckpoint } from './DividendCheckpoint';
-import { toUnixTimestamp, toWei } from './utils';
-import { TransactionObject } from 'web3/eth/types';
+import { toUnixTimestamp, toWei, getOptions } from './utils';
 import { Context } from './LowLevel';
 import {
   Dividend,
@@ -31,10 +31,9 @@ interface EtherDividendCheckpointContract extends GenericContract {
   };
 }
 
-export class EtherDividendCheckpoint extends DividendCheckpoint<
-  EtherDividendCheckpointContract
-> {
+export class EtherDividendCheckpoint extends DividendCheckpoint<EtherDividendCheckpointContract> {
   public dividendType = DividendModuleTypes.Eth;
+
   constructor({ address, context }: { address: string; context: Context }) {
     super({ address, abi: EtherDividendCheckpointAbi.abi, context });
   }
@@ -52,27 +51,25 @@ export class EtherDividendCheckpoint extends DividendCheckpoint<
     const nameInBytes = Web3.utils.asciiToHex(name);
 
     if (excludedAddresses) {
-      return () =>
-        this.contract.methods
-          .createDividendWithCheckpointAndExclusions(
-            maturity,
-            expiry,
-            checkpointId,
-            excludedAddresses,
-            nameInBytes
-          )
-          .send({ value: amountInWei });
+      const method = this.contract.methods.createDividendWithCheckpointAndExclusions(
+        maturity,
+        expiry,
+        checkpointId,
+        excludedAddresses,
+        nameInBytes
+      );
+      const options = await getOptions(method, { value: amountInWei });
+      return () => method.send(options);
     }
 
-    return () =>
-      this.contract.methods
-        .createDividendWithCheckpoint(
-          maturity,
-          expiry,
-          checkpointId,
-          nameInBytes
-        )
-        .send({ value: amountInWei });
+    const method = this.contract.methods.createDividendWithCheckpoint(
+      maturity,
+      expiry,
+      checkpointId,
+      nameInBytes
+    );
+    const options = await getOptions(method, { value: amountInWei });
+    return () => method.send();
   };
 
   public async getDividend({ dividendIndex }: GetDividendArgs) {

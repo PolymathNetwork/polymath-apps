@@ -1,17 +1,17 @@
-import _ from 'lodash';
 import {
   TransactionSpec,
   ErrorCodes,
   LowLevelMethod,
   MapMaybeResolver,
   MaybeResolver,
-} from '~/types';
-import { TransactionQueue } from '~/entities/TransactionQueue';
-import { Context } from '~/Context';
-import { PostTransactionResolver } from '~/PostTransactionResolver';
-import { types } from '@polymathnetwork/new-shared';
+  ProcedureTypes,
+  PolyTransactionTags,
+} from '../types';
+import { TransactionQueue } from '../entities/TransactionQueue';
+import { Context } from '../Context';
+import { PostTransactionResolver } from '../PostTransactionResolver';
 import { TransactionReceipt } from 'web3/types';
-import { PolymathError } from '~/PolymathError';
+import { PolymathError } from '../PolymathError';
 
 function isProcedure<T>(value: any): value is ProcedureType<T> {
   return value.prototype instanceof Procedure;
@@ -25,7 +25,7 @@ type MethodOrProcedure<A> = LowLevelMethod<A> | ProcedureType<A>;
 
 // NOTE @RafaelVidaurre: We could add a preparation state cache to avoid repeated transactions and bad validations
 export abstract class Procedure<Args, ReturnType = any> {
-  public type: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure;
+  public type: ProcedureTypes = ProcedureTypes.UnnamedProcedure;
   protected args: Args;
   protected context: Context;
   private transactions: TransactionSpec[] = [];
@@ -69,7 +69,7 @@ export abstract class Procedure<Args, ReturnType = any> {
       tag,
       resolver = (() => {}) as () => Promise<R>,
     }: {
-      tag?: types.PolyTransactionTags;
+      tag?: PolyTransactionTags;
       resolver?: (receipt: TransactionReceipt) => Promise<R>;
     } = {}
   ) {

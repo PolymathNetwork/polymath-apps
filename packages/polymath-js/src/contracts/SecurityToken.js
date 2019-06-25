@@ -1,9 +1,11 @@
 // @flow
 
-import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityToken.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/ISecurityToken.json';
+
 import moduleFactoryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import BigNumber from 'bignumber.js';
-
+import semver from 'semver';
 import Contract from './Contract';
 import PermissionManager from './PermissionManager';
 import TransferManager from './TransferManager';
@@ -14,6 +16,7 @@ import IModuleFactory from './IModuleFactory';
 import PolyToken from './PolyToken';
 import STO, { FUNDRAISE_ETH, FUNDRAISE_POLY } from './STO';
 import type { Address, Web3Receipt, Investor } from '../types';
+import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 const MODULE_TYPES = {
   PERMISSION: 1,
@@ -23,9 +26,11 @@ const MODULE_TYPES = {
 };
 
 const MINTED_EVENT = 'Minted';
+const ISSUED_EVENT = 'Issued';
 
 export default class SecurityToken extends Contract {
   decimals: number = 18;
+  version: string = LATEST_PROTOCOL_VERSION;
 
   owner: () => Promise<Address>;
   name: () => Promise<string>;
@@ -38,12 +43,27 @@ export default class SecurityToken extends Contract {
   unfreezeTransfers: () => Promise<Web3Receipt>;
   updateTokenDetails: (newTokenDetails: string) => Promise<Web3Receipt>;
 
-  constructor(at: Address) {
-    super(artifact, at);
+  constructor(at: Address, art?: any = artifact) {
+    super(art, at);
   }
 
-  async securityTokenVersion(): Promise<string> {
-    return this._toAscii(await this._methods.securityTokenVersion().call());
+  /**
+   * This is a factory function that instanciates an ST object with its corresponding, version-specific artifacts.
+   */
+  static async create(at: Address): Promise<SecurityToken> {
+    let temp = new SecurityToken(at, artifact);
+    const version = await temp.getVersion();
+    temp.version = version;
+    if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
+      temp = new SecurityToken(at, artifact2);
+      return temp;
+    }
+    return temp;
+  }
+
+  async getVersion(): Promise<string> {
+    const versionArray = await this._methods.getVersion().call();
+    return versionArray.join('.');
   }
 
   addDecimals(n: number | BigNumber): Promise<BigNumber> {
@@ -54,10 +74,16 @@ export default class SecurityToken extends Contract {
     return new BigNumber(n).div(new BigNumber(10).toPower(this.decimals));
   }
 
+  async tokenDetails(): Promise<string> {
+    return this._methods.tokenDetails().call();
+  }
+
   async isDivisible(): Promise<boolean> {
     return Number(await this.granularity()) === 1;
   }
 
+  // @NOTE this is not backward compatible with poly-core 3.x, but it's not being used execpt
+  // for in investors portal, which is obsolete.
   async verifyTransfer(
     from: Address,
     to: Address,
@@ -73,12 +99,35 @@ export default class SecurityToken extends Contract {
       .call();
   }
 
+  async mintingFrozen(): Promise<boolean> {
+    return this._methods.mintingFrozen().call();
+  }
+
+  async isIssuable(): Promise<boolean> {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.mintingFrozen();
+
+    return this._methods.isIssuable().call();
+  }
+
   async mint(investor: Address, amount: BigNumber): Promise<Web3Receipt> {
+    return this._tx(this._methods.mint(investor, this.addDecimals(amount)));
+  }
+
+  async issue(investor: Address, amount: BigNumber): Promise<Web3Receipt> {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.mint(...arguments);
     return this._tx(this._methods.mint(investor, this.addDecimals(amount)));
   }
 
   async burn(amount: BigNumber): Promise<Web3Receipt> {
     return this._tx(this._methods.burn(this.addDecimals(amount)));
+  }
+
+  async redeem(amount: BigNumber): Promise<Web3Receipt> {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.burn(...arguments);
+    return this._tx(this._methods.redeem(this.addDecimals(amount)));
   }
 
   async getModuleByName(name: string): Promise<Address> {
@@ -94,7 +143,7 @@ export default class SecurityToken extends Contract {
   async getPermissionManager(): Promise<?PermissionManager> {
     try {
       const address = await this.getModuleByName('GeneralPermissionManager');
-      return new PermissionManager(address);
+      return new PermissionManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -103,7 +152,7 @@ export default class SecurityToken extends Contract {
   async getTransferManager(): Promise<?TransferManager> {
     try {
       const address = await this.getModuleByName('GeneralTransferManager');
-      return new TransferManager(address);
+      return new TransferManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -121,7 +170,7 @@ export default class SecurityToken extends Contract {
   async getCountTM(): Promise<?CountTransferManager> {
     try {
       const address = await this.getModuleByName('CountTransferManager');
-      return new CountTransferManager(address);
+      return new CountTransferManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -162,15 +211,36 @@ export default class SecurityToken extends Contract {
     for (let amount of amounts) {
       amountsFinal.push(this.addDecimals(amount));
     }
+
     return this._tx(this._methods.mintMulti(addresses, amountsFinal));
+  }
+
+  async issueMulti(
+    addresses: Array<Address>,
+    amounts: Array<number | BigNumber>
+  ): Promise<Web3Receipt> {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return this.mintMulti(...arguments);
+
+    const amountsFinal = [];
+    for (let amount of amounts) {
+      amountsFinal.push(this.addDecimals(amount));
+    }
+
+    const res = await this._tx(
+      this._methods.issueMulti(addresses, amountsFinal)
+    );
+    return res;
   }
 
   async getMinted(): Promise<Array<Investor>> {
     // $FlowFixMe
     const tm = await this.getTransferManager();
     const investors = await tm.getWhitelist(true);
-
-    const events = await this._contractWS.getPastEvents(MINTED_EVENT, {
+    const eventName = semver.lt(this.version, LATEST_PROTOCOL_VERSION)
+      ? MINTED_EVENT
+      : ISSUED_EVENT;
+    const events = await this._contractWS.getPastEvents(eventName, {
       fromBlock: 0,
       toBlock: 'latest',
     });
@@ -199,7 +269,25 @@ export default class SecurityToken extends Contract {
     return result;
   }
 
+  async addModule(
+    address: string,
+    data: string,
+    maxCost: number,
+    budget: number,
+    isArchived: boolean = false
+  ) {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
+      return await this._tx(
+        this._methods.addModule(address, data, maxCost, budget)
+      );
+
+    return await this._tx(
+      this._methods.addModule(address, data, maxCost, budget, isArchived)
+    );
+  }
+
   async getModuleFactory(name: string, type: number) {
+    // NOTE: getModulesByTypeAndToken will return a module factory that's compatible with the token in hands.
     let availableModules = await ModuleRegistry._methods
       .getModulesByTypeAndToken(type, this.address)
       .call();
@@ -287,18 +375,16 @@ export default class SecurityToken extends Contract {
         fundsReceiver,
       ]
     );
-    return this._tx(
-      this._methods.addModule(
-        cappedSTOFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      ),
-      null,
-      1.05
+    return this.addModule(
+      cappedSTOFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
     );
   }
 
+  // @FIXME this function should be adding a USDTiered module instead of Capped. However,
+  // it's not used any where.
   async setUSDTieredSTO(): Promise<Web3Receipt> {
     const cappedSTOFactory = await this.getModuleFactory(
       'CappedSTO',
@@ -346,15 +432,12 @@ export default class SecurityToken extends Contract {
         fundsReceiver,
       ]
     );
-    return this._tx(
-      this._methods.addModule(
-        cappedSTOFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      ),
-      null,
-      1.05
+    return this.addModule(
+      cappedSTOFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0,
+      false
     );
   }
 
@@ -381,13 +464,11 @@ export default class SecurityToken extends Contract {
       },
       [PercentageTransferManager.addDecimals(percentage), false]
     );
-    return this._tx(
-      this._methods.addModule(
-        percentageTransferManagerFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      )
+    return this.addModule(
+      percentageTransferManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
     );
   }
 
@@ -410,13 +491,11 @@ export default class SecurityToken extends Contract {
       },
       [count]
     );
-    return this._tx(
-      this._methods.addModule(
-        countTransferManagerFactory.address,
-        data,
-        PolyToken.addDecimals(setupCost),
-        0
-      )
+    return this.addModule(
+      countTransferManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
     );
   }
 }

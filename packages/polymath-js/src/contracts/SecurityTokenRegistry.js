@@ -1,7 +1,7 @@
 // @flow
 
 import BigNumber from 'bignumber.js';
-import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityTokenRegistry.json';
 
 import Contract from './Contract';
 import SecurityTokenContract from './SecurityToken';
@@ -15,7 +15,8 @@ import type {
   SymbolDetails,
 } from '../types';
 
-const NEW_SECURITY_TOKEN_EVENT = 'NewSecurityToken';
+const NEW_SECURITY_TOKEN_EVENT3 = 'NewSecurityTokenCreated';
+const NEW_SECURITY_TOKEN_EVENT2 = 'NewSecurityToken';
 const REGISTER_TICKER_EVENT = 'RegisterTicker';
 
 class SecurityTokenRegistry extends Contract {
@@ -102,21 +103,31 @@ class SecurityTokenRegistry extends Contract {
     };
     if (details.status) {
       token.address = await this.getSecurityTokenAddress(ticker);
-      const contract = new SecurityTokenContract(token.address);
+      const contract = await SecurityTokenContract.create(token.address);
       token.contract = contract;
       token.details = await contract.tokenDetails();
       token.isDivisible = await contract.isDivisible();
       token.owner = await contract.owner();
 
       // get token issuing tx hash
-      const events = await this._contractWS.getPastEvents(
-        NEW_SECURITY_TOKEN_EVENT,
+      const events2 = await this._contractWS.getPastEvents(
+        NEW_SECURITY_TOKEN_EVENT2,
         {
           filter: { _securityTokenAddress: token.address },
           fromBlock: 0,
           toBlock: 'latest',
         }
       );
+      const events3 = await this._contractWS.getPastEvents(
+        NEW_SECURITY_TOKEN_EVENT3,
+        {
+          filter: { _securityTokenAddress: token.address },
+          fromBlock: 0,
+          toBlock: 'latest',
+        }
+      );
+      const events = [...events2, ...events3];
+
       token.txHash = events[0].transactionHash;
       token.timestamp = await this._getBlockDate(events[0].blockNumber);
     }
@@ -132,11 +143,13 @@ class SecurityTokenRegistry extends Contract {
       await PolyToken.approve(this.address, fee);
     }
     return await this._tx(
-      this._methods.generateSecurityToken(
+      this._methods.generateNewSecurityToken(
         token.name,
         token.ticker,
         token.details || '',
-        token.isDivisible
+        token.isDivisible,
+        this.account,
+        0 // if _protocolVersion == 0 then latest version of securityToken will be generated
       ),
       null,
       1.05,
@@ -186,7 +199,7 @@ class SecurityTokenRegistry extends Contract {
     }
 
     return await this._tx(
-      this._methods.registerTicker(this.account, details.ticker, details.name),
+      this._methods.registerTicker(this.account, details.ticker, ''),
       null,
       1.15
     );

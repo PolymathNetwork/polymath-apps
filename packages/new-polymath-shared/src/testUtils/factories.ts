@@ -2,7 +2,7 @@ import {
   ProcedureTypes,
   TransactionQueueStatus,
   TransactionQueuePojo,
-} from '~/typing/types';
+} from '../typing/types';
 
 export const transactionQueuePojo = (
   data?: Partial<TransactionQueuePojo>

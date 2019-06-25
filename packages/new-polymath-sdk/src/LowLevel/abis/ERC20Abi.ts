@@ -1,4 +1,4 @@
-// tslint:disable
+// eslint:disable
 export const ERC20Abi = {
   contractName: 'ERC20',
   abi: [

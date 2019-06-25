@@ -1,16 +1,18 @@
 import { SecurityToken } from '../SecurityToken';
-import { Polymath } from '~/Polymath';
+import { Polymath } from '../../Polymath';
 
 const params1 = {
   symbol: 'TEST1',
   name: 'Test Token 1',
   address: '0x1',
+  owner: '0x3',
 };
 
 const params2 = {
   symbol: 'TEST2',
   name: 'Test Token 2',
   address: '0x2',
+  owner: '0x4',
 };
 
 const polyClient = {} as Polymath;

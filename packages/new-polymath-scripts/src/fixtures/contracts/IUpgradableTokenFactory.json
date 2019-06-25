@@ -1,0 +1,19 @@
+{
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_maxModuleType",
+          "type": "uint8"
+        }
+      ],
+      "name": "upgradeToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "networks": {}
+}

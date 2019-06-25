@@ -1,13 +1,19 @@
 import { Procedure } from './Procedure';
-import { types } from '@polymathnetwork/new-shared';
-import { CreateErc20DividendDistributionProcedureArgs } from '~/types';
-import { Approve } from '~/procedures/Approve';
+import {
+  CreateErc20DividendDistributionProcedureArgs,
+  ProcedureTypes,
+  PolyTransactionTags,
+  ErrorCodes,
+} from '../types';
+import { Approve } from '../procedures/Approve';
+import { PolymathError } from '../PolymathError';
 
 export class CreateErc20DividendDistribution extends Procedure<
   CreateErc20DividendDistributionProcedureArgs,
   number
 > {
-  public type = types.ProcedureTypes.CreateErc20DividendDistribution;
+  public type = ProcedureTypes.CreateErc20DividendDistribution;
+
   public async prepareTransactions() {
     const {
       symbol,
@@ -15,7 +21,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       expiryDate,
       erc20Address,
       amount,
-      checkpointIndex,
+      checkpointId,
       name,
       excludedAddresses,
       taxWithholdings = [],
@@ -25,8 +31,15 @@ export class CreateErc20DividendDistribution extends Procedure<
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
     });
-    const erc20Module = await securityToken.getErc20DividendModule();
 
+    if (!securityToken) {
+      throw new PolymathError({
+        code: ErrorCodes.ProcedureValidationError,
+        message: `There is no Security Token with symbol ${symbol}`,
+      });
+    }
+
+    const erc20Module = await securityToken.getErc20DividendModule();
     if (!erc20Module) {
       throw new Error(
         "Dividend modules haven't been enabled. Did you forget to call .enableDividendModules()?"
@@ -42,7 +55,7 @@ export class CreateErc20DividendDistribution extends Procedure<
     const dividendIndex = await this.addTransaction(
       erc20Module.createDividend,
       {
-        tag: types.PolyTransactionTags.CreateErc20DividendDistribution,
+        tag: PolyTransactionTags.CreateErc20DividendDistribution,
         // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
         // the contract-wrappers package
         resolver: async receipt => {
@@ -66,7 +79,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       expiryDate,
       tokenAddress: erc20Address,
       amount,
-      checkpointId: checkpointIndex,
+      checkpointId,
       name,
       excludedAddresses,
     });
@@ -81,7 +94,7 @@ export class CreateErc20DividendDistribution extends Procedure<
       });
 
       await this.addTransaction(erc20Module.setWithholding, {
-        tag: types.PolyTransactionTags.SetErc20TaxWithholding,
+        tag: PolyTransactionTags.SetErc20TaxWithholding,
       })({ investors, percentages });
     }
 

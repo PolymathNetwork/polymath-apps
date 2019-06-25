@@ -1,0 +1,888 @@
+{
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getVersion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initialized",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "holderCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getTreasuryWallet",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isIssuable",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getterDelegate",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_start",
+          "type": "uint256"
+        },
+        {
+          "name": "_end",
+          "type": "uint256"
+        }
+      ],
+      "name": "iterateInvestors",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "decimals",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInvestorsAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCheckpointTimes",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_investor",
+          "type": "address"
+        },
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "balanceOfAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "currentCheckpointId",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "granularity",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "dataStore",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "UNLOCKED",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_partition",
+          "type": "bytes32"
+        },
+        {
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "name": "_tokenHolder",
+          "type": "address"
+        }
+      ],
+      "name": "isOperatorForPartition",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "polyToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "partitionsOf",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getModulesByName",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "polymathRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "controllerDisabled",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_delegate",
+          "type": "address"
+        },
+        {
+          "name": "_module",
+          "type": "address"
+        },
+        {
+          "name": "_perm",
+          "type": "bytes32"
+        }
+      ],
+      "name": "checkPermission",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInvestorCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "totalSupplyAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getAllDocuments",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "LOCKED",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_checkpointId",
+          "type": "uint256"
+        },
+        {
+          "name": "_start",
+          "type": "uint256"
+        },
+        {
+          "name": "_end",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInvestorsSubsetAt",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_type",
+          "type": "uint8"
+        }
+      ],
+      "name": "getModulesByType",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getDocument",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "_owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInvestors",
+      "outputs": [
+        {
+          "name": "investors",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_module",
+          "type": "address"
+        }
+      ],
+      "name": "getModule",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "name": "",
+          "type": "uint8[]"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "name": "_tokenHolder",
+          "type": "address"
+        }
+      ],
+      "name": "isOperator",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "moduleRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "securityTokenRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenDetails",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "transfersFrozen",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenFactory",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "controller",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_upgrade",
+          "type": "uint256"
+        }
+      ],
+      "name": "UpgradeEvent",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_upgrade",
+          "type": "uint256"
+        }
+      ],
+      "name": "newGetter",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "networks": {
+    "15": {
+      "events": {
+        "0xedc6007cc44783a48ceb845386592c8d22e6e21f3acd887104ba49340ae8cc5d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleUpgraded",
+          "type": "event",
+          "signature": "0xedc6007cc44783a48ceb845386592c8d22e6e21f3acd887104ba49340ae8cc5d"
+        },
+        "0x78914da53c30c0667830d562877caed5c20adc645b8557fa64336c22a9b8ece6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleArchived",
+          "type": "event",
+          "signature": "0x78914da53c30c0667830d562877caed5c20adc645b8557fa64336c22a9b8ece6"
+        },
+        "0xe69e438aa3b4b943ac4c807820403a6e5815b8fbb7fccfac629fce87ff6d430d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleUnarchived",
+          "type": "event",
+          "signature": "0xe69e438aa3b4b943ac4c807820403a6e5815b8fbb7fccfac629fce87ff6d430d"
+        },
+        "0xf4e9f735975718dce0ac83fb73f88a1b19a48186af0f6348c04c6229eb4b86a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_types",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            }
+          ],
+          "name": "ModuleRemoved",
+          "type": "event",
+          "signature": "0xf4e9f735975718dce0ac83fb73f88a1b19a48186af0f6348c04c6229eb4b86a0"
+        },
+        "0xa00a1c33ebb7433724919cb1059328c16265f935ef84a13442045da3e81c0ccc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_moduleTypes",
+              "type": "uint8[]"
+            },
+            {
+              "indexed": false,
+              "name": "_module",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_oldBudget",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "_budget",
+              "type": "uint256"
+            }
+          ],
+          "name": "ModuleBudgetChanged",
+          "type": "event",
+          "signature": "0xa00a1c33ebb7433724919cb1059328c16265f935ef84a13442045da3e81c0ccc"
+        },
+        "0xb4c22d60cd550a815744f04e3ff5278bf19684565ee00e2b084041b6024bd6f6": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_name",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "_uri",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "_documentHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "DocumentUpdated",
+          "type": "event",
+          "signature": "0xb4c22d60cd550a815744f04e3ff5278bf19684565ee00e2b084041b6024bd6f6"
+        },
+        "0x3d9bba27d3e360d8c80645beed7e991454a8271bf6f269a24f7782be0f0d0654": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_name",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "_uri",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "_documentHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "DocumentRemoved",
+          "type": "event",
+          "signature": "0x3d9bba27d3e360d8c80645beed7e991454a8271bf6f269a24f7782be0f0d0654"
+        }
+      },
+      "links": {
+        "TokenLib": "0x30753E4A8aad7F8597332E813735Def5dD395028"
+      }
+    }
+  }
+}

@@ -4,27 +4,16 @@ import { PolyTokenAbi } from './abis/PolyTokenAbi';
 import { PolyTokenFaucetAbi } from './abis/PolyTokenFaucetAbi';
 import { Contract } from './Contract';
 import { Context } from './LowLevel';
-import {
-  GenericContract,
-  AllowanceArgs,
-  GetTokensArgs,
-  BalanceOfArgs,
-  ApproveArgs,
-} from './types';
-import { fromWei, toWei } from './utils';
+import { fromWei, toWei, getOptions } from './utils';
+
+import { GenericContract, AllowanceArgs, GetTokensArgs, BalanceOfArgs, ApproveArgs } from './types';
 
 interface PolyTokenContract extends GenericContract {
   methods: {
-    getTokens: (
-      amount: BigNumber,
-      recipient: string
-    ) => TransactionObject<boolean>;
+    getTokens: (amount: BigNumber, recipient: string) => TransactionObject<void>;
     balanceOf: (address: string) => TransactionObject<string>;
-    allowance: (
-      tokenOwner: string,
-      spender: string
-    ) => TransactionObject<string>;
-    approve: (spender: string, amount: BigNumber) => TransactionObject<boolean>;
+    allowance: (tokenOwner: string, spender: string) => TransactionObject<string>;
+    approve: (spender: string, amount: BigNumber) => TransactionObject<void>;
   };
 }
 
@@ -47,10 +36,10 @@ export class PolyToken extends Contract<PolyTokenContract> {
       throw new Error('Cannot call "getTokens" in mainnet');
     }
     const amountInWei = toWei(amount);
-    return () =>
-      this.contract.methods
-        .getTokens(amountInWei, recipient)
-        .send({ from: this.context.account });
+
+    const method = this.contract.methods.getTokens(amountInWei, recipient);
+    const options = await getOptions(method, { from: this.context.account });
+    return () => method.send(options);
   };
 
   public balanceOf = async ({ address }: BalanceOfArgs) => {
@@ -60,19 +49,29 @@ export class PolyToken extends Contract<PolyTokenContract> {
   };
 
   public allowance = async ({ tokenOwner, spender }: AllowanceArgs) => {
-    const allowance = await this.contract.methods
-      .allowance(tokenOwner, spender)
-      .call();
+    const allowance = await this.contract.methods.allowance(tokenOwner, spender).call();
 
     return fromWei(allowance);
   };
 
-  public approve = async ({ spender, amount }: ApproveArgs) => {
+  public approve = async ({ spender, amount, owner }: ApproveArgs) => {
     const amountInWei = toWei(amount);
-    return () =>
-      this.contract.methods
-        .approve(spender, amountInWei)
-        .send({ from: this.context.account });
+    let ownerAddress: string;
+
+    const { account } = this.context;
+
+    if (owner) {
+      ownerAddress = owner;
+    } else if (account) {
+      ownerAddress = account;
+    } else {
+      throw new Error("No default account set. You must pass the owner's address as a parameter");
+    }
+
+    const method = this.contract.methods.approve(spender, amountInWei);
+    const options = await getOptions(method, { from: ownerAddress });
+
+    return () => method.send(options);
   };
 
   public symbol = async () => {

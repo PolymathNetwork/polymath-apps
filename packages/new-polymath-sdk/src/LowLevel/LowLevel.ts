@@ -1,13 +1,14 @@
 import Web3 from 'web3';
 import Accounts from 'web3/eth/accounts';
-import { web3 } from './web3Client';
-import { constants } from '@polymathnetwork/new-shared';
 import { HttpProvider } from 'web3/providers';
+import { NetworkIds } from './types';
+import { web3 } from './web3Client';
 import { PolyToken } from './PolyToken';
 import { PolymathRegistry } from './PolymathRegistry';
 import { SecurityTokenRegistry } from './SecurityTokenRegistry';
 import { ModuleRegistry } from './ModuleRegistry';
 import { Erc20 } from './Erc20';
+import { ContractWrapperFactory } from './ContractWrapperFactory';
 
 interface EthereumProvider extends HttpProvider {
   enable(): Promise<void>;
@@ -32,7 +33,7 @@ export interface Context extends LowLevel {
   securityTokenRegistry: SecurityTokenRegistry;
   moduleRegistry: ModuleRegistry;
   isTestnet: () => boolean;
-  account: string;
+  account?: string;
 }
 
 /**
@@ -41,11 +42,16 @@ export interface Context extends LowLevel {
  */
 export class LowLevel {
   public polymathRegistry?: PolymathRegistry;
+
   public polyToken?: PolyToken;
+
   public securityTokenRegistry?: SecurityTokenRegistry;
+
   public moduleRegistry?: ModuleRegistry;
+
   public account?: string;
-  private networkId: constants.NetworkIds = -1;
+
+  private networkId: NetworkIds = -1;
 
   constructor(params: Params = {}) {
     const { provider, privateKey } = params;
@@ -81,15 +87,11 @@ a browser, make sure you have MetaMask installed and enabled.`
   public getAccount = async () => {
     const nodeAccounts = await web3.eth.getAccounts();
     const walletAccount = (web3.eth.accounts.wallet as Web3Wallet)[0] || {};
-
-    return nodeAccounts[0] || walletAccount.address;
+    const account = walletAccount.address || nodeAccounts[0];
+    return account;
   };
 
-  public initialize = async ({
-    polymathRegistryAddress,
-  }: {
-    polymathRegistryAddress: string;
-  }) => {
+  public initialize = async ({ polymathRegistryAddress }: { polymathRegistryAddress: string }) => {
     this.account = await this.getAccount();
 
     const context = this as Context;
@@ -104,9 +106,9 @@ a browser, make sure you have MetaMask installed and enabled.`
     const polyTokenAddress = await this.polymathRegistry.getAddress({
       contractName: 'PolyToken',
     });
-    const securityTokenRegistryAddress = await this.polymathRegistry.getAddress(
-      { contractName: 'SecurityTokenRegistry' }
-    );
+    const securityTokenRegistryAddress = await this.polymathRegistry.getAddress({
+      contractName: 'SecurityTokenRegistry',
+    });
     const moduleRegistryAddress = await this.polymathRegistry.getAddress({
       contractName: 'ModuleRegistry',
     });
@@ -116,10 +118,10 @@ a browser, make sure you have MetaMask installed and enabled.`
       context,
     });
 
-    this.securityTokenRegistry = new SecurityTokenRegistry({
-      address: securityTokenRegistryAddress,
-      context,
-    });
+    this.securityTokenRegistry = await ContractWrapperFactory.getSecurityTokenRegistry(
+      securityTokenRegistryAddress,
+      context
+    );
 
     this.moduleRegistry = new ModuleRegistry({
       address: moduleRegistryAddress,
@@ -142,7 +144,7 @@ a browser, make sure you have MetaMask installed and enabled.`
   };
 
   private getBrowserProvider = () => {
-    if (!window) {
+    if (typeof window === 'undefined') {
       return null;
     }
 

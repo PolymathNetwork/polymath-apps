@@ -1,15 +1,17 @@
 // @flow
 
 import { map } from 'lodash';
+import semver from 'semver';
 import P from 'bluebird';
 import { keys, range, compact } from 'lodash';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
-import Contract from '@polymathnetwork/js';
-import USDTieredSTOArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
+import Contract, { SecurityToken } from '@polymathnetwork/js';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/USDTieredSTO.json';
 import { FUND_RAISE_TYPES, EVENT_TYPES } from '../../constants';
 import { toWei } from './index';
-
+import { LATEST_PROTOCOL_VERSION } from '../../constants';
 import type {
   USDTieredSTO as USDTieredSTOType,
   USDTieredSTOTierStatus,
@@ -17,29 +19,35 @@ import type {
 } from '../../constants';
 
 export default class USDTieredSTO {
+  version: string = LATEST_PROTOCOL_VERSION;
   address: string;
   contract: Object;
   wsContract: Object;
+  token: SecurityToken;
   legacyContractInstance: {
     _tx: (method: Object) => Promise<Object>,
   };
 
-  constructor(address: string) {
+  constructor(
+    address: string,
+    version?: string = LATEST_PROTOCOL_VERSION,
+    token: SecurityToken
+  ) {
     const web3Client = Contract._params.web3;
     const web3WsClient = Contract._params.web3WS;
+    let artifacts = artifact;
+    if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
+      artifacts = artifact2;
+      this.version = version;
+    }
 
     // FIXME @RafaelVidaurre: Remove this dependency ASAP, using this for now
     // to quickly get transactions running
-    this.legacyContractInstance = new Contract(USDTieredSTOArtifacts, address);
-    this.contract = new web3Client.eth.Contract(
-      USDTieredSTOArtifacts.abi,
-      address
-    );
-    this.wsContract = new web3WsClient.eth.Contract(
-      USDTieredSTOArtifacts.abi,
-      address
-    );
+    this.legacyContractInstance = new Contract(artifacts, address);
+    this.contract = new web3Client.eth.Contract(artifacts.abi, address);
+    this.wsContract = new web3WsClient.eth.Contract(artifacts.abi, address);
     this.address = address;
+    this.token = token;
   }
 
   async getPurchases() {
@@ -103,13 +111,18 @@ export default class USDTieredSTO {
    * @param statuses statuses for each address matched by index
    */
   async changeAccredited(addresses: string[], statuses: boolean[]) {
-    const checksumAddresses = addresses.map(Web3.utils.toChecksumAddress);
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION)) {
+      const checksumAddresses = addresses.map(Web3.utils.toChecksumAddress);
 
-    await this.legacyContractInstance._tx(
-      this.contract.methods.changeAccredited(checksumAddresses, statuses),
-      null,
-      1.15
-    );
+      await this.legacyContractInstance._tx(
+        this.contract.methods.changeAccredited(checksumAddresses, statuses),
+        null,
+        1.15
+      );
+    } else {
+      const tm = await this.token.contract.getTransferManager();
+      await tm.changeAccredited(addresses, statuses);
+    }
   }
 
   /**

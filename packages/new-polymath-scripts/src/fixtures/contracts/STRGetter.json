@@ -1,0 +1,475 @@
+{
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getBytes32Value",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x025ec81a"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getBytesValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x44bfa56e"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getAddressValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x4c77e5ba"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getArrayAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x6f3b8ce2"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getBoolValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x8ffa9690"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getStringValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa209a29c"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getArrayBytes32",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa8f0d3a7"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_variable",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getUintValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xe82617fb"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getArrayUint",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xf6fcbee1"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "getTickersByOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x21c8ad0e"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "getTokensByOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x40398d67"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getTokens",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xaa6ca808"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_delegate",
+          "type": "address"
+        }
+      ],
+      "name": "getTokensByDelegate",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb70fb8b9"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "getTickerDetails",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x63808bcb"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "getSecurityTokenAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xfb621f14"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_securityToken",
+          "type": "address"
+        }
+      ],
+      "name": "getSecurityTokenData",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x8f9bbf16"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getSTFactoryAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xea470758"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_protocolVersion",
+          "type": "uint256"
+        }
+      ],
+      "name": "getSTFactoryAddressOfVersion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa094a166"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getLatestProtocolVersion",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xaf0b1a94"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getIsFeeInPoly",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xf34f50b5"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getExpiryLimit",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x165e694a"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "getTickerStatus",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x7e388c54"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_ticker",
+          "type": "string"
+        }
+      ],
+      "name": "getTickerOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x344d7d3d"
+    }
+  ],
+  "networks": {
+    "15": {
+      "events": {},
+      "links": {},
+      "address": "0x1411CB266FCEd1587b0AA29E9d5a9Ef3Db64A9C5",
+      "transactionHash": "0x8de197e4ad5f2936e1af6ecddc39e783567e5a506f4d885f90ab77d0dc229757"
+    }
+  }
+}

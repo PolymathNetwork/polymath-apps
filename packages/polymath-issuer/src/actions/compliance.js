@@ -108,7 +108,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
       investors: data,
       criticals: invalidRows,
       isTooMany,
-      parseError,
+      parseError: parseError | '',
     });
   };
 };
@@ -166,7 +166,7 @@ export const importWhitelist = () => async (
     ui.tx(
       titles,
       async () => {
-        await transferManager.modifyWhitelistMulti(whitelistItems);
+        await transferManager.modifyKYCDataMulti(whitelistItems);
         if (!isPercentageDisabled) {
           // $FlowFixMe
           await percentageTM.modifyWhitelistMulti(whitelistItems);
@@ -295,10 +295,10 @@ export const addInvestor = () => async (
         ...(values.isPercentage ? ['Setting ownership restriction'] : []),
       ],
       async () => {
-        await transferManager.modifyWhitelist(investor);
+        await transferManager.modifyKYCData(investor);
         if (values.isPercentage) {
           investor.isPercentage = true; // $FlowFixMe
-          await percentageTM.modifyWhitelist(investor);
+          await percentageTM.modifyKYCData(investor);
         }
       },
       'Investor has been added successfully',
@@ -345,7 +345,7 @@ export const editInvestors = (addresses: Array<Address>) => async (
         ...(!isPercentageDisabled ? ['Updating ownership restrictions'] : []),
       ],
       async () => {
-        await transferManager.modifyWhitelistMulti(investors);
+        await transferManager.modifyKYCDataMulti(investors);
         if (!isPercentageDisabled) {
           // $FlowFixMe
           await percentageTM.modifyWhitelistMulti(investors);
@@ -384,7 +384,7 @@ export const removeInvestors = (addresses: Array<Address>) => async (
     ui.tx(
       `Removing investor${plural}`,
       async () => {
-        await transferManager.modifyWhitelistMulti(investors);
+        await transferManager.modifyKYCDataMulti(investors);
       },
       `Investor${plural} has been removed successfully`,
       () => {

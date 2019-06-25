@@ -11,8 +11,8 @@ import logger from 'winston';
 import Web3 from 'web3';
 import { User } from '../models';
 import PolymathRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json';
-import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
-import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityToken.json';
+import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityTokenRegistry.json';
+import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
 import CappedSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
 import STOModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import USDTieredSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/USDTieredSTO.json';
@@ -512,6 +512,11 @@ export const addTokenCreateListener = async (networkId: string) => {
     newSecurityTokenHandler(contract, networkId, error, result)
   );
 
+  // 3.x ST creation event.
+  contract.events.NewSecurityTokenCreated({}, (error, result) =>
+    newSecurityTokenHandler(contract, networkId, error, result)
+  );
+
   logger.info(
     `[SETUP] Listening for Security Token deployments in ${NETWORKS[
       networkId
@@ -526,13 +531,24 @@ export const addTokenCreateListener = async (networkId: string) => {
 export const addSTOListeners = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
   try {
-    const previousTokenEvents = await contract.getPastEvents(
+    const previousTokenEvents2 = await contract.getPastEvents(
       'NewSecurityToken',
       {
         fromBlock: 0,
         toBlock: 'latest',
       }
     );
+    const previousTokenEvents3 = await contract.getPastEvents(
+      'NewSecurityTokenCreated',
+      {
+        fromBlock: 0,
+        toBlock: 'latest',
+      }
+    );
+    const previousTokenEvents = [
+      ...previousTokenEvents2,
+      ...previousTokenEvents3,
+    ];
 
     for (let event of previousTokenEvents) {
       const {

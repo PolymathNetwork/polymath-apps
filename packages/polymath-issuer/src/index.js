@@ -23,8 +23,8 @@ const redirectors = [
   {
     pattern: /dashboard\/(.+)\/dividends/,
     makeRoute: (params: string[]) => {
-      const [securityTokenSymbol] = params;
-      return `/securityTokens/${securityTokenSymbol}/dividends`;
+      const [symbol] = params;
+      return `/securityTokens/${symbol}/dividends`;
     },
   },
   
@@ -32,8 +32,8 @@ const redirectors = [
   // {
   //   pattern: /securityTokens\/(.+)\/checkpoints\/(.+)\/dividends\/new/,
   //   makeRoute: (params: string[]) => {
-  //     const [securityTokenSymbol, checkpointId, dividendId] = params;
-  //     return `/dashboard/${securityTokenSymbol}/checkpoints/${checkpointId}/dividends/new`;
+  //     const [symbol, checkpointId, dividendId] = params;
+  //     return `/dashboard/${symbol}/checkpoints/${checkpointId}/dividends/new`;
   //   },
   // },
 ];
