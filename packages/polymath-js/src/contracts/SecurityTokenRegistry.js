@@ -15,8 +15,7 @@ import type {
   SymbolDetails,
 } from '../types';
 
-const NEW_SECURITY_TOKEN_EVENT3 = 'NewSecurityTokenCreated';
-const NEW_SECURITY_TOKEN_EVENT2 = 'NewSecurityToken';
+const NEW_SECURITY_TOKEN_EVENT = 'NewSecurityToken';
 const REGISTER_TICKER_EVENT = 'RegisterTicker';
 
 class SecurityTokenRegistry extends Contract {
@@ -110,24 +109,14 @@ class SecurityTokenRegistry extends Contract {
       token.owner = await contract.owner();
 
       // get token issuing tx hash
-      const events2 = await this._contractWS.getPastEvents(
-        NEW_SECURITY_TOKEN_EVENT2,
+      const events = await this._contractWS.getPastEvents(
+        NEW_SECURITY_TOKEN_EVENT,
         {
           filter: { _securityTokenAddress: token.address },
           fromBlock: 0,
           toBlock: 'latest',
         }
       );
-      const events3 = await this._contractWS.getPastEvents(
-        NEW_SECURITY_TOKEN_EVENT3,
-        {
-          filter: { _securityTokenAddress: token.address },
-          fromBlock: 0,
-          toBlock: 'latest',
-        }
-      );
-      const events = [...events2, ...events3];
-
       token.txHash = events[0].transactionHash;
       token.timestamp = await this._getBlockDate(events[0].blockNumber);
     }
