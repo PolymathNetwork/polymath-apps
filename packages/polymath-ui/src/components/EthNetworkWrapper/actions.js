@@ -7,7 +7,6 @@
 import Web3 from 'web3';
 import { polyClient } from '@polymathnetwork/new-issuer/lib/polyClient';
 import { setNetworkId } from '@polymathnetwork/new-issuer/state/actions/app';
-
 import { getNetworkInfo } from './networks';
 import {
   ERROR_LOCKED,
