@@ -152,7 +152,7 @@ export const importWhitelist = () => async (
     }
   );
 
-  const titles = ['Submitting approved investors'];
+  const titles = ['Submitting approved investors', 'Modifying Investor Flags'];
 
   if (!isPercentageDisabled) {
     titles.push('Setting ownership restrictions');
