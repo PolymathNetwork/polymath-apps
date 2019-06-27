@@ -80,7 +80,7 @@ export default class TransferManager extends Contract {
       return this.modifyWhitelist(...arguments);
 
     // $FlowFixMe
-    await this._tx(
+    return this._tx(
       this._methods.modifyKYCData(
         investor.address, // $FlowFixMe
         this._toUnixTS(investor.from), // $FlowFixMe
@@ -90,20 +90,25 @@ export default class TransferManager extends Contract {
       null,
       2
     );
+  }
+
+  async modifyInvestorFlag(address: string, flag: Number, value: boolean) {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION)) return;
 
     return this._tx(
-      this._methods.modifyInvestorFlag(
-        investor.address,
-        1, // 1 = 'canNotBuyFromSto'
-        !investor.canBuyFromSTO // We're negating the value because 3.0 flag is negated too.
-      ),
+      this._methods.modifyInvestorFlag(address, flag, value),
       null,
       2
     );
   }
 
-  async changeAccredited(addresses: string[], values: boolean[]) {
-    const flags = Array(addresses.length).fill(0); // 0 = isAccredited
+  async modifyInvestorFlagMulti(
+    addresses: Array<string>,
+    flags: Array<number>,
+    values: Array<boolean>
+  ) {
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION)) return;
+
     return this._tx(
       this._methods.modifyInvestorFlagMulti(addresses, flags, values),
       null,
@@ -155,28 +160,15 @@ export default class TransferManager extends Contract {
       fromTimes.push(this._toUnixTS(investor.from)); // $FlowFixMe
       toTimes.push(this._toUnixTS(investor.to)); // $FlowFixMe
       expiryTimes.push(this._toUnixTS(investor.expiry)); // $FlowFixMe
-      flags.push(1); // 1 = 'canNotBuyFromSto'
-      if (investor.hasOwnProperty('canBuyFromSTO')) {
-        // We're negating the value because 3.0 flag is negated too (ie can NOT buy from STO).
-        cannotBuyFromSTO.push(!investor.canBuyFromSTO);
-      } else {
-        cannotBuyFromSTO.push(false);
-      }
     }
 
-    await this._tx(
+    return this._tx(
       this._methods.modifyKYCDataMulti(
         addresses,
         fromTimes,
         toTimes,
         expiryTimes
       ),
-      null,
-      2
-    );
-
-    return this._tx(
-      this._methods.modifyInvestorFlagMulti(addresses, flags, cannotBuyFromSTO),
       null,
       2
     );
