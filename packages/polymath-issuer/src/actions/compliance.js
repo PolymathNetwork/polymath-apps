@@ -154,7 +154,7 @@ export const importWhitelist = () => async (
   );
   console.log(whitelistItems);
 
-  const titles = ['Submitting approved investors'];
+  const titles = ['Submitting approved investors', 'Modifying Investor Flags'];
 
   if (isPTMEnabled) {
     titles.push('Setting ownership restrictions');

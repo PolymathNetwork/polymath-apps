@@ -15,7 +15,6 @@ import {
   ERROR_DISCONNECTED,
   ERROR_ACCESS_REQUESTED,
 } from './';
-
 import type { ExtractReturn } from './helpers';
 import Contract, { setupContracts } from '@polymathnetwork/js';
 import { txHash, txEnd } from '../TxModal/actions';
