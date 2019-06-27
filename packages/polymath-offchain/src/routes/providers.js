@@ -159,7 +159,6 @@ export const checkForReservedTicker = async (
  * @param {string} networkId id of the network the client is connected to
  */
 export const applyHandler = async (ctx: Context) => {
-  console.log('APPLY HANDLER');
   let body = ctx.request.body;
 
   if (!isApplyRequestValid(body)) {
