@@ -111,18 +111,14 @@ export default class USDTieredSTO {
    * @param statuses statuses for each address matched by index
    */
   async changeAccredited(addresses: string[], statuses: boolean[]) {
-    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION)) {
-      const checksumAddresses = addresses.map(Web3.utils.toChecksumAddress);
+    if (this.version === LATEST_PROTOCOL_VERSION) return;
 
-      await this.legacyContractInstance._tx(
-        this.contract.methods.changeAccredited(checksumAddresses, statuses),
-        null,
-        1.15
-      );
-    } else {
-      const tm = await this.token.contract.getTransferManager();
-      await tm.changeAccredited(addresses, statuses);
-    }
+    const checksumAddresses = addresses.map(Web3.utils.toChecksumAddress);
+    return await this.legacyContractInstance._tx(
+      this.contract.methods.changeAccredited(checksumAddresses, statuses),
+      null,
+      1.15
+    );
   }
 
   /**

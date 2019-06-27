@@ -407,7 +407,7 @@ export const mintTokens = () => async (
 
   dispatch(
     ui.tx(
-      ['Whitelisting Addresses', 'Modifying Investor Flags', 'Minting Tokens'],
+      ['Whitelisting Addresses', 'Minting Tokens'],
       async () => {
         await transferManager.modifyKYCDataMulti(uploaded);
         const addresses: Array<Address> = [];
