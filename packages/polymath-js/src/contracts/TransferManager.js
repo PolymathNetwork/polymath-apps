@@ -210,25 +210,8 @@ export default class TransferManager extends Contract {
       toBlock: 'latest',
     });
 
-    // $FlowFixMe
-    const flagEvents = await this._contractWS.getPastEvents(
-      MODIFY_INVESTOR_FLAG,
-      {
-        filter: { _flag: 1 },
-        fromBlock: 0,
-        toBlock: 'latest',
-      }
-    );
-
-    if (events.length !== flagEvents.length) {
-      throw new Error(
-        'Unexpected error occured while retrieving investors whitelist. Please report this issue to Polymath team.'
-      );
-    }
-
     for (let i = 0; i < events.length; i++) {
       const event = events[i];
-      const canBuyFromSTO = !flagEvents[i].returnValues._value;
 
       logs.push({
         address: event.returnValues._investor,
@@ -236,7 +219,6 @@ export default class TransferManager extends Contract {
         from: this._toDate(event.returnValues._canSendAfter),
         to: this._toDate(event.returnValues._expiryTime),
         expiry: this._toDate(event.returnValues._expiryTime),
-        canBuyFromSTO,
       });
     }
     return this._mapLogsToInvestors(logs);
