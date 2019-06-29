@@ -19,14 +19,15 @@ export default class TransferManager extends Contract {
   unpause: () => Promise<Web3Receipt>;
 
   version: string = LATEST_PROTOCOL_VERSION;
-  constructor(at: Address, version?: string = LATEST_PROTOCOL_VERSION) {
-    if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
+  constructor(at: Address, _version?: string = LATEST_PROTOCOL_VERSION) {
+    if (semver.lt(_version, LATEST_PROTOCOL_VERSION)) {
       super(artifact2, at);
+      this.version = _version;
       return;
     } else {
       super(artifact, at);
+      this.version = _version;
     }
-    version = version;
   }
 
   _mapLogsToInvestors(logs: Array<{}>): Array<Investor> {

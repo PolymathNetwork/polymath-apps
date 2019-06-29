@@ -2,10 +2,17 @@
 
 import BigNumber from 'bignumber.js';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityTokenRegistry.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/SecurityTokenRegistry.json';
+import { ALLOW_GANACHE_ONLY } from '@polymathnetwork/shared/constants';
+import { getNetworkInfo } from '@polymathnetwork/ui/components/EthNetworkWrapper/networks.js';
 
+import Web3 from 'web3';
+import semver from 'semver';
 import Contract from './Contract';
 import SecurityTokenContract from './SecurityToken';
 import PolyToken from './PolyToken';
+import PolymathRegistry from './PolymathRegistry';
+import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import type {
   SecurityToken,
@@ -19,6 +26,61 @@ const NEW_SECURITY_TOKEN_EVENT = 'NewSecurityToken';
 const REGISTER_TICKER_EVENT = 'RegisterTicker';
 
 class SecurityTokenRegistry extends Contract {
+  constructor(artifact: any, address: string) {
+    super(artifact, address);
+    this.setAddress(address);
+  }
+
+  static cache: any;
+
+  static async create(address: string) {
+    if (SecurityTokenRegistry.cache) return SecurityTokenRegistry.cache;
+
+    let temp: any;
+    let version: string;
+    let web3;
+
+    const newProviderInjected = !!window.ethereum;
+    const oldProviderInjected = !!window.web3;
+    const localUrl = process.env.REACT_APP_NETWORK_LOCAL_HTTP;
+    const canUseGanacheOnly =
+      ALLOW_GANACHE_ONLY && process.env.NODE_ENV === 'development' && localUrl;
+
+    // Instantiate Web3 HTTP
+    if (newProviderInjected) {
+      web3 = new Web3(window.ethereum);
+    } else if (oldProviderInjected) {
+      web3 = new Web3(window.web3.currentProvider);
+    } else if (canUseGanacheOnly) {
+      // If we can run the dApp without Metamask
+      web3 = new Web3(localUrl);
+    } else {
+      // If no Metamask/Mist
+      throw new Error('Metamask is not installed');
+    }
+    const networkId = await web3.eth.net.getId();
+    const network = getNetworkInfo(networkId);
+    const { polymathRegistryAddress } = network;
+    PolymathRegistry.setAddress(polymathRegistryAddress);
+    const securityTokenRegistryAddress = await PolymathRegistry._methods
+      .getAddress('SecurityTokenRegistry')
+      .call();
+
+    try {
+      temp = new SecurityTokenRegistry(artifact, securityTokenRegistryAddress);
+      version = await temp._contractWS.methods
+        .getLatestProtocolVersion()
+        .call();
+    } catch (error) {
+      temp = new SecurityTokenRegistry(artifact2, securityTokenRegistryAddress);
+      version = await temp._contractWS.methods.getProtocolVersion().call();
+    }
+    temp.version = version.join('.');
+    SecurityTokenRegistry.cache = temp;
+    return temp;
+  }
+
+  version: string;
   getSecurityTokenAddress: (ticker: string) => Promise<Address>;
   isSecurityToken: (address: Address) => Promise<boolean>;
   getSecurityTokenData: (
@@ -71,8 +133,8 @@ class SecurityTokenRegistry extends Contract {
     }
 
     if (!txHash) {
-      txHash = (await this._getRegisterTickerEvents(owner, timestamp))[0]
-        .transactionHash;
+      const events = await this._getRegisterTickerEvents(owner, timestamp);
+      txHash = events[0].transactionHash;
     }
 
     timestamp = this._toDate(Number(timestamp));
@@ -130,6 +192,19 @@ class SecurityTokenRegistry extends Contract {
     //Skip approve transaction if transfer is already allowed
     if (allowance < fee) {
       await PolyToken.approve(this.address, fee);
+    }
+    if (semver.lt(this.version, LATEST_PROTOCOL_VERSION)) {
+      return await this._tx(
+        this._methods.generateSecurityToken(
+          token.name,
+          token.ticker,
+          token.details || '',
+          token.isDivisible
+        ),
+        null,
+        1.05,
+        15
+      );
     }
     return await this._tx(
       this._methods.generateNewSecurityToken(
@@ -195,4 +270,4 @@ class SecurityTokenRegistry extends Contract {
   }
 }
 
-export default new SecurityTokenRegistry(artifact);
+export default SecurityTokenRegistry;

@@ -33,7 +33,8 @@ const formSchema = validator.object().shape({
     .test('isNotReserved', async function(value) {
       let details;
       try {
-        details = await SecurityTokenRegistry.getTickerDetails(value);
+        const str = await SecurityTokenRegistry.create();
+        details = await str.getTickerDetails(value);
       } catch (err) {
         return this.createError({
           message: 'Network error. Please try again later.',

@@ -512,11 +512,6 @@ export const addTokenCreateListener = async (networkId: string) => {
     newSecurityTokenHandler(contract, networkId, error, result)
   );
 
-  // 3.x ST creation event.
-  contract.events.NewSecurityTokenCreated({}, (error, result) =>
-    newSecurityTokenHandler(contract, networkId, error, result)
-  );
-
   logger.info(
     `[SETUP] Listening for Security Token deployments in ${NETWORKS[
       networkId
@@ -531,24 +526,13 @@ export const addTokenCreateListener = async (networkId: string) => {
 export const addSTOListeners = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
   try {
-    const previousTokenEvents2 = await contract.getPastEvents(
+    const previousTokenEvents = await contract.getPastEvents(
       'NewSecurityToken',
       {
         fromBlock: 0,
         toBlock: 'latest',
       }
     );
-    const previousTokenEvents3 = await contract.getPastEvents(
-      'NewSecurityTokenCreated',
-      {
-        fromBlock: 0,
-        toBlock: 'latest',
-      }
-    );
-    const previousTokenEvents = [
-      ...previousTokenEvents2,
-      ...previousTokenEvents3,
-    ];
 
     for (let event of previousTokenEvents) {
       const {

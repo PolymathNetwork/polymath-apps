@@ -27,6 +27,7 @@ import {
   toAscii,
   asciiToHex,
 } from '../utils';
+import { ERC20DividendCheckpointAbi } from '../Erc20DividendCheckpoint/3.0.0.abi';
 import { Erc20DividendCheckpoint } from '../Erc20DividendCheckpoint';
 import { EtherDividendCheckpoint } from '../EtherDividendCheckpoint';
 import { DividendCheckpointAbi } from '../abis/DividendCheckpointAbi';
@@ -224,7 +225,11 @@ export class SecurityToken extends Contract<SecurityTokenContract> {
       return null;
     }
 
-    return new Erc20DividendCheckpoint({ address, context: this.context });
+    return new Erc20DividendCheckpoint({
+      address,
+      artifact: ERC20DividendCheckpointAbi,
+      context: this.context,
+    });
   };
 
   public async getEtherDividendModule() {

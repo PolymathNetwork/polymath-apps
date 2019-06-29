@@ -8,18 +8,21 @@ import type { SymbolDetails } from '@polymathnetwork/js/types';
 import type { GetState } from '../../redux/reducer';
 
 export const EXPIRY_LIMIT = 'ticker/EXPIRY_LIMIT';
-export const expiryLimit = () => async (dispatch: Function) =>
+export const expiryLimit = () => async (dispatch: Function) => {
+  const str = await SecurityTokenRegistry.create();
   dispatch({
     type: EXPIRY_LIMIT,
-    value: await SecurityTokenRegistry.expiryLimitInDays(),
+    value: await str.expiryLimitInDays(),
   });
+};
 
 export const RESERVED = 'ticker/RESERVED';
 
 export const TOKENS = 'ticker/TOKENS';
 
 export const getMyTokens = () => async (dispatch: Function) => {
-  const tokens = await SecurityTokenRegistry.getMyTokens();
+  const str = await SecurityTokenRegistry.create();
+  const tokens = await str.getMyTokens();
   dispatch({ type: TOKENS, tokens });
   if (tokens.length) {
     dispatch({ type: RESERVED });
@@ -31,13 +34,11 @@ export const reserve = (details: Object) => async (
   getState: GetState
 ) => {
   const { isEmailConfirmed } = getState().pui.account;
-  const fee = await SecurityTokenRegistry.registrationFee();
+  const str = await SecurityTokenRegistry.create();
+  const fee = await str.registrationFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
 
-  const allowance = await PolyToken.allowance(
-    SecurityTokenRegistry.account,
-    SecurityTokenRegistry.address
-  );
+  const allowance = await PolyToken.allowance(str.account, str.address);
 
   const isApproved = allowance >= fee;
 
@@ -95,7 +96,7 @@ export const reserve = (details: Object) => async (
           ui.tx(
             title,
             async () => {
-              await SecurityTokenRegistry.registerTicker(details);
+              await str.registerTicker(details);
               if (isEmailConfirmed) {
                 dispatch(tickerReservationEmail());
               }
@@ -132,7 +133,8 @@ export const tickerReservationEmail = () => async (
   getState: GetState
 ) => {
   try {
-    const tokens = await SecurityTokenRegistry.getMyTokens();
+    const str = await SecurityTokenRegistry.create();
+    const tokens = await str.getMyTokens();
     const token: SymbolDetails = tokens.pop();
   } catch (e) {
     // eslint-disable-next-line
