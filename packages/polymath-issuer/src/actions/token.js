@@ -61,8 +61,8 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
 ) => {
   dispatch(ui.fetching());
   try {
-    const token: SecurityToken =
-      _token || (await SecurityTokenRegistry.getTokenByTicker(ticker));
+    const str = await SecurityTokenRegistry.create();
+    const token: SecurityToken = _token || (await str.getTokenByTicker(ticker));
     dispatch(data(token));
 
     let countTM;
@@ -188,13 +188,11 @@ export const issue = (values: Object) => async (
   getState: GetState
 ) => {
   const { ticker, limitInvestors } = values;
-  const fee = await SecurityTokenRegistry.launchFee();
+  const str = await SecurityTokenRegistry.create();
+  const fee = await str.launchFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
 
-  const allowance = await PolyToken.allowance(
-    SecurityTokenRegistry.account,
-    SecurityTokenRegistry.address
-  );
+  const allowance = await PolyToken.allowance(str.account, str.address);
 
   const isApproved = allowance >= fee;
 
@@ -275,12 +273,10 @@ export const issue = (values: Object) => async (
           ui.tx(
             title,
             async () => {
-              await SecurityTokenRegistry.generateSecurityToken(values);
+              await str.generateSecurityToken(values);
 
               if (limitInvestors) {
-                createdToken = await SecurityTokenRegistry.getTokenByTicker(
-                  ticker
-                );
+                createdToken = await str.getTokenByTicker(ticker);
                 try {
                   await createdToken.contract.setCountTM(
                     values.investorsNumber

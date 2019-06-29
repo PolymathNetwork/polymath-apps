@@ -2,8 +2,6 @@ import { TransactionObject } from 'web3/eth/types';
 import { GenericContract } from '../types';
 import { Context } from '../LowLevel';
 import { Contract } from '../Contract';
-import { PolymathError } from '../../PolymathError';
-import { ErrorCodes } from '../../types';
 
 interface StubContract extends GenericContract {
   methods: {
@@ -13,7 +11,15 @@ interface StubContract extends GenericContract {
 }
 
 export class Stub extends Contract<StubContract> {
-  constructor({ address, abi, context }: { address: string; abi: any; context: Context }) {
+  constructor({
+    address,
+    abi,
+    context,
+  }: {
+    address: string;
+    abi: any;
+    context: Context;
+  }) {
     super({ address, abi, context });
   }
 
@@ -27,12 +33,8 @@ export class Stub extends Contract<StubContract> {
     try {
       version = await this.contract.methods.getLatestProtocolVersion().call();
     } catch (error) {
-      if (error.message.includes('revert')) {
-        // Revert means that we're calling a v2.0.0 contract. Fallback to getProtocolVersion().
-        version = await this.contract.methods.getProtocolVersion().call();
-      } else {
-        throw new PolymathError({ code: ErrorCodes.FatalError });
-      }
+      // Revert means that we're calling a v2.0.0 contract. Fallback to getProtocolVersion().
+      version = await this.contract.methods.getProtocolVersion().call();
     }
     return version;
   };

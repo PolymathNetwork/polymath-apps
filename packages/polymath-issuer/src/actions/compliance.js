@@ -68,9 +68,11 @@ export const fetchWhitelist = () => async (
     if (!getState().whitelist.transferManager) {
       // $FlowFixMe
       const st: SecurityToken = getState().token.token.contract;
+      const transferManager = await st.getTransferManager();
+
       dispatch({
         type: TRANSFER_MANAGER,
-        transferManager: await st.getTransferManager(),
+        transferManager,
       });
 
       const percentageTM = await st.getPercentageTM();

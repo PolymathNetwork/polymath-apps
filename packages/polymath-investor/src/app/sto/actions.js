@@ -29,9 +29,8 @@ export type Action = ExtractReturn<typeof pauseStatus>;
 export const fetch = (ticker?: string) => async (dispatch: Function) => {
   dispatch(ui.fetching());
   try {
-    const token = await SecurityTokenRegistry.getTokenByTicker(
-      config.ticker || ticker
-    );
+    const str = await SecurityTokenRegistry.create();
+    const token = await str.getTokenByTicker(config.ticker || ticker);
     let sto, details;
     if (token) {
       sto = await token.contract.getSTO();

@@ -1,7 +1,6 @@
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { TransactionObject } from 'web3/eth/types';
-import { ERC20DividendCheckpointAbi } from './abis/ERC20DividendCheckpointAbi';
 import { toUnixTimestamp, toDivisible, getOptions } from './utils';
 import { DividendCheckpoint } from './DividendCheckpoint';
 import { Erc20 } from './Erc20';
@@ -43,8 +42,16 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
 > {
   public dividendType = DividendModuleTypes.Erc20;
 
-  constructor({ address, context }: { address: string; context: Context }) {
-    super({ address, abi: ERC20DividendCheckpointAbi.abi, context });
+  constructor({
+    address,
+    artifact,
+    context,
+  }: {
+    address: string;
+    artifact: any;
+    context: Context;
+  }) {
+    super({ address, abi: artifact, context });
   }
 
   public createDividend = async ({

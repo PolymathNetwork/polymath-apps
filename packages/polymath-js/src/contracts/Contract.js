@@ -118,7 +118,6 @@ export default class Contract {
     if (this._contract) {
       return;
     }
-
     this.address = at;
     this._contract = this._newContract();
     this._contractWS =

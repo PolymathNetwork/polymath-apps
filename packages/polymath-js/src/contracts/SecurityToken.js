@@ -1,7 +1,7 @@
 // @flow
 
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/ISecurityToken.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/SecurityToken.json';
 
 import moduleFactoryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
 import BigNumber from 'bignumber.js';
@@ -56,6 +56,7 @@ export default class SecurityToken extends Contract {
     temp.version = version;
     if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
       temp = new SecurityToken(at, artifact2);
+      temp.version = version;
       return temp;
     }
     return temp;
@@ -104,8 +105,9 @@ export default class SecurityToken extends Contract {
   }
 
   async isIssuable(): Promise<boolean> {
+    const version = await this.getVersion();
     if (semver.lt(this.version, LATEST_PROTOCOL_VERSION))
-      return this.mintingFrozen();
+      return !(await this.mintingFrozen());
 
     return this._methods.isIssuable().call();
   }
