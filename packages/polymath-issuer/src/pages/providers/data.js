@@ -395,9 +395,9 @@ const providers: Array<ServiceProvider> = [
     desc:
       "International Blockchain Legal LLP is a boutique law firm that provides legal services and consulting to start ups, traditional entities \
     engaging with enterprise Blockchain/DLT solutions, corporate, and non-profit clients. Our Attorneys and Consultants have experience in all \
-    forms of token sales (including ICO's, STO's, and IEO's), blockchain technology, cryptocurrency matters, and emerging technology.We offer \
+    forms of token sales (including ICO's, STO's, and IEO's), blockchain technology, cryptocurrency matters, and emerging technology. We offer \
     guidance throughout the token sale process, compliance, corporate structuring and governance, trademark registration and intellectual property, \
-    and transactional and pre - litigation matters.Our firm is located in Washington, D.C.with attorneys licensed to practice law in DC, CA, FL, MA, \
+    and transactional and pre-litigation matters. Our firm is located in Washington, D.C. with attorneys licensed to practice law in DC, CA, FL, MA, \
     NY, NJ, and Puerto Rico.",
   },
 
