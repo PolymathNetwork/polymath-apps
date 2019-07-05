@@ -1,40 +1,61 @@
-import { Polymath } from '~/Polymath';
-import { Entity } from './Entity';
-import { serialize } from '~/utils';
-import { Dividend } from './Dividend';
-import { InvestorBalance } from '~/types';
 import BigNumber from 'bignumber.js';
+import { Polymath } from '../Polymath';
+import { Entity } from './Entity';
+import { serialize, unserialize } from '../utils';
+import { Dividend } from './Dividend';
+import { InvestorBalance } from '../types';
 
-interface Params {
-  dividends: Dividend[];
-  securityTokenSymbol: string;
-  securityTokenId: string;
+interface UniqueIdentifiers {
+  symbol: string;
   index: number;
+}
+
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, index } = identifiers;
+
+  return typeof symbol === 'string' && typeof index === 'number';
+}
+
+interface Params extends UniqueIdentifiers {
+  dividends: Dividend[];
+  symbol: string;
   investorBalances: InvestorBalance[];
   totalSupply: BigNumber;
   createdAt: Date;
 }
 
 export class Checkpoint extends Entity {
-  public static generateId({
-    securityTokenSymbol,
-    index,
-  }: {
-    securityTokenSymbol: string;
-    index: number;
-  }) {
+  public static generateId({ symbol, index }: UniqueIdentifiers) {
     return serialize('checkpoint', {
-      securityTokenSymbol,
+      symbol,
       index,
     });
   }
+
+  public static unserialize(serialized: string) {
+    const unserialized = unserialize(serialized);
+
+    if (!isUniqueIdentifiers(unserialized)) {
+      throw new Error('Wrong checkpoint ID format.');
+    }
+
+    return unserialized;
+  }
+
   public uid: string;
+
   public dividends: Dividend[];
-  public securityTokenSymbol: string;
-  public securityTokenId: string;
+
+  public symbol: string;
+
   public index: number;
+
   public investorBalances: InvestorBalance[];
+
   public totalSupply: BigNumber;
+
   public createdAt: Date;
 
   constructor(params: Params, polyClient?: Polymath) {
@@ -42,8 +63,7 @@ export class Checkpoint extends Entity {
 
     const {
       dividends,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       index,
       investorBalances,
       totalSupply,
@@ -51,21 +71,19 @@ export class Checkpoint extends Entity {
     } = params;
 
     this.dividends = dividends;
-    this.securityTokenSymbol = securityTokenSymbol;
-    this.securityTokenId = securityTokenId;
+    this.symbol = symbol;
     this.index = index;
     this.investorBalances = investorBalances;
     this.totalSupply = totalSupply;
     this.createdAt = createdAt;
-    this.uid = Checkpoint.generateId({ securityTokenSymbol, index });
+    this.uid = Checkpoint.generateId({ symbol, index });
   }
 
   public toPojo() {
     const {
       uid,
       dividends,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       index,
       investorBalances,
       totalSupply,
@@ -75,8 +93,7 @@ export class Checkpoint extends Entity {
     return {
       uid,
       dividends: dividends.map(dividend => dividend.toPojo()),
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       index,
       investorBalances,
       totalSupply,

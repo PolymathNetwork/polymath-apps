@@ -1,8 +1,7 @@
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { ERC20DividendCheckpointAbi } from './abis/ERC20DividendCheckpointAbi';
-import { toUnixTimestamp, toDivisible } from './utils';
 import { TransactionObject } from 'web3/eth/types';
+import { toUnixTimestamp, toDivisible, getOptions } from './utils';
 import { DividendCheckpoint } from './DividendCheckpoint';
 import { Erc20 } from './Erc20';
 import { Context } from './LowLevel';
@@ -42,8 +41,17 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
   Erc20DividendCheckpointContract
 > {
   public dividendType = DividendModuleTypes.Erc20;
-  constructor({ address, context }: { address: string; context: Context }) {
-    super({ address, abi: ERC20DividendCheckpointAbi.abi, context });
+
+  constructor({
+    address,
+    artifact,
+    context,
+  }: {
+    address: string;
+    artifact: any;
+    context: Context;
+  }) {
+    super({ address, abi: artifact, context });
   }
 
   public createDividend = async ({
@@ -53,7 +61,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
     amount,
     checkpointId,
     name,
-    excludedAddresses,
+    excludedAddresses = [],
   }: CreateErc20DividendArgs) => {
     const [maturity, expiry] = [maturityDate, expiryDate].map(toUnixTimestamp);
     const { asciiToHex } = Web3.utils;
@@ -64,32 +72,30 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
     const nameInBytes = asciiToHex(name);
     const divisibleAmount = toDivisible(amount, decimals);
 
-    if (excludedAddresses) {
-      return () =>
-        this.contract.methods
-          .createDividendWithCheckpointAndExclusions(
-            maturity,
-            expiry,
-            tokenAddress,
-            divisibleAmount,
-            checkpointId,
-            excludedAddresses,
-            nameInBytes
-          )
-          .send({ from: this.context.account });
+    if (excludedAddresses.length) {
+      const method = this.contract.methods.createDividendWithCheckpointAndExclusions(
+        maturity,
+        expiry,
+        tokenAddress,
+        divisibleAmount,
+        checkpointId,
+        excludedAddresses,
+        nameInBytes
+      );
+      const options = await getOptions(method, { from: this.context.account });
+      return () => method.send(options);
     }
 
-    return () =>
-      this.contract.methods
-        .createDividendWithCheckpoint(
-          maturity,
-          expiry,
-          tokenAddress,
-          divisibleAmount,
-          checkpointId,
-          nameInBytes
-        )
-        .send({ from: this.context.account });
+    const method = this.contract.methods.createDividendWithCheckpoint(
+      maturity,
+      expiry,
+      tokenAddress,
+      divisibleAmount,
+      checkpointId,
+      nameInBytes
+    );
+    const options = await getOptions(method, { from: this.context.account });
+    return () => method.send(options);
   };
 
   public async getDividend({

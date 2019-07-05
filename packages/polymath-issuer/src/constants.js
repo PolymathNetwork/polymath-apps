@@ -84,3 +84,5 @@ export type USDTieredSTO = {|
 
 export const SENTRY_KEY =
   'https://a7bdca90b57b497a86b7c5a737344856@sentry.io/1326137';
+
+export const LATEST_PROTOCOL_VERSION = '3.0.0';

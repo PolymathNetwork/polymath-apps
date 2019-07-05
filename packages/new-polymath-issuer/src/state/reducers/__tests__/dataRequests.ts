@@ -9,7 +9,7 @@ describe('Reducer: dataRequests', () => {
   });
 
   const args = {
-    securityTokenSymbol: 'FOO',
+    symbol: 'FOO',
   };
   const fetchedIds = ['0', '1', '2'];
   const argsHash = utils.hashObj(args);

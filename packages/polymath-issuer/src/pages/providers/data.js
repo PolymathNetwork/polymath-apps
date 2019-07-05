@@ -386,6 +386,20 @@ const providers: Array<ServiceProvider> = [
     therewith, (iii) legal advice about matters to be reflected in programs used for STOs in the Japanese market in accordance with \
     Japanese laws and regulations, and (iv) the full scope of related legal services to effectively provide (i), (ii) and (iii) above.',
   },
+  {
+    id: 48,
+    cat: 1,
+    title: 'IBL',
+    logo: '/providers/legal/iblpartners.png',
+    background: '/providers/legal/bg/img-iblpartners.png',
+    desc:
+      "International Blockchain Legal LLP is a boutique law firm that provides legal services and consulting to start ups, traditional entities \
+    engaging with enterprise Blockchain/DLT solutions, corporate, and non-profit clients. Our Attorneys and Consultants have experience in all \
+    forms of token sales (including ICO's, STO's, and IEO's), blockchain technology, cryptocurrency matters, and emerging technology. We offer \
+    guidance throughout the token sale process, compliance, corporate structuring and governance, trademark registration and intellectual property, \
+    and transactional and pre-litigation matters. Our firm is located in Washington, D.C. with attorneys licensed to practice law in DC, CA, FL, MA, \
+    NY, NJ, and Puerto Rico.",
+  },
 
   // KYC/AML
   {

@@ -34,7 +34,9 @@ export const setupContracts = async (polymathRegistryAddress: string) => {
   const securityTokenRegistryAddress = await getAddress(
     'SecurityTokenRegistry'
   ).call();
-  SecurityTokenRegistry.setAddress(securityTokenRegistryAddress);
+
+  const registry = await SecurityTokenRegistry.create();
+  // registry.setAddress(securityTokenRegistryAddress);
 
   const moduleRegistryAddress = await getAddress('ModuleRegistry').call();
   ModuleRegistry.setAddress(moduleRegistryAddress);

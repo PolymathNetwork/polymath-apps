@@ -339,6 +339,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      // This is a workaround to `Cyclic dependency issue`. See more here
+      // https://github.com/jantimon/html-webpack-plugin/issues/981
+      chunksSortMode: 'none',
       minify: {
         removeComments: true,
         collapseWhitespace: true,

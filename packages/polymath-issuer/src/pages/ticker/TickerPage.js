@@ -53,10 +53,11 @@ class TickerPage extends Component<Props, State> {
     tickerRegistrationFee: '-',
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.tokenData(null);
     this.props.getExpiryLimit();
-    SecurityTokenRegistry.registrationFee().then(fee => {
+    const str = await SecurityTokenRegistry.create();
+    str.registrationFee().then(fee => {
       // $FlowFixMe
       this.setState({ tickerRegistrationFee: thousandsDelimiter(fee) });
     });

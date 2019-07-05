@@ -1,0 +1,19 @@
+{
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "maxHolderCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "networks": {}
+}

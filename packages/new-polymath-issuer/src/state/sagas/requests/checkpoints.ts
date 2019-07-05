@@ -19,7 +19,7 @@ import { types } from '@polymathnetwork/new-shared';
  */
 export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
   const { dividends, ...rest } = checkpoint;
-  const { securityTokenSymbol, uid, index: checkpointIndex } = checkpoint;
+  const { symbol, uid, index: checkpointId } = checkpoint;
 
   const fetchedDividendIds: string[] = [];
 
@@ -33,7 +33,7 @@ export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
   yield put(
     cacheData({
       requestKey: RequestKeys.GetDividendsByCheckpoint,
-      args: { securityTokenSymbol, checkpointIndex },
+      args: { symbol, checkpointId },
       fetchedIds: fetchedDividendIds,
     })
   );
@@ -43,7 +43,7 @@ export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
   yield put(
     cacheData({
       requestKey: RequestKeys.GetCheckpointBySymbolAndId,
-      args: { securityTokenSymbol, checkpointIndex },
+      args: { symbol, checkpointId },
       fetchedIds: [uid],
     })
   );
@@ -57,10 +57,10 @@ export function* saveCheckpoint(checkpoint: types.CheckpointPojo) {
 export function* fetchCheckpointBySymbolAndId(
   args: GetCheckpointBySymbolAndIdArgs
 ) {
-  const { securityTokenSymbol, checkpointIndex } = args;
+  const { symbol, checkpointId } = args;
   const checkpoint: Checkpoint | null = yield call(polyClient.getCheckpoint, {
-    symbol: securityTokenSymbol,
-    checkpointIndex,
+    symbol: symbol,
+    checkpointId,
   });
 
   if (checkpoint) {
@@ -77,9 +77,9 @@ export function* fetchCheckpointBySymbolAndId(
  * @param args request arguments
  */
 export function* fetchCheckpointsBySymbol(args: GetCheckpointsBySymbolArgs) {
-  const { securityTokenSymbol } = args;
+  const { symbol } = args;
   const checkpoints: Checkpoint[] = yield call(polyClient.getCheckpoints, {
-    symbol: securityTokenSymbol,
+    symbol: symbol,
   });
 
   const fetchedCheckpointIds: string[] = [];

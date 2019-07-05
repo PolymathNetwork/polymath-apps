@@ -17,7 +17,7 @@ import { iconSize } from './styles';
 
 export interface Props {
   checkpoints: types.CheckpointEntity[];
-  securityTokenSymbol: string;
+  symbol: string;
   downloadOwnershipList: (checkpoint: types.CheckpointEntity) => void;
   allDividendsCompleted: boolean;
   hasDividends: boolean;
@@ -26,7 +26,7 @@ export interface Props {
 
 export const CheckpointListPresenter = ({
   checkpoints,
-  securityTokenSymbol,
+  symbol,
   downloadOwnershipList,
   allDividendsCompleted,
   hasDividends,
@@ -99,8 +99,8 @@ export const CheckpointListPresenter = ({
                             <DividendList
                               hasDividends={hasDividends}
                               allDividendsCompleted={allDividendsCompleted}
-                              checkpointIndex={checkpoint.index}
-                              securityTokenSymbol={securityTokenSymbol}
+                              checkpointId={checkpoint.index}
+                              symbol={symbol}
                             />
                           </sc.Dividends>
                         </Grid.Item>

@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import semver from 'semver';
 import Contract, {
   PolyToken,
   SecurityTokenRegistry,
@@ -25,6 +26,7 @@ import type {
 // TODO @grsmto: This file shouldn't contain any React components as this is just triggering Redux actions. Consider moving them as separated component files.
 import { fetch as fetchSTO } from './sto';
 import { PERMANENT_LOCKUP_TS } from './compliance';
+import { LATEST_PROTOCOL_VERSION } from '../constants';
 
 import type { GetState } from '../redux/reducer';
 import type { ExtractReturn } from '../redux/helpers';
@@ -59,8 +61,8 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
 ) => {
   dispatch(ui.fetching());
   try {
-    const token: SecurityToken =
-      _token || (await SecurityTokenRegistry.getTokenByTicker(ticker));
+    const str = await SecurityTokenRegistry.create();
+    const token: SecurityToken = _token || (await str.getTokenByTicker(ticker));
     dispatch(data(token));
 
     let countTM;
@@ -77,13 +79,15 @@ export const fetch = (ticker: string, _token?: SecurityToken) => async (
         );
       }
       // $FlowFixMe
-      const isMintingFrozen = await token.contract._methods
-        .mintingFrozen()
-        .call();
+      const isMintingFrozen = !(await token.contract.isIssuable());
       dispatch(mintingFrozen(isMintingFrozen));
 
       // $FlowFixMe
-      token.contract.subscribe('FreezeMinting', {}, event => {
+      let FREEZE_ISSUANCE = 'FreezeIssuance';
+      if (semver.lt(token.contract.version, LATEST_PROTOCOL_VERSION))
+        FREEZE_ISSUANCE = 'FreezeMinting';
+
+      token.contract.subscribe(FREEZE_ISSUANCE, {}, event => {
         dispatch(mintingFrozen(true));
       });
 
@@ -184,13 +188,11 @@ export const issue = (values: Object) => async (
   getState: GetState
 ) => {
   const { ticker, limitInvestors } = values;
-  const fee = await SecurityTokenRegistry.launchFee();
+  const str = await SecurityTokenRegistry.create();
+  const fee = await str.launchFee();
   const feeView = ui.thousandsDelimiter(fee); // $FlowFixMe
 
-  const allowance = await PolyToken.allowance(
-    SecurityTokenRegistry.account,
-    SecurityTokenRegistry.address
-  );
+  const allowance = await PolyToken.allowance(str.account, str.address);
 
   const isApproved = allowance >= fee;
 
@@ -271,12 +273,10 @@ export const issue = (values: Object) => async (
           ui.tx(
             title,
             async () => {
-              await SecurityTokenRegistry.generateSecurityToken(values);
+              await str.generateSecurityToken(values);
 
               if (limitInvestors) {
-                createdToken = await SecurityTokenRegistry.getTokenByTicker(
-                  ticker
-                );
+                createdToken = await str.getTokenByTicker(ticker);
                 try {
                   await createdToken.contract.setCountTM(
                     values.investorsNumber
@@ -405,13 +405,13 @@ export const mintTokens = () => async (
     ui.tx(
       ['Whitelisting Addresses', 'Minting Tokens'],
       async () => {
-        await transferManager.modifyWhitelistMulti(uploaded, false);
+        await transferManager.modifyKYCDataMulti(uploaded);
         const addresses: Array<Address> = [];
         for (let investor: Investor of uploaded) {
           addresses.push(investor.address);
         } // $FlowFixMe
 
-        await token.contract.mintMulti(addresses, uploadedTokens);
+        await token.contract.issueMulti(addresses, uploadedTokens);
       },
       'Tokens were successfully minted',
       () => {
@@ -617,7 +617,6 @@ export const exportMintedTokensList = () => async (
         try {
           const { token } = getState().token; // $FlowFixMe
           const investors = await token.contract.getMinted();
-
           let csvContent =
             'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
           investors.forEach((investor: Investor) => {

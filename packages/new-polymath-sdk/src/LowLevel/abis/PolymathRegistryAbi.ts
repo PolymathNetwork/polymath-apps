@@ -1,4 +1,4 @@
-// tslint:disable
+// eslint:disable
 export const PolymathRegistryAbi = {
   contractName: 'PolymathRegistry',
   abi: [

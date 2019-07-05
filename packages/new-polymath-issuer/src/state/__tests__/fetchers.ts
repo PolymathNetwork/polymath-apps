@@ -3,7 +3,7 @@ import { Entities, RequestKeys } from '~/types';
 
 describe('fetcher generators', () => {
   test('createCheckpointsBySymbolFetcher should create the required format', () => {
-    const args = { securityTokenSymbol: 'TOKEN' };
+    const args = { symbol: 'TOKEN' };
 
     expect(createCheckpointsBySymbolFetcher(args)).toEqual({
       entity: Entities.Checkpoints,

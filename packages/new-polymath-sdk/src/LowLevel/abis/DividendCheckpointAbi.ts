@@ -1,4 +1,4 @@
-// tslint:disable
+// eslint:disable
 export const DividendCheckpointAbi = {
   contractName: 'DividendCheckpoint',
   abi: [
@@ -17,9 +17,18 @@ export const DividendCheckpointAbi = {
       type: 'function',
     },
     {
+      constant: false,
+      inputs: [],
+      name: 'reclaimETH',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
       constant: true,
       inputs: [],
-      name: 'CHECKPOINT',
+      name: 'ADMIN',
       outputs: [
         {
           name: '',
@@ -28,6 +37,34 @@ export const DividendCheckpointAbi = {
       ],
       payable: false,
       stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: '',
+          type: 'address',
+        },
+      ],
+      name: 'investorWithheld',
+      outputs: [
+        {
+          name: '',
+          type: 'uint256',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [],
+      name: 'unpause',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
       type: 'function',
     },
     {
@@ -47,26 +84,7 @@ export const DividendCheckpointAbi = {
     {
       constant: true,
       inputs: [],
-      name: 'MANAGE',
-      outputs: [
-        {
-          name: '',
-          type: 'bytes32',
-        },
-      ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: '_amount',
-          type: 'uint256',
-        },
-      ],
-      name: 'takeFee',
+      name: 'paused',
       outputs: [
         {
           name: '',
@@ -74,7 +92,7 @@ export const DividendCheckpointAbi = {
         },
       ],
       payable: false,
-      stateMutability: 'nonpayable',
+      stateMutability: 'view',
       type: 'function',
     },
     {
@@ -104,20 +122,6 @@ export const DividendCheckpointAbi = {
         {
           name: '',
           type: 'uint256',
-        },
-      ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'DISTRIBUTE',
-      outputs: [
-        {
-          name: '',
-          type: 'bytes32',
         },
       ],
       payable: false,
@@ -184,6 +188,43 @@ export const DividendCheckpointAbi = {
       type: 'function',
     },
     {
+      constant: false,
+      inputs: [],
+      name: 'pause',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_tokenContract',
+          type: 'address',
+        },
+      ],
+      name: 'reclaimERC20',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: 'OPERATOR',
+      outputs: [
+        {
+          name: '',
+          type: 'bytes32',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
       constant: true,
       inputs: [],
       name: 'securityToken',
@@ -233,11 +274,11 @@ export const DividendCheckpointAbi = {
     {
       constant: true,
       inputs: [],
-      name: 'FEE_ADMIN',
+      name: 'getDataStore',
       outputs: [
         {
           name: '',
-          type: 'bytes32',
+          type: 'address',
         },
       ],
       payable: false,
@@ -251,11 +292,6 @@ export const DividendCheckpointAbi = {
           indexed: false,
           name: '_excluded',
           type: 'address[]',
-        },
-        {
-          indexed: false,
-          name: '_timestamp',
-          type: 'uint256',
         },
       ],
       name: 'SetDefaultExcludedAddresses',
@@ -274,11 +310,6 @@ export const DividendCheckpointAbi = {
           name: '_withholding',
           type: 'uint256[]',
         },
-        {
-          indexed: false,
-          name: '_timestamp',
-          type: 'uint256',
-        },
       ],
       name: 'SetWithholding',
       type: 'event',
@@ -294,11 +325,6 @@ export const DividendCheckpointAbi = {
         {
           indexed: false,
           name: '_withholding',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          name: '_timestamp',
           type: 'uint256',
         },
       ],
@@ -318,13 +344,54 @@ export const DividendCheckpointAbi = {
           name: '_newWallet',
           type: 'address',
         },
+      ],
+      name: 'SetWallet',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          name: '_dividendIndex',
+          type: 'uint256',
+        },
         {
           indexed: false,
-          name: '_timestamp',
+          name: '_maturity',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          name: '_expiry',
           type: 'uint256',
         },
       ],
-      name: 'SetWallet',
+      name: 'UpdateDividendDates',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          name: 'account',
+          type: 'address',
+        },
+      ],
+      name: 'Pause',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          name: 'account',
+          type: 'address',
+        },
+      ],
+      name: 'Unpause',
       type: 'event',
     },
     {
@@ -377,6 +444,20 @@ export const DividendCheckpointAbi = {
         {
           name: '',
           type: 'address[]',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: 'getTreasuryWallet',
+      outputs: [
+        {
+          name: '',
+          type: 'address',
         },
       ],
       payable: false,
@@ -477,7 +558,7 @@ export const DividendCheckpointAbi = {
           type: 'uint256',
         },
         {
-          name: '_iterations',
+          name: '_end',
           type: 'uint256',
         },
       ],
@@ -570,6 +651,28 @@ export const DividendCheckpointAbi = {
         },
       ],
       name: 'withdrawWithholding',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          name: '_dividendIndex',
+          type: 'uint256',
+        },
+        {
+          name: '_maturity',
+          type: 'uint256',
+        },
+        {
+          name: '_expiry',
+          type: 'uint256',
+        },
+      ],
+      name: 'updateDividendDates',
       outputs: [],
       payable: false,
       stateMutability: 'nonpayable',

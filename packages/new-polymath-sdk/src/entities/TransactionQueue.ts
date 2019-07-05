@@ -1,10 +1,14 @@
 import { EventEmitter } from 'events';
-import { types } from '@polymathnetwork/new-shared';
-import { TransactionSpec, MaybeResolver } from '~/types';
+import {
+  TransactionSpec,
+  MaybeResolver,
+  ProcedureTypes,
+  TransactionQueueStatus,
+} from '../types';
 import { Entity } from './Entity';
 import { PolyTransaction } from './PolyTransaction';
-import { isPostTransactionResolver } from '~/PostTransactionResolver';
-import { serialize } from '~/utils';
+import { isPostTransactionResolver } from '../PostTransactionResolver';
+import { serialize } from '../utils';
 import v4 from 'uuid/v4';
 
 enum Events {
@@ -22,12 +26,11 @@ export class TransactionQueue<
     });
   }
   public readonly entityType: string = 'transactionQueue';
-  public procedureType: types.ProcedureTypes;
+  public procedureType: ProcedureTypes;
   public uid: string;
   public transactions: PolyTransaction[];
   public promise: Promise<ReturnType | undefined>;
-  public status: types.TransactionQueueStatus =
-    types.TransactionQueueStatus.Idle;
+  public status: TransactionQueueStatus = TransactionQueueStatus.Idle;
   public args: Args;
   public error?: Error;
   private queue: PolyTransaction[] = [];
@@ -36,7 +39,7 @@ export class TransactionQueue<
 
   constructor(
     transactions: TransactionSpec[],
-    procedureType: types.ProcedureTypes = types.ProcedureTypes.UnnamedProcedure,
+    procedureType: ProcedureTypes = ProcedureTypes.UnnamedProcedure,
     args: Args = {} as Args,
     returnValue?: MaybeResolver<ReturnType | undefined>
   ) {
@@ -85,11 +88,11 @@ export class TransactionQueue<
 
   public run = async () => {
     this.queue = [...this.transactions];
-    this.updateStatus(types.TransactionQueueStatus.Running);
+    this.updateStatus(TransactionQueueStatus.Running);
 
     try {
       await this.executeTransactionQueue();
-      this.updateStatus(types.TransactionQueueStatus.Succeeded);
+      this.updateStatus(TransactionQueueStatus.Succeeded);
       const { returnValue } = this;
       let res;
 
@@ -102,7 +105,7 @@ export class TransactionQueue<
       this.resolve(res);
     } catch (err) {
       this.error = err;
-      this.updateStatus(types.TransactionQueueStatus.Failed);
+      this.updateStatus(TransactionQueueStatus.Failed);
       this.reject(err);
     }
 
@@ -130,19 +133,19 @@ export class TransactionQueue<
   protected resolve: (val?: ReturnType) => void = () => {};
   protected reject: (reason?: any) => void = () => {};
 
-  private updateStatus = (status: types.TransactionQueueStatus) => {
+  private updateStatus = (status: TransactionQueueStatus) => {
     this.status = status;
 
     switch (status) {
-      case types.TransactionQueueStatus.Running: {
+      case TransactionQueueStatus.Running: {
         this.emitter.emit(Events.StatusChange, this);
         return;
       }
-      case types.TransactionQueueStatus.Succeeded: {
+      case TransactionQueueStatus.Succeeded: {
         this.emitter.emit(Events.StatusChange, this);
         return;
       }
-      case types.TransactionQueueStatus.Failed: {
+      case TransactionQueueStatus.Failed: {
         this.emitter.emit(Events.StatusChange, this, this.error);
         return;
       }

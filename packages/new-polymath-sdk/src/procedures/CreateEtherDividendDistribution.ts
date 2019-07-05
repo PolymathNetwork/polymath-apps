@@ -1,18 +1,24 @@
 import { Procedure } from './Procedure';
-import { types } from '@polymathnetwork/new-shared';
-import { CreateEtherDividendDistributionProcedureArgs } from '~/types';
+import {
+  CreateEtherDividendDistributionProcedureArgs,
+  ProcedureTypes,
+  PolyTransactionTags,
+  ErrorCodes,
+} from '../types';
+import { PolymathError } from '../PolymathError';
 
 export class CreateEtherDividendDistribution extends Procedure<
   CreateEtherDividendDistributionProcedureArgs
 > {
-  public type = types.ProcedureTypes.CreateEtherDividendDistribution;
+  public type = ProcedureTypes.CreateEtherDividendDistribution;
+
   public async prepareTransactions() {
     const {
       symbol,
       maturityDate,
       expiryDate,
       amount,
-      checkpointIndex,
+      checkpointId,
       name,
       excludedAddresses,
       taxWithholdings = [],
@@ -22,6 +28,14 @@ export class CreateEtherDividendDistribution extends Procedure<
     const securityToken = await securityTokenRegistry.getSecurityToken({
       ticker: symbol,
     });
+
+    if (!securityToken) {
+      throw new PolymathError({
+        code: ErrorCodes.ProcedureValidationError,
+        message: `There is no Security Token with symbol ${symbol}`,
+      });
+    }
+
     const etherModule = await securityToken.getEtherDividendModule();
 
     if (!etherModule) {
@@ -31,12 +45,12 @@ export class CreateEtherDividendDistribution extends Procedure<
     }
 
     await this.addTransaction(etherModule.createDividend, {
-      tag: types.PolyTransactionTags.CreateEtherDividendDistribution,
+      tag: PolyTransactionTags.CreateEtherDividendDistribution,
     })({
       maturityDate,
       expiryDate,
       amount,
-      checkpointId: checkpointIndex,
+      checkpointId: checkpointId,
       name,
       excludedAddresses,
     });
@@ -51,7 +65,7 @@ export class CreateEtherDividendDistribution extends Procedure<
       });
 
       await this.addTransaction(etherModule.setWithholding, {
-        tag: types.PolyTransactionTags.SetEtherTaxWithholding,
+        tag: PolyTransactionTags.SetEtherTaxWithholding,
       })({ investors, percentages });
     }
   }

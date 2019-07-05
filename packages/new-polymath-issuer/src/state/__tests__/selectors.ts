@@ -20,11 +20,11 @@ import { AppState } from '~/state/reducers/app';
 import { SessionState } from '~/state/reducers/session';
 import { EntitiesState } from '~/state/reducers/entities';
 
-const firstRequestArgs = { securityTokenSymbol: 'FOO' };
-const secondRequestArgs = { securityTokenSymbol: 'BAR' };
-const thirdRequestArgs = { securityTokenSymbol: 'BAZ' };
-const firstInvalidArgs = { securityTokenSymbol: 'NOT_CACHED' };
-const secondInvalidArgs = { securityTokenSymbol: 'NOT_CACHED_EITHER' };
+const firstRequestArgs = { symbol: 'FOO' };
+const secondRequestArgs = { symbol: 'BAR' };
+const thirdRequestArgs = { symbol: 'BAZ' };
+const firstInvalidArgs = { symbol: 'NOT_CACHED' };
+const secondInvalidArgs = { symbol: 'NOT_CACHED_EITHER' };
 
 const appState: AppState = {
   polyClientInitialized: true,
@@ -41,8 +41,7 @@ const checkpoints = {
     c0: {
       uid: 'c0',
       index: 0,
-      securityTokenId: 's0',
-      securityTokenSymbol: 'S',
+      symbol: 'S',
       investorBalances: [],
       totalSupply: new BigNumber('1000000'),
       createdAt: new Date(),
@@ -50,8 +49,7 @@ const checkpoints = {
     c1: {
       uid: 'c1',
       index: 2,
-      securityTokenId: 's0',
-      securityTokenSymbol: 'S',
+      symbol: 'S',
       investorBalances: [],
       totalSupply: new BigNumber('2000000'),
       createdAt: new Date(),
@@ -67,9 +65,8 @@ const dividends = {
       index: 0,
       created: new Date(),
       dividendType: types.DividendModuleTypes.Erc20,
-      securityTokenId: 's0',
-      securityTokenSymbol: 'S',
-      checkpointId: 'c0',
+      symbol: 'S',
+      checkpointId: 0,
       maturity: new Date(),
       expiry: new Date(),
       amount: new BigNumber('10000'),

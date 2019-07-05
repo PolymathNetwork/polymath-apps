@@ -1,27 +1,52 @@
 import { Procedure } from './Procedure';
 import { Approve } from './Approve';
-import { types } from '@polymathnetwork/new-shared';
-import { ReserveSecurityTokenProcedureArgs } from '~/types';
+import {
+  ReserveSecurityTokenProcedureArgs,
+  ProcedureTypes,
+  PolyTransactionTags,
+  ErrorCodes,
+} from '../types';
+import { PolymathError } from '../PolymathError';
 
-export class ReserveSecurityToken extends Procedure<
-  ReserveSecurityTokenProcedureArgs
-> {
-  public type = types.ProcedureTypes.ReserveSecurityToken;
+export class ReserveSecurityToken extends Procedure<ReserveSecurityTokenProcedureArgs> {
+  public type = ProcedureTypes.ReserveSecurityToken;
+
   public async prepareTransactions() {
-    const { symbol, name } = this.args;
+    const { symbol, name, owner } = this.args;
     const { securityTokenRegistry, currentWallet } = this.context;
 
-    // TODO @RafaelVidaurre: See if ticker is not already registered
+    let ownerAddress: string;
+
+    if (owner) {
+      ownerAddress = owner;
+    } else if (currentWallet) {
+      ({ address: ownerAddress } = currentWallet);
+    } else {
+      throw new PolymathError({
+        message: "No default account set. You must pass the owner's address as a parameter",
+        code: ErrorCodes.ProcedureValidationError,
+      });
+    }
+
+    const isAvailable = await securityTokenRegistry.isTickerAvailable({
+      ticker: symbol,
+    });
+    if (!isAvailable) {
+      throw new PolymathError({
+        message: `Ticker ${symbol} has already been registered`,
+        code: ErrorCodes.ProcedureValidationError,
+      });
+    }
 
     const fee = await securityTokenRegistry.getTickerRegistrationFee();
-
     await this.addTransaction(Approve)({
       amount: fee,
       spender: securityTokenRegistry.address,
+      owner: ownerAddress,
     });
 
     await this.addTransaction(securityTokenRegistry.registerTicker, {
-      tag: types.PolyTransactionTags.ReserveSecurityToken,
-    })({ owner: currentWallet.address, ticker: symbol, tokenName: name });
+      tag: PolyTransactionTags.ReserveSecurityToken,
+    })({ owner: ownerAddress, ticker: symbol, tokenName: name });
   }
 }

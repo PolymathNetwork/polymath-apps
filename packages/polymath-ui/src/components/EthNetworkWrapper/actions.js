@@ -7,7 +7,6 @@
 import Web3 from 'web3';
 import { polyClient } from '@polymathnetwork/new-issuer/lib/polyClient';
 import { setNetworkId } from '@polymathnetwork/new-issuer/state/actions/app';
-
 import { getNetworkInfo } from './networks';
 import {
   ERROR_LOCKED,
@@ -16,7 +15,6 @@ import {
   ERROR_DISCONNECTED,
   ERROR_ACCESS_REQUESTED,
 } from './';
-
 import type { ExtractReturn } from './helpers';
 import Contract, { setupContracts } from '@polymathnetwork/js';
 import { txHash, txEnd } from '../TxModal/actions';

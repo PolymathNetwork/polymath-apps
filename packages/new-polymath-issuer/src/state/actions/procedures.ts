@@ -5,20 +5,20 @@ import BigNumber from 'bignumber.js';
 const enableErc20DividendsModuleStart = createStandardAction(
   'PROCEDURES/ENABLE_ERC20_DIVIDENDS_MODULE_START'
 )<{
-  securityTokenSymbol: string;
+  symbol: string;
   storageWalletAddress: string;
 }>();
 
 const createCheckpointStart = createStandardAction(
   'PROCEDURES/CREATE_CHECKPOINT_START'
 )<{
-  securityTokenSymbol: string;
+  symbol: string;
 }>();
 
 const updateTaxWithholdingListStart = createStandardAction(
   'PROCEDURES/UPDATE_TAX_WITHHOLDING_LIST_START'
 )<{
-  securityTokenSymbol: string;
+  symbol: string;
   dividendType: DividendModuleTypes;
   investorAddresses: string[];
   percentages: number[];
@@ -27,12 +27,12 @@ const updateTaxWithholdingListStart = createStandardAction(
 const createErc20DividendDistributionStart = createStandardAction(
   'PROCEDURES/CREATE_ERC20_DIVIDEND_DISTRIBUTION_START'
 )<{
-  securityTokenSymbol: string;
+  symbol: string;
   maturityDate: Date;
   expiryDate: Date;
   erc20Address: string;
   amount: BigNumber;
-  checkpointIndex: number;
+  checkpointId: number;
   name: string;
   excludedAddresses: string[];
   pushPaymentsWhenComplete: boolean;
@@ -41,7 +41,7 @@ const createErc20DividendDistributionStart = createStandardAction(
 const pushDividendPaymentStart = createStandardAction(
   'PROCEDURES/PUSH_DIVIDEND_PAYMENT_START'
 )<{
-  securityTokenSymbol: string;
+  symbol: string;
   dividendType: DividendModuleTypes;
   dividendIndex: number;
 }>();
@@ -49,7 +49,7 @@ const pushDividendPaymentStart = createStandardAction(
 const setDividendsWalletStart = createStandardAction(
   'PROCEDURES/SET_DIVIDENDS_WALLET_START'
 )<{
-  securityTokenSymbol: string;
+  symbol: string;
   dividendType: DividendModuleTypes;
   walletAddress: string;
 }>();
@@ -57,7 +57,7 @@ const setDividendsWalletStart = createStandardAction(
 const withdrawDividendTaxesStart = createStandardAction(
   'PROCEDURES/WITHDRAW_DIVIDEND_TAXES_START'
 )<{
-  securityTokenSymbol: string;
+  symbol: string;
   dividendType: DividendModuleTypes;
   dividendIndex: number;
 }>();

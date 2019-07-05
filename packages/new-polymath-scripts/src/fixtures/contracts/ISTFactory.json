@@ -1,6 +1,78 @@
 {
-  "contractName": "ISTFactory",
   "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "LogicContractSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_securityToken",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_version",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenUpgraded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_oldTransferManagerFactory",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_newTransferManagerFactory",
+          "type": "address"
+        }
+      ],
+      "name": "DefaultTransferManagerUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_oldDataStoreFactory",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_newDataStoreFactory",
+          "type": "address"
+        }
+      ],
+      "name": "DefaultDataStoreUpdated",
+      "type": "event"
+    },
     {
       "constant": false,
       "inputs": [
@@ -29,6 +101,10 @@
           "type": "bool"
         },
         {
+          "name": "_treasuryWallet",
+          "type": "address"
+        },
+        {
           "name": "_polymathRegistry",
           "type": "address"
         }
@@ -36,586 +112,82 @@
       "name": "deployToken",
       "outputs": [
         {
-          "name": "",
+          "name": "tokenAddress",
           "type": "address"
         }
       ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_version",
+          "type": "string"
+        },
+        {
+          "name": "_logicContract",
+          "type": "address"
+        },
+        {
+          "name": "_initializationData",
+          "type": "bytes"
+        },
+        {
+          "name": "_upgradeData",
+          "type": "bytes"
+        }
+      ],
+      "name": "setLogicContract",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_maxModuleType",
+          "type": "uint8"
+        }
+      ],
+      "name": "upgradeToken",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_transferManagerFactory",
+          "type": "address"
+        }
+      ],
+      "name": "updateDefaultTransferManager",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_dataStoreFactory",
+          "type": "address"
+        }
+      ],
+      "name": "updateDefaultDataStore",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
-  "bytecode": "0x",
-  "deployedBytecode": "0x",
-  "sourceMap": "",
-  "deployedSourceMap": "",
-  "source": "pragma solidity ^0.4.24;\n\n/**\n * @title Interface for security token proxy deployment\n */\ninterface ISTFactory {\n\n    /**\n     * @notice Deploys the token and adds default modules like permission manager and transfer manager.\n     * Future versions of the proxy can attach different modules or pass some other paramters.\n     * @param _name is the name of the Security token\n     * @param _symbol is the symbol of the Security Token\n     * @param _decimals is the number of decimals of the Security Token\n     * @param _tokenDetails is the off-chain data associated with the Security Token\n     * @param _issuer is the owner of the Security Token\n     * @param _divisible whether the token is divisible or not\n     * @param _polymathRegistry is the address of the Polymath Registry contract\n     */\n    function deployToken(\n        string _name,\n        string _symbol,\n        uint8 _decimals,\n        string _tokenDetails,\n        address _issuer,\n        bool _divisible,\n        address _polymathRegistry\n    )\n        external\n        returns (address);\n}\n",
-  "sourcePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/ISTFactory.sol",
-  "ast": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/ISTFactory.sol",
-    "exportedSymbols": {
-      "ISTFactory": [
-        11127
-      ]
-    },
-    "id": 11128,
-    "nodeType": "SourceUnit",
-    "nodes": [
-      {
-        "id": 11107,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".24"
-        ],
-        "nodeType": "PragmaDirective",
-        "src": "0:24:20"
-      },
-      {
-        "baseContracts": [],
-        "contractDependencies": [],
-        "contractKind": "interface",
-        "documentation": "@title Interface for security token proxy deployment",
-        "fullyImplemented": false,
-        "id": 11127,
-        "linearizedBaseContracts": [
-          11127
-        ],
-        "name": "ISTFactory",
-        "nodeType": "ContractDefinition",
-        "nodes": [
-          {
-            "body": null,
-            "documentation": "@notice Deploys the token and adds default modules like permission manager and transfer manager.\nFuture versions of the proxy can attach different modules or pass some other paramters.\n@param _name is the name of the Security token\n@param _symbol is the symbol of the Security Token\n@param _decimals is the number of decimals of the Security Token\n@param _tokenDetails is the off-chain data associated with the Security Token\n@param _issuer is the owner of the Security Token\n@param _divisible whether the token is divisible or not\n@param _polymathRegistry is the address of the Polymath Registry contract",
-            "id": 11126,
-            "implemented": false,
-            "isConstructor": false,
-            "isDeclaredConst": false,
-            "modifiers": [],
-            "name": "deployToken",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 11122,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 11109,
-                  "name": "_name",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "833:12:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_calldata_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 11108,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "833:6:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11111,
-                  "name": "_symbol",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "855:14:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_calldata_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 11110,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "855:6:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11113,
-                  "name": "_decimals",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "879:15:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint8",
-                    "typeString": "uint8"
-                  },
-                  "typeName": {
-                    "id": 11112,
-                    "name": "uint8",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "879:5:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint8",
-                      "typeString": "uint8"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11115,
-                  "name": "_tokenDetails",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "904:20:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_calldata_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 11114,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "904:6:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11117,
-                  "name": "_issuer",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "934:15:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 11116,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "934:7:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11119,
-                  "name": "_divisible",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "959:15:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bool",
-                    "typeString": "bool"
-                  },
-                  "typeName": {
-                    "id": 11118,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "959:4:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bool",
-                      "typeString": "bool"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11121,
-                  "name": "_polymathRegistry",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "984:25:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 11120,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "984:7:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "823:192:20"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 11125,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 11124,
-                  "name": "",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "1050:7:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 11123,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1050:7:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "1049:9:20"
-            },
-            "scope": 11127,
-            "src": "803:256:20",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "external"
-          }
-        ],
-        "scope": 11128,
-        "src": "90:971:20"
-      }
-    ],
-    "src": "0:1062:20"
-  },
-  "legacyAST": {
-    "absolutePath": "/Users/jere/Code/polymath-apps/packages/new-polymath-scripts/src/generateLocalBlockchain/contracts/interfaces/ISTFactory.sol",
-    "exportedSymbols": {
-      "ISTFactory": [
-        11127
-      ]
-    },
-    "id": 11128,
-    "nodeType": "SourceUnit",
-    "nodes": [
-      {
-        "id": 11107,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".24"
-        ],
-        "nodeType": "PragmaDirective",
-        "src": "0:24:20"
-      },
-      {
-        "baseContracts": [],
-        "contractDependencies": [],
-        "contractKind": "interface",
-        "documentation": "@title Interface for security token proxy deployment",
-        "fullyImplemented": false,
-        "id": 11127,
-        "linearizedBaseContracts": [
-          11127
-        ],
-        "name": "ISTFactory",
-        "nodeType": "ContractDefinition",
-        "nodes": [
-          {
-            "body": null,
-            "documentation": "@notice Deploys the token and adds default modules like permission manager and transfer manager.\nFuture versions of the proxy can attach different modules or pass some other paramters.\n@param _name is the name of the Security token\n@param _symbol is the symbol of the Security Token\n@param _decimals is the number of decimals of the Security Token\n@param _tokenDetails is the off-chain data associated with the Security Token\n@param _issuer is the owner of the Security Token\n@param _divisible whether the token is divisible or not\n@param _polymathRegistry is the address of the Polymath Registry contract",
-            "id": 11126,
-            "implemented": false,
-            "isConstructor": false,
-            "isDeclaredConst": false,
-            "modifiers": [],
-            "name": "deployToken",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 11122,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 11109,
-                  "name": "_name",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "833:12:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_calldata_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 11108,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "833:6:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11111,
-                  "name": "_symbol",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "855:14:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_calldata_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 11110,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "855:6:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11113,
-                  "name": "_decimals",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "879:15:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint8",
-                    "typeString": "uint8"
-                  },
-                  "typeName": {
-                    "id": 11112,
-                    "name": "uint8",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "879:5:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint8",
-                      "typeString": "uint8"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11115,
-                  "name": "_tokenDetails",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "904:20:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_calldata_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 11114,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "904:6:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11117,
-                  "name": "_issuer",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "934:15:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 11116,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "934:7:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11119,
-                  "name": "_divisible",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "959:15:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bool",
-                    "typeString": "bool"
-                  },
-                  "typeName": {
-                    "id": 11118,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "959:4:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bool",
-                      "typeString": "bool"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 11121,
-                  "name": "_polymathRegistry",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "984:25:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 11120,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "984:7:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "823:192:20"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 11125,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 11124,
-                  "name": "",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 11126,
-                  "src": "1050:7:20",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 11123,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1050:7:20",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "1049:9:20"
-            },
-            "scope": 11127,
-            "src": "803:256:20",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "external"
-          }
-        ],
-        "scope": 11128,
-        "src": "90:971:20"
-      }
-    ],
-    "src": "0:1062:20"
-  },
-  "compiler": {
-    "name": "solc",
-    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
-  },
-  "networks": {},
-  "schemaVersion": "2.0.1",
-  "updatedAt": "2019-02-06T16:02:05.230Z"
+  "networks": {}
 }

@@ -15,7 +15,7 @@ import Contract, {
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import IModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/IModuleFactory.json';
-import ISTOArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISTO.json';
+import STOArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/STO.json';
 
 import { ModuleFactoryAbisByType, MODULE_TYPES } from '../../constants';
 import USDTieredSTO from './USDTieredSTO';
@@ -187,7 +187,7 @@ function encodeCappedSTOSetupCall(params: CappedSTOParams) {
 }
 
 export async function getTokenSTO(tokenAddress: string) {
-  const securityToken = new SecurityToken(tokenAddress);
+  const securityToken = await SecurityToken.create(tokenAddress);
 
   const [stoAddress] = await securityToken._methods
     .getModulesByType(MODULE_TYPES.STO)
@@ -198,19 +198,19 @@ export async function getTokenSTO(tokenAddress: string) {
   }
 
   const web3Client = Contract._params.web3;
-  const GenericSTO = new web3Client.eth.Contract(ISTOArtifacts.abi, stoAddress);
+  const GenericSTO = new web3Client.eth.Contract(STOArtifacts.abi, stoAddress);
 
   const factoryAddress = await GenericSTO.methods.factory().call();
   const GenericModuleFactory = new web3Client.eth.Contract(
     IModuleFactoryArtifacts.abi,
     factoryAddress
   );
-  const nameRes = await GenericModuleFactory.methods.getName().call();
+  const nameRes = await GenericModuleFactory.methods.name().call();
   const type: STOModuleType = Web3.utils.hexToUtf8(nameRes);
 
   let sto;
   if (type === 'USDTieredSTO') {
-    sto = new USDTieredSTO(stoAddress);
+    sto = new USDTieredSTO(stoAddress, securityToken.version, securityToken);
   }
   if (type === 'CappedSTO') {
     sto = new STO(stoAddress, securityToken);
@@ -254,7 +254,7 @@ export async function getSTOModule(address: string) {
   );
 
   // Create a generic contract instance using the IModuleFactory abi
-  const nameRes = await GenericModuleFactory.methods.getName().call();
+  const nameRes = await GenericModuleFactory.methods.name().call();
   const type = Web3.utils.hexToUtf8(nameRes);
 
   const ModuleFactory = await getSTOModuleFactoryContract(type, address);
@@ -348,16 +348,15 @@ export async function setupUSDTieredSTOModule(
     usdToken: configValues.usdTokenAddress,
   };
 
-  const securityToken = new SecurityToken(tokenAddress);
+  const token = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
 
-  await securityToken._tx(
-    securityToken._methods.addModule(
-      address,
-      encodedFunctionCall,
-      toWei(setupCost),
-      0
-    )
+  await token.addModule(
+    address,
+    encodedFunctionCall,
+    toWei(setupCost),
+    0,
+    false
   );
 }
 
@@ -381,15 +380,14 @@ export async function setupCappedSTOModule(
 
   const isLegacySTO = configValues.legacy;
 
-  const securityToken = new SecurityToken(tokenAddress);
+  const token = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeCappedSTOSetupCall(encodeParams);
 
-  await securityToken._tx(
-    securityToken._methods.addModule(
-      isLegacySTO ? '0xA4A24780b93a378eB25eC4bFbf93BC8e79D7EeEb' : address,
-      encodedFunctionCall,
-      toWei(setupCost),
-      0
-    )
+  await token.addModule(
+    isLegacySTO ? '0xA4A24780b93a378eB25eC4bFbf93BC8e79D7EeEb' : address,
+    encodedFunctionCall,
+    toWei(setupCost),
+    0,
+    false
   );
 }

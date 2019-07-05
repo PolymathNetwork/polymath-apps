@@ -1,15 +1,35 @@
-import { Polymath } from '~/Polymath';
-import { Entity } from './Entity';
-import { serialize } from '~/utils';
 import BigNumber from 'bignumber.js';
-import { DividendModuleTypes, DividendInvestorStatus } from '~/types';
+import { Polymath } from '../Polymath';
+import { Entity } from './Entity';
+import { serialize, unserialize } from '../utils';
+import {
+  DividendModuleTypes,
+  DividendInvestorStatus,
+  isDividendModuleTypes,
+} from '../types';
 
-interface Params {
-  index: number;
-  checkpointId: string;
+interface UniqueIdentifiers {
+  symbol: string;
+  checkpointId: number;
   dividendType: DividendModuleTypes;
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  index: number;
+}
+
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, checkpointId, dividendType, index } = identifiers;
+
+  return (
+    typeof symbol === 'string' &&
+    typeof checkpointId === 'string' &&
+    typeof index === 'number' &&
+    isDividendModuleTypes(dividendType)
+  );
+}
+
+interface Params extends UniqueIdentifiers {
+  symbol: string;
   created: Date;
   maturity: Date;
   expiry: Date;
@@ -26,37 +46,61 @@ interface Params {
 
 export class Dividend extends Entity {
   public static generateId({
-    securityTokenSymbol,
+    symbol,
+    checkpointId,
     dividendType,
     index,
-  }: {
-    securityTokenSymbol: string;
-    dividendType: DividendModuleTypes;
-    index: number;
-  }) {
+  }: UniqueIdentifiers) {
     return serialize('dividend', {
-      securityTokenSymbol,
+      symbol,
+      checkpointId,
       dividendType,
       index,
     });
   }
+
+  public static unserialize(serialized: string) {
+    const unserialized = unserialize(serialized);
+
+    if (!isUniqueIdentifiers(unserialized)) {
+      throw new Error('Wrong dividend ID format.');
+    }
+
+    return unserialized;
+  }
+
   public uid: string;
+
   public index: number;
-  public checkpointId: string;
+
+  public checkpointId: number;
+
   public dividendType: DividendModuleTypes;
-  public securityTokenSymbol: string;
-  public securityTokenId: string;
+
+  public symbol: string;
+
   public created: Date;
+
   public maturity: Date;
+
   public expiry: Date;
+
   public amount: BigNumber;
+
   public claimedAmount: BigNumber;
+
   public totalSupply: BigNumber;
+
   public reclaimed: boolean;
+
   public totalWithheld: BigNumber;
+
   public totalWithheldWithdrawn: BigNumber;
+
   public investors: DividendInvestorStatus[];
+
   public name: string;
+
   public currency: string | null;
 
   constructor(params: Params, polyClient?: Polymath) {
@@ -66,8 +110,7 @@ export class Dividend extends Entity {
       index,
       checkpointId,
       dividendType,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       created,
       maturity,
       expiry,
@@ -85,8 +128,7 @@ export class Dividend extends Entity {
     this.index = index;
     this.checkpointId = checkpointId;
     this.dividendType = dividendType;
-    this.securityTokenSymbol = securityTokenSymbol;
-    this.securityTokenId = securityTokenId;
+    this.symbol = symbol;
     this.created = created;
     this.maturity = maturity;
     this.expiry = expiry;
@@ -101,7 +143,8 @@ export class Dividend extends Entity {
     this.currency = currency;
 
     this.uid = Dividend.generateId({
-      securityTokenSymbol,
+      symbol,
+      checkpointId,
       dividendType,
       index,
     });
@@ -113,8 +156,7 @@ export class Dividend extends Entity {
       index,
       checkpointId,
       dividendType,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       created,
       maturity,
       expiry,
@@ -134,8 +176,7 @@ export class Dividend extends Entity {
       index,
       checkpointId,
       dividendType,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       created,
       maturity,
       expiry,
