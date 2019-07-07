@@ -1,5 +1,5 @@
 # COMMENT: This a rule for Single Page Applications
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/index.html/maintenance"
   status = 200
