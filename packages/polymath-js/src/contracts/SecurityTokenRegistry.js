@@ -111,7 +111,7 @@ class SecurityTokenRegistry extends Contract {
     _owner?: Address,
     _registrationDate?: number
   ): Promise<Array<Web3Event>> {
-    return await this._contractWS.getPastEvents(REGISTER_TICKER_EVENT, {
+    let events = await this._contractWS.getPastEvents(REGISTER_TICKER_EVENT, {
       filter: {
         ...(_owner ? { _owner } : {}),
         ...(_registrationDate ? { _registrationDate } : {}),
@@ -119,6 +119,25 @@ class SecurityTokenRegistry extends Contract {
       fromBlock: 0,
       toBlock: 'latest',
     });
+
+    // Load older events
+    if (semver.eq(this.version, LATEST_PROTOCOL_VERSION)) {
+      const str2 = new SecurityTokenRegistry(artifact2, this.address);
+      const events2 = await str2._contractWS.getPastEvents(
+        REGISTER_TICKER_EVENT,
+        {
+          filter: {
+            ...(_owner ? { _owner } : {}),
+            ...(_registrationDate ? { _registrationDate } : {}),
+          },
+          fromBlock: 0,
+          toBlock: 'latest',
+        }
+      );
+      events = [...events, ...events2];
+    }
+
+    return events;
   }
 
   async getTickerDetails(
@@ -171,7 +190,7 @@ class SecurityTokenRegistry extends Contract {
       token.owner = await contract.owner();
 
       // get token issuing tx hash
-      const events = await this._contractWS.getPastEvents(
+      let events = await this._contractWS.getPastEvents(
         NEW_SECURITY_TOKEN_EVENT,
         {
           filter: { _securityTokenAddress: token.address },
@@ -179,6 +198,18 @@ class SecurityTokenRegistry extends Contract {
           toBlock: 'latest',
         }
       );
+      if (semver.eq(this.version, LATEST_PROTOCOL_VERSION)) {
+        const str2 = new SecurityTokenRegistry(artifact2, this.address);
+        const events2 = await str2._contractWS.getPastEvents(
+          NEW_SECURITY_TOKEN_EVENT,
+          {
+            filter: { _securityTokenAddress: token.address },
+            fromBlock: 0,
+            toBlock: 'latest',
+          }
+        );
+        events = [...events, ...events2];
+      }
       token.txHash = events[0].transactionHash;
       token.timestamp = await this._getBlockDate(events[0].blockNumber);
     }

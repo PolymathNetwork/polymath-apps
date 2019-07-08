@@ -43,10 +43,6 @@ export default class Contract {
           );
         }
 
-        if (Contract._registryAddressesSet && field === 'setAddress') {
-          throw new Error('Cannot change contract address on runtime.');
-        }
-
         if (!Contract._params && field !== 'setParams') {
           throw new Error(
             'Network params not set. Did you forget to call "Contract.setParams"?'
