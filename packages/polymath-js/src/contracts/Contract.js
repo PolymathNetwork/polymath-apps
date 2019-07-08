@@ -209,6 +209,8 @@ export default class Contract {
       gasPrice,
     };
 
+    // @TODO remon-nashid commented out to get around some false-negatives.
+    /**
     // dry run
     try {
       const okCode = this._isBoolOutput(method._method.name);
@@ -223,12 +225,13 @@ export default class Contract {
     } catch (e) {
       throw new Error(`Transaction dry run failed: ${e.message}`);
     }
+     */
 
     let receipt;
     let txHash;
 
-    const sleep = () => {
-      return new Promise(resolve => setTimeout(resolve, 2500));
+    const sleep = (n = 2500) => {
+      return new Promise(resolve => setTimeout(resolve, n));
     };
 
     const end = async () => {
@@ -242,7 +245,10 @@ export default class Contract {
        * (due to race conditions when the transaction had finished but hadn't been mined yet)
        * so I put the sleep back in for now.
        */
-      await sleep();
+
+      while (receipt === undefined) {
+        await sleep(1000);
+      }
       Contract._params.txEndCallback(receipt);
       if (receipt.status === '0x0') {
         throw new Error('Transaction failed');
