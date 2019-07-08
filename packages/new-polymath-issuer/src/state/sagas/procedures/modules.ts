@@ -11,11 +11,11 @@ import { RequestKeys, TransactionQueueResult, QueueStatus } from '~/types';
 export function* enableErc20DividendsModule(
   action: ActionType<typeof enableErc20DividendsModuleStart>
 ) {
-  const { securityTokenSymbol, storageWalletAddress } = action.payload;
+  const { symbol, storageWalletAddress } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.enableDividendModules,
     {
-      symbol: securityTokenSymbol,
+      symbol: symbol,
       storageWalletAddress,
       types: [DividendModuleTypes.Erc20],
     }
@@ -37,7 +37,7 @@ export function* enableErc20DividendsModule(
       invalidateRequest({
         requestKey: RequestKeys.GetErc20DividendsModuleBySymbol,
         args: {
-          securityTokenSymbol,
+          symbol,
         },
       })
     );

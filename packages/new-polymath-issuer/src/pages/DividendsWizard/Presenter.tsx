@@ -36,7 +36,7 @@ export interface ExclusionEntry {
 
 export interface Props {
   stepIndex: number;
-  securityTokenSymbol: string;
+  symbol: string;
   checkpoint: types.CheckpointEntity;
   onNextStep: () => void;
   onPreviousStep: () => void;
@@ -164,7 +164,7 @@ export class Presenter extends Component<Props, State> {
       updateTaxWithholdingList,
       fetchBalance,
       fetchIsValidToken,
-      securityTokenSymbol,
+      symbol,
       isLoadingData,
     } = this.props;
     const { excludedWallets } = this.state;
@@ -199,7 +199,7 @@ export class Presenter extends Component<Props, State> {
             createDividendDistribution={createDividendDistribution}
             fetchBalance={fetchBalance}
             fetchIsValidToken={fetchIsValidToken}
-            securityTokenSymbol={securityTokenSymbol}
+            symbol={symbol}
           />
         );
       }
@@ -220,7 +220,7 @@ export class Presenter extends Component<Props, State> {
   public render() {
     const {
       stepIndex,
-      securityTokenSymbol,
+      symbol,
       checkpoint,
       onPreviousStep,
     } = this.props;
@@ -245,7 +245,7 @@ export class Presenter extends Component<Props, State> {
           <ButtonLink
             variant="ghostSecondary"
             iconPosition="right"
-            href={`/securityTokens/${securityTokenSymbol}/dividends`}
+            href={`/securityTokens/${symbol}/dividends`}
             onClick={(
               event: React.MouseEvent<HTMLButtonElement, MouseEvent>
             ) => {

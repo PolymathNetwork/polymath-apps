@@ -15,15 +15,15 @@ import * as sc from './styles';
 export interface Props {
   hasDividends: boolean;
   dividends: types.DividendEntity[];
-  securityTokenSymbol: string;
-  checkpointIndex: number;
+  symbol: string;
+  checkpointId: number;
   allDividendsCompleted: boolean;
 }
 
 export const DividendListPresenter: FC<Props> = ({
-  securityTokenSymbol,
+  symbol,
   dividends,
-  checkpointIndex,
+  checkpointId,
   allDividendsCompleted,
   hasDividends,
 }) => {
@@ -40,7 +40,7 @@ export const DividendListPresenter: FC<Props> = ({
             disabled={!allDividendsCompleted}
             href={
               allDividendsCompleted
-                ? `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/new`
+                ? `/securityTokens/${symbol}/checkpoints/${checkpointId}/dividends/new`
                 : undefined
             }
             variant="ghost"
@@ -71,8 +71,8 @@ export const DividendListPresenter: FC<Props> = ({
           <li key={dividend.uid}>
             <DividendCard
               dividend={dividend}
-              checkpointIndex={checkpointIndex}
-              securityTokenSymbol={securityTokenSymbol}
+              checkpointId={checkpointId}
+              symbol={symbol}
             />
           </li>
         ))}

@@ -2,29 +2,51 @@ import BigNumber from 'bignumber.js';
 import _ from 'lodash';
 import { TransactionReceipt } from 'web3/types';
 
-export enum Tokens {
-  Poly = 'POLY',
-  Dai = 'DAI',
-  Ether = 'ETH',
-  Erc20 = 'ERC20',
-  Gusd = 'GUSD',
-  Pax = 'PAX',
-  Usdc = 'USDC',
-  Usdt = 'USDT',
-}
-
-enum ErrorCodes {
+export enum ErrorCodes {
   IncompatibleBrowser = 'IncompatibleBrowser',
   UserDeniedAccess = 'UserDeniedAccess',
   WalletIsLocked = 'WalletIsLocked',
   ProcedureValidationError = 'ProcedureValidationError',
+  FetcherValidationError = 'FetcherValidationError',
   TransactionRejectedByUser = 'TransactionRejectedByUser',
   TransactionReverted = 'TransactionReverted',
   FatalError = 'FatalError',
+  UnexpectedReturnData = 'UnexpectedReturnData',
+  InvalidAddress = 'InvalidAddress',
+  InsufficientBalance = 'InsufficientBalance',
 }
 
-interface PolymathError {
-  code: ErrorCodes;
+interface Error {
+  stack?: string;
+}
+
+export const ErrorMessagesPerCode: {
+  [errorCode: string]: string;
+} = {
+  [ErrorCodes.IncompatibleBrowser]:
+    'The browser bring used is not compatible with Ethereum',
+  [ErrorCodes.WalletIsLocked]:
+    'The wallet is locked, if Metamask extension is being used, the user needs to unlock it first',
+  [ErrorCodes.UserDeniedAccess]: 'The user denied access',
+  [ErrorCodes.TransactionRejectedByUser]: 'The user rejected the transaction',
+  [ErrorCodes.UnexpectedReturnData]:
+    'The data returned by the smart contract has an unexpected format. Please report this issue to the Polymath team',
+  [ErrorCodes.InvalidAddress]: 'Invalid Address',
+};
+
+export class PolymathError extends Error {
+  public code: ErrorCodes;
+
+  constructor({ message, code }: { message?: string; code: ErrorCodes }) {
+    super(
+      message || ErrorMessagesPerCode[code] || `Unknown error, code: ${code}`
+    );
+    // eslint:disable-next-line
+    // https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Object.setPrototypeOf(this, PolymathError);
+
+    this.code = code;
+  }
 }
 
 export enum ProcedureTypes {
@@ -32,6 +54,7 @@ export enum ProcedureTypes {
   Approve = 'Approve',
   CreateCheckpoint = 'CreateCheckpoint',
   EnableDividendModules = 'EnableDividendModules',
+  EnableGeneralPermissionManager = 'EnableGeneralPermissionManager',
   CreateErc20DividendDistribution = 'CreateErc20DividendDistribution',
   CreateEtherDividendDistribution = 'CreateEtherDividendDistribution',
   CreateSecurityToken = 'CreateSecurityToken',
@@ -41,6 +64,10 @@ export enum ProcedureTypes {
   UpdateDividendsTaxWithholdingList = 'UpdateDividendsTaxWithholdingList',
   SetDividendsWallet = 'SetDividendsWallet',
   PushDividendPayment = 'PushDividendPayment',
+  ChangeDelegatePermission = 'ChangeDelegatePermission',
+  ControllerTransfer = 'ControllerTransfer',
+  PauseSto = 'PauseSto',
+  SetController = 'SetController',
 }
 
 export enum PolyTransactionTags {
@@ -55,10 +82,26 @@ export enum PolyTransactionTags {
   SetErc20TaxWithholding = 'SetErc20TaxWithholding',
   SetEtherTaxWithholding = 'SetEtherTaxWithholding',
   EnableDividends = 'EnableDividends',
+  EnableGeneralPermissionManager = 'EnableGeneralPermissionManager',
   ReclaimDividendFunds = 'ReclaimDividendFunds',
   WithdrawTaxWithholdings = 'WithdrawTaxWithholdings',
   PushDividendPayment = 'PushDividendPayment',
   SetDividendsWallet = 'SetDividendsWallet',
+  ChangeDelegatePermission = 'ChangeDelegatePermission',
+  ControllerTransfer = 'ControllerTransfer',
+  PauseSto = 'PauseSto',
+  SetController = 'SetController',
+}
+
+export enum Tokens {
+  Poly = 'POLY',
+  Dai = 'DAI',
+  Ether = 'ETH',
+  Erc20 = 'ERC20',
+  Gusd = 'GUSD',
+  Pax = 'PAX',
+  Usdc = 'USDC',
+  Usdt = 'USDT',
 }
 
 export enum TransactionStatus {
@@ -107,9 +150,8 @@ export interface DividendInvestorStatus {
 
 export interface DividendEntity extends Entity {
   index: number;
-  securityTokenSymbol: string;
-  securityTokenId: string;
-  checkpointId: string;
+  symbol: string;
+  checkpointId: number;
   dividendType: DividendModuleTypes;
   created: Date;
   maturity: Date;
@@ -129,8 +171,7 @@ export interface DividendPojo extends DividendEntity {}
 
 export interface CheckpointEntity extends Entity {
   index: number;
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   investorBalances: Array<{
     address: string;
     balance: BigNumber;
@@ -145,8 +186,7 @@ export interface CheckpointPojo extends CheckpointEntity {
 
 export interface Erc20DividendsModuleEntity extends Entity {
   address: string;
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   storageWalletAddress: string;
 }
 
@@ -158,8 +198,7 @@ export enum DividendModuleTypes {
 }
 
 export interface TaxWithholdingEntity extends Entity {
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   dividendType: DividendModuleTypes;
   investorAddress: string;
   percentage: number;

@@ -10,11 +10,11 @@ import { RequestKeys, TransactionQueueResult, QueueStatus } from '~/types';
 export function* createCheckpoint(
   action: ActionType<typeof createCheckpointStart>
 ) {
-  const { securityTokenSymbol } = action.payload;
+  const { symbol } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.createCheckpoint,
     {
-      symbol: securityTokenSymbol,
+      symbol,
     }
   );
 
@@ -34,7 +34,7 @@ export function* createCheckpoint(
       invalidateRequest({
         requestKey: RequestKeys.GetCheckpointsBySymbol,
         args: {
-          securityTokenSymbol,
+          symbol,
         },
       })
     );

@@ -15,6 +15,7 @@ export function* watchTransaction(transaction: PolyTransaction) {
   while (true) {
     const changedTransaction: PolyTransaction = yield take(statusChangeChannel);
 
+    // @ts-ignore
     yield put(updateAction(changedTransaction.toPojo()));
 
     const transactionIsFinished = [

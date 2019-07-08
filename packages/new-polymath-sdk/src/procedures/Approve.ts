@@ -1,19 +1,32 @@
 import { Procedure } from './Procedure';
-import { types } from '@polymathnetwork/new-shared';
-import { ApproveProcedureArgs, ErrorCodes } from '~/types';
-import { PolymathError } from '~/PolymathError';
+import {
+  ApproveProcedureArgs,
+  ErrorCodes,
+  ProcedureTypes,
+  PolyTransactionTags,
+} from '../types';
+import { PolymathError } from '../PolymathError';
 import { BigNumber } from 'bignumber.js';
 
 export class Approve extends Procedure<ApproveProcedureArgs> {
-  public type = types.ProcedureTypes.Approve;
+  public type = ProcedureTypes.Approve;
   public async prepareTransactions() {
-    const { amount, spender, tokenAddress } = this.args;
-    const {
-      currentWallet: { address },
-      polyToken,
-      isTestnet,
-      getErc20Token,
-    } = this.context;
+    const { amount, spender, tokenAddress, owner } = this.args;
+    const { currentWallet, polyToken, isTestnet, getErc20Token } = this.context;
+
+    let ownerAddress: string;
+
+    if (owner) {
+      ownerAddress = owner;
+    } else if (currentWallet) {
+      ({ address: ownerAddress } = currentWallet);
+    } else {
+      throw new PolymathError({
+        message:
+          "No default account set. You must pass the owner's address as a parameter",
+        code: ErrorCodes.ProcedureValidationError,
+      });
+    }
 
     let token;
 
@@ -25,7 +38,7 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
       token = polyToken;
     }
 
-    const balance = await token.balanceOf({ address });
+    const balance = await token.balanceOf({ address: ownerAddress });
 
     const symbol = await token.symbol();
 
@@ -34,12 +47,12 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
         if (token.address.toUpperCase() === polyToken.address.toUpperCase()) {
           token = polyToken;
           await this.addTransaction(token.getTokens, {
-            tag: types.PolyTransactionTags.GetTokens,
+            tag: PolyTransactionTags.GetTokens,
           })({
             amount: amount
               .minus(balance)
               .decimalPlaces(0, BigNumber.ROUND_HALF_UP),
-            recipient: address,
+            recipient: ownerAddress,
             symbol,
           });
         }
@@ -49,7 +62,10 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
       }
     }
 
-    const allowance = await token.allowance({ spender, tokenOwner: address });
+    const allowance = await token.allowance({
+      spender,
+      tokenOwner: ownerAddress,
+    });
     const hasEnoughAllowance = allowance.gte(amount);
 
     if (hasEnoughAllowance) {
@@ -57,7 +73,7 @@ export class Approve extends Procedure<ApproveProcedureArgs> {
     }
 
     await this.addTransaction(token.approve, {
-      tag: types.PolyTransactionTags.Approve,
-    })({ spender, amount, symbol });
+      tag: PolyTransactionTags.Approve,
+    })({ spender, amount, symbol, owner: ownerAddress });
   }
 }

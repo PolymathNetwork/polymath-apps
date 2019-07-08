@@ -32,7 +32,7 @@ describe('requests sagas', () => {
       });
 
       const fetcher = createCheckpointsBySymbolFetcher({
-        securityTokenSymbol: 'FOO ',
+        symbol: 'FOO ',
       });
 
       await runSaga(

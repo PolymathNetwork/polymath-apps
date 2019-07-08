@@ -32,8 +32,8 @@ const actions = {
 
 export interface Props {
   dispatch: Dispatch<ActionType<typeof actions>>;
-  securityTokenSymbol: string;
-  checkpointIndex: string;
+  symbol: string;
+  checkpointId: string;
   createDividendDistribution: (
     params: CreateDividendDistributionParams
   ) => void;
@@ -104,9 +104,9 @@ export class ContainerBase extends Component<Props, State> {
     name,
     excludedAddresses,
   }: CreateDividendDistributionParams) => {
-    const { dispatch, securityTokenSymbol, checkpointIndex } = this.props;
+    const { dispatch, symbol, checkpointId } = this.props;
 
-    const parsedCheckpointIndex = parseInt(checkpointIndex, 10);
+    const parsedCheckpointIndex = parseInt(checkpointId, 10);
 
     const maturityDate = new Date();
     const expiryDate = new Date(
@@ -117,12 +117,12 @@ export class ContainerBase extends Component<Props, State> {
 
     dispatch(
       createErc20DividendDistributionStart({
-        securityTokenSymbol,
+        symbol,
         maturityDate,
         expiryDate,
         erc20Address,
         amount,
-        checkpointIndex: parsedCheckpointIndex,
+        checkpointId: parsedCheckpointIndex,
         name,
         excludedAddresses,
         pushPaymentsWhenComplete: true,
@@ -136,7 +136,7 @@ export class ContainerBase extends Component<Props, State> {
       percentage: number;
     }>
   ) => {
-    const { securityTokenSymbol, dispatch } = this.props;
+    const { symbol, dispatch } = this.props;
     const investorAddresses: string[] = [];
     const percentages: number[] = [];
 
@@ -147,7 +147,7 @@ export class ContainerBase extends Component<Props, State> {
 
     dispatch(
       updateTaxWithholdingListStart({
-        securityTokenSymbol,
+        symbol,
         dividendType: DividendModuleTypes.Erc20,
         investorAddresses,
         percentages,
@@ -158,7 +158,7 @@ export class ContainerBase extends Component<Props, State> {
   public downloadTaxWithholdingList = (
     taxWithholdings: types.TaxWithholdingEntity[]
   ) => {
-    const { securityTokenSymbol } = this.props;
+    const { symbol } = this.props;
 
     const data: Row[] = taxWithholdings.map(
       ({ percentage, investorAddress }) => ({
@@ -167,7 +167,7 @@ export class ContainerBase extends Component<Props, State> {
       })
     );
 
-    const fileName = `withholdings_${securityTokenSymbol.toUpperCase()}_${formatters.toDateFormat(
+    const fileName = `withholdings_${symbol.toUpperCase()}_${formatters.toDateFormat(
       new Date(),
       { format: DateTime.DATE_SHORT }
     )}`;
@@ -206,13 +206,13 @@ export class ContainerBase extends Component<Props, State> {
   }
 
   public render() {
-    const { securityTokenSymbol, checkpointIndex } = this.props;
+    const { symbol, checkpointId } = this.props;
     const fetcher = createCheckpointsBySymbolFetcher({
-      securityTokenSymbol,
+      symbol,
     });
 
     const { step } = this.state;
-    const parsedCheckpointIndex = parseInt(checkpointIndex, 10);
+    const parsedCheckpointIndex = parseInt(checkpointId, 10);
     return (
       <Page title="Create New Dividend Distribution">
         <DataFetcher
@@ -223,8 +223,8 @@ export class ContainerBase extends Component<Props, State> {
             const fetchers = checkpoints.map(({ index }) =>
               createDividendsByCheckpointFetcher(
                 {
-                  securityTokenSymbol,
-                  checkpointIndex: index,
+                  symbol,
+                  checkpointId: index,
                 },
                 { propKey: `${index}` }
               )
@@ -237,13 +237,13 @@ export class ContainerBase extends Component<Props, State> {
                   [key: string]: types.DividendEntity[];
                 }) => {
                   const { dispatch } = this.props;
-                  const dividendsListUrl = `/securityTokens/${securityTokenSymbol}/dividends`;
+                  const dividendsListUrl = `/securityTokens/${symbol}/dividends`;
 
                   const checkpointsList = values(dividendsData);
                   if (
                     checkpointsList.length === 0 ||
                     !keys(dividendsData).find(checkpointId => {
-                      return checkpointId === checkpointIndex;
+                      return checkpointId === checkpointId;
                     })
                   ) {
                     // No checkpoints exist
@@ -274,13 +274,13 @@ export class ContainerBase extends Component<Props, State> {
                       watchProps={this.state}
                       fetchers={[
                         createTaxWithholdingListBySymbolAndCheckpointFetcher({
-                          securityTokenSymbol,
-                          checkpointIndex: parsedCheckpointIndex,
+                          symbol,
+                          checkpointId: parsedCheckpointIndex,
                           dividendType: DividendModuleTypes.Erc20,
                         }),
                         createCheckpointBySymbolAndIdFetcher({
-                          securityTokenSymbol,
-                          checkpointIndex: parsedCheckpointIndex,
+                          symbol,
+                          checkpointId: parsedCheckpointIndex,
                         }),
                       ]}
                       render={(
@@ -302,7 +302,7 @@ export class ContainerBase extends Component<Props, State> {
                               this.updateTaxWithholdingList
                             }
                             stepIndex={step}
-                            securityTokenSymbol={securityTokenSymbol}
+                            symbol={symbol}
                             checkpoint={checkpoint}
                             onNextStep={this.nextStep}
                             onPreviousStep={this.previousStep}

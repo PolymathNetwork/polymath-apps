@@ -1,51 +1,68 @@
-import { Polymath } from '~/Polymath';
+import { Polymath } from '../Polymath';
 import { Entity } from './Entity';
+import { unserialize } from '../utils';
+import { DividendModuleTypes, isDividendModuleTypes } from '../types';
 
-export interface Params {
+export interface UniqueIdentifiers {
+  symbol: string;
+  dividendType: DividendModuleTypes;
+}
+
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, dividendType } = identifiers;
+
+  return typeof symbol === 'string' && isDividendModuleTypes(dividendType);
+}
+
+export interface Params extends UniqueIdentifiers {
   address: string;
-  securityTokenSymbol: string;
-  securityTokenId: string;
+  symbol: string;
   storageWalletAddress: string;
 }
 
 export abstract class DividendsModule extends Entity {
   public abstract uid: string;
+
   public address: string;
-  public securityTokenSymbol: string;
-  public securityTokenId: string;
+
+  public symbol: string;
+
   public storageWalletAddress: string;
+
+  public dividendType: DividendModuleTypes;
+
+  public static unserialize(serialized: string) {
+    const unserialized = unserialize(serialized);
+
+    if (!isUniqueIdentifiers(unserialized)) {
+      throw new Error('Wrong dividends module ID format.');
+    }
+
+    return unserialized;
+  }
 
   constructor(params: Params, polyClient?: Polymath) {
     super(polyClient);
 
-    const {
-      address,
-      securityTokenSymbol,
-      securityTokenId,
-      storageWalletAddress,
-    } = params;
+    const { address, symbol, storageWalletAddress, dividendType } = params;
 
     this.address = address;
-    this.securityTokenSymbol = securityTokenSymbol;
-    this.securityTokenId = securityTokenId;
+    this.symbol = symbol;
     this.storageWalletAddress = storageWalletAddress;
+    this.dividendType = dividendType;
   }
 
   public toPojo() {
-    const {
-      uid,
-      address,
-      securityTokenSymbol,
-      securityTokenId,
-      storageWalletAddress,
-    } = this;
+    const { uid, address, symbol, storageWalletAddress, dividendType } = this;
 
     return {
       uid,
       address,
-      securityTokenSymbol,
-      securityTokenId,
+      symbol,
       storageWalletAddress,
+      dividendType,
     };
   }
 }

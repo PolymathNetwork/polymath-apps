@@ -16,9 +16,14 @@ import validator from '@polymathnetwork/ui/validator';
 import { issue } from '../../../actions/token';
 
 const requiredMessage = 'Required.';
+const maxMessage = 'Must be ${max} characters or fewer.';
 const urlMessage = 'Invalid URL (example: http(s)://www.example.com).';
 
 const formSchema = validator.object().shape({
+  name: validator
+    .string()
+    .isRequired(requiredMessage)
+    .max(100, maxMessage),
   isDivisible: validator.string().isRequired(requiredMessage),
   limitInvestors: validator.boolean().isRequired(requiredMessage),
   investorsNumber: validator
@@ -40,6 +45,7 @@ const formSchema = validator.object().shape({
 });
 
 const initialValues = {
+  name: '',
   isDivisible: 'divisible',
   limitInvestors: false,
   investorsNumber: null,
@@ -49,6 +55,27 @@ const initialValues = {
 export const CompleteTokenFormComponent = ({ handleSubmit, values }) => (
   <Form onSubmit={handleSubmit} className="token-form">
     <Grid.Row>
+      <Grid.Col gridSpan={[12, 12, 12, 5]}>
+        <FormItem name="name">
+          <FormItem.Label>
+            <Tooltip triggerText="Token Name">
+              <p>
+                <strong>Token Name</strong>
+              </p>
+              <p>
+                This is the name of your token for display purposes.
+                <br />
+                For example: Toro Token
+              </p>
+            </Tooltip>
+          </FormItem.Label>
+          <FormItem.Input
+            component={TextInput}
+            placeholder="Enter Token Name"
+          />
+          <FormItem.Error />
+        </FormItem>
+      </Grid.Col>
       <Grid.Col gridSpan={[12, 12, 12, 5]}>
         <FormItem name="isDivisible">
           <FormItem.Label>

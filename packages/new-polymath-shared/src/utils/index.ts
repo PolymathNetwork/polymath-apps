@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver';
 import { parse, json2csv } from 'json2csv';
-import { isPojo } from '~/typing/types';
+import { isPojo } from '../typing/types';
 import _ from 'lodash';
 
 export const delay = async (amount: number) => {

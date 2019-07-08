@@ -33,7 +33,7 @@ describe('DataFetcher Container', () => {
     const renderSpy = jest.fn(() => <div>Rendered correctly</div>);
     const renderErrorSpy = jest.fn(() => <div>Got an error</div>);
     const fetcher = createCheckpointsBySymbolFetcher({
-      securityTokenSymbol: 'FOO',
+      symbol: 'FOO',
     });
     render(
       <DataFetcher

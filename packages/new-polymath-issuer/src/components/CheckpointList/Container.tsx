@@ -15,7 +15,7 @@ import { DIVIDEND_PAYMENT_INVESTOR_BATCH_SIZE } from '~/constants';
 
 export interface Props {
   dispatch: Dispatch<any>;
-  securityTokenSymbol: string;
+  symbol: string;
 }
 
 interface Row {
@@ -26,7 +26,7 @@ interface Row {
 
 export class CheckpointListContainerBase extends Component<Props> {
   public downloadOwnershipList = (checkpoint: types.CheckpointEntity) => {
-    const { securityTokenSymbol } = this.props;
+    const { symbol } = this.props;
     const { createdAt, investorBalances, totalSupply } = checkpoint;
 
     const data: Row[] = investorBalances.map(({ balance, address }) => {
@@ -41,7 +41,7 @@ export class CheckpointListContainerBase extends Component<Props> {
         percentage,
       };
     });
-    const sanitizedName = securityTokenSymbol.replace('.', '-').toUpperCase();
+    const sanitizedName = symbol.replace('.', '-').toUpperCase();
     const fileName = `checkpoint_${sanitizedName}_${formatters.toDateFormat(
       createdAt,
       { format: DateTime.DATE_SHORT }
@@ -66,12 +66,12 @@ export class CheckpointListContainerBase extends Component<Props> {
   };
 
   public render() {
-    const { securityTokenSymbol } = this.props;
+    const { symbol } = this.props;
     return (
       <DataFetcher
         fetchers={[
           createCheckpointsBySymbolFetcher({
-            securityTokenSymbol,
+            symbol,
           }),
         ]}
         render={(data: { checkpoints: types.CheckpointEntity[] }, loading) => {
@@ -79,8 +79,8 @@ export class CheckpointListContainerBase extends Component<Props> {
           const fetchers = checkpoints.map(({ index }) =>
             createDividendsByCheckpointFetcher(
               {
-                securityTokenSymbol,
-                checkpointIndex: index,
+                symbol,
+                checkpointId: index,
               },
               { propKey: `${index}` }
             )
@@ -128,7 +128,7 @@ export class CheckpointListContainerBase extends Component<Props> {
                     hasDividends={!!Object.keys(dividendsData).length}
                     allDividendsCompleted={allDividendsCompleted}
                     checkpoints={sortedCheckpoints}
-                    securityTokenSymbol={securityTokenSymbol}
+                    symbol={symbol}
                     downloadOwnershipList={this.downloadOwnershipList}
                     loading={loading}
                   />

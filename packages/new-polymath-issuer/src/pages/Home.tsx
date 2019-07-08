@@ -69,7 +69,7 @@ export class ContainerBase extends Component<Props> {
   public startEnableDividends = () => {
     this.props.dispatch(
       enableErc20DividendsModuleStart({
-        securityTokenSymbol: 'A0T0',
+        symbol: 'A0T0',
         storageWalletAddress: '0xf17f52151EbEF6C7334FAD080c5704D77216b732',
       })
     );
@@ -78,7 +78,7 @@ export class ContainerBase extends Component<Props> {
   public startCreateCheckpoint = () => {
     this.props.dispatch(
       createCheckpointStart({
-        securityTokenSymbol: 'A0T0',
+        symbol: 'A0T0',
       })
     );
   };
@@ -86,13 +86,13 @@ export class ContainerBase extends Component<Props> {
   public startCreateDividendDistribution = () => {
     this.props.dispatch(
       createErc20DividendDistributionStart({
-        securityTokenSymbol: 'A0T0',
+        symbol: 'A0T0',
         maturityDate: new Date(),
         expiryDate: new Date('10/10/2025'),
         erc20Address: '0xf12b5dd4ead5f743c6baa640b0216200e89b60da',
         name: 'My Dividend Distribution',
         amount: new BigNumber('10000'),
-        checkpointIndex: 1,
+        checkpointId: 1,
         excludedAddresses: ['0x821aea9a577a9b44299b9c15c88cf3087f3b5544'],
         // excludedAddresses: [],
         pushPaymentsWhenComplete: true,
@@ -107,7 +107,7 @@ export class ContainerBase extends Component<Props> {
     const percentages = range(2600).map(() => 0.3);
     this.props.dispatch(
       updateTaxWithholdingListStart({
-        securityTokenSymbol: 'A0T0',
+        symbol: 'A0T0',
         dividendType: DividendModuleTypes.Erc20,
         investorAddresses,
         percentages,

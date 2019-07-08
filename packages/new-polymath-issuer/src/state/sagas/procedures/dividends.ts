@@ -19,12 +19,12 @@ export function* createErc20DividendsDistribution(
   action: ActionType<typeof createErc20DividendDistributionStart>
 ) {
   const {
-    securityTokenSymbol,
+    symbol,
     maturityDate,
     expiryDate,
     erc20Address,
     amount,
-    checkpointIndex,
+    checkpointId,
     name,
     excludedAddresses,
     pushPaymentsWhenComplete,
@@ -32,12 +32,12 @@ export function* createErc20DividendsDistribution(
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.createErc20DividendDistribution,
     {
-      symbol: securityTokenSymbol,
+      symbol: symbol,
       maturityDate,
       expiryDate,
       erc20Address,
       amount,
-      checkpointIndex,
+      checkpointId,
       name,
       excludedAddresses,
     }
@@ -59,8 +59,8 @@ export function* createErc20DividendsDistribution(
       invalidateRequest({
         requestKey: RequestKeys.GetDividendsByCheckpoint,
         args: {
-          securityTokenSymbol,
-          checkpointIndex,
+          symbol,
+          checkpointId,
         },
       })
     );
@@ -69,15 +69,15 @@ export function* createErc20DividendsDistribution(
       invalidateRequest({
         requestKey: RequestKeys.GetCheckpointBySymbolAndId,
         args: {
-          securityTokenSymbol,
-          checkpointIndex,
+          symbol,
+          checkpointId,
         },
       })
     );
 
     yield put(
       push(
-        `/securityTokens/${securityTokenSymbol}/checkpoints/${checkpointIndex}/dividends/${result}`
+        `/securityTokens/${symbol}/checkpoints/${checkpointId}/dividends/${result}`
       )
     );
 
@@ -91,7 +91,7 @@ export function* createErc20DividendsDistribution(
       }
       yield put(
         pushDividendPaymentStart({
-          securityTokenSymbol,
+          symbol,
           dividendType: DividendModuleTypes.Erc20,
           dividendIndex: result,
         })
@@ -108,7 +108,7 @@ export function* updateTaxWithholdingList(
   action: ActionType<typeof updateTaxWithholdingListStart>
 ) {
   const {
-    securityTokenSymbol,
+    symbol,
     dividendType,
     investorAddresses,
     percentages,
@@ -116,7 +116,7 @@ export function* updateTaxWithholdingList(
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.updateDividendsTaxWithholdingList,
     {
-      symbol: securityTokenSymbol,
+      symbol: symbol,
       dividendType,
       investorAddresses,
       percentages,
@@ -150,11 +150,11 @@ export function* updateTaxWithholdingList(
 export function* pushDividendPayment(
   action: ActionType<typeof pushDividendPaymentStart>
 ) {
-  const { securityTokenSymbol, dividendType, dividendIndex } = action.payload;
+  const { symbol, dividendType, dividendIndex } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.pushDividendPayment,
     {
-      symbol: securityTokenSymbol,
+      symbol: symbol,
       dividendType,
       dividendIndex,
     }
@@ -178,7 +178,7 @@ export function* pushDividendPayment(
         invalidateRequest({
           requestKey: RequestKeys.GetDividendBySymbolAndId,
           args: {
-            securityTokenSymbol,
+            symbol,
             dividendIndex,
             dividendType,
           },
@@ -195,11 +195,11 @@ export function* pushDividendPayment(
 export function* setDividendsWallet(
   action: ActionType<typeof setDividendsWalletStart>
 ) {
-  const { securityTokenSymbol, dividendType, walletAddress } = action.payload;
+  const { symbol, dividendType, walletAddress } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.setDividendsWallet,
     {
-      symbol: securityTokenSymbol,
+      symbol: symbol,
       dividendType,
       address: walletAddress,
     }
@@ -231,7 +231,7 @@ export function* setDividendsWallet(
       invalidateRequest({
         requestKey,
         args: {
-          securityTokenSymbol,
+          symbol,
         },
       })
     );
@@ -244,11 +244,11 @@ export function* setDividendsWallet(
 export function* withdrawDividendTaxes(
   action: ActionType<typeof withdrawDividendTaxesStart>
 ) {
-  const { securityTokenSymbol, dividendType, dividendIndex } = action.payload;
+  const { symbol, dividendType, dividendIndex } = action.payload;
   const transactionQueueToRun: TransactionQueue = yield call(
     polyClient.withdrawTaxes,
     {
-      symbol: securityTokenSymbol,
+      symbol: symbol,
       dividendType,
       dividendIndex,
     }
@@ -270,7 +270,7 @@ export function* withdrawDividendTaxes(
       invalidateRequest({
         requestKey: RequestKeys.GetDividendBySymbolAndId,
         args: {
-          securityTokenSymbol,
+          symbol,
           dividendIndex,
           dividendType,
         },

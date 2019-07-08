@@ -98,6 +98,7 @@ class ImportWhitelistModal extends Component<Props> {
       isReady,
       isInvalid,
     } = this.props;
+
     return (
       <Modal
         isOpen={isOpen}
@@ -107,7 +108,8 @@ class ImportWhitelistModal extends Component<Props> {
         <Modal.Header>Import Whitelist</Modal.Header>
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
-          .CSV file. <strong>You may add up to 40 addresses per .CSV file</strong>. The
+          .CSV file.{' '}
+          <strong>You may add up to 40 addresses per .CSV file</strong>. The
           format should be as follows:
           <br />• ETH Address (address to whitelist);
           <br />• Sell Restriction Date: <strong>mm/dd/yyyy</strong> (date when
@@ -198,7 +200,10 @@ class ImportWhitelistModal extends Component<Props> {
           />
         ) : (
           <Remark title="Reminder">
-            Investors must be approved before they are added to the whitelist. <br />Your file cannot exceed 40 addresses. If you have more than 40 addresses on your whitelist, upload multiple files.
+            Investors must be approved before they are added to the whitelist.{' '}
+            <br />
+            Your file cannot exceed 40 addresses. If you have more than 40
+            addresses on your whitelist, upload multiple files.
           </Remark>
         )}
         <Modal.Footer>

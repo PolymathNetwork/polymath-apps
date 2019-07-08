@@ -5,6 +5,8 @@ import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
 import FileSaver from 'file-saver';
 import { map, each } from 'lodash';
+import semver from 'semver';
+import { LATEST_PROTOCOL_VERSION } from '../constants';
 import BigNumber from 'bignumber.js';
 import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
 import { toWei } from '../utils/contracts';
@@ -66,9 +68,11 @@ export const fetchWhitelist = () => async (
     if (!getState().whitelist.transferManager) {
       // $FlowFixMe
       const st: SecurityToken = getState().token.token.contract;
+      const transferManager = await st.getTransferManager();
+
       dispatch({
         type: TRANSFER_MANAGER,
-        transferManager: await st.getTransferManager(),
+        transferManager,
       });
 
       const percentageTM = await st.getPercentageTM();
@@ -108,7 +112,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
       investors: data,
       criticals: invalidRows,
       isTooMany,
-      parseError,
+      parseError: parseError | '',
     });
   };
 };
@@ -125,11 +129,12 @@ export const importWhitelist = () => async (
     },
     sto,
   } = getState();
-  let setAccreditedInvestorsData = false;
+  const st = getState().token.token.contract;
 
-  if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
-    setAccreditedInvestorsData = true;
-  }
+  const isPTMEnabled = !isPercentageDisabled;
+
+  const titles = [];
+  const transactions = [];
 
   // FIXME @RafaelVidaurre: For now performing this unintuitive transformation
   // to avoid breaking more code
@@ -141,6 +146,9 @@ export const importWhitelist = () => async (
       buyLockupDate,
       kycAmlExpiryDate,
       canBuyFromSto,
+      isPercentage,
+      accredited,
+      nonAccreditedLimit,
     }) => {
       return {
         address,
@@ -148,53 +156,111 @@ export const importWhitelist = () => async (
         to: buyLockupDate,
         expiry: kycAmlExpiryDate,
         canBuyFromSTO: canBuyFromSto,
+        isPercentage,
+        accredited,
+        nonAccreditedLimit,
       };
     }
   );
 
-  const titles = ['Submitting approved investors'];
-
-  if (!isPercentageDisabled) {
+  titles.push('Submitting Approved Investors');
+  transactions.push(() => transferManager.modifyKYCDataMulti(whitelistItems));
+  if (isPTMEnabled) {
     titles.push('Setting ownership restrictions');
+    transactions.push(() => percentageTM.modifyWhitelistMulti(whitelistItems));
   }
-  if (setAccreditedInvestorsData) {
-    titles.push('Updating accredited investors');
-    titles.push('Updating non-accredited investors limits');
+
+  /**
+   * 2.x
+   **/
+  if (semver.lt(st.version, LATEST_PROTOCOL_VERSION)) {
+    if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
+      const statusAddresses = [];
+      const statusValues = [];
+      const limitAddresses = [];
+      const limitValues = [];
+
+      // Transform inputs for the transactions
+      each(uploaded, ({ accredited, nonAccreditedLimit, address }) => {
+        if (typeof accredited === 'boolean') {
+          statusAddresses.push(address);
+          statusValues.push(accredited);
+        }
+        if (nonAccreditedLimit !== null) {
+          limitAddresses.push(address);
+          limitValues.push(nonAccreditedLimit);
+        }
+      });
+
+      if (statusAddresses.length) {
+        titles.push('Updating accredited investors');
+        transactions.push(() =>
+          sto.contract.changeAccredited(statusAddresses, statusValues)
+        );
+      }
+
+      if (limitAddresses.length) {
+        titles.push('Updating non-accredited investors limits');
+        transactions.push(() =>
+          sto.contract.changeNonAccreditedLimit(limitAddresses, limitValues)
+        );
+      }
+    }
+  } else {
+    /**
+     * 3.0
+     */
+    let addresses: Array<string> = [];
+    let flags: Array<number> = [];
+    let values: Array<boolean> = [];
+    for (let investor of whitelistItems) {
+      if (typeof investor.canBuyFromSTO === 'boolean') {
+        addresses.push(investor.address); // $FlowFixMe
+        flags.push(1); // 1 = 'canNotBuyFromSto'
+        // We're negating the value because 3.0 flag is negated too (ie can NOT buy from STO).
+        values.push(!investor.canBuyFromSTO);
+      }
+      if (typeof investor.accredited === 'boolean') {
+        addresses.push(investor.address); // $FlowFixMe
+        flags.push(1); // 0 = 'isAccredited'
+        values.push(investor.accredited);
+      }
+    }
+
+    if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
+      const limitAddresses = [];
+      const limitValues = [];
+
+      // Transform inputs for the transactions
+      each(uploaded, ({ accredited, nonAccreditedLimit, address }) => {
+        if (nonAccreditedLimit !== null) {
+          limitAddresses.push(address);
+          limitValues.push(nonAccreditedLimit);
+        }
+      });
+
+      if (limitAddresses.length) {
+        titles.push('Updating non-accredited investors limits');
+        transactions.push(() =>
+          sto.contract.changeNonAccreditedLimit(limitAddresses, limitValues)
+        );
+      }
+    }
+
+    if (addresses.length) {
+      titles.push('Modifying Investor Flags');
+      transactions.push(() =>
+        transferManager.modifyInvestorFlagMulti(addresses, flags, values)
+      );
+    }
   }
 
   dispatch(
     ui.tx(
       titles,
       async () => {
-        await transferManager.modifyWhitelistMulti(whitelistItems);
-        if (!isPercentageDisabled) {
-          // $FlowFixMe
-          await percentageTM.modifyWhitelistMulti(whitelistItems);
-        }
-        if (setAccreditedInvestorsData) {
-          const statusAddresses = [];
-          const statusValues = [];
-          const limitAddresses = [];
-          const limitValues = [];
-
-          // Transform inputs for the transactions
-          each(uploaded, ({ accredited, nonAccreditedLimit, address }) => {
-            if (typeof accredited === 'boolean') {
-              statusAddresses.push(address);
-              statusValues.push(accredited);
-            }
-            if (nonAccreditedLimit !== null) {
-              limitAddresses.push(address);
-              limitValues.push(nonAccreditedLimit);
-            }
-          });
-
-          await sto.contract.changeAccredited(statusAddresses, statusValues);
-
-          await sto.contract.changeNonAccreditedLimit(
-            limitAddresses,
-            limitValues
-          );
+        for (const transaction of transactions) {
+          await transaction();
         }
       },
       'Investors have been added successfully',
@@ -228,7 +294,7 @@ export const exportWhitelist = () => async (
     if (percentageTM) {
       const percentages = await percentageTM.getWhitelist();
       for (let i = 0; i < investors.length; i++) {
-        for (let percentage: Investor of percentages) {
+        for (let percentage of percentages) {
           if (investors[i].address === percentage.address) {
             investors[i].isPercentage = percentage.isPercentage;
           }
@@ -295,10 +361,10 @@ export const addInvestor = () => async (
         ...(values.isPercentage ? ['Setting ownership restriction'] : []),
       ],
       async () => {
-        await transferManager.modifyWhitelist(investor);
+        await transferManager.modifyKYCData(investor);
         if (values.isPercentage) {
           investor.isPercentage = true; // $FlowFixMe
-          await percentageTM.modifyWhitelist(investor);
+          await percentageTM.modifyKYCData(investor);
         }
       },
       'Investor has been added successfully',
@@ -345,7 +411,7 @@ export const editInvestors = (addresses: Array<Address>) => async (
         ...(!isPercentageDisabled ? ['Updating ownership restrictions'] : []),
       ],
       async () => {
-        await transferManager.modifyWhitelistMulti(investors);
+        await transferManager.modifyKYCDataMulti(investors);
         if (!isPercentageDisabled) {
           // $FlowFixMe
           await percentageTM.modifyWhitelistMulti(investors);
@@ -384,7 +450,7 @@ export const removeInvestors = (addresses: Array<Address>) => async (
     ui.tx(
       `Removing investor${plural}`,
       async () => {
-        await transferManager.modifyWhitelistMulti(investors);
+        await transferManager.modifyKYCDataMulti(investors);
       },
       `Investor${plural} has been removed successfully`,
       () => {

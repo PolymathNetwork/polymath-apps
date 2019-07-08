@@ -1,4 +1,4 @@
-// tslint:disable
+// eslint:disable
 export const PolyTokenAbi = {
   contractName: 'PolyToken',
   abi: [

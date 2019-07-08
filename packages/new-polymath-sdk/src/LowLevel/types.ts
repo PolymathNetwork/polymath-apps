@@ -45,6 +45,16 @@ export enum DividendModuleTypes {
   Eth = 'eth',
 }
 
+export enum StoModuleTypes {
+  Capped = 'capped',
+  UsdTiered = 'usdTiered',
+}
+
+export enum StoModuleNames {
+  Capped = 'CappedSTO',
+  UsdTiered = 'USDTieredSTO',
+}
+
 export enum ModuleTypes {
   Permission = 1,
   Transfer,
@@ -85,6 +95,22 @@ export interface InvestorBalance {
   balance: BigNumber;
 }
 
+export interface CappedStoInvestment {
+  address: string;
+  tokenAmount: BigNumber;
+  investedFunds: BigNumber;
+  index: number;
+}
+
+// NOTE @monitz87: this is left as a separate type in case we wish
+// to include other information in the future (such as the tier price and tier index)
+export interface UsdTieredStoInvestment {
+  address: string;
+  tokenAmount: BigNumber;
+  investedFunds: BigNumber;
+  index: number;
+}
+
 export interface Checkpoint {
   index: number;
   investorBalances: InvestorBalance[];
@@ -104,7 +130,7 @@ export interface GetExclusionListArgs {
 }
 
 export interface GetTaxWithholdingListArgs {
-  checkpointIndex: number;
+  checkpointId: number;
 }
 
 export interface GetDividendInvestorsArgs {
@@ -112,7 +138,7 @@ export interface GetDividendInvestorsArgs {
 }
 
 export interface GetDividendsByCheckpointArgs {
-  checkpointIndex: number;
+  checkpointId: number;
 }
 
 export interface GetDividendArgs {
@@ -196,6 +222,7 @@ export interface ApproveArgs {
   spender: string;
   amount: BigNumber;
   symbol: string | null;
+  owner?: string;
 }
 
 export interface AddDividendsModuleArgs {
@@ -203,7 +230,11 @@ export interface AddDividendsModuleArgs {
   wallet: string;
 }
 
-export interface GetModuleAddressArgs {
+export interface GetFirstUnarchivedModuleAddressArgs {
+  name: string;
+}
+
+export interface GetUnarchivedModuleAddressesArgs {
   name: string;
 }
 
@@ -217,7 +248,7 @@ export interface RegisterTickerArgs {
   tokenName: string;
 }
 
-export interface GenerateSecurityTokenArgs {
+export interface GenerateNewSecurityTokenArgs {
   tokenName: string;
   ticker: string;
   tokenDetails: string;
@@ -226,4 +257,60 @@ export interface GenerateSecurityTokenArgs {
 
 export interface GetSecurityTokenArgs {
   ticker: string;
+}
+
+export enum FundraiseTypes {
+  Poly = 'poly',
+  Usd = 'usd',
+  Ether = 'eth',
+}
+
+export interface GetTickerDetailsArgs {
+  ticker: string;
+}
+
+export interface IsTickerAvailableArgs {
+  ticker: string;
+}
+
+export interface AddDelegateArgs {
+  delegate: string;
+  details?: string;
+}
+
+export interface ChangePermissionArgs {
+  delegate: string;
+  module: string;
+  perm: string;
+  isGranted: boolean;
+}
+
+export interface GetAllDelegatesWithPermArgs {
+  module: string;
+  perm: string;
+}
+
+export interface TokenControllerTransferArgs {
+  from: string;
+  to: string;
+  value: BigNumber;
+  data: string;
+  log: string;
+}
+
+export interface TokenSetControllerArgs {
+  controller: string;
+}
+
+export interface GetStoModuleArgs {
+  address: string;
+}
+
+export enum NetworkIds {
+  Local = 15,
+  LocalVm = 16,
+  Kovan = 42,
+  Mainnet = 1,
+  Ropsten = 3,
+  Rinkeby = 4,
 }

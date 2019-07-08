@@ -1,79 +1,112 @@
-import { Polymath } from '~/Polymath';
+import { Polymath } from '../Polymath';
 import { Entity } from './Entity';
-import { serialize } from '~/utils';
-import { DividendModuleTypes } from '~/types';
+import { serialize, unserialize } from '../utils';
+import { DividendModuleTypes, isDividendModuleTypes } from '../types';
 
-interface Params {
-  securityTokenSymbol: string;
-  securityTokenId: string;
+interface UniqueIdentifiers {
+  symbol: string;
+  checkpointId: number;
   dividendType: DividendModuleTypes;
   investorAddress: string;
+}
+
+function isUniqueIdentifiers(
+  identifiers: any
+): identifiers is UniqueIdentifiers {
+  const { symbol, dividendType, investorAddress, checkpointId } = identifiers;
+
+  return (
+    typeof symbol === 'string' &&
+    isDividendModuleTypes(dividendType) &&
+    typeof investorAddress === 'string' &&
+    typeof checkpointId === 'number'
+  );
+}
+
+interface Params extends UniqueIdentifiers {
+  symbol: string;
+  checkpointId: number;
   percentage: number;
 }
 
 export class TaxWithholding extends Entity {
   public static generateId({
-    securityTokenSymbol,
+    symbol,
     dividendType,
     investorAddress,
-  }: {
-    securityTokenSymbol: string;
-    dividendType: DividendModuleTypes;
-    investorAddress: string;
-  }) {
+    checkpointId,
+  }: UniqueIdentifiers) {
     return serialize('taxWithholding', {
-      securityTokenSymbol,
+      symbol,
       dividendType,
       investorAddress,
+      checkpointId,
     });
   }
+
+  public static unserialize(serialized: string) {
+    const unserialized = unserialize(serialized);
+
+    if (!isUniqueIdentifiers(unserialized)) {
+      throw new Error('Wrong tax withholding ID format.');
+    }
+
+    return unserialized;
+  }
+
   public uid: string;
-  public securityTokenSymbol: string;
-  public securityTokenId: string;
+
+  public symbol: string;
+
   public dividendType: DividendModuleTypes;
+
   public investorAddress: string;
+
+  public checkpointId: number;
+
   public percentage: number;
 
   constructor(params: Params, polyClient?: Polymath) {
     super(polyClient);
 
     const {
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       dividendType,
       investorAddress,
       percentage,
+      checkpointId,
     } = params;
 
-    this.securityTokenId = securityTokenId;
-    this.securityTokenSymbol = securityTokenSymbol;
+    this.symbol = symbol;
     this.dividendType = dividendType;
     this.investorAddress = investorAddress;
     this.percentage = percentage;
+    this.checkpointId = checkpointId;
     this.uid = TaxWithholding.generateId({
-      securityTokenSymbol,
+      symbol,
       investorAddress,
       dividendType,
+      checkpointId,
     });
   }
 
   public toPojo() {
     const {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       dividendType,
       investorAddress,
       percentage,
+      checkpointId,
     } = this;
 
     return {
       uid,
-      securityTokenId,
-      securityTokenSymbol,
+      symbol,
       dividendType,
       investorAddress,
       percentage,
+      checkpointId,
     };
   }
 }

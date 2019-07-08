@@ -1,9 +1,15 @@
 import { Procedure } from './Procedure';
-import { types } from '@polymathnetwork/new-shared';
-import { CreateCheckpointProcedureArgs } from '~/types';
+import {
+  CreateCheckpointProcedureArgs,
+  ProcedureTypes,
+  PolyTransactionTags,
+  ErrorCodes,
+} from '../types';
+import { PolymathError } from '../PolymathError';
 
 export class CreateCheckpoint extends Procedure<CreateCheckpointProcedureArgs> {
-  public type = types.ProcedureTypes.CreateCheckpoint;
+  public type = ProcedureTypes.CreateCheckpoint;
+
   public async prepareTransactions() {
     const { symbol } = this.args;
     const { securityTokenRegistry } = this.context;
@@ -12,10 +18,17 @@ export class CreateCheckpoint extends Procedure<CreateCheckpointProcedureArgs> {
       ticker: symbol,
     });
 
-    const checkpointIndex = await this.addTransaction(
+    if (!securityToken) {
+      throw new PolymathError({
+        code: ErrorCodes.ProcedureValidationError,
+        message: `There is no Security Token with symbol ${symbol}`,
+      });
+    }
+
+    const checkpointId = await this.addTransaction(
       securityToken.createCheckpoint,
       {
-        tag: types.PolyTransactionTags.CreateCheckpoint,
+        tag: PolyTransactionTags.CreateCheckpoint,
         // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
         // the contract-wrappers package
         resolver: async receipt => {
@@ -36,6 +49,6 @@ export class CreateCheckpoint extends Procedure<CreateCheckpointProcedureArgs> {
       }
     )();
 
-    return checkpointIndex;
+    return checkpointId;
   }
 }
