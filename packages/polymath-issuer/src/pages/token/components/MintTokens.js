@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import semver from 'semver';
 import { Remark, addressShortifier, confirm } from '@polymathnetwork/ui';
 import {
   Icon,
@@ -52,6 +53,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   token: state.token,
   pui: state.pui,
   stage: state.sto.stage,
+  version: state.token.token.contract.version,
 });
 
 const mapDispatchToProps = {
@@ -223,8 +225,12 @@ class MintTokens extends Component<Props> {
       isInvalid,
       isTransfersPaused,
       stage,
+      version,
     } = this.props;
-    const stoInProgress = stage === STAGE_OVERVIEW;
+
+    // NOTE: minting 3.x tokens is possible while an STO is in progress.
+    const sto2xInProgress =
+      stage === STAGE_OVERVIEW && semver.lt(version, '3.0.0');
 
     return (
       <div className="mint-tokens-wrapper">
@@ -271,7 +277,8 @@ class MintTokens extends Component<Props> {
             <br />• Number of tokens to mint for the ETH address (integer).
             <br />
             <Remark title="Note">
-              Your file cannot exceed 40 addresses. If you have more than 40 addresses on your whitelist, upload multiple files.
+              Your file cannot exceed 40 addresses. If you have more than 40
+              addresses on your whitelist, upload multiple files.
             </Remark>
           </h4>
           <h5 className="pui-h5">
@@ -283,7 +290,7 @@ class MintTokens extends Component<Props> {
             </a>
             &nbsp;&nbsp;file and edit it.
           </h5>
-          {stoInProgress || isTransfersPaused ? (
+          {sto2xInProgress || isTransfersPaused ? (
             <InlineNotification
               hideCloseButton
               title="Minting is disabled"
@@ -302,7 +309,7 @@ class MintTokens extends Component<Props> {
             buttonLabel="Upload File"
             onChange={this.handleUploaded}
             className={classNames('file-uploader', {
-              disabled: stoInProgress || isTransfersPaused,
+              disabled: sto2xInProgress || isTransfersPaused,
             })}
             accept={['.csv']}
             buttonKind="secondary"
@@ -336,7 +343,7 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            disabled={!isReady || stoInProgress || isInvalidFormat}
+            disabled={!isReady || sto2xInProgress || isInvalidFormat}
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"
@@ -347,7 +354,7 @@ class MintTokens extends Component<Props> {
           <Button
             type="submit"
             kind="secondary"
-            disabled={stoInProgress}
+            disabled={sto2xInProgress}
             onClick={this.handleSkip}
             style={{ marginTop: '10px', marginLeft: '15px' }}
             className="skip-minting-btn"
