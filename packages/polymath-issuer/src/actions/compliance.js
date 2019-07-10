@@ -222,7 +222,7 @@ export const importWhitelist = () => async (
       }
       if (typeof investor.accredited === 'boolean') {
         addresses.push(investor.address); // $FlowFixMe
-        flags.push(1); // 0 = 'isAccredited'
+        flags.push(0); // 0 = 'isAccredited'
         values.push(investor.accredited);
       }
     }
