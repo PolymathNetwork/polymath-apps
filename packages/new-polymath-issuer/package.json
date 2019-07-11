@@ -109,7 +109,7 @@
     "interpolate-html-plugin": "^3.0.0",
     "jest": "^24.1.0",
     "jest-dom": "^3.0.0",
-    "lodash": "^4.17.11",
+    "lodash": "4.17.14",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "react-dev-utils": "^6.1.1",
