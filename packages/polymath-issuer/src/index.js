@@ -27,7 +27,7 @@ const redirectors = [
       return `/securityTokens/${symbol}/dividends`;
     },
   },
-  
+
   */
   // {
   //   pattern: /securityTokens\/(.+)\/checkpoints\/(.+)\/dividends\/new/,
