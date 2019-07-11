@@ -43,7 +43,7 @@
     "build:issuer": "lerna run --stream --scope=@polymathnetwork/issuer build",
     "build:new-issuer": "lerna run --stream --scope=@polymathnetwork/new-issuer build",
     "build:libs": "lerna run --parallel --stream --scope=@polymathnetwork/{auth,ui,js} build",
-    "build:heroku-apps": "lerna run --parallel --stream --scope=@polymathnetwork/{issuer,offchain} build",
+    "build:heroku-apps": "./heroku.build",
     "build:ui-website-backup": "lerna run --parallel --stream --scope=@polymathnetwork/ui build:website",
     "build:ui-website": "echo \"skipping docz site until fixed.\"",
     "build:contract-docs": "lerna run --scope=@polymathnetwork/polymath-scripts build:contract-docs",
