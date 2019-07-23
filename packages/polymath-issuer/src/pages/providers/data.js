@@ -634,6 +634,16 @@ const providers: Array<ServiceProvider> = [
     wallet balancing and clearing of stablecoin trades. DAVOS operations are designed according to ISO 27001 standard and located \
     in a high-security vault in Singapore. ',
   },
+  {
+    id: 49,
+    cat: 4,
+    title: 'Formosa Financial',
+    logo: '/providers/custody/formosa.png',
+    background: '/providers/custody/bg/img-formosa.png',
+    desc:
+      'Formosa Financial provides an integrated treasury management solution with insured multi-sig custody \
+      and crypto-to-fiat brokerage services.',
+  },
 
   // TOKEN SALE PLATFORMS
   {

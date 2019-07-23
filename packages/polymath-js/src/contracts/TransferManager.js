@@ -4,6 +4,7 @@ import semver from 'semver';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/GeneralTransferManager.json';
 import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/GeneralTransferManager.json';
 import { LATEST_PROTOCOL_VERSION } from '../constants';
+import Web3 from 'web3';
 
 import Contract from './Contract';
 import type { Address, Investor, Web3Receipt } from '../types';
@@ -60,6 +61,12 @@ export default class TransferManager extends Contract {
     }
 
     return removeZeroTimestampArray;
+  }
+
+  _mapFlagKeyToLabel(flag: number): string {
+    const map = ['accredited', 'canBuyFromSTO', 'isVolRestricted'];
+
+    return map[flag];
   }
 
   async modifyWhitelist(investor: Investor): Promise<Web3Receipt> {
@@ -222,6 +229,35 @@ export default class TransferManager extends Contract {
         expiry: this._toDate(event.returnValues._expiryTime),
       });
     }
-    return this._mapLogsToInvestors(logs);
+    const investors = this._mapLogsToInvestors(logs);
+
+    // Supplement investors with investor flags (v3.x).
+    let allInvestorFlagData = await this._methods.getAllInvestorFlags().call();
+    let investorsArray = allInvestorFlagData.investors;
+    let flagsArray = allInvestorFlagData.flags;
+    for (let i = 0; i < investorsArray.length; i++) {
+      // Locate the investor object to update.
+      const x = investors.findIndex(
+        investor => investor.address === investorsArray[i]
+      );
+
+      let flags = new Web3.utils.BN(flagsArray[i]);
+      let flagNumbers = [];
+      // Decode investor flags. flags variable is a uint256 representation of the flags, where
+      // each bit represents an active flag.
+      for (let j = 0; j < 256; j++) {
+        if (flags.testn(j)) {
+          flagNumbers.push(j);
+          const key = this._mapFlagKeyToLabel(j);
+          investors[x][key] = true;
+        }
+        investors[x].canBuyFromSTO =
+          investors[x].canBuyFromSTO === undefined
+            ? true
+            : !investors[x].canBuyFromSTO;
+      }
+    }
+
+    return investors;
   }
 }

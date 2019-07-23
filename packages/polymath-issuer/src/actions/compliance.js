@@ -305,11 +305,6 @@ export const exportWhitelist = () => async (
     // eslint-disable-next-line max-len
     let csvContent =
       'ETH Address,Sell Restriction Date,Buy Restriction Date,KYC/AML Expiry Date,Can Buy From STO,Exempt From % Ownership,Is Accredited,Non-Accredited Limit';
-
-    if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
-      csvContent += ',Is Accredited,Non-Accredited Limit';
-    }
-
     investors.forEach((investor: Investor) => {
       csvContent +=
         '\r\n' +
@@ -324,6 +319,10 @@ export const exportWhitelist = () => async (
           moment(investor.expiry).format('MM/DD/YYYY'),
           investor.canBuyFromSTO ? 'true' : '',
           investor.isPercentage ? 'true' : '',
+          investor.accredited ? 'true' : '',
+          investor.nonAccreditedLimit
+            ? investor.nonAccreditedLimit.toString()
+            : '',
         ].join(',');
     });
 
