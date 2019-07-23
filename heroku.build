@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+usage() {
+  echo "OVERVIEW: Build apps according to BUILD_ENV value. Meant to be used for Heroku deployment"
+  exit
+}
+
+if [ "$1" = '-h' ] || [ "$1" = '--help' ]; then
+  usage
+fi
+
+  echo $BUILD_ENV
+
+  if [ "$BUILD_ENV" = "issuer-web" ]; then
+    lerna run --parallel --stream --scope=@polymathnetwork/issuer build
+  elif [ "$BUILD_ENV" = "issuer-api" ]; then
+    lerna run --parallel --stream --scope=@polymathnetwork/offchain build
+  else
+    echo "Error: no build config for INATO_BUILD_ENV value '$INATO_BUILD_ENV'"
+    exit 1
+  fi
