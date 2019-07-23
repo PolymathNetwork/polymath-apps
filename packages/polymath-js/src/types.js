@@ -1,9 +1,8 @@
 // @flow
 
 import BigNumber from 'bignumber.js';
-
 import SecurityTokenContract from './contracts/SecurityToken';
-
+import type { BigNumberType } from 'bignumber.js';
 /**
  * CORE TYPES
  */
@@ -145,5 +144,7 @@ export type Investor = {|
   addedBy?: Address,
   canBuyFromSTO?: boolean,
   isPercentage?: boolean,
+  accredited?: boolean,
+  nonAccreditedLimit?: string,
   minted?: BigNumber,
 |};

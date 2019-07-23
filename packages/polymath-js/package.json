@@ -46,6 +46,7 @@
     "@polymathnetwork/shared": "0.0.0",
     "bignumber.js": "5.0.0",
     "bs58": "^4.0.1",
+    "lodash": "4.17.14",
     "redux": "3.7.2",
     "redux-thunk": "2.2.0",
     "web3": "1.0.0-beta.30"
