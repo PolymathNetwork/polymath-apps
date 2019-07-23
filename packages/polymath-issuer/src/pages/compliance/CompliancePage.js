@@ -1,63 +1,62 @@
 // @flow
 /* eslint-disable react/jsx-no-bind, react/no-unused-state */ // TODO @bshevchenko
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { reset } from 'redux-form';
-import { BigNumber } from 'bignumber.js';
 import {
-  Page,
-  etherscanAddress,
   addressShortifier,
   confirm,
+  etherscanAddress,
   NotFoundPage,
+  Page,
+  Grid,
 } from '@polymathnetwork/ui';
+import { BigNumber } from 'bignumber.js';
 import {
   Button,
   DataTable,
-  // PaginationV2,
-  Modal,
   // DatePicker,
   // DatePickerInput,
   Icon,
   InlineNotification,
-  Toggle,
-  TextInput,
+  // PaginationV2,
+  Modal,
   OverflowMenu,
   OverflowMenuItem,
+  TextInput,
+  Toggle,
 } from 'carbon-components-react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { reset } from 'redux-form';
+import {
+  addInvestor,
+  disableOwnershipRestrictions,
+  editInvestors,
+  enableOwnershipRestrictions,
+  exportWhitelist,
+  fetchWhitelist,
+  importWhitelist,
+  listLength,
+  PERMANENT_LOCKUP_TS,
+  removeInvestors,
+  resetUploaded,
+  toggleFreeze,
+  updateOwnershipPercentage,
+} from '../../actions/compliance';
+import Progress from '../token/components/Progress';
+import AddInvestorForm, {
+  formName as addInvestorFormName,
+} from './components/AddInvestorForm';
+import { formName as editInvestorsFormName } from './components/EditInvestorsForm';
+import ImportWhitelistModal from './components/ImportWhitelistModal';
+import './style.scss';
 import type {
   Investor,
   Address,
   SecurityToken,
 } from '@polymathnetwork/js/types';
 
-import Progress from '../token/components/Progress';
-import {
-  importWhitelist,
-  exportWhitelist,
-  addInvestor,
-  fetchWhitelist,
-  listLength,
-  removeInvestors,
-  editInvestors,
-  resetUploaded,
-  disableOwnershipRestrictions,
-  enableOwnershipRestrictions,
-  updateOwnershipPercentage,
-  PERMANENT_LOCKUP_TS,
-  toggleFreeze,
-} from '../../actions/compliance';
-import AddInvestorForm, {
-  formName as addInvestorFormName,
-} from './components/AddInvestorForm';
-import { formName as editInvestorsFormName } from './components/EditInvestorsForm';
-import ImportWhitelistModal from './components/ImportWhitelistModal';
-
 import type { RootState } from '../../redux/reducer';
 import type { InvestorCSVRow } from '../../actions/compliance';
-
-import './style.scss';
 
 const {
   Table,
@@ -617,16 +616,48 @@ class CompliancePage extends Component<Props, State> {
     // const paginatedRows = this.paginationRendering()
     return (
       <Page title="Compliance – Polymath">
-        <div id="compliance">
-          <Progress />
-          <h1 className="pui-h1">Token Whitelist</h1>
-          <h3 className="pui-h3">
-            Whitelisted addresses may hold, buy, or sell the security token and
-            may participate into the STO. <br /> Security token buy/sell
-            operations may be subject to restrictions.
-          </h3>
-          <br />
+        <Progress />
+        <Grid>
+          <Grid.Row>
+            <Grid.Col>
+              <h1 className="pui-h1">Token Whitelist</h1>
+              <h3 className="pui-h3">
+                Whitelisted addresses may hold, buy, or sell the security token
+                and may participate into the STO. <br /> Security token buy/sell
+                operations may be subject to restrictions.
+              </h3>
+            </Grid.Col>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Col>
+              <Button
+                icon="upload"
+                onClick={this.handleImportModalOpen}
+                className="import-whitelist-btn"
+              >
+                Import Whitelist
+              </Button>
+            </Grid.Col>
+            <Grid.Col>
+              <ImportWhitelistModal
+                isOpen={this.state.isImportModalOpen}
+                onSubmit={this.handleImport}
+                onClose={this.handleImportModalClose}
+              />
 
+              <Button
+                icon="download"
+                kind="secondary"
+                onClick={this.handleExport}
+                className="import-whitelist-btn"
+              >
+                Export Whitelist
+              </Button>
+            </Grid.Col>
+          </Grid.Row>
+        </Grid>
+        <div id="compliance">
+          <br />
           <div className="pui-page-box compliance-form">
             <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
               <OverflowMenuItem
@@ -717,31 +748,9 @@ class CompliancePage extends Component<Props, State> {
                 </div>
               </div>
             </div>
-
-            <Button
-              icon="upload"
-              onClick={this.handleImportModalOpen}
-              className="import-whitelist-btn"
-            >
-              Import Whitelist
-            </Button>
-            <ImportWhitelistModal
-              isOpen={this.state.isImportModalOpen}
-              onSubmit={this.handleImport}
-              onClose={this.handleImportModalClose}
-            />
-
-            <Button
-              icon="download"
-              kind="secondary"
-              onClick={this.handleExport}
-              className="import-whitelist-btn"
-            >
-              Export Whitelist
-            </Button>
             <div className="pui-clearfix" />
           </div>
-
+          <div className="pui-page-box compliance-form" />
           {/*
             <DataTable
               rows={paginatedRows}
