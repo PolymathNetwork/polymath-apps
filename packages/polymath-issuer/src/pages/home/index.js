@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { PageCentered, Button } from '@polymathnetwork/ui';
+import { PageCentered, Button, Toaster, notify } from '@polymathnetwork/ui';
+import { connect } from 'react-redux';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
+  componentDidMount() {
+    this.props.dispatch(
+      notify(
+        'Polymath is performing a system upgrade to the ERC-1400 Security Token Standard on Monday, July 29th. Please expect the Token Studio to be offline.',
+        false,
+        '',
+        '',
+        true
+      )
+    );
+  }
   render() {
     return (
       <PageCentered title="Polymath" justifyContent="start">
+        <Toaster />
         <div className="splash-background-pattern" />
         <div className="splash-background" />
         <div>
@@ -33,3 +46,5 @@ export default class HomePage extends Component {
     );
   }
 }
+
+export default connect()(HomePage);
