@@ -16,6 +16,7 @@ import {
   Footer,
   EnterPINModal,
   StickyTop,
+  notify,
 } from '@polymathnetwork/ui';
 
 import { getMyTokens } from '../actions/ticker';
@@ -42,6 +43,7 @@ type DispatchProps = {|
   signIn: () => any,
   getMyTokens: () => any,
   getNotice: (scope: string) => any,
+  notify: (title: string, isSuccess: boolean, '', '', isPinned: boolean) => any,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
@@ -63,6 +65,7 @@ const mapDispatchToProps: DispatchProps = {
   signIn,
   getMyTokens,
   getNotice,
+  notify,
 };
 
 type Props = {|
@@ -78,6 +81,13 @@ class App extends Component<Props> {
 
   componentDidMount() {
     this.props.signIn();
+    this.props.notify(
+      'Polymath is performing a system upgrade to the ERC-1400 Security Token Standard on Monday, July 29th. Please expect the Token Studio to be offline.',
+      false,
+      '',
+      '',
+      true
+    );
   }
 
   onAuthFail = () => {
