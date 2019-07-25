@@ -389,7 +389,7 @@ const providers: Array<ServiceProvider> = [
   {
     id: 48,
     cat: 1,
-    title: 'IBL',
+    title: 'International Blockchain Legal LLP',
     logo: '/providers/legal/iblpartners.png',
     background: '/providers/legal/bg/img-iblpartners.png',
     desc:
