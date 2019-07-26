@@ -232,18 +232,22 @@ export const applyHandler = async (ctx: Context) => {
     DEPLOYMENT_STAGE === 'production' &&
     NETWORKS[networkId].name === 'mainnet'
   ) {
-    // Send emails to all selected providers
-    const providers = await Provider.find({ id: { $in: ids } });
-    for (let provider of providers) {
-      const { name: providerName, email: providerEmail } = provider;
-      await sendProviderApplicationEmail(
-        providerEmail,
-        providerName,
-        userName,
-        userEmail,
-        application,
-        false
-      );
+    try {
+      // Send emails to all selected providers
+      const providers = await Provider.find({ id: { $in: ids } });
+      for (let provider of providers) {
+        const { name: providerName, email: providerEmail } = provider;
+        await sendProviderApplicationEmail(
+          providerEmail,
+          providerName,
+          userName,
+          userEmail,
+          application,
+          false
+        );
+      }
+    } catch (error) {
+      console.error('Sendgrid error:', error);
     }
   } else {
     // Send dummy email to the issuer instead of the provider
