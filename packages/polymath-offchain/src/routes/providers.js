@@ -227,12 +227,12 @@ export const applyHandler = async (ctx: Context) => {
     otherDetails,
   };
 
-  const { name: userName, email: userEmail } = user;
-  if (
-    DEPLOYMENT_STAGE === 'production' &&
-    NETWORKS[networkId].name === 'mainnet'
-  ) {
-    try {
+  try {
+    const { name: userName, email: userEmail } = user;
+    if (
+      DEPLOYMENT_STAGE === 'production' &&
+      NETWORKS[networkId].name === 'mainnet'
+    ) {
       // Send emails to all selected providers
       const providers = await Provider.find({ id: { $in: ids } });
       for (let provider of providers) {
@@ -246,19 +246,19 @@ export const applyHandler = async (ctx: Context) => {
           false
         );
       }
-    } catch (error) {
-      console.error('Sendgrid error:', error);
+    } else {
+      // Send dummy email to the issuer instead of the provider
+      await sendProviderApplicationEmail(
+        userEmail,
+        userName,
+        userName,
+        userEmail,
+        application,
+        true
+      );
     }
-  } else {
-    // Send dummy email to the issuer instead of the provider
-    await sendProviderApplicationEmail(
-      userEmail,
-      userName,
-      userName,
-      userEmail,
-      application,
-      true
-    );
+  } catch (error) {
+    console.error('Sendgrid error:', error);
   }
 
   ctx.body = {
