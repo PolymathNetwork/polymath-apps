@@ -81,13 +81,6 @@ class App extends Component<Props> {
 
   componentDidMount() {
     this.props.signIn();
-    this.props.notify(
-      'Polymath is performing a system upgrade to the ERC-1400 Security Token Standard on Monday, July 29th. Please expect the Token Studio to be offline.',
-      false,
-      '',
-      '',
-      true
-    );
   }
 
   onAuthFail = () => {
