@@ -258,7 +258,7 @@ export const applyHandler = async (ctx: Context) => {
       );
     }
   } catch (error) {
-    console.error('Sendgrid error:', error);
+    console.error('Sendgrid error:', error, error.response.body.errors);
   }
 
   ctx.body = {
