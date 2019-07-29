@@ -4,17 +4,6 @@ import { PageCentered, Button, Toaster, notify } from '@polymathnetwork/ui';
 import { connect } from 'react-redux';
 
 class HomePage extends Component {
-  componentDidMount() {
-    this.props.dispatch(
-      notify(
-        'Polymath is performing a system upgrade to the ERC-1400 Security Token Standard on Monday, July 29th. Please expect the Token Studio to be offline.',
-        false,
-        '',
-        '',
-        true
-      )
-    );
-  }
   render() {
     return (
       <PageCentered title="Polymath" justifyContent="start">
