@@ -11,7 +11,7 @@ import logger from 'winston';
 import Web3 from 'web3';
 import { User } from '../models';
 import PolymathRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json';
-import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityTokenRegistry.json';
+import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
 import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
 import CappedSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
 import STOModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
@@ -512,6 +512,10 @@ export const addTokenCreateListener = async (networkId: string) => {
     newSecurityTokenHandler(contract, networkId, error, result)
   );
 
+  contract.events.SecurityTokenRefreshed({}, (error, result) =>
+    newSecurityTokenHandler(contract, networkId, error, result)
+  );
+
   logger.info(
     `[SETUP] Listening for Security Token deployments in ${NETWORKS[
       networkId
@@ -526,14 +530,17 @@ export const addTokenCreateListener = async (networkId: string) => {
 export const addSTOListeners = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
   try {
-    const previousTokenEvents = await contract.getPastEvents(
-      'NewSecurityToken',
-      {
-        fromBlock: 0,
-        toBlock: 'latest',
-      }
-    );
+    let newSTs = await contract.getPastEvents('NewSecurityToken', {
+      fromBlock: 0,
+      toBlock: 'latest',
+    });
 
+    let refreshedSTs = await contract.getPastEvents('SecurityTokenRefreshed', {
+      fromBlock: 0,
+      toBlock: 'latest',
+    });
+
+    const previousTokenEvents = [...newSTs, ...refreshedSTs];
     for (let event of previousTokenEvents) {
       const {
         returnValues: { _securityTokenAddress, _ticker },

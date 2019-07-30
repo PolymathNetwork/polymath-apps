@@ -112,6 +112,7 @@ const contractMock = jest.fn().mockImplementation(() => {
       RegisterTicker: registerTickerListenerMock,
       ModuleAdded: moduleAddedListenerMock,
       NewSecurityToken: newSecurityTokenListenerMock,
+      SecurityTokenRefreshed: newSecurityTokenListenerMock,
     },
     getPastEvents: getPastEventsMock,
     methods: {
