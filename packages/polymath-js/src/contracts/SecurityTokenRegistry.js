@@ -24,6 +24,7 @@ import type {
 
 const NEW_SECURITY_TOKEN_EVENT = 'NewSecurityToken';
 const REGISTER_TICKER_EVENT = 'RegisterTicker';
+const REFRESHED_SECURITY_TOKEN_EVENT = 'SecurityTokenRefreshed';
 
 class SecurityTokenRegistry extends Contract {
   constructor(artifact: any, address: string) {
@@ -190,25 +191,28 @@ class SecurityTokenRegistry extends Contract {
       token.owner = await contract.owner();
 
       // get token issuing tx hash
+      const eventOpts = {
+        filter: { _securityTokenAddress: token.address },
+        fromBlock: 0,
+        toBlock: 'latest',
+      };
+
       let events = await this._contractWS.getPastEvents(
         NEW_SECURITY_TOKEN_EVENT,
-        {
-          filter: { _securityTokenAddress: token.address },
-          fromBlock: 0,
-          toBlock: 'latest',
-        }
+        eventOpts
+      );
+      const events3 = await this._contractWS.getPastEvents(
+        REFRESHED_SECURITY_TOKEN_EVENT,
+        eventOpts
       );
       if (semver.eq(this.version, LATEST_PROTOCOL_VERSION)) {
         const str2 = new SecurityTokenRegistry(artifact2, this.address);
         const events2 = await str2._contractWS.getPastEvents(
           NEW_SECURITY_TOKEN_EVENT,
-          {
-            filter: { _securityTokenAddress: token.address },
-            fromBlock: 0,
-            toBlock: 'latest',
-          }
+          eventOpts
         );
-        events = [...events, ...events2];
+
+        events = [...events, ...events2, ...events3];
       }
       token.txHash = events[0].transactionHash;
       token.timestamp = await this._getBlockDate(events[0].blockNumber);
