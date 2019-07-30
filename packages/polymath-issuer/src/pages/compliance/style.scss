@@ -1,20 +1,63 @@
 .compliance-form {
-  width: 60%;
+  width: 100%;
+
+  .whitelist-settings {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    > .bx--form-item {
+      //&:first-child {
+      //  max-width: 325px;
+      //}
+
+      &:last-child {
+        margin-bottom: 0 !important;
+        overflow: scroll;
+
+        .bx--form-item {
+          position: relative;
+          float: left;
+
+          input {
+            width: 84px;
+            min-width: 84px;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+          }
+
+          &:after {
+            content: '%';
+            position: absolute;
+            top: 13px;
+            left: 55px;
+            color: #8c9ba5;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
 
   .compliance-settings {
     display: flex;
+    flex-direction: row;
     margin-top: 20px;
     margin-bottom: 20px;
 
     > .bx--form-item {
-      max-width: 220px;
+      max-width: 300px;
 
       //&:first-child {
       //  max-width: 325px;
       //}
 
       &:last-child {
-        margin-top: -22px;
+        margin-top: -24px;
         margin-bottom: 0 !important;
         height: 100px;
 

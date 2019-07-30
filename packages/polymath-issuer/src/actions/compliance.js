@@ -39,6 +39,24 @@ export const listLength = (listLength: number) => ({
   listLength,
 });
 
+export const LOAD_MANAGERS = 'compliance/LOAD_MANAGERS';
+export const loadWhitelist = managers => ({
+  type: LOAD_MANAGERS,
+  managers,
+});
+
+export const ADD_MANAGER = 'compliance/ADD_MANAGER';
+export const addManager = manager => ({
+  type: ADD_MANAGER,
+  manager,
+});
+
+export const REMOVE_MANAGER = 'compliance/REMOVE_MANAGER';
+export const removeManager = id => ({
+  type: REMOVE_MANAGER,
+  id,
+});
+
 export const RESET_UPLOADED = 'compliance/RESET_UPLOADED';
 export const resetUploaded = () => ({ type: RESET_UPLOADED });
 
