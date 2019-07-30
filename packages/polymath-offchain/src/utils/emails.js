@@ -49,7 +49,13 @@ export const sendEmail = async (
     html: body,
   };
   if (SENDGRID_API_KEY) {
-    await sgMail.send(msg);
+    try {
+      await sgMail.send(msg);
+    } catch (error) {
+      logger.error('SendGrid error:', error.response.body.errors);
+      // Still throw the error in order to send it to Sentry.
+      throw error;
+    }
   } else {
     logger.warn('Not sending email since SENDGRID_API_KEY is not set.');
     logger.warn(JSON.stringify(msg));
