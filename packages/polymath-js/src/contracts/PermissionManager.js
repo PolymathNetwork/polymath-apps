@@ -18,4 +18,14 @@ export default class PermissionManager extends Contract {
     }
     version = version;
   }
+
+  async addDelegate(at: Address, details: string) {
+    return this._methods.addDelegate(at, this._toBytes(details)).call();
+  }
+
+  async getAllDelegates(permission: string) {
+    return this._methods
+      .getAllDelegatesWithPerm(this.address, this._toBytes(permission))
+      .call();
+  }
 }

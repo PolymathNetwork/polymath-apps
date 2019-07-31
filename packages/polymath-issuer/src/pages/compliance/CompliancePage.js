@@ -41,6 +41,7 @@ import {
   resetUploaded,
   toggleFreeze,
   updateOwnershipPercentage,
+  fetchManagers,
 } from '../../actions/compliance';
 import Progress from '../token/components/Progress';
 import AddInvestorForm, {
@@ -130,6 +131,7 @@ const mapDispatchToProps = {
   enableOwnershipRestrictions,
   updateOwnershipPercentage,
   toggleFreeze,
+  fetchManagers,
 };
 
 type Props = StateProps & DispatchProps;
@@ -181,6 +183,7 @@ class CompliancePage extends Component<Props, State> {
     if (this.props.percentage) {
       this.setState({ percentage: this.props.percentage });
     }
+    this.props.fetchManagers();
     // TODO: check redux for whitelist enable
   }
 

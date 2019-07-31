@@ -62,12 +62,10 @@ class WhitelistTable extends Component<Props, State> {
           headers={columns}
           rows={
             approvedManagers < 1
-              ? [{ address: '-', details: '-' }]
+              ? [{ id: '0', address: '-', details: '-' }]
               : approvedManagers
           }
           render={({ rows, headers, getHeaderProps }) => {
-            console.log(approvedManagers);
-            console.log(rows);
             return (
               <TableContainer title="">
                 <TableToolbar>

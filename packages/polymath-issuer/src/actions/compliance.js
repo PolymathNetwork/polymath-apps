@@ -57,6 +57,13 @@ export const removeManager = id => ({
   id,
 });
 
+export const TOGGLE_WHITELIST_MANAGEMENT =
+  'compliance/TOGGLE_WHITELIST_MANAGEMENT';
+export const toggleWhitelistManagement = (isToggled: boolean) => ({
+  type: TOGGLE_WHITELIST_MANAGEMENT,
+  isToggled,
+});
+
 export const RESET_UPLOADED = 'compliance/RESET_UPLOADED';
 export const resetUploaded = () => ({ type: RESET_UPLOADED });
 
@@ -76,6 +83,36 @@ export type InvestorCSVRow = [
   string,
   string,
 ];
+
+export const fetchManagers = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(ui.fetching());
+  // $FlowFixMe
+  const st: SecurityToken = getState().token.token.contract;
+  const permissionManager = await st.getPermissionManager();
+  console.log(permissionManager);
+  // console.log(permissionManager.getAllDelegates('CHANGE_PERMISSION'));
+
+  // const generalPermissionAddress = await st.getModuleByName("GeneralPermissionManager");
+  try {
+    if (permissionManager) {
+      console.log(
+        await permissionManager.addDelegate(
+          '0x821aEa9a577a9b44299B9c15c88cf3087F3b5544',
+          'This is some details'
+        )
+      );
+      dispatch(toggleWhitelistManagement(true));
+      // getAllDelegates
+    } else {
+      dispatch(toggleWhitelistManagement(false));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export const fetchWhitelist = () => async (
   dispatch: Function,
