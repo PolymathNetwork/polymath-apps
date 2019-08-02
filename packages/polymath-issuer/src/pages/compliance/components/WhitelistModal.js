@@ -14,7 +14,7 @@ import {
   TextInput,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
-import { addManager } from '../../../actions/compliance';
+import { addAddressToTransferManager } from '../../../actions/compliance';
 ('');
 
 type Props = {
@@ -63,9 +63,8 @@ const formikEnhancer = withFormik({
   validateOnChange: false,
   handleSubmit: (values, { props }) => {
     const { dispatch } = props;
-    console.log(values);
     props.handleClose();
-    dispatch(addManager({ address: values.address, details: values.details }));
+    dispatch(addAddressToTransferManager(values.address, values.details));
   },
 });
 

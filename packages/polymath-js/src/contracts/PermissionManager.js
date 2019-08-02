@@ -20,12 +20,33 @@ export default class PermissionManager extends Contract {
   }
 
   async addDelegate(at: Address, details: string) {
-    return this._methods.addDelegate(at, this._toBytes(details)).call();
+    return this._tx(this._methods.addDelegate(at, this._toBytes(details)));
   }
 
-  async getAllDelegates(permission: string) {
+  async getDelegateDetails(delegate: Address) {
+    let details = await this._methods.delegateDetails(delegate).call();
+    return this._toAscii(details);
+  }
+
+  async getAllDelegates(moduleAddress: Address, permission: string) {
     return this._methods
-      .getAllDelegatesWithPerm(this.address, this._toBytes(permission))
+      .getAllDelegatesWithPerm(moduleAddress, this._toBytes(permission))
       .call();
+  }
+
+  async changePermission(
+    delegate: Address,
+    moduleAddress: Address,
+    permission: string,
+    valid: boolean
+  ) {
+    return this._tx(
+      this._methods.changePermission(
+        delegate,
+        moduleAddress,
+        this._toBytes(permission),
+        valid
+      )
+    );
   }
 }

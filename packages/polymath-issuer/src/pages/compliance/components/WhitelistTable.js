@@ -1,11 +1,11 @@
 // @flow
 
 import React, { Component } from 'react';
-import { DataTable } from 'carbon-components-react';
+import { DataTable, Icon } from 'carbon-components-react';
 import { Button } from '@polymathnetwork/ui';
 import WhitelistModal from './WhitelistModal';
 import { connect } from 'react-redux';
-import { addManager } from '../../../actions/compliance';
+import { removeAddressFromTransferManager } from '../../../actions/compliance';
 const {
   TableContainer,
   Table,
@@ -50,6 +50,10 @@ class WhitelistTable extends Component<Props, State> {
     this.setState({ isWhitelistModalOpen: false });
   };
 
+  handleDelete = id => {
+    this.props.removeAddressFromTransferManager(id);
+  };
+
   render() {
     const { approvedManagers } = this.props;
     return (
@@ -80,21 +84,33 @@ class WhitelistTable extends Component<Props, State> {
                   <TableHead>
                     <TableRow>
                       {headers.map(header => (
-                        <TableHeader {...getHeaderProps({ header })}>
+                        <TableHeader
+                          key={header}
+                          {...getHeaderProps({ header })}
+                        >
                           {header.header}
                         </TableHeader>
                       ))}
+                      <TableHeader />
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {rows.map(row => (
                       <TableRow
-                        key={row.address}
+                        key={row.id}
                         onMouseOver={() => console.log('test')}
                       >
                         {row.cells.map(cell => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}
+                        <TableCell onClick={() => this.handleDelete(row.id)}>
+                          <Icon
+                            name="delete"
+                            // fill="#E71D32"
+                            width="12"
+                            height="12"
+                          />
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -112,6 +128,11 @@ const mapStateToProps = state => ({
   approvedManagers: state.whitelist.approvedManagers,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = {
+  removeAddressFromTransferManager,
+};
 
-export default connect(mapStateToProps)(WhitelistTable);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WhitelistTable);

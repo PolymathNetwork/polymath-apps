@@ -42,6 +42,8 @@ import {
   toggleFreeze,
   updateOwnershipPercentage,
   fetchManagers,
+  toggleWhitelistManagement,
+  addGeneralPermissionModule,
 } from '../../actions/compliance';
 import Progress from '../token/components/Progress';
 import AddInvestorForm, {
@@ -103,6 +105,7 @@ type DispatchProps = {|
   enableOwnershipRestrictions: (percentage?: number) => any,
   updateOwnershipPercentage: (percentage: number) => any,
   toggleFreeze: () => any,
+  addGeneralPermissionModule: () => any,
 |};
 
 const mapStateToProps = (state: RootState) => ({
@@ -114,6 +117,7 @@ const mapStateToProps = (state: RootState) => ({
   isPercentagePaused: state.whitelist.percentageTM.isPaused,
   percentage: state.whitelist.percentageTM.percentage,
   isTokenFrozen: state.whitelist.freezeStatus,
+  isWhitelistToggled: state.whitelist.isToggled,
 });
 
 const mapDispatchToProps = {
@@ -132,6 +136,8 @@ const mapDispatchToProps = {
   updateOwnershipPercentage,
   toggleFreeze,
   fetchManagers,
+  toggleWhitelistManagement,
+  addGeneralPermissionModule,
 };
 
 type Props = StateProps & DispatchProps;
@@ -174,7 +180,6 @@ class CompliancePage extends Component<Props, State> {
     startDateAdded: null,
     endDateAdded: null,
     isPercentageToggled: false,
-    isWhitelistToggled: false,
     percentage: undefined,
   };
 
@@ -413,9 +418,12 @@ class CompliancePage extends Component<Props, State> {
     this.props.removeInvestors(addresses);
   };
 
-  handleToggleWhitelist = (isToggled: boolean) => {
-    this.setState({ isWhitelistToggled: isToggled });
-    // check redux state for if the app already has this GPM enabled
+  handleToggleWhitelist = async (isToggled: boolean) => {
+    if (isToggled) {
+      await this.props.addGeneralPermissionModule();
+    } else {
+      this.props.toggleWhitelistManagement(false);
+    }
   };
 
   handleTogglePercentage = (isToggled: boolean) => {
@@ -728,6 +736,7 @@ class CompliancePage extends Component<Props, State> {
                       </label>
                       <div>
                         <TextInput
+                          labelText=""
                           id="percentage"
                           value={this.state.percentage}
                           placeholder="–"
@@ -777,7 +786,7 @@ class CompliancePage extends Component<Props, State> {
                       </label>
                       <Toggle
                         onToggle={this.handleToggleWhitelist}
-                        toggled={this.state.isWhitelistToggled}
+                        toggled={this.props.isWhitelistToggled}
                         id="whitelistToggle"
                       />
                     </div>
@@ -785,7 +794,7 @@ class CompliancePage extends Component<Props, State> {
                     <div
                       className="bx--form-item"
                       style={
-                        this.state.isWhitelistToggled ? {} : { display: 'none' }
+                        this.props.isWhitelistToggled ? {} : { display: 'none' }
                       }
                     >
                       <WhitelistTable />
