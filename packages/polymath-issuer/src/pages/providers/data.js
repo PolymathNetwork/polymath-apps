@@ -389,7 +389,7 @@ const providers: Array<ServiceProvider> = [
   {
     id: 48,
     cat: 1,
-    title: 'IBL',
+    title: 'International Blockchain Legal LLP',
     logo: '/providers/legal/iblpartners.png',
     background: '/providers/legal/bg/img-iblpartners.png',
     desc:
@@ -633,6 +633,16 @@ const providers: Array<ServiceProvider> = [
     Stellar and EOS tokens in safe custody, and provide additional services including NAV calculation, collateral management, \
     wallet balancing and clearing of stablecoin trades. DAVOS operations are designed according to ISO 27001 standard and located \
     in a high-security vault in Singapore. ',
+  },
+  {
+    id: 49,
+    cat: 4,
+    title: 'Formosa Financial',
+    logo: '/providers/custody/formosa.png',
+    background: '/providers/custody/bg/img-formosa.png',
+    desc:
+      'Formosa Financial provides an integrated treasury management solution with insured multi-sig custody \
+      and crypto-to-fiat brokerage services.',
   },
 
   // TOKEN SALE PLATFORMS

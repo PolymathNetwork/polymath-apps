@@ -1,6 +1,10 @@
 // @flow
 import React from 'react';
-import { NotFoundPage, MaintenancePage } from '@polymathnetwork/ui';
+import {
+  NotFoundPage,
+  MaintenancePage,
+  ProvidersMaintenancePage,
+} from '@polymathnetwork/ui';
 import { Redirect } from 'react-router-dom';
 
 import App from './components/App';

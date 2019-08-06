@@ -42,12 +42,20 @@ export const sendEmail = async (
     from: { email: 'noreply@polymath.network', name: 'Polymath Network' },
     replyTo,
     to: { email, name },
-    cc: copyTo,
+    // @FIXME remon-nashid: requests to SendGrid fail when cc and receiver addresses are the same.
+    // hardcoding CC email to my email to save the day.
+    cc: 'remon@polymath.network',
     subject,
     html: body,
   };
   if (SENDGRID_API_KEY) {
-    await sgMail.send(msg);
+    try {
+      await sgMail.send(msg);
+    } catch (error) {
+      logger.error('SendGrid error:', error.response.body.errors);
+      // Still throw the error in order to send it to Sentry.
+      throw error;
+    }
   } else {
     logger.warn('Not sending email since SENDGRID_API_KEY is not set.');
     logger.warn(JSON.stringify(msg));
