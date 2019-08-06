@@ -14,6 +14,7 @@ import { formName as addInvestorFormName } from '../pages/compliance/components/
 import { formName as editInvestorsFormName } from '../pages/compliance/components/EditInvestorsForm';
 import { parseWhitelistCsv } from '../utils/parsers';
 import { STAGE_OVERVIEW } from '../reducers/sto';
+import { PERM_TYPES } from '../constants';
 import Web3 from 'web3';
 
 import type { Investor, Address } from '@polymathnetwork/js/types';
@@ -99,8 +100,8 @@ export const fetchManagers = () => async (
       if (transferManager) {
         const delegates = await permissionManager.getAllDelegates(
           transferManager.address,
-          'ADMIN'
-        ); // put in const
+          PERM_TYPES.ADMIN
+        );
         let delegateDetails = [];
         for (const delegate of delegates) {
           let details = await permissionManager.getDelegateDetails(delegate);
@@ -122,22 +123,27 @@ export const addAddressToTransferManager = (
   delegate: Address,
   details: string
 ) => async (dispatch: Function, getState: GetState) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const permissionManager = await st.getPermissionManager();
+  const titles = ['Adding New Whitelist Manager', 'Setting Permissions'];
+  const isDelegate = await permissionManager.checkDelegate(delegate);
+  if (isDelegate) {
+    titles.shift();
+  }
   dispatch(
     ui.tx(
-      ['Adding New Whitelist Manager', 'Setting Permissions'],
+      titles,
       async () => {
-        const st: SecurityToken = getState().token.token.contract;
-        const permissionManager = await st.getPermissionManager();
         if (permissionManager) {
           const transferManager = await st.getTransferManager();
           if (transferManager) {
-            console.log(delegate, details);
-            // TODO: Check if the delegate already exists
-            await permissionManager.addDelegate(delegate, details);
+            if (!isDelegate) {
+              await permissionManager.addDelegate(delegate, details);
+            }
             await permissionManager.changePermission(
               delegate,
               transferManager.address,
-              'ADMIN',
+              PERM_TYPES.ADMIN,
               true
             );
           }
@@ -161,31 +167,47 @@ export const removeAddressFromTransferManager = (delegate: Address) => async (
   getState: GetState
 ) => {
   dispatch(
-    ui.tx(
-      ['Removing Whitelist Manager'],
+    ui.confirm(
+      <div>
+        <p>
+          Once removed, the investor wallet will no longer have permission to
+          update the whitelist. Consult your legal team before removing a wallet
+          from the list.
+        </p>
+      </div>,
       async () => {
-        const st: SecurityToken = getState().token.token.contract;
-        const permissionManager = await st.getPermissionManager();
-        if (permissionManager) {
-          const transferManager = await st.getTransferManager();
-          if (transferManager) {
-            await permissionManager.changePermission(
-              delegate,
-              transferManager.address,
-              'ADMIN',
-              false
-            );
-          }
-        }
+        dispatch(
+          ui.tx(
+            ['Removing Whitelist Manager'],
+            async () => {
+              const st: SecurityToken = getState().token.token.contract;
+              const permissionManager = await st.getPermissionManager();
+              if (permissionManager) {
+                const transferManager = await st.getTransferManager();
+                if (transferManager) {
+                  await permissionManager.changePermission(
+                    delegate,
+                    transferManager.address,
+                    PERM_TYPES.ADMIN,
+                    false
+                  );
+                }
+              }
+            },
+            'Whitelist Manager Removed',
+            () => {
+              dispatch(removeManager(delegate));
+            },
+            undefined,
+            undefined,
+            undefined,
+            true
+          )
+        );
       },
-      'Whitelist Manager Removed',
-      () => {
-        dispatch(removeManager(delegate));
-      },
+      `Remove the Investor Wallet from the Whitelist Managers List?`,
       undefined,
-      undefined,
-      undefined,
-      true
+      'pui-large-confirm-modal'
     )
   );
 };
@@ -194,11 +216,15 @@ export const addGeneralPermissionModule = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
+  const st: SecurityToken = getState().token.token.contract;
+  if (st.getPermissionManager()) {
+    dispatch(toggleWhitelistManagement(true));
+    return;
+  }
   dispatch(
     ui.tx(
       ['Enabling General Permissions Manager for General Transfer Manager'],
       async () => {
-        const st: SecurityToken = getState().token.token.contract;
         await st.setPermissionManager();
       },
       'General Permissions Manager for General Transfer Manager Enabled',

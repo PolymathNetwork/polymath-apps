@@ -61,15 +61,26 @@ const formikEnhancer = withFormik({
   validationSchema: formSchema,
   displayName: 'ConfirmEmailForm',
   validateOnChange: false,
-  handleSubmit: (values, { props }) => {
-    const { dispatch } = props;
+  handleSubmit: (values, { setFieldError, props }) => {
+    const { dispatch, approvedManagers } = props;
+    const addressExists = approvedManagers.find(
+      i => i.address === values.address
+    );
+    if (addressExists) {
+      setFieldError('address', 'Address is already added to Whitelist Manager');
+      return;
+    }
     props.handleClose();
     dispatch(addAddressToTransferManager(values.address, values.details));
   },
 });
 
+const mapStateToProps = state => ({
+  approvedManagers: state.whitelist.approvedManagers,
+});
+
 const FormikEnhancedForm = formikEnhancer(ConfirmEmailFormComponent);
-const ConnectedForm = connect()(FormikEnhancedForm);
+const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
 class WhitelistModal extends Component<Props> {
   render() {

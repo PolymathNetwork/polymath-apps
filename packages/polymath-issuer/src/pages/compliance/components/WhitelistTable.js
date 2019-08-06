@@ -103,14 +103,16 @@ class WhitelistTable extends Component<Props, State> {
                         {row.cells.map(cell => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}
-                        <TableCell onClick={() => this.handleDelete(row.id)}>
-                          <Icon
-                            name="delete"
-                            // fill="#E71D32"
-                            width="12"
-                            height="12"
-                          />
-                        </TableCell>
+                        {approvedManagers.length > 0 ? (
+                          <TableCell
+                            className="delete-icon"
+                            onClick={() => this.handleDelete(row.id)}
+                          >
+                            <Icon name="delete" width="12" height="12" />
+                          </TableCell>
+                        ) : (
+                          <TableCell />
+                        )}
                       </TableRow>
                     ))}
                   </TableBody>

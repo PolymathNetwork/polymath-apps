@@ -681,6 +681,22 @@ class CompliancePage extends Component<Props, State> {
                 Export Whitelist
               </Button>
             </Grid.Col>
+            <Grid.Col>
+              <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
+                <OverflowMenuItem
+                  itemText={
+                    this.props.isTokenFrozen
+                      ? 'Resume All Transfers'
+                      : 'Pause All Transfers'
+                  }
+                  onClick={
+                    this.props.isTokenFrozen
+                      ? this.handleUnFreezeModalOpen
+                      : this.handleFreezeModalOpen
+                  }
+                />
+              </OverflowMenu>
+            </Grid.Col>
           </Grid.Row>
           <Grid.Row>
             <Grid.Col gridSpan={[12, 12, 6, 6]}>
@@ -764,20 +780,6 @@ class CompliancePage extends Component<Props, State> {
               <div id="compliance">
                 <br />
                 <div className="pui-page-box compliance-form">
-                  {/* <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
-                    <OverflowMenuItem
-                      itemText={
-                        this.props.isTokenFrozen
-                          ? 'Resume All Transfers'
-                          : 'Pause All Transfers'
-                      }
-                      onClick={
-                        this.props.isTokenFrozen
-                          ? this.handleUnFreezeModalOpen
-                          : this.handleFreezeModalOpen
-                      }
-                    />
-                  </OverflowMenu> */}
                   <h1 className="pui-h1">Whitelist Management</h1>
                   <div className="whitelist-settings">
                     <div className="bx--form-item">

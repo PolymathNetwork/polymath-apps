@@ -8,6 +8,10 @@ export const EVENT_TYPES = {
   TOKEN_PURCHASE: 'TokenPurchase',
 };
 
+export const PERM_TYPES = {
+  ADMIN: 'ADMIN',
+};
+
 export const MODULE_TYPES = {
   PERMISSION: 1,
   TRANSFER: 2,

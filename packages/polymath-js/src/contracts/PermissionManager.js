@@ -23,6 +23,10 @@ export default class PermissionManager extends Contract {
     return this._tx(this._methods.addDelegate(at, this._toBytes(details)));
   }
 
+  async checkDelegate(at: Address) {
+    return this._methods.checkDelegate(at).call();
+  }
+
   async getDelegateDetails(delegate: Address) {
     let details = await this._methods.delegateDetails(delegate).call();
     return this._toAscii(details);
