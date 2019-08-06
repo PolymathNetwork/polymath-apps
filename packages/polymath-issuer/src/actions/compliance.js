@@ -217,7 +217,7 @@ export const addGeneralPermissionModule = () => async (
   getState: GetState
 ) => {
   const st: SecurityToken = getState().token.token.contract;
-  if (st.getPermissionManager()) {
+  if (await st.getPermissionManager()) {
     dispatch(toggleWhitelistManagement(true));
     return;
   }
