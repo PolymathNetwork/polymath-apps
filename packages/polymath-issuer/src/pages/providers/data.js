@@ -644,6 +644,18 @@ const providers: Array<ServiceProvider> = [
       'Formosa Financial provides an integrated treasury management solution with insured multi-sig custody \
       and crypto-to-fiat brokerage services.',
   },
+  {
+    id: 50,
+    cat: 4,
+    title: 'Multis',
+    logo: '/providers/custody/multis.png',
+    background: '/providers/custody/bg/img-multis.png',
+    desc:
+      'Multis is a self-custodial wallet designed to access, manage and use crypto assets as a company. \
+      From a user-friendly interface, issuers and investors can store and handle multi-access to assets, \
+      trade them and earn interest on idle treasury. Multis also enables issuers to manage conveniently \
+      governance around their self-custodied assets.',
+  },
 
   // TOKEN SALE PLATFORMS
   {
