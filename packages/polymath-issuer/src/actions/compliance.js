@@ -86,6 +86,20 @@ export type InvestorCSVRow = [
   string,
 ];
 
+// make more functional and switch transfermanager to module
+async function getDelegateDetails(permissionManager, transferManager) {
+  const delegates = await permissionManager.getAllDelegates(
+    transferManager.address,
+    PERM_TYPES.ADMIN
+  );
+  let delegateDetails = [];
+  for (const delegate of delegates) {
+    let details = await permissionManager.getDelegateDetails(delegate);
+    delegateDetails.push({ id: delegate, address: delegate, details });
+  }
+  return delegateDetails;
+}
+
 export const fetchManagers = () => async (
   dispatch: Function,
   getState: GetState
@@ -95,18 +109,17 @@ export const fetchManagers = () => async (
   try {
     const st: SecurityToken = getState().token.token.contract;
     const permissionManager = await st.getPermissionManager();
-    if (permissionManager) {
+    if (!permissionManager) {
+      return;
+    }
+    const moduleMetadata = await st.getModule(permissionManager.address);
+    if (permissionManager && !moduleMetadata.isArchived) {
       const transferManager = await st.getTransferManager();
       if (transferManager) {
-        const delegates = await permissionManager.getAllDelegates(
-          transferManager.address,
-          PERM_TYPES.ADMIN
+        const delegateDetails = await getDelegateDetails(
+          permissionManager,
+          transferManager
         );
-        let delegateDetails = [];
-        for (const delegate of delegates) {
-          let details = await permissionManager.getDelegateDetails(delegate);
-          delegateDetails.push({ id: delegate, address: delegate, details });
-        }
         dispatch(loadManagers(delegateDetails));
       }
       dispatch(toggleWhitelistManagement(true));
@@ -212,24 +225,22 @@ export const removeAddressFromTransferManager = (delegate: Address) => async (
   );
 };
 
-export const addGeneralPermissionModule = () => async (
+export const archiveGeneralPermissionModule = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
   const st: SecurityToken = getState().token.token.contract;
-  if (await st.getPermissionManager()) {
-    dispatch(toggleWhitelistManagement(true));
-    return;
-  }
   dispatch(
     ui.tx(
-      ['Enabling General Permissions Manager for General Transfer Manager'],
+      ['Disabling General Permissions Manager'],
       async () => {
-        await st.setPermissionManager();
+        const permissionManager = await st.getPermissionManager();
+        await st.archiveModule(permissionManager.address);
       },
-      'General Permissions Manager for General Transfer Manager Enabled',
+      'General Permissions Manager Disabled',
       () => {
-        dispatch(toggleWhitelistManagement(true));
+        dispatch(toggleWhitelistManagement(false));
+        dispatch(loadManagers([]));
       },
       undefined,
       undefined,
@@ -237,6 +248,50 @@ export const addGeneralPermissionModule = () => async (
       true
     )
   );
+};
+
+export const addGeneralPermissionModule = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  try {
+    const st: SecurityToken = getState().token.token.contract;
+    const permissionManager = await st.getPermissionManager();
+    const transferManager = await st.getTransferManager();
+    let moduleMetadata = {};
+    let delegateDetails = [];
+
+    if (permissionManager)
+      moduleMetadata = await st.getModule(permissionManager.address);
+
+    dispatch(
+      ui.tx(
+        ['Enabling General Permissions Manager for General Transfer Manager'],
+        async () => {
+          if (moduleMetadata.isArchived) {
+            await st.unarchiveModule(permissionManager.address);
+            delegateDetails = await getDelegateDetails(
+              permissionManager,
+              transferManager
+            );
+          } else {
+            await st.setPermissionManager();
+          }
+        },
+        'General Permissions Manager for General Transfer Manager Enabled',
+        () => {
+          dispatch(loadManagers(delegateDetails));
+          dispatch(toggleWhitelistManagement(true));
+        },
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
+    );
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const fetchWhitelist = () => async (

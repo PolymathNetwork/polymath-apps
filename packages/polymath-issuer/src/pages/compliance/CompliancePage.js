@@ -44,6 +44,7 @@ import {
   fetchManagers,
   toggleWhitelistManagement,
   addGeneralPermissionModule,
+  archiveGeneralPermissionModule,
 } from '../../actions/compliance';
 import Progress from '../token/components/Progress';
 import AddInvestorForm, {
@@ -106,6 +107,7 @@ type DispatchProps = {|
   updateOwnershipPercentage: (percentage: number) => any,
   toggleFreeze: () => any,
   addGeneralPermissionModule: () => any,
+  archiveGeneralPermissionModule: () => any,
 |};
 
 const mapStateToProps = (state: RootState) => ({
@@ -138,6 +140,7 @@ const mapDispatchToProps = {
   fetchManagers,
   toggleWhitelistManagement,
   addGeneralPermissionModule,
+  archiveGeneralPermissionModule,
 };
 
 type Props = StateProps & DispatchProps;
@@ -189,7 +192,6 @@ class CompliancePage extends Component<Props, State> {
       this.setState({ percentage: this.props.percentage });
     }
     this.props.fetchManagers();
-    // TODO: check redux for whitelist enable
   }
 
   componentWillReceiveProps(nextProps) {
@@ -199,7 +201,6 @@ class CompliancePage extends Component<Props, State> {
     ) {
       this.setState({ percentage: nextProps.percentage });
     }
-    // TODO: check redux for whitelist enable
   }
 
   handleChangePages = pc => {
@@ -422,7 +423,7 @@ class CompliancePage extends Component<Props, State> {
     if (isToggled) {
       await this.props.addGeneralPermissionModule();
     } else {
-      this.props.toggleWhitelistManagement(false);
+      await this.props.archiveGeneralPermissionModule();
     }
   };
 

@@ -515,4 +515,16 @@ export default class SecurityToken extends Contract {
       0
     );
   }
+
+  async getModule(at: Address): Promise<Web3Receipt> {
+    return this._methods.getModule(at).call();
+  }
+
+  async arhiveModule(at: Address): Promise<Web3Receipt> {
+    return this._tx(this._methods.archiveModule(at));
+  }
+
+  async unarchiveModule(at: Address): Promise<Web3Receipt> {
+    return this._tx(this._methods.unarchiveModule(at));
+  }
 }
