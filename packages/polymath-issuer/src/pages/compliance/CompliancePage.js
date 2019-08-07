@@ -642,8 +642,8 @@ class CompliancePage extends Component<Props, State> {
       <Page title="Compliance – Polymath">
         <Progress />
         <Grid>
-          <Grid.Row>
-            <Grid.Col gridSpan={12}>
+          <Grid.Row gridGap="0px">
+            <Grid.Col gridSpan={9}>
               <h1 className="pui-h1">Token Whitelist</h1>
               <h3 className="pui-h3">
                 Whitelisted addresses may hold, buy, or sell the security token
@@ -651,9 +651,7 @@ class CompliancePage extends Component<Props, State> {
                 operations may be subject to restrictions.
               </h3>
             </Grid.Col>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Col>
+            <Grid.Col style={{ alignSelf: 'center' }}>
               <Button
                 icon="upload"
                 onClick={this.handleImportModalOpen}
@@ -662,7 +660,7 @@ class CompliancePage extends Component<Props, State> {
                 Import Whitelist
               </Button>
             </Grid.Col>
-            <Grid.Col>
+            <Grid.Col style={{ alignSelf: 'center' }}>
               <ImportWhitelistModal
                 isOpen={this.state.isImportModalOpen}
                 onSubmit={this.handleImport}
@@ -682,7 +680,7 @@ class CompliancePage extends Component<Props, State> {
                 Export Whitelist
               </Button>
             </Grid.Col>
-            <Grid.Col>
+            <Grid.Col style={{ alignSelf: 'center', justifySelf: 'left' }}>
               <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
                 <OverflowMenuItem
                   itemText={

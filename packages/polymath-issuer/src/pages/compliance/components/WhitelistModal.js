@@ -15,7 +15,6 @@ import {
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 import { addAddressToTransferManager } from '../../../actions/compliance';
-('');
 
 type Props = {
   isOpen: boolean,
@@ -33,7 +32,7 @@ const formSchema = validator.object().shape({
 export const ConfirmEmailFormComponent = ({ handleSubmit, handleClose }) => (
   <Form onSubmit={handleSubmit}>
     <FormItem name="address">
-      <Heading as="h5" variant="h5">
+      <Heading className="form-item-header" variant="h3">
         Whitelist Manager Wallet Address
       </Heading>
       <FormItem.Input component={TextInput} />
@@ -41,7 +40,7 @@ export const ConfirmEmailFormComponent = ({ handleSubmit, handleClose }) => (
     </FormItem>
 
     <FormItem name="details">
-      <Heading as="h5" variant="h5">
+      <Heading className="form-item-header" variant="h3">
         Whitelist Manager Details
       </Heading>
       <FormItem.Input component={TextInput} />
