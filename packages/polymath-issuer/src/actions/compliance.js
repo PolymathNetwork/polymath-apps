@@ -183,7 +183,7 @@ export const removeAddressFromTransferManager = (delegate: Address) => async (
     ui.confirm(
       <div>
         <p>
-          Once removed, the investor wallet will no longer have permission to
+          Once removed, the whitelist manager will no longer have permission to
           update the whitelist. Consult your legal team before removing a wallet
           from the list.
         </p>
@@ -218,7 +218,7 @@ export const removeAddressFromTransferManager = (delegate: Address) => async (
           )
         );
       },
-      `Remove the Investor Wallet from the Whitelist Managers List?`,
+      `Remove the Whitelist Manager from the Whitelist Managers List?`,
       undefined,
       'pui-large-confirm-modal'
     )
@@ -254,44 +254,40 @@ export const addGeneralPermissionModule = () => async (
   dispatch: Function,
   getState: GetState
 ) => {
-  try {
-    const st: SecurityToken = getState().token.token.contract;
-    const permissionManager = await st.getPermissionManager();
-    const transferManager = await st.getTransferManager();
-    let moduleMetadata = {};
-    let delegateDetails = [];
+  const st: SecurityToken = getState().token.token.contract;
+  const permissionManager = await st.getPermissionManager();
+  const transferManager = await st.getTransferManager();
+  let moduleMetadata = {};
+  let delegateDetails = [];
 
-    if (permissionManager)
-      moduleMetadata = await st.getModule(permissionManager.address);
+  if (permissionManager)
+    moduleMetadata = await st.getModule(permissionManager.address);
 
-    dispatch(
-      ui.tx(
-        ['Enabling General Permissions Manager for General Transfer Manager'],
-        async () => {
-          if (moduleMetadata.isArchived) {
-            await st.unarchiveModule(permissionManager.address);
-            delegateDetails = await getDelegateDetails(
-              permissionManager,
-              transferManager
-            );
-          } else {
-            await st.setPermissionManager();
-          }
-        },
-        'General Permissions Manager for General Transfer Manager Enabled',
-        () => {
-          dispatch(loadManagers(delegateDetails));
-          dispatch(toggleWhitelistManagement(true));
-        },
-        undefined,
-        undefined,
-        undefined,
-        true
-      )
-    );
-  } catch (e) {
-    console.log(e);
-  }
+  dispatch(
+    ui.tx(
+      ['Enabling General Permissions Manager for General Transfer Manager'],
+      async () => {
+        if (moduleMetadata.isArchived) {
+          await st.unarchiveModule(permissionManager.address);
+          delegateDetails = await getDelegateDetails(
+            permissionManager,
+            transferManager
+          );
+        } else {
+          await st.setPermissionManager();
+        }
+      },
+      'General Permissions Manager for General Transfer Manager Enabled',
+      () => {
+        dispatch(loadManagers(delegateDetails));
+        dispatch(toggleWhitelistManagement(true));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
 };
 
 export const fetchWhitelist = () => async (

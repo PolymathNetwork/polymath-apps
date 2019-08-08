@@ -89,7 +89,7 @@ class WhitelistModal extends Component<Props> {
         <Modal.Header variant="alert">Add Whitelist Manager</Modal.Header>
         <Modal.Body>
           <p>
-            Specify the investor wallet address of the new whitelist manager.
+            Specify the whitelist manager address of the new whitelist manager.
             Each manager will have permission to update the whitelist. Consult
             with your legal team before adding a new wallet to the list.
           </p>
