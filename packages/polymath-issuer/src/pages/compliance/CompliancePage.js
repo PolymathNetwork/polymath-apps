@@ -1,63 +1,68 @@
 // @flow
 /* eslint-disable react/jsx-no-bind, react/no-unused-state */ // TODO @bshevchenko
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { reset } from 'redux-form';
-import { BigNumber } from 'bignumber.js';
 import {
-  Page,
-  etherscanAddress,
   addressShortifier,
   confirm,
+  etherscanAddress,
   NotFoundPage,
+  Page,
+  Grid,
 } from '@polymathnetwork/ui';
+import { BigNumber } from 'bignumber.js';
 import {
   Button,
   DataTable,
-  // PaginationV2,
-  Modal,
   // DatePicker,
   // DatePickerInput,
   Icon,
   InlineNotification,
-  Toggle,
-  TextInput,
+  // PaginationV2,
+  Modal,
   OverflowMenu,
   OverflowMenuItem,
+  TextInput,
+  Toggle,
 } from 'carbon-components-react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { reset } from 'redux-form';
+import {
+  addInvestor,
+  disableOwnershipRestrictions,
+  editInvestors,
+  enableOwnershipRestrictions,
+  exportWhitelist,
+  fetchWhitelist,
+  importWhitelist,
+  listLength,
+  PERMANENT_LOCKUP_TS,
+  removeInvestors,
+  resetUploaded,
+  toggleFreeze,
+  updateOwnershipPercentage,
+  fetchManagers,
+  toggleWhitelistManagement,
+  addGeneralPermissionModule,
+  archiveGeneralPermissionModule,
+} from '../../actions/compliance';
+import Progress from '../token/components/Progress';
+import AddInvestorForm, {
+  formName as addInvestorFormName,
+} from './components/AddInvestorForm';
+import { formName as editInvestorsFormName } from './components/EditInvestorsForm';
+import ImportWhitelistModal from './components/ImportWhitelistModal';
+import WhitelistTable from './components/WhitelistTable';
+import WhitelistModal from './components/WhitelistModal';
+import './style.scss';
 import type {
   Investor,
   Address,
   SecurityToken,
 } from '@polymathnetwork/js/types';
 
-import Progress from '../token/components/Progress';
-import {
-  importWhitelist,
-  exportWhitelist,
-  addInvestor,
-  fetchWhitelist,
-  listLength,
-  removeInvestors,
-  editInvestors,
-  resetUploaded,
-  disableOwnershipRestrictions,
-  enableOwnershipRestrictions,
-  updateOwnershipPercentage,
-  PERMANENT_LOCKUP_TS,
-  toggleFreeze,
-} from '../../actions/compliance';
-import AddInvestorForm, {
-  formName as addInvestorFormName,
-} from './components/AddInvestorForm';
-import { formName as editInvestorsFormName } from './components/EditInvestorsForm';
-import ImportWhitelistModal from './components/ImportWhitelistModal';
-
 import type { RootState } from '../../redux/reducer';
 import type { InvestorCSVRow } from '../../actions/compliance';
-
-import './style.scss';
 
 const {
   Table,
@@ -101,6 +106,8 @@ type DispatchProps = {|
   enableOwnershipRestrictions: (percentage?: number) => any,
   updateOwnershipPercentage: (percentage: number) => any,
   toggleFreeze: () => any,
+  addGeneralPermissionModule: () => any,
+  archiveGeneralPermissionModule: () => any,
 |};
 
 const mapStateToProps = (state: RootState) => ({
@@ -112,6 +119,7 @@ const mapStateToProps = (state: RootState) => ({
   isPercentagePaused: state.whitelist.percentageTM.isPaused,
   percentage: state.whitelist.percentageTM.percentage,
   isTokenFrozen: state.whitelist.freezeStatus,
+  isWhitelistToggled: state.whitelist.isToggled,
 });
 
 const mapDispatchToProps = {
@@ -129,6 +137,10 @@ const mapDispatchToProps = {
   enableOwnershipRestrictions,
   updateOwnershipPercentage,
   toggleFreeze,
+  fetchManagers,
+  toggleWhitelistManagement,
+  addGeneralPermissionModule,
+  archiveGeneralPermissionModule,
 };
 
 type Props = StateProps & DispatchProps;
@@ -142,6 +154,8 @@ type State = {|
   startDateAdded: ?Date,
   endDateAdded: ?Date,
   isPercentageToggled: boolean,
+  isWhitelistToggled: boolean,
+  isWhitelistModalOpen: boolean,
   percentage: ?number,
 |};
 
@@ -177,6 +191,7 @@ class CompliancePage extends Component<Props, State> {
     if (this.props.percentage) {
       this.setState({ percentage: this.props.percentage });
     }
+    this.props.fetchManagers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -404,6 +419,14 @@ class CompliancePage extends Component<Props, State> {
     this.props.removeInvestors(addresses);
   };
 
+  handleToggleWhitelist = async (isToggled: boolean) => {
+    if (isToggled) {
+      await this.props.addGeneralPermissionModule();
+    } else {
+      await this.props.archiveGeneralPermissionModule();
+    }
+  };
+
   handleTogglePercentage = (isToggled: boolean) => {
     const { isPercentageEnabled, isPercentagePaused } = this.props;
     if (!isPercentageEnabled) {
@@ -617,166 +640,173 @@ class CompliancePage extends Component<Props, State> {
     // const paginatedRows = this.paginationRendering()
     return (
       <Page title="Compliance – Polymath">
-        <div id="compliance">
-          <Progress />
-          <h1 className="pui-h1">Token Whitelist</h1>
-          <h3 className="pui-h3">
-            Whitelisted addresses may hold, buy, or sell the security token and
-            may participate into the STO. <br /> Security token buy/sell
-            operations may be subject to restrictions.
-          </h3>
-          <br />
-
-          <div className="pui-page-box compliance-form">
-            <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
-              <OverflowMenuItem
-                itemText={
-                  this.props.isTokenFrozen
-                    ? 'Resume All Transfers'
-                    : 'Pause All Transfers'
-                }
-                onClick={
-                  this.props.isTokenFrozen
-                    ? this.handleUnFreezeModalOpen
-                    : this.handleFreezeModalOpen
-                }
-              />
-            </OverflowMenu>
-            <div className="compliance-settings">
-              {/*
-                <DatePicker
-                  onChange={this.handleDateAddedChange}
-                  datePickerType='range'
-                >
-                  <DatePickerInput
-                    id='start-date-added'
-                    labelText='Start Date Added'
-                    placeholder='mm / dd / yyyy'
-                    onClick={() => {}}
-                    onChange={() => {}}
-                  />
-                  <DatePickerInput
-                    id='end-date-added'
-                    labelText='End Date Added'
-                    placeholder='mm / dd / yyyy'
-                    onClick={() => {}}
-                    onChange={() => {}}
-                  />
-                </DatePicker>
-              */}
-
-              <div className="bx--form-item">
-                <label htmlFor="percentageToggle" className="bx--label">
-                  Enable Ownership Restrictions
-                </label>
-                <Toggle
-                  onToggle={this.handleTogglePercentage}
-                  toggled={
-                    isPercentageEnabled
-                      ? !isPercentagePaused
-                      : this.state.isPercentageToggled
-                  }
-                  id="percentageToggle"
-                />
-              </div>
-
-              <div
-                className="bx--form-item"
-                style={
-                  !isPercentagePaused ||
-                  (!isPercentageEnabled && this.state.isPercentageToggled)
-                    ? {}
-                    : {
-                        display: 'none',
-                      }
-                }
+        <Progress />
+        <Grid>
+          <Grid.Row gridGap="0px">
+            <Grid.Col gridSpan={9}>
+              <h1 className="pui-h1">Token Whitelist</h1>
+              <h3 className="pui-h3">
+                Whitelisted addresses may hold, buy, or sell the security token
+                and may participate into the STO. <br /> Security token buy/sell
+                operations may be subject to restrictions.
+              </h3>
+            </Grid.Col>
+            <Grid.Col style={{ alignSelf: 'center' }}>
+              <Button
+                icon="upload"
+                onClick={this.handleImportModalOpen}
+                className="import-whitelist-btn"
               >
-                <label htmlFor="percentage" className="bx--label">
-                  Each Individual Investor Can
-                  <br />
-                  Own Up To of Outstanding Tokens
-                </label>
-                <div>
-                  <TextInput
-                    id="percentage"
-                    value={this.state.percentage}
-                    placeholder="–"
-                    onChange={this.handlePercentageChange}
-                  />
-                  <Button
-                    className="apply-percentage-btn"
-                    onClick={this.handleApplyPercentage}
-                    disabled={
-                      this.isPercentageValid() ||
-                      typeof this.state.percentage === 'undefined' ||
-                      this.state.percentage === ''
-                    }
-                  >
-                    Apply
-                  </Button>
+                Import Whitelist
+              </Button>
+            </Grid.Col>
+            <Grid.Col style={{ alignSelf: 'center' }}>
+              <ImportWhitelistModal
+                isOpen={this.state.isImportModalOpen}
+                onSubmit={this.handleImport}
+                onClose={this.handleImportModalClose}
+              />
+              {/* <WhitelistModal
+                isOpen={this.state.isWhitelistModalOpen}
+                handleOpen={this.}
+              /> */}
+
+              <Button
+                icon="download"
+                kind="secondary"
+                onClick={this.handleExport}
+                className="import-whitelist-btn"
+              >
+                Export Whitelist
+              </Button>
+            </Grid.Col>
+            <Grid.Col style={{ alignSelf: 'center', justifySelf: 'left' }}>
+              <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
+                <OverflowMenuItem
+                  itemText={
+                    this.props.isTokenFrozen
+                      ? 'Resume All Transfers'
+                      : 'Pause All Transfers'
+                  }
+                  onClick={
+                    this.props.isTokenFrozen
+                      ? this.handleUnFreezeModalOpen
+                      : this.handleFreezeModalOpen
+                  }
+                />
+              </OverflowMenu>
+            </Grid.Col>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Col gridSpan={[12, 12, 6, 6]}>
+              <div id="compliance">
+                <br />
+                <div className="pui-page-box compliance-form">
+                  {/* <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
+                    <OverflowMenuItem
+                      itemText={
+                        this.props.isTokenFrozen
+                          ? 'Resume All Transfers'
+                          : 'Pause All Transfers'
+                      }
+                      onClick={
+                        this.props.isTokenFrozen
+                          ? this.handleUnFreezeModalOpen
+                          : this.handleFreezeModalOpen
+                      }
+                    />
+                  </OverflowMenu> */}
+                  <h1 className="pui-h1">Ownership Restrictions</h1>
+                  <div className="compliance-settings">
+                    <div className="bx--form-item">
+                      <label htmlFor="percentageToggle" className="bx--label">
+                        Enable Ownership Restrictions
+                      </label>
+                      <Toggle
+                        onToggle={this.handleTogglePercentage}
+                        toggled={
+                          isPercentageEnabled
+                            ? !isPercentagePaused
+                            : this.state.isPercentageToggled
+                        }
+                        id="percentageToggle"
+                      />
+                    </div>
+
+                    <div
+                      className="bx--form-item"
+                      style={
+                        !isPercentagePaused ||
+                        (!isPercentageEnabled && this.state.isPercentageToggled)
+                          ? {}
+                          : {
+                              display: 'none',
+                            }
+                      }
+                    >
+                      <label htmlFor="percentage" className="bx--label">
+                        Each Individual Investor Can
+                        <br />
+                        Own Up To of Outstanding Tokens
+                      </label>
+                      <div>
+                        <TextInput
+                          labelText=""
+                          id="percentage"
+                          value={this.state.percentage}
+                          placeholder="–"
+                          onChange={this.handlePercentageChange}
+                        />
+                        <Button
+                          className="apply-percentage-btn"
+                          onClick={this.handleApplyPercentage}
+                          disabled={
+                            this.isPercentageValid() ||
+                            typeof this.state.percentage === 'undefined' ||
+                            this.state.percentage === ''
+                          }
+                        >
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pui-clearfix" />
                 </div>
               </div>
-            </div>
+            </Grid.Col>
+            <Grid.Col gridSpan={[12, 12, 6, 6]}>
+              <div id="compliance">
+                <br />
+                <div className="pui-page-box compliance-form">
+                  <h1 className="pui-h1">Whitelist Management</h1>
+                  <div className="whitelist-settings">
+                    <div className="bx--form-item">
+                      <label htmlFor="whitelistToggle" className="bx--label">
+                        Enable Third-Party Whitelist Management
+                      </label>
+                      <Toggle
+                        onToggle={this.handleToggleWhitelist}
+                        toggled={this.props.isWhitelistToggled}
+                        id="whitelistToggle"
+                      />
+                    </div>
 
-            <Button
-              icon="upload"
-              onClick={this.handleImportModalOpen}
-              className="import-whitelist-btn"
-            >
-              Import Whitelist
-            </Button>
-            <ImportWhitelistModal
-              isOpen={this.state.isImportModalOpen}
-              onSubmit={this.handleImport}
-              onClose={this.handleImportModalClose}
-            />
-
-            <Button
-              icon="download"
-              kind="secondary"
-              onClick={this.handleExport}
-              className="import-whitelist-btn"
-            >
-              Export Whitelist
-            </Button>
-            <div className="pui-clearfix" />
-          </div>
-
-          {/*
-            <DataTable
-              rows={paginatedRows}
-              headers={[
-                { key: 'address', header: 'Investor\'s ETH address' },
-                { key: 'added', header: 'Date added' },
-                { key: 'addedBy', header: 'Added by' },
-                { key: 'from', header: 'Sale lockup' },
-                { key: 'to', header: 'Purchase lockup' },
-                { key: 'expiry', header: 'KYC/AML Expiry' },
-                ...(!isPercentagePaused ? [{ key: 'percentage', header: 'Max % Ownership' }] : []),
-                { key: 'actions', header: '' },
-              ]}
-              render={this.dataTableRender}
-            />
-            <PaginationV2
-              onChange={this.handleChangePages}
-              pageSizes={[10, 20, 30, 40, 50]}
-              totalItems={investors.length}
-            />
-            <Modal
-              className='whitelist-investor-modal'
-              open={this.state.isEditModalOpen}
-              onRequestClose={this.handleEditModalClose}
-              modalHeading='Edit'
-              passiveModal
-            >
-              <p className='bx--modal-content__text'>
-                Please enter the information below to edit the chosen investors.
-              </p>
-              <br />
-              <EditInvestorsForm onSubmit={this.handleEditSubmit} onClose={this.handleEditModalClose} />
-            </Modal>
-          */}
-        </div>
+                    <div
+                      className="bx--form-item"
+                      style={
+                        this.props.isWhitelistToggled ? {} : { display: 'none' }
+                      }
+                    >
+                      <WhitelistTable />
+                    </div>
+                  </div>
+                  <div className="pui-clearfix" />
+                </div>
+              </div>
+            </Grid.Col>
+          </Grid.Row>
+        </Grid>
       </Page>
     );
   }

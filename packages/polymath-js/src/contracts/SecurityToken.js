@@ -474,6 +474,21 @@ export default class SecurityToken extends Contract {
     );
   }
 
+  async setPermissionManager(): Promise<Web3Receipt> {
+    const generalPermissionManagerFactory = await this.getModuleFactory(
+      'GeneralPermissionManager',
+      MODULE_TYPES.PERMISSION
+    );
+    const setupCost = await generalPermissionManagerFactory.setupCost();
+    const data = this._toBytes('');
+    return this.addModule(
+      generalPermissionManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
+    );
+  }
+
   async setCountTM(count: number): Promise<Web3Receipt> {
     const countTransferManagerFactory = await this.getModuleFactory(
       'CountTransferManager',
@@ -499,5 +514,17 @@ export default class SecurityToken extends Contract {
       PolyToken.addDecimals(setupCost),
       0
     );
+  }
+
+  async getModule(at: Address): Promise<Web3Receipt> {
+    return this._methods.getModule(at).call();
+  }
+
+  async arhiveModule(at: Address): Promise<Web3Receipt> {
+    return this._tx(this._methods.archiveModule(at));
+  }
+
+  async unarchiveModule(at: Address): Promise<Web3Receipt> {
+    return this._tx(this._methods.unarchiveModule(at));
   }
 }

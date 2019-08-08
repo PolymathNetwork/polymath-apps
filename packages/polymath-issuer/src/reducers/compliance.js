@@ -25,6 +25,7 @@ export type WhitelistState = {|
   listLength: number,
   freezeStatus: ?boolean,
   isFrozenModalOpen: ?boolean,
+  approvedManagers: Array<any>,
 |};
 
 const defaultState: WhitelistState = {
@@ -42,6 +43,8 @@ const defaultState: WhitelistState = {
   listLength: 10,
   freezeStatus: null,
   isFrozenModalOpen: null,
+  approvedManagers: [],
+  isToggled: false,
 };
 
 // NOTE @RafaelVidaurre: WARNING For some reason this reducer is being renamed.
@@ -49,6 +52,35 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
+    case a.TOGGLE_WHITELIST_MANAGEMENT:
+      return {
+        ...state,
+        isToggled: action.isToggled,
+      };
+    case a.REMOVE_MANAGER:
+      let index = state.approvedManagers.findIndex(
+        i => i.address === action.address
+      );
+      return {
+        ...state,
+        approvedManagers: [
+          ...state.approvedManagers.slice(0, index),
+          ...state.approvedManagers.slice(index + 1),
+        ],
+      };
+    case a.ADD_MANAGER:
+      return {
+        ...state,
+        approvedManagers: [
+          ...state.approvedManagers,
+          { ...action.manager, id: action.manager.address },
+        ],
+      };
+    case a.LOAD_MANAGERS:
+      return {
+        ...state,
+        approvedManagers: action.managers,
+      };
     case a.TRANSFER_MANAGER:
       return {
         ...state,
