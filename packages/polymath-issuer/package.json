@@ -7,8 +7,8 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "start:prod": "serve -s build",
     "start": "node scripts/start.js",
+    "start:prod": "serve -s build",
     "build": "node scripts/build.js",
     "test": "node ./scripts/test.js --env=jsdom",
     "typecheck": "flow --show-all-branches"
