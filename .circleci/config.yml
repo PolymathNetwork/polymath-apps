@@ -15,6 +15,12 @@ references:
       key: yarn-packages-{{ checksum "yarn.lock" }}
       paths:
         - ~/.cache/yarn
+  install_sonar: &install_sonar
+    run:
+      name: Install SonarScanner
+      command:
+        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.0.0.1744-linux.zip
+        unzip sonar-scanner-cli-4.0.0.1744-linux.zip
   yarn_install: &yarn_install
     run:
       name: Yarn install
@@ -34,12 +40,6 @@ references:
         -Dsonar.login=${SONARQUBE_TOKEN} $SONAR_SCANNER_OPTS_CUSTOM
 
 jobs:
-  run:
-    <<: *container_config
-    name: Install SonarScanner
-    command:
-      wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.0.0.1744-linux.zip
-      unzip sonar-scanner-cli-4.0.0.1744-linux.zip
   install_dependencies:
     <<: *container_config
     steps:
