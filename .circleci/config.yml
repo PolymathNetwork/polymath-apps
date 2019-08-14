@@ -18,7 +18,7 @@ references:
   install_sonar: &install_sonar
     run:
       name: Install SonarScanner
-      command:
+      command: |
         wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.0.0.1744-linux.zip
         unzip sonar-scanner-cli-4.0.0.1744-linux.zip
   yarn_install: &yarn_install
@@ -28,7 +28,7 @@ references:
   run_sonar: &run_sonar
     run:
       name: Run Sonarqube scanner
-      command: >
+      command: |
         export SONAR_SCANNER_OPTS="-Xmx2048m"
         eval ./sonar-scanner-4.0.0.1744-linux/bin/sonar-scanner
         -Dsonar.projectKey=issuer \
