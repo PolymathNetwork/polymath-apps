@@ -184,7 +184,7 @@ const formikEnhancer = withFormik({
   validationSchema: formSchema,
   displayName: 'ApplyForm',
   validatOnChange: false,
-  mapPropsToValues: ({ application, networkId }) => {
+  mapPropsToValues: ({ application }) => {
     const {
       companyName,
       companyDesc,
