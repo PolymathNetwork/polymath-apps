@@ -65,7 +65,8 @@ const linkTooltip = (title: string) => (
   </Tooltip>
 );
 
-export const ApplyFormComponent = ({ handleSubmit, onClose }) => {
+export const ApplyFormComponent = args => {
+  const { handleSubmit, onClose, networkId } = args;
   return (
     <Form onSubmit={handleSubmit}>
       <Grid>
@@ -145,25 +146,45 @@ export const ApplyFormComponent = ({ handleSubmit, onClose }) => {
         </Button>
       </p>
 
-      <p className="pui-input-hint">
-        When you click submit, an email which contains the information entered
-        on that screen will be sent to the Advisory firm(s) you have selected.
-        None of this information is stored on Polymath servers, only your
-        browser&apos;s cache. To clear this information, simply clear your
-        browser&apos;s cache.
-      </p>
+      {networkId === 1 ? (
+        <p className="pui-input-hint">
+          When you click submit, an email which contains the information entered
+          on that screen will be sent to the Advisory firm(s) you have selected.
+          None of this information is stored on Polymath servers, only your
+          browser&apos;s cache. To clear this information, simply clear your
+          browser&apos;s cache.
+        </p>
+      ) : (
+        <p className="pui-input-hint">
+          <strong>
+            <em>
+              You are using Token Studio in a testnet environment. When you
+              click submit, an email WILL NOT be sent to the providers you have
+              selected. To send an email to the selected providers, please log
+              into Token Studio with mainnet.
+              <br />
+              None of this information is stored on Polymath servers, only your
+              browser&apos;s cache. To clear this information, simply clear your
+              browser&apos;s cache.
+            </em>
+          </strong>
+        </p>
+      )}
       <br />
     </Form>
   );
 };
 
-const mapStateToProps = ({ providers: { application } }) => ({ application });
+const mapStateToProps = ({
+  providers: { application },
+  network: { id: networkId },
+}) => ({ application, networkId });
 
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
   displayName: 'ApplyForm',
   validatOnChange: false,
-  mapPropsToValues: ({ application }) => {
+  mapPropsToValues: ({ application, networkId }) => {
     const {
       companyName,
       companyDesc,
