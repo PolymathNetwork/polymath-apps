@@ -10,7 +10,7 @@ import {
   TextArea,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
-
+import { MAINNET_NETWORK_ID } from '@polymathnetwork/shared/constants';
 import { applyProviders } from '../../actions/providers';
 
 const requiredMessage = 'Required.';
@@ -146,7 +146,7 @@ export const ApplyFormComponent = args => {
         </Button>
       </p>
 
-      {networkId === 1 ? (
+      {networkId === MAINNET_NETWORK_ID ? (
         <p className="pui-input-hint">
           When you click submit, an email which contains the information entered
           on that screen will be sent to the Advisory firm(s) you have selected.
