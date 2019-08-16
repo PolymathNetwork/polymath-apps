@@ -65,8 +65,8 @@ const linkTooltip = (title: string) => (
   </Tooltip>
 );
 
-export const ApplyFormComponent = args => {
-  const { handleSubmit, onClose, networkId } = args;
+export const ApplyFormComponent = props => {
+  const { handleSubmit, onClose, networkId } = props;
   return (
     <Form onSubmit={handleSubmit}>
       <Grid>
