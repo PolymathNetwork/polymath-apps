@@ -42,9 +42,6 @@ export const sendEmail = async (
     from: { email: 'noreply@polymath.network', name: 'Polymath Network' },
     replyTo,
     to: { email, name },
-    // @FIXME remon-nashid: requests to SendGrid fail when cc and receiver addresses are the same.
-    // hardcoding CC email to my email to save the day.
-    cc: 'remon@polymath.network',
     subject,
     html: body,
   };
