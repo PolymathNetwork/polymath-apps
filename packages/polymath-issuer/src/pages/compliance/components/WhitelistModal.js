@@ -29,7 +29,7 @@ const formSchema = validator.object().shape({
   details: validator.string().isRequired('Required'),
 });
 
-export const ConfirmEmailFormComponent = ({ handleSubmit, handleClose }) => (
+export const AddWhitelistManagerComponent = ({ handleSubmit, handleClose }) => (
   <Form onSubmit={handleSubmit}>
     <FormItem name="address">
       <Heading className="form-item-header" variant="h3">
@@ -78,7 +78,7 @@ const mapStateToProps = state => ({
   approvedManagers: state.whitelist.approvedManagers,
 });
 
-const FormikEnhancedForm = formikEnhancer(ConfirmEmailFormComponent);
+const FormikEnhancedForm = formikEnhancer(AddWhitelistManagerComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
 class WhitelistModal extends Component<Props> {

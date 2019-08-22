@@ -141,6 +141,14 @@ class Dashboard extends Component<Props> {
         isDisabled: !token || !token.address,
       },
       {
+        title: 'Volume Restrictions',
+        id: 'compliance-nav-link',
+        icon: icoWhitelist,
+        to: `${tokenUrl}/restrictions`,
+        isActive: location.slice(-13) === '/restrictions',
+        isDisabled: !token || !token.address,
+      },
+      {
         title: 'Dividends',
         id: 'dividends-nav-link',
         icon: icoDividends,
