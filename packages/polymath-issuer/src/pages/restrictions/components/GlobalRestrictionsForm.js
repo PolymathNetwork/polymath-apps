@@ -4,9 +4,10 @@ import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from '@polymathnetwork/ui';
 import { withFormik } from 'formik';
-import { Form, Dropdown } from 'carbon-components-react';
+import { Form, Dropdown, DropdownItem } from 'carbon-components-react';
 import {
   bull,
+  Box,
   PageCentered,
   ContentBox,
   Heading,
@@ -16,6 +17,9 @@ import {
   PercentageInput,
   NumberInput,
   Grid,
+  FormItemGroup,
+  DatePickerInput,
+  TimePickerSelect,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 import { addAddressToTransferManager } from '../../../actions/compliance';
@@ -39,34 +43,23 @@ const handleTransferTypeChange = value => {
 
 const initialValues = {
   transferType: 'token',
+  token: '',
+  percentage: '',
+  time: 'days',
 };
-
-const stringItems = ['Option 1', 'Option 2', 'Option 3'];
-
-const items = [
-  {
-    id: 'option-1',
-    text: 'Option 1',
-  },
-  {
-    id: 'option-2',
-    text: 'Option 2',
-  },
-  {
-    id: 'option-3',
-    text: 'Option 3',
-  },
-  {
-    id: 'option-4',
-    text: 'Option 4',
-  },
-];
 
 export const AddGlobalRestrictionsComponent = ({
   handleSubmit,
   handleClose,
+  handleChange,
   values,
+  setFieldValue,
+  errors,
+  touched,
 }) => {
+  const handleDropdown = e => {
+    setFieldValue('time', e.value);
+  };
   return (
     <Form className="global-restrictions" onSubmit={handleSubmit}>
       <Grid>
@@ -87,7 +80,7 @@ export const AddGlobalRestrictionsComponent = ({
               <FormItem.Error />
             </FormItem>
           </Grid.Col>
-          <Grid.Col gridSpan={9}>
+          <Grid.Col gridSpan={6}>
             {values.transferType === 'token' && (
               <FormItem name="token">
                 <Heading className="form-header" variant="h3">
@@ -95,7 +88,7 @@ export const AddGlobalRestrictionsComponent = ({
                 </Heading>
                 <FormItem.Input
                   placeholder="Enter the value"
-                  component={TextInput}
+                  component={TextInput} // change to number input
                   unit="TOKEN"
                 />
                 <FormItem.Error />
@@ -127,29 +120,69 @@ export const AddGlobalRestrictionsComponent = ({
                 max={365}
               />
               <FormItem.Error />
-              <Grid.Col gripSpan={2}>
-                <FormItem name="time">
+            </FormItem>
+          </Grid.Col>
+          <Grid.Col className="align-self-end" gripSpan={2}>
+            <Dropdown
+              className="time"
+              type="text"
+              name="time"
+              onChange={handleDropdown}
+              value={values.time}
+            >
+              <DropdownItem value="days" itemText="Days" />
+              <DropdownItem value="weeks" itemText="Weeks" />
+            </Dropdown>
+          </Grid.Col>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Col gridSpan={12}>
+            <FormItemGroup>
+              <FormItemGroup.Items>
+                <FormItem name="date.startDate">
+                  <FormItem.Label>Start Date</FormItem.Label>
                   <FormItem.Input
-                    component={Dropdown}
-                    items={[
-                      {
-                        id: 'option-1',
-                        text: 'Option 1',
-                      },
-                    ]}
+                    component={DatePickerInput}
+                    placeholder="mm / dd / yyyy"
                   />
                 </FormItem>
-              </Grid.Col>
-            </FormItem>
+                <FormItem name="date.startTime">
+                  <FormItem.Label>Time</FormItem.Label>
+                  <FormItem.Input
+                    component={TimePickerSelect}
+                    placeholder="hh:mm"
+                  />
+                </FormItem>
+                <FormItem name="date.endDate">
+                  <FormItem.Label>End Date</FormItem.Label>
+                  <FormItem.Input
+                    component={DatePickerInput}
+                    placeholder="mm / dd / yyyy"
+                  />
+                </FormItem>
+                <FormItem name="date.endTime">
+                  <FormItem.Label>Time</FormItem.Label>
+                  <FormItem.Input
+                    component={TimePickerSelect}
+                    placeholder="hh:mm"
+                  />
+                </FormItem>
+              </FormItemGroup.Items>
+              <FormItemGroup.Error
+                name="date"
+                errors={errors}
+                touched={touched}
+              />
+            </FormItemGroup>
+          </Grid.Col>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Col gridSpan={4}>
+            <div>Placeholder for that line</div>
           </Grid.Col>
         </Grid.Row>
       </Grid>
-      <Modal.Footer>
-        <Button onClick={handleClose} className="cancel-btn" kind="secondary">
-          Cancel
-        </Button>
-        <Button type="submit">Confirm</Button>
-      </Modal.Footer>
+      <Button type="submit">Set The Period</Button>
     </Form>
   );
 };

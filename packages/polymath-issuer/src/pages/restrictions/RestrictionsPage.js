@@ -18,14 +18,26 @@ import { toggleRestrictions } from '../../actions/restrictions';
 import { withFormik } from 'formik';
 import GlobalRestrictionsForm from './components/GlobalRestrictionsForm';
 import './style.scss';
+import {
+  addVolumeRestrictionModule,
+  getVolumeRestrictionModule,
+  archiveVolumeRestrictionModule,
+} from '../../actions/restrictions';
 
 class RestrictionsPage extends Component {
+  componentWillMount() {
+    this.props.getVolumeRestrictionModule();
+  }
+
   handleToggleRestrictions = async (isToggled: boolean) => {
-    const { toggleRestrictions } = this.props;
+    const {
+      archiveVolumeRestrictionModule,
+      addVolumeRestrictionModule,
+    } = this.props;
     if (isToggled) {
-      toggleRestrictions(true);
+      addVolumeRestrictionModule();
     } else {
-      toggleRestrictions(false);
+      archiveVolumeRestrictionModule();
     }
   };
 
@@ -62,11 +74,13 @@ class RestrictionsPage extends Component {
                   <Heading color="primary" mt={2}>
                     Enable Enforcement of Trade Volume Restrictions
                   </Heading>
-                  <Toggle
-                    onToggle={this.handleToggleRestrictions}
-                    toggled={isRestrictionsToggled}
-                    id="percentageToggle"
-                  />
+                  <div className="center">
+                    <Toggle
+                      onToggle={this.handleToggleRestrictions}
+                      toggled={isRestrictionsToggled}
+                      id="volumeRestrictionToggle"
+                    />
+                  </div>
                 </CardFeatureState>
               </Grid.Col>
             </Grid.Row>
@@ -123,6 +137,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   toggleRestrictions,
+  addVolumeRestrictionModule,
+  getVolumeRestrictionModule,
+  archiveVolumeRestrictionModule,
 };
 
 export default connect(

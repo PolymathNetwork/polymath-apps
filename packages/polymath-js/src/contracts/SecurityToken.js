@@ -9,6 +9,7 @@ import semver from 'semver';
 import Contract from './Contract';
 import PermissionManager from './PermissionManager';
 import TransferManager from './TransferManager';
+import VolumeRestrictionTransferManager from './VolumeRestrictionTransferManager';
 import PercentageTransferManager from './PercentageTransferManager';
 import CountTransferManager from './CountTransferManager';
 import ModuleRegistry from './ModuleRegistry';
@@ -146,6 +147,15 @@ export default class SecurityToken extends Contract {
     try {
       const address = await this.getModuleByName('GeneralPermissionManager');
       return new PermissionManager(address, this.version);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getVolumeRestrictionTransferManager(): Promise<?VolumeRestrictionTransferManager> {
+    try {
+      const address = await this.getModuleByName('VolumeRestrictionTM');
+      return new VolumeRestrictionTransferManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -293,7 +303,6 @@ export default class SecurityToken extends Contract {
     let availableModules = await ModuleRegistry._methods
       .getModulesByTypeAndToken(type, this.address)
       .call();
-
     let result = null;
 
     if (!availableModules || !availableModules.length) {
@@ -483,6 +492,21 @@ export default class SecurityToken extends Contract {
     const data = this._toBytes('');
     return this.addModule(
       generalPermissionManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
+    );
+  }
+
+  async setVolumeRestrictionTransferManager(): Promise<Web3Receipt> {
+    const volumeRestrictionTransferManagerFactory = await this.getModuleFactory(
+      'VolumeRestrictionTM',
+      MODULE_TYPES.TRANSFER
+    );
+    const setupCost = await volumeRestrictionTransferManagerFactory.setupCost();
+    const data = this._toBytes('');
+    return this.addModule(
+      volumeRestrictionTransferManagerFactory.address,
       data,
       PolyToken.addDecimals(setupCost),
       0
