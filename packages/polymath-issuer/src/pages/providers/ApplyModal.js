@@ -29,7 +29,7 @@ export default class ApplyModal extends Component<Props> {
         <Modal.Header>{'Apply to ' + catName + ' Providers'}</Modal.Header>
         <h4 className="pui-h4">
           The information you enter below will be sent to the {catName}{' '}
-          Providers your selected.
+          Providers you selected.
         </h4>
         <br />
         <br />
