@@ -15,3 +15,21 @@
 #volumeRestrictionToggle {
   align-items: center;
 }
+
+.transfer-type {
+  flex-direction: column;
+  padding-left: 5px;
+}
+
+.transfer-type > div {
+  padding-top: 5px;
+}
+
+.form-label {
+  display: block;
+  color: #152935;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 22px;
+}

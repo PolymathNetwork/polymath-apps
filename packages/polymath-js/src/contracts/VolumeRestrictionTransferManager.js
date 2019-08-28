@@ -1,8 +1,9 @@
 // @flow
 import semver from 'semver';
-import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/GeneralPermissionManager.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/2.x/GeneralPermissionManager.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/VolumeRestrictionTM.json';
+import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/VolumeRestrictionTM.json';
 import { LATEST_PROTOCOL_VERSION } from '../constants';
+import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
 import type { Address } from '../types';
@@ -17,5 +18,38 @@ export default class VolumeRestrictionTransferManager extends Contract {
       super(artifact, at);
     }
     version = version;
+  }
+
+  async addDefaultRestriction(
+    allowedTokens: BigNumber,
+    startTime: Date,
+    rollingPeriodInDays: number,
+    endTime: Date,
+    restrictionType
+  ) {
+    return this._tx(
+      this._methods.addDefaultRestriction(
+        allowedTokens,
+        startTime,
+        rollingPeriodInDays,
+        endTime,
+        restrictionType
+      )
+    );
+  }
+
+  async addDefaultDailyRestriction() {}
+
+  async getDefaultRestriction() {
+    const defaultRestrictions = await this._methods
+      .getDefaultRestriction()
+      .call();
+    return {
+      allowedTokens: defaultRestrictions[0],
+      startTime: defaultRestrictions[1],
+      rollingPeriodInDays: defaultRestrictions[2],
+      endTime: defaultRestrictions[3],
+      restrictionType: defaultRestrictions[4],
+    };
   }
 }

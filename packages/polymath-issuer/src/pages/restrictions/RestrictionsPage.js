@@ -11,12 +11,18 @@ import {
   FormItem,
 } from '@polymathnetwork/ui';
 import { connect } from 'react-redux';
-import { Heading, CardFeatureState, icons } from '@polymathnetwork/new-ui';
-import { ThemeProvider } from '@polymathnetwork/new-ui';
+import {
+  Heading,
+  CardFeatureState,
+  icons,
+  ThemeProvider,
+  ButtonLarge,
+} from '@polymathnetwork/new-ui';
 import { Toggle, Tabs, Tab, Form } from 'carbon-components-react';
 import { toggleRestrictions } from '../../actions/restrictions';
 import { withFormik } from 'formik';
 import GlobalRestrictionsForm from './components/GlobalRestrictionsForm';
+import FormModal from './components/FormModal';
 import './style.scss';
 import {
   addVolumeRestrictionModule,
@@ -25,9 +31,22 @@ import {
 } from '../../actions/restrictions';
 
 class RestrictionsPage extends Component {
+  state = {
+    isFormModalOpen: false,
+    restrictionType: null,
+  };
+
   componentWillMount() {
     this.props.getVolumeRestrictionModule();
   }
+
+  handleOpen = restrictionType => {
+    this.setState({ isFormModalOpen: true, restrictionType: restrictionType });
+  };
+
+  handleClose = () => {
+    this.setState({ isFormModalOpen: false });
+  };
 
   handleToggleRestrictions = async (isToggled: boolean) => {
     const {
@@ -43,6 +62,7 @@ class RestrictionsPage extends Component {
 
   render() {
     const { token, isRestrictionsToggled } = this.props;
+    const { isFormModalOpen, restrictionType } = this.state;
     if (!token || !token.address) {
       return <NotFoundPage />;
     }
@@ -86,41 +106,72 @@ class RestrictionsPage extends Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col gridSpan={12}>
-                <Tabs>
-                  <Tab label="Global Restrictions">
-                    <h1 className="pui-h1">Global Restrictions</h1>
-                    <h3 className="pui-h3">
-                      Specify a single rolling period restriction for all
-                      investors. The Global Restriction will enforce a maximum
-                      number of tokens each investor can sell during the rolling
-                      period you define. Easily set to 24 hours or customize
-                      your rolling period. Your trade volume cap is specified as
-                      the number or tokens or the percentage of total token
-                      supply.
-                    </h3>
-                    <div className="pui-page-box">
-                      <h1 className="pui-h1">
-                        Configure Custom Rolling Period
-                      </h1>
+                {isRestrictionsToggled && (
+                  <Tabs>
+                    <Tab label="Global Restrictions">
+                      <h1 className="pui-h1">Global Restrictions</h1>
                       <h3 className="pui-h3">
-                        The volume restriction can be specified in number of
-                        tokens or as a percentage of total supply and will be
-                        enforced only between the Start Date Time and the End
-                        Date Time.
+                        Specify a single rolling period restriction for all
+                        investors. The Global Restriction will enforce a maximum
+                        number of tokens each investor can sell during the
+                        rolling period you define. Easily set to 24 hours or
+                        customize your rolling period. Your trade volume cap is
+                        specified as the number or tokens or the percentage of
+                        total token supply.
                       </h3>
-                      <Remark title="Note">
-                        — Volume restrictions do not apply to primary issuance,
-                        only to secondary trades.
-                        <br />— The Global Restriction applies to each Investor
-                        individually, not the aggregate of all sales across all
-                        investors within the period.
-                      </Remark>
-                      {/* Form here */}
-                      <GlobalRestrictionsForm />
-                    </div>
-                  </Tab>
-                  <Tab label="Individual Restrictions" />
-                </Tabs>
+                      <FormModal
+                        isOpen={isFormModalOpen}
+                        handleClose={this.handleClose}
+                        restrictionType={restrictionType}
+                      />
+                      <Grid>
+                        <Grid.Row>
+                          <Grid.Col gridSpan={4}>
+                            <CardFeatureState
+                              status={'idle'}
+                              IconAsset={icons.SvgDividendsOutline}
+                            >
+                              <Heading color="primary" mt={2}>
+                                24h Rolling Period Restriction
+                              </Heading>
+                              <p>
+                                Configure a maximum number of tokens any
+                                investor may be able to sell within a rolling
+                                24h period.
+                              </p>
+                              <ButtonLarge
+                                onClick={() => this.handleOpen('24h')}
+                              >
+                                Configure 24h Restriction
+                              </ButtonLarge>
+                            </CardFeatureState>
+                          </Grid.Col>
+                          <Grid.Col gridSpan={4}>
+                            <CardFeatureState
+                              status={'idle'}
+                              IconAsset={icons.SvgDividendsOutline}
+                            >
+                              <Heading color="primary" mt={2}>
+                                Custom Rolling Period Restriction
+                              </Heading>
+                              <p>
+                                Configure a maximum number of tokens any
+                                Investor may be able to sell within a custom
+                                rolling period.
+                              </p>
+                              <ButtonLarge
+                                onClick={() => this.handleOpen('custom')}
+                              >
+                                Configure Custom Restriction
+                              </ButtonLarge>
+                            </CardFeatureState>
+                          </Grid.Col>
+                        </Grid.Row>
+                      </Grid>
+                    </Tab>
+                    <Tab label="Individual Restrictions" />
+                  </Tabs>
+                )}
               </Grid.Col>
             </Grid.Row>
           </Grid>

@@ -13,7 +13,6 @@ export const addVolumeRestrictionModule = () => async (
   const st: SecurityToken = getState().token.token.contract;
   const volumeRestrictionModule = await st.getVolumeRestrictionTransferManager();
   let moduleMetadata = {};
-  console.log(volumeRestrictionModule);
   if (volumeRestrictionModule)
     moduleMetadata = await st.getModule(volumeRestrictionModule.address);
   dispatch(
@@ -44,8 +43,11 @@ export const getVolumeRestrictionModule = () => async (
 ) => {
   const st: SecurityToken = getState().token.token.contract;
   const volumeRestrictionModule = await st.getVolumeRestrictionTransferManager();
-  console.log(volumeRestrictionModule);
-  if (volumeRestrictionModule) dispatch(toggleRestrictions(true));
+  if (volumeRestrictionModule) {
+    dispatch(toggleRestrictions(true));
+    const defaultRestriction = await volumeRestrictionModule.getDefaultRestriction();
+    // const defaultRestriction = await volumeRestrictionModule.getDefaultRestriction();
+  }
 };
 
 export const archiveVolumeRestrictionModule = () => async (
@@ -63,6 +65,61 @@ export const archiveVolumeRestrictionModule = () => async (
       'Volume Restriction Transfer Manager Disabled',
       () => {
         dispatch(toggleRestrictions(false));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const addDefaultDailyRestriction = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const volumeRestrictionModule = await st.getVolumeRestrictionTransferManager();
+  dispatch(
+    ui.tx(
+      ['Proceeding with 24h Trade Volume Restriction'],
+      async () => {},
+      'Configuring 24h Global Volume Restriction',
+      () => {
+        dispatch(toggleRestrictions(false));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const addDefaultRestriction = (
+  allowedTokens,
+  startTime,
+  rollingPeriodInDays,
+  endTime,
+  restrictionType
+) => async (dispatch: Function, getState: GetState) => {
+  const st: SecurityToken = getState().token.token.contract;
+  dispatch(
+    ui.tx(
+      ['Proceed with Custom Trade Volume Restriction'],
+      async () => {
+        const volumeRestrictionModule = await st.getVolumeRestrictionTransferManager();
+        await volumeRestrictionModule.addDefaultRestriction(
+          allowedTokens,
+          startTime,
+          rollingPeriodInDays,
+          endTime,
+          restrictionType
+        );
+      },
+      'Custom Trade Volume Restriction Was Successfully Configured',
+      () => {
+        // dispatch(toggleRestrictions(false));
       },
       undefined,
       undefined,

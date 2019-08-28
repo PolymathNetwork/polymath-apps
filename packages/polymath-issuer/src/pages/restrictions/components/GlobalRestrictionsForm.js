@@ -22,7 +22,19 @@ import {
   TimePickerSelect,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
-import { addAddressToTransferManager } from '../../../actions/compliance';
+import { addDefaultRestriction } from '../../../actions/restrictions';
+import {
+  validateTodayOrAfter,
+  validateStartTime,
+  validateEndDate,
+  validateEndTime,
+  REQUIRED_MESSAGE,
+  MORE_THAN_MESSAGE,
+  ADDRESS_MESSAGE,
+  MAX_DIGITS_MESSAGE,
+} from '../../sto/components/ConfigureSTOForm/validators'; // this is mangled put into global object
+import moment from 'moment';
+import { toWei } from '../../../utils/contracts';
 
 type Props = {
   isOpen: boolean,
@@ -30,22 +42,51 @@ type Props = {
 };
 
 const formSchema = validator.object().shape({
-  address: validator
-    .string()
-    .isAddress('Invalid Address')
-    .isRequired('Required'),
-  details: validator.string().isRequired('Required'),
+  date: validator.object().shape({
+    startDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartDate', validateTodayOrAfter),
+    startTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartTime', validateStartTime),
+    endDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateEndDate', validateEndDate),
+    endTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validEndTime', validateEndTime),
+  }),
+  token: validator
+    .number()
+    .when('transferType', {
+      is: 'token',
+      then: validator.number().isRequired(REQUIRED_MESSAGE),
+    }),
+  percentage: validator
+    .number()
+    .when('transferType', {
+      is: 'percentage',
+      then: validator.number().isRequired(REQUIRED_MESSAGE),
+    }),
+  intervalAmount: validator.number().isRequired(REQUIRED_MESSAGE),
 });
 
-const handleTransferTypeChange = value => {
-  console.log(value);
-};
-
 const initialValues = {
+  date: {
+    startDate: null,
+    startTime: null,
+    endDate: null,
+    endTime: null,
+  },
+  intervalAmount: null,
   transferType: 'token',
   token: '',
   percentage: '',
-  time: 'days',
+  interval: 'days',
 };
 
 export const AddGlobalRestrictionsComponent = ({
@@ -56,31 +97,33 @@ export const AddGlobalRestrictionsComponent = ({
   setFieldValue,
   errors,
   touched,
+  status,
 }) => {
   const handleDropdown = e => {
-    setFieldValue('time', e.value);
+    setFieldValue('interval', e.value);
   };
+  console.log('test' + status);
   return (
     <Form className="global-restrictions" onSubmit={handleSubmit}>
       <Grid>
         <Grid.Row>
-          <Grid.Col gridSpan={3}>
+          <Grid.Col gridSpan={5}>
             <FormItem name="transferType">
               <FormItem.Label>
                 <strong>Specify Maximum Transfer in</strong>
               </FormItem.Label>
               <FormItem.Input
+                className="transfer-type"
                 options={[
                   { label: 'Number of Tokens', value: 'token' },
                   { label: 'Percentage', value: 'percentage' },
                 ]}
                 component={RadioInput}
-                handleChange={handleTransferTypeChange}
               />
               <FormItem.Error />
             </FormItem>
           </Grid.Col>
-          <Grid.Col gridSpan={6}>
+          <Grid.Col gridSpan={7}>
             {values.transferType === 'token' && (
               <FormItem name="token">
                 <Heading className="form-header" variant="h3">
@@ -88,7 +131,7 @@ export const AddGlobalRestrictionsComponent = ({
                 </Heading>
                 <FormItem.Input
                   placeholder="Enter the value"
-                  component={TextInput} // change to number input
+                  component={TextInput} // TODO: change to number input
                   unit="TOKEN"
                 />
                 <FormItem.Error />
@@ -110,30 +153,51 @@ export const AddGlobalRestrictionsComponent = ({
           </Grid.Col>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Col gridSpan={1}>
-            <FormItem name="cap">
-              <FormItem.Label>Rolling Period Interval</FormItem.Label>
-              <FormItem.Input
-                component={NumberInput}
-                placeholder="Enter amount"
-                maxDecimals={0}
-                max={365}
-              />
-              <FormItem.Error />
-            </FormItem>
+          <Grid.Col gridSpan={12}>
+            <label className="form-label">Rolling Period Interval</label>
           </Grid.Col>
-          <Grid.Col className="align-self-end" gripSpan={2}>
-            <Dropdown
-              className="time"
-              type="text"
-              name="time"
-              onChange={handleDropdown}
-              value={values.time}
-            >
-              <DropdownItem value="days" itemText="Days" />
-              <DropdownItem value="weeks" itemText="Weeks" />
-            </Dropdown>
+        </Grid.Row>
+        <Grid.Row style={{ marginTop: '-20px' }}>
+          <Grid.Col gridSpan={12}>
+            <FormItemGroup>
+              <FormItemGroup.Items>
+                <FormItem name="intervalAmount">
+                  {/* <FormItem.Label>Rolling Period Interval</FormItem.Label> */}
+                  <FormItem.Input
+                    component={NumberInput}
+                    placeholder="Enter amount"
+                    maxDecimals={0}
+                    min={1}
+                    max={365}
+                  />
+                  <FormItem.Error />
+                </FormItem>
+                <FormItem name="interval">
+                  <FormItem.Input
+                    className="align-self-end"
+                    component={Dropdown}
+                    onChange={handleDropdown}
+                    value={values.interval}
+                  >
+                    <DropdownItem value="days" itemText="Days" />
+                    <DropdownItem value="months" itemText="months" />
+                    <DropdownItem value="years" itemText="years" />
+                  </FormItem.Input>
+                </FormItem>
+                {/* <Dropdown
+                  className="time"
+                  type="text"
+                  name="time"
+                  onChange={handleDropdown}
+                  value={values.time}
+                >
+                  <DropdownItem value="days" itemText="Days" />
+                  <DropdownItem value="weeks" itemText="Weeks" />
+                </Dropdown> */}
+              </FormItemGroup.Items>
+            </FormItemGroup>
           </Grid.Col>
+          <Grid.Col className="align-self-end" gripSpan={2} />
         </Grid.Row>
         <Grid.Row>
           <Grid.Col gridSpan={12}>
@@ -189,24 +253,41 @@ export const AddGlobalRestrictionsComponent = ({
 
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
-  displayName: 'ConfirmEmailForm',
+  displayName: 'GlobalRestrictionsForm',
   validateOnChange: false,
+  mapPropsToStatus: props => {
+    return {
+      restrictionType: props.restrictionType,
+    };
+  },
   mapPropsToValues: () => {
     return {
       ...initialValues,
     };
   },
-  handleSubmit: (values, { setFieldError, props }) => {
-    const { dispatch, approvedManagers } = props;
-    const addressExists = approvedManagers.find(
-      i => i.address === values.address
+  handleSubmit: (values, { errors, setFieldError, props }) => {
+    const { dispatch, handleClose } = props;
+    const startsAt =
+      moment(values.date.startDate).unix() * 1000 + values.date.startTime;
+    const endsAt =
+      moment(values.date.endDate).unix() * 1000 + values.date.endTime;
+    const allowedTokens =
+      values.transferType === 'token' ? values.token : toWei(values.percentage);
+    const rollingPeriodInDays = 30;
+    const restrictionType = {
+      token: 0,
+      percentage: 1,
+    };
+    handleClose();
+    dispatch(
+      addDefaultRestriction(
+        allowedTokens,
+        startsAt,
+        rollingPeriodInDays,
+        endsAt,
+        restrictionType[values.transferType]
+      )
     );
-    if (addressExists) {
-      setFieldError('address', 'Address is already added to Whitelist Manager');
-      return;
-    }
-    props.handleClose();
-    dispatch(addAddressToTransferManager(values.address, values.details));
   },
 });
 
@@ -215,10 +296,4 @@ const mapStateToProps = state => ({});
 const FormikEnhancedForm = formikEnhancer(AddGlobalRestrictionsComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
-class GlobalRestrictionsForm extends Component<Props> {
-  render() {
-    return <ConnectedForm />;
-  }
-}
-
-export default GlobalRestrictionsForm;
+export default ConnectedForm;
