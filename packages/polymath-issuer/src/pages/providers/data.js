@@ -1,5 +1,3 @@
-// @flow
-
 export type SPStatus = {|
   title: string,
   message: string,
@@ -399,6 +397,20 @@ const providers: Array<ServiceProvider> = [
     guidance throughout the token sale process, compliance, corporate structuring and governance, trademark registration and intellectual property, \
     and transactional and pre-litigation matters. Our firm is located in Washington, D.C. with attorneys licensed to practice law in DC, CA, FL, MA, \
     NY, NJ, and Puerto Rico.",
+  },
+  {
+    id: 51,
+    cat: 1,
+    title: 'DWF',
+    logo: '/providers/legal/dwf.png',
+    background: '/providers/legal/bg/img-dwf.png',
+    desc:
+      'DWF is a multinational full service law firm ranked as the 10th overall most innovative law firm in the 2017 Financial Times Most \
+      Innovative Lawyers Report. With crypto-asset expertise across all continents and an especially strong group in Berlin, we are able \
+      to serve our clients wherever they are based or want to do business. We advise numerous national and international clients, both \
+      established and start-up companies, on all matters related to blockchain business models and token offerings. Our services include \
+      structuring and implementing token offerings, coordinating with financial regulators with respect to license requirements and \
+      capital market information, as well as assistance in meeting KYC requirements and rendering legal opinions on token classifications.',
   },
 
   // KYC/AML
