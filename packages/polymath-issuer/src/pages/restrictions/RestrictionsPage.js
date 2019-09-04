@@ -23,6 +23,7 @@ import { toggleRestrictions } from '../../actions/restrictions';
 import { withFormik } from 'formik';
 import GlobalRestrictionsForm from './components/GlobalRestrictionsForm';
 import FormModal from './components/FormModal';
+import RestrictionDetails from './components/RestrictionDetails';
 import './style.scss';
 import {
   addVolumeRestrictionModule,
@@ -61,7 +62,14 @@ class RestrictionsPage extends Component {
   };
 
   render() {
-    const { token, isRestrictionsToggled } = this.props;
+    const {
+      token,
+      isRestrictionsToggled,
+      dailyRestrictionModified,
+      defaultRestrictionModified,
+      dailyRestriction,
+      defaultRestriction,
+    } = this.props;
     const { isFormModalOpen, restrictionType } = this.state;
     if (!token || !token.address) {
       return <NotFoundPage />;
@@ -88,7 +96,7 @@ class RestrictionsPage extends Component {
               </Grid.Col>
               <Grid.Col gridSpan={6}>
                 <CardFeatureState
-                  status={'idle'}
+                  status={isRestrictionsToggled ? 'idle' : 'inactive'}
                   IconAsset={icons.SvgDividendsOutline}
                 >
                   <Heading color="primary" mt={2}>
@@ -128,18 +136,30 @@ class RestrictionsPage extends Component {
                         <Grid.Row>
                           <Grid.Col gridSpan={4}>
                             <CardFeatureState
-                              status={'idle'}
-                              IconAsset={icons.SvgDividendsOutline}
+                              style={{ height: '400px' }}
+                              maxWidth="none"
+                              status={
+                                dailyRestrictionModified ? 'idle' : 'inactive'
+                              }
+                              IconAsset={icons.SvgCycle}
                             >
                               <Heading color="primary" mt={2}>
                                 24h Rolling Period Restriction
                               </Heading>
-                              <p>
+                              <p className="card-text">
                                 Configure a maximum number of tokens any
                                 investor may be able to sell within a rolling
                                 24h period.
                               </p>
+                              {dailyRestrictionModified && (
+                                <RestrictionDetails
+                                  restriction={dailyRestriction}
+                                />
+                              )}
+
+                              {/* Empty div with height instead of CSS */}
                               <ButtonLarge
+                                className="card-button"
                                 onClick={() => this.handleOpen('24h')}
                               >
                                 Configure 24h Restriction
@@ -148,18 +168,28 @@ class RestrictionsPage extends Component {
                           </Grid.Col>
                           <Grid.Col gridSpan={4}>
                             <CardFeatureState
-                              status={'idle'}
-                              IconAsset={icons.SvgDividendsOutline}
+                              style={{ height: '400px' }}
+                              maxWidth="none"
+                              status={
+                                defaultRestrictionModified ? 'idle' : 'inactive'
+                              }
+                              IconAsset={icons.SvgCalendar}
                             >
                               <Heading color="primary" mt={2}>
                                 Custom Rolling Period Restriction
                               </Heading>
-                              <p>
+                              <p className="card-text">
                                 Configure a maximum number of tokens any
                                 Investor may be able to sell within a custom
                                 rolling period.
                               </p>
+                              {defaultRestrictionModified && (
+                                <RestrictionDetails
+                                  restriction={defaultRestriction}
+                                />
+                              )}
                               <ButtonLarge
+                                className="card-button"
                                 onClick={() => this.handleOpen('custom')}
                               >
                                 Configure Custom Restriction
@@ -184,6 +214,10 @@ class RestrictionsPage extends Component {
 const mapStateToProps = state => ({
   token: state.token.token,
   isRestrictionsToggled: state.restrictions.isToggled,
+  dailyRestrictionModified: state.restrictions.dailyRestrictionModified,
+  defaultRestrictionModified: state.restrictions.defaultRestrictionModified,
+  dailyRestriction: state.restrictions.dailyRestriction,
+  defaultRestriction: state.restrictions.defaultRestriction,
 });
 
 const mapDispatchToProps = {

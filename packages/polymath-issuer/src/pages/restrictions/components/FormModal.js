@@ -12,6 +12,7 @@ import GlobalRestrictionsForm from './GlobalRestrictionsForm';
 type Props = {
   isOpen: boolean,
   handleClose: () => any,
+  restrictionType: string,
 };
 
 class FormModal extends Component<Props> {
@@ -19,9 +20,13 @@ class FormModal extends Component<Props> {
     const { isOpen, handleClose, restrictionType } = this.props;
     return (
       <Modal isOpen={isOpen} onClose={handleClose}>
-        {/* <Modal.Header variant="alert">Add Whitelist Manager</Modal.Header> */}
         <Modal.Body>
-          <h1 className="pui-h2">Configure Custom Rolling Period</h1>
+          {restrictionType === 'custom' && (
+            <h1 className="pui-h2">Configure Custom Rolling Period</h1>
+          )}
+          {restrictionType === '24h' && (
+            <h1 className="pui-h2">Configure 24h Rolling Period</h1>
+          )}
           <h3 className="pui-h3">
             The volume restriction can be specified in number of tokens or as a
             percentage of total supply and will be enforced only between the

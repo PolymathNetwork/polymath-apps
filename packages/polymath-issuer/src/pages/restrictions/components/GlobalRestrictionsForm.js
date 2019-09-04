@@ -1,10 +1,11 @@
 // @flow
 
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from '@polymathnetwork/ui';
 import { withFormik } from 'formik';
 import { Form, Dropdown, DropdownItem } from 'carbon-components-react';
+import { RESTRICTION_TYPE } from '../../../constants';
 import {
   bull,
   Box,
@@ -22,7 +23,12 @@ import {
   TimePickerSelect,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
-import { addDefaultRestriction } from '../../../actions/restrictions';
+import {
+  addDefaultRestriction,
+  addDefaultDailyRestriction,
+  modifyDefaultDailyRestriction,
+  modifyDefaultRestriction,
+} from '../../../actions/restrictions';
 import {
   validateTodayOrAfter,
   validateStartTime,
@@ -43,14 +49,8 @@ type Props = {
 
 const formSchema = validator.object().shape({
   date: validator.object().shape({
-    startDate: validator
-      .date()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validateStartDate', validateTodayOrAfter),
-    startTime: validator
-      .number()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validateStartTime', validateStartTime),
+    startDate: validator.date().isRequired(REQUIRED_MESSAGE),
+    startTime: validator.number().isRequired(REQUIRED_MESSAGE),
     endDate: validator
       .date()
       .isRequired(REQUIRED_MESSAGE)
@@ -60,19 +60,24 @@ const formSchema = validator.object().shape({
       .isRequired(REQUIRED_MESSAGE)
       .test('validEndTime', validateEndTime),
   }),
-  token: validator
+  token: validator.number().when('transferType', {
+    is: 'token',
+    then: validator.number().isRequired(REQUIRED_MESSAGE),
+  }),
+  percentage: validator.number().when('transferType', {
+    is: 'percentage',
+    then: validator.number().isRequired(REQUIRED_MESSAGE),
+  }),
+  intervalAmount: validator
     .number()
-    .when('transferType', {
-      is: 'token',
+    .when('restrictionType', {
+      is: 'custom',
       then: validator.number().isRequired(REQUIRED_MESSAGE),
+    })
+    .when('restrictionType', {
+      is: '24h',
+      then: validator.number().nullable(),
     }),
-  percentage: validator
-    .number()
-    .when('transferType', {
-      is: 'percentage',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
-    }),
-  intervalAmount: validator.number().isRequired(REQUIRED_MESSAGE),
 });
 
 const initialValues = {
@@ -84,7 +89,7 @@ const initialValues = {
   },
   intervalAmount: null,
   transferType: 'token',
-  token: '',
+  token: null,
   percentage: '',
   interval: 'days',
 };
@@ -97,12 +102,10 @@ export const AddGlobalRestrictionsComponent = ({
   setFieldValue,
   errors,
   touched,
-  status,
 }) => {
   const handleDropdown = e => {
     setFieldValue('interval', e.value);
   };
-  console.log('test' + status);
   return (
     <Form className="global-restrictions" onSubmit={handleSubmit}>
       <Grid>
@@ -131,7 +134,7 @@ export const AddGlobalRestrictionsComponent = ({
                 </Heading>
                 <FormItem.Input
                   placeholder="Enter the value"
-                  component={TextInput} // TODO: change to number input
+                  component={NumberInput}
                   unit="TOKEN"
                 />
                 <FormItem.Error />
@@ -152,53 +155,47 @@ export const AddGlobalRestrictionsComponent = ({
             )}
           </Grid.Col>
         </Grid.Row>
-        <Grid.Row>
-          <Grid.Col gridSpan={12}>
-            <label className="form-label">Rolling Period Interval</label>
-          </Grid.Col>
-        </Grid.Row>
-        <Grid.Row style={{ marginTop: '-20px' }}>
-          <Grid.Col gridSpan={12}>
-            <FormItemGroup>
-              <FormItemGroup.Items>
-                <FormItem name="intervalAmount">
-                  {/* <FormItem.Label>Rolling Period Interval</FormItem.Label> */}
-                  <FormItem.Input
-                    component={NumberInput}
-                    placeholder="Enter amount"
-                    maxDecimals={0}
-                    min={1}
-                    max={365}
-                  />
-                  <FormItem.Error />
-                </FormItem>
-                <FormItem name="interval">
-                  <FormItem.Input
-                    className="align-self-end"
-                    component={Dropdown}
-                    onChange={handleDropdown}
-                    value={values.interval}
-                  >
-                    <DropdownItem value="days" itemText="Days" />
-                    <DropdownItem value="months" itemText="months" />
-                    <DropdownItem value="years" itemText="years" />
-                  </FormItem.Input>
-                </FormItem>
-                {/* <Dropdown
-                  className="time"
-                  type="text"
-                  name="time"
-                  onChange={handleDropdown}
-                  value={values.time}
-                >
-                  <DropdownItem value="days" itemText="Days" />
-                  <DropdownItem value="weeks" itemText="Weeks" />
-                </Dropdown> */}
-              </FormItemGroup.Items>
-            </FormItemGroup>
-          </Grid.Col>
-          <Grid.Col className="align-self-end" gripSpan={2} />
-        </Grid.Row>
+        {values.restrictionType === 'custom' && (
+          <Fragment>
+            <Grid.Row>
+              <Grid.Col gridSpan={12}>
+                <label className="form-label">Rolling Period Interval</label>
+              </Grid.Col>
+            </Grid.Row>
+            <Grid.Row style={{ marginTop: '-20px' }}>
+              <Grid.Col gridSpan={12}>
+                <FormItemGroup>
+                  <FormItemGroup.Items>
+                    <FormItem name="intervalAmount">
+                      <FormItem.Input
+                        component={NumberInput}
+                        placeholder="Enter amount"
+                        maxDecimals={0}
+                        min={1}
+                        max={365}
+                      />
+                      <FormItem.Error />
+                    </FormItem>
+                    <FormItem name="interval">
+                      <FormItem.Input
+                        className="align-self-end"
+                        component={Dropdown}
+                        onChange={handleDropdown}
+                        value={values.interval}
+                        ariaLabel="Rolling Period Interval"
+                      >
+                        <DropdownItem value="days" itemText="Days" />
+                        <DropdownItem value="months" itemText="Months" />
+                        <DropdownItem value="years" itemText="Years" />
+                      </FormItem.Input>
+                    </FormItem>
+                  </FormItemGroup.Items>
+                </FormItemGroup>
+              </Grid.Col>
+              <Grid.Col className="align-self-end" gripSpan={2} />
+            </Grid.Row>
+          </Fragment>
+        )}
         <Grid.Row>
           <Grid.Col gridSpan={12}>
             <FormItemGroup>
@@ -241,9 +238,7 @@ export const AddGlobalRestrictionsComponent = ({
           </Grid.Col>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Col gridSpan={4}>
-            <div>Placeholder for that line</div>
-          </Grid.Col>
+          <Grid.Col gridSpan={4} />
         </Grid.Row>
       </Grid>
       <Button type="submit">Set The Period</Button>
@@ -255,43 +250,166 @@ const formikEnhancer = withFormik({
   validationSchema: formSchema,
   displayName: 'GlobalRestrictionsForm',
   validateOnChange: false,
-  mapPropsToStatus: props => {
+  mapPropsToValues: props => {
+    if (
+      props.restrictionType === 'custom' &&
+      props.defaultRestrictionModified
+    ) {
+      let startTime =
+        props.defaultRestriction.startTime.unix() -
+        moment(props.defaultRestriction.startTime)
+          .startOf('day')
+          .unix();
+      let endTime =
+        props.defaultRestriction.endTime.unix() -
+        moment(props.defaultRestriction.endTime)
+          .startOf('day')
+          .unix();
+      return {
+        date: {
+          startDate: props.defaultRestriction.startTime,
+          startTime: startTime * 1000,
+          endDate: props.defaultRestriction.endTime,
+          endTime: endTime * 1000,
+        },
+        intervalAmount: props.defaultRestriction.rollingPeriodInDays,
+        transferType:
+          props.defaultRestriction.restrictionType === 1
+            ? 'percentage'
+            : 'token',
+        token:
+          props.defaultRestriction.restrictionType === 0
+            ? parseFloat(props.defaultRestriction.allowedTokens)
+            : '',
+        percentage:
+          props.defaultRestriction.restrictionType === 1
+            ? parseFloat(props.defaultRestriction.allowedTokens)
+            : '',
+        interval: 'days',
+        restrictionType: props.restrictionType,
+      };
+    } else if (
+      props.restrictionType === '24h' &&
+      props.dailyRestrictionModified
+    ) {
+      let startTime =
+        props.dailyRestriction.startTime.unix() -
+        moment(props.dailyRestriction.startTime)
+          .startOf('day')
+          .unix();
+      let endTime =
+        props.dailyRestriction.endTime.unix() -
+        moment(props.dailyRestriction.endTime)
+          .startOf('day')
+          .unix();
+      return {
+        date: {
+          startDate: props.dailyRestriction.startTime,
+          startTime: startTime * 1000,
+          endDate: props.dailyRestriction.endTime,
+          endTime: endTime * 1000,
+        },
+        transferType:
+          props.dailyRestriction.restrictionType === 1 ? 'percentage' : 'token',
+        token:
+          props.dailyRestriction.restrictionType === 0
+            ? parseFloat(props.dailyRestriction.allowedTokens)
+            : '',
+        percentage:
+          props.dailyRestriction.restrictionType === 1
+            ? parseFloat(props.dailyRestriction.allowedTokens)
+            : '',
+        restrictionType: props.restrictionType,
+      };
+    }
     return {
+      ...initialValues,
       restrictionType: props.restrictionType,
     };
   },
-  mapPropsToValues: () => {
-    return {
-      ...initialValues,
-    };
-  },
   handleSubmit: (values, { errors, setFieldError, props }) => {
-    const { dispatch, handleClose } = props;
+    const {
+      dispatch,
+      handleClose,
+      dailyRestrictionModified,
+      defaultRestrictionModified,
+    } = props;
     const startsAt =
       moment(values.date.startDate).unix() * 1000 + values.date.startTime;
     const endsAt =
       moment(values.date.endDate).unix() * 1000 + values.date.endTime;
     const allowedTokens =
-      values.transferType === 'token' ? values.token : toWei(values.percentage);
-    const rollingPeriodInDays = 30;
-    const restrictionType = {
-      token: 0,
-      percentage: 1,
-    };
+      values.transferType === 'token'
+        ? toWei(values.token)
+        : toWei(values.percentage);
+    let rollingPeriodInDays;
+
+    switch (values.interval) {
+      case 'months':
+        rollingPeriodInDays = values.intervalAmount * 30;
+        break;
+      case 'years':
+        rollingPeriodInDays = values.intervalAmount * 365;
+        break;
+      default:
+        rollingPeriodInDays = values.intervalAmount;
+        break;
+    }
+
     handleClose();
-    dispatch(
-      addDefaultRestriction(
-        allowedTokens,
-        startsAt,
-        rollingPeriodInDays,
-        endsAt,
-        restrictionType[values.transferType]
-      )
-    );
+
+    if (values.restrictionType === '24h') {
+      if (!dailyRestrictionModified) {
+        dispatch(
+          addDefaultDailyRestriction(
+            allowedTokens,
+            startsAt,
+            endsAt,
+            RESTRICTION_TYPE[values.transferType]
+          )
+        );
+      } else {
+        dispatch(
+          modifyDefaultDailyRestriction(
+            allowedTokens,
+            startsAt,
+            endsAt,
+            RESTRICTION_TYPE[values.transferType]
+          )
+        );
+      }
+    } else {
+      if (!defaultRestrictionModified) {
+        dispatch(
+          addDefaultRestriction(
+            allowedTokens,
+            startsAt,
+            rollingPeriodInDays,
+            endsAt,
+            RESTRICTION_TYPE[values.transferType]
+          )
+        );
+      } else {
+        dispatch(
+          modifyDefaultRestriction(
+            allowedTokens,
+            startsAt,
+            rollingPeriodInDays,
+            endsAt,
+            RESTRICTION_TYPE[values.transferType]
+          )
+        );
+      }
+    }
   },
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  dailyRestrictionModified: state.restrictions.dailyRestrictionModified,
+  defaultRestrictionModified: state.restrictions.defaultRestrictionModified,
+  dailyRestriction: state.restrictions.dailyRestriction,
+  defaultRestriction: state.restrictions.defaultRestriction,
+});
 
 const FormikEnhancedForm = formikEnhancer(AddGlobalRestrictionsComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
