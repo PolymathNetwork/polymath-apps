@@ -8,6 +8,8 @@ export interface CardFeatureStateProps {
   status: 'inactive' | 'idle' | 'warning';
   IconAsset: React.ComponentType<React.SVGAttributes<SVGElement>>;
   children: React.ReactNode;
+  style: Object,
+  maxWidth: Number,
 }
 
 export const CardFeatureState = ({
