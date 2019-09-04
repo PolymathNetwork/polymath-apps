@@ -28,3 +28,6 @@ export * from './generated/PlusPlain';
 export * from './generated/Token';
 export * from './generated/Warning';
 export * from './generated/Wallet';
+export * from './generated/24H';
+export * from './generated/CalendarOutline';
+export * from './generated/Restriction';

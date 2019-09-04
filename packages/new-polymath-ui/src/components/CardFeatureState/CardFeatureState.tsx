@@ -39,4 +39,5 @@ export const CardFeatureState = ({
 CardFeatureState.defaultProps = {
   status: 'idle',
   maxWidth: 355,
+  style: {},
 };

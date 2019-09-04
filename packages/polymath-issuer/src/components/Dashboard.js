@@ -12,6 +12,7 @@ import {
   icoHandshake,
   icoWhitelist,
   icoDividends,
+  icoRestriction,
   NotFoundPage,
 } from '@polymathnetwork/ui';
 import type { SecurityToken, Address } from '@polymathnetwork/js/types';
@@ -142,8 +143,8 @@ class Dashboard extends Component<Props> {
       },
       {
         title: 'Volume Restrictions',
-        id: 'compliance-nav-link',
-        icon: icoWhitelist,
+        id: 'restriction-nav-link',
+        icon: icoRestriction,
         to: `${tokenUrl}/restrictions`,
         isActive: location.slice(-13) === '/restrictions',
         isDisabled: !token || !token.address,

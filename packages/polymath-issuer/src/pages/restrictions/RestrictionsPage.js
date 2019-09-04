@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   addressShortifier,
   confirm,
+  ico24H,
   etherscanAddress,
   NotFoundPage,
   Page,
@@ -97,7 +98,7 @@ class RestrictionsPage extends Component {
               <Grid.Col gridSpan={6}>
                 <CardFeatureState
                   status={isRestrictionsToggled ? 'idle' : 'inactive'}
-                  IconAsset={icons.SvgDividendsOutline}
+                  IconAsset={icons.SvgRestriction}
                 >
                   <Heading color="primary" mt={2}>
                     Enable Enforcement of Trade Volume Restrictions
@@ -141,7 +142,7 @@ class RestrictionsPage extends Component {
                               status={
                                 dailyRestrictionModified ? 'idle' : 'inactive'
                               }
-                              IconAsset={icons.SvgCycle}
+                              IconAsset={icons.Svg24H}
                             >
                               <Heading color="primary" mt={2}>
                                 24h Rolling Period Restriction
@@ -173,7 +174,7 @@ class RestrictionsPage extends Component {
                               status={
                                 defaultRestrictionModified ? 'idle' : 'inactive'
                               }
-                              IconAsset={icons.SvgCalendar}
+                              IconAsset={icons.SvgCalendarOutline}
                             >
                               <Heading color="primary" mt={2}>
                                 Custom Rolling Period Restriction
