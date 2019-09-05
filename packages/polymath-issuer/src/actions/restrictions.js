@@ -51,11 +51,13 @@ export const addVolumeRestrictionModule = () => async (
     moduleMetadata = await st.getModule(volumeRestrictionModule.address);
   let defaultRestriction;
   let defaultDailyRestriction;
+  let isArchived;
   dispatch(
     ui.tx(
       ['Enabling Volume Restriction Transfer Manager'],
       async () => {
         if (moduleMetadata.isArchived) {
+          isArchived = true;
           await st.unarchiveModule(volumeRestrictionModule.address);
           defaultRestriction = await volumeRestrictionModule.getDefaultRestriction();
           defaultDailyRestriction = await volumeRestrictionModule.getDefaultDailyRestriction();
@@ -66,15 +68,17 @@ export const addVolumeRestrictionModule = () => async (
       'Volume Restriction Transfer Manager Enabled',
       () => {
         dispatch(toggleRestrictions(true));
-        formatRestriction(defaultRestriction);
-        formatRestriction(defaultDailyRestriction);
-        if (defaultRestriction.rollingPeriodInDays != 0) {
-          dispatch(setDefaultRestriction(defaultRestriction));
-          dispatch(defaultRestrictionModified(true));
-        }
-        if (defaultDailyRestriction.rollingPeriodInDays != 0) {
-          dispatch(setDailyRestriction(defaultDailyRestriction));
-          dispatch(dailyRestrictionModified(true));
+        if (isArchived) {
+          formatRestriction(defaultRestriction);
+          formatRestriction(defaultDailyRestriction);
+          if (defaultRestriction.rollingPeriodInDays != 0) {
+            dispatch(setDefaultRestriction(defaultRestriction));
+            dispatch(defaultRestrictionModified(true));
+          }
+          if (defaultDailyRestriction.rollingPeriodInDays != 0) {
+            dispatch(setDailyRestriction(defaultDailyRestriction));
+            dispatch(dailyRestrictionModified(true));
+          }
         }
       },
       undefined,
