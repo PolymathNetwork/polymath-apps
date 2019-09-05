@@ -168,6 +168,7 @@ export const addDefaultDailyRestriction = (
           endTime,
           restrictionType,
         };
+        formatRestriction(defaultDailyRestriction);
         dispatch(setDailyRestriction(defaultDailyRestriction));
         dispatch(dailyRestrictionModified(true));
       },
@@ -249,6 +250,7 @@ export const addDefaultRestriction = (
           endTime,
           restrictionType,
         };
+        formatRestriction(defaultRestriction);
         dispatch(setDefaultRestriction(defaultRestriction));
         dispatch(defaultRestrictionModified(true));
       },

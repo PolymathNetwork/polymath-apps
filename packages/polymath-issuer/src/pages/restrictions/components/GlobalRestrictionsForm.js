@@ -60,10 +60,13 @@ const formSchema = validator.object().shape({
       .isRequired(REQUIRED_MESSAGE)
       .test('validEndTime', validateEndTime),
   }),
-  token: validator.number().when('transferType', {
-    is: 'token',
-    then: validator.number().isRequired(REQUIRED_MESSAGE),
-  }),
+  token: validator
+    .number()
+    .nullable()
+    .when('transferType', {
+      is: 'token',
+      then: validator.number().isRequired(REQUIRED_MESSAGE),
+    }),
   percentage: validator.number().when('transferType', {
     is: 'percentage',
     then: validator.number().isRequired(REQUIRED_MESSAGE),
@@ -267,9 +270,9 @@ const formikEnhancer = withFormik({
           .unix();
       return {
         date: {
-          startDate: props.defaultRestriction.startTime,
+          startDate: moment(props.defaultRestriction.startTime).startOf('day'),
           startTime: startTime * 1000,
-          endDate: props.defaultRestriction.endTime,
+          endDate: moment(props.defaultRestriction.endTime).startOf('day'),
           endTime: endTime * 1000,
         },
         intervalAmount: props.defaultRestriction.rollingPeriodInDays,
@@ -304,9 +307,9 @@ const formikEnhancer = withFormik({
           .unix();
       return {
         date: {
-          startDate: props.dailyRestriction.startTime,
+          startDate: moment(props.dailyRestriction.startTime).startOf('day'),
           startTime: startTime * 1000,
-          endDate: props.dailyRestriction.endTime,
+          endDate: moment(props.dailyRestriction.endTime).startOf('day'),
           endTime: endTime * 1000,
         },
         transferType:
