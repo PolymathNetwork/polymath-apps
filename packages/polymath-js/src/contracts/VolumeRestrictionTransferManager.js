@@ -1,7 +1,6 @@
 // @flow
 import semver from 'semver';
 import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/VolumeRestrictionTM.json';
-import artifact2 from '@polymathnetwork/polymath-scripts/fixtures/contracts/VolumeRestrictionTM.json';
 import { LATEST_PROTOCOL_VERSION } from '../constants';
 import BigNumber from 'bignumber.js';
 
@@ -11,12 +10,7 @@ import type { Address } from '../types';
 export default class VolumeRestrictionTransferManager extends Contract {
   version: string = LATEST_PROTOCOL_VERSION;
   constructor(at: Address, version?: string = LATEST_PROTOCOL_VERSION) {
-    if (semver.lt(version, LATEST_PROTOCOL_VERSION)) {
-      super(artifact2, at);
-      return;
-    } else {
-      super(artifact, at);
-    }
+    super(artifact, at);
     version = version;
   }
 
