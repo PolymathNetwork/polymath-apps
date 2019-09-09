@@ -1,0 +1,46 @@
+.global-restrictions {
+  .form-header {
+    font-size: 14px;
+  }
+}
+
+.align-self-end {
+  align-self: end;
+}
+
+.center {
+  margin-left: 95px;
+}
+
+#volumeRestrictionToggle {
+  align-items: center;
+}
+
+.transfer-type {
+  flex-direction: column;
+  padding-left: 5px;
+}
+
+.transfer-type > div {
+  padding-top: 5px;
+}
+
+.form-label {
+  display: block;
+  color: #152935;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.card-text {
+  font-size: 0.85rem;
+}
+
+.card-button {
+  position: absolute;
+  bottom: 170px;
+  margin-left: -175px;
+  width: 350px;
+}

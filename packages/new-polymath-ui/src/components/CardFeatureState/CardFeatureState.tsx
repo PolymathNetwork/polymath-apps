@@ -8,23 +8,27 @@ export interface CardFeatureStateProps {
   status: 'inactive' | 'idle' | 'warning';
   IconAsset: React.ComponentType<React.SVGAttributes<SVGElement>>;
   children: React.ReactNode;
+  style: Object,
+  maxWidth: Number,
 }
 
 export const CardFeatureState = ({
   status,
   IconAsset,
   children,
+  style,
+  maxWidth,
 }: CardFeatureStateProps) => {
   return (
     <sc.Wrapper
       status={status}
       rounded
       textAlign="center"
-      maxWidth={355}
+      maxWidth={maxWidth}
       ml="auto"
       p={0}
     >
-      <Box p={4}>
+      <Box style={style} p={4}>
         <Icon Asset={IconAsset} width={64} height={64} color={status} />
         {children}
       </Box>
@@ -34,4 +38,6 @@ export const CardFeatureState = ({
 
 CardFeatureState.defaultProps = {
   status: 'idle',
+  maxWidth: 355,
+  style: {},
 };

@@ -25,6 +25,11 @@ export const FUND_RAISE_TYPES = {
   DAI: 2,
 };
 
+export const RESTRICTION_TYPE = {
+  token: 0,
+  percentage: 1,
+};
+
 export const ModuleFactoryAbisByType: { [type: STOModuleType]: Object } = {
   USDTieredSTO: USDTieredSTOFactoryArtifacts.abi,
   CappedSTO: CappedSTOFactoryArtifacts.abi,

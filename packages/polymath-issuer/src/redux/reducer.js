@@ -20,6 +20,7 @@ import ticker from '../reducers/ticker';
 import whitelist from '../reducers/compliance';
 import stoModules from '../reducers/stoModules';
 import ui from '../reducers/ui';
+import restrictions from '../reducers/restrictions';
 
 import type { ProvidersState } from '../reducers/providers';
 import type { TokenState } from '../reducers/token';
@@ -45,6 +46,7 @@ export default history =>
     dataRequests,
     app,
     session,
+    restrictions,
     router: connectRouter(history),
   });
 
