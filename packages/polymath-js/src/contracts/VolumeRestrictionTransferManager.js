@@ -107,4 +107,141 @@ export default class VolumeRestrictionTransferManager extends Contract {
       restrictionType: parseInt(defaultRestrictions[4]),
     };
   }
+
+  async addIndividualDailyRestriction(
+    holder: Address,
+    allowedTokens: BigNumber,
+    startTime: Date,
+    endTime: Date,
+    restrictionType
+  ) {
+    return this._tx(
+      this._methods.addIndividualDailyRestriction(
+        holder,
+        allowedTokens,
+        startTime,
+        endTime,
+        restrictionType
+      )
+    );
+  }
+
+  async addIndividualRestriction(
+    holder: Address,
+    allowedTokens: BigNumber,
+    startTime: Date,
+    rollingPeriodInDays: number,
+    endTime: Date,
+    restrictionType
+  ) {
+    return this._tx(
+      this._methods.addIndividualRestriction(
+        holder,
+        allowedTokens,
+        startTime,
+        rollingPeriodInDays,
+        endTime,
+        restrictionType
+      )
+    );
+  }
+
+  async modifyIndividualDailyRestriction(
+    holder: Address,
+    allowedTokens: BigNumber,
+    startTime: Date,
+    endTime: Date,
+    restrictionType
+  ) {
+    return this._tx(
+      this._methods.modifyIndividualDailyRestriction(
+        holder,
+        allowedTokens,
+        startTime,
+        endTime,
+        restrictionType
+      )
+    );
+  }
+
+  async modifyIndividualRestriction(
+    holder: Address,
+    allowedTokens: BigNumber,
+    startTime: Date,
+    rollingPeriodInDays: number,
+    endTime: Date,
+    restrictionType
+  ) {
+    return this._tx(
+      this._methods.modifyIndividualRestriction(
+        holder,
+        allowedTokens,
+        startTime,
+        rollingPeriodInDays,
+        endTime,
+        restrictionType
+      )
+    );
+  }
+
+  async getIndividualRestrictions() {
+    const restrictionData = await this._methods.getRestrictionData().call();
+    const restrictions = [];
+    for (let i = 0; i < restrictionData.allAddresses.length; i++) {
+      let individualRestriction = {};
+
+      individualRestriction.address = restrictionData.allAddresses[i];
+      individualRestriction.id = restrictionData.allAddresses[i];
+      if (restrictionData.rollingPeriodInDays[i] === '1') {
+        individualRestriction.dailyStartTime = restrictionData.startTime[i];
+        individualRestriction.dailyEndTime = restrictionData.endTime[i];
+        individualRestriction.dailyRestrictionType =
+          restrictionData.typeOfRestriction[i];
+        individualRestriction.dailyAllowedTokens = this._fromWei(
+          restrictionData.allowedTokens[i]
+        );
+      } else {
+        individualRestriction.customStartTime = restrictionData.startTime[i];
+        individualRestriction.customEndTime = restrictionData.endTime[i];
+        individualRestriction.rollingPeriodInDays =
+          restrictionData.rollingPeriodInDays[i];
+        individualRestriction.customRestrictionType =
+          restrictionData.typeOfRestriction[i];
+        individualRestriction.customAllowedTokens = this._fromWei(
+          restrictionData.allowedTokens[i]
+        );
+      }
+
+      if (
+        restrictionData.allAddresses[i] === restrictionData.allAddresses[i + 1]
+      ) {
+        if (restrictionData.rollingPeriodInDays[i + 1] === '1') {
+          individualRestriction.dailyStartTime =
+            restrictionData.startTime[i + 1];
+          individualRestriction.dailyEndTime = restrictionData.endTime[i + 1];
+          individualRestriction.dailyRestrictionType =
+            restrictionData.typeOfRestriction[i + 1];
+          individualRestriction.dailyAllowedTokens = this._fromWei(
+            restrictionData.allowedTokens[i + 1]
+          );
+        } else {
+          individualRestriction.customStartTime =
+            restrictionData.startTime[i + 1];
+          individualRestriction.customEndTime = restrictionData.endTime[i + 1];
+          individualRestriction.rollingPeriodInDays =
+            restrictionData.rollingPeriodInDays[i + 1];
+          individualRestriction.customRestrictionType =
+            restrictionData.typeOfRestriction[i + 1];
+          individualRestriction.customAllowedTokens = this._fromWei(
+            restrictionData.allowedTokens[i + 1]
+          );
+        }
+        i++;
+      }
+      restrictions.push(individualRestriction);
+    }
+    return restrictions;
+  }
+
+  processIndividualRestriction() {}
 }

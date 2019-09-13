@@ -23,6 +23,7 @@ import { Toggle, Tabs, Tab, Form } from 'carbon-components-react';
 import { toggleRestrictions } from '../../actions/restrictions';
 import { withFormik } from 'formik';
 import GlobalRestrictionsForm from './components/GlobalRestrictionsForm';
+import IndividualRestrictions from './components/IndividualRestrictions';
 import FormModal from './components/FormModal';
 import RestrictionDetails from './components/RestrictionDetails';
 import './style.scss';
@@ -200,7 +201,9 @@ class RestrictionsPage extends Component {
                         </Grid.Row>
                       </Grid>
                     </Tab>
-                    <Tab label="Individual Restrictions" />
+                    <Tab label="Individual Restrictions">
+                      <IndividualRestrictions />
+                    </Tab>
                   </Tabs>
                 )}
               </Grid.Col>
