@@ -244,7 +244,10 @@ export const AddGlobalRestrictionsComponent = ({
           <Grid.Col gridSpan={4} />
         </Grid.Row>
       </Grid>
-      <Button type="submit">Set The Period</Button>
+      <Button kind="secondary" onClick={handleClose}>
+        Cancel
+      </Button>
+      <Button type="submit">Configure</Button>
     </Form>
   );
 };

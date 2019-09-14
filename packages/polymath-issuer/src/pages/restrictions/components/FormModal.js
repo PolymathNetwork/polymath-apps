@@ -22,15 +22,17 @@ class FormModal extends Component<Props> {
       <Modal isOpen={isOpen} onClose={handleClose}>
         <Modal.Body>
           {restrictionType === 'custom' && (
-            <h1 className="pui-h2">Configure Custom Rolling Period</h1>
+            <h1 className="pui-h2">
+              Configure Custom Trade Volume Restriction
+            </h1>
           )}
           {restrictionType === '24h' && (
-            <h1 className="pui-h2">Configure 24h Rolling Period</h1>
+            <h1 className="pui-h2">Configure Daily Trade Volume Restriction</h1>
           )}
           <h3 className="pui-h3">
             The volume restriction can be specified in number of tokens or as a
             percentage of total supply and will be enforced only between the
-            Start Date Time and the End Date Time.
+            Start date and time and the End date and time.
           </h3>
           <Remark title="Note">
             — Volume restrictions do not apply to primary issuance, only to

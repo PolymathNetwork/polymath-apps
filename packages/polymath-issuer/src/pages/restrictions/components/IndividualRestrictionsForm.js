@@ -55,67 +55,35 @@ type Props = {
   handleClose: () => any,
 };
 
-const dailyFormSchema = validator.object().shape({
-  dailyDate: validator.object().shape({
-    startDate: validator.date().isRequired(REQUIRED_MESSAGE),
-    startTime: validator.number().isRequired(REQUIRED_MESSAGE),
-    endDate: validator
-      .date()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validateEndDate', validateEndDate),
-    endTime: validator
-      .number()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validEndTime', validateEndTime),
-  }),
-  dailyToken: validator
-    .number()
-    .nullable()
-    .when('dailyTransferType', {
-      is: 'token',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
-    }),
-  dailyPercentage: validator
-    .number()
-    .when('dailyTransferType', {
-      is: 'percentage',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
+const customFormSchema = validator.object().shape({
+  customDate: validator
+    .object()
+    .shape({
+      startDate: validator.date().isRequired(REQUIRED_MESSAGE),
+      startTime: validator.number().isRequired(REQUIRED_MESSAGE),
+      endDate: validator
+        .date()
+        .isRequired(REQUIRED_MESSAGE)
+        .test('validateEndDate', validateEndDate),
+      endTime: validator
+        .number()
+        .isRequired(REQUIRED_MESSAGE)
+        .test('validEndTime', validateEndTime),
     })
-    .when('dailyRestriction', {
+    .when('customRestriction', {
       is: false,
       then: validator.object().nullable(),
     }),
-  // intervalAmount: validator
-  //   .number()
-  //   .when('restrictionType', {
-  //     is: 'custom',
-  //     then: validator.number().isRequired(REQUIRED_MESSAGE),
-  //   })
-  //   .when('restrictionType', {
-  //     is: '24h',
-  //     then: validator.number().nullable(),
-  //   }),
-});
-
-const customFormSchema = validator.object().shape({
-  customDate: validator.object().shape({
-    startDate: validator.date().isRequired(REQUIRED_MESSAGE),
-    startTime: validator.number().isRequired(REQUIRED_MESSAGE),
-    endDate: validator
-      .date()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validateEndDate', validateEndDate),
-    endTime: validator
-      .number()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validEndTime', validateEndTime),
-  }),
   customToken: validator
     .number()
     .nullable()
     .when('customTransferType', {
       is: 'token',
       then: validator.number().isRequired(REQUIRED_MESSAGE),
+    })
+    .when('customRestriction', {
+      is: false,
+      then: validator.object().nullable(),
     }),
   customPercentage: validator
     .number()
@@ -128,6 +96,84 @@ const customFormSchema = validator.object().shape({
       then: validator.object().nullable(),
     }),
   intervalAmount: validator.number().isRequired(REQUIRED_MESSAGE),
+});
+
+const dailyFormSchema = validator.object().shape({
+  dailyDate: validator
+    .object()
+    .shape({
+      startDate: validator.date().isRequired(REQUIRED_MESSAGE),
+      startTime: validator.number().isRequired(REQUIRED_MESSAGE),
+      endDate: validator
+        .date()
+        .isRequired(REQUIRED_MESSAGE)
+        .test('validateEndDate', validateEndDate),
+      endTime: validator
+        .number()
+        .isRequired(REQUIRED_MESSAGE)
+        .test('validEndTime', validateEndTime),
+    })
+    .when('dailyRestriction', {
+      is: false,
+      then: validator.object().nullable(),
+    }),
+  dailyToken: validator
+    .number()
+    .nullable()
+    .when('dailyTransferType', {
+      is: 'token',
+      then: validator.number().isRequired(REQUIRED_MESSAGE),
+    })
+    .when('dailyRestriction', {
+      is: false,
+      then: validator.object().nullable(),
+    }),
+  dailyPercentage: validator
+    .number()
+    .when('dailyTransferType', {
+      is: 'percentage',
+      then: validator.number().isRequired(REQUIRED_MESSAGE),
+    })
+    .when('dailyRestriction', {
+      is: false,
+      then: validator.object().nullable(),
+    }),
+  // customDate: validator.object().shape({
+  //   startDate: validator.date().isRequired(REQUIRED_MESSAGE),
+  //   startTime: validator.number().isRequired(REQUIRED_MESSAGE),
+  //   endDate: validator
+  //     .date()
+  //     .isRequired(REQUIRED_MESSAGE)
+  //     .test('validateEndDate', validateEndDate),
+  //   endTime: validator
+  //     .number()
+  //     .isRequired(REQUIRED_MESSAGE)
+  //     .test('validEndTime', validateEndTime),
+  // }).when('customRestriction', {
+  //   is: false,
+  //   then: validator.object().nullable(),
+  // }),
+  // customToken: validator
+  //   .number()
+  //   .nullable()
+  //   .when('customTransferType', {
+  //     is: 'token',
+  //     then: validator.number().isRequired(REQUIRED_MESSAGE),
+  //   }).when('customRestriction', {
+  //     is: false,
+  //     then: validator.object().nullable(),
+  //   }),
+  // customPercentage: validator
+  //   .number()
+  //   .when('customTransferType', {
+  //     is: 'percentage',
+  //     then: validator.number().isRequired(REQUIRED_MESSAGE),
+  //   })
+  //   .when('customRestriction', {
+  //     is: false,
+  //     then: validator.object().nullable(),
+  //   }),
+  // intervalAmount: validator.number().isRequired(REQUIRED_MESSAGE)
 });
 
 const initialValues = {
@@ -181,6 +227,7 @@ class AddGlobalRestrictionsComponent extends Component {
       errors,
       touched,
     } = this.props;
+    console.log(errors);
     return (
       <Form className="global-restrictions" onSubmit={handleSubmit}>
         <Grid>

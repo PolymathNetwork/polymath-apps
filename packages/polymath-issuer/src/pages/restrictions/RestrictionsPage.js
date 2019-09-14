@@ -79,7 +79,7 @@ class RestrictionsPage extends Component {
     return (
       <ThemeProvider>
         <Page title="Compliance – Polymath">
-          <h1 className="pui-h1">Trading Volume Restrictions</h1>
+          <h1 className="pui-h1">Trade Volume Restrictions</h1>
           <Grid>
             <Grid.Row>
               <Grid.Col gridSpan={6}>
@@ -92,7 +92,8 @@ class RestrictionsPage extends Component {
                   tokens in a rolling 90-day period.
                 </h3>
                 <Remark title="Note">
-                  Investors with individual investor limits are exempt from the
+                  Investors to whom individual limits are applied are only
+                  subject to their individual limits and are exempt from the
                   global limits.
                 </Remark>
               </Grid.Col>
@@ -159,7 +160,13 @@ class RestrictionsPage extends Component {
                                 />
                               )}
 
-                              {/* Empty div with height instead of CSS */}
+                              <div
+                                className={
+                                  dailyRestrictionModified
+                                    ? 'restriction-active'
+                                    : 'restriction-inactive'
+                                }
+                              />
                               <ButtonLarge
                                 className="card-button"
                                 onClick={() => this.handleOpen('24h')}
@@ -190,6 +197,13 @@ class RestrictionsPage extends Component {
                                   restriction={defaultRestriction}
                                 />
                               )}
+                              <div
+                                className={
+                                  defaultRestrictionModified
+                                    ? 'restriction-active'
+                                    : 'restriction-inactive'
+                                }
+                              />
                               <ButtonLarge
                                 className="card-button"
                                 onClick={() => this.handleOpen('custom')}
