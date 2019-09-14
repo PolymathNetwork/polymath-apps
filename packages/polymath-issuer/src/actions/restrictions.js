@@ -8,6 +8,18 @@ export const toggleRestrictions = isToggled => ({
   isToggled,
 });
 
+export const IS_CUSTOM_RESTRICTION = 'restrictions/IS_CUSTOM_RESTRICTION';
+export const setIsCustomRestriction = state => ({
+  type: IS_CUSTOM_RESTRICTION,
+  state,
+});
+
+export const IS_DAILY_RESTRICTION = 'restrictions/IS_DAILY_RESTRICTION';
+export const setIsDailyRestriction = state => ({
+  type: IS_DAILY_RESTRICTION,
+  state,
+});
+
 export const DEFAULT_RESTRICTION = 'restrictions/DEFAULT_RESTRICTION';
 export const setDefaultRestriction = restriction => ({
   type: DEFAULT_RESTRICTION,

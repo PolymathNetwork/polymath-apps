@@ -8,10 +8,22 @@ const defaultState = {
   dailyRestrictionModified: false,
   individualRestrictions: [],
   individualRestriction: null,
+  isCustomRestriction: false,
+  isDailyRestriction: false,
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case a.IS_CUSTOM_RESTRICTION:
+      return {
+        ...state,
+        isCustomRestriction: action.state,
+      };
+    case a.IS_DAILY_RESTRICTION:
+      return {
+        ...state,
+        isDailyRestriction: action.state,
+      };
     case a.MODIFIED_INDIVIDUAL_RESTRICTION:
       let index = state.individualRestrictions.findIndex(
         i => i.address === action.individualRestriction.address

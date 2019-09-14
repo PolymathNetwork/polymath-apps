@@ -35,6 +35,8 @@ import {
   modifyDefaultRestriction,
   addIndividualRestriction,
   individualRestrictionModified,
+  setIsCustomRestriction,
+  setIsDailyRestriction,
 } from '../../../actions/restrictions';
 import {
   validateTodayOrAfter,
@@ -56,127 +58,62 @@ type Props = {
 };
 
 const customFormSchema = validator.object().shape({
-  customDate: validator
-    .object()
-    .shape({
-      startDate: validator.date().isRequired(REQUIRED_MESSAGE),
-      startTime: validator.number().isRequired(REQUIRED_MESSAGE),
-      endDate: validator
-        .date()
-        .isRequired(REQUIRED_MESSAGE)
-        .test('validateEndDate', validateEndDate),
-      endTime: validator
-        .number()
-        .isRequired(REQUIRED_MESSAGE)
-        .test('validEndTime', validateEndTime),
-    })
-    .when('customRestriction', {
-      is: false,
-      then: validator.object().nullable(),
-    }),
+  address: validator.string().isRequired(REQUIRED_MESSAGE),
+  customDate: validator.object().shape({
+    startDate: validator.date().isRequired(REQUIRED_MESSAGE),
+    startTime: validator.number().isRequired(REQUIRED_MESSAGE),
+    endDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateEndDate', validateEndDate),
+    endTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validEndTime', validateEndTime),
+  }),
   customToken: validator
     .number()
     .nullable()
     .when('customTransferType', {
       is: 'token',
       then: validator.number().isRequired(REQUIRED_MESSAGE),
-    })
-    .when('customRestriction', {
-      is: false,
-      then: validator.object().nullable(),
     }),
-  customPercentage: validator
-    .number()
-    .when('customTransferType', {
-      is: 'percentage',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
-    })
-    .when('customRestriction', {
-      is: false,
-      then: validator.object().nullable(),
-    }),
+  customPercentage: validator.number().when('customTransferType', {
+    is: 'percentage',
+    then: validator.number().isRequired(REQUIRED_MESSAGE),
+  }),
   intervalAmount: validator.number().isRequired(REQUIRED_MESSAGE),
 });
 
 const dailyFormSchema = validator.object().shape({
-  dailyDate: validator
-    .object()
-    .shape({
-      startDate: validator.date().isRequired(REQUIRED_MESSAGE),
-      startTime: validator.number().isRequired(REQUIRED_MESSAGE),
-      endDate: validator
-        .date()
-        .isRequired(REQUIRED_MESSAGE)
-        .test('validateEndDate', validateEndDate),
-      endTime: validator
-        .number()
-        .isRequired(REQUIRED_MESSAGE)
-        .test('validEndTime', validateEndTime),
-    })
-    .when('dailyRestriction', {
-      is: false,
-      then: validator.object().nullable(),
-    }),
+  address: validator.string().isRequired(REQUIRED_MESSAGE),
+  dailyDate: validator.object().shape({
+    startDate: validator.date().isRequired(REQUIRED_MESSAGE),
+    startTime: validator.number().isRequired(REQUIRED_MESSAGE),
+    endDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateEndDate', validateEndDate),
+    endTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validEndTime', validateEndTime),
+  }),
   dailyToken: validator
     .number()
     .nullable()
     .when('dailyTransferType', {
       is: 'token',
       then: validator.number().isRequired(REQUIRED_MESSAGE),
-    })
-    .when('dailyRestriction', {
-      is: false,
-      then: validator.object().nullable(),
     }),
-  dailyPercentage: validator
-    .number()
-    .when('dailyTransferType', {
-      is: 'percentage',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
-    })
-    .when('dailyRestriction', {
-      is: false,
-      then: validator.object().nullable(),
-    }),
-  // customDate: validator.object().shape({
-  //   startDate: validator.date().isRequired(REQUIRED_MESSAGE),
-  //   startTime: validator.number().isRequired(REQUIRED_MESSAGE),
-  //   endDate: validator
-  //     .date()
-  //     .isRequired(REQUIRED_MESSAGE)
-  //     .test('validateEndDate', validateEndDate),
-  //   endTime: validator
-  //     .number()
-  //     .isRequired(REQUIRED_MESSAGE)
-  //     .test('validEndTime', validateEndTime),
-  // }).when('customRestriction', {
-  //   is: false,
-  //   then: validator.object().nullable(),
-  // }),
-  // customToken: validator
-  //   .number()
-  //   .nullable()
-  //   .when('customTransferType', {
-  //     is: 'token',
-  //     then: validator.number().isRequired(REQUIRED_MESSAGE),
-  //   }).when('customRestriction', {
-  //     is: false,
-  //     then: validator.object().nullable(),
-  //   }),
-  // customPercentage: validator
-  //   .number()
-  //   .when('customTransferType', {
-  //     is: 'percentage',
-  //     then: validator.number().isRequired(REQUIRED_MESSAGE),
-  //   })
-  //   .when('customRestriction', {
-  //     is: false,
-  //     then: validator.object().nullable(),
-  //   }),
-  // intervalAmount: validator.number().isRequired(REQUIRED_MESSAGE)
+  dailyPercentage: validator.number().when('dailyTransferType', {
+    is: 'percentage',
+    then: validator.number().isRequired(REQUIRED_MESSAGE),
+  }),
 });
 
 const initialValues = {
+  address: null,
   dailyRestriction: false,
   customRestriction: false,
   dailyDate: {
@@ -201,15 +138,22 @@ const initialValues = {
   intervalAmount: null,
 };
 
-class AddGlobalRestrictionsComponent extends Component {
+class AddIndividualRestriction extends Component {
+  componentDidMount() {
+    const { dispatch, values } = this.props;
+    dispatch(setIsCustomRestriction(values.customRestriction));
+    dispatch(setIsDailyRestriction(values.dailyRestriction));
+  }
   handleDailyRestriction = e => {
-    const { setFieldValue, values } = this.props;
+    const { setFieldValue, values, dispatch } = this.props;
     setFieldValue('dailyRestriction', !values.dailyRestriction);
+    dispatch(setIsDailyRestriction(!values.dailyRestriction));
   };
 
   handleCustomRestriction = e => {
-    const { setFieldValue, values } = this.props;
+    const { setFieldValue, values, dispatch } = this.props;
     setFieldValue('customRestriction', !values.customRestriction);
+    dispatch(setIsCustomRestriction(!values.customRestriction));
   };
 
   handleDropdown = e => {
@@ -227,17 +171,19 @@ class AddGlobalRestrictionsComponent extends Component {
       errors,
       touched,
     } = this.props;
-    console.log(errors);
     return (
       <Form className="global-restrictions" onSubmit={handleSubmit}>
         <Grid>
           <Grid.Row>
             <Grid.Col gridSpan={5}>
               <FormItem name="address">
-                <Heading className="form-item-header" variant="h3">
-                  Investor Wallet Address
-                </Heading>
-                <FormItem.Input component={TextInput} />
+                <FormItem.Label>
+                  <strong>Investor Wallet Address</strong>
+                </FormItem.Label>
+                <FormItem.Input
+                  component={TextInput}
+                  placeholder="Wallet Address"
+                />
                 <FormItem.Error />
               </FormItem>
             </Grid.Col>
@@ -508,7 +454,15 @@ class AddGlobalRestrictionsComponent extends Component {
 }
 
 const formikEnhancer = withFormik({
-  validationSchema: dailyFormSchema,
+  validationSchema: props => {
+    if (props.isDailyRestriction && props.isCustomRestriction) {
+      return dailyFormSchema.concat(customFormSchema);
+    } else if (props.isDailyRestriction) {
+      return dailyFormSchema;
+    } else if (props.isCustomRestriction) {
+      return customFormSchema;
+    }
+  },
   displayName: 'IndividualRestrictionsForm',
   validateOnChange: false,
   mapPropsToValues: props => {
@@ -680,9 +634,11 @@ const mapStateToProps = state => ({
   dailyRestriction: state.restrictions.dailyRestriction,
   defaultRestriction: state.restrictions.defaultRestriction,
   individualRestriction: state.restrictions.individualRestriction,
+  isDailyRestriction: state.restrictions.isDailyRestriction,
+  isCustomRestriction: state.restrictions.isCustomRestriction,
 });
 
-const FormikEnhancedForm = formikEnhancer(AddGlobalRestrictionsComponent);
+const FormikEnhancedForm = formikEnhancer(AddIndividualRestriction);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
 export default ConnectedForm;
