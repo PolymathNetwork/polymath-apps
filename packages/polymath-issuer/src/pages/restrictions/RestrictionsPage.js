@@ -31,6 +31,8 @@ import {
   addVolumeRestrictionModule,
   getVolumeRestrictionModule,
   archiveVolumeRestrictionModule,
+  removeDefaultDailyRestriction,
+  removeDefaultRestriction,
 } from '../../actions/restrictions';
 
 class RestrictionsPage extends Component {
@@ -71,6 +73,8 @@ class RestrictionsPage extends Component {
       defaultRestrictionModified,
       dailyRestriction,
       defaultRestriction,
+      removeDefaultDailyRestriction,
+      removeDefaultRestriction,
     } = this.props;
     const { isFormModalOpen, restrictionType } = this.state;
     if (!token || !token.address) {
@@ -173,6 +177,15 @@ class RestrictionsPage extends Component {
                               >
                                 Configure 24h Restriction
                               </ButtonLarge>
+                              {dailyRestrictionModified && (
+                                <ButtonLarge
+                                  variant="ghostPrimary"
+                                  className="card-button"
+                                  onClick={removeDefaultDailyRestriction}
+                                >
+                                  Reset the Restriction
+                                </ButtonLarge>
+                              )}
                             </CardFeatureState>
                           </Grid.Col>
                           <Grid.Col gridSpan={4}>
@@ -210,6 +223,15 @@ class RestrictionsPage extends Component {
                               >
                                 Configure Custom Restriction
                               </ButtonLarge>
+                              {defaultRestrictionModified && (
+                                <ButtonLarge
+                                  variant="ghostPrimary"
+                                  className="card-button"
+                                  onClick={removeDefaultRestriction}
+                                >
+                                  Reset the Restriction
+                                </ButtonLarge>
+                              )}
                             </CardFeatureState>
                           </Grid.Col>
                         </Grid.Row>
@@ -243,6 +265,8 @@ const mapDispatchToProps = {
   addVolumeRestrictionModule,
   getVolumeRestrictionModule,
   archiveVolumeRestrictionModule,
+  removeDefaultDailyRestriction,
+  removeDefaultRestriction,
 };
 
 export default connect(

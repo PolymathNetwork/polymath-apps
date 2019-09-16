@@ -501,3 +501,53 @@ export const individualRestrictionModified = (
     )
   );
 };
+
+export const removeDefaultRestriction = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    ui.tx(
+      ['Removing Custom Trade Volume Restriction'],
+      async () => {
+        const st: SecurityToken = getState().token.token.contract;
+        const volumeRestrictionModule = await st.getVolumeRestrictionTransferManager();
+        await volumeRestrictionModule.removeDefaultRestriction();
+      },
+      'Custom Trade Volume Restriction Removed',
+      () => {
+        dispatch(setDefaultRestriction(null));
+        dispatch(defaultRestrictionModified(false));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const removeDefaultDailyRestriction = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    ui.tx(
+      ['Removing 24H Trade Volume Restriction'],
+      async () => {
+        const st: SecurityToken = getState().token.token.contract;
+        const volumeRestrictionModule = await st.getVolumeRestrictionTransferManager();
+        await volumeRestrictionModule.removeDefaultDailyRestriction();
+      },
+      '24H Trade Volume Restriction Removed',
+      () => {
+        dispatch(setDailyRestriction(null));
+        dispatch(dailyRestrictionModified(false));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};

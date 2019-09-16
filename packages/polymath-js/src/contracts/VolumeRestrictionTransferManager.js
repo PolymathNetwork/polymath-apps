@@ -243,5 +243,11 @@ export default class VolumeRestrictionTransferManager extends Contract {
     return restrictions;
   }
 
-  processIndividualRestriction() {}
+  async removeDefaultRestriction() {
+    return this._tx(this._methods.removeDefaultRestriction());
+  }
+
+  async removeDefaultDailyRestriction() {
+    return this._tx(this._methods.removeDefaultDailyRestriction());
+  }
 }
