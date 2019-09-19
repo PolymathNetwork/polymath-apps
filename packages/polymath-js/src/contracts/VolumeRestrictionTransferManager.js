@@ -250,4 +250,42 @@ export default class VolumeRestrictionTransferManager extends Contract {
   async removeDefaultDailyRestriction() {
     return this._tx(this._methods.removeDefaultDailyRestriction());
   }
+
+  async addIndividualRestrictionMulti(
+    holders,
+    allowedTokens,
+    startTimes,
+    rollingPeriodInDays,
+    endTimes,
+    restrictionTypes
+  ) {
+    return this._tx(
+      this._methods.addIndividualRestrictionMulti(
+        holders,
+        allowedTokens,
+        startTimes,
+        rollingPeriodInDays,
+        endTimes,
+        restrictionTypes
+      )
+    );
+  }
+
+  async addIndividualDailyRestrictionMulti(
+    holders,
+    allowedTokens,
+    startTimes,
+    endTimes,
+    restrictionTypes
+  ) {
+    return this._tx(
+      this._methods.addIndividualDailyRestrictionMulti(
+        holders,
+        allowedTokens,
+        startTimes,
+        endTimes,
+        restrictionTypes
+      )
+    );
+  }
 }

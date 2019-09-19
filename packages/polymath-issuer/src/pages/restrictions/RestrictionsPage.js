@@ -131,7 +131,7 @@ class RestrictionsPage extends Component {
                         number of tokens each investor can sell during the
                         rolling period you define. Easily set to 24 hours or
                         customize your rolling period. Your trade volume cap is
-                        specified as the number or tokens or the percentage of
+                        specified as the number of tokens or the percentage of
                         total token supply.
                       </h3>
                       <FormModal

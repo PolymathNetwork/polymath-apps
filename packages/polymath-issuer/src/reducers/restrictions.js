@@ -10,10 +10,40 @@ const defaultState = {
   individualRestriction: null,
   isCustomRestriction: false,
   isDailyRestriction: false,
+  investors: [],
+  uploaded: [],
+  criticals: [],
+  parseError: '',
+  isTooMany: false,
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case a.ADD_INDIVIDUAL_RESTRICTION_MULTI:
+      return {
+        ...state,
+        individualRestrictions: [
+          ...state.individualRestrictions,
+          ...action.individualRestrictions,
+        ],
+      };
+    case a.UPLOADED:
+      return {
+        ...state,
+        investors: action.investors,
+        uploaded: action.investors,
+        criticals: action.criticals,
+        isTooMany: action.isTooMany,
+        parseError: action.parseError,
+      };
+    case a.RESET_UPLOADED:
+      return {
+        ...state,
+        uploaded: [],
+        criticals: [],
+        isTooMany: false,
+        parseError: '',
+      };
     case a.IS_CUSTOM_RESTRICTION:
       return {
         ...state,

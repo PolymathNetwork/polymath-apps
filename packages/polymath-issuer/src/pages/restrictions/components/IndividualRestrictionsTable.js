@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { DataTable, Icon } from 'carbon-components-react';
 import { Button } from '@polymathnetwork/ui';
 import IndividualRestrictionsModal from './IndividualRestrictionsModal';
+import ImportRestrictionsModal from './ImportRestrictionsModal';
 import { connect } from 'react-redux';
 import { modifyIndividualRestriction } from '../../../actions/restrictions';
 import { dispatch } from 'rxjs/internal/observable/range';
@@ -75,11 +76,13 @@ const columns = [
 
 type State = {|
   isIndividualRestrictionModalOpen: boolean,
+  isUploadCsvModal: boolean,
 |};
 
 class IndividualRestrictionsTable extends Component<Props, State> {
   state = {
     isIndividualRestrictionModalOpen: false,
+    isUploadCsvModal: false,
   };
 
   editAddress = address => {
@@ -87,6 +90,14 @@ class IndividualRestrictionsTable extends Component<Props, State> {
     let restriction = individualRestrictions.find(i => i.address === address);
     this.props.modifyIndividualRestriction(restriction);
     this.setState({ isIndividualRestrictionModalOpen: true });
+  };
+
+  handleCsvOpen = () => {
+    this.setState({ isUploadCsvModal: true });
+  };
+
+  handleCsvClose = () => {
+    this.setState({ isUploadCsvModal: false });
   };
 
   handleOpen = () => {
@@ -138,6 +149,10 @@ class IndividualRestrictionsTable extends Component<Props, State> {
           isOpen={this.state.isIndividualRestrictionModalOpen}
           handleClose={this.handleClose}
         />
+        <ImportRestrictionsModal
+          isOpen={this.state.isUploadCsvModal}
+          onClose={this.handleCsvClose}
+        />
         <DataTable
           headers={columns}
           rows={
@@ -153,6 +168,13 @@ class IndividualRestrictionsTable extends Component<Props, State> {
                     {/* pass in `onInputChange` change here to make filtering work */}
                     <Button onClick={this.handleOpen} icon="icon--add">
                       Add new
+                    </Button>
+                    <Button
+                      style={{ marginLeft: '5px' }}
+                      onClick={this.handleCsvOpen}
+                      icon="upload"
+                    >
+                      Upload CSV
                     </Button>
                   </TableToolbarContent>
                 </TableToolbar>

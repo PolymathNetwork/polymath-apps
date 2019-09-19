@@ -1,6 +1,7 @@
 import * as ui from '@polymathnetwork/ui';
 import web3 from 'web3';
 import moment from 'moment';
+import { parseWhitelistCsv } from '../utils/parsers/restrictionParser';
 
 export const TOGGLE_RESTRICTIONS = 'restrictions/TOGGLE_RESTRICTIONS';
 export const toggleRestrictions = isToggled => ({
@@ -66,12 +67,26 @@ export const addIndividualRestrictionToRestrictions = individualRestriction => (
   individualRestriction,
 });
 
+export const ADD_INDIVIDUAL_RESTRICTION_MULTI =
+  'restrictions/ADD_INDIVIDUAL_RESTRICTION_MULTI';
+export const addIndividualRestrictions = individualRestrictions => ({
+  type: ADD_INDIVIDUAL_RESTRICTION_MULTI,
+  individualRestrictions,
+});
+
 export const LOAD_INDIVIDUAL_RESTRICTIONS =
   'restrictions/LOAD_INDIVIDUAL_RESTRICTIONS';
 export const loadIndividualRestrictions = individualRestrictions => ({
   type: LOAD_INDIVIDUAL_RESTRICTIONS,
   individualRestrictions,
 });
+
+export const RESET_UPLOADED = 'compliance/RESET_UPLOADED';
+export const resetUploaded = () => ({ type: RESET_UPLOADED });
+
+export const UPLOAD_START = 'restrictions/UPLOAD_START';
+export const UPLOAD_ONLOAD = 'restrictions/UPLOAD_ONLOAD';
+export const UPLOADED = 'restrictions/UPLOADED';
 
 const formatRestriction = restriction => {
   restriction.allowedTokens = web3.utils.fromWei(restriction.allowedTokens);
@@ -543,6 +558,125 @@ export const removeDefaultDailyRestriction = () => async (
       () => {
         dispatch(setDailyRestriction(null));
         dispatch(dailyRestrictionModified(false));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const uploadCSV = (file: Object) => async (dispatch: Function) => {
+  const maxRows = 75;
+  const reader = new FileReader();
+
+  dispatch({ type: UPLOAD_START });
+
+  reader.readAsText(file);
+
+  reader.onload = () => {
+    dispatch({ type: UPLOAD_ONLOAD });
+    const { invalidRows, data, parseError } = parseWhitelistCsv(reader.result);
+    console.log(data);
+    const isTooMany = data.length > maxRows;
+
+    // FIXME @RafaelVidaurre: This should be using an action creator, not a POJO
+    dispatch({
+      type: UPLOADED,
+      investors: data,
+      criticals: invalidRows,
+      isTooMany,
+      parseError: parseError | '',
+    });
+  };
+};
+
+export const addIndividualRestrictionMulti = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const uploadedRestrictions = getState().restrictions.investors;
+  const volumeRestrictionModule = await st.getVolumeRestrictionTransferManager();
+  let dailyRestrictions = [];
+  let customRestrictions = [];
+  let titles = [];
+
+  for (var i = 0; i < 5; i++) {
+    dailyRestrictions[i] = [];
+  }
+
+  for (var i = 0; i < 6; i++) {
+    customRestrictions[i] = [];
+  }
+
+  uploadedRestrictions.forEach(restriction => {
+    if (
+      typeof restriction.dailyStartTime !== 'undefined' &&
+      typeof restriction.dailyEndTime !== 'undefined' &&
+      typeof restriction.dailyAllowedTokens !== 'undefined' &&
+      typeof restriction.dailyRestrictionType !== 'undefined'
+    ) {
+      dailyRestrictions[0].push(restriction.address);
+      dailyRestrictions[1].push(
+        web3.utils.toWei(restriction.dailyAllowedTokens)
+      );
+      dailyRestrictions[2].push(restriction.dailyStartTime);
+      dailyRestrictions[3].push(restriction.dailyEndTime);
+      dailyRestrictions[4].push(restriction.dailyRestrictionType);
+    }
+
+    if (
+      typeof restriction.customStartTime !== 'undefined' &&
+      typeof restriction.customEndTime !== 'undefined' &&
+      typeof restriction.customAllowedTokens !== 'undefined' &&
+      typeof restriction.customRestrictionType !== 'undefined' &&
+      typeof restriction.rollingPeriodInDays !== 'undefined'
+    ) {
+      customRestrictions[0].push(restriction.address);
+      customRestrictions[1].push(
+        web3.utils.toWei(restriction.customAllowedTokens)
+      );
+      customRestrictions[2].push(restriction.customStartTime);
+      customRestrictions[3].push(restriction.rollingPeriodInDays);
+      customRestrictions[4].push(restriction.customEndTime);
+      customRestrictions[5].push(restriction.customRestrictionType);
+    }
+  });
+
+  if (dailyRestrictions[0].length > 0)
+    titles.push('Adding 24H Trade Volume Restrictions for Addresses');
+  if (customRestrictions[0].length > 0)
+    titles.push('Adding Custom Trade Volume Restrictions for Addresses');
+
+  dispatch(
+    ui.tx(
+      titles,
+      async () => {
+        if (dailyRestrictions[0].length > 0) {
+          await volumeRestrictionModule.addIndividualDailyRestrictionMulti(
+            dailyRestrictions[0],
+            dailyRestrictions[1],
+            dailyRestrictions[2],
+            dailyRestrictions[3],
+            dailyRestrictions[4]
+          );
+        }
+        if (customRestrictions[0].length > 0) {
+          await volumeRestrictionModule.addIndividualRestrictionMulti(
+            customRestrictions[0],
+            customRestrictions[1],
+            customRestrictions[2],
+            customRestrictions[3],
+            customRestrictions[4],
+            customRestrictions[5]
+          );
+        }
+      },
+      'Trade Volume Restrictions Configured for Addresses',
+      () => {
+        dispatch(addIndividualRestrictions(uploadedRestrictions));
       },
       undefined,
       undefined,
