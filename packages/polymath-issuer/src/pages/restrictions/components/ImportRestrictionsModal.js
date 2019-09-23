@@ -124,8 +124,19 @@ class ImportRestrictionsModal extends Component<Props> {
           <br />• 24h Restriction Type: <strong>0 or 1</strong>;<br />• Whether
           the allowed tokens will be a percentage of all tokens or a fix value.
           Set to <strong>1</strong> for percentage.
-          <br />• 24h Allowed Tokens: <strong>0 to 100</strong> when{' '}
+          <br />• 24h Allowed Tokens: <strong>0.01 to 1</strong> when{' '}
           <strong>Restriction Type is 1</strong>
+          <br />• Custom Start Date: <strong>mm/dd/yyyy</strong> (date when the
+          volume restrictions will start for that address);
+          <br />• Custom End Date: <strong> mm/dd/yyyy</strong> (date when the
+          volume restrictions will end for that address);
+          <br />• Custom Restriction Type: <strong>0 or 1</strong>;<br />•
+          Whether the allowed tokens will be a percentage of all tokens or a fix
+          value. Set to <strong>1</strong> for percentage.
+          <br />• Custom Allowed Tokens: <strong>0.01 to 1</strong> when{' '}
+          <strong>Restriction Type is 1</strong>
+          <br />• Rolling Period In Days: <strong>Numerical Value</strong> how
+          many days the limit is in place before resetting
           <br />
           <br />
         </h4>
