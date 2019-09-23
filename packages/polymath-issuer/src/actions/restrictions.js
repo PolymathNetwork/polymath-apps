@@ -1,7 +1,7 @@
 import * as ui from '@polymathnetwork/ui';
 import web3 from 'web3';
 import moment from 'moment';
-import { parseWhitelistCsv } from '../utils/parsers/restrictionParser';
+import { parseRestrictionsCsv } from '../utils/parsers/restrictionParser';
 
 export const TOGGLE_RESTRICTIONS = 'restrictions/TOGGLE_RESTRICTIONS';
 export const toggleRestrictions = isToggled => ({
@@ -577,7 +577,9 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
 
   reader.onload = () => {
     dispatch({ type: UPLOAD_ONLOAD });
-    const { invalidRows, data, parseError } = parseWhitelistCsv(reader.result);
+    const { invalidRows, data, parseError } = parseRestrictionsCsv(
+      reader.result
+    );
     console.log(data);
     const isTooMany = data.length > maxRows;
 

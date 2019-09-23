@@ -25,51 +25,41 @@ const columns = [
   {
     header: 'Investor Wallet Address',
     key: 'address',
-    // width: 250,
     Cell: ({ value }) => value,
   },
   {
     header: 'Maximum 24h Transfer (# or %)',
     key: 'dailyRestrictionType',
-    // width: 250,
     Cell: ({ value }) => value,
   },
   {
     header: 'Start Date',
     key: 'dailyStartTime',
-    // width: 250,
-    cell: ({ value }) => {
-      return 'TEST';
-    },
+    cell: ({ value }) => value,
   },
   {
     header: 'End Date',
     key: 'dailyEndTime',
-    // width: 250,
     Cell: ({ value }) => value,
   },
   {
     header: 'Custom Rolling Period Interval',
     key: 'rollingPeriodInDays',
-    // width: 250,
     Cell: ({ value }) => value,
   },
   {
     header: 'Maximum Custom Transfer (# or %)',
     key: 'customRestrictionType',
-    // width: 250,
     Cell: ({ value }) => value,
   },
   {
     header: 'Start Date',
     key: 'customStartTime',
-    // width: 250,
     Cell: ({ value }) => value,
   },
   {
     header: 'End Date',
     key: 'customEndTime',
-    // width: 250,
     Cell: ({ value }) => value,
   },
 ];

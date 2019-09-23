@@ -13,7 +13,6 @@ import {
   addIndividualRestrictionMulti,
 } from '../../../actions/restrictions';
 
-import { fetch } from '../../../actions/sto';
 import { STAGE_OVERVIEW } from '../../../reducers/sto';
 
 import type { RootState } from '../../../redux/reducer';
@@ -26,7 +25,6 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  fetch: () => any,
   addIndividualRestrictionMulti: () => any,
   uploadCSV: (file: Object) => any,
   resetUploaded: () => any,
@@ -48,17 +46,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetch,
   uploadCSV,
   resetUploaded,
   addIndividualRestrictionMulti,
 };
 
 class ImportRestrictionsModal extends Component<Props> {
-  componentDidMount() {
-    this.props.fetch();
-  }
-
   handleClose = () => {
     this.fileUploader.clearFiles();
     this.props.resetUploaded();

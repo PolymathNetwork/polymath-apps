@@ -2,22 +2,6 @@ import csvParse from 'csv-parse/lib/sync';
 import moment from 'moment';
 import { map, reduce, filter, each } from 'lodash';
 import web3 from 'web3';
-import BigNumber from 'bignumber.js';
-
-import type { BigNumberType } from 'bignumber.js';
-
-const PERMANENT_LOCKUP_TS = 67184812800000;
-
-type WhitelistCsvRow = {
-  address: string,
-  sellLockupDate?: Date,
-  buyLockupDate?: Date,
-  kycAmlExpiryDate?: Date,
-  canBuyFromSto?: boolean,
-  bypassesOwnershipRestriction?: boolean,
-  accredited?: boolean,
-  nonAccreditedLimit?: BigNumberType,
-};
 
 const numericalRegex = /^-?\d+\.?\d*$/;
 
@@ -42,7 +26,7 @@ function isValidAllowedTokens(restrictionType, value) {
 }
 
 // TODO @RafaelVidaurre: Have a better schema-based validation for csv parsers
-export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
+export function validateRestrictionsCsv(rows) {
   const addressCounts = {};
   each(rows, ({ address }) => {
     if (web3.utils.isAddress(address)) {
@@ -51,7 +35,7 @@ export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
     }
   });
 
-  const invalidRows = filter(rows, (row: WhitelistCsvRow) => {
+  const invalidRows = filter(rows, row => {
     const invalidAddress = !web3.utils.isAddress(row.address);
     const addressIsDuplicate = addressCounts[row.address] > 1;
     const invalidDailyStartTime = isInvalidDate(row.dailyStartTime);
@@ -122,7 +106,7 @@ const checkCSVHeaders = data => {
   return errorMsg;
 };
 
-export function parseWhitelistCsv(file: string) {
+export function parseRestrictionsCsv(file) {
   let data;
   let parseError = checkCSVHeaders(file);
   if (!parseError) {
@@ -170,10 +154,7 @@ export function parseWhitelistCsv(file: string) {
     }
   }
 
-  const invalidRows = validateWhitelistCsv(data);
-
-  console.log(invalidRows);
-  console.log(parseError);
+  const invalidRows = validateRestrictionsCsv(data);
 
   // Sanitization post-parsing.
   // Sometimes empty strings pass through for some reason
