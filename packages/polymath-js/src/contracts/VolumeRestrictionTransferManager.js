@@ -5,7 +5,7 @@ import { LATEST_PROTOCOL_VERSION } from '../constants';
 import BigNumber from 'bignumber.js';
 
 import Contract from './Contract';
-import type { Address } from '../types';
+import type { Address, RestrictionType } from '../types';
 
 export default class VolumeRestrictionTransferManager extends Contract {
   version: string = LATEST_PROTOCOL_VERSION;
@@ -19,7 +19,7 @@ export default class VolumeRestrictionTransferManager extends Contract {
     startTime: Date,
     rollingPeriodInDays: number,
     endTime: Date,
-    restrictionType
+    restrictionType: RestrictionType
   ) {
     return this._tx(
       this._methods.addDefaultRestriction(
@@ -36,7 +36,7 @@ export default class VolumeRestrictionTransferManager extends Contract {
     allowedTokens: BigNumber,
     startTime: Date,
     endTime: Date,
-    restrictionType
+    restrictionType: RestrictionType
   ) {
     return this._tx(
       this._methods.addDefaultDailyRestriction(
@@ -53,7 +53,7 @@ export default class VolumeRestrictionTransferManager extends Contract {
     startTime: Date,
     rollingPeriodInDays: number,
     endTime: Date,
-    restrictionType
+    restrictionType: RestrictionType
   ) {
     return this._tx(
       this._methods.modifyDefaultRestriction(
@@ -70,7 +70,7 @@ export default class VolumeRestrictionTransferManager extends Contract {
     allowedTokens: BigNumber,
     startTime: Date,
     endTime: Date,
-    restrictionType
+    restrictionType: RestrictionType
   ) {
     return this._tx(
       this._methods.modifyDefaultDailyRestriction(
