@@ -286,7 +286,7 @@ const formikEnhancer = withFormik({
         token:
           props.defaultRestriction.restrictionType === 0
             ? parseFloat(props.defaultRestriction.allowedTokens)
-            : '',
+            : null,
         percentage:
           props.defaultRestriction.restrictionType === 1
             ? parseFloat(props.defaultRestriction.allowedTokens)
@@ -320,7 +320,7 @@ const formikEnhancer = withFormik({
         token:
           props.dailyRestriction.restrictionType === 0
             ? parseFloat(props.dailyRestriction.allowedTokens)
-            : '',
+            : null,
         percentage:
           props.dailyRestriction.restrictionType === 1
             ? parseFloat(props.dailyRestriction.allowedTokens)
