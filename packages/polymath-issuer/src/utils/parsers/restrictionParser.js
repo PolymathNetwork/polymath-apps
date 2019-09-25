@@ -168,13 +168,6 @@ export function parseRestrictionsCsv(file) {
           case 'address':
             sanitized['id'] = sanitized[key];
             break;
-          case 'dailyStartTime':
-          case 'dailyEndTime':
-          case 'customStartTime':
-          case 'customEndTime':
-            if (sanitized[key] === null) break;
-            sanitized[key] = sanitized[key] * 1000;
-            break;
         }
         if (sanitized[key] === null) delete sanitized[key];
         return sanitized;

@@ -468,27 +468,27 @@ const formikEnhancer = withFormik({
   mapPropsToValues: props => {
     if (props.individualRestriction !== null) {
       let dailyStartTime =
-        props.individualRestriction.dailyStartTime / 1000 -
+        props.individualRestriction.dailyStartTime -
         moment
-          .unix(props.individualRestriction.dailyStartTime / 1000)
+          .unix(props.individualRestriction.dailyStartTime)
           .startOf('day')
           .unix();
       let dailyEndTime =
-        props.individualRestriction.dailyEndTime / 1000 -
+        props.individualRestriction.dailyEndTime -
         moment
-          .unix(props.individualRestriction.dailyEndTime / 1000)
+          .unix(props.individualRestriction.dailyEndTime)
           .startOf('day')
           .unix();
       let customStartTime =
-        props.individualRestriction.customStartTime / 1000 -
+        props.individualRestriction.customStartTime -
         moment
-          .unix(props.individualRestriction.customStartTime / 1000)
+          .unix(props.individualRestriction.customStartTime)
           .startOf('day')
           .unix();
       let customEndTime =
-        props.individualRestriction.customEndTime / 1000 -
+        props.individualRestriction.customEndTime -
         moment
-          .unix(props.individualRestriction.customEndTime / 1000)
+          .unix(props.individualRestriction.customEndTime)
           .startOf('day')
           .unix();
       return {
@@ -498,13 +498,13 @@ const formikEnhancer = withFormik({
         dailyDate: {
           startDate: props.individualRestriction.dailyStartTime
             ? moment
-                .unix(props.individualRestriction.dailyStartTime / 1000)
+                .unix(props.individualRestriction.dailyStartTime)
                 .startOf('day')
             : null,
           startTime: dailyStartTime * 1000,
           endDate: props.individualRestriction.dailyStartTime
             ? moment
-                .unix(props.individualRestriction.dailyEndTime / 1000)
+                .unix(props.individualRestriction.dailyEndTime)
                 .startOf('day')
             : null,
           endTime: dailyEndTime * 1000,
@@ -512,13 +512,13 @@ const formikEnhancer = withFormik({
         customDate: {
           startDate: props.individualRestriction.customStartTime
             ? moment
-                .unix(props.individualRestriction.customStartTime / 1000)
+                .unix(props.individualRestriction.customStartTime)
                 .startOf('day')
             : null,
           startTime: customStartTime * 1000,
           endDate: props.individualRestriction.customStartTime
             ? moment
-                .unix(props.individualRestriction.customEndTime / 1000)
+                .unix(props.individualRestriction.customEndTime)
                 .startOf('day')
             : null,
           endTime: customEndTime * 1000,

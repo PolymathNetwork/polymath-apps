@@ -1,6 +1,7 @@
 import * as ui from '@polymathnetwork/ui';
 import web3 from 'web3';
 import moment from 'moment';
+import { toUnixTimestamp } from '../utils/contracts';
 import { parseRestrictionsCsv } from '../utils/parsers/restrictionParser';
 
 export const TOGGLE_RESTRICTIONS = 'restrictions/TOGGLE_RESTRICTIONS';
@@ -90,8 +91,8 @@ export const UPLOADED = 'restrictions/UPLOADED';
 
 const formatRestriction = restriction => {
   restriction.allowedTokens = web3.utils.fromWei(restriction.allowedTokens);
-  restriction.startTime = moment.unix(restriction.startTime / 1000);
-  restriction.endTime = moment.unix(restriction.endTime / 1000);
+  restriction.startTime = moment.unix(restriction.startTime);
+  restriction.endTime = moment.unix(restriction.endTime);
 };
 
 export const addVolumeRestrictionModule = () => async (
@@ -222,9 +223,9 @@ export const addDefaultDailyRestriction = (
       () => {
         const defaultDailyRestriction = {
           allowedTokens,
-          startTime,
+          startTime: toUnixTimestamp(startTime),
           rollingPeriodInDays: '1',
-          endTime,
+          endTime: toUnixTimestamp(endTime),
           restrictionType,
         };
         formatRestriction(defaultDailyRestriction);
@@ -262,9 +263,9 @@ export const modifyDefaultDailyRestriction = (
       () => {
         const defaultDailyRestriction = {
           allowedTokens,
-          startTime,
+          startTime: toUnixTimestamp(startTime),
           rollingPeriodInDays: '1',
-          endTime,
+          endTime: toUnixTimestamp(endTime),
           restrictionType,
         };
         formatRestriction(defaultDailyRestriction);
@@ -304,9 +305,9 @@ export const addDefaultRestriction = (
       () => {
         const defaultRestriction = {
           allowedTokens,
-          startTime,
+          startTime: toUnixTimestamp(startTime),
           rollingPeriodInDays,
-          endTime,
+          endTime: toUnixTimestamp(endTime),
           restrictionType,
         };
         formatRestriction(defaultRestriction);
@@ -346,9 +347,9 @@ export const modifyDefaultRestriction = (
       () => {
         const defaultRestriction = {
           allowedTokens,
-          startTime,
+          startTime: toUnixTimestamp(startTime),
           rollingPeriodInDays,
-          endTime,
+          endTime: toUnixTimestamp(endTime),
           restrictionType,
         };
         formatRestriction(defaultRestriction);
@@ -580,7 +581,6 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
     const { invalidRows, data, parseError } = parseRestrictionsCsv(
       reader.result
     );
-    console.log(data);
     const isTooMany = data.length > maxRows;
 
     // FIXME @RafaelVidaurre: This should be using an action creator, not a POJO

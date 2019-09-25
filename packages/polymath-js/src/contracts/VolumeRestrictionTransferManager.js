@@ -24,9 +24,9 @@ export default class VolumeRestrictionTransferManager extends Contract {
     return this._tx(
       this._methods.addDefaultRestriction(
         allowedTokens,
-        startTime,
+        startTime / 1000,
         rollingPeriodInDays,
-        endTime,
+        endTime / 1000,
         restrictionType
       )
     );
@@ -41,8 +41,8 @@ export default class VolumeRestrictionTransferManager extends Contract {
     return this._tx(
       this._methods.addDefaultDailyRestriction(
         allowedTokens,
-        startTime,
-        endTime,
+        startTime / 1000,
+        endTime / 1000,
         restrictionType
       )
     );
@@ -58,9 +58,9 @@ export default class VolumeRestrictionTransferManager extends Contract {
     return this._tx(
       this._methods.modifyDefaultRestriction(
         allowedTokens,
-        startTime,
+        startTime / 1000,
         rollingPeriodInDays,
-        endTime,
+        endTime / 1000,
         restrictionType
       )
     );
@@ -75,8 +75,8 @@ export default class VolumeRestrictionTransferManager extends Contract {
     return this._tx(
       this._methods.modifyDefaultDailyRestriction(
         allowedTokens,
-        startTime,
-        endTime,
+        startTime / 1000,
+        endTime / 1000,
         restrictionType
       )
     );
@@ -119,8 +119,8 @@ export default class VolumeRestrictionTransferManager extends Contract {
       this._methods.addIndividualDailyRestriction(
         holder,
         allowedTokens,
-        startTime,
-        endTime,
+        startTime / 1000,
+        endTime / 1000,
         restrictionType
       )
     );
@@ -138,9 +138,9 @@ export default class VolumeRestrictionTransferManager extends Contract {
       this._methods.addIndividualRestriction(
         holder,
         allowedTokens,
-        startTime,
+        startTime / 1000,
         rollingPeriodInDays,
-        endTime,
+        endTime / 1000,
         restrictionType
       )
     );
@@ -157,8 +157,8 @@ export default class VolumeRestrictionTransferManager extends Contract {
       this._methods.modifyIndividualDailyRestriction(
         holder,
         allowedTokens,
-        startTime,
-        endTime,
+        startTime / 1000,
+        endTime / 1000,
         restrictionType
       )
     );
@@ -176,9 +176,9 @@ export default class VolumeRestrictionTransferManager extends Contract {
       this._methods.modifyIndividualRestriction(
         holder,
         allowedTokens,
-        startTime,
+        startTime / 1000,
         rollingPeriodInDays,
-        endTime,
+        endTime / 1000,
         restrictionType
       )
     );

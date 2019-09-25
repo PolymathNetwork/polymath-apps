@@ -111,7 +111,7 @@ class IndividualRestrictionsTable extends Component<Props, State> {
       case 'dailyStartTime':
       case 'customEndTime':
       case 'dailyEndTime':
-        return moment.unix(cell.value / 1000).format('MMM DD YYYY');
+        return moment.unix(cell.value).format('MMM DD YYYY');
       case 'customRestrictionType':
         let restriction = individualRestrictions.find(i => i.address === id);
         return `${
