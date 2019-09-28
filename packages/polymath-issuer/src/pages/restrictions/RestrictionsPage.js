@@ -35,7 +35,7 @@ import {
   removeDefaultRestriction,
 } from '../../actions/restrictions';
 
-class RestrictionsPage extends Component {
+export class RestrictionsPage extends Component {
   state = {
     isFormModalOpen: false,
     restrictionType: null,
