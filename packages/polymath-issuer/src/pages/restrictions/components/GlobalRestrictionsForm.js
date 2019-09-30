@@ -49,8 +49,14 @@ type Props = {
 
 const formSchema = validator.object().shape({
   date: validator.object().shape({
-    startDate: validator.date().isRequired(REQUIRED_MESSAGE),
-    startTime: validator.number().isRequired(REQUIRED_MESSAGE),
+    startDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartDate', validateTodayOrAfter),
+    startTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartTime', validateStartTime),
     endDate: validator
       .date()
       .isRequired(REQUIRED_MESSAGE)
