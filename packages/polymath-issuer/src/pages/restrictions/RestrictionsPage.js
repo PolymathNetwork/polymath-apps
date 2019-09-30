@@ -94,7 +94,11 @@ class RestrictionsPage extends Component {
                 <Remark title="Note">
                   Investors to whom individual limits are applied are only
                   subject to their individual limits and are exempt from the
-                  global limits.
+                  global limits. <br />
+                  <br />
+                  To update the volume, rolling period or end date/time of an
+                  existing trade volume restriction, select the Configuration
+                  button for the restriction you'd like to update.
                 </Remark>
               </Grid.Col>
               <Grid.Col gridSpan={6}>
