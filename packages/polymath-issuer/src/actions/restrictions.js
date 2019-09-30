@@ -417,14 +417,14 @@ export const addIndividualRestriction = (
           address: isCustomRestriction
             ? customRestriction.address
             : dailyRestriction.address,
-          dailyStartTime: dailyRestriction.startTime,
-          dailyEndTime: dailyRestriction.endTime,
+          dailyStartTime: dailyRestriction.startTime / 1000,
+          dailyEndTime: dailyRestriction.endTime / 1000,
           dailyRestrictionType: dailyRestriction.restrictionType,
           dailyAllowedTokens: isDailyRestriction
             ? web3.utils.fromWei(dailyRestriction.allowedTokens)
             : undefined,
-          customStartTime: customRestriction.startTime,
-          customEndTime: customRestriction.endTime,
+          customStartTime: customRestriction.startTime / 1000,
+          customEndTime: customRestriction.endTime / 1000,
           rollingPeriodInDays: customRestriction.rollingPeriodInDays,
           customRestrictionType: customRestriction.restrictionType,
           customAllowedTokens: isCustomRestriction
@@ -494,14 +494,14 @@ export const individualRestrictionModified = (
           address: isCustomRestriction
             ? customRestriction.address
             : dailyRestriction.address,
-          dailyStartTime: dailyRestriction.startTime,
-          dailyEndTime: dailyRestriction.endTime,
+          dailyStartTime: dailyRestriction.startTime / 1000,
+          dailyEndTime: dailyRestriction.endTime / 1000,
           dailyRestrictionType: dailyRestriction.restrictionType,
           dailyAllowedTokens: isDailyRestriction
             ? web3.utils.fromWei(dailyRestriction.allowedTokens)
             : undefined,
-          customStartTime: customRestriction.startTime,
-          customEndTime: customRestriction.endTime,
+          customStartTime: customRestriction.startTime / 1000,
+          customEndTime: customRestriction.endTime / 1000,
           rollingPeriodInDays: customRestriction.rollingPeriodInDays,
           customRestrictionType: customRestriction.restrictionType,
           customAllowedTokens: isCustomRestriction
