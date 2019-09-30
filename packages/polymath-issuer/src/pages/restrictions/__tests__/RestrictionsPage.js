@@ -49,8 +49,8 @@ describe('Restrictions Page', () => {
       getVolumeRestrictionModule: jest.fn(),
       dailyRestrictionModified: true,
       dailyRestriction: {
-        startTime: moment('12-25-2019'),
-        endTime: moment('12-25-2020'),
+        startTime: moment(1),
+        endTime: moment(1),
         allowedTokens: 500,
         restrictionType: 0,
       },
@@ -69,8 +69,8 @@ describe('Restrictions Page', () => {
       getVolumeRestrictionModule: jest.fn(),
       defaultRestrictionModified: true,
       defaultRestriction: {
-        startTime: moment('12-25-2019'),
-        endTime: moment('12-25-2020'),
+        startTime: moment.unix(1),
+        endTime: moment(1),
         allowedTokens: 500,
         restrictionType: 0,
       },
