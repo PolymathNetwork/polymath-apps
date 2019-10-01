@@ -105,9 +105,41 @@ class ImportRestrictionsModal extends Component<Props> {
       >
         <Modal.Header>Import Whitelist</Modal.Header>
         <h4 className="pui-h4">
-          Add multiple addresses to the whitelist by uploading a comma separated
-          .CSV file.{' '}
-          <strong>You may add up to 40 addresses per .CSV file</strong>. The
+          Add multiple addresses to the list of individual trade restrictions by
+          uploading a comma separated .CSV file. The format should be as follows
+          (refer to sample .CSV below):
+          <br />
+          • ETH Address (address of tokenholder to be restricted)
+          <br />
+          • Daily restriction Start Date: mm/dd/yyyy (leave blank if no daily
+          restriction being set)
+          <br />
+          &nbsp; -Daily restriction End Date: mm/dd/yyy (leave blank if no daily
+          restriction being set)
+          <br />
+          &nbsp; -Daily Restriction type: <strong>0 or 1</strong> (0 if
+          restriction will be in the form of # of tokens; 1 if restriction will
+          be in the form of % of total supply of tokens)
+          <br />
+          &nbsp; -Daily volume of allowed tokens: if restriction in the form of
+          % (1), input % value as a number between <strong>0.01 to 1</strong>.
+          <br />
+          • Custom restriction Start Date: mm/dd/yyyy (leave blank if no custom
+          restriction being set)
+          <br />
+          • Custom restriction End Date: mm/dd/yyy (leave blank if no custom
+          restriction being set)
+          <br />• CustomRestriction type: <strong>0 or 1</strong> (0 if
+          restriction will be in the form of # of tokens; 1 if restriction will
+          be in the form of % of total supply of tokens)
+          <br />
+          &nbsp; -Custom volume of allowed tokens: if restriction in the form of
+          % (1), input % value as a number between <strong>0.01 to 1</strong>.
+          <br />
+          &nbsp; -Rolling Period in Days: # of days the limit is in place before
+          resetting (leave blank if you are only setting a daily restriction)
+          <br />
+          {/* <strong>You may add up to 40 addresses per .CSV file</strong>. The
           format should be as follows:
           <br />• ETH Address (address to volume restrict);
           <br />• 24h Start Date: <strong>mm/dd/yyyy</strong> (date when the
@@ -131,7 +163,7 @@ class ImportRestrictionsModal extends Component<Props> {
           <br />• Rolling Period In Days: <strong>Numerical Value</strong> how
           many days the limit is in place before resetting
           <br />
-          <br />
+          <br /> */}
         </h4>
         <h5 className="pui-h5">
           You can&nbsp;&nbsp;&nbsp;
@@ -183,10 +215,9 @@ class ImportRestrictionsModal extends Component<Props> {
           />
         ) : (
           <Remark title="Reminder">
-            Investors must be approved before they are added to the whitelist.{' '}
-            <br />
-            Your file cannot exceed 40 addresses. If you have more than 40
-            addresses on your whitelist, upload multiple files.
+            Default start and end times for restrictions is 12:00am. To change
+            the start and end time for an individual restriction, click on the
+            address line in the table after upload.
           </Remark>
         )}
         <Modal.Footer>
@@ -204,7 +235,7 @@ class ImportRestrictionsModal extends Component<Props> {
               disabled={!isReady || isInvalid}
               onClick={this.handleSubmit}
             >
-              Import Whitelist
+              Import Individual Restrictions
             </Button>
           </Paragraph>
         </Modal.Footer>
