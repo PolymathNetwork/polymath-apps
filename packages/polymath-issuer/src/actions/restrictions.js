@@ -417,14 +417,22 @@ export const addIndividualRestriction = (
           address: isCustomRestriction
             ? customRestriction.address
             : dailyRestriction.address,
-          dailyStartTime: dailyRestriction.startTime / 1000,
-          dailyEndTime: dailyRestriction.endTime / 1000,
+          dailyStartTime: dailyRestriction.startTime
+            ? dailyRestriction.startTime / 1000
+            : dailyRestriction.startTime,
+          dailyEndTime: dailyRestriction.endTime
+            ? dailyRestriction.endTime / 1000
+            : dailyRestriction.endTime,
           dailyRestrictionType: dailyRestriction.restrictionType,
           dailyAllowedTokens: isDailyRestriction
             ? web3.utils.fromWei(dailyRestriction.allowedTokens)
             : undefined,
-          customStartTime: customRestriction.startTime / 1000,
-          customEndTime: customRestriction.endTime / 1000,
+          customStartTime: customRestriction.startTime
+            ? customRestriction.startTime / 1000
+            : customRestriction.startTime,
+          customEndTime: customRestriction.endTime
+            ? customRestriction.endTime / 1000
+            : customRestriction.endTime,
           rollingPeriodInDays: customRestriction.rollingPeriodInDays,
           customRestrictionType: customRestriction.restrictionType,
           customAllowedTokens: isCustomRestriction
@@ -494,14 +502,22 @@ export const individualRestrictionModified = (
           address: isCustomRestriction
             ? customRestriction.address
             : dailyRestriction.address,
-          dailyStartTime: dailyRestriction.startTime / 1000,
-          dailyEndTime: dailyRestriction.endTime / 1000,
+          dailyStartTime: dailyRestriction.startTime
+            ? dailyRestriction.startTime / 1000
+            : dailyRestriction.startTime,
+          dailyEndTime: dailyRestriction.endTime
+            ? dailyRestriction.endTime / 1000
+            : dailyRestriction.endTime,
           dailyRestrictionType: dailyRestriction.restrictionType,
           dailyAllowedTokens: isDailyRestriction
             ? web3.utils.fromWei(dailyRestriction.allowedTokens)
             : undefined,
-          customStartTime: customRestriction.startTime / 1000,
-          customEndTime: customRestriction.endTime / 1000,
+          customStartTime: customRestriction.startTime
+            ? customRestriction.startTime / 1000
+            : customRestriction.startTime,
+          customEndTime: customRestriction.endTime
+            ? customRestriction.endTime / 1000
+            : customRestriction.endTime,
           rollingPeriodInDays: customRestriction.rollingPeriodInDays,
           customRestrictionType: customRestriction.restrictionType,
           customAllowedTokens: isCustomRestriction
