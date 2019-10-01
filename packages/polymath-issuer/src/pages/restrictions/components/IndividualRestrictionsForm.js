@@ -392,14 +392,13 @@ class AddIndividualRestriction extends Component {
                         <FormItem name="interval">
                           <FormItem.Input
                             className="align-self-end"
+                            disabled={true}
                             component={Dropdown}
                             onChange={this.handleDropdown}
                             value={values.interval}
                             ariaLabel="Rolling Period Interval"
                           >
                             <DropdownItem value="days" itemText="Days" />
-                            <DropdownItem value="months" itemText="Months" />
-                            <DropdownItem value="years" itemText="Years" />
                           </FormItem.Input>
                         </FormItem>
                       </FormItemGroup.Items>
