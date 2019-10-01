@@ -111,30 +111,30 @@ class ImportRestrictionsModal extends Component<Props> {
           <br />
           • ETH Address (address of tokenholder to be restricted)
           <br />
-          • Daily restriction Start Date: mm/dd/yyyy (leave blank if no daily
-          restriction being set)
+          • 24h Start Date: mm/dd/yyyy (leave blank if no daily restriction
+          being set)
           <br />
-          &nbsp; -Daily restriction End Date: mm/dd/yyy (leave blank if no daily
-          restriction being set)
+          &nbsp; -24h End Date: mm/dd/yyy (leave blank if no daily restriction
+          being set)
           <br />
-          &nbsp; -Daily Restriction type: <strong>0 or 1</strong> (0 if
+          &nbsp; -24h Restriction Type: <strong>0 or 1</strong> (0 if
           restriction will be in the form of # of tokens; 1 if restriction will
           be in the form of % of total supply of tokens)
           <br />
-          &nbsp; -Daily volume of allowed tokens: if restriction in the form of
-          % (1), input % value as a number between <strong>0.01 to 1</strong>.
+          &nbsp; -24h Allowed Tokens: if restriction in the form of % (1), input
+          % value as a number between <strong>0.01 to 1</strong>.
           <br />
-          • Custom restriction Start Date: mm/dd/yyyy (leave blank if no custom
-          restriction being set)
+          • Custom Start Date: mm/dd/yyyy (leave blank if no custom restriction
+          being set)
           <br />
-          • Custom restriction End Date: mm/dd/yyy (leave blank if no custom
-          restriction being set)
-          <br />• CustomRestriction type: <strong>0 or 1</strong> (0 if
+          • Custom End Date: mm/dd/yyy (leave blank if no custom restriction
+          being set)
+          <br />• Custom Restriction Type: <strong>0 or 1</strong> (0 if
           restriction will be in the form of # of tokens; 1 if restriction will
           be in the form of % of total supply of tokens)
           <br />
-          &nbsp; -Custom volume of allowed tokens: if restriction in the form of
-          % (1), input % value as a number between <strong>0.01 to 1</strong>.
+          &nbsp; -Custom Allowed Tokens: if restriction in the form of % (1),
+          input % value as a number between <strong>0.01 to 1</strong>.
           <br />
           &nbsp; -Rolling Period in Days: # of days the limit is in place before
           resetting (leave blank if you are only setting a daily restriction)
