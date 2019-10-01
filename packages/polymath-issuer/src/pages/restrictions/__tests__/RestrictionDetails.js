@@ -5,9 +5,10 @@ import configureStore from 'redux-mock-store';
 import { theme, GlobalStyles } from '@polymathnetwork/ui';
 import { shallow, mount } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Provider } from 'react-redux';
 const mockStore = configureStore([]);
+moment.tz.setDefault('America/New_York');
 
 describe('Restriction Details Component', () => {
   it('should render with the details', () => {
