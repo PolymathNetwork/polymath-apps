@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, useState, useEffect, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from '@polymathnetwork/ui';
 import { withFormik } from 'formik';
@@ -31,6 +31,7 @@ import {
 } from '../../../actions/restrictions';
 import {
   validateTodayOrAfter,
+  validateDays,
   validateStartTime,
   validateEndDate,
   validateEndTime,
@@ -81,7 +82,10 @@ const formSchema = validator.object().shape({
     .number()
     .when('restrictionType', {
       is: 'custom',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
+      then: validator
+        .number()
+        .isRequired(REQUIRED_MESSAGE)
+        .test('validateDays', validateDays),
     })
     .when('restrictionType', {
       is: '24h',
