@@ -344,6 +344,7 @@ class AddIndividualRestriction extends Component {
                       </Heading>
                       <FormItem.Input
                         placeholder="Enter the value"
+                        min={1}
                         component={NumberInput}
                         unit="TOKEN"
                       />

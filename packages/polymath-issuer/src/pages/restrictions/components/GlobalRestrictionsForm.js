@@ -143,6 +143,7 @@ export const AddGlobalRestrictionsComponent = ({
                 </Heading>
                 <FormItem.Input
                   placeholder="Enter the value"
+                  min={1}
                   component={NumberInput}
                   unit="TOKEN"
                 />
