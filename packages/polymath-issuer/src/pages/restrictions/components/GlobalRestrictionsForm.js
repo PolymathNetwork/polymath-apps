@@ -76,7 +76,10 @@ const formSchema = validator.object().shape({
     }),
   percentage: validator.number().when('transferType', {
     is: 'percentage',
-    then: validator.number().isRequired(REQUIRED_MESSAGE),
+    then: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .moreThan(0, 'Percentage must be above 0%'),
   }),
   intervalAmount: validator
     .number()

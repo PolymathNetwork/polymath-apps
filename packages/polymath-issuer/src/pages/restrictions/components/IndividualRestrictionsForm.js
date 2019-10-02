@@ -87,7 +87,10 @@ const customFormSchema = validator.object().shape({
     }),
   customPercentage: validator.number().when('customTransferType', {
     is: 'percentage',
-    then: validator.number().isRequired(REQUIRED_MESSAGE),
+    then: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .moreThan(0, 'Percentage must be above 0%'),
   }),
   intervalAmount: validator
     .number()
@@ -124,7 +127,10 @@ const dailyFormSchema = validator.object().shape({
     }),
   dailyPercentage: validator.number().when('dailyTransferType', {
     is: 'percentage',
-    then: validator.number().isRequired(REQUIRED_MESSAGE),
+    then: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .moreThan(0, 'Percentage must be above 0%'),
   }),
 });
 
