@@ -253,6 +253,7 @@ class AddIndividualRestriction extends Component {
                         Maximum Trade Volume
                       </Heading>
                       <FormItem.Input
+                        min={1}
                         placeholder="Enter the value"
                         component={NumberInput}
                         unit="TOKEN"
