@@ -104,7 +104,6 @@ const initialValues = {
   transferType: 'token',
   token: null,
   percentage: '',
-  interval: 'days',
 };
 
 export const AddGlobalRestrictionsComponent = ({
@@ -116,9 +115,6 @@ export const AddGlobalRestrictionsComponent = ({
   errors,
   touched,
 }) => {
-  const handleDropdown = e => {
-    setFieldValue('interval', e.value);
-  };
   return (
     <Form className="global-restrictions" onSubmit={handleSubmit}>
       <Grid>
@@ -172,7 +168,9 @@ export const AddGlobalRestrictionsComponent = ({
           <Fragment>
             <Grid.Row>
               <Grid.Col gridSpan={12}>
-                <label className="form-label">Rolling Period Interval</label>
+                <label className="form-label">
+                  Rolling Period Interval in Days (Max: 365 days)
+                </label>
               </Grid.Col>
             </Grid.Row>
             <Grid.Row style={{ marginTop: '-20px' }}>
@@ -188,18 +186,6 @@ export const AddGlobalRestrictionsComponent = ({
                         max={365}
                       />
                       <FormItem.Error />
-                    </FormItem>
-                    <FormItem name="interval">
-                      <FormItem.Input
-                        className="align-self-end"
-                        disabled={true}
-                        component={Dropdown}
-                        onChange={handleDropdown}
-                        value={values.interval}
-                        ariaLabel="Rolling Period Interval"
-                      >
-                        <DropdownItem value="days" itemText="Days" />
-                      </FormItem.Input>
                     </FormItem>
                   </FormItemGroup.Items>
                 </FormItemGroup>
@@ -300,7 +286,6 @@ const formikEnhancer = withFormik({
           props.defaultRestriction.restrictionType === 1
             ? parseFloat(props.defaultRestriction.allowedTokens)
             : '',
-        interval: 'days',
         restrictionType: props.restrictionType,
       };
     } else if (
@@ -357,19 +342,7 @@ const formikEnhancer = withFormik({
       values.transferType === 'token'
         ? toWei(values.token)
         : toWei(values.percentage);
-    let rollingPeriodInDays;
-
-    switch (values.interval) {
-      case 'months':
-        rollingPeriodInDays = values.intervalAmount * 30;
-        break;
-      case 'years':
-        rollingPeriodInDays = values.intervalAmount * 365;
-        break;
-      default:
-        rollingPeriodInDays = values.intervalAmount;
-        break;
-    }
+    const rollingPeriodInDays = values.intervalAmount;
 
     handleClose();
 

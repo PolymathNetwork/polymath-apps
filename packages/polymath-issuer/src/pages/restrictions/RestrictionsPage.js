@@ -99,11 +99,6 @@ class RestrictionsPage extends Component {
                   To update the volume, rolling period or end date/time of an
                   existing trade volume restriction, select the Configuration
                   button for the restriction you'd like to update.
-                  <br />
-                  <br />
-                  To update the volume, rolling period or end date/time of an
-                  existing trade volume restriction, select the Configuration
-                  button for the restriction you'd like to update.
                 </Remark>
               </Grid.Col>
               <Grid.Col gridSpan={6}>

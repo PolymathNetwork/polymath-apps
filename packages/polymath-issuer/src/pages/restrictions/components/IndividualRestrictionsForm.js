@@ -150,7 +150,6 @@ const initialValues = {
   customTransferType: 'token',
   customToken: null,
   customPercentage: '',
-  interval: 'days',
   intervalAmount: null,
 };
 
@@ -170,11 +169,6 @@ class AddIndividualRestriction extends Component {
     const { setFieldValue, values, dispatch } = this.props;
     setFieldValue('customRestriction', !values.customRestriction);
     dispatch(setIsCustomRestriction(!values.customRestriction));
-  };
-
-  handleDropdown = e => {
-    const { setFieldValue } = this.props;
-    setFieldValue('interval', e.value);
   };
 
   render() {
@@ -375,7 +369,7 @@ class AddIndividualRestriction extends Component {
                 <Grid.Row>
                   <Grid.Col gridSpan={12}>
                     <label className="form-label">
-                      Rolling Period Interval
+                      Rolling Period Interval in Days (Max: 365 days)
                     </label>
                   </Grid.Col>
                 </Grid.Row>
@@ -392,18 +386,6 @@ class AddIndividualRestriction extends Component {
                             max={365}
                           />
                           <FormItem.Error />
-                        </FormItem>
-                        <FormItem name="interval">
-                          <FormItem.Input
-                            className="align-self-end"
-                            disabled={true}
-                            component={Dropdown}
-                            onChange={this.handleDropdown}
-                            value={values.interval}
-                            ariaLabel="Rolling Period Interval"
-                          >
-                            <DropdownItem value="days" itemText="Days" />
-                          </FormItem.Input>
                         </FormItem>
                       </FormItemGroup.Items>
                     </FormItemGroup>
@@ -572,7 +554,6 @@ const formikEnhancer = withFormik({
           props.individualRestriction.customRestrictionType == 1
             ? 'percentage'
             : 'token',
-        interval: 'days',
         intervalAmount: props.individualRestriction.rollingPeriodInDays,
       };
     }
@@ -617,19 +598,7 @@ const formikEnhancer = withFormik({
       customRestriction.address = values.address;
       customRestriction.restrictionType =
         RESTRICTION_TYPE[values.customTransferType];
-      let rollingPeriodInDays;
-      switch (values.interval) {
-        case 'months':
-          rollingPeriodInDays = values.intervalAmount * 30;
-          break;
-        case 'years':
-          rollingPeriodInDays = values.intervalAmount * 365;
-          break;
-        default:
-          rollingPeriodInDays = values.intervalAmount;
-          break;
-      }
-      customRestriction.rollingPeriodInDays = rollingPeriodInDays;
+      customRestriction.rollingPeriodInDays = values.intervalAmount;
     }
     if (props.individualRestriction) {
       dispatch(
