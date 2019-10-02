@@ -114,15 +114,15 @@ class ImportRestrictionsModal extends Component<Props> {
           • 24h Start Date: mm/dd/yyyy (leave blank if no daily restriction
           being set)
           <br />
-          &nbsp; -24h End Date: mm/dd/yyy (leave blank if no daily restriction
+          &nbsp; • 24h End Date: mm/dd/yyy (leave blank if no daily restriction
           being set)
           <br />
-          &nbsp; -24h Restriction Type: <strong>0 or 1</strong> (0 if
+          &nbsp; • 24h Restriction Type: <strong>0 or 1</strong> (0 if
           restriction will be in the form of # of tokens; 1 if restriction will
           be in the form of % of total supply of tokens)
           <br />
-          &nbsp; -24h Allowed Tokens: if restriction in the form of % (1), input
-          % value as a number between <strong>0.01 to 1</strong>.
+          &nbsp; • 24h Allowed Tokens: if restriction in the form of % (1),
+          input % value as a number between <strong>0.01 to 1</strong>.
           <br />
           • Custom Start Date: mm/dd/yyyy (leave blank if no custom restriction
           being set)
@@ -133,37 +133,13 @@ class ImportRestrictionsModal extends Component<Props> {
           restriction will be in the form of # of tokens; 1 if restriction will
           be in the form of % of total supply of tokens)
           <br />
-          &nbsp; -Custom Allowed Tokens: if restriction in the form of % (1),
+          &nbsp; • Custom Allowed Tokens: if restriction in the form of % (1),
           input % value as a number between <strong>0.01 to 1</strong>.
           <br />
-          &nbsp; -Rolling Period in Days: # of days the limit is in place before
-          resetting (leave blank if you are only setting a daily restriction)
+          &nbsp; • Rolling Period in Days: # of days the limit is in place
+          before resetting (leave blank if you are only setting a daily
+          restriction; Max. 365 days)
           <br />
-          {/* <strong>You may add up to 40 addresses per .CSV file</strong>. The
-          format should be as follows:
-          <br />• ETH Address (address to volume restrict);
-          <br />• 24h Start Date: <strong>mm/dd/yyyy</strong> (date when the
-          volume restrictions will start for that address);
-          <br />• 24h End Date: <strong> mm/dd/yyyy</strong> (date when the
-          volume restrictions will end for that address);
-          <br />• 24h Restriction Type: <strong>0 or 1</strong>;<br />• Whether
-          the allowed tokens will be a percentage of all tokens or a fix value.
-          Set to <strong>1</strong> for percentage.
-          <br />• 24h Allowed Tokens: <strong>0.01 to 1</strong> when{' '}
-          <strong>Restriction Type is 1</strong>
-          <br />• Custom Start Date: <strong>mm/dd/yyyy</strong> (date when the
-          volume restrictions will start for that address);
-          <br />• Custom End Date: <strong> mm/dd/yyyy</strong> (date when the
-          volume restrictions will end for that address);
-          <br />• Custom Restriction Type: <strong>0 or 1</strong>;<br />•
-          Whether the allowed tokens will be a percentage of all tokens or a fix
-          value. Set to <strong>1</strong> for percentage.
-          <br />• Custom Allowed Tokens: <strong>0.01 to 1</strong> when{' '}
-          <strong>Restriction Type is 1</strong>
-          <br />• Rolling Period In Days: <strong>Numerical Value</strong> how
-          many days the limit is in place before resetting
-          <br />
-          <br /> */}
         </h4>
         <h5 className="pui-h5">
           You can&nbsp;&nbsp;&nbsp;

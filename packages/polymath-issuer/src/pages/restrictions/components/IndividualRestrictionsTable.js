@@ -159,13 +159,13 @@ class IndividualRestrictionsTable extends Component<Props, State> {
                     <Button onClick={this.handleOpen} icon="icon--add">
                       Add new
                     </Button>
-                    <Button
+                    {/* <Button
                       style={{ marginLeft: '5px' }}
                       onClick={this.handleCsvOpen}
                       icon="upload"
                     >
                       Upload CSV
-                    </Button>
+                    </Button> */}
                   </TableToolbarContent>
                 </TableToolbar>
                 <Table>
