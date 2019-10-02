@@ -224,6 +224,7 @@ class MintTokens extends Component<Props> {
       isReady,
       isInvalid,
       isTransfersPaused,
+      criticals,
       stage,
       version,
     } = this.props;
@@ -269,6 +270,8 @@ class MintTokens extends Component<Props> {
             <br />• ETH Address (address to whitelist);
             <br />• Sell Restriction Date mm/dd/yyyy (date when the resale
             restrictions should be lifted for that address);
+            <br />
+            Empty cell will be considered as permanent lockup.
             <br />• Buy Restriction Date mm/dd/yyyy (date when the buy
             restrictions should be lifted for that address);
             <br />
@@ -304,6 +307,35 @@ class MintTokens extends Component<Props> {
           ) : (
             ''
           )}
+          {criticals.length ? (
+            <div>
+              <InlineNotification
+                hideCloseButton
+                title={
+                  criticals.length +
+                  ' Error' +
+                  (criticals.length > 1 ? 's' : '') +
+                  ' in Your .csv File'
+                }
+                subtitle={
+                  'Please note that the entries below contains error, invalid expiry date, or duplicates another entry ' +
+                  'that prevent their content to be committed to the blockchain.' +
+                  'Entries were automatically deselected so they are not submitted ' +
+                  'to the blockchain. You can also elect to cancel the operation to review the csv file offline.' +
+                  (
+                    <ul>
+                      {criticals.map(error => (
+                        <li>{error}</li>
+                      ))}
+                    </ul>
+                  )
+                }
+                kind="error"
+              />
+            </div>
+          ) : (
+            ''
+          )}
           <FileUploader
             iconDescription="Cancel"
             buttonLabel="Upload File"
@@ -324,13 +356,6 @@ class MintTokens extends Component<Props> {
               subtitle="Please export the information to CSV using a MS-DOS Comma Separated (.csv) file format and upload the new file"
               kind="error"
             />
-          ) : isInvalid && !isReady ? (
-            <InlineNotification
-              hideCloseButton
-              title="The file you uploaded does not contain any valid values"
-              subtitle="Please check instructions above and try again."
-              kind="error"
-            />
           ) : isTooMany ? (
             <InlineNotification
               hideCloseButton
@@ -343,7 +368,9 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            disabled={!isReady || sto2xInProgress || isInvalidFormat}
+            disabled={
+              !isReady || sto2xInProgress || isInvalidFormat || criticals.length
+            }
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"

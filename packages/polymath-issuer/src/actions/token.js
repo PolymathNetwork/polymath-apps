@@ -12,6 +12,8 @@ import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
 import axios from 'axios';
 import FileSaver from 'file-saver';
+import CSVFileValidator from 'csv-file-validator';
+import { utils } from 'web3';
 
 import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
@@ -305,89 +307,151 @@ export const issue = (values: Object) => async (
   );
 };
 
+function isValidDate(date) {
+  const matches = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/.exec(date);
+  if (matches == null) return false;
+  const d = matches[2];
+  const m = matches[1] - 1;
+  const y = matches[3];
+  const composedDate = new Date(y, m, d);
+  return (
+    composedDate.getDate() == d &&
+    composedDate.getMonth() == m &&
+    composedDate.getFullYear() == y &&
+    composedDate.getTime() - new Date().getTime() > 0
+  );
+}
+
+const validateError = (headerName, rowNumber, columnNumber) => {
+  return `"${headerName}" value is invalid in row ${rowNumber -
+    1}, column ${columnNumber - 1}`;
+};
+
+const requiredError = (headerName, rowNumber, columnNumber) => {
+  return `"${headerName}" value is missing in row ${rowNumber -
+    1}, column ${columnNumber - 1}`;
+};
+
+const headerError = headerName => {
+  return `Header "${headerName}" is missing or invalid`;
+};
+
+const uniqueError = headerName => {
+  return `There are duplicate values in column "${headerName}"`;
+};
+
 // TODO @bshevchenko: almost duplicates uploadCSV from compliance/actions, subject to refactor
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
   const reader = new FileReader();
   reader.readAsText(file);
-  reader.onload = () => {
-    const investors: Array<Investor> = [];
-    const criticals: Array<InvestorCSVRow> = [];
+  reader.onload = async () => {
+    console.log(reader.result);
+    const config = {
+      headers: [
+        {
+          name: 'ETH Address',
+          inputName: 'address',
+          required: true,
+          unique: true,
+          validate: function(val) {
+            return utils.isAddress(val);
+          },
+          validateError,
+          headerError,
+          uniqueError,
+        },
+        {
+          name: 'Sell Restriction Date',
+          inputName: 'from',
+          validate: function(val) {
+            return val.length === 0 || isValidDate(val);
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'Buy Restriction Date',
+          inputName: 'to',
+          validate: function(val) {
+            return val.length === 0 || isValidDate(val);
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'KYC/AML Expiry Date',
+          inputName: 'expiry',
+          required: true,
+          validate: function(val) {
+            return isValidDate(val);
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'Number of tokens',
+          inputName: 'tokensVal',
+          required: true,
+          validate: function(val) {
+            return !Number.isNaN(val);
+          },
+          validateError,
+          headerError,
+        },
+      ],
+    };
+
     const tokens: Array<number> = [];
     let isTooMany = false;
     let string = 0;
     let isInvalidFormat = false;
-    // $FlowFixMe
 
-    // Check if the file was created on Excel for Mac
-    if (
-      reader.result.split(/\r\n|\n/).length < reader.result.split('\r').length
-    ) {
-      isInvalidFormat = true;
-    }
+    try {
+      const {
+        data,
+        inValidMessages: validationErrors,
+      } = await CSVFileValidator(reader.result, config);
+      isTooMany = data.length > 40;
+      console.log(data, validationErrors);
 
-    for (let entry of reader.result.split(/\r\n|\n/)) {
-      string++;
-      //Ignore blank rows
-      if (entry === '') {
-        continue;
-      }
-      const [address, sale, purchase, expiryIn, tokensIn] = entry.split(',');
-      const handleDate = (d: string) => {
-        let resultDate =
-          d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
-        if (d !== '') {
-          const [[], year] = d.split(/\/|-/);
-          if (year.length === 2 && resultDate.getFullYear() < 2000) {
-            resultDate.setFullYear(resultDate.getFullYear() + 100);
-          }
-        }
-        return resultDate;
-      };
-      const from = handleDate(sale);
-      const to = handleDate(purchase);
-
-      const expiry = new Date(Date.parse(expiryIn));
-      let isInvalidExpiry = false;
-      if (expiry - Date.parse(new Date()) < 0) {
-        isInvalidExpiry = true;
-      }
-
-      const tokensVal = Number(tokensIn);
-
-      let isDuplicatedAddress = false;
-      investors.forEach(investor => {
-        if (investor.address === address) {
-          isDuplicatedAddress = true;
-        }
-      });
-
-      if (
-        !isDuplicatedAddress &&
-        ethereumAddress(address) === null &&
-        !isNaN(from) &&
-        !isNaN(to) &&
-        !isNaN(expiry) &&
-        !isInvalidExpiry &&
-        parseFloat(tokensVal) > 0
-      ) {
-        if (investors.length >= 40) {
-          isTooMany = true;
-          continue;
-        }
-        investors.push({ address, from, to, expiry });
-        tokens.push(tokensVal);
+      if (validationErrors.length) {
+        dispatch({
+          type: MINT_UPLOADED,
+          investors: [],
+          tokens: [],
+          criticals: validationErrors,
+          isTooMany,
+          isInvalidFormat,
+        });
       } else {
-        criticals.push([string, address, sale, purchase, expiryIn, tokensIn]);
+        const [investors, tokens] = data.map(
+          ({ address, from, to, purchase, expiry, tokensVal }) => {
+            return [
+              {
+                address,
+                from: from || new Date(PERMANENT_LOCKUP_TS),
+                to: to || new Date(PERMANENT_LOCKUP_TS),
+                expiry,
+              },
+              tokensVal,
+            ];
+          }
+        );
+        console.log(investors, tokens);
+        return;
+
+        dispatch({
+          type: MINT_UPLOADED,
+          investors,
+          tokens,
+          criticals: [],
+          isTooMany,
+          isInvalidFormat,
+        });
       }
+    } catch (err) {
+      console.error(err);
     }
-    dispatch({
-      type: MINT_UPLOADED,
-      investors,
-      tokens,
-      criticals,
-      isTooMany,
-      isInvalidFormat,
-    });
   };
 };
 
