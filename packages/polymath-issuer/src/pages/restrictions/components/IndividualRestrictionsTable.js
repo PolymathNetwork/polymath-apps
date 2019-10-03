@@ -75,11 +75,21 @@ class IndividualRestrictionsTable extends Component<Props, State> {
     isUploadCsvModal: false,
   };
 
+  checkRestrictionActive = customStartTime => {
+    const today = moment();
+    const restrictionDay = moment.unix(customStartTime);
+    const isActive = today.diff(restrictionDay, 'seconds') > 0;
+    return isActive;
+  };
+
   editAddress = address => {
     if (address === '0') return;
     const { individualRestrictions } = this.props;
     let restriction = individualRestrictions.find(i => i.address === address);
-    if (!restriction.dailyAllowedTokens && restriction.customAllowedTokens)
+    if (
+      restriction.customAllowedTokens &&
+      this.checkRestrictionActive(restriction.customStartTime)
+    )
       return;
     this.props.modifyIndividualRestriction(restriction);
     this.setState({ isIndividualRestrictionModalOpen: true });
