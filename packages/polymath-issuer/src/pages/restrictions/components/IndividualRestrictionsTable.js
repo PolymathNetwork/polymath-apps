@@ -76,6 +76,7 @@ class IndividualRestrictionsTable extends Component<Props, State> {
   };
 
   editAddress = address => {
+    if (address === '0') return;
     const { individualRestrictions } = this.props;
     let restriction = individualRestrictions.find(i => i.address === address);
     this.props.modifyIndividualRestriction(restriction);
