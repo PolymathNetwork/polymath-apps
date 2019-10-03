@@ -23,6 +23,7 @@ import { Toggle, Tabs, Tab, Form } from 'carbon-components-react';
 import { toggleRestrictions } from '../../actions/restrictions';
 import { withFormik } from 'formik';
 import GlobalRestrictionsForm from './components/GlobalRestrictionsForm';
+import IndividualRestrictions from './components/IndividualRestrictions';
 import FormModal from './components/FormModal';
 import RestrictionDetails from './components/RestrictionDetails';
 import './style.scss';
@@ -31,6 +32,7 @@ import {
   getVolumeRestrictionModule,
   archiveVolumeRestrictionModule,
 } from '../../actions/restrictions';
+import moment from 'moment';
 
 class RestrictionsPage extends Component {
   state = {
@@ -62,6 +64,14 @@ class RestrictionsPage extends Component {
     }
   };
 
+  checkRestrictionActive = () => {
+    const { defaultRestriction } = this.props;
+    const today = moment();
+    const restrictionDay = moment(defaultRestriction);
+    const isActive = today.diff(restrictionDay, 'seconds') > 0;
+    return isActive;
+  };
+
   render() {
     const {
       token,
@@ -78,7 +88,7 @@ class RestrictionsPage extends Component {
     return (
       <ThemeProvider>
         <Page title="Compliance – Polymath">
-          <h1 className="pui-h1">Trading Volume Restrictions</h1>
+          <h1 className="pui-h1">Trade Volume Restrictions</h1>
           <Grid>
             <Grid.Row>
               <Grid.Col gridSpan={6}>
@@ -91,8 +101,13 @@ class RestrictionsPage extends Component {
                   tokens in a rolling 90-day period.
                 </h3>
                 <Remark title="Note">
-                  Investors with individual investor limits are exempt from the
-                  global limits.
+                  Investors to whom individual limits are applied are only
+                  subject to their individual limits and are exempt from the
+                  global limits. <br />
+                  <br />
+                  To update the volume, rolling period or end date/time of an
+                  existing trade volume restriction, select the Configuration
+                  button for the restriction you'd like to update.
                 </Remark>
               </Grid.Col>
               <Grid.Col gridSpan={6}>
@@ -125,7 +140,7 @@ class RestrictionsPage extends Component {
                         number of tokens each investor can sell during the
                         rolling period you define. Easily set to 24 hours or
                         customize your rolling period. Your trade volume cap is
-                        specified as the number or tokens or the percentage of
+                        specified as the number of tokens or the percentage of
                         total token supply.
                       </h3>
                       <FormModal
@@ -158,7 +173,13 @@ class RestrictionsPage extends Component {
                                 />
                               )}
 
-                              {/* Empty div with height instead of CSS */}
+                              <div
+                                className={
+                                  dailyRestrictionModified
+                                    ? 'restriction-active'
+                                    : 'restriction-inactive'
+                                }
+                              />
                               <ButtonLarge
                                 className="card-button"
                                 onClick={() => this.handleOpen('24h')}
@@ -189,8 +210,16 @@ class RestrictionsPage extends Component {
                                   restriction={defaultRestriction}
                                 />
                               )}
+                              <div
+                                className={
+                                  defaultRestrictionModified
+                                    ? 'restriction-active'
+                                    : 'restriction-inactive'
+                                }
+                              />
                               <ButtonLarge
                                 className="card-button"
+                                disabled={this.checkRestrictionActive()}
                                 onClick={() => this.handleOpen('custom')}
                               >
                                 Configure Custom Restriction
@@ -200,7 +229,9 @@ class RestrictionsPage extends Component {
                         </Grid.Row>
                       </Grid>
                     </Tab>
-                    <Tab label="Individual Restrictions" />
+                    <Tab label="Individual Restrictions">
+                      <IndividualRestrictions />
+                    </Tab>
                   </Tabs>
                 )}
               </Grid.Col>
