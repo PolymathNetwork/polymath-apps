@@ -11,6 +11,7 @@ import App from './components/App';
 import Dashboard from './components/Dashboard';
 
 import WhitelistPage from './pages/compliance/CompliancePage';
+import RestrictionsPage from './pages/restrictions/RestrictionsPage';
 import TickerPage from './pages/ticker/TickerPage';
 import ProvidersPage from './pages/providers/ProvidersPage';
 import TokenPage from './pages/token/TokenPage';
@@ -45,6 +46,11 @@ export default [
           {
             path: '/dashboard/:id/sto',
             component: STOPage,
+            exact: true,
+          },
+          {
+            path: '/dashboard/:id/restrictions',
+            component: RestrictionsPage,
             exact: true,
           },
           {

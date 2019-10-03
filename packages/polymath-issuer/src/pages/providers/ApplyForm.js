@@ -146,7 +146,11 @@ export const ApplyFormComponent = props => {
         </Button>
       </p>
 
-      {networkId === MAINNET_NETWORK_ID ? (
+      {/*
+        We are not going to compare networkId to MAINNET_NETWORK_ID constant.
+        The former is a number and the later is a string. Fortunately, mainnet ID is 1 and will always be 1 
+      */}
+      {networkId === 1 ? (
         <p className="pui-input-hint">
           When you click submit, an email which contains the information entered
           on that screen will be sent to the Advisory firm(s) you have selected.

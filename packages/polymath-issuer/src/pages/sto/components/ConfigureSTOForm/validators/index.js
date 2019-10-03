@@ -4,6 +4,44 @@ import moment from 'moment';
 
 const TRANSACTION_TIME_BUFFER = 20 * 60 * 1000;
 
+const validateIndividualDays = function(value) {
+  const startDate = this.parent.customDate.startDate;
+  const endDate = this.parent.customDate.endDate;
+
+  if (!startDate || !endDate) {
+    return true;
+  }
+
+  const daysBetween = moment(endDate).diff(moment(startDate), 'days');
+
+  if (value > daysBetween) {
+    return this.createError({
+      message: 'Your days cannot exceed the days between start and end date',
+    });
+  }
+
+  return true;
+};
+
+const validateDays = function(value) {
+  const startDate = this.parent.date.startDate;
+  const endDate = this.parent.date.endDate;
+
+  if (!startDate || !endDate) {
+    return true;
+  }
+
+  const daysBetween = moment(endDate).diff(moment(startDate), 'days');
+
+  if (value > daysBetween) {
+    return this.createError({
+      message: 'Your days cannot exceed the days between start and end date',
+    });
+  }
+
+  return true;
+};
+
 const validateEndTime = function(value) {
   const startDate: Date = this.parent.startDate;
   const startTime: number = this.parent.startTime;
@@ -71,6 +109,8 @@ const MAX_DIGITS_MESSAGE = 'Cannot have more than ${maxDigits} digits.';
 
 export {
   validateEndTime,
+  validateDays,
+  validateIndividualDays,
   validateEndDate,
   validateStartTime,
   validateTodayOrAfter,
