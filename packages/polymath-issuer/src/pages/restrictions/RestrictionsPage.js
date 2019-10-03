@@ -32,6 +32,7 @@ import {
   getVolumeRestrictionModule,
   archiveVolumeRestrictionModule,
 } from '../../actions/restrictions';
+import moment from 'moment';
 
 class RestrictionsPage extends Component {
   state = {
@@ -61,6 +62,14 @@ class RestrictionsPage extends Component {
     } else {
       archiveVolumeRestrictionModule();
     }
+  };
+
+  checkRestrictionActive = () => {
+    const { defaultRestriction } = this.props;
+    const today = moment();
+    const restrictionDay = moment(defaultRestriction);
+    const isActive = today.diff(restrictionDay, 'seconds') > 0;
+    return isActive;
   };
 
   render() {
@@ -210,6 +219,7 @@ class RestrictionsPage extends Component {
                               />
                               <ButtonLarge
                                 className="card-button"
+                                disabled={this.checkRestrictionActive()}
                                 onClick={() => this.handleOpen('custom')}
                               >
                                 Configure Custom Restriction

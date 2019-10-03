@@ -187,6 +187,9 @@ class AddIndividualRestriction extends Component {
       errors,
       touched,
     } = this.props;
+    const today = moment();
+    const restrictionDay = moment.unix(values.customDateTime);
+    const isCustomActive = today.diff(restrictionDay, 'seconds') > 0;
     return (
       <Form className="global-restrictions" onSubmit={handleSubmit}>
         <Grid>
@@ -319,7 +322,7 @@ class AddIndividualRestriction extends Component {
               </Grid.Row>
             </Fragment>
           )}
-          {values.customRestriction && (
+          {!isCustomActive && values.customRestriction && (
             <Fragment>
               <Grid.Row>
                 <Grid.Col gridSpan={12}>
@@ -497,6 +500,7 @@ const formikEnhancer = withFormik({
           .startOf('day')
           .unix();
       return {
+        customDateTime: props.individualRestriction.customStartTime || null,
         dailyModified: props.individualRestriction ? true : false,
         customModified: props.individualRestriction ? true : false,
         address: props.individualRestriction.address,

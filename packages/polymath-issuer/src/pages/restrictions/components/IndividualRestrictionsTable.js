@@ -79,6 +79,8 @@ class IndividualRestrictionsTable extends Component<Props, State> {
     if (address === '0') return;
     const { individualRestrictions } = this.props;
     let restriction = individualRestrictions.find(i => i.address === address);
+    if (!restriction.dailyAllowedTokens && restriction.customAllowedTokens)
+      return;
     this.props.modifyIndividualRestriction(restriction);
     this.setState({ isIndividualRestrictionModalOpen: true });
   };
