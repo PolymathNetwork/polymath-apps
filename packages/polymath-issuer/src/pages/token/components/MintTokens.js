@@ -229,6 +229,8 @@ class MintTokens extends Component<Props> {
       version,
     } = this.props;
 
+    const errors = criticals.map(error => `\r\n• ${error}`);
+
     // NOTE: minting 3.x tokens is possible while an STO is in progress.
     const sto2xInProgress =
       stage === STAGE_OVERVIEW && semver.lt(version, '3.0.0');
@@ -280,7 +282,7 @@ class MintTokens extends Component<Props> {
             <br />• Number of tokens to mint for the ETH address (integer).
             <br />
             <Remark title="Note">
-              Your file cannot exceed 40 addresses. If you have more than 40
+              Your file cannot exceed 75 addresses. If you have more than 75
               addresses on your whitelist, upload multiple files.
             </Remark>
           </h4>
@@ -310,6 +312,7 @@ class MintTokens extends Component<Props> {
           {criticals.length ? (
             <div>
               <InlineNotification
+                style={{ whiteSpace: 'pre-wrap' }}
                 hideCloseButton
                 title={
                   criticals.length +
@@ -322,13 +325,7 @@ class MintTokens extends Component<Props> {
                   'that prevent their content to be committed to the blockchain.' +
                   'Entries were automatically deselected so they are not submitted ' +
                   'to the blockchain. You can also elect to cancel the operation to review the csv file offline.' +
-                  (
-                    <ul>
-                      {criticals.map(error => (
-                        <li>{error}</li>
-                      ))}
-                    </ul>
-                  )
+                  errors
                 }
                 kind="error"
               />

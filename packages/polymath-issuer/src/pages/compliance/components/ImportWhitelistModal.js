@@ -202,7 +202,7 @@ class ImportWhitelistModal extends Component<Props> {
           <Remark title="Reminder">
             Investors must be approved before they are added to the whitelist.{' '}
             <br />
-            Your file cannot exceed 40 addresses. If you have more than 40
+            Your file cannot exceed 75 addresses. If you have more than 75
             addresses on your whitelist, upload multiple files.
           </Remark>
         )}

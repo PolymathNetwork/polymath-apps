@@ -411,7 +411,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         data,
         inValidMessages: validationErrors,
       } = await CSVFileValidator(reader.result, config);
-      isTooMany = data.length > 40;
+      isTooMany = data.length > 75;
       console.log(data, validationErrors);
 
       if (validationErrors.length) {
