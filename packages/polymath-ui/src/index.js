@@ -115,6 +115,7 @@ export { default as icoHandshake } from './images/svg/handshake';
 export { default as icoHelp } from './images/svg/help';
 export { default as icoWhitelist } from './images/svg/whitelist';
 export { default as icoDividends } from './images/svg/dividends';
+export { default as icoRestriction } from './images/svg/restriction';
 
 /**
  * Flow types

@@ -24,6 +24,9 @@ import { SvgDelete } from './images/icons/generated/Delete';
 import { SvgGusd } from './images/icons/generated/gusd';
 import { SvgUsdc } from './images/icons/generated/usdc';
 import { SvgUsdt } from './images/icons/generated/usdt';
+import { Svg24H } from './images/icons/generated/24H';
+import { SvgCalendarOutline } from './images/icons/generated/CalendarOutline';
+import { SvgRestriction } from './images/icons/generated/Restriction';
 import { SvgPax } from './images/icons/generated/pax';
 
 export { Field, FastField };
@@ -119,6 +122,9 @@ export const icons = {
   SvgUsdc,
   SvgUsdt,
   SvgPax,
+  SvgCalendarOutline,
+  Svg24H,
+  SvgRestriction,
 };
 
 export { validator } from './validator';

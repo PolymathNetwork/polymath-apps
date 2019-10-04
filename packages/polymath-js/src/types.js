@@ -148,3 +148,5 @@ export type Investor = {|
   nonAccreditedLimit?: string,
   minted?: BigNumber,
 |};
+
+export type RestrictionType = 0 | 1;
