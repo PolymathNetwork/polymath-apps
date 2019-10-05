@@ -22,8 +22,6 @@
         global.isValuesUnique
       ));
 })(this, function(Papa, _uniqBy, _isFunction, _isEmpty, isValuesUnique) {
-  
-
   Papa = Papa && Papa.hasOwnProperty('default') ? Papa['default'] : Papa;
   isValuesUnique =
     isValuesUnique && isValuesUnique.hasOwnProperty('default')
@@ -78,24 +76,10 @@
         }
       }
 
-      // // @TODO Here
-      // if (row.length < headers.length) {
-      //   file.inValidMessages.push(
-      //     _isFunction(config.lengthMismatchError)
-      //     /// @TODO continue this
-      //         ? valueConfig.lengthMismatchError(valueConfig.name, rowIndex + 1, columnIndex + 1)
-      //         : String(valueConfig.name + ' is required in the ' + (rowIndex + 1) + ' row / ' + (columnIndex + 1) + ' column')
-      // );
-      //     return;
-      // }
-
-      row.forEach(function(columnValue, columnIndex) {
-        const valueConfig = config.headers[columnIndex];
-        columnValue = columnValue.trim();
-
-        if (!valueConfig) {
-          return;
-        }
+      config.headers.forEach(function(valueConfig, columnIndex) {
+        let columnValue = row[columnIndex]
+          ? row[columnIndex].trim()
+          : undefined;
 
         // header validation
         if (rowIndex === 0) {
@@ -110,7 +94,10 @@
           return;
         }
 
-        if (valueConfig.required && !columnValue.length) {
+        if (
+          valueConfig.required &&
+          (columnValue === undefined || !columnValue.length)
+        ) {
           file.inValidMessages.push(
             _isFunction(valueConfig.requiredError)
               ? valueConfig.requiredError(
