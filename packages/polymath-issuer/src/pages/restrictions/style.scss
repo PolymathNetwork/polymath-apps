@@ -39,8 +39,13 @@
 }
 
 .card-button {
-  position: absolute;
-  bottom: 170px;
-  margin-left: -175px;
   width: 350px;
+}
+
+.restriction-active {
+  height: 60px;
+}
+
+.restriction-inactive {
+  height: 150px;
 }

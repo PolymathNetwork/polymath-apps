@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, useState, useEffect, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from '@polymathnetwork/ui';
 import { withFormik } from 'formik';
@@ -31,6 +31,7 @@ import {
 } from '../../../actions/restrictions';
 import {
   validateTodayOrAfter,
+  validateDays,
   validateStartTime,
   validateEndDate,
   validateEndTime,
@@ -49,8 +50,14 @@ type Props = {
 
 const formSchema = validator.object().shape({
   date: validator.object().shape({
-    startDate: validator.date().isRequired(REQUIRED_MESSAGE),
-    startTime: validator.number().isRequired(REQUIRED_MESSAGE),
+    startDate: validator
+      .date()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartDate', validateTodayOrAfter),
+    startTime: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .test('validateStartTime', validateStartTime),
     endDate: validator
       .date()
       .isRequired(REQUIRED_MESSAGE)
@@ -69,13 +76,19 @@ const formSchema = validator.object().shape({
     }),
   percentage: validator.number().when('transferType', {
     is: 'percentage',
-    then: validator.number().isRequired(REQUIRED_MESSAGE),
+    then: validator
+      .number()
+      .isRequired(REQUIRED_MESSAGE)
+      .moreThan(0, 'Percentage must be above 0%'),
   }),
   intervalAmount: validator
     .number()
     .when('restrictionType', {
       is: 'custom',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
+      then: validator
+        .number()
+        .isRequired(REQUIRED_MESSAGE)
+        .test('validateDays', validateDays),
     })
     .when('restrictionType', {
       is: '24h',
@@ -94,7 +107,6 @@ const initialValues = {
   transferType: 'token',
   token: null,
   percentage: '',
-  interval: 'days',
 };
 
 export const AddGlobalRestrictionsComponent = ({
@@ -106,9 +118,6 @@ export const AddGlobalRestrictionsComponent = ({
   errors,
   touched,
 }) => {
-  const handleDropdown = e => {
-    setFieldValue('interval', e.value);
-  };
   return (
     <Form className="global-restrictions" onSubmit={handleSubmit}>
       <Grid>
@@ -137,6 +146,7 @@ export const AddGlobalRestrictionsComponent = ({
                 </Heading>
                 <FormItem.Input
                   placeholder="Enter the value"
+                  min={1}
                   component={NumberInput}
                   unit="TOKEN"
                 />
@@ -162,7 +172,9 @@ export const AddGlobalRestrictionsComponent = ({
           <Fragment>
             <Grid.Row>
               <Grid.Col gridSpan={12}>
-                <label className="form-label">Rolling Period Interval</label>
+                <label className="form-label">
+                  Rolling Period Interval in Days (Max: 365 days)
+                </label>
               </Grid.Col>
             </Grid.Row>
             <Grid.Row style={{ marginTop: '-20px' }}>
@@ -178,19 +190,6 @@ export const AddGlobalRestrictionsComponent = ({
                         max={365}
                       />
                       <FormItem.Error />
-                    </FormItem>
-                    <FormItem name="interval">
-                      <FormItem.Input
-                        className="align-self-end"
-                        component={Dropdown}
-                        onChange={handleDropdown}
-                        value={values.interval}
-                        ariaLabel="Rolling Period Interval"
-                      >
-                        <DropdownItem value="days" itemText="Days" />
-                        <DropdownItem value="months" itemText="Months" />
-                        <DropdownItem value="years" itemText="Years" />
-                      </FormItem.Input>
                     </FormItem>
                   </FormItemGroup.Items>
                 </FormItemGroup>
@@ -244,7 +243,10 @@ export const AddGlobalRestrictionsComponent = ({
           <Grid.Col gridSpan={4} />
         </Grid.Row>
       </Grid>
-      <Button type="submit">Set The Period</Button>
+      <Button kind="secondary" onClick={handleClose}>
+        Cancel
+      </Button>
+      <Button type="submit">Configure</Button>
     </Form>
   );
 };
@@ -283,12 +285,11 @@ const formikEnhancer = withFormik({
         token:
           props.defaultRestriction.restrictionType === 0
             ? parseFloat(props.defaultRestriction.allowedTokens)
-            : '',
+            : null,
         percentage:
           props.defaultRestriction.restrictionType === 1
             ? parseFloat(props.defaultRestriction.allowedTokens)
             : '',
-        interval: 'days',
         restrictionType: props.restrictionType,
       };
     } else if (
@@ -317,7 +318,7 @@ const formikEnhancer = withFormik({
         token:
           props.dailyRestriction.restrictionType === 0
             ? parseFloat(props.dailyRestriction.allowedTokens)
-            : '',
+            : null,
         percentage:
           props.dailyRestriction.restrictionType === 1
             ? parseFloat(props.dailyRestriction.allowedTokens)
@@ -345,19 +346,7 @@ const formikEnhancer = withFormik({
       values.transferType === 'token'
         ? toWei(values.token)
         : toWei(values.percentage);
-    let rollingPeriodInDays;
-
-    switch (values.interval) {
-      case 'months':
-        rollingPeriodInDays = values.intervalAmount * 30;
-        break;
-      case 'years':
-        rollingPeriodInDays = values.intervalAmount * 365;
-        break;
-      default:
-        rollingPeriodInDays = values.intervalAmount;
-        break;
-    }
+    const rollingPeriodInDays = values.intervalAmount;
 
     handleClose();
 
