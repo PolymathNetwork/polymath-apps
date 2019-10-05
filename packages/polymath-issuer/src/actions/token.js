@@ -12,7 +12,7 @@ import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
 import axios from 'axios';
 import FileSaver from 'file-saver';
-import CSVFileValidator from 'csv-file-validator';
+import CSVFileValidator from '../utils/parsers/csv-file-validator';
 import { utils } from 'web3';
 
 import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
@@ -318,29 +318,27 @@ function isValidDate(date) {
     composedDate.getDate() == d &&
     composedDate.getMonth() == m &&
     composedDate.getFullYear() == y &&
-    composedDate.getTime() - new Date().getTime() > 0
+    // composedDate.getTime() - new Date().getTime() > 0
+    true
   );
 }
 
-const validateError = (headerName, rowNumber, columnNumber) => {
-  return `"${headerName}" value is invalid in row ${rowNumber -
-    1}, column ${columnNumber - 1}`;
+const validateError = (headerName, value, rowNumber, columnNumber) => {
+  return `Row ${rowNumber - 1}, ${headerName} value "${value}" is invalid`;
 };
 
 const requiredError = (headerName, rowNumber, columnNumber) => {
-  return `"${headerName}" value is missing in row ${rowNumber -
-    1}, column ${columnNumber - 1}`;
+  return `Row ${rowNumber - 1}, ${headerName} value is missing`;
 };
 
 const headerError = headerName => {
-  return `Header "${headerName}" is missing or invalid`;
+  return `Header "${headerName}" is missing`;
 };
 
 const uniqueError = headerName => {
-  return `There are duplicate values in column "${headerName}"`;
+  return `Column "${headerName}: duplicate values`;
 };
 
-// TODO @bshevchenko: almost duplicates uploadCSV from compliance/actions, subject to refactor
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
   const reader = new FileReader();
   reader.readAsText(file);
@@ -354,11 +352,16 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           required: true,
           unique: true,
           validate: function(val) {
-            return utils.isAddress(val);
+            console.log('Validate eth value', val);
+            return (
+              utils.isAddress(val) &&
+              val !== '0x0000000000000000000000000000000000000000'
+            );
           },
           validateError,
           headerError,
           uniqueError,
+          requiredError,
         },
         {
           name: 'Sell Restriction Date',
@@ -368,6 +371,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           },
           validateError,
           headerError,
+          requiredError,
         },
         {
           name: 'Buy Restriction Date',
@@ -387,6 +391,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           },
           validateError,
           headerError,
+          requiredError,
         },
         {
           name: 'Number of tokens',
@@ -397,6 +402,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           },
           validateError,
           headerError,
+          requiredError,
         },
       ],
     };
@@ -412,7 +418,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         inValidMessages: validationErrors,
       } = await CSVFileValidator(reader.result, config);
       isTooMany = data.length > 75;
-      console.log(data, validationErrors);
+      console.log('data, validationErrors', data, validationErrors);
 
       if (validationErrors.length) {
         dispatch({
@@ -437,7 +443,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
             ];
           }
         );
-        console.log(investors, tokens);
+        console.log('investors, tokens', investors, tokens);
         return;
 
         dispatch({

@@ -229,7 +229,7 @@ class MintTokens extends Component<Props> {
       version,
     } = this.props;
 
-    const errors = criticals.map(error => `\r\n• ${error}`);
+    const errors = criticals.map(error => `\n• ${error}`);
 
     // NOTE: minting 3.x tokens is possible while an STO is in progress.
     const sto2xInProgress =
@@ -321,10 +321,7 @@ class MintTokens extends Component<Props> {
                   ' in Your .csv File'
                 }
                 subtitle={
-                  'Please note that the entries below contains error, invalid expiry date, or duplicates another entry ' +
-                  'that prevent their content to be committed to the blockchain.' +
-                  'Entries were automatically deselected so they are not submitted ' +
-                  'to the blockchain. You can also elect to cancel the operation to review the csv file offline.' +
+                  '\nPlease fix the following errors in your csv file before committing its content to the blockchain.\n' +
                   errors
                 }
                 kind="error"
