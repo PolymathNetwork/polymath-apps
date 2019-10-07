@@ -40,6 +40,7 @@
    */
   function CSVFileValidator(csvFile, config) {
     return new Promise(function(resolve, reject) {
+      csvFile = csvFile.trim();
       Papa.parse(csvFile, {
         complete: function(results) {
           resolve(_prepareDataAndValidateFile(results.data, config));
@@ -62,7 +63,7 @@
       data: [],
     };
 
-    console.log(csvData);
+    console.log('csvData', csvData);
 
     csvData.forEach(function(row, rowIndex) {
       const columnData = {};
@@ -77,9 +78,7 @@
       }
 
       config.headers.forEach(function(valueConfig, columnIndex) {
-        let columnValue = row[columnIndex]
-          ? row[columnIndex].trim()
-          : undefined;
+        let columnValue = row[columnIndex] ? row[columnIndex].trim() : '';
 
         // header validation
         if (rowIndex === 0) {

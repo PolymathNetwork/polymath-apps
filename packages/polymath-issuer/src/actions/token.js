@@ -352,7 +352,6 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           required: true,
           unique: true,
           validate: function(val) {
-            console.log('Validate eth value', val);
             return (
               utils.isAddress(val) &&
               val !== '0x0000000000000000000000000000000000000000'
@@ -371,7 +370,6 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           },
           validateError,
           headerError,
-          requiredError,
         },
         {
           name: 'Buy Restriction Date',
@@ -418,7 +416,6 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         inValidMessages: validationErrors,
       } = await CSVFileValidator(reader.result, config);
       isTooMany = data.length > 75;
-      console.log('data, validationErrors', data, validationErrors);
 
       if (validationErrors.length) {
         dispatch({
