@@ -28,7 +28,10 @@ exports[`Restrictions Page should render global daily restrictions when VRTM is 
           <Remark
             title="Note"
           >
-            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits.
+            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits. 
+            <br />
+            <br />
+            To update the volume, rolling period or end date/time of an existing trade volume restriction, select the Configuration button for the restriction you'd like to update.
           </Remark>
         </GridCol>
         <GridCol
@@ -191,17 +194,11 @@ exports[`Restrictions Page should render global daily restrictions when VRTM is 
                       />
                       <ButtonLarge
                         className="card-button"
+                        disabled={true}
                         onClick={[Function]}
                         variant="primary"
                       >
                         Configure Custom Restriction
-                      </ButtonLarge>
-                      <ButtonLarge
-                        className="card-button"
-                        onClick={[Function]}
-                        variant="ghostPrimary"
-                      >
-                        Reset the Restriction
                       </ButtonLarge>
                     </CardFeatureState>
                   </GridCol>
@@ -255,7 +252,10 @@ exports[`Restrictions Page should render global default restrictions when VRTM i
           <Remark
             title="Note"
           >
-            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits.
+            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits. 
+            <br />
+            <br />
+            To update the volume, rolling period or end date/time of an existing trade volume restriction, select the Configuration button for the restriction you'd like to update.
           </Remark>
         </GridCol>
         <GridCol
@@ -383,13 +383,6 @@ exports[`Restrictions Page should render global default restrictions when VRTM i
                       >
                         Configure 24h Restriction
                       </ButtonLarge>
-                      <ButtonLarge
-                        className="card-button"
-                        onClick={[Function]}
-                        variant="ghostPrimary"
-                      >
-                        Reset the Restriction
-                      </ButtonLarge>
                     </CardFeatureState>
                   </GridCol>
                   <GridCol
@@ -425,6 +418,7 @@ exports[`Restrictions Page should render global default restrictions when VRTM i
                       />
                       <ButtonLarge
                         className="card-button"
+                        disabled={false}
                         onClick={[Function]}
                         variant="primary"
                       >
@@ -482,7 +476,10 @@ exports[`Restrictions Page should render global restrictions tab when VRTM is en
           <Remark
             title="Note"
           >
-            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits.
+            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits. 
+            <br />
+            <br />
+            To update the volume, rolling period or end date/time of an existing trade volume restriction, select the Configuration button for the restriction you'd like to update.
           </Remark>
         </GridCol>
         <GridCol
@@ -635,6 +632,7 @@ exports[`Restrictions Page should render global restrictions tab when VRTM is en
                       />
                       <ButtonLarge
                         className="card-button"
+                        disabled={false}
                         onClick={[Function]}
                         variant="primary"
                       >
@@ -694,7 +692,10 @@ exports[`Restrictions Page should render the page with VRTM disabled 1`] = `
           <Remark
             title="Note"
           >
-            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits.
+            Investors to whom individual limits are applied are only subject to their individual limits and are exempt from the global limits. 
+            <br />
+            <br />
+            To update the volume, rolling period or end date/time of an existing trade volume restriction, select the Configuration button for the restriction you'd like to update.
           </Remark>
         </GridCol>
         <GridCol
