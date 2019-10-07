@@ -337,7 +337,6 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
     const { invalidRows, data, parseError } = parseWhitelistCsv(reader.result);
     const isTooMany = data.length > maxRows;
 
-    // FIXME @RafaelVidaurre: This should be using an action creator, not a POJO
     dispatch({
       type: UPLOADED,
       investors: data,

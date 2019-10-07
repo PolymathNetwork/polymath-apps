@@ -279,7 +279,7 @@ class MintTokens extends Component<Props> {
             <br />
             Empty cell will be considered as permanent lockup.
             <br />• KYC/AML Expiry Date mm/dd/yyyy;
-            <br />• Number of tokens to mint for the ETH address (integer).
+            <br />• Number of tokens to mint for the ETH address.
             <br />
             <Remark title="Note">
               Your file cannot exceed 75 addresses. If you have more than 75
@@ -343,18 +343,17 @@ class MintTokens extends Component<Props> {
             ref={this.fileUploaderRef}
             disabled={isTransfersPaused}
           />
-          {isInvalidFormat ? (
+          {isInvalidFormat.length ? (
             <InlineNotification
               hideCloseButton
               title="Improper file format"
-              subtitle="Please export the information to CSV using a MS-DOS Comma Separated (.csv) file format and upload the new file"
+              subtitle={isInvalidFormat}
               kind="error"
             />
           ) : isTooMany ? (
             <InlineNotification
               hideCloseButton
-              title="The file you uploaded contains more than 40 addresses"
-              subtitle="You can still continue, but only 40 first addresses will be submitted."
+              title="The file you uploaded contains more than 75 addresses"
               kind="error"
             />
           ) : (
@@ -363,7 +362,10 @@ class MintTokens extends Component<Props> {
           <Button
             type="submit"
             disabled={
-              !isReady || sto2xInProgress || isInvalidFormat || criticals.length
+              !isReady ||
+              sto2xInProgress ||
+              isInvalidFormat.length ||
+              criticals.length
             }
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}

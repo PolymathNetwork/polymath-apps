@@ -410,7 +410,6 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
 
     let isTooMany = false;
     let string = 0;
-    let isInvalidFormat = false;
 
     try {
       const {
@@ -426,7 +425,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           tokens: [],
           criticals: validationErrors,
           isTooMany,
-          isInvalidFormat,
+          isInvalidFormat: '',
         });
       } else {
         data.forEach(({ address, from, to, purchase, expiry, tokensVal }) => {
@@ -446,11 +445,19 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           tokens,
           criticals: [],
           isTooMany,
-          isInvalidFormat,
+          isInvalidFormat: '',
         });
       }
     } catch (err) {
-      console.error(err);
+      // Parsing error
+      dispatch({
+        type: MINT_UPLOADED,
+        investors,
+        tokens,
+        criticals: [],
+        isTooMany,
+        isInvalidFormat: err.message,
+      });
     }
   };
 };
