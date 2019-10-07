@@ -405,7 +405,9 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
       ],
     };
 
-    const tokens: Array<number> = [];
+    let investors = [];
+    let tokens = [];
+
     let isTooMany = false;
     let string = 0;
     let isInvalidFormat = false;
@@ -427,21 +429,16 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           isInvalidFormat,
         });
       } else {
-        const [investors, tokens] = data.map(
-          ({ address, from, to, purchase, expiry, tokensVal }) => {
-            return [
-              {
-                address,
-                from: from || new Date(PERMANENT_LOCKUP_TS),
-                to: to || new Date(PERMANENT_LOCKUP_TS),
-                expiry,
-              },
-              tokensVal,
-            ];
-          }
-        );
-        console.log('investors, tokens', investors, tokens);
-        return;
+        data.forEach(({ address, from, to, purchase, expiry, tokensVal }) => {
+          investors.push({
+            address,
+            from: from.length ? new Date(from) : new Date(PERMANENT_LOCKUP_TS),
+            to: to.length ? new Date(to) : new Date(PERMANENT_LOCKUP_TS),
+            expiry: new Date(expiry),
+          });
+
+          tokens.push(Number(tokensVal));
+        });
 
         dispatch({
           type: MINT_UPLOADED,
@@ -467,6 +464,7 @@ export const mintTokens = () => async (
     mint: { uploaded, uploadedTokens },
   } = getState().token; // $FlowFixMe
   const transferManager = await token.contract.getTransferManager();
+  console.log('mintTokens', uploaded, uploadedTokens);
 
   dispatch(
     ui.tx(
@@ -685,7 +683,7 @@ export const exportMintedTokensList = () => async (
           const { token } = getState().token; // $FlowFixMe
           const investors = await token.contract.getMinted();
           let csvContent =
-            'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
+            'ETH Address,Sell Restriction Date,Buy Restriction Date,KYC/AML Expiry Date,Number of tokens';
           investors.forEach((investor: Investor) => {
             csvContent +=
               '\r\n' +
