@@ -26,7 +26,7 @@ import type { InvestorCSVRow } from '../../../actions/token';
 
 type StateProps = {|
   isTooMany: boolean,
-  isInvalidFormat: boolean,
+  isInvalidFormat: string,
   isReady: boolean,
   isInvalid: boolean,
   isTransfersPaused: Boolean,
@@ -281,10 +281,7 @@ class MintTokens extends Component<Props> {
             <br />• KYC/AML Expiry Date mm/dd/yyyy;
             <br />• Number of tokens to mint for the ETH address.
             <br />
-            <Remark title="Note">
-              Your file cannot exceed 75 addresses. If you have more than 75
-              addresses on your whitelist, upload multiple files.
-            </Remark>
+            <Remark title="Note">Your file cannot exceed 75 addresses.</Remark>
           </h4>
           <h5 className="pui-h5">
             You can&nbsp;&nbsp;&nbsp;
@@ -342,6 +339,7 @@ class MintTokens extends Component<Props> {
             filenameStatus="edit"
             ref={this.fileUploaderRef}
             disabled={isTransfersPaused}
+            multiple={false}
           />
           {isInvalidFormat.length ? (
             <InlineNotification

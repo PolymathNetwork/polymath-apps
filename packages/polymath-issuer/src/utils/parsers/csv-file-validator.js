@@ -59,7 +59,7 @@
    */
   function _prepareDataAndValidateFile(csvData, config) {
     const file = {
-      inValidMessages: [],
+      validationErrors: [],
       data: [],
     };
 
@@ -83,7 +83,7 @@
         // header validation
         if (rowIndex === 0) {
           if (valueConfig.name !== columnValue) {
-            file.inValidMessages.push(
+            file.validationErrors.push(
               _isFunction(valueConfig.headerError)
                 ? valueConfig.headerError(valueConfig.name)
                 : 'Header name ' + columnValue + ' is not correct or missing'
@@ -97,7 +97,7 @@
           valueConfig.required &&
           (columnValue === undefined || !columnValue.length)
         ) {
-          file.inValidMessages.push(
+          file.validationErrors.push(
             _isFunction(valueConfig.requiredError)
               ? valueConfig.requiredError(
                   valueConfig.name,
@@ -114,7 +114,7 @@
                 )
           );
         } else if (valueConfig.validate && !valueConfig.validate(columnValue)) {
-          file.inValidMessages.push(
+          file.validationErrors.push(
             _isFunction(valueConfig.validateError)
               ? valueConfig.validateError(
                   valueConfig.name,
@@ -175,7 +175,7 @@
       })
       .forEach(function(header) {
         if (!isValuesUnique(file.data, header.inputName)) {
-          file.inValidMessages.push(
+          file.validationErrors.push(
             _isFunction(header.uniqueError)
               ? header.uniqueError(header.name)
               : String(header.name + ' is not unique')

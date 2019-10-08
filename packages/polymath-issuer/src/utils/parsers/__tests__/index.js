@@ -11,11 +11,11 @@ describe('parsers', () => {
       const result = parseWhitelistCsv(validWhitelistCsv);
       expect(result.data[0]).toEqual({
         address: '0x592E80AD45c08aba6C5bBd2d5C5A097BDF35Dee1',
-        sellLockupDate: moment({ month: 0, day: 1, year: 2022 }).toDate(),
-        buyLockupDate: moment({ month: 5, day: 4, year: 2024 }).toDate(),
-        kycAmlExpiryDate: moment({ month: 0, day: 1, year: 2021 }).toDate(),
-        canBuyFromSto: true,
-        bypassesOwnershipRestriction: true,
+        from: moment({ month: 0, day: 1, year: 2022 }).toDate(),
+        to: moment({ month: 5, day: 4, year: 2024 }).toDate(),
+        expiry: moment({ month: 0, day: 1, year: 2021 }).toDate(),
+        canBuyFromSTO: true,
+        bypassPercentageRestriction: true,
         accredited: false,
         nonAccreditedLimit: null,
       });
@@ -31,10 +31,10 @@ describe('parsers', () => {
   describe('validateWhitelistCsv', () => {
     const sampleCsvRow = {
       address: '0x592E80AD45c08aba6C5bBd2d5C5A097BDF35Dee1',
-      sellLockupDate: new Date('11/11/2018'),
-      buyLockupDate: new Date('11/10/2018'),
-      kycAmlExpiryDate: new Date('11/10/2022'),
-      canBuyFromSto: true,
+      from: new Date('11/11/2018'),
+      to: new Date('11/10/2018'),
+      expiry: new Date('11/10/2022'),
+      canBuyFromSTO: true,
     };
     test('checks for invalid addresses', () => {
       const csv = [

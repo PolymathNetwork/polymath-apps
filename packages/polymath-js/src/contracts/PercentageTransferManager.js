@@ -56,7 +56,10 @@ export default class PercentageTransferManager extends Contract {
 
   async modifyWhitelist(investor: Investor): Promise<Web3Receipt> {
     return this._tx(
-      this._methods.modifyWhitelist(investor.address, investor.isPercentage),
+      this._methods.modifyWhitelist(
+        investor.address,
+        investor.bypassPercentageRestriction
+      ),
       null,
       2
     );
@@ -69,7 +72,7 @@ export default class PercentageTransferManager extends Contract {
 
     for (let investor of investors) {
       addresses.push(investor.address); // $FlowFixMe
-      valids.push(investor.isPercentage);
+      valids.push(investor.bypassPercentageRestriction);
     }
 
     return this._tx(
@@ -94,7 +97,7 @@ export default class PercentageTransferManager extends Contract {
         address: event.returnValues._investor,
         addedBy: event.returnValues._addedBy,
         added: this._toDate(event.returnValues._dateAdded),
-        isPercentage: event.returnValues._valid,
+        bypassPercentageRestriction: event.returnValues._valid,
       });
     }
 

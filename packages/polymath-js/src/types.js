@@ -143,7 +143,7 @@ export type Investor = {|
   added?: Date,
   addedBy?: Address,
   canBuyFromSTO?: boolean,
-  isPercentage?: boolean,
+  bypassPercentageRestriction?: boolean,
   accredited?: boolean,
   nonAccreditedLimit?: string,
   minted?: BigNumber,

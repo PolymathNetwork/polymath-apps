@@ -396,7 +396,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           inputName: 'tokensVal',
           required: true,
           validate: function(val) {
-            return !Number.isNaN(val);
+            return !isNaN(val);
           },
           validateError,
           headerError,
@@ -412,10 +412,10 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
     let string = 0;
 
     try {
-      const {
-        data,
-        inValidMessages: validationErrors,
-      } = await CSVFileValidator(reader.result, config);
+      const { data, validationErrors } = await CSVFileValidator(
+        reader.result,
+        config
+      );
       isTooMany = data.length > 75;
 
       if (validationErrors.length) {
