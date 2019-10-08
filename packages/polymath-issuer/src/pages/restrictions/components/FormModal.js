@@ -15,7 +15,7 @@ type Props = {
   restrictionType: string,
 };
 
-class FormModal extends Component<Props> {
+export class FormModal extends Component<Props> {
   render() {
     const { isOpen, handleClose, restrictionType } = this.props;
     return (
