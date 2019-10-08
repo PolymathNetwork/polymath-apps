@@ -91,6 +91,9 @@ class ImportWhitelistModal extends Component<Props> {
   };
 
   render() {
+    const uploadDisabled =
+      this.hasOwnProperty('fileUploader') &&
+      this.fileUploader.state.filenames.length > 0;
     const {
       isOpen,
       sto,
@@ -102,8 +105,6 @@ class ImportWhitelistModal extends Component<Props> {
     } = this.props;
 
     const errors = criticals.map(error => `\n• ${error}`);
-    console.log('errors', errors);
-    console.log('criticals', criticals);
     return (
       <Modal
         isOpen={isOpen}

@@ -13,10 +13,18 @@ import { toWei } from '../utils/contracts';
 import { formName as addInvestorFormName } from '../pages/compliance/components/AddInvestorForm';
 import { formName as editInvestorsFormName } from '../pages/compliance/components/EditInvestorsForm';
 import CSVFileValidator from '../utils/parsers/csv-file-validator';
+import {
+  validateAddress,
+  validateDate,
+  validateError,
+  requiredError,
+  uniqueError,
+  headerError,
+} from '../utils/parsers/common';
+
 import { STAGE_OVERVIEW } from '../reducers/sto';
 import { PERM_TYPES } from '../constants';
 import Web3 from 'web3';
-import { utils } from 'web3';
 
 import type { Investor, Address } from '@polymathnetwork/js/types';
 import type { GetState } from '../redux/reducer';
@@ -325,38 +333,6 @@ export const fetchWhitelist = () => async (
   }
 };
 
-const validateError = (headerName, value, rowNumber, columnNumber) => {
-  return `Row ${rowNumber - 1}, ${headerName} value "${value}" is invalid`;
-};
-
-const requiredError = (headerName, rowNumber, columnNumber) => {
-  return `Row ${rowNumber - 1}, ${headerName} value is missing`;
-};
-
-const headerError = headerName => {
-  return `Header "${headerName}" is missing`;
-};
-
-const uniqueError = headerName => {
-  return `Column "${headerName}: duplicate values`;
-};
-
-function isValidDate(date) {
-  const matches = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/.exec(date);
-  if (matches == null) return false;
-  const d = matches[2];
-  const m = matches[1] - 1;
-  const y = matches[3];
-  const composedDate = new Date(y, m, d);
-  return (
-    composedDate.getDate() == d &&
-    composedDate.getMonth() == m &&
-    composedDate.getFullYear() == y &&
-    // composedDate.getTime() - new Date().getTime() > 0
-    true
-  );
-}
-
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
   const maxRows = 75;
   const reader = new FileReader();
@@ -376,10 +352,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           required: true,
           unique: true,
           validate: function(val) {
-            return (
-              utils.isAddress(val) &&
-              val !== '0x0000000000000000000000000000000000000000'
-            );
+            return validateAddress(val);
           },
           validateError,
           headerError,
@@ -390,7 +363,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           name: 'Sell Restriction Date',
           inputName: 'from',
           validate: function(val) {
-            return val.length === 0 || isValidDate(val);
+            return val.length === 0 || validateDate(val);
           },
           validateError,
           headerError,
@@ -399,7 +372,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           name: 'Buy Restriction Date',
           inputName: 'to',
           validate: function(val) {
-            return val.length === 0 || isValidDate(val);
+            return val.length === 0 || validateDate(val);
           },
           validateError,
           headerError,
@@ -409,7 +382,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           inputName: 'expiry',
           required: true,
           validate: function(val) {
-            return isValidDate(val);
+            return validateDate(val);
           },
           validateError,
           headerError,
@@ -513,7 +486,6 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         });
       }
     } catch (error) {
-      console.log('parsing error', error);
       dispatch({
         type: UPLOADED,
         investors: [],
@@ -539,8 +511,6 @@ export const importWhitelist = () => async (
   } = getState();
   const st = getState().token.token.contract;
   const isPTMEnabled = !isPercentageDisabled;
-
-  console.log('uploaded', uploaded);
 
   const titles = [];
   const transactions = [];

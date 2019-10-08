@@ -13,7 +13,14 @@ import moment from 'moment';
 import axios from 'axios';
 import FileSaver from 'file-saver';
 import CSVFileValidator from '../utils/parsers/csv-file-validator';
-import { utils } from 'web3';
+import {
+  validateAddress,
+  validateDate,
+  validateError,
+  requiredError,
+  uniqueError,
+  headerError,
+} from '../utils/parsers/common';
 
 import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
@@ -307,43 +314,10 @@ export const issue = (values: Object) => async (
   );
 };
 
-function isValidDate(date) {
-  const matches = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/.exec(date);
-  if (matches == null) return false;
-  const d = matches[2];
-  const m = matches[1] - 1;
-  const y = matches[3];
-  const composedDate = new Date(y, m, d);
-  return (
-    composedDate.getDate() == d &&
-    composedDate.getMonth() == m &&
-    composedDate.getFullYear() == y &&
-    // composedDate.getTime() - new Date().getTime() > 0
-    true
-  );
-}
-
-const validateError = (headerName, value, rowNumber, columnNumber) => {
-  return `Row ${rowNumber - 1}, ${headerName} value "${value}" is invalid`;
-};
-
-const requiredError = (headerName, rowNumber, columnNumber) => {
-  return `Row ${rowNumber - 1}, ${headerName} value is missing`;
-};
-
-const headerError = headerName => {
-  return `Header "${headerName}" is missing`;
-};
-
-const uniqueError = headerName => {
-  return `Column "${headerName}: duplicate values`;
-};
-
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
   const reader = new FileReader();
   reader.readAsText(file);
   reader.onload = async () => {
-    console.log(reader.result);
     const config = {
       headers: [
         {
@@ -352,10 +326,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           required: true,
           unique: true,
           validate: function(val) {
-            return (
-              utils.isAddress(val) &&
-              val !== '0x0000000000000000000000000000000000000000'
-            );
+            return validateAddress(val);
           },
           validateError,
           headerError,
@@ -366,7 +337,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           name: 'Sell Restriction Date',
           inputName: 'from',
           validate: function(val) {
-            return val.length === 0 || isValidDate(val);
+            return val.length === 0 || validateDate(val);
           },
           validateError,
           headerError,
@@ -375,7 +346,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           name: 'Buy Restriction Date',
           inputName: 'to',
           validate: function(val) {
-            return val.length === 0 || isValidDate(val);
+            return val.length === 0 || validateDate(val);
           },
           validateError,
           headerError,
@@ -385,7 +356,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
           inputName: 'expiry',
           required: true,
           validate: function(val) {
-            return isValidDate(val);
+            return validateDate(val);
           },
           validateError,
           headerError,
@@ -471,7 +442,6 @@ export const mintTokens = () => async (
     mint: { uploaded, uploadedTokens },
   } = getState().token; // $FlowFixMe
   const transferManager = await token.contract.getTransferManager();
-  console.log('mintTokens', uploaded, uploadedTokens);
 
   dispatch(
     ui.tx(
