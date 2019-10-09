@@ -306,56 +306,6 @@ class CompliancePage extends Component<Props, State> {
               }
               kind="error"
             />
-            <table className="import-criticals">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Address</th>
-                  <th>Sale</th>
-                  <th>Purchase</th>
-                  <th>KYC/AML</th>
-                  <th>Can buy from STO</th>
-                  <th>Exempt From % Ownership</th>
-                  <th>Is Accredited</th>
-                  <th>Non-Accredited Limit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {criticals.map(
-                  (
-                    {
-                      address,
-                      sellLockupDate,
-                      buyLockupDate,
-                      kycAmlExpiryDate,
-                      canBuyFromSto,
-                      bypassesOwnershipRestriction,
-                      accredited,
-                      nonAccreditedLimit,
-                    }: InvestorCSVRow,
-                    idx
-                  ) => {
-                    const nonAccreditedLimitView =
-                      nonAccreditedLimit &&
-                      nonAccreditedLimit.toFormat &&
-                      nonAccreditedLimit.toFormat();
-                    return (
-                      <tr key={address}>
-                        <td>{`${idx + 1}`}</td>
-                        <td>{addressShortifier(address)}</td>
-                        <td>{dateFormat(sellLockupDate)}</td>
-                        <td>{dateFormat(buyLockupDate)}</td>
-                        <td>{dateFormat(kycAmlExpiryDate)}</td>
-                        <td>{canBuyFromSto ? 'true' : ''}</td>
-                        <td>{bypassesOwnershipRestriction ? 'true' : ''}</td>
-                        <td>{accredited ? 'true' : ''}</td>
-                        <td>{nonAccreditedLimitView}</td>
-                      </tr>
-                    );
-                  }
-                )}
-              </tbody>
-            </table>
           </div>
         ) : (
           ''
@@ -497,7 +447,9 @@ class CompliancePage extends Component<Props, State> {
         expiry: dateFormat(investor.expiry), // $FlowFixMe
         ...(!isPercentagePaused
           ? {
-              percentage: investor.isPercentage ? percentage + '%' : 'No Limit',
+              percentage: investor.bypassPercentageRestriction
+                ? percentage + '%'
+                : 'No Limit',
             }
           : {}),
       });

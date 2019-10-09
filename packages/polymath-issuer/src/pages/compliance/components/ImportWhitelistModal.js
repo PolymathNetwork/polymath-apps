@@ -41,6 +41,7 @@ const mapStateToProps = (state: RootState) => ({
   parseError: state.whitelist.parseError,
   isReady: state.whitelist.uploaded.length > 0,
   isInvalid: state.whitelist.criticals.length > 0,
+  criticals: state.whitelist.criticals,
   sto: state.sto,
 });
 
@@ -94,11 +95,13 @@ class ImportWhitelistModal extends Component<Props> {
       isOpen,
       sto,
       isTooMany,
+      criticals,
       parseError,
       isReady,
       isInvalid,
     } = this.props;
 
+    const errors = criticals.map(error => `\n• ${error}`);
     return (
       <Modal
         isOpen={isOpen}
@@ -109,7 +112,7 @@ class ImportWhitelistModal extends Component<Props> {
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
           .CSV file.{' '}
-          <strong>You may add up to 40 addresses per .CSV file</strong>. The
+          <strong>You may add up to 75 addresses per .CSV file</strong>. The
           format should be as follows:
           <br />• ETH Address (address to whitelist);
           <br />• Sell Restriction Date: <strong>mm/dd/yyyy</strong> (date when
@@ -123,33 +126,31 @@ class ImportWhitelistModal extends Component<Props> {
           purchase any number of tokens OR leave an empty cell to disable;
           <br />• Exempt From % Ownership: <strong>"TRUE"</strong> to enable OR
           empty cell to disable;
-          <br />
-          <br />
-          {sto.stage === STAGE_OVERVIEW &&
-          sto.details.type === 'USDTieredSTO' ? (
-            <p>
+          <p>
+            <strong>
               If you have scheduled a USD Tiered STO, please include the
-              additional fields:
-              <br />• Is Accredited: Set to <strong>"TRUE"</strong> to mark the
-              address as that of an accredited investor OR leave empty to mark
-              the address as that of a non-accredited investor
-              <br />• Non Accredited Limit: Set a maximum investment limit for
-              that non-accredited investor's address or leave empty to use the
-              default limit programmed in the STO
-              <br />
-              <br />
-              Important:
-              <br />
-              Is Accredited and Non Accredited Limit will be ignored if you have
-              not yet scheduled your USD Tiered STO. If you have scheduled your
-              STO, all accredited/non-accredited investor information will be
-              imported adequately. If you have not, you will be required to
-              re-upload this information.
-              <br />
-              <br /> Maximum numbers of investors per transaction is{' '}
-              <strong>75</strong>.
-            </p>
-          ) : null}
+              additional fields
+            </strong>
+            :
+            <br />• Is Accredited: Set to <strong>"TRUE"</strong> to mark the
+            address as that of an accredited investor OR leave empty to mark the
+            address as that of a non-accredited investor
+            <br />• Non Accredited Limit: Set a maximum investment limit for
+            that non-accredited investor's address or leave empty to use the
+            default limit programmed in the STO
+            <br />
+            <br />
+            Important:
+            <br />
+            Is Accredited and Non Accredited Limit will be ignored if you have
+            not yet scheduled your USD Tiered STO. If you have scheduled your
+            STO, all accredited/non-accredited investor information will be
+            imported adequately. If you have not, you will be required to
+            re-upload this information.
+            <br />
+            <br /> Maximum numbers of investors per transaction is{' '}
+            <strong>75</strong>.
+          </p>
         </h4>
         <h5 className="pui-h5">
           You can&nbsp;&nbsp;&nbsp;
@@ -178,12 +179,23 @@ class ImportWhitelistModal extends Component<Props> {
             kind="error"
           />
         ) : isInvalid ? (
-          <InlineNotification
-            hideCloseButton
-            title="The file you uploaded has invalid fields"
-            subtitle="Please check instructions above and try again."
-            kind="error"
-          />
+          <div>
+            <InlineNotification
+              style={{ whiteSpace: 'pre-wrap' }}
+              hideCloseButton
+              title={
+                criticals.length +
+                ' Error' +
+                (criticals.length > 1 ? 's' : '') +
+                ' in Your .csv File'
+              }
+              subtitle={
+                '\nPlease fix the following errors in your csv file before committing its content to the blockchain.\n' +
+                errors
+              }
+              kind="error"
+            />
+          </div>
         ) : isInvalid && !isReady ? (
           <InlineNotification
             hideCloseButton
@@ -194,15 +206,15 @@ class ImportWhitelistModal extends Component<Props> {
         ) : isTooMany ? (
           <InlineNotification
             hideCloseButton
-            title="The file you uploaded contains more than 40 investors"
-            subtitle="You can still continue, but only 40 first investors will be submitted."
+            title="The file you uploaded contains more than 75 investors"
+            subtitle="You can still continue, but only 75 first investors will be submitted."
             kind="error"
           />
         ) : (
           <Remark title="Reminder">
             Investors must be approved before they are added to the whitelist.{' '}
             <br />
-            Your file cannot exceed 40 addresses. If you have more than 40
+            Your file cannot exceed 75 addresses. If you have more than 75
             addresses on your whitelist, upload multiple files.
           </Remark>
         )}
