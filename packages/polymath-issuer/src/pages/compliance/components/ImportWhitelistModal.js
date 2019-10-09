@@ -91,9 +91,6 @@ class ImportWhitelistModal extends Component<Props> {
   };
 
   render() {
-    const uploadDisabled =
-      this.hasOwnProperty('fileUploader') &&
-      this.fileUploader.state.filenames.length > 0;
     const {
       isOpen,
       sto,
