@@ -19,11 +19,17 @@ import STOPage from './pages/sto/STOPage';
 import DividendsPage from './pages/dividends/DividendsPage';
 import DividendsWizardPage from './pages/dividends/DividendsWizardPage';
 import DividendDetailsPage from './pages/dividends/DividendDetailsPage';
+import AccountPage from './pages/account';
 
 export default [
   {
     component: App,
     routes: [
+      {
+        path: '/account',
+        component: AccountPage,
+        exact: true,
+      },
       {
         path: '/ticker',
         component: TickerPage,
