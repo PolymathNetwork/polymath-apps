@@ -16,6 +16,7 @@ class HomePage extends Component {
         {tickers.map(ticker => {
           return <Link to={`/dashboard/${ticker}`}>{ticker}</Link>;
         })}
+        <Link to="/ticker">Create New Token</Link>
       </PageCentered>
     );
   }
