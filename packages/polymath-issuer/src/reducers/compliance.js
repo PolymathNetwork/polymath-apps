@@ -26,6 +26,7 @@ export type WhitelistState = {|
   freezeStatus: ?boolean,
   isFrozenModalOpen: ?boolean,
   approvedManagers: Array<any>,
+  fileUploaded: boolean,
 |};
 
 const defaultState: WhitelistState = {
@@ -45,6 +46,7 @@ const defaultState: WhitelistState = {
   isFrozenModalOpen: null,
   approvedManagers: [],
   isToggled: false,
+  fileUploaded: false,
 };
 
 // NOTE @RafaelVidaurre: WARNING For some reason this reducer is being renamed.
@@ -113,6 +115,7 @@ export default (state: WhitelistState = defaultState, action: Object) => {
         criticals: action.criticals,
         isTooMany: action.isTooMany,
         parseError: action.parseError,
+        fileUploaded: true,
       };
     case a.RESET_UPLOADED:
       return {
@@ -121,6 +124,7 @@ export default (state: WhitelistState = defaultState, action: Object) => {
         criticals: [],
         isTooMany: false,
         parseError: '',
+        fileUploaded: false,
       };
     case a.FREEZE_STATUS:
       return {
