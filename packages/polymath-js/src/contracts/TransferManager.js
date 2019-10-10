@@ -225,7 +225,7 @@ export default class TransferManager extends Contract {
         address: event.returnValues._investor,
         addedBy: event.returnValues._addedBy,
         from: this._toDate(event.returnValues._canSendAfter),
-        to: this._toDate(event.returnValues._expiryTime),
+        to: this._toDate(event.returnValues._canReceiveAfter),
         expiry: this._toDate(event.returnValues._expiryTime),
       });
     }
