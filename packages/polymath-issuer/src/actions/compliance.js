@@ -628,14 +628,13 @@ export const exportWhitelist = () => async (
     const {
       whitelist: {
         transferManager,
-        percentageTM: { contract: percentageTM },
+        percentageTM: { contract: percentageTM, isPaused: PTMPaused },
       },
       sto,
     } = getState();
 
     const investors = await transferManager.getWhitelist();
-
-    if (percentageTM) {
+    if (percentageTM && !PTMPaused) {
       const percentages = await percentageTM.getWhitelist();
       for (let i = 0; i < investors.length; i++) {
         for (let percentage of percentages) {
@@ -646,7 +645,6 @@ export const exportWhitelist = () => async (
         }
       }
     }
-
     // eslint-disable-next-line max-len
     let csvContent =
       'ETH Address,Sell Restriction Date,Buy Restriction Date,KYC/AML Expiry Date,Can Buy From STO,Exempt From % Ownership,Is Accredited,Non-Accredited Limit';
