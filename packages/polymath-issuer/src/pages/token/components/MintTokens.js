@@ -50,6 +50,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isInvalid: state.token.mint.criticals.length > 0,
   isTransfersPaused: state.whitelist.freezeStatus,
   criticals: state.token.mint.criticals,
+  fileUploaded: state.token.mint.fileUploaded,
   token: state.token,
   pui: state.pui,
   stage: state.sto.stage,
@@ -227,6 +228,7 @@ class MintTokens extends Component<Props> {
       criticals,
       stage,
       version,
+      fileUploaded,
     } = this.props;
 
     const errors = criticals.map(error => `\n• ${error}`);
@@ -332,7 +334,7 @@ class MintTokens extends Component<Props> {
             buttonLabel="Upload File"
             onChange={this.handleUploaded}
             className={classNames('file-uploader', {
-              disabled: sto2xInProgress || isTransfersPaused,
+              disabled: fileUploaded || sto2xInProgress || isTransfersPaused,
             })}
             accept={['.csv']}
             buttonKind="secondary"

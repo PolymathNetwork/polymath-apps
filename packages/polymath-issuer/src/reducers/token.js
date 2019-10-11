@@ -49,6 +49,7 @@ const defaultState: TokenState = {
     criticals: [],
     isTooMany: false,
     isInvalidFormat: '',
+    fileUploaded: false,
   },
   countTM: {
     contract: null,
@@ -90,12 +91,14 @@ export default (state: TokenState = defaultState, action: Action) => {
           criticals: action.criticals,
           isTooMany: action.isTooMany,
           isInvalidFormat: action.isInvalidFormat,
+          fileUploaded: true,
         },
       };
     case a.MINT_RESET_UPLOADED:
       return {
         ...state,
         mint: defaultState.mint,
+        fileUploaded: false,
       };
     case DATA:
       return {

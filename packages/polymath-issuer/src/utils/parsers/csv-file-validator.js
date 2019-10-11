@@ -63,8 +63,6 @@
       data: [],
     };
 
-    console.log('csvData', csvData);
-
     csvData.forEach(function(row, rowIndex) {
       const columnData = {};
       const headers = [];

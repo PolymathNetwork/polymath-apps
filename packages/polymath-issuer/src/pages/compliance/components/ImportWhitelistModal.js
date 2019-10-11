@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import {
   Icon,
   FileUploader,
@@ -42,6 +43,7 @@ const mapStateToProps = (state: RootState) => ({
   isReady: state.whitelist.uploaded.length > 0,
   isInvalid: state.whitelist.criticals.length > 0,
   criticals: state.whitelist.criticals,
+  fileUploaded: state.whitelist.fileUploaded,
   sto: state.sto,
 });
 
@@ -99,6 +101,7 @@ class ImportWhitelistModal extends Component<Props> {
       parseError,
       isReady,
       isInvalid,
+      fileUploaded,
     } = this.props;
 
     const errors = criticals.map(error => `\n• ${error}`);
@@ -170,6 +173,9 @@ class ImportWhitelistModal extends Component<Props> {
           buttonKind="secondary"
           filenameStatus="edit"
           ref={this.fileUploaderRef}
+          className={classNames('file-uploader', {
+            disabled: fileUploaded,
+          })}
         />
         {parseError.length > 0 ? (
           <InlineNotification
