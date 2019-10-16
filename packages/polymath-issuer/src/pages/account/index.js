@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { PageCentered, Button, Toaster, notify } from '@polymathnetwork/ui';
+import {
+  PageCentered,
+  Button,
+  Toaster,
+  notify,
+  Grid,
+} from '@polymathnetwork/ui';
 import { connect } from 'react-redux';
 import { fetchTickerList } from '../../actions/account';
+import TickerCard from './components/TickerCard';
 
 class HomePage extends Component {
   componentDidMount() {
@@ -12,11 +19,18 @@ class HomePage extends Component {
   render() {
     const { tickers } = this.props;
     return (
-      <PageCentered title="Polymath" justifyContent="start">
-        {tickers.map(ticker => {
-          return <Link to={`/dashboard/${ticker}`}>{ticker}</Link>;
-        })}
-        <Link to="/ticker">Create New Token</Link>
+      <PageCentered>
+        <Grid>
+          <Grid.Row>
+            {tickers.map(ticker => {
+              return (
+                <Grid.Col gridSpan={4}>
+                  <TickerCard ticker={ticker} />
+                </Grid.Col>
+              );
+            })}
+          </Grid.Row>
+        </Grid>
       </PageCentered>
     );
   }
@@ -34,3 +48,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(HomePage);
+// return <Link to={`/dashboard/${ticker}`}>{ticker}</Link>;
+{
+  /* <Link to="/ticker">Create New Token</Link> */
+}
