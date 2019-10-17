@@ -75,6 +75,12 @@ export const toggleWhitelistManagement = (isToggled: boolean) => ({
   isToggled,
 });
 
+export const TOGGLE_APPROVAL_MANAGER = 'compliance/TOGGLE_APPROVAL_MANAGER';
+export const toggleApprovalManager = (isToggled: boolean) => ({
+  type: TOGGLE_APPROVAL_MANAGER,
+  isToggled,
+});
+
 export const RESET_UPLOADED = 'compliance/RESET_UPLOADED';
 export const resetUploaded = () => ({ type: RESET_UPLOADED });
 
@@ -987,4 +993,97 @@ export const toggleFreeze = () => async (
       true
     )
   );
+};
+
+export const addManualApprovalModule = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const approvalManager = await st.getApprovalManager();
+  let moduleMetadata = {};
+  let delegateDetails = [];
+
+  if (approvalManager)
+    moduleMetadata = await st.getModule(approvalManager.address);
+
+  dispatch(
+    ui.tx(
+      ['Enabling Manual Trade Approvals'],
+      async () => {
+        if (moduleMetadata.isArchived) {
+          await st.unarchiveModule(approvalManager.address);
+          // delegateDetails = await getDelegateDetails(
+          //   approvalManager,
+          //   transferManager
+          // );
+        } else {
+          await st.setApprovalManager();
+        }
+      },
+      'Manual Trade Approvals Enabled',
+      () => {
+        // dispatch(loadManagers(delegateDetails));
+        dispatch(toggleApprovalManager(true));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const archiveManualApprovalModule = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  dispatch(
+    ui.tx(
+      ['Disabling General Permissions Manager'],
+      async () => {
+        const approvalManager = await st.getApprovalManager();
+        await st.archiveModule(approvalManager.address);
+      },
+      'General Permissions Manager Disabled',
+      () => {
+        dispatch(toggleApprovalManager(false));
+        // dispatch(loadManagers([]));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const fetchApprovals = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(ui.fetching());
+  // $FlowFixMe
+  try {
+    const st: SecurityToken = getState().token.token.contract;
+    const approvalManager = await st.getApprovalManager();
+    if (!approvalManager) {
+      return;
+    }
+    const moduleMetadata = await st.getModule(approvalManager.address);
+    if (approvalManager && !moduleMetadata.isArchived) {
+      // const delegateDetails = await getDelegateDetails(
+      //   approvalManager,
+      //   transferManager
+      // );
+      // dispatch(loadManagers(delegateDetails));
+      dispatch(toggleApprovalManager(true));
+    } else {
+      dispatch(toggleApprovalManager(false));
+    }
+    dispatch(ui.fetched());
+  } catch (e) {
+    console.log(e);
+  }
 };

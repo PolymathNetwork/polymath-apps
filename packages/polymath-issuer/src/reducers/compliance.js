@@ -47,6 +47,7 @@ const defaultState: WhitelistState = {
   approvedManagers: [],
   isToggled: false,
   fileUploaded: false,
+  isApprovalToggled: false,
 };
 
 // NOTE @RafaelVidaurre: WARNING For some reason this reducer is being renamed.
@@ -54,6 +55,11 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
+    case a.TOGGLE_APPROVAL_MANAGER:
+      return {
+        ...state,
+        isApprovalToggled: action.isToggled,
+      };
     case a.TOGGLE_WHITELIST_MANAGEMENT:
       return {
         ...state,

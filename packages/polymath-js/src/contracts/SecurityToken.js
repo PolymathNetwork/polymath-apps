@@ -152,6 +152,17 @@ export default class SecurityToken extends Contract {
     }
   }
 
+  async getApprovalManager(): Promise<?PermissionManager> {
+    try {
+      const address = await this.getModuleByName(
+        'ManualApprovalTransferManager'
+      );
+      return new PermissionManager(address, this.version);
+    } catch (e) {
+      return null;
+    }
+  }
+
   async getVolumeRestrictionTransferManager(): Promise<?VolumeRestrictionTransferManager> {
     try {
       const address = await this.getModuleByName('VolumeRestrictionTM');
@@ -304,7 +315,6 @@ export default class SecurityToken extends Contract {
       .getModulesByTypeAndToken(type, this.address)
       .call();
     let result = null;
-
     if (!availableModules || !availableModules.length) {
       return result;
     }
@@ -492,6 +502,21 @@ export default class SecurityToken extends Contract {
     const data = this._toBytes('');
     return this.addModule(
       generalPermissionManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
+    );
+  }
+
+  async setApprovalManager(): Promise<Web3Receipt> {
+    const approvalManagerFactory = await this.getModuleFactory(
+      'ManualApprovalTransferManager',
+      MODULE_TYPES.TRANSFER
+    );
+    const setupCost = await approvalManagerFactory.setupCost();
+    const data = this._toBytes('');
+    return this.addModule(
+      approvalManagerFactory.address,
       data,
       PolyToken.addDecimals(setupCost),
       0
