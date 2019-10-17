@@ -69,7 +69,7 @@ type State = {|
   isUploadCsvModal: boolean,
 |};
 
-class IndividualRestrictionsTable extends Component<Props, State> {
+export class IndividualRestrictionsTable extends Component<Props, State> {
   state = {
     isIndividualRestrictionModalOpen: false,
     isUploadCsvModal: false,

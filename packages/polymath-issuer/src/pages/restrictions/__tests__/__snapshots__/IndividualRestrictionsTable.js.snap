@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Individual Restrictions Table Component should render correctly 1`] = `
+<div>
+  <IndividualRestrictionsModal
+    handleClose={[Function]}
+    isOpen={false}
+  />
+  <Connect(ImportRestrictionsModal)
+    isOpen={false}
+    onClose={[Function]}
+  />
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "Cell": [Function],
+          "header": "Investor Wallet Address",
+          "key": "address",
+        },
+        Object {
+          "Cell": [Function],
+          "header": "Maximum 24h Transfer (# or %)",
+          "key": "dailyRestrictionType",
+        },
+        Object {
+          "cell": [Function],
+          "header": "Start Date",
+          "key": "dailyStartTime",
+        },
+        Object {
+          "Cell": [Function],
+          "header": "End Date",
+          "key": "dailyEndTime",
+        },
+        Object {
+          "Cell": [Function],
+          "header": "Custom Rolling Period Interval",
+          "key": "rollingPeriodInDays",
+        },
+        Object {
+          "Cell": [Function],
+          "header": "Maximum Custom Transfer (# or %)",
+          "key": "customRestrictionType",
+        },
+        Object {
+          "Cell": [Function],
+          "header": "Start Date",
+          "key": "customStartTime",
+        },
+        Object {
+          "Cell": [Function],
+          "header": "End Date",
+          "key": "customEndTime",
+        },
+      ]
+    }
+    locale="en"
+    render={[Function]}
+    rows={
+      Array [
+        Object {
+          "address": "0x53d284357ec70cE289D6D64134DfAc8E511c8a3D",
+          "customAllowedTokens": "120",
+          "customEndTime": "1717473600000",
+          "customRestrictionType": "0",
+          "customStartTime": "1641013200000",
+          "dailyAllowedTokens": "1",
+          "dailyEndTime": "1717473600000",
+          "dailyRestrictionType": "1",
+          "dailyStartTime": "1641013200000",
+          "id": "0x53d284357ec70cE289D6D64134DfAc8E511c8a3D",
+          "rollingPeriodInDays": "20",
+        },
+        Object {
+          "address": "0x66f820a414680B5bcda5eECA5dea238543F42054",
+          "customAllowedTokens": "1000",
+          "customEndTime": "1717473600000",
+          "customRestrictionType": "0",
+          "customStartTime": "1641013200000",
+          "id": "0x66f820a414680B5bcda5eECA5dea238543F42054",
+          "rollingPeriodInDays": "10",
+        },
+        Object {
+          "address": "0xd9f346Bf88cA2cb7e11B0106018DE80A0169764D",
+          "customAllowedTokens": "1000",
+          "customEndTime": "1717473600",
+          "customRestrictionType": "0",
+          "customStartTime": "1641013200",
+          "id": "0xd9f346Bf88cA2cb7e11B0106018DE80A0169764D",
+          "rollingPeriodInDays": "10",
+        },
+        Object {
+          "address": "0xE2FACfbdEdB03EeBC6747498aea18f7bc97A7066",
+          "dailyAllowedTokens": "100",
+          "dailyEndTime": "1570077000",
+          "dailyRestrictionType": "0",
+          "dailyStartTime": "1569902400",
+          "id": "0xE2FACfbdEdB03EeBC6747498aea18f7bc97A7066",
+        },
+        Object {
+          "address": "0xCaA749f1cf0110dbfCA59e3594EB845a166DE232",
+          "dailyAllowedTokens": "100",
+          "dailyEndTime": "1569821400",
+          "dailyRestrictionType": "0",
+          "dailyStartTime": "1569558600",
+          "id": "0xCaA749f1cf0110dbfCA59e3594EB845a166DE232",
+        },
+        Object {
+          "address": "0x1B2D2797A56c9eBa12aa821D643aB0dBa66C3772",
+          "customAllowedTokens": "120",
+          "customEndTime": "1717473600",
+          "customRestrictionType": "0",
+          "customStartTime": "1641013200",
+          "dailyAllowedTokens": "1000",
+          "dailyEndTime": "1717473600",
+          "dailyRestrictionType": "0",
+          "dailyStartTime": "1641013200",
+          "id": "0x1B2D2797A56c9eBa12aa821D643aB0dBa66C3772",
+          "rollingPeriodInDays": "20",
+        },
+        Object {
+          "address": "0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef",
+          "dailyAllowedTokens": "100",
+          "dailyEndTime": "1570078800",
+          "dailyRestrictionType": "0",
+          "dailyStartTime": "1569902400",
+          "id": "0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef",
+        },
+        Object {
+          "address": "0xE853c56864A2ebe4576a807D26Fdc4A0adA51919",
+          "dailyAllowedTokens": "1200",
+          "dailyEndTime": "1572494400",
+          "dailyRestrictionType": "0",
+          "dailyStartTime": "1569994200",
+          "id": "0xE853c56864A2ebe4576a807D26Fdc4A0adA51919",
+        },
+        Object {
+          "address": "0x3f517cF8cf3E7b8149Db333b8f3393Cb57bA1d3B",
+          "dailyAllowedTokens": "100",
+          "dailyEndTime": "1572409800",
+          "dailyRestrictionType": "0",
+          "dailyStartTime": "1569988800",
+          "id": "0x3f517cF8cf3E7b8149Db333b8f3393Cb57bA1d3B",
+        },
+      ]
+    }
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+</div>
+`;

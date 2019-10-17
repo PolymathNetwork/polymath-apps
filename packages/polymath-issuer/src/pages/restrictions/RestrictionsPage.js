@@ -34,7 +34,7 @@ import {
 } from '../../actions/restrictions';
 import moment from 'moment';
 
-class RestrictionsPage extends Component {
+export class RestrictionsPage extends Component {
   state = {
     isFormModalOpen: false,
     restrictionType: null,

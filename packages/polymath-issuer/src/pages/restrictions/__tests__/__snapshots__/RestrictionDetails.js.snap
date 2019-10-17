@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Restriction Details Component should render a percentage when restrictionType is 1 1`] = `
+<Fragment>
+  <Grid
+    gridGap="12px"
+  >
+    <GridRow
+      gridGap={4}
+    >
+      <GridCol
+        gridSpan={12}
+      >
+        <Icon
+          Asset={[Function]}
+          height="1em"
+          width="1em"
+        />
+        December 31st 1969, 7:00:01 pm
+      </GridCol>
+    </GridRow>
+    <GridRow
+      gridGap={4}
+    >
+      <GridCol
+        gridSpan={12}
+      >
+        <Icon
+          Asset={[Function]}
+          height="1em"
+          width="1em"
+        />
+        December 31st 1969, 7:00:00 pm
+      </GridCol>
+    </GridRow>
+    <GridRow
+      gridGap={4}
+    >
+      <GridCol
+        gridSpan={12}
+      >
+        A maximum of
+         
+        10%
+         
+        tokens can be sold by each investor per rolling period
+      </GridCol>
+    </GridRow>
+  </Grid>
+</Fragment>
+`;
+
+exports[`Restriction Details Component should render with the details 1`] = `
+<Fragment>
+  <Grid
+    gridGap="12px"
+  >
+    <GridRow
+      gridGap={4}
+    >
+      <GridCol
+        gridSpan={12}
+      >
+        <Icon
+          Asset={[Function]}
+          height="1em"
+          width="1em"
+        />
+        December 31st 1969, 7:00:01 pm
+      </GridCol>
+    </GridRow>
+    <GridRow
+      gridGap={4}
+    >
+      <GridCol
+        gridSpan={12}
+      >
+        <Icon
+          Asset={[Function]}
+          height="1em"
+          width="1em"
+        />
+        December 31st 1969, 7:00:00 pm
+      </GridCol>
+    </GridRow>
+    <GridRow
+      gridGap={4}
+    >
+      <GridCol
+        gridSpan={12}
+      >
+        A maximum of
+         
+        500
+         
+        tokens can be sold by each investor per rolling period
+      </GridCol>
+    </GridRow>
+  </Grid>
+</Fragment>
+`;
