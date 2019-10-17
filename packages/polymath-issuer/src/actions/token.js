@@ -12,6 +12,15 @@ import * as ui from '@polymathnetwork/ui';
 import moment from 'moment';
 import axios from 'axios';
 import FileSaver from 'file-saver';
+import CSVFileValidator from '../utils/parsers/csv-file-validator';
+import {
+  validateAddress,
+  validateDate,
+  validateError,
+  requiredError,
+  uniqueError,
+  headerError,
+} from '../utils/parsers/common';
 
 import LegacySTRArtifact from '../utils/legacy-artifacts/LegacySecurityTokenRegistry.json';
 import LegacySTArtifact from '../utils/legacy-artifacts/LegacySecurityToken.json';
@@ -305,89 +314,122 @@ export const issue = (values: Object) => async (
   );
 };
 
-// TODO @bshevchenko: almost duplicates uploadCSV from compliance/actions, subject to refactor
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
   const reader = new FileReader();
   reader.readAsText(file);
-  reader.onload = () => {
-    const investors: Array<Investor> = [];
-    const criticals: Array<InvestorCSVRow> = [];
-    const tokens: Array<number> = [];
+  reader.onload = async () => {
+    const config = {
+      headers: [
+        {
+          name: 'ETH Address',
+          inputName: 'address',
+          required: true,
+          unique: true,
+          validate: function(val) {
+            return validateAddress(val);
+          },
+          validateError,
+          headerError,
+          uniqueError,
+          requiredError,
+        },
+        {
+          name: 'Sell Restriction Date',
+          inputName: 'from',
+          validate: function(val) {
+            return val.length === 0 || validateDate(val);
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'Buy Restriction Date',
+          inputName: 'to',
+          validate: function(val) {
+            return val.length === 0 || validateDate(val);
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'KYC/AML Expiry Date',
+          inputName: 'expiry',
+          required: true,
+          validate: function(val) {
+            return validateDate(val);
+          },
+          validateError,
+          headerError,
+          requiredError,
+        },
+        {
+          name: 'Number of tokens',
+          inputName: 'tokensVal',
+          required: true,
+          validate: function(val) {
+            return !isNaN(val);
+          },
+          validateError,
+          headerError,
+          requiredError,
+        },
+      ],
+    };
+
+    let investors = [];
+    let tokens = [];
+
     let isTooMany = false;
     let string = 0;
-    let isInvalidFormat = false;
-    // $FlowFixMe
 
-    // Check if the file was created on Excel for Mac
-    if (
-      reader.result.split(/\r\n|\n/).length < reader.result.split('\r').length
-    ) {
-      isInvalidFormat = true;
-    }
+    try {
+      const { data, validationErrors } = await CSVFileValidator(
+        reader.result,
+        config
+      );
+      isTooMany = data.length > 75;
 
-    for (let entry of reader.result.split(/\r\n|\n/)) {
-      string++;
-      //Ignore blank rows
-      if (entry === '') {
-        continue;
-      }
-      const [address, sale, purchase, expiryIn, tokensIn] = entry.split(',');
-      const handleDate = (d: string) => {
-        let resultDate =
-          d === '' ? new Date(PERMANENT_LOCKUP_TS) : new Date(Date.parse(d));
-        if (d !== '') {
-          const [[], year] = d.split(/\/|-/);
-          if (year.length === 2 && resultDate.getFullYear() < 2000) {
-            resultDate.setFullYear(resultDate.getFullYear() + 100);
-          }
-        }
-        return resultDate;
-      };
-      const from = handleDate(sale);
-      const to = handleDate(purchase);
-
-      const expiry = new Date(Date.parse(expiryIn));
-      let isInvalidExpiry = false;
-      if (expiry - Date.parse(new Date()) < 0) {
-        isInvalidExpiry = true;
-      }
-
-      const tokensVal = Number(tokensIn);
-
-      let isDuplicatedAddress = false;
-      investors.forEach(investor => {
-        if (investor.address === address) {
-          isDuplicatedAddress = true;
-        }
-      });
-
-      if (
-        !isDuplicatedAddress &&
-        ethereumAddress(address) === null &&
-        !isNaN(from) &&
-        !isNaN(to) &&
-        !isNaN(expiry) &&
-        !isInvalidExpiry &&
-        parseFloat(tokensVal) > 0
-      ) {
-        if (investors.length >= 40) {
-          isTooMany = true;
-          continue;
-        }
-        investors.push({ address, from, to, expiry });
-        tokens.push(tokensVal);
+      if (validationErrors.length) {
+        dispatch({
+          type: MINT_UPLOADED,
+          investors: [],
+          tokens: [],
+          criticals: validationErrors,
+          isTooMany,
+          isInvalidFormat: '',
+        });
       } else {
-        criticals.push([string, address, sale, purchase, expiryIn, tokensIn]);
+        data.forEach(({ address, from, to, purchase, expiry, tokensVal }) => {
+          investors.push({
+            address,
+            from: from.length ? new Date(from) : new Date(PERMANENT_LOCKUP_TS),
+            to: to.length ? new Date(to) : new Date(PERMANENT_LOCKUP_TS),
+            expiry: new Date(expiry),
+          });
+
+          tokens.push(Number(tokensVal));
+        });
+
+        dispatch({
+          type: MINT_UPLOADED,
+          investors,
+          tokens,
+          criticals: [],
+          isTooMany,
+          isInvalidFormat: '',
+        });
       }
+    } catch (err) {
+      // Parsing error
+      dispatch({
+        type: MINT_UPLOADED,
+        investors,
+        tokens,
+        criticals: [],
+        isTooMany,
+        isInvalidFormat: err.message,
+      });
     }
-    dispatch({
-      type: MINT_UPLOADED,
-      investors,
-      tokens,
-      criticals,
-      isTooMany,
-      isInvalidFormat,
-    });
   };
 };
 
@@ -618,7 +660,7 @@ export const exportMintedTokensList = () => async (
           const { token } = getState().token; // $FlowFixMe
           const investors = await token.contract.getMinted();
           let csvContent =
-            'Address,Sale Lockup,Purchase Lockup,KYC/AML Expiry,Minted';
+            'ETH Address,Sell Restriction Date,Buy Restriction Date,KYC/AML Expiry Date,Number of tokens';
           investors.forEach((investor: Investor) => {
             csvContent +=
               '\r\n' +

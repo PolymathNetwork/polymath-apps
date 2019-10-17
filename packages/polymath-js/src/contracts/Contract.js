@@ -257,12 +257,9 @@ export default class Contract {
     };
 
     try {
-      receipt = await method.send(params, (error, hash) => {
-        if (!error) {
-          txHash = hash;
-          Contract._params.txHashCallback(hash);
-        }
-      });
+      receipt = await method.send(params);
+      const { transactionHash } = receipt;
+      Contract._params.txHashCallback(transactionHash);
     } catch (e) {
       if (e.message.includes('not mined within 50 blocks')) {
         return new Promise(resolve => {
@@ -283,6 +280,8 @@ export default class Contract {
       }
       if (e.message.includes('denied transaction signature')) {
         throw new Error('Transaction cancelled');
+      } else {
+        throw new Error('An error has occurred');
       }
     }
 

@@ -64,7 +64,7 @@ export default class TransferManager extends Contract {
   }
 
   _mapFlagKeyToLabel(flag: number): string {
-    const map = ['accredited', 'canBuyFromSTO', 'isVolRestricted'];
+    const map = ['accredited', 'canNotBuyFromSTO', 'isVolRestricted'];
 
     return map[flag];
   }
@@ -225,7 +225,7 @@ export default class TransferManager extends Contract {
         address: event.returnValues._investor,
         addedBy: event.returnValues._addedBy,
         from: this._toDate(event.returnValues._canSendAfter),
-        to: this._toDate(event.returnValues._expiryTime),
+        to: this._toDate(event.returnValues._canReceiveAfter),
         expiry: this._toDate(event.returnValues._expiryTime),
       });
     }
@@ -245,16 +245,20 @@ export default class TransferManager extends Contract {
       let flagNumbers = [];
       // Decode investor flags. flags variable is a uint256 representation of the flags, where
       // each bit represents an active flag.
+
+      // Investors can buy from STO, by default.
+      investors[x]['canBuyFromSTO'] = true;
       for (let j = 0; j < 256; j++) {
         if (flags.testn(j)) {
           flagNumbers.push(j);
           const key = this._mapFlagKeyToLabel(j);
-          investors[x][key] = true;
+          // Negate canBuyFromSTO value.
+          if (key === 'canNotBuyFromSTO') {
+            investors[x]['canBuyFromSTO'] = false;
+          } else {
+            investors[x][key] = true;
+          }
         }
-        investors[x].canBuyFromSTO =
-          investors[x].canBuyFromSTO === undefined
-            ? true
-            : !investors[x].canBuyFromSTO;
       }
     }
 

@@ -73,6 +73,14 @@ export const categories: Array<SPCategory> = [
       'focus on their businesses rather than the technical integration details. Services typically ' +
       'include KYC/AML/Accreditation, escrow, and fund collection (crypto and/or fiat), and token distribution.',
   },
+  {
+    id: 6,
+    title: 'Cap. Table Management',
+    desc:
+      "Capitalization Table Management Platforms allow you to manage your company's equity, \
+      view holdings and manage investors. Some Cap. Table Management Platforms can act as a \
+      Registrar to support your regulatory compliance.",
+  },
 ];
 
 const providers: Array<ServiceProvider> = [
@@ -412,6 +420,27 @@ const providers: Array<ServiceProvider> = [
       structuring and implementing token offerings, coordinating with financial regulators with respect to license requirements and \
       capital market information, as well as assistance in meeting KYC requirements and rendering legal opinions on token classifications.',
   },
+  {
+    id: 54,
+    cat: 1,
+    title: 'Froriep',
+    logo: '/providers/legal/froriep.png',
+    background: '/providers/legal/bg/img-froriep.png',
+    desc:
+      'Froriep is a Swiss law firm with a unique international presence and perspective, where the highest \
+      standards of professional excellence, thoroughness and efficiency go hand-in-hand with a cultural \
+      diversity, dynamism and entrepreneurial spirit that set us apart. \
+      \n\nOur DLT/digital assets specialists have profound knowledge in the legal and technical aspects of \
+      tokenization of financial instruments as well as virtual and physical goods, but also are well versed \
+      regarding the formation of smart contract-based ecosystems such as decentralised, autonomous organisations \
+      or full economies using distributed ledger technology. \
+      \n\nFor our clients, we provide the regulatory structuring and the drafting of legal documentation \
+      (placement documentation) and, where required, obtain authorization from all regulatory authorities, \
+      such as the Swiss Financial Markets Supervisory Authority. \
+      \n\nThis includes licenses for banks, securities dealers, insurance companies and asset \
+      managers as well as for exchanges, trading facilities, trade repositories, representative \
+      offices or applications to self-regulatory organizations for anti-money laundering compliance.',
+  },
 
   // KYC/AML
   {
@@ -668,6 +697,26 @@ const providers: Array<ServiceProvider> = [
       trade them and earn interest on idle treasury. Multis also enables issuers to manage conveniently \
       governance around their self-custodied assets.',
   },
+  {
+    id: 53,
+    cat: 4,
+    title: 'Finoa',
+    logo: '/providers/custody/finoa.png',
+    background: '/providers/custody/bg/img-finoa.png',
+    desc:
+      'Banking-grade Custodial Wallet for Institutional Investors & HNWI \n\n \
+      Finoa is a German-based financial services provider, operating a maximum security infrastructure, \
+      based on state of-the-art banking standards. Finoa Custody, is specially designed for Institutional \
+      Investors that want to securely store their Digital Assets. Our services and offerings include: full \
+      protection of Digital Assets in crypto-native banking infrastructure; 100% digital, 100% mobile, 100% secure; \
+      immediate asset-accessibility through biometric fingerprint (PSD2 compliant) and proprietary "Warm-Storage" technology; \
+      multi-signature processing (M-of-N), tailored to Institutional Investors; Private Keys cryptographically secured in Utimaco \
+      hardware-security-modules (HSM - 100% offline), the choice of the German Federal Intelligence Agencies; and security infrastructure \
+      in Finoa-controlled high-security data center.\n\n \
+      Leveraging our team and expertise, Finoa is building the most trusted solution for Digital Assets, combining \
+      maximum user-friendliness with the highest security levels available in the market. \
+      \nFinoa is aiming to become a regulated custodial institution starting in 2020.',
+  },
 
   // TOKEN SALE PLATFORMS
   {
@@ -698,6 +747,22 @@ const providers: Array<ServiceProvider> = [
       'investors to transfer funds in the way that works best for them: via cryptocurrencies as well as ACH or wire transfers. ' +
       'All of this is financing unchained—a new world of freedom and opportunity for businesses, entrepreneurs, and investors. ' +
       'This is seriesOne.',
+  },
+
+  // CAP TABLE MANAGEMENT
+
+  {
+    id: 52,
+    cat: 6,
+    title: 'Vertalo',
+    logo: '/providers/captable/vertalo.png',
+    background: '/providers/captable/bg/img-vertalo.png',
+    desc:
+      'Vertalo is a cap table, compliance, and investor onboarding platform utilizing blockchain to connect \
+       and enable the digital asset economy.  A chain-agnostic pioneer in "direct custody"​ and secondary liquidity, \
+       Vertalo supports the ongoing asset management needs of private companies and broker-dealers. Vertalo enables \
+       any private asset to be instantly tokenized, stored in an investor\'s verified wallet, and traded in real-time \
+       based on the smart contract between the issuer and the investor.',
   },
 ];
 
