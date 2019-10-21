@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js';
 import semver from 'semver';
 import Contract from './Contract';
 import PermissionManager from './PermissionManager';
+import ManualApprovalTransferManager from './ManualApprovalTransferManager';
 import TransferManager from './TransferManager';
 import VolumeRestrictionTransferManager from './VolumeRestrictionTransferManager';
 import PercentageTransferManager from './PercentageTransferManager';
@@ -152,12 +153,12 @@ export default class SecurityToken extends Contract {
     }
   }
 
-  async getApprovalManager(): Promise<?PermissionManager> {
+  async getApprovalManager(): Promise<?ManualApprovalTransferManager> {
     try {
       const address = await this.getModuleByName(
         'ManualApprovalTransferManager'
       );
-      return new PermissionManager(address, this.version);
+      return new ManualApprovalTransferManager(address, this.version);
     } catch (e) {
       return null;
     }

@@ -23,18 +23,11 @@ import {
   TimePickerSelect,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
-import {
-  addDefaultRestriction,
-  addDefaultDailyRestriction,
-  modifyDefaultDailyRestriction,
-  modifyDefaultRestriction,
-} from '../../../actions/restrictions';
+import { addManualApproval } from '../../../actions/compliance';
 import {
   validateTodayOrAfter,
   validateDays,
-  validateStartTime,
-  validateEndDate,
-  validateEndTime,
+  validateExpiryTime,
   REQUIRED_MESSAGE,
   MORE_THAN_MESSAGE,
   ADDRESS_MESSAGE,
@@ -50,63 +43,39 @@ type Props = {
 
 const formSchema = validator.object().shape({
   date: validator.object().shape({
-    startDate: validator
+    expiryDate: validator
       .date()
       .isRequired(REQUIRED_MESSAGE)
-      .test('validateStartDate', validateTodayOrAfter),
-    startTime: validator
+      .test('validateExpiryDate', validateTodayOrAfter),
+    expiryTime: validator
       .number()
       .isRequired(REQUIRED_MESSAGE)
-      .test('validateStartTime', validateStartTime),
-    endDate: validator
-      .date()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validateEndDate', validateEndDate),
-    endTime: validator
-      .number()
-      .isRequired(REQUIRED_MESSAGE)
-      .test('validEndTime', validateEndTime),
+      .test('validateExpiryTime', validateExpiryTime),
   }),
+  fromAddress: validator
+    .string()
+    .isRequired(REQUIRED_MESSAGE)
+    .isAddress(ADDRESS_MESSAGE),
+  toAddress: validator
+    .string()
+    .isRequired(REQUIRED_MESSAGE)
+    .isAddress(ADDRESS_MESSAGE),
   token: validator
     .number()
-    .nullable()
-    .when('transferType', {
-      is: 'token',
-      then: validator.number().isRequired(REQUIRED_MESSAGE),
-    }),
-  percentage: validator.number().when('transferType', {
-    is: 'percentage',
-    then: validator
-      .number()
-      .isRequired(REQUIRED_MESSAGE)
-      .moreThan(0, 'Percentage must be above 0%'),
-  }),
-  intervalAmount: validator
-    .number()
-    .when('restrictionType', {
-      is: 'custom',
-      then: validator
-        .number()
-        .isRequired(REQUIRED_MESSAGE)
-        .test('validateDays', validateDays),
-    })
-    .when('restrictionType', {
-      is: '24h',
-      then: validator.number().nullable(),
-    }),
+    .moreThan(0, MORE_THAN_MESSAGE)
+    .isRequired(REQUIRED_MESSAGE),
+  description: validator.string().isRequired(REQUIRED_MESSAGE),
 });
 
 const initialValues = {
   date: {
     startDate: null,
     startTime: null,
-    endDate: null,
-    endTime: null,
   },
-  intervalAmount: null,
-  transferType: 'token',
+  fromAddress: '',
+  toAddress: '',
   token: null,
-  percentage: '',
+  description: '',
 };
 
 export const AddApprovalComponent = ({
@@ -124,14 +93,14 @@ export const AddApprovalComponent = ({
         <Grid.Row>
           <Grid.Col gridSpan={12}>
             <FormItem name="token">
-              <Heading className="form-header" variant="h3">
-                Allow Transfer of
-              </Heading>
+              <FormItem.Label>
+                <strong>Allow Transfer of</strong>
+              </FormItem.Label>
               <FormItem.Input
-                placeholder="Enter the value"
+                placeholder="Enter amount"
                 min={1}
                 component={NumberInput}
-                unit="TOKEN"
+                unit="TOKENS"
               />
               <FormItem.Error />
             </FormItem>
@@ -139,13 +108,13 @@ export const AddApprovalComponent = ({
         </Grid.Row>
         <Grid.Row>
           <Grid.Col gridSpan={12}>
-            <FormItem name="address">
+            <FormItem name="fromAddress">
               <FormItem.Label>
                 <strong>From Investor Wallet Address</strong>
               </FormItem.Label>
               <FormItem.Input
                 component={TextInput}
-                placeholder="Wallet Address"
+                placeholder="Enter wallet address"
               />
               <FormItem.Error />
             </FormItem>
@@ -153,13 +122,13 @@ export const AddApprovalComponent = ({
         </Grid.Row>
         <Grid.Row>
           <Grid.Col gridSpan={12}>
-            <FormItem name="address">
+            <FormItem name="toAddress">
               <FormItem.Label>
                 <strong>To Investor Wallet Address</strong>
               </FormItem.Label>
               <FormItem.Input
                 component={TextInput}
-                placeholder="Wallet Address"
+                placeholder="Enter wallet Address"
               />
               <FormItem.Error />
             </FormItem>
@@ -169,14 +138,14 @@ export const AddApprovalComponent = ({
           <Grid.Col gridSpan={12}>
             <FormItemGroup>
               <FormItemGroup.Items>
-                <FormItem name="date.startDate">
-                  <FormItem.Label>Start Date</FormItem.Label>
+                <FormItem name="date.expiryDate">
+                  <FormItem.Label>Expiry Date</FormItem.Label>
                   <FormItem.Input
                     component={DatePickerInput}
                     placeholder="mm / dd / yyyy"
                   />
                 </FormItem>
-                <FormItem name="date.startTime">
+                <FormItem name="date.expiryTime">
                   <FormItem.Label>Time</FormItem.Label>
                   <FormItem.Input
                     component={TimePickerSelect}
@@ -192,6 +161,21 @@ export const AddApprovalComponent = ({
             </FormItemGroup>
           </Grid.Col>
         </Grid.Row>
+        <Grid.Row>
+          <Grid.Col gridSpan={12}>
+            <FormItem name="description">
+              <FormItem.Label>
+                <strong>Description</strong>
+              </FormItem.Label>
+              <FormItem.Input
+                component={TextInput}
+                maxLength={32}
+                placeholder="Start text here(up to 32 characters)"
+              />
+              <FormItem.Error />
+            </FormItem>
+          </Grid.Col>
+        </Grid.Row>
       </Grid>
       <Modal.Footer>
         <Button kind="secondary" onClick={handleClose}>
@@ -205,67 +189,27 @@ export const AddApprovalComponent = ({
 
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
-  displayName: 'GlobalRestrictionsForm',
+  displayName: 'AddApprovalForm',
   validateOnChange: false,
   mapPropsToValues: props => {
-    if (
-      props.restrictionType === 'custom' &&
-      props.defaultRestrictionModified
-    ) {
-      let startTime =
-        props.defaultRestriction.startTime.unix() -
-        moment(props.defaultRestriction.startTime)
-          .startOf('day')
-          .unix();
-      let endTime =
-        props.defaultRestriction.endTime.unix() -
-        moment(props.defaultRestriction.endTime)
-          .startOf('day')
-          .unix();
-      return {
-        date: {
-          startDate: moment(props.defaultRestriction.startTime).startOf('day'),
-          startTime: startTime * 1000,
-          endDate: moment(props.defaultRestriction.endTime).startOf('day'),
-          endTime: endTime * 1000,
-        },
-        intervalAmount: props.defaultRestriction.rollingPeriodInDays,
-        transferType:
-          props.defaultRestriction.restrictionType === 1
-            ? 'percentage'
-            : 'token',
-        token:
-          props.defaultRestriction.restrictionType === 0
-            ? parseFloat(props.defaultRestriction.allowedTokens)
-            : null,
-        percentage:
-          props.defaultRestriction.restrictionType === 1
-            ? parseFloat(props.defaultRestriction.allowedTokens)
-            : '',
-        restrictionType: props.restrictionType,
-      };
-    }
     return {
       ...initialValues,
-      restrictionType: props.restrictionType,
     };
   },
   handleSubmit: (values, { errors, setFieldError, props }) => {
-    const {
-      dispatch,
-      handleClose,
-      dailyRestrictionModified,
-      defaultRestrictionModified,
-    } = props;
+    const { dispatch, handleClose } = props;
     const startsAt =
-      moment(values.date.startDate).unix() * 1000 + values.date.startTime;
-    const endsAt =
-      moment(values.date.endDate).unix() * 1000 + values.date.endTime;
-    const allowedTokens =
-      values.transferType === 'token'
-        ? toWei(values.token)
-        : toWei(values.percentage);
-    const rollingPeriodInDays = values.intervalAmount;
+      moment(values.date.expiryDate).unix() * 1000 + values.date.expiryTime;
+
+    dispatch(
+      addManualApproval(
+        values.fromAddress,
+        values.toAddress,
+        toWei(values.token),
+        startsAt,
+        values.description
+      )
+    );
 
     handleClose();
   },

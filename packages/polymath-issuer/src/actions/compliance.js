@@ -56,6 +56,18 @@ export const loadManagers = managers => ({
   managers,
 });
 
+export const LOAD_APPROVALS = 'compliance/LOAD_APPROVALS';
+export const loadApprovals = approvals => ({
+  type: LOAD_APPROVALS,
+  approvals,
+});
+
+export const ADD_APPROVAL = 'compliance/ADD_APPROVAL';
+export const addApproval = approval => ({
+  type: ADD_APPROVAL,
+  approval,
+});
+
 export const ADD_MANAGER = 'compliance/ADD_MANAGER';
 export const addManager = manager => ({
   type: ADD_MANAGER,
@@ -1073,11 +1085,8 @@ export const fetchApprovals = () => async (
     }
     const moduleMetadata = await st.getModule(approvalManager.address);
     if (approvalManager && !moduleMetadata.isArchived) {
-      // const delegateDetails = await getDelegateDetails(
-      //   approvalManager,
-      //   transferManager
-      // );
-      // dispatch(loadManagers(delegateDetails));
+      const approvals = await approvalManager.getAllApprovals();
+      dispatch(loadApprovals(approvals));
       dispatch(toggleApprovalManager(true));
     } else {
       dispatch(toggleApprovalManager(false));
@@ -1086,4 +1095,45 @@ export const fetchApprovals = () => async (
   } catch (e) {
     console.log(e);
   }
+};
+
+export const addManualApproval = (
+  from,
+  to,
+  allowance,
+  expiryTime,
+  description
+) => async (dispatch: Function, getState: GetState) => {
+  console.log(allowance);
+  const st: SecurityToken = getState().token.token.contract;
+  dispatch(
+    ui.tx(
+      ['Proceed with Manual Approval'],
+      async () => {
+        const approvalManagerModule = await st.getApprovalManager();
+        await approvalManagerModule.addManualApproval(
+          from,
+          to,
+          allowance,
+          expiryTime,
+          description
+        );
+      },
+      'Manual Approval Was Successfully Added',
+      () => {
+        const approval = {
+          fromAddress: from,
+          toAddress: to,
+          expiry: expiryTime,
+          tokens: Web3.utils.fromWei(allowance),
+          description: description,
+        };
+        dispatch(addApproval(approval));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
 };

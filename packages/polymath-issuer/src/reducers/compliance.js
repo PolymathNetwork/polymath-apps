@@ -27,6 +27,7 @@ export type WhitelistState = {|
   isFrozenModalOpen: ?boolean,
   approvedManagers: Array<any>,
   fileUploaded: boolean,
+  approvals: Array<any>,
 |};
 
 const defaultState: WhitelistState = {
@@ -48,6 +49,7 @@ const defaultState: WhitelistState = {
   isToggled: false,
   fileUploaded: false,
   isApprovalToggled: false,
+  approvals: [],
 };
 
 // NOTE @RafaelVidaurre: WARNING For some reason this reducer is being renamed.
@@ -55,6 +57,22 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
+    case a.ADD_APPROVAL:
+      return {
+        ...state,
+        approvals: [
+          ...state.approvals,
+          {
+            ...action.approval,
+            id: action.approval.fromAddress + action.approval.toAddress,
+          },
+        ],
+      };
+    case a.LOAD_APPROVALS:
+      return {
+        ...state,
+        approvals: action.approvals,
+      };
     case a.TOGGLE_APPROVAL_MANAGER:
       return {
         ...state,

@@ -6,6 +6,7 @@ import { Button } from '@polymathnetwork/ui';
 import ApprovalModal from './ApprovalModal';
 import { connect } from 'react-redux';
 import { removeAddressFromTransferManager } from '../../../actions/compliance';
+import moment from 'moment';
 const {
   TableContainer,
   Table,
@@ -31,10 +32,10 @@ const columns = [
     header: 'Approval Expiry',
     key: 'expiry',
   },
-  {
-    header: 'Unique ID (TxHash) of Approval',
-    key: 'txhash',
-  },
+  // {
+  //   header: 'Unique ID (TxHash) of Approval',
+  //   key: 'txhash',
+  // },
   {
     header: 'Description',
     key: 'description',
@@ -55,7 +56,7 @@ const emptyRow = [
     fromAddress: '-',
     toAddress: '-',
     expiry: '-',
-    txhash: '-',
+    // txhash: '-',
     description: '-',
     tokens: '-',
     tokensTransferred: '-',
@@ -83,8 +84,17 @@ class ApprovalTable extends Component<Props, State> {
     this.props.removeAddressFromTransferManager(id);
   };
 
+  formatCell = cell => {
+    // if (cell.value === undefined) return '-';
+    switch (cell.info.header) {
+      case 'expiry':
+        return moment.unix(cell.value).format('MMM DD YYYY');
+      default:
+        return cell.value;
+    }
+  };
   render() {
-    const { approvedManagers } = this.props;
+    const { approvals } = this.props;
     return (
       <div>
         <ApprovalModal
@@ -93,7 +103,7 @@ class ApprovalTable extends Component<Props, State> {
         />
         <DataTable
           headers={columns}
-          rows={approvedManagers < 1 ? emptyRow : approvedManagers}
+          rows={approvals < 1 ? emptyRow : approvals}
           render={({ rows, headers, getHeaderProps }) => {
             return (
               <TableContainer title="">
@@ -126,9 +136,11 @@ class ApprovalTable extends Component<Props, State> {
                         onMouseOver={() => console.log('test')}
                       >
                         {row.cells.map(cell => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                          <TableCell key={cell.id}>
+                            {this.formatCell(cell)}
+                          </TableCell>
                         ))}
-                        {approvedManagers.length > 0 ? (
+                        {approvals.length > 0 ? (
                           <TableCell
                             className="delete-icon"
                             onClick={() => this.handleDelete(row.id)}
@@ -152,7 +164,7 @@ class ApprovalTable extends Component<Props, State> {
 }
 
 const mapStateToProps = state => ({
-  approvedManagers: state.whitelist.approvedManagers,
+  approvals: state.whitelist.approvals,
 });
 
 const mapDispatchToProps = {
