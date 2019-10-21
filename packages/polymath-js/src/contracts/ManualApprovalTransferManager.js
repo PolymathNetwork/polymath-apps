@@ -41,7 +41,9 @@ export default class ManualApprovalTransferManager extends Contract {
     increase: boolean
   ) {}
 
-  async revokeManualApproval(from: Address, to: Address) {}
+  async revokeManualApproval(from: Address, to: Address) {
+    return this._tx(this._methods.revokeManualApproval(from, to));
+  }
 
   async getAllApprovals() {
     const approvals = await this._methods.getAllApprovals().call();

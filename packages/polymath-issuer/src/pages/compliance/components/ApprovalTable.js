@@ -5,7 +5,7 @@ import { DataTable, Icon } from 'carbon-components-react';
 import { Button } from '@polymathnetwork/ui';
 import ApprovalModal from './ApprovalModal';
 import { connect } from 'react-redux';
-import { removeAddressFromTransferManager } from '../../../actions/compliance';
+import { removeApprovalFromApprovals } from '../../../actions/compliance';
 import moment from 'moment';
 const {
   TableContainer,
@@ -55,7 +55,6 @@ const emptyRow = [
     id: '0',
     fromAddress: '-',
     toAddress: '-',
-    expiry: '-',
     // txhash: '-',
     description: '-',
     tokens: '-',
@@ -81,11 +80,11 @@ class ApprovalTable extends Component<Props, State> {
   };
 
   handleDelete = id => {
-    this.props.removeAddressFromTransferManager(id);
+    this.props.removeApprovalFromApprovals(id);
   };
 
   formatCell = cell => {
-    // if (cell.value === undefined) return '-';
+    if (!cell.value) return '-';
     switch (cell.info.header) {
       case 'expiry':
         return moment.unix(cell.value).format('MMM DD YYYY');
@@ -141,11 +140,23 @@ class ApprovalTable extends Component<Props, State> {
                           </TableCell>
                         ))}
                         {approvals.length > 0 ? (
-                          <TableCell
-                            className="delete-icon"
-                            onClick={() => this.handleDelete(row.id)}
-                          >
-                            <Icon name="delete" width="12" height="12" />
+                          <TableCell>
+                            <div style={{ display: 'flex' }}>
+                              <Icon
+                                className="table-icon"
+                                name="edit"
+                                width="12"
+                                height="12"
+                              />
+                              <Icon
+                                onClick={() => this.handleDelete(row.id)}
+                                className="table-icon"
+                                style={{ marginLeft: '10px' }}
+                                name="delete"
+                                width="12"
+                                height="12"
+                              />
+                            </div>
                           </TableCell>
                         ) : (
                           <TableCell />
@@ -168,7 +179,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  removeAddressFromTransferManager,
+  removeApprovalFromApprovals,
 };
 
 export default connect(

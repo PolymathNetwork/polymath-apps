@@ -68,6 +68,12 @@ export const addApproval = approval => ({
   approval,
 });
 
+export const REMOVE_APPROVAL = 'compliance/REMOVE_APPROVAL';
+export const removeApproval = id => ({
+  type: REMOVE_APPROVAL,
+  id,
+});
+
 export const ADD_MANAGER = 'compliance/ADD_MANAGER';
 export const addManager = manager => ({
   type: ADD_MANAGER,
@@ -1124,7 +1130,7 @@ export const addManualApproval = (
         const approval = {
           fromAddress: from,
           toAddress: to,
-          expiry: expiryTime,
+          expiry: expiryTime / 100,
           tokens: Web3.utils.fromWei(allowance),
           description: description,
         };
@@ -1135,5 +1141,55 @@ export const addManualApproval = (
       undefined,
       true
     )
+  );
+};
+
+export const removeApprovalFromApprovals = (id: Address) => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    // ui.confirm(
+    //   <div>
+    //     <p>
+    //       Once removed, the whitelist manager will no longer have permission to
+    //       update the whitelist. Consult your legal team before removing a wallet
+    //       from the list.
+    //     </p>
+    //   </div>,
+    async () => {
+      dispatch(
+        ui.tx(
+          ['Removing Approval'],
+          async () => {
+            const st: SecurityToken = getState().token.token.contract;
+            const approvals = getState().whitelist.approvals;
+            const approvalToRemove = approvals.find(
+              approval => approval.id === id
+            );
+            const approvalManager = await st.getApprovalManager();
+
+            if (approvalManager) {
+              await approvalManager.revokeManualApproval(
+                approvalToRemove.fromAddress,
+                approvalToRemove.toAddress
+              );
+            }
+          },
+          'Approval Removed',
+          () => {
+            dispatch(removeApproval(id));
+          },
+          undefined,
+          undefined,
+          undefined,
+          true
+        )
+      );
+    },
+    `Remove the Whitelist Manager from the Whitelist Managers List?`,
+    undefined,
+    'pui-large-confirm-modal'
+    // )
   );
 };

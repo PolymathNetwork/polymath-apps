@@ -57,6 +57,15 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
+    case a.REMOVE_APPROVAL:
+      let ind = state.approvals.findIndex(i => i.id === action.id);
+      return {
+        ...state,
+        approvals: [
+          ...state.approvals.slice(0, ind),
+          ...state.approvals.slice(ind + 1),
+        ],
+      };
     case a.ADD_APPROVAL:
       return {
         ...state,
