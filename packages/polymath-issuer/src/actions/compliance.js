@@ -1130,8 +1130,9 @@ export const addManualApproval = (
         const approval = {
           fromAddress: from,
           toAddress: to,
-          expiry: expiryTime / 100,
+          expiry: expiryTime / 1000,
           tokens: Web3.utils.fromWei(allowance),
+          tokensTransferred: '0',
           description: description,
         };
         dispatch(addApproval(approval));

@@ -56,8 +56,11 @@ export default class ManualApprovalTransferManager extends Contract {
       a.fromAddress = approvals['0'][i];
       a.toAddress = approvals['1'][i];
       a.tokens = this._fromWei(approvals['2'][i]).toString();
-      a.expiry = approvals['3'][i];
-      a.description = this._toAscii(approvals['4'][i]);
+      a.tokensTransferred = (
+        this._fromWei(approvals['2'][i]) - this._fromWei(approvals['3'][i])
+      ).toString();
+      a.expiry = approvals['4'][i];
+      a.description = this._toAscii(approvals['5'][i]);
       formattedApprovals.push(a);
     }
     return formattedApprovals;
