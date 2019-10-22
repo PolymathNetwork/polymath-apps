@@ -50,6 +50,7 @@ const defaultState: WhitelistState = {
   fileUploaded: false,
   isApprovalToggled: false,
   approvals: [],
+  editingApproval: null,
 };
 
 // NOTE @RafaelVidaurre: WARNING For some reason this reducer is being renamed.
@@ -57,6 +58,21 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
+    case a.MODIFY_APPROVALS:
+      let idx = state.approvals.findIndex(i => i.id === action.approval.id);
+      return {
+        ...state,
+        approvals: [
+          ...state.approvals.slice(0, idx),
+          action.approval,
+          ...state.approvals.slice(idx + 1),
+        ],
+      };
+    case a.EDIT_APPROVAL:
+      return {
+        ...state,
+        editingApproval: action.approval,
+      };
     case a.REMOVE_APPROVAL:
       let ind = state.approvals.findIndex(i => i.id === action.id);
       return {

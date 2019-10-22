@@ -39,7 +39,18 @@ export default class ManualApprovalTransferManager extends Contract {
     changeInAllowance: BigNumber,
     description: string,
     increase: boolean
-  ) {}
+  ) {
+    return this._tx(
+      this._methods.modifyManualApproval(
+        from,
+        to,
+        expiryTime / 1000,
+        changeInAllowance,
+        this._toBytes(description),
+        increase
+      )
+    );
+  }
 
   async revokeManualApproval(from: Address, to: Address) {
     return this._tx(this._methods.revokeManualApproval(from, to));

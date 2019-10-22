@@ -5,7 +5,10 @@ import { DataTable, Icon } from 'carbon-components-react';
 import { Button } from '@polymathnetwork/ui';
 import ApprovalModal from './ApprovalModal';
 import { connect } from 'react-redux';
-import { removeApprovalFromApprovals } from '../../../actions/compliance';
+import {
+  removeApprovalFromApprovals,
+  editApproval,
+} from '../../../actions/compliance';
 import moment from 'moment';
 const {
   TableContainer,
@@ -64,11 +67,13 @@ const emptyRow = [
 
 type State = {|
   isApprovalModalOpen: boolean,
+  isEditingApproval: boolean,
 |};
 
 class ApprovalTable extends Component<Props, State> {
   state = {
     isApprovalModalOpen: false,
+    isEditingApproval: false,
   };
 
   handleOpen = () => {
@@ -76,11 +81,19 @@ class ApprovalTable extends Component<Props, State> {
   };
 
   handleClose = () => {
-    this.setState({ isApprovalModalOpen: false });
+    this.setState({ isApprovalModalOpen: false, isEditingApproval: false });
+    this.props.editApproval(null);
   };
 
   handleDelete = id => {
     this.props.removeApprovalFromApprovals(id);
+  };
+
+  handleEdit = id => {
+    const { approvals, editApproval } = this.props;
+    let approval = approvals.find(i => i.id === id);
+    editApproval(approval);
+    this.setState({ isApprovalModalOpen: true, isEditingApproval: true });
   };
 
   formatCell = cell => {
@@ -98,6 +111,7 @@ class ApprovalTable extends Component<Props, State> {
       <div>
         <ApprovalModal
           isOpen={this.state.isApprovalModalOpen}
+          isEdit={this.state.isEditingApproval}
           handleClose={this.handleClose}
         />
         <DataTable
@@ -143,6 +157,7 @@ class ApprovalTable extends Component<Props, State> {
                           <TableCell>
                             <div style={{ display: 'flex' }}>
                               <Icon
+                                onClick={() => this.handleEdit(row.id)}
                                 className="table-icon"
                                 name="edit"
                                 width="12"
@@ -179,6 +194,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  editApproval,
   removeApprovalFromApprovals,
 };
 

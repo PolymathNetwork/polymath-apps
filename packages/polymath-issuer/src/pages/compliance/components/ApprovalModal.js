@@ -8,20 +8,28 @@ import { Remark, Modal, Button } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
 import { addAddressToTransferManager } from '../../../actions/compliance';
 import AddApprovalForm from './AddApprovalForm';
+import EditApprovalForm from './EditApprovalForm';
 
 type Props = {
   isOpen: boolean,
+  isEdit: boolean,
   handleClose: () => any,
 };
 
 class ApprovalModal extends Component<Props> {
   render() {
-    const { isOpen, handleClose } = this.props;
+    const { isOpen, handleClose, isEdit } = this.props;
     return (
       <Modal isOpen={isOpen} onClose={handleClose}>
         <Modal.Body>
-          <h1 className="pui-h2">Create Trade Approval</h1>
-          <AddApprovalForm handleClose={handleClose} />
+          <h1 className="pui-h2">{`${
+            isEdit ? 'Edit' : 'Create'
+          } Trade Approval`}</h1>
+          {isEdit ? (
+            <EditApprovalForm handleClose={handleClose} />
+          ) : (
+            <AddApprovalForm handleClose={handleClose} />
+          )}
         </Modal.Body>
       </Modal>
     );

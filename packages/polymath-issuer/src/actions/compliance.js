@@ -74,6 +74,18 @@ export const removeApproval = id => ({
   id,
 });
 
+export const EDIT_APPROVAL = 'compliance/EDIT_APPROVAL';
+export const editApproval = approval => ({
+  type: EDIT_APPROVAL,
+  approval,
+});
+
+export const MODIFY_APPROVALS = 'compliance/MODIFY_APPROVALS';
+export const modifyApprovals = approval => ({
+  type: MODIFY_APPROVALS,
+  approval,
+});
+
 export const ADD_MANAGER = 'compliance/ADD_MANAGER';
 export const addManager = manager => ({
   type: ADD_MANAGER,
@@ -1110,11 +1122,10 @@ export const addManualApproval = (
   expiryTime,
   description
 ) => async (dispatch: Function, getState: GetState) => {
-  console.log(allowance);
   const st: SecurityToken = getState().token.token.contract;
   dispatch(
     ui.tx(
-      ['Proceed with Manual Approval'],
+      ['Proceed with Adding Manual Approval'],
       async () => {
         const approvalManagerModule = await st.getApprovalManager();
         await approvalManagerModule.addManualApproval(
@@ -1128,6 +1139,7 @@ export const addManualApproval = (
       'Manual Approval Was Successfully Added',
       () => {
         const approval = {
+          id: from + to,
           fromAddress: from,
           toAddress: to,
           expiry: expiryTime / 1000,
@@ -1136,6 +1148,51 @@ export const addManualApproval = (
           description: description,
         };
         dispatch(addApproval(approval));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const editManualApproval = (
+  from,
+  to,
+  allowance,
+  expiryTime,
+  description
+) => async (dispatch: Function, getState: GetState) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const editingApproval = getState().whitelist.editingApproval;
+  const increase = editingApproval.tokens < allowance;
+  dispatch(
+    ui.tx(
+      ['Proceed with Editing Manual Approval'],
+      async () => {
+        const approvalManagerModule = await st.getApprovalManager();
+        await approvalManagerModule.modifyManualApproval(
+          from,
+          to,
+          expiryTime,
+          allowance,
+          description,
+          increase
+        );
+      },
+      'Manual Approval Was Successfully Edited',
+      () => {
+        const approval = {
+          id: from + to,
+          fromAddress: from,
+          toAddress: to,
+          expiry: expiryTime / 1000,
+          tokens: Web3.utils.fromWei(allowance),
+          tokensTransferred: editingApproval.tokensTransferred,
+          description: description,
+        };
+        dispatch(modifyApprovals(approval));
       },
       undefined,
       undefined,
