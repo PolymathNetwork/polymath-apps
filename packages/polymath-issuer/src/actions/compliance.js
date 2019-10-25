@@ -1166,7 +1166,11 @@ export const editManualApproval = (
 ) => async (dispatch: Function, getState: GetState) => {
   const st: SecurityToken = getState().token.token.contract;
   const editingApproval = getState().whitelist.editingApproval;
-  const increase = editingApproval.tokens < allowance;
+  const increase = editingApproval.tokens < allowance ? false : true;
+  const changeAmount = Math.abs(
+    editingApproval.tokens - Web3.utils.fromWei(allowance)
+  );
+
   dispatch(
     ui.tx(
       ['Proceed with Editing Manual Approval'],
@@ -1176,19 +1180,20 @@ export const editManualApproval = (
           from,
           to,
           expiryTime,
-          allowance,
+          Web3.utils.toWei(changeAmount.toString()),
           description,
           increase
         );
       },
       'Manual Approval Was Successfully Edited',
       () => {
+        const newTokenTotal = Web3.utils.fromWei(allowance);
         const approval = {
           id: from + to,
           fromAddress: from,
           toAddress: to,
           expiry: expiryTime / 1000,
-          tokens: Web3.utils.fromWei(allowance),
+          tokens: newTokenTotal,
           tokensTransferred: editingApproval.tokensTransferred,
           description: description,
         };

@@ -81,7 +81,11 @@ class ApprovalTable extends Component<Props, State> {
   };
 
   handleClose = () => {
-    this.setState({ isApprovalModalOpen: false, isEditingApproval: false });
+    this.setState(
+      { isEditingApproval: false },
+      this.setState({ isApprovalModalOpen: false })
+    ); // TODO: RACE CONDITION MODAL CLOSES TOO SLOW
+    // this.setState({ isEditingApproval: false });
     this.props.editApproval(null);
   };
 

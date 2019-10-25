@@ -216,7 +216,6 @@ const formikEnhancer = withFormik({
     const { dispatch, handleClose } = props;
     const startsAt =
       moment(values.date.expiryDate).unix() * 1000 + values.date.expiryTime;
-
     dispatch(
       editManualApproval(
         values.fromAddress,
