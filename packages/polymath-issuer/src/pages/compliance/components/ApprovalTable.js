@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { DataTable, Icon } from 'carbon-components-react';
-import { Button } from '@polymathnetwork/ui';
+import { Button, addressShortifier } from '@polymathnetwork/ui';
 import ApprovalModal from './ApprovalModal';
 import { connect } from 'react-redux';
 import {
@@ -103,6 +103,9 @@ class ApprovalTable extends Component<Props, State> {
   formatCell = cell => {
     if (!cell.value) return '-';
     switch (cell.info.header) {
+      case 'fromAddress':
+      case 'toAddress':
+        return addressShortifier(cell.value);
       case 'expiry':
         return moment.unix(cell.value).format('MMM DD YYYY');
       default:

@@ -1043,10 +1043,8 @@ export const addManualApprovalModule = () => async (
       async () => {
         if (moduleMetadata.isArchived) {
           await st.unarchiveModule(approvalManager.address);
-          // delegateDetails = await getDelegateDetails(
-          //   approvalManager,
-          //   transferManager
-          // );
+          const approvals = await approvalManager.getAllApprovals();
+          dispatch(loadApprovals(approvals));
         } else {
           await st.setApprovalManager();
         }
@@ -1079,7 +1077,7 @@ export const archiveManualApprovalModule = () => async (
       'General Permissions Manager Disabled',
       () => {
         dispatch(toggleApprovalManager(false));
-        // dispatch(loadManagers([]));
+        dispatch(loadApprovals([]));
       },
       undefined,
       undefined,
