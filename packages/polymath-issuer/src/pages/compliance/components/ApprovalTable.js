@@ -56,8 +56,8 @@ const columns = [
 const emptyRow = [
   {
     id: '0',
-    fromAddress: '-',
-    toAddress: '-',
+    // fromAddress: '-',
+    // toAddress: '-',
     // txhash: '-',
     description: '-',
     tokens: '-',
@@ -126,7 +126,7 @@ class ApprovalTable extends Component<Props, State> {
           rows={approvals < 1 ? emptyRow : approvals}
           render={({ rows, headers, getHeaderProps }) => {
             return (
-              <TableContainer title="">
+              <TableContainer title="" style={{ minWidth: '75rem' }}>
                 <TableToolbar>
                   <TableToolbarContent>
                     {/* pass in `onInputChange` change here to make filtering work */}
