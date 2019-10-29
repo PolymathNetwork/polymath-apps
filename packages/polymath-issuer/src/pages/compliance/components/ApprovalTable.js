@@ -82,7 +82,7 @@ class ApprovalTable extends Component<Props, State> {
 
   handleClose = () => {
     this.setState({ isApprovalModalOpen: false });
-    this.props.editApproval(null);
+    // this.props.editApproval(null);
   };
 
   handleDelete = id => {
@@ -149,7 +149,7 @@ class ApprovalTable extends Component<Props, State> {
                     {rows.map(row => (
                       <TableRow
                         key={row.id}
-                        onMouseOver={() => console.log('test')}
+                        // onMouseOver={() => console.log(row)}
                       >
                         {row.cells.map(cell => (
                           <TableCell key={cell.id}>
@@ -160,6 +160,11 @@ class ApprovalTable extends Component<Props, State> {
                           <TableCell>
                             <div style={{ display: 'flex' }}>
                               <Icon
+                                style={
+                                  row.cells[4].value - row.cells[5].value === 0
+                                    ? { display: 'none' }
+                                    : {}
+                                }
                                 onClick={() => this.handleEdit(row.id)}
                                 className="table-icon"
                                 name="edit"
@@ -167,9 +172,13 @@ class ApprovalTable extends Component<Props, State> {
                                 height="12"
                               />
                               <Icon
+                                style={
+                                  row.cells[4].value - row.cells[5].value === 0
+                                    ? { display: 'none' }
+                                    : { marginLeft: '10px' }
+                                }
                                 onClick={() => this.handleDelete(row.id)}
                                 className="table-icon"
-                                style={{ marginLeft: '10px' }}
                                 name="delete"
                                 width="12"
                                 height="12"

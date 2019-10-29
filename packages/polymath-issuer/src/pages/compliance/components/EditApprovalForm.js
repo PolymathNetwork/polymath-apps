@@ -201,7 +201,7 @@ const formikEnhancer = withFormik({
     });
     return formSchema.concat(schema);
   },
-  displayName: 'AddApprovalForm',
+  displayName: 'EditApprovalForm',
   validateOnChange: false,
   mapPropsToValues: props => {
     const { approval } = props;
