@@ -77,15 +77,11 @@ class ApprovalTable extends Component<Props, State> {
   };
 
   handleOpen = () => {
-    this.setState({ isApprovalModalOpen: true });
+    this.setState({ isEditingApproval: false, isApprovalModalOpen: true });
   };
 
   handleClose = () => {
-    this.setState(
-      { isEditingApproval: false },
-      this.setState({ isApprovalModalOpen: false })
-    ); // TODO: RACE CONDITION MODAL CLOSES TOO SLOW
-    // this.setState({ isEditingApproval: false });
+    this.setState({ isApprovalModalOpen: false });
     this.props.editApproval(null);
   };
 
@@ -126,7 +122,7 @@ class ApprovalTable extends Component<Props, State> {
           rows={approvals < 1 ? emptyRow : approvals}
           render={({ rows, headers, getHeaderProps }) => {
             return (
-              <TableContainer title="" style={{ minWidth: '75rem' }}>
+              <TableContainer title="" style={{ minWidth: '73rem' }}>
                 <TableToolbar>
                   <TableToolbarContent>
                     {/* pass in `onInputChange` change here to make filtering work */}
