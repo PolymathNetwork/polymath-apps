@@ -190,7 +190,17 @@ export const AddApprovalComponent = ({
 };
 
 const formikEnhancer = withFormik({
-  validationSchema: formSchema,
+  validationSchema: ({ approval: { tokensTransferred } }) => {
+    const schema = validator.object().shape({
+      token: validator
+        .number()
+        .min(
+          tokensTransferred,
+          `Must be more than ${tokensTransferred} tokens`
+        ),
+    });
+    return formSchema.concat(schema);
+  },
   displayName: 'AddApprovalForm',
   validateOnChange: false,
   mapPropsToValues: props => {
