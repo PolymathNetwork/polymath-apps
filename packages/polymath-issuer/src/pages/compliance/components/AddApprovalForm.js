@@ -59,6 +59,10 @@ const formSchema = validator.object().shape({
   toAddress: validator
     .string()
     .isRequired(REQUIRED_MESSAGE)
+    .notOneOf(
+      [validator.ref('fromAddress')],
+      'To Address must be different than From Address'
+    )
     .isAddress(ADDRESS_MESSAGE),
   token: validator
     .number()

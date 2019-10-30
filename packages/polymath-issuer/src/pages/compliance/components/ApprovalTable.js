@@ -103,7 +103,7 @@ class ApprovalTable extends Component<Props, State> {
       case 'toAddress':
         return addressShortifier(cell.value);
       case 'expiry':
-        return moment.unix(cell.value).format('MMM DD YYYY');
+        return moment.unix(cell.value).format('MMM DD YYYY, hh:mm:ss a');
       default:
         return cell.value;
     }
