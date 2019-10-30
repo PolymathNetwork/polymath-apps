@@ -6,6 +6,7 @@ import {
   ROPSTEN_NETWORK_ID,
   RINKEBY_NETWORK_ID,
   KOVAN_NETWORK_ID,
+  GOERLI_NETWORK_ID,
   MAINNET_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
 
@@ -18,10 +19,12 @@ type Network = {
 const {
   REACT_APP_NETWORK_MAIN_WS,
   REACT_APP_NETWORK_KOVAN_WS,
+  REACT_APP_NETWORK_GOERLI_WS,
   REACT_APP_NETWORK_LOCAL_WS,
   REACT_APP_NETWORK_LOCALVM_WS,
   REACT_APP_POLYMATH_REGISTRY_ADDRESS_LOCAL,
   REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN,
+  REACT_APP_POLYMATH_REGISTRY_ADDRESS_GOERLI,
   REACT_APP_POLYMATH_REGISTRY_ADDRESS_MAINNET,
 } = process.env;
 
@@ -44,6 +47,11 @@ export function getNetworkInfo(id: string = LOCAL_NETWORK_ID): Network {
       name: 'Kovan Testnet',
       url: REACT_APP_NETWORK_KOVAN_WS,
       polymathRegistryAddress: REACT_APP_POLYMATH_REGISTRY_ADDRESS_KOVAN,
+    },
+    [GOERLI_NETWORK_ID]: {
+      name: 'Goerli Testnet',
+      url: REACT_APP_NETWORK_GOERLI_WS,
+      polymathRegistryAddress: REACT_APP_POLYMATH_REGISTRY_ADDRESS_GOERLI,
     },
     [LOCAL_NETWORK_ID]: {
       name: 'Localhost',
