@@ -34,7 +34,7 @@ if (POLYMATH_REGISTRY_ADDRESS_KOVAN) {
 }
 if (POLYMATH_REGISTRY_ADDRESS_GOERLI) {
   goerliConfig = {
-    [constants.NetworkIds.GOERLI]: {
+    [constants.NetworkIds.Goerli]: {
       polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_GOERLI,
       wsProviderUrl: WS_PROVIDER_GOERLI,
     },
