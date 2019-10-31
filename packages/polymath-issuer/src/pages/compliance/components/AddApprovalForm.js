@@ -201,7 +201,22 @@ const formikEnhancer = withFormik({
     };
   },
   handleSubmit: (values, { errors, setFieldError, props }) => {
-    const { dispatch, handleClose } = props;
+    const { dispatch, handleClose, approvals } = props;
+    const approvalExists = approvals.find(
+      i =>
+        i.fromAddress === values.fromAddress && i.toAddress === values.toAddress
+    );
+    if (approvalExists) {
+      setFieldError(
+        'toAddress',
+        'An approval with both addresses already exists'
+      );
+      setFieldError(
+        'fromAddress',
+        'An approval with both addresses already exists'
+      );
+      return;
+    }
     const startsAt =
       moment(values.date.expiryDate).unix() * 1000 + values.date.expiryTime;
 
@@ -219,7 +234,9 @@ const formikEnhancer = withFormik({
   },
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  approvals: state.whitelist.approvals,
+});
 
 const FormikEnhancedForm = formikEnhancer(AddApprovalComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
