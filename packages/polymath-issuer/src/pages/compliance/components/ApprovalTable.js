@@ -161,7 +161,8 @@ class ApprovalTable extends Component<Props, State> {
                             <div style={{ display: 'flex' }}>
                               <Icon
                                 style={
-                                  row.cells[4].value - row.cells[5].value === 0
+                                  row.cells[4].value - row.cells[5].value ===
+                                    0 || row.cells[2].value * 1000 < Date.now()
                                     ? { display: 'none' }
                                     : {}
                                 }
@@ -173,7 +174,8 @@ class ApprovalTable extends Component<Props, State> {
                               />
                               <Icon
                                 style={
-                                  row.cells[4].value - row.cells[5].value === 0
+                                  row.cells[4].value - row.cells[5].value ===
+                                    0 || row.cells[2].value * 1000 < Date.now()
                                     ? { display: 'none' }
                                     : { marginLeft: '10px' }
                                 }
