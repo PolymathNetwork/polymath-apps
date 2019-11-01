@@ -259,6 +259,12 @@ class MintTokens extends Component<Props> {
             shareholders, affiliates or for your reserve.
           </h3>
           <br />
+          <InlineNotification
+            hideCloseButton
+            title="We've updated our .CSV format to make it easier for you to mint tokens to your investors. Please see the sample .CSV below for more details."
+            subtitle=""
+            kind="warning"
+          />
           <h4 className="pui-h4">
             Before you proceed, please check with your Advisor how your tokens
             should be distributed. Also, note that the ETH Addresses to which
