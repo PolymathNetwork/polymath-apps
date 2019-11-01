@@ -112,6 +112,12 @@ class ImportWhitelistModal extends Component<Props> {
         className="whitelist-import-modal"
       >
         <Modal.Header>Import Whitelist</Modal.Header>
+        <InlineNotification
+          hideCloseButton
+          title="We've updated our .CSV format to make it easier for you to manage your investor list. Please see the sample .CSV below for more details."
+          subtitle=""
+          kind="warning"
+        />
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
           .CSV file.{' '}
