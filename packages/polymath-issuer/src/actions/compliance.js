@@ -1121,12 +1121,13 @@ export const addManualApproval = (
   description
 ) => async (dispatch: Function, getState: GetState) => {
   const st: SecurityToken = getState().token.token.contract;
+  let returnValues;
   dispatch(
     ui.tx(
       ['Proceed with Adding Manual Approval'],
       async () => {
         const approvalManagerModule = await st.getApprovalManager();
-        await approvalManagerModule.addManualApproval(
+        returnValues = await approvalManagerModule.addManualApproval(
           from,
           to,
           allowance,
@@ -1144,6 +1145,7 @@ export const addManualApproval = (
           tokens: Web3.utils.fromWei(allowance),
           tokensTransferred: '0',
           description: description,
+          txHash: returnValues.transactionHash,
         };
         dispatch(addApproval(approval));
       },

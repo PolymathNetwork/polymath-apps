@@ -35,10 +35,10 @@ const columns = [
     header: 'Approval Expiry',
     key: 'expiry',
   },
-  // {
-  //   header: 'Unique ID (TxHash) of Approval',
-  //   key: 'txhash',
-  // },
+  {
+    header: 'Unique ID (TxHash) of Approval',
+    key: 'txHash',
+  },
   {
     header: 'Description',
     key: 'description',
@@ -56,9 +56,6 @@ const columns = [
 const emptyRow = [
   {
     id: '0',
-    // fromAddress: '-',
-    // toAddress: '-',
-    // txhash: '-',
     description: '-',
     tokens: '-',
     tokensTransferred: '-',
@@ -96,7 +93,13 @@ class ApprovalTable extends Component<Props, State> {
     this.setState({ isApprovalModalOpen: true, isEditingApproval: true });
   };
 
-  formatCell = cell => {
+  formatCommas = x => {
+    let parts = x.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  };
+
+  formatCell = (row, cell) => {
     if (!cell.value) return '-';
     switch (cell.info.header) {
       case 'fromAddress':
@@ -104,6 +107,17 @@ class ApprovalTable extends Component<Props, State> {
         return addressShortifier(cell.value);
       case 'expiry':
         return moment.unix(cell.value).format('MMM DD YYYY, hh:mm:ss a');
+      case 'tokens':
+        return (
+          <a
+            href={`https://kovan.etherscan.io/tx/${row.cells[3].value}`}
+            target="_blank"
+          >
+            {this.formatCommas(cell.value)}
+          </a>
+        );
+      case 'tokensTransferred':
+        return this.formatCommas(cell.value);
       default:
         return cell.value;
     }
@@ -134,14 +148,17 @@ class ApprovalTable extends Component<Props, State> {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      {headers.map(header => (
-                        <TableHeader
-                          key={header}
-                          {...getHeaderProps({ header })}
-                        >
-                          {header.header}
-                        </TableHeader>
-                      ))}
+                      {headers.map(
+                        header =>
+                          header.key !== 'txHash' && (
+                            <TableHeader
+                              key={header}
+                              {...getHeaderProps({ header })}
+                            >
+                              {header.header}
+                            </TableHeader>
+                          )
+                      )}
                       <TableHeader />
                     </TableRow>
                   </TableHead>
@@ -151,17 +168,20 @@ class ApprovalTable extends Component<Props, State> {
                         key={row.id}
                         // onMouseOver={() => console.log(row)}
                       >
-                        {row.cells.map(cell => (
-                          <TableCell key={cell.id}>
-                            {this.formatCell(cell)}
-                          </TableCell>
-                        ))}
+                        {row.cells.map(
+                          cell =>
+                            cell.info.header !== 'txHash' && (
+                              <TableCell key={cell.id}>
+                                {this.formatCell(row, cell)}
+                              </TableCell>
+                            )
+                        )}
                         {approvals.length > 0 ? (
                           <TableCell>
                             <div style={{ display: 'flex' }}>
                               <Icon
                                 style={
-                                  row.cells[4].value - row.cells[5].value ===
+                                  row.cells[5].value - row.cells[6].value ===
                                     0 || row.cells[2].value * 1000 < Date.now()
                                     ? { display: 'none' }
                                     : {}
@@ -174,7 +194,7 @@ class ApprovalTable extends Component<Props, State> {
                               />
                               <Icon
                                 style={
-                                  row.cells[4].value - row.cells[5].value ===
+                                  row.cells[5].value - row.cells[6].value ===
                                     0 || row.cells[2].value * 1000 < Date.now()
                                     ? { display: 'none' }
                                     : { marginLeft: '10px' }

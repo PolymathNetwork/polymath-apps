@@ -66,6 +66,12 @@ export default class ManualApprovalTransferManager extends Contract {
       a.id = approvals['0'][i] + approvals['1'][i];
       a.fromAddress = approvals['0'][i];
       a.toAddress = approvals['1'][i];
+      let events = await this._contractWS.getPastEvents('AddManualApproval', {
+        filter: { _from: a.fromAddress, _to: a.toAddress },
+        fromBlock: 0,
+        toBlock: 'latest',
+      });
+      a.txHash = events[events.length - 1].transactionHash;
       a.tokens = this._fromWei(approvals['2'][i]).toString();
       a.tokensTransferred = (
         this._fromWei(approvals['2'][i]) - this._fromWei(approvals['3'][i])
