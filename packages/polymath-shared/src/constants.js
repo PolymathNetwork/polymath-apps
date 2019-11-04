@@ -3,6 +3,7 @@
 import PolyTokenFaucetArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolyTokenFaucet.json';
 
 export const KOVAN_NETWORK_ID = '42';
+export const GOERLI_NETWORK_ID = '5';
 export const MAINNET_NETWORK_ID = '1';
 export const LOCAL_NETWORK_ID = '15';
 export const LOCALVM_NETWORK_ID = '16';
@@ -24,6 +25,7 @@ const faucetAddress =
 export const DAI_ADDRESSES: DaiAddresses = {
   [MAINNET_NETWORK_ID]: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
   [KOVAN_NETWORK_ID]: '0xc4375b7de8af5a38a93548eb8453a498222c4ff2',
+  [GOERLI_NETWORK_ID]: faucetAddress,
   [LOCAL_NETWORK_ID]: faucetAddress,
   [LOCALVM_NETWORK_ID]: faucetAddress,
 };
@@ -35,5 +37,6 @@ export const MIN_SAFE_NUMBER = -99999999999999;
 
 export const EtherscanSubdomains = {
   [KOVAN_NETWORK_ID]: 'kovan',
+  [GOERLI_NETWORK_ID]: 'goerli',
   [LOCAL_NETWORK_ID]: 'localhost',
 };

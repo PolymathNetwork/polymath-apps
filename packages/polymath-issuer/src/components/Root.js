@@ -23,6 +23,7 @@ import {
 import {
   MAINNET_NETWORK_ID,
   KOVAN_NETWORK_ID,
+  GOERLI_NETWORK_ID,
   EtherscanSubdomains,
 } from '@polymathnetwork/shared/constants';
 import { ModalTransactionQueue } from '@polymathnetwork/new-issuer/components/ModalTransactionQueue';
@@ -65,7 +66,7 @@ class Root extends Component<Props> {
   render() {
     const { routes, location, transactionLinkSubdomain } = this.props;
     const isUnsupportedBrowser = !isChrome && !isFirefox && !isOpera;
-    const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
+    const networks = [MAINNET_NETWORK_ID, GOERLI_NETWORK_ID, KOVAN_NETWORK_ID];
 
     // FIXME @RafaelVidaurre: Remove this hack, only used for temporary maintenance mode
     if (window.location.pathname === '/maintenance') {
@@ -92,7 +93,7 @@ class Root extends Component<Props> {
             Loading={<Loading />}
             errorRender={({ networkError, onRequestAuth }) => (
               <MetamaskStatus
-                networks="Mainnet or Kovan"
+                networks="Mainnet, Kovan or Goerli"
                 status={networkError}
                 onRequestAuth={onRequestAuth}
               />

@@ -28,7 +28,7 @@ class ProtectedPages extends Component<Props> {
         Loading={<Loading />}
         errorRender={({ networkError, onRequestAuth }) => (
           <MetamaskStatus
-            networks="Mainnet or Kovan"
+            networks="Mainnet, Kovan or Goerli"
             status={networkError}
             onRequestAuth={onRequestAuth}
           />
