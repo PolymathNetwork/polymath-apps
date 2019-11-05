@@ -9,11 +9,6 @@
       "@polymathnetwork/polymath-scripts/polymath-core"
     ]
   },
-  "engines": {
-    "node": "8.11.4",
-    "yarn": "1.12.3",
-    "npm": "6.11.3"
-  },
   "version": "1.0.0-beta.0",
   "scripts": {
     "changelog": "node ./config/changelog.js",
