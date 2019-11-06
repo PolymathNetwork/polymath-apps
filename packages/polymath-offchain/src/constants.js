@@ -5,6 +5,7 @@ import {
   LOCAL_NETWORK_ID,
   LOCALVM_NETWORK_ID,
   KOVAN_NETWORK_ID,
+  GOERLI_NETWORK_ID,
   MAINNET_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
 
@@ -26,9 +27,11 @@ type Environment = {|
   WEB3_NETWORK_LOCALVM_WS?: string,
   WEB3_NETWORK_LOCAL_WS?: string,
   WEB3_NETWORK_KOVAN_WS?: string,
+  WEB3_NETWORK_GOERLI_WS?: string,
   WEB3_NETWORK_MAINNET_WS?: string,
   POLYMATH_REGISTRY_ADDRESS_LOCAL?: string,
   POLYMATH_REGISTRY_ADDRESS_KOVAN?: string,
+  POLYMATH_REGISTRY_ADDRESS_GOERLI?: string,
   POLYMATH_REGISTRY_ADDRESS_MAINNET?: string,
   PORT: string,
   POLYMATH_OFFCHAIN_URL: string,
@@ -54,9 +57,11 @@ const {
   WEB3_NETWORK_LOCALVM_WS,
   WEB3_NETWORK_LOCAL_WS,
   WEB3_NETWORK_KOVAN_WS,
+  WEB3_NETWORK_GOERLI_WS,
   WEB3_NETWORK_MAINNET_WS,
   POLYMATH_REGISTRY_ADDRESS_LOCAL,
   POLYMATH_REGISTRY_ADDRESS_KOVAN,
+  POLYMATH_REGISTRY_ADDRESS_GOERLI,
   POLYMATH_REGISTRY_ADDRESS_MAINNET,
 } = env;
 
@@ -123,6 +128,15 @@ export const NETWORKS: {
     localNetwork: false,
     polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_KOVAN || '',
   },
+  [GOERLI_NETWORK_ID]: {
+    name: 'goerli',
+    url: WEB3_NETWORK_GOERLI_WS || '',
+    connect: false,
+    optional: true,
+    maxRetries: OPTIONAL_RETRIES,
+    localNetwork: false,
+    polymathRegistryAddress: POLYMATH_REGISTRY_ADDRESS_GOERLI || '',
+  },
   [MAINNET_NETWORK_ID]: {
     name: 'mainnet',
     url: WEB3_NETWORK_MAINNET_WS || '',
@@ -135,9 +149,9 @@ export const NETWORKS: {
 };
 
 /**
- * - Production offchain MUST listen to Mainnet and Kovan and can optionally
+ * - Production offchain MUST listen to Mainnet, Kovan and Goerli and can optionally
  *   listen to the local blockchain
- * - Staging offchain MUST listen to kovan and can optionally listen to
+ * - Staging offchain MUST listen to kovan and goerli, and can optionally listen to
  *   the local blockchain
  * - Local offchain MUST listen to either the local blockchain or the
  *   localVM blockchain
@@ -146,10 +160,17 @@ if (DEPLOYMENT_STAGE !== 'local') {
   if (!WEB3_NETWORK_KOVAN_WS) {
     throw new Error('Missing env variable WEB3_NETWORK_KOVAN_WS');
   }
+  if (!WEB3_NETWORK_GOERLI_WS) {
+    throw new Error('Missing env variable WEB3_NETWORK_GOERLI_WS');
+  }
 
   NETWORKS[KOVAN_NETWORK_ID].connect = true;
   NETWORKS[KOVAN_NETWORK_ID].optional = false;
   NETWORKS[KOVAN_NETWORK_ID].maxRetries = CRITICAL_RETRIES;
+
+  NETWORKS[GOERLI_NETWORK_ID].connect = true;
+  NETWORKS[GOERLI_NETWORK_ID].optional = false;
+  NETWORKS[GOERLI_NETWORK_ID].maxRetries = CRITICAL_RETRIES;
 
   if (WEB3_NETWORK_LOCAL_WS && POLYMATH_REGISTRY_ADDRESS_LOCAL) {
     NETWORKS[LOCAL_NETWORK_ID].connect = true;
@@ -173,6 +194,9 @@ if (DEPLOYMENT_STAGE !== 'local') {
     if (!POLYMATH_REGISTRY_ADDRESS_KOVAN) {
       throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN');
     }
+    if (!POLYMATH_REGISTRY_ADDRESS_GOERLI) {
+      throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_GOERLI');
+    }
 
     NETWORKS[MAINNET_NETWORK_ID].connect = true;
     NETWORKS[MAINNET_NETWORK_ID].optional = false;
@@ -181,14 +205,23 @@ if (DEPLOYMENT_STAGE !== 'local') {
     NETWORKS[
       KOVAN_NETWORK_ID
     ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN;
+    NETWORKS[
+      GOERLI_NETWORK_ID
+    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_GOERLI;
   } else {
     if (!POLYMATH_REGISTRY_ADDRESS_KOVAN) {
       throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_KOVAN');
+    }
+    if (!POLYMATH_REGISTRY_ADDRESS_GOERLI) {
+      throw new Error('Missing env variable POLYMATH_REGISTRY_ADDRESS_GOERLI');
     }
 
     NETWORKS[
       KOVAN_NETWORK_ID
     ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_KOVAN;
+    NETWORKS[
+      GOERLI_NETWORK_ID
+    ].polymathRegistryAddress = POLYMATH_REGISTRY_ADDRESS_GOERLI;
   }
 } else {
   if (!WEB3_NETWORK_LOCAL_WS && !WEB3_NETWORK_LOCALVM_WS) {
