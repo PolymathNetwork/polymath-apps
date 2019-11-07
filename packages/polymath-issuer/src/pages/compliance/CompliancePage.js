@@ -8,6 +8,8 @@ import {
   NotFoundPage,
   Page,
   Grid,
+  Remark,
+  FormItem,
 } from '@polymathnetwork/ui';
 import { BigNumber } from 'bignumber.js';
 import {
@@ -23,7 +25,10 @@ import {
   OverflowMenuItem,
   TextInput,
   Toggle,
+  Tabs,
+  Tab,
 } from 'carbon-components-react';
+import { Heading, CardFeatureState, icons } from '@polymathnetwork/new-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
@@ -593,69 +598,55 @@ class CompliancePage extends Component<Props, State> {
     return (
       <Page title="Compliance – Polymath">
         <Progress />
-        <Grid>
-          <Grid.Row gridGap="0px">
-            <Grid.Col gridSpan={9}>
-              <h1 className="pui-h1">Token Compliance</h1>
-              <h3 className="pui-h3">
-                Manage compliance requirements of your tokens. You can import
-                and export your whitelist, manage ownership percentages, add 3rd
-                party whitelist managers, and manage approval of token transfers
-                between wallets.
-              </h3>
-            </Grid.Col>
-            <Grid.Col style={{ alignSelf: 'center' }}>
-              <Button
-                icon="upload"
-                onClick={this.handleImportModalOpen}
-                className="import-whitelist-btn"
-              >
-                Import Whitelist
-              </Button>
-            </Grid.Col>
-            <Grid.Col style={{ alignSelf: 'center' }}>
-              <ImportWhitelistModal
-                isOpen={this.state.isImportModalOpen}
-                onSubmit={this.handleImport}
-                onClose={this.handleImportModalClose}
-              />
-              {/* <WhitelistModal
-                isOpen={this.state.isWhitelistModalOpen}
-                handleOpen={this.}
-              /> */}
+        <h1 className="pui-h1">Token Compliance</h1>
+        <h3 className="pui-h3">
+          Manage compliance requirements of your tokens. You can import and
+          export your whitelist, manage ownership percentages, add 3rd party
+          whitelist managers, and manage approval of token transfers between
+          wallets.
+        </h3>
+        <Tabs>
+          <Tab label="Whitelist">
+            <Grid>
+              <Grid.Row>
+                <Grid.Col gridSpan={9}>
+                  <h1 className="pui-h1">Whitelist</h1>
+                  <h3 className="pui-h3">
+                    Whitelisted addresses may hold, buy, or sell the security
+                    token and may participate into the STO.
+                  </h3>
+                  <Remark title="Note">
+                    Security token buy/sell operations may be subject to
+                    additional restrictions.
+                  </Remark>
+                </Grid.Col>
+                <Grid.Col style={{ alignSelf: 'center' }}>
+                  <Button
+                    icon="upload"
+                    onClick={this.handleImportModalOpen}
+                    className="import-whitelist-btn"
+                  >
+                    Import Whitelist
+                  </Button>
+                </Grid.Col>
+                <Grid.Col style={{ alignSelf: 'center' }}>
+                  <ImportWhitelistModal
+                    isOpen={this.state.isImportModalOpen}
+                    onSubmit={this.handleImport}
+                    onClose={this.handleImportModalClose}
+                  />
 
-              <Button
-                icon="download"
-                kind="secondary"
-                onClick={this.handleExport}
-                className="import-whitelist-btn"
-              >
-                Export Whitelist
-              </Button>
-            </Grid.Col>
-            <Grid.Col style={{ alignSelf: 'center', justifySelf: 'left' }}>
-              <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
-                <OverflowMenuItem
-                  itemText={
-                    this.props.isTokenFrozen
-                      ? 'Resume All Transfers'
-                      : 'Pause All Transfers'
-                  }
-                  onClick={
-                    this.props.isTokenFrozen
-                      ? this.handleUnFreezeModalOpen
-                      : this.handleFreezeModalOpen
-                  }
-                />
-              </OverflowMenu>
-            </Grid.Col>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Col gridSpan={[12, 12, 6, 6]}>
-              <div id="compliance">
-                <br />
-                <div className="pui-page-box compliance-form">
-                  {/* <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
+                  <Button
+                    icon="download"
+                    kind="secondary"
+                    onClick={this.handleExport}
+                    className="import-whitelist-btn"
+                  >
+                    Export Whitelist
+                  </Button>
+                </Grid.Col>
+                <Grid.Col style={{ alignSelf: 'center', justifySelf: 'left' }}>
+                  <OverflowMenu floatingMenu flipped style={{ float: 'right' }}>
                     <OverflowMenuItem
                       itemText={
                         this.props.isTokenFrozen
@@ -668,13 +659,114 @@ class CompliancePage extends Component<Props, State> {
                           : this.handleFreezeModalOpen
                       }
                     />
-                  </OverflowMenu> */}
+                  </OverflowMenu>
+                </Grid.Col>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Col gridSpan={[12, 12, 6, 6]}>
+                  <div id="compliance">
+                    <br />
+                    <div className="pui-page-box compliance-form">
+                      <h1 className="pui-h1">Whitelist Management</h1>
+                      <div className="whitelist-settings">
+                        <div className="bx--form-item">
+                          <label
+                            htmlFor="whitelistToggle"
+                            className="bx--label"
+                          >
+                            Enable Third-Party Whitelist Management
+                          </label>
+                          <Toggle
+                            onToggle={this.handleToggleWhitelist}
+                            toggled={this.props.isWhitelistToggled}
+                            id="whitelistToggle"
+                          />
+                        </div>
+                        <div
+                          className="bx--form-item"
+                          style={
+                            this.props.isWhitelistToggled
+                              ? {}
+                              : { display: 'none' }
+                          }
+                        >
+                          <WhitelistTable />
+                        </div>
+                      </div>
+                      <div className="pui-clearfix" />
+                    </div>
+                  </div>
+                </Grid.Col>
+              </Grid.Row>
+            </Grid>
+          </Tab>
+          <Tab label="Ownership Restrictions">
+            <Grid>
+              <Grid.Row>
+                <Grid.Col gridSpan={9}>
                   <h1 className="pui-h1">Ownership Restrictions</h1>
-                  <div className="compliance-settings">
-                    <div className="bx--form-item">
-                      <label htmlFor="percentageToggle" className="bx--label">
-                        Enable Ownership Restrictions
-                      </label>
+                  <h3 className="pui-h3">
+                    Ownership
+                    Restrictions!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                  </h3>
+                  <div
+                    className="bx--form-item"
+                    style={
+                      !isPercentagePaused ||
+                      (!isPercentageEnabled && this.state.isPercentageToggled)
+                        ? {}
+                        : {
+                            display: 'none',
+                          }
+                    }
+                  >
+                    <label htmlFor="percentage" className="bx--label">
+                      Each individual investor can own up to this percentage of
+                      outstanding tokens
+                    </label>
+                    <div>
+                      <TextInput
+                        labelText=""
+                        id="percentage"
+                        value={this.state.percentage}
+                        placeholder="%"
+                        onChange={this.handlePercentageChange}
+                      />
+                      <Button
+                        className="apply-percentage-btn"
+                        onClick={this.handleApplyPercentage}
+                        disabled={
+                          this.isPercentageValid() ||
+                          typeof this.state.percentage === 'undefined' ||
+                          this.state.percentage === ''
+                        }
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                  </div>
+                </Grid.Col>
+                <Grid.Col
+                  gridSpan={3}
+                  style={{
+                    alignSelf: 'center',
+                    boxShadow: '0 8px 24px 0 rgba(0,0,0,0.1)',
+                  }}
+                >
+                  <CardFeatureState
+                    status={
+                      isPercentageEnabled
+                        ? !isPercentagePaused
+                        : this.state.isPercentageToggled
+                        ? 'idle'
+                        : 'inactive'
+                    }
+                    IconAsset={icons.SvgRestriction}
+                  >
+                    <Heading color="primary" mt={2}>
+                      Enable Ownership Restrictions
+                    </Heading>
+                    <div style={{ marginLeft: 70 }}>
                       <Toggle
                         onToggle={this.handleTogglePercentage}
                         toggled={
@@ -682,84 +774,15 @@ class CompliancePage extends Component<Props, State> {
                             ? !isPercentagePaused
                             : this.state.isPercentageToggled
                         }
-                        id="percentageToggle"
+                        id="volumeRestrictionToggle"
                       />
                     </div>
-
-                    <div
-                      className="bx--form-item"
-                      style={
-                        !isPercentagePaused ||
-                        (!isPercentageEnabled && this.state.isPercentageToggled)
-                          ? {}
-                          : {
-                              display: 'none',
-                            }
-                      }
-                    >
-                      <label htmlFor="percentage" className="bx--label">
-                        Each Individual Investor Can
-                        <br />
-                        Own Up To of Outstanding Tokens
-                      </label>
-                      <div>
-                        <TextInput
-                          labelText=""
-                          id="percentage"
-                          value={this.state.percentage}
-                          placeholder="–"
-                          onChange={this.handlePercentageChange}
-                        />
-                        <Button
-                          className="apply-percentage-btn"
-                          onClick={this.handleApplyPercentage}
-                          disabled={
-                            this.isPercentageValid() ||
-                            typeof this.state.percentage === 'undefined' ||
-                            this.state.percentage === ''
-                          }
-                        >
-                          Apply
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pui-clearfix" />
-                </div>
-              </div>
-            </Grid.Col>
-            <Grid.Col gridSpan={[12, 12, 6, 6]}>
-              <div id="compliance">
-                <br />
-                <div className="pui-page-box compliance-form">
-                  <h1 className="pui-h1">Whitelist Management</h1>
-                  <div className="whitelist-settings">
-                    <div className="bx--form-item">
-                      <label htmlFor="whitelistToggle" className="bx--label">
-                        Enable Third-Party Whitelist Management
-                      </label>
-                      <Toggle
-                        onToggle={this.handleToggleWhitelist}
-                        toggled={this.props.isWhitelistToggled}
-                        id="whitelistToggle"
-                      />
-                    </div>
-
-                    <div
-                      className="bx--form-item"
-                      style={
-                        this.props.isWhitelistToggled ? {} : { display: 'none' }
-                      }
-                    >
-                      <WhitelistTable />
-                    </div>
-                  </div>
-                  <div className="pui-clearfix" />
-                </div>
-              </div>
-            </Grid.Col>
-          </Grid.Row>
-        </Grid>
+                  </CardFeatureState>
+                </Grid.Col>
+              </Grid.Row>
+            </Grid>
+          </Tab>
+        </Tabs>
       </Page>
     );
   }
