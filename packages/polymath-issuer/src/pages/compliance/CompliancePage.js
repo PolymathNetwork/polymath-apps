@@ -181,7 +181,7 @@ const dateFormat = (date: ?Date): string => {
   });
 };
 
-class CompliancePage extends Component<Props, State> {
+export class CompliancePage extends Component<Props, State> {
   state = {
     page: 0,
     editInvestors: [],

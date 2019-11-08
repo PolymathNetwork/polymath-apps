@@ -5,6 +5,8 @@ import { DataTable, Icon } from 'carbon-components-react';
 import { Button, addressShortifier } from '@polymathnetwork/ui';
 import ApprovalModal from './ApprovalModal';
 import { connect } from 'react-redux';
+import { utils } from '@polymathnetwork/new-shared';
+import { EtherscanSubdomains } from '@polymathnetwork/shared/constants';
 import {
   removeApprovalFromApprovals,
   editApproval,
@@ -100,6 +102,7 @@ class ApprovalTable extends Component<Props, State> {
   };
 
   formatCell = (row, cell) => {
+    const { etherscanSubdomain } = this.props;
     if (!cell.value) return '-';
     switch (cell.info.header) {
       case 'fromAddress':
@@ -110,7 +113,9 @@ class ApprovalTable extends Component<Props, State> {
       case 'tokens':
         return (
           <a
-            href={`https://kovan.etherscan.io/tx/${row.cells[3].value}`}
+            href={`https://${
+              etherscanSubdomain ? etherscanSubdomain + '.' : ''
+            }etherscan.io/tx/${row.cells[3].value}`}
             target="_blank"
           >
             {this.formatCommas(cell.value)}
@@ -225,6 +230,7 @@ class ApprovalTable extends Component<Props, State> {
 
 const mapStateToProps = state => ({
   approvals: state.whitelist.approvals,
+  etherscanSubdomain: EtherscanSubdomains[state.network.id],
 });
 
 const mapDispatchToProps = {

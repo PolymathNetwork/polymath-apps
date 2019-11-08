@@ -62,8 +62,8 @@ const formSchema = validator.object().shape({
     .isAddress(ADDRESS_MESSAGE),
   token: validator
     .number()
-    .moreThan(0, MORE_THAN_MESSAGE)
-    .isRequired(REQUIRED_MESSAGE),
+    .isRequired(REQUIRED_MESSAGE)
+    .moreThan(0, MORE_THAN_MESSAGE),
   description: validator.string().isRequired(REQUIRED_MESSAGE),
 });
 
@@ -194,6 +194,8 @@ const formikEnhancer = withFormik({
     const schema = validator.object().shape({
       token: validator
         .number()
+        .isRequired(REQUIRED_MESSAGE)
+        .moreThan(0, MORE_THAN_MESSAGE)
         .min(
           tokensTransferred,
           `Must be more than ${tokensTransferred} tokens`
