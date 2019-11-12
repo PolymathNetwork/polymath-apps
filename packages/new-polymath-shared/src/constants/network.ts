@@ -4,6 +4,7 @@ export enum NetworkIds {
   Local = 15,
   LocalVm = 16,
   Kovan = 42,
+  Goerli = 5,
   Mainnet = 1,
   Ropsten = 3,
   Rinkeby = 4,
@@ -13,6 +14,7 @@ export const EtherscanSubdomains: {
   [key: number]: string;
 } = {
   [NetworkIds.Kovan]: 'kovan',
+  [NetworkIds.Goerli]: 'goerli',
   [NetworkIds.Ropsten]: 'ropsten',
   [NetworkIds.Mainnet]: '',
   [NetworkIds.Local]: 'localhost',
@@ -42,6 +44,16 @@ export const TokenAddresses: {
     [types.Tokens.Pax]: '0xB06d72a24df50D4E2cAC133B320c5E7DE3ef94cB',
     [types.Tokens.Usdc]: '0xB06d72a24df50D4E2cAC133B320c5E7DE3ef94cB',
     [types.Tokens.Usdt]: '0xB06d72a24df50D4E2cAC133B320c5E7DE3ef94cB',
+  },
+  // Dai, USDT and Poly has a proper contract address. The rest are not deployed
+  // to Goerli yet so we're using USDT address for them, instead.
+  [NetworkIds.Goerli]: {
+    [types.Tokens.Dai]: '0x73967c6a0904aa032c103b4104747e88c566b1a2',
+    [types.Tokens.Poly]: '0x5af7f19575c1b0638994158e1137698701a18c67',
+    [types.Tokens.Gusd]: '0x5af7f19575c1b0638994158e1137698701a18c67',
+    [types.Tokens.Pax]: '0x5af7f19575c1b0638994158e1137698701a18c67',
+    [types.Tokens.Usdc]: '0x5af7f19575c1b0638994158e1137698701a18c67',
+    [types.Tokens.Usdt]: '0x509ee0d083ddf8ac028f2a56731412edd63223b9',
   },
   [NetworkIds.Mainnet]: {
     [types.Tokens.Dai]: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',

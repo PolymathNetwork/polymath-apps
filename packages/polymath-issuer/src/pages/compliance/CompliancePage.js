@@ -596,11 +596,12 @@ class CompliancePage extends Component<Props, State> {
         <Grid>
           <Grid.Row gridGap="0px">
             <Grid.Col gridSpan={9}>
-              <h1 className="pui-h1">Token Whitelist</h1>
+              <h1 className="pui-h1">Token Compliance</h1>
               <h3 className="pui-h3">
-                Whitelisted addresses may hold, buy, or sell the security token
-                and may participate into the STO. <br /> Security token buy/sell
-                operations may be subject to restrictions.
+                Manage compliance requirements of your tokens. You can import
+                and export your whitelist, manage ownership percentages, add 3rd
+                party whitelist managers, and manage approval of token transfers
+                between wallets.
               </h3>
             </Grid.Col>
             <Grid.Col style={{ alignSelf: 'center' }}>

@@ -7,6 +7,7 @@ import { Loading } from 'carbon-components-react';
 import { MetamaskStatus } from '@polymathnetwork/ui';
 import {
   KOVAN_NETWORK_ID,
+  GOERLI_NETWORK_ID,
   MAINNET_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
 import EthNetworkWrapper from '@polymathnetwork/ui/components/EthNetworkWrapper';
@@ -22,11 +23,11 @@ type Props = {
 
 class RouteLoader extends Component<Props> {
   render() {
-    const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID];
+    const networks = [MAINNET_NETWORK_ID, KOVAN_NETWORK_ID, GOERLI_NETWORK_ID];
     return (
       <EthNetworkWrapper
         loading={<Loading />}
-        guide={<MetamaskStatus networks="Mainnet or Kovan" />}
+        guide={<MetamaskStatus networks="Mainnet, Kovan or Goerli" />}
         networks={networks}
       >
         {renderRoutes(routes)}

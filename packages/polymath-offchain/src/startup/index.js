@@ -5,6 +5,7 @@ import {
   LOCAL_NETWORK_ID,
   LOCALVM_NETWORK_ID,
   KOVAN_NETWORK_ID,
+  GOERLI_NETWORK_ID,
   MAINNET_NETWORK_ID,
 } from '@polymathnetwork/shared/constants';
 import { NETWORKS } from '../constants';
@@ -59,6 +60,7 @@ const connectToNetwork = async (networkId: string, options: NetworkOptions) => {
     [LOCAL_NETWORK_ID]: local,
     [LOCALVM_NETWORK_ID]: localVM,
     [KOVAN_NETWORK_ID]: kovan,
+    [GOERLI_NETWORK_ID]: goerli,
     [MAINNET_NETWORK_ID]: mainnet,
   } = NETWORKS;
 
@@ -72,6 +74,10 @@ const connectToNetwork = async (networkId: string, options: NetworkOptions) => {
 
   if (kovan.connect) {
     await connectToNetwork(KOVAN_NETWORK_ID, kovan);
+  }
+
+  if (goerli.connect) {
+    await connectToNetwork(GOERLI_NETWORK_ID, goerli);
   }
 
   if (mainnet.connect) {

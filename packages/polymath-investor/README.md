@@ -9,4 +9,5 @@
 You can set the following env vars inside a `.env` file on the package's root
 
 `REACT_APP_NETWORK_KOVAN_WS`: To connect to Kovan locally
+`REACT_APP_NETWORK_GOERLI_WS`: To connect to Goerli locally
 `REACT_APP_NETWORK_MAIN_WS`: To connect to the Mainnet locally
