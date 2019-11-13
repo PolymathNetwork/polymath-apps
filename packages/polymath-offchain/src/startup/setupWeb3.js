@@ -439,7 +439,6 @@ export const registerTickerHandler = async (
  */
 export const addTickerRegisterListener = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
-
   contract.events.RegisterTicker({}, (error, result) =>
     registerTickerHandler(contract, networkId, error, result)
   );
@@ -507,10 +506,11 @@ export const newSecurityTokenHandler = async (
  */
 export const addTokenCreateListener = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
-
-  contract.events.NewSecurityToken({}, (error, result) =>
-    newSecurityTokenHandler(contract, networkId, error, result)
-  );
+  contract.events[
+    'NewSecurityToken(string,string,address,address,uint256,address,bool,uint256,uint256,uint256)'
+  ]({}, (error, result) => {
+    newSecurityTokenHandler(contract, networkId, error, result);
+  });
 
   contract.events.SecurityTokenRefreshed({}, (error, result) =>
     newSecurityTokenHandler(contract, networkId, error, result)
