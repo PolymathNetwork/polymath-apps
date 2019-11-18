@@ -667,7 +667,7 @@ class CompliancePage extends Component<Props, State> {
                   <div id="compliance">
                     <br />
                     <div className="pui-page-box compliance-form">
-                      <h1 className="pui-h1">Whitelist Management</h1>
+                      <h1 className="pui-h1">3rd Party Whitelist Management</h1>
                       <div className="whitelist-settings">
                         <div className="bx--form-item">
                           <label
@@ -706,9 +706,15 @@ class CompliancePage extends Component<Props, State> {
                 <Grid.Col gridSpan={9}>
                   <h1 className="pui-h1">Ownership Restrictions</h1>
                   <h3 className="pui-h3">
-                    Ownership
-                    Restrictions!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Manage ownership limits by setting the maximum percentage of
+                    your token a single investor can hold.{' '}
                   </h3>
+                  <Remark title="Note">
+                    This percentage relates to the holdings of a single wallet
+                    address and may not support investor holdings held in a
+                    custodial omnibus wallet.
+                  </Remark>
+                  <br />
                   <div
                     className="bx--form-item"
                     style={
@@ -721,11 +727,17 @@ class CompliancePage extends Component<Props, State> {
                     }
                   >
                     <label htmlFor="percentage" className="bx--label">
-                      Each individual investor can own up to this percentage of
-                      outstanding tokens
+                      Percentage of outstanding tokens individual investors can
+                      own:
                     </label>
-                    <div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}
+                    >
                       <TextInput
+                        style={{ width: 100 }}
                         labelText=""
                         id="percentage"
                         value={this.state.percentage}
@@ -733,6 +745,8 @@ class CompliancePage extends Component<Props, State> {
                         onChange={this.handlePercentageChange}
                       />
                       <Button
+                        style={{ marginTop: 0 }}
+                        kind="secondary"
                         className="apply-percentage-btn"
                         onClick={this.handleApplyPercentage}
                         disabled={
