@@ -23,8 +23,8 @@ type DaiAddresses = {
 const faucetAddress =
   PolyTokenFaucetArtifact.networks[LOCAL_NETWORK_ID].address;
 export const DAI_ADDRESSES: DaiAddresses = {
-  [MAINNET_NETWORK_ID]: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
-  [KOVAN_NETWORK_ID]: '0xc4375b7de8af5a38a93548eb8453a498222c4ff2',
+  [MAINNET_NETWORK_ID]: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+  [KOVAN_NETWORK_ID]: '0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa',
   [GOERLI_NETWORK_ID]: faucetAddress,
   [LOCAL_NETWORK_ID]: faucetAddress,
   [LOCALVM_NETWORK_ID]: faucetAddress,
