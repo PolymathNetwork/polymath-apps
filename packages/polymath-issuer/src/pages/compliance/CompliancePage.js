@@ -612,8 +612,8 @@ class CompliancePage extends Component<Props, State> {
                 <Grid.Col gridSpan={9}>
                   <h1 className="pui-h1">Whitelist</h1>
                   <h3 className="pui-h3">
-                    Whitelisted addresses may hold, buy, or sell the security
-                    token and may participate into the STO.
+                    Your whitelist is the list of wallet addresses of approved
+                    or exempted to buy and sell your security token.
                   </h3>
                   <Remark title="Note">
                     Security token buy/sell operations may be subject to
@@ -622,6 +622,7 @@ class CompliancePage extends Component<Props, State> {
                 </Grid.Col>
                 <Grid.Col style={{ alignSelf: 'center' }}>
                   <Button
+                    style={{ width: 185 }}
                     icon="upload"
                     onClick={this.handleImportModalOpen}
                     className="import-whitelist-btn"
@@ -637,6 +638,7 @@ class CompliancePage extends Component<Props, State> {
                   />
 
                   <Button
+                    style={{ width: 185 }}
                     icon="download"
                     kind="secondary"
                     onClick={this.handleExport}
@@ -706,8 +708,9 @@ class CompliancePage extends Component<Props, State> {
                 <Grid.Col gridSpan={9}>
                   <h1 className="pui-h1">Ownership Restrictions</h1>
                   <h3 className="pui-h3">
-                    Manage ownership limits by setting the maximum percentage of
-                    your token a single investor can hold.{' '}
+                    Manage ownership of your security token by setting limits
+                    like capping the percentage of available tokens a single
+                    investor can hold.{' '}
                   </h3>
                   <Remark title="Note">
                     This percentage relates to the holdings of a single wallet
