@@ -38,7 +38,7 @@ export const TokenAddresses: {
   [NetworkIds.Local]: localTokens,
   [NetworkIds.LocalVm]: localTokens,
   [NetworkIds.Kovan]: {
-    [types.Tokens.Dai]: '0xc4375b7de8af5a38a93548eb8453a498222c4ff2',
+    [types.Tokens.Dai]: '0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa',
     [types.Tokens.Poly]: '0xB347b9f5B56b431B2CF4e1d90a5995f7519ca792',
     [types.Tokens.Gusd]: '0xB06d72a24df50D4E2cAC133B320c5E7DE3ef94cB',
     [types.Tokens.Pax]: '0xB06d72a24df50D4E2cAC133B320c5E7DE3ef94cB',
@@ -56,7 +56,7 @@ export const TokenAddresses: {
     [types.Tokens.Usdt]: '0x509ee0d083ddf8ac028f2a56731412edd63223b9',
   },
   [NetworkIds.Mainnet]: {
-    [types.Tokens.Dai]: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+    [types.Tokens.Dai]: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
     [types.Tokens.Poly]: '0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec',
     [types.Tokens.Gusd]: '0x056fd409e1d7a124bd7017459dfea2f387b6d5cd',
     [types.Tokens.Pax]: '0x8e870d67f660d95d5be530380d0ec0bd388289e1',
