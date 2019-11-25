@@ -601,9 +601,8 @@ class CompliancePage extends Component<Props, State> {
         <h1 className="pui-h1">Token Compliance</h1>
         <h3 className="pui-h3">
           Manage compliance requirements of your tokens. You can import and
-          export your whitelist, manage ownership percentages, add 3rd party
-          whitelist managers, and manage approval of token transfers between
-          wallets.
+          export your whitelist, manage ownership percentages and add 3rd party
+          whitelist managers.
         </h3>
         <Tabs>
           <Tab label="Whitelist">
