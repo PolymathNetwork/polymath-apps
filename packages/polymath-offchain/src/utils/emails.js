@@ -102,7 +102,7 @@ export const sendProviderApplicationEmail = async (
   await sendEmail(
     providerEmail,
     providerName,
-    `${dummy ? 'DEMO: ' : ''}${
+    `${dummy ? 'SAMPLE EMAIL: ' : ''}${
       application.companyName
     } is interested in your services`,
     ReactDOMServer.renderToStaticMarkup(
