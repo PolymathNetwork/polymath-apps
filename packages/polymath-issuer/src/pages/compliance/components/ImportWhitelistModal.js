@@ -121,7 +121,7 @@ class ImportWhitelistModal extends Component<Props> {
         <h4 className="pui-h4">
           Add multiple addresses to the whitelist by uploading a comma separated
           .CSV file.{' '}
-          <strong>You may add up to 75 addresses per .CSV file</strong>. The
+          <strong>You may add up to 50 addresses per .CSV file</strong>. The
           format should be as follows:
           <br />• ETH Address (address to whitelist);
           <br />• Sell Restriction Date: <strong>mm/dd/yyyy</strong> (date when
@@ -158,7 +158,7 @@ class ImportWhitelistModal extends Component<Props> {
             re-upload this information.
             <br />
             <br /> Maximum numbers of investors per transaction is{' '}
-            <strong>75</strong>.
+            <strong>50</strong>.
           </p>
         </h4>
         <h5 className="pui-h5">
@@ -218,15 +218,15 @@ class ImportWhitelistModal extends Component<Props> {
         ) : isTooMany ? (
           <InlineNotification
             hideCloseButton
-            title="The file you uploaded contains more than 75 investors"
-            subtitle="You can still continue, but only 75 first investors will be submitted."
+            title="The file you uploaded contains more than 50 investors"
+            subtitle="You can still continue, but only 50 first investors will be submitted."
             kind="error"
           />
         ) : (
           <Remark title="Reminder">
             Investors must be approved before they are added to the whitelist.{' '}
             <br />
-            Your file cannot exceed 75 addresses. If you have more than 75
+            Your file cannot exceed 50 addresses. If you have more than 50
             addresses on your whitelist, upload multiple files.
           </Remark>
         )}

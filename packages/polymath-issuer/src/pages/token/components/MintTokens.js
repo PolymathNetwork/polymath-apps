@@ -289,7 +289,7 @@ class MintTokens extends Component<Props> {
             <br />• KYC/AML Expiry Date mm/dd/yyyy;
             <br />• Number of tokens to mint for the ETH address.
             <br />
-            <Remark title="Note">Your file cannot exceed 75 addresses.</Remark>
+            <Remark title="Note">Your file cannot exceed 50 addresses.</Remark>
           </h4>
           <h5 className="pui-h5">
             You can&nbsp;&nbsp;&nbsp;
@@ -359,7 +359,7 @@ class MintTokens extends Component<Props> {
           ) : isTooMany ? (
             <InlineNotification
               hideCloseButton
-              title="The file you uploaded contains more than 75 addresses"
+              title="The file you uploaded contains more than 50 addresses"
               kind="error"
             />
           ) : (
