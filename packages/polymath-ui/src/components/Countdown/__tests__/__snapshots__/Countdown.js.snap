@@ -7,7 +7,7 @@ exports[`Countdown renders without crashing 1`] = `
   <div
     className="pui-countdown-top-bar"
   >
-    Time Left to Create Your Token
+    Time Left to Configure Your Token
   </div>
   <div
     className="pui-countdown-content"
@@ -99,7 +99,7 @@ exports[`Countdown renders without crashing 1`] = `
         }
       }
     >
-      Create Your Token Now
+      Configure Your Token Now
        
       
     </div>
