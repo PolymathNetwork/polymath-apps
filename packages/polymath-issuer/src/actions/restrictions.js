@@ -585,7 +585,7 @@ export const removeDefaultDailyRestriction = () => async (
 };
 
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
-  const maxRows = 75;
+  const maxRows = 50;
   const reader = new FileReader();
 
   dispatch({ type: UPLOAD_START });
