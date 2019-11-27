@@ -209,7 +209,7 @@ export const issue = (values: Object) => async (
     ui.confirm(
       <div>
         <p>
-          Completion of your token creation will require{' '}
+          Completion of your token configuration will require{' '}
           {limitInvestors ? 'three' : !isApproved ? 'two' : 'one'} wallet
           transaction(s).
         </p>
@@ -217,7 +217,7 @@ export const issue = (values: Object) => async (
           <div>
             <p>
               • The first transaction will be used to prepare for the payment of
-              the token creation cost of:
+              the token configuration cost of:
             </p>
             <div className="bx--details poly-cost">{feeView} POLY</div>
           </div>
@@ -226,8 +226,8 @@ export const issue = (values: Object) => async (
         )}
         <p>
           • {!isApproved ? 'The second' : 'This'} transaction will be used to
-          pay for the token creation cost (POLY + mining fee) to complete the
-          creation of your token.
+          pay for the token configuration cost (POLY + mining fee) to complete
+          the configuration of your token.
         </p>
         {limitInvestors && (
           <p>
@@ -239,11 +239,11 @@ export const issue = (values: Object) => async (
         )}
         <p>
           Please hit &laquo;CONFIRM&raquo; when you are ready to proceed. Once
-          you hit &laquo;CONFIRM&raquo;, your security token will be created on
-          the blockchain.
+          you hit &laquo;CONFIRM&raquo;, your security token will be configured
+          on the blockchain.
           <br />
-          If you do not wish to pay the token creation fee or wish to review
-          your information, simply select &laquo;CANCEL&raquo;.
+          If you do not wish to pay the token configuration fee or wish to
+          review your information, simply select &laquo;CANCEL&raquo;.
         </p>
       </div>,
       async () => {
@@ -251,7 +251,7 @@ export const issue = (values: Object) => async (
         if (getState().pui.account.balance.lt(fee)) {
           dispatch(
             ui.faucet(
-              `The creation of a security token has a fixed cost of ${feeView} POLY.`
+              `The configuration of a security token has a fixed cost of ${feeView} POLY.`
             )
           );
           return;
@@ -263,7 +263,7 @@ export const issue = (values: Object) => async (
         // );
 
         //Skip approve transaction if transfer is already allowed
-        let title = ['Creating Security Token'];
+        let title = ['Configuring Security Token'];
 
         if (!isApproved) {
           title.unshift('Approving POLY Spend');
@@ -303,11 +303,11 @@ export const issue = (values: Object) => async (
             `/dashboard/${ticker}`,
             undefined,
             false,
-            ticker.toUpperCase() + ' Token Creation'
+            ticker.toUpperCase() + ' Token Configuration'
           )
         );
       },
-      `Before you Proceed with Your ${ticker.toUpperCase()} Token Creation`,
+      `Before you Proceed with Your ${ticker.toUpperCase()} Token Configuration`,
       undefined,
       'pui-large-confirm-modal'
     )

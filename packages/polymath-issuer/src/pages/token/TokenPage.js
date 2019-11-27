@@ -165,14 +165,14 @@ class TokenPage extends Component<Props, State> {
                 <div className="token-countdown-container">
                   <Countdown small title="Time Left" deadline={token.expires} />
                 </div>
-                <h2 className="pui-h2">Create Your Security Token</h2>
+                <h2 className="pui-h2">Configure Your Security Token</h2>
                 <Heading variant="h4">
-                  Create your security token before your token reservation
+                  Configure your security token before your token reservation
                   expires. If you let your token reservation expire, the token
                   symbol you selected will be available for others to claim.
                 </Heading>
                 <Heading variant="h4">
-                  To proceed with the creation of your security token, we
+                  To proceed with the configuration of your security token, we
                   recommend you work with your Advisory to answer the following
                   questions:
                 </Heading>

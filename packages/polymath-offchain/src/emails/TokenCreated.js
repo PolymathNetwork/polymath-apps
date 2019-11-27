@@ -17,7 +17,7 @@ export const TokenCreated = ({ txHash, ticker, networkId }: Props) => {
   return (
     <EmailWrapper>
       <h4>Congratulations!</h4>
-      <h1>You Have Successfully Created the {ticker.toUpperCase()} Token</h1>
+      <h1>You Have Successfully Configured the {ticker.toUpperCase()} Token</h1>
       <div className="icon-text tx-hash">
         <div className="icon">
           <img alt="Icon" src={`${POLYMATH_OFFCHAIN_URL}/img/checkmark.png`} />
@@ -30,8 +30,8 @@ export const TokenCreated = ({ txHash, ticker, networkId }: Props) => {
       </div>
       <div className="text">
         <h3>
-          Now that your security token is created, you can proceed to the next
-          steps:
+          Now that your security token is configured, you can proceed to the
+          next steps:
         </h3>
         <ol>
           <li>

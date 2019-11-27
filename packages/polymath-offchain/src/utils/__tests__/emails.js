@@ -274,7 +274,7 @@ describe('Function: sendTokenCreateEmail', () => {
       from: { email: polymathEmail, name: polymathName },
       replyTo: { email: replyToEmail, name: polymathName },
       to: { email: validEmail, name: validName },
-      subject: `${validTicker} Token Created on Polymath`,
+      subject: `${validTicker} Token Configured on Polymath`,
       html: validMarkup,
     };
 

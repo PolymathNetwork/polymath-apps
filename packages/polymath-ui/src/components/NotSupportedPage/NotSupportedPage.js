@@ -16,9 +16,9 @@ export default class NotSupportedPage extends Component {
             <img src={logo} alt="Logo" className="logo-dark" />
             <img src={illustration} alt="Illustration" />
             <h3>
-              The creation of your security token requires interaction with the{' '}
-              <span>MetaMask</span> browser extension. Please use your desktop
-              browser to proceed with this operation
+              The configuration of your security token requires interaction with
+              the <span>MetaMask</span> browser extension. Please use your
+              desktop browser to proceed with this operation
             </h3>
             <p>
               <a href="https://polymath.network">

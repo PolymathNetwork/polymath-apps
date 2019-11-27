@@ -183,14 +183,14 @@ class ProvidersPage extends Component<Props, State> {
       <p>
         Please make sure you have received sufficient information from one of
         the Advisors or the Legal firms listed below or your own advisor before
-        you proceed with the token creation.
+        you proceed with the token configuration.
       </p>,
       () => {
         // $FlowFixMe
         this.props.history.push('/dashboard/' + this.props.token.ticker);
       },
       'Before You Proceed',
-      'Create Token'
+      'Configure Token'
     );
   };
 
@@ -271,9 +271,9 @@ class ProvidersPage extends Component<Props, State> {
             <div className="pui-countdown-container">
               {!token.address && token.expires ? (
                 <Countdown
-                  title="Time Left to Create Your Token"
+                  title="Time Left to Configure Your Token"
                   deadline={token.expires}
-                  buttonTitle="Create Your Token Now"
+                  buttonTitle="Configure Your Token Now"
                   handleButtonClick={this.handleCreateToken}
                 />
               ) : (
