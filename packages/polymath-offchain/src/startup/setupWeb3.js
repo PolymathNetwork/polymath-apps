@@ -560,7 +560,7 @@ export const addSTOListeners = async (networkId: string) => {
  * to issuers on the following events:
  *
  * - Ticker registered
- * - Security token created
+ * - Security token configured
  * - STO scheduled
  *
  * @param {string} networkId id of the network to which we will set the listeners

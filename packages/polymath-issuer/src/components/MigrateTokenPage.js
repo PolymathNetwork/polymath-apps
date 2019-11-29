@@ -231,8 +231,8 @@ class MigrateTokenPage extends Component<{| handleClick: Function |}> {
               <p>
                 The cost of this migration is the gas fee required to complete
                 the simple 2-step process to migrate your tokens from v1.3.0 to
-                v2.0.0. The cost of creating the security token will be borne by
-                Polymath.
+                v2.0.0. The cost of configuring the security token will be borne
+                by Polymath.
               </p>
             </AccordionItem>
             <AccordionItem title="What benefits would I get by moving to v2.0.0?">

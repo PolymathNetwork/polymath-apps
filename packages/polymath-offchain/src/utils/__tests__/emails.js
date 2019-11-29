@@ -206,7 +206,7 @@ describe('Function: sendProviderApplicationEmail', () => {
     expect(sgMail.send).toHaveBeenCalledWith(expectedMsg);
   });
 
-  test('adds a DEMO tag to the subject if dummy is true', async () => {
+  test('adds a SAMPLE EMAIL tag to the subject if dummy is true', async () => {
     const expectedMsg = {
       from: { email: polymathEmail, name: polymathName },
       replyTo: {
@@ -214,7 +214,7 @@ describe('Function: sendProviderApplicationEmail', () => {
         email: validEmail,
       },
       to: { name: validName, email: validEmail },
-      subject: `DEMO: ${
+      subject: `SAMPLE EMAIL: ${
         validApplication.companyName
       } is interested in your services`,
       html: validMarkup,
@@ -274,7 +274,7 @@ describe('Function: sendTokenCreateEmail', () => {
       from: { email: polymathEmail, name: polymathName },
       replyTo: { email: replyToEmail, name: polymathName },
       to: { email: validEmail, name: validName },
-      subject: `${validTicker} Token Created on Polymath`,
+      subject: `${validTicker} Token Configured on Polymath`,
       html: validMarkup,
     };
 

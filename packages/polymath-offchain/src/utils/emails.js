@@ -102,7 +102,7 @@ export const sendProviderApplicationEmail = async (
   await sendEmail(
     providerEmail,
     providerName,
-    `${dummy ? 'DEMO: ' : ''}${
+    `${dummy ? 'SAMPLE EMAIL: ' : ''}${
       application.companyName
     } is interested in your services`,
     ReactDOMServer.renderToStaticMarkup(
@@ -153,7 +153,7 @@ export const sendTickerReservedEmail = async (
 };
 
 /**
- * Sends an email to the issuer notifying him that his token has been created
+ * Sends an email to the issuer notifying him that his token has been configured
  *
  * @param {string} issuerEmail email address of the issuer
  * @param {string} issuerName name of the issuer
@@ -171,7 +171,7 @@ export const sendTokenCreatedEmail = async (
   await sendEmail(
     issuerEmail,
     issuerName,
-    `${ticker} Token Created on Polymath`,
+    `${ticker} Token Configured on Polymath`,
     ReactDOMServer.renderToStaticMarkup(
       <TokenCreated txHash={txHash} ticker={ticker} networkId={networkId} />
     )

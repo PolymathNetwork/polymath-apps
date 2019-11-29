@@ -11,9 +11,9 @@ describe('Countdown', () => {
     const deadline = new Date('2017-06-23T01:23:45');
     const component = renderer.create(
       <Countdown
-        title="Time Left to Create Your Token"
+        title="Time Left to Configure Your Token"
         deadline={deadline}
-        buttonTitle="Create Your Token Now"
+        buttonTitle="Configure Your Token Now"
         handleButtonClick={() => {}}
       />
     );
