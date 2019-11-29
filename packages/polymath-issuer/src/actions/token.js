@@ -387,7 +387,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         reader.result,
         config
       );
-      isTooMany = data.length > 75;
+      isTooMany = data.length > 50;
 
       if (validationErrors.length) {
         dispatch({
