@@ -12,8 +12,11 @@ import { fetchTickerList } from '../../actions/account';
 import TickerCard from './components/TickerCard';
 
 class HomePage extends Component {
-  componentDidMount() {
-    this.props.fetchTickerList();
+  async componentDidMount() {
+    await this.props.fetchTickerList();
+    if (this.props.tickers.length === 0) {
+      this.props.history.push('/ticker');
+    }
   }
 
   render() {
@@ -21,6 +24,15 @@ class HomePage extends Component {
     return (
       <PageCentered>
         <Grid>
+          <Grid.Row>
+            <p>
+              <Link to="/ticker">
+                <Button id="create-token-btn" icon="arrow--right">
+                  Continue to create your security token
+                </Button>
+              </Link>
+            </p>
+          </Grid.Row>
           <Grid.Row>
             {tickers.map(ticker => {
               return (
