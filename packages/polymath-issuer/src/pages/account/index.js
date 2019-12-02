@@ -48,7 +48,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(HomePage);
-// return <Link to={`/dashboard/${ticker}`}>{ticker}</Link>;
-{
-  /* <Link to="/ticker">Create New Token</Link> */
-}
