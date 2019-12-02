@@ -11,7 +11,7 @@ import logger from 'winston';
 import Web3 from 'web3';
 import { User } from '../models';
 import PolymathRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/PolymathRegistry.json';
-import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/SecurityTokenRegistry.json';
+import SecurityTokenRegistryArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityTokenRegistry.json';
 import SecurityTokenArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/ISecurityToken.json';
 import CappedSTOArtifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/CappedSTO.json';
 import STOModuleFactoryArtifacts from '@polymathnetwork/polymath-scripts/fixtures/contracts/ModuleFactory.json';
@@ -439,7 +439,6 @@ export const registerTickerHandler = async (
  */
 export const addTickerRegisterListener = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
-
   contract.events.RegisterTicker({}, (error, result) =>
     registerTickerHandler(contract, networkId, error, result)
   );
@@ -507,10 +506,11 @@ export const newSecurityTokenHandler = async (
  */
 export const addTokenCreateListener = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
-
-  contract.events.NewSecurityToken({}, (error, result) =>
-    newSecurityTokenHandler(contract, networkId, error, result)
-  );
+  contract.events[
+    'NewSecurityToken(string,string,address,address,uint256,address,bool,uint256,uint256,uint256)'
+  ]({}, (error, result) => {
+    newSecurityTokenHandler(contract, networkId, error, result);
+  });
 
   contract.events.SecurityTokenRefreshed({}, (error, result) =>
     newSecurityTokenHandler(contract, networkId, error, result)

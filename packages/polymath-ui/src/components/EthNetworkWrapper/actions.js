@@ -108,6 +108,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   const network = getNetworkInfo(networkId);
   const accounts = await web3.eth.getAccounts();
 
+  console.log('URL', process.env.REACT_APP_NODE_WS, network.url);
   // Instantiate Web3 Web Socket
   web3WS = new Web3(process.env.REACT_APP_NODE_WS || network.url);
 

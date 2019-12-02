@@ -42,8 +42,8 @@ class AddInvestorForm extends Component<Props> {
         <Field
           name="address"
           component={TextInput}
-          label="Investor&apos;s ETH Address"
-          placeholder="Enter Investor&apos;s ETH Address"
+          label="Investor's ETH Address"
+          placeholder="Enter Investor's ETH Address"
           validate={[required, ethereumAddress]}
         />
         <LockupDatesFields
@@ -54,7 +54,7 @@ class AddInvestorForm extends Component<Props> {
           <div>
             <br />
             <Field
-              name="isPercentage"
+              name="bypassPercentageRestriction"
               component={CheckboxInput}
               label="Exempt from % ownership restriction"
             />

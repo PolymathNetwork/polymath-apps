@@ -351,63 +351,121 @@ export const faucet = (message: string, amount?: number = 100500) => async (
       )
     );
     return;
+  } else if (Number(getState().network.id) === 42) {
+    const buttonLabel = `REQUEST ${amount / 1000}K POLY`;
+    dispatch(
+      confirm(
+        <div>
+          {intro}
+          <p>
+            You are currently connected to the{' '}
+            <span style={{ fontWeight: 'bold' }}>Kovan Test Network</span>.
+          </p>
+          <p>
+            As such, you can click on the &laquo;
+            {buttonLabel}
+            &raquo; button below to receive {thousandsDelimiter(amount)} test
+            POLY in your wallet.
+          </p>
+          <p>
+            To receive your Kovan Testnet POLY, you’ll need a supply of KETH
+            (Kovan Testnet ETH) to pay for gas fees. To receive your KETH,{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/kovan-testnet/faucet#kovan-faucet"
+            >
+              click here
+            </a>{' '}
+            and follow the steps to receive your KETH.
+          </p>
+          <br />
+          <Remark title="Note">
+            This option is not available on the Mainnet.
+          </Remark>
+        </div>,
+        () => {
+          const { account } = getState().network;
+          dispatch(
+            tx(
+              ['Receiving POLY From Faucet'],
+              async () => {
+                await PolyToken.getTokens(amount, account);
+              },
+              'You have successfully received ' +
+                thousandsDelimiter(amount) +
+                ' POLY',
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              true
+            )
+          );
+        },
+        title,
+        buttonLabel,
+        'pui-large-confirm-modal',
+        headerLabel
+      )
+    );
+  } else if (Number(getState().network.id) === 5) {
+    const buttonLabel = `REQUEST ${amount / 1000}K POLY`;
+    dispatch(
+      confirm(
+        <div>
+          {intro}
+          <p>
+            You are currently connected to the{' '}
+            <span style={{ fontWeight: 'bold' }}>Goerli Test Network</span>.
+          </p>
+          <p>
+            As such, you can click on the &laquo;
+            {buttonLabel}
+            &raquo; button below to receive {thousandsDelimiter(amount)} test
+            POLY in your wallet.
+          </p>
+          <p>
+            To receive your Goerli Testnet POLY, you’ll need a supply of KETH
+            (Goerli Testnet ETH) to pay for gas fees. To receive your KETH,{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/goerli/testnet"
+            >
+              click here
+            </a>{' '}
+            and follow the steps to receive your KETH.
+          </p>
+          <br />
+          <Remark title="Note">
+            This option is not available on the Mainnet.
+          </Remark>
+        </div>,
+        () => {
+          const { account } = getState().network;
+          dispatch(
+            tx(
+              ['Receiving POLY From Faucet'],
+              async () => {
+                await PolyToken.getTokens(amount, account);
+              },
+              'You have successfully received ' +
+                thousandsDelimiter(amount) +
+                ' POLY',
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              true
+            )
+          );
+        },
+        title,
+        buttonLabel,
+        'pui-large-confirm-modal',
+        headerLabel
+      )
+    );
   }
-
-  const buttonLabel = `REQUEST ${amount / 1000}K POLY`;
-  dispatch(
-    confirm(
-      <div>
-        {intro}
-        <p>
-          You are currently connected to the{' '}
-          <span style={{ fontWeight: 'bold' }}>Kovan Test Network</span>.
-        </p>
-        <p>
-          As such, you can click on the &laquo;
-          {buttonLabel}
-          &raquo; button below to receive {thousandsDelimiter(amount)} test POLY
-          in your wallet.
-        </p>
-        <p>
-          To receive your Kovan Testnet POLY, you’ll need a supply of KETH
-          (Kovan Testnet ETH) to pay for gas fees. To receive your KETH,{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/kovan-testnet/faucet#kovan-faucet"
-          >
-            click here
-          </a>{' '}
-          and follow the steps to receive your KETH.
-        </p>
-        <br />
-        <Remark title="Note">
-          This option is not available on the Mainnet.
-        </Remark>
-      </div>,
-      () => {
-        const { account } = getState().network;
-        dispatch(
-          tx(
-            ['Receiving POLY From Faucet'],
-            async () => {
-              await PolyToken.getTokens(amount, account);
-            },
-            'You have successfully received ' +
-              thousandsDelimiter(amount) +
-              ' POLY',
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            true
-          )
-        );
-      },
-      title,
-      buttonLabel,
-      'pui-large-confirm-modal',
-      headerLabel
-    )
-  );
 };

@@ -12,7 +12,16 @@ import { SecurityToken, PercentageTransferManager } from '@polymathnetwork/js';
 import { toWei } from '../utils/contracts';
 import { formName as addInvestorFormName } from '../pages/compliance/components/AddInvestorForm';
 import { formName as editInvestorsFormName } from '../pages/compliance/components/EditInvestorsForm';
-import { parseWhitelistCsv } from '../utils/parsers';
+import CSVFileValidator from '../utils/parsers/csv-file-validator';
+import {
+  validateAddress,
+  validateDate,
+  validateError,
+  requiredError,
+  uniqueError,
+  headerError,
+} from '../utils/parsers/common';
+
 import { STAGE_OVERVIEW } from '../reducers/sto';
 import { PERM_TYPES } from '../constants';
 import Web3 from 'web3';
@@ -332,19 +341,159 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
 
   reader.readAsText(file);
 
-  reader.onload = () => {
+  reader.onload = async () => {
     dispatch({ type: UPLOAD_ONLOAD });
-    const { invalidRows, data, parseError } = parseWhitelistCsv(reader.result);
-    const isTooMany = data.length > maxRows;
 
-    // FIXME @RafaelVidaurre: This should be using an action creator, not a POJO
-    dispatch({
-      type: UPLOADED,
-      investors: data,
-      criticals: invalidRows,
-      isTooMany,
-      parseError: parseError | '',
-    });
+    const config = {
+      headers: [
+        {
+          name: 'ETH Address',
+          inputName: 'address',
+          required: true,
+          unique: true,
+          validate: function(val) {
+            return validateAddress(val);
+          },
+          validateError,
+          headerError,
+          uniqueError,
+          requiredError,
+        },
+        {
+          name: 'Sell Restriction Date',
+          inputName: 'from',
+          validate: function(val) {
+            return val.length === 0 || validateDate(val);
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'Buy Restriction Date',
+          inputName: 'to',
+          validate: function(val) {
+            return val.length === 0 || validateDate(val);
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'KYC/AML Expiry Date',
+          inputName: 'expiry',
+          required: true,
+          validate: function(val) {
+            return validateDate(val);
+          },
+          validateError,
+          headerError,
+          requiredError,
+        },
+        {
+          name: 'Can Buy From STO',
+          inputName: 'canBuyFromSTO',
+          validate: function(val) {
+            return val.length === 0 || val.toLowerCase() === 'true';
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'Exempt From % Ownership',
+          inputName: 'bypassPercentageRestriction',
+          validate: function(val) {
+            return val.length === 0 || val.toLowerCase() === 'true';
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'Is Accredited',
+          inputName: 'accredited',
+          validate: function(val) {
+            return val.length === 0 || val.toLowerCase() === 'true';
+          },
+          validateError,
+          headerError,
+        },
+        {
+          name: 'Non-Accredited Limit',
+          inputName: 'nonAccreditedLimit',
+          validate: function(val) {
+            return val.length === 0 || !isNaN(val);
+          },
+          validateError,
+          headerError,
+        },
+      ],
+    };
+
+    let isTooMany = false;
+    let investors = [];
+
+    try {
+      const { data, validationErrors } = await CSVFileValidator(
+        reader.result,
+        config
+      );
+      isTooMany = data.length > 75;
+
+      if (validationErrors.length) {
+        dispatch({
+          type: UPLOADED,
+          investors: [],
+          criticals: validationErrors,
+          isTooMany,
+          parseError: '',
+        });
+      } else {
+        data.forEach(
+          ({
+            address,
+            from,
+            to,
+            purchase,
+            expiry,
+            canBuyFromSTO,
+            bypassPercentageRestriction,
+            accredited,
+            nonAccreditedLimit,
+          }) => {
+            investors.push({
+              address,
+              from: from.length
+                ? new Date(from)
+                : new Date(PERMANENT_LOCKUP_TS),
+              to: to.length ? new Date(to) : new Date(PERMANENT_LOCKUP_TS),
+              expiry: new Date(expiry),
+              canBuyFromSTO: canBuyFromSTO.length ? true : false,
+              bypassPercentageRestriction: bypassPercentageRestriction.length
+                ? true
+                : false,
+              accredited: accredited.length ? true : false,
+              nonAccreditedLimit: nonAccreditedLimit.length
+                ? Number(nonAccreditedLimit)
+                : null,
+            });
+          }
+        );
+
+        dispatch({
+          type: UPLOADED,
+          investors,
+          criticals: validationErrors,
+          isTooMany,
+          parseError: '',
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: UPLOADED,
+        investors: [],
+        criticals: [],
+        isTooMany,
+        parseError: error.message,
+      });
+    }
   };
 };
 
@@ -361,44 +510,16 @@ export const importWhitelist = () => async (
     sto,
   } = getState();
   const st = getState().token.token.contract;
-
   const isPTMEnabled = !isPercentageDisabled;
 
   const titles = [];
   const transactions = [];
 
-  // FIXME @RafaelVidaurre: For now performing this unintuitive transformation
-  // to avoid breaking more code
-  const whitelistItems = map(
-    uploaded,
-    ({
-      address,
-      sellLockupDate,
-      buyLockupDate,
-      kycAmlExpiryDate,
-      canBuyFromSto,
-      isPercentage,
-      accredited,
-      nonAccreditedLimit,
-    }) => {
-      return {
-        address,
-        from: sellLockupDate,
-        to: buyLockupDate,
-        expiry: kycAmlExpiryDate,
-        canBuyFromSTO: canBuyFromSto,
-        isPercentage,
-        accredited,
-        nonAccreditedLimit,
-      };
-    }
-  );
-
   titles.push('Submitting Approved Investors');
-  transactions.push(() => transferManager.modifyKYCDataMulti(whitelistItems));
+  transactions.push(() => transferManager.modifyKYCDataMulti(uploaded));
   if (isPTMEnabled) {
     titles.push('Setting ownership restrictions');
-    transactions.push(() => percentageTM.modifyWhitelistMulti(whitelistItems));
+    transactions.push(() => percentageTM.modifyWhitelistMulti(uploaded));
   }
 
   /**
@@ -413,14 +534,10 @@ export const importWhitelist = () => async (
 
       // Transform inputs for the transactions
       each(uploaded, ({ accredited, nonAccreditedLimit, address }) => {
-        if (typeof accredited === 'boolean') {
-          statusAddresses.push(address);
-          statusValues.push(accredited);
-        }
-        if (nonAccreditedLimit !== null) {
-          limitAddresses.push(address);
-          limitValues.push(nonAccreditedLimit);
-        }
+        statusAddresses.push(address);
+        statusValues.push(accredited);
+        limitAddresses.push(address);
+        limitValues.push(nonAccreditedLimit);
       });
 
       if (statusAddresses.length) {
@@ -444,18 +561,14 @@ export const importWhitelist = () => async (
     let addresses: Array<string> = [];
     let flags: Array<number> = [];
     let values: Array<boolean> = [];
-    for (let investor of whitelistItems) {
-      if (typeof investor.canBuyFromSTO === 'boolean') {
-        addresses.push(investor.address); // $FlowFixMe
-        flags.push(1); // 1 = 'canNotBuyFromSto'
-        // We're negating the value because 3.0 flag is negated too (ie can NOT buy from STO).
-        values.push(!investor.canBuyFromSTO);
-      }
-      if (typeof investor.accredited === 'boolean') {
-        addresses.push(investor.address); // $FlowFixMe
-        flags.push(0); // 0 = 'isAccredited'
-        values.push(investor.accredited);
-      }
+    for (let investor of uploaded) {
+      addresses.push(investor.address); // $FlowFixMe
+      flags.push(1); // 1 = 'canNotBuyFromSto'
+      // We're negating the value because 3.0 flag is negated too (ie can NOT buy from STO).
+      values.push(!investor.canBuyFromSTO);
+      addresses.push(investor.address); // $FlowFixMe
+      flags.push(0); // 0 = 'isAccredited'
+      values.push(investor.accredited);
     }
 
     if (sto.stage === STAGE_OVERVIEW && sto.details.type === 'USDTieredSTO') {
@@ -515,24 +628,23 @@ export const exportWhitelist = () => async (
     const {
       whitelist: {
         transferManager,
-        percentageTM: { contract: percentageTM },
+        percentageTM: { contract: percentageTM, isPaused: PTMPaused },
       },
       sto,
     } = getState();
 
     const investors = await transferManager.getWhitelist();
-
-    if (percentageTM) {
+    if (percentageTM && !PTMPaused) {
       const percentages = await percentageTM.getWhitelist();
       for (let i = 0; i < investors.length; i++) {
         for (let percentage of percentages) {
           if (investors[i].address === percentage.address) {
-            investors[i].isPercentage = percentage.isPercentage;
+            investors[i].bypassPercentageRestriction =
+              percentage.bypassPercentageRestriction;
           }
         }
       }
     }
-
     // eslint-disable-next-line max-len
     let csvContent =
       'ETH Address,Sell Restriction Date,Buy Restriction Date,KYC/AML Expiry Date,Can Buy From STO,Exempt From % Ownership,Is Accredited,Non-Accredited Limit';
@@ -549,7 +661,7 @@ export const exportWhitelist = () => async (
             : moment(investor.to).format('MM/DD/YYYY'),
           moment(investor.expiry).format('MM/DD/YYYY'),
           investor.canBuyFromSTO ? 'true' : '',
-          investor.isPercentage ? 'true' : '',
+          investor.bypassPercentageRestriction ? 'true' : '',
           investor.accredited ? 'true' : '',
           investor.nonAccreditedLimit
             ? investor.nonAccreditedLimit.toString()
@@ -588,12 +700,14 @@ export const addInvestor = () => async (
     ui.tx(
       [
         'Submitting approved investor',
-        ...(values.isPercentage ? ['Setting ownership restriction'] : []),
+        ...(values.bypassPercentageRestriction
+          ? ['Setting ownership restriction']
+          : []),
       ],
       async () => {
         await transferManager.modifyKYCData(investor);
-        if (values.isPercentage) {
-          investor.isPercentage = true; // $FlowFixMe
+        if (values.bypassPercentageRestriction) {
+          investor.bypassPercentageRestriction = true; // $FlowFixMe
           await percentageTM.modifyKYCData(investor);
         }
       },
@@ -623,7 +737,7 @@ export const editInvestors = (addresses: Array<Address>) => async (
       values['e_permanentPurchase'] ? PERMANENT_LOCKUP_TS : values.purchase
     ),
     expiry: new Date(values.expiry),
-    isPercentage: values['e_isPercentage'] || false,
+    bypassPercentageRestriction: values['e_isPercentage'] || false,
   };
   const investors = [];
   for (let i = 0; i < addresses.length; i++) {

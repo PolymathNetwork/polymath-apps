@@ -129,6 +129,7 @@ const Step3Base: FC<Props> = ({
 
   const isTestNet = [
     constants.NetworkIds.Kovan,
+    constants.NetworkIds.Goerli,
     constants.NetworkIds.Local,
     constants.NetworkIds.LocalVm,
   ].includes(networkId);

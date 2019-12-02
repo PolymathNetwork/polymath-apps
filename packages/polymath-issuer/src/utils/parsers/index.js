@@ -12,11 +12,11 @@ const PERMANENT_LOCKUP_TS = 67184812800000;
 
 type WhitelistCsvRow = {
   address: string,
-  sellLockupDate?: Date,
-  buyLockupDate?: Date,
-  kycAmlExpiryDate?: Date,
-  canBuyFromSto?: boolean,
-  bypassesOwnershipRestriction?: boolean,
+  from?: Date,
+  to?: Date,
+  expiry?: Date,
+  canBuyFromSTO?: boolean,
+  bypassPercentageRestriction?: boolean,
   accredited?: boolean,
   nonAccreditedLimit?: BigNumberType,
 };
@@ -48,9 +48,9 @@ export function validateWhitelistCsv(rows: WhitelistCsvRow[]) {
   const invalidRows = filter(rows, (row: WhitelistCsvRow) => {
     const invalidAddress = !web3.utils.isAddress(row.address);
     const addressIsDuplicate = addressCounts[row.address] > 1;
-    const invalidBuyLockupDate = isInvalidDate(row.buyLockupDate);
-    const invalidSellLockupDate = isInvalidDate(row.sellLockupDate);
-    const invalidKycAmlExpiryDate = isInvalidDate(row.kycAmlExpiryDate);
+    const invalidSellLockupDate = isInvalidDate(row.from);
+    const invalidBuyLockupDate = isInvalidDate(row.to);
+    const invalidKycAmlExpiryDate = isInvalidDate(row.expiry);
     const invalidAccredited = isInvalidBoolean(row.accredited);
     const invalidNonAccreditedLimit = isInvalidNumber(row.nonAccreditedLimit);
 
@@ -104,6 +104,7 @@ const checkCSVHeaders = data => {
   return errorMsg;
 };
 
+// @TODO remove this entire function
 export function parseWhitelistCsv(file: string) {
   let data;
   let parseError = checkCSVHeaders(file);
@@ -116,10 +117,7 @@ export function parseWhitelistCsv(file: string) {
           const value = rawValue;
 
           if (value === '' || (typeof value === 'string' && !value.length)) {
-            if (
-              context.column === 'buyLockupDate' ||
-              context.column === 'sellLockupDate'
-            ) {
+            if (context.column === 'to' || context.column === 'from') {
               return new Date(PERMANENT_LOCKUP_TS);
             }
             return null;
@@ -143,11 +141,11 @@ export function parseWhitelistCsv(file: string) {
         columns: line => {
           return [
             'address',
-            'sellLockupDate',
-            'buyLockupDate',
-            'kycAmlExpiryDate',
-            'canBuyFromSto',
-            'bypassesOwnershipRestriction',
+            'from',
+            'to',
+            'expiry',
+            'canBuyFromSTO',
+            'bypassPercentageRestriction',
             'accredited',
             'nonAccreditedLimit',
           ];
@@ -175,5 +173,5 @@ export function parseWhitelistCsv(file: string) {
     );
   });
 
-  return { invalidRows, data: sanitizedData, parseError };
+  return { invalidRows, data, parseError };
 }

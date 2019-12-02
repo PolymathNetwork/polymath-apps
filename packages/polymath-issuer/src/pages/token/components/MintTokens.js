@@ -26,7 +26,7 @@ import type { InvestorCSVRow } from '../../../actions/token';
 
 type StateProps = {|
   isTooMany: boolean,
-  isInvalidFormat: boolean,
+  isInvalidFormat: string,
   isReady: boolean,
   isInvalid: boolean,
   isTransfersPaused: Boolean,
@@ -50,6 +50,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   isInvalid: state.token.mint.criticals.length > 0,
   isTransfersPaused: state.whitelist.freezeStatus,
   criticals: state.token.mint.criticals,
+  fileUploaded: state.token.mint.fileUploaded,
   token: state.token,
   pui: state.pui,
   stage: state.sto.stage,
@@ -224,9 +225,13 @@ class MintTokens extends Component<Props> {
       isReady,
       isInvalid,
       isTransfersPaused,
+      criticals,
       stage,
       version,
+      fileUploaded,
     } = this.props;
+
+    const errors = criticals.map(error => `\n• ${error}`);
 
     // NOTE: minting 3.x tokens is possible while an STO is in progress.
     const sto2xInProgress =
@@ -254,6 +259,12 @@ class MintTokens extends Component<Props> {
             shareholders, affiliates or for your reserve.
           </h3>
           <br />
+          <InlineNotification
+            hideCloseButton
+            title="We've updated our .CSV format to make it easier for you to mint tokens to your investors. Please see the sample .CSV below for more details."
+            subtitle=""
+            kind="warning"
+          />
           <h4 className="pui-h4">
             Before you proceed, please check with your Advisor how your tokens
             should be distributed. Also, note that the ETH Addresses to which
@@ -269,17 +280,16 @@ class MintTokens extends Component<Props> {
             <br />• ETH Address (address to whitelist);
             <br />• Sell Restriction Date mm/dd/yyyy (date when the resale
             restrictions should be lifted for that address);
+            <br />
+            Empty cell will be considered as permanent lockup.
             <br />• Buy Restriction Date mm/dd/yyyy (date when the buy
             restrictions should be lifted for that address);
             <br />
             Empty cell will be considered as permanent lockup.
             <br />• KYC/AML Expiry Date mm/dd/yyyy;
-            <br />• Number of tokens to mint for the ETH address (integer).
+            <br />• Number of tokens to mint for the ETH address.
             <br />
-            <Remark title="Note">
-              Your file cannot exceed 40 addresses. If you have more than 40
-              addresses on your whitelist, upload multiple files.
-            </Remark>
+            <Remark title="Note">Your file cannot exceed 75 addresses.</Remark>
           </h4>
           <h5 className="pui-h5">
             You can&nbsp;&nbsp;&nbsp;
@@ -304,38 +314,52 @@ class MintTokens extends Component<Props> {
           ) : (
             ''
           )}
+          {criticals.length ? (
+            <div>
+              <InlineNotification
+                style={{ whiteSpace: 'pre-wrap' }}
+                hideCloseButton
+                title={
+                  criticals.length +
+                  ' Error' +
+                  (criticals.length > 1 ? 's' : '') +
+                  ' in Your .csv File'
+                }
+                subtitle={
+                  '\nPlease fix the following errors in your csv file before committing its content to the blockchain.\n' +
+                  errors
+                }
+                kind="error"
+              />
+            </div>
+          ) : (
+            ''
+          )}
           <FileUploader
             iconDescription="Cancel"
             buttonLabel="Upload File"
             onChange={this.handleUploaded}
             className={classNames('file-uploader', {
-              disabled: sto2xInProgress || isTransfersPaused,
+              disabled: fileUploaded || sto2xInProgress || isTransfersPaused,
             })}
             accept={['.csv']}
             buttonKind="secondary"
             filenameStatus="edit"
             ref={this.fileUploaderRef}
             disabled={isTransfersPaused}
+            multiple={false}
           />
-          {isInvalidFormat ? (
+          {isInvalidFormat.length ? (
             <InlineNotification
               hideCloseButton
               title="Improper file format"
-              subtitle="Please export the information to CSV using a MS-DOS Comma Separated (.csv) file format and upload the new file"
-              kind="error"
-            />
-          ) : isInvalid && !isReady ? (
-            <InlineNotification
-              hideCloseButton
-              title="The file you uploaded does not contain any valid values"
-              subtitle="Please check instructions above and try again."
+              subtitle={isInvalidFormat}
               kind="error"
             />
           ) : isTooMany ? (
             <InlineNotification
               hideCloseButton
-              title="The file you uploaded contains more than 40 addresses"
-              subtitle="You can still continue, but only 40 first addresses will be submitted."
+              title="The file you uploaded contains more than 75 addresses"
               kind="error"
             />
           ) : (
@@ -343,7 +367,12 @@ class MintTokens extends Component<Props> {
           )}
           <Button
             type="submit"
-            disabled={!isReady || sto2xInProgress || isInvalidFormat}
+            disabled={
+              !isReady ||
+              sto2xInProgress ||
+              isInvalidFormat.length ||
+              criticals.length
+            }
             onClick={this.handleSubmit}
             style={{ marginTop: '10px' }}
             className="mint-token-btn"
