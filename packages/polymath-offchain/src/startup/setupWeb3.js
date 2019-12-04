@@ -1,6 +1,6 @@
 // @flow
 
-import { STO_MODULE_TYPE, NETWORKS } from '../constants';
+import { STO_MODULE_TYPE, NETWORKS, DEPLOYMENT_STAGE } from '../constants';
 import {
   sendCappedSTOScheduledEmail,
   sendUSDTieredSTOScheduledEmail,
@@ -566,6 +566,7 @@ export const addSTOListeners = async (networkId: string) => {
  * @param {string} networkId id of the network to which we will set the listeners
  */
 const setupListeners = async (networkId: string) => {
+  if (DEPLOYMENT_STAGE !== 'production') return;
   await addTickerRegisterListener(networkId);
 
   await addTokenCreateListener(networkId);
