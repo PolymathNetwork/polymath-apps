@@ -14,6 +14,7 @@ interface Ethereum extends HttpProvider {
   networkVersion: string;
   _metamask?: {
     isApproved: () => Promise<boolean>;
+    isUnlocked: () => Promise<boolean>;
   };
   enable(): Promise<any>;
 }
@@ -117,14 +118,10 @@ export async function getCurrentAddress() {
   const support = getBrowserSupport();
 
   if (isModern(win)) {
-    // Special check for Metamask to know if it is locked or not
     if (win.ethereum._metamask) {
-      const isApproved = await win.ethereum._metamask.isApproved();
-      if (isApproved) {
-        accounts = await web3.eth.getAccounts();
-        if (!accounts.length) {
-          throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
-        }
+      const isUnlocked = await win.ethereum._metamask.isUnlocked();
+      if (!isUnlocked) {
+        throw new PolymathError({ code: ErrorCodes.WalletIsLocked });
       }
     }
     await enableWallet();
