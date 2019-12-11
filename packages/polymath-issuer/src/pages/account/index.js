@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { fetchTickerList } from '../../actions/account';
 import TickerCard from './components/TickerCard';
+import ConfigCard from './components/ConfigCard';
 
 class HomePage extends Component {
   async componentDidMount() {
@@ -25,15 +26,14 @@ class HomePage extends Component {
       <PageCentered>
         <Grid>
           <Grid.Row>
-            <p>
-              <Link to="/ticker">
-                <Button id="create-token-btn" icon="arrow--right">
-                  Continue to configure your security token
-                </Button>
-              </Link>
-            </p>
+            <Grid.Col gridSpan={12}>
+              <h1>Manage your security tokens</h1>
+            </Grid.Col>
           </Grid.Row>
           <Grid.Row>
+            <Grid.Col gridSpan={4}>
+              <ConfigCard />
+            </Grid.Col>
             {tickers.map(ticker => {
               return (
                 <Grid.Col gridSpan={4}>
