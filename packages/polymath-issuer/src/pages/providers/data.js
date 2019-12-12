@@ -31,7 +31,7 @@ export const statuses = ['Selected as Provider', 'Provider Declined', 'Other'];
 export const categories: Array<SPCategory> = [
   {
     id: 0,
-    title: 'Advisory',
+    title: 'Advisory / Broker-Dealers',
     desc:
       'Advisory firms may help you plan and execute your STO. Your Polymath dashboard is integrated with the ' +
       'following Advisory firms. Alternatively, you can elect to use your own Advisory services.',
