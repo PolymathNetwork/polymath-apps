@@ -8,7 +8,7 @@ export default class TickerCard extends Component {
     return (
       <div className="token-symbol-wrapper">
         <div className="pui-page-box">
-          <h3>Continue to configure security token</h3>
+          <h3>Configure New Security Token</h3>
           <div style={{ height: '140px' }} />
           <br />
           <Link to="/ticker">
