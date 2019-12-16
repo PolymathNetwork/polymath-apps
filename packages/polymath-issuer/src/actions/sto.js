@@ -121,7 +121,7 @@ export const fetch = () => async (dispatch: Function, getState: GetState) => {
   try {
     const { token } = getState().token;
 
-    // No token created yet
+    // No token configured yet
     if (!token || !token.contract) {
       dispatch(ui.fetched());
       return;

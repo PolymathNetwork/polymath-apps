@@ -168,7 +168,7 @@ const config = {
     SecurityToken: {
       description: stripIndent`
         The security token smart contract. It defines the behavior of the
-        Security Tokens created through Polymath.
+        Security Tokens configured through Polymath.
 
         Only the token's owner and the attached STO module (if there is one) can
         mint tokens.
@@ -180,9 +180,9 @@ const config = {
         Keeps track of all the Security Tokens that exist in the network.
         Keeps record of the tickers reserved by users.
 
-        Through this contract Security Tokens can be created and Tickers can be registered.
+        Through this contract Security Tokens can be configured and Tickers can be registered.
         It requires an allowance (of at least the registration fee) to be set to be able
-        to create a Security Token
+        to configure a Security Token
       `,
       methods: SecurityTokenRegistryMethods,
     },

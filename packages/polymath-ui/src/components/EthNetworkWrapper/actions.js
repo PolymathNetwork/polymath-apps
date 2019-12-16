@@ -149,11 +149,11 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   if (
     !accounts.length &&
     newProviderInjected &&
-    window.ethereum._metamask.isApproved
+    window.ethereum._metamask.isUnlocked // compatibility check on the MM version
   ) {
-    const isMetamaskApproved = await window.ethereum._metamask.isApproved();
+    const isMetamaskUnlocked = await window.ethereum._metamask.isUnlocked();
 
-    if (!isMetamaskApproved) {
+    if (isMetamaskUnlocked) {
       dispatch(requestAuthorization());
       return dispatch(fail(ERROR_ACCESS_REQUESTED));
     }

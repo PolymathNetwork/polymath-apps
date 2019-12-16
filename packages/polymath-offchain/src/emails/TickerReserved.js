@@ -42,11 +42,13 @@ export const TickerReserved = ({
           Your reservation is valid for <strong>{expiryLimit}</strong> days.
           <br />
           If the reservation period lapses before your security token is
-          created, the ticker will become available for others.
+          configured, the ticker will become available for others.
         </h2>
       </div>
       <div className="text">
-        <h3>Before you create your token, you will need to decide whether:</h3>
+        <h3>
+          Before you configured your token, you will need to decide whether:
+        </h3>
         <ul>
           <li>your token will be divisible or indivisible;</li>
           <li>
@@ -61,7 +63,9 @@ export const TickerReserved = ({
         </p>
         <p align="center">
           <a href={`${POLYMATH_ISSUER_URL}/dashboard/${ticker}/providers`}>
-            <strong>Click here to continue with your Token Creation</strong>
+            <strong>
+              Click here to continue with your Token Configuration
+            </strong>
           </a>
         </p>
       </div>

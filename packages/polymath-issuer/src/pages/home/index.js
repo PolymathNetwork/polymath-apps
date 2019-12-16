@@ -24,9 +24,9 @@ class HomePage extends Component {
           <br />
           <br />
           <p>
-            <Link to="/ticker">
+            <Link to="/account">
               <Button id="create-token-btn" icon="arrow--right">
-                Create your security token
+                Configure your security token
               </Button>
             </Link>
           </p>

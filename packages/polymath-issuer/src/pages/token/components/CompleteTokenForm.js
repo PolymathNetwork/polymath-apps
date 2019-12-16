@@ -154,7 +154,7 @@ export const CompleteTokenFormComponent = ({ handleSubmit, values }) => (
         ) : null}
       </Grid.Col>
     </Grid.Row>
-    <Button type="submit">Create my security token</Button>
+    <Button type="submit">Configure my security token</Button>
   </Form>
 );
 

@@ -300,14 +300,14 @@ exports[`Component: TickerReserved renders with all props 1`] = `
             </strong>
              days.
             <br />
-            If the reservation period lapses before your security token is created, the ticker will become available for others.
+            If the reservation period lapses before your security token is configured, the ticker will become available for others.
           </h2>
         </div>
         <div
           className="text"
         >
           <h3>
-            Before you create your token, you will need to decide whether:
+            Before you configure your token, you will need to decide whether:
           </h3>
           <ul>
             <li>
@@ -327,7 +327,7 @@ exports[`Component: TickerReserved renders with all props 1`] = `
               href="http://localhost:3000/dashboard/SOMETICKER/providers"
             >
               <strong>
-                Click here to continue with your Token Creation
+                Click here to continue with your Token Configuration
               </strong>
             </a>
           </p>
