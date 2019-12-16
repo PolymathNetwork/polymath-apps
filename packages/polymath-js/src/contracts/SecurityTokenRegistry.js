@@ -289,6 +289,16 @@ class SecurityTokenRegistry extends Contract {
     return tokens;
   }
 
+  async getTickersByOwner(owner) {
+    const tickers = this._methods.getTickersByOwner(owner).call();
+    const convertedTickers = tickers.reduce((pV, cV) => {
+      let ticker = this._toAscii(cV);
+      pV.push(ticker);
+      return pV;
+    }, []);
+    return convertedTickers;
+  }
+
   async registerTicker(details: SymbolDetails): Promise<Web3Receipt> {
     const fee = await this.registrationFee();
     const allowance = await PolyToken.allowance(this.account, this.address);

@@ -79,7 +79,7 @@ class TickerPage extends Component<Props, State> {
             </Heading>
             <Heading as="h3" variant="h4" mr={190}>
               Your token symbol will be reserved for {this.props.expiryLimit}{' '}
-              days, and is permanently yours once you create your Token. This
+              days, and is permanently yours once you configure your Token. This
               reservation ensures that no other organization can create a token
               symbol identical to yours using the Polymath platform. This
               operation carries a cost of: {this.state.tickerRegistrationFee}{' '}

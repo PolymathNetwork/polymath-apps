@@ -49,8 +49,9 @@ class SignUpPage extends Component<Props> {
               Create Your Account
             </Heading>
             <Heading variant="h4" mr={190}>
-              Start your private environment to select your Token symbol, create
-              your Token, plan and execute your Security Token Offering.
+              Start your private environment to select your Token symbol,
+              configure your Token, plan and execute your Security Token
+              Offering.
             </Heading>
           </div>
           <SignUpForm
