@@ -250,6 +250,18 @@ const providers: Array<ServiceProvider> = [
     Global Payments Processing, KYC/AML Forensics, KYC/AML Engine, Custody Services, OTC Services, Insurance Services, Legal Services, \
     Tax Services, Liquidity Trading Technology Services, Prime Brokerage Services',
   },
+  {
+    id: 55,
+    cat: 0,
+    title: 'Logos Capital',
+    logo: '/providers/advisory/logos.png',
+    background: '/providers/advisory/bg/img-logos.png',
+    desc:
+      'Logos Capital catalyzes and accelerates impactful enterprises via global business development, \
+      mergers & acquisitions, investment and a joint venture in public and private sectors. Primarily focused on impact \
+      investing in the U.S., Latin America, Africa, and the Caribbean, Logos Capital is based in Miami, FL and comprised of \
+      personnel from around the world.',
+  },
 
   // LEGAL
   {
