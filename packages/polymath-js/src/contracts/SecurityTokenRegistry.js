@@ -237,7 +237,7 @@ class SecurityTokenRegistry extends Contract {
           token.isDivisible
         ),
         null,
-        1.05,
+        1.5,
         15
       );
     }
@@ -251,7 +251,7 @@ class SecurityTokenRegistry extends Contract {
         0 // if _protocolVersion == 0 then latest version of securityToken will be generated
       ),
       null,
-      1.05,
+      1.5,
       15
     );
   }
