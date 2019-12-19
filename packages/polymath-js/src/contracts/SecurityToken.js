@@ -11,6 +11,7 @@ import PermissionManager from './PermissionManager';
 import TransferManager from './TransferManager';
 import VolumeRestrictionTransferManager from './VolumeRestrictionTransferManager';
 import PercentageTransferManager from './PercentageTransferManager';
+import PartialTM from './PartialTM';
 import CountTransferManager from './CountTransferManager';
 import ModuleRegistry from './ModuleRegistry';
 import IModuleFactory from './IModuleFactory';
@@ -147,6 +148,15 @@ export default class SecurityToken extends Contract {
     try {
       const address = await this.getModuleByName('GeneralPermissionManager');
       return new PermissionManager(address, this.version);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getPartialTM(): Promise<?PartialTM> {
+    try {
+      const address = await this.getModuleByName('RestrictedPartialSaleTM');
+      return new PartialTM(address, this.version);
     } catch (e) {
       return null;
     }
@@ -304,7 +314,6 @@ export default class SecurityToken extends Contract {
       .getModulesByTypeAndToken(type, this.address)
       .call();
     let result = null;
-
     if (!availableModules || !availableModules.length) {
       return result;
     }
@@ -498,16 +507,32 @@ export default class SecurityToken extends Contract {
     );
   }
 
+  async setPartialTM(): Promise<Web3Receipt> {
+    const partialTransferFactory = await this.getModuleFactory(
+      'RestrictedPartialSaleTM',
+      MODULE_TYPES.TRANSFER
+    );
+    const setupCost = await partialTransferFactory.setupCost();
+    console.log(partialTransferFactory);
+    const data = this._toBytes('0');
+    return this.addModule(
+      partialTransferFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
+    );
+  }
+
   async setVolumeRestrictionTransferManager(): Promise<Web3Receipt> {
     const volumeRestrictionTransferManagerFactory = await this.getModuleFactory(
       'VolumeRestrictionTM',
       MODULE_TYPES.TRANSFER
     );
     const setupCost = await volumeRestrictionTransferManagerFactory.setupCost();
-    const data = this._toBytes('');
+    const data = this._toBytes(null);
     return this.addModule(
       volumeRestrictionTransferManagerFactory.address,
-      data,
+      null,
       PolyToken.addDecimals(setupCost),
       0
     );

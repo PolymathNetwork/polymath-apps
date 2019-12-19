@@ -75,6 +75,30 @@ export const toggleWhitelistManagement = (isToggled: boolean) => ({
   isToggled,
 });
 
+export const LOAD_PARTIAL_ADDRESSES = 'compliance/LOAD_PARTIAL_ADDRESSES';
+export const loadPartialAddresses = addresses => ({
+  type: LOAD_PARTIAL_ADDRESSES,
+  addresses,
+});
+
+export const ADD_PARTIAL_ADDRESS = 'compliance/ADD_PARTIAL_ADDRESS';
+export const addPartialAddress = address => ({
+  type: ADD_PARTIAL_ADDRESS,
+  address,
+});
+
+export const REMOVE_PARTIAL_ADDRESS = 'compliance/REMOVE_PARTIAL_ADDRESS';
+export const removePartialAddress = address => ({
+  type: REMOVE_PARTIAL_ADDRESS,
+  address,
+});
+
+export const TOGGLE_PARTIAL_TRANSFER = 'compliance/TOGGLE_PARTIAL_TRANSFER';
+export const togglePartialTransfer = (isToggled: boolean) => ({
+  type: TOGGLE_PARTIAL_TRANSFER,
+  isToggled,
+});
+
 export const RESET_UPLOADED = 'compliance/RESET_UPLOADED';
 export const resetUploaded = () => ({ type: RESET_UPLOADED });
 
@@ -134,6 +158,38 @@ export const fetchManagers = () => async (
       dispatch(toggleWhitelistManagement(true));
     } else {
       dispatch(toggleWhitelistManagement(false));
+    }
+    dispatch(ui.fetched());
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const fetchPartialTransfers = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(ui.fetching());
+  // $FlowFixMe
+  try {
+    const st: SecurityToken = getState().token.token.contract;
+    const partialTM = await st.getPartialTM();
+    if (!partialTM) {
+      return;
+    }
+    const moduleMetadata = await st.getModule(partialTM.address);
+    if (partialTM && !moduleMetadata.isArchived) {
+      // const transferManager = await st.getTransferManager();
+      // if (transferManager) {
+      //   const delegateDetails = await getDelegateDetails(
+      //     permissionManager,
+      //     transferManager
+      //   );
+      //   dispatch(loadManagers(delegateDetails));
+      // }
+      dispatch(togglePartialTransfer(true));
+    } else {
+      dispatch(togglePartialTransfer(false));
     }
     dispatch(ui.fetched());
   } catch (e) {
@@ -230,6 +286,64 @@ export const removeAddressFromTransferManager = (delegate: Address) => async (
       `Remove the Whitelist Manager from the Whitelist Managers List?`,
       undefined,
       'pui-large-confirm-modal'
+    )
+  );
+};
+
+export const addPartialTM = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const partialTM = await st.getPartialTM();
+  let moduleMetadata = {};
+
+  if (partialTM) moduleMetadata = await st.getModule(partialTM.address);
+
+  dispatch(
+    ui.tx(
+      ['Enabling Partial TM'],
+      async () => {
+        if (moduleMetadata.isArchived) {
+          await st.unarchiveModule(partialTM.address);
+        } else {
+          await st.setPartialTM();
+        }
+      },
+      'Partial TM Enabled',
+      () => {
+        // dispatch(loadManagers(delegateDetails));
+        dispatch(togglePartialTransfer(true));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const archivePartialTM = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  dispatch(
+    ui.tx(
+      ['Disabling General Permissions Manager'],
+      async () => {
+        const permissionManager = await st.getPermissionManager();
+        await st.archiveModule(permissionManager.address);
+      },
+      'General Permissions Manager Disabled',
+      () => {
+        dispatch(toggleWhitelistManagement(false));
+        dispatch(loadManagers([]));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
     )
   );
 };

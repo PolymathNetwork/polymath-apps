@@ -26,6 +26,7 @@ export type WhitelistState = {|
   freezeStatus: ?boolean,
   isFrozenModalOpen: ?boolean,
   approvedManagers: Array<any>,
+  partialAddresses: Array<any>,
   fileUploaded: boolean,
 |};
 
@@ -47,6 +48,8 @@ const defaultState: WhitelistState = {
   approvedManagers: [],
   isToggled: false,
   fileUploaded: false,
+  isPartialTransferToggled: false,
+  partialAddresses: [],
 };
 
 // NOTE @RafaelVidaurre: WARNING For some reason this reducer is being renamed.
@@ -54,10 +57,39 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
+    case a.ADD_PARTIAL_ADDRESS:
+      return {
+        ...state,
+        partialAddresses: [
+          ...state.partialAddresses,
+          { ...action.manager, id: action.manager.address },
+        ],
+      };
+    case a.LOAD_PARTIAL_ADDRESSES:
+      return {
+        ...state,
+        partialAddresses: action.addresses,
+      };
+    case a.REMOVE_PARTIAL_ADDRESS:
+      let y = state.partialAddresses.findIndex(
+        i => i.address === action.address
+      );
+      return {
+        ...state,
+        partialAddresses: [
+          ...state.partialAddresses.slice(0, y),
+          ...state.partialAddresses.slice(y + 1),
+        ],
+      };
     case a.TOGGLE_WHITELIST_MANAGEMENT:
       return {
         ...state,
         isToggled: action.isToggled,
+      };
+    case a.TOGGLE_PARTIAL_TRANSFER:
+      return {
+        ...state,
+        isPartialTransferToggled: action.isToggled,
       };
     case a.REMOVE_MANAGER:
       let index = state.approvedManagers.findIndex(

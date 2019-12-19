@@ -50,6 +50,9 @@ import {
   toggleWhitelistManagement,
   addGeneralPermissionModule,
   archiveGeneralPermissionModule,
+  fetchPartialTransfers,
+  addPartialTM,
+  archivePartialTM,
 } from '../../actions/compliance';
 import Progress from '../token/components/Progress';
 import AddInvestorForm, {
@@ -59,6 +62,8 @@ import { formName as editInvestorsFormName } from './components/EditInvestorsFor
 import ImportWhitelistModal from './components/ImportWhitelistModal';
 import WhitelistTable from './components/WhitelistTable';
 import WhitelistModal from './components/WhitelistModal';
+import PartialTransferModal from './components/PartialTransferModal';
+import PartialTransferTable from './components/PartialTransferTable';
 import './style.scss';
 import type {
   Investor,
@@ -113,6 +118,9 @@ type DispatchProps = {|
   toggleFreeze: () => any,
   addGeneralPermissionModule: () => any,
   archiveGeneralPermissionModule: () => any,
+  addPartialTM: () => any,
+  archivePartialTM: () => any,
+  fetchPartialTransfers: () => any,
 |};
 
 const mapStateToProps = (state: RootState) => ({
@@ -125,6 +133,7 @@ const mapStateToProps = (state: RootState) => ({
   percentage: state.whitelist.percentageTM.percentage,
   isTokenFrozen: state.whitelist.freezeStatus,
   isWhitelistToggled: state.whitelist.isToggled,
+  isPartialTransferToggled: state.whitelist.isPartialTransferToggled,
 });
 
 const mapDispatchToProps = {
@@ -146,6 +155,9 @@ const mapDispatchToProps = {
   toggleWhitelistManagement,
   addGeneralPermissionModule,
   archiveGeneralPermissionModule,
+  addPartialTM,
+  archivePartialTM,
+  fetchPartialTransfers,
 };
 
 type Props = StateProps & DispatchProps;
@@ -197,6 +209,7 @@ class CompliancePage extends Component<Props, State> {
       this.setState({ percentage: this.props.percentage });
     }
     this.props.fetchManagers();
+    this.props.fetchPartialTransfers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -379,6 +392,14 @@ class CompliancePage extends Component<Props, State> {
       await this.props.addGeneralPermissionModule();
     } else {
       await this.props.archiveGeneralPermissionModule();
+    }
+  };
+
+  handleTogglePartialTransfer = async (isToggled: boolean) => {
+    if (isToggled) {
+      await this.props.addPartialTM();
+    } else {
+      await this.props.archivePartialTM();
     }
   };
 
@@ -692,6 +713,40 @@ class CompliancePage extends Component<Props, State> {
                           }
                         >
                           <WhitelistTable />
+                        </div>
+                      </div>
+                      <div className="pui-clearfix" />
+                    </div>
+                  </div>
+                </Grid.Col>
+                <Grid.Col gridSpan={[12, 12, 6, 6]}>
+                  <div id="compliance">
+                    <br />
+                    <div className="pui-page-box compliance-form">
+                      <h1 className="pui-h1">No Partial Transfers</h1>
+                      <div className="whitelist-settings">
+                        <div className="bx--form-item">
+                          <label
+                            htmlFor="partialTransferToggle"
+                            className="bx--label"
+                          >
+                            Enable No Partial Transfers
+                          </label>
+                          <Toggle
+                            onToggle={this.handleTogglePartialTransfer}
+                            toggled={this.props.isPartialTransferToggled}
+                            id="partialTransferToggle"
+                          />
+                        </div>
+                        <div
+                          className="bx--form-item"
+                          style={
+                            this.props.isPartialTransferToggled
+                              ? {}
+                              : { display: 'none' }
+                          }
+                        >
+                          <PartialTransferTable />
                         </div>
                       </div>
                       <div className="pui-clearfix" />
