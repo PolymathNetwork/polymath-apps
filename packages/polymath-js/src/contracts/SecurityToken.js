@@ -513,8 +513,19 @@ export default class SecurityToken extends Contract {
       MODULE_TYPES.TRANSFER
     );
     const setupCost = await partialTransferFactory.setupCost();
-    console.log(partialTransferFactory);
-    const data = this._toBytes('0');
+    const data = Contract._params.web3.eth.abi.encodeFunctionCall(
+      {
+        name: 'configure',
+        type: 'function',
+        inputs: [
+          {
+            type: 'address',
+            name: '_treasuryWallet',
+          },
+        ],
+      },
+      [this.account]
+    );
     return this.addModule(
       partialTransferFactory.address,
       data,
