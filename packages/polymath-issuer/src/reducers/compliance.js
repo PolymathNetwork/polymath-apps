@@ -60,10 +60,7 @@ export default (state: WhitelistState = defaultState, action: Object) => {
     case a.ADD_PARTIAL_ADDRESS:
       return {
         ...state,
-        partialAddresses: [
-          ...state.partialAddresses,
-          { ...action.manager, id: action.manager.address },
-        ],
+        partialAddresses: [...state.partialAddresses, { ...action.address }],
       };
     case a.LOAD_PARTIAL_ADDRESSES:
       return {

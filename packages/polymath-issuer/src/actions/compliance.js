@@ -179,14 +179,12 @@ export const fetchPartialTransfers = () => async (
     }
     const moduleMetadata = await st.getModule(partialTM.address);
     if (partialTM && !moduleMetadata.isArchived) {
-      // const transferManager = await st.getTransferManager();
-      // if (transferManager) {
-      //   const delegateDetails = await getDelegateDetails(
-      //     permissionManager,
-      //     transferManager
-      //   );
-      //   dispatch(loadManagers(delegateDetails));
-      // }
+      const exemptAddresses = await partialTM.getExemptAddresses();
+      let addr = [];
+      for (const address of exemptAddresses) {
+        addr.push({ id: address, address: address });
+      }
+      dispatch(loadPartialAddresses(addr));
       dispatch(togglePartialTransfer(true));
     } else {
       dispatch(togglePartialTransfer(false));
@@ -235,6 +233,73 @@ export const addAddressToTransferManager = (
       undefined,
       undefined,
       true
+    )
+  );
+};
+
+export const addAddressToPartialExempt = (
+  address: Address,
+  details: string
+) => async (dispatch: Function, getState: GetState) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const partialTM = await st.getPartialTM();
+  const titles = ['Adding Exemption to RPTM'];
+  dispatch(
+    ui.tx(
+      titles,
+      async () => {
+        if (partialTM) {
+          await partialTM.addExemptAddress(address);
+        }
+      },
+      'New Exemption Added',
+      () => {
+        dispatch(addPartialAddress({ id: address, address: address }));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const removeAddressFromPartialExempt = (address: Address) => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    ui.confirm(
+      <div>
+        <p>
+          Once removed, the address will be subject to Partial Transfer
+          Restrictions. Consult your legal team before removing a wallet from
+          the list.
+        </p>
+      </div>,
+      async () => {
+        dispatch(
+          ui.tx(
+            ['Removing Address from Exemption'],
+            async () => {
+              const st: SecurityToken = getState().token.token.contract;
+              const partialTM = await st.getPartialTM();
+              partialTM.removeExemptAddress(address);
+            },
+            'Address Removed',
+            () => {
+              dispatch(removePartialAddress(address));
+            },
+            undefined,
+            undefined,
+            undefined,
+            true
+          )
+        );
+      },
+      `Remove the Address from the Partial Restriction Exemption?`,
+      undefined,
+      'pui-large-confirm-modal'
     )
   );
 };
@@ -297,6 +362,7 @@ export const addPartialTM = () => async (
   const st: SecurityToken = getState().token.token.contract;
   const partialTM = await st.getPartialTM();
   let moduleMetadata = {};
+  const addr = [];
 
   if (partialTM) moduleMetadata = await st.getModule(partialTM.address);
 
@@ -306,13 +372,17 @@ export const addPartialTM = () => async (
       async () => {
         if (moduleMetadata.isArchived) {
           await st.unarchiveModule(partialTM.address);
+          const exemptAddresses = await partialTM.getExemptAddresses();
+          for (const address of exemptAddresses) {
+            addr.push({ id: address, address: address });
+          }
         } else {
           await st.setPartialTM();
         }
       },
       'Partial TM Enabled',
       () => {
-        // dispatch(loadManagers(delegateDetails));
+        dispatch(loadPartialAddresses(addr));
         dispatch(togglePartialTransfer(true));
       },
       undefined,
@@ -330,15 +400,15 @@ export const archivePartialTM = () => async (
   const st: SecurityToken = getState().token.token.contract;
   dispatch(
     ui.tx(
-      ['Disabling General Permissions Manager'],
+      ['Disabling Partial TM'],
       async () => {
-        const permissionManager = await st.getPermissionManager();
-        await st.archiveModule(permissionManager.address);
+        const partialTM = await st.getPartialTM();
+        await st.archiveModule(partialTM.address);
       },
-      'General Permissions Manager Disabled',
+      'PartialTM Disabled',
       () => {
-        dispatch(toggleWhitelistManagement(false));
-        dispatch(loadManagers([]));
+        dispatch(togglePartialTransfer(false));
+        dispatch(loadPartialAddresses([]));
       },
       undefined,
       undefined,

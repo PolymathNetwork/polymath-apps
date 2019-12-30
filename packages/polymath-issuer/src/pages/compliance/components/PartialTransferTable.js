@@ -3,9 +3,9 @@
 import React, { Component } from 'react';
 import { DataTable, Icon } from 'carbon-components-react';
 import { Button } from '@polymathnetwork/ui';
-import WhitelistModal from './WhitelistModal';
+import PartialTransferModal from './PartialTransferModal';
 import { connect } from 'react-redux';
-import { removeAddressFromTransferManager } from '../../../actions/compliance';
+import { removeAddressFromPartialExempt } from '../../../actions/compliance';
 const {
   TableContainer,
   Table,
@@ -28,40 +28,40 @@ const columns = [
 ];
 
 type State = {|
-  isWhitelistModalOpen: boolean,
+  isPartialTransferModalOpen: boolean,
 |};
 
 class PartialTransferTable extends Component<Props, State> {
   state = {
-    isWhitelistModalOpen: false,
+    isPartialTransferModalOpen: false,
   };
 
   handleOpen = () => {
-    this.setState({ isWhitelistModalOpen: true });
+    this.setState({ isPartialTransferModalOpen: true });
   };
 
   handleClose = () => {
-    this.setState({ isWhitelistModalOpen: false });
+    this.setState({ isPartialTransferModalOpen: false });
   };
 
   handleDelete = id => {
-    this.props.removeAddressFromTransferManager(id);
+    this.props.removeAddressFromPartialExempt(id);
   };
 
   render() {
-    const { approvedManagers } = this.props;
+    const { partialAddresses } = this.props;
     return (
       <div>
-        <WhitelistModal
-          isOpen={this.state.isWhitelistModalOpen}
+        <PartialTransferModal
+          isOpen={this.state.isPartialTransferModalOpen}
           handleClose={this.handleClose}
         />
         <DataTable
           headers={columns}
           rows={
-            approvedManagers < 1
-              ? [{ id: '0', address: '-', details: '-' }]
-              : approvedManagers
+            partialAddresses < 1
+              ? [{ id: '0', address: '-' }]
+              : partialAddresses
           }
           render={({ rows, headers, getHeaderProps }) => {
             return (
@@ -97,7 +97,7 @@ class PartialTransferTable extends Component<Props, State> {
                         {row.cells.map(cell => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}
-                        {approvedManagers.length > 0 ? (
+                        {partialAddresses.length > 0 ? (
                           <TableCell
                             className="delete-icon"
                             onClick={() => this.handleDelete(row.id)}
@@ -121,11 +121,11 @@ class PartialTransferTable extends Component<Props, State> {
 }
 
 const mapStateToProps = state => ({
-  approvedManagers: state.whitelist.approvedManagers,
+  partialAddresses: state.whitelist.partialAddresses,
 });
 
 const mapDispatchToProps = {
-  removeAddressFromTransferManager,
+  removeAddressFromPartialExempt,
 };
 
 export default connect(

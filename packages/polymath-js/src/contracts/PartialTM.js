@@ -1,6 +1,6 @@
 // @flow
 import semver from 'semver';
-import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/VolumeRestrictionTM.json';
+import artifact from '@polymathnetwork/polymath-scripts/fixtures/contracts/RestrictedPartialSaleTM.json';
 import { LATEST_PROTOCOL_VERSION } from '../constants';
 import BigNumber from 'bignumber.js';
 
@@ -12,5 +12,17 @@ export default class PartialTM extends Contract {
   constructor(at: Address, version?: string = LATEST_PROTOCOL_VERSION) {
     super(artifact, at);
     version = version;
+  }
+
+  async getExemptAddresses() {
+    return await this._methods.getExemptAddresses().call();
+  }
+
+  async addExemptAddress(address: Address) {
+    return this._tx(this._methods.changeExemptWalletList(address, true));
+  }
+
+  async removeExemptAddress(address: Address) {
+    return this._tx(this._methods.changeExemptWalletList(address, false));
   }
 }

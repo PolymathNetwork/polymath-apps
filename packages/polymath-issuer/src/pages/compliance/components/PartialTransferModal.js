@@ -14,7 +14,7 @@ import {
   TextInput,
 } from '@polymathnetwork/ui';
 import validator from '@polymathnetwork/ui/validator';
-import { addAddressToTransferManager } from '../../../actions/compliance';
+import { addAddressToPartialExempt } from '../../../actions/compliance';
 
 type Props = {
   isOpen: boolean,
@@ -26,22 +26,13 @@ const formSchema = validator.object().shape({
     .string()
     .isAddress('Invalid Address')
     .isRequired('Required'),
-  details: validator.string().isRequired('Required'),
 });
 
 export const AddPartialTransferComponent = ({ handleSubmit, handleClose }) => (
   <Form onSubmit={handleSubmit}>
     <FormItem name="address">
       <Heading className="form-item-header" variant="h3">
-        Whitelist Manager Wallet Address
-      </Heading>
-      <FormItem.Input component={TextInput} />
-      <FormItem.Error />
-    </FormItem>
-
-    <FormItem name="details">
-      <Heading className="form-item-header" variant="h3">
-        Whitelist Manager Details
+        Wallet Address
       </Heading>
       <FormItem.Input component={TextInput} />
       <FormItem.Error />
@@ -58,11 +49,11 @@ export const AddPartialTransferComponent = ({ handleSubmit, handleClose }) => (
 
 const formikEnhancer = withFormik({
   validationSchema: formSchema,
-  displayName: 'ConfirmEmailForm',
+  displayName: 'PartialAddressForm',
   validateOnChange: false,
   handleSubmit: (values, { setFieldError, props }) => {
-    const { dispatch, approvedManagers } = props;
-    const addressExists = approvedManagers.find(
+    const { dispatch, partialAddresses } = props;
+    const addressExists = partialAddresses.find(
       i => i.address === values.address
     );
     if (addressExists) {
@@ -70,12 +61,12 @@ const formikEnhancer = withFormik({
       return;
     }
     props.handleClose();
-    dispatch(addAddressToTransferManager(values.address, values.details));
+    dispatch(addAddressToPartialExempt(values.address));
   },
 });
 
 const mapStateToProps = state => ({
-  approvedManagers: state.whitelist.approvedManagers,
+  partialAddresses: state.whitelist.partialAddresses,
 });
 
 const FormikEnhancedForm = formikEnhancer(AddPartialTransferComponent);
@@ -86,12 +77,14 @@ class PartialTransferModal extends Component<Props> {
     const { isOpen, handleClose } = this.props;
     return (
       <Modal isOpen={isOpen} onClose={handleClose}>
-        <Modal.Header variant="alert">Add Whitelist Manager</Modal.Header>
+        <Modal.Header variant="alert">
+          Add Partial Transfer Exemption Address
+        </Modal.Header>
         <Modal.Body>
           <p>
-            Specify the whitelist manager address of the new whitelist manager.
-            Each manager will have permission to update the whitelist. Consult
-            with your legal team before adding a new wallet to the list.
+            Specify the address of an exemption. Each address will have
+            permission to receive an unlimited amount of tokens. Consult with
+            your legal team before adding a new wallet to the list.
           </p>
           <ConnectedForm handleClose={handleClose} />
         </Modal.Body>
