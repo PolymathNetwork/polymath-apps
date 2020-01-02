@@ -32,7 +32,7 @@ export const AddPartialTransferComponent = ({ handleSubmit, handleClose }) => (
   <Form onSubmit={handleSubmit}>
     <FormItem name="address">
       <Heading className="form-item-header" variant="h3">
-        Wallet Address
+        Exempted Wallet Address
       </Heading>
       <FormItem.Input component={TextInput} />
       <FormItem.Error />
@@ -78,7 +78,7 @@ class PartialTransferModal extends Component<Props> {
     return (
       <Modal isOpen={isOpen} onClose={handleClose}>
         <Modal.Header variant="alert">
-          Add Partial Transfer Exemption Address
+          Add Exempted Wallet from Partial Transfer Restrictions
         </Modal.Header>
         <Modal.Body>
           <p>
