@@ -243,7 +243,7 @@ export const addAddressToPartialExempt = (
 ) => async (dispatch: Function, getState: GetState) => {
   const st: SecurityToken = getState().token.token.contract;
   const partialTM = await st.getPartialTM();
-  const titles = ['Adding Exemption to RPTM'];
+  const titles = ['Adding Address to Partial TM Exemption'];
   dispatch(
     ui.tx(
       titles,
@@ -252,7 +252,7 @@ export const addAddressToPartialExempt = (
           await partialTM.addExemptAddress(address);
         }
       },
-      'New Exemption Added',
+      'Address Added to Partial TM Exemption',
       () => {
         dispatch(addPartialAddress({ id: address, address: address }));
       },
@@ -280,13 +280,13 @@ export const removeAddressFromPartialExempt = (address: Address) => async (
       async () => {
         dispatch(
           ui.tx(
-            ['Removing Address from Exemption'],
+            ['Removing Address from Partial TM Exemption'],
             async () => {
               const st: SecurityToken = getState().token.token.contract;
               const partialTM = await st.getPartialTM();
               partialTM.removeExemptAddress(address);
             },
-            'Address Removed',
+            'Address Removed from Partial TM Exemption',
             () => {
               dispatch(removePartialAddress(address));
             },
@@ -405,7 +405,7 @@ export const archivePartialTM = () => async (
         const partialTM = await st.getPartialTM();
         await st.archiveModule(partialTM.address);
       },
-      'PartialTM Disabled',
+      'Partial TM Disabled',
       () => {
         dispatch(togglePartialTransfer(false));
         dispatch(loadPartialAddresses([]));
