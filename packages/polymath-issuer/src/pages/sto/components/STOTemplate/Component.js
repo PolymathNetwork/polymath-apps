@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import React, { Component, Fragment } from 'react';
-import { Button, Icon } from 'carbon-components-react';
+import { Button, Icon, InlineNotification } from 'carbon-components-react';
 import {
   Box,
   Grid,
@@ -40,6 +40,24 @@ export default class STOTemplateComponent extends Component<Props> {
         <LabeledItem.Label>Description</LabeledItem.Label>
         <Paragraph>{stoModule.description}</Paragraph>
       </LabeledItem>
+    );
+    const investorsNote = (
+      <InlineNotification
+        hideCloseButton
+        title={
+          <p>
+            Please make note to your investors that they may need to{' '}
+            <a href="https://metamask.zendesk.com/hc/en-us/articles/360015488771-How-to-Adjust-Gas-Price-and-Gas-Limit-">
+              adjust the gas limit in metamask
+            </a>{' '}
+            to 450000 in order to successfully participate in your STO. If gas
+            limit of 450,000 does not work, please ask them to increase the
+            limit slightly by 150,000 until the transaction goes through.'
+          </p>
+        }
+        subtitle=""
+        kind="warning"
+      />
     );
     const verifiedOnEtherscan = (
       <LabeledItem>
@@ -99,6 +117,7 @@ export default class STOTemplateComponent extends Component<Props> {
             <Grid.Col gridSpan={[12, 8]}>
               {authorAddress}
               {desc}
+              {investorsNote}
             </Grid.Col>
             <Grid.Col gridColumn={['1 / 13', '9 / span 4', '10 / span 3']}>
               {verifiedOnEtherscan}
