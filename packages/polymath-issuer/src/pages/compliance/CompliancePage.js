@@ -719,7 +719,7 @@ class CompliancePage extends Component<Props, State> {
                     </div>
                   </div>
                 </Grid.Col>
-                {token.contract.version === '3.0.0' && (
+                {token.contract.version >= '3.0.0' && (
                   <Grid.Col gridSpan={[12, 12, 6, 6]}>
                     <div id="compliance">
                       <br />
