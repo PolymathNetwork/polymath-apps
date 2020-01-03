@@ -57,7 +57,7 @@ const formikEnhancer = withFormik({
       i => i.address === values.address
     );
     if (addressExists) {
-      setFieldError('address', 'Address is already added to Whitelist Manager');
+      setFieldError('address', 'Address is already an Exempted Address');
       return;
     }
     props.handleClose();
@@ -78,7 +78,7 @@ class PartialTransferModal extends Component<Props> {
     return (
       <Modal isOpen={isOpen} onClose={handleClose}>
         <Modal.Header variant="alert">
-          Add Exempted Wallet from Partial Transfer Restrictions
+          Add Exempted Wallet Address from Partial Transfer Restrictions
         </Modal.Header>
         <Modal.Body>
           <p>

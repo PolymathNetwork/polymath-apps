@@ -90,10 +90,7 @@ class PartialTransferTable extends Component<Props, State> {
                   </TableHead>
                   <TableBody>
                     {rows.map(row => (
-                      <TableRow
-                        key={row.id}
-                        onMouseOver={() => console.log('test')}
-                      >
+                      <TableRow key={row.id}>
                         {row.cells.map(cell => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}

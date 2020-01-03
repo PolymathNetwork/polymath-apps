@@ -540,10 +540,10 @@ export default class SecurityToken extends Contract {
       MODULE_TYPES.TRANSFER
     );
     const setupCost = await volumeRestrictionTransferManagerFactory.setupCost();
-    const data = this._toBytes(null);
+    const data = this._toBytes('');
     return this.addModule(
       volumeRestrictionTransferManagerFactory.address,
-      null,
+      data,
       PolyToken.addDecimals(setupCost),
       0
     );
