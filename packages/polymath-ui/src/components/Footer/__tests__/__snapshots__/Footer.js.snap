@@ -92,7 +92,7 @@ exports[`renders without crashing 1`] = `
         class="pui-footer-text"
       >
         © 
-        2019
+        2020
          
         Polymath
       </span>
