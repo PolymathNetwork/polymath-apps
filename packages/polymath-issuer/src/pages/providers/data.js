@@ -262,6 +262,21 @@ const providers: Array<ServiceProvider> = [
       investing in the U.S., Latin America, Africa, and the Caribbean, Logos Capital is based in Miami, FL and comprised of \
       personnel from around the world.',
   },
+  {
+    id: 56,
+    cat: 0,
+    title: 'Bitcoin Suisse AG',
+    logo: '/providers/advisory/bitcoin-suisse.png',
+    background: '/providers/advisory/bg/img-bitcoin-suisse.png',
+    desc:
+      "Founded in 2013, Bitcoin Suisse AG (BTCS) has been a pioneer in providing crypto-financial services. \
+      It has helped to shape the crypto- and blockchain-ecosystem in Switzerland and has been a driving force \
+      in the development of the 'Crypto Valley' and 'Crypto Nation Switzerland'. As a regulated Swiss financial \
+      intermediary (SRO – VQF member) since 2014, BTCS has become a market leader in prime brokerage, storage, \
+      lending, staking, tokenization, and other crypto-financial services catered to the needs of private, institutional, \
+      and corporate clients. BTCS built a team of over 110 highly qualified experts at its locations in Zug, Copenhagen, \
+      and Liechtenstein.",
+  },
 
   // LEGAL
   {
