@@ -124,7 +124,7 @@ const providers: Array<ServiceProvider> = [
       'and communications while our Corporate team focuses on the interaction with our technology ecosystem.',
   },
   {
-    id: 23,
+    id: 58,
     cat: 0,
     title: 'Chain Partners',
     logo: '/providers/advisory/chain-par.png',
