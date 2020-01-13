@@ -190,7 +190,7 @@ const dateFormat = (date: ?Date): string => {
   });
 };
 
-class CompliancePage extends Component<Props, State> {
+export class CompliancePage extends Component<Props, State> {
   state = {
     page: 0,
     editInvestors: [],
@@ -719,42 +719,6 @@ class CompliancePage extends Component<Props, State> {
                     </div>
                   </div>
                 </Grid.Col>
-                {token.contract.version >= '3.0.0' && (
-                  <Grid.Col gridSpan={[12, 12, 6, 6]}>
-                    <div id="compliance">
-                      <br />
-                      <div className="pui-page-box compliance-form">
-                        <h1 className="pui-h1">No Partial Transfers</h1>
-                        <div className="whitelist-settings">
-                          <div className="bx--form-item">
-                            <label
-                              htmlFor="partialTransferToggle"
-                              className="bx--label"
-                            >
-                              Enable No Partial Transfers
-                            </label>
-                            <Toggle
-                              onToggle={this.handleTogglePartialTransfer}
-                              toggled={this.props.isPartialTransferToggled}
-                              id="partialTransferToggle"
-                            />
-                          </div>
-                          <div
-                            className="bx--form-item"
-                            style={
-                              this.props.isPartialTransferToggled
-                                ? {}
-                                : { display: 'none' }
-                            }
-                          >
-                            <PartialTransferTable />
-                          </div>
-                        </div>
-                        <div className="pui-clearfix" />
-                      </div>
-                    </div>
-                  </Grid.Col>
-                )}
               </Grid.Row>
             </Grid>
           </Tab>
@@ -855,6 +819,48 @@ class CompliancePage extends Component<Props, State> {
               </Grid.Row>
             </Grid>
           </Tab>
+          {token.contract.version >= '3.0.0' && (
+            <Tab label="Restrict Partial Transfers">
+              <Grid>
+                <Grid.Row>
+                  <Grid.Col gridSpan={[12, 12, 6, 6]}>
+                    <div id="compliance">
+                      <br />
+                      <div className="pui-page-box compliance-form">
+                        <h1 className="pui-h1">No Partial Transfers</h1>
+                        <div className="whitelist-settings">
+                          <div className="bx--form-item">
+                            <label
+                              htmlFor="partialTransferToggle"
+                              className="bx--label"
+                            >
+                              Enable No Partial Transfers
+                            </label>
+                            <Toggle
+                              onToggle={this.handleTogglePartialTransfer}
+                              toggled={this.props.isPartialTransferToggled}
+                              id="partialTransferToggle"
+                            />
+                          </div>
+                          <div
+                            className="bx--form-item"
+                            style={
+                              this.props.isPartialTransferToggled
+                                ? {}
+                                : { display: 'none' }
+                            }
+                          >
+                            <PartialTransferTable />
+                          </div>
+                        </div>
+                        <div className="pui-clearfix" />
+                      </div>
+                    </div>
+                  </Grid.Col>
+                </Grid.Row>
+              </Grid>
+            </Tab>
+          )}
         </Tabs>
       </Page>
     );
