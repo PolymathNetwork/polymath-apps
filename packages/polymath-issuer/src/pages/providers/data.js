@@ -744,6 +744,19 @@ const providers: Array<ServiceProvider> = [
       maximum user-friendliness with the highest security levels available in the market. \
       \nFinoa is aiming to become a regulated custodial institution starting in 2020.',
   },
+  {
+    id: 57,
+    cat: 4,
+    title: 'Koine',
+    logo: '/providers/custody/koine.png',
+    background: '/providers/custody/bg/img-koine.png',
+    desc:
+      "Headquartered in London, Koine is regulated by the FCA exclusively as a payment institution for the issuance of electronic money. \
+      Koine's offer also includes custody, distribution and DVP settlement of digital assets and FIAT to institutional investors, brokers \
+      and non-security token issuers. Following the best practices of traditional custodians and thanks to a blend of ground-up architecture, \
+      governance, team and systems, Koine model eliminates settlement and counterparty risks by enforcing DVP, responding to the needs of the \
+      institutional world.",
+  },
 
   // TOKEN SALE PLATFORMS
   {
