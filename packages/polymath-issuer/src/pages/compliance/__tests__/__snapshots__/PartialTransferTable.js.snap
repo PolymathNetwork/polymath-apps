@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Partial Transfer Modal should render correctly 1`] = `
+<div>
+  <PartialTransferModal
+    handleClose={[Function]}
+    isOpen={false}
+  />
+  <DataTable
+    filterRows={[Function]}
+    headers={
+      Array [
+        Object {
+          "Cell": [Function],
+          "header": "Wallet Address",
+          "key": "address",
+          "width": 250,
+        },
+      ]
+    }
+    locale="en"
+    render={[Function]}
+    sortRow={[Function]}
+    translateWithId={[Function]}
+  />
+</div>
+`;

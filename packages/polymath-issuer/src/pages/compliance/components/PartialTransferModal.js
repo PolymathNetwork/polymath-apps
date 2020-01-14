@@ -72,19 +72,21 @@ const mapStateToProps = state => ({
 const FormikEnhancedForm = formikEnhancer(AddPartialTransferComponent);
 const ConnectedForm = connect(mapStateToProps)(FormikEnhancedForm);
 
-class PartialTransferModal extends Component<Props> {
+export class PartialTransferModal extends Component<Props> {
   render() {
     const { isOpen, handleClose } = this.props;
     return (
       <Modal isOpen={isOpen} onClose={handleClose}>
         <Modal.Header variant="alert">
-          Add Exempted Wallet Address from Partial Transfer Restrictions
+          Add an address to exempt a wallet from the Restricted Partial
+          Transfers rules
         </Modal.Header>
         <Modal.Body>
           <p>
-            Specify the address of an exemption. Each address will have
-            permission to receive an unlimited amount of tokens. Consult with
-            your legal team before adding a new wallet to the list.
+            Enter the wallet address you wish to exempt from the Restricted
+            Partial Transfers rule. This wallet will be able to trade freely
+            (unless restricted by other rules). Consult with your legal team
+            before adding a new wallet to the list.
           </p>
           <ConnectedForm handleClose={handleClose} />
         </Modal.Body>

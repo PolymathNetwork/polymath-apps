@@ -823,6 +823,22 @@ export class CompliancePage extends Component<Props, State> {
             <Tab label="Restrict Partial Transfers">
               <Grid>
                 <Grid.Row>
+                  <Grid.Col gridSpan={12}>
+                    <h1 className="pui-h1">Restrict Partial Transfers</h1>
+                    <h3 className="pui-h3">
+                      To allow your tokenholders to trade their tokens while
+                      still meeting maximum number of token holders compliance
+                      rules.
+                    </h3>
+                    <Remark title="Note">
+                      By restricting partial transfers, your tokenholders will
+                      only be allowed to trade their full token balance or none
+                      of their balance. You can disable this restriction at any
+                      time.
+                    </Remark>
+                  </Grid.Col>
+                </Grid.Row>
+                <Grid.Row>
                   <Grid.Col gridSpan={[12, 12, 6, 6]}>
                     <div id="compliance">
                       <br />

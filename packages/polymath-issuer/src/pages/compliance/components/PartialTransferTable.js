@@ -31,7 +31,7 @@ type State = {|
   isPartialTransferModalOpen: boolean,
 |};
 
-class PartialTransferTable extends Component<Props, State> {
+export class PartialTransferTable extends Component<Props, State> {
   state = {
     isPartialTransferModalOpen: false,
   };
@@ -70,7 +70,7 @@ class PartialTransferTable extends Component<Props, State> {
                   <TableToolbarContent>
                     {/* pass in `onInputChange` change here to make filtering work */}
                     <Button onClick={this.handleOpen} icon="icon--add">
-                      Add new
+                      Exempt a Wallet
                     </Button>
                   </TableToolbarContent>
                 </TableToolbar>

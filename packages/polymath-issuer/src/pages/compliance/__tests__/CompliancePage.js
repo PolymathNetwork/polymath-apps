@@ -98,4 +98,23 @@ describe('Compliance Page', () => {
     expect(props.archivePartialTM).toHaveBeenCalled();
     expect(props.addPartialTM.mock.calls.length).toBe(0);
   });
+
+  it('should show PartialTransferTable when RPTM is enabled', () => {
+    const props = {
+      fetchWhitelist: jest.fn(),
+      fetchManagers: jest.fn(),
+      fetchPartialTransfers: jest.fn(),
+      addPartialTM: jest.fn(),
+      archivePartialTM: jest.fn(),
+      theme,
+      token: {
+        address: '0x121212',
+        contract: {
+          version: '3.0.0',
+        },
+      },
+    };
+    const tree = shallow(<CompliancePage {...props} />);
+    expect(tree).toMatchSnapshot();
+  });
 });

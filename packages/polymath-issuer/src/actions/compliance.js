@@ -272,21 +272,21 @@ export const removeAddressFromPartialExempt = (address: Address) => async (
     ui.confirm(
       <div>
         <p>
-          Once removed, the address will be subject to Partial Transfer
-          Restrictions. Consult your legal team before removing a wallet from
-          the list.
+          Once removed, the address will be no longer be subject to Partial
+          Transfer Restrictions. Consult your legal team before removing a
+          wallet from the list.
         </p>
       </div>,
       async () => {
         dispatch(
           ui.tx(
-            ['Removing Address from Partial TM Exemption'],
+            ['Removing Address from Restriction Partial TM Exemption List'],
             async () => {
               const st: SecurityToken = getState().token.token.contract;
               const partialTM = await st.getPartialTM();
               partialTM.removeExemptAddress(address);
             },
-            'Address Removed from Partial TM Exemption',
+            'Address Removed from Restriction Partial TM Exemption List',
             () => {
               dispatch(removePartialAddress(address));
             },
