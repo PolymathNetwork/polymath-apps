@@ -16,20 +16,3 @@ exports[`Partial Transfer Modal should render correctly 1`] = `
   </Body>
 </Modal__StyledModal>
 `;
-
-exports[`Partial Transfer Modal should render not found when there is no token 1`] = `
-<Modal__StyledModal>
-  <Header
-    status="idle"
-    variant="alert"
-  >
-    Add an address to exempt a wallet from the Restricted Partial Transfers rules
-  </Header>
-  <Body>
-    <p>
-      Enter the wallet address you wish to exempt from the Restricted Partial Transfers rule. This wallet will be able to trade freely (unless restricted by other rules). Consult with your legal team before adding a new wallet to the list.
-    </p>
-    <Connect(WithFormik(AddPartialTransferComponent)) />
-  </Body>
-</Modal__StyledModal>
-`;
