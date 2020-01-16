@@ -101,7 +101,7 @@ exports[`renders without crashing 1`] = `
       >
         <li>
           <a
-            href="https://polymath.network/termsofservice.html"
+            href="https://polymath.network/terms-of-service"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -110,7 +110,7 @@ exports[`renders without crashing 1`] = `
         </li>
         <li>
           <a
-            href="https://polymath.network/privacypolicy.html"
+            href="https://polymath.network/privacy-policy"
             rel="noopener noreferrer"
             target="_blank"
           >
