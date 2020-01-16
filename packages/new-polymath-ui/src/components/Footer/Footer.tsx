@@ -25,7 +25,7 @@ export const Footer = (props: FooterProps) => {
               <Link
                 href={
                   props.termsOfServiceUrl ||
-                  'https://polymath.network/termsofservice.html'
+                  'https://polymath.network/terms-of-service'
                 }
               >
                 Terms Of Service
@@ -35,7 +35,7 @@ export const Footer = (props: FooterProps) => {
               <Link
                 href={
                   props.privacyPolicyUrl ||
-                  'https://polymath.network/privacypolicy.html'
+                  'https://polymath.network/privacy-policy'
                 }
               >
                 Privacy Policy
