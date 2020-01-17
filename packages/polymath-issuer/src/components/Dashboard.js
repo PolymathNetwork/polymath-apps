@@ -144,7 +144,8 @@ class Dashboard extends Component<Props> {
         icon: icoRestriction,
         to: `${tokenUrl}/restrictions`,
         isActive: location.slice(-13) === '/restrictions',
-        isDisabled: !token || !token.address,
+        // isDisabled: !token || !token.address,
+        isDisabled: true,
       },
       {
         title: 'Dividends',
