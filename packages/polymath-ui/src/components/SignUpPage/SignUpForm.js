@@ -71,7 +71,7 @@ class SignUpForm extends Component<Props> {
                 I accept the&nbsp;
                 <Link
                   target="_blank"
-                  href="https://polymath.network/termsofservice.html"
+                  href="https://polymath.network/terms-of-service"
                 >
                   Terms of Service
                 </Link>

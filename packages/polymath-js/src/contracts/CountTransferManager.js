@@ -28,6 +28,6 @@ export default class CountTransferManager extends Contract {
   }
 
   async changeHolderCount(count: number): Promise<Web3Receipt> {
-    return this._tx(this._methods.changeHolderCount(count));
+    return this._tx(this._methods.changeHolderCount(count), null, 1.5, 15);
   }
 }
