@@ -468,6 +468,20 @@ const providers: Array<ServiceProvider> = [
       managers as well as for exchanges, trading facilities, trade repositories, representative \
       offices or applications to self-regulatory organizations for anti-money laundering compliance.',
   },
+  {
+    id: 59,
+    cat: 1,
+    title: 'Nellis & Katz LLP',
+    logo: '/providers/legal/nelliskatz.png',
+    background: '/providers/legal/bg/img-nelliskatz.png',
+    desc:
+      'Nellis & Katz LLP is a team of Wall Street trained lawyers with years of experience.  \
+    Our passion is helping clients build better businesses.  As seasoned securities lawyers, we work \
+    alongside our clients in helping them achieve their fundraising and business goals.  As an evolving practice, \
+    we advise our clients in respect of both traditional and innovative fundraising platforms, which has led to the \
+    establishment of our blockchain and digital securities practice.  Our knowledge of securities law and deep engagement \
+    with new technology positions us to be a valued provider to issuers and platforms for digital securities.',
+  },
 
   // KYC/AML
   {
