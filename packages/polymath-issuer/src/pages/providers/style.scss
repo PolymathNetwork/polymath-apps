@@ -1,5 +1,6 @@
 .tag-my-own {
   background-color: #5596e6 !important;
+  margin-top: 5px;
 }
 
 .providers-controls {
@@ -125,7 +126,6 @@
 
     .bx--tabs__nav-link {
       padding: 16px 24px 36px 24px;
-      width: 200px;
       font-size: 16px;
       font-weight: 600;
       color: #5a6872;
@@ -135,8 +135,9 @@
       }
 
       div {
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        flex-direction: column;
       }
     }
 
