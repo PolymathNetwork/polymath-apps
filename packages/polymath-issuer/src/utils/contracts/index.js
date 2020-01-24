@@ -45,6 +45,7 @@ type CappedSTOParams = {|
   rate: number,
   fundRaiseTypes: number[],
   wallet: Address,
+  treasuryWallet: Address,
 |};
 
 // const POLY_TOKEN_DECIMALS = 18;
@@ -172,6 +173,10 @@ function encodeCappedSTOSetupCall(params: CappedSTOParams) {
         {
           type: 'address',
           name: '_fundsReceiver',
+        },
+        {
+          type: 'address',
+          name: '_treasuryWallet',
         },
       ],
     },
@@ -376,6 +381,7 @@ export async function setupCappedSTOModule(
     rate: configValues.rate,
     fundRaiseTypes: configValues.currencies,
     wallet: configValues.receiverAddress,
+    treasuryWallet: configValues.receiverAddress,
   };
 
   const isLegacySTO = configValues.legacy;
