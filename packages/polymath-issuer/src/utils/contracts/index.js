@@ -174,10 +174,6 @@ function encodeCappedSTOSetupCall(params: CappedSTOParams) {
           type: 'address',
           name: '_fundsReceiver',
         },
-        {
-          type: 'address',
-          name: '_treasuryWallet',
-        },
       ],
     },
     [
@@ -318,7 +314,9 @@ export async function getSTOModules(tokenAddress: string) {
 
   const stoModules: STOModule[] = await Promise.all(gettingSTOModulesData);
 
-  return stoModules.filter(module => module.version !== '1.0.0');
+  return stoModules.filter(
+    module => module.version !== '1.0.0' && module.version !== '3.1.0'
+  );
 }
 
 async function paySetupCost(cost: number, tokenAddress: string) {
