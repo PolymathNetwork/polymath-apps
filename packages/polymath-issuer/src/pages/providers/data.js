@@ -191,7 +191,7 @@ const providers: Array<ServiceProvider> = [
   },
   {
     id: 39,
-    cat: 0,
+    cat: 1,
     title: 'DLA Piper',
     logo: '/providers/advisory/dlapiper.png',
     background: '/providers/advisory/bg/img-dlapiper.png',
@@ -481,6 +481,19 @@ const providers: Array<ServiceProvider> = [
     we advise our clients in respect of both traditional and innovative fundraising platforms, which has led to the \
     establishment of our blockchain and digital securities practice.  Our knowledge of securities law and deep engagement \
     with new technology positions us to be a valued provider to issuers and platforms for digital securities.',
+  },
+  {
+    id: 60,
+    cat: 1,
+    title: 'Rocktree LLP',
+    logo: '/providers/legal/rocktree.png',
+    background: '/providers/legal/bg/img-rocktree.png',
+    desc:
+      'RockTree LEX is a blockchain professional services platform specializing in providing international legal compliance, \
+      transaction execution, overseas financing, token exchange listing and global expansion for top tier blockchain projects. \
+      The LEX team in Beijing, New York and Toronto includes a full team of multi-jurisdictional blockchain lawyers and finance \
+      experts that provide a truly global solution to blockchain projects. Top projects get connected into the LEX international \
+      ecosystem of leading investment partners, funds, exchanges and service providers.',
   },
 
   // KYC/AML
