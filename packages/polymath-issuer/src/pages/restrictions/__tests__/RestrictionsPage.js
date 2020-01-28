@@ -65,7 +65,7 @@ describe('Restrictions Page', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should render global daily restrictions when VRTM is enabled', () => {
+  xit('should render global daily restrictions when VRTM is enabled', () => {
     const props = {
       getVolumeRestrictionModule: jest.fn(),
       defaultRestrictionModified: true,
