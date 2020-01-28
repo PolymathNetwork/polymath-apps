@@ -159,23 +159,6 @@ const providers: Array<ServiceProvider> = [
       'and financial experience to structure offerings and provide an understanding of capital markets.',
   },
   {
-    id: 33,
-    cat: 0,
-    title: 'Digichain Capital',
-    logo: '/providers/advisory/digichaincapital.png',
-    background: '/providers/advisory/bg/img-digichaincapital.png',
-    desc:
-      'Blockchain Industry Services:\n - Complete consultation services from idea to implementation, including but ' +
-      'not limited to: regulatory and legal issues;Tax and jurisdiction;Company structure and roadmap requirements;' +
-      '\nToken economics including investor and user confidence;Documentation and business model,Fundraising models;' +
-      '\nInstitutional level tech dev;Critical mass of users and monetization;Marketing and exposure;' +
-      'Secondary market and liquidity solutions;(Consultation and/or active assistance)' +
-      '\nSecondary Market Solutions:\n - Tailored for projects and exchanges including exchange listings and liquidity ' +
-      'management, also applicable for STOs.\nRegulated STO:\n - Launching fully regulated STOs and tokenized securities' +
-      'under the Australian and German governments. \nProfessional Token Economics:\n - Sophisticated, progressive and viable ' +
-      'token models tailored to suit, including dual token and convertible share options.',
-  },
-  {
     id: 34,
     cat: 0,
     title: 'Sino Global Capital',
