@@ -159,23 +159,6 @@ const providers: Array<ServiceProvider> = [
       'and financial experience to structure offerings and provide an understanding of capital markets.',
   },
   {
-    id: 33,
-    cat: 0,
-    title: 'Digichain Capital',
-    logo: '/providers/advisory/digichaincapital.png',
-    background: '/providers/advisory/bg/img-digichaincapital.png',
-    desc:
-      'Blockchain Industry Services:\n - Complete consultation services from idea to implementation, including but ' +
-      'not limited to: regulatory and legal issues;Tax and jurisdiction;Company structure and roadmap requirements;' +
-      '\nToken economics including investor and user confidence;Documentation and business model,Fundraising models;' +
-      '\nInstitutional level tech dev;Critical mass of users and monetization;Marketing and exposure;' +
-      'Secondary market and liquidity solutions;(Consultation and/or active assistance)' +
-      '\nSecondary Market Solutions:\n - Tailored for projects and exchanges including exchange listings and liquidity ' +
-      'management, also applicable for STOs.\nRegulated STO:\n - Launching fully regulated STOs and tokenized securities' +
-      'under the Australian and German governments. \nProfessional Token Economics:\n - Sophisticated, progressive and viable ' +
-      'token models tailored to suit, including dual token and convertible share options.',
-  },
-  {
     id: 34,
     cat: 0,
     title: 'Sino Global Capital',
@@ -191,7 +174,7 @@ const providers: Array<ServiceProvider> = [
   },
   {
     id: 39,
-    cat: 0,
+    cat: 1,
     title: 'DLA Piper',
     logo: '/providers/advisory/dlapiper.png',
     background: '/providers/advisory/bg/img-dlapiper.png',
@@ -481,6 +464,19 @@ const providers: Array<ServiceProvider> = [
     we advise our clients in respect of both traditional and innovative fundraising platforms, which has led to the \
     establishment of our blockchain and digital securities practice.  Our knowledge of securities law and deep engagement \
     with new technology positions us to be a valued provider to issuers and platforms for digital securities.',
+  },
+  {
+    id: 60,
+    cat: 1,
+    title: 'Rocktree LLP',
+    logo: '/providers/legal/rocktree.png',
+    background: '/providers/legal/bg/img-rocktree.png',
+    desc:
+      'RockTree LEX is a blockchain professional services platform specializing in providing international legal compliance, \
+      transaction execution, overseas financing, token exchange listing and global expansion for top tier blockchain projects. \
+      The LEX team in Beijing, New York and Toronto includes a full team of multi-jurisdictional blockchain lawyers and finance \
+      experts that provide a truly global solution to blockchain projects. Top projects get connected into the LEX international \
+      ecosystem of leading investment partners, funds, exchanges and service providers.',
   },
 
   // KYC/AML
