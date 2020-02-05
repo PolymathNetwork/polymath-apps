@@ -290,27 +290,30 @@ class SecurityTokenRegistry extends Contract {
   }
 
   async getTickersByOwner(owner) {
-    const tickersAscii = await this._methods
+    const undeployedTickers = [];
+    const tickers = await this._methods
       .getTickersByOwner(owner)
       .call()
       .map(t => this._toAscii(t));
-    const tickers = [];
 
-    tickersAscii.forEach(async t => {
-      let res = await this.getTickerStatus(t);
-      if (!res) tickers.push(t);
+    tickers.forEach(async t => {
+      let isDeployed = await this.getTickerStatus(t);
+      if (!isDeployed) undeployedTickers.push(t);
     });
 
-    const tokenDetails = await this._methods
-      .getTokensByOwner(owner)
-      .call()
-      .map(t => this._contractWS.methods.getSecurityTokenData(t).call());
-    const tokens = tokenDetails.reduce((pV, cV) => {
+    const tokenDetails = [];
+    const tokensToFetch = await this._methods.getTokensByOwner(owner).call();
+
+    tokensToFetch.forEach(t =>
+      tokenDetails.push(this._contractWS.methods.getSecurityTokenData(t).call())
+    );
+    let tokens = await Promise.all(tokenDetails);
+    tokens = tokens.reduce((pV, cV) => {
       pV.push(cV.tokenSymbol);
       return pV;
     }, []);
 
-    return new Set([...tokens, ...tickers]);
+    return new Set([...tokens, ...undeployedTickers]);
   }
 
   async registerTicker(details: SymbolDetails): Promise<Web3Receipt> {
