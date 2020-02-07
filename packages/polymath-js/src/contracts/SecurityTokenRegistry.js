@@ -290,13 +290,30 @@ class SecurityTokenRegistry extends Contract {
   }
 
   async getTickersByOwner(owner) {
-    const tickers = this._methods.getTickersByOwner(owner).call();
-    const convertedTickers = tickers.reduce((pV, cV) => {
-      let ticker = this._toAscii(cV);
-      pV.push(ticker);
+    const undeployedTickers = [];
+    const tickers = await this._methods
+      .getTickersByOwner(owner)
+      .call()
+      .map(t => this._toAscii(t));
+
+    tickers.forEach(async t => {
+      let isDeployed = await this.getTickerStatus(t);
+      if (!isDeployed) undeployedTickers.push(t);
+    });
+
+    const tokenDetails = [];
+    const tokensToFetch = await this._methods.getTokensByOwner(owner).call();
+
+    tokensToFetch.forEach(t =>
+      tokenDetails.push(this._contractWS.methods.getSecurityTokenData(t).call())
+    );
+    let tokens = await Promise.all(tokenDetails);
+    tokens = tokens.reduce((pV, cV) => {
+      pV.push(cV.tokenSymbol);
       return pV;
     }, []);
-    return convertedTickers;
+
+    return new Set([...tokens, ...undeployedTickers]);
   }
 
   async registerTicker(details: SymbolDetails): Promise<Web3Receipt> {
