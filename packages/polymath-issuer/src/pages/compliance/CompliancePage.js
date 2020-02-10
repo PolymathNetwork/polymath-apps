@@ -811,16 +811,6 @@ export class CompliancePage extends Component<Props, State> {
                       />
                     </div>
                   </CardFeatureState>
-
-                  <div
-                    className="bx--form-item"
-                    style={
-                      this.props.isWhitelistToggled ? {} : { display: 'none' }
-                    }
-                  >
-                    <WhitelistTable />
-                  </div>
-                  <div className="pui-clearfix" />
                 </Grid.Col>
               </Grid.Row>
             </Grid>
@@ -831,6 +821,48 @@ export class CompliancePage extends Component<Props, State> {
   }
 }
 
+{
+  /* <Grid.Row>
+            <Grid.Col gridSpan={[12, 12, 12, 12]}>
+              <div id="compliance">
+                <br />
+                <div className="pui-page-box compliance-form">
+                  <h1 className="pui-h1">Manual Trade Approvals</h1>
+                  <p>
+                    Allows you to pre-approve token trades between two wallet
+                    addresses for a period of time. You can always edit and
+                    remove trade approvals. Note that these approvals supercede
+                    all other exemptions and restrictions for a particular
+                    wallet.
+                  </p>
+                  <div className="whitelist-settings">
+                    <div className="bx--form-item">
+                      <label htmlFor="approvalToggle" className="bx--label">
+                        Enable Manual Trade Approvals
+                      </label>
+                      <Toggle
+                        onToggle={this.handleToggleApproval}
+                        toggled={this.props.isApprovalToggled}
+                        id="approvalToggle"
+                      />
+                    </div>
+
+                    <div
+                      className="bx--form-item"
+                      style={
+                        this.props.isApprovalToggled ? {} : { display: 'none' }
+                      }
+                    >
+                      <ApprovalTable />
+                    </div>
+                  </div>
+                  <div className="pui-clearfix" />
+                </div>
+              </div>
+            </Grid.Col>
+          </Grid.Row>
+        </Grid> */
+}
 export default connect(
   mapStateToProps,
   mapDispatchToProps
