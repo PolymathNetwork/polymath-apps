@@ -247,7 +247,7 @@ const providers: Array<ServiceProvider> = [
   },
   {
     id: 56,
-    cat: 0,
+    cat: 4,
     title: 'Bitcoin Suisse AG',
     logo: '/providers/advisory/bitcoin-suisse.png',
     background: '/providers/advisory/bg/img-bitcoin-suisse.png',
@@ -813,6 +813,19 @@ const providers: Array<ServiceProvider> = [
        Vertalo supports the ongoing asset management needs of private companies and broker-dealers. Vertalo enables \
        any private asset to be instantly tokenized, stored in an investor\'s verified wallet, and traded in real-time \
        based on the smart contract between the issuer and the investor.',
+  },
+  {
+    id: 61,
+    cat: 6,
+    title: 'Equa',
+    logo: '/providers/captable/equa.png',
+    background: '/providers/captable/bg/img-equa.png',
+    desc:
+      'Equa promotes cooperative ownership through digitized and blockchain-backed \
+      capitalization tables and associated actions.  Unravel your equity management mess \
+      by providing transparency to stakeholders through shareholder specific views and invite-only \
+      data rooms for employees and investors, and create a centralized corporate governance repository \
+      so that you are prepared for all growth scenarios.',
   },
 ];
 
