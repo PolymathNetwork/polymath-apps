@@ -370,7 +370,7 @@ export const fetchWhitelist = () => async (
 };
 
 export const uploadCSV = (file: Object) => async (dispatch: Function) => {
-  const maxRows = 75;
+  const maxRows = 50;
   const reader = new FileReader();
 
   dispatch({ type: UPLOAD_START });
@@ -471,7 +471,7 @@ export const uploadCSV = (file: Object) => async (dispatch: Function) => {
         reader.result,
         config
       );
-      isTooMany = data.length > 75;
+      isTooMany = data.length > 50;
 
       if (validationErrors.length) {
         dispatch({

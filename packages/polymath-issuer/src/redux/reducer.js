@@ -21,6 +21,7 @@ import whitelist from '../reducers/compliance';
 import stoModules from '../reducers/stoModules';
 import ui from '../reducers/ui';
 import restrictions from '../reducers/restrictions';
+import account from '../reducers/account';
 
 import type { ProvidersState } from '../reducers/providers';
 import type { TokenState } from '../reducers/token';
@@ -47,6 +48,7 @@ export default history =>
     app,
     session,
     restrictions,
+    account,
     router: connectRouter(history),
   });
 

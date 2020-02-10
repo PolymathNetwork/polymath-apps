@@ -108,7 +108,7 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   const network = getNetworkInfo(networkId);
   const accounts = await web3.eth.getAccounts();
 
-  console.log('URL', process.env.REACT_APP_NODE_WS, network.url);
+  // console.log('URL', process.env.REACT_APP_NODE_WS, network.url);
   // Instantiate Web3 Web Socket
   web3WS = new Web3(process.env.REACT_APP_NODE_WS || network.url);
 
@@ -149,11 +149,11 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
   if (
     !accounts.length &&
     newProviderInjected &&
-    window.ethereum._metamask.isApproved
+    window.ethereum._metamask.isUnlocked // compatibility check on the MM version
   ) {
-    const isMetamaskApproved = await window.ethereum._metamask.isApproved();
+    const isMetamaskUnlocked = await window.ethereum._metamask.isUnlocked();
 
-    if (!isMetamaskApproved) {
+    if (isMetamaskUnlocked) {
       dispatch(requestAuthorization());
       return dispatch(fail(ERROR_ACCESS_REQUESTED));
     }

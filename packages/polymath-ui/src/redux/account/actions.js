@@ -208,7 +208,7 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
       dispatch(signedUp(user.name, user.email, true));
     }
 
-    dispatch(fetched());
+    if (getState().router.location.pathname !== '/account') dispatch(fetched()); //hack to stop race condition
   } catch (e) {
     dispatch(fetchingFailed(e));
   }

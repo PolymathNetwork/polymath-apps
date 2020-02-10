@@ -43,7 +43,7 @@ class Progress extends Component<Props> {
           <ProgressIndicator currentIndex={index}>
             <ProgressIndicator.Step label="Reserve Token Symbol" />
             <ProgressIndicator.Step label="Choose Your Providers" />
-            <ProgressIndicator.Step label="Create Token" />
+            <ProgressIndicator.Step label="Configure Token" />
             <ProgressIndicator.Step label="Set Up Offering Details" />
             <ProgressIndicator.Step label="Whitelist Investors" />
           </ProgressIndicator>

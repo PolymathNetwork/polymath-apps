@@ -93,14 +93,6 @@
             }
           }
 
-          &:after {
-            content: '%';
-            position: absolute;
-            top: 13px;
-            left: 55px;
-            color: #8c9ba5;
-            font-size: 14px;
-          }
         }
 
         button {
@@ -148,7 +140,7 @@
 .import-whitelist-btn {
   float: left;
   margin-top: 6px;
-  margin-right: 26px;
+  // margin-right: px;
 }
 
 .permanent-checkbox-container {

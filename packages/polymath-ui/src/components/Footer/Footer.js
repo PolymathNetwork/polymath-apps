@@ -83,7 +83,7 @@ const Footer = (props: Props) => {
               <a
                 href={
                   props.termsOfService ||
-                  'https://polymath.network/termsofservice.html'
+                  'https://polymath.network/terms-of-service'
                 }
                 target="_blank"
                 rel="noopener noreferrer"
@@ -95,7 +95,7 @@ const Footer = (props: Props) => {
               <a
                 href={
                   props.privacyPolicy ||
-                  'https://polymath.network/privacypolicy.html'
+                  'https://polymath.network/privacy-policy'
                 }
                 target="_blank"
                 rel="noopener noreferrer"

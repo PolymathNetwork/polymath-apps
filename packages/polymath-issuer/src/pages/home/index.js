@@ -12,21 +12,20 @@ class HomePage extends Component {
         <div className="splash-background" />
         <div>
           <h1 className="pui-h0">
-            The Next Mega-Trend
+            Start Your Security Token
             <br />
-            in Crypto is the Emergence
-            <br /> of Securities Tokens
+            Journey Here
           </h1>
           <h3 className="pui-h3">
-            Polymath enables trillions of dollars of securities to be issued
-            <br /> and traded on the blockchain.
+            Easily reserve your ticker, mint your tokens, and <br />
+            prepare distribution of your STO.
           </h3>
           <br />
           <br />
           <p>
-            <Link to="/ticker">
+            <Link to="/account">
               <Button id="create-token-btn" icon="arrow--right">
-                Create your security token
+                Connect Metamask
               </Button>
             </Link>
           </p>

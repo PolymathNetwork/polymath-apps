@@ -237,7 +237,7 @@ class SecurityTokenRegistry extends Contract {
           token.isDivisible
         ),
         null,
-        1.05,
+        1.5,
         15
       );
     }
@@ -251,7 +251,7 @@ class SecurityTokenRegistry extends Contract {
         0 // if _protocolVersion == 0 then latest version of securityToken will be generated
       ),
       null,
-      1.05,
+      1.5,
       15
     );
   }
@@ -287,6 +287,33 @@ class SecurityTokenRegistry extends Contract {
       }
     }
     return tokens;
+  }
+
+  async getTickersByOwner(owner) {
+    const undeployedTickers = [];
+    const tickers = await this._methods
+      .getTickersByOwner(owner)
+      .call()
+      .map(t => this._toAscii(t));
+
+    tickers.forEach(async t => {
+      let isDeployed = await this.getTickerStatus(t);
+      if (!isDeployed) undeployedTickers.push(t);
+    });
+
+    const tokenDetails = [];
+    const tokensToFetch = await this._methods.getTokensByOwner(owner).call();
+
+    tokensToFetch.forEach(t =>
+      tokenDetails.push(this._contractWS.methods.getSecurityTokenData(t).call())
+    );
+    let tokens = await Promise.all(tokenDetails);
+    tokens = tokens.reduce((pV, cV) => {
+      pV.push(cV.tokenSymbol);
+      return pV;
+    }, []);
+
+    return new Set([...tokens, ...undeployedTickers]);
   }
 
   async registerTicker(details: SymbolDetails): Promise<Web3Receipt> {

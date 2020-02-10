@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'carbon-components-react';
+import { Form, Button, InlineNotification } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 import {
@@ -70,6 +70,21 @@ export const ApplyFormComponent = props => {
   return (
     <Form onSubmit={handleSubmit}>
       <Grid>
+        {networkId !== 1 && (
+          <InlineNotification
+            hideCloseButton
+            title="You are using Token Studio in a testnet environment. When you
+            click submit, an email WILL NOT be sent to the providers you have
+            selected. To send an email to the selected providers, please log
+            into Token Studio with mainnet.
+            
+            None of this information is stored on Polymath servers, only your
+            browser's cache. To clear this information, simply clear your
+            browser's cache."
+            subtitle=""
+            kind="warning"
+          />
+        )}
         <FormItem name="companyName">
           <FormItem.Label>Company Name</FormItem.Label>
           <FormItem.Input
@@ -142,36 +157,17 @@ export const ApplyFormComponent = props => {
           Cancel
         </Button>
         <Button type="submit" style={{ width: '154px' }}>
-          Submit
+          {networkId === 1 ? 'Submit' : 'Send test email'}
         </Button>
       </p>
 
-      {/*
-        We are not going to compare networkId to MAINNET_NETWORK_ID constant.
-        The former is a number and the later is a string. Fortunately, mainnet ID is 1 and will always be 1 
-      */}
-      {networkId === 1 ? (
+      {networkId === 1 && (
         <p className="pui-input-hint">
           When you click submit, an email which contains the information entered
           on that screen will be sent to the Advisory firm(s) you have selected.
           None of this information is stored on Polymath servers, only your
           browser&apos;s cache. To clear this information, simply clear your
           browser&apos;s cache.
-        </p>
-      ) : (
-        <p className="pui-input-hint">
-          <strong>
-            <em>
-              You are using Token Studio in a testnet environment. When you
-              click submit, an email WILL NOT be sent to the providers you have
-              selected. To send an email to the selected providers, please log
-              into Token Studio with mainnet.
-              <br />
-              None of this information is stored on Polymath servers, only your
-              browser&apos;s cache. To clear this information, simply clear your
-              browser&apos;s cache.
-            </em>
-          </strong>
         </p>
       )}
       <br />

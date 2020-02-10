@@ -1,6 +1,6 @@
 // @flow
 
-import { STO_MODULE_TYPE, NETWORKS } from '../constants';
+import { STO_MODULE_TYPE, NETWORKS, DEPLOYMENT_STAGE } from '../constants';
 import {
   sendCappedSTOScheduledEmail,
   sendUSDTieredSTOScheduledEmail,
@@ -439,7 +439,6 @@ export const registerTickerHandler = async (
  */
 export const addTickerRegisterListener = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
-
   contract.events.RegisterTicker({}, (error, result) =>
     registerTickerHandler(contract, networkId, error, result)
   );
@@ -507,10 +506,11 @@ export const newSecurityTokenHandler = async (
  */
 export const addTokenCreateListener = async (networkId: string) => {
   const contract = await getSTRContract(networkId);
-
-  contract.events.NewSecurityToken({}, (error, result) =>
-    newSecurityTokenHandler(contract, networkId, error, result)
-  );
+  contract.events[
+    'NewSecurityToken(string,string,address,address,uint256,address,bool,uint256,uint256,uint256)'
+  ]({}, (error, result) => {
+    newSecurityTokenHandler(contract, networkId, error, result);
+  });
 
   contract.events.SecurityTokenRefreshed({}, (error, result) =>
     newSecurityTokenHandler(contract, networkId, error, result)
@@ -560,12 +560,13 @@ export const addSTOListeners = async (networkId: string) => {
  * to issuers on the following events:
  *
  * - Ticker registered
- * - Security token created
+ * - Security token configured
  * - STO scheduled
  *
  * @param {string} networkId id of the network to which we will set the listeners
  */
 const setupListeners = async (networkId: string) => {
+  if (DEPLOYMENT_STAGE !== 'production') return;
   await addTickerRegisterListener(networkId);
 
   await addTokenCreateListener(networkId);

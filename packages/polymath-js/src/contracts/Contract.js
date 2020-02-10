@@ -257,9 +257,12 @@ export default class Contract {
     };
 
     try {
-      receipt = await method.send(params);
-      const { transactionHash } = receipt;
-      Contract._params.txHashCallback(transactionHash);
+      receipt = await method.send(params, (error, hash) => {
+        if (!error) {
+          txHash = hash;
+          Contract._params.txHashCallback(hash);
+        }
+      });
     } catch (e) {
       if (e.message.includes('not mined within 50 blocks')) {
         return new Promise(resolve => {

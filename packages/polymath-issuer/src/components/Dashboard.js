@@ -43,7 +43,6 @@ type StateProps = {|
 type DispatchProps = {|
   fetchToken: (ticker: string) => any,
   fetchProviders: (ticker: string) => any,
-  fetchLegacyToken: (ticker: string) => any,
 |};
 
 const mapStateToProps = (state: RootState): StateProps => ({
@@ -57,7 +56,6 @@ const mapStateToProps = (state: RootState): StateProps => ({
 const mapDispatchToProps: DispatchProps = {
   fetchToken,
   fetchProviders,
-  fetchLegacyToken,
 };
 
 type Props = {|
@@ -74,7 +72,6 @@ class Dashboard extends Component<Props> {
   componentDidMount() {
     const ticker = this.props.match.params.id;
 
-    this.props.fetchLegacyToken(ticker);
     this.props.fetchToken(ticker);
     this.props.fetchProviders(ticker);
   }
