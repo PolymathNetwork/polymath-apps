@@ -99,6 +99,28 @@ const validateStartTime = function(value) {
   return true;
 };
 
+const validateExpiryTime = function(value) {
+  const expiryDate: Date = this.parent.expiryDate;
+
+  if (!expiryDate) {
+    return true;
+  }
+
+  const startUnix = moment(expiryDate).unix() * 1000 + value;
+  const nowUnix = moment(Date.now()).unix() * 1000;
+  const timeUntilStart = startUnix - nowUnix;
+
+  if (nowUnix >= startUnix) {
+    return this.createError({ message: 'Expiry time is in the past.' });
+  }
+  if (timeUntilStart < TRANSACTION_TIME_BUFFER) {
+    return this.createError({
+      message: 'Please allow for transaction processing time.',
+    });
+  }
+  return true;
+};
+
 const REQUIRED_MESSAGE = 'Required.';
 /* eslint-disable no-template-curly-in-string */
 const MORE_THAN_MESSAGE = 'Must be higher than ${more}.';
@@ -109,6 +131,7 @@ const MAX_DIGITS_MESSAGE = 'Cannot have more than ${maxDigits} digits.';
 
 export {
   validateEndTime,
+  validateExpiryTime,
   validateDays,
   validateIndividualDays,
   validateEndDate,
