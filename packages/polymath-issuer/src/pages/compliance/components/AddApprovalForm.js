@@ -202,22 +202,24 @@ const formikEnhancer = withFormik({
   },
   handleSubmit: (values, { errors, setFieldError, props }) => {
     const { dispatch, handleClose, approvals } = props;
-    // const approvalExists = approvals.find(
-    //   i =>
-    //     i.fromAddress === values.fromAddress && i.toAddress === values.toAddress
-    // );
-    // console.log(approvalExists);
-    // if (approvalExists) {
-    //   setFieldError(
-    //     'toAddress',
-    //     'An approval with both addresses already exists'
-    //   );
-    //   setFieldError(
-    //     'fromAddress',
-    //     'An approval with both addresses already exists'
-    //   );
-    //   return;
-    // }
+    const approvalExists = approvals.find(
+      i =>
+        i.fromAddress === values.fromAddress &&
+        i.toAddress === values.toAddress &&
+        i.expiry * 1000 > Date.now()
+    );
+
+    if (approvalExists) {
+      setFieldError(
+        'toAddress',
+        'An approval with both addresses already exists'
+      );
+      setFieldError(
+        'fromAddress',
+        'An approval with both addresses already exists'
+      );
+      return;
+    }
     const startsAt =
       moment(values.date.expiryDate).unix() * 1000 + values.date.expiryTime;
 
