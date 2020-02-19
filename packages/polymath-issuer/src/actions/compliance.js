@@ -1069,12 +1069,12 @@ export const archiveManualApprovalModule = () => async (
   const st: SecurityToken = getState().token.token.contract;
   dispatch(
     ui.tx(
-      ['Disabling General Permissions Manager'],
+      ['Disabling Manual Trade Approvals'],
       async () => {
         const approvalManager = await st.getApprovalManager();
         await st.archiveModule(approvalManager.address);
       },
-      'General Permissions Manager Disabled',
+      'Manual Trade Approvals Disabled',
       () => {
         dispatch(toggleApprovalManager(false));
         dispatch(loadApprovals([]));
@@ -1166,10 +1166,16 @@ export const editManualApproval = (
 ) => async (dispatch: Function, getState: GetState) => {
   const st: SecurityToken = getState().token.token.contract;
   const editingApproval = getState().whitelist.editingApproval;
-  const increase = editingApproval.tokens < allowance ? false : true;
-  const changeAmount = Math.abs(
-    editingApproval.tokens - Web3.utils.fromWei(allowance)
-  );
+  const newAllowance = new BigNumber(Web3.utils.fromWei(allowance).toString());
+  const oldAllowance = new BigNumber(editingApproval.tokens.toString());
+  let increase;
+
+  if (newAllowance.isGreaterThan(oldAllowance)) {
+    increase = true;
+  } else {
+    increase = false;
+  }
+  const changeAmount = Math.abs(oldAllowance.minus(newAllowance));
 
   dispatch(
     ui.tx(
