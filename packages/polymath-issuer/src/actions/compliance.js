@@ -1168,13 +1168,7 @@ export const editManualApproval = (
   const editingApproval = getState().whitelist.editingApproval;
   const newAllowance = new BigNumber(Web3.utils.fromWei(allowance).toString());
   const oldAllowance = new BigNumber(editingApproval.tokens.toString());
-  let increase;
-
-  if (newAllowance.isGreaterThan(oldAllowance)) {
-    increase = true;
-  } else {
-    increase = false;
-  }
+  const increase = newAllowance.isGreaterThan(oldAllowance);
   const changeAmount = Math.abs(oldAllowance.minus(newAllowance));
 
   dispatch(
