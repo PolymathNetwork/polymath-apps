@@ -58,7 +58,7 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
-    case a.MODIFY_APPROVALS:
+    case a.MODIFY_APPROVAL:
       let idx = state.approvals.findIndex(i => i.id === action.approval.id);
       return {
         ...state,
@@ -89,7 +89,9 @@ export default (state: WhitelistState = defaultState, action: Object) => {
           ...state.approvals,
           {
             ...action.approval,
-            id: action.approval.fromAddress + action.approval.toAddress,
+            id: (
+              action.approval.fromAddress + action.approval.toAddress
+            ).toLowerCase(),
           },
         ],
       };
