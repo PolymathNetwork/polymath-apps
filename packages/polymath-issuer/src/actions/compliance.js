@@ -1147,7 +1147,15 @@ export const addManualApproval = (
           description: description,
           txHash: returnValues.transactionHash,
         };
-        dispatch(addApproval(approval));
+
+        let approvalIndex = getState().whitelist.approvals.findIndex(
+          i => i.id === approval.id
+        );
+        if (approvalIndex === -1) {
+          dispatch(addApproval(approval));
+        } else {
+          dispatch(modifyApprovals(approval));
+        }
       },
       undefined,
       undefined,
