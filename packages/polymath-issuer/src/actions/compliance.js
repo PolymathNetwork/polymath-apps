@@ -80,9 +80,9 @@ export const editApproval = approval => ({
   approval,
 });
 
-export const MODIFY_APPROVALS = 'compliance/MODIFY_APPROVALS';
-export const modifyApprovals = approval => ({
-  type: MODIFY_APPROVALS,
+export const MODIFY_APPROVAL = 'compliance/MODIFY_APPROVAL';
+export const modifyApproval = approval => ({
+  type: MODIFY_APPROVAL,
   approval,
 });
 
@@ -1069,12 +1069,12 @@ export const archiveManualApprovalModule = () => async (
   const st: SecurityToken = getState().token.token.contract;
   dispatch(
     ui.tx(
-      ['Disabling General Permissions Manager'],
+      ['Disabling Manual Trade Approvals'],
       async () => {
         const approvalManager = await st.getApprovalManager();
         await st.archiveModule(approvalManager.address);
       },
-      'General Permissions Manager Disabled',
+      'Manual Trade Approvals Disabled',
       () => {
         dispatch(toggleApprovalManager(false));
         dispatch(loadApprovals([]));
@@ -1138,7 +1138,7 @@ export const addManualApproval = (
       'Manual Approval Was Successfully Added',
       () => {
         const approval = {
-          id: from + to,
+          id: (from + to).toLowerCase(),
           fromAddress: from,
           toAddress: to,
           expiry: expiryTime / 1000,
@@ -1147,7 +1147,15 @@ export const addManualApproval = (
           description: description,
           txHash: returnValues.transactionHash,
         };
-        dispatch(addApproval(approval));
+
+        let approvalIndex = getState().whitelist.approvals.findIndex(
+          i => i.id === approval.id
+        );
+        if (approvalIndex === -1) {
+          dispatch(addApproval(approval));
+        } else {
+          dispatch(modifyApproval(approval));
+        }
       },
       undefined,
       undefined,
@@ -1166,17 +1174,18 @@ export const editManualApproval = (
 ) => async (dispatch: Function, getState: GetState) => {
   const st: SecurityToken = getState().token.token.contract;
   const editingApproval = getState().whitelist.editingApproval;
-  const increase = editingApproval.tokens < allowance ? false : true;
-  const changeAmount = Math.abs(
-    editingApproval.tokens - Web3.utils.fromWei(allowance)
-  );
+  const newAllowance = new BigNumber(Web3.utils.fromWei(allowance).toString());
+  const oldAllowance = new BigNumber(editingApproval.tokens.toString());
+  const increase = newAllowance.isGreaterThan(oldAllowance);
+  const changeAmount = oldAllowance.minus(newAllowance).absoluteValue();
+  let txDetails;
 
   dispatch(
     ui.tx(
       ['Proceed with Editing Manual Approval'],
       async () => {
         const approvalManagerModule = await st.getApprovalManager();
-        await approvalManagerModule.modifyManualApproval(
+        txDetails = await approvalManagerModule.modifyManualApproval(
           from,
           to,
           expiryTime,
@@ -1188,16 +1197,18 @@ export const editManualApproval = (
       'Manual Approval Was Successfully Edited',
       () => {
         const newTokenTotal = Web3.utils.fromWei(allowance);
+        console.log(txDetails);
         const approval = {
-          id: from + to,
+          id: (from + to).toLowerCase(),
           fromAddress: from,
           toAddress: to,
+          txHash: txDetails.transactionHash,
           expiry: expiryTime / 1000,
           tokens: newTokenTotal,
           tokensTransferred: editingApproval.tokensTransferred,
           description: description,
         };
-        dispatch(modifyApprovals(approval));
+        dispatch(modifyApproval(approval));
       },
       undefined,
       undefined,

@@ -63,20 +63,40 @@ export default class ManualApprovalTransferManager extends Contract {
     for (let i = 0; i < approvals['0'].length; i++) {
       let a = {};
 
-      a.id = approvals['0'][i] + approvals['1'][i];
+      a.id = (approvals['0'][i] + approvals['1'][i]).toLowerCase();
       a.fromAddress = approvals['0'][i];
       a.toAddress = approvals['1'][i];
-      let events = await this._contractWS.getPastEvents('AddManualApproval', {
+      a.expiry = approvals['4'][i];
+
+      const events = await this._contractWS.getPastEvents('AddManualApproval', {
         filter: { _from: a.fromAddress, _to: a.toAddress },
         fromBlock: 0,
         toBlock: 'latest',
       });
-      a.txHash = events[events.length - 1].transactionHash;
+
+      const modifyEvents = await this._contractWS.getPastEvents(
+        'ModifyManualApproval',
+        {
+          filter: { _from: a.fromAddress, _to: a.toAddress },
+          fromBlock: 0,
+          toBlock: 'latest',
+        }
+      );
+
+      if (
+        modifyEvents.length > 0 &&
+        modifyEvents[modifyEvents.length - 1].blockNumber >
+          events[events.length - 1].blockNumber
+      ) {
+        a.txHash = modifyEvents[modifyEvents.length - 1].transactionHash;
+      } else {
+        a.txHash = events[events.length - 1].transactionHash;
+      }
+
       a.tokens = this._fromWei(approvals['2'][i]).toString();
       a.tokensTransferred = (
         this._fromWei(approvals['2'][i]) - this._fromWei(approvals['3'][i])
       ).toString();
-      a.expiry = approvals['4'][i];
       a.description = this._toAscii(approvals['5'][i]);
       formattedApprovals.push(a);
     }
