@@ -69,6 +69,15 @@
   }
 }
 
+.bx--data-table-v2 th, .bx--data-table-v2 td {
+  font-family: 'Overpass';
+}
+
+.bx--table-header-label {
+  font-family: 'Overpass';
+
+}
+
 // TODO @bshevchenko: extract into the separate file
 .confirm-email-form {
   button {

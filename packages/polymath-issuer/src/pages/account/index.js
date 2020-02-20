@@ -36,7 +36,7 @@ class HomePage extends Component {
             </Grid.Col>
             {tickers.map(ticker => {
               return (
-                <Grid.Col gridSpan={4}>
+                <Grid.Col key={ticker} gridSpan={4}>
                   <TickerCard ticker={ticker} />
                 </Grid.Col>
               );

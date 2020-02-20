@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js';
 import semver from 'semver';
 import Contract from './Contract';
 import PermissionManager from './PermissionManager';
+import ManualApprovalTransferManager from './ManualApprovalTransferManager';
 import TransferManager from './TransferManager';
 import VolumeRestrictionTransferManager from './VolumeRestrictionTransferManager';
 import PercentageTransferManager from './PercentageTransferManager';
@@ -147,6 +148,17 @@ export default class SecurityToken extends Contract {
     try {
       const address = await this.getModuleByName('GeneralPermissionManager');
       return new PermissionManager(address, this.version);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getApprovalManager(): Promise<?ManualApprovalTransferManager> {
+    try {
+      const address = await this.getModuleByName(
+        'ManualApprovalTransferManager'
+      );
+      return new ManualApprovalTransferManager(address, this.version);
     } catch (e) {
       return null;
     }
@@ -304,7 +316,6 @@ export default class SecurityToken extends Contract {
       .getModulesByTypeAndToken(type, this.address)
       .call();
     let result = null;
-
     if (!availableModules || !availableModules.length) {
       return result;
     }
@@ -492,6 +503,21 @@ export default class SecurityToken extends Contract {
     const data = this._toBytes('');
     return this.addModule(
       generalPermissionManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
+    );
+  }
+
+  async setApprovalManager(): Promise<Web3Receipt> {
+    const approvalManagerFactory = await this.getModuleFactory(
+      'ManualApprovalTransferManager',
+      MODULE_TYPES.TRANSFER
+    );
+    const setupCost = await approvalManagerFactory.setupCost();
+    const data = this._toBytes('');
+    return this.addModule(
+      approvalManagerFactory.address,
       data,
       PolyToken.addDecimals(setupCost),
       0
