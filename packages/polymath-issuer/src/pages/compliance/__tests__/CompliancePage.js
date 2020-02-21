@@ -30,6 +30,9 @@ describe('Compliance Page', () => {
     const props = {
       token: {
         address: '0x121212',
+        contract: {
+          version: '3.0.0',
+        },
       },
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
@@ -48,6 +51,9 @@ describe('Compliance Page', () => {
       isApprovalToggled: true,
       token: {
         address: '0x121212',
+        contract: {
+          version: '3.0.0',
+        },
       },
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
@@ -65,6 +71,9 @@ describe('Compliance Page', () => {
     const props = {
       token: {
         address: '0x121212',
+        contract: {
+          version: '3.0.0',
+        },
       },
       addManualApprovalModule: jest.fn(),
       fetchWhitelist: jest.fn(),
@@ -82,6 +91,9 @@ describe('Compliance Page', () => {
     const props = {
       token: {
         address: '0x121212',
+        contract: {
+          version: '3.0.0',
+        },
       },
       archiveManualApprovalModule: jest.fn(),
       fetchWhitelist: jest.fn(),
