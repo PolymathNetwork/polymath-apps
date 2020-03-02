@@ -59,7 +59,7 @@ export const categories: Array<SPCategory> = [
   },
   {
     id: 4,
-    title: 'Custody Service',
+    title: 'Custody/Escrow',
     desc:
       "Apply for Custody services for the funds you raised and/or your investors' " +
       'security tokens to be held for safekeeping and minimize the risk of theft or loss. Alternatively, ' +
@@ -80,6 +80,14 @@ export const categories: Array<SPCategory> = [
       "Capitalization Table Management Platforms allow you to manage your company's equity, \
       view holdings and manage investors. Some Cap. Table Management Platforms can act as a \
       Registrar to support your regulatory compliance.",
+  },
+  {
+    id: 7,
+    title: 'Tax Services',
+    desc:
+      'Tax services can help you structure and optimize your taxes. \
+      Polymath is integrated with the following tax firms. Alternatively, \
+      you can choose to use your own tax service.',
   },
 ];
 
@@ -767,6 +775,26 @@ const providers: Array<ServiceProvider> = [
       and corporate clients. BTCS built a team of over 110 highly qualified experts at its locations in Zug, Copenhagen, \
       and Liechtenstein.",
   },
+  {
+    id: 61,
+    cat: 4,
+    title: 'Park Avenue Finance',
+    logo: '/providers/custody/park-avenue-fin.png',
+    background: '/providers/custody/bg/img-parkavenuefin.png',
+    desc:
+      'Park Avenue Finance, LLC (“PAF”) specializes in global financial product innovation, specifically the design, execution and \
+      protection of innovative financial products and transactions.  Our bespoke product innovations are developed with extensive \
+      rigor and vetting to address rules-based constraints in law, accounting, regulation, tax, credit ratings and market conventions, \
+      which unlock identifiable and quantifiable value that would otherwise be trapped.  Since 2010, the principals of PAF have designed \
+      and/or executed, usually both, 20+ global financial product innovations unlocking > $3.7 Bn of otherwise trapped value for stakeholders. \
+      \n\nOur Advisory Board Directors and internal team have been in the business of financial product innovation, financial engineering, \
+      financial services start-ups, bank and insurance regulation, law, tax and cryptocurrency businesses for 15-30 years.\n\n\
+      We are able to:\n accept fiat funds from the buyer of digital assets, in any global currency; hold the funds in an escrow account, \
+      managed by a fiduciary trustee; review and confirm the settlement of digital asset transactions, together with any other escrow \
+      instructions from the parties; and disburse the fiat funds to the seller of digital assets, following confirmation from both \
+      parties that the escrow requirements are satisfied. We are permissioned to provide escrow services for fiat <-> digital asset transactions: \
+      under a U.S. domestic statutory trust company; and acting under a supplementary letter from the State banking commissioner',
+  },
 
   // TOKEN SALE PLATFORMS
   {
@@ -826,6 +854,33 @@ const providers: Array<ServiceProvider> = [
       by providing transparency to stakeholders through shareholder specific views and invite-only \
       data rooms for employees and investors, and create a centralized corporate governance repository \
       so that you are prepared for all growth scenarios.',
+  },
+  // TAX
+  {
+    id: 62,
+    cat: 7,
+    title: 'Park Avenue Finance',
+    logo: '/providers/custody/park-avenue-fin.png',
+    background: '/providers/custody/bg/img-parkavenuefin.png',
+    desc:
+      'Park Avenue Finance, LLC (“PAF”) specializes in global financial product innovation, specifically the design, execution \
+      and protection of innovative financial products and transactions.  Our bespoke product innovations are developed with extensive \
+      rigor and vetting to address rules-based constraints in law, accounting, regulation, tax, credit ratings and market conventions, \
+      which unlock identifiable and quantifiable value that would otherwise be trapped.  Since 2010, the principals of PAF have designed \
+      and/or executed, usually both, 20+ global financial product innovations unlocking > $3.7 Bn of otherwise trapped value for stakeholders. \n\n\
+      Our Advisory Board Directors and internal team have been in the business of financial product innovation, financial \
+      engineering, financial services start-ups, bank and insurance regulation, law, tax and cryptocurrency businesses \
+      for 15-30 years. \n\n\
+      We are able to: \n\
+      optimize the U.S. federal, state and local tax burden associated with digital asset investments and operations; \
+      structure and optimize the international and cross-border efficiency of digital asset activities; \
+      transact under should-level comfort from independent tax advisors; and \
+      arrange and confirm tax insurance from independent specialty risk insurance carriers covering tax-related savings \
+       and tax-related risk factors \
+      With regard to complex tax matters: \n\
+      we design, arrange and transact as a risk-bearing counterparty, which broadens the available toolkit vs traditional advisors; \
+      we are able to transact in U.S. domestic, U.S. territories (e.g. Puerto Rico), and international jurisdictions; and \
+      we generally offer optimization transactions under a success-based value participation.',
   },
 ];
 
