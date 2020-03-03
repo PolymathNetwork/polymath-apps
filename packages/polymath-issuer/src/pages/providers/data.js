@@ -776,7 +776,7 @@ const providers: Array<ServiceProvider> = [
       and Liechtenstein.",
   },
   {
-    id: 61,
+    id: 62,
     cat: 4,
     title: 'Park Avenue Finance',
     logo: '/providers/custody/park-avenue-fin.png',
@@ -857,7 +857,7 @@ const providers: Array<ServiceProvider> = [
   },
   // TAX
   {
-    id: 62,
+    id: 63,
     cat: 7,
     title: 'Park Avenue Finance',
     logo: '/providers/custody/park-avenue-fin.png',
