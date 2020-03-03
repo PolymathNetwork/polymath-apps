@@ -830,19 +830,6 @@ const providers: Array<ServiceProvider> = [
   // CAP TABLE MANAGEMENT
 
   {
-    id: 52,
-    cat: 6,
-    title: 'Vertalo',
-    logo: '/providers/captable/vertalo.png',
-    background: '/providers/captable/bg/img-vertalo.png',
-    desc:
-      'Vertalo is a cap table, compliance, and investor onboarding platform utilizing blockchain to connect \
-       and enable the digital asset economy.  A chain-agnostic pioneer in "direct custody"​ and secondary liquidity, \
-       Vertalo supports the ongoing asset management needs of private companies and broker-dealers. Vertalo enables \
-       any private asset to be instantly tokenized, stored in an investor\'s verified wallet, and traded in real-time \
-       based on the smart contract between the issuer and the investor.',
-  },
-  {
     id: 61,
     cat: 6,
     title: 'Equa',
