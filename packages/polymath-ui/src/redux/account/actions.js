@@ -208,7 +208,11 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
       dispatch(signedUp(user.name, user.email, true));
     }
 
-    if (getState().router.location.pathname !== '/account') dispatch(fetched()); //hack to stop race condition
+    if (
+      getState().router.location.pathname !== '/account' ||
+      getState().pui.account.isSignedUp === null
+    )
+      dispatch(fetched()); //hack to stop race condition
   } catch (e) {
     dispatch(fetchingFailed(e));
   }
