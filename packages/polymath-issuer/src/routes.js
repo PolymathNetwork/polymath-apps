@@ -54,11 +54,11 @@ export default [
             component: STOPage,
             exact: true,
           },
-          {
-            path: '/dashboard/:id/restrictions',
-            component: RestrictionsPage,
-            exact: true,
-          },
+          // {
+          //   path: '/dashboard/:id/restrictions',
+          //   component: RestrictionsPage,
+          //   exact: true,
+          // },
           {
             path: '/dashboard/:id/compliance',
             component: WhitelistPage,
