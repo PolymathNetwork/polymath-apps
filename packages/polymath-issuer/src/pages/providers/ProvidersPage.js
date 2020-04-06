@@ -182,8 +182,8 @@ class ProvidersPage extends Component<Props, State> {
     this.props.confirm(
       <p>
         Please make sure you have received sufficient information from one of
-        the Advisors or the Legal providers listed below or your own advisor
-        before you proceed with the token configuration.
+        the Advisors or the Legal service providers listed below or your own
+        advisor before you proceed with the token configuration.
       </p>,
       () => {
         // $FlowFixMe
@@ -246,25 +246,34 @@ class ProvidersPage extends Component<Props, State> {
         <Progress />
         <Remark title="Data Privacy">
           None of your data entered in the application form(s) is stored on
-          Polymath servers or shared with any third party other than the
+          Polymath servers or shared with any third party other than the service
           provider(s) you decide to apply for.
         </Remark>
         <h1 className="pui-h1">Choose Your Service Providers</h1>
         <Grid.Row>
           <Grid.Col gridSpan={[12, 12, 7]}>
             <h3 className="pui-h3">
-              Your Polymath dashboard is integrated with several providers to
-              streamline your on-boarding process and access to their services.
-              The information you enter in each associated form will be sent
-              automatically to the provider(s) you apply for. Upon review of
-              your information, the provider(s) will contact you directly to
-              establish the applicable next steps.
+              Your Polymath dashboard is integrated with several service
+              providers to streamline your on-boarding process and access to
+              their services. The information you enter in each associated form
+              will be sent automatically to the service provider(s) you apply
+              for. Upon review of your information, the service provider(s) will
+              contact you directly to establish the applicable next steps.
               <br />
               <br />
               To get started, please select an Advisory provider, a Legal
               provider or both. Note that you don’t need to select all at the
-              same time nor have any obligation to select any of the providers
-              below. You can always elect to use your own.
+              same time nor have any obligation to select any of the service
+              providers below. You can always elect to use your own.
+              <br />
+              <br />
+              <strong>
+                Polymath does not endorse any service provider on this dashboard
+                and does not make any representations about any of the services
+                or products provided by any such service provider. Any agreement
+                with a service provider on this dashboard is between you and the
+                service provider with no liability to Polymath.
+              </strong>
             </h3>
           </Grid.Col>
           <Grid.Col gridSpan={[12, 12, 5]}>
