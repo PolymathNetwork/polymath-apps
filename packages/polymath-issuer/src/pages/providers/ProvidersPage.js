@@ -182,8 +182,8 @@ class ProvidersPage extends Component<Props, State> {
     this.props.confirm(
       <p>
         Please make sure you have received sufficient information from one of
-        the Advisors or the Legal firms listed below or your own advisor before
-        you proceed with the token configuration.
+        the Advisors or the Legal providers listed below or your own advisor
+        before you proceed with the token configuration.
       </p>,
       () => {
         // $FlowFixMe
@@ -242,23 +242,23 @@ class ProvidersPage extends Component<Props, State> {
     }
 
     return (
-      <Page title={`${token.ticker} Providers – Polymath`}>
+      <Page title={`${token.ticker} Service Providers – Polymath`}>
         <Progress />
         <Remark title="Data Privacy">
           None of your data entered in the application form(s) is stored on
-          Polymath servers or shared with any third party other than the firm(s)
-          you decide to apply for.
+          Polymath servers or shared with any third party other than the
+          provider(s) you decide to apply for.
         </Remark>
-        <h1 className="pui-h1">Choose Your Providers</h1>
+        <h1 className="pui-h1">Choose Your Service Providers</h1>
         <Grid.Row>
           <Grid.Col gridSpan={[12, 12, 7]}>
             <h3 className="pui-h3">
               Your Polymath dashboard is integrated with several providers to
               streamline your on-boarding process and access to their services.
               The information you enter in each associated form will be sent
-              automatically to the firm(s) you apply for. Upon review of your
-              information, the firm(s) will contact you directly to establish
-              the applicable next steps.
+              automatically to the provider(s) you apply for. Upon review of
+              your information, the provider(s) will contact you directly to
+              establish the applicable next steps.
               <br />
               <br />
               To get started, please select an Advisory provider, a Legal
