@@ -247,7 +247,7 @@ class ProvidersPage extends Component<Props, State> {
         <Remark title="Data Privacy">
           None of your data entered in the application form(s) is stored on
           Polymath servers or shared with any third party other than the service
-          provider(s) you decide to apply for.
+          providers you selected.
         </Remark>
         <h1 className="pui-h1">Choose Your Service Providers</h1>
         <Grid.Row>
