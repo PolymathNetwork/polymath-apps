@@ -254,17 +254,18 @@ class ProvidersPage extends Component<Props, State> {
           <Grid.Col gridSpan={[12, 12, 7]}>
             <h3 className="pui-h3">
               Your Polymath dashboard is integrated with several service
-              providers to streamline your on-boarding process and access to
-              their services. The information you enter in each associated form
-              will be sent automatically to the service provider(s) you apply
-              for. Upon review of your information, the service provider(s) will
-              contact you directly to establish the applicable next steps.
+              providers to streamline your tokenization process. The information
+              you enter in each associated form will be sent automatically to
+              the service providers you selected. Upon review of your
+              information, the service providers will contact you directly to
+              establish the applicable next steps.
               <br />
               <br />
-              To get started, please select an Advisory provider, a Legal
-              provider or both. Note that you don’t need to select all at the
-              same time nor have any obligation to select any of the service
-              providers below. You can always elect to use your own.
+              To get started, please select one or more service providers below.
+              Note that you don’t need to select use your own at the same time
+              nor have any obligation to select any of the service providers
+              below. You can elect to use any other service provider of your
+              choice.
               <br />
               <br />
               <strong>
