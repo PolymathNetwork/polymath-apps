@@ -165,7 +165,7 @@ const initialValues = {
   minimumInvestment: new BigNumber(0),
   receiverAddress: '',
   unsoldTokensAddress: '',
-  currencies: ['ETH', 'POLY'],
+  currencies: ['ETH'],
 };
 
 export const USDTieredSTOFormComponent = ({

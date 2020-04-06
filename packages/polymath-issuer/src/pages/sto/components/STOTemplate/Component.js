@@ -38,7 +38,11 @@ export default class STOTemplateComponent extends Component<Props> {
     const desc = (
       <LabeledItem>
         <LabeledItem.Label>Description</LabeledItem.Label>
-        <Paragraph>{stoModule.description}</Paragraph>
+        <Paragraph>
+          {stoModule.description
+            .replace('(ETH, POLY or DAI)', '(ETH or DAI)')
+            .replace(' (ETH or POLY)', '')}
+        </Paragraph>
       </LabeledItem>
     );
     const investorsNote = (
@@ -98,9 +102,6 @@ export default class STOTemplateComponent extends Component<Props> {
           {stoModule.title}
           {pickingEnabled ? (
             <Fragment>
-              <span className="bx--tag bx--tag--custom">
-                Raise Funds in POLY
-              </span>
               <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
               {stoModule.type === 'USDTieredSTO' ? (
                 <span className="bx--tag bx--tag--third-party">
