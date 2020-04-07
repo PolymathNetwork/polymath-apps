@@ -1,365 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Compliance Page should not render RPTM tab when token version below 3.0.0 1`] = `
-<Page
-  py="xl"
-  title="Compliance – Polymath"
->
-  <Connect(Progress) />
-  <h1
-    className="pui-h1"
-  >
-    Token Compliance
-  </h1>
-  <h3
-    className="pui-h3"
-  >
-    Manage compliance requirements of your tokens. You can import and export your whitelist, manage ownership percentages and add 3rd party whitelist managers.
-  </h3>
-  <Tabs
-    ariaLabel="listbox"
-    iconDescription="show menu options"
-    role="navigation"
-    selected={0}
-    triggerHref="#"
-  >
-    <Tab
-      href="#"
-      label="Whitelist"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="presentation"
-      selected={false}
-      tabIndex={0}
-    >
-      <Grid
-        gridGap={4}
-      >
-        <GridRow
-          gridGap={4}
-        >
-          <GridCol
-            gridSpan={9}
-          >
-            <h1
-              className="pui-h1"
-            >
-              Whitelist
-            </h1>
-            <h3
-              className="pui-h3"
-            >
-              Your whitelist is the list of wallet addresses of approved or exempted to buy and sell your security token.
-            </h3>
-            <Remark
-              title="Note"
-            >
-              Security token buy/sell operations may be subject to additional restrictions.
-            </Remark>
-          </GridCol>
-          <GridCol
-            style={
-              Object {
-                "alignSelf": "center",
-              }
-            }
-          >
-            <Button
-              className="import-whitelist-btn"
-              disabled={false}
-              icon="upload"
-              iconDescription="Provide icon description if icon is used"
-              kind="primary"
-              onClick={[Function]}
-              small={false}
-              style={
-                Object {
-                  "width": 185,
-                }
-              }
-              tabIndex={0}
-              type="button"
-            >
-              Import Whitelist
-            </Button>
-          </GridCol>
-          <GridCol
-            style={
-              Object {
-                "alignSelf": "center",
-              }
-            }
-          >
-            <Connect(ImportWhitelistModal)
-              isOpen={false}
-              onClose={[Function]}
-              onSubmit={[Function]}
-            />
-            <Button
-              className="import-whitelist-btn"
-              disabled={false}
-              icon="download"
-              iconDescription="Provide icon description if icon is used"
-              kind="secondary"
-              onClick={[Function]}
-              small={false}
-              style={
-                Object {
-                  "width": 185,
-                }
-              }
-              tabIndex={0}
-              type="button"
-            >
-              Export Whitelist
-            </Button>
-          </GridCol>
-          <GridCol
-            style={
-              Object {
-                "alignSelf": "center",
-                "justifySelf": "left",
-              }
-            }
-          >
-            <OverflowMenu
-              ariaLabel="list of options"
-              direction="bottom"
-              flipped={true}
-              floatingMenu={true}
-              iconDescription="open and close list of options"
-              menuOffset={[Function]}
-              menuOffsetFlip={[Function]}
-              onClick={[Function]}
-              onClose={[Function]}
-              onKeyDown={[Function]}
-              onOpen={[Function]}
-              open={false}
-              style={
-                Object {
-                  "float": "right",
-                }
-              }
-              tabIndex={0}
-            >
-              <OverflowMenuItem
-                disabled={false}
-                hasDivider={false}
-                isDelete={false}
-                itemText="Pause All Transfers"
-                onClick={[Function]}
-              />
-            </OverflowMenu>
-          </GridCol>
-        </GridRow>
-        <GridRow
-          gridGap={4}
-        >
-          <GridCol
-            gridSpan={
-              Array [
-                12,
-                12,
-                6,
-                6,
-              ]
-            }
-          >
-            <div
-              id="compliance"
-            >
-              <br />
-              <div
-                className="pui-page-box compliance-form"
-              >
-                <h1
-                  className="pui-h1"
-                >
-                  3rd Party Whitelist Management
-                </h1>
-                <div
-                  className="whitelist-settings"
-                >
-                  <div
-                    className="bx--form-item"
-                  >
-                    <label
-                      className="bx--label"
-                      htmlFor="whitelistToggle"
-                    >
-                      Enable Third-Party Whitelist Management
-                    </label>
-                    <Toggle
-                      defaultToggled={false}
-                      id="whitelistToggle"
-                      labelA="Off"
-                      labelB="On"
-                      onToggle={[Function]}
-                    />
-                  </div>
-                  <div
-                    className="bx--form-item"
-                    style={
-                      Object {
-                        "display": "none",
-                      }
-                    }
-                  >
-                    <Connect(WhitelistTable) />
-                  </div>
-                </div>
-                <div
-                  className="pui-clearfix"
-                />
-              </div>
-            </div>
-          </GridCol>
-        </GridRow>
-      </Grid>
-    </Tab>
-    <Tab
-      href="#"
-      label="Ownership Restrictions"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="presentation"
-      selected={false}
-      tabIndex={0}
-    >
-      <Grid
-        gridGap={4}
-      >
-        <GridRow
-          gridGap={4}
-        >
-          <GridCol
-            gridSpan={9}
-          >
-            <h1
-              className="pui-h1"
-            >
-              Ownership Restrictions
-            </h1>
-            <h3
-              className="pui-h3"
-            >
-              Manage ownership of your security token by setting limits like capping the percentage of available tokens a single investor can hold.
-               
-            </h3>
-            <Remark
-              title="Note"
-            >
-              This percentage relates to the holdings of a single wallet address and may not support investor holdings held in a custodial omnibus wallet.
-            </Remark>
-            <br />
-            <div
-              className="bx--form-item"
-              style={Object {}}
-            >
-              <label
-                className="bx--label"
-                htmlFor="percentage"
-              >
-                Percentage of outstanding tokens individual investors can own:
-              </label>
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <TextInput
-                  className="bx--text__input"
-                  disabled={false}
-                  helperText=""
-                  id="percentage"
-                  invalid={false}
-                  invalidText=""
-                  labelText=""
-                  light={false}
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  placeholder="%"
-                  style={
-                    Object {
-                      "width": 100,
-                    }
-                  }
-                  type="text"
-                />
-                <Button
-                  className="apply-percentage-btn"
-                  disabled={true}
-                  iconDescription="Provide icon description if icon is used"
-                  kind="secondary"
-                  onClick={[Function]}
-                  small={false}
-                  style={
-                    Object {
-                      "marginTop": 0,
-                    }
-                  }
-                  tabIndex={0}
-                  type="button"
-                >
-                  Apply
-                </Button>
-              </div>
-            </div>
-          </GridCol>
-          <GridCol
-            gridSpan={3}
-            style={
-              Object {
-                "alignSelf": "center",
-                "boxShadow": "0 8px 24px 0 rgba(0,0,0,0.1)",
-              }
-            }
-          >
-            <CardFeatureState
-              IconAsset={[Function]}
-              maxWidth={355}
-              status="inactive"
-              style={Object {}}
-            >
-              <Heading__StyledHeading
-                as="h2"
-                color="primary"
-                lineHeight="normal"
-                mb="m"
-                mt={2}
-                variant="h3"
-              >
-                Enable Ownership Restrictions
-              </Heading__StyledHeading>
-              <div
-                style={
-                  Object {
-                    "marginLeft": 70,
-                  }
-                }
-              >
-                <Toggle
-                  defaultToggled={false}
-                  id="volumeRestrictionToggle"
-                  labelA="Off"
-                  labelB="On"
-                  onToggle={[Function]}
-                  toggled={false}
-                />
-              </div>
-            </CardFeatureState>
-          </GridCol>
-        </GridRow>
-      </Grid>
-    </Tab>
-  </Tabs>
-</Page>
-`;
-
-exports[`Compliance Page should render correctly 1`] = `
+exports[`Compliance Page should render Approval Table when MATM is enabled 1`] = `
 <Page
   py="xl"
   title="Compliance – Polymath"
@@ -716,7 +357,7 @@ exports[`Compliance Page should render correctly 1`] = `
     </Tab>
     <Tab
       href="#"
-      label="Restrict Partial Transfers"
+      label="Manual Approval"
       onClick={[Function]}
       onKeyDown={[Function]}
       role="presentation"
@@ -730,35 +371,12 @@ exports[`Compliance Page should render correctly 1`] = `
           gridGap={4}
         >
           <GridCol
-            gridSpan={12}
-          >
-            <h1
-              className="pui-h1"
-            >
-              Restrict Partial Transfers
-            </h1>
-            <h3
-              className="pui-h3"
-            >
-              To allow your tokenholders to trade their tokens while still meeting maximum number of token holders compliance rules.
-            </h3>
-            <Remark
-              title="Note"
-            >
-              By restricting partial transfers, your tokenholders will only be allowed to trade their full token balance or none of their balance. You can disable this restriction at any time.
-            </Remark>
-          </GridCol>
-        </GridRow>
-        <GridRow
-          gridGap={4}
-        >
-          <GridCol
             gridSpan={
               Array [
                 12,
                 12,
-                6,
-                6,
+                12,
+                12,
               ]
             }
           >
@@ -772,8 +390,11 @@ exports[`Compliance Page should render correctly 1`] = `
                 <h1
                   className="pui-h1"
                 >
-                  No Partial Transfers
+                  Manual Trade Approvals
                 </h1>
+                <p>
+                  Allows you to pre-approve token trades between two wallet addresses for a period of time. You can always edit and remove trade approvals. Note that these approvals supercede all other exemptions and restrictions for a particular wallet.
+                </p>
                 <div
                   className="whitelist-settings"
                 >
@@ -782,27 +403,24 @@ exports[`Compliance Page should render correctly 1`] = `
                   >
                     <label
                       className="bx--label"
-                      htmlFor="partialTransferToggle"
+                      htmlFor="approvalToggle"
                     >
-                      Enable No Partial Transfers
+                      Enable Manual Trade Approvals
                     </label>
                     <Toggle
                       defaultToggled={false}
-                      id="partialTransferToggle"
+                      id="approvalToggle"
                       labelA="Off"
                       labelB="On"
                       onToggle={[Function]}
+                      toggled={true}
                     />
                   </div>
                   <div
                     className="bx--form-item"
-                    style={
-                      Object {
-                        "display": "none",
-                      }
-                    }
+                    style={Object {}}
                   >
-                    <Connect(PartialTransferTable) />
+                    <Connect(ApprovalTable) />
                   </div>
                 </div>
                 <div
@@ -818,9 +436,9 @@ exports[`Compliance Page should render correctly 1`] = `
 </Page>
 `;
 
-exports[`Compliance Page should render not found when there is no token 1`] = `<NotFoundPage />`;
+exports[`Compliance Page should render NotFoundPage when there is no token 1`] = `<NotFoundPage />`;
 
-exports[`Compliance Page should show PartialTransferTable when RPTM is enabled 1`] = `
+exports[`Compliance Page should render correctly when token address is present 1`] = `
 <Page
   py="xl"
   title="Compliance – Polymath"
@@ -1177,7 +795,7 @@ exports[`Compliance Page should show PartialTransferTable when RPTM is enabled 1
     </Tab>
     <Tab
       href="#"
-      label="Restrict Partial Transfers"
+      label="Manual Approval"
       onClick={[Function]}
       onKeyDown={[Function]}
       role="presentation"
@@ -1191,35 +809,12 @@ exports[`Compliance Page should show PartialTransferTable when RPTM is enabled 1
           gridGap={4}
         >
           <GridCol
-            gridSpan={12}
-          >
-            <h1
-              className="pui-h1"
-            >
-              Restrict Partial Transfers
-            </h1>
-            <h3
-              className="pui-h3"
-            >
-              To allow your tokenholders to trade their tokens while still meeting maximum number of token holders compliance rules.
-            </h3>
-            <Remark
-              title="Note"
-            >
-              By restricting partial transfers, your tokenholders will only be allowed to trade their full token balance or none of their balance. You can disable this restriction at any time.
-            </Remark>
-          </GridCol>
-        </GridRow>
-        <GridRow
-          gridGap={4}
-        >
-          <GridCol
             gridSpan={
               Array [
                 12,
                 12,
-                6,
-                6,
+                12,
+                12,
               ]
             }
           >
@@ -1233,8 +828,11 @@ exports[`Compliance Page should show PartialTransferTable when RPTM is enabled 1
                 <h1
                   className="pui-h1"
                 >
-                  No Partial Transfers
+                  Manual Trade Approvals
                 </h1>
+                <p>
+                  Allows you to pre-approve token trades between two wallet addresses for a period of time. You can always edit and remove trade approvals. Note that these approvals supercede all other exemptions and restrictions for a particular wallet.
+                </p>
                 <div
                   className="whitelist-settings"
                 >
@@ -1243,13 +841,13 @@ exports[`Compliance Page should show PartialTransferTable when RPTM is enabled 1
                   >
                     <label
                       className="bx--label"
-                      htmlFor="partialTransferToggle"
+                      htmlFor="approvalToggle"
                     >
-                      Enable No Partial Transfers
+                      Enable Manual Trade Approvals
                     </label>
                     <Toggle
                       defaultToggled={false}
-                      id="partialTransferToggle"
+                      id="approvalToggle"
                       labelA="Off"
                       labelB="On"
                       onToggle={[Function]}
@@ -1263,7 +861,7 @@ exports[`Compliance Page should show PartialTransferTable when RPTM is enabled 1
                       }
                     }
                   >
-                    <Connect(PartialTransferTable) />
+                    <Connect(ApprovalTable) />
                   </div>
                 </div>
                 <div

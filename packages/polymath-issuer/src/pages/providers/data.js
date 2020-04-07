@@ -59,7 +59,7 @@ export const categories: Array<SPCategory> = [
   },
   {
     id: 4,
-    title: 'Custody Service',
+    title: 'Custody/Escrow',
     desc:
       "Apply for Custody services for the funds you raised and/or your investors' " +
       'security tokens to be held for safekeeping and minimize the risk of theft or loss. Alternatively, ' +
@@ -80,6 +80,14 @@ export const categories: Array<SPCategory> = [
       "Capitalization Table Management Platforms allow you to manage your company's equity, \
       view holdings and manage investors. Some Cap. Table Management Platforms can act as a \
       Registrar to support your regulatory compliance.",
+  },
+  {
+    id: 7,
+    title: 'Tax Services',
+    desc:
+      'Tax services can help you structure and optimize your taxes. \
+      Polymath is integrated with the following tax firms. Alternatively, \
+      you can choose to use your own tax service.',
   },
 ];
 
@@ -159,23 +167,6 @@ const providers: Array<ServiceProvider> = [
       'and financial experience to structure offerings and provide an understanding of capital markets.',
   },
   {
-    id: 33,
-    cat: 0,
-    title: 'Digichain Capital',
-    logo: '/providers/advisory/digichaincapital.png',
-    background: '/providers/advisory/bg/img-digichaincapital.png',
-    desc:
-      'Blockchain Industry Services:\n - Complete consultation services from idea to implementation, including but ' +
-      'not limited to: regulatory and legal issues;Tax and jurisdiction;Company structure and roadmap requirements;' +
-      '\nToken economics including investor and user confidence;Documentation and business model,Fundraising models;' +
-      '\nInstitutional level tech dev;Critical mass of users and monetization;Marketing and exposure;' +
-      'Secondary market and liquidity solutions;(Consultation and/or active assistance)' +
-      '\nSecondary Market Solutions:\n - Tailored for projects and exchanges including exchange listings and liquidity ' +
-      'management, also applicable for STOs.\nRegulated STO:\n - Launching fully regulated STOs and tokenized securities' +
-      'under the Australian and German governments. \nProfessional Token Economics:\n - Sophisticated, progressive and viable ' +
-      'token models tailored to suit, including dual token and convertible share options.',
-  },
-  {
     id: 34,
     cat: 0,
     title: 'Sino Global Capital',
@@ -191,7 +182,7 @@ const providers: Array<ServiceProvider> = [
   },
   {
     id: 39,
-    cat: 0,
+    cat: 1,
     title: 'DLA Piper',
     logo: '/providers/advisory/dlapiper.png',
     background: '/providers/advisory/bg/img-dlapiper.png',
@@ -261,21 +252,6 @@ const providers: Array<ServiceProvider> = [
       mergers & acquisitions, investment and a joint venture in public and private sectors. Primarily focused on impact \
       investing in the U.S., Latin America, Africa, and the Caribbean, Logos Capital is based in Miami, FL and comprised of \
       personnel from around the world.',
-  },
-  {
-    id: 56,
-    cat: 0,
-    title: 'Bitcoin Suisse AG',
-    logo: '/providers/advisory/bitcoin-suisse.png',
-    background: '/providers/advisory/bg/img-bitcoin-suisse.png',
-    desc:
-      "Founded in 2013, Bitcoin Suisse AG (BTCS) has been a pioneer in providing crypto-financial services. \
-      It has helped to shape the crypto- and blockchain-ecosystem in Switzerland and has been a driving force \
-      in the development of the 'Crypto Valley' and 'Crypto Nation Switzerland'. As a regulated Swiss financial \
-      intermediary (SRO – VQF member) since 2014, BTCS has become a market leader in prime brokerage, storage, \
-      lending, staking, tokenization, and other crypto-financial services catered to the needs of private, institutional, \
-      and corporate clients. BTCS built a team of over 110 highly qualified experts at its locations in Zug, Copenhagen, \
-      and Liechtenstein.",
   },
 
   // LEGAL
@@ -467,6 +443,33 @@ const providers: Array<ServiceProvider> = [
       \n\nThis includes licenses for banks, securities dealers, insurance companies and asset \
       managers as well as for exchanges, trading facilities, trade repositories, representative \
       offices or applications to self-regulatory organizations for anti-money laundering compliance.',
+  },
+  {
+    id: 59,
+    cat: 1,
+    title: 'Nellis & Katz LLP',
+    logo: '/providers/legal/nelliskatz.png',
+    background: '/providers/legal/bg/img-nelliskatz.png',
+    desc:
+      'Nellis & Katz LLP is a team of Wall Street trained lawyers with years of experience.  \
+    Our passion is helping clients build better businesses.  As seasoned securities lawyers, we work \
+    alongside our clients in helping them achieve their fundraising and business goals.  As an evolving practice, \
+    we advise our clients in respect of both traditional and innovative fundraising platforms, which has led to the \
+    establishment of our blockchain and digital securities practice.  Our knowledge of securities law and deep engagement \
+    with new technology positions us to be a valued provider to issuers and platforms for digital securities.',
+  },
+  {
+    id: 60,
+    cat: 1,
+    title: 'Rocktree LLP',
+    logo: '/providers/legal/rocktree.png',
+    background: '/providers/legal/bg/img-rocktree.png',
+    desc:
+      'RockTree LEX is a blockchain professional services platform specializing in providing international legal compliance, \
+      transaction execution, overseas financing, token exchange listing and global expansion for top tier blockchain projects. \
+      The LEX team in Beijing, New York and Toronto includes a full team of multi-jurisdictional blockchain lawyers and finance \
+      experts that provide a truly global solution to blockchain projects. Top projects get connected into the LEX international \
+      ecosystem of leading investment partners, funds, exchanges and service providers.',
   },
 
   // KYC/AML
@@ -757,6 +760,41 @@ const providers: Array<ServiceProvider> = [
       governance, team and systems, Koine model eliminates settlement and counterparty risks by enforcing DVP, responding to the needs of the \
       institutional world.",
   },
+  {
+    id: 56,
+    cat: 4,
+    title: 'Bitcoin Suisse AG',
+    logo: '/providers/advisory/bitcoin-suisse.png',
+    background: '/providers/advisory/bg/img-bitcoin-suisse.png',
+    desc:
+      "Founded in 2013, Bitcoin Suisse AG (BTCS) has been a pioneer in providing crypto-financial services. \
+      It has helped to shape the crypto- and blockchain-ecosystem in Switzerland and has been a driving force \
+      in the development of the 'Crypto Valley' and 'Crypto Nation Switzerland'. As a regulated Swiss financial \
+      intermediary (SRO – VQF member) since 2014, BTCS has become a market leader in prime brokerage, storage, \
+      lending, staking, tokenization, and other crypto-financial services catered to the needs of private, institutional, \
+      and corporate clients. BTCS built a team of over 110 highly qualified experts at its locations in Zug, Copenhagen, \
+      and Liechtenstein.",
+  },
+  {
+    id: 61,
+    cat: 4,
+    title: 'Park Avenue Finance',
+    logo: '/providers/custody/park-avenue-fin.png',
+    background: '/providers/custody/bg/img-parkavenuefin.png',
+    desc:
+      'Park Avenue Finance, LLC (“PAF”) specializes in global financial product innovation, specifically the design, execution and \
+      protection of innovative financial products and transactions.  Our bespoke product innovations are developed with extensive \
+      rigor and vetting to address rules-based constraints in law, accounting, regulation, tax, credit ratings and market conventions, \
+      which unlock identifiable and quantifiable value that would otherwise be trapped.  Since 2010, the principals of PAF have designed \
+      and/or executed, usually both, 20+ global financial product innovations unlocking > $3.7 Bn of otherwise trapped value for stakeholders. \
+      \n\nOur Advisory Board Directors and internal team have been in the business of financial product innovation, financial engineering, \
+      financial services start-ups, bank and insurance regulation, law, tax and cryptocurrency businesses for 15-30 years.\n\n\
+      We are able to:\n accept fiat funds from the buyer of digital assets, in any global currency; hold the funds in an escrow account, \
+      managed by a fiduciary trustee; review and confirm the settlement of digital asset transactions, together with any other escrow \
+      instructions from the parties; and disburse the fiat funds to the seller of digital assets, following confirmation from both \
+      parties that the escrow requirements are satisfied. We are permissioned to provide escrow services for fiat <-> digital asset transactions: \
+      under a U.S. domestic statutory trust company; and acting under a supplementary letter from the State banking commissioner',
+  },
 
   // TOKEN SALE PLATFORMS
   {
@@ -803,6 +841,46 @@ const providers: Array<ServiceProvider> = [
        Vertalo supports the ongoing asset management needs of private companies and broker-dealers. Vertalo enables \
        any private asset to be instantly tokenized, stored in an investor\'s verified wallet, and traded in real-time \
        based on the smart contract between the issuer and the investor.',
+  },
+  {
+    id: 61,
+    cat: 6,
+    title: 'Equa',
+    logo: '/providers/captable/equa.png',
+    background: '/providers/captable/bg/img-equa.png',
+    desc:
+      'Equa promotes cooperative ownership through digitized and blockchain-backed \
+      capitalization tables and associated actions.  Unravel your equity management mess \
+      by providing transparency to stakeholders through shareholder specific views and invite-only \
+      data rooms for employees and investors, and create a centralized corporate governance repository \
+      so that you are prepared for all growth scenarios.',
+  },
+  // TAX
+  {
+    id: 62,
+    cat: 7,
+    title: 'Park Avenue Finance',
+    logo: '/providers/custody/park-avenue-fin.png',
+    background: '/providers/custody/bg/img-parkavenuefin.png',
+    desc:
+      'Park Avenue Finance, LLC (“PAF”) specializes in global financial product innovation, specifically the design, execution \
+      and protection of innovative financial products and transactions.  Our bespoke product innovations are developed with extensive \
+      rigor and vetting to address rules-based constraints in law, accounting, regulation, tax, credit ratings and market conventions, \
+      which unlock identifiable and quantifiable value that would otherwise be trapped.  Since 2010, the principals of PAF have designed \
+      and/or executed, usually both, 20+ global financial product innovations unlocking > $3.7 Bn of otherwise trapped value for stakeholders. \n\n\
+      Our Advisory Board Directors and internal team have been in the business of financial product innovation, financial \
+      engineering, financial services start-ups, bank and insurance regulation, law, tax and cryptocurrency businesses \
+      for 15-30 years. \n\n\
+      We are able to: \n\
+      optimize the U.S. federal, state and local tax burden associated with digital asset investments and operations; \
+      structure and optimize the international and cross-border efficiency of digital asset activities; \
+      transact under should-level comfort from independent tax advisors; and \
+      arrange and confirm tax insurance from independent specialty risk insurance carriers covering tax-related savings \
+       and tax-related risk factors \
+      With regard to complex tax matters: \n\
+      we design, arrange and transact as a risk-bearing counterparty, which broadens the available toolkit vs traditional advisors; \
+      we are able to transact in U.S. domestic, U.S. territories (e.g. Puerto Rico), and international jurisdictions; and \
+      we generally offer optimization transactions under a success-based value participation.',
   },
 ];
 

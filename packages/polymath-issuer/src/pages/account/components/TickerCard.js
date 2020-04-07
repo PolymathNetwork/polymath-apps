@@ -17,7 +17,7 @@ export default class TickerCard extends Component {
                 type="text"
                 name="ticker"
                 value={ticker}
-                id="ticker"
+                id={ticker}
                 readOnly
                 className="bx--text-input bx--text__input"
               />

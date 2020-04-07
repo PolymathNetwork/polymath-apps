@@ -56,6 +56,36 @@ export const loadManagers = managers => ({
   managers,
 });
 
+export const LOAD_APPROVALS = 'compliance/LOAD_APPROVALS';
+export const loadApprovals = approvals => ({
+  type: LOAD_APPROVALS,
+  approvals,
+});
+
+export const ADD_APPROVAL = 'compliance/ADD_APPROVAL';
+export const addApproval = approval => ({
+  type: ADD_APPROVAL,
+  approval,
+});
+
+export const REMOVE_APPROVAL = 'compliance/REMOVE_APPROVAL';
+export const removeApproval = id => ({
+  type: REMOVE_APPROVAL,
+  id,
+});
+
+export const EDIT_APPROVAL = 'compliance/EDIT_APPROVAL';
+export const editApproval = approval => ({
+  type: EDIT_APPROVAL,
+  approval,
+});
+
+export const MODIFY_APPROVAL = 'compliance/MODIFY_APPROVAL';
+export const modifyApproval = approval => ({
+  type: MODIFY_APPROVAL,
+  approval,
+});
+
 export const ADD_MANAGER = 'compliance/ADD_MANAGER';
 export const addManager = manager => ({
   type: ADD_MANAGER,
@@ -96,6 +126,12 @@ export const removePartialAddress = address => ({
 export const TOGGLE_PARTIAL_TRANSFER = 'compliance/TOGGLE_PARTIAL_TRANSFER';
 export const togglePartialTransfer = (isToggled: boolean) => ({
   type: TOGGLE_PARTIAL_TRANSFER,
+  isToggled,
+});
+
+export const TOGGLE_APPROVAL_MANAGER = 'compliance/TOGGLE_APPROVAL_MANAGER';
+export const toggleApprovalManager = (isToggled: boolean) => ({
+  type: TOGGLE_APPROVAL_MANAGER,
   isToggled,
 });
 
@@ -1170,5 +1206,248 @@ export const toggleFreeze = () => async (
       undefined,
       true
     )
+  );
+};
+
+export const addManualApprovalModule = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const approvalManager = await st.getApprovalManager();
+  let moduleMetadata = {};
+  let delegateDetails = [];
+
+  if (approvalManager)
+    moduleMetadata = await st.getModule(approvalManager.address);
+
+  dispatch(
+    ui.tx(
+      ['Enabling Manual Trade Approvals'],
+      async () => {
+        if (moduleMetadata.isArchived) {
+          await st.unarchiveModule(approvalManager.address);
+          const approvals = await approvalManager.getAllApprovals();
+          dispatch(loadApprovals(approvals));
+        } else {
+          await st.setApprovalManager();
+        }
+      },
+      'Manual Trade Approvals Enabled',
+      () => {
+        // dispatch(loadManagers(delegateDetails));
+        dispatch(toggleApprovalManager(true));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const archiveManualApprovalModule = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  dispatch(
+    ui.tx(
+      ['Disabling Manual Trade Approvals'],
+      async () => {
+        const approvalManager = await st.getApprovalManager();
+        await st.archiveModule(approvalManager.address);
+      },
+      'Manual Trade Approvals Disabled',
+      () => {
+        dispatch(toggleApprovalManager(false));
+        dispatch(loadApprovals([]));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const fetchApprovals = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(ui.fetching());
+  // $FlowFixMe
+  try {
+    const st: SecurityToken = getState().token.token.contract;
+    const approvalManager = await st.getApprovalManager();
+    if (!approvalManager) {
+      return;
+    }
+    const moduleMetadata = await st.getModule(approvalManager.address);
+    if (approvalManager && !moduleMetadata.isArchived) {
+      const approvals = await approvalManager.getAllApprovals();
+      dispatch(loadApprovals(approvals));
+      dispatch(toggleApprovalManager(true));
+    } else {
+      dispatch(toggleApprovalManager(false));
+    }
+    dispatch(ui.fetched());
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const addManualApproval = (
+  from,
+  to,
+  allowance,
+  expiryTime,
+  description
+) => async (dispatch: Function, getState: GetState) => {
+  const st: SecurityToken = getState().token.token.contract;
+  let returnValues;
+  dispatch(
+    ui.tx(
+      ['Proceed with Adding Manual Approval'],
+      async () => {
+        const approvalManagerModule = await st.getApprovalManager();
+        returnValues = await approvalManagerModule.addManualApproval(
+          from,
+          to,
+          allowance,
+          expiryTime,
+          description
+        );
+      },
+      'Manual Approval Was Successfully Added',
+      () => {
+        const approval = {
+          id: (from + to).toLowerCase(),
+          fromAddress: from,
+          toAddress: to,
+          expiry: expiryTime / 1000,
+          tokens: Web3.utils.fromWei(allowance),
+          tokensTransferred: '0',
+          description: description,
+          txHash: returnValues.transactionHash,
+        };
+
+        let approvalIndex = getState().whitelist.approvals.findIndex(
+          i => i.id === approval.id
+        );
+        if (approvalIndex === -1) {
+          dispatch(addApproval(approval));
+        } else {
+          dispatch(modifyApproval(approval));
+        }
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const editManualApproval = (
+  from,
+  to,
+  allowance,
+  expiryTime,
+  description
+) => async (dispatch: Function, getState: GetState) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const editingApproval = getState().whitelist.editingApproval;
+  const newAllowance = new BigNumber(Web3.utils.fromWei(allowance).toString());
+  const oldAllowance = new BigNumber(editingApproval.tokens.toString());
+  const increase = newAllowance.isGreaterThan(oldAllowance);
+  const changeAmount = oldAllowance.minus(newAllowance).absoluteValue();
+  let txDetails;
+
+  dispatch(
+    ui.tx(
+      ['Proceed with Editing Manual Approval'],
+      async () => {
+        const approvalManagerModule = await st.getApprovalManager();
+        txDetails = await approvalManagerModule.modifyManualApproval(
+          from,
+          to,
+          expiryTime,
+          Web3.utils.toWei(changeAmount.toString()),
+          description,
+          increase
+        );
+      },
+      'Manual Approval Was Successfully Edited',
+      () => {
+        const newTokenTotal = Web3.utils.fromWei(allowance);
+        console.log(txDetails);
+        const approval = {
+          id: (from + to).toLowerCase(),
+          fromAddress: from,
+          toAddress: to,
+          txHash: txDetails.transactionHash,
+          expiry: expiryTime / 1000,
+          tokens: newTokenTotal,
+          tokensTransferred: editingApproval.tokensTransferred,
+          description: description,
+        };
+        dispatch(modifyApproval(approval));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const removeApprovalFromApprovals = (id: Address) => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    // ui.confirm(
+    //   <div>
+    //     <p>
+    //       Once removed, the whitelist manager will no longer have permission to
+    //       update the whitelist. Consult your legal team before removing a wallet
+    //       from the list.
+    //     </p>
+    //   </div>,
+    async () => {
+      dispatch(
+        ui.tx(
+          ['Removing Approval'],
+          async () => {
+            const st: SecurityToken = getState().token.token.contract;
+            const approvals = getState().whitelist.approvals;
+            const approvalToRemove = approvals.find(
+              approval => approval.id === id
+            );
+            const approvalManager = await st.getApprovalManager();
+
+            if (approvalManager) {
+              await approvalManager.revokeManualApproval(
+                approvalToRemove.fromAddress,
+                approvalToRemove.toAddress
+              );
+            }
+          },
+          'Approval Removed',
+          () => {
+            dispatch(removeApproval(id));
+          },
+          undefined,
+          undefined,
+          undefined,
+          true
+        )
+      );
+    },
+    `Remove the Whitelist Manager from the Whitelist Managers List?`,
+    undefined,
+    'pui-large-confirm-modal'
+    // )
   );
 };

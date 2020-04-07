@@ -50,9 +50,9 @@ export default class STOTemplateComponent extends Component<Props> {
             <a href="https://metamask.zendesk.com/hc/en-us/articles/360015488771-How-to-Adjust-Gas-Price-and-Gas-Limit-">
               adjust the gas limit in metamask
             </a>{' '}
-            to 450000 in order to successfully participate in your STO. If gas
+            to 450,000 in order to successfully participate in your STO. If gas
             limit of 450,000 does not work, please ask them to increase the
-            limit slightly by 150,000 until the transaction goes through.'
+            limit slightly by 150,000 until the transaction goes through.
           </p>
         }
         subtitle=""

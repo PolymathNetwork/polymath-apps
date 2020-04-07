@@ -28,6 +28,7 @@ export type WhitelistState = {|
   approvedManagers: Array<any>,
   partialAddresses: Array<any>,
   fileUploaded: boolean,
+  approvals: Array<any>,
 |};
 
 const defaultState: WhitelistState = {
@@ -48,6 +49,9 @@ const defaultState: WhitelistState = {
   approvedManagers: [],
   isToggled: false,
   fileUploaded: false,
+  isApprovalToggled: false,
+  approvals: [],
+  editingApproval: null,
   isPartialTransferToggled: false,
   partialAddresses: [],
 };
@@ -57,6 +61,53 @@ const defaultState: WhitelistState = {
 // eslint-disable-next-line complexity
 export default (state: WhitelistState = defaultState, action: Object) => {
   switch (action.type) {
+    case a.MODIFY_APPROVAL:
+      let idx = state.approvals.findIndex(i => i.id === action.approval.id);
+      return {
+        ...state,
+        approvals: [
+          ...state.approvals.slice(0, idx),
+          action.approval,
+          ...state.approvals.slice(idx + 1),
+        ],
+      };
+    case a.EDIT_APPROVAL:
+      return {
+        ...state,
+        editingApproval: action.approval,
+      };
+    case a.REMOVE_APPROVAL:
+      let ind = state.approvals.findIndex(i => i.id === action.id);
+      return {
+        ...state,
+        approvals: [
+          ...state.approvals.slice(0, ind),
+          ...state.approvals.slice(ind + 1),
+        ],
+      };
+    case a.ADD_APPROVAL:
+      return {
+        ...state,
+        approvals: [
+          ...state.approvals,
+          {
+            ...action.approval,
+            id: (
+              action.approval.fromAddress + action.approval.toAddress
+            ).toLowerCase(),
+          },
+        ],
+      };
+    case a.LOAD_APPROVALS:
+      return {
+        ...state,
+        approvals: action.approvals,
+      };
+    case a.TOGGLE_APPROVAL_MANAGER:
+      return {
+        ...state,
+        isApprovalToggled: action.isToggled,
+      };
     case a.ADD_PARTIAL_ADDRESS:
       return {
         ...state,
