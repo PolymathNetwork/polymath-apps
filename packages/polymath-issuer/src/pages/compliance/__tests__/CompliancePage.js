@@ -55,6 +55,7 @@ describe('Compliance Page', () => {
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
       fetchPartialTransfers: jest.fn(),
+      fetchApprovals: jest.fn(),
       theme,
       token: {
         address: '0x121212',
@@ -72,6 +73,7 @@ describe('Compliance Page', () => {
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
       fetchPartialTransfers: jest.fn(),
+      fetchApprovals: jest.fn(),
       addPartialTM: jest.fn(),
       archivePartialTM: jest.fn(),
       theme,
@@ -91,6 +93,7 @@ describe('Compliance Page', () => {
   it('should call archivePartialTM when toggle is set to false', async () => {
     const props = {
       fetchWhitelist: jest.fn(),
+      fetchApprovals: jest.fn(),
       fetchManagers: jest.fn(),
       fetchPartialTransfers: jest.fn(),
       addPartialTM: jest.fn(),
@@ -112,6 +115,7 @@ describe('Compliance Page', () => {
   it('should show PartialTransferTable when RPTM is enabled', () => {
     const props = {
       fetchWhitelist: jest.fn(),
+      fetchApprovals: jest.fn(),
       fetchManagers: jest.fn(),
       fetchPartialTransfers: jest.fn(),
       addPartialTM: jest.fn(),
@@ -139,6 +143,7 @@ describe('Compliance Page', () => {
       },
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
+      fetchPartialTransfers: jest.fn(),
       fetchApprovals: jest.fn(),
       theme,
     };
@@ -160,6 +165,7 @@ describe('Compliance Page', () => {
       addManualApprovalModule: jest.fn(),
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
+      fetchPartialTransfers: jest.fn(),
       fetchApprovals: jest.fn(),
       theme,
     };
@@ -179,6 +185,7 @@ describe('Compliance Page', () => {
       },
       archiveManualApprovalModule: jest.fn(),
       fetchWhitelist: jest.fn(),
+      fetchPartialTransfers: jest.fn(),
       fetchManagers: jest.fn(),
       fetchApprovals: jest.fn(),
       theme,
