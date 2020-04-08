@@ -59,7 +59,7 @@ export class PartialTransferTable extends Component<Props, State> {
         <DataTable
           headers={columns}
           rows={
-            partialAddresses < 1
+            partialAddresses.length < 1
               ? [{ id: '0', address: '-' }]
               : partialAddresses
           }

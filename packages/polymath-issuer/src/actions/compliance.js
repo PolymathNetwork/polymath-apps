@@ -414,6 +414,11 @@ export const addPartialTM = () => async (
           }
         } else {
           await st.setPartialTM();
+          partialTM = await st.getPartialTM();
+          const exemptAddresses = await partialTM.getExemptAddresses();
+          for (const address of exemptAddresses) {
+            addr.push({ id: address, address: address });
+          }
         }
       },
       'Partial TM Enabled',
