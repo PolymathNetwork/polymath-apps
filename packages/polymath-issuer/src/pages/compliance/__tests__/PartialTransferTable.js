@@ -11,12 +11,13 @@ import { Provider } from 'react-redux';
 const mockStore = configureStore([]);
 moment.tz.setDefault('America/New_York');
 
-describe('Partial Transfer Modal', () => {
+describe('Partial Transfer Table', () => {
   it('should render correctly', () => {
     const props = {
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
       fetchPartialTransfers: jest.fn(),
+      partialAddresses: [],
       theme,
     };
     const tree = shallow(<PartialTransferTable {...props} />);
@@ -28,6 +29,7 @@ describe('Partial Transfer Modal', () => {
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
       fetchPartialTransfers: jest.fn(),
+      partialAddresses: [],
       theme,
     };
     const tree = shallow(<PartialTransferTable {...props} />);
@@ -40,6 +42,7 @@ describe('Partial Transfer Modal', () => {
       fetchWhitelist: jest.fn(),
       fetchManagers: jest.fn(),
       fetchPartialTransfers: jest.fn(),
+      partialAddresses: [],
       theme,
     };
     const tree = shallow(<PartialTransferTable {...props} />);
@@ -51,6 +54,7 @@ describe('Partial Transfer Modal', () => {
     const id = '0x121212';
     const props = {
       removeAddressFromPartialExempt: jest.fn(),
+      partialAddresses: [],
       theme,
     };
     const tree = shallow(<PartialTransferTable {...props} />);
