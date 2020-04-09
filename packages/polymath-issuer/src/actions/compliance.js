@@ -396,7 +396,7 @@ export const addPartialTM = () => async (
   getState: GetState
 ) => {
   const st: SecurityToken = getState().token.token.contract;
-  const partialTM = await st.getPartialTM();
+  let partialTM = await st.getPartialTM();
   let moduleMetadata = {};
   const addr = [];
 
