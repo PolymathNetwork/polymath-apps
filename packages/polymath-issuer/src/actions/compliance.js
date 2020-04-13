@@ -105,6 +105,30 @@ export const toggleWhitelistManagement = (isToggled: boolean) => ({
   isToggled,
 });
 
+export const LOAD_PARTIAL_ADDRESSES = 'compliance/LOAD_PARTIAL_ADDRESSES';
+export const loadPartialAddresses = addresses => ({
+  type: LOAD_PARTIAL_ADDRESSES,
+  addresses,
+});
+
+export const ADD_PARTIAL_ADDRESS = 'compliance/ADD_PARTIAL_ADDRESS';
+export const addPartialAddress = address => ({
+  type: ADD_PARTIAL_ADDRESS,
+  address,
+});
+
+export const REMOVE_PARTIAL_ADDRESS = 'compliance/REMOVE_PARTIAL_ADDRESS';
+export const removePartialAddress = address => ({
+  type: REMOVE_PARTIAL_ADDRESS,
+  address,
+});
+
+export const TOGGLE_PARTIAL_TRANSFER = 'compliance/TOGGLE_PARTIAL_TRANSFER';
+export const togglePartialTransfer = (isToggled: boolean) => ({
+  type: TOGGLE_PARTIAL_TRANSFER,
+  isToggled,
+});
+
 export const TOGGLE_APPROVAL_MANAGER = 'compliance/TOGGLE_APPROVAL_MANAGER';
 export const toggleApprovalManager = (isToggled: boolean) => ({
   type: TOGGLE_APPROVAL_MANAGER,
@@ -177,6 +201,36 @@ export const fetchManagers = () => async (
   }
 };
 
+export const fetchPartialTransfers = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(ui.fetching());
+  // $FlowFixMe
+  try {
+    const st: SecurityToken = getState().token.token.contract;
+    const partialTM = await st.getPartialTM();
+    if (!partialTM) {
+      return;
+    }
+    const moduleMetadata = await st.getModule(partialTM.address);
+    if (partialTM && !moduleMetadata.isArchived) {
+      const exemptAddresses = await partialTM.getExemptAddresses();
+      let addr = [];
+      for (const address of exemptAddresses) {
+        addr.push({ id: address, address: address });
+      }
+      dispatch(loadPartialAddresses(addr));
+      dispatch(togglePartialTransfer(true));
+    } else {
+      dispatch(togglePartialTransfer(false));
+    }
+    dispatch(ui.fetched());
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const addAddressToTransferManager = (
   delegate: Address,
   details: string
@@ -215,6 +269,73 @@ export const addAddressToTransferManager = (
       undefined,
       undefined,
       true
+    )
+  );
+};
+
+export const addAddressToPartialExempt = (
+  address: Address,
+  details: string
+) => async (dispatch: Function, getState: GetState) => {
+  const st: SecurityToken = getState().token.token.contract;
+  const partialTM = await st.getPartialTM();
+  const titles = ['Adding Address to Partial TM Exemption'];
+  dispatch(
+    ui.tx(
+      titles,
+      async () => {
+        if (partialTM) {
+          await partialTM.addExemptAddress(address);
+        }
+      },
+      'Address Added to Partial TM Exemption',
+      () => {
+        dispatch(addPartialAddress({ id: address, address: address }));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const removeAddressFromPartialExempt = (address: Address) => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    ui.confirm(
+      <div>
+        <p>
+          Once removed, the address will be no longer be subject to Partial
+          Transfer Restrictions. Consult your legal team before removing a
+          wallet from the list.
+        </p>
+      </div>,
+      async () => {
+        dispatch(
+          ui.tx(
+            ['Removing Address from Restriction Partial TM Exemption List'],
+            async () => {
+              const st: SecurityToken = getState().token.token.contract;
+              const partialTM = await st.getPartialTM();
+              partialTM.removeExemptAddress(address);
+            },
+            'Address Removed from Restriction Partial TM Exemption List',
+            () => {
+              dispatch(removePartialAddress(address));
+            },
+            undefined,
+            undefined,
+            undefined,
+            true
+          )
+        );
+      },
+      `Remove the Address from the Partial Restriction Exemption?`,
+      undefined,
+      'pui-large-confirm-modal'
     )
   );
 };
@@ -266,6 +387,74 @@ export const removeAddressFromTransferManager = (delegate: Address) => async (
       `Remove the Whitelist Manager from the Whitelist Managers List?`,
       undefined,
       'pui-large-confirm-modal'
+    )
+  );
+};
+
+export const addPartialTM = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  let partialTM = await st.getPartialTM();
+  let moduleMetadata = {};
+  const addr = [];
+
+  if (partialTM) moduleMetadata = await st.getModule(partialTM.address);
+
+  dispatch(
+    ui.tx(
+      ['Enabling Partial TM'],
+      async () => {
+        if (moduleMetadata.isArchived) {
+          await st.unarchiveModule(partialTM.address);
+          const exemptAddresses = await partialTM.getExemptAddresses();
+          for (const address of exemptAddresses) {
+            addr.push({ id: address, address: address });
+          }
+        } else {
+          await st.setPartialTM();
+          partialTM = await st.getPartialTM();
+          const exemptAddresses = await partialTM.getExemptAddresses();
+          for (const address of exemptAddresses) {
+            addr.push({ id: address, address: address });
+          }
+        }
+      },
+      'Partial TM Enabled',
+      () => {
+        dispatch(loadPartialAddresses(addr));
+        dispatch(togglePartialTransfer(true));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const archivePartialTM = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  const st: SecurityToken = getState().token.token.contract;
+  dispatch(
+    ui.tx(
+      ['Disabling Partial TM'],
+      async () => {
+        const partialTM = await st.getPartialTM();
+        await st.archiveModule(partialTM.address);
+      },
+      'Partial TM Disabled',
+      () => {
+        dispatch(togglePartialTransfer(false));
+        dispatch(loadPartialAddresses([]));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
     )
   );
 };

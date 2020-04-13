@@ -34,12 +34,12 @@ export const sendEmail = async (
   body: string,
   copyTo: string,
   replyTo: string | EmailData = {
-    email: 'tokenstudio@polymath.network',
+    email: 'team@polymath.network',
     name: 'Polymath Network',
   }
 ) => {
   const msg = {
-    from: { email: 'noreply@polymath.network', name: 'Polymath Network' },
+    from: { email: 'team@mail.polymath.network', name: 'Polymath Network' },
     replyTo,
     to: { email, name },
     subject,

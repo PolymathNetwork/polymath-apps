@@ -53,6 +53,9 @@ import {
   addManualApprovalModule,
   archiveManualApprovalModule,
   fetchApprovals,
+  fetchPartialTransfers,
+  addPartialTM,
+  archivePartialTM,
 } from '../../actions/compliance';
 import Progress from '../token/components/Progress';
 import AddInvestorForm, {
@@ -63,6 +66,8 @@ import ImportWhitelistModal from './components/ImportWhitelistModal';
 import WhitelistTable from './components/WhitelistTable';
 import ApprovalTable from './components/ApprovalTable';
 import WhitelistModal from './components/WhitelistModal';
+import PartialTransferModal from './components/PartialTransferModal';
+import PartialTransferTable from './components/PartialTransferTable';
 import './style.scss';
 import type {
   Investor,
@@ -117,6 +122,9 @@ type DispatchProps = {|
   toggleFreeze: () => any,
   addGeneralPermissionModule: () => any,
   archiveGeneralPermissionModule: () => any,
+  addPartialTM: () => any,
+  archivePartialTM: () => any,
+  fetchPartialTransfers: () => any,
 |};
 
 const mapStateToProps = (state: RootState) => ({
@@ -130,6 +138,7 @@ const mapStateToProps = (state: RootState) => ({
   isTokenFrozen: state.whitelist.freezeStatus,
   isWhitelistToggled: state.whitelist.isToggled,
   isApprovalToggled: state.whitelist.isApprovalToggled,
+  isPartialTransferToggled: state.whitelist.isPartialTransferToggled,
 });
 
 const mapDispatchToProps = {
@@ -154,6 +163,9 @@ const mapDispatchToProps = {
   addManualApprovalModule,
   archiveManualApprovalModule,
   fetchApprovals,
+  addPartialTM,
+  archivePartialTM,
+  fetchPartialTransfers,
 };
 
 type Props = StateProps & DispatchProps;
@@ -206,6 +218,7 @@ export class CompliancePage extends Component<Props, State> {
     }
     this.props.fetchManagers();
     this.props.fetchApprovals();
+    this.props.fetchPartialTransfers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -396,6 +409,14 @@ export class CompliancePage extends Component<Props, State> {
       await this.props.addManualApprovalModule();
     } else {
       await this.props.archiveManualApprovalModule();
+    }
+  };
+
+  handleTogglePartialTransfer = async (isToggled: boolean) => {
+    if (isToggled) {
+      await this.props.addPartialTM();
+    } else {
+      await this.props.archivePartialTM();
     }
   };
 
@@ -855,6 +876,64 @@ export class CompliancePage extends Component<Props, State> {
                             }
                           >
                             <ApprovalTable />
+                          </div>
+                        </div>
+                        <div className="pui-clearfix" />
+                      </div>
+                    </div>
+                  </Grid.Col>
+                </Grid.Row>
+              </Grid>
+            </Tab>
+          )}
+          {token.contract.version >= '3.0.0' && (
+            <Tab label="Restrict Partial Transfers">
+              <Grid>
+                <Grid.Row>
+                  <Grid.Col gridSpan={12}>
+                    <h1 className="pui-h1">Restrict Partial Transfers</h1>
+                    <h3 className="pui-h3">
+                      To allow your tokenholders to trade their tokens while
+                      still meeting maximum number of token holders compliance
+                      rules.
+                    </h3>
+                    <Remark title="Note">
+                      By restricting partial transfers, your tokenholders will
+                      only be allowed to trade their full token balance or none
+                      of their balance. You can disable this restriction at any
+                      time.
+                    </Remark>
+                  </Grid.Col>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Col gridSpan={[12, 12, 6, 6]}>
+                    <div id="compliance">
+                      <br />
+                      <div className="pui-page-box compliance-form">
+                        <h1 className="pui-h1">No Partial Transfers</h1>
+                        <div className="whitelist-settings">
+                          <div className="bx--form-item">
+                            <label
+                              htmlFor="partialTransferToggle"
+                              className="bx--label"
+                            >
+                              Enable No Partial Transfers
+                            </label>
+                            <Toggle
+                              onToggle={this.handleTogglePartialTransfer}
+                              toggled={this.props.isPartialTransferToggled}
+                              id="partialTransferToggle"
+                            />
+                          </div>
+                          <div
+                            className="bx--form-item"
+                            style={
+                              this.props.isPartialTransferToggled
+                                ? {}
+                                : { display: 'none' }
+                            }
+                          >
+                            <PartialTransferTable />
                           </div>
                         </div>
                         <div className="pui-clearfix" />

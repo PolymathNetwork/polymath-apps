@@ -242,9 +242,6 @@ class MintTokens extends Component<Props> {
         <div className="pui-page-box">
           <Remark title="Note">
             <span>
-              Manual minting operations are disabled once an STO is configured
-              and scheduled for your token.
-              <br />
               This action will trigger multiple signing operations with your
               MetaMask wallet:
               <br />• One for the initial whitelist upload;

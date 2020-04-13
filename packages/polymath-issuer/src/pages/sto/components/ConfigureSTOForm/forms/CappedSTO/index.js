@@ -83,7 +83,7 @@ const initialValues = {
     endDate: null,
     endTime: null,
   },
-  currency: 'POLY',
+  currency: 'ETH',
   cap: null,
   rate: null,
   receiverAddress: '',
@@ -152,7 +152,7 @@ export const CappedSTOFormComponent = ({
           <FormItem.Input
             component={CurrencySelect}
             placeholder="Raise in"
-            options={['ETH', 'POLY']}
+            options={['ETH']}
           />
           <FormItem.Error />
         </FormItem>
@@ -184,8 +184,7 @@ export const CappedSTOFormComponent = ({
               </p>
               <p>
                 Conversion rate between the currency you chose and your Security
-                Token. E.g. 1000 means that 1 ETH (or POLY) will buy 1000
-                Security Tokens.
+                Token. E.g. 1000 means that 1 ETH will buy 1000 Security Tokens.
               </p>
             </Tooltip>
           </FormItem.Label>
