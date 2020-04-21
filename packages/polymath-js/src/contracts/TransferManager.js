@@ -193,7 +193,9 @@ export default class TransferManager extends Contract {
       }
     );
 
-    for (let event of events) {
+    for (let i = events.length - 1; i >= 0; i--) {
+      const event = events[i];
+
       logs.push({
         address: event.returnValues._investor,
         addedBy: event.returnValues._addedBy,
@@ -218,7 +220,7 @@ export default class TransferManager extends Contract {
       toBlock: 'latest',
     });
 
-    for (let i = 0; i < events.length; i++) {
+    for (let i = events.length - 1; i >= 0; i--) {
       const event = events[i];
 
       logs.push({
