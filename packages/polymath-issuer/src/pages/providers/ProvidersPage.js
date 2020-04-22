@@ -262,10 +262,9 @@ class ProvidersPage extends Component<Props, State> {
               <br />
               <br />
               To get started, please select one or more service providers below.
-              Note that you don’t need to select use your own at the same time
-              nor have any obligation to select any of the service providers
-              below. You can elect to use any other service provider of your
-              choice.
+              Note that you don’t need to select all at the same time nor have
+              any obligation to select any of the service providers below. You
+              can elect to use any other service provider of your choice.
               <br />
               <br />
               <strong>
