@@ -253,6 +253,18 @@ const providers: Array<ServiceProvider> = [
       investing in the U.S., Latin America, Africa, and the Caribbean, Logos Capital is based in Miami, FL and comprised of \
       personnel from around the world.',
   },
+  {
+    id: 64,
+    cat: 0,
+    title: 'Liquidity Digital',
+    logo: '/providers/advisory/liquidity.png',
+    background: '/providers/advisory/bg/img-liquidity.png',
+    desc:
+      'Liquidity Digital is a NYC based FinTech startup that connects institutional-grade digital \
+      security issuances with the global pool of qualified purchasers. By leveraging blockchain technology, \
+      Liquidity Digital is able to form a new world of capital formation that strengthens investor trust \
+      and accessibility to quality investment opportunities.',
+  },
 
   // LEGAL
   {
