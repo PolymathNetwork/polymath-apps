@@ -12,6 +12,7 @@ import ManualApprovalTransferManager from './ManualApprovalTransferManager';
 import TransferManager from './TransferManager';
 import VolumeRestrictionTransferManager from './VolumeRestrictionTransferManager';
 import PercentageTransferManager from './PercentageTransferManager';
+import PartialTM from './PartialTM';
 import CountTransferManager from './CountTransferManager';
 import ModuleRegistry from './ModuleRegistry';
 import IModuleFactory from './IModuleFactory';
@@ -148,6 +149,15 @@ export default class SecurityToken extends Contract {
     try {
       const address = await this.getModuleByName('GeneralPermissionManager');
       return new PermissionManager(address, this.version);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getPartialTM(): Promise<?PartialTM> {
+    try {
+      const address = await this.getModuleByName('RestrictedPartialSaleTM');
+      return new PartialTM(address, this.version);
     } catch (e) {
       return null;
     }
@@ -503,6 +513,33 @@ export default class SecurityToken extends Contract {
     const data = this._toBytes('');
     return this.addModule(
       generalPermissionManagerFactory.address,
+      data,
+      PolyToken.addDecimals(setupCost),
+      0
+    );
+  }
+
+  async setPartialTM(): Promise<Web3Receipt> {
+    const partialTransferFactory = await this.getModuleFactory(
+      'RestrictedPartialSaleTM',
+      MODULE_TYPES.TRANSFER
+    );
+    const setupCost = await partialTransferFactory.setupCost();
+    const data = Contract._params.web3.eth.abi.encodeFunctionCall(
+      {
+        name: 'configure',
+        type: 'function',
+        inputs: [
+          {
+            type: 'address',
+            name: '_treasuryWallet',
+          },
+        ],
+      },
+      [this.account]
+    );
+    return this.addModule(
+      partialTransferFactory.address,
       data,
       PolyToken.addDecimals(setupCost),
       0
