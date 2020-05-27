@@ -807,6 +807,19 @@ const providers: Array<ServiceProvider> = [
       parties that the escrow requirements are satisfied. We are permissioned to provide escrow services for fiat <-> digital asset transactions: \
       under a U.S. domestic statutory trust company; and acting under a supplementary letter from the State banking commissioner',
   },
+  {
+    id: 64,
+    cat: 4,
+    title: 'Diginex',
+    logo: '/providers/custody/diginex.png',
+    background: '/providers/custody/bg/img-diginex.png',
+    desc:
+      'Diginex is a digital asset financial services and advisory company that provides regulated infrastructure \
+      to enable institutional access to this emerging asset class. Digivault is the custodial arm of Diginex, utilizing \
+      defence-grade hardware and cyber security standards, Digivault provides both deep cold storage (Kelvin) and warm \
+      storage (Helios) for payment tokens and is seeking custodial licenses in multiple jurisdictions to enable global \
+      operations.',
+  },
 
   // TOKEN SALE PLATFORMS
   {
