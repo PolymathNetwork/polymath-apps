@@ -808,7 +808,7 @@ const providers: Array<ServiceProvider> = [
       under a U.S. domestic statutory trust company; and acting under a supplementary letter from the State banking commissioner',
   },
   {
-    id: 64,
+    id: 65,
     cat: 4,
     title: 'Diginex',
     logo: '/providers/custody/diginex.png',
