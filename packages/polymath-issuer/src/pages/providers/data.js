@@ -818,7 +818,7 @@ const providers: Array<ServiceProvider> = [
       from the finance and security sectors. Digivault offers both deep cold storage (Kelvin) and warm storage \
       (Helios) for payment tokens and is seeking custodial licenses in multiple jurisdictions to enable global \
       operations. As a Diginex Group company, Digivault is able to support both internal and external clients \
-      with the same exacting standards.',
+      with the same exacting standards. For more information visit: https://www.digivault.com',
   },
 
   // TOKEN SALE PLATFORMS
