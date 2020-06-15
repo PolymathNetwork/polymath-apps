@@ -814,11 +814,11 @@ const providers: Array<ServiceProvider> = [
     logo: '/providers/custody/diginex.png',
     background: '/providers/custody/bg/img-diginex.png',
     desc:
-      'Diginex is a digital asset financial services and advisory company that provides regulated infrastructure \
-      to enable institutional access to this emerging asset class. Digivault is the custodial arm of Diginex, utilizing \
-      defence-grade hardware and cyber security standards, Digivault provides both deep cold storage (Kelvin) and warm \
-      storage (Helios) for payment tokens and is seeking custodial licenses in multiple jurisdictions to enable global \
-      operations.',
+      'Digivault is a digital asset custody provider, founded by a team of UK-based IT solution delivery experts \
+      from the finance and security sectors. Digivault offers both deep cold storage (Kelvin) and warm storage \
+      (Helios) for payment tokens and is seeking custodial licenses in multiple jurisdictions to enable global \
+      operations. As a Diginex Group company, Digivault is able to support both internal and external clients \
+      with the same exacting standards.',
   },
 
   // TOKEN SALE PLATFORMS
