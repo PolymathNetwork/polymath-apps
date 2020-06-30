@@ -205,6 +205,9 @@ export const signIn = () => async (dispatch: Function, getState: GetState) => {
     dispatch(signedIn());
 
     if (user) {
+      if (window && window.heap) {
+        window.heap.addUserProperties({ email: user.email });
+      }
       dispatch(signedUp(user.name, user.email, true));
     }
 
