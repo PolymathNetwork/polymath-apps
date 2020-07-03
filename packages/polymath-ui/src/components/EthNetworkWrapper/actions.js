@@ -190,6 +190,10 @@ export const init = (networks: Array<string>) => async (dispatch: Function) => {
     polymathRegistryAddress: network.polymathRegistryAddress,
   });
 
+  if (window && window.heap) {
+    window.heap.identify(accounts[0]);
+  }
+
   dispatch(setNetworkId(parseInt(networkId, 10)));
 
   // TODO @grsmto: Do proper dependency injection instead of sharing web3 instance via Redux state
