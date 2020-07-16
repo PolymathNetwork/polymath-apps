@@ -35,7 +35,7 @@
     "graphql-tag": "2.9.2",
     "history": "^4.7.2",
     "identity-obj-proxy": "3.0.0",
-    "lodash": "4.17.14",
+    "lodash": "4.17.19",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.26",
     "normalize.css": "^8.0.0",
