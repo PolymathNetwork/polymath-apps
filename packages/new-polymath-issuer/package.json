@@ -71,7 +71,7 @@
     "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",
     "typesafe-actions": "^2.0.4",
-    "web3": "1.0.0-beta.30",
+    "web3": "1.2.9",
     "yup": "^0.26.10"
   },
   "devDependencies": {
@@ -109,7 +109,7 @@
     "interpolate-html-plugin": "^3.0.0",
     "jest": "^24.1.0",
     "jest-dom": "^3.0.0",
-    "lodash": "4.17.14",
+    "lodash": "4.17.19",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "react-dev-utils": "^6.1.1",

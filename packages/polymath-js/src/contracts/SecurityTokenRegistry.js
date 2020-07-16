@@ -291,10 +291,9 @@ class SecurityTokenRegistry extends Contract {
 
   async getTickersByOwner(owner) {
     const undeployedTickers = [];
-    const tickers = await this._methods
-      .getTickersByOwner(owner)
-      .call()
-      .map(t => this._toAscii(t));
+    let tickers = await this._methods.getTickersByOwner(owner).call();
+
+    tickers = tickers.map(t => this._toAscii(t));
 
     tickers.forEach(async t => {
       let isDeployed = await this.getTickerStatus(t);
