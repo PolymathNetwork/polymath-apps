@@ -15,10 +15,10 @@
     "bignumber.js": "8.0.1",
     "file-saver": "^2.0.0",
     "json2csv": "^4.3.3",
-    "lodash": "4.17.14",
+    "lodash": "4.17.19",
     "luxon": "1.10.0",
     "papaparse": "^4.6.3",
-    "web3": "1.0.0-beta.30"
+    "web3": "1.2.9"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",

@@ -10,7 +10,7 @@ mongoose.Promise = P;
 mongoose.connection.once('open', () =>
   logger.info('[SETUP] Database connected.')
 );
-mongoose.connection.on('error', err => logger.error(err));
+mongoose.connection.on('error', err => logger.error(err.message));
 
 mongoose.connect(
   MONGODB_URI,
