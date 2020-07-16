@@ -264,7 +264,12 @@ export default class Contract {
         }
       });
     } catch (e) {
-      if (e.message.includes('not mined within 50 blocks')) {
+      if (
+        e.message.includes('not mined within 50 blocks') ||
+        e.message.includes(
+          'new newBlockHeaders to confirm the transaction receipts.'
+        )
+      ) {
         return new Promise(resolve => {
           const handle = setInterval(async () => {
             try {
