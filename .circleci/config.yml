@@ -100,14 +100,14 @@ jobs:
       - *yarn_install
       - *save_cache
       - run: yarn test:new-shared
-  typecheck:
-    <<: *container_config
-    steps:
-      - checkout
-      - *restore_yarn_cache
-      - *yarn_install
-      - *save_cache
-      - run: yarn build:typedefs
+  # typecheck:
+  #   <<: *container_config
+  #   steps:
+  #     - checkout
+  #     - *restore_yarn_cache
+  #     - *yarn_install
+  #     - *save_cache
+  #     - run: yarn build:typedefs
 
 workflows:
   version: 2
@@ -135,7 +135,7 @@ workflows:
       - offchain_tests:
           requires:
             - install_dependencies
-  type_checking:
-    jobs:
-      - install_dependencies
-      - typecheck
+  # type_checking:
+  #   jobs:
+  #     - install_dependencies
+  #     - typecheck
