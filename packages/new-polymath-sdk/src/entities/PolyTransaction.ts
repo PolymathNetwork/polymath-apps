@@ -16,6 +16,7 @@ import { Entity } from '../entities/Entity';
 import { TransactionQueue } from '../entities/TransactionQueue';
 import { serialize } from '../utils';
 import v4 from 'uuid/v4';
+import { web3 } from '~/LowLevel/web3Client';
 
 enum Events {
   StatusChange = 'StatusChange',
@@ -152,23 +153,41 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
     try {
       result = await promiEvent;
     } catch (err) {
-      // Wrap with PolymathError
-      if (err.message.indexOf('MetaMask Tx Signature') > -1) {
+      if (
+        err.message.includes(
+          'new newBlockHeaders to confirm the transaction receipts.'
+        )
+      ) {
+        const handle = setInterval(async () => {
+          try {
+            if (this.txHash) {
+              result = await web3.eth.getTransactionReceipt(this.txHash);
+            }
+          } catch (e) {
+            // skip
+          }
+          if (result != null && result.blockNumber > 0) {
+            clearInterval(handle);
+          }
+        }, 1000);
+      } else if (err.message.indexOf('MetaMask Tx Signature') > -1) {
         this.error = new PolymathError({
           code: ErrorCodes.TransactionRejectedByUser,
         });
+        throw this.error;
       } else {
         this.error = new PolymathError({
           code: ErrorCodes.FatalError,
           message: err.message,
         });
+        throw this.error;
       }
-
-      throw this.error;
     }
 
+    // @ts-ignore
     await this.postResolver.run(result);
 
+    // @ts-ignore
     return result;
   }
 
