@@ -188,13 +188,12 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
         });
         throw this.error;
       }
-    } finally {
-      if (!mmError) {
-        // @ts-ignore
-        await this.postResolver.run(result);
-        // @ts-ignore
-        return result;
-      }
+    }
+    if (!mmError) {
+      // @ts-ignore
+      await this.postResolver.run(result);
+      // @ts-ignore
+      return result;
     }
   }
 
