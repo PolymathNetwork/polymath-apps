@@ -149,6 +149,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
     });
 
     let result: TransactionReceipt;
+    let mmError = false; // this var will check if we got the false negative from MM and prevent race condition of not receiving the txHash
 
     try {
       result = await promiEvent;
@@ -158,10 +159,15 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
           'new newBlockHeaders to confirm the transaction receipts.'
         )
       ) {
+        mmError = true;
         const handle = setInterval(async () => {
           try {
             if (this.txHash) {
               result = await web3.eth.getTransactionReceipt(this.txHash);
+              // @ts-ignore
+              await this.postResolver.run(result);
+              // @ts-ignore
+              return result;
             }
           } catch (e) {
             // skip
@@ -182,13 +188,14 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
         });
         throw this.error;
       }
+    } finally {
+      if (!mmError) {
+        // @ts-ignore
+        await this.postResolver.run(result);
+        // @ts-ignore
+        return result;
+      }
     }
-
-    // @ts-ignore
-    await this.postResolver.run(result);
-
-    // @ts-ignore
-    return result;
   }
 
   private updateStatus = (status: TransactionStatus) => {
