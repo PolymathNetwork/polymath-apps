@@ -473,7 +473,7 @@ export const getTransactionTitle = (
         transaction.args;
 
       if (args.type === types.DividendModuleTypes.Erc20) {
-        return 'Enabling the distribution of dividends in ERC20 Tokens, including POLY and stable coins';
+        return 'Enabling the distribution of dividends in ERC20 Tokens, including stable coins';
       }
 
       return 'Enable Dividends Module';
@@ -597,7 +597,7 @@ export const getTransactionContent = (
 
       return {
         title:
-          'Enable the distribution of dividends in ERC20 Tokens, including POLY and stable coins.',
+          'Enable the distribution of dividends in ERC20 Tokens, including stable coins.',
         description: 'Enable Dividend Distribution',
       };
     }
