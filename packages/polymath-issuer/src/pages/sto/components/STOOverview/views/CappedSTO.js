@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'carbon-components-react';
+import { Button, Toggle } from 'carbon-components-react';
 import type {
   SecurityToken,
   STOPurchase,
@@ -13,6 +13,8 @@ import { Page, NotFoundPage, STOStatus } from '@polymathnetwork/ui';
 import {
   togglePauseSto,
   exportInvestorsList,
+  enablePreMinting,
+  disablePreMinting,
 } from '../../../../../actions/sto';
 import type { RootState } from '../../../../../redux/reducer';
 
@@ -38,6 +40,8 @@ const mapStateToProps = (state: RootState): StateProps => ({
 const mapDispatchToProps: DispatchProps = {
   togglePauseSto,
   exportInvestorsList,
+  enablePreMinting,
+  disablePreMinting,
 };
 
 type Props = {||} & StateProps & DispatchProps;
@@ -52,6 +56,14 @@ class OverviewSTO extends Component<Props> {
     this.props.exportInvestorsList();
   };
 
+  handleTogglePreminting = isToggled => {
+    if (isToggled) {
+      this.props.enablePreMinting();
+    } else {
+      this.props.disablePreMinting();
+    }
+  };
+
   render() {
     const { token, details } = this.props;
     if (!token || !details) {
@@ -62,6 +74,14 @@ class OverviewSTO extends Component<Props> {
         <div>
           <Fragment>
             <h1 className="pui-h1">Security Token Overview</h1>
+            <label htmlFor="partialTransferToggle" className="bx--label">
+              Allow PreMinting
+            </label>
+            <Toggle
+              onToggle={this.handleTogglePreminting}
+              toggled={details.isPreMintAllowed}
+              id="PremintToggle"
+            />
             <br />
             <STOStatus // eslint-disable-next-line react/jsx-handler-names
               toggleStoPause={this.handlePause}
