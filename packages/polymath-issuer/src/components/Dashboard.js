@@ -151,11 +151,11 @@ class Dashboard extends Component<Props> {
         title: 'Dividends',
         id: 'dividends-nav-link',
         icon: icoDividends,
-        to: `${tokenUrl}/dividends`,
+        to: '/notfound', // `${tokenUrl}/dividends`,
         isActive:
           location.slice(-10) === '/dividends' ||
           location.includes('/checkpoints'),
-        isDisabled: !token || !token.address,
+        isDisabled: true, // !token || !token.address,
       },
     ];
     const bottomSidebarItems = [
