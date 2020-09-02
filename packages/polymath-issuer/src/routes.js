@@ -64,22 +64,22 @@ export default [
             component: WhitelistPage,
             exact: true,
           },
-          {
-            path: '/dashboard/:id/dividends',
-            component: DividendsPage,
-            exact: true,
-          },
-          {
-            path: '/dashboard/:id/checkpoints/:checkpointId/dividends/new',
-            component: DividendsWizardPage,
-            exact: true,
-          },
-          {
-            path:
-              '/dashboard/:id/checkpoints/:checkpointId/dividends/:dividendIndex',
-            component: DividendDetailsPage,
-            exact: true,
-          },
+          // {
+          //   path: '/dashboard/:id/dividends',
+          //   component: DividendsPage,
+          //   exact: true,
+          // },
+          // {
+          //   path: '/dashboard/:id/checkpoints/:checkpointId/dividends/new',
+          //   component: DividendsWizardPage,
+          //   exact: true,
+          // },
+          // {
+          //   path:
+          //     '/dashboard/:id/checkpoints/:checkpointId/dividends/:dividendIndex',
+          //   component: DividendDetailsPage,
+          //   exact: true,
+          // },
           {
             component: NotFoundPage,
           },
