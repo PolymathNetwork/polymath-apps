@@ -810,7 +810,7 @@ const providers: Array<ServiceProvider> = [
   {
     id: 65,
     cat: 4,
-    title: 'Diginex',
+    title: 'Digivault',
     logo: '/providers/custody/diginex.png',
     background: '/providers/custody/bg/img-diginex.png',
     desc:
