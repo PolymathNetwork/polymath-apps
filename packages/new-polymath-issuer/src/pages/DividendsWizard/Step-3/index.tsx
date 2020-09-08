@@ -359,9 +359,6 @@ const Step3Base: FC<Props> = ({
                           isDisabled: isTestNet,
                         },
                         {
-                          value: types.Tokens.Poly,
-                        },
-                        {
                           value: types.Tokens.Usdc,
                           isDisabled: isTestNet,
                         },

@@ -236,7 +236,11 @@ export const USDTieredSTOFormComponent = ({
 
       <Grid>
         <FormItem name="currencies">
-          <FormItem.Input component={CurrencySelect} placeholder="Raise in" />
+          <FormItem.Input
+            component={CurrencySelect}
+            placeholder="Raise in"
+            options={['ETH', 'DAI']}
+          />
           <FormItem.Error />
         </FormItem>
 
