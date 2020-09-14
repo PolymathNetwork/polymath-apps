@@ -175,7 +175,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
           if (result != null && result.blockNumber > 0) {
             clearInterval(handle);
           }
-        }, 1000);
+        }, 5000);
       } else if (err.message.indexOf('MetaMask Tx Signature') > -1) {
         this.error = new PolymathError({
           code: ErrorCodes.TransactionRejectedByUser,
