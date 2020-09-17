@@ -150,7 +150,6 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
 
     let result: TransactionReceipt;
     let mmError = false; // this var will check if we got the false negative from MM and prevent race condition of not receiving the txHash
-
     try {
       result = await promiEvent;
     } catch (err) {
@@ -160,22 +159,15 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
         )
       ) {
         mmError = true;
-        const handle = setInterval(async () => {
-          try {
-            if (this.txHash) {
-              result = await web3.eth.getTransactionReceipt(this.txHash);
-              // @ts-ignore
+        while (true) {
+          if (this.txHash) {
+            result = await web3.eth.getTransactionReceipt(this.txHash);
+            if (result != null && result.blockNumber > 0) {
               await this.postResolver.run(result);
-              // @ts-ignore
               return result;
             }
-          } catch (e) {
-            // skip
           }
-          if (result != null && result.blockNumber > 0) {
-            clearInterval(handle);
-          }
-        }, 5000);
+        }
       } else if (err.message.indexOf('MetaMask Tx Signature') > -1) {
         this.error = new PolymathError({
           code: ErrorCodes.TransactionRejectedByUser,
