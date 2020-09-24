@@ -571,7 +571,7 @@ const setupListeners = async (networkId: string) => {
 
   await addTokenCreateListener(networkId);
 
-  await addSTOListeners(networkId);
+  // await addSTOListeners(networkId);
 };
 
 /**
