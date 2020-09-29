@@ -102,12 +102,14 @@ export default class STOTemplateComponent extends Component<Props> {
           {stoModule.title}
           {pickingEnabled ? (
             <Fragment>
-              <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
-              {stoModule.type === 'USDTieredSTO' ? (
+              {stoModule.type === 'CappedSTO' && (
+                <span className="bx--tag bx--tag--ibm">Raise Funds in ETH</span>
+              )}
+              {stoModule.type === 'USDTieredSTO' && (
                 <span className="bx--tag bx--tag--third-party">
                   Raise Funds in Stablecoin
                 </span>
-              ) : null}
+              )}
             </Fragment>
           ) : null}
         </h2>
