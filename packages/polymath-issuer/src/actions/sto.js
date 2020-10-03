@@ -306,8 +306,17 @@ export const configureSTO = (config: STOConfig, type: string) => async (
               }
               const st: SecurityToken = getState().token.token.contract;
               const transferManager = await st.getTransferManager();
+
+              let stoAdd;
+              if (type === 'CappedSTO') {
+                // step 6 Simple STO topic 2
+                stoAdd = '0x' + stoAddress.logs[6].topics[2].substr(26);
+              } else if (type === 'USDTieredSTO') {
+                // step 12 Tiered STO topic 2
+                stoAdd = '0x' + stoAddress.logs[12].topics[2].substr(26);
+              }
               const sto = {
-                address: stoAddress.events.ModuleAdded.returnValues._module,
+                address: stoAdd,
                 from: new Date(),
                 to: new Date(),
                 expiry: new Date('1/1/3020'),
