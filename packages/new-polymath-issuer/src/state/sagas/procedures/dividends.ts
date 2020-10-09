@@ -92,13 +92,13 @@ export function* createErc20DividendsDistribution(
           'Something went wrong. A dividend distribution was created but no dividend index was returned from the SDK.'
         );
       }
-      yield put(
-        pushDividendPaymentStart({
-          symbol,
-          dividendType: DividendModuleTypes.Erc20,
-          dividendIndex: result,
-        })
-      );
+      // yield put(
+      //   pushDividendPaymentStart({
+      //     symbol,
+      //     dividendType: DividendModuleTypes.Erc20,
+      //     dividendIndex: result,
+      //   })
+      // );
     }
   } catch (err) {
     if (!err.code) {
