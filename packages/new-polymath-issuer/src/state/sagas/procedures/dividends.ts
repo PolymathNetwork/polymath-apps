@@ -77,8 +77,11 @@ export function* createErc20DividendsDistribution(
 
     yield put(
       push(
-        `/securityTokens/${symbol}/checkpoints/${checkpointId}/dividends/${result}`
+        `/securityTokens/${symbol}/dividends`
       )
+      // push(
+      //   `/securityTokens/${symbol}/checkpoints/${checkpointId}/dividends/${result}`
+      // )
     );
 
     yield take(getType(finishTransactionQueue));
