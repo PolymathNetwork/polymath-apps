@@ -87,11 +87,11 @@ export function* createErc20DividendsDistribution(
     yield take(getType(finishTransactionQueue));
 
     if (pushPaymentsWhenComplete) {
-      if (result === undefined) {
-        throw new Error(
-          'Something went wrong. A dividend distribution was created but no dividend index was returned from the SDK.'
-        );
-      }
+      // if (result === undefined) {
+      //   throw new Error(
+      //     'Something went wrong. A dividend distribution was created but no dividend index was returned from the SDK.'
+      //   );
+      // }
       // yield put(
       //   pushDividendPaymentStart({
       //     symbol,
