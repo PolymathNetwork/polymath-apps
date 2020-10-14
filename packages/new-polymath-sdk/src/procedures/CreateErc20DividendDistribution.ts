@@ -63,12 +63,8 @@ export class CreateErc20DividendDistribution extends Procedure<
         resolver: async receipt => {
           const { events } = receipt;
 
-
           if (events) {
             const { ERC20DividendDeposited } = events;
-          console.log('ERC20DividendDeposited', ERC20DividendDeposited)
-
-
             const {
               _dividendIndex,
             }: {
@@ -79,9 +75,7 @@ export class CreateErc20DividendDistribution extends Procedure<
           }
           else {
             const encodedEvent = (receipt.logs as any)[1];
-            console.log('encodedEvent', encodedEvent);
             const decodedEvent = web3.eth.abi.decodeLog(ERC20DividendDepositedAbi, encodedEvent.data, encodedEvent.topics);
-            console.log('decodedEvent', decodedEvent);
             return (decodedEvent as any)._dividendIndex;
           }
         },
