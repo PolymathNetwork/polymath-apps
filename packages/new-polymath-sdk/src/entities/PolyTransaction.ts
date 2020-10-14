@@ -137,19 +137,45 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
   protected resolve: (val?: any) => void = () => {};
   protected reject: (reason?: any) => void = () => {};
 
+  private async loadReceipt(i: number = 0): Promise<TransactionReceipt | undefined> {
+    let result;
+    try {
+      if (this.txHash) {
+        result = await web3.eth.getTransactionReceipt(this.txHash);
+      }
+    } catch (e) {
+      console.error('loadReceipt error', e);
+    }
+    if (result === undefined && i < 5) {
+      i++;
+      return this.loadReceipt(i);
+    }
+
+    return result;
+  }
+
   private async internalRun() {
     this.updateStatus(TransactionStatus.Unapproved);
 
     const unwrappedArgs = this.unwrapArgs(this.args);
-    const promiEvent = (await this.method(unwrappedArgs))();
-    // Set the Transaction as Running once it is approved by the user
-    promiEvent.on('transactionHash', txHash => {
-      this.txHash = txHash;
-      this.updateStatus(TransactionStatus.Running);
+    const sendMethod = await this.method(unwrappedArgs);
+    const promiEvent = (sendMethod as any)((error: Error | undefined, txHash: string) => {
+      if(!error) {
+        this.txHash = txHash;
+        this.updateStatus(TransactionStatus.Running);
+      }
     });
+    // Set the Transaction as Running once it is approved by the user
+    try {
+      promiEvent.on('transactionHash', (txHash: string) => {
+        this.txHash = txHash;
+        this.updateStatus(TransactionStatus.Running);
+      });
+    } catch (error) {
+      console.error('promiEvent.on("transactionHash") failed', error.message);
+    }
 
-    let result: TransactionReceipt;
-    let mmError = false; // this var will check if we got the false negative from MM and prevent race condition of not receiving the txHash
+    let result: TransactionReceipt | undefined;
 
     try {
       result = await promiEvent;
@@ -159,23 +185,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
           'new newBlockHeaders to confirm the transaction receipts.'
         )
       ) {
-        mmError = true;
-        const handle = setInterval(async () => {
-          try {
-            if (this.txHash) {
-              result = await web3.eth.getTransactionReceipt(this.txHash);
-              // @ts-ignore
-              await this.postResolver.run(result);
-              // @ts-ignore
-              return result;
-            }
-          } catch (e) {
-            // skip
-          }
-          if (result != null && result.blockNumber > 0) {
-            clearInterval(handle);
-          }
-        }, 5000);
+        result = await this.loadReceipt();
       } else if (err.message.indexOf('MetaMask Tx Signature') > -1) {
         this.error = new PolymathError({
           code: ErrorCodes.TransactionRejectedByUser,
@@ -189,12 +199,13 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
         throw this.error;
       }
     }
-    if (!mmError) {
-      // @ts-ignore
-      await this.postResolver.run(result);
-      // @ts-ignore
-      return result;
-    }
+
+    // If this fails we can't do much
+    if (!result)
+      throw new Error('Unable to retrieve transaction status')
+
+    await this.postResolver.run(result);
+    return result;
   }
 
   private updateStatus = (status: TransactionStatus) => {
