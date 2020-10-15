@@ -200,10 +200,7 @@ export class PolyTransaction<Args = any, R = any> extends Entity {
       }
     }
 
-    // If this fails we can't do much
-    if (!result)
-      throw new Error('Unable to retrieve transaction status')
-
+    // @ts-ignore
     await this.postResolver.run(result);
     return result;
   }
