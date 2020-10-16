@@ -718,16 +718,6 @@ const providers: Array<ServiceProvider> = [
     in a high-security vault in Singapore. ',
   },
   {
-    id: 49,
-    cat: 4,
-    title: 'Formosa Financial',
-    logo: '/providers/custody/formosa.png',
-    background: '/providers/custody/bg/img-formosa.png',
-    desc:
-      'Formosa Financial provides an integrated treasury management solution with insured multi-sig custody \
-      and crypto-to-fiat brokerage services.',
-  },
-  {
     id: 50,
     cat: 4,
     title: 'Multis',
@@ -810,7 +800,7 @@ const providers: Array<ServiceProvider> = [
   {
     id: 65,
     cat: 4,
-    title: 'Diginex',
+    title: 'Digivault',
     logo: '/providers/custody/diginex.png',
     background: '/providers/custody/bg/img-diginex.png',
     desc:
