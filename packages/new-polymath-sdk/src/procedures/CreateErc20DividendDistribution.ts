@@ -7,6 +7,8 @@ import {
 } from '../types';
 import { Approve } from '../procedures/Approve';
 import { PolymathError } from '../PolymathError';
+import { web3 } from '~/LowLevel/web3Client';
+import ERC20DividendDepositedAbi from './ERC20DividendDeposited';
 
 export class CreateErc20DividendDistribution extends Procedure<
   CreateErc20DividendDistributionProcedureArgs,
@@ -53,7 +55,7 @@ export class CreateErc20DividendDistribution extends Procedure<
     });
 
     const dividendIndex = await this.addTransaction(
-      erc20Module.createDividend,
+      erc20Module.createDividend as any,
       {
         tag: PolyTransactionTags.CreateErc20DividendDistribution,
         // TODO @monitz87: replace this with the correct receipt type when we integrate the SDK with
@@ -63,7 +65,6 @@ export class CreateErc20DividendDistribution extends Procedure<
 
           if (events) {
             const { ERC20DividendDeposited } = events;
-
             const {
               _dividendIndex,
             }: {
@@ -71,6 +72,11 @@ export class CreateErc20DividendDistribution extends Procedure<
             } = ERC20DividendDeposited.returnValues;
 
             return parseInt(_dividendIndex, 10);
+          }
+          else {
+            const encodedEvent = (receipt.logs as any)[1];
+            const decodedEvent = web3.eth.abi.decodeLog(ERC20DividendDepositedAbi, encodedEvent.data, encodedEvent.topics);
+            return (decodedEvent as any)._dividendIndex;
           }
         },
       }
