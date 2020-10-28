@@ -95,7 +95,7 @@ export class Erc20DividendCheckpoint extends DividendCheckpoint<
       nameInBytes
     );
     const options = await getOptions(method, { from: this.context.account });
-    return () => method.send(options);
+    return (cb: any) => (method as any).send(options, cb);
   };
 
   public async getDividend({
