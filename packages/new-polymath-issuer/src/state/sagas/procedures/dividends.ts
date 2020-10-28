@@ -77,28 +77,25 @@ export function* createErc20DividendsDistribution(
 
     yield put(
       push(
-        `/securityTokens/${symbol}/dividends`
+        `/securityTokens/${symbol}/checkpoints/${checkpointId}/dividends/${result}`
       )
-      // push(
-      //   `/securityTokens/${symbol}/checkpoints/${checkpointId}/dividends/${result}`
-      // )
     );
 
     yield take(getType(finishTransactionQueue));
 
     if (pushPaymentsWhenComplete) {
-      // if (result === undefined) {
-      //   throw new Error(
-      //     'Something went wrong. A dividend distribution was created but no dividend index was returned from the SDK.'
-      //   );
-      // }
-      // yield put(
-      //   pushDividendPaymentStart({
-      //     symbol,
-      //     dividendType: DividendModuleTypes.Erc20,
-      //     dividendIndex: result,
-      //   })
-      // );
+      if (result === undefined) {
+        throw new Error(
+          'Something went wrong. A dividend distribution was created but no dividend index was returned from the SDK.'
+        );
+      }
+      yield put(
+        pushDividendPaymentStart({
+          symbol,
+          dividendType: DividendModuleTypes.Erc20,
+          dividendIndex: result,
+        })
+      );
     }
   } catch (err) {
     if (!err.code) {
