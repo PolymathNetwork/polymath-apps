@@ -810,6 +810,20 @@ const providers: Array<ServiceProvider> = [
       operations. As a Diginex Group company, Digivault is able to support both internal and external clients \
       with the same exacting standards. For more information visit: https://www.digivault.com',
   },
+  {
+    id: 66,
+    cat: 4,
+    title: 'Coinbase Custody',
+    logo: '/providers/custody/coinbase.png',
+    background: '/providers/custody/bg/img-coinbase.png',
+    desc:
+      'Launched in 2018, Coinbase Custody offers its clients access to the same secure, institutional-grade offline \
+      storage solution that has been used by Coinbase’s exchange businesses since 2012. Coinbase Custody is regulated \
+      by the New York State Department of Financial Services and is an independent entity built on Coinbase’s crypto-first DNA. \
+      All customer digital assets are segregated, held in trust for the benefit of our clients, and protected by an industry-leading \
+      insurance program. Coinbase Custody currently offers support for more than 37 digital assets. For more information, visit \
+      https://custody.coinbase.com.',
+  },
 
   // TOKEN SALE PLATFORMS
   {
