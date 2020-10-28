@@ -824,6 +824,21 @@ const providers: Array<ServiceProvider> = [
       insurance program. Coinbase Custody currently offers support for more than 37 digital assets. For more information, visit \
       https://custody.coinbase.com.',
   },
+  {
+    id: 67,
+    cat: 4,
+    title: 'Tangany',
+    logo: '/providers/custody/tangany.png',
+    background: '/providers/custody/bg/img-tangany.png',
+    desc:
+      'Tangany is a EU-based regulated white-label custodian for digital assets. The product can be \
+      fully adjusted as white-label and provides a powerful API and frontend solution. Tangany is based \
+      in Germany and regulated in accordance with national and EU laws. The warm wallet solution leverages \
+      modern HSM-security architecture which is certified by FIPS140-2. Tangany has also a partnership with \
+      Microsoft in place for highest scalability and reliability. Tangany is focused on tokenization and has more \
+      than 60,000 wallets under custody. Furthermore, it was awarded with the FinTech Germany Award 2020 for being \
+      innovative, reliable and recommendable.',
+  },
 
   // TOKEN SALE PLATFORMS
   {
