@@ -328,7 +328,7 @@ export const configureSTO = (config: STOConfig, type: string) => async (
               return dispatch(fetch());
             },
             undefined,
-            `/dashboard/${token.ticker}/compliance`,
+            `/dashboard/${token.ticker}/sto`,
             undefined,
             false,
             token.ticker.toUpperCase() + ' STO Creation'
