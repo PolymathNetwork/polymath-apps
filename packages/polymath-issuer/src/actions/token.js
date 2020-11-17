@@ -281,7 +281,7 @@ export const issue = (values: Object) => async (
         );
       },
       `Before you Proceed with Your ${ticker.toUpperCase()} Token Configuration`,
-      undefined,
+      'I Understand',
       'pui-large-confirm-modal'
     )
   );
