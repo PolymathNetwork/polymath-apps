@@ -209,41 +209,14 @@ export const issue = (values: Object) => async (
     ui.confirm(
       <div>
         <p>
-          Completion of your token configuration will require{' '}
-          {limitInvestors ? 'three' : !isApproved ? 'two' : 'one'} wallet
-          transaction(s).
-        </p>
-        {!isApproved ? (
-          <div>
-            <p>
-              • The first transaction will be used to prepare for the payment of
-              the token configuration cost of:
-            </p>
-            <div className="bx--details poly-cost">{feeView} POLY</div>
-          </div>
-        ) : (
-          ''
-        )}
-        <p>
-          • {!isApproved ? 'The second' : 'This'} transaction will be used to
-          pay for the token configuration cost (POLY + mining fee) to complete
-          the configuration of your token.
-        </p>
-        {limitInvestors && (
-          <p>
-            • The {!isApproved ? 'third' : 'second'} transaction will be used to
-            pay the mining fee (aka gas fee) to limit the number of investors
-            who can hold your token.
-            <br />
-          </p>
-        )}
-        <p>
-          Please hit &laquo;CONFIRM&raquo; when you are ready to proceed. Once
-          you hit &laquo;CONFIRM&raquo;, your security token will be configured
-          on the blockchain.
-          <br />
-          If you do not wish to pay the token configuration fee or wish to
-          review your information, simply select &laquo;CANCEL&raquo;.
+          Token Studio is not a securities issuance or token launch
+          platform/portal. Token Studio has not been reviewed or approved by any
+          regulatory agency or governmental authority. An extensive set of laws,
+          regulations, liabilities and requirements apply to the offer,
+          issuance, sale and distribution of securities. Consult with a legal
+          advisor to find out your responsibilities and liabilities before you
+          proceed with your token configuration. Polymath accepts no liability
+          or responsibility.
         </p>
       </div>,
       async () => {

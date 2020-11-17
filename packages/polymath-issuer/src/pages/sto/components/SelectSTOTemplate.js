@@ -43,8 +43,12 @@ class SelectSTOTemplate extends Component<Props> {
               <Remark title="Note">
                 All smart contracts listed below were independently audited.
                 Polymath does however recommend you select a Smart Contract
-                Auditor to perform additional verification on the smart contract
-                you selected.
+                Auditor to perform additional fication on the smart contract you
+                selected.
+                <br />
+                An extensive set of laws and regulations apply to the sale of
+                securities. Consult with a legal advisor before proceeding with
+                the offer and sale of your token.
               </Remark>
               <Heading as="h1" variant="h1">
                 Security Token Offering Templates
