@@ -110,7 +110,9 @@ export const CompleteTokenFormComponent = ({ handleSubmit, values }) => (
               </p>
               <p>
                 Paste link to a shared file or folder that includes additional
-                information on your token, such as legend.
+                information on your token. Do not use this feature to make any
+                filings or registrations. Token Studio does not provide a portal
+                to any governmental filing or registry service.
               </p>
             </Tooltip>
           </FormItem.Label>
