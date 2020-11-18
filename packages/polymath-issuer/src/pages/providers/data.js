@@ -870,6 +870,19 @@ const providers: Array<ServiceProvider> = [
       'All of this is financing unchained—a new world of freedom and opportunity for businesses, entrepreneurs, and investors. ' +
       'This is seriesOne.',
   },
+  {
+    id: 70,
+    cat: 5,
+    title: 'Digishares',
+    logo: '/providers/captable/digishares.png',
+    background: '/providers/captable/bg/img-digishares.png',
+    desc:
+      'DigiShares (https://www.digishares.io) provides a white-label turn-key platform for issuance, \
+      corporate management, and trading of digital assets. DigiShares supports all offering types and \
+      operates globally. DigiShares provides an investor portal and corporate management functionality \
+      such as cap table management, electronic document workflows, shareholder meetings, and votes. \
+      The platform is highly customizable and provides liquidity for investors through an OTC marketplace.',
+  },
 
   // CAP TABLE MANAGEMENT
 
@@ -885,6 +898,19 @@ const providers: Array<ServiceProvider> = [
       by providing transparency to stakeholders through shareholder specific views and invite-only \
       data rooms for employees and investors, and create a centralized corporate governance repository \
       so that you are prepared for all growth scenarios.',
+  },
+  {
+    id: 69,
+    cat: 6,
+    title: 'Digishares',
+    logo: '/providers/captable/digishares.png',
+    background: '/providers/captable/bg/img-digishares.png',
+    desc:
+      'DigiShares (https://www.digishares.io) provides a white-label turn-key platform for issuance, \
+      corporate management, and trading of digital assets. DigiShares supports all offering types and \
+      operates globally. DigiShares provides an investor portal and corporate management functionality \
+      such as cap table management, electronic document workflows, shareholder meetings, and votes. \
+      The platform is highly customizable and provides liquidity for investors through an OTC marketplace.',
   },
   // TAX
   {
@@ -912,6 +938,18 @@ const providers: Array<ServiceProvider> = [
       we design, arrange and transact as a risk-bearing counterparty, which broadens the available toolkit vs traditional advisors; \
       we are able to transact in U.S. domestic, U.S. territories (e.g. Puerto Rico), and international jurisdictions; and \
       we generally offer optimization transactions under a success-based value participation.',
+  },
+  {
+    id: 68,
+    cat: 7,
+    title: 'Cryptoworth',
+    logo: '/providers/tax/cryptoworth.png',
+    background: '/providers/tax/bg/img-cryptoworth.png',
+    desc:
+      'Cryptoworth helps organizations with cryptocurrency accounting, portfolio management, \
+    bookkeeping, and other financial necessities with one financial source of truth. Connect your \
+    data through blockchains, APIs or CSVs. Calculate taxes through a platform that adheres to \
+    International Accounting Standards (IASs) and International Financial Reporting Standards (IFRSs).',
   },
 ];
 
