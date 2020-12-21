@@ -256,17 +256,12 @@ class MintTokens extends Component<Props> {
             shareholders, affiliates or for your reserve.
           </h3>
           <br />
-          <InlineNotification
-            hideCloseButton
-            title="We've updated our .CSV format to make it easier for you to mint tokens to your investors. Please see the sample .CSV below for more details."
-            subtitle=""
-            kind="warning"
-          />
           <h4 className="pui-h4">
-            Before you proceed, please check with your Advisor how your tokens
-            should be distributed. Also, note that the ETH Addresses to which
-            tokens are minted will be automatically added to the whitelist to
-            allow for the tokens to be transferred.
+            The distribution of your tokens may be subject to securities and
+            other laws. Consult with a legal advisor before distributing your
+            tokens. Also, note that the ETH Addresses to which tokens are minted
+            will be automatically added to the whitelist to allow for the tokens
+            to be transferred.
           </h4>
           <h4 className="pui-h4">
             Enter the addresses and token quantities that need to be minted by
