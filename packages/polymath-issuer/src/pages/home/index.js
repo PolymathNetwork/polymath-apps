@@ -32,7 +32,7 @@ class HomePage extends Component {
                   <td style={{ paddingTop: '20px' }}>
                     Security token configuration
                   </td>
-                  <td style={{ paddingLeft: '50px' }}>2,500 POLY</td>
+                  <td style={{ paddingLeft: '50px' }}>10,000 POLY</td>
                 </tr>
                 <tr>
                   <td style={{ paddingTop: '20px' }}>
