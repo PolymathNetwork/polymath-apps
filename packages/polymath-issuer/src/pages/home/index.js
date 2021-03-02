@@ -26,13 +26,13 @@ class HomePage extends Component {
               <table>
                 <tr>
                   <td>Ticker symbol reservation</td>
-                  <td style={{ paddingLeft: '50px' }}>2,500 POLY</td>
+                  <td style={{ paddingLeft: '50px' }}>1,000 POLY</td>
                 </tr>
                 <tr>
                   <td style={{ paddingTop: '20px' }}>
                     Security token configuration
                   </td>
-                  <td style={{ paddingLeft: '50px' }}>10,000 POLY</td>
+                  <td style={{ paddingLeft: '50px' }}>4,000 POLY</td>
                 </tr>
                 <tr>
                   <td style={{ paddingTop: '20px' }}>
@@ -44,13 +44,13 @@ class HomePage extends Component {
                   <td style={{ paddingTop: '20px' }}>
                     Automated distribution of security tokens via Simple STO
                   </td>
-                  <td style={{ paddingLeft: '50px' }}>50,000 POLY</td>
+                  <td style={{ paddingLeft: '50px' }}>7,500 POLY</td>
                 </tr>
                 <tr>
                   <td style={{ paddingTop: '20px' }}>
                     Automated distribution of security tokens via USD Tiered STO
                   </td>
-                  <td style={{ paddingLeft: '50px' }}>150,000 POLY</td>
+                  <td style={{ paddingLeft: '50px' }}>25,000 POLY</td>
                 </tr>
               </table>
             </AccordionItem>
