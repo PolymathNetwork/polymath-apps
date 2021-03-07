@@ -1515,6 +1515,24 @@
       "signature": "0x6ba6c0ed"
     },
     {
+      "constant": false,
+      "inputs": [],
+      "name": "allowPreMinting",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "revokePreMintFlag",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "getPermissions",
@@ -1569,6 +1587,10 @@
         {
           "name": "",
           "type": "bool[]"
+        },
+        {
+          "name": "",
+          "type": "bool"
         }
       ],
       "payable": false,
