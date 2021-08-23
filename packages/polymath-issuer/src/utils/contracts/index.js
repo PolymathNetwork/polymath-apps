@@ -90,7 +90,7 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
         },
         {
           type: 'uint256[]',
-          name: '_tokensPerTier',
+          name: '_tokensPerTierTotal',
         },
         {
           type: 'uint256[]',
@@ -114,11 +114,19 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
         },
         {
           type: 'address',
-          name: '_reserveWallet',
+          name: '_treasuryWallet',
         },
         {
           type: 'address[]',
-          name: '_usdToken',
+          name: '_stableTokens',
+        },
+        {
+          type: 'address[]',
+          name: '_customOracleAddresses',
+        },
+        {
+          type: 'bytes32',
+          name: '_denominatedCurrency',
         },
       ],
     },
@@ -134,7 +142,9 @@ function encodeUSDTieredSTOSetupCall(params: USDTieredSTOParams) {
       params.fundRaiseTypes,
       params.wallet,
       params.reserveWallet,
-      params.usdToken ? [params.usdToken] : [],
+      params.stableTokens ? [params.stableTokens] : [],
+      [],
+      params.denominatedCurrency,
     ]
   );
 }
@@ -174,6 +184,10 @@ function encodeCappedSTOSetupCall(params: CappedSTOParams) {
           type: 'address',
           name: '_fundsReceiver',
         },
+        {
+          type: 'address',
+          name: '_treasuryWallet',
+        },
       ],
     },
     [
@@ -182,6 +196,7 @@ function encodeCappedSTOSetupCall(params: CappedSTOParams) {
       params.cap,
       params.rate,
       params.fundRaiseTypes,
+      params.wallet,
       params.wallet,
     ]
   );
@@ -315,7 +330,7 @@ export async function getSTOModules(tokenAddress: string) {
   const stoModules: STOModule[] = await Promise.all(gettingSTOModulesData);
 
   return stoModules.filter(
-    module => module.version !== '1.0.0' && module.version !== '3.1.0'
+    module => module.version !== '1.0.0' && module.version !== '3.0.0'
   );
 }
 
@@ -348,13 +363,14 @@ export async function setupUSDTieredSTOModule(
     fundRaiseTypes: configValues.currencies,
     wallet: configValues.receiverAddress,
     reserveWallet: configValues.unsoldTokensAddress,
-    usdToken: configValues.usdTokenAddress,
+    stableTokens: configValues.usdTokenAddress,
+    customOracleAddresses: ['0x0'],
+    denominatedCurrency: Web3.utils.asciiToHex(null),
   };
 
   const token = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeUSDTieredSTOSetupCall(encodeParams);
-
-  await token.addModule(
+  return token.addModule(
     address,
     encodedFunctionCall,
     toWei(setupCost),
@@ -387,7 +403,7 @@ export async function setupCappedSTOModule(
   const token = await SecurityToken.create(tokenAddress);
   const encodedFunctionCall = encodeCappedSTOSetupCall(encodeParams);
 
-  await token.addModule(
+  return token.addModule(
     isLegacySTO ? '0xA4A24780b93a378eB25eC4bFbf93BC8e79D7EeEb' : address,
     encodedFunctionCall,
     toWei(setupCost),

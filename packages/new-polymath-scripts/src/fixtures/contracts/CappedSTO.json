@@ -7,83 +7,98 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x0f144a48"
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getSTODetails",
+      "outputs": [
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "bool" },
+        { "name": "", "type": "bool" }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getInitFunction",
+      "outputs": [{ "name": "", "type": "bytes4" }],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "ADMIN",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "bytes32" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x2a0acc6a"
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getTreasuryWallet",
+      "outputs": [{ "name": "wallet", "type": "address" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "rate",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x2c4e722e"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "allowBeneficialInvestments",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "bool" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x2df413e2"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "endTime",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x3197cbb6"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "cap",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x355274ea"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "allowPreMinting",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -92,103 +107,88 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x3f4ba83a"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [{ "name": "_allowBeneficialInvestments", "type": "bool" }],
+      "name": "changeAllowBeneficialInvestments",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "finalize",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "capReached",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "wallet",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "address" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x521eb273"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "paused",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "bool" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x5c975abb"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "totalTokensSold",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x63b20117"
+      "type": "function"
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
+      "inputs": [{ "name": "", "type": "address" }],
       "name": "investors",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x6f7bc9be"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "polyToken",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "address" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x6faa22a5"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "startTime",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x78e97925"
+      "type": "function"
     },
     {
       "constant": false,
@@ -197,457 +197,274 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x8456cb59"
+      "type": "function"
     },
     {
       "constant": false,
-      "inputs": [
-        {
-          "name": "_tokenContract",
-          "type": "address"
-        }
-      ],
+      "inputs": [{ "name": "_tokenContract", "type": "address" }],
       "name": "reclaimERC20",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x8905fd4f"
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isFinalized",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "OPERATOR",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "bytes32" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x983d2737"
+      "type": "function"
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "_fundRaiseType",
-          "type": "uint8"
-        }
-      ],
+      "inputs": [{ "name": "_fundRaiseType", "type": "uint8" }],
       "name": "getRaised",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x9a7cc135"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "pausedTime",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "uint256" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xb2cca39d"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "securityToken",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "address" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xb84dfbd2"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "factory",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc45a0155"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "name": "fundsRaised",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc4d2c6bd"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "name": "fundRaiseTypes",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xd143a379"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "investorCount",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xd7e64c00"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getDataStore",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xfe58265e"
-    },
-    {
-      "inputs": [
-        {
-          "name": "_securityToken",
-          "type": "address"
-        },
-        {
-          "name": "_polyToken",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor",
-      "signature": "constructor"
-    },
-    {
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "fallback"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "purchaser",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "beneficiary",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "value",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "TokenPurchase",
-      "type": "event",
-      "signature": "0x623b3804fa71d67900d064613da8f94b9617215ee90799290593e1745087ad18"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_allowed",
-          "type": "bool"
-        }
-      ],
-      "name": "SetAllowBeneficialInvestments",
-      "type": "event",
-      "signature": "0xea6eddcb8f2bf55dfb29aef4bd48214ef0798b9eae2e1bbb25dac99ecf6da6ae"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "Pause",
-      "type": "event",
-      "signature": "0x5ee71a369c8672edded508e624ffc9257fa1ae6886ef32905c18e60196bca399"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "Unpause",
-      "type": "event",
-      "signature": "0xaeb196d352664784d1900b0e7414a8face7d29f4dae8c4b0cf68ed477423bbf4"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "_fundRaiseTypes",
-          "type": "uint8[]"
-        }
-      ],
-      "name": "SetFundRaiseTypes",
-      "type": "event",
-      "signature": "0xe5724f42dd9f217c97b3768212ed6d6692c0135e252387d61b98af28fecd9b02"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_startTime",
-          "type": "uint256"
-        },
-        {
-          "name": "_endTime",
-          "type": "uint256"
-        },
-        {
-          "name": "_cap",
-          "type": "uint256"
-        },
-        {
-          "name": "_rate",
-          "type": "uint256"
-        },
-        {
-          "name": "_fundRaiseTypes",
-          "type": "uint8[]"
-        },
-        {
-          "name": "_fundsReceiver",
-          "type": "address"
-        }
-      ],
-      "name": "configure",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x1365eaaf"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getInitFunction",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x1613ec9d"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_allowBeneficialInvestments",
-          "type": "bool"
-        }
-      ],
-      "name": "changeAllowBeneficialInvestments",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x441b9e4a"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_beneficiary",
-          "type": "address"
-        }
-      ],
-      "name": "buyTokens",
-      "outputs": [],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function",
-      "signature": "0xec8ac4d8"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_investedPOLY",
-          "type": "uint256"
-        }
-      ],
-      "name": "buyTokensWithPoly",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xcb752679"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "capReached",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x4f935945"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getTokensSold",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xee7c0db0"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
       "name": "getPermissions",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32[]"
-        }
-      ],
+      "outputs": [{ "name": "", "type": "bytes32[]" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc3a07df6"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
-      "name": "getSTODetails",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
+      "name": "factory",
+      "outputs": [{ "name": "", "type": "address" }],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x1040dc27"
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [{ "name": "", "type": "uint8" }],
+      "name": "fundsRaised",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [{ "name": "_investedPOLY", "type": "uint256" }],
+      "name": "buyTokensWithPoly",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [{ "name": "", "type": "uint8" }],
+      "name": "fundRaiseTypes",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "investorCount",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [{ "name": "_beneficiary", "type": "address" }],
+      "name": "buyTokens",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getTokensSold",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        { "name": "_startTime", "type": "uint256" },
+        { "name": "_endTime", "type": "uint256" },
+        { "name": "_cap", "type": "uint256" },
+        { "name": "_rate", "type": "uint256" },
+        { "name": "_fundRaiseTypes", "type": "uint8[]" },
+        { "name": "_fundsReceiver", "type": "address" },
+        { "name": "_treasuryWallet", "type": "address" }
+      ],
+      "name": "configure",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "preMintAllowed",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getDataStore",
+      "outputs": [{ "name": "", "type": "address" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "revokePreMintFlag",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "name": "_securityToken", "type": "address" },
+        { "name": "_polyToken", "type": "address" }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    { "payable": true, "stateMutability": "payable", "type": "fallback" },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "purchaser", "type": "address" },
+        { "indexed": true, "name": "beneficiary", "type": "address" },
+        { "indexed": false, "name": "value", "type": "uint256" },
+        { "indexed": false, "name": "amount", "type": "uint256" }
+      ],
+      "name": "TokenPurchase",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [{ "indexed": false, "name": "_allowed", "type": "bool" }],
+      "name": "SetAllowBeneficialInvestments",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_owner", "type": "address" },
+        { "indexed": true, "name": "_wallet", "type": "address" },
+        { "indexed": false, "name": "_tokens", "type": "uint256" }
+      ],
+      "name": "ReserveTokenMint",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_from", "type": "address" },
+        { "indexed": true, "name": "_wallet", "type": "address" },
+        { "indexed": false, "name": "_tokens", "type": "uint256" }
+      ],
+      "name": "ReserveTokenTransfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_wallet", "type": "address" },
+        { "indexed": true, "name": "_securityToken", "type": "address" },
+        { "indexed": false, "name": "_module", "type": "address" }
+      ],
+      "name": "UsageFeeDeducted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [{ "indexed": false, "name": "account", "type": "address" }],
+      "name": "Pause",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [{ "indexed": false, "name": "account", "type": "address" }],
+      "name": "Unpause",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": false, "name": "_fundRaiseTypes", "type": "uint8[]" }
+      ],
+      "name": "SetFundRaiseTypes",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_owner", "type": "address" },
+        { "indexed": false, "name": "_tokens", "type": "uint256" },
+        { "indexed": false, "name": "_preMint", "type": "bool" }
+      ],
+      "name": "RevokePreMintFlag",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "_owner", "type": "address" },
+        { "indexed": false, "name": "_tokens", "type": "uint256" },
+        { "indexed": false, "name": "_preMint", "type": "bool" }
+      ],
+      "name": "AllowPreMintFlag",
+      "type": "event"
     }
   ],
   "networks": {

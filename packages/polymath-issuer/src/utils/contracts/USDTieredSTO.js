@@ -154,6 +154,8 @@ export default class USDTieredSTO {
       fundsRaisedUSD,
       ,
       tokensSoldRes,
+      stableFunding,
+      isPreMintAllowed,
     ] = this._toArray(await this.contract.methods.getSTODetails().call());
     const [
       paused,
@@ -227,6 +229,20 @@ export default class USDTieredSTO {
       currentTier,
       totalUsdRaised,
       totalTokensSold,
+      stableFunding,
+      isPreMintAllowed,
     };
+  }
+
+  async allowPreMinting(): Promise<Web3Receipt> {
+    return await this.legacyContractInstance._tx(
+      this.contract.methods.allowPreMinting()
+    );
+  }
+
+  async revokePreMint(): Promise<Web3Receipt> {
+    return await this.legacyContractInstance._tx(
+      this.contract.methods.revokePreMintFlag()
+    );
   }
 }

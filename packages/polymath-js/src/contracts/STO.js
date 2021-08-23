@@ -54,6 +54,7 @@ export default class STO extends Contract {
       investorCount,
       tokensSold,
       isPolyFundraise,
+      isPreMintAllowed,
     ] = this._toArray(await this._methods.getSTODetails().call());
 
     const factoryAddress = await this._methods.factory().call();
@@ -98,6 +99,7 @@ export default class STO extends Contract {
       isPolyFundraise,
       type: 'CappedSTO',
       pauseStatus: isPaused,
+      isPreMintAllowed,
     };
   }
 
@@ -141,5 +143,13 @@ export default class STO extends Contract {
 
   async pause(): Promise<Web3Receipt> {
     return await this._tx(this._methods.pause());
+  }
+
+  async allowPreMinting(): Promise<Web3Receipt> {
+    return await this._tx(this._methods.allowPreMinting());
+  }
+
+  async revokePreMint(): Promise<Web3Receipt> {
+    return await this._tx(this._methods.revokePreMintFlag());
   }
 }

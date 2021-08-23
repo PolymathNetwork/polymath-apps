@@ -84,6 +84,11 @@ export default (state: STOState = defaultState, action: Action) => {
         ...state,
         pauseStatus: action.status,
       };
+    case a.PREMINT:
+      return {
+        ...state,
+        details: { ...state.details, isPreMintAllowed: action.status },
+      };
     default:
       return state;
   }

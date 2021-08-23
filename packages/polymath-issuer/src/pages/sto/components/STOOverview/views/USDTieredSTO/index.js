@@ -4,7 +4,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { reduce } from 'lodash';
-import { Button } from 'carbon-components-react';
+import { Button, Toggle } from 'carbon-components-react';
 import {
   Page,
   Box,
@@ -19,6 +19,8 @@ import { format } from '@polymathnetwork/shared/utils';
 import {
   togglePauseSto,
   exportInvestorsList,
+  enablePreMinting,
+  disablePreMinting,
 } from '../../../../../../actions/sto';
 import TiersTable from './TiersTable';
 
@@ -104,10 +106,20 @@ const USDTieredSTOOverviewComponent = ({
   handlePause,
   handleExportInvestors,
   sto,
+  enablePreMinting,
+  disablePreMinting,
 }: ComponentProps) => {
   const totalUsdRaised = sto.totalUsdRaised;
 
   const [countdownProps, setCountDown] = useState(getCountdownProps(sto));
+
+  const handleTogglePreminting = isToggled => {
+    if (isToggled) {
+      enablePreMinting();
+    } else {
+      disablePreMinting();
+    }
+  };
 
   useEffect(() => {
     const now = new Date();
@@ -140,6 +152,14 @@ const USDTieredSTOOverviewComponent = ({
       <div>
         <h1 className="pui-h1">Security Token Overview</h1>
         <br />
+        <label htmlFor="partialTransferToggle" className="bx--label">
+          Allow PreMinting
+        </label>
+        <Toggle
+          onToggle={handleTogglePreminting}
+          toggled={sto.isPreMintAllowed}
+          id="PremintToggle"
+        />
         <div className="pui-page-box">
           <h2 className="pui-h2">USD Tiered STO</h2>
           <p className="pui-sto-status-contract">
@@ -257,6 +277,16 @@ class USDTieredSTOOverviewContainer extends Component<ContainerProps> {
     dispatch(exportInvestorsList());
   };
 
+  enablePreMinting = () => {
+    const { dispatch } = this.props;
+    dispatch(enablePreMinting());
+  };
+
+  disablePreMinting = () => {
+    const { dispatch } = this.props;
+    dispatch(disablePreMinting());
+  };
+
   render() {
     const { sto, token } = this.props;
 
@@ -266,6 +296,8 @@ class USDTieredSTOOverviewContainer extends Component<ContainerProps> {
         sto={sto}
         handleExportInvestors={this.exportInvestors}
         handlePause={this.pause}
+        enablePreMinting={this.enablePreMinting}
+        disablePreMinting={this.disablePreMinting}
       />
     );
   }

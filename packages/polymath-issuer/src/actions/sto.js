@@ -109,6 +109,12 @@ export const pauseStatus = (status: boolean) => ({
   status,
 });
 
+export const PREMINT = 'sto/PREMINT';
+export const preMint = (status: boolean) => ({
+  type: PREMINT,
+  status,
+});
+
 export type Action =
   | ExtractReturn<typeof data>
   | ExtractReturn<typeof pauseStatus>
@@ -250,7 +256,7 @@ export const configureSTO = (config: STOConfig, type: string) => async (
           ...config.data,
         };
         const tokenBalance = await PolyToken.balanceOf(token.address);
-        const titles = ['Deploying And Scheduling'];
+        const titles = ['Deploying And Scheduling', 'Whitelist STO'];
 
         if (tokenBalance.lt(setupCost)) {
           if (!hasEnoughBalance) {
@@ -269,12 +275,17 @@ export const configureSTO = (config: STOConfig, type: string) => async (
             titles,
             async () => {
               const tokenAddress = token.address;
+              let stoAddress;
               switch (type) {
                 case 'CappedSTO': {
-                  await setupCappedSTOModule(stoModule, tokenAddress, {
-                    ...stoModuleConfig,
-                    legacy: config.legacy,
-                  });
+                  stoAddress = await setupCappedSTOModule(
+                    stoModule,
+                    tokenAddress,
+                    {
+                      ...stoModuleConfig,
+                      legacy: config.legacy,
+                    }
+                  );
                   break;
                 }
                 case 'USDTieredSTO': {
@@ -285,7 +296,7 @@ export const configureSTO = (config: STOConfig, type: string) => async (
                   const daiTokenAddress = DAI_ADDRESSES[String(networkId)];
                   const usdTokenAddress = raisesInDai ? daiTokenAddress : null;
                   stoModuleConfig.usdTokenAddress = usdTokenAddress;
-                  await setupUSDTieredSTOModule(
+                  stoAddress = await setupUSDTieredSTOModule(
                     stoModule,
                     tokenAddress,
                     stoModuleConfig
@@ -293,13 +304,31 @@ export const configureSTO = (config: STOConfig, type: string) => async (
                   break;
                 }
               }
+              const st: SecurityToken = getState().token.token.contract;
+              const transferManager = await st.getTransferManager();
+
+              let stoAdd;
+              if (type === 'CappedSTO') {
+                // step 6 Simple STO topic 2
+                stoAdd = '0x' + stoAddress.logs[6].topics[2].substr(26);
+              } else if (type === 'USDTieredSTO') {
+                // step 12 Tiered STO topic 2
+                stoAdd = '0x' + stoAddress.logs[12].topics[2].substr(26);
+              }
+              const sto = {
+                address: stoAdd,
+                from: new Date(),
+                to: new Date(),
+                expiry: new Date('1/1/3020'),
+              };
+              await transferManager.modifyKYCData(sto);
             },
             'STO Configured Successfully',
             () => {
               return dispatch(fetch());
             },
             undefined,
-            `/dashboard/${token.ticker}/compliance`,
+            `/dashboard/${token.ticker}/sto`,
             undefined,
             false,
             token.ticker.toUpperCase() + ' STO Creation'
@@ -309,6 +338,68 @@ export const configureSTO = (config: STOConfig, type: string) => async (
       'Before You Proceed with your Security Token Offering Deployment and Scheduling',
       undefined,
       'pui-large-confirm-modal'
+    )
+  );
+};
+
+export const enablePreMinting = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  // const st: SecurityToken = getState().token.token.contract;
+  // const stoContract = getState().sto.contract.address;
+  // const transferManager = await st.getTransferManager();
+  // const whitelist = await transferManager.getWhitelist();
+  // const titles = ['Enable PreMinting']
+  // const stoWhitelisted = whitelist.find(i => i.address === stoContract)
+  // if(!stoWhitelisted) {
+  //   titles.unshift('Whitelist STO Module')
+  // }
+  // const sto = {
+  //   address: stoContract,
+  //   from: new Date(),
+  //   to: new Date(),
+  //   expiry: new Date('1/1/3020'),
+  // }
+  dispatch(
+    ui.tx(
+      ['Allow PreMinting'],
+      async () => {
+        const contract: STO = getState().sto.contract;
+        // if (!stoWhitelisted) await transferManager.modifyKYCData(sto)
+        await contract.allowPreMinting();
+      },
+      'PreMinting Enabled',
+      () => {
+        dispatch(preMint(true));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
+    )
+  );
+};
+
+export const disablePreMinting = () => async (
+  dispatch: Function,
+  getState: GetState
+) => {
+  dispatch(
+    ui.tx(
+      ['Disable PreMinting'],
+      async () => {
+        const contract: STO = getState().sto.contract;
+        await contract.revokePreMint();
+      },
+      'PreMinting Disabled',
+      () => {
+        dispatch(preMint(false));
+      },
+      undefined,
+      undefined,
+      undefined,
+      true
     )
   );
 };
