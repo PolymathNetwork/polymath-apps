@@ -25,7 +25,7 @@
     "bignumber.js": "^8.0.1",
     "flatpickr": "^4.5.2",
     "formik": "^1.5.1",
-    "lodash": "4.17.14",
+    "lodash": "4.17.20",
     "polished": "^2.3.1",
     "popper.js": "^1.14.7",
     "react": "16.8.2",
