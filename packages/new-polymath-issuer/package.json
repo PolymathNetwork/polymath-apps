@@ -71,7 +71,7 @@
     "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",
     "typesafe-actions": "^2.0.4",
-    "web3": "1.0.0-beta.30",
+    "web3": "4.0.1",
     "yup": "^0.26.10"
   },
   "devDependencies": {
